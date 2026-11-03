@@ -46,8 +46,8 @@ class PolicyCenterPreviewTest {
                     waitFor("New post", action = true)
 
                     fun center() {
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
                         ui.onNodeWithText("Node").performClick()
                         ui.onNode(hasText(SaitoBackend.OWNER.domain) and SemanticsMatcher.expectValue(
@@ -75,8 +75,8 @@ class PolicyCenterPreviewTest {
                     }
                     // Theme controls remain the app's real controls; never change system settings.
                     for (theme in listOf("Light", "Dark")) {
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Appearance").performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.onNodeWithText("Done").performClick()
@@ -126,10 +126,10 @@ class PolicyCenterPreviewTest {
                     capture("saved-draft-restored.png")
                     ui.onNode(hasSetTextAction()).performTextReplacement("")
                     ui.onNodeWithText("Save draft").performClick()
-                    waitFor("Settings", action = true)
+                    ui.waitForAccountMenu(20_000)
                     unchanged()
                     val talkBackFolder = File(context.cacheDir, "policy-evidence/settings-talkback").apply { mkdirs() }
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     waitFor("Node")
                     ui.onNodeWithText("Node").performClick()
                     waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
@@ -141,8 +141,8 @@ class PolicyCenterPreviewTest {
                     captureNativeScreen(File(talkBackFolder, "node-keyboard-focus.png"))
                     NativeTalkBackObservation(talkBackFolder).observe {
                         device.waitForIdle(5_000)
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         waitFor("Node")
                         ui.onNodeWithText("Node").performClick()
                         waitFor("Each node has its own available history and moderation. Your wallet stays the same.")

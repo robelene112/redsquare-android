@@ -88,8 +88,8 @@ class PublisherViewportPreviewTest {
                         ui.onNodeWithText("Back").performClick()
                         waitFor("Groups", action = true)
                         ui.onNodeWithText("Back").performClick()
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performScrollTo().performClick()
                         fun openSupport() {

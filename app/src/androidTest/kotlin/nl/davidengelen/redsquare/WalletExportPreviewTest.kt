@@ -30,7 +30,7 @@ class WalletExportPreviewTest {
         val intent = Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)
         ActivityScenario.launch<MainActivity>(intent).use {
             try {
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
                 val guidance = "Set a screen lock in Android settings to export your wallet."
@@ -39,7 +39,7 @@ class WalletExportPreviewTest {
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-export-evidence/no-lock.png")
                 ui.onNodeWithText("Done").performClick()
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals(address, displayedWalletAddress(ui))
             } finally { captureFeedEvidence("wallet-export-evidence/screen.png") }
         }
@@ -61,7 +61,7 @@ class WalletExportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
                 try {
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
                 chooseTestBackup(device, name)
@@ -102,7 +102,7 @@ class WalletExportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 val name = "wallet-cancel-${UUID.randomUUID()}.json"
                 val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
@@ -136,7 +136,7 @@ class WalletExportPreviewTest {
                 .putExtra("feedDisabled", true)).use {
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                     "wallet-export-evidence/stalled-provider-failure.png")) }) {
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
                 chooseTestBackup(device, "stalled-read-${UUID.randomUUID()}.json")
@@ -164,7 +164,7 @@ class WalletExportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 for (fault in listOf("write-fails", "read-fails", "truncated-read")) {
                     ui.onNodeWithText("Export wallet").performClick()

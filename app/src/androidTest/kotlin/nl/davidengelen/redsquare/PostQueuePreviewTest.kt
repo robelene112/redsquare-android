@@ -89,7 +89,7 @@ class PostQueuePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText("New post").performClick()
@@ -99,7 +99,7 @@ class PostQueuePreviewTest {
                 ui.onNodeWithText("Send").performClick()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Back").performClick()
-                ui.onNodeWithText("Settings").performClick()
+                ui.openSettings()
                 ui.onNodeWithText("Node").performScrollTo().performClick()
                 ui.onNodeWithText("saito.io").performScrollTo().performClick()
                 ui.waitUntil(10_000) { official.requests.get() > 0 }
@@ -107,7 +107,7 @@ class PostQueuePreviewTest {
                     // Keep the original peer reachable while another backend is selected.
                     android.os.SystemClock.sleep(7_000)
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                     ui.waitUntil(30_000) { owner.transactions.isNotEmpty() }
@@ -153,7 +153,7 @@ class PostQueuePreviewTest {
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { scenario ->
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             val address = displayedWalletAddress(ui)
             ui.onNodeWithText("Done").performClick()
             ui.onNodeWithText("New post").performClick()
@@ -191,7 +191,7 @@ class PostQueuePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText("New post").performClick()

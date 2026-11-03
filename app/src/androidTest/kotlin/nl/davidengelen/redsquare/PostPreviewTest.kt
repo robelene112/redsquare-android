@@ -177,10 +177,10 @@ class PostPreviewTest {
                         activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
                             .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
                     }
-                    ui.waitUntil(10_000) { ui.onNodeWithText("Settings").isDisplayed() }
+                    ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
                     ui.onNode(hasSetTextAction()).assertTextEquals("Unfinished owner draft")
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
@@ -192,7 +192,7 @@ class PostPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement("Separate official draft")
                     ui.onNodeWithText("Save draft").performClick()
                     waitFor("New post")
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.davidengelen.nl")
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
@@ -259,7 +259,7 @@ class PostPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
                 waitForReferencePost()
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText("New post").performClick()
@@ -308,7 +308,7 @@ class PostPreviewTest {
                                 assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                             } finally { androidx.test.espresso.intent.Intents.release() }
                         }
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         ui.onNodeWithText("saito.io").performScrollTo().performClick()
                         waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
@@ -318,7 +318,7 @@ class PostPreviewTest {
                         if (withImage) ui.assertSyntheticRedImage()
                         assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                         captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
                         ui.onNodeWithText("Appearance").assertIsDisplayed()
                         ui.onNodeWithText("Done").performClick()
@@ -327,12 +327,12 @@ class PostPreviewTest {
                         throw failure
                     }
                 }
-                ui.onNodeWithText("Settings").performClick()
+                ui.openSettings()
                 ui.onNodeWithText("Node").performScrollTo().performClick()
                 ui.onNodeWithText("saito.io").performScrollTo().performClick()
                 waitFor("Node: saito.io")
                 waitFor("New post")
-                ui.onNodeWithText("Settings").performClick()
+                ui.openSettings()
                 ui.onNodeWithText("Node").performScrollTo().performClick()
                 ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
@@ -357,7 +357,7 @@ class PostPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitForReferencePost()
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText("New post").performClick()
@@ -631,7 +631,7 @@ class PostPreviewTest {
                 if (withImage) ui.attachSyntheticImage()
                 ui.onNodeWithText("Save draft").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 previous = store.loadExisting()
                 org.junit.Assert.assertNotEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
                 ui.onNodeWithText("Import wallet").performClick()
@@ -708,7 +708,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("Send").performClick()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Back").performClick()
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 ui.onNodeWithText("Import wallet").performClick()
                 chooseReferenceImport()
                 waitFor("Node reports zero SAITO")
@@ -735,7 +735,7 @@ class PostPreviewTest {
                         val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
                         org.junit.Assert.assertEquals(requireNotNull(original).publicKey, post.author)
                         org.junit.Assert.assertEquals("Queued work belongs to the outgoing wallet", post.text)
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         org.junit.Assert.assertEquals(requireNotNull(original).publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Done").performClick()
                         peer.assertHealthy()
@@ -795,7 +795,7 @@ class PostPreviewTest {
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                 for (backend in SaitoBackend.entries) {
                     if (backend == SaitoBackend.OFFICIAL) {
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         ui.onNodeWithText(backend.domain).performScrollTo().performClick()
                         waitFor("Node: ${backend.domain}")
@@ -941,7 +941,7 @@ class PostPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitForReferencePost()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     val author = displayedWalletAddress(ui)
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("New post").performClick()

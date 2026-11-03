@@ -142,7 +142,7 @@ class AuthorProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 enabled("New post")
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals(original.get("field2").asString, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 enabled("More feed actions")

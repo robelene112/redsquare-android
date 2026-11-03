@@ -41,8 +41,8 @@ class LikeWalletImportPreviewTest {
     private fun previewLike(pending: Boolean) {
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true)).use {
-            waitFor("Wallet")
-            ui.onNodeWithText("Wallet").performClick()
+            ui.waitForAccountMenu(20_000)
+            ui.openWallet()
             displayedWalletAddress(ui)
             ui.onNodeWithText("Done").performClick()
         }
@@ -85,7 +85,7 @@ class LikeWalletImportPreviewTest {
                                 ui.waitUntil(20_000) { peer.transactions.size == 1 }
                                 assertEquals(1, peer.transactions.size)
                             }
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.openWallet()
                             assertEquals(isolated.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                             chooseWalletImport(ui, filename, incoming.publicKey)

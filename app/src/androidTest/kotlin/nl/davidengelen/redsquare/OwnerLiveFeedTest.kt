@@ -122,7 +122,7 @@ class OwnerLiveFeedTest {
                 }
                 // Separate read-only HTTPS integration: no controlled endpoint override or monetary send.
                 withFailureCapture({ captureNativeScreen(File(directory, "wallet-first-failure.png")) }) {
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     ui.onNodeWithContentDescription("Wallet address").assertTextEquals(wallet.publicKey)
                     ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
                     ui.waitUntil(15_000) { ui.onNodeWithText("0 SAITO").isDisplayed() }

@@ -24,11 +24,12 @@ class WalletDeviceUiObserver {
                 if (application.endsWith(".dev")) " --ez feedDisabled true" else "")
             // UiObject2 resolves the live object's bounds at click time, rather than using
             // coordinates from an earlier host-side hierarchy dump during startup.
-            var action = device.wait(Until.findObject(By.pkg(application).text("Wallet").enabled(true)), 1_000)
-            repeat(19) {
+            var action: androidx.test.uiautomator.UiObject2? = null
+            repeat(20) {
                 if (action == null) {
-                    // Dismiss only the explicitly identified emulator System UI dialog.
-                    // An app ANR remains a failure.
+                    // Legacy signed previews have a direct Wallet control. Newer
+                    // builds expose the same public address through Account.
+                    device.findObject(By.pkg(application).desc("Account").enabled(true))?.click()
                     if (device.hasObject(By.text("System UI isn't responding")))
                         device.findObject(By.text("Wait"))?.click()
                     action = device.wait(Until.findObject(By.pkg(application).text("Wallet").enabled(true)), 1_000)

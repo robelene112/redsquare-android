@@ -267,7 +267,8 @@ class ChatAlertPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         val control = hasText("Private message previews") and isToggleable()
         fun choice(): SemanticsNodeInteraction {
-            click(hasText("Settings"))
+            ui.waitForAccountMenu(20_000)
+            ui.openSettings()
             ui.waitUntil(20_000) { ui.onAllNodes(control and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             return ui.onNode(control).performScrollTo().assertIsDisplayed()
         }

@@ -80,12 +80,12 @@ class WalletTransferStatusTest {
                                 SaitoBackend.OFFICIAL, SaitoBackend.OWNER).withIndex()) {
                                 if (index == 2) scenario.recreate()
                                 else if (index > 0) {
-                                    ui.onNodeWithText("Settings").performClick()
+                                    ui.openSettings()
                                     ui.onNodeWithText("Node").performScrollTo().performClick()
                                     ui.onNodeWithText(backend.domain).performScrollTo().performClick()
                                 }
                                 ui.waitUntil(15_000) { ui.onNodeWithText("Node: ${backend.domain}").isDisplayed() }
-                                ui.onNodeWithText("Wallet").performClick()
+                                ui.openWallet()
                                 ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.wallet.publicKey)
                                 val previousReads = positiveReads.get()
                                 ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -161,7 +161,7 @@ class WalletTransferStatusTest {
         val device = UiDevice.getInstance(instrumentation)
         check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$filename")
             .trim().toLongOrNull()?.let { it > 0 } == true)
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
         chooseWalletImport(ui, filename, incoming.publicKey)
         ui.waitUntil(15_000) { ui.onAllNodesWithText("Node reports zero SAITO")
@@ -257,7 +257,7 @@ class WalletTransferStatusTest {
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                         withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                             "transfer-evidence/inclusion-first-failure.png")) }) {
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.openWallet()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.payment.author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             val included = "Included in block 2000002."
@@ -387,8 +387,8 @@ class WalletTransferStatusTest {
 
     private fun reopenTransfers(scenario: ActivityScenario<MainActivity>, author: String) {
         scenario.recreate()
-        ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-        ui.onNodeWithText("Wallet").performClick()
+        ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+        ui.openWallet()
         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
     }

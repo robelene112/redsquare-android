@@ -248,7 +248,7 @@ class ChatQueuePreviewTest {
                             check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
                             check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,SaitoBackend.OWNER))
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-identity-paused.png"))
-                            ui.onNodeWithText("Settings").performClick();waitFor("saito.io")
+                            ui.openSettings();waitFor("saito.io")
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             ui.waitUntil(20_000){alternate.clientKeys.contains(replacement.publicKey)}
@@ -259,7 +259,7 @@ class ChatQueuePreviewTest {
                             check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OFFICIAL)
                             check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-backend-paused.png"))
-                            ui.onNodeWithText("Settings").performClick();waitFor("saito.davidengelen.nl")
+                            ui.openSettings();waitFor("saito.davidengelen.nl")
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick();open()
                         }
@@ -523,7 +523,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                         scenario.recreate();open()
                         ui.onAllNodesWithText("Queued").assertCountEquals(0)
                     } else if(switchBackend) {
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         waitFor("saito.io");ui.onNodeWithText("saito.io").performScrollTo().performClick()
                         ui.waitUntil(20_000){alternate.requests.get()>0}
@@ -596,7 +596,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                                 check(backends.load()==SaitoBackend.OFFICIAL)
                                 check(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction?.envelope()==originalCandidate.envelope())
                                 captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-backend-paused.png"))
-                                ui.onNodeWithText("Settings").performClick()
+                                ui.openSettings()
                                 ui.onNodeWithText("Node").performScrollTo().performClick()
                                 waitFor("saito.davidengelen.nl");ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                             }

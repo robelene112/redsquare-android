@@ -113,7 +113,7 @@ class AppFramePreviewTest {
                     font.apply(scale)
                     ui.recreateHomeViewport(activity, width, scale)
                     for (theme in listOf("Light", "Dark")) {
-                        ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Appearance").performScrollTo().performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.waitUntil(10_000) { ui.onNode(hasText(theme) and isSelected()).isDisplayed() }
@@ -127,14 +127,15 @@ class AppFramePreviewTest {
                         withFailureCapture({ capture("$name-first-failure.png") }) {
                         val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
                         val minimum = 48 * context.resources.displayMetrics.density - 1
-                        for (label in listOf("Wallet", "Settings", "Home", "Search", "Notifications", "Chat", "Your profile",
+                        for (label in listOf("Account", "Home", "Search", "Notifications", "Chat", "Your profile",
                             "Back up", "Later", "Import an existing wallet", "New post", "More feed actions")) {
-                            val node = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()
+                            val target = if (label == "Account") hasContentDescription(label) else hasText(label)
+                            val node = ui.onNode(target and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()
                             val visualBounds = node.boundsInRoot
                             val bounds = node.touchBoundsInRoot
                             val selectedTab = node.config.getOrNull(SemanticsProperties.Role) == Role.Tab &&
                                 node.config.getOrNull(SemanticsProperties.Selected) == true
-                            var native = device.findObject(By.text(label))
+                            var native = device.findObject(if (label == "Account") By.desc(label) else By.text(label))
                             // Compose advertises a selected tab as selected rather than ACTION_CLICK.
                             while (native != null && !native.isClickable && !(selectedTab && native.isSelected)) native = native.parent
                             val nativeBounds = native?.visibleBounds
@@ -158,6 +159,25 @@ class AppFramePreviewTest {
                                 bounds.top >= viewport.top && bounds.bottom <= viewport.bottom && nativeAction && nativeBounds != null &&
                                 nativeBounds.width() >= minimum && nativeBounds.height() >= minimum)
                         }
+                        // Both account destinations retain their original native48dp
+                        // reachability goals in the actual new menu.
+                        ui.openAccountMenu()
+                        val accountTargets = listOf("Wallet", "Settings").map { label ->
+                            val target = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed().assertIsEnabled()
+                                .fetchSemanticsNode().touchBoundsInRoot
+                            var native = requireNotNull(device.findObject(By.text(label)))
+                            while (!native.isClickable) native = requireNotNull(native.parent)
+                            val bounds = native.visibleBounds
+                            assertTrue("$label retains48dp in the actual account menu at $name",
+                                target.width >= minimum && target.height >= minimum &&
+                                bounds.width() >= minimum && bounds.height() >= minimum &&
+                                target.left >= viewport.left && target.right <= viewport.right &&
+                                target.top >= viewport.top && target.bottom <= viewport.bottom)
+                            target
+                        }
+                        assertFalse("Account destinations must not overlap", accountTargets[0].overlaps(accountTargets[1]))
+                        capture("$name-account-menu.png")
+                        device.pressBack()
                         ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                         if (scale <= 1.3f) assertTrue("Reading remains dominant at $name",
                             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()

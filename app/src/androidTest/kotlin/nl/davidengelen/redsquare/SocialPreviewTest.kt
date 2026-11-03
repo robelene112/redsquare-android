@@ -194,7 +194,7 @@ class SocialPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(replacement.publicKey, displayedWalletAddress(ui))
                     assertEquals(1, peer.transactions.size)
                 }
@@ -301,7 +301,7 @@ class SocialPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("Native Red Square reference post")
                 ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val author = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 val blocked = java.io.File(context.noBackupFilesDir, "social.owner.$author.${root.get("sig").asString}.like.v1")
@@ -361,7 +361,7 @@ class SocialPreviewTest {
                     assertTrue(owner.transactions.isEmpty())
                     ui.onNode(likePostAction()).assertIsEnabled()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
@@ -374,7 +374,7 @@ class SocialPreviewTest {
                     assertEquals(1, official.transactions.size)
                     assertTrue(owner.transactions.isEmpty())
                     owner.start(originalPort).use {
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         waitFor("saito.davidengelen.nl")
                         ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()

@@ -102,7 +102,7 @@ class SocialProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 waitFor("Native Red Square reference post")

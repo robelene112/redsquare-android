@@ -466,10 +466,11 @@ class SocialPushTapPreviewTest {
 
     private fun openSettings() {
         hideKeyboard()
-        val button = hasText("Settings") and hasClickAction() and isEnabled()
+        val button = hasContentDescription("Account") and hasClickAction() and isEnabled()
         waitFor(button)
         ui.waitUntil(15_000) { ui.onNode(button).isDisplayed() }
-        ui.onNode(button).assertIsDisplayed().performClick()
+        ui.onNode(button).assertIsDisplayed()
+        ui.openSettings()
         val title = hasText("Settings") and hasAnyAncestor(isDialog())
         waitFor(title)
         ui.waitUntil(15_000) { ui.onNode(title).isDisplayed() }

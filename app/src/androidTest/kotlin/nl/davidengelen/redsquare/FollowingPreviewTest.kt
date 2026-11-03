@@ -59,7 +59,7 @@ class FollowingPreviewTest {
                         ui.onNodeWithText("Back").performClick()
                         ui.onNodeWithText("Following").performClick()
                         waitFor("Native Red Square reference post")
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         waitFor("saito.io")
                         ui.onNodeWithText("saito.io").performScrollTo().performClick()
@@ -83,7 +83,7 @@ class FollowingPreviewTest {
                         assertPostAbsent("Another account reference post", "Profile newer post 20")
                         assertPostAbsent("Native Red Square reference post", "Profile newer post 20")
                         captureFeedEvidence("following-evidence/official-following-after-offline-restart.png")
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         waitFor("saito.davidengelen.nl")
                         ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
@@ -118,7 +118,7 @@ class FollowingPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("Native Red Square reference post")
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 val blocked = java.io.File(context.noBackupFilesDir, "following.$address.v1")
@@ -241,7 +241,7 @@ class FollowingPreviewTest {
                 alternateActive = true
                 withApp {
                     waitFor("Native Red Square reference post")
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     org.junit.Assert.assertEquals(alternatePublicKey, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Following").performClick()
@@ -333,7 +333,7 @@ class FollowingPreviewTest {
             lateinit var choices: java.io.File
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor("Native Red Square reference post")
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 choices = java.io.File(context.noBackupFilesDir, "following.${displayedWalletAddress(ui)}.v1")
                 ui.onNodeWithText("Done").performClick()
                 openFeedProfile(author)

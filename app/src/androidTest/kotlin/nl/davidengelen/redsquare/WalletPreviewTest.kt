@@ -34,13 +34,13 @@ class WalletPreviewTest {
     @After fun closeWalletTestApp() { scenario.close() }
 
     @Test fun firstLaunchCreatesAnIdentityAndReopeningWalletKeepsIt() {
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         val address = displayedAddress()
         assertTrue(address.length == 44)
         ui.onNodeWithText("Done").performClick()
         scenario.recreate()
         scenario.onActivity { activity = it }
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         val reopenedAddress = displayedAddress()
         ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
         assertEquals(address, reopenedAddress)
@@ -60,7 +60,7 @@ class WalletPreviewTest {
     }
 
     private fun checkStorageRecovery(damage: (File) -> Unit) {
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         val address = displayedAddress()
         ui.onNodeWithText("Done").performClick()
         val file = File(activity.noBackupFilesDir, "wallet.v1")
@@ -73,14 +73,14 @@ class WalletPreviewTest {
             ui.waitUntil(10_000) {
                 ui.onAllNodes(androidx.compose.ui.test.hasText("Retry")).fetchSemanticsNodes().isNotEmpty()
             }
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
             ui.onNodeWithText("Wallet unavailable. Close this window and try again.").assertIsDisplayed()
             ui.onNodeWithText("Done").performClick()
             if (file.exists()) assertTrue(file.delete())
             assertTrue(retained.renameTo(file))
             ui.onNodeWithText("Retry").performClick()
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             assertEquals(address, displayedAddress())
         } finally {
             if (retained.exists()) {

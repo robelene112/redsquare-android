@@ -33,7 +33,7 @@ class TalkBackStatusPreviewTest {
                         "focusedText=${focusedText(automation)}\n" + automation.windows.joinToString("\n") {
                             "id=${it.id} active=${it.isActive} focused=${it.isFocused} title=${it.title}"
                         })
-                }) { waitFor(5_000) { focusedText(automation) == "Wallet" } }
+                }) { waitFor(5_000) { focusedText(automation) == "Red Square" } }
                 File(folder, "startup-speech.txt").writeText(speechLog(device))
                 val post = node(automation, "Reference post 20")
                 assertTrue(post.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))

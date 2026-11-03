@@ -137,8 +137,8 @@ class TransferProcessRecoveryTest {
     }
 
     private fun openTransfer(author: String) {
-        waitFor("Wallet")
-        ui.onNodeWithText("Wallet").performClick()
+        ui.waitForAccountMenu(20_000)
+        ui.openWallet()
         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
     }

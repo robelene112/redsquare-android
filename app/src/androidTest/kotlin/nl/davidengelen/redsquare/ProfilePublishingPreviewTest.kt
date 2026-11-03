@@ -185,7 +185,7 @@ class ProfilePublishingPreviewTest {
                             }.toString())
                         if (cancelledImport) {
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.openWallet()
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                             val device = UiDevice.getInstance(instrumentation)
                             val pickerPackages = setOf("com.android.documentsui", "com.google.android.documentsui")

@@ -60,8 +60,8 @@ class PublisherRequestsPreviewTest {
                         waitForEditor()
                         ui.onNode(hasSetTextAction()).performTextReplacement(draft)
                         ui.onNodeWithText("Save draft").performClick()
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performClick()
                         fun openPage() {

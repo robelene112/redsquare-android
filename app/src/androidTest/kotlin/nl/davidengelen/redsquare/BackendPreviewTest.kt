@@ -48,7 +48,7 @@ class BackendPreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use { activity ->
                     try {
                         waitForText("Native Red Square reference post")
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         val address = displayedWalletAddress(ui)
                         ui.onNodeWithText("Done").performClick()
                         val ownerRequests = owner.requests.get()
@@ -61,7 +61,7 @@ class BackendPreviewTest {
                         waitForText("New reference post")
                         waitForText("Node unavailable")
                         ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         assertEquals(address, displayedWalletAddress(ui))
                         ui.onNodeWithText("Done").performClick()
                         assertEquals(ownerRequests, owner.requests.get())
@@ -93,7 +93,7 @@ class BackendPreviewTest {
                         waitForText("Native Red Square reference post")
                         chooseServer("saito.davidengelen.nl")
                         ui.waitUntil(15_000) {
-                            ui.onAllNodes(hasText("Settings")).fetchSemanticsNodes().size == 1
+                            ui.onAllNodes(hasContentDescription("Account")).fetchSemanticsNodes().size == 1
                         }
                         waitForText("Node: saito.davidengelen.nl")
                         val file = File(instrumentation.targetContext.noBackupFilesDir, "backend.v1")
@@ -193,7 +193,7 @@ class BackendPreviewTest {
     }
 
     private fun chooseServer(domain: String) {
-        ui.onNodeWithText("Settings").performClick()
+        ui.openSettings()
         ui.onNodeWithText("Node").performScrollTo().performClick()
         ui.waitUntil(15_000) { ui.onAllNodes(hasText(domain)).fetchSemanticsNodes().isNotEmpty() }
         ui.onNodeWithText(domain).performScrollTo().performClick()

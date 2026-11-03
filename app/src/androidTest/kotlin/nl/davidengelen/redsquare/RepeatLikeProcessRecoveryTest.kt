@@ -88,7 +88,7 @@ class RepeatLikeProcessRecoveryTest {
                 withFailureCapture({ captureFeedEvidence("repeat-social-process-evidence/recovery-failure.png") }) {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled())
                         .fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled())

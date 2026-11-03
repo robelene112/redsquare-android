@@ -205,7 +205,7 @@ class ChatKeyboardPreviewTest {
                             return bounds
                         }
                         fun restoredChrome() {
-                            ui.waitUntil(10_000) { displayed(hasText("Wallet") and hasClickAction()) }
+                            ui.waitUntil(10_000) { displayed(hasContentDescription("Account") and hasClickAction()) }
                             if (!photo) {
                                 ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertDoesNotExist()
                                 check(!context.getSharedPreferences("wallet-backup-reminders", 0)

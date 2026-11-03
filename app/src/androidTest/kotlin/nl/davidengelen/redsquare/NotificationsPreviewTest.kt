@@ -515,7 +515,7 @@ class NotificationsPreviewTest {
                 ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(0)
                 captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                     "notification-evidence/personal-${confirmation.lowercase()}-recreated.png"), "No unread activity")
-                ui.onNodeWithText("Settings").performClick()
+                ui.openSettings()
                 ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                 waitFor("Muted and blocked accounts")
                 ui.onNodeWithText("Muted and blocked accounts").performClick()
@@ -576,7 +576,7 @@ class NotificationsPreviewTest {
     }
 
     private fun switchNotificationBackend(domain: String, returningToNotifications: Boolean = false) {
-        ui.onNodeWithText("Settings").performClick()
+        ui.openSettings()
         ui.onNodeWithText("Node").performScrollTo().performClick()
         waitFor(domain)
         ui.onNodeWithText(domain).performScrollTo().performClick()
@@ -820,7 +820,7 @@ class NotificationsPreviewTest {
     }
 
     private fun importNotificationWallet(filename: String, incoming: String) {
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         ui.onNodeWithText("Import wallet").performClick()
         chooseWalletImport(ui, filename, incoming)
         waitFor("Node reports zero SAITO")

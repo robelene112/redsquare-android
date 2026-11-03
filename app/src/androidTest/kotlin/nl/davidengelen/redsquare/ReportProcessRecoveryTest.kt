@@ -90,7 +90,7 @@ class ReportProcessRecoveryTest {
                     capture("cold-recovered-unknown.png", unknown)
                     assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty())
                     ui.onNodeWithText("Cancel").performClick()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(row.get("owner").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")

@@ -338,7 +338,8 @@ class ChatMutePreviewTest {
                         open(first); mute(); returnToChats()
                         open(first, group = true); mute(); returnToChats(group = true)
                         device.pressBack()
-                        click(hasText("Settings"))
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("saito.io").performScrollTo()
                         click(hasText("saito.io"))
                         ui.waitUntil(20_000) { displayed(hasText("Node: saito.io")) }

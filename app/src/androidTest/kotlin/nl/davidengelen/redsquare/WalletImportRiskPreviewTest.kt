@@ -44,7 +44,7 @@ class WalletImportRiskPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val originalAddress = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
                 chooseTestBackup(device, originalFile)
@@ -80,7 +80,7 @@ class WalletImportRiskPreviewTest {
                 }
                 ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
                 captureFeedEvidence("wallet-risk-evidence/incoming-wallet-needs-own-backup.png")
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 select(device, originalFile)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Other assets could not be checked")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText("Other assets could not be checked").assertExists()

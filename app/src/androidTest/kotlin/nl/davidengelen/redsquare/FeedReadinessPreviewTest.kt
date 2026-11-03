@@ -52,7 +52,7 @@ class FeedReadinessPreviewTest {
                         activity.onActivity { assertFalse("A feed containing no visible posts must not report fully drawn",
                             it.fullyDrawnReporter.isFullyDrawnReported) }
 
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         waitFor("Muted and blocked accounts")
                         ui.onNodeWithText("Muted and blocked accounts").performClick()

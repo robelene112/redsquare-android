@@ -38,12 +38,12 @@ class WalletInterruptedInitializationTest {
             val context = InstrumentationRegistry.getInstrumentation().targetContext
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)).use {
                 waitForWalletRecovery(ui)
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
                 ui.onNodeWithText("Done").performClick()
                 assertTrue(file.setReadable(true, true))
                 ui.onNodeWithText("Retry").performClick()
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
             }
         } finally { assertTrue(file.setReadable(true, true)) }
@@ -79,13 +79,13 @@ class WalletInterruptedInitializationTest {
         preparePendingWallet(completeSave)
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)).use { activity ->
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             val address = displayedWalletAddress(ui)
             if (completeSave) assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", address)
             else assertEquals(44, address.length)
             ui.onNodeWithText("Done").performClick()
             activity.recreate()
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))
         }
     }

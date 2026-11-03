@@ -63,8 +63,8 @@ class PublisherAvailabilityPreviewTest {
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                         withFailureCapture({ capture("$label-first-failure.png") }) {
-                            waitFor("Settings", action = true)
-                            ui.onNodeWithText("Settings").performClick()
+                            ui.waitForAccountMenu(20_000)
+                            ui.openSettings()
                             ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                             ui.onNodeWithText("Policy Center").performScrollTo().performClick()
                             for ((entry, explanation) in entries) {

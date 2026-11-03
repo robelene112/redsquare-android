@@ -78,7 +78,7 @@ class AppearancePreviewTest {
                             assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty()); peer.assertHealthy()
                         }
                         fun choose(label: String) {
-                            ui.onNodeWithText("Settings").performClick()
+                            ui.openSettings()
                             ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
                             ui.onNodeWithText("Node").assertIsDisplayed()
                             ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()

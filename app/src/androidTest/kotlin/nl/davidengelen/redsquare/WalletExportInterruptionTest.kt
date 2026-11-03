@@ -27,7 +27,7 @@ class WalletExportInterruptionTest {
         val device = UiDevice.getInstance(instrumentation)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true))
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         val address = displayedWalletAddress(ui)
         val name = "interrupted-${UUID.randomUUID()}.json"
         ui.onNodeWithText("Export wallet").performClick()
@@ -52,7 +52,7 @@ class WalletExportInterruptionTest {
         check(state.size == 2)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true)).use {
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             assertEquals(state[0], displayedWalletAddress(ui))
             ui.onNodeWithText("Wallet backup saved").assertDoesNotExist()
             ui.onNodeWithText("Export wallet").assertIsEnabled()

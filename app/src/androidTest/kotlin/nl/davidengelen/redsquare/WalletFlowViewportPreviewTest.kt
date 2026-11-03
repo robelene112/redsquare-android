@@ -32,7 +32,7 @@ class WalletFlowViewportPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(activity, folder, "wallet", scales = listOf(1.3f, 2f)) { label, _ ->
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Wallet address")
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText("Back up or restore").performScrollTo().assertIsDisplayed()
@@ -60,8 +60,8 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Back up or restore").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Confirm replacement").assertDoesNotExist()
                 ui.onNodeWithText("Done").performClick()
-                ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                ui.openWallet()
                 ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Wallet address").isDisplayed() }
                 ui.onNodeWithContentDescription("Wallet address").assertTextEquals(activeAddress)
 
@@ -74,7 +74,7 @@ class WalletFlowViewportPreviewTest {
                 ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Wallet address").isDisplayed() }
 
                 ui.onNodeWithText("Send SAITO").performScrollTo().performClick()

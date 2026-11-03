@@ -32,7 +32,7 @@ class ProfileEditPreviewTest {
             activity.getSystemService(android.view.inputmethod.InputMethodManager::class.java)
                 .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
         }
-        ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+        ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
         // A plain bio preserves exact characters, not transient IME annotations.
         val exactBio = hasSetTextAction() and SemanticsMatcher("Exact editable bio text") {
             it.config.getOrNull(SemanticsProperties.EditableText)?.text == text
@@ -350,7 +350,7 @@ class ProfileEditPreviewTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement(bio)
                         dismissTypingForWallet(scenario, bio)
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                         chooseWalletImport(ui, filename, incoming)
@@ -425,7 +425,7 @@ class ProfileEditPreviewTest {
                     check(draft.isFile && draft.renameTo(preserved))
                     check(draft.mkdir())
                     dismissTypingForWallet(scenario, edited)
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     val failed = context.getString(R.string.wallet_import_work_save_failed)
                     ui.waitUntil(10_000) { ui.onAllNodesWithText(failed).fetchSemanticsNodes().isNotEmpty() }
@@ -440,7 +440,7 @@ class ProfileEditPreviewTest {
                         SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
                     check(draft.delete() && preserved.renameTo(draft))
                     dismissTypingForWallet(scenario, edited)
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     chooseWalletImport(ui, "00-profile-import.json", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
                     val selected = context.getString(R.string.wallet_import_address)

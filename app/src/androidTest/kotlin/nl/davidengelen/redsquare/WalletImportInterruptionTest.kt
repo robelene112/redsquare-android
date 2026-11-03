@@ -24,7 +24,7 @@ class WalletImportInterruptionTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true))
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         val address = displayedWalletAddress(ui)
         val previous = AndroidWalletStore(context).loadExisting()
         assertEquals(address, previous.publicKey)
@@ -53,7 +53,7 @@ class WalletImportInterruptionTest {
         check(address.matches(Regex("[1-9A-HJ-NP-Za-km-z]{44}")))
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true)).use {
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))
             ui.onNodeWithText("Import wallet").assertIsEnabled()
             ui.onNodeWithText("Wallet imported").assertDoesNotExist()

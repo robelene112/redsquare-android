@@ -25,7 +25,7 @@ class WalletImportStorageRecoveryTest {
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true)).use { scenario ->
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             val address = displayedWalletAddress(ui)
             val previous = AndroidWalletStore(context).loadExisting()
             assertEquals(address, previous.publicKey)
@@ -45,7 +45,7 @@ class WalletImportStorageRecoveryTest {
                 previous.exportJson() == recovered.exportJson())
             ui.onNodeWithText("Done").performClick()
             scenario.recreate()
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))
             captureFeedEvidence("wallet-storage-recovery-evidence/failed-save-recreated.png")
         }

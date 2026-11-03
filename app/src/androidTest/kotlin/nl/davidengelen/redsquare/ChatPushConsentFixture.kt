@@ -147,7 +147,8 @@ abstract class ChatPushConsentFixture {
                                     "chat-alert-evidence/$capturePrefix-$stage-$feature-availability.png"))
                             }
                         }
-                        click("Settings")
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         choice("Chat alerts when closed", false)
                         choice("Replies and mentions", false)
                         reconcile(null)
@@ -194,7 +195,8 @@ abstract class ChatPushConsentFixture {
                         }
                         click("Done")
                         scenario.recreate()
-                        click("Settings")
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         choice("Chat alerts when closed", true)
                         assertUnconfiguredServiceNotices("reopened")
                         reconcile("group-chats,private-chats")

@@ -30,12 +30,12 @@ class WalletInitializationTest {
         try {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)).use {
                 waitForWalletRecovery(ui)
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
                 ui.onNodeWithText("Done").performClick()
                 assertTrue(directory.setWritable(true, true))
                 ui.onNodeWithText("Retry").performClick()
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 assertEquals(44, address.length)
             }

@@ -47,7 +47,7 @@ class PersonalControlsProcessRecoveryTest {
             launch(intent) {
                 ui.waitForRefreshableContent(15_000)
                 showPost(rootText)
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 owner = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 openProfile(muted)
@@ -107,7 +107,7 @@ class PersonalControlsProcessRecoveryTest {
             launch(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")) {
                 ui.waitForRefreshableContent(15_000)
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals(owner, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 openManagement()
@@ -134,7 +134,7 @@ class PersonalControlsProcessRecoveryTest {
                 ui.onNodeWithText("Done").performClick()
                 showPost(rootText)
                 capture("explicit-unmute-restored-post.png", rootText)
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals(owner, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
@@ -165,7 +165,7 @@ class PersonalControlsProcessRecoveryTest {
         waitFor("Profile")
     }
     private fun openManagement() {
-        ui.onNodeWithText("Settings").performClick()
+        ui.openSettings()
         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
         waitFor("Muted and blocked accounts")
         ui.onNodeWithText("Muted and blocked accounts").performClick()

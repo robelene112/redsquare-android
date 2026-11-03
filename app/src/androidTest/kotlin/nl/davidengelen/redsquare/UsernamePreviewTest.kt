@@ -85,7 +85,7 @@ class UsernamePreviewTest {
                     waitForText("Replying to NativeCase7@saito")
                     ui.onNodeWithText("Replying to NativeCase7@saito").assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(reader.publicKey, displayedWalletAddress(ui))
                     assertTrue(peer.clientKeys.all { it == reader.publicKey })
                     assertTrue("Name display must not register or publish a post", peer.transactions.isEmpty())
@@ -112,9 +112,9 @@ class UsernamePreviewTest {
                 .putExtra("feedDisabled", true)
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("$capturePrefix-discovery-failure.png") }) {
-                    waitForEnabled("Settings")
+                    ui.waitForAccountMenu(20_000)
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                     ui.onNodeWithText("Saito username").performClick()
                     if (fallbackFirst) {
@@ -139,7 +139,7 @@ class UsernamePreviewTest {
                         it.get("identifier").asString == "NativeCase7@saito" })
                     capture("$capturePrefix-discovered.png", "NativeCase7@saito")
                     ui.onNodeWithText("Back").performClick()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                     assertTrue(peer.clientKeys.all { it == fixture.publicKey })
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
@@ -169,8 +169,8 @@ class UsernamePreviewTest {
                     .putExtra("usernameFixtureRegistrar", true)
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")).use { scenario ->
                     withFailureCapture({ capture("username-named-import-failure.png") }) {
-                        waitForEnabled("Wallet")
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openWallet()
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         assertTrue("No feed/profile may seed the incoming name before import", peer.registryQueries.isEmpty())
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
@@ -183,8 +183,8 @@ class UsernamePreviewTest {
                         assertEquals(incoming, displayedWalletAddress(ui))
                         ui.onNodeWithText("Done").performClick()
                         fun discoverInSettings() {
-                            waitForEnabled("Settings")
-                            ui.onNodeWithText("Settings").performClick()
+                            ui.waitForAccountMenu(20_000)
+                            ui.openSettings()
                             ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                             ui.onNodeWithText("Saito username").performClick()
                             waitForText("This username is registered to your wallet.")
@@ -204,7 +204,7 @@ class UsernamePreviewTest {
                         discoverInSettings()
                         assertTrue(namechecks() > checks)
                         ui.onNodeWithText("Back").performClick()
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         assertEquals(incoming, displayedWalletAddress(ui))
                         assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == incoming })
                         assertTrue("Import and name recovery must never register again", peer.transactions.isEmpty())
@@ -309,7 +309,7 @@ class UsernamePreviewTest {
                     ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
                     ui.onNodeWithText("Back").performClick()
                     waitForEnabled("New post")
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                     assertTrue(peer.clientKeys.all { it == fixture.publicKey })
                     assertTrue(peer.transactions.isEmpty())
@@ -400,9 +400,9 @@ class UsernamePreviewTest {
                     .putExtra("feedDisabled", true)
                     .putExtra("usernameFixtureRegistrar", true)).use {
                     withFailureCapture({ capture("username-unsaved-own-name-failure.png") }) {
-                        waitForEnabled("Settings")
+                        ui.waitForAccountMenu(20_000)
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performClick()
                         waitForEnabled("Check name")
@@ -459,7 +459,7 @@ class UsernamePreviewTest {
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) {
                         ui.onNodeWithText("Later").performClick()
                     }
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                     ui.onNodeWithText("Saito username").assertIsEnabled().performClick()
                     waitForEnabled("Check name")
@@ -478,7 +478,7 @@ class UsernamePreviewTest {
                     capture("username-unavailable.png", error)
                     ui.onNodeWithText("Back").assertIsEnabled().performClick()
                     waitForEnabled("New post")
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(original, displayedWalletAddress(ui))
                     ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
                     assertTrue("A name check must not publish a transaction", peer.transactions.isEmpty())
@@ -593,7 +593,7 @@ class UsernamePreviewTest {
                     capture("username-confirmed-cached.png", "Saved username: NativeCase7@saito")
                     ui.onNodeWithText("Back").performClick()
                     waitForEnabled("New post")
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     ui.onNode(hasText(fixture.publicKey) and hasContentDescription("Wallet address")).assertIsDisplayed()
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                 }
@@ -625,8 +625,8 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Register name").performClick()
                     val taken = "This username belongs to another wallet."
                     fun reopenTaken() {
-                        waitForEnabled("Settings")
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performClick()
                         waitForText(taken)
@@ -683,8 +683,8 @@ class UsernamePreviewTest {
                         // Only the external version byte changes. Retirement must stay authenticated.
                         requestFile.writeBytes(retiredBytes.copyOf().apply { this[0] = 1 })
                         scenario.recreate()
-                        waitForEnabled("Settings")
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performClick()
                         val unreadable = "Saved username request could not be opened. Try again."
@@ -726,9 +726,9 @@ class UsernamePreviewTest {
         var originalBytes: ByteArray? = null
         var primary: Throwable? = null
         fun openSettingsName() {
-            waitForEnabled("Settings")
+            ui.waitForAccountMenu(20_000)
             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-            ui.onNodeWithText("Settings").performClick()
+            ui.openSettings()
             ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
             ui.onNodeWithText("Saito username").performClick()
         }
@@ -903,7 +903,7 @@ class UsernamePreviewTest {
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNodeWithText("Back").performClick()
                         waitForEnabled("New post")
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                         chooseWalletImport(ui, filename, incoming.publicKey)
@@ -926,7 +926,7 @@ class UsernamePreviewTest {
                         }
                         val incomingLookupsBeforeReplacement = incomingLookups()
                         // Cancelled preview kept the outgoing identity. Now perform the real replacement.
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                         chooseWalletImport(ui, filename, incoming.publicKey)
                         waitForText("Node reports zero SAITO")
@@ -960,7 +960,7 @@ class UsernamePreviewTest {
                         ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
                         ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
                         ui.onNodeWithText("Back").performClick()
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         assertEquals(incoming.publicKey, displayedWalletAddress(ui))
                         capture("username-import-replaced-recreated.png", incoming.publicKey)
                         assertTrue("Replacement must never register or replay outgoing work", peer.transactions.isEmpty())
@@ -1028,7 +1028,7 @@ class UsernamePreviewTest {
                             assertEquals(fixture.publicKey, signed.author)
                             assertEquals(listOf(SaitoRegistry.REGISTRAR, fixture.publicKey), signed.recipients)
                             assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
-                            ui.onNodeWithText("Settings").performClick()
+                            ui.openSettings()
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             waitForText("Node: saito.io")
@@ -1042,7 +1042,7 @@ class UsernamePreviewTest {
                             ui.onNodeWithText("Back").performClick()
                             waitForEnabled("New post")
                             officialPeer.assertRequestObserved()
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.openWallet()
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                             chooseWalletImport(ui, filename, incoming)
@@ -1056,7 +1056,7 @@ class UsernamePreviewTest {
                                 it.get("request").asString == "registry namecheck" &&
                                     it.get("identifier")?.asString == "NativeCase7@saito"
                             }
-                            ui.onNodeWithText("Settings").performClick()
+                            ui.openSettings()
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                             waitForText("Node: saito.davidengelen.nl")
@@ -1078,7 +1078,7 @@ class UsernamePreviewTest {
                             assertTrue(ownerPeer.clientKeys.all { it == fixture.publicKey })
                             assertTrue(officialPeer.clientKeys.all { it == fixture.publicKey })
                             // Replace only after the original-backend exact-retry proof above.
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.openWallet()
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                             chooseWalletImport(ui, filename, incoming)
                             ui.onNodeWithText("Pending work belongs to your current wallet").performScrollTo().assertIsDisplayed()
@@ -1094,7 +1094,7 @@ class UsernamePreviewTest {
                             ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
                                 .assertIsEnabled()
-                            ui.onNodeWithText("Settings").performClick()
+                            ui.openSettings()
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             waitForText("Node: saito.io")
@@ -1108,7 +1108,7 @@ class UsernamePreviewTest {
                             capture("username-pending-replaced.png", "Choose a Saito username")
                             assertEquals(SaitoBackend.OFFICIAL, AndroidBackendStore(context).load())
                             ui.onNodeWithText("Back").performClick()
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.openWallet()
                             assertEquals(incoming, displayedWalletAddress(ui))
                             assertTrue(ownerPeer.clientKeys.contains(incoming))
                             assertTrue(officialPeer.clientKeys.contains(incoming))
@@ -1183,7 +1183,7 @@ class UsernamePreviewTest {
     private fun openUsername() {
         waitForEnabled("New post")
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-        ui.onNodeWithText("Settings").performClick()
+        ui.openSettings()
         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
         ui.onNodeWithText("Saito username").assertIsEnabled().performClick()
         waitForEnabled("Back")

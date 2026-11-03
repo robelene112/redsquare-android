@@ -215,9 +215,9 @@ class PublishingSurfacesPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true).putExtra("usernameFixtureRegistrar", true)).use {
                     withFailureCapture({ capture("registry-first-failure.png") }) {
-                        waitForEnabled("Settings")
+                        ui.waitForAccountMenu(20_000)
                         if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performScrollTo().performClick()
                         waitForEnabled("Check name")

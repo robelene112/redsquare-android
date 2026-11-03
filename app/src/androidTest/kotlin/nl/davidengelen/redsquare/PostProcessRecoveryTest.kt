@@ -99,7 +99,7 @@ class PostProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("New post")
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 waitFor("New post")

@@ -54,8 +54,8 @@ class PublisherRoutesPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                     withFailureCapture({ capture("ready-support-first-failure.png") }) {
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performClick()
                         waitFor("Contact publisher", action = true)
@@ -145,8 +145,8 @@ class PublisherRoutesPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                     withFailureCapture({ capture("purpose-contacts-first-failure.png") }) {
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performClick()
                         val cases = listOf(
@@ -236,8 +236,8 @@ class PublisherRoutesPreviewTest {
                         waitForEditor()
                         ui.onNode(hasSetTextAction()).performTextReplacement(text)
                         ui.onNodeWithText("Save draft").performClick()
-                        waitFor("Settings", action = true)
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.waitForAccountMenu(20_000)
+                        ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performScrollTo().performClick()
                         waitFor("Draft policies")

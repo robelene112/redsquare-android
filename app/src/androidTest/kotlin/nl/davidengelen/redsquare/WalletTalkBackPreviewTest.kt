@@ -25,7 +25,7 @@ class WalletTalkBackPreviewTest {
                     balanceApiUrl = "http://127.0.0.1:${balanceServer.port}/balance/") { activity ->
                     ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     val address = displayedWalletAddress(ui)
                     ui.onNodeWithText("Send SAITO").performScrollTo()
                     val sendAction = actionNode("Send SAITO", textLabel = true)

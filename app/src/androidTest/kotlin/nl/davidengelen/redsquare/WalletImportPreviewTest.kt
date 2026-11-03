@@ -35,12 +35,12 @@ class WalletImportPreviewTest {
     private fun openWallet(stage: String) {
         withFailureCapture({ captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
             "wallet-import-evidence/wallet-entry-$stage-failure.png")) }) {
-            val action = hasText("Wallet") and hasClickAction() and isEnabled()
+            val action = hasContentDescription("Account") and hasClickAction() and isEnabled()
             ui.waitUntil(20_000) {
                 try { ui.onNode(action).assertIsDisplayed(); true }
                 catch (_: AssertionError) { false }
             }
-            ui.onNode(action).performClick()
+            ui.openWallet()
         }
     }
 
@@ -389,15 +389,15 @@ class WalletImportPreviewTest {
                     ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                     captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-owner-feed-visible.png"))
                     scenario.recreate()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     captureFeedEvidence("wallet-import-evidence/activated-wallet-recreated.png")
                     ui.onNodeWithText("Done").performClick()
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Node: saito.io")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     // Restore the outgoing identity through the same real UI so this
                     // test leaves subsequent tests' original wallet intact.
@@ -412,10 +412,10 @@ class WalletImportPreviewTest {
                     assertEquals(originalAddress, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     scenario.recreate()
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(originalAddress, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
-                    ui.onNodeWithText("Settings").performClick()
+                    ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Node: saito.davidengelen.nl")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

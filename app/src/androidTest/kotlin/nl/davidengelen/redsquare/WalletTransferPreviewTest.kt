@@ -52,7 +52,7 @@ class WalletTransferPreviewTest {
     @Test fun openingSendUsesOneFocusedTaskWithoutTheWalletDoneAction() {
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true)).use {
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             ui.waitUntil(10_000) { ui.onAllNodes(hasContentDescription("Wallet address"))
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -82,7 +82,7 @@ class WalletTransferPreviewTest {
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     val author = displayedWalletAddress(ui)
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "transfer-evidence/authenticated-send-first-failure.png")) }) {
@@ -134,8 +134,8 @@ class WalletTransferPreviewTest {
                         File(context.cacheDir, "transfer-evidence/authenticated-frame.b64")
                             .writeText(Base64.getEncoder().encodeToString(frame))
                         scenario.recreate()
-                        ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                        ui.openWallet()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                         ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
@@ -177,7 +177,7 @@ class WalletTransferPreviewTest {
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     val address = displayedWalletAddress(ui)
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "transfer-evidence/auth-cancel-failure.png")) }) {
@@ -229,7 +229,7 @@ class WalletTransferPreviewTest {
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     val author = displayedWalletAddress(ui)
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "transfer-evidence/auth-setup-first-failure.png")) }) {
@@ -298,7 +298,7 @@ class WalletTransferPreviewTest {
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     val author = displayedWalletAddress(ui)
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                         "transfer-evidence/funding-lost-first-failure.png")) }) {
@@ -355,7 +355,7 @@ class WalletTransferPreviewTest {
                         .putExtra("feedDisabled", true)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
-                        ui.onNodeWithText("Wallet").performClick()
+                        ui.openWallet()
                         val author = displayedWalletAddress(ui)
                         withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                             "transfer-evidence/storage-first-failure.png")) }) {
@@ -385,8 +385,8 @@ class WalletTransferPreviewTest {
                             ui.onNodeWithText("Authenticate and send").assertIsNotEnabled()
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/storage-blocked-review.png"), recovery)
                             scenario.recreate()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                            ui.openWallet()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             ui.waitUntil(15_000) { ui.onNodeWithText(recovery).isDisplayed() }
@@ -399,8 +399,8 @@ class WalletTransferPreviewTest {
                             // Restore the known empty fixture baseline, never delete real candidate records as recovery.
                             check(fault.delete())
                             scenario.recreate()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                            ui.openWallet()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                             ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                             ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
@@ -486,7 +486,7 @@ class WalletTransferPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                     "transfer-evidence/balance-first-failure.png")) }) {
@@ -534,8 +534,8 @@ class WalletTransferPreviewTest {
                         "transfer-evidence/receiving-qr-first-failure.png")) }) {
                         repeat(2) { opening ->
                             if (opening > 0) scenario.recreate()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Wallet").isDisplayed() }
-                            ui.onNodeWithText("Wallet").performClick()
+                            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
+                            ui.openWallet()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(address)
                             ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
                             ui.waitUntil(15_000) { ui.onAllNodesWithText("Balance unavailable")

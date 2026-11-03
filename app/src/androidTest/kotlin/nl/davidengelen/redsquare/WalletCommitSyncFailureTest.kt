@@ -26,19 +26,19 @@ class WalletCommitSyncFailureTest {
             assertRecovery()
             activity.onActivity { it.intent.removeExtra("walletCommitSyncUnavailable") }
             ui.onNodeWithText("Retry").performClick()
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             val address = displayedWalletAddress(ui)
             assertEquals(44, address.length)
             ui.onNodeWithText("Done").performClick()
             activity.recreate()
-            ui.onNodeWithText("Wallet").performClick()
+            ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))
         }
     }
 
     private fun assertRecovery() {
         waitForWalletRecovery(ui)
-        ui.onNodeWithText("Wallet").performClick()
+        ui.openWallet()
         ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
         ui.onNodeWithText("Wallet unavailable. Close this window and try again.").assertExists()
         ui.onNodeWithText("Done").performClick()

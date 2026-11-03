@@ -77,7 +77,7 @@ class LikeIsolationPreviewTest {
                     assertEquals(5, actions.map { it.id }.toSet().size)
                     assertEquals(listOf(rootSignature(), rootSignature(), extra.get("sig").asString,
                         rootSignature(), rootSignature()), actions.map { it.body.getAsJsonObject("data").get("signature").asString })
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(original.publicKey, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     node.peer.assertHealthy()

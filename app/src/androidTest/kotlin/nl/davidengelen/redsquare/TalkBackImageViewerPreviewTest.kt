@@ -25,7 +25,7 @@ class TalkBackImageViewerPreviewTest {
                 // TalkBack restores its own navigation history when a modal window closes.
                 // Direct ACTION_ACCESSIBILITY_FOCUS bypasses that history. Reach the
                 // attachment with the pinned service's actual Meta+Right navigation (NewKeyComboModel).
-                waitFor(10_000) { focusedText(automation) == "Wallet" && completedFragments(device, "Wallet").isNotEmpty() }
+                waitFor(10_000) { focusedText(automation) == "Red Square" && completedFragments(device, "Red Square").isNotEmpty() }
                 device.executeShellCommand("logcat -c")
                 // UiAutomation key injection skips Android's accessibility input filter.
                 // Feed the disposable emulator's real virtual keyboard instead; the

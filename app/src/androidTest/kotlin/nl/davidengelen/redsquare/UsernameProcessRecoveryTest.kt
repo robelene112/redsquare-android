@@ -131,7 +131,7 @@ class UsernameProcessRecoveryTest {
     private fun openUsername() {
         waitForEnabled("New post")
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-        ui.onNodeWithText("Settings").performClick()
+        ui.openSettings()
         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
         ui.onNodeWithText("Saito username").performClick()
         waitForEnabled("Back")

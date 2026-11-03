@@ -40,7 +40,7 @@ class PostQueueProcessRecoveryTest {
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use {
             try {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Wallet").performClick()
+                ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
                 val started = System.currentTimeMillis()
@@ -85,7 +85,7 @@ class PostQueueProcessRecoveryTest {
                     assertTrue("Recovery must retain the pre-interruption signed operation", post.createdAt in
                         expected.get("started").asLong..expected.get("queued_at").asLong)
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Wallet").performClick()
+                    ui.openWallet()
                     assertEquals(expected.get("owner").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     ui.waitUntil(10_000) { ui.refreshableContentReady() }

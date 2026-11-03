@@ -105,7 +105,7 @@ class ImageLoadingTest {
                         ui.waitUntil(10_000) { requests.get() == 2 }
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText("Slow images keep navigation usable"))
                         ui.onNodeWithText("Slow images keep navigation usable").assertIsDisplayed()
-                        ui.onNodeWithText("Settings").performClick()
+                        ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
                         ui.waitUntil(5_000) { ui.onAllNodesWithText("saito.io").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("saito.io").performScrollTo().performClick()
