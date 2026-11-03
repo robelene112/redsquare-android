@@ -45,6 +45,7 @@ class Design(val json: JSONObject) {
     val margin get() = number("margin", 18.0, 12.0, 32.0).toFloat()
     val gap get() = number("gap", 16.0, 8.0, 28.0).toFloat()
     val radius get() = number("radius", 18.0, 4.0, 32.0).toFloat()
+    val controlRadius get() = number("controlRadius", 14.0, 4.0, 32.0).toFloat()
 }
 internal fun JSONObject.text(key: String, fallback: String = "") = optString(key, fallback)
 internal fun JSONObject.array(key: String) = optJSONArray(key) ?: JSONArray()
@@ -71,12 +72,17 @@ fun DesignTheme(design: Design, appearance: String, content: @Composable () -> U
         outlineVariant = palette.color("line", "#DDE2EC"), secondaryContainer = Color(0xffe8edf7)
     )
     val scale = design.number("textScale", 1.0, 0.8, 1.5).toFloat()
-    fun style(size: Int, line: Int, weight: FontWeight = FontWeight.Normal) = TextStyle(fontSize = (size * scale).sp, lineHeight = (line * scale).sp, fontWeight = weight)
+    fun style(key: String, size: Int, line: Int, weight: FontWeight = FontWeight.Normal): TextStyle {
+        val spec = design.tokens.optJSONObject("type")?.optJSONObject(key) ?: JSONObject()
+        val fontSize = spec.optDouble("size", size.toDouble()).takeIf { it.isFinite() }?.coerceIn(9.0, 40.0)?.toFloat() ?: size.toFloat()
+        val lineSize = spec.optDouble("lineHeight", line.toDouble()).takeIf { it.isFinite() }?.coerceIn(fontSize.toDouble(), 64.0)?.toFloat() ?: line.toFloat()
+        return TextStyle(fontSize = (fontSize * scale).sp, lineHeight = (lineSize * scale).sp, fontWeight = FontWeight(spec.optInt("weight", weight.weight).coerceIn(100,900)))
+    }
     MaterialTheme(colorScheme = base, typography = Typography(
-        headlineLarge = style(30, 36, FontWeight.Bold), headlineMedium = style(26, 32, FontWeight.Bold),
-        headlineSmall = style(22, 28, FontWeight.SemiBold), titleLarge = style(20, 26, FontWeight.SemiBold),
-        titleMedium = style(16, 22, FontWeight.SemiBold), titleSmall = style(14, 20, FontWeight.SemiBold),
-        bodyLarge = style(16, 24), bodyMedium = style(14, 21), bodySmall = style(12, 18),
-        labelLarge = style(14, 20, FontWeight.Medium), labelMedium = style(12, 17, FontWeight.Medium), labelSmall = style(11, 16)
+        headlineLarge = style("headlineLarge", 30, 36, FontWeight.Bold), headlineMedium = style("headlineMedium", 26, 32, FontWeight.Bold),
+        headlineSmall = style("headlineSmall", 22, 28, FontWeight.SemiBold), titleLarge = style("titleLarge", 20, 26, FontWeight.SemiBold),
+        titleMedium = style("titleMedium", 16, 22, FontWeight.SemiBold), titleSmall = style("titleSmall", 14, 20, FontWeight.SemiBold),
+        bodyLarge = style("bodyLarge", 16, 24), bodyMedium = style("bodyMedium", 14, 21), bodySmall = style("bodySmall", 12, 18),
+        labelLarge = style("labelLarge", 14, 20, FontWeight.Medium), labelMedium = style("labelMedium", 12, 17, FontWeight.Medium), labelSmall = style("labelSmall", 11, 16)
     ), content = content)
 }

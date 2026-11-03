@@ -46,15 +46,21 @@ jobs:
           image='system-images;android-29;default;x86_64'
           if [[ "$DESIGN_API" == '37.0' ]]; then image='system-images;android-37.0;google_apis;x86_64'; fi
           scripts/ci-sdk-install sdkmanager "$image"
+          export ANDROID_USER_HOME="$GITHUB_WORKSPACE/.scratch/design-device/$DESIGN_API"
+          export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
+          mkdir -p "$ANDROID_AVD_HOME"
           printf 'no\n' | avdmanager create avd --name design-preview --package "$image"
           mkdir -p .scratch/design-evidence
           emulator -avd design-preview -no-window -no-audio -no-snapshot -no-boot-anim -accel on -gpu swiftshader -cores 2 -memory 2048 > .scratch/design-evidence/emulator.log 2>&1 &
-          trap 'kill $!' EXIT
+          emulator_pid=$!
+          trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
           adb start-server
           for i in $(seq 1 120); do
             if [[ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then break; fi
+            kill -0 "$emulator_pid" || { cat .scratch/design-evidence/emulator.log; exit 1; }
             sleep 1
           done
+          test "$(adb shell getprop sys.boot_completed | tr -d '\r')" = 1
           adb shell input keyevent 82
           adb shell settings put system screen_off_timeout 1800000
           adb shell wm dismiss-keyguard

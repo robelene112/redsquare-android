@@ -147,7 +147,7 @@ fun NativeShell(design: Design, session: ShellSession, syncLabel: String, appear
         snackbarHost = { SnackbarHost(snack) },
         topBar = {
             Column(Modifier.statusBarsPadding().padding(horizontal = design.margin.dp)) {
-                Row(Modifier.fillMaxWidth().heightIn(min = 60.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().heightIn(min = design.number("headerHeight", 60.0, 48.0, 88.0).dp), verticalAlignment = Alignment.CenterVertically) {
                     IconButton(onClick = { session.sheet = "apps" }) { ShellIcon("apps", "Apps") }
                     Text(module.text("title"), Modifier.weight(1f).padding(horizontal = 6.dp), style = MaterialTheme.typography.titleLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Avatar(account.text("name", "Alex Morgan"), 36, label = "Account") { session.sheet = "account" }

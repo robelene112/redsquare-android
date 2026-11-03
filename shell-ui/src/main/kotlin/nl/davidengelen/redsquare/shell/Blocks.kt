@@ -57,14 +57,14 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
         "row" -> MenuRow(b.text("title"), b.text("body"), b.text("icon", "article")) { action(b.text("action")) }
         "rule" -> HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         "button" -> {
-            if (b.text("kind") == "secondary") OutlinedButton(onClick = { action(b.text("action")) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp)) { Text(b.text("label"), Modifier.padding(vertical = 6.dp)) }
-            else Button(onClick = { action(b.text("action")) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp)) { Text(b.text("label"), Modifier.padding(vertical = 6.dp)) }
+            if (b.text("kind") == "secondary") OutlinedButton(onClick = { action(b.text("action")) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(d.controlRadius.dp)) { Text(b.text("label"), Modifier.padding(vertical = 6.dp)) }
+            else Button(onClick = { action(b.text("action")) }, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(d.controlRadius.dp)) { Text(b.text("label"), Modifier.padding(vertical = 6.dp)) }
         }
         "field" -> {
             val id = b.text("id"); val value = s.fields.getOrPut(id) { b.text("value") }
             OutlinedTextField(value, { s.fields[id] = it }, Modifier.fillMaxWidth(), label = { Text(b.text("label")) },
                 placeholder = { Text(b.text("placeholder")) }, minLines = b.optInt("lines", 1).coerceIn(1,12), maxLines = if (b.optInt("lines", 1) <= 1) 1 else 12,
-                singleLine = b.optInt("lines", 1) <= 1, shape = RoundedCornerShape(14.dp))
+                singleLine = b.optInt("lines", 1) <= 1, shape = RoundedCornerShape(d.controlRadius.dp))
         }
         "toggle" -> Row(Modifier.fillMaxWidth().clickable { s.flags[b.text("id")] = !(s.flags[b.text("id")] ?: b.optBoolean("value")) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f).padding(end = 12.dp)) { Text(b.text("label"), style = MaterialTheme.typography.titleSmall); if (b.has("body")) Text(b.text("body"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }

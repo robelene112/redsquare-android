@@ -23,6 +23,35 @@
       "text": "#171C25",
       "muted": "#5C687A",
       "line": "#DDE2EC"
+    },
+    "controlRadius": 14,
+    "headerHeight": 60,
+    "type": {
+      "titleLarge": {
+        "size": 20,
+        "lineHeight": 26,
+        "weight": 600
+      },
+      "titleMedium": {
+        "size": 16,
+        "lineHeight": 22,
+        "weight": 600
+      },
+      "bodyLarge": {
+        "size": 16,
+        "lineHeight": 24,
+        "weight": 400
+      },
+      "bodyMedium": {
+        "size": 14,
+        "lineHeight": 21,
+        "weight": 400
+      },
+      "labelSmall": {
+        "size": 11,
+        "lineHeight": 16,
+        "weight": 500
+      }
     }
   },
   "modules": {
