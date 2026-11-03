@@ -488,7 +488,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 onRefresh = refreshContent,
                 modifier = Modifier.weight(1f).fillMaxWidth()
             ) {
-                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").refreshAction(wallet != null && !loading, refreshContent).preserveReadingAnchor(position), state = position,
+                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").refreshAction(wallet != null && !loading, refreshContent).preserveReadingAnchor(position, relativeToRoot = true), state = position,
                     contentPadding = PaddingValues(bottom = 88.dp)) {
                     items(visiblePosts, key = { it.id }) { post ->
                         PostCard(post, backend, onIdentity = { openProfile(it) },
