@@ -97,8 +97,8 @@ class ProfileHierarchyPreviewTest {
                 ui.onAllNodesWithText(context.getString(R.string.personal_mute_detail)).assertCountEquals(2)
                 capture(folder, "$label-mute-confirmation.png")
                 ui.onNodeWithText("Cancel").performClick()
-                waitFor("Mute account")
-                ui.onNodeWithText("Block account").assertIsDisplayed()
+                ui.onNodeWithText("Mute account").performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText("Block account").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Report user to publisher").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed() }
