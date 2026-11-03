@@ -81,12 +81,14 @@ class PostPresentationPreviewTest {
             val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
             val minimum = 48 * context.resources.displayMetrics.density - 1
             val targets = listOf(
-                Triple("Like post by Anon-jesTu2", "Like", "2 likes"),
+                Triple("Like post by Anon-jesTu2", null, "2 likes"),
                 Triple("Repost post by Anon-jesTu2", "Repost", "1 repost"),
                 Triple("Quote post by Anon-jesTu2", "Quote", null)
             ).map { (description, label, count) ->
                 val action = ui.onNode(hasContentDescription(description) and hasClickAction())
-                    .assertIsDisplayed().assertTextContains(label)
+                    .assertIsDisplayed().assertContentDescriptionEquals(description)
+                if (label != null) action.assertTextContains(label)
+                else ui.onNodeWithText("Like", useUnmergedTree = true).assertDoesNotExist()
                 if (count != null) action.assertTextContains(count)
                 val bounds = action.fetchSemanticsNode().touchBoundsInRoot
                 assertTrue("$label must have a complete non-clipped48dp target", bounds.width >= minimum &&
@@ -175,7 +177,9 @@ class PostPresentationPreviewTest {
         // Independent fixture timestamp1700000000000, rendered on the UTC emulator.
         ui.onNode(hasText("11/14/23", substring = true) and hasText("10:13 PM", substring = true)).assertIsDisplayed()
         ui.onNodeWithContentDescription("Post actions for Anon-jesTu2").assertIsDisplayed().assertHasClickAction()
-        for (action in listOf("Like", "Repost", "Quote"))
+        ui.onNode(hasContentDescription("Like post by Anon-jesTu2") and hasClickAction()).assertIsDisplayed()
+        ui.onNodeWithText("Like", useUnmergedTree = true).assertDoesNotExist()
+        for (action in listOf("Repost", "Quote"))
             ui.onNode(hasText(action) and hasClickAction()).assertIsDisplayed()
         ui.onNodeWithText("Report").assertDoesNotExist()
         capture("same-post-$surface.png")
