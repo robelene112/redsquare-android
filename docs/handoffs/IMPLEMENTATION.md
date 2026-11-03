@@ -16,6 +16,25 @@ pass (five native checks per OS), and all117host tests pass. Exact evidence is
 in `docs/evidence/ticket77/README.md`. Continue with76, then the remaining
 unblocked86tickets; do not stop after77 or publish an intermediate beta.
 
+Issue76 is complete at3eecb210f. Final combined UI10 run41735070362 and
+UI17 run41735074007 both pass:44 tests in19 normal class invocations plus
+one cold profile recovery completion after two actual process deaths per OS.
+Actual TalkBack runs41732947338/41732951656 each pass six native classes.
+Only the two independent presentation tests changed after those TalkBack runs;
+app/TalkBack/fixtures/harness/workflow are identical. Evidence, exact per-class
+counts, captures and failure provenance are in docs/evidence/ticket76/README.md.
+
+The restored reading case found a real root-relative header/baseline lifetime
+defect. Its observer now lives beside the retained list, scoped by stable
+wallet identity/backend; the original1px tolerance stays. Old Like-label/error
+tests were also updated to current icon-only Likes and retained Repost status.
+No tests were skipped, assertions weakened or deadlines lengthened. Both final
+source reviews are clean. This is affected-regression acceptance, not whole-app
+acceptance or publication. Continue with87; do not stop after76.
+
+Planned remaining sequential order:87,78,82,89,88,91,79,80,92,83,81,90,93,94.
+Native dependencies remain the actual gate; no parallel ticket implementation.
+
 The design source is the separate native preview85 on branch
 `prototype/native-shell-live-design`, with the owner's final amendments in86.
 Do not merge its sample session/payment/publishing behavior into the functional

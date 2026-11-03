@@ -1,0 +1,59 @@
+{
+  "source": "3eecb210fa2c4721837415dc83b396af6490f379",
+  "uiRuns": {
+    "10": 41735070362,
+    "17": 41735074007
+  },
+  "nativeResults": {
+    "10": {
+      "status-recovery.txt": 2,
+      "status-motion.txt": 2,
+      "post-viewport-ui.txt": 1,
+      "post-status-ui.txt": 1,
+      "post-presentation-ui.txt": 4,
+      "post-pending-ui.txt": 1,
+      "post-content-ui.txt": 1,
+      "post-content-contexts-ui.txt": 1,
+      "navigation-ui.txt": 2,
+      "image-viewer-viewport-ui.txt": 1,
+      "image-viewer-ui.txt": 1,
+      "image-viewer-motion-ui.txt": 1,
+      "browse-ui.txt": 8,
+      "appearance-ui.txt": 1,
+      "app-frame-reading-ui.txt": 1,
+      "ProfilePublishingPreviewTest-ui.txt": 5,
+      "ProfileNewEditPreviewTest-ui.txt": 2,
+      "ProfileMediaPreviewTest-ui.txt": 2,
+      "ProfileEditPreviewTest-ui.txt": 7,
+      "profile-process/recovered-instrumentation.txt": 1
+    },
+    "17": {
+      "status-recovery.txt": 2,
+      "status-motion.txt": 2,
+      "post-viewport-ui.txt": 1,
+      "post-status-ui.txt": 1,
+      "post-presentation-ui.txt": 4,
+      "post-pending-ui.txt": 1,
+      "post-content-ui.txt": 1,
+      "post-content-contexts-ui.txt": 1,
+      "navigation-ui.txt": 2,
+      "image-viewer-viewport-ui.txt": 1,
+      "image-viewer-ui.txt": 1,
+      "image-viewer-motion-ui.txt": 1,
+      "browse-ui.txt": 8,
+      "appearance-ui.txt": 1,
+      "app-frame-reading-ui.txt": 1,
+      "ProfilePublishingPreviewTest-ui.txt": 5,
+      "ProfileNewEditPreviewTest-ui.txt": 2,
+      "ProfileMediaPreviewTest-ui.txt": 2,
+      "ProfileEditPreviewTest-ui.txt": 7,
+      "profile-process/recovered-instrumentation.txt": 1
+    }
+  },
+  "talkBackRuns": {
+    "10": 41732947338,
+    "17": 41732951656
+  },
+  "talkBackTestsPerOs": 6,
+  "scope": "affected UI regression, not whole app"
+}
