@@ -91,7 +91,11 @@ class ProfileHierarchyPreviewTest {
                 capture(folder, "$label-profile-actions.png")
                 waitFor("Mute account")
                 ui.onNodeWithText("Mute").performClick()
-                waitFor(context.getString(R.string.personal_mute_detail))
+                ui.waitUntil(15_000) {
+                    ui.onAllNodesWithText(context.getString(R.string.personal_mute_detail))
+                        .fetchSemanticsNodes().size == 2
+                }
+                ui.onAllNodesWithText(context.getString(R.string.personal_mute_detail)).assertCountEquals(2)
                 capture(folder, "$label-mute-confirmation.png")
                 ui.onNodeWithText("Cancel").performClick()
                 waitFor("Mute account")
