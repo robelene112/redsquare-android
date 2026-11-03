@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Observe the actual native prototype on a disposable emulator, including live design latency."""
-import argparse, contextlib, http.server, json, os, re, shutil, subprocess, threading, time, xml.etree.ElementTree as ET
+import argparse, contextlib, http.server, json, os, re, shutil, subprocess, threading, time, urllib.request, xml.etree.ElementTree as ET
 from pathlib import Path
 parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,required=True);args=parser.parse_args()
 root=Path(__file__).resolve().parent.parent;out=args.evidence.resolve();out.mkdir(parents=True,exist_ok=True)
@@ -14,9 +14,9 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
 server=http.server.ThreadingHTTPServer(('127.0.0.1',8788),QuietHandler)
 threading.Thread(target=server.serve_forever,daemon=True).start()
 adb('reverse','tcp:8788','tcp:8788')
-def start(route='home',appearance='dark'):
+def start(route='home',appearance='dark',url='http://127.0.0.1:8788/design.json'):
     adb('shell','am','force-stop',package)
-    adb('shell','am','start','-n',component,'--es','designUrl','http://127.0.0.1:8788/design.json','--es','route',route,'--es','appearance',appearance)
+    adb('shell','am','start','-n',component,'--es','designUrl',url,'--es','route',route,'--es','appearance',appearance)
 def tree():
     adb('shell','uiautomator','dump','/sdcard/design-window.xml')
     return ET.fromstring(adb('shell','cat','/sdcard/design-window.xml'))
@@ -69,6 +69,36 @@ try:
         start(route);wait('Apps',True);capture(route+'-dark')
     start('home','light');wait('Red Square');capture('home-light')
     start('stack','light');wait('Discover');capture('stack-light')
+    # Real HTTPS feed lives on David's VPS, independently of the local fixture.
+    publicUrl='https://davidengelen.nl/redsquare/design/proof/design.json'
+    start('home',url=publicUrl);wait('Apps',True)
+    public=[]
+    def remote():
+        begin=time.monotonic()
+        with urllib.request.urlopen(publicUrl+'?observe='+str(time.time_ns()),timeout=10) as response: data=json.load(response)
+        return data,begin,time.monotonic()
+    previous,previousStart,_=remote()
+    for n in range(3):
+        before=time.monotonic();deviceMs=float(adb('shell','cat','/proc/uptime').split()[0])*1000;after=time.monotonic()
+        offsetLow=before-deviceMs/1000-.01;offsetHigh=after-deviceMs/1000+.01
+        deadline=time.monotonic()+25
+        while True:
+            data,requestStart,requestEnd=remote()
+            if data['revision']!=previous['revision']:break
+            previousStart=requestStart
+            if time.monotonic()>deadline:raise AssertionError('Public VPS proof feed did not change')
+            time.sleep(.2)
+        publicationLow=previousStart;publicationHigh=requestEnd
+        wait(data['modules']['redsquare']['title'])
+        logs=adb('logcat','-d','-s','ShellPreview:I','*:S')
+        frames=re.findall('design_frame revision='+re.escape(data['revision'])+r' elapsedMs=(\d+)',logs)
+        assert frames,'No public HTTPS design frame'
+        frame=int(frames[-1])/1000
+        public.append(dict(revision=data['revision'],publicationToFrameLowerMs=round(max(0,(frame+offsetLow-publicationHigh)*1000),1),publicationToFrameUpperMs=round(max(0,(frame+offsetHigh-publicationLow)*1000),1),publicationBracketMs=round((publicationHigh-publicationLow)*1000,1)))
+        previous=data;previousStart=requestStart
+    capture('actual-vps-https-live-update')
+    (out/'public-vps-timing.json').write_text(json.dumps(public,indent=2)+'\n')
+    print('PUBLIC VPS HTTPS:',json.dumps(public))
     adb('shell','settings','put','system','font_scale','1.5')
     start('home');wait('Apps',True);capture('home-large-text')
     (out/'live-update-timing.json').write_text(json.dumps(timing,indent=2)+'\n')

@@ -20,7 +20,25 @@ class Design(val json: JSONObject) {
     init {
         require(json.getInt("schema") == 1 && screens.length() in 1..100)
         require(screens.has("home") && modules.has("redsquare") && modules.has("stack"))
-        screens.keys().forEach { key -> require(screens.getJSONObject(key).array("blocks").length() <= 150) }
+        val supported = setOf("intro","section","text","banner","tabs","post","article","profile","row","rule","button","field","toggle","choices","person","activity","balance","art","article-body","editor","messages","locked","draft-preview","pair","qr","draft-body","local-post","local-article","sync")
+        modules.keys().forEach { key ->
+            val module = modules.getJSONObject(key)
+            require(module.getString("title").isNotBlank() && screens.has(module.getString("home")))
+            require(module.getJSONArray("tabs").length() in 1..5)
+            module.array("tabs").objects().forEach { require(screens.has(it.getString("route")) && it.getString("label").isNotBlank()) }
+        }
+        screens.keys().forEach { key ->
+            val screen = screens.getJSONObject(key)
+            require(screen.getString("module") == "shared" || modules.has(screen.getString("module")))
+            val blocks = screen.getJSONArray("blocks").objects()
+            require(blocks.size <= 150 && blocks.map { it.getString("id") }.toSet().size == blocks.size)
+            blocks.forEach { block ->
+                require(block.getString("type") in supported && block.getString("id").isNotBlank())
+                if (block.text("type") == "field") require(block.optInt("lines", 1) in 1..12)
+                if (block.has("whenField")) block.getJSONObject("whenField").getString("id")
+                if (block.has("article")) block.getJSONObject("article")
+            }
+        }
     }
     fun screen(route: String) = screens.optJSONObject(route) ?: screens.getJSONObject("home")
     fun number(key: String, default: Double, min: Double, max: Double) = tokens.optDouble(key, default).takeIf { it.isFinite() }?.coerceIn(min, max) ?: default

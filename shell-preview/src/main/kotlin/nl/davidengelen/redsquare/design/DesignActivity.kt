@@ -41,7 +41,7 @@ class DesignActivity : ComponentActivity() {
             }
         }
         val debugUrl = intent.getStringExtra("designUrl")
-        val url = if (BuildConfig.DEBUG && debugUrl?.startsWith("http://127.0.0.1:") == true) debugUrl else endpoint
+        val url = if (BuildConfig.DEBUG && (debugUrl?.startsWith("http://127.0.0.1:") == true || debugUrl?.startsWith("https://davidengelen.nl/redsquare/design/proof/") == true)) debugUrl else endpoint
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 while (isActive) {

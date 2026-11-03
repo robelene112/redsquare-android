@@ -52,7 +52,7 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
             }
         }
         "post" -> PostCard(b, d, s, action)
-        "article" -> ArticleCard(b, d, action)
+        "article" -> ArticleCard(b, d, action, s.flags["article-access"] == true)
         "profile" -> ProfileBlock(b, d, s, action)
         "row" -> MenuRow(b.text("title"), b.text("body"), b.text("icon", "article")) { action(b.text("action")) }
         "rule" -> HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
@@ -63,8 +63,8 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
         "field" -> {
             val id = b.text("id"); val value = s.fields.getOrPut(id) { b.text("value") }
             OutlinedTextField(value, { s.fields[id] = it }, Modifier.fillMaxWidth(), label = { Text(b.text("label")) },
-                placeholder = { Text(b.text("placeholder")) }, minLines = b.optInt("lines", 1), maxLines = if (b.optInt("lines", 1) == 1) 1 else 12,
-                singleLine = b.optInt("lines", 1) == 1, shape = RoundedCornerShape(14.dp))
+                placeholder = { Text(b.text("placeholder")) }, minLines = b.optInt("lines", 1).coerceIn(1,12), maxLines = if (b.optInt("lines", 1) <= 1) 1 else 12,
+                singleLine = b.optInt("lines", 1) <= 1, shape = RoundedCornerShape(14.dp))
         }
         "toggle" -> Row(Modifier.fillMaxWidth().clickable { s.flags[b.text("id")] = !(s.flags[b.text("id")] ?: b.optBoolean("value")) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f).padding(end = 12.dp)) { Text(b.text("label"), style = MaterialTheme.typography.titleSmall); if (b.has("body")) Text(b.text("body"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
@@ -115,7 +115,8 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
         "art" -> CoverArt(b, Modifier.fillMaxWidth().height(b.optInt("height", 180).coerceIn(80, 300).dp).clip(RoundedCornerShape(d.radius.dp)))
         "article-body" -> {
             val rich = rememberRichTextState()
-            LaunchedEffect(b.text("body")) { rich.setMarkdown(b.text("body")) }
+            val body = if (s.flags[b.text("accessKey")] == true) b.text("unlockedBody", b.text("body")) else b.text("body")
+            LaunchedEffect(body) { rich.setMarkdown(body) }
             SelectionContainer { RichText(rich, fontFamily = FontFamily.Serif, style = MaterialTheme.typography.bodyLarge.copy(fontSize = (d.number("readerSize", 18.0, 14.0, 25.0)).sp, lineHeight = (d.number("readerSize", 18.0, 14.0, 25.0) * 1.65).sp)) }
         }
         "editor" -> ArticleEditor(b, d, s)
@@ -124,7 +125,7 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
             b.array("items").objects().forEach { message -> ChatBubble(message.text("body"), message.optBoolean("mine"), message.text("time", "10:42")) }
             s.messages[b.text("id")]?.forEach { message -> ChatBubble(message, true, "Now") }
         }
-        "locked" -> Surface(shape = RoundedCornerShape(d.radius.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+        "locked" -> if (s.flags["article-access"] == true) StateBanner("Access active", "You can read this subscriber article in the preview.", "check") else Surface(shape = RoundedCornerShape(d.radius.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.fillMaxWidth().padding(22.dp), verticalArrangement = Arrangement.spacedBy(14.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 ShellIcon("lock", modifier = Modifier.size(30.dp), tint = MaterialTheme.colorScheme.primary)
                 Text("Keep reading with a subscription", style = MaterialTheme.typography.titleLarge)
@@ -133,7 +134,12 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
             }
         }
         "sync" -> StateBanner("Design ${d.revision}", "Changes are checked every two seconds while this preview is open.", "refresh")
-        "local-post" -> if (s.flags["posted"] == true) PostCard(JSONObject().put("id", "my-preview-post").put("name","Alex Morgan").put("handle","alex@saito").put("time","Now").put("body",s.fields["posted-preview"] ?: "").put("likes",0), d,s,action)
+        "local-post" -> if (s.flags["posted"] == true) {
+            val post = JSONObject().put("id", "my-preview-post").put("name","Alex Morgan").put("handle","alex@saito").put("time","Now").put("body",s.fields["posted-preview"] ?: "").put("likes",0)
+            if (s.flags["posted-article"] == true) post.put("article", JSONObject().put("title",s.fields["article-title"] ?: "Your new article").put("author","Alex Morgan").put("summary",s.fields["article-subtitle"] ?: "").put("action","published-article"))
+            PostCard(post,d,s,action)
+        }
+        "local-article" -> if (s.flags["published"] == true) ArticleCard(JSONObject().put("title",s.fields["article-title"] ?: "Your new article").put("author","Alex Morgan").put("summary",s.fields["article-subtitle"] ?: "").put("action","published-article").put("locked",s.fields["published-access"] != "public"),d,action,true)
         "draft-body" -> {
             val rich = rememberRichTextState()
             val raw = s.fields["article-body-draft"] ?: "A new story starts here."
@@ -166,7 +172,7 @@ private fun PostCard(b: JSONObject, d: Design, s: ShellSession, action: (String)
             IconButton(onClick = { action("sheet:post") }) { ShellIcon("more", "Post actions") }
         }
         Text(b.text("body"), Modifier.fillMaxWidth().clickable { action(b.text("action", "thread")) }, style = MaterialTheme.typography.bodyLarge)
-        if (b.has("article")) ArticleCard(b.getJSONObject("article"), d, action)
+        if (b.has("article")) ArticleCard(b.getJSONObject("article"), d, action, s.flags["article-access"] == true)
         val id = b.text("id")
         val count = s.counts[id] ?: 0
         val scale = remember { Animatable(1f) }
@@ -187,14 +193,14 @@ private fun PostCard(b: JSONObject, d: Design, s: ShellSession, action: (String)
 }
 
 @Composable
-private fun ArticleCard(b: JSONObject, d: Design, action: (String) -> Unit) {
+private fun ArticleCard(b: JSONObject, d: Design, action: (String) -> Unit, unlocked: Boolean = false) {
     Surface(onClick = { action(b.text("action", "article")) }, shape = RoundedCornerShape(d.radius.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
         Column {
             if (b.optBoolean("cover", true)) CoverArt(b, Modifier.fillMaxWidth().height(b.optInt("height", 164).coerceIn(80, 260).dp))
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    ShellIcon(if (b.optBoolean("locked")) "lock" else "article", modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
-                    Text(if (b.optBoolean("locked")) "STACK · SUBSCRIBERS" else "SAITO STACK", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary, letterSpacing = 1.sp)
+                    ShellIcon(if (b.optBoolean("locked")) { if (unlocked) "check" else "lock" } else "article", modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
+                    Text(if (b.optBoolean("locked")) { if (unlocked) "STACK · ACCESS ACTIVE" else "STACK · SUBSCRIBERS" } else "SAITO STACK", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary, letterSpacing = 1.sp)
                 }
                 Text(b.text("title"), style = MaterialTheme.typography.titleLarge, maxLines = 3, overflow = TextOverflow.Ellipsis)
                 if (b.has("summary")) Text(b.text("summary"), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 3, overflow = TextOverflow.Ellipsis)
@@ -206,11 +212,13 @@ private fun ArticleCard(b: JSONObject, d: Design, action: (String) -> Unit) {
 
 @Composable
 private fun ProfileBlock(b: JSONObject, d: Design, s: ShellSession, action: (String) -> Unit) {
+    val profileName = if (b.optBoolean("own") && s.flags["profile-saved"] == true) s.fields["profile-name"] ?: b.text("name") else b.text("name")
+    val profileBody = if (b.optBoolean("own") && s.flags["profile-saved"] == true) s.fields["profile-bio"] ?: b.text("body") else b.text("body")
     Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
         CoverArt(b, Modifier.fillMaxWidth().height(128.dp).clip(RoundedCornerShape(d.radius.dp)))
-        Row(verticalAlignment = Alignment.CenterVertically) { Avatar(b.text("name"), 64); Spacer(Modifier.weight(1f)); if (b.optBoolean("own")) OutlinedButton(onClick = { action("edit-profile") }) { Text("Edit profile") } else FollowButton(b.text("name"), s, action) }
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { Text(b.text("name"), style = MaterialTheme.typography.headlineSmall); Text(b.text("handle"), color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall) }
-        Text(b.text("body"), style = MaterialTheme.typography.bodyMedium)
+        Row(verticalAlignment = Alignment.CenterVertically) { Avatar(profileName, 64); Spacer(Modifier.weight(1f)); if (b.optBoolean("own")) OutlinedButton(onClick = { action("edit-profile") }) { Text("Edit profile") } else FollowButton(b.text("name"), s, action) }
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { Text(profileName, style = MaterialTheme.typography.headlineSmall); Text(b.text("handle"), color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall) }
+        Text(profileBody, style = MaterialTheme.typography.bodyMedium)
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) { Text("128 following", style = MaterialTheme.typography.labelMedium); Text("1.2K followers", style = MaterialTheme.typography.labelMedium) }
         if (!b.optBoolean("own")) Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedButton(onClick = { action("conversation") }) { Text("Message") }

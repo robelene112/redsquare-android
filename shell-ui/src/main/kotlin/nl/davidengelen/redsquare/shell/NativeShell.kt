@@ -75,10 +75,19 @@ class ShellSession {
             }
             value.startsWith("like:") -> { val id = value.removePrefix("like:"); counts[id] = (counts[id] ?: 0) + 1 }
             value.startsWith("follow:") -> { val id = value.removePrefix("follow:"); flags[id] = flags[id] != true }
-            value == "confirm:access" -> { flags["article-access"] = true; navigate("article", design); notice = "Preview access is now active" }
-            value == "confirm:publish" -> { flags["published"] = true; navigate("published", design) }
+            value == "confirm:access" -> { flags["article-access"] = true; navigate("locked-article", design); notice = "Preview access is now active" }
+            value == "confirm:publish" -> {
+                flags["published"] = true
+                fields["published-access"] = fields["article-visibility"] ?: "public"
+                if (flags["share-redsquare"] == true) {
+                    flags["posted"] = true; flags["posted-article"] = true
+                    fields["posted-preview"] = fields["share-copy"] ?: "A new story, shared on Stack."
+                }
+                navigate("published", design)
+            }
+            value == "confirm:profile" -> { flags["profile-saved"] = true; navigate("profile", design); notice = "Profile preview saved" }
             value == "confirm:send" -> { navigate("wallet", design); notice = "Demo transfer complete. No funds were sent." }
-            value == "confirm:post" -> { fields["posted-preview"] = fields["post-$route"] ?: "A new preview post"; flags["posted"] = true; navigate(if (route == "reply") "thread" else "home", design); notice = "Preview post added" }
+            value == "confirm:post" -> { fields["posted-preview"] = fields["post-$route"] ?: "A new preview post"; flags["posted"] = true; flags["posted-article"] = false; navigate(if (route == "reply") "thread" else "home", design); notice = "Preview post added" }
             value == "refresh" -> { flags["refreshDesign"] = true; notice = "Checking for a new design" }
             else -> navigate(value, design)
         }
@@ -112,7 +121,7 @@ fun NativeShell(design: Design, session: ShellSession, syncLabel: String, appear
     val scope = rememberCoroutineScope()
     val snack = remember { SnackbarHostState() }
     LaunchedEffect(session.notice) {
-        if (session.notice.isNotEmpty()) { val message = session.notice; session.notice = ""; snack.showSnackbar(message) }
+        if (session.notice.isNotEmpty()) { val message = session.notice; snack.showSnackbar(message); if (session.notice == message) session.notice = "" }
     }
     val screen = design.screen(session.route)
     val module = design.modules.getJSONObject(session.module)
@@ -159,7 +168,7 @@ fun NativeShell(design: Design, session: ShellSession, syncLabel: String, appear
                 tabs.forEach { tab ->
                     NavigationBarItem(selected = screen.text("tab", session.route) == tab.text("route"),
                         onClick = { action(tab.text("route")) },
-                        icon = { ShellIcon(tab.text("icon"), null) },
+                        icon = { ShellIcon(tab.text("icon"), if (compact) tab.text("label") else null) },
                         label = if (compact) null else { { Text(tab.text("label"), maxLines = 1, style = MaterialTheme.typography.labelSmall) } })
                 }
             }

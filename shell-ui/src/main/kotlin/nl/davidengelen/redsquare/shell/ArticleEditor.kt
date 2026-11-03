@@ -25,9 +25,9 @@ internal fun ArticleEditor(b: JSONObject, d: Design, s: ShellSession) {
     val initial = b.text("body", "## A new perspective\n\nTell your story.")
     val rich = remember(id) { s.editors.getOrPut(id) { RichTextState().setMarkdown(s.fields[id] ?: initial) } }
     remember(id) { s.visualBaselines.getOrPut(id) { rich.toMarkdown() } }
-    val sourceMode = s.flags["source:$id"] == true
     val source = s.fields.getOrPut(id) { initial }
     val unsupported = source.contains(Regex("(?m)^\\s*\\|.*\\|\\s*$|<[/a-zA-Z][^>]*>|^\\[\\^[^]]+]:"))
+    val sourceMode = s.flags["source:$id"] == true || unsupported
     val clipboard = LocalClipboardManager.current
     LaunchedEffect(rich) {
         snapshotFlow { rich.toMarkdown() }.collect { markdown ->

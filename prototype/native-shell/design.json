@@ -796,7 +796,7 @@
       }
     },
     "compose": {
-      "module": "shared",
+      "module": "redsquare",
       "blocks": [
         {
           "type": "person",
@@ -840,7 +840,7 @@
       "states": false
     },
     "reply": {
-      "module": "shared",
+      "module": "redsquare",
       "blocks": [
         {
           "type": "person",
@@ -884,7 +884,7 @@
       "states": false
     },
     "quote": {
-      "module": "shared",
+      "module": "redsquare",
       "blocks": [
         {
           "type": "person",
@@ -1076,7 +1076,7 @@
         {
           "type": "button",
           "label": "Save profile preview",
-          "action": "notice:Profile preview saved",
+          "action": "confirm:profile",
           "kind": "primary",
           "id": "edit-profile-4"
         }
@@ -2093,6 +2093,10 @@
           "id": "my-articles-0"
         },
         {
+          "id": "my-local-article",
+          "type": "local-article"
+        },
+        {
           "type": "article",
           "title": "Scripts Without the Contract",
           "author": "Alex Morgan",
@@ -2337,7 +2341,9 @@
         {
           "type": "article-body",
           "body": "The most useful technology often disappears into the background. It becomes a small part of an ordinary day: a conversation, an idea, a page you keep open.\n\n## Participation, without the ceremony\n\nWhat if joining a network felt as natural as opening ",
-          "id": "locked-article-3"
+          "id": "locked-article-3",
+          "accessKey": "article-access",
+          "unlockedBody": "The most useful technology often disappears into the background. It becomes a small part of an ordinary day: a conversation, an idea, a page you keep open.\n\n## Participation, without the ceremony\n\nWhat if joining a network felt as natural as opening a browser tab? That is the promise worth exploring. A network grows stronger when participation fits the lives of the people using it.\n\n**Good tools make room for people.** They make the complex parts manageable, while keeping the important choices visible.\n\nThe details matter: a clear label, a preserved draft, a place that remembers where you left off. These are the things that make an open system feel like home.\n\n> Build for the person using it, one thoughtful detail at a time.\n\n## An invitation to build\n\nWe do not need every answer today. We need a way to explore, to share what we learn, and to make the next step a little easier."
         },
         {
           "type": "locked",

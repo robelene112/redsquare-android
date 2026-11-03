@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""Publish a bounded, isolated changing design feed to measure real VPS HTTPS updates."""
+import argparse,json,time,os
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument('--seconds',type=int,default=1200);a=p.parse_args()
+root=Path(__file__).resolve().parent.parent
+base=json.loads((root/'prototype/native-shell/design.json').read_text())
+destination=Path('/home/david/projects/docker/website/html/redsquare/design/proof')
+destination.mkdir(parents=True,exist_ok=True)
+start=time.monotonic();n=0
+while time.monotonic()-start<a.seconds:
+    data=json.loads(json.dumps(base));data['revision']=f'public-probe-{n}';data['modules']['redsquare']['title']=f'Red Square Public {n}';data['tokens']['radius']=16+n%3
+    tmp=destination/'design.new';tmp.write_text(json.dumps(data));tmp.chmod(0o644);tmp.replace(destination/'design.json')
+    print(json.dumps({'revision':data['revision'],'publishedAtMs':round(time.time()*1000)}),flush=True)
+    n+=1;time.sleep(8)

@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parent.parent
 DEST=Path('/home/david/projects/docker/website/html/redsquare/design')
 IMAGE='redsquare-android-build:agp8.10.1'
 PACKAGE='nl.davidengelen.redsquare.design'
-TYPES={'intro','section','text','banner','tabs','post','article','profile','row','rule','button','field','toggle','choices','person','activity','balance','art','article-body','editor','messages','locked','draft-preview','pair','qr','draft-body','local-post','sync'}
+TYPES={'intro','section','text','banner','tabs','post','article','profile','row','rule','button','field','toggle','choices','person','activity','balance','art','article-body','editor','messages','locked','draft-preview','pair','qr','draft-body','local-post','local-article','sync'}
 def run(args, **kw): return subprocess.run(args,check=True,**kw)
 def read_design():
     data=json.loads((ROOT/'prototype/native-shell/design.json').read_text())
@@ -15,6 +15,7 @@ def read_design():
         ids=[]
         for block in screen['blocks']:
             assert block['type'] in TYPES, (route,block['type'])
+            if block['type']=='field': assert 1<=int(block.get('lines',1))<=12, (route,'field lines must be 1..12')
             ids.append(block['id'])
         assert len(ids)==len(set(ids)), ('duplicate block IDs',route)
     return data
