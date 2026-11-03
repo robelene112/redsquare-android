@@ -12,7 +12,9 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalDensity
@@ -21,6 +23,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.Modifier
@@ -109,7 +112,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
         if (retrying) stringResource(R.string.post_retry_action, description) else description,
         countLabel, enabled, available = !like && status?.available == true,
         stateHint = if (like) null else status?.let { if (it.available) label else null },
-        iconScale = heartScale.value, feedbackActive = like && heartFilled) {
+        iconScale = heartScale.value, feedbackActive = like && heartFilled, suppressRipple = like) {
         state?.send(post, kind, publishing::beforePublishing)
     }
 }
@@ -144,38 +147,43 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 
 /** The count shares its action's visual target and accessibility state. Missing counts stay absent. */
 @Composable
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
     enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
-    feedbackActive: Boolean = false,
+    feedbackActive: Boolean = false, suppressRipple: Boolean = false,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
     val countHeight = with(LocalDensity.current) { countStyle.lineHeight.toDp() }
     val color = if (available || feedbackActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-    TextButton(onClick = onClick, enabled = enabled,
-        modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics {
-            contentDescription = description
-            listOfNotNull(stateHint, count).joinToString(". ").takeIf { it.isNotEmpty() }?.let { stateDescription = it }
-        }, contentPadding = PaddingValues(horizontal = AppSpacing.small, vertical = 4.dp),
-        colors = ButtonDefaults.textButtonColors(contentColor = color,
-            disabledContentColor = if (available) color else color.copy(alpha = 0.38f))) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Icon(painterResource(icon), contentDescription = null, tint = color,
-                    modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
-                if (label.isNotEmpty()) Text(label, style = MaterialTheme.typography.labelMedium)
-            }
-            Box(Modifier.heightIn(min = countHeight)) {
-                if (count != null) AnimatedContent(targetState = count,
-                    transitionSpec = {
-                        (slideInVertically(animationSpec = tween(AppSpacing.transitionMillis)) { it / 2 } +
-                            fadeIn(animationSpec = tween(AppSpacing.transitionMillis))) togetherWith
-                            (slideOutVertically(animationSpec = tween(AppSpacing.transitionMillis)) { -it / 2 } +
-                                fadeOut(animationSpec = tween(AppSpacing.transitionMillis)))
-                    }, label = "socialCount") { animatedCount ->
-                    Text(animatedCount, style = countStyle)
+    val button: @Composable () -> Unit = {
+        TextButton(onClick = onClick, enabled = enabled,
+            modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics {
+                contentDescription = description
+                listOfNotNull(stateHint, count).joinToString(". ").takeIf { it.isNotEmpty() }?.let { stateDescription = it }
+            }, contentPadding = PaddingValues(horizontal = AppSpacing.small, vertical = 4.dp),
+            colors = ButtonDefaults.textButtonColors(contentColor = color,
+                disabledContentColor = if (available) color else color.copy(alpha = 0.38f))) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Icon(painterResource(icon), contentDescription = null, tint = color,
+                        modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
+                    if (label.isNotEmpty()) Text(label, style = MaterialTheme.typography.labelMedium)
+                }
+                Box(Modifier.heightIn(min = countHeight)) {
+                    if (count != null) AnimatedContent(targetState = count,
+                        transitionSpec = {
+                            (slideInVertically(animationSpec = tween(AppSpacing.transitionMillis)) { it / 2 } +
+                                fadeIn(animationSpec = tween(AppSpacing.transitionMillis))) togetherWith
+                                (slideOutVertically(animationSpec = tween(AppSpacing.transitionMillis)) { -it / 2 } +
+                                    fadeOut(animationSpec = tween(AppSpacing.transitionMillis)))
+                        }, label = "socialCount") { animatedCount ->
+                        Text(animatedCount, style = countStyle)
+                    }
                 }
             }
         }
     }
+    if (suppressRipple) {
+        CompositionLocalProvider(LocalRippleConfiguration provides null, content = button)
+    } else button()
 }
