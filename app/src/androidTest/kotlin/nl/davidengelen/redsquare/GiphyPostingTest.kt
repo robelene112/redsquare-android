@@ -114,7 +114,7 @@ class GiphyPostingTest {
                     .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")
                 ActivityScenario.launch<MainActivity>(launchIntent).use { scenario ->
                     try {
-                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.refreshableContentReady() }
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                         waitFor("Signed image reference")
                         ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
@@ -139,10 +139,10 @@ class GiphyPostingTest {
                         assertEquals(1, peer.transactions.size)
                         capture("$label-available")
                         ui.onNodeWithText("Back").performClick()
-                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { ui.refreshableContentReady() }
                         val requests = peer.requests.get()
-                        ui.onNodeWithText("Refresh").performClick()
-                        ui.waitUntil(20_000) { peer.requests.get() > requests && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.refreshVisibleView()
+                        ui.waitUntil(20_000) { peer.requests.get() > requests && ui.refreshableContentReady() }
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                         ui.onNodeWithText(text).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
@@ -160,7 +160,7 @@ class GiphyPostingTest {
                             scenario.close()
                             ActivityScenario.launch<MainActivity>(launchIntent).use {
                                 try {
-                                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                    ui.waitUntil(20_000) { ui.refreshableContentReady() }
                                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                                     ui.onNodeWithText(text).assertIsDisplayed()
                                     assertPublishedCredits("$label-fresh-published-credits")

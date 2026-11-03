@@ -361,7 +361,7 @@ class ProfileEditPreviewTest {
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                         capture("unsaved-bio-import-preview.png")
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.onNode(hasText("Cancel") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
                         ui.onNode(hasSetTextAction()).assert(
                             SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
                         assertTrue(peer.transactions.isEmpty())
@@ -449,7 +449,7 @@ class ProfileEditPreviewTest {
                     }
                     ui.onNodeWithContentDescription(selected).assertTextEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
                     assertEquals(owner, displayedWalletAddress(ui))
-                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasText("Cancel") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
                     ui.onNode(hasSetTextAction()).assert(
                         SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
                     assertTrue(peer.transactions.isEmpty())

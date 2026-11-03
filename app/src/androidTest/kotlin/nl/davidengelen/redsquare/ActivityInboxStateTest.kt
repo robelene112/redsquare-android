@@ -29,8 +29,8 @@ class ActivityInboxStateTest {
             captureNativeScreen(File(folder, "loading.png"), "Loading notifications...")
             peer.withholdArchiveReply = false
             peer.disconnectAuthenticatedSockets()
-            ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
-            ui.onNodeWithText("Refresh").performClick()
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
+            ui.refreshVisibleView()
             ui.waitUntil(15_000) { ui.onNodeWithText(empty).isDisplayed() }
             ui.onNode(hasText("Home") and hasClickAction()).performClick()
             ui.withPostViewports(activity, folder, "empty-activity", scales = listOf(2f)) { label, _ ->
@@ -39,7 +39,7 @@ class ActivityInboxStateTest {
                 ui.onNodeWithText("No unread activity").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-empty.png"), empty)
                 peer.rejectNewConnections = true
-                ui.onNodeWithText("Refresh").performClick()
+                ui.refreshVisibleView()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
                 val details = context.getString(R.string.status_details_for, "Could not refresh activity.")
                 ui.onNodeWithContentDescription(details).performClick()
@@ -54,8 +54,8 @@ class ActivityInboxStateTest {
                 assertTrue(refresh.isClickable && refresh.visibleBounds.width() >= minimum &&
                     refresh.visibleBounds.height() >= minimum)
                 peer.rejectNewConnections = false
-                ui.onNodeWithText("Refresh").performClick()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() &&
+                ui.refreshVisibleView()
+                ui.waitUntil(15_000) { ui.refreshableContentReady() &&
                     ui.onAllNodesWithText("Could not refresh activity.").fetchSemanticsNodes().isEmpty() }
                 captureNativeScreen(File(folder, "$label-recovered.png"), empty)
                 ui.onNode(hasText("Home") and hasClickAction()).performClick()
@@ -65,13 +65,13 @@ class ActivityInboxStateTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.withPostViewports(activity, folder, "unavailable-activity", scales = listOf(2f)) { label, _ ->
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() &&
+                ui.waitUntil(15_000) { ui.refreshableContentReady() &&
                     ui.onNodeWithText("Liked a post").isDisplayed() &&
                     ui.onNodeWithText("Post preview unavailable").isDisplayed() }
                 ui.onNodeWithText("Post preview unavailable").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-missing-preview.png"), "Liked a post")
                 peer.rejectNewConnections = true
-                ui.onNodeWithText("Refresh").performClick()
+                ui.refreshVisibleView()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Liked a post"))
                 ui.onNodeWithText("Post preview unavailable").assertIsDisplayed()

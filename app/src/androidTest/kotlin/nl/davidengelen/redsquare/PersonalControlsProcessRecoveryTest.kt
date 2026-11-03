@@ -171,10 +171,10 @@ class PersonalControlsProcessRecoveryTest {
         ui.onNodeWithText("Muted and blocked accounts").performClick()
     }
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
     private fun showPost(text: String) {
         ui.waitUntil(15_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

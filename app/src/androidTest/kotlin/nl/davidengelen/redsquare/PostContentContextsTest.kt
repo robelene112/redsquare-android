@@ -28,12 +28,12 @@ class PostContentContextsTest {
                 assertContent(reference, "$label-feed")
                 ui.clickVisiblePostBody("Media and quote viewport preview")
                 ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() &&
-                    ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                    ui.refreshableContentReady() }
                 assertContent(reference, "$label-thread")
                 home(profile)
                 ui.clickVisiblePostProfile(reference.authorName)
                 ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
-                    ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                    ui.refreshableContentReady() }
                 assertContent(reference, "$label-profile", inProfile = true)
                 home(profile)
                 ui.onNode(hasText("Search") and hasClickAction()).performClick()

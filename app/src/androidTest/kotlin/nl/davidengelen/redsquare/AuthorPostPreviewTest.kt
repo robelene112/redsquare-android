@@ -457,6 +457,6 @@ class AuthorPostPreviewTest {
         ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
     private fun waitForRefresh() {
-        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.waitUntil(20_000) { ui.refreshableContentReady() }
     }
 }

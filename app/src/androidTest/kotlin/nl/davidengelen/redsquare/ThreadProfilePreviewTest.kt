@@ -36,12 +36,12 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.refreshableContentReady() }
                     scrollProfileTo("Native Red Square reference post")
                     scrollProfileTo(context.getString(R.string.feed_cache_warning))
                     peer.assertHealthy()
                     server.close()
-                    ui.onNodeWithText("Refresh").performClick()
+                    ui.refreshVisibleView()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(context.getString(R.string.profile_error))).fetchSemanticsNodes().isNotEmpty() }
                     scrollProfileTo("Native Red Square reference post")
                     captureProfileObservation("profile-memory-after-write-failure", "Native Red Square reference post")
@@ -179,7 +179,7 @@ class ThreadProfilePreviewTest {
                     ui.revealProfileHistoryItem("Profile newer post 20")
                     scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.refreshableContentReady() }
                     ui.revealProfileHistoryItem("Load older")
                     ui.onNodeWithText("Load older").assertIsEnabled().performClick()
                     ui.revealProfileHistoryItem("Nested Saito reply")
@@ -286,7 +286,7 @@ class ThreadProfilePreviewTest {
                     scrollProfileTo("Likes")
                     ui.onNodeWithText("Likes").performClick()
                     ui.revealProfileHistoryItem("Independent Saito reply")
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.refreshableContentReady() }
                     peer.assertHealthy()
                     server.close()
                 }
@@ -431,10 +431,10 @@ class ThreadProfilePreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openConversationFromList("Native Red Square reference post")
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.refreshableContentReady() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.refreshableContentReady() }
                     peer.assertHealthy()
                     server.close()
                 }
@@ -447,7 +447,7 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.refreshableContentReady() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
@@ -495,7 +495,7 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openConversationFromList("Native Red Square reference post")
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.refreshableContentReady() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
@@ -527,7 +527,7 @@ class ThreadProfilePreviewTest {
     }
 
     private fun waitForProfileHistory() {
-        ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        ui.waitUntil(15_000) { ui.refreshableContentReady() }
     }
 
     private fun scrollProfileTo(text: String) {

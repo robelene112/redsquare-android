@@ -63,7 +63,7 @@ class ImageLoadingTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                     try {
-                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.refreshableContentReady() }
                         ui.waitUntil(15_000) { ui.onAllNodesWithText("Image unavailable").fetchSemanticsNodes().size == 3 }
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText("Remote image failures keep this post readable"))
                         ui.onNodeWithText("Remote image failures keep this post readable").assertIsDisplayed()

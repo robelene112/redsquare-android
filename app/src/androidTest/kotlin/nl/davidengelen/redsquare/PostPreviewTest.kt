@@ -900,7 +900,7 @@ class PostPreviewTest {
 
     private fun waitForReferencePost() {
         ui.waitUntil(15_000) {
-            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() &&
+            ui.refreshableContentReady() &&
                 ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty()
         }
         waitForVisiblePost("Native Red Square reference post")

@@ -29,7 +29,7 @@ class ProfileKeyboardPreviewTest {
             val tab = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
             ui.waitUntil(15_000) {
                 ui.onNode(hasText("Posts") and tab).isDisplayed() &&
-                    ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed()
+                    ui.refreshableContentReady()
             }
             val back = hasText("Back") and hasClickAction()
             // Enter keyboard mode through actual input before establishing the declared start.

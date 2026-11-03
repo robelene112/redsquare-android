@@ -79,7 +79,7 @@ class NotificationPermissionPreviewTest {
                         ui.onAllNodesWithText("Not now").assertCountEquals(0)
                         ui.waitUntil(15_000) { reads.get() > 0 }
                         val beforeRefresh = reads.get()
-                        ui.onNodeWithText("Refresh").performClick()
+                        ui.refreshVisibleView()
                         ui.waitUntil(15_000) { reads.get() > beforeRefresh }
                         waitForEnabled("Refresh")
                         ui.onAllNodesWithText(context.getString(R.string.notifications_read_error)).assertCountEquals(0)
@@ -111,9 +111,9 @@ class NotificationPermissionPreviewTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
 }

@@ -33,7 +33,7 @@ class ActivityInboxViewportTest {
             ui.withPostViewports(activity, folder, "activity") { label, _ ->
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) {
-                    ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() &&
+                    ui.refreshableContentReady() &&
                         ui.onNodeWithText("6 unread").isDisplayed() && ui.onAllNodes(
                         hasText("Quoted your post") and hasText("Quote notification reference") and hasClickAction())
                         .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()

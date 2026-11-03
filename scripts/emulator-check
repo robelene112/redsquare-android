@@ -1367,6 +1367,20 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     printf '%s\n' 'Focused username check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+# Keep original fail-fast setup, assertions and per-class bounds in this focused gate.
+if [[ "${TEST_SCOPE:-full}" == ui-regression* ]]; then
+    verify_appearance
+    verify_group_chat_native NavigationPreviewTest 180 navigation navigation-evidence
+    verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence
+    verify_browse
+    verify_post_presentation
+    verify_image_viewer
+    verify_profiles
+    verify_group_chat_native StatusRecoveryPreviewTest 180 status-recovery status-recovery-evidence
+    verify_group_chat_native StatusMotionPreviewTest 180 status-motion status-motion-evidence
+    printf '%s\n' 'Current native control regression scopes only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_image_viewer; verify_gifs; verify_videos; verify_profiles; verify_profile_hierarchy; verify_profile_keyboard; verify_profile_editor_presentation; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }

@@ -561,7 +561,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onAllNodesWithContentDescription(actorLabel(officialActor)).assertCountEquals(0)
             responses.change()
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshVisibleView()
             waitFor("Could not refresh activity.")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -678,7 +678,7 @@ class NotificationsPreviewTest {
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/history-load-fault.png"), "1 unread")
             responses.allowHistorySaving()
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshVisibleView()
             ui.waitUntil(15_000) {
                 ui.onAllNodes(hasText("Refresh") and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
@@ -715,7 +715,7 @@ class NotificationsPreviewTest {
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/read-load-fault.png"), "Liked your post")
             responses.allowReadSaving()
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshVisibleView()
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -762,7 +762,7 @@ class NotificationsPreviewTest {
             assertEquals("Retry must not reread an exhausted healthy reply stream", healthyReads,
                 responses.healthyReplyReads.get())
             responses.makeLateActivityAvailable()
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshVisibleView()
             waitFor("3 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

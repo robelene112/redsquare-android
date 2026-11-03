@@ -12,6 +12,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import nl.davidengelen.redsquare.ui.refreshAction
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -128,14 +129,15 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             else if (!loading) Text(stringResource(if (failed || parent?.failed == true)
                 R.string.conversation_parent_error else R.string.conversation_parent_unavailable))
         }
+        val refreshContent: () -> Unit = {
+            if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
+        }
         PullToRefreshBox(
             isRefreshing = pullRefreshing,
-            onRefresh = {
-                if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
-            },
+            onRefresh = refreshContent,
             modifier = Modifier.weight(1f).fillMaxWidth()
         ) {
-            LazyColumn(Modifier.fillMaxSize().testTag("conversation-post-list"), state = position) {
+            LazyColumn(Modifier.fillMaxSize().testTag("conversation-post-list").refreshAction(wallet != null && !loading, refreshContent), state = position) {
                 items(visiblePosts, key = { it.id }) { post ->
                     PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions,
                         bodyTextStyle = MaterialTheme.typography.bodyMedium, bodyVerticalPadding = 4.dp)

@@ -125,7 +125,7 @@ class ImagePostingTest {
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                         try {
                             ui.waitUntil(20_000) { peer.requests.get() > 0 &&
-                                ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                ui.refreshableContentReady() }
                             waitFor("Signed image reference")
                             when (kind) {
                                 "post" -> ui.onNode(hasText("New post") and hasClickAction()).performClick()
@@ -172,15 +172,15 @@ class ImagePostingTest {
                             ui.onNodeWithText("Back").performClick()
                             if (kind == "reply") {
                                 waitFor("Conversation")
-                                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                ui.waitUntil(20_000) { ui.refreshableContentReady() }
                                 ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                                 ui.onNodeWithText(text).assertIsDisplayed()
                             } else {
-                                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                ui.waitUntil(20_000) { ui.refreshableContentReady() }
                                 val previousRequests = peer.requests.get()
-                                ui.onNodeWithText("Refresh").performClick()
+                                ui.refreshVisibleView()
                                 ui.waitUntil(20_000) { peer.requests.get() > previousRequests &&
-                                    ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                    ui.refreshableContentReady() }
                                 if (text.isNotEmpty()) {
                                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                                     ui.onNodeWithText(text).assertIsDisplayed()

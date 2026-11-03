@@ -101,7 +101,7 @@ class ProfileHierarchyPreviewTest {
                 ui.onNodeWithText("Block account").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Report user to publisher").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Done").performClick()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed() }
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).performClick()
                 waitFor("Signed bio 🌱\nSecond line")
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()

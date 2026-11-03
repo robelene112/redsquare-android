@@ -60,7 +60,7 @@ class ImagePreviewTest {
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                         try {
                             ui.waitUntil(20_000) { peer.requests.get() > 0 &&
-                                ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                ui.refreshableContentReady() }
                             ui.onNodeWithText("New post").performClick()
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNode(hasSetTextAction()).performTextReplacement("Saved image draft")
@@ -102,7 +102,7 @@ class ImagePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() > 0 &&
-                        ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.refreshableContentReady() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Signed image reference"))
                     ui.onNodeWithText("Signed image reference").assertIsDisplayed()
                     for ((index, expected) in listOf(0xffdc1e28.toInt(), 0xff143cdc.toInt()).withIndex()) {
@@ -172,7 +172,7 @@ class ImagePreviewTest {
                         var originalActivity = 0
                         scenario.onActivity { originalActivity = System.identityHashCode(it) }
                         ui.waitUntil(20_000) { peer.requests.get() > 0 &&
-                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.refreshableContentReady() }
                         ui.onNodeWithText("New post").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement("Keep picker selection across rotation")

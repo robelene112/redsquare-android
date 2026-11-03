@@ -65,7 +65,7 @@ class ImageProcessRecoveryTest {
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
                 val peer = ControlledFeedPeer("[${fixture.getAsJsonObject("ordinary")}]")
                 launch(peer) {
-                    ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.refreshableContentReady() }
                     assertCachedOriginalImages()
                     openComposer()
                     ui.onNode(hasSetTextAction()).performTextReplacement("Prepared image before opening another picker")
@@ -107,7 +107,7 @@ class ImageProcessRecoveryTest {
             observed.set(postingArchiveRow(candidate))
         }, archiveResponse = { criteria -> if (criteria.has("sig")) "[]" else rows })
         launch(serving) {
-            ui.waitUntil(20_000) { serving.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            ui.waitUntil(20_000) { serving.requests.get() > 0 && ui.refreshableContentReady() }
             assertCachedOriginalImages()
             openComposer()
             waitForPreparedImage()

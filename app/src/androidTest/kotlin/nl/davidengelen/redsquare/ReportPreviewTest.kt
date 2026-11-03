@@ -43,7 +43,7 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("confirmation-failure.png") }) {
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { ui.refreshableContentReady() }
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                     ui.onNodeWithText("This sends this post to this node's moderators. Acknowledgement does not mean it has been reviewed or removed.").assertIsDisplayed()

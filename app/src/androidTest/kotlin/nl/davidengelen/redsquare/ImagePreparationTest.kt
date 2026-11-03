@@ -172,7 +172,7 @@ class ImagePreparationTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                     try {
-                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.refreshableContentReady() }
                         ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement("Image preparation fixture")

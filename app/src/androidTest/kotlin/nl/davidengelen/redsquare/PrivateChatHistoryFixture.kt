@@ -1214,7 +1214,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
 
     fun waitForEnabled(text: String) {
         val check = { ui.waitUntil(15_000) {
-            ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
         } }
         when (text) {
             "Like", "Unlike", "Reply", "Copy" -> ui.withMessageAction(text) { check() }
@@ -1224,6 +1224,6 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
     }
 
     fun waitFor(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
 }

@@ -125,9 +125,9 @@ class NotificationProcessRecoveryTest {
     private fun capture(name: String, sentinel: String? = null) = captureNativeScreen(
         File(context.cacheDir, "notification-process-evidence/$name"), sentinel)
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
 }

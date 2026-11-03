@@ -1194,11 +1194,11 @@ class UsernamePreviewTest {
     }
 
     private fun waitForText(text: String) {
-        ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+        ui.waitUntil(20_000) { (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()) }
     }
 
     private fun waitForEnabled(text: String) {
-        ui.waitUntil(20_000) { ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        ui.waitUntil(20_000) { (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty()) }
     }
 
     private fun capture(name: String, expectedText: String? = null) =

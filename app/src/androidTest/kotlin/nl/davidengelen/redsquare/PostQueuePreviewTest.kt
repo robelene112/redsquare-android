@@ -115,8 +115,8 @@ class PostQueuePreviewTest {
                     org.junit.Assert.assertEquals(address, post.author)
                     assertTrue(official.transactions.isEmpty())
                     try {
-                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNodeWithText("Refresh").performClick()
+                        ui.waitUntil(10_000) { ui.refreshableContentReady() }
+                        ui.refreshVisibleView()
                         ui.waitUntil(20_000) {
                             try {
                                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(body))

@@ -38,7 +38,7 @@ class ImageViewerViewportTest {
                         device.setOrientationLeft()
                         ui.waitUntil(15_000) {
                             context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE &&
-                                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed()
+                                ui.refreshableContentReady()
                         }
                         File(folder, "$label-landscape-configuration.json").writeText(JsonObject().apply {
                             addProperty("orientation", context.resources.configuration.orientation)
@@ -63,7 +63,7 @@ class ImageViewerViewportTest {
 
     private fun exercise(folder: File, label: String) {
         val attachment = hasContentDescription("Image 1 of 2") and hasClickAction()
-        ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+        ui.waitUntil(15_000) { ui.refreshableContentReady() }
         ui.onNode(hasScrollToIndexAction()).performScrollToNode(attachment)
         ui.onNode(attachment).performClick()
         ui.waitUntil(10_000) { ui.onNode(hasText("Close image") and hasClickAction()).isDisplayed() }

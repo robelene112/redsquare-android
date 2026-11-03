@@ -133,7 +133,7 @@ class QuotePreviewTest {
                     quotePhase("return to feed: start")
                     ui.onNodeWithText("Back").performClick()
                     quotePhase("return to feed: done")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { ui.refreshableContentReady() }
                     quotePhase("scroll commentary: start")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
                     quotePhase("scroll commentary: done")

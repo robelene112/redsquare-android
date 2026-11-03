@@ -870,13 +870,13 @@ class PersonalControlsPreviewTest {
 
     private fun waitFor(text: String) {
         ui.waitUntil(15_000) {
-            ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
         }
     }
 
     private fun waitForEnabled(text: String) {
         ui.waitUntil(15_000) {
-            ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
         }
     }
 

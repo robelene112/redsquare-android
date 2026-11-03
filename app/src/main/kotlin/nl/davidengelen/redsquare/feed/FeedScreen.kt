@@ -25,6 +25,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import nl.davidengelen.redsquare.ui.refreshAction
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -479,14 +480,15 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             if (feedNotice == null && !failed && posts.isEmpty() && !loading && wallet != null)
                 Text(stringResource(R.string.feed_empty))
             // Keep a restored list position until the asynchronous cache read has finished.
+            val refreshContent: () -> Unit = {
+                if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
+            }
             if (cacheReady && personal?.ready == true) PullToRefreshBox(
                 isRefreshing = pullRefreshing,
-                onRefresh = {
-                    if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
-                },
+                onRefresh = refreshContent,
                 modifier = Modifier.weight(1f).fillMaxWidth()
             ) {
-                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").preserveReadingAnchor(position), state = position,
+                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").refreshAction(wallet != null && !loading, refreshContent).preserveReadingAnchor(position), state = position,
                     contentPadding = PaddingValues(bottom = 88.dp)) {
                     items(visiblePosts, key = { it.id }) { post ->
                         PostCard(post, backend, onIdentity = { openProfile(it) },

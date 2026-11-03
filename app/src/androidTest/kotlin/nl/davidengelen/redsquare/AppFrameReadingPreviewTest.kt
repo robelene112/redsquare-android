@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
@@ -33,9 +35,9 @@ class AppFrameReadingPreviewTest {
             activity.recreate()
             assertReadingPosition(before)
             capture("scrolled-feed-after-recreation.png")
-            ui.waitUntil(5_000) { ui.onNode(hasText("Refresh") and isEnabled() and hasClickAction()).isDisplayed() }
+            ui.waitUntil(5_000) { ui.refreshableContentReady() }
             peer.rejectNewConnections = true
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshKeepingReadingPosition()
             assertOutageDetails()
             assertReadingPosition(before)
             capture("scrolled-outage-before-recreation.png")
@@ -43,6 +45,23 @@ class AppFrameReadingPreviewTest {
             assertOutageDetails()
             assertReadingPosition(before)
             capture("scrolled-outage-after-recreation.png")
+            // A physical pull starts at the top after the user's deliberate scroll.
+            // The earlier anchor assertions remain unchanged for accessible retained-position refresh.
+            ui.onNodeWithTag("feed-post-list").performScrollToIndex(0)
+            ui.onNodeWithText("Reference post 20").assertIsDisplayed()
+            ui.waitUntil(5_000) { ui.refreshableContentReady() }
+            // Hold the real read so the manual indicator is observable. Automatic outage
+            // polling never activates the pull indicator, and cannot satisfy this assertion.
+            peer.rejectNewConnections = false
+            peer.withholdArchiveReply = true
+            val reads = peer.requests.get()
+            val spinner = SemanticsMatcher.expectValue(SemanticsProperties.ProgressBarRangeInfo, ProgressBarRangeInfo.Indeterminate)
+            ui.onAllNodes(spinner).assertCountEquals(0)
+            ui.pullToRefresh("feed-post-list")
+            ui.waitUntil(5_000) { ui.onNode(spinner).isDisplayed() }
+            ui.waitUntil(20_000) { peer.requests.get() > reads }
+            ui.onNodeWithText("Reference post 20").assertIsDisplayed()
+            capture("physical-pull-after-retained-reading.png")
         }
     }
 

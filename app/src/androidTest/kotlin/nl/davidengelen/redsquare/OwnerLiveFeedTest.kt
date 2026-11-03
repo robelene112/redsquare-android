@@ -66,7 +66,7 @@ class OwnerLiveFeedTest {
                 ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
                 ui.onAllNodes(visibleAuthor)[0].assertIsDisplayed()
                 ui.waitUntil(10_000) {
-                    ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                    ui.refreshableContentReady()
                 }
                 ui.onNodeWithText("Refresh").assertIsEnabled()
                 ui.waitForIdle()

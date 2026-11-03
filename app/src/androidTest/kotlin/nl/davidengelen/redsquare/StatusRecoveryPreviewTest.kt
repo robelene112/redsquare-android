@@ -26,9 +26,9 @@ class StatusRecoveryPreviewTest {
             ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
             val before = ui.onNodeWithText("Reference post 05").fetchSemanticsNode().boundsInRoot.top
             capture("reading-before-outage.png")
-            ui.waitUntil(5_000) { ui.onNode(hasText("Refresh") and isEnabled() and hasClickAction()).isDisplayed() }
+            ui.waitUntil(5_000) { ui.refreshableContentReady() }
             peer.rejectNewConnections = true
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshKeepingReadingPosition()
             ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() }
             ui.onNodeWithText("Details").assertHasClickAction().performClick()
             ui.onNodeWithText("Posts could not be refreshed. Try again.").assertIsDisplayed()
@@ -51,9 +51,9 @@ class StatusRecoveryPreviewTest {
         withAppFrameFixture("details-recovery", "status-recovery-evidence", configurePeer = { peer = it }) {
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
-            ui.waitUntil(5_000) { ui.onNode(hasText("Refresh") and isEnabled() and hasClickAction()).isDisplayed() }
+            ui.waitUntil(5_000) { ui.refreshableContentReady() }
             peer.rejectNewConnections = true
-            ui.onNodeWithText("Refresh").performClick()
+            ui.refreshKeepingReadingPosition()
             ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() }
             ui.onNodeWithContentDescription("Details: Node unavailable").performClick()
             peer.rejectNewConnections = false

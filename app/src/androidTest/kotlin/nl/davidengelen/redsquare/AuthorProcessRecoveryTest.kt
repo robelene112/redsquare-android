@@ -33,11 +33,11 @@ class AuthorProcessRecoveryTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
-        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
 
     private fun enabled(text: String) = ui.waitUntil(20_000) {
-        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
     }
 
     @Test fun terminateAfterAnUncertainAuthorChange() {

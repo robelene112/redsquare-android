@@ -23,7 +23,7 @@ class ImageViewerPreviewTest {
         withAppFrameFixture("viewer-keyboard", "image-viewer-evidence", "[${fixture.getAsJsonObject("ordinary")}]") { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
-            ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             val attachment = hasContentDescription("Image 1 of 2") and hasClickAction()
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(attachment)
             check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))

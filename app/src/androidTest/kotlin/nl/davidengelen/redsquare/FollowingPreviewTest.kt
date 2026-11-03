@@ -72,7 +72,7 @@ class FollowingPreviewTest {
                         waitFor("Unfollow")
                         ui.onNodeWithText("Back").performClick()
                         waitFor("Refresh")
-                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(10_000) { ui.refreshableContentReady() }
                         owner.assertHealthy()
                         official.assertHealthy()
                         officialServer.close()
@@ -292,7 +292,7 @@ class FollowingPreviewTest {
                 ui.onNodeWithText("Follow").performClick()
                 waitFor("Unfollow")
                 ui.onNodeWithText("Back").performClick()
-                ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(10_000) { ui.refreshableContentReady() }
             }
             // Public filesystem fixture: a legitimate full cache, all newer and unfollowed.
             val cache = com.google.gson.JsonArray().apply {
@@ -503,13 +503,13 @@ class FollowingPreviewTest {
     private fun waitFor(text: String) {
         progress("Waiting for public fixture text: $text")
         if (text in setOf("Native Red Square reference post", "Profile newer post 20")) {
-            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(20_000) { ui.refreshableContentReady() }
             progress("Scrolling to public fixture post: $text")
             ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
         }
         progress("Checking public fixture text: $text")
         ui.waitUntil(15_000) {
-            ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
         }
     }
 }

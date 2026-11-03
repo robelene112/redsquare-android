@@ -88,8 +88,8 @@ class PostQueueProcessRecoveryTest {
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(expected.get("owner").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Refresh").performClick()
+                    ui.waitUntil(10_000) { ui.refreshableContentReady() }
+                    ui.refreshVisibleView()
                     ui.waitUntil(20_000) {
                         try {
                             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(body))

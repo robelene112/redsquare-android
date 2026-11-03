@@ -30,7 +30,7 @@ class NavigationPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(activity, folder, "navigation", widthDp = widthDp) { label, _ ->
-                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 assertTargets(folder, label)
                 ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label.png"))
@@ -50,7 +50,7 @@ class NavigationPreviewTest {
                 ui.onNode(hasText("Following") and hasClickAction()).performClick()
                 ui.onNode(hasText("Following") and isSelected()).assertIsDisplayed()
                 ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 captureNativeScreen(File(folder, "$label-following.png"))
                 activity.recreate()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Following") and isSelected()).isDisplayed() }

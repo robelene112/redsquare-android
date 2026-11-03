@@ -67,7 +67,7 @@ class AppearancePreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                     withFailureCapture({ capture("appearance-first-failure.png") }) {
                         ui.waitUntil(20_000) {
-                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                            ui.refreshableContentReady()
                         }
                         val walletStore = AndroidWalletStore(context)
                         val originalWallet = walletStore.loadExisting().exportJson() // Device-only comparison, never captured.

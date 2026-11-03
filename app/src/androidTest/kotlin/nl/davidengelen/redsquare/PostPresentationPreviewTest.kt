@@ -52,13 +52,13 @@ class PostPresentationPreviewTest {
             assertPostPresentation("feed")
             ui.onNodeWithText("Native Red Square reference post").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() &&
-                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                ui.refreshableContentReady() }
             assertPostPresentation("thread")
             ui.onNodeWithText("Back").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
             ui.onNodeWithContentDescription("View profile for Anon-jesTu2").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
-                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                ui.refreshableContentReady() }
             ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
             assertPostPresentation("profile")
             ui.onNode(hasText("Home") and hasClickAction()).performClick()
@@ -121,13 +121,13 @@ class PostPresentationPreviewTest {
             assertOwnPostActions(author, "feed")
             ui.onNodeWithText("Own post action preview").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() &&
-                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                ui.refreshableContentReady() }
             assertOwnPostActions(author, "thread")
             ui.onNodeWithText("Back").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
             ui.onNodeWithContentDescription("View profile for $author").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
-                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+                ui.refreshableContentReady() }
             ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
             assertOwnPostActions(author, "profile")
             ui.onNode(hasText("Home") and hasClickAction()).performClick()
