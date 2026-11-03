@@ -15,11 +15,11 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
-/** A genuine unavailable local action, observed through native status and retry controls. */
+/** Repost retains unavailable status/retry; immediate repeat Likes deliberately have neither. */
 class PostStatusViewportTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun unavailableLikeDetailsAndRetryRemainReachableAcrossTextSizesAndThemes() {
+    @Test fun unavailableRepostDetailsAndRetryRemainReachableAcrossTextSizesAndThemes() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -29,7 +29,7 @@ class PostStatusViewportTest {
         val name = "Anon-${author.publicKey.take(6)}"
         val wallet = AndroidWalletStore(context).loadOrCreate()
         val blocked = File(context.noBackupFilesDir,
-            "social.owner.${wallet.publicKey}.${row.get("sig").asString}.like.v1")
+            "social.owner.${wallet.publicKey}.${row.get("sig").asString}.repost.v1")
         check(!blocked.exists())
         var created = false
         var primary: Throwable? = null
@@ -43,7 +43,7 @@ class PostStatusViewportTest {
                 created = true
                 File(blocked, "retain-public-save-fault").writeText("public test fault")
                 ui.withPostViewports(activity, folder, "status") { label, _ ->
-                    val details = hasContentDescription("Details: Like unavailable") and hasClickAction()
+                    val details = hasContentDescription("Details: Repost unavailable") and hasClickAction()
                     val retry = hasText("Retry") and hasClickAction()
                     ui.waitUntil(15_000) { ui.onAllNodes(details).fetchSemanticsNodes().size == 1 }
                     ui.onNode(hasScrollAction()).performScrollToNode(retry)
@@ -67,14 +67,17 @@ class PostStatusViewportTest {
                         node.actionList.any { it.id == AccessibilityNodeInfo.ACTION_CLICK &&
                             it.label?.toString() == "Open thread by $name" }
                     })
-                    val statusRegions = native.filter { it.text?.contains("Like unavailable") == true }
+                    val statusRegions = native.filter { it.text?.contains("Repost unavailable") == true }
                     assertEquals("One concise live status must remain separate from the clickable post", 1, statusRegions.size)
                     val statusRegion = statusRegions.single()
-                    assertEquals("Only the concise summary belongs in the native live announcement", "Like unavailable",
+                    assertEquals("Only the concise summary belongs in the native live announcement", "Repost unavailable",
                         statusRegion.text?.toString())
                     assertFalse("The post action must not become a native live announcement", statusRegion.isClickable)
-                    ui.onNodeWithContentDescription("Like post by $name").assertIsNotEnabled()
-                    ui.onNodeWithText("Like unavailable", useUnmergedTree = true).assertIsDisplayed()
+                    ui.onNodeWithContentDescription("Repost post by $name").assertIsNotEnabled()
+                    ui.onNodeWithContentDescription("Like post by $name").assertIsEnabled()
+                    ui.onNodeWithText("Like unavailable").assertDoesNotExist()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
+                    ui.onNodeWithText("Repost unavailable", useUnmergedTree = true).assertIsDisplayed()
                     val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
                     val composer = ui.onNode(hasText("New post") and hasClickAction())
                         .fetchSemanticsNode().touchBoundsInRoot
@@ -96,7 +99,7 @@ class PostStatusViewportTest {
                     }.toString())
                     captureNativeScreen(File(folder, "$label-unavailable.png"))
                     ui.onNode(details).performClick()
-                    ui.onNode(hasText("Like post by $name") and hasAnyAncestor(isDialog()))
+                    ui.onNode(hasText("Repost post by $name") and hasAnyAncestor(isDialog()))
                         .performScrollTo().assertIsDisplayed()
                     ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.")
                         .performScrollTo().assertIsDisplayed()
@@ -105,7 +108,10 @@ class PostStatusViewportTest {
                     ui.onNode(retry).assertIsEnabled().performClick()
                     ui.waitUntil(15_000) { ui.onNode(details).isDisplayed() &&
                         ui.onAllNodes(retry and isEnabled()).fetchSemanticsNodes().size == 1 }
-                    ui.onNodeWithContentDescription("Like post by $name").assertIsNotEnabled()
+                    ui.onNodeWithContentDescription("Repost post by $name").assertIsNotEnabled()
+                    ui.onNodeWithContentDescription("Like post by $name").assertIsEnabled()
+                    ui.onNodeWithText("Like unavailable").assertDoesNotExist()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
                     captureNativeScreen(File(folder, "$label-retry-unavailable.png"))
                 }
             }
