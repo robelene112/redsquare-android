@@ -150,11 +150,17 @@ details. The completion-status section below identifies actual remaining work.
   alongside the owner's Pixel 7 running Android 17 during the initial milestone.
 - Support light and dark themes, following Android's system setting by default.
   Users can override the theme inside the app.
-- Design the app to add further Saito modules, such as Saito Stack, without
-  rebuilding shared wallet identity and backend connectivity. Red Square and
-  Chat should have distinct feature boundaries. Stack is a future extension
-  example; implementing it in the first release has not been requested. See
-  [the extensibility decision](adr/0001-shared-saito-foundation.md).
+- On 2026-11-03 the owner added Saito Stack to the first release. Red Square
+  remains the home module, including Chat; a shared Apps launcher and account
+  menu lead to native modules with their own bottom navigation. Wallet identity
+  and general settings remain shared. Modules preserve position and unfinished
+  work when switching. Other Saito modules can be added through the same shell.
+- The owner requested the complete native UI shell first, with sample data and
+  live VPS-controlled design, before functional Stack integration. Stack scope
+  includes reading/following, writing/drafts, visual plus editable Markdown,
+  public/restricted/subscriber access and publication review with optional
+  Red Square sharing. See [prototype #85](../prototype/native-shell/README.md)
+  and [the shared foundation decision](adr/0001-shared-saito-foundation.md).
 - iOS is deferred. A later iOS app would be a separate Swift implementation.
 - User wallet creation, import and export are in scope. Wallet identity and
   local data must survive ordinary in-place app updates.
