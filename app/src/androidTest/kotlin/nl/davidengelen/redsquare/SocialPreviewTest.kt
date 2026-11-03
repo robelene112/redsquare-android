@@ -76,6 +76,7 @@ class SocialPreviewTest {
                     try {
                         ui.onNode(likePostAction()).performTouchInput { click() }
                         ui.mainClock.advanceTimeBy(72)
+                        ui.onNodeWithText("5 likes").assertIsDisplayed()
                         captureNativeScreen(java.io.File(context.cacheDir,
                             "social-evidence/like-feedback-during-tap.png"))
                     } finally { ui.mainClock.autoAdvance = true }

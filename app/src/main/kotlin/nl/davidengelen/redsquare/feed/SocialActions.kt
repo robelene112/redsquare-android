@@ -1,13 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -78,13 +71,20 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val status = state?.actions?.get(PostActionKey(post.id, kind))
     val feedback = status?.tapFeedback ?: 0L
     val heartScale = remember(post.id, kind) { Animatable(1f) }
+    val countScale = remember(post.id, kind) { Animatable(1f) }
     var heartFilled by remember(post.id, kind) { mutableStateOf(false) }
     LaunchedEffect(feedback) {
         if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
             heartFilled = true
-            heartScale.animateTo(1.38f, animationSpec = spring(dampingRatio = 0.42f, stiffness = 700f))
+            heartScale.animateTo(1.52f, animationSpec = spring(dampingRatio = 0.42f, stiffness = 700f))
             heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.58f, stiffness = 430f))
             heartFilled = false
+        }
+    }
+    LaunchedEffect(feedback) {
+        if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
+            countScale.animateTo(1.16f, animationSpec = tween(100))
+            countScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.62f, stiffness = 520f))
         }
     }
     val observed = state?.observedPosts?.get(post.id) ?: post
@@ -112,7 +112,8 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
         if (retrying) stringResource(R.string.post_retry_action, description) else description,
         countLabel, enabled, available = !like && status?.available == true,
         stateHint = if (like) null else status?.let { if (it.available) label else null },
-        iconScale = heartScale.value, feedbackActive = like && heartFilled, suppressRipple = like) {
+        iconScale = heartScale.value, countScale = countScale.value,
+        feedbackActive = like && heartFilled, suppressRipple = like) {
         state?.send(post, kind, publishing::beforePublishing)
     }
 }
@@ -147,10 +148,10 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 
 /** The count shares its action's visual target and accessibility state. Missing counts stay absent. */
 @Composable
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
     enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
-    feedbackActive: Boolean = false, suppressRipple: Boolean = false,
+    countScale: Float = 1f, feedbackActive: Boolean = false, suppressRipple: Boolean = false,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
     val countHeight = with(LocalDensity.current) { countStyle.lineHeight.toDp() }
@@ -170,15 +171,8 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
                     if (label.isNotEmpty()) Text(label, style = MaterialTheme.typography.labelMedium)
                 }
                 Box(Modifier.heightIn(min = countHeight)) {
-                    if (count != null) AnimatedContent(targetState = count,
-                        transitionSpec = {
-                            (slideInVertically(animationSpec = tween(AppSpacing.transitionMillis)) { it / 2 } +
-                                fadeIn(animationSpec = tween(AppSpacing.transitionMillis))) togetherWith
-                                (slideOutVertically(animationSpec = tween(AppSpacing.transitionMillis)) { -it / 2 } +
-                                    fadeOut(animationSpec = tween(AppSpacing.transitionMillis)))
-                        }, label = "socialCount") { animatedCount ->
-                        Text(animatedCount, style = countStyle)
-                    }
+                    if (count != null) Text(count, style = countStyle,
+                        modifier = Modifier.graphicsLayer { scaleX = countScale; scaleY = countScale })
                 }
             }
         }
