@@ -42,24 +42,6 @@ internal enum class PrimaryDestination(val label: Int, val caption: Int, val ico
     PROFILE(R.string.profile_own, R.string.navigation_profile, R.drawable.ic_profile)
 }
 
-@Composable
-internal fun AppHeader(node: String?, home: Boolean, walletEnabled: Boolean, settingsEnabled: Boolean,
-    onWallet: () -> Unit, onSettings: () -> Unit) {
-    Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
-        Row(Modifier.fillMaxWidth().heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(18.dp).background(MaterialTheme.colorScheme.primary, RoundedCornerShape(4.dp)))
-            Text(stringResource(R.string.app_name), Modifier.weight(1f).padding(start = AppSpacing.small),
-                style = if (home) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleSmall,
-                maxLines = 2)
-            FrameIconButton(R.drawable.ic_wallet, stringResource(R.string.wallet), walletEnabled, onWallet)
-            FrameIconButton(R.drawable.ic_settings, stringResource(R.string.settings), settingsEnabled, onSettings)
-        }
-        if (node != null) Text(stringResource(R.string.selected_server, node),
-            Modifier.padding(bottom = AppSpacing.small), style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant)
-    }
-}
-
 /** The icon carries one text label at its button seam; its painted path is decorative. */
 @Composable
 internal fun FrameIconButton(icon: Int, label: String, enabled: Boolean = true, onClick: () -> Unit) {

@@ -20,7 +20,7 @@ class ModuleShellPreviewTest {
             androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
             ui.onNodeWithContentDescription("Account").assertIsDisplayed().performClick()
             ui.onNode(hasText("Wallet") and hasClickAction()).assertIsDisplayed().performClick()
-            ui.onNodeWithText("Export wallet").assertIsDisplayed()
+            ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Done").performClick()
             ui.onNodeWithContentDescription("Account").performClick()
             ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()

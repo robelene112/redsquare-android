@@ -322,7 +322,7 @@ class MainActivity : ComponentActivity() {
                 val keyboardVisible = WindowInsets.isImeVisible
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
-                        if (!keyboardVisible) AppHeader(backend?.domain, homeVisible && !usernameOpen,
+                        if (!keyboardVisible) AppHeader(backend?.domain, address,
                             walletEnabled = !postNavigation.transitioning,
                             settingsEnabled = backendReady && !savingBackend && !postNavigation.transitioning,
                             onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
