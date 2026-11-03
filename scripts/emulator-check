@@ -455,6 +455,14 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
         exit 0
     fi
 fi
+if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
+    verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
+    printf '%s\n' 'Shared module shell only; full application acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "$full_chat" == true ]]; then
+    verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
+fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
     if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
         verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence
