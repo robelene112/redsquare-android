@@ -100,7 +100,7 @@ class ProfileHierarchyPreviewTest {
                 ui.onNodeWithText("Cancel").performClick()
                 waitFor("Mute account")
                 ui.onNodeWithText("Block account").assertIsDisplayed()
-                ui.onNodeWithText("Report user to publisher").assertIsDisplayed()
+                ui.onNodeWithText("Report user to publisher").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed() }
                 ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).performClick()
