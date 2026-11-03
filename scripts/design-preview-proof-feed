@@ -6,7 +6,7 @@ p=argparse.ArgumentParser();p.add_argument('--seconds',type=int,default=1200);a=
 root=Path(__file__).resolve().parent.parent
 base=json.loads((root/'prototype/native-shell/design.json').read_text())
 destination=Path('/home/david/projects/docker/website/html/redsquare/design/proof')
-destination.mkdir(parents=True,exist_ok=True)
+destination.mkdir(parents=True,exist_ok=True);destination.chmod(0o755)
 start=time.monotonic();n=0
 while time.monotonic()-start<a.seconds:
     data=json.loads(json.dumps(base));data['revision']=f'public-probe-{n}';data['modules']['redsquare']['title']=f'Red Square Public {n}';data['tokens']['radius']=16+n%3

@@ -32,6 +32,17 @@ def wait(text,desc=False,timeout=25,contains=False):
     raise AssertionError('Native control not found: '+text)
 def tap(text,desc=False):
     node=wait(text,desc);bounds=list(map(int,re.findall(r'\d+',node.get('bounds'))));adb('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+def scroll_tap(text):
+    size=list(map(int,re.findall(r'\d+',adb('shell','wm','size').splitlines()[-1])))
+    width,height=size[-2:]
+    for attempt in range(12):
+        for node in tree().iter('node'):
+            if node.get('text')==text:
+                bounds=list(map(int,re.findall(r'\d+',node.get('bounds'))))
+                if bounds[3]>bounds[1] and bounds[1]>80 and bounds[3]<height-40:
+                    adb('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2));return
+        adb('shell','input','swipe',str(int(width*.90)),str(int(height*.77)),str(int(width*.90)),str(int(height*.30)),'350')
+    raise AssertionError('Scrollable native control not found: '+text)
 def capture(name):
     (out/(name+'.xml')).write_text(ET.tostring(tree(),encoding='unicode'))
     with (out/(name+'.png')).open('wb') as f:subprocess.run(['adb','exec-out','screencap','-p'],stdout=f,check=True)
@@ -62,6 +73,18 @@ try:
     tap('Apps',True);tap('Red Square Live 2');wait('Red Square Live 2')
     tap('Apps',True);tap('Stack');wait('retained-draft-proof',contains=True);capture('editor-retained-after-module-switch')
     tap('Review');wait('Review & publish');capture('publish-review')
+    scroll_tap('Share to Red Square');scroll_tap('Publish preview');wait('Your story has a home.')
+    tap('Apps',True);tap('Red Square Live 2');wait('A new story, shared on Stack.');capture('optional-article-post-created')
+    start('compose');wait('New post')
+    edit=next(x for x in tree().iter('node') if x.get('class')=='android.widget.EditText')
+    bounds=list(map(int,re.findall(r'\d+',edit.get('bounds'))))
+    adb('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+    adb('shell','input','text','compose-draft-proof');adb('shell','input','keyevent','4')
+    tap('Apps',True);tap('Stack');wait('Discover');tap('Apps',True);tap('Red Square Live 2')
+    wait('compose-draft-proof',contains=True);capture('redsquare-composer-retained')
+    start('locked-article');wait('Article');scroll_tap('View access options');wait('Article access')
+    scroll_tap('Review access');wait('Review access');scroll_tap('Confirm preview access')
+    wait('Article');scroll_tap('Access active');capture('requested-article-unlocked')
     # Returning to the original sample config is another live update, not a reinstall.
     (served/'design.json').write_text(json.dumps(original))
     routes=['thread','activity','conversation','profile','wallet','receive','settings','node-settings','article','locked-article','access-review','editor','publish-review','subscriptions','design-settings']

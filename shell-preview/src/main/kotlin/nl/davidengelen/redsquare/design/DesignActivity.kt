@@ -9,6 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,20 +22,34 @@ import okhttp3.Request
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
+class DesignSessionModel : ViewModel() {
+    var document by mutableStateOf<Design?>(null)
+    var status by mutableStateOf("Connecting")
+    var appearance by mutableStateOf("system")
+    val session = ShellSession()
+}
+
 /** Isolated design package: no wallet, push transport or Saito networking is initialised. */
 class DesignActivity : ComponentActivity() {
     private val endpoint = "https://davidengelen.nl/redsquare/design/design.json"
     private val client = OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).callTimeout(8, TimeUnit.SECONDS).build()
-    private var document by mutableStateOf<Design?>(null)
-    private var status by mutableStateOf("Connecting")
-    private var appearance by mutableStateOf("system")
+    private val model by lazy { ViewModelProvider(this).get(DesignSessionModel::class.java) }
+    private var document: Design?
+        get() = model.document
+        set(value) { model.document = value }
+    private var status: String
+        get() = model.status
+        set(value) { model.status = value }
+    private var appearance: String
+        get() = model.appearance
+        set(value) { model.appearance = value }
     private var refresh by mutableIntStateOf(0)
-    private val session = ShellSession()
+    private val session get() = model.session
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        document = Design(JSONObject(assets.open("design.json").bufferedReader().use { it.readText() }))
-        if (BuildConfig.DEBUG) {
+        if (document == null) document = Design(JSONObject(assets.open("design.json").bufferedReader().use { it.readText() }))
+        if (BuildConfig.DEBUG && savedInstanceState == null) {
             intent.getStringExtra("appearance")?.takeIf { it in listOf("system", "dark", "light") }?.let { appearance = it }
             intent.getStringExtra("route")?.takeIf { document!!.screens.has(it) }?.let {
                 session.route = it

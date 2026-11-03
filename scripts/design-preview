@@ -18,20 +18,31 @@ def read_design():
             if block['type']=='field': assert 1<=int(block.get('lines',1))<=12, (route,'field lines must be 1..12')
             ids.append(block['id'])
         assert len(ids)==len(set(ids)), ('duplicate block IDs',route)
+    def validate_actions(node):
+        if isinstance(node,dict):
+            if 'action' in node:
+                action=node['action']
+                assert action in data['screens'] or action in {'back','refresh'} or action.startswith(('sheet:','dialog:','notice:','module:','like:','follow:','confirm:','copy:')), ('unknown action',action)
+            for item in node.values():validate_actions(item)
+        elif isinstance(node,list):
+            for item in node:validate_actions(item)
+    validate_actions(data)
     return data
 def atomic(path,data):
     path.parent.mkdir(parents=True,exist_ok=True)
     tmp=path.with_name('.'+path.name+'.new')
     tmp.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n'); tmp.chmod(0o644); tmp.replace(path)
 def publish_design():
+    DEST.mkdir(parents=True,exist_ok=True); DEST.chmod(0o755)
     data=read_design()
     canonical=json.dumps(data,sort_keys=True).encode()
     data['revision']='design-'+hashlib.sha256(canonical).hexdigest()[:12]
     data['publishedAtMs']=round(time.time()*1000)
     for source in (ROOT/'prototype/native-shell/assets').glob('*.jpg'):
         target=DEST/'assets'/source.name
+        target.parent.mkdir(parents=True,exist_ok=True);target.parent.chmod(0o755)
         if not target.exists() or target.read_bytes()!=source.read_bytes():
-            target.parent.mkdir(parents=True,exist_ok=True);tmp=target.with_suffix('.new');shutil.copyfile(source,tmp);tmp.chmod(0o644);tmp.replace(target)
+            target.parent.mkdir(parents=True,exist_ok=True);target.parent.chmod(0o755);tmp=target.with_suffix('.new');shutil.copyfile(source,tmp);tmp.chmod(0o644);tmp.replace(target)
     atomic(DEST/'design.json',data)
     print('Live design:',data['revision'],'https://davidengelen.nl/redsquare/design/design.json')
     return data
@@ -76,10 +87,10 @@ elif args.action=='publish':
     package=subprocess.check_output(command+['/opt/android-sdk/build-tools/35.0.0/aapt','dump','badging','/artifacts/redsquare-design.apk'],text=True)
     assert f"name='{PACKAGE}'" in package and f"versionCode='{meta['versionCode']}'" in package
     assert meta['certificateSha256'] in signature
-    DEST.mkdir(exist_ok=True)
+    DEST.mkdir(exist_ok=True);DEST.chmod(0o755)
     with (DEST/'.publish.lock').open('w') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
-        release=DEST/'releases'/str(meta['versionCode']);release.mkdir(parents=True,exist_ok=False)
+        release=DEST/'releases'/str(meta['versionCode']);release.mkdir(parents=True,exist_ok=False);release.parent.chmod(0o755);release.chmod(0o755)
         shutil.copyfile(apk,release/apk.name);(release/apk.name).chmod(0o644)
         meta['apkUrl']=f"https://davidengelen.nl/redsquare/design/releases/{meta['versionCode']}/{apk.name}"
         atomic(release/'manifest.json',meta);atomic(DEST/'latest.json',meta)
