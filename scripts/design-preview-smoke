@@ -141,8 +141,12 @@ try:
     adb('shell','settings','put','system','font_scale','1.5')
     start('home');wait('Apps',True);capture('home-large-text')
     adb('shell','settings','put','system','font_scale','1.0')
-    adb('shell','wm','size','1080x2400');adb('shell','wm','density','420')
+    # Match Pixel 7's logical viewport (1080x2400 at 420dpi), not physical pixels.
+    # API29 caps size overrides to twice its tiny emulator panel dimensions.
+    adb('shell','wm','size','411x914');adb('shell','wm','density','160')
     start('home');wait('Red Square');capture('home-pixel7-viewport')
+    bounds=next(ET.parse(out/'home-pixel7-viewport.xml').iter('node')).get('bounds')
+    assert bounds=='[0,0][411,914]', 'Pixel 7 logical viewport was not applied: '+str(bounds)
     start('stack');wait('Discover');capture('stack-pixel7-viewport')
     (out/'live-update-timing.json').write_text(json.dumps(timing,indent=2)+'\n')
     (out/'logcat.txt').write_text(adb('logcat','-d','-s','ShellPreview:I','AndroidRuntime:E','*:S'))
