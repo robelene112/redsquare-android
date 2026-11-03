@@ -1,5 +1,24 @@
 # Implementation handoff
 
+## Issue85: native Red Square + Stack design preview
+
+The owner requested the complete clickable UI shell before functional Stack
+integration. The separate **Red Square Design**, `design.1`, is published at
+https://davidengelen.nl/redsquare/design/ on prototype branch
+`prototype/native-shell-live-design`. Ordinary beta83 remains the functional app.
+
+The shell includes 60 sample routes, shared Apps/account navigation, per-module
+bottom tabs, retained session drafts, native article cards/readers and visual
+plus Markdown editing. Presentation and supported screen composition are data
+from David's VPS. New native capabilities require another APK.
+
+Use `prototype/native-shell/README.md` for editing/publishing the live design.
+The signed APK is built from `a679952be`; subsequent commits change only the
+emulator observer and delivery documentation. Final verification is recorded
+in `docs/evidence/ticket85/README.md`. The owner's visual sign-off remains open
+under55. Actual Stack networking, payments and publishing remain subsequent
+functional integration work; preview actions use local examples.
+
 ## Issue71 Like animation follow-up delivered as beta83
 
 Issue71's owner-requested Like animation follow-up is implemented, reviewed,

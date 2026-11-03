@@ -107,3 +107,12 @@ old HTTP response request and the first new response completion. Android
 ADB interval, avoiding a wall-clock assumption. The result is a conservative
 publication-to-frame range in `public-vps-timing.json`. The normal design feed
 is never changed by this probe. Stop its bounded producer after verification.
+
+## Delivered preview
+
+Signed `design.1` is available from the install page. Both Android10 and17 pass
+the complete isolated native walkthrough. Public HTTPS design updates were
+observed with conservative upper bounds below3.4seconds across six samples.
+See [delivery evidence](../../docs/evidence/ticket85/README.md) for native
+screenshots, raw timing intervals, APK identity and exact verification limits.
+The owner can now review the design before functional Stack integration.
