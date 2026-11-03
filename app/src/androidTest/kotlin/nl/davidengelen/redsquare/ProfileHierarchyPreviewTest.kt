@@ -79,9 +79,9 @@ class ProfileHierarchyPreviewTest {
                 } }) }
                 ui.onNodeWithText("Done").performClick()
                 ui.onNode(hasText("Profile actions") and hasClickAction()).performClick()
-                waitFor("Identity")
-                waitFor("Connection")
-                waitFor("Privacy and safety")
+                ui.onNodeWithText("Identity").performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText("Connection").performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText("Privacy and safety").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("View this account's public name and key.").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Not following").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Posts from accounts you follow appear in the Following feed.")
