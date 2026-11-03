@@ -72,7 +72,13 @@ class SocialPreviewTest {
                     "social-evidence/like-first-failure.png")) }) {
                     waitFor("Native Red Square reference post")
                     waitFor("4 likes")
-                    ui.clickVisiblePostContent("Like")
+                    ui.mainClock.autoAdvance = false
+                    try {
+                        ui.onNode(likePostAction()).performTouchInput { click() }
+                        ui.mainClock.advanceTimeBy(72)
+                        captureNativeScreen(java.io.File(context.cacheDir,
+                            "social-evidence/like-feedback-during-tap.png"))
+                    } finally { ui.mainClock.autoAdvance = true }
                     ui.clickVisiblePostContent("Like")
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(20_000) { peer.transactions.size == 3 }
