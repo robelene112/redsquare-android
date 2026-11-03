@@ -1,5 +1,18 @@
 # Implementation handoff
 
+## Issue71 Like animation follow-up delivered as beta83
+
+Issue71's owner-requested Like animation follow-up is implemented, reviewed,
+verified and closed. The oversized press ripple is gone, the heart has a clear
+interruptible pulse, and the count changes immediately as one readable value.
+Android29 and Android37 social suites pass. The signed beta83 is available as
+an in-place update at https://davidengelen.nl/redsquare/. Its source commit,
+APK hash, test runs and screenshot evidence are recorded in
+`docs/evidence/ticket71/README.md`.
+
+Parent issue55 remains open for the owner's app-wide beta acceptance. This
+Like follow-up does not claim a public-node receipt or physical Pixel7 review.
+
 ## Issue75 delivered as beta80
 
 Issue75, the Profile actions hierarchy, is implemented, reviewed, and closed.
