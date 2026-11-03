@@ -96,7 +96,7 @@ class SocialPreviewTest {
                     assertEquals("Each exact Like receipt is checked in the background", 3, likeArchiveReads.get())
                     peer.assertHealthy()
                     captureNativeScreen(java.io.File(context.cacheDir,
-                        "social-evidence/repeated-like-without-confirmation.png"), "Like")
+                        "social-evidence/repeated-like-without-confirmation.png"))
                 }
             }
         }
