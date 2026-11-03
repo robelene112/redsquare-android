@@ -57,8 +57,10 @@ class ControlledLikeArchiveContractTest {
         invalid.forEach { criteria ->
             val called = java.util.concurrent.atomic.AtomicBoolean(false)
             val peer = ControlledFeedPeer("[]", archiveResponse = { called.set(true); "[]" })
-            assertThrows(AssertionError::class.java) {
-                withSocket(peer) { request -> request(criteria) }
+            withSocket(peer) { request ->
+                val failure = assertThrows(AssertionError::class.java) { request(criteria) }
+                assertEquals("Controlled peer rejected the request", failure.message)
+                assertTrue("Expected query validation rejection", failure.cause is IllegalArgumentException)
             }
             assertFalse("Invalid query reached callback", called.get())
         }
@@ -87,7 +89,13 @@ class ControlledLikeArchiveContractTest {
                 }
             })
             try {
+                val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
                 assertTrue("Authenticated socket was not ready", ready.await(5, TimeUnit.SECONDS))
+                while (wallet.publicKey !in peer.clientKeys && System.nanoTime() < deadline) {
+                    peer.assertHealthy()
+                    Thread.sleep(10)
+                }
+                assertTrue("Peer did not authenticate the client", wallet.publicKey in peer.clientKeys)
                 var index = 0
                 block { criteria ->
                     val message = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
