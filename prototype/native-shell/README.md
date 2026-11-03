@@ -41,7 +41,9 @@ resumes checking. The bundled design also makes first launch usable offline.
 
 Without rebuilding, change:
 
-- Colours, text scale, reader type size, margins, spacing and corner radius.
+- Colours, per-role typography size/line-height/weight under `tokens.type`, global
+  text scale, reader type size, header height, margins, spacing and card/control
+  corner radii.
 - Copy, sample content, article images and account identity/menu content.
 - Modules, tabs, routes, and ordering/composition of supported native blocks.
 - Buttons, internal destinations, form fields, choices, toggles, and conditional

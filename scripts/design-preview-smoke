@@ -5,7 +5,7 @@ from pathlib import Path
 parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,required=True);args=parser.parse_args()
 root=Path(__file__).resolve().parent.parent;out=args.evidence.resolve();out.mkdir(parents=True,exist_ok=True)
 package='nl.davidengelen.redsquare.design.dev';component=package+'/nl.davidengelen.redsquare.design.DesignActivity'
-def adb(*words):return subprocess.check_output(['adb',*words],text=True).strip()
+def adb(*words):return subprocess.check_output(['adb',*words],text=True,timeout=30).strip()
 assert adb('get-serialno').startswith('emulator-'),'Use a disposable emulator only'
 served=out/'server';served.mkdir(exist_ok=True);shutil.copyfile(root/'prototype/native-shell/design.json',served/'design.json')
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -18,6 +18,7 @@ def start(route='home',appearance='dark',url='http://127.0.0.1:8788/design.json'
     adb('shell','am','force-stop',package)
     adb('shell','am','start','-n',component,'--es','designUrl',url,'--es','route',route,'--es','appearance',appearance)
 def tree():
+    adb('shell','rm','-f','/sdcard/design-window.xml')
     adb('shell','uiautomator','dump','/sdcard/design-window.xml')
     return ET.fromstring(adb('shell','cat','/sdcard/design-window.xml'))
 def wait(text,desc=False,timeout=25,contains=False):
@@ -27,7 +28,7 @@ def wait(text,desc=False,timeout=25,contains=False):
             t=tree()
             found=[x for x in t.iter('node') if (text in x.get('content-desc' if desc else 'text','') if contains else x.get('content-desc' if desc else 'text')==text)]
             if found:return found[0]
-        except ET.ParseError:pass
+        except (ET.ParseError,subprocess.CalledProcessError,subprocess.TimeoutExpired):pass
         time.sleep(.2)
     raise AssertionError('Native control not found: '+text)
 def tap(text,desc=False):
@@ -129,5 +130,11 @@ try:
     print('PASS: actual native shell navigation, retained editor, 3 live updates, and screenshots')
     print(json.dumps(timing))
 finally:
-    adb('shell','settings','put','system','font_scale','1.0')
-    server.shutdown()
+    try:
+        (out/'runtime-final.txt').write_text(adb('logcat','-d','-s','ShellPreview:I','AndroidRuntime:E','*:S'))
+        with (out/'last-display.png').open('wb') as image:subprocess.run(['adb','exec-out','screencap','-p'],stdout=image,check=True,timeout=30)
+        capture('final-native-state')
+    except Exception as diagnostic:
+        (out/'diagnostic-error.txt').write_text(str(diagnostic))
+    try: adb('shell','settings','put','system','font_scale','1.0')
+    finally: server.shutdown()

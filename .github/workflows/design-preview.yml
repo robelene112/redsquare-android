@@ -23,11 +23,13 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25
+      - uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+        id: design-cache
         with:
           path: ~/.gradle/caches
-          key: native-shell-v1-${{ hashFiles('shell-ui/build.gradle.kts', 'shell-preview/build.gradle.kts') }}
+          key: native-shell-v2-${{ hashFiles('shell-ui/**', 'shell-preview/**', 'prototype/native-shell/design.json', 'settings.gradle.kts', 'build.gradle.kts', 'gradle.properties') }}
           restore-keys: |
+            native-shell-v2-
             native-shell-v1-
             redsquare-gradle-v2-
       - name: Prepare Android tools
@@ -38,6 +40,11 @@ jobs:
           scripts/ci-android-setup
       - name: Build only the native preview
         run: ./gradlew --no-daemon --console=plain :shell-preview:assembleDebug
+      - uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
+        if: steps.design-cache.outputs.cache-hit != 'true'
+        with:
+          path: ~/.gradle/caches
+          key: ${{ steps.design-cache.outputs.cache-primary-key }}
       - name: Observe actual Android rendering and live updates
         env:
           DESIGN_API: ${{ matrix.api }}
