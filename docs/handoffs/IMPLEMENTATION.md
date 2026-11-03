@@ -1,5 +1,22 @@
 # Implementation handoff
 
+## Unified redesign86: full batch authorized and in progress
+
+The owner approved [specification86](https://github.com/robelene112/redsquare-android/issues/86),
+its16-ticket plan (existing76through83 plus new87through94), and implementing
+all tickets before publishing the next ordinary beta. Continue sequentially
+through the whole batch; the old one-ticket stop no longer applies to it.
+Current integration branch: `codex/unified-redesign`, from verified beta83
+baseline `eac6b426d`. Start with77's Like-history fixture repair, then76's obsolete
+UI test controls. Each ticket keeps its own review/evidence/commit. Publish
+one final integrated beta after94; do not mark pending work complete.
+
+The design source is the separate native preview85 on branch
+`prototype/native-shell-live-design`, with the owner's final amendments in86.
+Do not merge its sample session/payment/publishing behavior into the functional
+app. Actual Stack interoperability remains later first-release work under1.
+The existing unrelated untracked group Chat contract stays untouched.
+
 ## Issue71 Like animation follow-up delivered as beta83
 
 Issue71's owner-requested Like animation follow-up is implemented, reviewed,

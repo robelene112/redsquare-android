@@ -9,16 +9,20 @@ requested, carry its code, verification, review, fixes and commit to completion.
 Work through tickets sequentially; a request to implement a sequence authorizes
 that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
-## Current owner execution limit
+## Current owner execution authorization
 
-On2026-10-22 the owner paused development to limit token usage and then
-explicitly resumed #65. Each authorization now covers ONE issue only:
-finish that issue and stop before starting the next. #65 is completed and delivered as beta65. On2026-10-23 the owner authorized
-choosing and completing exactly one more issue. #66 is complete as beta66.
-On2026-10-26 the owner authorized exactly one further issue:70. It is complete
-and delivered as beta68, following69/beta67. Stop now. A new owner request is
-required before implementing another issue.
-This supersedes the earlier authorization to churn the entire backlog unattended.
+On2026-11-03 the owner approved specification86 and its16-ticket execution
+plan, then explicitly authorized implementing all16 tickets and publishing the
+completed result as the next ordinary beta. This replaces the earlier
+one-issue-per-request limit for this batch.
+
+The batch reuses76through83 and adds87through94. Implement one ticket at a time,
+respect native dependencies, review and commit each completed ticket, and
+continue through the batch without routine approval stops. Start with77 to
+restore the signed Like-history fixture, then76 to restore current UI controls.
+Publish the integrated signed beta after94's final verification, rather than
+publishing an intermediate beta for each ticket. Specification86,55,84,1and36
+retain their independent acceptance criteria and must not close automatically.
 
 ## Load the real skills
 
