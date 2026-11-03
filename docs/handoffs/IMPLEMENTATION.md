@@ -11,6 +11,11 @@ baseline `eac6b426d`. Start with77's Like-history fixture repair, then76's obsol
 UI test controls. Each ticket keeps its own review/evidence/commit. Publish
 one final integrated beta after94; do not mark pending work complete.
 
+Issue77 is implemented and reviewed. Both Android10/17 Activity/history runs
+pass (five native checks per OS), and all117host tests pass. Exact evidence is
+in `docs/evidence/ticket77/README.md`. Continue with76, then the remaining
+unblocked86tickets; do not stop after77 or publish an intermediate beta.
+
 The design source is the separate native preview85 on branch
 `prototype/native-shell-live-design`, with the owner's final amendments in86.
 Do not merge its sample session/payment/publishing behavior into the functional
