@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Build/publish the isolated native design prototype. Never updates the ordinary beta."""
+import argparse, fcntl, hashlib, json, os, re, shutil, subprocess, time
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent.parent
+DEST=Path('/home/david/projects/docker/website/html/redsquare/design')
+IMAGE='redsquare-android-build:agp8.10.1'
+PACKAGE='nl.davidengelen.redsquare.design'
+TYPES={'intro','section','text','banner','tabs','post','article','profile','row','rule','button','field','toggle','choices','person','activity','balance','art','article-body','editor','messages','locked','draft-preview','pair','qr','draft-body','local-post','sync'}
+def run(args, **kw): return subprocess.run(args,check=True,**kw)
+def read_design():
+    data=json.loads((ROOT/'prototype/native-shell/design.json').read_text())
+    assert data['schema']==1 and {'home','stack'}<=data['screens'].keys()
+    for route,screen in data['screens'].items():
+        ids=[]
+        for block in screen['blocks']:
+            assert block['type'] in TYPES, (route,block['type'])
+            ids.append(block['id'])
+        assert len(ids)==len(set(ids)), ('duplicate block IDs',route)
+    return data
+def atomic(path,data):
+    path.parent.mkdir(parents=True,exist_ok=True)
+    tmp=path.with_name('.'+path.name+'.new')
+    tmp.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n'); tmp.chmod(0o644); tmp.replace(path)
+def publish_design():
+    data=read_design()
+    canonical=json.dumps(data,sort_keys=True).encode()
+    data['revision']='design-'+hashlib.sha256(canonical).hexdigest()[:12]
+    data['publishedAtMs']=round(time.time()*1000)
+    for source in (ROOT/'prototype/native-shell/assets').glob('*.jpg'):
+        target=DEST/'assets'/source.name
+        if not target.exists() or target.read_bytes()!=source.read_bytes():
+            target.parent.mkdir(parents=True,exist_ok=True);tmp=target.with_suffix('.new');shutil.copyfile(source,tmp);tmp.chmod(0o644);tmp.replace(target)
+    atomic(DEST/'design.json',data)
+    print('Live design:',data['revision'],'https://davidengelen.nl/redsquare/design/design.json')
+    return data
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('action',choices=['build','publish-design','publish','validate'])
+parser.add_argument('artifact',nargs='?',type=Path)
+args=parser.parse_args()
+if args.action=='validate':
+    data=read_design();print('Valid native design:',len(data['screens']),'screens');raise SystemExit
+if args.action=='build':
+    read_design()
+    state=Path.home()/'.local/share/redsquare-android/design-preview';state.mkdir(parents=True,exist_ok=True)
+    with (state/'build.lock').open('w') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        version=int((state/'version').read_text())+1 if (state/'version').exists() else 1
+        (state/'version').write_text(str(version))
+        start=time.perf_counter()
+        run([str(ROOT/'scripts/android-build'),':shell-preview:assembleRelease',f'-PdesignVersion={version}'],cwd=ROOT)
+        elapsed=time.perf_counter()-start
+        signing=Path.home()/'.local/share/redsquare-android/signing'
+        assert (signing/'signing.env').is_file(),'Established signing identity required'
+        artifact=ROOT/f'.scratch/design-builds/{version}';artifact.mkdir(parents=True,exist_ok=True)
+        apk=artifact/'redsquare-design.apk'
+        run(['docker','run','--rm','--user',f'{os.getuid()}:{os.getgid()}','--env-file',str(signing/'signing.env'),'--mount',f'type=bind,src={signing},dst=/signing,readonly','--mount',f'type=bind,src={ROOT},dst=/workspace',IMAGE,'/opt/android-sdk/build-tools/35.0.0/apksigner','sign','--ks','/signing/app-signing.p12','--ks-key-alias','app-signing','--ks-pass','env:REDSQUARE_STORE_PASSWORD','--key-pass','env:REDSQUARE_KEY_PASSWORD','--out',f'/workspace/.scratch/design-builds/{version}/redsquare-design.apk','/workspace/shell-preview/build/outputs/apk/release/shell-preview-release-unsigned.apk'])
+        command=['docker','run','--rm','--user',f'{os.getuid()}:{os.getgid()}','--mount',f'type=bind,src={artifact},dst=/artifacts,readonly',IMAGE]
+        signature=subprocess.check_output(command+['/opt/android-sdk/build-tools/35.0.0/apksigner','verify','--print-certs','/artifacts/redsquare-design.apk'],text=True)
+        package=subprocess.check_output(command+['/opt/android-sdk/build-tools/35.0.0/aapt','dump','badging','/artifacts/redsquare-design.apk'],text=True)
+        assert f"name='{PACKAGE}'" in package
+        certificate=re.search(r'certificate SHA-256 digest: ([a-f0-9]+)',signature)[1]
+        assert certificate==(Path.home()/'.local/share/redsquare-android/review/certificate.sha256').read_text().strip()
+        (artifact/'signature.txt').write_text(signature);(artifact/'package.txt').write_text(package)
+        atomic(artifact/'manifest.json',dict(applicationId=PACKAGE,versionCode=version,versionName=f'design.{version}',certificateSha256=certificate,sha256=hashlib.sha256(apk.read_bytes()).hexdigest(),commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),buildSeconds=round(elapsed,2)))
+        print('Signed native design preview:',artifact,'Build seconds:',round(elapsed,2))
+elif args.action=='publish-design': publish_design()
+elif args.action=='publish':
+    assert args.artifact,'Pass the signed design artifact directory'
+    artifact=args.artifact.resolve();meta=json.loads((artifact/'manifest.json').read_text());apk=artifact/'redsquare-design.apk'
+    assert meta['applicationId']==PACKAGE and hashlib.sha256(apk.read_bytes()).hexdigest()==meta['sha256']
+    # Recheck the actual file, rather than trusting its metadata on publication.
+    command=['docker','run','--rm','--user',f'{os.getuid()}:{os.getgid()}','--mount',f'type=bind,src={artifact},dst=/artifacts,readonly',IMAGE]
+    signature=subprocess.check_output(command+['/opt/android-sdk/build-tools/35.0.0/apksigner','verify','--print-certs','/artifacts/redsquare-design.apk'],text=True)
+    package=subprocess.check_output(command+['/opt/android-sdk/build-tools/35.0.0/aapt','dump','badging','/artifacts/redsquare-design.apk'],text=True)
+    assert f"name='{PACKAGE}'" in package and f"versionCode='{meta['versionCode']}'" in package
+    assert meta['certificateSha256'] in signature
+    DEST.mkdir(exist_ok=True)
+    with (DEST/'.publish.lock').open('w') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        release=DEST/'releases'/str(meta['versionCode']);release.mkdir(parents=True,exist_ok=False)
+        shutil.copyfile(apk,release/apk.name);(release/apk.name).chmod(0o644)
+        meta['apkUrl']=f"https://davidengelen.nl/redsquare/design/releases/{meta['versionCode']}/{apk.name}"
+        atomic(release/'manifest.json',meta);atomic(DEST/'latest.json',meta)
+        page=ROOT/'prototype/native-shell/install.html';shutil.copyfile(page,DEST/'index.html');(DEST/'index.html').chmod(0o644)
+        publish_design()
+    print('Published: https://davidengelen.nl/redsquare/design/')

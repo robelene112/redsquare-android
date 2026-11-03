@@ -1,0 +1,2778 @@
+{
+  "schema": 1,
+  "revision": "design-001",
+  "node": "saito.io",
+  "tokens": {
+    "margin": 18,
+    "gap": 16,
+    "radius": 18,
+    "textScale": 1,
+    "readerSize": 18,
+    "dark": {
+      "accent": "#FF8297",
+      "background": "#101216",
+      "card": "#191D24",
+      "text": "#F0F1F5",
+      "muted": "#9DA8B9",
+      "line": "#2B323C"
+    },
+    "light": {
+      "accent": "#BD2645",
+      "background": "#FAFBFD",
+      "card": "#F0F2F7",
+      "text": "#171C25",
+      "muted": "#5C687A",
+      "line": "#DDE2EC"
+    }
+  },
+  "modules": {
+    "redsquare": {
+      "title": "Red Square",
+      "description": "Conversations worth having",
+      "icon": "home",
+      "home": "home",
+      "tabs": [
+        {
+          "label": "Home",
+          "icon": "home",
+          "route": "home"
+        },
+        {
+          "label": "Search",
+          "icon": "search",
+          "route": "search"
+        },
+        {
+          "label": "Activity",
+          "icon": "notifications",
+          "route": "activity"
+        },
+        {
+          "label": "Chat",
+          "icon": "chat",
+          "route": "chat"
+        },
+        {
+          "label": "Profile",
+          "icon": "profile",
+          "route": "profile"
+        }
+      ]
+    },
+    "stack": {
+      "title": "Stack",
+      "description": "Independent minds. Longer reads.",
+      "icon": "article",
+      "home": "stack",
+      "tabs": [
+        {
+          "label": "Discover",
+          "icon": "globe",
+          "route": "stack"
+        },
+        {
+          "label": "Following",
+          "icon": "bookmark",
+          "route": "stack-following"
+        },
+        {
+          "label": "My articles",
+          "icon": "article",
+          "route": "my-articles"
+        }
+      ]
+    }
+  },
+  "screens": {
+    "home": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "local-post",
+          "id": "home-local-preview"
+        },
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "All posts",
+              "action": "home",
+              "selected": true
+            },
+            {
+              "label": "Following",
+              "action": "following"
+            }
+          ],
+          "id": "home-0"
+        },
+        {
+          "type": "post",
+          "id": "post-maya",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "time": "24m",
+          "body": "A Node in a Browser Tab\n\nA new essay about making open networks part of everyday life.",
+          "likes": 23,
+          "replies": "4",
+          "article": {
+            "type": "article",
+            "title": "A Node in a Browser Tab",
+            "author": "Maya Chen",
+            "summary": "What happens when participation becomes as simple as opening a page?",
+            "reading": "6 min read",
+            "action": "article",
+            "id": "stack-2",
+            "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+          }
+        },
+        {
+          "type": "post",
+          "id": "post-alex",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "time": "24m",
+          "body": "Small details make a big difference. What is one thing you would improve about your favourite app?",
+          "likes": 18,
+          "replies": "4"
+        },
+        {
+          "type": "post",
+          "id": "post-jules",
+          "name": "Jules Parker",
+          "handle": "jules@saito",
+          "time": "24m",
+          "body": "Independent writing feels different when the relationship belongs to the reader and the author.",
+          "likes": 31,
+          "replies": "4",
+          "article": {
+            "type": "article",
+            "title": "Scripts Without the Contract",
+            "author": "Alex Morgan",
+            "summary": "A closer look at building applications around people, not platforms.",
+            "reading": "6 min read",
+            "action": "article-2",
+            "art": "editorial",
+            "id": "stack-4",
+            "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+          }
+        }
+      ],
+      "tab": "home",
+      "fab": {
+        "icon": "compose",
+        "label": "New post",
+        "action": "compose"
+      }
+    },
+    "following": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "All posts",
+              "action": "home"
+            },
+            {
+              "label": "Following",
+              "action": "following",
+              "selected": true
+            }
+          ],
+          "id": "following-0"
+        },
+        {
+          "type": "post",
+          "id": "post-maya",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "time": "24m",
+          "body": "A Node in a Browser Tab\n\nA new essay about making open networks part of everyday life.",
+          "likes": 23,
+          "replies": "4",
+          "article": {
+            "type": "article",
+            "title": "A Node in a Browser Tab",
+            "author": "Maya Chen",
+            "summary": "What happens when participation becomes as simple as opening a page?",
+            "reading": "6 min read",
+            "action": "article",
+            "id": "stack-2",
+            "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+          }
+        },
+        {
+          "type": "post",
+          "id": "post-jules",
+          "name": "Jules Parker",
+          "handle": "jules@saito",
+          "time": "24m",
+          "body": "Independent writing feels different when the relationship belongs to the reader and the author.",
+          "likes": 31,
+          "replies": "4",
+          "article": {
+            "type": "article",
+            "title": "Scripts Without the Contract",
+            "author": "Alex Morgan",
+            "summary": "A closer look at building applications around people, not platforms.",
+            "reading": "6 min read",
+            "action": "article-2",
+            "art": "editorial",
+            "id": "stack-4",
+            "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+          }
+        }
+      ],
+      "tab": "home",
+      "fab": {
+        "icon": "compose",
+        "label": "New post",
+        "action": "compose"
+      }
+    },
+    "search": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "search-query",
+          "label": "Search posts and people",
+          "value": "",
+          "lines": 1,
+          "placeholder": "A story, a name, an idea"
+        },
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "Posts",
+              "selected": true,
+              "action": "search"
+            },
+            {
+              "label": "People",
+              "action": "search-people"
+            }
+          ],
+          "id": "search-1"
+        },
+        {
+          "type": "section",
+          "title": "Conversations to explore",
+          "id": "search-2"
+        },
+        {
+          "type": "post",
+          "id": "post-maya",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "time": "24m",
+          "body": "A Node in a Browser Tab\n\nA new essay about making open networks part of everyday life.",
+          "likes": 23,
+          "replies": "4",
+          "article": {
+            "type": "article",
+            "title": "A Node in a Browser Tab",
+            "author": "Maya Chen",
+            "summary": "What happens when participation becomes as simple as opening a page?",
+            "reading": "6 min read",
+            "action": "article",
+            "id": "stack-2",
+            "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+          }
+        },
+        {
+          "type": "post",
+          "id": "post-alex",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "time": "24m",
+          "body": "Small details make a big difference. What is one thing you would improve about your favourite app?",
+          "likes": 18,
+          "replies": "4"
+        }
+      ],
+      "title": "Search",
+      "tab": "search"
+    },
+    "search-people": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "search-query",
+          "label": "Search posts and people",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "section",
+          "title": "People",
+          "id": "search-people-1"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "Writing about networks and the people inside them.",
+          "follow": "maya",
+          "id": "search-people-2"
+        },
+        {
+          "type": "person",
+          "name": "Jules Parker",
+          "body": "Small ideas. Open systems.",
+          "follow": "jules",
+          "id": "search-people-3"
+        }
+      ],
+      "title": "Search",
+      "tab": "search"
+    },
+    "activity": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "All",
+              "action": "activity",
+              "selected": true
+            },
+            {
+              "label": "Mentions",
+              "action": "mentions"
+            }
+          ],
+          "id": "activity-0"
+        },
+        {
+          "type": "activity",
+          "name": "Maya Chen",
+          "others": "Jules Parker",
+          "body": "Maya Chen and 4 others liked your post",
+          "quote": "Small details make a big difference.",
+          "time": "12 minutes ago",
+          "unread": true,
+          "action": "thread",
+          "id": "activity-1"
+        },
+        {
+          "type": "activity",
+          "name": "Jules Parker",
+          "body": "Jules Parker replied to your post",
+          "quote": "A more thoughtful approach to the little things.",
+          "time": "38 minutes ago",
+          "icon": "chat",
+          "unread": true,
+          "id": "activity-2"
+        },
+        {
+          "type": "activity",
+          "name": "Casey Lee",
+          "body": "Casey Lee started following you",
+          "quote": "View profile",
+          "time": "Yesterday",
+          "icon": "profile",
+          "action": "author",
+          "id": "activity-3"
+        }
+      ],
+      "title": "Activity",
+      "tab": "activity",
+      "topAction": {
+        "label": "Mark read",
+        "action": "notice:All preview activity marked as read"
+      }
+    },
+    "mentions": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "activity",
+          "name": "Maya Chen",
+          "body": "Maya Chen mentioned you",
+          "quote": "Alex, this is the idea we were talking about.",
+          "time": "1 hour ago",
+          "icon": "chat",
+          "id": "mentions-0"
+        }
+      ],
+      "title": "Mentions",
+      "back": true,
+      "tab": "activity"
+    },
+    "chat": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "chat-search",
+          "label": "Search conversations",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "section",
+          "title": "Messages",
+          "id": "chat-1"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "That article was a lovely read. · 12m",
+          "action": "conversation",
+          "id": "chat-2"
+        },
+        {
+          "type": "person",
+          "name": "Saito Community",
+          "body": "Jules: Welcome to the conversation. · 1h",
+          "action": "group-chat",
+          "id": "chat-3"
+        },
+        {
+          "type": "person",
+          "name": "Jules Parker",
+          "body": "Let me send you the link. · Yesterday",
+          "action": "conversation",
+          "id": "chat-4"
+        }
+      ],
+      "title": "Chat",
+      "tab": "chat",
+      "fab": {
+        "icon": "compose",
+        "label": "New conversation",
+        "action": "new-chat"
+      }
+    },
+    "conversation": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "banner",
+          "title": "Private conversation",
+          "body": "Messages are encrypted between you and Maya.",
+          "icon": "lock",
+          "id": "conversation-0"
+        },
+        {
+          "type": "messages",
+          "id": "maya-messages",
+          "items": [
+            {
+              "body": "I just read your latest post. The part about owning the relationship really stayed with me.",
+              "time": "10:41"
+            },
+            {
+              "body": "Thank you! That is exactly what I hoped would come across.",
+              "mine": true,
+              "time": "10:42"
+            },
+            {
+              "body": "Would love to hear more about what you are working on next.",
+              "time": "10:44"
+            }
+          ]
+        }
+      ],
+      "title": "Maya Chen",
+      "back": true,
+      "navigation": false,
+      "states": false,
+      "input": {
+        "id": "maya-messages",
+        "placeholder": "Message Maya"
+      },
+      "topAction": {
+        "label": "Details",
+        "action": "chat-details"
+      }
+    },
+    "group-chat": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "banner",
+          "title": "Public group",
+          "body": "Group messages are not encrypted.",
+          "icon": "globe",
+          "id": "group-chat-0"
+        },
+        {
+          "type": "messages",
+          "id": "group-messages",
+          "items": [
+            {
+              "body": "Welcome! What have you been building this week?",
+              "time": "09:14"
+            },
+            {
+              "body": "A space for independent writing. Would love your feedback.",
+              "time": "09:16",
+              "mine": true
+            }
+          ]
+        }
+      ],
+      "title": "Saito Community",
+      "back": true,
+      "navigation": false,
+      "states": false,
+      "input": {
+        "id": "group-messages",
+        "placeholder": "Message group"
+      },
+      "topAction": {
+        "label": "Details",
+        "action": "group-details"
+      }
+    },
+    "new-chat": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "contact-query",
+          "label": "Name or public key",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "maya@saito",
+          "action": "conversation",
+          "id": "new-chat-1"
+        },
+        {
+          "type": "person",
+          "name": "Jules Parker",
+          "body": "jules@saito",
+          "action": "conversation",
+          "id": "new-chat-2"
+        },
+        {
+          "type": "row",
+          "title": "New group",
+          "body": "Start a conversation together",
+          "icon": "plus",
+          "action": "new-group",
+          "id": "new-chat-3"
+        }
+      ],
+      "title": "New conversation",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "new-group": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "group-name",
+          "label": "Group name",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "group-members",
+          "label": "Add people",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "toggle",
+          "id": "member-maya",
+          "label": "Maya Chen"
+        },
+        {
+          "type": "toggle",
+          "id": "member-jules",
+          "label": "Jules Parker"
+        },
+        {
+          "type": "button",
+          "label": "Create preview group",
+          "action": "group-chat",
+          "kind": "primary",
+          "id": "new-group-4"
+        }
+      ],
+      "title": "Create group",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "chat-details": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "maya@saito",
+          "id": "chat-details-0"
+        },
+        {
+          "type": "toggle",
+          "id": "mute-maya-chat",
+          "label": "Mute notifications",
+          "body": "Keep the conversation without alerts."
+        },
+        {
+          "type": "row",
+          "title": "View profile",
+          "body": "Posts and public identity",
+          "icon": "profile",
+          "action": "author",
+          "id": "chat-details-2"
+        },
+        {
+          "type": "row",
+          "title": "Block account",
+          "body": "Review what this changes",
+          "icon": "lock",
+          "action": "dialog:Block Maya Chen?",
+          "id": "chat-details-3"
+        }
+      ],
+      "title": "Conversation details",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "group-details": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "A place for people building on open networks.",
+          "style": "",
+          "id": "group-details-0"
+        },
+        {
+          "type": "banner",
+          "title": "Group privacy",
+          "body": "Messages in this group are not encrypted.",
+          "icon": "globe",
+          "id": "group-details-1"
+        },
+        {
+          "type": "toggle",
+          "id": "mute-group",
+          "label": "Mute notifications"
+        },
+        {
+          "type": "section",
+          "title": "Members",
+          "id": "group-details-3"
+        },
+        {
+          "type": "person",
+          "name": "Alex Morgan",
+          "body": "Admin",
+          "action": "profile",
+          "id": "group-details-4"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "Member",
+          "action": "author",
+          "id": "group-details-5"
+        },
+        {
+          "type": "row",
+          "title": "Invite people",
+          "body": "Share a group invitation",
+          "icon": "share",
+          "action": "invite",
+          "id": "group-details-6"
+        },
+        {
+          "type": "row",
+          "title": "Leave group",
+          "body": "You can return with a new invitation",
+          "icon": "logout",
+          "action": "dialog:Leave this group?",
+          "id": "group-details-7"
+        }
+      ],
+      "title": "Saito Community",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "invite": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "Invite someone to Saito Community.",
+          "style": "",
+          "id": "invite-0"
+        },
+        {
+          "type": "field",
+          "id": "group-link",
+          "label": "Invitation link",
+          "value": "https://saito.io/chat?group=preview",
+          "lines": 1
+        },
+        {
+          "type": "button",
+          "label": "Copy preview invitation",
+          "action": "copy:invite",
+          "kind": "primary",
+          "id": "invite-2"
+        },
+        {
+          "type": "button",
+          "label": "Share invitation",
+          "action": "dialog:Share group invitation",
+          "kind": "secondary",
+          "id": "invite-3"
+        }
+      ],
+      "title": "Invite to group",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "thread": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "local-post",
+          "id": "thread-local-preview"
+        },
+        {
+          "type": "post",
+          "id": "thread-root",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "time": "24m",
+          "body": "Small details make a big difference. What is one thing you would improve about your favourite app?",
+          "likes": 18,
+          "replies": "4"
+        },
+        {
+          "type": "section",
+          "title": "Replies",
+          "id": "thread-1"
+        },
+        {
+          "type": "post",
+          "id": "reply-maya",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "time": "24m",
+          "body": "Make the important things effortless to find.",
+          "likes": 8,
+          "replies": "4"
+        },
+        {
+          "type": "post",
+          "id": "reply-jules",
+          "name": "Jules Parker",
+          "handle": "jules@saito",
+          "time": "24m",
+          "body": "Clear feedback, every time I tap something.",
+          "likes": 4,
+          "replies": "4"
+        }
+      ],
+      "title": "Conversation",
+      "back": true,
+      "navigation": false,
+      "topAction": {
+        "label": "Reply",
+        "action": "reply"
+      }
+    },
+    "compose": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "person",
+          "name": "Alex Morgan",
+          "body": "alex@saito",
+          "action": "profile",
+          "id": "compose-0"
+        },
+        {
+          "type": "field",
+          "id": "post-compose",
+          "label": "What is on your mind?",
+          "value": "",
+          "lines": 6
+        },
+        {
+          "type": "row",
+          "title": "Add media",
+          "body": "Image, GIF or video link",
+          "icon": "image",
+          "action": "media-picker",
+          "id": "compose-2"
+        },
+        {
+          "type": "button",
+          "label": "Post to preview",
+          "action": "confirm:post",
+          "kind": "primary",
+          "id": "compose-3"
+        },
+        {
+          "type": "text",
+          "body": "Preview posts stay in this design session.",
+          "style": "caption",
+          "id": "compose-4"
+        }
+      ],
+      "title": "New post",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "reply": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "person",
+          "name": "Alex Morgan",
+          "body": "alex@saito",
+          "action": "profile",
+          "id": "reply-0"
+        },
+        {
+          "type": "field",
+          "id": "post-reply",
+          "label": "What is on your mind?",
+          "value": "",
+          "lines": 6
+        },
+        {
+          "type": "row",
+          "title": "Add media",
+          "body": "Image, GIF or video link",
+          "icon": "image",
+          "action": "media-picker",
+          "id": "reply-2"
+        },
+        {
+          "type": "button",
+          "label": "Post to preview",
+          "action": "confirm:post",
+          "kind": "primary",
+          "id": "reply-3"
+        },
+        {
+          "type": "text",
+          "body": "Preview posts stay in this design session.",
+          "style": "caption",
+          "id": "reply-4"
+        }
+      ],
+      "title": "Reply",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "quote": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "person",
+          "name": "Alex Morgan",
+          "body": "alex@saito",
+          "action": "profile",
+          "id": "quote-0"
+        },
+        {
+          "type": "field",
+          "id": "post-quote",
+          "label": "What is on your mind?",
+          "value": "A thought worth sharing:",
+          "lines": 6
+        },
+        {
+          "type": "row",
+          "title": "Add media",
+          "body": "Image, GIF or video link",
+          "icon": "image",
+          "action": "media-picker",
+          "id": "quote-2"
+        },
+        {
+          "type": "button",
+          "label": "Post to preview",
+          "action": "confirm:post",
+          "kind": "primary",
+          "id": "quote-3"
+        },
+        {
+          "type": "text",
+          "body": "Preview posts stay in this design session.",
+          "style": "caption",
+          "id": "quote-4"
+        }
+      ],
+      "title": "Quote post",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "profile": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "profile",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "body": "Building thoughtful things for an open web. Writing, exploring, and learning in public.",
+          "own": true,
+          "art": "editorial",
+          "id": "profile-0"
+        },
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "Posts",
+              "selected": true,
+              "action": "profile"
+            },
+            {
+              "label": "Replies",
+              "action": "profile-replies"
+            }
+          ],
+          "id": "profile-1"
+        },
+        {
+          "type": "post",
+          "id": "post-alex",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "time": "24m",
+          "body": "Small details make a big difference. What is one thing you would improve about your favourite app?",
+          "likes": 18,
+          "replies": "4"
+        }
+      ],
+      "title": "Profile",
+      "tab": "profile"
+    },
+    "profile-replies": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "profile",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "body": "Building thoughtful things for an open web. Writing, exploring, and learning in public.",
+          "own": true,
+          "art": "editorial",
+          "id": "profile-0"
+        },
+        {
+          "type": "section",
+          "title": "Replies",
+          "id": "profile-replies-1"
+        },
+        {
+          "type": "post",
+          "id": "myreply",
+          "name": "Alex Morgan",
+          "handle": "alex@saito",
+          "time": "24m",
+          "body": "A thoughtful little detail. Thanks for sharing!",
+          "likes": 3,
+          "replies": "4"
+        }
+      ],
+      "title": "Profile",
+      "back": true,
+      "tab": "profile"
+    },
+    "author": {
+      "module": "redsquare",
+      "blocks": [
+        {
+          "type": "profile",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "body": "Independent writer. Curious about the shape of things to come. Essays on technology, people and possibility.",
+          "id": "author-0"
+        },
+        {
+          "type": "section",
+          "title": "Posts",
+          "id": "author-1"
+        },
+        {
+          "type": "post",
+          "id": "post-maya",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "time": "24m",
+          "body": "A Node in a Browser Tab\n\nA new essay about making open networks part of everyday life.",
+          "likes": 23,
+          "replies": "4",
+          "article": {
+            "type": "article",
+            "title": "A Node in a Browser Tab",
+            "author": "Maya Chen",
+            "summary": "What happens when participation becomes as simple as opening a page?",
+            "reading": "6 min read",
+            "action": "article",
+            "id": "stack-2",
+            "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+          }
+        }
+      ],
+      "title": "Profile",
+      "back": true,
+      "tab": "profile"
+    },
+    "edit-profile": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "profile-name",
+          "label": "Display name",
+          "value": "Alex Morgan",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "profile-bio",
+          "label": "Bio",
+          "value": "Building thoughtful things for an open web.",
+          "lines": 3
+        },
+        {
+          "type": "row",
+          "title": "Profile photo",
+          "body": "Choose an image",
+          "icon": "image",
+          "action": "media-picker",
+          "id": "edit-profile-2"
+        },
+        {
+          "type": "row",
+          "title": "Cover image",
+          "body": "Choose a cover",
+          "icon": "image",
+          "action": "media-picker",
+          "id": "edit-profile-3"
+        },
+        {
+          "type": "button",
+          "label": "Save profile preview",
+          "action": "notice:Profile preview saved",
+          "kind": "primary",
+          "id": "edit-profile-4"
+        }
+      ],
+      "title": "Edit profile",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "media-picker": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "art",
+          "art": "network",
+          "height": 140,
+          "id": "media-picker-0",
+          "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+        },
+        {
+          "type": "button",
+          "label": "Use network artwork",
+          "action": "back",
+          "kind": "primary",
+          "id": "media-picker-1"
+        },
+        {
+          "type": "art",
+          "art": "editorial",
+          "height": 140,
+          "id": "media-picker-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "button",
+          "label": "Use editorial artwork",
+          "action": "back",
+          "kind": "primary",
+          "id": "media-picker-3"
+        },
+        {
+          "type": "field",
+          "id": "media-url",
+          "label": "Or paste an image URL",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "button",
+          "label": "Use image URL",
+          "action": "back",
+          "kind": "primary",
+          "id": "media-picker-5"
+        }
+      ],
+      "title": "Choose media",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "report": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "Choose a reason. Reports go to your selected node.",
+          "style": "",
+          "id": "report-0"
+        },
+        {
+          "type": "choices",
+          "id": "report-reason",
+          "label": "Reason",
+          "value": "spam",
+          "items": [
+            {
+              "value": "spam",
+              "label": "Spam",
+              "body": "Repeated or unwanted content"
+            },
+            {
+              "value": "abuse",
+              "label": "Abuse or harassment",
+              "body": "Targeted harmful behaviour"
+            },
+            {
+              "value": "other",
+              "label": "Something else",
+              "body": "Add a short explanation"
+            }
+          ]
+        },
+        {
+          "type": "field",
+          "id": "report-detail",
+          "label": "Additional information",
+          "value": "",
+          "lines": 3
+        },
+        {
+          "type": "button",
+          "label": "Submit preview report",
+          "action": "notice:Preview report recorded. Nothing was sent.",
+          "kind": "primary",
+          "id": "report-3"
+        }
+      ],
+      "title": "Report post",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "wallet": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "balance",
+          "label": "Demo balance",
+          "amount": "125.00 SAITO",
+          "body": "Example funds for this design preview.",
+          "id": "wallet-0"
+        },
+        {
+          "type": "section",
+          "title": "Your wallet",
+          "id": "wallet-1"
+        },
+        {
+          "type": "row",
+          "title": "Back up wallet",
+          "body": "Review the export flow",
+          "icon": "save",
+          "action": "backup",
+          "id": "wallet-2"
+        },
+        {
+          "type": "row",
+          "title": "Import wallet",
+          "body": "Review an identity replacement",
+          "icon": "wallet",
+          "action": "import",
+          "id": "wallet-3"
+        },
+        {
+          "type": "section",
+          "title": "Recent activity",
+          "id": "wallet-4"
+        },
+        {
+          "type": "row",
+          "title": "Received 25.00 SAITO",
+          "body": "Today, 09:12 · Demo transaction",
+          "icon": "plus",
+          "action": "transaction",
+          "id": "wallet-5"
+        },
+        {
+          "type": "row",
+          "title": "Sent 10.00 SAITO",
+          "body": "Yesterday, 14:35 · Demo transaction",
+          "icon": "send",
+          "action": "transaction",
+          "id": "wallet-6"
+        }
+      ],
+      "title": "Wallet",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "receive": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "banner",
+          "title": "Example address",
+          "body": "This preview address cannot receive funds.",
+          "icon": "info",
+          "id": "receive-0"
+        },
+        {
+          "id": "receive-qr",
+          "type": "qr",
+          "value": "DEMO-ADDRESS-NOT-A-REAL-WALLET"
+        },
+        {
+          "type": "field",
+          "id": "receive-address",
+          "label": "Public address",
+          "value": "DEMO-ADDRESS-NOT-A-REAL-WALLET",
+          "lines": 1
+        },
+        {
+          "type": "button",
+          "label": "Copy demo address",
+          "action": "copy:address",
+          "kind": "primary",
+          "id": "receive-3"
+        }
+      ],
+      "title": "Receive SAITO",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "send": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "send-to",
+          "label": "Recipient username or public key",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "send-amount",
+          "label": "Amount in SAITO",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "send-note",
+          "label": "Optional note",
+          "value": "",
+          "lines": 1
+        },
+        {
+          "type": "text",
+          "body": "Available: 125.00 SAITO (demo)",
+          "style": "caption",
+          "id": "send-3"
+        },
+        {
+          "type": "button",
+          "label": "Review transfer",
+          "action": "transfer-review",
+          "kind": "primary",
+          "id": "send-4"
+        }
+      ],
+      "title": "Send SAITO",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "transfer-review": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "EXAMPLE TRANSFER",
+          "title": "10.00 SAITO",
+          "body": "To Maya Chen",
+          "id": "transfer-review-0"
+        },
+        {
+          "type": "pair",
+          "label": "Network fee",
+          "value": "0.00 SAITO",
+          "id": "transfer-review-1"
+        },
+        {
+          "type": "pair",
+          "label": "Total",
+          "value": "10.00 SAITO",
+          "id": "transfer-review-2"
+        },
+        {
+          "type": "banner",
+          "title": "Check the recipient",
+          "body": "Real transfers cannot be undone. This preview sends no funds.",
+          "icon": "info",
+          "id": "transfer-review-3"
+        },
+        {
+          "type": "button",
+          "label": "Confirm demo transfer",
+          "action": "confirm:send",
+          "kind": "primary",
+          "id": "transfer-review-4"
+        }
+      ],
+      "title": "Review transfer",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "transaction": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "DEMO TRANSACTION",
+          "title": "25.00 SAITO",
+          "body": "Received · Today, 09:12",
+          "id": "transaction-0"
+        },
+        {
+          "type": "pair",
+          "label": "Status",
+          "value": "Confirmed",
+          "id": "transaction-1"
+        },
+        {
+          "type": "pair",
+          "label": "From",
+          "value": "maya@saito",
+          "id": "transaction-2"
+        },
+        {
+          "type": "row",
+          "title": "View public reference",
+          "body": "Example transaction identifier",
+          "icon": "globe",
+          "action": "dialog:Demo transaction reference",
+          "id": "transaction-3"
+        }
+      ],
+      "title": "Transaction details",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "backup": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "banner",
+          "title": "Keep your backup private",
+          "body": "A wallet export can give access to your identity and funds.",
+          "icon": "key",
+          "id": "backup-0"
+        },
+        {
+          "type": "text",
+          "body": "Save a compatible wallet file somewhere you control. A wallet backup does not contain all cached chat history.",
+          "style": "",
+          "id": "backup-1"
+        },
+        {
+          "type": "toggle",
+          "id": "backup-understood",
+          "label": "I understand how to protect my backup"
+        },
+        {
+          "type": "button",
+          "label": "Export demo backup",
+          "action": "dialog:Save demo wallet backup",
+          "kind": "primary",
+          "id": "backup-3"
+        }
+      ],
+      "title": "Back up wallet",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "import": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "Choose a compatible Saito wallet file. Your current wallet stays active until you confirm the replacement.",
+          "style": "",
+          "id": "import-0"
+        },
+        {
+          "type": "button",
+          "label": "Choose example wallet file",
+          "action": "import-review",
+          "kind": "primary",
+          "id": "import-1"
+        },
+        {
+          "type": "field",
+          "id": "import-json",
+          "label": "Or paste wallet JSON",
+          "value": "",
+          "lines": 5
+        }
+      ],
+      "title": "Import wallet",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "import-review": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "DEMO WALLET",
+          "title": "A new public identity",
+          "body": "A compatible wallet file was selected.",
+          "id": "import-review-0"
+        },
+        {
+          "type": "banner",
+          "title": "Replace this identity?",
+          "body": "Pending work stays with the identity that created it. Older chat history may be unavailable.",
+          "icon": "info",
+          "id": "import-review-1"
+        },
+        {
+          "type": "button",
+          "label": "Confirm preview import",
+          "action": "notice:Example identity selected. No real wallet was imported.",
+          "kind": "primary",
+          "id": "import-review-2"
+        },
+        {
+          "type": "button",
+          "label": "Cancel",
+          "action": "wallet",
+          "kind": "secondary",
+          "id": "import-review-3"
+        }
+      ],
+      "title": "Review imported wallet",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "settings": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "section",
+          "title": "Account",
+          "id": "settings-0"
+        },
+        {
+          "type": "row",
+          "title": "Privacy and safety",
+          "body": "Mute, block and content controls",
+          "icon": "lock",
+          "action": "privacy",
+          "id": "settings-1"
+        },
+        {
+          "type": "row",
+          "title": "Notifications",
+          "body": "Replies, mentions and messages",
+          "icon": "notifications",
+          "action": "notifications",
+          "id": "settings-2"
+        },
+        {
+          "type": "section",
+          "title": "App",
+          "id": "settings-3"
+        },
+        {
+          "type": "row",
+          "title": "Node",
+          "body": "Choose your Saito connection",
+          "icon": "globe",
+          "action": "node-settings",
+          "id": "settings-4"
+        },
+        {
+          "type": "row",
+          "title": "Appearance",
+          "body": "Theme and reading comfort",
+          "icon": "filter",
+          "action": "appearance",
+          "id": "settings-5"
+        },
+        {
+          "type": "row",
+          "title": "About",
+          "body": "Version, privacy and publisher",
+          "icon": "info",
+          "action": "about",
+          "id": "settings-6"
+        }
+      ],
+      "title": "Settings",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "node-settings": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "Your selected node determines the available feed and moderation. Your wallet stays the same.",
+          "style": "",
+          "id": "node-settings-0"
+        },
+        {
+          "type": "choices",
+          "id": "node",
+          "label": "Choose node",
+          "value": "saito.io",
+          "items": [
+            {
+              "value": "saito.io",
+              "label": "Saito",
+              "body": "saito.io"
+            },
+            {
+              "value": "saito.davidengelen.nl",
+              "label": "David’s node",
+              "body": "saito.davidengelen.nl"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "body": "Preview choices change the displayed node only.",
+          "style": "caption",
+          "id": "node-settings-2"
+        }
+      ],
+      "title": "Node",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "appearance": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "choices",
+          "id": "appearance",
+          "label": "Theme",
+          "value": "system",
+          "items": [
+            {
+              "value": "system",
+              "label": "System",
+              "body": "Follow your device preference"
+            },
+            {
+              "value": "dark",
+              "label": "Dark",
+              "body": "A quiet, low-glare surface"
+            },
+            {
+              "value": "light",
+              "label": "Light",
+              "body": "Clear and bright"
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "id": "comfort",
+          "label": "Comfortable reading",
+          "body": "Use more generous article spacing."
+        }
+      ],
+      "title": "Appearance",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "notifications": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "toggle",
+          "id": "notify-reply",
+          "label": "Replies",
+          "value": true
+        },
+        {
+          "type": "toggle",
+          "id": "notify-mention",
+          "label": "Mentions",
+          "value": true
+        },
+        {
+          "type": "toggle",
+          "id": "notify-private",
+          "label": "Private messages",
+          "value": true
+        },
+        {
+          "type": "toggle",
+          "id": "notify-group",
+          "label": "Group messages",
+          "value": true
+        },
+        {
+          "type": "toggle",
+          "id": "notify-preview",
+          "label": "Message previews",
+          "body": "Show message contents in notifications.",
+          "value": false
+        },
+        {
+          "type": "row",
+          "title": "Android notification settings",
+          "body": "Control permission and categories",
+          "icon": "settings",
+          "action": "dialog:Android notification settings",
+          "id": "notifications-5"
+        }
+      ],
+      "title": "Notifications",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "privacy": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "row",
+          "title": "Muted accounts",
+          "body": "Hide posts and activity",
+          "icon": "notifications_off",
+          "action": "muted",
+          "id": "privacy-0"
+        },
+        {
+          "type": "row",
+          "title": "Blocked accounts",
+          "body": "Hide posts and incoming messages",
+          "icon": "lock",
+          "action": "blocked",
+          "id": "privacy-1"
+        },
+        {
+          "type": "toggle",
+          "id": "content-filter",
+          "label": "Apply node moderation",
+          "value": true
+        },
+        {
+          "type": "row",
+          "title": "Privacy policy",
+          "body": "Read the draft release policy",
+          "icon": "article",
+          "action": "policy",
+          "id": "privacy-3"
+        }
+      ],
+      "title": "Privacy and safety",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "muted": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "person",
+          "name": "Casey Lee",
+          "body": "Muted in this preview",
+          "action": "author",
+          "id": "muted-0"
+        },
+        {
+          "type": "button",
+          "label": "Unmute preview account",
+          "action": "notice:Preview account unmuted",
+          "kind": "primary",
+          "id": "muted-1"
+        }
+      ],
+      "title": "Muted accounts",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "blocked": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "No blocked accounts. You control who appears in your conversations.",
+          "style": "",
+          "id": "blocked-0"
+        }
+      ],
+      "title": "Blocked accounts",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "about": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "ANGELS’ FOUNDRY",
+          "title": "Red Square",
+          "body": "A native home for your Saito world.",
+          "id": "about-0"
+        },
+        {
+          "type": "text",
+          "body": "Design preview. Example identities, articles, messages and balances are used throughout.",
+          "style": "",
+          "id": "about-1"
+        },
+        {
+          "type": "row",
+          "title": "Preview settings",
+          "body": "Live design and sample states",
+          "icon": "filter",
+          "action": "design-settings",
+          "id": "about-2"
+        },
+        {
+          "type": "row",
+          "title": "Privacy policy",
+          "body": "What the app stores and shares",
+          "icon": "article",
+          "action": "policy",
+          "id": "about-3"
+        }
+      ],
+      "title": "About",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "policy": {
+      "module": "shared",
+      "blocks": [
+        {
+          "type": "text",
+          "body": "This design preview uses sample data. It retrieves its design configuration from davidengelen.nl. It does not create a wallet, send Saito transactions or register for notifications.",
+          "style": "",
+          "id": "policy-0"
+        },
+        {
+          "type": "text",
+          "body": "The full application’s release policy will describe its actual data flows and publisher details.",
+          "style": "",
+          "id": "policy-1"
+        }
+      ],
+      "title": "Privacy policy",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "design-settings": {
+      "module": "shared",
+      "blocks": [
+        {
+          "id": "sync-status",
+          "type": "sync"
+        },
+        {
+          "type": "banner",
+          "title": "Live design from your VPS",
+          "body": "The preview checks for design changes every two seconds while it is open. Drafts and position stay in place.",
+          "icon": "refresh",
+          "id": "design-settings-0"
+        },
+        {
+          "type": "choices",
+          "id": "appearance",
+          "label": "Theme",
+          "value": "system",
+          "items": [
+            {
+              "value": "system",
+              "label": "System",
+              "body": ""
+            },
+            {
+              "value": "dark",
+              "label": "Dark",
+              "body": ""
+            },
+            {
+              "value": "light",
+              "label": "Light",
+              "body": ""
+            }
+          ]
+        },
+        {
+          "type": "choices",
+          "id": "stateMode",
+          "label": "Example screen state",
+          "value": "Normal",
+          "items": [
+            {
+              "value": "Normal",
+              "label": "Normal",
+              "body": ""
+            },
+            {
+              "value": "Loading",
+              "label": "Loading",
+              "body": ""
+            },
+            {
+              "value": "Empty",
+              "label": "Empty",
+              "body": ""
+            },
+            {
+              "value": "Error",
+              "label": "Error",
+              "body": ""
+            },
+            {
+              "value": "Offline",
+              "label": "Offline",
+              "body": ""
+            }
+          ]
+        },
+        {
+          "type": "row",
+          "title": "Refresh design now",
+          "body": "Use the latest available design",
+          "icon": "refresh",
+          "action": "refresh",
+          "id": "design-settings-3"
+        },
+        {
+          "type": "text",
+          "body": "Native components render every screen. Text, colours, spacing, cards, menus and routes are supplied as data. New native components require an app update.",
+          "style": "caption",
+          "id": "design-settings-4"
+        }
+      ],
+      "title": "Preview settings",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "stack": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "INDEPENDENT WRITING",
+          "title": "Good ideas deserve\na little more room.",
+          "body": "Stories and perspectives from people you choose.",
+          "id": "stack-0"
+        },
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "For you",
+              "selected": true,
+              "action": "stack"
+            },
+            {
+              "label": "Latest",
+              "action": "stack-latest"
+            }
+          ],
+          "id": "stack-1"
+        },
+        {
+          "type": "article",
+          "title": "A Node in a Browser Tab",
+          "author": "Maya Chen",
+          "summary": "What happens when participation becomes as simple as opening a page?",
+          "reading": "6 min read",
+          "action": "article",
+          "id": "stack-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+        },
+        {
+          "type": "section",
+          "title": "Worth your attention",
+          "id": "stack-3"
+        },
+        {
+          "type": "article",
+          "title": "Scripts Without the Contract",
+          "author": "Alex Morgan",
+          "summary": "A closer look at building applications around people, not platforms.",
+          "reading": "6 min read",
+          "action": "article-2",
+          "art": "editorial",
+          "id": "stack-4",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "article",
+          "title": "The quiet value of an open network",
+          "author": "Maya Chen",
+          "summary": "A subscriber essay on the communities we choose to build.",
+          "reading": "6 min read",
+          "action": "locked-article",
+          "locked": true,
+          "art": "editorial",
+          "id": "stack-5",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        }
+      ],
+      "title": "Discover",
+      "tab": "stack",
+      "fab": {
+        "icon": "compose",
+        "label": "Write an article",
+        "action": "editor"
+      }
+    },
+    "stack-latest": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "section",
+          "title": "Latest stories",
+          "id": "stack-latest-0"
+        },
+        {
+          "type": "article",
+          "title": "Scripts Without the Contract",
+          "author": "Alex Morgan",
+          "summary": "A closer look at building applications around people, not platforms.",
+          "reading": "6 min read",
+          "action": "article-2",
+          "art": "editorial",
+          "id": "stack-4",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "article",
+          "title": "A Node in a Browser Tab",
+          "author": "Maya Chen",
+          "summary": "What happens when participation becomes as simple as opening a page?",
+          "reading": "6 min read",
+          "action": "article",
+          "id": "stack-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+        },
+        {
+          "type": "article",
+          "title": "The quiet value of an open network",
+          "author": "Maya Chen",
+          "summary": "A subscriber essay on the communities we choose to build.",
+          "reading": "6 min read",
+          "action": "locked-article",
+          "locked": true,
+          "art": "editorial",
+          "id": "stack-5",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        }
+      ],
+      "title": "Latest",
+      "back": true,
+      "tab": "stack"
+    },
+    "stack-following": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "title": "Your reading circle",
+          "body": "The latest from the voices you follow.",
+          "id": "stack-following-0"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "New essay · 24 minutes ago",
+          "action": "stack-author",
+          "follow": "maya",
+          "id": "stack-following-1"
+        },
+        {
+          "type": "article",
+          "title": "A Node in a Browser Tab",
+          "author": "Maya Chen",
+          "summary": "What happens when participation becomes as simple as opening a page?",
+          "reading": "6 min read",
+          "action": "article",
+          "id": "stack-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+        },
+        {
+          "type": "article",
+          "title": "The quiet value of an open network",
+          "author": "Maya Chen",
+          "summary": "A subscriber essay on the communities we choose to build.",
+          "reading": "6 min read",
+          "action": "locked-article",
+          "locked": true,
+          "art": "editorial",
+          "id": "stack-5",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        }
+      ],
+      "title": "Following",
+      "tab": "stack-following"
+    },
+    "my-articles": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "tabs",
+          "items": [
+            {
+              "label": "Published",
+              "selected": true,
+              "action": "my-articles"
+            },
+            {
+              "label": "Drafts",
+              "action": "drafts"
+            }
+          ],
+          "id": "my-articles-0"
+        },
+        {
+          "type": "article",
+          "title": "Scripts Without the Contract",
+          "author": "Alex Morgan",
+          "summary": "A closer look at building applications around people, not platforms.",
+          "reading": "6 min read",
+          "action": "article-2",
+          "art": "editorial",
+          "id": "stack-4",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "row",
+          "title": "Subscriptions and access",
+          "body": "Your reader and author access",
+          "icon": "key",
+          "action": "subscriptions",
+          "id": "my-articles-2"
+        }
+      ],
+      "title": "My articles",
+      "tab": "my-articles",
+      "fab": {
+        "icon": "compose",
+        "label": "Write an article",
+        "action": "editor"
+      }
+    },
+    "drafts": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "title": "Room to think",
+          "body": "Unfinished ideas, ready when you are.",
+          "id": "drafts-0"
+        },
+        {
+          "type": "row",
+          "title": "A quieter kind of internet",
+          "body": "Draft · Edited just now",
+          "icon": "edit",
+          "action": "editor",
+          "id": "drafts-1"
+        },
+        {
+          "type": "row",
+          "title": "Start a fresh article",
+          "body": "A title, an idea, a first sentence",
+          "icon": "plus",
+          "action": "editor",
+          "id": "drafts-2"
+        }
+      ],
+      "title": "Drafts",
+      "back": true,
+      "tab": "my-articles",
+      "fab": {
+        "icon": "compose",
+        "label": "Write an article",
+        "action": "editor"
+      }
+    },
+    "stack-author": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "profile",
+          "name": "Maya Chen",
+          "handle": "maya@saito",
+          "body": "Independent writer. Curious about the shape of things to come. Essays on technology, people and possibility.",
+          "id": "author-0"
+        },
+        {
+          "type": "section",
+          "title": "Maya’s writing",
+          "id": "stack-author-1"
+        },
+        {
+          "type": "article",
+          "title": "A Node in a Browser Tab",
+          "author": "Maya Chen",
+          "summary": "What happens when participation becomes as simple as opening a page?",
+          "reading": "6 min read",
+          "action": "article",
+          "id": "stack-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+        },
+        {
+          "type": "article",
+          "title": "The quiet value of an open network",
+          "author": "Maya Chen",
+          "summary": "A subscriber essay on the communities we choose to build.",
+          "reading": "6 min read",
+          "action": "locked-article",
+          "locked": true,
+          "art": "editorial",
+          "id": "stack-5",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        }
+      ],
+      "title": "Maya Chen",
+      "back": true,
+      "tab": "stack-following"
+    },
+    "article": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "MAYA CHEN · 6 MIN READ",
+          "title": "A Node in a Browser Tab",
+          "body": "Notes from the edges of an open web.",
+          "id": "article-0"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "Independent writer · Nov 3",
+          "action": "stack-author",
+          "follow": "maya",
+          "id": "article-1"
+        },
+        {
+          "type": "art",
+          "art": "network",
+          "height": 200,
+          "id": "article-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/network.jpg"
+        },
+        {
+          "type": "article-body",
+          "body": "The most useful technology often disappears into the background. It becomes a small part of an ordinary day: a conversation, an idea, a page you keep open.\n\n## Participation, without the ceremony\n\nWhat if joining a network felt as natural as opening a browser tab? That is the promise worth exploring. A network grows stronger when participation fits the lives of the people using it.\n\n**Good tools make room for people.** They make the complex parts manageable, while keeping the important choices visible.\n\nThe details matter: a clear label, a preserved draft, a place that remembers where you left off. These are the things that make an open system feel like home.\n\n> Build for the person using it, one thoughtful detail at a time.\n\n## An invitation to build\n\nWe do not need every answer today. We need a way to explore, to share what we learn, and to make the next step a little easier.",
+          "id": "article-3"
+        },
+        {
+          "type": "section",
+          "title": "Keep the conversation going",
+          "id": "article-4"
+        },
+        {
+          "type": "button",
+          "label": "Discuss on Red Square",
+          "action": "thread",
+          "kind": "secondary",
+          "id": "article-5"
+        },
+        {
+          "type": "row",
+          "title": "Share article",
+          "body": "Copy a link or share with someone",
+          "icon": "share",
+          "action": "dialog:Share this article",
+          "id": "article-6"
+        }
+      ],
+      "title": "Article",
+      "back": true,
+      "tab": "stack",
+      "navigation": false
+    },
+    "article-2": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "MAYA CHEN · 6 MIN READ",
+          "title": "Scripts Without the Contract",
+          "body": "Notes from the edges of an open web.",
+          "id": "article-2-0"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "Independent writer · Nov 3",
+          "action": "stack-author",
+          "follow": "maya",
+          "id": "article-2-1"
+        },
+        {
+          "type": "art",
+          "art": "editorial",
+          "height": 200,
+          "id": "article-2-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "article-body",
+          "body": "The most useful technology often disappears into the background. It becomes a small part of an ordinary day: a conversation, an idea, a page you keep open.\n\n## Participation, without the ceremony\n\nWhat if joining a network felt as natural as opening a browser tab? That is the promise worth exploring. A network grows stronger when participation fits the lives of the people using it.\n\n**Good tools make room for people.** They make the complex parts manageable, while keeping the important choices visible.\n\nThe details matter: a clear label, a preserved draft, a place that remembers where you left off. These are the things that make an open system feel like home.\n\n> Build for the person using it, one thoughtful detail at a time.\n\n## An invitation to build\n\nWe do not need every answer today. We need a way to explore, to share what we learn, and to make the next step a little easier.",
+          "id": "article-2-3"
+        },
+        {
+          "type": "section",
+          "title": "Keep the conversation going",
+          "id": "article-2-4"
+        },
+        {
+          "type": "button",
+          "label": "Discuss on Red Square",
+          "action": "thread",
+          "kind": "secondary",
+          "id": "article-2-5"
+        },
+        {
+          "type": "row",
+          "title": "Share article",
+          "body": "Copy a link or share with someone",
+          "icon": "share",
+          "action": "dialog:Share this article",
+          "id": "article-2-6"
+        }
+      ],
+      "title": "Article",
+      "back": true,
+      "tab": "stack",
+      "navigation": false
+    },
+    "locked-article": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "MAYA CHEN · 6 MIN READ",
+          "title": "The quiet value of an open network",
+          "body": "Notes from the edges of an open web.",
+          "id": "locked-article-0"
+        },
+        {
+          "type": "person",
+          "name": "Maya Chen",
+          "body": "Independent writer · Nov 3",
+          "action": "stack-author",
+          "follow": "maya",
+          "id": "locked-article-1"
+        },
+        {
+          "type": "art",
+          "art": "editorial",
+          "height": 200,
+          "id": "locked-article-2",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "article-body",
+          "body": "The most useful technology often disappears into the background. It becomes a small part of an ordinary day: a conversation, an idea, a page you keep open.\n\n## Participation, without the ceremony\n\nWhat if joining a network felt as natural as opening ",
+          "id": "locked-article-3"
+        },
+        {
+          "type": "locked",
+          "id": "locked-article-4"
+        }
+      ],
+      "title": "Article",
+      "back": true,
+      "tab": "stack",
+      "navigation": false
+    },
+    "editor": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "article-title",
+          "label": "Title",
+          "value": "A quieter kind of internet",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "article-subtitle",
+          "label": "Subtitle",
+          "value": "A place for ideas, and the people behind them.",
+          "lines": 1
+        },
+        {
+          "type": "row",
+          "title": "Cover image",
+          "body": "Choose an image for your article",
+          "icon": "image",
+          "action": "media-picker",
+          "id": "editor-2"
+        },
+        {
+          "type": "editor",
+          "id": "article-body-draft",
+          "body": "## A little room to think\n\nThe best ideas often begin with a **simple question**.\n\nWhat would you build if your audience belonged to you?"
+        },
+        {
+          "type": "button",
+          "label": "Review article",
+          "action": "publish-review",
+          "kind": "primary",
+          "id": "editor-4"
+        }
+      ],
+      "title": "Write",
+      "back": true,
+      "navigation": false,
+      "states": false,
+      "topAction": {
+        "label": "Review",
+        "action": "publish-review"
+      }
+    },
+    "publish-review": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "draft-preview",
+          "id": "publish-review-0"
+        },
+        {
+          "type": "draft-body",
+          "id": "publish-body-preview"
+        },
+        {
+          "type": "art",
+          "art": "editorial",
+          "height": 160,
+          "id": "publish-review-1",
+          "image": "https://davidengelen.nl/redsquare/design/assets/editorial.jpg"
+        },
+        {
+          "type": "section",
+          "title": "Who can read this?",
+          "id": "publish-review-2"
+        },
+        {
+          "type": "choices",
+          "id": "article-visibility",
+          "label": "Access",
+          "value": "public",
+          "items": [
+            {
+              "value": "public",
+              "label": "Everyone",
+              "body": "Freely available to all readers"
+            },
+            {
+              "value": "private",
+              "label": "Restricted",
+              "body": "Available to selected identities"
+            },
+            {
+              "value": "subscribers",
+              "label": "Subscribers",
+              "body": "Require compatible subscription access"
+            }
+          ]
+        },
+        {
+          "type": "field",
+          "id": "article-price",
+          "label": "Subscription price (SAITO)",
+          "value": "10.00",
+          "lines": 1,
+          "whenField": {
+            "id": "article-visibility",
+            "value": "subscribers"
+          }
+        },
+        {
+          "type": "toggle",
+          "id": "share-redsquare",
+          "label": "Share to Red Square",
+          "body": "Also create a post with an article preview.",
+          "value": false
+        },
+        {
+          "type": "field",
+          "id": "share-copy",
+          "label": "Accompanying post",
+          "value": "A new story, shared on Stack.",
+          "lines": 3,
+          "whenFlag": "share-redsquare"
+        },
+        {
+          "type": "field",
+          "id": "private-readers",
+          "label": "Allowed usernames or public keys",
+          "whenField": {
+            "id": "article-visibility",
+            "value": "private"
+          }
+        },
+        {
+          "type": "text",
+          "body": "This preview demonstrates publication. No article, NFT or post will be sent to the network.",
+          "style": "caption",
+          "id": "publish-review-7"
+        },
+        {
+          "type": "button",
+          "label": "Publish preview",
+          "action": "confirm:publish",
+          "kind": "primary",
+          "id": "publish-review-8"
+        }
+      ],
+      "title": "Review & publish",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "published": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "PREVIEW COMPLETE",
+          "title": "Your story has a home.",
+          "body": "This is how a successful publication will feel.",
+          "id": "published-0"
+        },
+        {
+          "type": "draft-preview",
+          "id": "published-1"
+        },
+        {
+          "type": "button",
+          "label": "View article preview",
+          "action": "published-article",
+          "kind": "primary",
+          "id": "published-2"
+        },
+        {
+          "type": "button",
+          "label": "Back to My articles",
+          "action": "my-articles",
+          "kind": "secondary",
+          "id": "published-3"
+        }
+      ],
+      "title": "Published",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "access": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "SUPPORT MAYA CHEN",
+          "title": "Stay curious.\nKeep reading.",
+          "body": "Get access to Maya’s subscriber articles.",
+          "id": "access-0"
+        },
+        {
+          "type": "pair",
+          "label": "Access",
+          "value": "Monthly subscription",
+          "id": "access-1"
+        },
+        {
+          "type": "pair",
+          "label": "Price",
+          "value": "10.00 SAITO",
+          "id": "access-2"
+        },
+        {
+          "type": "text",
+          "body": "Access is linked to your Saito identity through a compatible NFT. Available history depends on the node serving the article.",
+          "style": "caption",
+          "id": "access-3"
+        },
+        {
+          "type": "button",
+          "label": "Review access",
+          "action": "access-review",
+          "kind": "primary",
+          "id": "access-4"
+        }
+      ],
+      "title": "Article access",
+      "back": true,
+      "navigation": false
+    },
+    "access-review": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "DEMO PURCHASE",
+          "title": "10.00 SAITO",
+          "body": "Subscriber access · Maya Chen",
+          "id": "access-review-0"
+        },
+        {
+          "type": "pair",
+          "label": "Wallet",
+          "value": "Alex Morgan",
+          "id": "access-review-1"
+        },
+        {
+          "type": "pair",
+          "label": "Available",
+          "value": "125.00 SAITO (demo)",
+          "id": "access-review-2"
+        },
+        {
+          "type": "banner",
+          "title": "Preview access only",
+          "body": "No payment is made and no NFT is issued.",
+          "icon": "info",
+          "id": "access-review-3"
+        },
+        {
+          "type": "button",
+          "label": "Confirm preview access",
+          "action": "confirm:access",
+          "kind": "primary",
+          "id": "access-review-4"
+        }
+      ],
+      "title": "Review access",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "subscriptions": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "section",
+          "title": "Reading access",
+          "id": "subscriptions-0"
+        },
+        {
+          "type": "row",
+          "title": "Maya Chen",
+          "body": "Monthly access · Active in this preview",
+          "icon": "key",
+          "action": "subscription-detail",
+          "id": "subscriptions-1"
+        },
+        {
+          "type": "section",
+          "title": "Your publishing",
+          "id": "subscriptions-2"
+        },
+        {
+          "type": "row",
+          "title": "Subscriber access",
+          "body": "Configure access to your writing",
+          "icon": "article",
+          "action": "author-access",
+          "id": "subscriptions-3"
+        }
+      ],
+      "title": "Subscriptions & access",
+      "back": true,
+      "tab": "my-articles"
+    },
+    "subscription-detail": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "intro",
+          "eyebrow": "ACTIVE ACCESS",
+          "title": "Maya Chen",
+          "body": "Monthly subscription · Demo access",
+          "id": "subscription-detail-0"
+        },
+        {
+          "type": "pair",
+          "label": "Public identity",
+          "value": "alex@saito",
+          "id": "subscription-detail-1"
+        },
+        {
+          "type": "row",
+          "title": "View author",
+          "body": "Read the latest writing",
+          "icon": "profile",
+          "action": "stack-author",
+          "id": "subscription-detail-2"
+        },
+        {
+          "type": "row",
+          "title": "Manage renewal",
+          "body": "Review available options",
+          "icon": "credit",
+          "action": "dialog:Manage preview access",
+          "id": "subscription-detail-3"
+        }
+      ],
+      "title": "Your access",
+      "back": true,
+      "navigation": false
+    },
+    "author-access": {
+      "module": "stack",
+      "blocks": [
+        {
+          "type": "field",
+          "id": "subscription-name",
+          "label": "Access name",
+          "value": "Alex’s writing",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "subscription-price",
+          "label": "Monthly price (SAITO)",
+          "value": "10.00",
+          "lines": 1
+        },
+        {
+          "type": "field",
+          "id": "subscription-description",
+          "label": "What readers receive",
+          "value": "New essays and subscriber-only articles.",
+          "lines": 3
+        },
+        {
+          "type": "toggle",
+          "id": "store-listing",
+          "label": "List in Saito Store",
+          "body": "Make this access discoverable."
+        },
+        {
+          "type": "button",
+          "label": "Save access preview",
+          "action": "notice:Preview access settings saved",
+          "kind": "primary",
+          "id": "author-access-4"
+        }
+      ],
+      "title": "Author access",
+      "back": true,
+      "navigation": false,
+      "states": false
+    },
+    "published-article": {
+      "module": "stack",
+      "title": "Your article",
+      "back": true,
+      "navigation": false,
+      "blocks": [
+        {
+          "type": "draft-preview",
+          "id": "your-title"
+        },
+        {
+          "type": "person",
+          "id": "your-author",
+          "name": "Alex Morgan",
+          "body": "alex@saito · Just now",
+          "action": "profile"
+        },
+        {
+          "type": "draft-body",
+          "id": "your-body"
+        }
+      ]
+    }
+  },
+  "account": {
+    "name": "Alex Morgan",
+    "handle": "alex@saito",
+    "description": "Demo identity"
+  },
+  "accountMenu": [
+    {
+      "title": "Wallet",
+      "body": "Balance, receive and send",
+      "icon": "wallet",
+      "action": "wallet"
+    },
+    {
+      "title": "Settings",
+      "body": "Account, node and preferences",
+      "icon": "settings",
+      "action": "settings"
+    },
+    {
+      "title": "Preview settings",
+      "body": "Live design and sample states",
+      "icon": "filter",
+      "action": "design-settings"
+    }
+  ]
+}

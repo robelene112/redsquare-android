@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""Observe the actual native prototype on a disposable emulator, including live design latency."""
+import argparse, contextlib, http.server, json, os, re, shutil, subprocess, threading, time, xml.etree.ElementTree as ET
+from pathlib import Path
+parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,required=True);args=parser.parse_args()
+root=Path(__file__).resolve().parent.parent;out=args.evidence.resolve();out.mkdir(parents=True,exist_ok=True)
+package='nl.davidengelen.redsquare.design.dev';component=package+'/nl.davidengelen.redsquare.design.DesignActivity'
+def adb(*words):return subprocess.check_output(['adb',*words],text=True).strip()
+assert adb('get-serialno').startswith('emulator-'),'Use a disposable emulator only'
+served=out/'server';served.mkdir(exist_ok=True);shutil.copyfile(root/'prototype/native-shell/design.json',served/'design.json')
+class QuietHandler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self,*a,**kw):super().__init__(*a,directory=str(served),**kw)
+    def log_message(self,*a):pass
+server=http.server.ThreadingHTTPServer(('127.0.0.1',8788),QuietHandler)
+threading.Thread(target=server.serve_forever,daemon=True).start()
+adb('reverse','tcp:8788','tcp:8788')
+def start(route='home',appearance='dark'):
+    adb('shell','am','force-stop',package)
+    adb('shell','am','start','-n',component,'--es','designUrl','http://127.0.0.1:8788/design.json','--es','route',route,'--es','appearance',appearance)
+def tree():
+    adb('shell','uiautomator','dump','/sdcard/design-window.xml')
+    return ET.fromstring(adb('shell','cat','/sdcard/design-window.xml'))
+def wait(text,desc=False,timeout=25,contains=False):
+    end=time.monotonic()+timeout
+    while time.monotonic()<end:
+        try:
+            t=tree()
+            found=[x for x in t.iter('node') if (text in x.get('content-desc' if desc else 'text','') if contains else x.get('content-desc' if desc else 'text')==text)]
+            if found:return found[0]
+        except ET.ParseError:pass
+        time.sleep(.2)
+    raise AssertionError('Native control not found: '+text)
+def tap(text,desc=False):
+    node=wait(text,desc);bounds=list(map(int,re.findall(r'\d+',node.get('bounds'))));adb('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+def capture(name):
+    (out/(name+'.xml')).write_text(ET.tostring(tree(),encoding='unicode'))
+    with (out/(name+'.png')).open('wb') as f:subprocess.run(['adb','exec-out','screencap','-p'],stdout=f,check=True)
+try:
+    start();wait('Red Square');capture('home-dark')
+    timing=[]
+    original=json.loads((served/'design.json').read_text())
+    for n in range(3):
+        update=json.loads(json.dumps(original));update['revision']='observed-live-'+str(n);update['modules']['redsquare']['title']='Red Square Live '+str(n)
+        deviceBefore=float(adb('shell','cat','/proc/uptime').split()[0])*1000
+        before=time.monotonic()
+        tmp=served/'design.new';tmp.write_text(json.dumps(update));tmp.replace(served/'design.json')
+        wait('Red Square Live '+str(n))
+        observed=(time.monotonic()-before)*1000
+        logs=adb('logcat','-d','-s','ShellPreview:I','*:S')
+        matches=re.findall(r'design_frame revision=observed-live-'+str(n)+r' elapsedMs=(\d+)',logs)
+        assert matches,'No actual rendered-frame observation'
+        timing.append(dict(revision=update['revision'],publishToFrameMs=round(int(matches[-1])-deviceBefore,1),publishToUiObservationMs=round(observed,1)))
+    capture('live-updated-without-new-apk')
+    tap('Apps',True);tap('Stack');wait('Discover');capture('stack-discover')
+    tap('Write an article',True);wait('Write');capture('visual-editor')
+    tap('Markdown');wait('Markdown source')
+    edit=next(x for x in tree().iter('node') if x.get('class')=='android.widget.EditText' and 'A little' in x.get('text',''))
+    bounds=list(map(int,re.findall(r'\d+',edit.get('bounds'))))
+    adb('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2))
+    adb('shell','input','keyevent','123');adb('shell','input','text','%sretained-draft-proof');adb('shell','input','keyevent','4')
+    wait('retained-draft-proof',contains=True);capture('markdown-editor')
+    tap('Apps',True);tap('Red Square Live 2');wait('Red Square Live 2')
+    tap('Apps',True);tap('Stack');wait('retained-draft-proof',contains=True);capture('editor-retained-after-module-switch')
+    tap('Review');wait('Review & publish');capture('publish-review')
+    # Returning to the original sample config is another live update, not a reinstall.
+    (served/'design.json').write_text(json.dumps(original))
+    routes=['thread','activity','conversation','profile','wallet','receive','settings','node-settings','article','locked-article','access-review','editor','publish-review','subscriptions','design-settings']
+    for route in routes:
+        start(route);wait('Apps',True);capture(route+'-dark')
+    start('home','light');wait('Red Square');capture('home-light')
+    start('stack','light');wait('Discover');capture('stack-light')
+    adb('shell','settings','put','system','font_scale','1.5')
+    start('home');wait('Apps',True);capture('home-large-text')
+    (out/'live-update-timing.json').write_text(json.dumps(timing,indent=2)+'\n')
+    (out/'logcat.txt').write_text(adb('logcat','-d','-s','ShellPreview:I','AndroidRuntime:E','*:S'))
+    print('PASS: actual native shell navigation, retained editor, 3 live updates, and screenshots')
+    print(json.dumps(timing))
+finally:
+    adb('shell','settings','put','system','font_scale','1.0')
+    server.shutdown()

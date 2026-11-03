@@ -5,3 +5,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "RedSquare"
 include(":core", ":app", ":push-gateway")
+
+include(":shell-ui", ":shell-preview")

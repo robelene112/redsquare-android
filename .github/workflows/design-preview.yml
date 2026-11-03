@@ -1,0 +1,67 @@
+name: Native design preview
+on:
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  preview:
+    strategy:
+      fail-fast: false
+      matrix:
+        api: ['29', '37.0']
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/docs/evidence/
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: ~/.gradle/caches
+          key: native-shell-v1-${{ hashFiles('shell-ui/build.gradle.kts', 'shell-preview/build.gradle.kts') }}
+          restore-keys: |
+            native-shell-v1-
+            redsquare-gradle-v2-
+      - name: Prepare Android tools
+        run: |
+          sudo chmod a+rw /dev/kvm
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libpulse0 libgl1 libnss3 libasound2t64 libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 libglib2.0-0t64
+          scripts/ci-android-setup
+      - name: Build only the native preview
+        run: ./gradlew --no-daemon --console=plain :shell-preview:assembleDebug
+      - name: Observe actual Android rendering and live updates
+        env:
+          DESIGN_API: ${{ matrix.api }}
+        run: |
+          export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+          image='system-images;android-29;default;x86_64'
+          if [[ "$DESIGN_API" == '37.0' ]]; then image='system-images;android-37.0;google_apis;x86_64'; fi
+          scripts/ci-sdk-install sdkmanager "$image"
+          printf 'no\n' | avdmanager create avd --name design-preview --package "$image"
+          mkdir -p .scratch/design-evidence
+          emulator -avd design-preview -no-window -no-audio -no-snapshot -no-boot-anim -accel on -gpu swiftshader -cores 2 -memory 2048 > .scratch/design-evidence/emulator.log 2>&1 &
+          trap 'kill $!' EXIT
+          adb start-server
+          for i in $(seq 1 120); do
+            if [[ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then break; fi
+            sleep 1
+          done
+          adb shell input keyevent 82
+          adb shell settings put system screen_off_timeout 1800000
+          adb shell wm dismiss-keyguard
+          adb install -r shell-preview/build/outputs/apk/debug/shell-preview-debug.apk
+          scripts/design-preview-smoke --evidence .scratch/design-evidence
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: native-design-${{ matrix.api }}
+          path: .scratch/design-evidence/

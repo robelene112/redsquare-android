@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-permission android:name="android.permission.INTERNET" />
+  <application android:label="Red Square Design" android:allowBackup="false" android:theme="@style/DesignTheme" android:icon="@drawable/ic_launcher_foreground">
+    <activity android:name=".DesignActivity" android:exported="true" android:configChanges="uiMode|orientation|screenSize" android:windowSoftInputMode="adjustResize">
+      <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+    </activity>
+  </application>
+</manifest>
