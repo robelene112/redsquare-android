@@ -413,7 +413,7 @@
       "tab": "activity",
       "topAction": {
         "label": "Mark read",
-        "action": "notice:All preview activity marked as read"
+        "action": "confirm:read"
       }
     },
     "mentions": {

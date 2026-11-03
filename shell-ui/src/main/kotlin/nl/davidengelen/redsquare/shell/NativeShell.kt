@@ -86,6 +86,7 @@ class ShellSession {
                 }
                 navigate("published", design)
             }
+            value == "confirm:read" -> { flags["activity-read"] = true; notice = "All preview activity marked as read" }
             value == "confirm:profile" -> { flags["profile-saved"] = true; navigate("profile", design); notice = "Profile preview saved" }
             value == "confirm:send" -> { navigate("wallet", design); notice = "Demo transfer complete. No funds were sent." }
             value == "confirm:post" -> { fields["posted-preview"] = fields["post-$route"] ?: "A new preview post"; flags["posted"] = true; flags["posted-article"] = false; navigate(if (route == "reply") "thread" else "home", design); notice = "Preview post added" }
@@ -155,7 +156,7 @@ fun NativeShell(design: Design, session: ShellSession, syncLabel: String, appear
                 Row(Modifier.fillMaxWidth().padding(start = 8.dp, end = 2.dp, bottom = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                     Box(Modifier.size(6.dp).background(if (session.stateMode == "Offline") Color(0xffea6576) else Color(0xff6abf9a), CircleShape))
                     Text(session.fields["node"] ?: design.json.text("node", "saito.io"), Modifier.weight(1f).padding(start = 7.dp), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(6.dp), onClick = { action("design-settings") }) {
+                    Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(6.dp)) {
                         Text("Design preview", Modifier.padding(horizontal = 7.dp, vertical = 3.dp), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
@@ -211,7 +212,7 @@ fun NativeShell(design: Design, session: ShellSession, syncLabel: String, appear
                 LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
                     contentPadding = PaddingValues(start = design.margin.dp, end = design.margin.dp, top = 6.dp, bottom = if (screen.has("fab")) 96.dp else 24.dp),
                     verticalArrangement = Arrangement.spacedBy(design.gap.dp)) {
-                    items(screen.array("blocks").objects(), key = { it.text("id", it.toString()) }) { block ->
+                    items(screen.array("blocks").objects().filter { visibleBlock(it, session) }, key = { it.text("id", it.toString()) }) { block ->
                         ShellBlock(block, design, session, action)
                     }
                 }
@@ -261,7 +262,7 @@ fun NativeShell(design: Design, session: ShellSession, syncLabel: String, appear
                     Text("$syncLabel · ${design.revision}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 else -> {
-                    Text("Post actions", style = MaterialTheme.typography.headlineSmall)
+                    Text(if (session.sheet == "profile") "Profile actions" else "Post actions", style = MaterialTheme.typography.headlineSmall)
                     MenuRow("Public identity", "View this account", "profile") { session.sheet = ""; action("author") }
                     MenuRow("Mute account", "Hide posts and activity", "notifications_off") { session.sheet = ""; session.dialog = "Mute this demo account?" }
                     MenuRow("Block account", "Hide posts and incoming messages", "lock") { session.sheet = ""; session.dialog = "Block this demo account?" }

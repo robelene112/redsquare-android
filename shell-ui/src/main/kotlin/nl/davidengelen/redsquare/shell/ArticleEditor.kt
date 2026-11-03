@@ -6,6 +6,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -17,8 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mohamedrejeb.richeditor.model.RichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichTextEditor
+import com.mohamedrejeb.richeditor.ui.material3.RichTextEditorDefaults
 import org.json.JSONObject
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ArticleEditor(b: JSONObject, d: Design, s: ShellSession) {
     val id = b.text("id")
@@ -48,16 +51,24 @@ internal fun ArticleEditor(b: JSONObject, d: Design, s: ShellSession) {
         if (sourceMode || unsupported) OutlinedTextField(value = source, onValueChange = { s.fields[id] = it }, modifier = Modifier.fillMaxWidth(),
             textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace), minLines = 14, label = { Text("Markdown source") })
         else {
-            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                TextButton(onClick = { rich.toggleSpanStyle(SpanStyle(fontWeight = FontWeight.Bold)) }, Modifier.semantics { contentDescription = "Bold" }) { Text("B", fontWeight = FontWeight.Bold) }
-                TextButton(onClick = { rich.toggleSpanStyle(SpanStyle(fontStyle = FontStyle.Italic)) }, Modifier.semantics { contentDescription = "Italic" }) { Text("I", fontStyle = FontStyle.Italic) }
-                TextButton(onClick = { rich.insertMarkdownAfterSelection("\n## Heading\n") }) { Text("Heading") }
+            var formatting by remember { mutableStateOf(false) }
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                IconButton(onClick = { rich.toggleSpanStyle(SpanStyle(fontWeight = FontWeight.Bold)) }, Modifier.semantics { contentDescription = "Bold" }) { Text("B", fontWeight = FontWeight.Bold) }
+                IconButton(onClick = { rich.toggleSpanStyle(SpanStyle(fontStyle = FontStyle.Italic)) }, Modifier.semantics { contentDescription = "Italic" }) { Text("I", fontStyle = FontStyle.Italic) }
                 IconButton(onClick = { rich.addLink("Link text", "https://saito.io") }) { ShellIcon("link", "Insert link") }
-                TextButton(onClick = { rich.toggleUnorderedList() }) { Text("List") }
-                IconButton(onClick = { s.dialog = "Add an article image" }) { ShellIcon("image", "Insert image") }
+                Box {
+                    IconButton(onClick = { formatting = true }) { ShellIcon("more", "More formatting") }
+                    DropdownMenu(expanded = formatting, onDismissRequest = { formatting = false }) {
+                        DropdownMenuItem(text = { Text("Heading") }, onClick = { formatting = false; rich.insertMarkdownAfterSelection("\n## Heading\n") })
+                        DropdownMenuItem(text = { Text("Bullet list") }, onClick = { formatting = false; rich.toggleUnorderedList() })
+                        DropdownMenuItem(text = { Text("Article image") }, onClick = { formatting = false; s.dialog = "Add an article image" })
+                    }
+                }
             }
             RichTextEditor(rich, modifier = Modifier.fillMaxWidth().heightIn(min = 300.dp),
-                textStyle = MaterialTheme.typography.bodyLarge, placeholder = { Text("Your story starts here…") }, minLines = 12)
+                colors = RichTextEditorDefaults.richTextEditorColors(textColor = MaterialTheme.colorScheme.onSurface, containerColor = Color.Transparent,
+                    cursorColor = MaterialTheme.colorScheme.primary, focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent),
+                contentPadding = PaddingValues(0.dp), textStyle = MaterialTheme.typography.bodyLarge, placeholder = { Text("Your story starts here…") }, minLines = 12)
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Draft kept while you explore", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

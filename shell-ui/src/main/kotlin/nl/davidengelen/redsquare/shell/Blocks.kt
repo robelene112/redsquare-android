@@ -30,10 +30,15 @@ import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichText
 import org.json.JSONObject
 
+internal fun visibleBlock(b: JSONObject, s: ShellSession): Boolean {
+    if (b.has("whenFlag") && s.flags[b.text("whenFlag")] != true) return false
+    if (b.has("whenField")) { val condition = b.getJSONObject("whenField"); if (s.fields[condition.text("id")] != condition.text("value")) return false }
+    return when (b.text("type")) { "local-post" -> s.flags["posted"] == true; "local-article" -> s.flags["published"] == true; else -> true }
+}
+
 @Composable
 internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (String) -> Unit) {
-    if (b.has("whenFlag") && s.flags[b.text("whenFlag")] != true) return
-    if (b.has("whenField")) { val condition = b.getJSONObject("whenField"); if (s.fields[condition.text("id")] != condition.text("value")) return }
+    if (!visibleBlock(b, s)) return
     when (b.text("type")) {
         "intro" -> Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             if (b.has("eyebrow")) Text(b.text("eyebrow").uppercase(), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary, letterSpacing = 1.8.sp)
@@ -98,7 +103,7 @@ internal fun ShellBlock(b: JSONObject, d: Design, s: ShellSession, action: (Stri
                 Text(b.text("quote"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 Text(b.text("time"), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            if (b.optBoolean("unread")) Box(Modifier.padding(top = 7.dp).size(6.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
+            if (b.optBoolean("unread") && s.flags["activity-read"] != true) Box(Modifier.padding(top = 7.dp).size(6.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
         }
         "balance" -> Surface(shape = RoundedCornerShape(d.radius.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.fillMaxWidth().padding(22.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -223,7 +228,7 @@ private fun ProfileBlock(b: JSONObject, d: Design, s: ShellSession, action: (Str
         if (!b.optBoolean("own")) Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedButton(onClick = { action("conversation") }) { Text("Message") }
             FilledTonalButton(onClick = { action("stack-author") }) { Text("Read on Stack") }
-            IconButton(onClick = { action("sheet:post") }) { ShellIcon("more", "Profile actions") }
+            IconButton(onClick = { action("sheet:profile") }) { ShellIcon("more", "Profile actions") }
         }
     }
 }

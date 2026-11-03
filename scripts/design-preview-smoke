@@ -40,7 +40,7 @@ def scroll_tap(text):
         for node in tree().iter('node'):
             if node.get('text')==text:
                 bounds=list(map(int,re.findall(r'\d+',node.get('bounds'))))
-                if bounds[3]>bounds[1] and bounds[1]>80 and bounds[3]<height-40:
+                if bounds[3]>bounds[1] and 80<(bounds[1]+bounds[3])/2<height-20:
                     adb('shell','input','tap',str((bounds[0]+bounds[2])//2),str((bounds[1]+bounds[3])//2));return
         adb('shell','input','swipe',str(int(width*.90)),str(int(height*.77)),str(int(width*.90)),str(int(height*.30)),'350')
     raise AssertionError('Scrollable native control not found: '+text)
@@ -62,6 +62,7 @@ try:
         matches=re.findall(r'design_frame revision=observed-live-'+str(n)+r' elapsedMs=(\d+)',logs)
         assert matches,'No actual rendered-frame observation'
         timing.append(dict(revision=update['revision'],publishToFrameMs=round(int(matches[-1])-deviceBefore,1),publishToUiObservationMs=round(observed,1)))
+    (out/'live-update-timing.json').write_text(json.dumps(timing,indent=2)+'\n')
     capture('live-updated-without-new-apk')
     tap('Apps',True);tap('Stack');wait('Discover');capture('stack-discover')
     tap('Write an article',True);wait('Write');capture('visual-editor')
@@ -75,7 +76,11 @@ try:
     tap('Apps',True);tap('Stack');wait('retained-draft-proof',contains=True);capture('editor-retained-after-module-switch')
     tap('Review');wait('Review & publish');capture('publish-review')
     scroll_tap('Share to Red Square');scroll_tap('Publish preview');wait('Your story has a home.')
-    tap('Apps',True);tap('Red Square Live 2');wait('A new story, shared on Stack.');capture('optional-article-post-created')
+    tap('Apps',True);tap('Red Square Live 2')
+    # Module switching preserves the old feed anchor; deliberately reveal the new post above it.
+    size=list(map(int,re.findall(r'\d+',adb('shell','wm','size').splitlines()[-1])));width,height=size[-2:]
+    for _ in range(2):adb('shell','input','swipe',str(width//2),str(int(height*.35)),str(width//2),str(int(height*.80)),'300')
+    wait('A new story, shared on Stack.');capture('optional-article-post-created')
     start('compose');wait('New post')
     edit=next(x for x in tree().iter('node') if x.get('class')=='android.widget.EditText')
     bounds=list(map(int,re.findall(r'\d+',edit.get('bounds'))))
@@ -125,6 +130,10 @@ try:
     print('PUBLIC VPS HTTPS:',json.dumps(public))
     adb('shell','settings','put','system','font_scale','1.5')
     start('home');wait('Apps',True);capture('home-large-text')
+    adb('shell','settings','put','system','font_scale','1.0')
+    adb('shell','wm','size','1080x2400');adb('shell','wm','density','420')
+    start('home');wait('Red Square');capture('home-pixel7-viewport')
+    start('stack');wait('Discover');capture('stack-pixel7-viewport')
     (out/'live-update-timing.json').write_text(json.dumps(timing,indent=2)+'\n')
     (out/'logcat.txt').write_text(adb('logcat','-d','-s','ShellPreview:I','AndroidRuntime:E','*:S'))
     print('PASS: actual native shell navigation, retained editor, 3 live updates, and screenshots')
@@ -136,5 +145,6 @@ finally:
         capture('final-native-state')
     except Exception as diagnostic:
         (out/'diagnostic-error.txt').write_text(str(diagnostic))
-    try: adb('shell','settings','put','system','font_scale','1.0')
+    try:
+        adb('shell','settings','put','system','font_scale','1.0');adb('shell','wm','size','reset');adb('shell','wm','density','reset')
     finally: server.shutdown()
