@@ -34,7 +34,14 @@ internal object AppSpacing {
     const val transitionMillis = 180
 }
 
-internal enum class PrimaryDestination(val label: Int, val caption: Int, val icon: Int) {
+internal interface ModuleDestination {
+    val label: Int
+    val caption: Int
+    val icon: Int
+}
+
+internal enum class PrimaryDestination(override val label: Int, override val caption: Int,
+    override val icon: Int) : ModuleDestination {
     HOME(R.string.home_title, R.string.home_title, R.drawable.ic_home),
     SEARCH(R.string.search_title, R.string.search_title, R.drawable.ic_search),
     NOTIFICATIONS(R.string.notifications_title, R.string.navigation_activity, R.drawable.ic_notifications),
@@ -92,10 +99,10 @@ private fun BackupNoticeAction(label: Int, enabled: Boolean, onClick: () -> Unit
 /** Keep captions intact; an adaptive legend and tooltips name the icon-only layout. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSelect: (PrimaryDestination) -> Unit) {
+internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected: T, enabled: Boolean, onSelect: (T) -> Unit) {
     val measurer = rememberTextMeasurer()
-    val captions = PrimaryDestination.entries.map { stringResource(it.caption) }
-    val tooltipStates = PrimaryDestination.entries.map { rememberTooltipState() }
+    val captions = entries.map { stringResource(it.caption) }
+    val tooltipStates = entries.map { rememberTooltipState() }
     val tooltipMutex = remember { MutatorMutex() }
     val tooltips = remember(tooltipStates, tooltipMutex) {
         tooltipStates.map { NavigationTooltipState(it, tooltipStates, tooltipMutex) }
@@ -105,8 +112,8 @@ internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSel
         val density = LocalDensity.current
         // Material's bar separates items by8dp. Leave another8dp for caption breathing room.
         val gap = with(density) { AppSpacing.small.roundToPx() }
-        val labelWidth = (constraints.maxWidth - gap * (PrimaryDestination.entries.size - 1)) /
-            PrimaryDestination.entries.size - gap
+        val labelWidth = (constraints.maxWidth - gap * (entries.size - 1)) /
+            entries.size - gap
         val compact = captions.any { measurer.measure(it, style, softWrap = false).size.width > labelWidth }
         Column {
             if (compact) Crossfade(selected, animationSpec = tween(AppSpacing.transitionMillis),
@@ -118,10 +125,10 @@ internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSel
             }
             NavigationBar(modifier = if (compact) Modifier.height(64.dp) else Modifier,
                 containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
-                PrimaryDestination.entries.forEachIndexed { index, destination ->
+                entries.forEachIndexed { index, destination ->
                     val name = stringResource(destination.label)
                     // TooltipBox applies its modifier to an inner anchor. Give the outer
-                    // navigation row a real weighted child so all five items share its width.
+                    // navigation row a real weighted child so all module destinations share its width.
                     Box(Modifier.weight(1f)) {
                         TooltipBox(positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
                             tooltip = { PlainTooltip { Text(stringResource(destination.caption)) } },

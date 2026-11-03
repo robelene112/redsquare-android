@@ -20,11 +20,15 @@ import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
 
+internal enum class AppModule(val title: Int) {
+    RED_SQUARE(R.string.app_name), STACK(R.string.stack_title)
+}
+
 /** Shared account navigation over the real installation, never a preview wallet. */
 @Composable
-internal fun AppHeader(node: String?, owner: String?, walletEnabled: Boolean, settingsEnabled: Boolean,
-    onWallet: () -> Unit, onSettings: () -> Unit) {
-    val switchLabel = stringResource(R.string.switch_app, stringResource(R.string.app_name))
+internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletEnabled: Boolean, settingsEnabled: Boolean,
+    onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit) {
+    val switchLabel = stringResource(R.string.switch_app, stringResource(module.title))
     val accountLabel = stringResource(R.string.account)
     var appsOpen by remember { mutableStateOf(false) }
     var accountOpen by remember { mutableStateOf(false) }
@@ -33,24 +37,26 @@ internal fun AppHeader(node: String?, owner: String?, walletEnabled: Boolean, se
         Row(Modifier.fillMaxWidth().heightIn(min = 60.dp), verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Box(Modifier.weight(1f)) {
-                OutlinedButton(onClick = { appsOpen = true }, modifier = Modifier.heightIn(min = 48.dp)
+                OutlinedButton(onClick = { appsOpen = true }, enabled = walletEnabled, modifier = Modifier.heightIn(min = 48.dp)
                     .semantics { contentDescription = switchLabel },
                     shape = RoundedCornerShape(14.dp),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface,
                         containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)) {
-                    Text(stringResource(R.string.app_name), Modifier.weight(1f, fill = false),
+                    Text(stringResource(module.title), Modifier.weight(1f, fill = false),
                         style = if (LocalDensity.current.fontScale > 1.3f) MaterialTheme.typography.titleMedium
                             else MaterialTheme.typography.titleLarge)
                     Spacer(Modifier.width(8.dp))
                     Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
                 }
                 DropdownMenu(appsOpen, onDismissRequest = { appsOpen = false }) {
-                    DropdownMenuItem(text = { Text(stringResource(R.string.app_name)) },
-                        modifier = Modifier.semantics { selected = true }, onClick = { appsOpen = false })
-                    DropdownMenuItem(text = { Text(stringResource(R.string.stack_title)) }, enabled = false,
-                        onClick = {})
+                    AppModule.entries.forEach { target ->
+                        DropdownMenuItem(text = { Text(stringResource(target.title)) },
+                            modifier = Modifier.semantics { selected = module == target },
+                            enabled = walletEnabled,
+                            onClick = { appsOpen = false; onModule(target) })
+                    }
                 }
             }
             Box {

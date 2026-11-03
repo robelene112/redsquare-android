@@ -53,7 +53,7 @@ import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.ui.rememberReadingAnchorModifier
-import nl.davidengelen.redsquare.ui.AppNavigation
+import nl.davidengelen.redsquare.ui.ModuleNavigation
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.PrimaryDestination
 import nl.davidengelen.redsquare.R
@@ -524,7 +524,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             destination !is BrowseDestination.Quote && destination !is BrowseDestination.Author) {
             SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
             HorizontalDivider()
-            AppNavigation(primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->
+            ModuleNavigation(PrimaryDestination.entries, primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->
                 val rootDestination = navigation.singleOrNull()
                 val atPrimaryRoot = when (destination) {
                     PrimaryDestination.HOME -> home

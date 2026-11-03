@@ -81,6 +81,8 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
 import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
+import nl.davidengelen.redsquare.ui.AppModule
+import nl.davidengelen.redsquare.stack.StackReviewScreen
 import nl.davidengelen.redsquare.ui.AppHeader
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.CompactBackupNotice
@@ -157,6 +159,8 @@ class MainActivity : ComponentActivity() {
             var settingsOpen by remember { mutableStateOf(false) }
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             var homeVisible by remember { mutableStateOf(true) }
+            var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
+            var moduleSwitchFailed by remember { mutableStateOf(false) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
             var personalControlsOpen by remember { mutableStateOf(false) }
             var usernameOpen by remember { mutableStateOf(false) }
@@ -168,6 +172,15 @@ class MainActivity : ComponentActivity() {
                 settingsCategory = null
             }
             val postNavigation = remember { PostNavigation() }
+            fun selectModule(selected: AppModule) {
+                if (selected != module) scope.launch {
+                    val moved = postNavigation.navigate { module = selected; true }
+                    moduleSwitchFailed = !moved
+                }
+            }
+            androidx.activity.compose.BackHandler(module != AppModule.RED_SQUARE) {
+                selectModule(AppModule.RED_SQUARE)
+            }
             LaunchedEffect(Unit) {
                 backend = withContext(Dispatchers.IO) {
                     try { backendStore.load() } catch (_: Exception) { null }
@@ -322,11 +335,15 @@ class MainActivity : ComponentActivity() {
                 val keyboardVisible = WindowInsets.isImeVisible
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
-                        if (!keyboardVisible) AppHeader(backend?.domain, address,
+                        if (!keyboardVisible) AppHeader(backend?.domain, address, module,
                             walletEnabled = !postNavigation.transitioning,
                             settingsEnabled = backendReady && !savingBackend && !postNavigation.transitioning,
                             onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
-                            onSettings = { settingsOpen = true })
+                            onSettings = { settingsOpen = true },
+                            onModule = ::selectModule)
+                        nl.davidengelen.redsquare.ui.InlineStatus(
+                            if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
+                            nl.davidengelen.redsquare.ui.StatusTone.ERROR)
                         if (updateAvailable && !keyboardVisible) {
                             Text(stringResource(R.string.preview_update_available))
                             TextButton(onClick = {
@@ -335,7 +352,7 @@ class MainActivity : ComponentActivity() {
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodySmall)
-                        if (homeVisible && !usernameOpen && !keyboardVisible) {
+                        if (module == AppModule.RED_SQUARE && homeVisible && !usernameOpen && !keyboardVisible) {
                             CompactBackupNotice(visible = backupReminder, enabled = backupReminder && wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
                                 onBackup = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
                                 onLater = { dismissBackupReminder() },
@@ -360,6 +377,11 @@ class MainActivity : ComponentActivity() {
                             val selected = backend
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
+                                    val moduleStates = rememberSaveableStateHolder()
+                                    moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
+                                    if (module == AppModule.STACK) {
+                                        StackReviewScreen(Modifier.weight(1f))
+                                    } else {
                                     val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
@@ -390,6 +412,8 @@ class MainActivity : ComponentActivity() {
                                                     check(result.second) { "Could not save wallet metadata" }
                                                 }
                                             }) { reportFullyDrawn() }
+                                    }
+                                    }
                                     }
                                     }
                                 }
