@@ -52,7 +52,7 @@ import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
-import nl.davidengelen.redsquare.ui.preserveReadingAnchor
+import nl.davidengelen.redsquare.ui.rememberReadingAnchorModifier
 import nl.davidengelen.redsquare.ui.AppNavigation
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.PrimaryDestination
@@ -147,6 +147,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         } }
     }
     val position = rememberLazyListState()
+    val readingAnchor = key(wallet?.publicKey, backend.id) {
+        rememberReadingAnchorModifier(position, relativeToRoot = true)
+    }
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val navigationNotice = remember { SnackbarHostState() }
     val navigationFailureMessage = stringResource(R.string.navigation_save_failed)
@@ -488,7 +491,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 onRefresh = refreshContent,
                 modifier = Modifier.weight(1f).fillMaxWidth()
             ) {
-                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").refreshAction(wallet != null && !loading, refreshContent).preserveReadingAnchor(position, relativeToRoot = true), state = position,
+                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").refreshAction(wallet != null && !loading, refreshContent).then(readingAnchor), state = position,
                     contentPadding = PaddingValues(bottom = 88.dp)) {
                     items(visiblePosts, key = { it.id }) { post ->
                         PostCard(post, backend, onIdentity = { openProfile(it) },
