@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import org.junit.Assert.assertTrue
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
