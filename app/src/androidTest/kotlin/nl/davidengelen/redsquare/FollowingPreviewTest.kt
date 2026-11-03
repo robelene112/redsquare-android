@@ -71,7 +71,7 @@ class FollowingPreviewTest {
                         openFeedProfile(author)
                         waitFor("Unfollow")
                         ui.onNodeWithText("Back").performClick()
-                        ui.waitForRefreshableContent(20_000)
+                        ui.waitForRefreshableContent(15_000)
                         ui.waitUntil(10_000) { ui.refreshableContentReady() }
                         owner.assertHealthy()
                         official.assertHealthy()
