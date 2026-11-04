@@ -4,6 +4,8 @@ import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -12,6 +14,10 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import nl.davidengelen.redsquare.ui.refreshAction
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -31,6 +37,8 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
+import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.AppSpacing
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +60,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var pullRefreshSucceeded by remember(selected.id) { mutableStateOf(false) }
     val position = rememberLazyListState()
     var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
+    var historyInformation by rememberSaveable(selected.id) { mutableStateOf(false) }
     if (replying && wallet != null) {
         PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
         return
@@ -106,32 +115,64 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     val available = RedSquareFeed.newest(posts + listOfNotNull(parent?.post)).sortedBy { it.createdAt }
     val parentMissing = selected.parentId.isNotEmpty() && available.none { it.id == selected.parentId }
     val visiblePosts = available.filter { personal?.hidesPosts(it.author) == false }
-    Column(modifier) {
-        Row {
-            TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
-            Text(stringResource(R.string.conversation_title), Modifier.weight(1f).padding(vertical = 12.dp),
-                style = MaterialTheme.typography.titleLarge)
+    val refreshContent: () -> Unit = {
+        if (wallet != null && !loading) {
+            pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++
         }
-        Row {
-            TextButton(enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
+    }
+    val parentLoading = parentMissing && parent?.loading == true
+    val cacheLimited = cacheWarning || parent?.cacheWarning == true
+    val summary = when {
+        loading -> stringResource(R.string.conversation_loading)
+        failed -> stringResource(R.string.conversation_refresh_error_summary)
+        parentLoading -> stringResource(R.string.conversation_parent_loading)
+        parentMissing -> stringResource(R.string.conversation_parent_summary)
+        unreadable -> stringResource(R.string.conversation_unreadable_summary)
+        cacheLimited -> stringResource(R.string.conversation_cache_summary)
+        pullRefreshSucceeded -> stringResource(R.string.conversation_refresh_success)
+        else -> null
+    }
+    val details = buildList {
+        if (failed) add(stringResource(R.string.conversation_error))
+        if (unreadable) add(stringResource(R.string.conversation_unreadable))
+        if (cacheLimited) add(stringResource(R.string.feed_cache_warning))
+        if (parentMissing) add(stringResource(when {
+            parentLoading -> R.string.conversation_parent_loading
+            failed || parent?.failed == true -> R.string.conversation_parent_error
+            else -> R.string.conversation_parent_unavailable
+        }))
+    }
+    val tone = when {
+        loading -> StatusTone.WORKING
+        failed -> StatusTone.ERROR
+        parentLoading -> StatusTone.WORKING
+        parentMissing || unreadable || cacheLimited -> StatusTone.WARNING
+        else -> StatusTone.SUCCESS
+    }
+    if (historyInformation) AlertDialog(onDismissRequest = { historyInformation = false },
+        title = { Text(stringResource(R.string.conversation_history_title)) },
+        text = { Column(Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                Text(stringResource(R.string.conversation_history), style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.conversation_refresh_guidance), style = MaterialTheme.typography.bodyMedium)
+            } },
+        confirmButton = { TextButton(onClick = { historyInformation = false }) { Text(stringResource(R.string.done)) } })
+    Column(modifier) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
+            Text(stringResource(R.string.conversation_title), Modifier.weight(1f).semantics { heading() },
+                style = MaterialTheme.typography.titleLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            FrameIconButton(R.drawable.ic_chat, stringResource(R.string.post_reply),
+                enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true })
+            FrameIconButton(R.drawable.ic_info, stringResource(R.string.conversation_information),
+                onClick = { historyInformation = true })
         }
         PersonalControlsStatus(personal)
         if (personal?.ready == true && personal.hidesPosts(selected.author))
             Text(stringResource(R.string.personal_post_hidden), style = MaterialTheme.typography.bodySmall)
-        Text(stringResource(R.string.conversation_history), style = MaterialTheme.typography.bodySmall)
-        InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.conversation_refresh_success) else null, StatusTone.SUCCESS)
-        if (loading) Text(stringResource(R.string.conversation_loading))
-        if (failed) Text(stringResource(R.string.conversation_error))
-        if (unreadable) Text(stringResource(R.string.conversation_unreadable))
-        if (cacheWarning || parent?.cacheWarning == true) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
-        if (parentMissing) {
-            if (parent?.loading == true) Text(stringResource(R.string.conversation_parent_loading))
-            else if (!loading) Text(stringResource(if (failed || parent?.failed == true)
-                R.string.conversation_parent_error else R.string.conversation_parent_unavailable))
-        }
-        val refreshContent: () -> Unit = {
-            if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
-        }
+        InlineStatus(summary, tone, details, modifier = Modifier.testTag("conversation-status"),
+            actionLabel = if (failed || parentMissing || unreadable || cacheLimited) stringResource(R.string.retry) else null,
+            actionEnabled = wallet != null && !loading && !parentLoading, onAction = refreshContent)
         PullToRefreshBox(
             isRefreshing = pullRefreshing,
             onRefresh = refreshContent,

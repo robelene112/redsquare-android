@@ -1,0 +1,9 @@
+<resources>
+    <string name="conversation_information">Conversation information</string>
+    <string name="conversation_history_title">Available history</string>
+    <string name="conversation_refresh_guidance">Pull down in this conversation to refresh its available replies.</string>
+    <string name="conversation_refresh_error_summary">Could not refresh replies</string>
+    <string name="conversation_parent_summary">Parent post unavailable</string>
+    <string name="conversation_unreadable_summary">Some replies could not be read</string>
+    <string name="conversation_cache_summary">Local history needs attention</string>
+</resources>

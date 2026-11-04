@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.chat
 
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
+import nl.davidengelen.redsquare.ui.FrameIconButton
 
 import androidx.activity.compose.BackHandler
 import androidx.activity.ComponentActivity
@@ -350,8 +351,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val statusMaxHeight=minOf(maxHeight/3,80.dp)
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
-            TextButton(enabled=!busy&&!savingForNavigation&&!navigation.transitioning,onClick={back()},
-                contentPadding=PaddingValues(horizontal=4.dp)) { Text(stringResource(R.string.browse_back)) }
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back),
+                enabled = !busy && !savingForNavigation && !navigation.transitioning, onClick = { back() })
             Column(Modifier.weight(1f)) {
                 Text(entry?.group?.name ?: stringResource(R.string.group_title), style=MaterialTheme.typography.titleMedium,
                     maxLines=1,overflow=TextOverflow.Ellipsis)

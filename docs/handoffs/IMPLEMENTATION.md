@@ -27,11 +27,18 @@ selector diagnostics and superseded runs remain explicitly separated in evidence
 These controlled emulators establish no physical Pixel/provider/store acceptance.
 
 79 is ACTIVE, review base497edac120efdccd7ce334ade1aa1def14078f31.
-First test-only source58b709262, native baseline41926254848(10) running.
+Firsttest-onlysource58b709262/baseline41926254848usedareplyasfeedrow, but
+Feedintentionallyfiltersreplies. Supersededbynativetracer20a5f3910 witha
+standaloneheadercheckthenactualSearch->replyroute;baseline41927315549(10).
 New ConversationHeaderPreviewTest covers loading/parent/unreadable/cache fault,
 history Details, accessible Retry/outage recovery and real exact unsent reply.
-Working test-only corrections route exact parent sig requests honestly and preserve
-quoteoriginal cache; production still unchanged pending nativeRED. Preserve every criterion in that native
+Actual RED41927315549at20a5f3910 finds the permanent history paragraph above
+an authentic standalone Conversation. Production now implements compact vector
+Back/Reply/information header, one shared status with complete Details and Retry,
+and proper pull guidance. Private/group Back callbacks retain their guards and
+use the shared vector control. Public body14sp, authentic data, drafts and list
+state remain unchanged. Local compile runs in /tmp/redesign79-green-compile.log.
+Viewport/motion proof and final native10/17, reviews and closure remain pending. Preserve every criterion in that native
 GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
 history, drafts/targets/anchors. No original test assertion/deadline may be dropped
 for a new header or compact Details interaction. Final beta remains94.

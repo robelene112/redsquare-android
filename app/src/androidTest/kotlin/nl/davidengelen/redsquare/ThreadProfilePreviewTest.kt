@@ -460,8 +460,13 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
+                    ui.onNodeWithText("Conversation information").performClick()
                     ui.onNodeWithText("Only available history is shown. Older replies may be missing.").assertIsDisplayed()
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Replies could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNodeWithText("Done").performClick()
+                    ui.waitUntil(20_000) { ui.onNodeWithText("Could not refresh replies").isDisplayed() }
+                    ui.onNodeWithContentDescription("Details for Could not refresh replies").performClick()
+                    ui.onNodeWithText("Replies could not be refreshed. Available posts remain visible.").assertIsDisplayed()
+                    ui.onNodeWithText("Done").performClick()
                     captureFeedEvidence("browse-evidence/cached-conversation-after-restart.png")
                     } catch (failure: Throwable) {
                         captureFeedEvidence("browse-evidence/cached-conversation-recovery-first-failure.png")

@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.chat
 
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
+import nl.davidengelen.redsquare.ui.FrameIconButton
 
 import androidx.activity.compose.BackHandler
 
@@ -320,10 +321,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() },
-                contentPadding = PaddingValues(horizontal = 4.dp)) {
-                Text(stringResource(R.string.browse_back))
-            }
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back),
+                enabled = !closing && !navigation.transitioning, onClick = { close() })
             Column(Modifier.weight(1f)) {
                 Text(counterparty?.let { registeredIdentity(it).name } ?: stringResource(R.string.chat_title),
                     style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)

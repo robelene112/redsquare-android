@@ -32,7 +32,7 @@ count may gain a digit and widen its target.
 
 Original movies, all decoded display frames, real system/window-scale observations,
 tap timestamps and native screenshots/hierarchies are retained. Contact strips are
-labelled derived crops for inspection; originals are unchanged. Both reviewers
+labelled derived crops for inspection; originals are unchanged. The Spec reviewer
 and the implementing agent inspected the final rendered evidence. Normal feedback
 repeatedly expands/contracts16to19/20pixels during the burst and ends as an
 outline. Zero motion has static pink feedback and outline return. Tiny width

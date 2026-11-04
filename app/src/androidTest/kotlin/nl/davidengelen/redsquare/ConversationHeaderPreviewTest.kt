@@ -58,6 +58,7 @@ class ConversationHeaderPreviewTest {
                 search.performClick().performTextInput("Independent")
                 search.performImeAction()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Independent Saito reply").isDisplayed() }
+                ui.waitUntil(10_000) { focusedWindowImeBottom() == 0 }
                 check(fault.mkdir()); obstacle.writeText("public owned fixture")
                 ui.onNodeWithText("Independent Saito reply", useUnmergedTree = true).performTouchInput { click(center) }
                 ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
@@ -80,7 +81,7 @@ class ConversationHeaderPreviewTest {
                 ui.onNodeWithText("Done").performClick()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/compact-recovery.png"))
                 check(obstacle.delete()); check(fault.delete()); recovered.set(true)
-                ui.onNodeWithText("Retry").assertIsEnabled().performClick()
+                ui.onNode(hasText("Retry") and hasClickAction() and hasAnyAncestor(hasTestTag("conversation-status"))).assertIsEnabled().performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.conversation_refresh_success)).isDisplayed() }
                 ui.onNodeWithTag("conversation-post-list").performScrollToNode(hasText("Native Red Square reference post"))
                 ui.onNodeWithText("Native Red Square reference post", useUnmergedTree = true).assertIsDisplayed()
@@ -93,7 +94,7 @@ class ConversationHeaderPreviewTest {
                 ui.onNodeWithText("Done").performClick()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/cached-outage.png"))
                 requireNotNull(peer).rejectNewConnections = false
-                ui.onNodeWithText("Retry").performClick()
+                ui.onNode(hasText("Retry") and hasClickAction() and hasAnyAncestor(hasTestTag("conversation-status"))).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.conversation_refresh_success)).isDisplayed() }
                 ui.onNode(hasText("Reply") and hasClickAction()).performClick()
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
