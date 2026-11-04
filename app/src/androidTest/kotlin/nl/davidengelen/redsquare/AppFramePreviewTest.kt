@@ -165,6 +165,18 @@ class AppFramePreviewTest {
                         // Both account destinations retain their original native48dp
                         // reachability goals in the actual new menu.
                         ui.openAccountMenu()
+                        // The separate native popup window can still be scaling after
+                        // Compose reports its label displayed. Observe full real targets
+                        // within5s, then retain the original48dp/disjoint assertions below.
+                        ui.waitUntil(5_000) {
+                            try {
+                                listOf("Wallet", "Settings").all { label ->
+                                    var native = device.findObject(By.text(label))
+                                    while (native != null && !native.isClickable) native = native.parent
+                                    native?.visibleBounds?.let { it.width() >= minimum && it.height() >= minimum } == true
+                                }
+                            } catch (_: androidx.test.uiautomator.StaleObjectException) { false }
+                        }
                         val accountTargets = listOf("Wallet", "Settings").map { label ->
                             val target = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed().assertIsEnabled()
                                 .fetchSemanticsNode().touchBoundsInRoot
