@@ -80,6 +80,8 @@ class FirstUseViewportTest {
                     ui.onNode(hasText("New post") and hasClickAction()).performClick()
                     ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
                     ui.onNode(editor).assertTextContains(draft)
+                    ui.onNode(editor).performClick()
+                    ui.waitUntil(10_000) { imeVisible() == true }
                     device.pressBack()
                     ui.waitUntil(10_000) { imeVisible() == false }
                     ui.onNode(hasText("Save draft") and hasClickAction()).performClick()
