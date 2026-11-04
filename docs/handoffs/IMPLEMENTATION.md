@@ -1,6 +1,14 @@
 # Implementation handoff
 
-## Unified redesign86:87 complete, STOP
+## Unified redesign86:78 active, stop after78
+
+The owner requested one more issue after87. Active issue78 preserves useful
+first-use reading space at very large text. Review base:a31029be6. Only78 is
+authorized now; finish its verification/review/commit and then stop. Native red
+viewport matrix added at the agreed UI/controlled-peer seam, covering320/412dp,
+100/130/200% and both themes. Do not start82 or publish an intermediate beta.
+
+## Previous checkpoint:87 complete
 
 On2026-11-04 the owner changed execution to ONE issue at a time because of usage.
 Issue87 is complete, reviewed, verified and committed. Stop now. Wait for a new
