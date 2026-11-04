@@ -301,12 +301,23 @@ class SocialPushTapPreviewTest {
                                     .setData(android.net.Uri.Builder().scheme("redsquare").authority("social")
                                         .appendPath(routeBackend.id).appendPath(routeOwner).appendPath(signature).build()))
                                 val quietUntil = android.os.SystemClock.elapsedRealtime() + 2_000
+                                var observed = false
                                 do {
-                                    ui.onNodeWithContentDescription("Switch app: Stack").assertIsDisplayed()
-                                    ui.onNodeWithText("Stack design preview").assertIsDisplayed()
-                                    ui.onAllNodesWithText("Conversation").assertCountEquals(0)
+                                    // Android can briefly unmount test roots during the real
+                                    // task intent transition. Check every available hierarchy,
+                                    // then require positive observation and the final actual view.
+                                    if (ui.onAllNodes(isRoot()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
+                                        ui.onNodeWithContentDescription("Switch app: Stack").assertIsDisplayed()
+                                        ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                                        ui.onAllNodesWithText("Conversation").assertCountEquals(0)
+                                        observed = true
+                                    }
                                     android.os.SystemClock.sleep(50)
                                 } while (android.os.SystemClock.elapsedRealtime() < quietUntil)
+                                check(observed) { "The original2s window must include the actual retained module" }
+                                ui.onNodeWithContentDescription("Switch app: Stack").assertIsDisplayed()
+                                ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                                ui.onAllNodesWithText("Conversation").assertCountEquals(0)
                             }
                             ui.onNodeWithContentDescription("Connection details").performClick()
                             ui.onNodeWithText("Connection details").assertIsDisplayed()

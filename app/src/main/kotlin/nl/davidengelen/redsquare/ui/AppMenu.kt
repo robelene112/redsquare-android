@@ -94,7 +94,12 @@ private fun LegacyAppMenu(expanded: Boolean, onDismissRequest: () -> Unit, conte
         val host = object : FrameLayout(view.context) {
             private var escapeTracking = false
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-                if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) return super.dispatchKeyEvent(event)
+                if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) {
+                    if (event.action == KeyEvent.ACTION_DOWN && event.keyCode in setOf(KeyEvent.KEYCODE_TAB,
+                            KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN,
+                            KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT)) panel.requestFocus()
+                    return super.dispatchKeyEvent(event)
+                }
                 when (event.action) {
                     KeyEvent.ACTION_DOWN -> if (event.repeatCount == 0) escapeTracking = true
                     KeyEvent.ACTION_UP -> {
@@ -104,7 +109,16 @@ private fun LegacyAppMenu(expanded: Boolean, onDismissRequest: () -> Unit, conte
                 }
                 return true
             }
-        }.apply { addView(panel, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)) }
+            override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+                super.onWindowFocusChanged(hasWindowFocus)
+                if (!hasWindowFocus) escapeTracking = false
+            }
+        }.apply {
+            isFocusableInTouchMode = true
+            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+            addView(panel, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        }
         val window = PopupWindow(host, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true).apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             elevation = 0f
@@ -116,9 +130,9 @@ private fun LegacyAppMenu(expanded: Boolean, onDismissRequest: () -> Unit, conte
             exitTransition = Fade().apply { duration = AppSpacing.transitionMillis.toLong() }
             setOnDismissListener { currentDismiss() }
         }
-        // The platform decor otherwise keeps keyboard focus itself. Put it in
-        // the Compose subtree so the native host and real menu rows receive keys.
-        panel.doOnLayout { it.requestFocus() }
+        // Touch-mode rows may decline focus. The host remains a real key target
+        // for Escape, then transfers navigation keys into the Compose subtree.
+        panel.doOnLayout { host.requestFocus() }
         try {
             host.measure(View.MeasureSpec.makeMeasureSpec(availableWidth, View.MeasureSpec.AT_MOST),
                 View.MeasureSpec.makeMeasureSpec(availableHeight, View.MeasureSpec.AT_MOST))
