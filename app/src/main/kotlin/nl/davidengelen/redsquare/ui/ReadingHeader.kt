@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.ui
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.focusGroup
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,6 +40,7 @@ import nl.davidengelen.redsquare.R
 internal class ReadingHeaderState(
     private val behavior: TopAppBarScrollBehavior,
     private val enabled: State<Boolean>,
+    private val reading: State<LazyListState>,
     private val scope: CoroutineScope,
 ) {
     var inMotion by mutableStateOf(false)
@@ -92,7 +94,7 @@ internal class ReadingHeaderState(
     fun observeScrolling(scrolling: Boolean) {
         // Accessibility scroll actions do not dispatch fling callbacks. Their
         // actual list idle state must still restore ordinary outage compensation.
-        if (!scrolling && inMotion && !flinging) finishMotion(generation)
+        if (!scrolling && inMotion && !flinging && revealing?.isActive != true) finishMotion(generation)
     }
 
     fun stopMotionObservation() {
@@ -111,19 +113,30 @@ internal class ReadingHeaderState(
         revealing = null
         generation++
         val token = generation
-        // Revealing controls is not a reading gesture. Preserve the reader's
-        // current item as the chrome expands, including accessible/key navigation.
-        inMotion = false
+        // Request the list's compensating position in the SAME next measure as
+        // the header expansion. Post-layout scrollBy would visibly jump down and
+        // then back, even though its final reading-anchor assertion passes.
+        inMotion = true
+        val list = reading.value
+        val anchorIndex = list.firstVisibleItemIndex
+        val anchorOffset = list.firstVisibleItemScrollOffset
+        val headerOffset = behavior.state.heightOffset.roundToInt()
+        val preserveAnchor = anchorIndex > 0 || anchorOffset > 0
+        fun reveal(value: Float) {
+            if (preserveAnchor) list.requestScrollToItem(anchorIndex,
+                anchorOffset + value.roundToInt() - headerOffset)
+            behavior.state.heightOffset = value
+        }
         if (immediate) {
             // Hardware focus must be visible before the next key's normal traversal.
-            behavior.state.heightOffset = 0f
+            reveal(0f)
             finishMotion(token)
             return
         }
         revealing = scope.launch {
             try {
                 animate(behavior.state.heightOffset, 0f, animationSpec = tween(AppSpacing.transitionMillis)) { value, _ ->
-                    behavior.state.heightOffset = value
+                    reveal(value)
                 }
             } finally { finishMotion(token) }
         }
@@ -142,15 +155,16 @@ internal class ReadingHeaderState(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun rememberReadingHeaderState(enabled: Boolean, scrolling: Boolean): ReadingHeaderState {
+internal fun rememberReadingHeaderState(enabled: Boolean, list: LazyListState): ReadingHeaderState {
+    val currentReading = rememberUpdatedState(list)
     val currentEnabled = rememberUpdatedState(enabled)
     val canScroll = remember { { currentEnabled.value } }
     val behavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState(), canScroll = canScroll)
     val scope = rememberCoroutineScope()
-    val state = remember(behavior, scope) { ReadingHeaderState(behavior, currentEnabled, scope) }
+    val state = remember(behavior, scope) { ReadingHeaderState(behavior, currentEnabled, currentReading, scope) }
     SideEffect {
         if (!enabled) state.stopMotionObservation()
-        else state.observeScrolling(scrolling)
+        else state.observeScrolling(list.isScrollInProgress)
     }
     return state
 }

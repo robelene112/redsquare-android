@@ -106,6 +106,15 @@ class ModuleHeaderMotionTest {
                     requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()
                     check(device.wait(Until.hasObject(By.text("Article preview")), 5_000))
                 }
+                val stackNavigation = requireNotNull(device.findObject(By.text("Discover"))).visibleBounds
+                movie("article-reading") {
+                    swipe(up = true)
+                    await(5_000, "Stack article reading also collapses the actual shared header") { accountVisible() == false }
+                    assertEquals(stackNavigation, requireNotNull(device.findObject(By.text("Discover"))).visibleBounds)
+                    swipe(up = false)
+                    await(5_000, "Stack article reading reveals the same shared controls") { accountVisible() == true }
+                    assertEquals(stackNavigation, requireNotNull(device.findObject(By.text("Discover"))).visibleBounds)
+                }
                 activity.onActivity { screen ->
                     val host = requireNotNull(screen.findViewById<ViewGroup>(android.R.id.content).getChildAt(0))
                     val parent = requireNotNull(host.findViewTreeCompositionContext())
