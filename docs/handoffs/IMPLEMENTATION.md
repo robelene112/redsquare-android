@@ -46,8 +46,23 @@ classes cover both themes,100/130/200%, short/long threads,14sp complete body,
 exact unsent reply/reading return and cached outage+Retry at each cell. A native
 no-Compose-clock motion class retains real dialog/loading/success frames at1/0.
 The existing Gboard education helper is now shared by test receivers, unchanged.
-All new/original focused classes aggregate outcomes. Final native10/17, source
-reviews, rendered inspection, evidence, commit and79closure remain pending.
+All new/original focused classes aggregate outcomes. Candidate source c544c00c49e28ad2a7b86aafb77c8f13f7099080.
+Native runs41930313490(10)/41930327089(17) are in progress, each aiming for16
+methods including original Browse/Typography/feed/private/group reading. Final
+local lint at this source PASS in /tmp/redesign79-final-lint.log (4m50s).
+Both source reviews throughc544 have zero remaining findings. Candidate c544 runs41930313490/41930327089 failed overall. Recovery, typography,
+feed return and both Chat reading/Back journeys pass on both. New matrices stopped
+on a fixture measuring40dp visual bounds rather than native48dp action targets;
+retained XML shows actual48dp on both widths. Now measure actual native targets,
+retain their geometry and require disjoint48dp controls, following existing Nav.
+Browse failed waiting for an offscreen liked reply before scrolling; now reach
+the authentic row through the existing helper within the same original15s budget.
+10motion passed;17 combined5s movie ended while loading, before success, although
+its real success reference proves the UI completed. Now split history and refresh
+into separate bounded5s movies; retain data before asserting and stable reference
+pixels after the existing180ms status entry. No production changes afterc544.
+Final fresh native10/17, rendered inspection, evidence, final commit and79closure
+remain pending.
 Stop after79. No beta publication before94. Preserve every criterion in that native
 GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
 history, drafts/targets/anchors. No original test assertion/deadline may be dropped

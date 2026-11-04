@@ -7,6 +7,10 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import android.graphics.Rect
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -50,13 +54,22 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 ui.clickVisiblePostBody(rootPost.text)
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() && ui.refreshableContentReady() }
                 ui.onNodeWithText("Conversation").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+                val device = UiDevice.getInstance(instrumentation)
+                val targets = JsonObject()
+                val rectangles = mutableListOf<Rect>()
                 for (action in listOf("Back", "Reply", "Conversation information")) {
                     val control = ui.onNode(hasText(action) and hasClickAction())
                     control.assertIsDisplayed().assertIsEnabled()
-                    val bounds = control.fetchSemanticsNode().boundsInRoot
+                    var native = requireNotNull(device.findObject(By.text(action)))
+                    while (!native.isClickable) native = requireNotNull(native.parent)
+                    val bounds = native.visibleBounds
                     val density = context.resources.displayMetrics.density
-                    assertTrue("$action keeps its48dp target", bounds.width >= 48 * density - 1 && bounds.height >= 48 * density - 1)
+                    assertTrue("$action keeps its48dp native target", bounds.width() >= 48 * density - 1 && bounds.height() >= 48 * density - 1)
+                    assertTrue("Header targets do not overlap", rectangles.none { Rect.intersects(it, bounds) })
+                    rectangles += bounds
+                    targets.addProperty(action, bounds.flattenToString())
                 }
+                File(folder, "$label-header-targets.json").writeText(targets.toString())
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
                 ui.onNode(hasText("Conversation information") and hasClickAction()).performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertIsDisplayed()

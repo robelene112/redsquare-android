@@ -113,7 +113,10 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Likes")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Likes").performClick()
                     val likedHistoryDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Independent Saito reply",
+                        (likedHistoryDeadline - android.os.SystemClock.elapsedRealtime()).also {
+                            check(it > 0) { "Liked reply must be reachable within the original15s budget" }
+                        })
                     // The larger shared header leaves this lazy row below the initial
                     // viewport. Reach the actual author hit area, not the footer behind it.
                     ui.revealProfileHistoryItem("Anon-${replyAuthor.take(6)}",

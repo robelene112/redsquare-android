@@ -44,68 +44,76 @@ class ConversationHeaderMotionTest {
                         check(device.wait(Until.hasObject(By.text("Conversation")), 15_000))
                         check(device.wait(Until.gone(By.text("Loading replies")), 15_000))
                         observeModuleWindowMotionScale(activity, scale, folder)
-                        val references = linkedMapOf<String, Pair<Rect, Bitmap>>()
-                        fun retainText(name: String, bounds: Rect) {
-                            val image = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
-                            references[name] = bounds to image
-                            File(folder, "scale-$scale-$name-reference.png").outputStream().use {
-                                check(image.compress(Bitmap.CompressFormat.PNG, 100, it))
+                        for (phase in listOf("history", "refresh")) {
+                            val references = linkedMapOf<String, Pair<Rect, Bitmap>>()
+                            fun retainText(name: String, bounds: Rect) {
+                                val image = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
+                                references[name] = bounds to image
+                                File(folder, "scale-$scale-$phase-$name-reference.png").outputStream().use {
+                                    check(image.compress(Bitmap.CompressFormat.PNG, 100, it))
+                                }
                             }
-                        }
-                        val movie = File(folder, "scale-$scale-thread.mp4")
-                        try {
-                            val recording = recordNativeTransition(movie, recordingSeconds = 5) {
-                                requireNotNull(device.findObject(By.text("Conversation information"))).click()
-                                val title = requireNotNull(device.wait(Until.findObject(By.text("Available history")), 5_000))
-                                check(device.hasObject(By.text(context.getString(R.string.conversation_history))))
-                                retainText("dialog", title.visibleBounds)
-                                SystemClock.sleep(160)
-                                requireNotNull(device.findObject(By.text("Done"))).click()
-                                check(device.wait(Until.gone(By.text("Available history")), 5_000))
-                                val pending = CountDownLatch(1)
-                                gate.set(pending)
-                                val body = requireNotNull(device.findObject(By.text("Native Red Square reference post"))).visibleBounds
-                                val navigation = requireNotNull(device.findObject(By.text("Home"))).visibleBounds
-                                check(navigation.top - 50 > body.top + 80)
-                                check(device.swipe(body.centerX(), body.top + 4, body.centerX(), navigation.top - 50, 30))
-                                val loading = requireNotNull(device.wait(Until.findObject(By.text("Loading replies")), 5_000))
-                                retainText("loading", loading.visibleBounds)
-                                pending.countDown()
-                                val success = requireNotNull(device.wait(Until.findObject(By.text("Conversation updated.")), 5_000))
-                                retainText("success", success.visibleBounds)
-                            }
-                            check(device.hasObject(By.text("Conversation")))
-                            check(device.hasObject(By.text("Native Red Square reference post")))
-                            val frames = retainNativeMotionFrames(movie)
-                            val matchedFrames = references.keys.associateWith { 0 }.toMutableMap()
-                            var lastShowsDialog = false
-                            for (entry in frames.getAsJsonArray("decodedOriginalFrames")) {
-                                val value = entry.asJsonObject
-                                val frame = requireNotNull(BitmapFactory.decodeFile(File(folder, value.get("file").asString).path))
-                                try {
-                                    references.forEach { (name, reference) ->
-                                        val shown = matchesText(reference.second, frame, reference.first)
-                                        if (shown) matchedFrames[name] = matchedFrames.getValue(name) + 1
-                                        if (name == "dialog") lastShowsDialog = shown
-                                        value.addProperty("showsOriginal-$name", shown)
+                            val movie = File(folder, "scale-$scale-$phase.mp4")
+                            try {
+                                val recording = recordNativeTransition(movie, recordingSeconds = 5) {
+                                    if (phase == "history") {
+                                        requireNotNull(device.findObject(By.text("Conversation information"))).click()
+                                        val title = requireNotNull(device.wait(Until.findObject(By.text("Available history")), 5_000))
+                                        check(device.hasObject(By.text(context.getString(R.string.conversation_history))))
+                                        retainText("dialog", title.visibleBounds)
+                                        SystemClock.sleep(160)
+                                        requireNotNull(device.findObject(By.text("Done"))).click()
+                                        check(device.wait(Until.gone(By.text("Available history")), 5_000))
+                                    } else {
+                                        val pending = CountDownLatch(1)
+                                        gate.set(pending)
+                                        val body = requireNotNull(device.findObject(By.text("Native Red Square reference post"))).visibleBounds
+                                        val navigation = requireNotNull(device.findObject(By.text("Home"))).visibleBounds
+                                        check(navigation.top - 50 > body.top + 80)
+                                        check(device.swipe(body.centerX(), body.top + 4, body.centerX(), navigation.top - 50, 30))
+                                        check(device.wait(Until.hasObject(By.text("Loading replies")), 5_000))
+                                        // Observe the completed text after the shared180ms entry; the movie retains that entry too.
+                                        SystemClock.sleep(200)
+                                        retainText("loading", requireNotNull(device.findObject(By.text("Loading replies"))).visibleBounds)
+                                        pending.countDown()
+                                        check(device.wait(Until.hasObject(By.text("Conversation updated.")), 5_000))
+                                        SystemClock.sleep(200)
+                                        retainText("success", requireNotNull(device.findObject(By.text("Conversation updated."))).visibleBounds)
                                     }
-                                } finally { frame.recycle() }
-                            }
-                            matchedFrames.forEach { (name, count) ->
-                                assertTrue("The original recording contains the actual $name state", count > 0)
-                            }
-                            assertFalse("The original recording contains the return to reading", lastShowsDialog)
-                            frames.add("recording", recording)
-                            val observations = com.google.gson.JsonObject()
-                            references.forEach { (name, reference) -> observations.add(name, com.google.gson.JsonObject().apply {
-                                addProperty("bounds", reference.first.toShortString())
-                                addProperty("matchingOriginalFrames", matchedFrames.getValue(name))
-                            }) }
-                            frames.add("nativeTextObservations", observations)
-                            frames.addProperty("appearance", if (scale == 1) "DARK" else "LIGHT")
-                            File(folder, "scale-$scale-thread.json").writeText(frames.toString())
-                            captureNativeScreen(File(folder, "scale-$scale-returned.png"))
-                        } finally { references.values.forEach { it.second.recycle() } }
+                                }
+                                check(device.hasObject(By.text("Conversation")))
+                                check(device.hasObject(By.text("Native Red Square reference post")))
+                                val frames = retainNativeMotionFrames(movie)
+                                val matchedFrames = references.keys.associateWith { 0 }.toMutableMap()
+                                var lastShowsDialog = false
+                                for (entry in frames.getAsJsonArray("decodedOriginalFrames")) {
+                                    val value = entry.asJsonObject
+                                    val frame = requireNotNull(BitmapFactory.decodeFile(File(folder, value.get("file").asString).path))
+                                    try {
+                                        references.forEach { (name, reference) ->
+                                            val shown = matchesText(reference.second, frame, reference.first)
+                                            if (shown) matchedFrames[name] = matchedFrames.getValue(name) + 1
+                                            if (name == "dialog") lastShowsDialog = shown
+                                            value.addProperty("showsOriginal-$name", shown)
+                                        }
+                                    } finally { frame.recycle() }
+                                }
+                                frames.add("recording", recording)
+                                val observations = com.google.gson.JsonObject()
+                                references.forEach { (name, reference) -> observations.add(name, com.google.gson.JsonObject().apply {
+                                    addProperty("bounds", reference.first.toShortString())
+                                    addProperty("matchingOriginalFrames", matchedFrames.getValue(name))
+                                }) }
+                                frames.add("nativeTextObservations", observations)
+                                frames.addProperty("appearance", if (scale == 1) "DARK" else "LIGHT")
+                                File(folder, "scale-$scale-$phase.json").writeText(frames.toString())
+                                matchedFrames.forEach { (name, count) ->
+                                    assertTrue("The original recording contains the actual $name state", count > 0)
+                                }
+                                if (phase == "history") assertFalse("The original recording contains the return to reading", lastShowsDialog)
+                                captureNativeScreen(File(folder, "scale-$scale-$phase-returned.png"))
+                            } finally { references.values.forEach { it.second.recycle() } }
+                        }
                     } finally { gate.get()?.countDown() }
                 }
             } catch (failure: Throwable) { primary = failure; throw failure }
