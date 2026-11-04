@@ -95,6 +95,9 @@ class ModuleShellPreviewTest {
         ui.onNodeWithContentDescription("Switch app: $current").assertIsDisplayed().performClick()
         ui.onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup()))
             .assertIsDisplayed().assertIsEnabled().performClick()
+        // Guarded navigation saves local work before committing the selected module.
+        // Observe the actual destination rather than assuming IO completes with the tap.
+        ui.waitUntil(5_000) { ui.onNodeWithContentDescription("Switch app: $next").isDisplayed() }
     }
 
 }
