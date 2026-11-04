@@ -457,6 +457,7 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
 fi
 if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == profile-redesign* ]]; then
     verify_group_chat_native ProfileRedesignPreviewTest 180 profile-redesign profile-redesign-evidence
+    verify_group_chat_native ProfileRedesignViewportTest 180 profile-redesign-viewport profile-redesign-evidence
     if [[ "${TEST_SCOPE:-full}" == profile-redesign* ]]; then
         printf '%s\n' 'Native profile identity/history redesign only; not full app acceptance.' > "$evidence/scope.txt"
         exit 0

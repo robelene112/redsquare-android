@@ -14,9 +14,9 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 On2026-11-04 the owner limited execution to one issue at a time to manage usage.
 On2026-11-04 the owner authorized TWO more redesign tickets in sequence:
 89 then88. Complete each with its own verification/review/commit, then stop
-before another ticket. This two-ticket request supersedes the preceding single-issue pause. For each subsequent request, finish one issue,
-including its checks, review, evidence and commit, then stop again. This supersedes the earlier request
-to implement the whole16-ticket batch without stopping.
+before another ticket. Each ticket includes its checks, review, evidence and
+commit. Later requests default to one ticket unless the owner specifies a
+sequence. The earlier unattended16-ticket authorization remains superseded.
 
 The approved redesign86 scope and ticket sequence remain. Publish the integrated
 signed beta after94's final verification; no intermediate beta is requested.

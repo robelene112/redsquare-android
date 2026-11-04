@@ -27,7 +27,8 @@ class ProfileRedesignPreviewTest {
             ui.onNodeWithText("Later").performClick()
             ui.clickVisiblePostProfile("Anon-${author.take(6)}")
             ui.waitUntil(15_000) { ui.onNodeWithText("Signed bio 🌱\nSecond line").isDisplayed() }
-            ui.waitUntil(10_000) { ui.onNodeWithTag("profile-history-divider").isDisplayed() }
+            ui.waitUntil(10_000) { ui.onAllNodesWithTag("profile-history-divider").fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithTag("profile-history-divider").performScrollTo().assertIsDisplayed()
             val line = ui.onNodeWithTag("profile-history-divider")
             val bounds = line.getUnclippedBoundsInRoot()
             assertTrue("A real visual divider spans the profile", (bounds.right - bounds.left).value >= 240)

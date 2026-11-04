@@ -22,6 +22,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
@@ -231,15 +232,22 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty(), profile),
                         onDetails = { identityOpen = true }) {
-                        if (own) Button(onClick = { view.editing = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                        if (own) OutlinedButton(onClick = { view.editing = true }, modifier = Modifier.heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.profile_edit))
                         } else follow()
                     }
+                    if (own && following?.ready == true) Text(
+                        stringResource(R.string.profile_following_count, following.accounts.size),
+                        style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     InlineStatus(if (profileLoading) stringResource(R.string.profile_details_loading) else null, StatusTone.WORKING)
                     InlineStatus(if (profileFailed) stringResource(R.string.profile_details_error) else null, StatusTone.ERROR)
                     InlineStatus(if (profileUnreadable) stringResource(R.string.profile_unreadable) else null, StatusTone.WARNING)
                     InlineStatus(if (profileCacheWarning) stringResource(R.string.profile_details_cache_warning) else null, StatusTone.WARNING)
                     FollowingStatus(following)
+                    HorizontalDivider(
+                        Modifier.fillMaxWidth().padding(top = AppSpacing.gap, bottom = AppSpacing.small)
+                            .testTag("profile-history-divider"),
+                        color = MaterialTheme.colorScheme.outlineVariant)
                 }
             }
             stickyHeader(key = "profile-history-tabs") { ProfileHistoryTabs(tab) { view.tab = it } }

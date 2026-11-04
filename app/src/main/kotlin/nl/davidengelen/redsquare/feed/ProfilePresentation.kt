@@ -23,6 +23,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
@@ -55,7 +57,7 @@ internal fun ProfileIdentityHeader(author: String, backend: SaitoBackend, appear
                 Box(Modifier.padding(top = 24.dp)) { primaryAction() }
             }
         }
-        Text(identity.name, style = MaterialTheme.typography.headlineSmall)
+        Text(identity.name, Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
         InlineStatus(if (identity.saveError) stringResource(R.string.identity_name_save_error) else null, StatusTone.WARNING)
         FlowRow(Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
@@ -65,7 +67,7 @@ internal fun ProfileIdentityHeader(author: String, backend: SaitoBackend, appear
                 Text(stringResource(R.string.profile_identity_details))
             }
         }
-        if (appearance.bio.isNotEmpty()) Text(appearance.bio, style = MaterialTheme.typography.bodyLarge)
+        if (appearance.bio.isNotEmpty()) Text(appearance.bio, Modifier.padding(top = 4.dp), style = MaterialTheme.typography.bodyLarge)
     }
 }
 
