@@ -1,45 +1,71 @@
 # Implementation handoff
 
-## Unified redesign86: full batch authorized and in progress
+## Unified redesign86:87 complete, STOP
 
-The owner approved [specification86](https://github.com/robelene112/redsquare-android/issues/86),
-its16-ticket plan (existing76through83 plus new87through94), and implementing
-all tickets before publishing the next ordinary beta. Continue sequentially
-through the whole batch; the old one-ticket stop no longer applies to it.
-Current integration branch: `codex/unified-redesign`, from verified beta83
-baseline `eac6b426d`. Start with77's Like-history fixture repair, then76's obsolete
-UI test controls. Each ticket keeps its own review/evidence/commit. Publish
-one final integrated beta after94; do not mark pending work complete.
+On2026-11-04 the owner changed execution to ONE issue at a time because of usage.
+Issue87 is complete, reviewed, verified and committed. Stop now. Wait for a new
+request before starting78 or any other issue. The earlier unattended16-ticket
+execution instruction is superseded. Final integrated beta still belongs to94;
+no intermediate beta was published. Current ordinary beta83 stays available.
 
-Issue77 is implemented and reviewed. Both Android10/17 Activity/history runs
-pass (five native checks per OS), and all117host tests pass. Exact evidence is
-in `docs/evidence/ticket77/README.md`. Continue with76, then the remaining
-unblocked86tickets; do not stop after77 or publish an intermediate beta.
+Active checkout: `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Canonical old checkout and unrelated untracked group
+Chat contract remain untouched. Review base for87: d5a05d4d8e76afcbe6cfb1536cc29e5087000b8e.
+Last production change: bb97e62e64b0b853aa18ef96e57df7c06cdf2997.
+Final motion test source:565b774132e7a46ee6e01740705ec2e00b0a235f.
+All intended source, test, workflow, handoff and evidence changes are committed.
+No local build is running. Sparse checkout excludes historical evidence; use
+`git add --sparse` for new evidence. Shared Gradle cache must have one local writer.
 
-Issue76 is complete at3eecb210f. Final combined UI10 run41735070362 and
-UI17 run41735074007 both pass:44 tests in19 normal class invocations plus
-one cold profile recovery completion after two actual process deaths per OS.
-Actual TalkBack runs41732947338/41732951656 each pass six native classes.
-Only the two independent presentation tests changed after those TalkBack runs;
-app/TalkBack/fixtures/harness/workflow are identical. Evidence, exact per-class
-counts, captures and failure provenance are in docs/evidence/ticket76/README.md.
+Completed batch tickets:77,76,87. Evidence and exact sources/results for each:
+`docs/evidence/ticket77/README.md`, `docs/evidence/ticket76/README.md`,
+`docs/evidence/ticket87/README.md`. Read87 for its corrective source and failed-run
+provenance rather than reconstructing all intermediate commits.
 
-The restored reading case found a real root-relative header/baseline lifetime
-defect. Its observer now lives beside the retained list, scoped by stable
-wallet identity/backend; the original1px tolerance stays. Old Like-label/error
-tests were also updated to current icon-only Likes and retained Repost status.
-No tests were skipped, assertions weakened or deadlines lengthened. Both final
-source reviews are clean. This is affected-regression acceptance, not whole-app
-acceptance or publication. Continue with87; do not stop after76.
+87 delivered rounded module selection, real account destinations, shared native
+presentation tokens, reading chrome and honest selected-node details. Saved
+wallet/backend module routes retain feed position and real unsent Bio/IME through
+recreation. Stack sample discovery/article/navigation is explicitly labelled;
+real archive/publishing/subscription/payment integration remains first-release1
+work. Current-scope actual notification routing leaves obstructing modals alone
+and retains wrong-scope Stack and original text/photo draft boundaries.
 
-Planned remaining sequential order:87,78,82,89,88,91,79,80,92,83,81,90,93,94.
-Native dependencies remain the actual gate; no parallel ticket implementation.
+87 final affected proofs:
+-565 header+menu motion BOTH PASS:10 41834874589 /17 41834880384. Each requires
+ two separate180s classes. Original header keeps all6movies/scale and original
+ goals; new menu keyboard/Escape scenario has its own180s class. Actual0/1
+ window contexts, original movies/manifests and representative decoded frames
+ retained. Native rendered review completed for both OS versions.
+-Current-control UI BOTH PASS41761100054/41761102793 atdbdc6804e:44 tests in19
+ normal class invocations plus cold profile recovery after TWO actual process
+ deaths per OS. Both host reports117tests/0failures/0ignored.
+-Full frame050 BOTH PASS41759483964/41759484311, including native48dp/disjoint
+ 8-cell130/200% light/dark matrix, reading and normal/zero motion (7tests/OS).
+-Module retention2cases:10PASS41758508895 at8a /17PASS41759484803 at050.
+-Actual Stack system-reply/scope/modal/draft journey:10PASS41759484886 at050 /
+ 17PASS41760230496 atbb. Original2s wrong-scope observation/final positive goals.
+-Actual six-class TalkBack:10PASS41755091590 at3fa /17PASS41759485294 at050.
+ Current10viewer focus correction PASS41760815692 atf1. Complete06 keyboard/
+ article chronological motion review also passed both OS versions before later
+ menu input changes. Exact source limits are recorded in87 evidence, not a claim
+ of one consistent final full-app dispatch. That remains94.
+-Full productionbb Spec/Standards reviews clean. Incrementalbb...de8 reviews also
+ clean. de8...565 split review:Spec0; Standards0documented breaches and one
+ non-blocking advisory about short local await/recording helper duplication.
+ Temporary DEBUG-87-a11y probes removed. Original48dp/1px/data/deadline goals stay.
 
-The design source is the separate native preview85 on branch
-`prototype/native-shell-live-design`, with the owner's final amendments in86.
-Do not merge its sample session/payment/publishing behavior into the functional
-app. Actual Stack interoperability remains later first-release work under1.
-The existing unrelated untracked group Chat contract stays untouched.
+Concrete follow-up for later89: ProfileScreen default LazyColumn state is lost
+when AuthorEdit unmounts it. This pre-dates87. Current post-action tests prove
+physical reachability, not fixed edit-return scroll retention. Preserve this
+opportunity in the profile slice.78 retains the visibly dense200% first-use
+baseline.82 owns actual block status.55,1and36 keep independent owner/provider/
+physical/store/integration acceptance. Placeholders do not satisfy those gates.
+
+Remaining planned order ONLY AFTER a new owner request:
+78,82,89,88,91,79,80,92,83,81,90,93,94. Native dependencies remain authoritative.
+Final94 must use one consistent-source full dispatch, not stitched focused passes.
+The reference85 preview remains separate; never transplant its sample wallet,
+networking or payments into the functional app. No new beta is requested now.
 
 ## Issue71 Like animation follow-up delivered as beta83
 

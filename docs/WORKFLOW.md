@@ -11,18 +11,15 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-On2026-11-03 the owner approved specification86 and its16-ticket execution
-plan, then explicitly authorized implementing all16 tickets and publishing the
-completed result as the next ordinary beta. This replaces the earlier
-one-issue-per-request limit for this batch.
+On2026-11-04 the owner limited execution to one issue at a time to manage usage.
+Issue87 is now complete. Stop and wait for the next owner request before
+starting78 or another issue. For each subsequent request, finish one issue,
+including its checks, review, evidence and commit, then stop again. This supersedes the earlier request
+to implement the whole16-ticket batch without stopping.
 
-The batch reuses76through83 and adds87through94. Implement one ticket at a time,
-respect native dependencies, review and commit each completed ticket, and
-continue through the batch without routine approval stops. Start with77 to
-restore the signed Like-history fixture, then76 to restore current UI controls.
-Publish the integrated signed beta after94's final verification, rather than
-publishing an intermediate beta for each ticket. Specification86,55,84,1and36
-retain their independent acceptance criteria and must not close automatically.
+The approved redesign86 scope and ticket sequence remain. Publish the integrated
+signed beta after94's final verification; no intermediate beta is requested.
+Specification86,55,84,1and36 retain their independent acceptance criteria.
 
 ## Load the real skills
 

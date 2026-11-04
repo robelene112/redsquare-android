@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleHeaderMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ModuleHeaderMotionTest:
+INSTRUMENTATION_STATUS: test=readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleHeaderMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Directional navigation moves focus without activating a module
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$await(ModuleHeaderMotionTest.kt:47)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38$lambda$29$lambda$28(ModuleHeaderMotionTest.kt:135)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$-GhYF3xmqza0I2QYfPV5VySywL0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38$lambda$29(ModuleHeaderMotionTest.kt:132)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$UKGmSUGJLXRgL4Zy-7g_LEtPWEM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$movie(ModuleHeaderMotionTest.kt:72)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38(ModuleHeaderMotionTest.kt:114)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$UD2BArOd1eglw33Zrdyu1EqVazE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify(ModuleHeaderMotionTest.kt:80)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(ModuleHeaderMotionTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(nl.davidengelen.redsquare.ModuleHeaderMotionTest):
+java.lang.IllegalStateException: Directional navigation moves focus without activating a module
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$await(ModuleHeaderMotionTest.kt:47)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38$lambda$29$lambda$28(ModuleHeaderMotionTest.kt:135)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$-GhYF3xmqza0I2QYfPV5VySywL0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38$lambda$29(ModuleHeaderMotionTest.kt:132)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$UKGmSUGJLXRgL4Zy-7g_LEtPWEM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$movie(ModuleHeaderMotionTest.kt:72)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38(ModuleHeaderMotionTest.kt:114)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$UD2BArOd1eglw33Zrdyu1EqVazE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify(ModuleHeaderMotionTest.kt:80)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(ModuleHeaderMotionTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 40.492
+There was 1 failure:
+1) readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(nl.davidengelen.redsquare.ModuleHeaderMotionTest)
+java.lang.IllegalStateException: Directional navigation moves focus without activating a module
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$await(ModuleHeaderMotionTest.kt:47)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38$lambda$29$lambda$28(ModuleHeaderMotionTest.kt:135)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$-GhYF3xmqza0I2QYfPV5VySywL0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38$lambda$29(ModuleHeaderMotionTest.kt:132)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$UKGmSUGJLXRgL4Zy-7g_LEtPWEM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$movie(ModuleHeaderMotionTest.kt:72)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$38(ModuleHeaderMotionTest.kt:114)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$UD2BArOd1eglw33Zrdyu1EqVazE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify(ModuleHeaderMotionTest.kt:80)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(ModuleHeaderMotionTest.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

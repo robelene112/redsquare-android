@@ -1,0 +1,291 @@
+{
+  "productionSource": "bb97e62e64b0b853aa18ef96e57df7c06cdf2997",
+  "nativeRuns": [
+    {
+      "run": 41759483964,
+      "api": "29",
+      "scope": "frame",
+      "results": {
+        "app-frame-ui.txt": 4,
+        "app-frame-reading-ui.txt": 1,
+        "app-frame-motion-ui.txt": 2
+      }
+    },
+    {
+      "run": 41759484311,
+      "api": "37.0",
+      "scope": "frame",
+      "results": {
+        "app-frame-ui.txt": 4,
+        "app-frame-reading-ui.txt": 1,
+        "app-frame-motion-ui.txt": 2
+      }
+    },
+    {
+      "run": 41759485294,
+      "api": "37.0",
+      "scope": "talkback",
+      "results": {
+        "wallet-talkback-ui.txt": 1,
+        "status-talkback.txt": 1,
+        "profile-talkback-ui.txt": 1,
+        "post-talkback-ui.txt": 1,
+        "image-viewer-talkback-ui.txt": 1,
+        "activity-talkback-ui.txt": 1
+      }
+    },
+    {
+      "run": 41759484803,
+      "api": "37.0",
+      "scope": "shell",
+      "results": {
+        "module-shell-ui.txt": 2
+      }
+    },
+    {
+      "run": 41759484886,
+      "api": "29",
+      "scope": "push",
+      "results": {
+        "module-push-ui.txt": 1
+      }
+    },
+    {
+      "run": 41760230496,
+      "api": "37.0",
+      "scope": "push",
+      "results": {
+        "module-push-ui.txt": 1
+      }
+    },
+    {
+      "run": 41760815692,
+      "api": "29",
+      "scope": "viewer-talkback",
+      "results": {
+        "image-viewer-talkback-ui.txt": 1
+      }
+    },
+    {
+      "run": 41761100054,
+      "api": "29",
+      "scope": "ui-regression",
+      "results": {
+        "status-recovery.txt": 2,
+        "status-motion.txt": 2,
+        "post-viewport-ui.txt": 1,
+        "post-status-ui.txt": 1,
+        "post-presentation-ui.txt": 4,
+        "post-pending-ui.txt": 1,
+        "post-content-ui.txt": 1,
+        "post-content-contexts-ui.txt": 1,
+        "navigation-ui.txt": 2,
+        "image-viewer-viewport-ui.txt": 1,
+        "image-viewer-ui.txt": 1,
+        "image-viewer-motion-ui.txt": 1,
+        "browse-ui.txt": 8,
+        "appearance-ui.txt": 1,
+        "app-frame-reading-ui.txt": 1,
+        "ProfilePublishingPreviewTest-ui.txt": 5,
+        "ProfileNewEditPreviewTest-ui.txt": 2,
+        "ProfileEditPreviewTest-ui.txt": 7,
+        "ProfileMediaPreviewTest-ui.txt": 2,
+        "profile-process/recovered-instrumentation.txt": 1
+      }
+    },
+    {
+      "run": 41761102793,
+      "api": "37.0",
+      "scope": "ui-regression",
+      "results": {
+        "status-recovery.txt": 2,
+        "status-motion.txt": 2,
+        "post-viewport-ui.txt": 1,
+        "post-status-ui.txt": 1,
+        "post-presentation-ui.txt": 4,
+        "post-pending-ui.txt": 1,
+        "post-content-ui.txt": 1,
+        "post-content-contexts-ui.txt": 1,
+        "navigation-ui.txt": 2,
+        "image-viewer-viewport-ui.txt": 1,
+        "image-viewer-ui.txt": 1,
+        "image-viewer-motion-ui.txt": 1,
+        "browse-ui.txt": 8,
+        "appearance-ui.txt": 1,
+        "app-frame-reading-ui.txt": 1,
+        "ProfilePublishingPreviewTest-ui.txt": 5,
+        "ProfileNewEditPreviewTest-ui.txt": 2,
+        "ProfileMediaPreviewTest-ui.txt": 2,
+        "ProfileEditPreviewTest-ui.txt": 7,
+        "profile-process/recovered-instrumentation.txt": 1
+      }
+    },
+    {
+      "run": 41834874589,
+      "api": "29",
+      "scope": "module-header-and-menu",
+      "source": "565b774132e7a46ee6e01740705ec2e00b0a235f",
+      "results": {
+        "module-header-ui.txt": 1,
+        "module-menu-ui.txt": 1
+      },
+      "movies": [
+        {
+          "file": "module-header-motion-evidence/scale-0-collapse.mp4",
+          "sha256": "5b2b1135fb0ae07a8de0acf08dffabba1fc79e44089c343f184af778f7fe748c",
+          "bytes": 167043
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-keyboard.mp4",
+          "sha256": "c99680fb5d50bf9b4a0876c44e585ecf844ebfe375281bf28eff8adf625d7e76",
+          "bytes": 47892
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-reveal.mp4",
+          "sha256": "f08baf5e1c46de86ba811f272675cd210692f716d78d88ed879ef16a526d55b2",
+          "bytes": 140204
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-module.mp4",
+          "sha256": "6c4bdf86a87d30d43626242b75a1ef7d2f2931f52e9ecee781cdb83e6444c4ec",
+          "bytes": 87317
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-article.mp4",
+          "sha256": "67360d1a6b5d0034f8ca30a68c59f8828a89e78d02af5db2374e831337816f20",
+          "bytes": 27961
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-article-reading.mp4",
+          "sha256": "4cee8f247f3985c40ddcaa043cfaeb81eb2676aa08e4ab9037c18e63689a3e18",
+          "bytes": 246342
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-collapse.mp4",
+          "sha256": "e649180f0d409ea5817acaf3c7a195c7c7978815dfeac6bc8097f1d10f669875",
+          "bytes": 167203
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-keyboard.mp4",
+          "sha256": "1b90339261aa47590add920c7d9298ffa4b27b25c09b73505c28c99fb49d08de",
+          "bytes": 37684
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-reveal.mp4",
+          "sha256": "694317a21febea9954d471aea876be2a33be74d09b95dc4fbf33bf04bb82b4bb",
+          "bytes": 139264
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-module.mp4",
+          "sha256": "8400c47bf7780c6ac6f3c09893d51a975b2a4cac6ebc826a5824ba5e07dfffb7",
+          "bytes": 298630
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-article.mp4",
+          "sha256": "68c808effa717df70b070f484f0a1e665195a630e3bac64996b4bbe104bfcb66",
+          "bytes": 100456
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-article-reading.mp4",
+          "sha256": "6f09df621c16eedd1c4056b463812ff780d928c12511e682df06ea0287537acf",
+          "bytes": 249106
+        },
+        {
+          "file": "module-menu-motion-evidence/scale-0-menu-keyboard.mp4",
+          "sha256": "569bb8bc0f74713f5e5477a0c081d5448a245c0793be3253ba6cb08f7bdaa4ac",
+          "bytes": 75117
+        },
+        {
+          "file": "module-menu-motion-evidence/scale-1-menu-keyboard.mp4",
+          "sha256": "009f852184465fcf997a9721bbc7c248bd768001f2ccaaf05eeccd1bb4973a87",
+          "bytes": 204244
+        }
+      ]
+    },
+    {
+      "run": 41834880384,
+      "api": "37.0",
+      "scope": "module-header-and-menu",
+      "source": "565b774132e7a46ee6e01740705ec2e00b0a235f",
+      "results": {
+        "module-header-ui.txt": 1,
+        "module-menu-ui.txt": 1
+      },
+      "movies": [
+        {
+          "file": "module-header-motion-evidence/scale-0-collapse.mp4",
+          "sha256": "7b3bf986447d83e902e750ae60f320fe9eb8df984ac730f69d6499b19c90d5b5",
+          "bytes": 153860
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-keyboard.mp4",
+          "sha256": "bc1be56262e807b8a2b84c71a05a410f582b1bfb6a2a09df3435723d0372e3f6",
+          "bytes": 28287
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-reveal.mp4",
+          "sha256": "14b4e1ca5a15360509f6596b83f62ca8c862a06e55c1840aa901b01e4a2a96ef",
+          "bytes": 129788
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-module.mp4",
+          "sha256": "8429493bcbae6cb203550683999e8bc97a5923ed7198c49e2b1f62dfebde80cb",
+          "bytes": 95201
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-article.mp4",
+          "sha256": "4c092a76d9380911028f9d64a104eb130ef7078bed3fe7ff705ce2d751964b52",
+          "bytes": 31177
+        },
+        {
+          "file": "module-header-motion-evidence/scale-0-article-reading.mp4",
+          "sha256": "f7df46cd984b05a5535b8ca19cc60d3e2cf70c043f8210e02c08ec9dca742974",
+          "bytes": 173993
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-collapse.mp4",
+          "sha256": "9fd41fd508bc8a514c43e146dd77b0ea6f659000c39f90e11aee6dbe2a19e57a",
+          "bytes": 151256
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-keyboard.mp4",
+          "sha256": "ecc0edca6dcaf42a6745254c1d9c01cf80bcde5cb6dbfceb015b642b62045d8e",
+          "bytes": 26509
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-reveal.mp4",
+          "sha256": "f84570d28baba646b314eddc3ee3b802dff3ef8e466ab200cc31a26ba5f2df87",
+          "bytes": 126991
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-module.mp4",
+          "sha256": "243a3a7a89b3198800f5561ef8b2a4fcb2c2b4b955aaafa83d3ad9cecced7962",
+          "bytes": 261001
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-article.mp4",
+          "sha256": "3f45f8c5f93a419f616ca51b4cacc04470175c1edab1dfffb0ef1ec28e0cbc52",
+          "bytes": 99652
+        },
+        {
+          "file": "module-header-motion-evidence/scale-1-article-reading.mp4",
+          "sha256": "c4939401c6b42471655496dbf178c460cf31cbc6e4b2f9c1e8c6a18b3a242043",
+          "bytes": 300804
+        },
+        {
+          "file": "module-menu-motion-evidence/scale-0-menu-keyboard.mp4",
+          "sha256": "21be292b68ee088ceaf6687e7902d84a3707e2726630daa1cf119527ebaa27c9",
+          "bytes": 65883
+        },
+        {
+          "file": "module-menu-motion-evidence/scale-1-menu-keyboard.mp4",
+          "sha256": "841c7990f55f6a82e4729311e0b7289fd4fb162f4d9c04e8c99296156fba1f3d",
+          "bytes": 189568
+        }
+      ]
+    }
+  ],
+  "ticketComplete": true,
+  "integratedAppAcceptance": false,
+  "motionTestSource": "565b774132e7a46ee6e01740705ec2e00b0a235f"
+}
