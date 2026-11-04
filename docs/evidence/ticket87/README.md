@@ -134,6 +134,7 @@ Pixel performance, frame rate or audibility. Existing first-use200% density is
 still visible in the baseline capture and belongs to78. Unknown block data is
 82 work. No claim of app-wide polish acceptance is made here.
 
+Text evidence normalizes line endings and trailing whitespace; original PNG and MP4 bytes are unchanged.
 `native-results.json` retains native per-class results and movie SHA256 values.
 Representative frame PNGs supplement the retained native MP4 and complete
 manifest; uncommitted full decoded frame sets remain in the original Actions
