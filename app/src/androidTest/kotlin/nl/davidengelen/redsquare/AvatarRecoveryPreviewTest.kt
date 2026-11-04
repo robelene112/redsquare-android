@@ -169,12 +169,12 @@ class AvatarRecoveryPreviewTest {
         add("data", JsonObject().apply { source?.let { addProperty("image", it) } })
     }, 1_900_000_000_000L + revision).let { tx -> JsonObject().apply { addProperty("tx", tx.envelope()) }.let { "[$it]" } }
     private fun png(noise: Boolean = false, tint: Int = color): ByteArray {
-        val size = if (noise) 448 else 32
+        val size = if (noise) 480 else 32
         val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         if (noise) {
             val random = java.util.Random(82)
             for (y in 0 until size) for (x in 0 until size)
-                bitmap.setPixel(x, y, if (x in 187..260 && y in 187..260) tint else Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
+                bitmap.setPixel(x, y, if (x in 160..319 && y in 160..319) tint else Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
         } else bitmap.eraseColor(tint)
         return try { ByteArrayOutputStream().also { check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)) }.toByteArray() }
         finally { bitmap.recycle() }

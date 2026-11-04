@@ -155,6 +155,14 @@ complete first-release scope and the established production boundaries.
    Each class has its own180second bound and remains in full Social. Existing protocol,
    cache, identity and deadline goals are unchanged. These checks do not establish
    physical-phone performance.
+   `avatars` / `avatars-android17` exercise82 at the existing native UI,
+   controlled signed-peer and local HTTP boundaries. Each of the propagation,
+   identity journey, cache, recovery and actual-motion classes retains its own
+   180second bound and additive inclusion in complete Social. Preserve signer,
+   node, signed-removal, bounded-cache, lookup-coalescing and restoration goals.
+   Native movies require the resulting picture/removal in retained display
+   frames under actual system scale0/1; a functional pass alone is not motion
+   acceptance. Focused proofs do not replace94's final full-source verification.
    `first-use` / its Android17 variant require the12-cell native first-use
    density matrix and a separate180s actual normal/zero interrupted-dismissal
    class. `first-use-motion` isolates only that new class during iteration.
