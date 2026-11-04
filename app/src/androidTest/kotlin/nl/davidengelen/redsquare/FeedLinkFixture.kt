@@ -16,7 +16,7 @@ import java.util.Base64
 
 internal val referenceArticleLink = "https://saito.io/stack/jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR/${"a".repeat(128)}"
 
-internal fun linkedFeedRow(text: String, link: String = referenceArticleLink, metadata: String): JsonObject {
+internal fun linkedFeedRow(text: String, link: String = referenceArticleLink, metadata: String, editedText: String? = null): JsonObject {
     val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
     val transaction = SaitoTransaction.create(author, JsonObject().apply {
         addProperty("module", "RedSquare"); addProperty("request", "create tweet")
@@ -24,7 +24,14 @@ internal fun linkedFeedRow(text: String, link: String = referenceArticleLink, me
     }, 1_700_000_000_000)
     val row = postingArchiveRow(transaction)
     val envelope = JsonParser.parseString(row.get("tx").asString).asJsonObject
-    envelope.addProperty("opt", Base64.getEncoder().encodeToString(metadata.toByteArray(Charsets.UTF_8)))
+    val options = if (editedText == null) metadata else JsonParser.parseString(metadata).asJsonObject.apply {
+        val edit = SaitoTransaction.create(author, JsonObject().apply {
+            addProperty("module", "RedSquare"); addProperty("request", "edit tweet")
+            add("data", JsonObject().apply { addProperty("tweet_id", transaction.id); addProperty("text", editedText) })
+        }, 1_700_000_001_000)
+        addProperty("update_tx", edit.envelope())
+    }.toString()
+    envelope.addProperty("opt", Base64.getEncoder().encodeToString(options.toByteArray(Charsets.UTF_8)))
     row.addProperty("tx", envelope.toString())
     return row
 }

@@ -15,11 +15,13 @@ object RedSquareLinks {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     fun preview(post: FeedPost): RedSquareLink? {
-        val target = if (post.link.isNotBlank()) web(post.link.trim()) else
-            textUrl.findAll(post.text).mapNotNull { web(it.value.trimEnd('.', ',', ';', '!')) }.firstOrNull()
+        val target = if (post.link.isNotBlank()) web(post.link.trim()) else textTarget(post.text)
         target ?: return null
         val uri = URI(target)
-        val properties = hints(post)?.get("link_properties")?.takeIf { it.isJsonObject }?.asJsonObject
+        // Text-only edits retain explicit signed attachments. Text-derived hints, however,
+        // still describe the original target and cannot be moved onto an edited URL.
+        val properties = if (post.link.isNotBlank() || textTarget(post.originalText) == target)
+            hints(post)?.get("link_properties")?.takeIf { it.isJsonObject }?.asJsonObject else null
         fun hint(vararg names: String, limit: Int): String? = names.firstNotNullOfOrNull { name ->
             properties?.get(name)?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }
                 ?.asString?.trim()?.takeIf { it.isNotEmpty() && it.length <= limit }
@@ -36,6 +38,8 @@ object RedSquareLinks {
             hint("saito:title", "og:title", limit = 512),
             hint("saito:description", "og:description", limit = 2048), image)
     }
+
+    private fun textTarget(text: String): String? = textUrl.findAll(text).mapNotNull { web(it.value) }.firstOrNull()
 
     private fun web(value: String): String? = runCatching {
         require(value.length <= 4096 && value.none { it.isWhitespace() || it.isISOControl() })

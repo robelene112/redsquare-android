@@ -63,10 +63,52 @@ class FeedLinkPreviewTest {
         }
     }
 
-    private fun assertOriginalTarget() {
+    @Test fun standaloneTextTargetsKeepPunctuationThatBelongsToTheirPathsAndQueries() {
+        for (link in listOf("https://example.org/article!", "https://example.org/a.", "https://example.org/read?ref=a,b;!")) {
+            withInterceptedPostLinks {
+                val row = linkedFeedRow("A complete punctuation-bearing target.\n$link", link = "", metadata = "{}")
+                withAppFrameFixture("punctuation-target", "feed-redesign-evidence", "[$row]") {
+                    ui.waitUntil(15_000) { ui.onNode(hasText("A complete punctuation-bearing target.", substring = true)).isDisplayed() }
+                    ui.onNodeWithText("Later").performClick()
+                    val article = hasText("Open link at example.org") and hasClickAction()
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(article)
+                    ui.onNode(article).performScrollTo().assertIsDisplayed().performClick()
+                    assertOriginalTarget(link)
+                }
+            }
+        }
+    }
+
+    @Test fun verifiedTextEditsCannotAttachOldPreviewHintsToANewTargetOrRemoveExplicitAttachments() {
+        val hints = """{"link_properties":{"og:title":"The original linked article"}}"""
+        for ((suffix, explicit, edited, destination) in listOf(
+            listOf("changed", "", "Edited text target.\nhttps://example.org/new", "https://example.org/new"),
+            listOf("removed", "", "The text link was removed.", ""),
+            listOf("attachment", referenceArticleLink, "Edited commentary keeps its original attachment.", referenceArticleLink)
+        )) withInterceptedPostLinks {
+            val row = linkedFeedRow("Original text target.\nhttps://example.org/old", link = explicit,
+                metadata = hints, editedText = edited)
+            withAppFrameFixture("edited-link-$suffix", "feed-redesign-evidence", "[$row]") {
+                ui.waitUntil(15_000) { ui.onNode(hasText(edited.substringBefore('\n'), substring = true)).isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                if (explicit.isEmpty()) ui.onNodeWithText("The original linked article").assertDoesNotExist()
+                else ui.onNodeWithText("The original linked article", useUnmergedTree = true).assertExists()
+                if (destination.isEmpty()) ui.onNodeWithText("Open link at example.org", useUnmergedTree = true).assertDoesNotExist()
+                else {
+                    val article = hasText("Open link at ${if (explicit.isEmpty()) "example.org" else "saito.io"}") and hasClickAction()
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(article)
+                    ui.onNode(article).performScrollTo().assertIsDisplayed().performClick()
+                    assertOriginalTarget(destination)
+                }
+                captureNativeScreen(File(context.cacheDir, "feed-redesign-evidence/edited-link-$suffix.png"))
+            }
+        }
+    }
+
+    private fun assertOriginalTarget(expected: String = referenceArticleLink) {
         ui.waitUntil(5_000) { Intents.getIntents().any { it.action == Intent.ACTION_VIEW } }
         val opened = Intents.getIntents().filter { it.action == Intent.ACTION_VIEW }
         assertEquals(1, opened.size)
-        assertEquals(referenceArticleLink, opened.single().dataString)
+        assertEquals(expected, opened.single().dataString)
     }
 }

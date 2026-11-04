@@ -17,6 +17,8 @@ data class FeedPost(
     val edit: AuthorAction? = null,
     val images: List<String> = emptyList(),
     val link: String = "",
+    // Retained through verified text edits so original link hints cannot describe a different target.
+    val originalText: String = text,
 )
 
 data class ArchiveFeedPage(val posts: List<FeedPost>, val oldestCreatedAt: Long?, val rowCount: Int, val ignored: Int,
@@ -175,7 +177,7 @@ object RedSquareFeed {
         val edit = RedSquareAuthorActions.edit(signed, envelope)
         return FeedPost(signed.id, signed.author, edit?.text ?: text, signed.createdAt, parent, thread, envelope, signed.recipients, original, target, edit,
             RedSquareImages.read(data), data.get("link")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }
-                ?.asString?.takeIf { it.length <= 8192 }.orEmpty())
+                ?.asString?.takeIf { it.length <= 8192 }.orEmpty(), originalText = text)
     }
 
     private fun JsonObject.string(key: String): String {
