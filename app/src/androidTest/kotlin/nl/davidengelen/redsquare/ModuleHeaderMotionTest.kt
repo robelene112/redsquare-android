@@ -126,8 +126,14 @@ class ModuleHeaderMotionTest {
                     }
                     val first = requireNotNull(focusedMenuText())
                     val next = if (first == "Red Square") "Stack" else "Red Square"
+                    // Retain the actual starting row even if directional navigation fails.
+                    File(folder, "scale-$scale-menu-focus.txt").writeText("start=$first expected=$next\n")
                     check(if (first == "Red Square") device.pressDPadDown() else device.pressDPadUp())
-                    await(5_000, "Directional navigation moves focus without activating a module") { focusedMenuText() == next }
+                    withFailureCapture({
+                        File(folder, "scale-$scale-menu-focus.txt").appendText("observed=${focusedMenuText()}\n")
+                    }) {
+                        await(5_000, "Directional navigation moves focus without activating a module") { focusedMenuText() == next }
+                    }
                     assertFalse(device.hasObject(By.text("Stack design preview")))
                     File(folder, "scale-$scale-menu-focus.txt").writeText("$first -> $next\n")
                     check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))

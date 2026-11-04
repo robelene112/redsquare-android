@@ -67,7 +67,14 @@ class TalkBackImageViewerPreviewTest {
                 File(folder, "origin-navigation-speech.txt").writeText(speechLog(device))
                 captureFocusedSpeech("origin", "Image 1 of 2", folder, actionNode("Image 1 of 2"))
                 assertTrue(actionNode("Image 1 of 2").performAction(AccessibilityNodeInfo.ACTION_CLICK))
-                check(device.wait(Until.hasObject(By.text("Close image")), 10_000))
+                // Window visibility precedes TalkBack's initial modal navigation.
+                // Observe its real first focus and speech before moving to controls,
+                // within the same original modal-readiness budget.
+                waitFor(10_000) {
+                    device.hasObject(By.text("Close image")) &&
+                        focusedDescription(automation) == "Full screen image 1 of 2" &&
+                        completedFragments(device, "Full screen image 1 of 2").isNotEmpty()
+                }
                 val bounds = JsonObject()
                 for ((label, name) in listOf("zoom-in" to "Zoom in", "next" to "Next image", "close" to "Close image")) {
                     focusAndHear(label, name, folder, textLabel = true)
