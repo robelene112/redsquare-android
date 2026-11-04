@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -51,6 +52,7 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                     Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
                 }
                 DropdownMenu(appsOpen, onDismissRequest = { appsOpen = false }) {
+                    LegacyMenuWindowBounds()
                     AppModule.entries.forEach { target ->
                         DropdownMenuItem(text = { Text(stringResource(target.title)) },
                             modifier = Modifier.semantics { selected = module == target },
@@ -68,6 +70,7 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                     else Icon(painterResource(R.drawable.ic_profile), null)
                 }
                 DropdownMenu(accountOpen, onDismissRequest = { accountOpen = false }) {
+                    LegacyMenuWindowBounds()
                     DropdownMenuItem(text = { Text(stringResource(R.string.wallet)) }, enabled = walletEnabled,
                         leadingIcon = { Icon(painterResource(R.drawable.ic_wallet), null) },
                         onClick = { accountOpen = false; onWallet() })
@@ -88,6 +91,23 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
         }
     }
 
+}
+
+/** Pre-S Android can offset popup accessibility/input bounds by the shadow surface insets.
+ * Keep the menu's actual native window aligned with its content; the Material surface
+ * still supplies its own visual treatment. Android12+ uses the normal platform path.
+ */
+@Composable
+private fun LegacyMenuWindowBounds() {
+    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+        val view = LocalView.current
+        DisposableEffect(view) {
+            val window = view.rootView
+            val previous = window.elevation
+            window.elevation = 0f
+            onDispose { window.elevation = previous }
+        }
+    }
 }
 
 /** Shared-host modal ownership also keeps pending routes behind the open information view. */

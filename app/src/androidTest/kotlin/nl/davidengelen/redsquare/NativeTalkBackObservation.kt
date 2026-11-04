@@ -174,25 +174,22 @@ internal class NativeTalkBackObservation(private val folder: File) {
         check(requireNotNull(target).performAction(AccessibilityNodeInfo.ACTION_CLICK))
     }
 
-    /** Observe actual platform focus, including Compose's virtual button descendants.
-     * A subtree findFocus can miss the labelled selector although TalkBack and its
-     * rendered focus ring identify it. Never infer focus from speech or geometry.
-     */
-    private fun focusedAppNode(automation: UiAutomation): AccessibilityNodeInfo? {
-        val owner = context.packageName
-        val global = automation.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)
-        if (global?.packageName?.toString() == owner && global.isAccessibilityFocused && global.isVisibleToUser) return global
-        fun focused(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
-            if (node.packageName?.toString() == owner && node.isAccessibilityFocused && node.isVisibleToUser) return node
-            return (0 until node.childCount).firstNotNullOfOrNull { index -> node.getChild(index)?.let(::focused) }
+    /** The actual focused native control, never an inferred speech or geometry match. */
+    private fun focusedAppNode(automation: UiAutomation): AccessibilityNodeInfo? =
+        automation.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.takeIf {
+            it.packageName?.toString() == context.packageName && it.isAccessibilityFocused && it.isVisibleToUser
         }
-        return appRoots(automation).firstNotNullOfOrNull(::focused)
-    }
 
     fun focusedText(automation: UiAutomation): String? = focusedAppNode(automation)?.text?.toString()
 
-    /** A labelled icon/button exposes its actual accessible name as a description. */
-    fun focusedDescription(automation: UiAutomation): String? = focusedAppNode(automation)?.contentDescription?.toString()
+    /** TalkBack may focus the clickable parent of a separate description node.
+     * Resolve its actual description within that focused subtree, not the whole window.
+     */
+    fun focusedDescription(automation: UiAutomation): String? {
+        fun description(node: AccessibilityNodeInfo): String? = node.contentDescription?.toString()
+            ?: (0 until node.childCount).firstNotNullOfOrNull { index -> node.getChild(index)?.let(::description) }
+        return focusedAppNode(automation)?.let(::description)
+    }
 
     fun waitFor(timeout: Long, condition: () -> Boolean) {
         val until = SystemClock.elapsedRealtime() + timeout
