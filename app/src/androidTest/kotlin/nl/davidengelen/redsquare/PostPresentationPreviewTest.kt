@@ -149,6 +149,13 @@ class PostPresentationPreviewTest {
         val more = hasContentDescription("Post actions for $author") and hasClickAction()
         val edit = hasContentDescription("Edit post by $author") and hasClickAction()
         val delete = hasContentDescription("Delete post by $author") and hasClickAction()
+        fun awaitReturnedPost(target: SemanticsMatcher) {
+            val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
+            if (surface == "profile") ui.revealProfileHistoryItem("Own post action preview", 15_000)
+            val remaining = deadline - android.os.SystemClock.elapsedRealtime()
+            check(remaining > 0) { "Returning post reachability must meet its original15s budget" }
+            ui.waitUntil(remaining) { ui.onNode(target).isDisplayed() }
+        }
         ui.onNode(more).assertIsDisplayed().performClick()
         ui.onNode(edit).assertIsDisplayed().assertIsEnabled().assertTextContains("Edit")
         ui.onNode(delete).assertIsDisplayed().assertIsEnabled().assertTextContains("Delete")
@@ -159,7 +166,7 @@ class PostPresentationPreviewTest {
         ui.onNodeWithText("Edit post").assertIsDisplayed()
         ui.onNode(hasSetTextAction()).assertTextEquals("Own post action preview")
         ui.onNodeWithText("Back").performClick()
-        ui.waitUntil(15_000) { ui.onNode(more).isDisplayed() }
+        awaitReturnedPost(more)
         ui.onNode(more).performClick()
         ui.onNode(delete).assertIsDisplayed().assertIsEnabled().performClick()
         ui.waitUntil(15_000) { ui.onNode(hasText("Confirm delete") and isEnabled()).isDisplayed() }
@@ -168,7 +175,7 @@ class PostPresentationPreviewTest {
             .assertIsDisplayed()
         capture("own-delete-confirmation-$surface.png")
         ui.onNodeWithText("Back").performClick()
-        ui.waitUntil(15_000) { ui.onNode(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction()).isDisplayed() }
+        awaitReturnedPost(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction())
     }
 
     private fun assertPostPresentation(surface: String) {
