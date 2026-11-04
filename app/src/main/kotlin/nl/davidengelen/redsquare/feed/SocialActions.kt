@@ -9,6 +9,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.MotionDurationScale
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -69,22 +72,23 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val globallyBusy = state?.busy(post, kind) == true
     LaunchedEffect(state, post.id, kind, globallyBusy) { state?.load(post, kind, refresh = !globallyBusy) }
     val status = state?.actions?.get(PostActionKey(post.id, kind))
-    val feedback = status?.tapFeedback ?: 0L
-    val heartScale = remember(post.id, kind) { Animatable(1f) }
-    val countScale = remember(post.id, kind) { Animatable(1f) }
-    var heartFilled by remember(post.id, kind) { mutableStateOf(false) }
+    // Input feedback belongs to this mounted control, not to reloadable network status.
+    var feedback by remember(state, post.id, kind) { mutableLongStateOf(0L) }
+    val heartScale = remember(state, post.id, kind) { Animatable(1f) }
+    var heartFilled by remember(state, post.id, kind) { mutableStateOf(false) }
     LaunchedEffect(feedback) {
         if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
+            heartScale.snapTo(1f)
             heartFilled = true
-            heartScale.animateTo(1.52f, animationSpec = spring(dampingRatio = 0.42f, stiffness = 700f))
-            heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.58f, stiffness = 430f))
-            heartFilled = false
-        }
-    }
-    LaunchedEffect(feedback) {
-        if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
-            countScale.animateTo(1.16f, animationSpec = tween(100))
-            countScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.62f, stiffness = 520f))
+            try {
+                if (currentCoroutineContext()[MotionDurationScale]?.scaleFactor == 0f) {
+                    // A brief static acknowledgement remains visible with motion disabled.
+                    delay(120)
+                } else {
+                    heartScale.animateTo(1.16f, animationSpec = tween(55))
+                    heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.72f, stiffness = 2200f))
+                }
+            } finally { heartFilled = false }
         }
     }
     val observed = state?.observedPosts?.get(post.id) ?: post
@@ -112,8 +116,9 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
         if (retrying) stringResource(R.string.post_retry_action, description) else description,
         countLabel, enabled, available = !like && status?.available == true,
         stateHint = if (like) null else status?.let { if (it.available) label else null },
-        iconScale = heartScale.value, countScale = countScale.value,
+        iconScale = heartScale.value,
         feedbackActive = like && heartFilled, suppressRipple = like) {
+        if (kind == RedSquareActionKind.LIKE) feedback++
         state?.send(post, kind, publishing::beforePublishing)
     }
 }
@@ -151,11 +156,11 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 @OptIn(ExperimentalMaterial3Api::class)
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
     enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
-    countScale: Float = 1f, feedbackActive: Boolean = false, suppressRipple: Boolean = false,
+    feedbackActive: Boolean = false, suppressRipple: Boolean = false,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
     val countHeight = with(LocalDensity.current) { countStyle.lineHeight.toDp() }
-    val color = if (available || feedbackActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+    val color = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     val button: @Composable () -> Unit = {
         TextButton(onClick = onClick, enabled = enabled,
             modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics {
@@ -166,13 +171,12 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
                 disabledContentColor = if (available) color else color.copy(alpha = 0.38f))) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Icon(painterResource(icon), contentDescription = null, tint = color,
+                    Icon(painterResource(icon), contentDescription = null, tint = if (feedbackActive) MaterialTheme.colorScheme.primary else color,
                         modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
                     if (label.isNotEmpty()) Text(label, style = MaterialTheme.typography.labelMedium)
                 }
                 Box(Modifier.heightIn(min = countHeight)) {
-                    if (count != null) Text(count, style = countStyle,
-                        modifier = Modifier.graphicsLayer { scaleX = countScale; scaleY = countScale })
+                    if (count != null) Text(count, style = countStyle)
                 }
             }
         }

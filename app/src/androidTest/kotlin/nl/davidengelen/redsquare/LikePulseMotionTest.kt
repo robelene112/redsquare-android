@@ -99,6 +99,7 @@ class LikePulseMotionTest {
                     val frames = retainNativeMotionFrames(movie)
                     var pinkFrames = 0
                     var largestWidth = 0
+                    var smallestPinkWidth = Int.MAX_VALUE
                     for (entry in frames.getAsJsonArray("decodedOriginalFrames")) {
                         val metadata = entry.asJsonObject
                         val image = requireNotNull(BitmapFactory.decodeFile(File(folder, metadata.get("file").asString).path))
@@ -107,14 +108,18 @@ class LikePulseMotionTest {
                             if (pixels > 0) pinkFrames++
                             val width = pinkWidth(image, imageRegion)
                             largestWidth = maxOf(largestWidth, width)
+                            if (width > 0) smallestPinkWidth = minOf(smallestPinkWidth, width)
                             metadata.addProperty("heartPinkPixels", pixels); metadata.addProperty("heartPinkWidthPixels", width)
                         } finally { image.recycle() }
                     }
                     assertTrue("Original recorded frames must show immediate pink feedback, including zero-motion", pinkFrames > 0)
                     assertTrue("The pulse stays local, without an oversized heart or ripple", largestWidth <= 26 * density)
+                    if (scale == 1) assertTrue("Normal-motion original frames contain an actual size pulse", largestWidth - smallestPinkWidth >= 2)
+                    else assertTrue("Zero-motion feedback stays still", largestWidth - smallestPinkWidth <= 2)
                     assertEquals(0, frames.getAsJsonArray("decodedOriginalFrames").last().asJsonObject.get("heartPinkPixels").asInt)
                     frames.add("recording", recording); frames.add("taps", taps); frames.add("samples", samples)
                     frames.addProperty("pinkFrames", pinkFrames); frames.addProperty("largestPinkWidthPixels", largestWidth)
+                    frames.addProperty("smallestPinkWidthPixels", smallestPinkWidth)
                     frames.addProperty("density", density); frames.addProperty("targetBounds", bounds.toShortString())
                     File(folder, "scale-$scale-$surface.json").writeText(frames.toString())
                     captureNativeScreen(File(folder, "scale-$scale-$surface-after.png"))
@@ -155,7 +160,7 @@ private fun withLikeMotionFixture(block: (ActivityScenario<MainActivity>, PostLi
     val wallet = wallets.loadOrCreate()
     val backends = AndroidBackendStore(context)
     val original = backends.load()
-    val retained = ChatFixtureState(context, listOf("social.", "socialrate.", "feed.", "conversation.", "profile.", "following.", "namemap."), wallet.publicKey)
+    val retained = ChatFixtureState(context, listOf("social.", "socialrate.", "feed.", "conversation.", "profile.", "profilemeta.", "authorposts.", "following.", "namemap."), wallet.publicKey)
     var primary: Throwable? = null
     try {
         retained.prepare(); backends.save(SaitoBackend.OWNER)

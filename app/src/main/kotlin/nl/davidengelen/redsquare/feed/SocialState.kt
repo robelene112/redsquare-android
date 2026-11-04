@@ -23,8 +23,7 @@ internal data class PostActionKey(val target: String, val kind: RedSquareActionK
 
 internal data class ActionStatus(val candidate: SaitoTransaction? = null, val available: Boolean = false,
     val ready: Boolean = false, val busy: Boolean = false, val failed: Boolean = false,
-    val countsUnavailable: Boolean = false,
-    val tapFeedback: Long = 0)
+    val countsUnavailable: Boolean = false)
 
 /** Selected-wallet social operations, shared across views and isolated by backend. */
 internal class SocialState(private val context: Context, private val wallet: SaitoWallet,
@@ -35,7 +34,6 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     private data class LikeCountOverlay(val baseline: Long, val taps: Long)
     private val optimisticLikeCounts = mutableStateMapOf<String, LikeCountOverlay>()
     private val generations = mutableMapOf<PostActionKey, Any>()
-    private var feedbackSequence = 0L
     /** Called only for fresh node responses, never when reopening older cached views. */
     fun observe(posts: List<FeedPost>) {
         posts.forEach { post ->
@@ -196,8 +194,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         val enqueue = SocialActionOperations.enqueueLike(wallet.publicKey, backend, key, token)
         if (enqueue.publishingAuthorized) recordOptimisticLikeTap(post)
         val previous = actions[key] ?: ActionStatus()
-        val sequence = ++feedbackSequence
-        actions[key] = previous.copy(ready = true, busy = true, failed = false, tapFeedback = sequence)
+        actions[key] = previous.copy(ready = true, busy = true, failed = false)
         if (!enqueue.shouldStart) return
         generations[key] = token
         scope.launch(start = CoroutineStart.UNDISPATCHED) {
