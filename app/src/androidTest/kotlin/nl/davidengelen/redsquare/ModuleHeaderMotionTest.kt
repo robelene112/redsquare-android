@@ -47,12 +47,18 @@ class ModuleHeaderMotionTest {
             check(condition()) { message }
         }
         fun focusedMenuText(): String? {
-            val focused = instrumentation.uiAutomation.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_INPUT)
+            // The active native hierarchy exports focus on the clickable row,
+            // with its text on a child. Observe that explicit input-focus flag.
+            val root = instrumentation.uiAutomation.windows.firstOrNull { it.isActive && it.isFocused }?.root
                 ?: return null
-            if (!focused.isFocused || !focused.isClickable || !focused.isVisibleToUser) return null
-            fun text(node: android.view.accessibility.AccessibilityNodeInfo): String? = node.text?.toString()
+            if (root.packageName?.toString() != context.packageName) return null
+            fun focused(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
+                if (node.isFocused && node.isClickable && node.isVisibleToUser) return node
+                return (0 until node.childCount).firstNotNullOfOrNull { index -> node.getChild(index)?.let(::focused) }
+            }
+            fun text(node: android.view.accessibility.AccessibilityNodeInfo): String? = node.text?.toString()?.takeIf { it.isNotBlank() }
                 ?: (0 until node.childCount).firstNotNullOfOrNull { index -> node.getChild(index)?.let(::text) }
-            return text(focused)
+            return focused(root)?.let(::text)
         }
         fun swipe(up: Boolean) {
             val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
