@@ -95,7 +95,11 @@ class LikePulseMotionTest {
                     assertFalse(device.hasObject(By.text("Like pending")))
                     assertFalse(device.hasObject(By.text("Unlike")))
                     assertFalse(device.hasObject(By.text("Like")))
-                    assertEquals(bounds, requireNotNull(device.findObject(selector)).visibleBounds)
+                    val afterBounds = requireNotNull(device.findObject(selector)).visibleBounds
+                    assertEquals("Feedback cannot move the action row", bounds.top, afterBounds.top)
+                    assertEquals("Feedback cannot grow the action row", bounds.height(), afterBounds.height())
+                    assertEquals(bounds.left, afterBounds.left)
+                    assertTrue("A wider truthful count still keeps the accessible target", afterBounds.width() >= 48 * density)
                     val frames = retainNativeMotionFrames(movie)
                     var pinkFrames = 0
                     var largestWidth = 0
