@@ -63,6 +63,21 @@ into separate bounded5s movies; retain data before asserting and stable referenc
 pixels after the existing180ms status entry. No production changes afterc544.
 Final fresh native10/17, rendered inspection, evidence, final commit and79closure
 remain pending.
+Both final native runs6795 PASS all16:41932608760(10)/41932621954(17).
+Both12-cell matrices, normal/zero history+refresh movies and all original classes
+pass. Final lint /tmp/redesign79-reviewed-lint.log PASS3m. Source reviews clean.
+Raw/rendered folders /mnt/storage/redsquare-android-artifacts/redesign79-reviewed10-
+41932608760 and reviewed17-41932621954. /tmp/redesign79-sheets.py makes contacts.
+VISUAL CHECK STILL OPEN:17's light320/200 reply-ime PNG paints the first lines,
+but not the expected final exact unsent text beside the lower caret. Dark and10
+captures visibly have it. Source PublishingEditor unchanged by79. No production
+bug diagnosis established. /tmp/redesign79-check-ending.py replays native glyph
+comparison: bad17light0.307 below0.85, good10light0.960. Current test-only diagnostic
+adds no-input snapshots after250/500ms pauses with actual elapsed/bounds/IME data
+for that light cell, and thread-narrow scope reuses the original6-cell class,
+unchanged180s/assertion goals. Need run17, inspect originals and compare end glyphs;
+then resolve transient-vs-persistent rendering before visual acceptance/closure.
+All ordinary proof is otherwise complete. No app source changes afterc544.
 Stop after79. No beta publication before94. Preserve every criterion in that native
 GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
 history, drafts/targets/anchors. No original test assertion/deadline may be dropped

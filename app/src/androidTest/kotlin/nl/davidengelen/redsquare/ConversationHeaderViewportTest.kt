@@ -49,7 +49,7 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
         }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
-            ui.withPostViewports(activity, folder, "thread", widthDp = width) { label, _ ->
+            ui.withPostViewports(activity, folder, "thread", widthDp = width) { label, theme ->
                 longThread.set(context.resources.configuration.fontScale > 1.1f)
                 ui.clickVisiblePostBody(rootPost.text)
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() && ui.refreshableContentReady() }
@@ -97,6 +97,22 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 editor.performScrollTo().assertTextContains(draft)
                 ui.onNodeWithText(rootPost.text, useUnmergedTree = true).assertExists()
                 captureNativeScreen(File(folder, "$label-reply-ime.png"))
+                if (width == 320 && context.resources.configuration.fontScale > 1.5f && theme == "Light") {
+                    val samples = com.google.gson.JsonArray()
+                    val started = android.os.SystemClock.elapsedRealtime()
+                    for (pause in listOf(250L, 500L)) {
+                        android.os.SystemClock.sleep(pause)
+                        editor.assertTextContains(draft)
+                        val bounds = editor.fetchSemanticsNode().boundsInRoot
+                        samples.add(JsonObject().apply {
+                            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - started)
+                            addProperty("editorBounds", bounds.toString())
+                            addProperty("imeBottomPixels", focusedWindowImeBottom())
+                        })
+                        captureNativeScreen(File(folder, "$label-reply-ime-observed-$pause.png"))
+                    }
+                    File(folder, "$label-settled-ime-observations.json").writeText(samples.toString())
+                }
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() && ui.refreshableContentReady() }
                 ui.revealAppNavigation()
