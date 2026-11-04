@@ -57,7 +57,7 @@ class AvatarIdentityJourneyTest {
         // Same signer, other node: no signed observation has been received there.
         AndroidBackendStore(context).save(SaitoBackend.OFFICIAL)
         activity.recreate()
-        ui.waitUntil(15_000) { ui.onNodeWithText("saito.io").isDisplayed() }
+        ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.selected_server, "saito.io")).isDisplayed() }
         ui.onNode(hasText("Chat") and hasClickAction()).performClick()
         val contact = ui.onNode(hasText("Anon-${author.publicKey.take(6)}") and hasClickAction())
         ui.waitUntil(15_000) { contact.isDisplayed() }
@@ -87,7 +87,7 @@ class AvatarIdentityJourneyTest {
         assertPicture(ui.onAllNodesWithContentDescription("View profile for Anon-${key.take(6)}")[0], color)
         capture("$theme-$stage-people")
         tab("Notifications")
-        ui.waitUntil(15_000) { ui.onNodeWithText("Liked your post").isDisplayed() }
+        ui.waitUntil(15_000) { ui.onNodeWithText("Liked a post").isDisplayed() }
         assertPicture(authorRow(key), color)
         capture("$theme-$stage-activity")
         tab("Chat")

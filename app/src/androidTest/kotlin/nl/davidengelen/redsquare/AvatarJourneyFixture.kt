@@ -58,7 +58,8 @@ internal fun withAvatarJourney(theme: String, block: (ActivityScenario<MainActiv
             .putBoolean("social-offered:${reader.publicKey}", true).commit())
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "avatar-evidence/$theme-journey-failure.png")) }) {
                     block(activity, peer, response, requests, author)
                     assertEquals(reader.exportJson(), wallets.loadExisting().exportJson())
