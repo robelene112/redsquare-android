@@ -29,7 +29,8 @@ class ProfileReadingReturnTest {
             ui.revealProfileHistoryItem("Reference post 10")
             val targetId = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }.id
             val density = instrumentation.targetContext.resources.displayMetrics.density
-            val tabs = ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab))
+            val tabs = ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab) and
+                (hasText("Posts") or hasText("Replies") or hasText("Likes")))
                 .fetchSemanticsNodes()
             val card = ui.onNodeWithTag("post-card-${targetId.take(12)}")
             val offset = card.fetchSemanticsNode().boundsInRoot.top - tabs.maxOf { it.boundsInRoot.bottom } - 16 * density

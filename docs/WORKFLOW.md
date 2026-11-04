@@ -164,6 +164,18 @@ complete first-release scope and the established production boundaries.
    Native movies require the resulting picture/removal in retained display
    frames under actual system scale0/1; a functional pass alone is not motion
    acceptance. Focused proofs do not replace94's final full-source verification.
+   `profile-redesign` and `profile-redesign-android17` exercise the real signed
+   identity/history boundary, own/public viewport matrices, local draft editing
+   and exact post/pixel return from a conversation and author editing. Each of
+   the four classes retains its own180second bound and full Social inclusion.
+   The matrices use320/412dp, both themes and100/130/200% system text; platform
+   state and original wallet identity are restored after the Activity closes.
+   Native proofs normally use the standard Ubuntu24.04 runner. An optional
+   `runner_os=ubuntu-22.04` selects the other standard x64 pool with the same
+   Android images and test bounds. An optional exact `source_ref` permits a
+   before-change baseline; retained proof-source/workflow/runner files distinguish
+   the checked-out source from the workflow revision. Never report the workflow
+   SHA as the tested app source when those differ.
    `first-use` / its Android17 variant require the12-cell native first-use
    density matrix and a separate180s actual normal/zero interrupted-dismissal
    class. `first-use-motion` isolates only that new class during iteration.
