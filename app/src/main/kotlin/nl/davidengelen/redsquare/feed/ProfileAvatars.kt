@@ -78,6 +78,7 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
     private val cache = AvatarProfileCache(context, backend)
     private val active = mutableMapOf<String, Int>()
     private val requested = mutableMapOf<String, Boolean>()
+    private val refreshAgain = mutableSetOf<String>()
     private val pending = Channel<String>(64)
     private val images = mutableMapOf<String, Job>()
     private val order = LinkedHashSet<String>()
@@ -98,7 +99,11 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
         val known = pictures[author]
         val age = System.currentTimeMillis() - (known?.checkedAt ?: 0)
         if (!force && known != null && (!discover || age in 0..300_000)) return
-        if (author in requested) { requested[author] = requested.getValue(author) || discover; return }
+        if (author in requested) {
+            requested[author] = requested.getValue(author) || discover
+            if (force) refreshAgain.add(author)
+            return
+        }
         if (requested.size >= 64) return
         requested[author] = discover
         if (pending.trySend(author).isFailure) requested.remove(author)
@@ -139,12 +144,15 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
                         } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
                         catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) { /* Cached/identicon fallback stays, without blocking the feed. */ }
-                        finally { withContext(NonCancellable + Dispatchers.Main) { requested.remove(author) } }
                     } } }.joinAll() }
                 }
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { /* A failed peer connection preserves cached reading and permits retry. */ }
-            finally { discover.forEach { requested.remove(it) } }
+            finally { discover.forEach { author ->
+                requested.remove(author)
+                if (refreshAgain.remove(author) && author in active && currentCoroutineContext().isActive)
+                    request(author, true, true)
+            } }
         }
     }
     suspend fun observe(profile: SaitoProfile) {
