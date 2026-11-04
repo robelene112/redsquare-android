@@ -4,7 +4,7 @@ Review base: `afcaa350208b045fa41dbe56280d56c1ea48e73d`.
 Last production change: `1b39a2632`. Final verification sources: `a562b298d`(Android10) and `5246f83ab`(Android17).
 Both final complete focused runs pass all12 methods per OS: [Android10](https://github.com/robelene112/redsquare-android/actions/runs/41858294363),
 [Android17](https://github.com/robelene112/redsquare-android/actions/runs/41856926016).
-The last test-only change asserts two consecutive captured pixel matches within
+The5246 observer change asserts two consecutive captured pixel matches within
 the existing10s bound instead of taking a different screenshot after a wait
 already succeeded. It also retains bounded pixel/bounds observations. The prior
 fixture change gates successful HTTP responses until the native retry click.
