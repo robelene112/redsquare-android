@@ -181,6 +181,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 }
             })
             BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+                val writingHeight = maxHeight
                 Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
@@ -209,7 +210,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     }
                     quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                    PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = maxHeight)
+                    PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = writingHeight)
                     PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
                         previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
                     quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
