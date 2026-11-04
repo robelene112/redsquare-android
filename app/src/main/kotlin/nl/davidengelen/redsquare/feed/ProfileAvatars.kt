@@ -59,9 +59,12 @@ internal fun ProfileAvatar(author: String, modifier: Modifier, verified: SaitoPr
     val picture = state?.bitmap
     val label = stringResource(if (picture != null) R.string.profile_picture else R.string.profile_generated_picture)
     Box(modifier.semantics { contentDescription = label }, contentAlignment = Alignment.Center) {
-        Crossfade(picture, Modifier.fillMaxSize().clearAndSetSemantics { }, tween(AppSpacing.transitionMillis), label = "Profile picture") { bitmap ->
-            if (bitmap == null) GeneratedProfilePicture(author, Modifier.fillMaxSize())
-            else Image(bitmap.asImageBitmap(), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+        // A node or identity change starts fresh, including the outgoing animation's pixels.
+        key(avatars, author) {
+            Crossfade(picture, Modifier.fillMaxSize().clearAndSetSemantics { }, tween(AppSpacing.transitionMillis), label = "Profile picture") { bitmap ->
+                if (bitmap == null) GeneratedProfilePicture(author, Modifier.fillMaxSize())
+                else Image(bitmap.asImageBitmap(), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            }
         }
         if (showRetry && state?.failed == true) FilledTonalIconButton(onClick = { avatars.retry(author) }, Modifier.size(48.dp)) {
             Icon(painterResource(R.drawable.ic_refresh), stringResource(R.string.profile_picture_retry))
