@@ -164,6 +164,16 @@ complete first-release scope and the established production boundaries.
    Native movies require the resulting picture/removal in retained display
    frames under actual system scale0/1; a functional pass alone is not motion
    acceptance. Focused proofs do not replace94's final full-source verification.
+   `feed-redesign` / its Android17 variant exercise88's actual signed link
+   targets, node hints and raster previews; delayed physical refresh and outage
+   recovery; exact feed anchors; and real post/reply/quote drafts and IME at
+   320/412dp in both themes and100/130/200% system text. A separate native
+   no-test-clock media class retains original frames under actual motion0/1.
+   Each new class has its own180second bound and additive full Social inclusion.
+   Focused runs also retain the original affected post/content/composer/Following
+   classes; full Social keeps those once in their original groups. Every class
+   outcome remains required. External link intents are intercepted at Android's
+   existing boundary and do not open public providers during these checks.
    `profile-redesign` and `profile-redesign-android17` exercise the real signed
    identity/history boundary, own/public viewport matrices, local draft editing
    and exact post/pixel return from a conversation and author editing. Each of

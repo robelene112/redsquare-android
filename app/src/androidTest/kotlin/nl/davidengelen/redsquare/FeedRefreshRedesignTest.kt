@@ -16,6 +16,50 @@ import java.util.concurrent.atomic.AtomicReference
 
 class FeedRefreshRedesignTest {
     @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val initial = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
+            JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
+        }
+        val rows = AtomicReference(initial)
+        val pending = AtomicBoolean(false)
+        val entered = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        withAppFrameFixture("read-during-refresh", "feed-refresh-evidence", initial, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "RedSquare") {
+                if (pending.get() && criteria.has("field4") && !criteria.has("sig")) {
+                    entered.countDown(); check(release.await(15, TimeUnit.SECONDS))
+                }
+                rows.get()
+            } else "[]"
+        }) {
+            try {
+                ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
+                ui.onNodeWithTag("feed-post-list").performScrollToIndex(0)
+                val fresh = postingArchiveRow(SaitoTransaction.create(SaitoWallet.fromPrivateKey("0".repeat(63) + "1"),
+                    RedSquarePosts.message("A new post while you read"), 1_700_000_100_000)) // Published unsafe fixture only.
+                rows.set(com.google.gson.JsonArray().apply {
+                    add(fresh); JsonParser.parseString(initial).asJsonArray.take(19).forEach { add(it) }
+                }.toString())
+                pending.set(true)
+                ui.pullToRefresh("feed-post-list")
+                ui.waitUntil(5_000) { entered.count == 0L }
+                ui.onNodeWithTag("feed-post-list").performScrollToNode(hasText("Reference post 10"))
+                ui.revealAppNavigation()
+                val target = ui.onNodeWithText("Reference post 10", useUnmergedTree = true).assertIsDisplayed()
+                val before = target.fetchSemanticsNode().boundsInRoot.top
+                release.countDown()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Feed updated.").isDisplayed() && target.isDisplayed() }
+                assertEquals("A completed pull must not override the reader's subsequent scroll", before,
+                    target.fetchSemanticsNode().boundsInRoot.top, 1f)
+                captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/reading-during-pending-refresh.png"))
+            } finally { release.countDown() }
+        }
+    }
+
     @Test fun physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -42,7 +86,9 @@ class FeedRefreshRedesignTest {
                 ui.onNodeWithText("Later").performClick()
                 ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 ui.onNodeWithTag("feed-post-list").performScrollToIndex(0)
-                val updated = JsonParser.parseString(initial).asJsonArray.apply { add(fresh) }
+                val updated = com.google.gson.JsonArray().apply {
+                    add(fresh); JsonParser.parseString(initial).asJsonArray.take(19).forEach { add(it) }
+                }
                 rows.set(updated.toString()); gate.set(true)
                 ui.pullToRefresh("feed-post-list")
                 ui.waitUntil(5_000) { entered.count == 0L }

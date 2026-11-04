@@ -101,6 +101,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var refresh by remember { mutableIntStateOf(0) }
     var pullRefreshing by remember { mutableStateOf(false) }
     var manualPullPending by remember { mutableStateOf(false) }
+    var pulledTopPost by remember { mutableStateOf<String?>(null) }
     var pullRefreshSucceeded by remember { mutableStateOf(false) }
     var composing by rememberSaveable { mutableStateOf(false) }
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
@@ -263,14 +264,15 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     LaunchedEffect(wallet, cacheReady, refresh, internet, followingView, following?.accounts, following?.ready) {
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
-        if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; return@LaunchedEffect }
-        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; return@LaunchedEffect }
+        if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
+        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; pulledTopPost = null; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 if (!internet.available) {
                     loading = false
                     pullRefreshing = false
                     manualPullPending = false
+                    pulledTopPost = null
                     hadOutage = true
                     recovered = false
                     delay(1000)
@@ -325,10 +327,20 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         }
                     }
                     failed = false
-                    if (manualPullPending) { manualPullPending = false; pullRefreshSucceeded = true }
+                    if (manualPullPending) {
+                        // A pull from the top asks to see the new leading posts. Stable lazy
+                        // keys otherwise keep the former first post in view, leaving new posts above it.
+                        // If the reader moved while waiting, retain their chosen position.
+                        if (pulledTopPost != null && position.firstVisibleItemScrollOffset == 0 &&
+                            position.layoutInfo.visibleItemsInfo.firstOrNull()?.key == pulledTopPost)
+                            position.requestScrollToItem(0)
+                        manualPullPending = false
+                        pulledTopPost = null
+                        pullRefreshSucceeded = true
+                    }
                     if (hadOutage) { recovered = true; hadOutage = false }
                 } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { manualPullPending = false; failed = true; hadOutage = true; recovered = false }
+                catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; hadOutage = true; recovered = false }
                 finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
                 delay(if (failed) 5_000 else 30_000)
             }
@@ -490,7 +502,11 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 Text(stringResource(R.string.feed_empty))
             // Keep a restored list position until the asynchronous cache read has finished.
             val refreshContent: () -> Unit = {
-                if (wallet != null) { avatars?.refresh(); pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
+                if (wallet != null) {
+                    pulledTopPost = if (position.firstVisibleItemIndex == 0 && position.firstVisibleItemScrollOffset == 0)
+                        position.layoutInfo.visibleItemsInfo.firstOrNull()?.key as? String else null
+                    avatars?.refresh(); pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++
+                }
             }
             if (cacheReady && personal?.ready == true) PullToRefreshBox(
                 isRefreshing = pullRefreshing,

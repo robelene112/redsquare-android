@@ -24,3 +24,32 @@ Read-only inspection of deployed static sources under `/opt/saito/node` on
 
 These findings describe the inspected web implementation. Native feature scope
 and media-provider integration are separate product/specification decisions.
+
+## Native link-card compatibility, issue88
+
+Read-only comparison on2026-11-04 used the existing pinned source revision
+`9a4ca7e9442eb5e872168ced361ce741d7d139d7`, fetched from official GitHub. This
+identifies the inspected source, not a claim about the current public deployment.
+[Tweet](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/mods/redsquare/lib/tweet.js)
+uses signed `data.link` when supplied, otherwise derives a URL from post text.
+The envelope's unsigned `optional.link_properties` supplies preview hints.
+[The preview component](https://github.com/SaitoTech/saito/blob/9a4ca7e9442eb5e872168ced361ce741d7d139d7/node/lib/saito/ui/saito-link-preview/saito-link-preview.js)
+reads `og:image`, `og:title`/`saito:title` and `og:description`/`saito:description`,
+with Saito-specific title/description taking precedence. `og:url` is display
+metadata, not permission to change the post's clicked target.
+
+Native `RedSquareLinks` keeps a complete validated HTTP(S) target and bounded
+node hints. Inline authored text remains verbatim; a standalone trailing URL can
+be represented by its actual card. Missing/unreadable hints leave an honest
+site/target card, without sample titles, cover art, authors or reading times.
+YouTube keeps its existing tap-to-play path, and Giphy keeps its existing media
+and attribution path. Relative preview image paths resolve against the linked
+page. The existing bounded image loader remains responsible for raster loading.
+Real feed links must not open the sample `StackReviewScreen` article.
+
+The existing edit contract is text-only: explicit original signed link/image
+attachments remain. `FeedPost.originalText` preserves verified original text
+through decoding and revision selection, so a changed text-derived URL cannot
+inherit an old article's preview hints. Removing a text-derived URL removes that
+card; an unchanged target can retain its hints. These presentation checks do not
+establish current public Stack/provider availability or full Stack integration.
