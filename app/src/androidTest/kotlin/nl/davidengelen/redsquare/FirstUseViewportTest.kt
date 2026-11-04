@@ -28,7 +28,8 @@ class FirstUseViewportTest {
             ui.withPostViewports(activity, folder, "first-use", widthDp = width) { name, _ ->
                 val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
                 val list = ui.onNodeWithTag("feed-post-list").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-                val post = ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val post = ui.onNodeWithTag("post-body-text", useUnmergedTree = true).assertIsDisplayed()
+                    .fetchSemanticsNode().boundsInRoot
                 val compose = ui.onNode(hasText("New post") and hasClickAction()).assertIsDisplayed().assertIsEnabled()
                     .fetchSemanticsNode().boundsInRoot
                 for (target in listOf(hasContentDescription("Account"), hasText("Later"),
@@ -44,7 +45,7 @@ class FirstUseViewportTest {
                 var nativeCompose = requireNotNull(device.findObject(By.text("New post")))
                 while (!nativeCompose.isClickable) nativeCompose = requireNotNull(nativeCompose.parent)
                 assertTrue(nativeCompose.visibleBounds.width() >= 47 && nativeCompose.visibleBounds.height() >= 47)
-                assertTrue("The first post remains readable at $name", post.bottom <= list.bottom)
+                if (post.bottom > list.bottom) densityFailures.add("$name: first post body extends below reading viewport")
                 if (width == 320 && context.resources.configuration.fontScale > 1.3f) {
                     if (list.height < viewport.height * .32f) densityFailures.add("$name: reading list ${list.height} of ${viewport.height}")
                     if (compose.height > list.height * .25f) densityFailures.add("$name: compose ${compose.height} dominates reading list ${list.height}")
