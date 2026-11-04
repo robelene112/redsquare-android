@@ -4,6 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -22,39 +23,55 @@ class ConversationHeaderPreviewTest {
         val root = rows.getAsJsonObject("root")
         val reply = rows.getAsJsonObject("firstReply")
         val nested = rows.getAsJsonObject("nestedReply")
+        val standalone = postingArchiveRow(SaitoTransaction.create(
+            SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), // Published unsafe fixture only.
+            RedSquarePosts.message("A standalone reading header"), 1_700_000_999_001L))
         val release = CountDownLatch(1)
         val recovered = AtomicBoolean(false)
         var peer: ControlledFeedPeer? = null
         val fault = File(context.noBackupFilesDir, "conversation.owner.${root.get("sig").asString}.v1")
         val obstacle = File(fault, "owned-cache-fault")
-        withAppFrameFixture("combined-recovery", "conversation-header-evidence", "[$reply]",
+        withAppFrameFixture("combined-recovery", "conversation-header-evidence", "[$standalone]",
             configurePeer = { peer = it },
             archiveResponse = { query ->
-                if (query.has("field5")) {
+                if (query.get("field5")?.asString == standalone.get("sig").asString) "[$standalone]"
+                else if (query.has("field5")) {
                     check(release.await(10, TimeUnit.SECONDS))
                     if (recovered.get()) "[$root,$reply,$nested]" else "[$reply,$nested,{}]"
-                } else if (query.has("sig")) { if (recovered.get()) "[$root]" else "[]" } else "[$reply]"
+                } else if (query.has("sig")) { if (recovered.get()) "[$root]" else "[]" } else if (query.has("field4")) "[$standalone]" else "[$reply]"
             }) { activity ->
             var primary: Throwable? = null
             try {
                 ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
                 ui.onNodeWithText("Later").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("A standalone reading header").isDisplayed() }
+                ui.onNodeWithText("A standalone reading header", useUnmergedTree = true).performTouchInput { click(center) }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+                ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
+                ui.onNode(hasText("Conversation information") and hasClickAction()).assertIsDisplayed()
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithTag("feed-post-list").isDisplayed() }
+                // General feed deliberately excludes replies. Open the authentic reply through Search.
+                ui.onNode(hasText("Search") and hasClickAction()).performClick()
+                val search = ui.onNode(hasSetTextAction() and isEnabled())
+                ui.waitUntil(15_000) { search.isDisplayed() }
+                search.performClick().performTextInput("Independent")
+                search.performImeAction()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Independent Saito reply").isDisplayed() }
                 check(fault.mkdir()); obstacle.writeText("public owned fixture")
                 ui.onNodeWithText("Independent Saito reply", useUnmergedTree = true).performTouchInput { click(center) }
                 ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
-                captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/opening-thread.png"))
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
                 ui.onNode(hasText("Back") and hasClickAction()).assertIsDisplayed()
                 ui.onNode(hasText("Reply") and hasClickAction()).assertIsDisplayed()
-                ui.onNode(hasText("Conversation information") and hasClickAction()).performClick()
-                ui.onNodeWithText(context.getString(R.string.conversation_history)).assertIsDisplayed()
-                captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/history-details.png"))
-                ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_loading)).assertIsDisplayed()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/loading.png"))
                 release.countDown()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Parent post unavailable").isDisplayed() }
+                ui.onNode(hasText("Conversation information") and hasClickAction()).performClick()
+                ui.onNodeWithText(context.getString(R.string.conversation_history)).assertIsDisplayed()
+                captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/history-details.png"))
+                ui.onNodeWithText("Done").performClick()
                 ui.onNodeWithContentDescription("Details for Parent post unavailable").performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_parent_unavailable)).assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.conversation_unreadable)).assertIsDisplayed()
