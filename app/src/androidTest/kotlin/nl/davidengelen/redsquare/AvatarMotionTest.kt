@@ -67,8 +67,11 @@ class AvatarMotionTest {
                     val frames = retainNativeMotionFrames(movie)
                     frames.add("recording", recording)
                     File(folder, "scale-$scale-avatar-$index.json").writeText(frames.toString())
-                    assertEquals("Avatar changes must not move the author row", before,
-                        requireNotNull(device.findObject(By.desc(label))).visibleBounds)
+                    val after = requireNotNull(device.findObject(By.desc(label))).visibleBounds
+                    // The ordinary pull-success notice can move the list. Photo loading must
+                    // preserve the row's intrinsic geometry through every replacement.
+                    assertEquals(before.width(), after.width())
+                    assertEquals(before.height(), after.height())
                 }
                 observeModuleWindowMotionScale(activity, scale, folder)
             }
