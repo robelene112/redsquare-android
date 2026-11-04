@@ -131,6 +131,17 @@ class AvatarRecoveryPreviewTest {
     }
 
     @Test fun threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction() {
+        check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val runtime = Runtime.getRuntime()
+        val manager = context.getSystemService(android.app.ActivityManager::class.java)
+        InstrumentationRegistry.getInstrumentation().sendStatus(0, android.os.Bundle().apply {
+            putString("stream", "\nAvatar large pictures: max=${runtime.maxMemory()} total=${runtime.totalMemory()} " +
+                "free=${runtime.freeMemory()} memoryClass=${manager.memoryClass} flags=${context.applicationInfo.flags}\n")
+        })
+        if (android.os.Build.VERSION.SDK_INT == 29) assertEquals(
+            "The API29 emulator process must use its declared device memory class",
+            manager.memoryClass.toLong() * 1024 * 1024, runtime.maxMemory())
         val sources = (1..3).associate { key ->
             val author = SaitoWallet.fromPrivateKey("0".repeat(63) + key)
             val source = "data:image/png;base64," + Base64.encodeToString(png(noise = true), Base64.NO_WRAP)
