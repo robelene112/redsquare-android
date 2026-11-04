@@ -460,6 +460,7 @@ if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == avatars* ]]; then
     verify_group_chat_native AvatarIdentityJourneyTest 180 avatar-journey avatar-evidence
     verify_group_chat_native AvatarCachePreviewTest 180 avatar-cache avatar-evidence
     verify_group_chat_native AvatarRecoveryPreviewTest 180 avatar-recovery avatar-evidence
+    verify_group_chat_native AvatarMotionTest 180 avatar-motion avatar-evidence
     if [[ "${TEST_SCOPE:-full}" == avatars* ]]; then
         printf '%s\n' 'Focused signed avatar integration only; not full application acceptance.' > "$evidence/scope.txt"
         exit 0
