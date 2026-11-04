@@ -456,7 +456,14 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
     fi
 fi
 if [[ "${TEST_SCOPE:-full}" == feed-writing* ]]; then
-    verify_group_chat_native FeedWritingViewportTest 180 feed-writing feed-writing-evidence
+    feed_writing_failed=0
+    verify_group_chat_native FeedWritingViewportTest 180 feed-writing feed-writing-evidence || feed_writing_failed=1
+    verify_group_chat_native PostComposerFocusPreviewTest 180 composer-focus composer-focus-evidence || feed_writing_failed=1
+    verify_group_chat_native ComposerDraftStatusPreviewTest 180 composer-draft composer-draft-evidence || feed_writing_failed=1
+    verify_group_chat_native ComposerPostJourneyTest 180 composer-post composer-publishing-evidence || feed_writing_failed=1
+    verify_group_chat_native ComposerReplyJourneyTest 180 composer-reply composer-publishing-evidence || feed_writing_failed=1
+    verify_group_chat_native ComposerQuoteJourneyTest 180 composer-quote composer-publishing-evidence || feed_writing_failed=1
+    [[ "$feed_writing_failed" == 0 ]] || exit 1
     printf '%s\n' 'Native real writing viewport/draft/IME check only; not full app acceptance.' > "$evidence/scope.txt"
     exit 0
 fi

@@ -62,10 +62,13 @@ class FeedWritingViewportTest {
                 val educationAcknowledged = acknowledgeKeyboardFontEducation()
                 editor.performScrollTo().assertIsDisplayed()
                 var visibleHeight = 0f
+                var completeHeight = 0f
                 var inkPixels = 0
                 ui.waitUntil(10_000) { runCatching {
                     visibleHeight = editor.fetchSemanticsNode().boundsInRoot.height
-                    if (visibleHeight < 80 * context.resources.displayMetrics.density) false
+                    val full = editor.getUnclippedBoundsInRoot()
+                    completeHeight = (full.bottom - full.top).value * context.resources.displayMetrics.density
+                    if (visibleHeight < 80 * context.resources.displayMetrics.density || completeHeight > visibleHeight + 1) false
                     else {
                         val bitmap = editor.captureToImage().asAndroidBitmap()
                         inkPixels = 0
@@ -84,6 +87,7 @@ class FeedWritingViewportTest {
                     addProperty("keyboardVisible", focusedWindowImeBottom() > 0)
                     addProperty("keyboardEducationAcknowledged", educationAcknowledged)
                     addProperty("visibleEditorHeightPixels", visibleHeight)
+                    addProperty("completeEditorHeightPixels", completeHeight)
                     addProperty("minimumHeightDp", 80)
                     addProperty("actualTextInkPixels", inkPixels)
                 }.toString())

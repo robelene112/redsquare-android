@@ -180,45 +180,47 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     add(stringResource(R.string.publishing_original_attempt))
                 }
             })
-            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
-                InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
-                InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
-                if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-                InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
-                Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    ProfileAvatar(owner, Modifier.size(36.dp).clip(CircleShape))
-                    Column(Modifier.weight(1f)) {
-                        Text(stringResource(R.string.post_writing_as), style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text(registeredIdentity(owner).name, style = MaterialTheme.typography.titleSmall)
-                    }
-                }
-                parent?.let { target ->
-                    Surface(shape = RoundedCornerShape(AppSpacing.cardRadius), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                        Column(Modifier.fillMaxWidth().padding(AppSpacing.small), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(stringResource(R.string.post_reply_to, registeredIdentity(target.author).name),
-                                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
-                            Text(target.text, style = MaterialTheme.typography.bodyMedium,
-                                maxLines = 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+                Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                    InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
+                    InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
+                    InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
+                    if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
+                    InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
+                    Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        ProfileAvatar(owner, Modifier.size(36.dp).clip(CircleShape))
+                        Column(Modifier.weight(1f)) {
+                            Text(stringResource(R.string.post_writing_as), style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(registeredIdentity(owner).name, style = MaterialTheme.typography.titleSmall)
                         }
                     }
+                    parent?.let { target ->
+                        Surface(shape = RoundedCornerShape(AppSpacing.cardRadius), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                            Column(Modifier.fillMaxWidth().padding(AppSpacing.small), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                Text(stringResource(R.string.post_reply_to, registeredIdentity(target.author).name),
+                                    style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+                                Text(target.text, style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                            }
+                        }
+                    }
+                    quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                    PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = maxHeight)
+                    PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
+                        previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
+                    quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
+                    if (transaction != null && !available)
+                        nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
+                    if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
+                        Text(stringResource(R.string.post_cancel_queued))
+                    }
+                    if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
+                        onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
                 }
-                quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null)
-                PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
-                    previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
-                quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
-                if (transaction != null && !available)
-                    nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
-                if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
-                    Text(stringResource(R.string.post_cancel_queued))
-                }
-                if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
-                    onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
             }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
