@@ -28,24 +28,39 @@ class AvatarMotionTest {
                 check(device.wait(Until.hasObject(By.text("Shared avatar journey")), 15_000))
                 val label = "View profile for Anon-${author.publicKey.take(6)}"
                 val before = requireNotNull(device.findObject(By.desc(label))).visibleBounds
-                fun colorAtAvatar(): Int {
-                    val bounds = requireNotNull(device.findObject(By.desc(label))).visibleBounds
-                    val density = context.resources.displayMetrics.density
-                    val screenshot = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
-                    return try { screenshot.getPixel(bounds.left + (20 * density).toInt(), bounds.centerY()) }
-                    finally { screenshot.recycle() }
-                }
                 fun awaitColor(expected: Int?) {
                     val deadline = SystemClock.elapsedRealtime() + 10_000
-                    fun matches(): Boolean = runCatching {
-                        val pixel = colorAtAvatar()
-                        fun near(value: Int) = kotlin.math.abs(Color.red(pixel) - Color.red(value)) < 15 &&
-                            kotlin.math.abs(Color.green(pixel) - Color.green(value)) < 15 &&
-                            kotlin.math.abs(Color.blue(pixel) - Color.blue(value)) < 15
-                        if (expected != null) near(expected) else !near(Color.RED) && !near(Color.BLUE)
-                    }.getOrDefault(false)
-                    while (!matches() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
-                    check(matches()) { "Signed avatar state must render within10s" }
+                    val samples = com.google.gson.JsonArray()
+                    var stable = 0
+                    while (stable < 2 && SystemClock.elapsedRealtime() < deadline) {
+                        val sample = JsonObject().apply { addProperty("elapsedMillis", SystemClock.elapsedRealtime()) }
+                        val matches = try {
+                            val bounds = requireNotNull(device.findObject(By.desc(label))).visibleBounds
+                            sample.addProperty("bounds", bounds.toShortString())
+                            val density = context.resources.displayMetrics.density
+                            val screenshot = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
+                            val pixel = try { screenshot.getPixel(bounds.left + (20 * density).toInt(), bounds.centerY()) }
+                                finally { screenshot.recycle() }
+                            sample.addProperty("argb", pixel)
+                            fun near(value: Int) = kotlin.math.abs(Color.red(pixel) - Color.red(value)) < 15 &&
+                                kotlin.math.abs(Color.green(pixel) - Color.green(value)) < 15 &&
+                                kotlin.math.abs(Color.blue(pixel) - Color.blue(value)) < 15
+                            if (expected != null) near(expected) else !near(Color.RED) && !near(Color.BLUE)
+                        } catch (failure: Exception) {
+                            sample.addProperty("observationFailure", failure.javaClass.simpleName)
+                            false
+                        }
+                        sample.addProperty("matches", matches)
+                        samples.add(sample)
+                        stable = if (matches) stable + 1 else 0
+                        if (stable < 2) SystemClock.sleep(50)
+                    }
+                    File(folder, "scale-$scale-pixel-${expected ?: "removed"}.json").writeText(JsonObject().apply {
+                        addProperty("expectedArgb", expected); addProperty("stableSamples", stable); add("samples", samples)
+                    }.toString())
+                    // Assert the observations that ended the wait, without taking a different
+                    // screenshot after the condition already succeeded during moving chrome.
+                    check(stable >= 2) { "Signed avatar state must render within10s" }
                 }
                 for ((index, color) in listOf(Color.RED, Color.BLUE, null).withIndex()) {
                     val source = color?.let {
