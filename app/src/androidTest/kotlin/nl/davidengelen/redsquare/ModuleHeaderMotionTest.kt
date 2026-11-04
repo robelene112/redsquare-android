@@ -97,10 +97,29 @@ class ModuleHeaderMotionTest {
                 }
                 assertEquals(navigation, requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
                 captureNativeScreen(File(folder, "scale-$scale-revealed.png"))
+                movie("menu-keyboard") {
+                    requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
+                    check(device.wait(Until.hasObject(By.text("Stack")), 5_000))
+                    check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
+                    check(device.wait(Until.gone(By.text("Stack")), 5_000))
+                    requireNotNull(device.findObject(By.desc("Account"))).click()
+                    check(device.wait(Until.hasObject(By.text("Wallet")), 5_000))
+                    check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
+                    check(device.wait(Until.gone(By.text("Wallet")), 5_000))
+                    assertEquals(navigation, requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
+                }
                 movie("module") {
                     requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
                     requireNotNull(device.wait(Until.findObject(By.text("Stack")), 5_000)).click()
                     check(device.wait(Until.hasObject(By.text("Stack design preview")), 5_000))
+                    // Rapidly reopen account controls during module/menu transitions.
+                    // Each real popup owns an independent native composition lifetime.
+                    await(5_000, "The new module exposes the actual account control") { accountVisible() == true }
+                    requireNotNull(device.findObject(By.desc("Account"))).click()
+                    check(device.wait(Until.hasObject(By.text("Wallet")), 5_000))
+                    check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
+                    check(device.wait(Until.gone(By.text("Wallet")), 5_000))
+                    check(device.hasObject(By.text("Stack design preview")))
                 }
                 movie("article") {
                     requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()

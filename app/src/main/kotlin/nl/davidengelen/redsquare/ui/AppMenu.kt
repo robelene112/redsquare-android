@@ -6,9 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.transition.Fade
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import android.widget.FrameLayout
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -72,6 +74,7 @@ private fun LegacyAppMenu(expanded: Boolean, onDismissRequest: () -> Unit, conte
         val availableHeight = (viewport.height() - margin * 2).coerceAtLeast(1)
         val rootOrigin = IntArray(2).also(view.rootView::getLocationOnScreen)
         val panel = ComposeView(view.context).apply {
+            id = View.generateViewId()
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnDetachedFromWindowOrReleasedFromPool)
             setParentCompositionContext(parent)
             setViewTreeLifecycleOwner(view.findViewTreeLifecycleOwner())
@@ -87,28 +90,42 @@ private fun LegacyAppMenu(expanded: Boolean, onDismissRequest: () -> Unit, conte
                 }
             }
         }
-        val window = PopupWindow(panel, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true).apply {
+        val host = object : FrameLayout(view.context) {
+            private var escapeTracking = false
+            override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) return super.dispatchKeyEvent(event)
+                when (event.action) {
+                    KeyEvent.ACTION_DOWN -> if (event.repeatCount == 0) escapeTracking = true
+                    KeyEvent.ACTION_UP -> {
+                        if (escapeTracking && !event.isCanceled) currentDismiss()
+                        escapeTracking = false
+                    }
+                }
+                return true
+            }
+        }.apply { addView(panel, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)) }
+        val window = PopupWindow(host, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true).apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             elevation = 0f
             isOutsideTouchable = true
             isClippingEnabled = true
-            isLaidOutInScreen = true
+            setIsLaidOutInScreen(true)
             inputMethodMode = PopupWindow.INPUT_METHOD_NOT_NEEDED
             enterTransition = Fade().apply { duration = AppSpacing.transitionMillis.toLong() }
             exitTransition = Fade().apply { duration = AppSpacing.transitionMillis.toLong() }
             setOnDismissListener { currentDismiss() }
         }
         try {
-            panel.measure(View.MeasureSpec.makeMeasureSpec(availableWidth, View.MeasureSpec.AT_MOST),
+            host.measure(View.MeasureSpec.makeMeasureSpec(availableWidth, View.MeasureSpec.AT_MOST),
                 View.MeasureSpec.makeMeasureSpec(availableHeight, View.MeasureSpec.AT_MOST))
             val start = rootOrigin[0] + bounds.left.roundToInt() - margin
-            val end = rootOrigin[0] + bounds.right.roundToInt() - panel.measuredWidth + margin
-            val x = (if (start + panel.measuredWidth <= viewport.right) start else end)
-                .coerceIn(viewport.left, (viewport.right - panel.measuredWidth).coerceAtLeast(viewport.left))
+            val end = rootOrigin[0] + bounds.right.roundToInt() - host.measuredWidth + margin
+            val x = (if (start + host.measuredWidth <= viewport.right) start else end)
+                .coerceIn(viewport.left, (viewport.right - host.measuredWidth).coerceAtLeast(viewport.left))
             val below = rootOrigin[1] + bounds.bottom.roundToInt() - margin
-            val above = rootOrigin[1] + bounds.top.roundToInt() - panel.measuredHeight + margin
-            val y = (if (below + panel.measuredHeight <= viewport.bottom) below else above)
-                .coerceIn(viewport.top, (viewport.bottom - panel.measuredHeight).coerceAtLeast(viewport.top))
+            val above = rootOrigin[1] + bounds.top.roundToInt() - host.measuredHeight + margin
+            val y = (if (below + host.measuredHeight <= viewport.bottom) below else above)
+                .coerceIn(viewport.top, (viewport.bottom - host.measuredHeight).coerceAtLeast(viewport.top))
             // Anchor coordinates are physical, independent of text layout direction.
             window.showAtLocation(view, Gravity.TOP or Gravity.LEFT, x, y)
         } catch (failure: Throwable) {
