@@ -52,7 +52,11 @@ class LikePulseMotionTest {
                         androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))
                             .scrollIntoView(androidx.test.uiautomator.UiSelector().description("Like post by $author"))
                     }
-                    val control = requireNotNull(device.wait(Until.findObject(selector), 15_000))
+                    val labelled = requireNotNull(device.wait(Until.findObject(selector), 15_000))
+                    // Compose exposes the label below the focusable click action in the platform tree.
+                    val control = if (labelled.isClickable) labelled else requireNotNull(labelled.parent).also {
+                        assertTrue("The labelled heart belongs to the same enabled action", it.isEnabled && it.visibleBounds == labelled.visibleBounds)
+                    }
                     captureNativeScreen(File(folder, "scale-$scale-$surface-ready.png"))
                     assertTrue("The positively enabled heart must expose a clickable accessibility action", control.isClickable)
                     val bounds = control.visibleBounds
