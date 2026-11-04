@@ -148,8 +148,11 @@ jobs:
           sudo apt-get update -qq
           TASK_ALSA=libasound2t64
           TASK_GLIB=libglib2.0-0t64
-          if ! apt-cache show "$TASK_ALSA" >/dev/null 2>&1; then TASK_ALSA=libasound2; fi
-          if ! apt-cache show "$TASK_GLIB" >/dev/null 2>&1; then TASK_GLIB=libglib2.0-0; fi
+          . /etc/os-release
+          if [[ "$VERSION_ID" == '22.04' ]]; then
+            TASK_ALSA=libasound2
+            TASK_GLIB=libglib2.0-0
+          fi
           sudo apt-get install -y --no-install-recommends libpulse0 libgl1 libnss3 "$TASK_ALSA" libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 "$TASK_GLIB"
           scripts/ci-android-setup
           java -version
