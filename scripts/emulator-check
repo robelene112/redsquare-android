@@ -455,6 +455,11 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
         exit 0
     fi
 fi
+if [[ "${TEST_SCOPE:-full}" == feed-writing* ]]; then
+    verify_group_chat_native FeedWritingViewportTest 180 feed-writing feed-writing-evidence
+    printf '%s\n' 'Native real writing viewport/draft/IME check only; not full app acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == feed-redesign* ]]; then
     feed_redesign_failed=0
     verify_group_chat_native FeedLinkPreviewTest 180 feed-links feed-redesign-evidence || feed_redesign_failed=1
