@@ -97,6 +97,33 @@ class AvatarRecoveryPreviewTest {
         capture("late-legacy-image-replaced")
     }
 
+    @Test fun refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp() {
+        val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val started = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val calls = java.util.concurrent.atomic.AtomicInteger()
+        val updated = signed(author, 50, "data:image/png;base64," + Base64.encodeToString(png(), Base64.NO_WRAP))
+        try {
+            withAppFrameFixture("refresh-in-flight", "avatar-evidence", profileArchiveResponse = { query ->
+                if (query.get("field2").asString != author.publicKey) "[]"
+                else if (calls.incrementAndGet() == 1) {
+                    started.countDown()
+                    check(release.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                    "[]"
+                } else updated
+            }) {
+                try {
+                    ui.waitUntil(15_000) { row(author.publicKey).isDisplayed() && started.count == 0L }
+                    refresh()
+                    release.countDown()
+                    hasColor(row(author.publicKey))
+                    assertEquals("One explicit refresh is retained without a per-row request flood", 2, calls.get())
+                    capture("refresh-in-flight-follow-up")
+                } finally { release.countDown() }
+            }
+        } finally { release.countDown() }
+    }
+
     @Test fun threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction() {
         val sources = (1..3).associate { key ->
             val author = SaitoWallet.fromPrivateKey("0".repeat(63) + key)
