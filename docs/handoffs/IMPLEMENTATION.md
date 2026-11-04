@@ -1,5 +1,14 @@
 # Implementation handoff
 
+## Active authorization: TWO tickets,89 then88
+
+Owner requested exactly TWO redesign/beta tickets sequentially.89 active;
+88 follows only after89 verification/review/completion commit. Stop after88.
+No intermediate beta;94 retains final integrated verification and publication.
+89 review base304e32a5697abc6c9a16e46d566a1bc700da0e7b. Both native blockers87
+are closed,82 avatars complete. Native UI/controlled signed-peer boundaries
+remain pre-agreed. New profile-boundary tracer starts RED before app changes.
+
 ## Unified redesign86:82 complete, stop now
 
 The owner requested ONE issue after78.82 (shared verified profile pictures) is
