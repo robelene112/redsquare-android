@@ -57,11 +57,14 @@ class SocialPushTapPreviewTest {
 
     @Test fun aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost() = tapJourney(Journey.COLD_USERNAME_MENTION)
 
-    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY, PRIVATE_CHAT_REPLY, GROUP_CHAT_REPLY, COLD_USERNAME_MENTION }
+    @Test fun aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost() = tapJourney(Journey.STACK_REPLY)
+
+    private enum class Journey { WARM_REPLY, COLD_REPLY, COLD_MENTION, SETTINGS_REPLY, ANDROID_SETTINGS_REPLY, ONBOARDING_REPLY, PRIVATE_CHAT_REPLY, GROUP_CHAT_REPLY, COLD_USERNAME_MENTION, STACK_REPLY }
 
     private data class TapTarget(val fixtureKey: String, val signature: String, val text: String)
 
     private fun tapJourney(journey: Journey = Journey.WARM_REPLY) {
+        val stack = journey == Journey.STACK_REPLY
         val username = journey == Journey.COLD_USERNAME_MENTION
         val mention = journey == Journey.COLD_MENTION || username
         val cold = journey == Journey.COLD_REPLY || mention
@@ -147,6 +150,7 @@ class SocialPushTapPreviewTest {
             Journey.ONBOARDING_REPLY -> "tap-onboarding"
             Journey.PRIVATE_CHAT_REPLY -> "tap-private"
             Journey.GROUP_CHAT_REPLY -> "tap-group"
+            Journey.STACK_REPLY -> "tap-stack"
         }
         var primary: Throwable? = null
         try {
@@ -281,6 +285,17 @@ class SocialPushTapPreviewTest {
                                 captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-android-returned.png"))
                             }
                         }
+                        if (stack) {
+                            hideKeyboard()
+                            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
+                            ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
+                            ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup())).performClick()
+                            ui.waitUntil(5_000) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
+                            ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                            ui.onNodeWithContentDescription("Connection details").performClick()
+                            ui.onNodeWithText("Connection details").assertIsDisplayed()
+                            captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-stack-connection-details.png"))
+                        }
                         val payload = JsonObject().apply {
                             addProperty("version", 1); addProperty("wallet", owner)
                             addProperty("backend", "owner"); addProperty("signature", signature)
@@ -294,6 +309,11 @@ class SocialPushTapPreviewTest {
                         val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), 10_000))
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), alertText)
                         alert.click()
+                        if (stack) {
+                            ui.onNodeWithText("Connection details").assertIsDisplayed()
+                            ui.onAllNodesWithText("Conversation").assertCountEquals(0)
+                            ui.onNodeWithText("Done").performClick()
+                        }
                         waitFor(hasText("Conversation"))
                         waitFor(hasText(targetText))
                         ui.onNodeWithText(targetText).assertIsDisplayed()
