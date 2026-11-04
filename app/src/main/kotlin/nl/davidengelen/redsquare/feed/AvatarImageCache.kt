@@ -48,6 +48,8 @@ internal object AvatarImageCache {
                 val bytes = ByteArrayOutputStream().also { check(raster.compress(Bitmap.CompressFormat.PNG, 100, it)) }.toByteArray()
                 if (bytes.size <= MAX_FILE) synchronized(lock) {
                     directory.mkdirs()
+                    // No live writer can own a temporary file while this lock is held.
+                    directory.listFiles()?.filter { it.extension == "tmp" }?.forEach { it.delete() }
                     val temporary = File(directory, "$digest.tmp")
                     try {
                         temporary.writeBytes(bytes)
