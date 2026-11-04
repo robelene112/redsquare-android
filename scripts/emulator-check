@@ -360,16 +360,22 @@ verify_browse() {
     fi
 }
 if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == thread-redesign* ]]; then
-    verify_group_chat_native ConversationHeaderPreviewTest 180 conversation-header conversation-header-evidence
+    thread_redesign_failed=0
+    verify_group_chat_native ConversationHeaderPreviewTest 180 conversation-header conversation-header-evidence || thread_redesign_failed=1
+    verify_group_chat_native ConversationHeaderNarrowViewportTest 180 conversation-narrow conversation-viewport-evidence || thread_redesign_failed=1
+    verify_group_chat_native ConversationHeaderPixelViewportTest 180 conversation-pixel conversation-viewport-evidence || thread_redesign_failed=1
+    verify_group_chat_native ConversationHeaderMotionTest 180 conversation-motion conversation-motion-evidence || thread_redesign_failed=1
     if [[ "${TEST_SCOPE:-full}" == thread-redesign* ]]; then
-        verify_browse
-        verify_group_chat_native ConversationTypographyPreviewTest 180 conversation-typography conversation-typography-evidence
-        verify_group_chat_native FeedReadingRedesignTest 180 feed-reading feed-reading-evidence
-        verify_group_chat_native PrivateConversationReadingPreviewTest 180 private-conversation-reading private-reading-evidence
-        verify_group_chat_native GroupConversationReadingPreviewTest 180 group-conversation-reading group-reading-evidence
+        verify_browse || thread_redesign_failed=1
+        verify_group_chat_native ConversationTypographyPreviewTest 180 conversation-typography conversation-typography-evidence || thread_redesign_failed=1
+        verify_group_chat_native FeedReadingRedesignTest 180 feed-reading feed-reading-evidence || thread_redesign_failed=1
+        verify_group_chat_native PrivateConversationReadingPreviewTest 180 private-conversation-reading private-conversation-reading-evidence || thread_redesign_failed=1
+        verify_group_chat_native GroupConversationReadingPreviewTest 180 group-conversation-reading group-conversation-reading-evidence || thread_redesign_failed=1
+        [[ "$thread_redesign_failed" == 0 ]] || exit 1
         printf '%s\n' 'Native public thread redesign and original affected reading/navigation checks only; not full app acceptance.' > "$evidence/scope.txt"
         exit 0
     fi
+    [[ "$thread_redesign_failed" == 0 ]] || exit 1
 fi
 verify_profile_keyboard() {
     verify_group_chat_native ProfileKeyboardPreviewTest 180 profile-keyboard profile-keyboard-evidence

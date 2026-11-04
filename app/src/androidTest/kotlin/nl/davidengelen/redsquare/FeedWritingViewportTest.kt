@@ -7,6 +7,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.*
 import org.junit.Rule
@@ -59,7 +60,7 @@ class FeedWritingViewportTest {
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
                 editor.performScrollTo().performClick().performTextReplacement(draft)
                 ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
-                val educationAcknowledged = acknowledgeKeyboardFontEducation()
+                val educationAcknowledged = ui.acknowledgeKeyboardFontEducation()
                 editor.performScrollTo().assertIsDisplayed()
                 var visibleHeight = 0f
                 var completeHeight = 0f
@@ -106,16 +107,17 @@ class FeedWritingViewportTest {
             }
         }
     }
-    private fun acknowledgeKeyboardFontEducation(): Boolean {
-        if (android.os.Build.VERSION.SDK_INT < 37) return false
-        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        val notice = By.pkg("com.google.android.inputmethod.latin").text("Keyboard font size updated")
-        if (device.wait(Until.findObject(notice), 1_000) == null) return false
-        val confirm = requireNotNull(device.findObject(By.pkg("com.google.android.inputmethod.latin").text("OK")))
-        check(confirm.isEnabled && confirm.isClickable)
-        confirm.click()
-        ui.waitUntil(10_000) { !device.hasObject(notice) && focusedWindowImeBottom() > 0 }
-        return true
-    }
+}
 
+/** Acknowledge the real Gboard education without hiding the IME or changing font scale. */
+internal fun ComposeTestRule.acknowledgeKeyboardFontEducation(): Boolean {
+    if (android.os.Build.VERSION.SDK_INT < 37) return false
+    val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    val notice = By.pkg("com.google.android.inputmethod.latin").text("Keyboard font size updated")
+    if (device.wait(Until.findObject(notice), 1_000) == null) return false
+    val confirm = requireNotNull(device.findObject(By.pkg("com.google.android.inputmethod.latin").text("OK")))
+    check(confirm.isEnabled && confirm.isClickable)
+    confirm.click()
+    waitUntil(10_000) { !device.hasObject(notice) && focusedWindowImeBottom() > 0 }
+    return true
 }

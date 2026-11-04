@@ -67,13 +67,17 @@ class ConversationHeaderPreviewTest {
                 ui.onNode(hasText("Reply") and hasClickAction()).assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.conversation_loading)).assertIsDisplayed()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/loading.png"))
+                ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, "Loading replies")).performClick()
+                ui.onNodeWithText(context.getString(R.string.conversation_parent_unavailable)).assertDoesNotExist()
+                ui.onNodeWithText(context.getString(R.string.conversation_parent_error)).assertDoesNotExist()
+                ui.onNodeWithText("Done").performClick()
                 release.countDown()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Parent post unavailable").isDisplayed() }
                 ui.onNode(hasText("Conversation information") and hasClickAction()).performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertIsDisplayed()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/history-details.png"))
                 ui.onNodeWithText("Done").performClick()
-                ui.onNodeWithContentDescription("Details for Parent post unavailable").performClick()
+                ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, "Parent post unavailable")).performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_parent_unavailable)).assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.conversation_unreadable)).assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.feed_cache_warning)).assertIsDisplayed()
@@ -89,7 +93,7 @@ class ConversationHeaderPreviewTest {
                 requireNotNull(peer).rejectNewConnections = true
                 ui.refreshVisibleView()
                 ui.waitUntil(20_000) { ui.onNodeWithText("Could not refresh replies").isDisplayed() }
-                ui.onNodeWithContentDescription("Details for Could not refresh replies").performClick()
+                ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, "Could not refresh replies")).performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_error)).assertIsDisplayed()
                 ui.onNodeWithText("Done").performClick()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/cached-outage.png"))

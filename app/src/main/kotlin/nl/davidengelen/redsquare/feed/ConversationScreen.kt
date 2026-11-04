@@ -136,7 +136,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         if (failed) add(stringResource(R.string.conversation_error))
         if (unreadable) add(stringResource(R.string.conversation_unreadable))
         if (cacheLimited) add(stringResource(R.string.feed_cache_warning))
-        if (parentMissing) add(stringResource(when {
+        if (parentMissing && !loading) add(stringResource(when {
             parentLoading -> R.string.conversation_parent_loading
             failed || parent?.failed == true -> R.string.conversation_parent_error
             else -> R.string.conversation_parent_unavailable

@@ -38,7 +38,17 @@ Back/Reply/information header, one shared status with complete Details and Retry
 and proper pull guidance. Private/group Back callbacks retain their guards and
 use the shared vector control. Public body14sp, authentic data, drafts and list
 state remain unchanged. Local compile runs in /tmp/redesign79-green-compile.log.
-Viewport/motion proof and final native10/17, reviews and closure remain pending. Preserve every criterion in that native
+First green41928544398at8fac failed only a new test's guessed Details label;
+the component uses existing status_details_for resource (Details: ...), now used
+by tests. Review found premature parent-absence explanation during loading; fixed
+with !loading and a gated negative assertion. New independent180s320/412 matrix
+classes cover both themes,100/130/200%, short/long threads,14sp complete body,
+exact unsent reply/reading return and cached outage+Retry at each cell. A native
+no-Compose-clock motion class retains real dialog/loading/success frames at1/0.
+The existing Gboard education helper is now shared by test receivers, unchanged.
+All new/original focused classes aggregate outcomes. Final native10/17, source
+reviews, rendered inspection, evidence, commit and79closure remain pending.
+Stop after79. No beta publication before94. Preserve every criterion in that native
 GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
 history, drafts/targets/anchors. No original test assertion/deadline may be dropped
 for a new header or compact Details interaction. Final beta remains94.

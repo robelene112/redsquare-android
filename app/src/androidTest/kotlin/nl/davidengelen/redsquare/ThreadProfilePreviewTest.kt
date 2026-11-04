@@ -464,7 +464,7 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Only available history is shown. Older replies may be missing.").assertIsDisplayed()
                     ui.onNodeWithText("Done").performClick()
                     ui.waitUntil(20_000) { ui.onNodeWithText("Could not refresh replies").isDisplayed() }
-                    ui.onNodeWithContentDescription("Details for Could not refresh replies").performClick()
+                    ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, "Could not refresh replies")).performClick()
                     ui.onNodeWithText("Replies could not be refreshed. Available posts remain visible.").assertIsDisplayed()
                     ui.onNodeWithText("Done").performClick()
                     captureFeedEvidence("browse-evidence/cached-conversation-after-restart.png")
