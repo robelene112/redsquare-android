@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -81,6 +82,8 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
 import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
+import nl.davidengelen.redsquare.notifications.NotificationRoutes
+import nl.davidengelen.redsquare.ui.NodeConnectionDetails
 import nl.davidengelen.redsquare.ui.AppModule
 import nl.davidengelen.redsquare.stack.StackReviewScreen
 import nl.davidengelen.redsquare.ui.AppHeader
@@ -157,6 +160,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var connectionDetailsOpen by remember { mutableStateOf(false) }
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             var homeVisible by remember { mutableStateOf(true) }
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
@@ -333,6 +337,25 @@ class MainActivity : ComponentActivity() {
                 // safeDrawing remains the sole IME/system-inset owner. Secondary
                 // chrome returns when typing ends without dismissing any reminders.
                 val keyboardVisible = WindowInsets.isImeVisible
+                val featureUnobstructed = !settingsOpen && !connectionDetailsOpen && !policiesOpen &&
+                    !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
+                    !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
+                    !savingBackend && !walletImport.busy && !walletExport.busy
+                val pendingModuleRoute by notificationRoutes.pending.collectAsState()
+                LaunchedEffect(module, pendingModuleRoute, address, backend, featureUnobstructed) {
+                    val delivery = pendingModuleRoute ?: return@LaunchedEffect
+                    if (module != AppModule.STACK || !featureUnobstructed ||
+                        !NotificationRoutes.targetsScope(delivery, address, backend)) return@LaunchedEffect
+                    snapshotFlow { postNavigation.transitioning }.first { !it }
+                    if (!notificationRoutes.current(delivery)) return@LaunchedEffect
+                    // Mount the existing destination owner. It alone resolves/verifies/consumes
+                    // this delivery, preserving policy, exact-target and draft-save checks.
+                    val moved = postNavigation.navigate {
+                        if (module != AppModule.STACK || !notificationRoutes.current(delivery)) false
+                        else { module = AppModule.RED_SQUARE; true }
+                    }
+                    moduleSwitchFailed = !moved
+                }
                 Surface(Modifier.fillMaxSize()) {
                     Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
                         if (!keyboardVisible) AppHeader(backend?.domain, address, module,
@@ -340,7 +363,8 @@ class MainActivity : ComponentActivity() {
                             settingsEnabled = backendReady && !savingBackend && !postNavigation.transitioning,
                             onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
                             onSettings = { settingsOpen = true },
-                            onModule = ::selectModule)
+                            onModule = ::selectModule,
+                            onConnectionDetails = { connectionDetailsOpen = true })
                         nl.davidengelen.redsquare.ui.InlineStatus(
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
@@ -386,14 +410,11 @@ class MainActivity : ComponentActivity() {
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
-                                        val feedUnobstructed = !settingsOpen && !policiesOpen && !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
-                                            !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
-                                            !savingBackend && !walletImport.busy && !walletExport.busy
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                             lifecycle, Modifier.weight(1f), notificationRoutes = notificationRoutes,
-                                            allowPushRoute = feedUnobstructed,
+                                            allowPushRoute = featureUnobstructed,
                                             onHomeVisibility = { homeVisible = it },
-                                            canReportDrawn = feedUnobstructed && !postNavigation.transitioning,
+                                            canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
                                             onWalletMetadata = { previous, updated ->
                                                 check(wallet === previous && updated.publicKey == previous.publicKey)
                                                 withContext(NonCancellable) {
@@ -420,6 +441,7 @@ class MainActivity : ComponentActivity() {
                             } else if (!backendReady) Text(stringResource(R.string.feed_loading))
                         }
                     }
+                    if (connectionDetailsOpen) NodeConnectionDetails(backend?.domain) { connectionDetailsOpen = false }
                     if (settingsOpen) AlertDialog(
                         onDismissRequest = {
                             if (!savingBackend) {

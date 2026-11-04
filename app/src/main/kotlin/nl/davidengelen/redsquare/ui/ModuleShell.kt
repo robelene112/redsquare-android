@@ -27,12 +27,11 @@ internal enum class AppModule(val title: Int) {
 /** Shared account navigation over the real installation, never a preview wallet. */
 @Composable
 internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletEnabled: Boolean, settingsEnabled: Boolean,
-    onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit) {
+    onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit, onConnectionDetails: () -> Unit) {
     val switchLabel = stringResource(R.string.switch_app, stringResource(module.title))
     val accountLabel = stringResource(R.string.account)
     var appsOpen by remember { mutableStateOf(false) }
     var accountOpen by remember { mutableStateOf(false) }
-    var nodeOpen by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
         Row(Modifier.fillMaxWidth().heightIn(min = 60.dp), verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
@@ -77,7 +76,7 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                 }
             }
         }
-        if (node != null) TextButton(onClick = { nodeOpen = true },
+        if (node != null) TextButton(onClick = onConnectionDetails,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             contentPadding = PaddingValues(horizontal = 4.dp)) {
             Text(stringResource(R.string.selected_server, node), Modifier.weight(1f),
@@ -87,10 +86,17 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                 tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
-    if (nodeOpen) AlertDialog(onDismissRequest = { nodeOpen = false },
+
+}
+
+/** Shared-host modal ownership also keeps pending routes behind the open information view. */
+@Composable
+internal fun NodeConnectionDetails(node: String?, onDismiss: () -> Unit) {
+    AlertDialog(onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.connection_details)) },
         text = { Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-            Text(stringResource(R.string.selected_server, node.orEmpty()))
+            Text(if (node != null) stringResource(R.string.selected_server, node)
+                else stringResource(R.string.connection_node_unavailable))
             Text(stringResource(R.string.block_observation_unavailable), style = MaterialTheme.typography.bodyMedium)
-        } }, confirmButton = { TextButton(onClick = { nodeOpen = false }) { Text(stringResource(R.string.done)) } })
+        } }, confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) } })
 }

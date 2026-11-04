@@ -42,6 +42,13 @@ internal class NotificationRoutes(private val saved: SavedStateHandle) : ViewMod
 
         fun socialReference(delivery: Bundle): SocialPushReference? = parse(delivery.getString("uri")?.let(Uri::parse))
 
+        /** Addressing only. The feature still checks retained data, policy and the signed target. */
+        fun targetsScope(delivery: Bundle, owner: String?, backend: SaitoBackend?): Boolean {
+            if (owner == null || backend == null) return false
+            return chatReference(delivery)?.let { it.owner == owner && it.backend == backend } == true ||
+                socialReference(delivery)?.let { it.owner == owner && it.backend == backend } == true
+        }
+
         private fun parse(uri: Uri?): SocialPushReference? = try {
             requireNotNull(uri)
             require(uri.toString().toByteArray(Charsets.UTF_8).size <= 1024)
