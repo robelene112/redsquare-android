@@ -455,8 +455,14 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
         exit 0
     fi
 fi
+if [[ "${TEST_SCOPE:-full}" == first-use-motion* ]]; then
+    verify_group_chat_native FirstUseMotionTest 180 first-use-motion first-use-motion-evidence
+    printf '%s\n' 'Focused interrupted first-use motion; not full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == first-use* ]]; then
     verify_group_chat_native FirstUseViewportTest 180 first-use first-use-evidence
+    verify_group_chat_native FirstUseMotionTest 180 first-use-motion first-use-motion-evidence
     if [[ "${TEST_SCOPE:-full}" == first-use* ]]; then
         printf '%s\n' 'Focused first-use density; not complete application acceptance.' > "$evidence/scope.txt"
         exit 0

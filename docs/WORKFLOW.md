@@ -155,6 +155,11 @@ complete first-release scope and the established production boundaries.
    Each class has its own180second bound and remains in full Social. Existing protocol,
    cache, identity and deadline goals are unchanged. These checks do not establish
    physical-phone performance.
+   `first-use` / its Android17 variant require the12-cell native first-use
+   density matrix and a separate180s actual normal/zero interrupted-dismissal
+   class. `first-use-motion` isolates only that new class during iteration.
+   Complete Chat retains both classes. Original frame/reading/IME/motion goals
+   and bounds remain; focused passes do not replace94's final app-wide proof.
    `profile-editor` / its Android17 variant cover an unsent profile preview,
    actual keyboard and physical local Save draft/recovery, one180second class
    at the existing native/controlled-peer seam and additive complete Social.
