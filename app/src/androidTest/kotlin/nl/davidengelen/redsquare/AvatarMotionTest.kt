@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.SystemClock
 import android.util.Base64
@@ -59,12 +60,28 @@ class AvatarMotionTest {
                     }, 1_900_000_000_100L + index)
                     response.set(JsonObject().apply { addProperty("tx", tx.envelope()) }.let { "[$it]" })
                     val movie = File(folder, "scale-$scale-avatar-$index.mp4")
-                    val recording = recordNativeTransition(movie, recordingSeconds = 4) {
+                    val recording = recordNativeTransition(movie, recordingSeconds = 5) {
                         val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
                         check(device.swipe(list.centerX(), list.top + 20, list.centerX(), list.bottom - 30, 30))
                         awaitColor(color)
                     }
                     val frames = retainNativeMotionFrames(movie)
+                    val last = frames.getAsJsonArray("decodedOriginalFrames").last().asJsonObject.get("file").asString
+                    val rendered = BitmapFactory.decodeFile(File(folder, last).path)
+                    try {
+                        fun count(target: Int): Int {
+                            var found = 0
+                            for (y in 0 until rendered.height step 4) for (x in 0 until rendered.width step 4) {
+                                val pixel = rendered.getPixel(x, y)
+                                if (kotlin.math.abs(Color.red(pixel) - Color.red(target)) < 15 &&
+                                    kotlin.math.abs(Color.green(pixel) - Color.green(target)) < 15 &&
+                                    kotlin.math.abs(Color.blue(pixel) - Color.blue(target)) < 15) found++
+                            }
+                            return found
+                        }
+                        if (color != null) assertTrue("The recording itself must contain the new picture", count(color) >= 20)
+                        else assertTrue("The recording itself must contain the signed removal", count(Color.RED) == 0 && count(Color.BLUE) == 0)
+                    } finally { rendered.recycle() }
                     frames.add("recording", recording)
                     File(folder, "scale-$scale-avatar-$index.json").writeText(frames.toString())
                     val after = requireNotNull(device.findObject(By.desc(label))).visibleBounds
