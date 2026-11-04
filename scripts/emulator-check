@@ -457,6 +457,7 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == module-header* ]]; then
     verify_group_chat_native ModuleHeaderMotionTest 180 module-header module-header-motion-evidence
+    verify_group_chat_native ModuleMenuKeyboardMotionTest 180 module-menu module-menu-motion-evidence
     printf '%s\n' 'Shared header gestures and real motion only; full application acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -467,6 +468,7 @@ if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
 fi
 if [[ "$full_chat" == true ]]; then
     verify_group_chat_native ModuleHeaderMotionTest 180 module-header module-header-motion-evidence
+    verify_group_chat_native ModuleMenuKeyboardMotionTest 180 module-menu module-menu-motion-evidence
     verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
 fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
