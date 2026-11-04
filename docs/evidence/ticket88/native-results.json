@@ -1,0 +1,61 @@
+{
+  "ticket": 88,
+  "reviewBase": "7264de4ecf52388588bd6d49f72f33b518c4108b",
+  "lastProductionSource": "04621d79844a987e6985692a2a7ceec6c9ac5834",
+  "platforms": {
+    "10": {
+      "feedRun": 41877928927,
+      "feedSource": "9dab481a07657def0e9b8d8c9d8a69c2a66bee19",
+      "feedScopeOverall": "failed: original writing fixture timing; superseded by final writing proof",
+      "acceptedUnchangedMethods": 23,
+      "writingRun": 41883471588,
+      "writingSource": "04621d79844a987e6985692a2a7ceec6c9ac5834",
+      "finalWritingMethods": 8,
+      "acceptedMethods": 31,
+      "writingViewportCells": 12,
+      "minimumVisibleHeightPixels": 135.0,
+      "maximumClippingPixels": 0.0,
+      "minimumActualTextInkPixels": 871,
+      "realImeVisibleEveryCell": true,
+      "acknowledgedNativeKeyboardEducation": 0
+    },
+    "17": {
+      "feedRun": 41877933291,
+      "feedSource": "9dab481a07657def0e9b8d8c9d8a69c2a66bee19",
+      "feedScopeOverall": "passed",
+      "acceptedUnchangedMethods": 23,
+      "writingRun": 41883476813,
+      "writingSource": "04621d79844a987e6985692a2a7ceec6c9ac5834",
+      "finalWritingMethods": 8,
+      "acceptedMethods": 31,
+      "writingViewportCells": 12,
+      "minimumVisibleHeightPixels": 146.0,
+      "maximumClippingPixels": 0.0,
+      "minimumActualTextInkPixels": 902,
+      "realImeVisibleEveryCell": true,
+      "acknowledgedNativeKeyboardEducation": 2
+    }
+  },
+  "productionChangesAfterFeedProof": [
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PublishingEditor.kt"
+  ],
+  "host": {
+    "coreTests": 117,
+    "gatewayTests": 16,
+    "failures": 0,
+    "ignored": 0,
+    "finalLintDebug": "passed; single Gradle worker, unchanged heap/container limits"
+  },
+  "reviews": {
+    "standardsFindingsRemaining": 0,
+    "specFindingsRemaining": 0
+  },
+  "limits": [
+    "controlled signed peers and intercepted external links",
+    "not physical Pixel performance",
+    "not live provider/store acceptance",
+    "not a final whole-application dispatch; required by94",
+    "no intermediate beta publication"
+  ]
+}

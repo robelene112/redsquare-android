@@ -13,10 +13,9 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 On2026-11-04 the owner limited execution to one issue at a time to manage usage.
 On2026-11-04 the owner authorized TWO more redesign tickets in sequence:
-89 then88. Complete each with its own verification/review/commit, then stop
-before another ticket. Each ticket includes its checks, review, evidence and
-commit. Later requests default to one ticket unless the owner specifies a
-sequence. The earlier unattended16-ticket authorization remains superseded.
+89 then88. Both are complete with their own verification, review, evidence and
+commits. Stop now and wait for another owner request before starting a ticket.
+Later requests default to one ticket unless the owner specifies a sequence. The earlier unattended16-ticket authorization remains superseded.
 
 The approved redesign86 scope and ticket sequence remain. Publish the integrated
 signed beta after94's final verification; no intermediate beta is requested.
@@ -174,6 +173,13 @@ complete first-release scope and the established production boundaries.
    classes; full Social keeps those once in their original groups. Every class
    outcome remains required. External link intents are intercepted at Android's
    existing boundary and do not open public providers during these checks.
+   `feed-writing` / `feed-writing-android17` isolate the affected six writing
+   classes (eight methods), each retaining its180second bound. The native matrix
+   keeps the real IME, exact recovered text, visible text ink and the complete
+   editor geometry at320/412dp and100/130/200% in both themes. Wait for actual
+   destination navigation after Save draft, not field absence during saving.
+   Acknowledge native Gboard education only through its package-scoped real
+   control; never reduce font scale or hide the keyboard to satisfy geometry.
    `profile-redesign` and `profile-redesign-android17` exercise the real signed
    identity/history boundary, own/public viewport matrices, local draft editing
    and exact post/pixel return from a conversation and author editing. Each of

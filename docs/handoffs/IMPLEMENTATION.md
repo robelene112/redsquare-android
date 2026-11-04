@@ -1,33 +1,72 @@
 # Implementation handoff
 
-## Active authorization: TWO tickets,89 then88
+## Completed authorization: TWO tickets,89 then88
 
-Owner requested exactly TWO redesign/beta tickets sequentially.89 is complete;
-88 is active. Review base7264de4ecf52388588bd6d49f72f33b518c4108b. Stop after88. No intermediate beta;94 retains final
-integrated verification and publication. Preserve the canonical checkout and its
-unrelated group Chat contract.
+Both authorized tickets are COMPLETE, reviewed, verified and committed. Stop now.
+Wait for another owner request before starting91 or another ticket. Later requests
+still default to one ticket. No intermediate beta was published: ordinary beta83
+remains online and94 owns the final consistent-source whole-app, signed in-place
+update and integrated beta publication gates.55/84/86/1/36 retain their independent
+acceptance criteria. Preserve the canonical checkout and unrelated Chat work.
 
-89 review base304e32a5697abc6c9a16e46d566a1bc700da0e7b. Last app change5b0b24cd2;
-final focused proof sourceb08e753fc. Both focused runs PASS:41869235288(10),
-41869242638(17), each7methods/24actual own-public/theme/font/width cells.
-Original profile regressions also PASS41866593345/41866599589 at0de31cb05 with
-identical app source:16profile methods+4video preconditions+2real process deaths
-per OS. Host117core+16gateway/lint PASS. Both reviews have zero findings.
-Rendered identity/history matrices, real IME/draft and exact anchor captures
-were inspected on both OS. Full provenance and limits:docs/evidence/ticket89/.
-89 adds the bio/history divider, real own following count, outline edit action
-and retained profile list/posts across conversation/author editing. No fabricated
-global follower total or preview initials. Existing profile drafts/media/import/
-newer-update guards and personal controls remain. No local build remains active.
+Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Sparse evidence requires `git add --sparse`.
+No local build or CI dispatch remains active for these tickets.
 
-The formerly referenced prototype worktree was removed externally during this
-session, along with its Gradle cache. Its committed reference remains available
-at prototype/native-shell-live-design (c95ecaa01), including design.json and
-shell-ui. Read it via git show rather than recreating that removed worktree.
-The active build cache symlink now points to the external sibling
-/mnt/storage/redsquare-android-artifacts/redesign-build-cache; one local writer.
-GitHub Actions had a partial outage/status lag. Optional22.04 runner selection
-and exact source_ref now retain explicit source/workflow/runner provenance.
+###88 complete
+
+Review base7264de4ecf52388588bd6d49f72f33b518c4108b. Last production source
+04621d79844a987e6985692a2a7ceec6c9ac5834. Evidence and exact limits:
+`docs/evidence/ticket88/README.md` and `native-results.json`.
+
+Native acceptance is31 methods per OS across explicit sources.23 unchanged
+feed/link/media/Following methods pass at9dab481a0 in41877928927(10) and
+41877933291(17). The10 run failed overall only in the earlier writing fixture;
+17 passed all31. Supersede ALL eight earlier writing results with final focused
+PASS41883471588(10)/41883476813(17) at04621. Only PostComposerScreen and
+PublishingEditor production code changed after9dab. This is not a final-source
+whole-app pass;94 still requires that independent gate.
+
+Final12-cell writing matrices per OS keep actual IME, exact recovered unsent text,
+visible ink and the full editor field. Max clipping0px, min visible135/146px,
+min actual ink871/902px (10/17).320/412dp, both themes,100/130/200% without
+font reduction. Actual normal/zero media movies, original frames and contact
+sheets inspected.117core+16gateway tests and final one-worker lint PASS. Both
+source reviews have zero remaining findings. Original failed proofs are retained.
+
+88 delivers real compact feed metadata, shared media/article cards and signing/
+reply/quote writing hierarchy. Actual destinations are exact, old text-derived
+hints cannot follow an edit to a new URL, and explicit signed attachments remain.
+Quoting preserves save-before-source. Top-pull success follows applied results;
+new leading posts appear unless the reader deliberately moved while waiting.
+Existing controls, source attribution, draft/consent/queue guards, verified names
+and counts remain. Like feedback belongs to91 and thread headers to79.
+Controlled peers/emulators do not establish physical Pixel/provider/store proof.
+No public writes, production node changes or new owner inputs.
+
+###89 complete
+
+Completion commit7264de4ecf52388588bd6d49f72f33b518c4108b, issue closed:
+https://github.com/robelene112/redsquare-android/issues/89#issuecomment-6636503532
+Review base304e32a5697abc6c9a16e46d566a1bc700da0e7b. Last app change5b0b24cd2;
+final focused proof sourceb08e753fc. PASS41869235288(10)/41869242638(17),
+7methods/24viewport cells per OS. Original profile regression also passed
+41866593345/41866599589 at identical production source:16profile methods,
+4video preconditions and2real process deaths per OS. Host133tests/lint PASS,
+both source reviews clean. Evidence `docs/evidence/ticket89/`.
+Bio/history divider, real own following count, outline edit action and retained
+profile list/posts across conversation/author editing; no invented follower total.
+
+### Build/reference context
+
+The prototype worktree and its Gradle cache were removed externally during this
+session. Its committed reference survives at `prototype/native-shell-live-design`
+(c95ecaa01), including design.json and shell-ui. Read via git show instead of
+recreating the removed worktree. Active `.scratch/gradle-cache` points to external
+`/mnt/storage/redsquare-android-artifacts/redesign-build-cache`; one local writer.
+GitHub Actions experienced a partial outage and delayed status updates. Optional
+Ubuntu22.04 runner selection and exact source_ref retain explicit app/workflow/
+runner provenance. Never confuse workflow SHA with checked-out app source.
 
 ## Previous checkpoint:82 complete
 

@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedLinkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedLinkPreviewTest:
+INSTRUMENTATION_STATUS: test=aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedLinkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Independent writing, together' (ignoreCase: false)) && (OnClick is defined) in scrollable container
+Semantics of the node:
+Node #270 at (l=18.0, t=186.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+CustomActions = '[CustomAccessibilityAction(label=Refresh, action=nl.davidengelen.redsquare.ui.RefreshActionKt$$ExternalSyntheticLambda0@e82d3fb)]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@96cec18'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 5 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget$lambda$6(FeedLinkPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.$r8$lambda$lbBojsL-WqcAD_AlixioSxv3yBg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget(FeedLinkPreviewTest.kt:49)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget(nl.davidengelen.redsquare.FeedLinkPreviewTest):
+java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Independent writing, together' (ignoreCase: false)) && (OnClick is defined) in scrollable container
+Semantics of the node:
+Node #270 at (l=18.0, t=186.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+CustomActions = '[CustomAccessibilityAction(label=Refresh, action=nl.davidengelen.redsquare.ui.RefreshActionKt$$ExternalSyntheticLambda0@e82d3fb)]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@96cec18'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 5 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget$lambda$6(FeedLinkPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.$r8$lambda$lbBojsL-WqcAD_AlixioSxv3yBg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget(FeedLinkPreviewTest.kt:49)
+
+INSTRUMENTATION_STATUS: test=aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.347
+There was 1 failure:
+1) aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget(nl.davidengelen.redsquare.FeedLinkPreviewTest)
+java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Independent writing, together' (ignoreCase: false)) && (OnClick is defined) in scrollable container
+Semantics of the node:
+Node #270 at (l=18.0, t=186.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+CustomActions = '[CustomAccessibilityAction(label=Refresh, action=nl.davidengelen.redsquare.ui.RefreshActionKt$$ExternalSyntheticLambda0@e82d3fb)]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@96cec18'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 5 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget$lambda$6(FeedLinkPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.$r8$lambda$lbBojsL-WqcAD_AlixioSxv3yBg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedLinkPreviewTest.aRealLinkedPostShowsItsAvailablePreviewAndOpensOnlyItsOriginalTarget(FeedLinkPreviewTest.kt:49)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,203 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedWritingViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedWritingViewportTest:
+INSTRUMENTATION_STATUS: test=narrowWritingKeepsTheRealSignerTargetsAndDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedWritingViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: performScrollToNode((Text + InputText + EditableText contains 'Quote' (ignoreCase: false)) && (OnClick is defined))
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'feed-post-list')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9$open(FeedWritingViewportTest.kt:34)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9(FeedWritingViewportTest.kt:40)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$YkT40OeQT5Ueds28zY4R085jXMQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10(FeedWritingViewportTest.kt:24)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$Wqzldqc7kSHtpovRP18rYcVmNSg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise(FeedWritingViewportTest.kt:21)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.narrowWritingKeepsTheRealSignerTargetsAndDrafts(FeedWritingViewportTest.kt:14)
+
+INSTRUMENTATION_STATUS: stream=
+Error in narrowWritingKeepsTheRealSignerTargetsAndDrafts(nl.davidengelen.redsquare.FeedWritingViewportTest):
+java.lang.AssertionError: Failed: performScrollToNode((Text + InputText + EditableText contains 'Quote' (ignoreCase: false)) && (OnClick is defined))
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'feed-post-list')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9$open(FeedWritingViewportTest.kt:34)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9(FeedWritingViewportTest.kt:40)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$YkT40OeQT5Ueds28zY4R085jXMQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10(FeedWritingViewportTest.kt:24)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$Wqzldqc7kSHtpovRP18rYcVmNSg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise(FeedWritingViewportTest.kt:21)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.narrowWritingKeepsTheRealSignerTargetsAndDrafts(FeedWritingViewportTest.kt:14)
+
+INSTRUMENTATION_STATUS: test=narrowWritingKeepsTheRealSignerTargetsAndDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedWritingViewportTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedWritingViewportTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with (Text + InputText + EditableText contains 'New post' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9$open(FeedWritingViewportTest.kt:37)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9(FeedWritingViewportTest.kt:53)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$YkT40OeQT5Ueds28zY4R085jXMQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10(FeedWritingViewportTest.kt:24)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$Wqzldqc7kSHtpovRP18rYcVmNSg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise(FeedWritingViewportTest.kt:21)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts(FeedWritingViewportTest.kt:15)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts(nl.davidengelen.redsquare.FeedWritingViewportTest):
+java.lang.AssertionError: Assert failed: The component with (Text + InputText + EditableText contains 'New post' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9$open(FeedWritingViewportTest.kt:37)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9(FeedWritingViewportTest.kt:53)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$YkT40OeQT5Ueds28zY4R085jXMQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10(FeedWritingViewportTest.kt:24)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$Wqzldqc7kSHtpovRP18rYcVmNSg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise(FeedWritingViewportTest.kt:21)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts(FeedWritingViewportTest.kt:15)
+
+INSTRUMENTATION_STATUS: test=pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.561
+There were 2 failures:
+1) narrowWritingKeepsTheRealSignerTargetsAndDrafts(nl.davidengelen.redsquare.FeedWritingViewportTest)
+java.lang.AssertionError: Failed: performScrollToNode((Text + InputText + EditableText contains 'Quote' (ignoreCase: false)) && (OnClick is defined))
+Reason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'feed-post-list')
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9$open(FeedWritingViewportTest.kt:34)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9(FeedWritingViewportTest.kt:40)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$YkT40OeQT5Ueds28zY4R085jXMQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10(FeedWritingViewportTest.kt:24)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$Wqzldqc7kSHtpovRP18rYcVmNSg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise(FeedWritingViewportTest.kt:21)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.narrowWritingKeepsTheRealSignerTargetsAndDrafts(FeedWritingViewportTest.kt:14)
+2) pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts(nl.davidengelen.redsquare.FeedWritingViewportTest)
+java.lang.AssertionError: Assert failed: The component with (Text + InputText + EditableText contains 'New post' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9$open(FeedWritingViewportTest.kt:37)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10$lambda$9(FeedWritingViewportTest.kt:53)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$YkT40OeQT5Ueds28zY4R085jXMQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise$lambda$10(FeedWritingViewportTest.kt:24)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.$r8$lambda$Wqzldqc7kSHtpovRP18rYcVmNSg(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.exercise(FeedWritingViewportTest.kt:21)
+	at nl.davidengelen.redsquare.FeedWritingViewportTest.pixelSizedWritingKeepsTheRealSignerTargetsAndDrafts(FeedWritingViewportTest.kt:15)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
