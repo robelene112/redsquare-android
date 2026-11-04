@@ -1,0 +1,179 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarIdentityJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AvatarIdentityJourneyTest:
+INSTRUMENTATION_STATUS: test=lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarIdentityJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey$lambda$1(AvatarIdentityJourneyTest.kt:30)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$NraUpHd7DpsY4ht8J0GqF-Ccxhk(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey(AvatarIdentityJourneyTest.kt:29)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(AvatarIdentityJourneyTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(nl.davidengelen.redsquare.AvatarIdentityJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey$lambda$1(AvatarIdentityJourneyTest.kt:30)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$NraUpHd7DpsY4ht8J0GqF-Ccxhk(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey(AvatarIdentityJourneyTest.kt:29)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(AvatarIdentityJourneyTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarIdentityJourneyTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarIdentityJourneyTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey$lambda$1(AvatarIdentityJourneyTest.kt:30)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$NraUpHd7DpsY4ht8J0GqF-Ccxhk(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey(AvatarIdentityJourneyTest.kt:29)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(AvatarIdentityJourneyTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(nl.davidengelen.redsquare.AvatarIdentityJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey$lambda$1(AvatarIdentityJourneyTest.kt:30)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$NraUpHd7DpsY4ht8J0GqF-Ccxhk(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey(AvatarIdentityJourneyTest.kt:29)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(AvatarIdentityJourneyTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarIdentityJourneyTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarIdentityJourneyTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes$lambda$7(AvatarIdentityJourneyTest.kt:48)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$zED-ByZI1UiLAPHMKGPTBg26vm4(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes(AvatarIdentityJourneyTest.kt:47)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes(nl.davidengelen.redsquare.AvatarIdentityJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes$lambda$7(AvatarIdentityJourneyTest.kt:48)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$zED-ByZI1UiLAPHMKGPTBg26vm4(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes(AvatarIdentityJourneyTest.kt:47)
+
+INSTRUMENTATION_STATUS: test=cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 52.603
+There were 3 failures:
+1) lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(nl.davidengelen.redsquare.AvatarIdentityJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey$lambda$1(AvatarIdentityJourneyTest.kt:30)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$NraUpHd7DpsY4ht8J0GqF-Ccxhk(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey(AvatarIdentityJourneyTest.kt:29)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.lightPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(AvatarIdentityJourneyTest.kt:26)
+2) darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(nl.davidengelen.redsquare.AvatarIdentityJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey$lambda$1(AvatarIdentityJourneyTest.kt:30)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$NraUpHd7DpsY4ht8J0GqF-Ccxhk(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.journey(AvatarIdentityJourneyTest.kt:29)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.darkPictureAndSignedRemovalFollowTheIdentityAcrossAllDestinations(AvatarIdentityJourneyTest.kt:27)
+3) cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes(nl.davidengelen.redsquare.AvatarIdentityJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes$lambda$7(AvatarIdentityJourneyTest.kt:48)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.$r8$lambda$zED-ByZI1UiLAPHMKGPTBg26vm4(AvatarIdentityJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:62)
+	at nl.davidengelen.redsquare.AvatarIdentityJourneyTest.cachedPictureSurvivesOfflineRecreationAndDoesNotCrossNodes(AvatarIdentityJourneyTest.kt:47)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

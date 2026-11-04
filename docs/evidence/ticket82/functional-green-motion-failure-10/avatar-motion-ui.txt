@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AvatarMotionTest:
+INSTRUMENTATION_STATUS: test=signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13$lambda$12$lambda$11(AvatarMotionTest.kt:64)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$85G1hja3UjN616awkrMNj20O26E(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13$lambda$12(AvatarMotionTest.kt:63)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$4BLsfTon26fVOGOMZQHS-YCKsB8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:64)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13(AvatarMotionTest.kt:27)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$MB7gu_-KfKNv9Gogwnc9aAhCdtU(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion(AvatarMotionTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion(nl.davidengelen.redsquare.AvatarMotionTest):
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13$lambda$12$lambda$11(AvatarMotionTest.kt:64)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$85G1hja3UjN616awkrMNj20O26E(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13$lambda$12(AvatarMotionTest.kt:63)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$4BLsfTon26fVOGOMZQHS-YCKsB8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:64)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13(AvatarMotionTest.kt:27)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$MB7gu_-KfKNv9Gogwnc9aAhCdtU(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion(AvatarMotionTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.708
+There was 1 failure:
+1) signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion(nl.davidengelen.redsquare.AvatarMotionTest)
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13$lambda$12$lambda$11(AvatarMotionTest.kt:64)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$85G1hja3UjN616awkrMNj20O26E(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13$lambda$12(AvatarMotionTest.kt:63)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$4BLsfTon26fVOGOMZQHS-YCKsB8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:64)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:63)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion$lambda$13(AvatarMotionTest.kt:27)
+	at nl.davidengelen.redsquare.AvatarMotionTest.$r8$lambda$MB7gu_-KfKNv9Gogwnc9aAhCdtU(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.AvatarMotionTest.signedPictureReplacementAndRemovalKeepTheirGeometryAtNormalAndZeroMotion(AvatarMotionTest.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

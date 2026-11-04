@@ -12,8 +12,8 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 ## Current owner execution authorization
 
 On2026-11-04 the owner limited execution to one issue at a time to manage usage.
-Issue78 is now complete. Stop and wait for the next owner request before
-starting82 or another issue. For each subsequent request, finish one issue,
+Issues78 and82 are complete. Stop and wait for another owner request before
+starting89 or another issue. For each subsequent request, finish one issue,
 including its checks, review, evidence and commit, then stop again. This supersedes the earlier request
 to implement the whole16-ticket batch without stopping.
 

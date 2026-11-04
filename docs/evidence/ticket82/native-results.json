@@ -1,0 +1,197 @@
+{
+  "ticket": 82,
+  "reviewBase": "afcaa350208b045fa41dbe56280d56c1ea48e73d",
+  "lastProductionChange": "1b39a2632",
+  "sourceReviews": {
+    "standards": {
+      "openFindings": 0,
+      "through": "a562b298d"
+    },
+    "specification": {
+      "openFindings": 0,
+      "through": "a562b298d"
+    }
+  },
+  "finalNative": {
+    "android10": {
+      "runId": 41858294363,
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/41858294363",
+      "status": "success",
+      "source": "a562b298df9042e89672d54a258f9274f356d245",
+      "methods": 12,
+      "classes": {
+        "avatars": {
+          "methods": 1,
+          "seconds": 5.985,
+          "log": "android10/avatars-ui.txt"
+        },
+        "avatar-journey": {
+          "methods": 3,
+          "seconds": 25.833,
+          "log": "android10/avatar-journey-ui.txt"
+        },
+        "avatar-cache": {
+          "methods": 2,
+          "seconds": 0.602,
+          "log": "android10/avatar-cache-ui.txt"
+        },
+        "avatar-recovery": {
+          "methods": 5,
+          "seconds": 17.559,
+          "log": "android10/avatar-recovery-ui.txt"
+        },
+        "avatar-motion": {
+          "methods": 1,
+          "seconds": 80.904,
+          "log": "android10/avatar-motion-ui.txt"
+        }
+      },
+      "movies": [
+        {
+          "scale": 0,
+          "change": "first-picture",
+          "frames": 43,
+          "manifest": "android10/native/scale-0-avatar-0.json"
+        },
+        {
+          "scale": 0,
+          "change": "replacement",
+          "frames": 45,
+          "manifest": "android10/native/scale-0-avatar-1.json"
+        },
+        {
+          "scale": 0,
+          "change": "signed-removal",
+          "frames": 42,
+          "manifest": "android10/native/scale-0-avatar-2.json"
+        },
+        {
+          "scale": 1,
+          "change": "first-picture",
+          "frames": 68,
+          "manifest": "android10/native/scale-1-avatar-0.json"
+        },
+        {
+          "scale": 1,
+          "change": "replacement",
+          "frames": 86,
+          "manifest": "android10/native/scale-1-avatar-1.json"
+        },
+        {
+          "scale": 1,
+          "change": "signed-removal",
+          "frames": 77,
+          "manifest": "android10/native/scale-1-avatar-2.json"
+        }
+      ],
+      "decodedOriginalFrames": 361,
+      "visualReview": "Normal replacement/removal show short blends within fixed circular geometry. Scale0 changes immediately. Original frames, timestamps and derived crop selections retained."
+    },
+    "android17": {
+      "runId": 41856926016,
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/41856926016",
+      "status": "success",
+      "source": "5246f83abfd5cf6fdadbe8fe4d45f6dd45355caf",
+      "methods": 12,
+      "classes": {
+        "avatars": {
+          "methods": 1,
+          "seconds": 13.671,
+          "log": "android17/avatars-ui.txt"
+        },
+        "avatar-journey": {
+          "methods": 3,
+          "seconds": 51.904,
+          "log": "android17/avatar-journey-ui.txt"
+        },
+        "avatar-cache": {
+          "methods": 2,
+          "seconds": 0.507,
+          "log": "android17/avatar-cache-ui.txt"
+        },
+        "avatar-recovery": {
+          "methods": 5,
+          "seconds": 23.494,
+          "log": "android17/avatar-recovery-ui.txt"
+        },
+        "avatar-motion": {
+          "methods": 1,
+          "seconds": 70.404,
+          "log": "android17/avatar-motion-ui.txt"
+        }
+      },
+      "movies": [
+        {
+          "scale": 0,
+          "change": "first-picture",
+          "frames": 42,
+          "manifest": "android17/native/scale-0-avatar-0.json"
+        },
+        {
+          "scale": 0,
+          "change": "replacement",
+          "frames": 45,
+          "manifest": "android17/native/scale-0-avatar-1.json"
+        },
+        {
+          "scale": 0,
+          "change": "signed-removal",
+          "frames": 43,
+          "manifest": "android17/native/scale-0-avatar-2.json"
+        },
+        {
+          "scale": 1,
+          "change": "first-picture",
+          "frames": 68,
+          "manifest": "android17/native/scale-1-avatar-0.json"
+        },
+        {
+          "scale": 1,
+          "change": "replacement",
+          "frames": 79,
+          "manifest": "android17/native/scale-1-avatar-1.json"
+        },
+        {
+          "scale": 1,
+          "change": "signed-removal",
+          "frames": 80,
+          "manifest": "android17/native/scale-1-avatar-2.json"
+        }
+      ],
+      "decodedOriginalFrames": 357,
+      "visualReview": "Normal replacement/removal show short blends within fixed circular geometry. Scale0 changes immediately. Original frames, timestamps and derived crop selections retained."
+    }
+  },
+  "api29LargeFixtureHeap": {
+    "declaredMiB": 512,
+    "actualBytes": 536870912,
+    "parityPassed": true
+  },
+  "profileRegression": {
+    "android10": {
+      "runId": 41849262459,
+      "source": "3cad18cf5",
+      "uiMethods": 16,
+      "processDeaths": 2,
+      "status": "success"
+    },
+    "android17": {
+      "runId": 41851457733,
+      "source": "04eb442f9",
+      "uiMethods": 16,
+      "processDeaths": 2,
+      "status": "success"
+    }
+  },
+  "baseline": {
+    "runId": 41844701727,
+    "source": "66478e0c7",
+    "status": "failure",
+    "signal": "signed custom feed picture absent within original10s pixel goal"
+  },
+  "limits": [
+    "Controlled emulator verification does not establish physical Pixel7 performance or live-provider acceptance.",
+    "No intermediate beta published. Integrated consistent-source app/update proof and signed beta belong to94.",
+    "Historical failures and cancelled replacements remain failures/cancellations; see README for exact provenance."
+  ]
+}

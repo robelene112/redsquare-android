@@ -1,0 +1,125 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:262)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels$lambda$21(ProfileProcessRecoveryTest.kt:147)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.$r8$lambda$Zz8OC4zofFaj7G2dyjZwjIzjmnc(ProfileProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.launch(ProfileProcessRecoveryTest.kt:171)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels(ProfileProcessRecoveryTest.kt:140)
+	... 63 trimmed
+Caused by: org.junit.ComparisonFailure: expected:<[nDZi9Dohn1PpYDkzoKFv6coRkBqCWyiHtbwip75k9oJc]> but was:<[jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels$lambda$17(ProfileProcessRecoveryTest.kt:137)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.$r8$lambda$4_o4m93IcYZir1-vCeV0tcmadcQ(ProfileProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:224)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels(nl.davidengelen.redsquare.ProfileProcessRecoveryTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:262)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels$lambda$21(ProfileProcessRecoveryTest.kt:147)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.$r8$lambda$Zz8OC4zofFaj7G2dyjZwjIzjmnc(ProfileProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.launch(ProfileProcessRecoveryTest.kt:171)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels(ProfileProcessRecoveryTest.kt:140)
+	... 63 trimmed
+Caused by: org.junit.ComparisonFailure: expected:<[nDZi9Dohn1PpYDkzoKFv6coRkBqCWyiHtbwip75k9oJc]> but was:<[jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels$lambda$17(ProfileProcessRecoveryTest.kt:137)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.$r8$lambda$4_o4m93IcYZir1-vCeV0tcmadcQ(ProfileProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:224)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.026
+There was 1 failure:
+1) coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels(nl.davidengelen.redsquare.ProfileProcessRecoveryTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:262)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels$lambda$21(ProfileProcessRecoveryTest.kt:147)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.$r8$lambda$Zz8OC4zofFaj7G2dyjZwjIzjmnc(ProfileProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.launch(ProfileProcessRecoveryTest.kt:171)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels(ProfileProcessRecoveryTest.kt:140)
+	... 63 trimmed
+Caused by: org.junit.ComparisonFailure: expected:<[nDZi9Dohn1PpYDkzoKFv6coRkBqCWyiHtbwip75k9oJc]> but was:<[jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels$lambda$17(ProfileProcessRecoveryTest.kt:137)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest.$r8$lambda$4_o4m93IcYZir1-vCeV0tcmadcQ(ProfileProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileProcessRecoveryTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:224)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

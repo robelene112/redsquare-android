@@ -1,17 +1,60 @@
 # Implementation handoff
 
-## Unified redesign86:82 active, stop after82
+## Unified redesign86:82 complete, stop now
 
-The owner requested ONE more issue after78. Active82 is SHARED VERIFIED PROFILE
-PICTURES, not block status (some earlier handoff attribution to82 was wrong).
-Review base afcaa3502. Finish82/verify/review/commit then STOP before another
-issue. No intermediate beta. Actual GitHub ticket is authority.
+The owner requested ONE issue after78.82 (shared verified profile pictures) is
+complete, reviewed and verified. Stop here. Wait for another owner request before
+starting89 or another issue. The earlier block-status attribution to82 was wrong.
+Final integrated beta belongs to94; ordinary beta83 stays published.
 
-Initial signed synthetic feed-avatar native pixel tracer is added at the agreed
-UI/controlled signed-peer seam. App source unchanged; this must fail before the
-shared implementation. Planned reuse: SaitoProfiles signature/merge semantics,
-selected-node AndroidProfileDetailsCache and bounded raster loader. No live node
-changes, public writes, external avatar provider or owner credential required.
+Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Review base `afcaa350208b045fa41dbe56280d56c1ea48e73d`.
+Last production change1b39a2632. Final verification sourcea562b298d onAndroid10,
+5246f83ab onAndroid17; the only subsequent test delta adds the existing API29
+heap-parity guard before large fixture allocation. Application source is the same.
+No local build or CI dispatch remains active. Preserve the canonical checkout
+and its unrelated group Chat contract. Sparse evidence requires add --sparse.
+
+Final complete avatar proofs BOTH PASS:41858294363(10),41856926016(17), all12
+methods per OS in five separate180s classes. The Android10 large fixture records
+actual536870912bytes and declared512MiB, with parity asserted before allocation.
+Actual normal/zero recordings, original decoded frames, pixel observations and
+visual crop selections are in `docs/evidence/ticket82/`. README/native-results.json
+record every source, result, failure, correction and acceptance limit.
+
+Original complete profile regression10 passed41849262459(3cad) and17 passed
+41851457733(04eb):16 UI methods plus two actual process deaths per OS. Original
+wallet/backend, prepared image, exact candidate, zero rebroadcast and public
+bio/pixel assertions remain. The known foreign reference signer receives no
+profile evidence in the cold fixture; all other owner/sig assertions remain.
+
+82 shares signed selected-node Profile pictures across feed/thread, people,
+Activity, Chat, public headers and account controls. Draft previews stay local.
+Metadata64 entries/16MiB per node, displayed64 ARGB256px/16MiB, raster disk64
+files/8MiB OS-prunable. Discovery/image concurrency2 each. Source digests handle
+late legacy fields; node/signer/version/source isolate caches. Failed persistence
+still displays verified updates/removals. One deliberate in-flight refresh is
+retained. Profile Retry updates the shared picture. Crossfade180ms resets at
+node/identity boundaries and respects actual system motion preferences.
+
+Paired read-only Standards/Spec reviews and incremental rechecks are clean
+througha562. Pixel waits assert two consecutive captured matches inside10s,
+without a contradictory post-wait screenshot. Movie final-frame, intrinsic row
+geometry and actual window scales0/1 remain mandatory. API29's unexpected16MiB
+fixture process remains a failed run, not an app pass. No heap raising/service
+restart, skip, assertion removal or deadline extension was introduced.
+
+No production node changes, external setup, public writes or new owner inputs.
+One early failed switch fixture omitted the official debug override and performed
+public reads; it is not controlled isolation evidence. Final passing switches
+bind both endpoints to the owned peer and preserve selected-node provenance.
+Emulators do not establish physical Pixel performance or live-provider delivery.
+
+Next planned ticket ONLY after another owner request:89, profile identity/bio/
+history separation, not claimed or implemented. Then planned88,91,79,80,92,83,
+81,90,93,94, subject to current native dependencies.55/84/86/1/36 retain their
+independent acceptance.94 owns final consistent-source whole-app/update proof
+and integrated signed beta delivery.
 
 ## Previous checkpoint:78 complete
 

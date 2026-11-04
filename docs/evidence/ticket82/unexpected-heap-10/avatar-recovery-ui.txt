@@ -1,0 +1,109 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AvatarRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.OutOfMemoryError: Failed to allocate a 1270496 byte allocation with 1073728 free bytes and 1048KB until OOM, target footprint 16777216, growth limit 16777216
+	at java.lang.StringFactory.newStringFromChars(StringFactory.java:260)
+	at java.lang.StringBuffer.toString(StringBuffer.java:671)
+	at java.io.StringWriter.toString(StringWriter.java:210)
+	at com.google.gson.JsonElement.toString(JsonElement.java:431)
+	at nl.davidengelen.redsquare.saito.SaitoTransaction.envelope(SaitoTransaction.kt:29)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.signed(AvatarRecoveryPreviewTest.kt:176)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction(AvatarRecoveryPreviewTest.kt:138)
+
+INSTRUMENTATION_STATUS: stream=
+Error in threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction(nl.davidengelen.redsquare.AvatarRecoveryPreviewTest):
+java.lang.OutOfMemoryError: Failed to allocate a 1270496 byte allocation with 1073728 free bytes and 1048KB until OOM, target footprint 16777216, growth limit 16777216
+	at java.lang.StringFactory.newStringFromChars(StringFactory.java:260)
+	at java.lang.StringBuffer.toString(StringBuffer.java:671)
+	at java.io.StringWriter.toString(StringWriter.java:210)
+	at com.google.gson.JsonElement.toString(JsonElement.java:431)
+	at nl.davidengelen.redsquare.saito.SaitoTransaction.envelope(SaitoTransaction.kt:29)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.signed(AvatarRecoveryPreviewTest.kt:176)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction(AvatarRecoveryPreviewTest.kt:138)
+
+INSTRUMENTATION_STATUS: test=threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.079
+There was 1 failure:
+1) threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction(nl.davidengelen.redsquare.AvatarRecoveryPreviewTest)
+java.lang.OutOfMemoryError: Failed to allocate a 1270496 byte allocation with 1073728 free bytes and 1048KB until OOM, target footprint 16777216, growth limit 16777216
+	at java.lang.StringFactory.newStringFromChars(StringFactory.java:260)
+	at java.lang.StringBuffer.toString(StringBuffer.java:671)
+	at java.io.StringWriter.toString(StringWriter.java:210)
+	at com.google.gson.JsonElement.toString(JsonElement.java:431)
+	at nl.davidengelen.redsquare.saito.SaitoTransaction.envelope(SaitoTransaction.kt:29)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.signed(AvatarRecoveryPreviewTest.kt:176)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction(AvatarRecoveryPreviewTest.kt:138)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
