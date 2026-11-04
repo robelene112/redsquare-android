@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
@@ -27,12 +29,17 @@ class ProfileReadingReturnTest {
             ui.revealProfileHistoryItem("Reference post 10")
             val targetId = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }.id
             val density = instrumentation.targetContext.resources.displayMetrics.density
+            val tabs = ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab))
+                .fetchSemanticsNodes()
+            val card = ui.onNodeWithTag("post-card-${targetId.take(12)}")
+            val offset = card.fetchSemanticsNode().boundsInRoot.top - tabs.maxOf { it.boundsInRoot.bottom } - 16 * density
             ui.onNode(hasScrollToIndexAction()).performSemanticsAction(SemanticsActions.ScrollBy) {
-                check(it(0f, -64 * density))
+                check(it(0f, offset))
             }
-            val target = ui.onNodeWithText("Reference post 10")
+            // Tap the visible body, not the centre of a merged card extending below the viewport.
+            val target = ui.onNodeWithText("Reference post 10", useUnmergedTree = true).assertIsDisplayed()
             val before = target.fetchSemanticsNode().boundsInRoot.top
-            target.performClick()
+            target.performTouchInput { click(center) }
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
             ui.onNode(hasText("Back") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { target.isDisplayed() }

@@ -90,7 +90,10 @@ internal class ProfileSectionMatrix(private val ui: androidx.compose.ui.test.jun
                     val picture = ui.onNodeWithContentDescription("Profile picture")
                     ui.waitUntil(15_000) { runCatching {
                         val bitmap = picture.captureToImage().asAndroidBitmap()
-                        bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == color
+                        val signedBioApplied = if (bio.isNotEmpty())
+                            ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty()
+                        else previousBio.isEmpty() || ui.onAllNodesWithText(previousBio).fetchSemanticsNodes().isEmpty()
+                        signedBioApplied && bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == color
                     }.getOrDefault(false) }
                     ui.onNode(hasText("Anon-${author.publicKey.take(6)}") and
                         SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading)).assertExists()
