@@ -46,6 +46,8 @@ class FirstUseViewportTest {
                 while (!nativeCompose.isClickable) nativeCompose = requireNotNull(nativeCompose.parent)
                 assertTrue(nativeCompose.visibleBounds.width() >= 47 && nativeCompose.visibleBounds.height() >= 47)
                 if (post.bottom > list.bottom) densityFailures.add("$name: first post body extends below reading viewport")
+                if (context.resources.configuration.fontScale > 1.3f && compose.overlaps(list))
+                    densityFailures.add("$name: compose action overlaps reading viewport")
                 if (width == 320 && context.resources.configuration.fontScale > 1.3f) {
                     if (list.height < viewport.height * .32f) densityFailures.add("$name: reading list ${list.height} of ${viewport.height}")
                     if (compose.height > list.height * .25f) densityFailures.add("$name: compose ${compose.height} dominates reading list ${list.height}")

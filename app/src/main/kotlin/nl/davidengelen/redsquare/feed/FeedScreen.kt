@@ -509,29 +509,24 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             else Spacer(Modifier.weight(1f))
         }
     }
+    val dockCompose = home && wallet != null && LocalDensity.current.fontScale > 1.3f
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(home) }
         Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
             content()
-            if (home && wallet != null) {
-                val composeLabel = stringResource(R.string.post_new)
-                FloatingActionButton(onClick = { composing = true },
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen)
-                        .size(if (LocalDensity.current.fontScale > 1.3f) 48.dp else 56.dp)
-                        .semantics { text = AnnotatedString(composeLabel) },
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary) {
-                    Icon(painterResource(R.drawable.ic_compose), contentDescription = null)
-                }
-            }
+            if (home && wallet != null && !dockCompose) ComposePostButton(
+                Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
         }
+
         val destination = navigation.lastOrNull()
         val writingReply = destination is BrowseDestination.Conversation && formNavigation.saveCurrent != null
         if (!keyboardVisible && !composing && !reviewingQueue && !reviewingChanges && !writingReply &&
             destination !is BrowseDestination.Quote && destination !is BrowseDestination.Author) {
             SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
             HorizontalDivider()
-            ModuleNavigation(PrimaryDestination.entries, primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->
+            ModuleNavigation(PrimaryDestination.entries, primary, wallet != null && !formNavigation.transitioning,
+                trailingAction = if (dockCompose) { { ComposePostButton(Modifier.size(48.dp)) { composing = true } } } else null,
+                onSelect = select@{ destination ->
                 val rootDestination = navigation.singleOrNull()
                 val atPrimaryRoot = when (destination) {
                     PrimaryDestination.HOME -> home
@@ -569,4 +564,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
 /** Debug lifecycle diagnosis contains no identity, message, URI or exception content. */
 private fun chatRouteObservation(result: String) {
     if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("ChatAlertRoute", result)
+}
+
+/** One accessible writing action, floating normally and docked clear of large-text reading. */
+@Composable
+private fun ComposePostButton(modifier: Modifier, onClick: () -> Unit) {
+    val label = stringResource(R.string.post_new)
+    FloatingActionButton(onClick = onClick, modifier = modifier.semantics { text = AnnotatedString(label) },
+        containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary) {
+        Icon(painterResource(R.drawable.ic_compose), contentDescription = null)
+    }
 }

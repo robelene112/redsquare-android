@@ -68,8 +68,9 @@ internal fun CompactBackupNotice(visible: Boolean, enabled: Boolean, onBackup: (
         Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).padding(bottom = AppSpacing.small)
             .animateContentSize(tween(AppSpacing.transitionMillis)), shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surfaceContainerLow) {
-            Column(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp)) {
-                if (LocalDensity.current.fontScale > 1.3f) {
+            val compact = LocalDensity.current.fontScale > 1.3f
+            Column(Modifier.padding(horizontal = if (compact) 0.dp else AppSpacing.small, vertical = 4.dp)) {
+                if (compact) {
                     // The warning is also the action, rather than an extra heading.
                     // Keep two full48dp rows at large text, with a conventional dismiss control.
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -110,7 +111,8 @@ private fun BackupNoticeAction(label: Int, enabled: Boolean, onClick: () -> Unit
 /** Keep captions intact; an adaptive legend and tooltips name the icon-only layout. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected: T, enabled: Boolean, onSelect: (T) -> Unit) {
+internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected: T, enabled: Boolean,
+    trailingAction: (@Composable () -> Unit)? = null, onSelect: (T) -> Unit) {
     val measurer = rememberTextMeasurer()
     val captions = entries.map { stringResource(it.caption) }
     val tooltipStates = entries.map { rememberTooltipState() }
@@ -127,12 +129,18 @@ internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected
             entries.size - gap
         val compact = captions.any { measurer.measure(it, style, softWrap = false).size.width > labelWidth }
         Column {
-            if (compact) Crossfade(selected, animationSpec = tween(AppSpacing.transitionMillis),
-                modifier = Modifier.fillMaxWidth().clearAndSetSemantics { }, label = "Navigation caption") { destination ->
-                Box(Modifier.fillMaxWidth().padding(top = 4.dp), contentAlignment = Alignment.Center) {
-                    Text(stringResource(destination.caption), style = MaterialTheme.typography.labelLarge,
-                        maxLines = 1)
+            if (compact || trailingAction != null) Box(Modifier.fillMaxWidth()
+                .heightIn(min = if (trailingAction != null) 48.dp else 0.dp)) {
+                Crossfade(selected, animationSpec = tween(AppSpacing.transitionMillis),
+                    modifier = Modifier.fillMaxWidth().align(Alignment.Center)
+                        .padding(horizontal = if (trailingAction != null) 72.dp else 0.dp).clearAndSetSemantics { },
+                    label = "Navigation caption") { destination ->
+                    Box(Modifier.fillMaxWidth().padding(top = 4.dp), contentAlignment = Alignment.Center) {
+                        Text(stringResource(destination.caption), style = MaterialTheme.typography.labelLarge, maxLines = 1)
+                    }
                 }
+                if (trailingAction != null) Box(Modifier.align(Alignment.CenterEnd)
+                    .padding(end = AppSpacing.screen)) { trailingAction() }
             }
             NavigationBar(modifier = if (compact) Modifier.height(64.dp) else Modifier,
                 containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
