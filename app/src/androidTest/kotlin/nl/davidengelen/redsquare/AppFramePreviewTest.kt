@@ -127,7 +127,11 @@ class AppFramePreviewTest {
                             focused && ui.onNode(hasText("Home") and isSelected()).isDisplayed()
                         }
                         val name = "frame-$width-font${(scale * 100).toInt()}-${theme.lowercase()}"
-                        withFailureCapture({ capture("$name-first-failure.png") }) {
+                        withFailureCapture({
+                            capture("$name-first-failure.png")
+                            File(folder, "$name-native-target-probe.txt").writeText(accessibilityTargetSnapshot(
+                                InstrumentationRegistry.getInstrumentation().uiAutomation))
+                        }) {
                         val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
                         val minimum = 48 * context.resources.displayMetrics.density - 1
                         for (label in listOf("Account", "Home", "Search", "Notifications", "Chat", "Your profile",
