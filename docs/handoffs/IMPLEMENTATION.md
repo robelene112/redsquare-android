@@ -1,5 +1,36 @@
 # Implementation handoff
 
+## Active authorization: TWO tickets,91 then79
+
+91 is COMPLETE;79 is next and authorized. Finish79, then stop. No intermediate
+beta:94 retains integrated whole-app/update/publication gates. Preserve canonical
+checkout and unrelated Chat work. Active worktree redesign86, branch
+codex/unified-redesign. Sparse evidence needs `git add --sparse`.
+
+91 review base63a5bd8cf5e2958cdcd1f6c0a216f9491bc359fa. Final production/tested
+source901f06b284b1228e7ea10a1415f5e96df1480b38. Both final proofs PASS:
+41924114853(10)/41924128922(17), each6methods,36new physical/signed Likes,
+feed/thread/profile and real system/window motion1/0. Actual original frames and
+movies plus all12derived strips inspected; small interruptible pulses at normal
+motion, static pink atzero and outline return throughout. Stable counter type,
+48dp enabled targets. Source, failures, corrections, proof and limits recorded
+in `docs/evidence/ticket91/README.md` and native-results.json. Both source reviews
+and independent final visual review have zero remaining findings. Host core117+
+gateway16 checks and final one-worker lint PASS. No local build remains active.
+
+91 moves feedback to local mounted input, removes volatile status feedback fields,
+and caps normalfeedback240msfrominputtime; zero static120ms. Sign/send/count/
+reconcile/diagnostic behavior is unchanged. First realRED41921370782at47295f1
+observed487pinkpx450msaftertap. Firstcandidate4d33 passed10 but failed17 with
+164pinkpxat450ms;901fixes that without weaker assertions/deadlines. Earlier
+selector diagnostics and superseded runs remain explicitly separated in evidence.
+These controlled emulators establish no physical Pixel/provider/store acceptance.
+
+79 implementation has not yet started. Preserve every criterion in that native
+GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
+history, drafts/targets/anchors. No original test assertion/deadline may be dropped
+for a new header or compact Details interaction. Final beta remains94.
+
 ## Completed authorization: TWO tickets,89 then88
 
 Both authorized tickets are COMPLETE, reviewed, verified and committed. Stop now.

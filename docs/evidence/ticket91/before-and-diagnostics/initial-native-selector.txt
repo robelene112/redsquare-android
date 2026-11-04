@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LikePulseMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.LikePulseMotionTest:
+INSTRUMENTATION_STATUS: test=repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LikePulseMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces$lambda$10$lambda$9(LikePulseMotionTest.kt:49)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.$r8$lambda$pZoH5EUeLnmqXxIggce1Kz_PZ8o(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.withLikeMotionFixture$lambda$3$lambda$2$lambda$1(LikePulseMotionTest.kt:153)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.$r8$lambda$_rv0-IGaI9nOoGcd36o5JZavzLw(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.withLikeMotionFixture(LikePulseMotionTest.kt:153)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.access$withLikeMotionFixture(LikePulseMotionTest.kt:1)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces$lambda$10(LikePulseMotionTest.kt:30)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.$r8$lambda$3xeyDUgbHq2Xjbsn5d4fIwC1Rgs(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces(LikePulseMotionTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces(nl.davidengelen.redsquare.LikePulseMotionTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces$lambda$10$lambda$9(LikePulseMotionTest.kt:49)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.$r8$lambda$pZoH5EUeLnmqXxIggce1Kz_PZ8o(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.withLikeMotionFixture$lambda$3$lambda$2$lambda$1(LikePulseMotionTest.kt:153)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.$r8$lambda$_rv0-IGaI9nOoGcd36o5JZavzLw(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.withLikeMotionFixture(LikePulseMotionTest.kt:153)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.access$withLikeMotionFixture(LikePulseMotionTest.kt:1)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces$lambda$10(LikePulseMotionTest.kt:30)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.$r8$lambda$3xeyDUgbHq2Xjbsn5d4fIwC1Rgs(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces(LikePulseMotionTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.647
+There was 1 failure:
+1) repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces(nl.davidengelen.redsquare.LikePulseMotionTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces$lambda$10$lambda$9(LikePulseMotionTest.kt:49)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.$r8$lambda$pZoH5EUeLnmqXxIggce1Kz_PZ8o(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.withLikeMotionFixture$lambda$3$lambda$2$lambda$1(LikePulseMotionTest.kt:153)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.$r8$lambda$_rv0-IGaI9nOoGcd36o5JZavzLw(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.withLikeMotionFixture(LikePulseMotionTest.kt:153)
+	at nl.davidengelen.redsquare.LikePulseMotionTestKt.access$withLikeMotionFixture(LikePulseMotionTest.kt:1)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces$lambda$10(LikePulseMotionTest.kt:30)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.$r8$lambda$3xeyDUgbHq2Xjbsn5d4fIwC1Rgs(Unknown Source:0)
+	at nl.davidengelen.redsquare.LikePulseMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.LikePulseMotionTest.repeatedHeartsStaySmallAndReturnToOutlineAcrossRealSurfaces(LikePulseMotionTest.kt:29)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

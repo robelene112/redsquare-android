@@ -12,14 +12,10 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 ## Current owner execution authorization
 
 The latest owner request authorizes exactly TWO more redesign tickets:91 then79.
-Complete sequentially with checks/review/commits, then stop. No intermediate beta.
-
-
-On2026-11-04 the owner limited execution to one issue at a time to manage usage.
-On2026-11-04 the owner authorized TWO more redesign tickets in sequence:
-89 then88. Both are complete with their own verification, review, evidence and
-commits. Stop now and wait for another owner request before starting a ticket.
-Later requests default to one ticket unless the owner specifies a sequence. The earlier unattended16-ticket authorization remains superseded.
+91 is complete. Finish79 with verification, review, evidence and commit, then stop.
+Later requests default to one ticket unless the owner specifies a sequence.
+The earlier unattended16-ticket authorization remains superseded. Previous
+bounded batches, including89/88, are complete.
 
 The approved redesign86 scope and ticket sequence remain. Publish the integrated
 signed beta after94's final verification; no intermediate beta is requested.
@@ -167,6 +163,14 @@ complete first-release scope and the established production boundaries.
    Native movies require the resulting picture/removal in retained display
    frames under actual system scale0/1; a functional pass alone is not motion
    acceptance. Focused proofs do not replace94's final full-source verification.
+   `like-pulse` / `like-pulse-android17` exercise actual native input and original
+   motion1/0 frames across feed/thread/profile, plus the original repeated-input,
+   identity/isolation and pending-Repost classes. Every class retains180seconds.
+   Full Social includes the new motion class additively. Platform label nodes may
+   sit under same-bounds clickable parents; verify the actual labelled action.
+   Count digit growth may widen a target, but row top/height and48dp access remain.
+   Inspect tap-timed native size changes at normal motion and static feedback at0;
+   endpoint or final-frame assertions alone do not prove animation quality.
    `feed-redesign` / its Android17 variant exercise88's actual signed link
    targets, node hints and raster previews; delayed physical refresh and outage
    recovery; exact feed anchors; and real post/reply/quote drafts and IME at

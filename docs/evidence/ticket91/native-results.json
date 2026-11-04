@@ -1,0 +1,117 @@
+{
+  "ticket": 91,
+  "reviewBase": "63a5bd8cf5e2958cdcd1f6c0a216f9491bc359fa",
+  "productionSource": "901f06b284b1228e7ea10a1415f5e96df1480b38",
+  "platforms": {
+    "10": {
+      "run": 41924114853,
+      "conclusion": "success",
+      "methods": 6,
+      "newSignedLikes": 36,
+      "cases": [
+        {
+          "case": "scale-0-feed",
+          "pinkFrames": 7,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 18,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-0-profile",
+          "pinkFrames": 6,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 16,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-0-thread",
+          "pinkFrames": 6,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 16,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-1-feed",
+          "pinkFrames": 34,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 20,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-1-profile",
+          "pinkFrames": 38,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 20,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-1-thread",
+          "pinkFrames": 39,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 20,
+          "tapCount": 6
+        }
+      ]
+    },
+    "17": {
+      "run": 41924128922,
+      "conclusion": "success",
+      "methods": 6,
+      "newSignedLikes": 36,
+      "cases": [
+        {
+          "case": "scale-0-feed",
+          "pinkFrames": 7,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 17,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-0-profile",
+          "pinkFrames": 6,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 16,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-0-thread",
+          "pinkFrames": 6,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 16,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-1-feed",
+          "pinkFrames": 21,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 20,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-1-profile",
+          "pinkFrames": 19,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 20,
+          "tapCount": 6
+        },
+        {
+          "case": "scale-1-thread",
+          "pinkFrames": 23,
+          "minimumPinkWidthPixels": 16,
+          "maximumPinkWidthPixels": 20,
+          "tapCount": 6
+        }
+      ]
+    }
+  },
+  "reviews": {
+    "standardsRemaining": 0,
+    "specRemaining": 0
+  },
+  "limits": [
+    "controlled dev emulators and signed local peers",
+    "not physical Pixel performance or live provider delivery",
+    "not final whole-app/update acceptance",
+    "no beta publication"
+  ]
+}
