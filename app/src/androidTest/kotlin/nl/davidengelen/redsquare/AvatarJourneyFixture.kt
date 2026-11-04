@@ -42,7 +42,7 @@ internal fun withAvatarJourney(theme: String, block: (ActivityScenario<MainActiv
         "RedSquare" -> when {
             query.get("sig")?.asString == own.id -> row(own)
             query.has("sig") -> row(root)
-            query.has("field3") || query.has("field4") -> "[]"
+            query.has("field3") || !query.get("field4")?.asString.isNullOrEmpty() -> "[]"
             else -> row(root)
         }
         "Chat" -> "[]"
