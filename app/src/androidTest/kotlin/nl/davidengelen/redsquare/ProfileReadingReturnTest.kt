@@ -1,10 +1,11 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
-import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.*
 import org.junit.Rule
@@ -24,6 +25,11 @@ class ProfileReadingReturnTest {
             ui.onNodeWithText("Later").performClick()
             ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
             ui.revealProfileHistoryItem("Reference post 10")
+            val targetId = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }.id
+            val density = instrumentation.targetContext.resources.displayMetrics.density
+            ui.onNode(hasScrollToIndexAction()).performSemanticsAction(SemanticsActions.ScrollBy) {
+                check(it(0f, -64 * density))
+            }
             val target = ui.onNodeWithText("Reference post 10")
             val before = target.fetchSemanticsNode().boundsInRoot.top
             target.performClick()
@@ -31,7 +37,10 @@ class ProfileReadingReturnTest {
             ui.onNode(hasText("Back") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { target.isDisplayed() }
             assertEquals("Back retains the visible profile post", before, target.fetchSemanticsNode().boundsInRoot.top, 1f)
-            ui.clickVisiblePostMenuAction("Anon-jesTu2", "Edit")
+            ui.onNode(hasContentDescription("Post actions for Anon-jesTu2") and
+                hasAnyAncestor(hasTestTag("post-card-${targetId.take(12)}")))
+                .assertIsDisplayed().performClick()
+            ui.onNodeWithText("Edit").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Edit post").isDisplayed() }
             val editor = ui.onNode(hasSetTextAction() and isEnabled())
             ui.waitUntil(15_000) { editor.isDisplayed() }

@@ -26,60 +26,7 @@ class ProfileRedesignViewportTest {
     @Test fun narrowProfileHasDistinctIdentityAndHistoryAtAllTextSizes() = matrix(320)
     @Test fun pixelSizedProfileHasDistinctIdentityAndHistoryAtAllTextSizes() = matrix(412)
 
-    private fun matrix(width: Int) {
-        val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
-        val rows = AtomicReference("[]")
-        val folder = File(context.cacheDir, "profile-redesign-evidence").apply { mkdirs() }
-        var revision = 0L
-        var previousBio = ""
-        withAppFrameFixture("profile-$width", "profile-redesign-evidence", profileArchiveResponse = {
-            if (it.get("field2").asString == author.publicKey) rows.get() else "[]"
-        }) { activity ->
-            ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
-            ui.onNodeWithText("Later").performClick()
-            ui.withPostViewports(activity, folder, "profile-section", widthDp = width) { label, theme ->
-                val scale = context.resources.configuration.fontScale
-                val bio = when {
-                    scale > 1.5f -> ("A longer public biography for $label. Writing and building in public.\n").repeat(3).trim()
-                    scale > 1.1f -> ""
-                    else -> "A short public biography for $label."
-                }
-                val color = when { bio.isEmpty() -> Color.BLUE; scale > 1.5f -> Color.GREEN; else -> Color.RED }
-                rows.set(profile(author, bio, color, ++revision))
-                ui.clickVisiblePostProfile("Anon-${author.publicKey.take(6)}")
-                val list = ui.onNode(hasScrollToIndexAction())
-                ui.waitUntil(15_000) { list.isDisplayed() }
-                list.performScrollToIndex(0)
-                val picture = ui.onNodeWithContentDescription("Profile picture")
-                ui.waitUntil(15_000) { runCatching {
-                    val bitmap = picture.captureToImage().asAndroidBitmap()
-                    bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == color
-                }.getOrDefault(false) }
-                ui.onNode(hasText("Anon-${author.publicKey.take(6)}") and
-                    SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading)).assertExists()
-                if (bio.isNotEmpty()) ui.onNodeWithText(bio).assertExists()
-                else if (previousBio.isNotEmpty()) ui.onNodeWithText(previousBio).assertDoesNotExist()
-                previousBio = bio
-                captureNativeScreen(File(folder, "$label-identity.png"))
-                val boundary = hasTestTag("profile-history-divider")
-                list.performScrollToNode(boundary)
-                ui.onNode(boundary).performScrollTo().assertIsDisplayed()
-                val pixels = ui.onNode(boundary).captureToImage().asAndroidBitmap()
-                val expected = if (theme == "Dark") Color.rgb(43, 50, 60) else Color.rgb(221, 226, 236)
-                assertEquals("The divider uses the shared theme's visible line colour", expected,
-                    pixels.getPixel(pixels.width / 2, pixels.height / 2))
-                for (name in listOf("Posts", "Replies", "Likes", "Posts")) {
-                    val target = hasText(name) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
-                    ui.onNode(target).performScrollTo().assertIsDisplayed().performClick().assertIsSelected()
-                    val bounds = ui.onNode(target).getUnclippedBoundsInRoot()
-                    assertTrue("Profile history remains accessible", (bounds.bottom - bounds.top).value >= 48)
-                }
-                captureNativeScreen(File(folder, "$label-history-boundary.png"))
-                ui.onNode(hasText("Back") and hasClickAction()).performClick()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
-            }
-        }
-    }
+    private fun matrix(width: Int) = ProfileSectionMatrix(ui).exercise(width, own = false)
 
     @Test fun realFollowCountAndOwnUnsentEditorRetainTheirSeparatePublicState() {
         withAppFrameFixture("own-profile", "profile-redesign-evidence") {
@@ -108,6 +55,83 @@ class ProfileRedesignViewportTest {
             editor.assertTextContains("My separate unsent profile biography")
             captureNativeScreen(File(context.cacheDir, "profile-redesign-evidence/own-editor-restored.png"))
         }
+    }
+
+}
+
+internal class ProfileSectionMatrix(private val ui: androidx.compose.ui.test.junit4.ComposeTestRule) {
+    private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
+
+    fun exercise(width: Int, own: Boolean) {
+        val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
+        val rows = AtomicReference("[]")
+        val folder = File(context.cacheDir, "profile-redesign-evidence").apply { mkdirs() }
+        var revision = 0L
+        var previousBio = ""
+        val run = {
+            withAppFrameFixture("profile-$width", "profile-redesign-evidence", profileArchiveResponse = {
+                if (it.get("field2").asString == author.publicKey) rows.get() else "[]"
+            }) { activity ->
+                ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                ui.withPostViewports(activity, folder, "${if (own) "own" else "public"}-profile-section", widthDp = width) { label, theme ->
+                    val scale = context.resources.configuration.fontScale
+                    val bio = when {
+                        scale > 1.5f -> ("A longer public biography for $label. Writing and building in public.\n").repeat(3).trim()
+                        scale > 1.1f -> ""
+                        else -> "A short public biography for $label."
+                    }
+                    val color = when { bio.isEmpty() -> Color.BLUE; scale > 1.5f -> Color.GREEN; else -> Color.RED }
+                    rows.set(profile(author, bio, color, ++revision))
+                    ui.clickVisiblePostProfile("Anon-${author.publicKey.take(6)}")
+                    val list = ui.onNode(hasScrollToIndexAction())
+                    ui.waitUntil(15_000) { list.isDisplayed() }
+                    list.performScrollToIndex(0)
+                    val picture = ui.onNodeWithContentDescription("Profile picture")
+                    ui.waitUntil(15_000) { runCatching {
+                        val bitmap = picture.captureToImage().asAndroidBitmap()
+                        bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == color
+                    }.getOrDefault(false) }
+                    ui.onNode(hasText("Anon-${author.publicKey.take(6)}") and
+                        SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading)).assertExists()
+                    if (bio.isNotEmpty()) ui.onNodeWithText(bio).assertExists()
+                    else if (previousBio.isNotEmpty()) ui.onNodeWithText(previousBio).assertDoesNotExist()
+                    previousBio = bio
+                    if (own) ui.onNodeWithText("0 following").assertExists()
+                    captureNativeScreen(File(folder, "${if (own) "own" else "public"}-$label-identity.png"))
+                    if (own && scale > 1.5f) {
+                        ui.onNode(hasText("Edit profile") and hasClickAction()).performScrollTo().performClick()
+                        val editor = ui.onNode(hasSetTextAction() and isEnabled())
+                        ui.waitUntil(15_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        editor.performScrollTo().performClick().performTextReplacement("Unsent local profile edit for $label")
+                        ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
+                        captureNativeScreen(File(folder, "own-$label-editing-ime.png"))
+                        ui.onNode(hasText("Save draft") and hasClickAction() and isEnabled()).performClick()
+                        ui.waitUntil(15_000) { ui.onNode(hasText("Edit profile") and hasClickAction()).isDisplayed() }
+                        ui.onNodeWithText(bio).assertExists()
+                        ui.onNodeWithText("Unsent local profile edit for $label").assertDoesNotExist()
+                    }
+                    val boundary = hasTestTag("profile-history-divider")
+                    list.performScrollToNode(boundary)
+                    ui.onNode(boundary).performScrollTo().assertIsDisplayed()
+                    val pixels = ui.onNode(boundary).captureToImage().asAndroidBitmap()
+                    val expected = if (theme == "Dark") Color.rgb(43, 50, 60) else Color.rgb(221, 226, 236)
+                    assertEquals("The divider uses the shared theme's visible line colour", expected,
+                        pixels.getPixel(pixels.width / 2, pixels.height / 2))
+                    for (name in listOf("Posts", "Replies", "Likes", "Posts")) {
+                        val target = hasText(name) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
+                        list.performScrollToNode(target)
+                        ui.onNode(target).performScrollTo().assertIsDisplayed().performClick().assertIsSelected()
+                        val bounds = ui.onNode(target).getUnclippedBoundsInRoot()
+                        assertTrue("Profile history remains accessible", (bounds.bottom - bounds.top).value >= 48)
+                    }
+                    captureNativeScreen(File(folder, "${if (own) "own" else "public"}-$label-history-boundary.png"))
+                    ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                    ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                }
+            }
+        }
+        if (own) withProfileIdentityWallet(run) else run()
     }
 
     private fun profile(author: SaitoWallet, bio: String, color: Int, revision: Long): String {

@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -45,6 +46,8 @@ internal enum class ProfileTab(val label: Int) {
 internal class ProfileViewState {
     var tab by mutableStateOf(ProfileTab.POSTS)
     var editing by mutableStateOf(false)
+    val position = LazyListState()
+    val shownPosts = mutableStateMapOf<ProfileTab, List<FeedPost>>()
     var history = AndroidProfileCache.SavedProfile(emptyList(), emptyList(), false)
     var publisherReport by mutableStateOf<PublisherUserReport?>(null)
 }
@@ -63,7 +66,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     val detailsCache = remember(backend, author) { AndroidProfileDetailsCache(context, backend, author) }
     val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     val tab = view.tab
-    var posts by remember(author, tab) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    val posts = view.shownPosts[tab].orEmpty()
     var loading by remember(author, tab) { mutableStateOf(true) }
     var failed by remember(author, tab) { mutableStateOf(false) }
     var unreadable by remember(author, tab) { mutableStateOf(false) }
@@ -123,7 +126,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         val pageCursor = requestedBefore
         fun show(snapshot: AndroidProfileCache.SavedProfile) {
             val likedTargets = snapshot.likes.filter { it.author == author }.map { it.target }.toSet()
-            posts = snapshot.posts.filter { post -> when (tab) {
+            view.shownPosts[tab] = snapshot.posts.filter { post -> when (tab) {
                 ProfileTab.POSTS -> post.author == author && post.parentId.isEmpty()
                 ProfileTab.REPLIES -> post.author == author && post.parentId.isNotEmpty()
                 ProfileTab.LIKES -> post.id in likedTargets
@@ -227,7 +230,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             }
             FrameIconButton(R.drawable.ic_more, stringResource(R.string.profile_actions)) { actionsOpen = true }
         }
-        LazyColumn(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+        LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = view.position, verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             item(key = "profile-details") {
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty(), profile),

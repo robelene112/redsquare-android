@@ -4,6 +4,15 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
+      runner_os:
+        description: Standard x64 runner (alternate pool if the default is queued)
+        type: choice
+        options: [ubuntu-24.04, ubuntu-22.04]
+        default: ubuntu-24.04
+      source_ref:
+        description: Optional exact source commit for baseline verification
+        type: string
+        default: ''
       scope:
         description: Verification scope
         type: choice
@@ -42,7 +51,7 @@ jobs:
       fail-fast: false
       matrix:
         partition: ${{ fromJSON((inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
-    runs-on: ubuntu-24.04
+    runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
     timeout-minutes: ${{ inputs.scope == 'full' && 120 || startsWith(inputs.scope, 'full-') && 75 || 60 }}
     steps:
       - name: Validate optional 16 KB environment
@@ -56,12 +65,22 @@ jobs:
           esac
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.source_ref || github.sha }}
           persist-credentials: false
           # Retained native evidence is not a build or test input.
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /*
             !/docs/evidence/
+      - name: Record checked-out proof source
+        env:
+          PROOF_WORKFLOW_SHA: ${{ github.sha }}
+          PROOF_RUNNER: ${{ inputs.runner_os || 'ubuntu-24.04' }}
+        run: |
+          mkdir -p .scratch
+          git rev-parse HEAD | tee .scratch/proof-source.txt
+          printf '%s\n' "$PROOF_WORKFLOW_SHA" | tee .scratch/proof-workflow.txt
+          printf '%s\n' "$PROOF_RUNNER" | tee .scratch/proof-runner.txt
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: temurin
@@ -127,7 +146,11 @@ jobs:
           # This Kotlin/JVM proof does not use the runner's large native SDKs.
           sudo rm -rf /usr/local/lib/android/sdk/ndk
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends libpulse0 libgl1 libnss3 libasound2t64 libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 libglib2.0-0t64
+          TASK_ALSA=libasound2t64
+          TASK_GLIB=libglib2.0-0t64
+          if ! apt-cache show "$TASK_ALSA" >/dev/null 2>&1; then TASK_ALSA=libasound2; fi
+          if ! apt-cache show "$TASK_GLIB" >/dev/null 2>&1; then TASK_GLIB=libglib2.0-0; fi
+          sudo apt-get install -y --no-install-recommends libpulse0 libgl1 libnss3 "$TASK_ALSA" libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 "$TASK_GLIB"
           scripts/ci-android-setup
           java -version
           "$ANDROID_HOME/emulator/emulator" -version
@@ -198,6 +221,9 @@ jobs:
         with:
           name: android-native-proof${{ matrix.partition != 'all' && format('-{0}', matrix.partition) || '' }}
           path: |
+            .scratch/proof-source.txt
+            .scratch/proof-workflow.txt
+            .scratch/proof-runner.txt
             .scratch/device-evidence/
             core/build/reports/tests/
             app/build/reports/lint-results-debug.html
