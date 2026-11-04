@@ -28,12 +28,12 @@ class ConversationHeaderPreviewTest {
         val fault = File(context.noBackupFilesDir, "conversation.owner.${root.get("sig").asString}.v1")
         val obstacle = File(fault, "owned-cache-fault")
         withAppFrameFixture("combined-recovery", "conversation-header-evidence", "[$reply]",
-            configurePeer = { peer = it }, quoteArchiveResponse = { if (recovered.get()) "[$root]" else "[]" },
+            configurePeer = { peer = it },
             archiveResponse = { query ->
                 if (query.has("field5")) {
                     check(release.await(10, TimeUnit.SECONDS))
                     if (recovered.get()) "[$root,$reply,$nested]" else "[$reply,$nested,{}]"
-                } else "[$reply]"
+                } else if (query.has("sig")) { if (recovered.get()) "[$root]" else "[]" } else "[$reply]"
             }) { activity ->
             var primary: Throwable? = null
             try {
@@ -43,6 +43,7 @@ class ConversationHeaderPreviewTest {
                 check(fault.mkdir()); obstacle.writeText("public owned fixture")
                 ui.onNodeWithText("Independent Saito reply", useUnmergedTree = true).performTouchInput { click(center) }
                 ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+                captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/opening-thread.png"))
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
                 ui.onNode(hasText("Back") and hasClickAction()).assertIsDisplayed()
                 ui.onNode(hasText("Reply") and hasClickAction()).assertIsDisplayed()
@@ -89,7 +90,12 @@ class ConversationHeaderPreviewTest {
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/recovered-reply.png"))
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() }
-            } catch (failure: Throwable) { primary = failure; throw failure }
+            } catch (failure: Throwable) {
+                primary = failure
+                try { captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/before-cleanup-failure.png")) }
+                catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                throw failure
+            }
             finally {
                 release.countDown()
                 if (fault.isDirectory) cleanupAfterTest(primary, { activity.close() },

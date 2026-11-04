@@ -26,7 +26,12 @@ observed487pinkpx450msaftertap. Firstcandidate4d33 passed10 but failed17 with
 selector diagnostics and superseded runs remain explicitly separated in evidence.
 These controlled emulators establish no physical Pixel/provider/store acceptance.
 
-79 implementation has not yet started. Preserve every criterion in that native
+79 is ACTIVE, review base497edac120efdccd7ce334ade1aa1def14078f31.
+First test-only source58b709262, native baseline41926254848(10) running.
+New ConversationHeaderPreviewTest covers loading/parent/unreadable/cache fault,
+history Details, accessible Retry/outage recovery and real exact unsent reply.
+Working test-only corrections route exact parent sig requests honestly and preserve
+quoteoriginal cache; production still unchanged pending nativeRED. Preserve every criterion in that native
 GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
 history, drafts/targets/anchors. No original test assertion/deadline may be dropped
 for a new header or compact Details interaction. Final beta remains94.
