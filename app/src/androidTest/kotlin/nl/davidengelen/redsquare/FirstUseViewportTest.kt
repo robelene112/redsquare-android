@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare
 
+import android.view.inspector.WindowInspector
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -25,7 +28,7 @@ class FirstUseViewportTest {
         val densityFailures = mutableListOf<String>()
         withAppFrameFixture("first-use-$width", "first-use-evidence") { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
-            ui.withPostViewports(activity, folder, "first-use", widthDp = width) { name, _ ->
+            ui.withPostViewports(activity, folder, "first-use", widthDp = width) { name, theme ->
                 val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
                 val list = ui.onNodeWithTag("feed-post-list").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
                 val post = ui.onNodeWithTag("post-body-text", useUnmergedTree = true).assertIsDisplayed()
@@ -59,9 +62,41 @@ class FirstUseViewportTest {
                     addProperty("widthDp", context.resources.configuration.screenWidthDp)
                 }.toString())
                 captureNativeScreen(File(folder, "$name.png"))
+                if (context.resources.configuration.fontScale > 1.3f && theme == "Dark") {
+                    val draft = "Unsent large-text post for $width"
+                    val editor = hasSetTextAction() and isEnabled()
+                    ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
+                    ui.onNode(editor).performTextReplacement(draft)
+                    ui.onNode(editor).performClick()
+                    ui.waitUntil(10_000) { imeVisible() == true }
+                    ui.onNode(editor).assertTextContains(draft)
+                    captureNativeScreen(File(folder, "$name-writing-ime.png"))
+                    device.pressBack()
+                    ui.waitUntil(10_000) { imeVisible() == false }
+                    ui.onNode(hasText("Save draft") and hasClickAction()).performClick()
+                    ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                    ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+                    ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
+                    ui.onNode(editor).assertTextContains(draft)
+                    device.pressBack()
+                    ui.waitUntil(10_000) { imeVisible() == false }
+                    ui.onNode(hasText("Save draft") and hasClickAction()).performClick()
+                    ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                }
             }
             // Keep all before/after render cells even when the new density goal fails.
             assertTrue(densityFailures.joinToString("\n"), densityFailures.isEmpty())
         }
     }
+    private fun imeVisible(): Boolean? {
+        var visible: Boolean? = null
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val root = WindowInspector.getGlobalWindowViews().singleOrNull { it.isShown && it.hasWindowFocus() }
+            visible = root?.let { ViewCompat.getRootWindowInsets(it)?.isVisible(WindowInsetsCompat.Type.ime()) }
+        }
+        return visible
+    }
+
 }
