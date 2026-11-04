@@ -1,0 +1,57 @@
+{
+  "ticket": 89,
+  "reviewBase": "304e32a5697abc6c9a16e46d566a1bc700da0e7b",
+  "proofSource": "b08e753fcbf3b3a3d28a6002130aefd491b1d254",
+  "lastProductionChange": "5b0b24cd2e87679769cba5f1e5b50c48c7ea8841",
+  "before": {
+    "run": 41861779920,
+    "source": "5a7e534a17265d97efe3d4969390443ee2f3656b",
+    "result": "required failure: missing profile-history divider"
+  },
+  "focused": [
+    {
+      "android": 10,
+      "run": 41869235288,
+      "methods": 7,
+      "viewportCells": 24,
+      "result": "pass"
+    },
+    {
+      "android": 17,
+      "run": 41869242638,
+      "methods": 7,
+      "viewportCells": 24,
+      "result": "pass"
+    }
+  ],
+  "regression": {
+    "source": "0de31cb05",
+    "sameProductionSourceAsFocused": true,
+    "runs": [
+      41866593345,
+      41866599589
+    ],
+    "profileMethodsPerOS": 16,
+    "videoPreconditionMethodsPerOS": 4,
+    "actualProcessDeathsPerOS": 2,
+    "result": "pass"
+  },
+  "host": {
+    "coreTests": 117,
+    "gatewayTests": 16,
+    "failures": 0,
+    "ignored": 0,
+    "lintDebug": "pass; same final production source"
+  },
+  "reviews": {
+    "standards": 0,
+    "spec": 0
+  },
+  "renderedInspection": "both OS: identity/history contact sheets plus full-size editing and retained-anchor captures",
+  "limits": [
+    "controlled signed fixtures; no public writes",
+    "not physical Pixel performance",
+    "not store/provider acceptance",
+    "no intermediate beta publication"
+  ]
+}

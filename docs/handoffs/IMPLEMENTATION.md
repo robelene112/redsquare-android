@@ -2,14 +2,34 @@
 
 ## Active authorization: TWO tickets,89 then88
 
-Owner requested exactly TWO redesign/beta tickets sequentially.89 active;
-88 follows only after89 verification/review/completion commit. Stop after88.
-No intermediate beta;94 retains final integrated verification and publication.
-89 review base304e32a5697abc6c9a16e46d566a1bc700da0e7b. Both native blockers87
-are closed,82 avatars complete. Native UI/controlled signed-peer boundaries
-remain pre-agreed. New profile-boundary tracer starts RED before app changes.
+Owner requested exactly TWO redesign/beta tickets sequentially.89 is complete;
+88 is now authorized next. Stop after88. No intermediate beta;94 retains final
+integrated verification and publication. Preserve the canonical checkout and its
+unrelated group Chat contract.
 
-## Unified redesign86:82 complete, stop now
+89 review base304e32a5697abc6c9a16e46d566a1bc700da0e7b. Last app change5b0b24cd2;
+final focused proof sourceb08e753fc. Both focused runs PASS:41869235288(10),
+41869242638(17), each7methods/24actual own-public/theme/font/width cells.
+Original profile regressions also PASS41866593345/41866599589 at0de31cb05 with
+identical app source:16profile methods+4video preconditions+2real process deaths
+per OS. Host117core+16gateway/lint PASS. Both reviews have zero findings.
+Rendered identity/history matrices, real IME/draft and exact anchor captures
+were inspected on both OS. Full provenance and limits:docs/evidence/ticket89/.
+89 adds the bio/history divider, real own following count, outline edit action
+and retained profile list/posts across conversation/author editing. No fabricated
+global follower total or preview initials. Existing profile drafts/media/import/
+newer-update guards and personal controls remain. No local build remains active.
+
+The formerly referenced prototype worktree was removed externally during this
+session, along with its Gradle cache. Its committed reference remains available
+at prototype/native-shell-live-design (c95ecaa01), including design.json and
+shell-ui. Read it via git show rather than recreating that removed worktree.
+The active build cache symlink now points to the external sibling
+/mnt/storage/redsquare-android-artifacts/redesign-build-cache; one local writer.
+GitHub Actions had a partial outage/status lag. Optional22.04 runner selection
+and exact source_ref now retain explicit source/workflow/runner provenance.
+
+## Previous checkpoint:82 complete
 
 The owner requested ONE issue after78.82 (shared verified profile pictures) is
 complete, reviewed and verified. Stop here. Wait for another owner request before
