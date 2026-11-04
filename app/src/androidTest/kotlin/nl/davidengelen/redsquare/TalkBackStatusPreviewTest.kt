@@ -30,10 +30,10 @@ class TalkBackStatusPreviewTest {
                 // Observe its actual first header focus before making the single reader-focus action.
                 withFailureCapture({
                     File(folder, "startup-focus-failure.txt").writeText(
-                        "focusedText=${focusedText(automation)}\n" + automation.windows.joinToString("\n") {
+                        "focusedText=${focusedText(automation)} focusedDescription=${focusedDescription(automation)}\n" + automation.windows.joinToString("\n") {
                             "id=${it.id} active=${it.isActive} focused=${it.isFocused} title=${it.title}"
                         })
-                }) { waitFor(5_000) { focusedText(automation) == "Red Square" } }
+                }) { waitFor(5_000) { focusedDescription(automation) == "Switch app: Red Square" } }
                 File(folder, "startup-speech.txt").writeText(speechLog(device))
                 val post = node(automation, "Reference post 20")
                 assertTrue(post.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))

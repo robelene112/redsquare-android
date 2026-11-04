@@ -43,7 +43,8 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                         containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                     border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)) {
-                    Text(stringResource(module.title), Modifier.weight(1f, fill = false),
+                    // The selector already carries its full accessible name once.
+                    Text(stringResource(module.title), Modifier.weight(1f, fill = false).clearAndSetSemantics { },
                         style = if (LocalDensity.current.fontScale > 1.3f) MaterialTheme.typography.titleMedium
                             else MaterialTheme.typography.titleLarge)
                     Spacer(Modifier.width(8.dp))

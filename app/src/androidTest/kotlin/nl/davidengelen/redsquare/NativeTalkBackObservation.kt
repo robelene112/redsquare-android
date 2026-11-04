@@ -177,6 +177,12 @@ internal class NativeTalkBackObservation(private val folder: File) {
     fun focusedText(automation: UiAutomation): String? =
         appRoots(automation).firstNotNullOfOrNull { it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.text?.toString() }
 
+    /** A labelled icon/button exposes its actual accessible name as a description. */
+    fun focusedDescription(automation: UiAutomation): String? =
+        appRoots(automation).firstNotNullOfOrNull {
+            it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.contentDescription?.toString()
+        }
+
     fun waitFor(timeout: Long, condition: () -> Boolean) {
         val until = SystemClock.elapsedRealtime() + timeout
         while (!condition() && SystemClock.elapsedRealtime() < until) SystemClock.sleep(100)

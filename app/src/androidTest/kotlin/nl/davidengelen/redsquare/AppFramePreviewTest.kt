@@ -65,7 +65,10 @@ class AppFramePreviewTest {
         ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
         ui.waitUntil(15_000) { ui.onNode(hasText("Edit profile") and hasClickAction()).isDisplayed() }
         ui.onNode(hasText("Edit profile") and hasClickAction()).performScrollTo().performClick()
-        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+        val editorDeadline = android.os.SystemClock.elapsedRealtime() + 10_000
+        ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size == 1 }
+        ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assertIsEnabled()
+        check(android.os.SystemClock.elapsedRealtime() <= editorDeadline) { "Editor reachability must meet its original10s budget" }
         ui.onNode(hasSetTextAction()).performTextReplacement(draft)
         ui.onNode(hasSetTextAction()).performClick()
         ui.waitUntil(10_000) { imeVisible() == true }
