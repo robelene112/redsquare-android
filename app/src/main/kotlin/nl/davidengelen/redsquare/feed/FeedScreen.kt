@@ -343,7 +343,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         else -> PrimaryDestination.HOME
     }
     val currentWalletKey by rememberUpdatedState(wallet?.publicKey)
-    val header = rememberReadingHeaderState(home)
+    val header = rememberReadingHeaderState(home, position.isScrollInProgress)
     val readingAnchor = key(wallet?.publicKey, backend.id) {
         rememberReadingAnchorModifier(position, enabled = !header.inMotion, relativeToRoot = true)
     }

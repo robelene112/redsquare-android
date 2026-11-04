@@ -45,7 +45,8 @@ internal class ReadingHeaderState(
         private set
     private var generation = 0L
     private var revealing: Job? = null
-    val navigationHidden by derivedStateOf { enabled.value && behavior.state.collapsedFraction > 0f && !inMotion }
+    private var flinging = false
+    val navigationHidden by derivedStateOf { enabled.value && behavior.state.collapsedFraction > 0f }
 
     val connection = object : NestedScrollConnection {
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -61,13 +62,14 @@ internal class ReadingHeaderState(
         override suspend fun onPreFling(available: Velocity): Velocity {
             if (!enabled.value) return Velocity.Zero
             beginMotion()
+            flinging = true
             return behavior.nestedScrollConnection.onPreFling(available)
         }
         override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
             if (!enabled.value) return Velocity.Zero
             val token = beginMotion()
             return try { behavior.nestedScrollConnection.onPostFling(consumed, available) }
-            finally { finishMotion(token) }
+            finally { flinging = false; finishMotion(token) }
         }
     }
 
@@ -87,8 +89,15 @@ internal class ReadingHeaderState(
         }
     }
 
+    fun observeScrolling(scrolling: Boolean) {
+        // Accessibility scroll actions do not dispatch fling callbacks. Their
+        // actual list idle state must still restore ordinary outage compensation.
+        if (!scrolling && inMotion && !flinging) finishMotion(generation)
+    }
+
     fun stopMotionObservation() {
-        if (inMotion) {
+        flinging = false
+        if (inMotion || revealing?.isActive == true) {
             generation++
             revealing?.cancel()
             revealing = null
@@ -98,7 +107,13 @@ internal class ReadingHeaderState(
 
     fun showNavigation(immediate: Boolean = false) {
         if (!enabled.value || behavior.state.heightOffset >= 0f) return
-        val token = beginMotion()
+        revealing?.cancel()
+        revealing = null
+        generation++
+        val token = generation
+        // Revealing controls is not a reading gesture. Preserve the reader's
+        // current item as the chrome expands, including accessible/key navigation.
+        inMotion = false
         if (immediate) {
             // Hardware focus must be visible before the next key's normal traversal.
             behavior.state.heightOffset = 0f
@@ -127,13 +142,16 @@ internal class ReadingHeaderState(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun rememberReadingHeaderState(enabled: Boolean): ReadingHeaderState {
+internal fun rememberReadingHeaderState(enabled: Boolean, scrolling: Boolean): ReadingHeaderState {
     val currentEnabled = rememberUpdatedState(enabled)
     val canScroll = remember { { currentEnabled.value } }
     val behavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState(), canScroll = canScroll)
     val scope = rememberCoroutineScope()
     val state = remember(behavior, scope) { ReadingHeaderState(behavior, currentEnabled, scope) }
-    SideEffect { if (!enabled) state.stopMotionObservation() }
+    SideEffect {
+        if (!enabled) state.stopMotionObservation()
+        else state.observeScrolling(scrolling)
+    }
     return state
 }
 
@@ -155,7 +173,8 @@ internal fun ReadingHeader(state: ReadingHeaderState, content: @Composable () ->
 internal fun Modifier.readingNavigation(state: ReadingHeaderState): Modifier {
     val label = stringResource(R.string.show_app_navigation)
     val description = stringResource(R.string.app_navigation_controls)
-    val keyboard = onPreviewKeyEvent { event ->
+    val keyboard = onFocusChanged { if (it.hasFocus) state.showNavigation(immediate = true) }
+        .focusGroup().onPreviewKeyEvent { event ->
         if (event.type == KeyEventType.KeyDown && event.key in listOf(Key.Tab, Key.DirectionUp,
                 Key.DirectionDown, Key.DirectionLeft, Key.DirectionRight)) state.showNavigation(immediate = true)
         false // Keep normal keyboard traversal and activation owned by the actual focused control.

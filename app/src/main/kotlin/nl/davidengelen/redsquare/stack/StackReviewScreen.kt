@@ -41,7 +41,8 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
     var article by rememberSaveable { mutableStateOf(false) }
     val list = rememberLazyListState()
     val reading = rememberLazyListState()
-    val header = rememberReadingHeaderState(enabled = true)
+    val header = rememberReadingHeaderState(enabled = true, scrolling =
+        if (article) reading.isScrollInProgress else list.isScrollInProgress)
     val listAnchor = rememberReadingAnchorModifier(list, enabled = !header.inMotion, relativeToRoot = true)
     val articleAnchor = rememberReadingAnchorModifier(reading, enabled = !header.inMotion, relativeToRoot = true)
     BackHandler(article) { article = false }
