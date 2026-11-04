@@ -46,6 +46,14 @@ class ModuleHeaderMotionTest {
             while (!condition() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
             check(condition()) { message }
         }
+        fun focusedMenuText(): String? {
+            val focused = instrumentation.uiAutomation.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_INPUT)
+                ?: return null
+            if (!focused.isFocused || !focused.isClickable || !focused.isVisibleToUser) return null
+            fun text(node: android.view.accessibility.AccessibilityNodeInfo): String? = node.text?.toString()
+                ?: (0 until node.childCount).firstNotNullOfOrNull { index -> node.getChild(index)?.let(::text) }
+            return text(focused)
+        }
         fun swipe(up: Boolean) {
             val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
             check(list.height() >= 100)
@@ -100,6 +108,16 @@ class ModuleHeaderMotionTest {
                 movie("menu-keyboard") {
                     requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
                     check(device.wait(Until.hasObject(By.text("Stack")), 5_000))
+                    check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_TAB))
+                    await(5_000, "Tab must reach a real clickable menu row") {
+                        focusedMenuText() in setOf("Red Square", "Stack")
+                    }
+                    val first = requireNotNull(focusedMenuText())
+                    val next = if (first == "Red Square") "Stack" else "Red Square"
+                    check(if (first == "Red Square") device.pressDPadDown() else device.pressDPadUp())
+                    await(5_000, "Directional navigation moves focus without activating a module") { focusedMenuText() == next }
+                    assertFalse(device.hasObject(By.text("Stack design preview")))
+                    File(folder, "scale-$scale-menu-focus.txt").writeText("$first -> $next\n")
                     check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
                     check(device.wait(Until.gone(By.text("Stack")), 5_000))
                     requireNotNull(device.findObject(By.desc("Account"))).click()

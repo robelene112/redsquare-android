@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.FrameLayout
+import androidx.core.view.doOnLayout
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -115,6 +116,9 @@ private fun LegacyAppMenu(expanded: Boolean, onDismissRequest: () -> Unit, conte
             exitTransition = Fade().apply { duration = AppSpacing.transitionMillis.toLong() }
             setOnDismissListener { currentDismiss() }
         }
+        // The platform decor otherwise keeps keyboard focus itself. Put it in
+        // the Compose subtree so the native host and real menu rows receive keys.
+        panel.doOnLayout { it.requestFocus() }
         try {
             host.measure(View.MeasureSpec.makeMeasureSpec(availableWidth, View.MeasureSpec.AT_MOST),
                 View.MeasureSpec.makeMeasureSpec(availableHeight, View.MeasureSpec.AT_MOST))
