@@ -455,6 +455,13 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
         exit 0
     fi
 fi
+if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == feed-redesign* ]]; then
+    verify_group_chat_native FeedLinkPreviewTest 180 feed-links feed-redesign-evidence
+    if [[ "${TEST_SCOPE:-full}" == feed-redesign* ]]; then
+        printf '%s\n' 'Native feed/writing redesign only; not full app acceptance.' > "$evidence/scope.txt"
+        exit 0
+    fi
+fi
 if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == profile-redesign* ]]; then
     profile_redesign_failed=0
     verify_group_chat_native ProfileRedesignPreviewTest 180 profile-redesign profile-redesign-evidence || profile_redesign_failed=1

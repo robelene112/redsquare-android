@@ -3,7 +3,7 @@
 ## Active authorization: TWO tickets,89 then88
 
 Owner requested exactly TWO redesign/beta tickets sequentially.89 is complete;
-88 is now authorized next. Stop after88. No intermediate beta;94 retains final
+88 is active. Review base7264de4ecf52388588bd6d49f72f33b518c4108b. Stop after88. No intermediate beta;94 retains final
 integrated verification and publication. Preserve the canonical checkout and its
 unrelated group Chat contract.
 
