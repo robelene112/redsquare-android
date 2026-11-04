@@ -11,6 +11,10 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
+The latest owner request authorizes exactly TWO more redesign tickets:91 then79.
+Complete sequentially with checks/review/commits, then stop. No intermediate beta.
+
+
 On2026-11-04 the owner limited execution to one issue at a time to manage usage.
 On2026-11-04 the owner authorized TWO more redesign tickets in sequence:
 89 then88. Both are complete with their own verification, review, evidence and
