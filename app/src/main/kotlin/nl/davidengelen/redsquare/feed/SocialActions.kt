@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import android.os.SystemClock
 import androidx.compose.foundation.layout.*
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
@@ -12,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.MotionDurationScale
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withTimeoutOrNull
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -74,6 +76,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val status = state?.actions?.get(PostActionKey(post.id, kind))
     // Input feedback belongs to this mounted control, not to reloadable network status.
     var feedback by remember(state, post.id, kind) { mutableLongStateOf(0L) }
+    var feedbackStartedAt by remember(state, post.id, kind) { mutableLongStateOf(0L) }
     val heartScale = remember(state, post.id, kind) { Animatable(1f) }
     var heartFilled by remember(state, post.id, kind) { mutableStateOf(false) }
     LaunchedEffect(feedback) {
@@ -85,8 +88,13 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
                     // A brief static acknowledgement remains visible with motion disabled.
                     delay(120)
                 } else {
-                    heartScale.animateTo(1.16f, animationSpec = tween(55))
-                    heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.72f, stiffness = 2200f))
+                    // A dropped/late frame must not turn a short input acknowledgement into a long toggle.
+                    val remaining = (240 - (SystemClock.uptimeMillis() - feedbackStartedAt)).coerceAtLeast(1)
+                    withTimeoutOrNull(remaining) {
+                        heartScale.animateTo(1.16f, animationSpec = tween(55))
+                        heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.72f, stiffness = 2200f))
+                    }
+                    heartScale.snapTo(1f)
                 }
             } finally { heartFilled = false }
         }
@@ -118,7 +126,10 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
         stateHint = if (like) null else status?.let { if (it.available) label else null },
         iconScale = heartScale.value,
         feedbackActive = like && heartFilled, suppressRipple = like) {
-        if (kind == RedSquareActionKind.LIKE) feedback++
+        if (kind == RedSquareActionKind.LIKE) {
+            feedbackStartedAt = SystemClock.uptimeMillis()
+            feedback++
+        }
         state?.send(post, kind, publishing::beforePublishing)
     }
 }
