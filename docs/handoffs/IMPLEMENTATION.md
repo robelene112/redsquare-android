@@ -1,87 +1,67 @@
 # Implementation handoff
 
-## Active authorization: TWO tickets,91 then79
+## Completed authorization: TWO tickets, #91 then #79
 
-91 is COMPLETE;79 is next and authorized. Finish79, then stop. No intermediate
-beta:94 retains integrated whole-app/update/publication gates. Preserve canonical
-checkout and unrelated Chat work. Active worktree redesign86, branch
-codex/unified-redesign. Sparse evidence needs `git add --sparse`.
+Both authorized tickets are COMPLETE, verified, reviewed and committed. Stop
+until the next owner request; later requests default to one ticket. #80 is the
+next planned redesign ticket and remains unclaimed. No intermediate beta was
+published. #94 retains consistent-source whole-app, signed in-place update and
+integrated publication gates. #55/#84/#86/#1/#36 retain independent acceptance.
 
-91 review base63a5bd8cf5e2958cdcd1f6c0a216f9491bc359fa. Final production/tested
-source901f06b284b1228e7ea10a1415f5e96df1480b38. Both final proofs PASS:
-41924114853(10)/41924128922(17), each6methods,36new physical/signed Likes,
-feed/thread/profile and real system/window motion1/0. Actual original frames and
-movies plus all12derived strips inspected; small interruptible pulses at normal
-motion, static pink atzero and outline return throughout. Stable counter type,
-48dp enabled targets. Source, failures, corrections, proof and limits recorded
-in `docs/evidence/ticket91/README.md` and native-results.json. Both source reviews
-and independent final visual review have zero remaining findings. Host core117+
-gateway16 checks and final one-worker lint PASS. No local build remains active.
+Active worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Preserve the canonical checkout and unrelated Chat work.
+Sparse evidence needs `git add --sparse`. No build or CI run remains active for
+this batch. Build/reference context below remains applicable.
 
-91 moves feedback to local mounted input, removes volatile status feedback fields,
-and caps normalfeedback240msfrominputtime; zero static120ms. Sign/send/count/
-reconcile/diagnostic behavior is unchanged. First realRED41921370782at47295f1
-observed487pinkpx450msaftertap. Firstcandidate4d33 passed10 but failed17 with
-164pinkpxat450ms;901fixes that without weaker assertions/deadlines. Earlier
-selector diagnostics and superseded runs remain explicitly separated in evidence.
-These controlled emulators establish no physical Pixel/provider/store acceptance.
+### #79 complete
 
-79 is ACTIVE, review base497edac120efdccd7ce334ade1aa1def14078f31.
-Firsttest-onlysource58b709262/baseline41926254848usedareplyasfeedrow, but
-Feedintentionallyfiltersreplies. Supersededbynativetracer20a5f3910 witha
-standaloneheadercheckthenactualSearch->replyroute;baseline41927315549(10).
-New ConversationHeaderPreviewTest covers loading/parent/unreadable/cache fault,
-history Details, accessible Retry/outage recovery and real exact unsent reply.
-Actual RED41927315549at20a5f3910 finds the permanent history paragraph above
-an authentic standalone Conversation. Production now implements compact vector
-Back/Reply/information header, one shared status with complete Details and Retry,
-and proper pull guidance. Private/group Back callbacks retain their guards and
-use the shared vector control. Public body14sp, authentic data, drafts and list
-state remain unchanged. Local compile runs in /tmp/redesign79-green-compile.log.
-First green41928544398at8fac failed only a new test's guessed Details label;
-the component uses existing status_details_for resource (Details: ...), now used
-by tests. Review found premature parent-absence explanation during loading; fixed
-with !loading and a gated negative assertion. New independent180s320/412 matrix
-classes cover both themes,100/130/200%, short/long threads,14sp complete body,
-exact unsent reply/reading return and cached outage+Retry at each cell. A native
-no-Compose-clock motion class retains real dialog/loading/success frames at1/0.
-The existing Gboard education helper is now shared by test receivers, unchanged.
-All new/original focused classes aggregate outcomes. Candidate source c544c00c49e28ad2a7b86aafb77c8f13f7099080.
-Native runs41930313490(10)/41930327089(17) are in progress, each aiming for16
-methods including original Browse/Typography/feed/private/group reading. Final
-local lint at this source PASS in /tmp/redesign79-final-lint.log (4m50s).
-Both source reviews throughc544 have zero remaining findings. Candidate c544 runs41930313490/41930327089 failed overall. Recovery, typography,
-feed return and both Chat reading/Back journeys pass on both. New matrices stopped
-on a fixture measuring40dp visual bounds rather than native48dp action targets;
-retained XML shows actual48dp on both widths. Now measure actual native targets,
-retain their geometry and require disjoint48dp controls, following existing Nav.
-Browse failed waiting for an offscreen liked reply before scrolling; now reach
-the authentic row through the existing helper within the same original15s budget.
-10motion passed;17 combined5s movie ended while loading, before success, although
-its real success reference proves the UI completed. Now split history and refresh
-into separate bounded5s movies; retain data before asserting and stable reference
-pixels after the existing180ms status entry. No production changes afterc544.
-Final fresh native10/17, rendered inspection, evidence, final commit and79closure
-remain pending.
-Both final native runs6795 PASS all16:41932608760(10)/41932621954(17).
-Both12-cell matrices, normal/zero history+refresh movies and all original classes
-pass. Final lint /tmp/redesign79-reviewed-lint.log PASS3m. Source reviews clean.
-Raw/rendered folders /mnt/storage/redsquare-android-artifacts/redesign79-reviewed10-
-41932608760 and reviewed17-41932621954. /tmp/redesign79-sheets.py makes contacts.
-VISUAL CHECK STILL OPEN:17's light320/200 reply-ime PNG paints the first lines,
-but not the expected final exact unsent text beside the lower caret. Dark and10
-captures visibly have it. Source PublishingEditor unchanged by79. No production
-bug diagnosis established. /tmp/redesign79-check-ending.py replays native glyph
-comparison: bad17light0.307 below0.85, good10light0.960. Current test-only diagnostic
-adds no-input snapshots after250/500ms pauses with actual elapsed/bounds/IME data
-for that light cell, and thread-narrow scope reuses the original6-cell class,
-unchanged180s/assertion goals. Need run17, inspect originals and compare end glyphs;
-then resolve transient-vs-persistent rendering before visual acceptance/closure.
-All ordinary proof is otherwise complete. No app source changes afterc544.
-Stop after79. No beta publication before94. Preserve every criterion in that native
-GitHub ticket, assess private/group Back controls, keep public14spbody, authentic
-history, drafts/targets/anchors. No original test assertion/deadline may be dropped
-for a new header or compact Details interaction. Final beta remains94.
+Review base `497edac120efdccd7ce334ade1aa1def14078f31`. Last production source
+`c544c00c49e28ad2a7b86aafb77c8f13f7099080`. Final broad native source
+`6795c2562cdeac591ac7aa675269686ee092fede`: Android 10 run 41932608760 and
+Android 17 run 41932621954 PASS all 16 affected methods per OS. Original Browse,
+typography, feed reading and private/group reading/Back remain required. Each OS
+has 12 viewport cells, real IME, exact drafts/anchors, outage/Retry and four
+original normal/zero-motion movies. Source Standards/Spec and independent native
+visual review have zero remaining findings; 117 core + 16 gateway checks and
+single-worker lint PASS. Evidence: `docs/evidence/ticket79/README.md` and
+`native-results.json`, including failures and explicit source mapping.
+
+Public Conversation has a compact aligned vector Back/Reply/information header,
+one shared status surface, complete Details, accessible Retry and physical pull
+guidance. A pending parent request does not claim absence. Public 14sp body,
+authentic history, reply target, drafts, cache and reading position remain.
+Private/group Back uses the shared vector control with unchanged callbacks and
+guards; message typography/protocols remain unchanged.
+
+One original Android 17 light 320dp/200% editor capture did not paint its final
+words. It is retained and excluded from settled ending proof. Supplementary run
+41935415552 at `15885c2a3162244e6dcc4e155d6264a4b6c5c43d` PASSes the same
+six narrow cells. The initial and two later no-input originals show the complete
+ending/caret; actual samples 278/828ms retain identical bounds and IME height.
+Production code is identical to the broad native runs. No sustained defect or
+cause was proven and no product fix is claimed. Final lint/reviews cover this
+observer delta. See the evidence for the original and later captures.
+
+### #91 complete
+
+Completion commit `497edac120efdccd7ce334ade1aa1def14078f31`; closed issue:
+https://github.com/robelene112/redsquare-android/issues/91#issuecomment-6643799125
+Review base `63a5bd8cf5e2958cdcd1f6c0a216f9491bc359fa`. Final tested app source
+`901f06b284b1228e7ea10a1415f5e96df1480b38`. PASS runs 41924114853 (10) and
+41924128922 (17), six methods and 36 new physical/signed Likes per OS across
+feed/thread/profile at actual motion 1/0. Final source and independent visual
+reviews have zero findings; 117 core + 16 gateway checks and lint PASS. Evidence:
+`docs/evidence/ticket91/README.md` and `native-results.json`.
+
+Feedback lives at mounted input, with small interruptible pulses, a normal-motion
+240ms bound from input and static pink acknowledgement at zero motion. Each returns
+to outline; counts remain visually stable. Signed sending/count/reconciliation
+behavior is unchanged. Earlier actual RED and superseded runs remain in evidence.
+
+All evidence uses guarded disposable dev emulators and controlled signed peers;
+it establishes no physical Pixel, live-provider or store acceptance. No public
+writes, production node changes or wallet changes were made. The published beta
+remains unchanged at https://davidengelen.nl/redsquare/ until #94.
 
 ## Completed authorization: TWO tickets,89 then88
 

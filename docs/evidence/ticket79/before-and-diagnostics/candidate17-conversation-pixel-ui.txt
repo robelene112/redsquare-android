@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest:
+INSTRUMENTATION_STATUS: test=pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Back keeps its48dp target
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$19$lambda$18(ConversationHeaderViewportTest.kt:58)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$jcgI5v41MpFaxEjwCHZE--4Odc8(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$19(ConversationHeaderViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$AAmb5VM3AnANSfvd_BIrq9zBIIM(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise(ConversationHeaderViewportTest.kt:43)
+	at nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest.pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard(ConversationHeaderViewportTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard(nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest):
+java.lang.AssertionError: Back keeps its48dp target
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$19$lambda$18(ConversationHeaderViewportTest.kt:58)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$jcgI5v41MpFaxEjwCHZE--4Odc8(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$19(ConversationHeaderViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$AAmb5VM3AnANSfvd_BIrq9zBIIM(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise(ConversationHeaderViewportTest.kt:43)
+	at nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest.pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard(ConversationHeaderViewportTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.066
+There was 1 failure:
+1) pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard(nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest)
+java.lang.AssertionError: Back keeps its48dp target
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$19$lambda$18(ConversationHeaderViewportTest.kt:58)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$jcgI5v41MpFaxEjwCHZE--4Odc8(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$19(ConversationHeaderViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$AAmb5VM3AnANSfvd_BIrq9zBIIM(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise(ConversationHeaderViewportTest.kt:43)
+	at nl.davidengelen.redsquare.ConversationHeaderPixelViewportTest.pixelSizedThreadsKeepHeaderReadingAndRealReplyKeyboard(ConversationHeaderViewportTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

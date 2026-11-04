@@ -11,8 +11,8 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The latest owner request authorizes exactly TWO more redesign tickets:91 then79.
-91 is complete. Finish79 with verification, review, evidence and commit, then stop.
+The latest owner request authorized exactly TWO redesign tickets: #91 then #79.
+Both are complete, verified, reviewed and committed. Stop until the next request.
 Later requests default to one ticket unless the owner specifies a sequence.
 The earlier unattended16-ticket authorization remains superseded. Previous
 bounded batches, including89/88, are complete.
@@ -171,6 +171,19 @@ complete first-release scope and the established production boundaries.
    Count digit growth may widen a target, but row top/height and48dp access remain.
    Inspect tap-timed native size changes at normal motion and static feedback at0;
    endpoint or final-frame assertions alone do not prove animation quality.
+   `thread-redesign` / its Android17 variant retain all 16 affected methods,
+   including original Browse, typography, feed reading and private/group Back.
+   The new recovery, narrow/pixel viewport and motion classes each retain their
+   180-second bound and additive full Social inclusion. Matrices cover 12 cells
+   per OS at 320/412dp, both themes and 100/130/200% text, real IME, exact unsent
+   drafts, reading anchors, outage and Retry. Measure native 48dp click targets,
+   separately from their inner 40dp paint. Use the existing localized Details
+   label and preserve original Browse deadlines while revealing lazy rows.
+   Record history and refresh in separate bounded native phase movies at real
+   motion scales 1/0. `thread-narrow` / its Android17 variant isolate the same
+   six-cell narrow class with unchanged assertions and 180-second bound. Extra
+   no-input display observations retain the original capture and actual geometry;
+   successful later frames alone establish no earlier defect or its cause.
    `feed-redesign` / its Android17 variant exercise88's actual signed link
    targets, node hints and raster previews; delayed physical refresh and outage
    recovery; exact feed anchors; and real post/reply/quote drafts and IME at

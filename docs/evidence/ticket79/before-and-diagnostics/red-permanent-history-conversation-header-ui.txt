@@ -1,0 +1,86 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationHeaderPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationHeaderPreviewTest:
+INSTRUMENTATION_STATUS: test=compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationHeaderPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Only available history is shown. Older replies may be missing.' (ignoreCase: false))
+Node found:
+Node #325 at (l=18.0, t=232.0, r=302.0, b=264.0)px
+Text = '[Only available history is shown. Older replies may be missing.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 8 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork$lambda$23(ConversationHeaderPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.$r8$lambda$-veUeoyY_I3CWuWxlIypLpt7qKc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork(ConversationHeaderPreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: stream=
+Error in compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork(nl.davidengelen.redsquare.ConversationHeaderPreviewTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Only available history is shown. Older replies may be missing.' (ignoreCase: false))
+Node found:
+Node #325 at (l=18.0, t=232.0, r=302.0, b=264.0)px
+Text = '[Only available history is shown. Older replies may be missing.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 8 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork$lambda$23(ConversationHeaderPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.$r8$lambda$-veUeoyY_I3CWuWxlIypLpt7qKc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork(ConversationHeaderPreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: test=compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.489
+There was 1 failure:
+1) compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork(nl.davidengelen.redsquare.ConversationHeaderPreviewTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Only available history is shown. Older replies may be missing.' (ignoreCase: false))
+Node found:
+Node #325 at (l=18.0, t=232.0, r=302.0, b=264.0)px
+Text = '[Only available history is shown. Older replies may be missing.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 8 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork$lambda$23(ConversationHeaderPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.$r8$lambda$-veUeoyY_I3CWuWxlIypLpt7qKc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderPreviewTest.compactHistoryAndCombinedRecoveryKeepAuthenticRepliesAndUnsentWork(ConversationHeaderPreviewTest.kt:34)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

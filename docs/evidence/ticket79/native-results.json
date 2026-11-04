@@ -1,0 +1,196 @@
+{
+  "ticket": 79,
+  "reviewBase": "497edac120efdccd7ce334ade1aa1def14078f31",
+  "lastProductionSource": "c544c00c49e28ad2a7b86aafb77c8f13f7099080",
+  "nativeSource": "6795c2562cdeac591ac7aa675269686ee092fede",
+  "platforms": {
+    "10": {
+      "run": 41932608760,
+      "conclusion": "success",
+      "methods": {
+        "private-conversation-reading-ui": 1,
+        "browse-ui": 8,
+        "conversation-narrow-ui": 1,
+        "group-conversation-reading-ui": 1,
+        "conversation-pixel-ui": 1,
+        "conversation-header-ui": 1,
+        "conversation-typography-ui": 1,
+        "conversation-motion-ui": 1,
+        "feed-reading-ui": 1
+      },
+      "methodTotal": 16,
+      "viewportCells": 12,
+      "nativeMovies": [
+        {
+          "case": "scale-0-refresh",
+          "frameCount": 41,
+          "observations": {
+            "loading": {
+              "bounds": "[48,196][290,210]",
+              "matchingOriginalFrames": 2
+            },
+            "success": {
+              "bounds": "[42,196][290,210]",
+              "matchingOriginalFrames": 4
+            }
+          }
+        },
+        {
+          "case": "scale-1-history",
+          "frameCount": 29,
+          "observations": {
+            "dialog": {
+              "bounds": "[24,233][188,261]",
+              "matchingOriginalFrames": 6
+            }
+          }
+        },
+        {
+          "case": "scale-0-history",
+          "frameCount": 12,
+          "observations": {
+            "dialog": {
+              "bounds": "[24,233][188,261]",
+              "matchingOriginalFrames": 3
+            }
+          }
+        },
+        {
+          "case": "scale-1-refresh",
+          "frameCount": 97,
+          "observations": {
+            "loading": {
+              "bounds": "[48,196][290,210]",
+              "matchingOriginalFrames": 31
+            },
+            "success": {
+              "bounds": "[42,196][290,210]",
+              "matchingOriginalFrames": 19
+            }
+          }
+        }
+      ],
+      "realImeCells": 12,
+      "publicBodySp": 14,
+      "maximumAllowedAnchorDriftPixels": 1
+    },
+    "17": {
+      "run": 41932621954,
+      "conclusion": "success",
+      "methods": {
+        "private-conversation-reading-ui": 1,
+        "browse-ui": 8,
+        "conversation-narrow-ui": 1,
+        "group-conversation-reading-ui": 1,
+        "conversation-pixel-ui": 1,
+        "conversation-header-ui": 1,
+        "conversation-typography-ui": 1,
+        "conversation-motion-ui": 1,
+        "feed-reading-ui": 1
+      },
+      "methodTotal": 16,
+      "viewportCells": 12,
+      "nativeMovies": [
+        {
+          "case": "scale-0-refresh",
+          "frameCount": 41,
+          "observations": {
+            "loading": {
+              "bounds": "[48,196][290,210]",
+              "matchingOriginalFrames": 2
+            },
+            "success": {
+              "bounds": "[42,196][290,210]",
+              "matchingOriginalFrames": 4
+            }
+          }
+        },
+        {
+          "case": "scale-1-history",
+          "frameCount": 58,
+          "observations": {
+            "dialog": {
+              "bounds": "[24,233][188,261]",
+              "matchingOriginalFrames": 28
+            }
+          }
+        },
+        {
+          "case": "scale-0-history",
+          "frameCount": 17,
+          "observations": {
+            "dialog": {
+              "bounds": "[24,233][188,261]",
+              "matchingOriginalFrames": 8
+            }
+          }
+        },
+        {
+          "case": "scale-1-refresh",
+          "frameCount": 85,
+          "observations": {
+            "loading": {
+              "bounds": "[48,196][290,210]",
+              "matchingOriginalFrames": 31
+            },
+            "success": {
+              "bounds": "[42,196][290,210]",
+              "matchingOriginalFrames": 13
+            }
+          }
+        }
+      ],
+      "realImeCells": 12,
+      "publicBodySp": 14,
+      "maximumAllowedAnchorDriftPixels": 1
+    }
+  },
+  "settledImeSupplement": {
+    "run": 41935415552,
+    "conclusion": "success",
+    "source": "15885c2a3162244e6dcc4e155d6264a4b6c5c43d",
+    "sameProductionAsNativeRuns": true,
+    "methods": 1,
+    "narrowViewportCells": 6,
+    "lastTypedLineVisiblyPresent": true,
+    "noInputObservations": [
+      {
+        "elapsedMillis": 278,
+        "editorBounds": "Rect.fromLTRB(18.0, 184.0, 302.0, 348.0)",
+        "imeBottomPixels": 235
+      },
+      {
+        "elapsedMillis": 828,
+        "editorBounds": "Rect.fromLTRB(18.0, 184.0, 302.0, 348.0)",
+        "imeBottomPixels": 235
+      }
+    ],
+    "nativeEndingGlyphComparison": {
+      "originalUnexpectedCapture": 0.307,
+      "knownGoodAndroid10Control": 0.96,
+      "settledAndroid17Observations": [
+        0.961,
+        0.961
+      ],
+      "threshold": 0.85
+    },
+    "interpretation": "Settled native rendering confirmed; earlier unexpected capture retained. No proven product defect or cause and no production fix claimed."
+  },
+  "reviews": {
+    "standardsSourceFindingsRemaining": 0,
+    "specSourceFindingsRemaining": 0,
+    "visualState": "complete; Spec reviewer and implementer inspected actual native evidence, zero remaining findings"
+  },
+  "limits": [
+    "guarded dev emulators and controlled signed peers",
+    "not physical Pixel performance or live provider/store acceptance",
+    "not final whole-app or signed update acceptance",
+    "no intermediate beta publication"
+  ],
+  "hostChecks": {
+    "core": 117,
+    "gateway": 16,
+    "failures": 0,
+    "lint": "PASS at15885c2a3162244e6dcc4e155d6264a4b6c5c43d, single worker, unchanged heap/container limits"
+  }
+}
