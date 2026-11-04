@@ -56,42 +56,42 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
             }
         }
         SingleOwnerReveal(destination to article, Modifier.weight(1f)) {
-        Column(Modifier.fillMaxSize()) {
-        if (article) {
-            Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { article = false }
-                Text(stringResource(R.string.stack_article_preview), style = MaterialTheme.typography.titleLarge)
-            }
-            LazyColumn(Modifier.weight(1f).fillMaxWidth().then(articleAnchor), state = reading,
-                contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                item { Text(stringResource(R.string.stack_sample_title), style = MaterialTheme.typography.headlineMedium) }
-                item { NetworkIllustration() }
-                item { Text(stringResource(R.string.stack_sample_article), style = MaterialTheme.typography.bodyLarge) }
-            }
-        } else {
-            LazyColumn(Modifier.weight(1f).fillMaxWidth().then(listAnchor), state = list,
-                contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                item { Text(stringResource(destination.label), style = MaterialTheme.typography.headlineMedium) }
-                item { Text(stringResource(when (destination) {
-                    StackDestination.DISCOVER -> R.string.stack_discover_intro
-                    StackDestination.FOLLOWING -> R.string.stack_following_intro
-                    StackDestination.ARTICLES -> R.string.stack_articles_intro
-                }), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                item {
-                    Card(onClick = { article = true }, shape = RoundedCornerShape(18.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
-                        NetworkIllustration()
-                        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(stringResource(R.string.stack_sample_title), style = MaterialTheme.typography.titleLarge)
-                            Text(stringResource(R.string.stack_sample_summary), style = MaterialTheme.typography.bodyMedium)
-                            Text(stringResource(R.string.stack_sample_metadata), style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Column(Modifier.fillMaxSize()) {
+                if (article) {
+                    Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                        FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { article = false }
+                        Text(stringResource(R.string.stack_article_preview), style = MaterialTheme.typography.titleLarge)
+                    }
+                    LazyColumn(Modifier.weight(1f).fillMaxWidth().then(articleAnchor), state = reading,
+                        contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                        item { Text(stringResource(R.string.stack_sample_title), style = MaterialTheme.typography.headlineMedium) }
+                        item { NetworkIllustration() }
+                        item { Text(stringResource(R.string.stack_sample_article), style = MaterialTheme.typography.bodyLarge) }
+                    }
+                } else {
+                    LazyColumn(Modifier.weight(1f).fillMaxWidth().then(listAnchor), state = list,
+                        contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                        item { Text(stringResource(destination.label), style = MaterialTheme.typography.headlineMedium) }
+                        item { Text(stringResource(when (destination) {
+                            StackDestination.DISCOVER -> R.string.stack_discover_intro
+                            StackDestination.FOLLOWING -> R.string.stack_following_intro
+                            StackDestination.ARTICLES -> R.string.stack_articles_intro
+                        }), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                        item {
+                            Card(onClick = { article = true }, shape = RoundedCornerShape(18.dp),
+                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
+                                NetworkIllustration()
+                                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Text(stringResource(R.string.stack_sample_title), style = MaterialTheme.typography.titleLarge)
+                                    Text(stringResource(R.string.stack_sample_summary), style = MaterialTheme.typography.bodyMedium)
+                                    Text(stringResource(R.string.stack_sample_metadata), style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                }
+                            }
                         }
                     }
                 }
             }
-        }
-        }
         }
         HorizontalDivider()
         ModuleNavigation(StackDestination.entries, destination, enabled = true) { destination = it; article = false }

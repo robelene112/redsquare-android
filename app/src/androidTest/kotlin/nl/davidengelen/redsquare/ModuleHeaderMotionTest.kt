@@ -72,6 +72,19 @@ class ModuleHeaderMotionTest {
                     requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
                 assertTrue(device.findObjects(By.textContains("Reference post ")).any { !it.visibleBounds.isEmpty })
                 captureNativeScreen(File(folder, "scale-$scale-collapsed.png"))
+                movie("keyboard") {
+                    check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_TAB))
+                    await(5_000, "Keyboard navigation must reveal the collapsed shared controls") { accountVisible() }
+                    val focused = requireNotNull(device.findObject(By.focused(true)))
+                    assertFalse("Keyboard focus must be visible", focused.visibleBounds.isEmpty)
+                }
+                swipe(up = true)
+                await(5_000, "Touch reading can collapse chrome again after keyboard navigation") { !accountVisible() }
+                check(device.pressDPadUp())
+                await(5_000, "D-pad navigation must reveal the collapsed shared controls") { accountVisible() }
+                captureNativeScreen(File(folder, "scale-$scale-keyboard-revealed.png"))
+                swipe(up = true)
+                await(5_000, "Reading can collapse chrome before the upward gesture") { !accountVisible() }
                 movie("reveal") {
                     swipe(up = false)
                     await(5_000, "Reading up must reveal the actual app header") { accountVisible() }

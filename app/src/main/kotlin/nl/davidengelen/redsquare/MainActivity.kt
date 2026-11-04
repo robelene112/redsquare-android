@@ -406,41 +406,41 @@ class MainActivity : ComponentActivity() {
                                 key(selected) {
                                     val moduleStates = rememberSaveableStateHolder()
                                     SingleOwnerReveal(module, Modifier.weight(1f)) {
-                                    moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
-                                    if (module == AppModule.STACK) {
-                                        StackReviewScreen(Modifier.fillMaxSize(), chrome)
-                                    } else {
-                                    val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
-                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation,
-                                        LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
-                                    RegisteredIdentityScope(wallet, feedEndpoint, selected) {
-                                        FeedScreen(wallet, failed, feedEndpoint, selected,
-                                            lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
-                                            allowPushRoute = featureUnobstructed,
-                                            chrome = chrome,
-                                            canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
-                                            onWalletMetadata = { previous, updated ->
-                                                check(wallet === previous && updated.publicKey == previous.publicKey)
-                                                withContext(NonCancellable) {
-                                                    val result = withContext(Dispatchers.IO) {
-                                                        val store = AndroidWalletStore(applicationContext)
-                                                        try { store.replace(previous, updated) to true }
-                                                        catch (_: Exception) {
-                                                            val restored = try { store.loadExisting() } catch (_: Exception) { null }
-                                                            restored to false
-                                                        }
+                                        moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
+                                            if (module == AppModule.STACK) {
+                                                StackReviewScreen(Modifier.fillMaxSize(), chrome)
+                                            } else {
+                                                val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                CompositionLocalProvider(LocalPostNavigation provides postNavigation,
+                                                    LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
+                                                    RegisteredIdentityScope(wallet, feedEndpoint, selected) {
+                                                        FeedScreen(wallet, failed, feedEndpoint, selected,
+                                                            lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
+                                                            allowPushRoute = featureUnobstructed,
+                                                            chrome = chrome,
+                                                            canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
+                                                            onWalletMetadata = { previous, updated ->
+                                                                check(wallet === previous && updated.publicKey == previous.publicKey)
+                                                                withContext(NonCancellable) {
+                                                                    val result = withContext(Dispatchers.IO) {
+                                                                        val store = AndroidWalletStore(applicationContext)
+                                                                        try { store.replace(previous, updated) to true }
+                                                                        catch (_: Exception) {
+                                                                            val restored = try { store.loadExisting() } catch (_: Exception) { null }
+                                                                            restored to false
+                                                                        }
+                                                                    }
+                                                                    if (wallet === previous) {
+                                                                        wallet = result.first
+                                                                        failed = result.first == null
+                                                                    }
+                                                                    check(result.second) { "Could not save wallet metadata" }
+                                                                }
+                                                        }) { reportFullyDrawn() }
                                                     }
-                                                    if (wallet === previous) {
-                                                        wallet = result.first
-                                                        failed = result.first == null
-                                                    }
-                                                    check(result.second) { "Could not save wallet metadata" }
                                                 }
-                                            }) { reportFullyDrawn() }
-                                    }
-                                    }
-                                    }
-                                    }
+                                            }
+                                        }
                                     }
                                 }
                             } else {
