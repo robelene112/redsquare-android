@@ -12,12 +12,15 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -184,14 +187,31 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
                 if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
                 InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
-                parent?.let { Text(stringResource(R.string.post_reply_to, registeredIdentity(it.author).name),
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    ProfileAvatar(owner, Modifier.size(36.dp).clip(CircleShape))
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.post_writing_as), style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(registeredIdentity(owner).name, style = MaterialTheme.typography.titleSmall)
+                    }
+                }
+                parent?.let { target ->
+                    Surface(shape = RoundedCornerShape(AppSpacing.cardRadius), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                        Column(Modifier.fillMaxWidth().padding(AppSpacing.small), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(stringResource(R.string.post_reply_to, registeredIdentity(target.author).name),
+                                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+                            Text(target.text, style = MaterialTheme.typography.bodyMedium,
+                                maxLines = 3, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                        }
+                    }
+                }
                 quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null)
                 PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
                     previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
-                quote?.let { QuotedPost(it, backend) }
+                quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
                 if (transaction != null && !available)
                     nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
                 if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {

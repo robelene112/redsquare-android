@@ -29,6 +29,7 @@ import nl.davidengelen.redsquare.R
 
 /** Shared geometry and motion for the actual application frame and destination surfaces. */
 internal object AppSpacing {
+    val cardRadius = 18.dp
     val screen = 18.dp
     val gap = 16.dp
     val small = 8.dp

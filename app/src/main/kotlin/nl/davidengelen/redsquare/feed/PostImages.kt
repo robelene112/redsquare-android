@@ -1,6 +1,11 @@
 package nl.davidengelen.redsquare.feed
 
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import nl.davidengelen.redsquare.ui.AppSpacing
 import androidx.compose.foundation.Image
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -46,7 +51,7 @@ internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: (
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         images.forEachIndexed { index, source ->
             PostImage(source, backend, stringResource(R.string.image_position, index + 1, images.size),
-                Modifier.fillMaxWidth().height(previewHeight).focusRequester(focus[index]).focusProperties { canFocus = true }.clickable { selected = index })
+                Modifier.fillMaxWidth().height(previewHeight).clip(RoundedCornerShape(AppSpacing.cardRadius)).focusRequester(focus[index]).focusProperties { canFocus = true }.clickable { selected = index })
             GifCredits(source, credits[source], onOpenSource)
             if (onRemove != null) TextButton(enabled = removalEnabled, onClick = { onRemove(index) }) {
                 Text(stringResource(R.string.image_remove, index + 1))
@@ -88,13 +93,17 @@ internal fun PostImage(source: String, backend: SaitoBackend, label: String?, mo
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
-    val ready = image
-    if (ready != null) Image(ready, label, modifier, contentScale = scale)
-    else Box(modifier.background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
-        if (failed) Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(stringResource(R.string.image_unavailable))
-            TextButton(onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
+    key(source, backend) {
+        Crossfade(targetState = image to failed, modifier = modifier,
+            animationSpec = tween(AppSpacing.transitionMillis), label = "Post image loading") { (ready, unavailable) ->
+            if (ready != null) Image(ready, label, Modifier.fillMaxSize(), contentScale = scale)
+            else Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
+                if (unavailable) Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(stringResource(R.string.image_unavailable))
+                    TextButton(onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
+                }
+                else Text(stringResource(R.string.image_loading))
+            }
         }
-        else Text(stringResource(R.string.image_loading))
     }
 }

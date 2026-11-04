@@ -47,7 +47,7 @@ internal fun QuoteContent(post: FeedPost, state: QuoteState?, backend: SaitoBack
 
 /** One original level, attributed only after independent signature verification. */
 @Composable
-internal fun QuotedPost(original: FeedPost, backend: SaitoBackend) {
+internal fun QuotedPost(original: FeedPost, backend: SaitoBackend, onOpenSource: (() -> Unit) -> Unit = { it() }) {
     val personal = LocalPersonalControls.current
     val label = stringResource(R.string.quote_original)
     OutlinedCard(Modifier.fillMaxWidth().semantics { contentDescription = label }) {
@@ -56,9 +56,7 @@ internal fun QuotedPost(original: FeedPost, backend: SaitoBackend) {
                 Text(stringResource(R.string.personal_quote_hidden), style = MaterialTheme.typography.bodySmall)
             } else {
                 Text(registeredIdentity(original.author).name, style = MaterialTheme.typography.labelMedium)
-                Text(original.text, style = MaterialTheme.typography.bodyMedium)
-                PostImages(original.images, backend)
-                PostVideo(original, backend)
+                PostContent(original, backend, MaterialTheme.typography.bodyMedium, 0.dp, tagged = false, onOpenSource = onOpenSource)
             }
         }
     }

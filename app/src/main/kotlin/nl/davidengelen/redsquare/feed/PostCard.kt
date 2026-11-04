@@ -55,8 +55,8 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
             Row(Modifier.weight(1f).heightIn(min = 48.dp)
                 .clickable(role = Role.Button, onClickLabel = profileLabel) { onIdentity(post.author) }
                 .semantics { contentDescription = profileLabel },
-                horizontalArrangement = Arrangement.spacedBy(AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
-                ProfileAvatar(post.author, Modifier.size(40.dp).clip(CircleShape).clearAndSetSemantics { })
+                horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                ProfileAvatar(post.author, Modifier.size(42.dp).clip(CircleShape).clearAndSetSemantics { })
                 Column(Modifier.weight(1f)) {
                     Text(author, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
                     Text(timestamp, maxLines = 2, style = MaterialTheme.typography.labelSmall,
@@ -65,10 +65,8 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
             }
             PostMoreActions(post, author, timestamp, social?.reports, authorActions)
         }
-        Text(post.text, Modifier.padding(vertical = bodyVerticalPadding ?: AppSpacing.small).testTag("post-body-text"),
-            style = bodyTextStyle ?: MaterialTheme.typography.bodyLarge)
-        PostImages(post.images, backend)
-        PostVideo(post, backend)
+        PostContent(post, backend, bodyTextStyle ?: MaterialTheme.typography.bodyLarge,
+            bodyVerticalPadding ?: AppSpacing.small)
         QuoteContent(post, quotes, backend)
         SocialActions(post, social, author, onQuote)
     }
