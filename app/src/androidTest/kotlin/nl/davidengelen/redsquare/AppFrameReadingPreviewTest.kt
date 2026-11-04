@@ -75,6 +75,9 @@ class AppFrameReadingPreviewTest {
     }
 
     private fun assertReadingPosition(expected: Float) {
+        // Reading now retains collapsed chrome. Use the actual accessible reveal
+        // before observing backup guidance, keeping the original exact reader anchor.
+        ui.revealAppNavigation()
         ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 05").isDisplayed() &&
             ui.onNodeWithText("Back up your wallet").isDisplayed() && ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
         assertEquals("Return to the same visible reading position", expected,
