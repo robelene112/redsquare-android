@@ -12,8 +12,8 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 ## Current owner execution authorization
 
 On2026-11-04 the owner limited execution to one issue at a time to manage usage.
-Issue87 is now complete. Stop and wait for the next owner request before
-starting78 or another issue. For each subsequent request, finish one issue,
+Issue78 is now complete. Stop and wait for the next owner request before
+starting82 or another issue. For each subsequent request, finish one issue,
 including its checks, review, evidence and commit, then stop again. This supersedes the earlier request
 to implement the whole16-ticket batch without stopping.
 
@@ -158,7 +158,9 @@ complete first-release scope and the established production boundaries.
    `first-use` / its Android17 variant require the12-cell native first-use
    density matrix and a separate180s actual normal/zero interrupted-dismissal
    class. `first-use-motion` isolates only that new class during iteration.
-   Complete Chat retains both classes. Original frame/reading/IME/motion goals
+   Complete Chat retains both classes. Add new scope choices to both runtime
+   exclusion guards in android-proof.yml as well as its choices list.
+   Original frame/reading/IME/motion goals
    and bounds remain; focused passes do not replace94's final app-wide proof.
    `profile-editor` / its Android17 variant cover an unsent profile preview,
    actual keyboard and physical local Save draft/recovery, one180second class

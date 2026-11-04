@@ -1,0 +1,94 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FirstUseViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FirstUseViewportTest:
+INSTRUMENTATION_STATUS: test=pixelWidthFirstUseRetainsUsefulReadingSpace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FirstUseViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pixelWidthFirstUseRetainsUsefulReadingSpace
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FirstUseViewportTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=narrowFirstUseRetainsUsefulReadingSpace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FirstUseViewportTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: first-use-320-font200-light: reading list 183.0 of 640.0
+first-use-320-font200-light: compose 56.0 dominates reading list 183.0
+first-use-320-font200-dark: reading list 183.0 of 640.0
+first-use-320-font200-dark: compose 56.0 dominates reading list 183.0
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.verify$lambda$4(FirstUseViewportTest.kt:62)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.$r8$lambda$4YtdamqD82NY-un5PCXIjDXpU34(FirstUseViewportTest.kt:0)
+	at nl.davidengelen.redsquare.FirstUseViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.verify(FirstUseViewportTest.kt:26)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.narrowFirstUseRetainsUsefulReadingSpace(FirstUseViewportTest.kt:17)
+
+INSTRUMENTATION_STATUS: stream=
+Error in narrowFirstUseRetainsUsefulReadingSpace(nl.davidengelen.redsquare.FirstUseViewportTest):
+java.lang.AssertionError: first-use-320-font200-light: reading list 183.0 of 640.0
+first-use-320-font200-light: compose 56.0 dominates reading list 183.0
+first-use-320-font200-dark: reading list 183.0 of 640.0
+first-use-320-font200-dark: compose 56.0 dominates reading list 183.0
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.verify$lambda$4(FirstUseViewportTest.kt:62)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.$r8$lambda$4YtdamqD82NY-un5PCXIjDXpU34(FirstUseViewportTest.kt:0)
+	at nl.davidengelen.redsquare.FirstUseViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.verify(FirstUseViewportTest.kt:26)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.narrowFirstUseRetainsUsefulReadingSpace(FirstUseViewportTest.kt:17)
+
+INSTRUMENTATION_STATUS: test=narrowFirstUseRetainsUsefulReadingSpace
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 50.724
+There was 1 failure:
+1) narrowFirstUseRetainsUsefulReadingSpace(nl.davidengelen.redsquare.FirstUseViewportTest)
+java.lang.AssertionError: first-use-320-font200-light: reading list 183.0 of 640.0
+first-use-320-font200-light: compose 56.0 dominates reading list 183.0
+first-use-320-font200-dark: reading list 183.0 of 640.0
+first-use-320-font200-dark: compose 56.0 dominates reading list 183.0
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.verify$lambda$4(FirstUseViewportTest.kt:62)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.$r8$lambda$4YtdamqD82NY-un5PCXIjDXpU34(FirstUseViewportTest.kt:0)
+	at nl.davidengelen.redsquare.FirstUseViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$7$lambda$6$lambda$5(AppFrameFixture.kt:48)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Lyrp29x0oEMXA5Yamh43epAenjw(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:47)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.verify(FirstUseViewportTest.kt:26)
+	at nl.davidengelen.redsquare.FirstUseViewportTest.narrowFirstUseRetainsUsefulReadingSpace(FirstUseViewportTest.kt:17)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

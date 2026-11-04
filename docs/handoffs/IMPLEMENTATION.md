@@ -1,12 +1,48 @@
 # Implementation handoff
 
-## Unified redesign86:78 active, stop after78
+## Unified redesign86:78 complete, STOP
 
-The owner requested one more issue after87. Active issue78 preserves useful
-first-use reading space at very large text. Review base:a31029be6. Only78 is
-authorized now; finish its verification/review/commit and then stop. Native red
-viewport matrix added at the agreed UI/controlled-peer seam, covering320/412dp,
-100/130/200% and both themes. Do not start82 or publish an intermediate beta.
+The owner requested ONE more issue. Issue78 is complete, reviewed and verified.
+Stop now and wait for a new request. Do not start82 or another issue. Final
+integrated beta still belongs to94; no intermediate beta is published.
+
+Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Review base:a31029be6. Last production source076cd5d07;
+final new verification sourceb43ed54ae. All intended changes are committed.
+No local build or production node change. Preserve the canonical checkout and
+its unrelated untracked group Chat contract. Sparse evidence needs add --sparse.
+
+78 evidence: `docs/evidence/ticket78/README.md` and native-results.json. The packet
+contains original12-cell before/after native captures per OS, four comparison
+sheets, actual normal/zero interrupted-motion movies, manifests, representative
+frames, results and exact source/failure provenance. Paired source reviews clean.
+
+At320dp/200%, list height183->221px (about21%). At412dp/200%,480->496px.
+Normal100/130% geometry unchanged. Large text keeps backup guidance/action,
+accessibleLaterclose and visibleImportwallet.48dp composing docks in existing
+nav caption row outside reading/actions; normal56dp floating action unchanged.
+All five nav destinations and full system font setting remain.
+
+Final first-use+writing+interrupted-motion BOTH PASS41841038043/41841042536 atb43.
+Both widths exercise actualfont200/docked composing/realIME/SaveDraft/Home and
+expected typed text retained on reopen. Native touchChat32ms afterLater covers
+system0/1, observes actualwindowScale, and keepsdismissal throughrecreation.
+Original completeframe BOTH PASS41840388700/41840393368 at076:4frame+1reading+
+2motion methods/OS, includingnative48dp/disjoint controls, realIME/unsentBio,
+original1px anchors/outage/pull and reminderpersistence. Newtests change after076;
+appsourceidentical. Bothhostreports117tests/0failures/0ignored.
+
+Before baselines RED41837773974(10)/41838468795(17). First48pxFAB pass still
+obscuredRepost; actual Compose rectangle replay rejectedoverlap and ledtodocking.
+Matrix overlap uses on-deviceCOMPOSEbounds; nativevisibleBounds verifiesminimum
+FABsize. Original frame retainsactualplatformnative targets. Never conflate them.
+Full details/source corrections/cancellations are in78evidence.
+
+Completed batch tickets:77,76,87,78. Next planned issue ONLY after owner request:
+82, then89,88,91,79,80,92,83,81,90,93,94. Native dependencies still apply.
+55,1and36 retain independent owner/provider/physical/store/integration gates.
+94 must run ONE consistent final full-source app dispatch and signed in-place
+continuity before integrated publication. Current ordinary beta83 stays online.
 
 ## Previous checkpoint:87 complete
 
