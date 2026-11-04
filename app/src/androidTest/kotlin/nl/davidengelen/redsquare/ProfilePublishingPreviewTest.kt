@@ -240,6 +240,7 @@ class ProfilePublishingPreviewTest {
                             ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
                                 SemanticsProperties.EditableText, AnnotatedString(nextBio))).assertIsEnabled()
                             ui.onNodeWithText("Save profile").assertIsEnabled()
+                            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
                             capture("profile-import-cancel-recovered-draft.png", nextBio)
                             assertEquals(1, peer.transactions.size)
                             assertEquals(owner, store.loadExisting().publicKey); peer.assertHealthy()

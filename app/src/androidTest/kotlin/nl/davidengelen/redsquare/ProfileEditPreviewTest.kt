@@ -118,6 +118,7 @@ class ProfileEditPreviewTest {
                     openOwnEditor()
                     ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
                         SemanticsProperties.EditableText, AnnotatedString(edited))).assertIsEnabled()
+                    ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
                     capture("profile-late-save-recovered.png", edited)
                     assertEquals(owner, AndroidWalletStore(context).loadExisting().publicKey)
                     assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
