@@ -53,6 +53,10 @@ class ModuleHeaderMotionTest {
                 ?: return null
             if (root.packageName?.toString() != context.packageName) return null
             fun focused(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
+                // The direct UiAutomation cache can retain the previous row's
+                // input-focus flag after D-pad movement. Require a live native
+                // refresh before accepting that flag; vanished nodes stay unknown.
+                if (!node.refresh()) return null
                 if (node.isFocused && node.isClickable && node.isVisibleToUser) return node
                 return (0 until node.childCount).firstNotNullOfOrNull { index -> node.getChild(index)?.let(::focused) }
             }
