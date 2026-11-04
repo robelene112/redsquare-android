@@ -292,6 +292,22 @@ class SocialPushTapPreviewTest {
                             ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup())).performClick()
                             ui.waitUntil(5_000) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
                             ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                            // Real incoming references for a different identity or node must not
+                            // switch the mounted module, even when no modal blocks navigation.
+                            for ((routeOwner, routeBackend) in listOf(contact to SaitoBackend.OWNER,
+                                owner to SaitoBackend.entries.single { it != SaitoBackend.OWNER })) {
+                                context.startActivity(Intent(context, MainActivity::class.java)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                    .setData(android.net.Uri.Builder().scheme("redsquare").authority("social")
+                                        .appendPath(routeBackend.id).appendPath(routeOwner).appendPath(signature).build()))
+                                val quietUntil = android.os.SystemClock.elapsedRealtime() + 2_000
+                                do {
+                                    ui.onNodeWithContentDescription("Switch app: Stack").assertIsDisplayed()
+                                    ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                                    ui.onAllNodesWithText("Conversation").assertCountEquals(0)
+                                    android.os.SystemClock.sleep(50)
+                                } while (android.os.SystemClock.elapsedRealtime() < quietUntil)
+                            }
                             ui.onNodeWithContentDescription("Connection details").performClick()
                             ui.onNodeWithText("Connection details").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "social-push-evidence/tap-stack-connection-details.png"))

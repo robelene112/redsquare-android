@@ -84,6 +84,7 @@ import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.ui.NodeConnectionDetails
+import nl.davidengelen.redsquare.ui.SingleOwnerReveal
 import nl.davidengelen.redsquare.ui.AppModule
 import nl.davidengelen.redsquare.stack.StackReviewScreen
 import nl.davidengelen.redsquare.ui.AppHeader
@@ -162,7 +163,6 @@ class MainActivity : ComponentActivity() {
             var settingsOpen by remember { mutableStateOf(false) }
             var connectionDetailsOpen by remember { mutableStateOf(false) }
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
-            var homeVisible by remember { mutableStateOf(true) }
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
             var moduleSwitchFailed by remember { mutableStateOf(false) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
@@ -357,7 +357,7 @@ class MainActivity : ComponentActivity() {
                     moduleSwitchFailed = !moved
                 }
                 Surface(Modifier.fillMaxSize()) {
-                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
+                    val chrome: @Composable (Boolean) -> Unit = { isHome ->
                         if (!keyboardVisible) AppHeader(backend?.domain, address, module,
                             walletEnabled = !postNavigation.transitioning,
                             settingsEnabled = backendReady && !savingBackend && !postNavigation.transitioning,
@@ -376,7 +376,7 @@ class MainActivity : ComponentActivity() {
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodySmall)
-                        if (module == AppModule.RED_SQUARE && homeVisible && !usernameOpen && !keyboardVisible) {
+                        if (module == AppModule.RED_SQUARE && isHome && !usernameOpen && !keyboardVisible) {
                             CompactBackupNotice(visible = backupReminder, enabled = backupReminder && wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
                                 onBackup = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
                                 onLater = { dismissBackupReminder() },
@@ -387,7 +387,10 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.wallet_recovery_error))
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
+                    }
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
+                            chrome(false)
                             key(wallet!!.publicKey, backend) {
                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
                                 val usernameEndpoint = FeedEndpoints.fromIntent(intent, backend!!)
@@ -402,18 +405,19 @@ class MainActivity : ComponentActivity() {
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
                                     val moduleStates = rememberSaveableStateHolder()
+                                    SingleOwnerReveal(module, Modifier.weight(1f)) {
                                     moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
                                     if (module == AppModule.STACK) {
-                                        StackReviewScreen(Modifier.weight(1f))
+                                        StackReviewScreen(Modifier.fillMaxSize(), chrome)
                                     } else {
                                     val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
-                                            lifecycle, Modifier.weight(1f), notificationRoutes = notificationRoutes,
+                                            lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
                                             allowPushRoute = featureUnobstructed,
-                                            onHomeVisibility = { homeVisible = it },
+                                            chrome = chrome,
                                             canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
                                             onWalletMetadata = { previous, updated ->
                                                 check(wallet === previous && updated.publicKey == previous.publicKey)
@@ -437,9 +441,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                     }
                                     }
+                                    }
                                 }
-                            } else if (!backendReady) Text(stringResource(R.string.feed_loading))
-                        }
+                            } else {
+                                chrome(true)
+                                if (!backendReady) Text(stringResource(R.string.feed_loading))
+                            }
+                        } else chrome(true)
                     }
                     if (connectionDetailsOpen) NodeConnectionDetails(backend?.domain) { connectionDetailsOpen = false }
                     if (settingsOpen) AlertDialog(

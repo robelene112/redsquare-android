@@ -49,8 +49,12 @@ class ModuleShellPreviewTest {
             val before = ui.onNodeWithText("Reference post 05").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             switchApp("Red Square", "Stack")
             ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+            captureNativeScreen(File(instrumentation.targetContext.cacheDir,
+                "module-shell-evidence/stack-discover.png"))
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed().performClick()
             ui.onNodeWithText("Article preview").assertIsDisplayed()
+            captureNativeScreen(File(instrumentation.targetContext.cacheDir,
+                "module-shell-evidence/stack-article.png"))
             switchApp("Stack", "Red Square")
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 05").isDisplayed() }
             assertEquals("Switching modules retains the actual feed reading anchor", before,
@@ -92,6 +96,7 @@ class ModuleShellPreviewTest {
     }
 
     private fun switchApp(current: String, next: String) {
+        ui.revealAppNavigation()
         ui.onNodeWithContentDescription("Switch app: $current").assertIsDisplayed().performClick()
         ui.onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup()))
             .assertIsDisplayed().assertIsEnabled().performClick()

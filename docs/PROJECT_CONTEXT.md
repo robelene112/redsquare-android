@@ -152,8 +152,11 @@ details. The completion-status section below identifies actual remaining work.
   Users can override the theme inside the app.
 - Design the app to add further Saito modules, such as Saito Stack, without
   rebuilding shared wallet identity and backend connectivity. Red Square and
-  Chat should have distinct feature boundaries. Stack is a future extension
-  example; implementing it in the first release has not been requested. See
+  Chat should have distinct feature boundaries. The owner subsequently included
+  Saito Stack in the first release. The approved redesign86 establishes its
+  module shell with explicitly labelled review content; real archive, publishing,
+  subscription and payment integration remains later first-release work under1.
+  Never present a sample route as working production networking. See
   [the extensibility decision](adr/0001-shared-saito-foundation.md).
 - iOS is deferred. A later iOS app would be a separate Swift implementation.
 - User wallet creation, import and export are in scope. Wallet identity and

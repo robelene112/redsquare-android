@@ -11,6 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import nl.davidengelen.redsquare.ui.ReadingHeader
+import nl.davidengelen.redsquare.ui.SingleOwnerReveal
+import nl.davidengelen.redsquare.ui.rememberReadingHeaderState
+import nl.davidengelen.redsquare.ui.rememberReadingAnchorModifier
+import nl.davidengelen.redsquare.ui.readingNavigation
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
@@ -30,13 +36,17 @@ private enum class StackDestination(override val label: Int, override val icon: 
 
 /** Explicitly isolated presentation review. No wallet, publication, payment or archive simulation. */
 @Composable
-internal fun StackReviewScreen(modifier: Modifier) {
+internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean) -> Unit) {
     var destination by rememberSaveable { mutableStateOf(StackDestination.DISCOVER) }
     var article by rememberSaveable { mutableStateOf(false) }
     val list = rememberLazyListState()
     val reading = rememberLazyListState()
+    val header = rememberReadingHeaderState(enabled = true)
+    val listAnchor = rememberReadingAnchorModifier(list, enabled = !header.inMotion, relativeToRoot = true)
+    val articleAnchor = rememberReadingAnchorModifier(reading, enabled = !header.inMotion, relativeToRoot = true)
     BackHandler(article) { article = false }
-    Column(modifier) {
+    Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
+        ReadingHeader(header) { chrome(false) }
         Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
             shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -45,19 +55,21 @@ internal fun StackReviewScreen(modifier: Modifier) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
+        SingleOwnerReveal(destination to article, Modifier.weight(1f)) {
+        Column(Modifier.fillMaxSize()) {
         if (article) {
             Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { article = false }
                 Text(stringResource(R.string.stack_article_preview), style = MaterialTheme.typography.titleLarge)
             }
-            LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = reading,
+            LazyColumn(Modifier.weight(1f).fillMaxWidth().then(articleAnchor), state = reading,
                 contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                 item { Text(stringResource(R.string.stack_sample_title), style = MaterialTheme.typography.headlineMedium) }
                 item { NetworkIllustration() }
                 item { Text(stringResource(R.string.stack_sample_article), style = MaterialTheme.typography.bodyLarge) }
             }
         } else {
-            LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
+            LazyColumn(Modifier.weight(1f).fillMaxWidth().then(listAnchor), state = list,
                 contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                 item { Text(stringResource(destination.label), style = MaterialTheme.typography.headlineMedium) }
                 item { Text(stringResource(when (destination) {
@@ -78,6 +90,8 @@ internal fun StackReviewScreen(modifier: Modifier) {
                     }
                 }
             }
+        }
+        }
         }
         HorizontalDivider()
         ModuleNavigation(StackDestination.entries, destination, enabled = true) { destination = it; article = false }

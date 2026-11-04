@@ -29,32 +29,32 @@ internal class AndroidAppearanceStore(context: Context) {
 }
 
 private val LightColors = lightColorScheme(
-    primary = Color(0xffc61e36), onPrimary = Color.White,
+    primary = Color(0xffbd2645), onPrimary = Color.White,
     primaryContainer = Color(0xffffe9ed), onPrimaryContainer = Color(0xff731023),
     secondary = Color(0xff5b626d), onSecondary = Color.White,
-    secondaryContainer = Color(0xffedf0f4), onSecondaryContainer = Color(0xff272b33),
+    secondaryContainer = Color(0xffe8edf7), onSecondaryContainer = Color(0xff272b33),
     tertiary = Color(0xff5b626d), onTertiary = Color.White,
-    background = Color.White, onBackground = Color(0xff17191d),
-    surface = Color.White, onSurface = Color(0xff17191d),
-    surfaceVariant = Color(0xfff0f2f5), onSurfaceVariant = Color(0xff565d68),
-    surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xfff8f9fb),
-    surfaceContainer = Color(0xfff0f2f5), surfaceContainerHigh = Color(0xffe9ecf0),
+    background = Color(0xfffafbfd), onBackground = Color(0xff171c25),
+    surface = Color(0xfffafbfd), onSurface = Color(0xff171c25),
+    surfaceVariant = Color(0xfff0f2f7), onSurfaceVariant = Color(0xff5c687a),
+    surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xfff0f2f7),
+    surfaceContainer = Color(0xfff0f2f7), surfaceContainerHigh = Color(0xffe5e9f1),
     surfaceContainerHighest = Color(0xffe2e6eb),
-    outline = Color(0xff737b86), outlineVariant = Color(0xffdce0e6),
+    outline = Color(0xff737b86), outlineVariant = Color(0xffdde2ec),
 )
 private val DarkColors = darkColorScheme(
-    primary = Color(0xffff8b9a), onPrimary = Color(0xff4b0010),
+    primary = Color(0xffff8297), onPrimary = Color(0xff3c0010),
     primaryContainer = Color(0xff591827), onPrimaryContainer = Color(0xffffd9df),
     secondary = Color(0xffc1c7d1), onSecondary = Color(0xff272b33),
-    secondaryContainer = Color(0xff2a3039), onSecondaryContainer = Color(0xffe4e8ee),
+    secondaryContainer = Color(0xff2a303d), onSecondaryContainer = Color(0xffe4e8ee),
     tertiary = Color(0xffc1c7d1), onTertiary = Color(0xff272b33),
-    background = Color(0xff111316), onBackground = Color(0xffeef0f4),
-    surface = Color(0xff111316), onSurface = Color(0xffeef0f4),
-    surfaceVariant = Color(0xff282c33), onSurfaceVariant = Color(0xffb5bdc9),
-    surfaceContainerLowest = Color(0xff0b0d10), surfaceContainerLow = Color(0xff191c21),
-    surfaceContainer = Color(0xff20242a), surfaceContainerHigh = Color(0xff282d34),
+    background = Color(0xff101216), onBackground = Color(0xfff0f1f5),
+    surface = Color(0xff101216), onSurface = Color(0xfff0f1f5),
+    surfaceVariant = Color(0xff282c33), onSurfaceVariant = Color(0xff9da8b9),
+    surfaceContainerLowest = Color(0xff0b0d10), surfaceContainerLow = Color(0xff191d24),
+    surfaceContainer = Color(0xff191d24), surfaceContainerHigh = Color(0xff252b34),
     surfaceContainerHighest = Color(0xff30363e),
-    outline = Color(0xff8d97a5), outlineVariant = Color(0xff343a44),
+    outline = Color(0xff8d97a5), outlineVariant = Color(0xff2b323c),
 )
 
 private fun readableText(size: Int, height: Int, weight: FontWeight = FontWeight.Normal) = TextStyle(
@@ -62,14 +62,15 @@ private fun readableText(size: Int, height: Int, weight: FontWeight = FontWeight
     letterSpacing = 0.sp, fontWeight = weight,
 )
 private val RedSquareTypography = Typography(
-    headlineMedium = readableText(24, 32, FontWeight.Bold),
+    headlineLarge = readableText(30, 36, FontWeight.Bold),
+    headlineMedium = readableText(26, 32, FontWeight.Bold),
     headlineSmall = readableText(22, 28, FontWeight.SemiBold),
     titleLarge = readableText(20, 26, FontWeight.SemiBold),
     titleMedium = readableText(16, 22, FontWeight.SemiBold),
     titleSmall = readableText(14, 20, FontWeight.SemiBold),
-    bodyLarge = readableText(16, 24), bodyMedium = readableText(14, 20), bodySmall = readableText(12, 18),
+    bodyLarge = readableText(16, 24), bodyMedium = readableText(14, 21), bodySmall = readableText(12, 18),
     labelLarge = readableText(14, 20, FontWeight.Medium),
-    labelMedium = readableText(12, 16, FontWeight.Medium), labelSmall = readableText(11, 16),
+    labelMedium = readableText(12, 17, FontWeight.Medium), labelSmall = readableText(11, 16),
 )
 
 @Composable

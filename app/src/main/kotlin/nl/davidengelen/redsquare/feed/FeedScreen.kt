@@ -25,6 +25,10 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import nl.davidengelen.redsquare.ui.ReadingHeader
+import nl.davidengelen.redsquare.ui.rememberReadingHeaderState
+import nl.davidengelen.redsquare.ui.readingNavigation
 import nl.davidengelen.redsquare.ui.refreshAction
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.semantics
@@ -64,7 +68,7 @@ import nl.davidengelen.redsquare.saito.*
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
     lifecycle: Lifecycle, modifier: Modifier, canReportDrawn: Boolean,
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
-    onHomeVisibility: (Boolean) -> Unit = {},
+    chrome: @Composable (Boolean) -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -147,9 +151,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         } }
     }
     val position = rememberLazyListState()
-    val readingAnchor = key(wallet?.publicKey, backend.id) {
-        rememberReadingAnchorModifier(position, relativeToRoot = true)
-    }
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val navigationNotice = remember { SnackbarHostState() }
     val navigationFailureMessage = stringResource(R.string.navigation_save_failed)
@@ -342,7 +343,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         else -> PrimaryDestination.HOME
     }
     val currentWalletKey by rememberUpdatedState(wallet?.publicKey)
-    SideEffect { onHomeVisibility(home) }
+    val header = rememberReadingHeaderState(home)
+    val readingAnchor = key(wallet?.publicKey, backend.id) {
+        rememberReadingAnchorModifier(position, enabled = !header.inMotion, relativeToRoot = true)
+    }
     val content: @Composable () -> Unit = content@{
         val childModifier = Modifier.fillMaxSize()
         if (reviewingChat && wallet != null) {
@@ -504,7 +508,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             else Spacer(Modifier.weight(1f))
         }
     }
-    Column(modifier) {
+    Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
+        ReadingHeader(header) { chrome(home) }
         Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
             content()
             if (home && wallet != null) {
