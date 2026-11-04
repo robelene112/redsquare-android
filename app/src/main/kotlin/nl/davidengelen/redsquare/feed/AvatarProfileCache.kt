@@ -17,19 +17,19 @@ internal class AvatarProfileCache(context: Context, backend: SaitoBackend) {
     suspend fun save(profile: SaitoProfile): SaitoProfile {
         val session = currentCoroutineContext()
         return synchronized(SaitoLocalState.lock) {
-        session.ensureActive()
-        var merged = profile
-        storage.update { previous ->
-            merged = SaitoProfiles.merge(find(previous.values, profile.author), profile)
-            val record = JsonObject().apply {
-                addProperty("author", profile.author)
-                add("rows", JsonArray().apply { merged.updates.forEach { update ->
-                    add(JsonObject().apply { addProperty("tx", update.envelope) })
-                } })
+            session.ensureActive()
+            var merged = profile
+            storage.update { previous ->
+                merged = SaitoProfiles.merge(find(previous.values, profile.author), profile)
+                val record = JsonObject().apply {
+                    addProperty("author", profile.author)
+                    add("rows", JsonArray().apply { merged.updates.forEach { update ->
+                        add(JsonObject().apply { addProperty("tx", update.envelope) })
+                    } })
+                }
+                listOf(record.toString()) + previous.values.filter { author(it) != profile.author }.take(63)
             }
-            listOf(record.toString()) + previous.values.filter { author(it) != profile.author }.take(63)
-        }
-        merged
+            merged
         }
     }
 

@@ -68,10 +68,10 @@ internal fun ProfileAvatar(author: String, modifier: Modifier, verified: SaitoPr
     }
 }
 
-/** At most64 authors,2M source characters,4MiB displayed rasters and two discovery requests. */
+/** At most64 compact identities and16MiB displayed rasters; full source strings are not retained. */
 internal class ProfileAvatars(private val context: Context, private val wallet: SaitoWallet, val backend: SaitoBackend,
     private val endpoint: String, private val scope: CoroutineScope) {
-    internal data class Picture(val source: String?, val proof: String?, val timestamp: Long, val checkedAt: Long,
+    internal data class Picture(val imageVersion: String?, val proof: String?, val timestamp: Long, val checkedAt: Long,
         val bitmap: Bitmap? = null, val failed: Boolean = false)
     val pictures = mutableStateMapOf<String, Picture>()
     private val cache = AvatarProfileCache(context, backend)
@@ -132,7 +132,7 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
                                 })
                             }
                             val observed = SaitoProfiles.readArchive(peer.request(query.toString().toByteArray()).toString(Charsets.UTF_8), author)
-                            val latest = cache.save(SaitoProfiles.merge(details(author).load().profile, observed))
+                            val latest = retain(SaitoProfiles.merge(details(author).load().profile, observed))
                             currentCoroutineContext().ensureActive()
                             withContext(Dispatchers.Main) { put(latest) }
                         } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
@@ -147,44 +147,52 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
         }
     }
     suspend fun observe(profile: SaitoProfile) {
-        val latest = withContext(Dispatchers.IO) { cache.save(profile) }
+        val latest = withContext(Dispatchers.IO) { retain(profile) }
         currentCoroutineContext().ensureActive()
         put(latest)
     }
+    private suspend fun retain(profile: SaitoProfile): SaitoProfile = try { cache.save(profile) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { profile } // Cache availability cannot invalidate signed public evidence.
+
     private fun put(profile: SaitoProfile, confirmed: Boolean = true) {
         val proof = profile.updates.firstOrNull()
         val previous = pictures[profile.author]
         if (previous != null && previous.timestamp > (proof?.createdAt ?: 0)) return
-        val changed = previous?.source != profile.image || previous?.proof != proof?.id
+        val imageVersion = proof?.id?.takeIf { profile.image != null }
+        val changed = previous?.imageVersion != imageVersion || previous?.proof != proof?.id
         if (changed) images.remove(profile.author)?.cancel()
-        val next = Picture(profile.image, proof?.id, proof?.createdAt ?: 0,
+        val next = Picture(imageVersion, proof?.id, proof?.createdAt ?: 0,
             if (confirmed) System.currentTimeMillis() else previous?.checkedAt ?: 0,
             bitmap = if (!changed) previous?.bitmap else null, failed = if (!changed) previous?.failed == true else false)
         pictures[profile.author] = next
         order.remove(profile.author); order.add(profile.author)
         trim()
-        if (profile.author in pictures && (changed || next.bitmap == null) && next.source != null) loadImage(profile.author, next)
+        if (profile.author in pictures && (changed || next.bitmap == null) && next.imageVersion != null) loadImage(profile.author, next, profile.image)
     }
-    private fun loadImage(author: String, expected: Picture) {
-        val source = expected.source ?: return
+    private fun loadImage(author: String, expected: Picture, observedSource: String? = null) {
+        if (expected.imageVersion == null) return
         if (images[author]?.isActive == true) return
         images[author] = scope.launch {
             try {
+                val source = observedSource ?: withContext(Dispatchers.IO) {
+                    details(author).load().profile.takeIf { it.updates.firstOrNull()?.id == expected.proof }?.image
+                } ?: return@launch
                 val raster = AvatarImageCache.load(context, backend, author, expected.proof, source)
                 currentCoroutineContext().ensureActive()
-                if (pictures[author]?.let { it.source == source && it.proof == expected.proof } == true)
+                if (pictures[author]?.let { it.imageVersion == expected.imageVersion && it.proof == expected.proof } == true)
                     pictures[author] = pictures.getValue(author).copy(bitmap = raster, failed = false)
                 trim()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                if (pictures[author]?.let { it.source == source && it.proof == expected.proof } == true)
+                if (pictures[author]?.let { it.imageVersion == expected.imageVersion && it.proof == expected.proof } == true)
                     pictures[author] = pictures.getValue(author).copy(failed = true)
             }
         }
     }
     private fun trim() {
-        while (pictures.size > 64 || pictures.values.sumOf { (it.source?.length ?: 0).toLong() } > 2 * 1024 * 1024 ||
-            pictures.values.sumOf { it.bitmap?.allocationByteCount?.toLong() ?: 0 } > 4 * 1024 * 1024) {
+        while (pictures.size > 64 ||
+            pictures.values.sumOf { it.bitmap?.allocationByteCount?.toLong() ?: 0 } > 16 * 1024 * 1024) {
             val key = order.firstOrNull { it !in active } ?: order.firstOrNull() ?: break
             order.remove(key); pictures.remove(key); images.remove(key)?.cancel()
         }

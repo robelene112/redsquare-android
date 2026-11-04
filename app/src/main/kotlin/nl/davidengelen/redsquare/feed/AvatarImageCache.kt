@@ -40,8 +40,9 @@ internal object AvatarImageCache {
             val image = PostImageLoader.load(source, backend, "avatar:$author:$proof")
             currentCoroutineContext().ensureActive()
             val ratio = minOf(1f, 256f / maxOf(image.width, image.height))
-            val raster = Bitmap.createScaledBitmap(image, maxOf(1, (image.width * ratio).toInt()),
+            val scaled = Bitmap.createScaledBitmap(image, maxOf(1, (image.width * ratio).toInt()),
                 maxOf(1, (image.height * ratio).toInt()), true)
+            val raster = if (scaled.config == Bitmap.Config.ARGB_8888) scaled else requireNotNull(scaled.copy(Bitmap.Config.ARGB_8888, false))
             // Failed/OS-pruned disk storage must not hide an otherwise available public picture.
             try {
                 val bytes = ByteArrayOutputStream().also { check(raster.compress(Bitmap.CompressFormat.PNG, 100, it)) }.toByteArray()
