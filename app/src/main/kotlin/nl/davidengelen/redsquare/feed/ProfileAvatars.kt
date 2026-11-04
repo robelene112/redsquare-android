@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
+import java.security.MessageDigest
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.sync.Semaphore
@@ -155,11 +156,11 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { profile } // Cache availability cannot invalidate signed public evidence.
 
-    private fun put(profile: SaitoProfile, confirmed: Boolean = true) {
+    private suspend fun put(profile: SaitoProfile, confirmed: Boolean = true) {
+        val imageVersion = withContext(Dispatchers.IO) { profile.image?.let(::sourceDigest) }
         val proof = profile.updates.firstOrNull()
         val previous = pictures[profile.author]
         if (previous != null && previous.timestamp > (proof?.createdAt ?: 0)) return
-        val imageVersion = proof?.id?.takeIf { profile.image != null }
         val changed = previous?.imageVersion != imageVersion || previous?.proof != proof?.id
         if (changed) images.remove(profile.author)?.cancel()
         val next = Picture(imageVersion, proof?.id, proof?.createdAt ?: 0,
@@ -176,7 +177,8 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
         images[author] = scope.launch {
             try {
                 val source = observedSource ?: withContext(Dispatchers.IO) {
-                    details(author).load().profile.takeIf { it.updates.firstOrNull()?.id == expected.proof }?.image
+                    details(author).load().profile.takeIf { it.updates.firstOrNull()?.id == expected.proof }
+                        ?.image?.takeIf { sourceDigest(it) == expected.imageVersion }
                 } ?: return@launch
                 val raster = AvatarImageCache.load(context, backend, author, expected.proof, source)
                 currentCoroutineContext().ensureActive()
@@ -197,6 +199,8 @@ internal class ProfileAvatars(private val context: Context, private val wallet: 
             order.remove(key); pictures.remove(key); images.remove(key)?.cancel()
         }
     }
+    private fun sourceDigest(source: String) = MessageDigest.getInstance("SHA-256")
+        .digest(source.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     private fun details(author: String) = AndroidProfileDetailsCache(context, backend, author)
     fun close() { pending.close(); images.values.forEach { it.cancel() } }
 }

@@ -78,6 +78,25 @@ class AvatarRecoveryPreviewTest {
         } finally { check(cache.delete()) }
     }
 
+    @Test fun aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate() = withAvatarJourney("Light") { _, _, response, _, author ->
+        waitForFeed()
+        fun legacy(time: Long, field: String, value: String) = SaitoTransaction.create(author, JsonObject().apply {
+            addProperty("module", "Profile"); addProperty("request", "update profile")
+            add("data", JsonObject().apply { addProperty(field, value) })
+        }, 1_900_000_000_000L + time).let { tx -> JsonObject().apply { addProperty("tx", tx.envelope()) } }
+        val description = legacy(300, "description", "Newer independent legacy biography")
+        val first = legacy(100, "image", "data:image/png;base64," + Base64.encodeToString(png(), Base64.NO_WRAP))
+        val blue = Color.rgb(20, 60, 220)
+        val later = legacy(200, "image", "data:image/png;base64," + Base64.encodeToString(png(tint = blue), Base64.NO_WRAP))
+        response.set("[$description,$first]")
+        refresh()
+        hasColor(row(author.publicKey))
+        response.set("[$description,$first,$later]")
+        refresh()
+        hasColor(row(author.publicKey), blue)
+        capture("late-legacy-image-replaced")
+    }
+
     @Test fun threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction() {
         val sources = (1..3).associate { key ->
             val author = SaitoWallet.fromPrivateKey("0".repeat(63) + key)
@@ -106,14 +125,14 @@ class AvatarRecoveryPreviewTest {
     private fun refresh() = ui.waitUntil(15_000) { runCatching {
         ui.onNodeWithTag("feed-post-list").performCustomAccessibilityActionWithLabel("Refresh"); true
     }.getOrDefault(false) }
-    private fun hasColor(node: SemanticsNodeInteraction) = ui.waitUntil(10_000) { runCatching { containsColor(node) }.getOrDefault(false) }
-    private fun containsColor(node: SemanticsNodeInteraction): Boolean {
+    private fun hasColor(node: SemanticsNodeInteraction, expected: Int = color) = ui.waitUntil(10_000) { runCatching { containsColor(node, expected) }.getOrDefault(false) }
+    private fun containsColor(node: SemanticsNodeInteraction, expected: Int = color): Boolean {
         val image = node.captureToImage().asAndroidBitmap()
         var matches = 0
         for (y in 0 until image.height step 2) for (x in 0 until image.width step 2) {
             val pixel = image.getPixel(x, y)
-            if (kotlin.math.abs(Color.red(pixel) - 220) < 10 && kotlin.math.abs(Color.green(pixel) - 30) < 10 &&
-                kotlin.math.abs(Color.blue(pixel) - 40) < 10) matches++
+            if (kotlin.math.abs(Color.red(pixel) - Color.red(expected)) < 10 && kotlin.math.abs(Color.green(pixel) - Color.green(expected)) < 10 &&
+                kotlin.math.abs(Color.blue(pixel) - Color.blue(expected)) < 10) matches++
         }
         return matches >= 25
     }
@@ -122,14 +141,14 @@ class AvatarRecoveryPreviewTest {
         addProperty("module", "Profile"); addProperty("request", "update profile"); addProperty("snapshot", 1)
         add("data", JsonObject().apply { source?.let { addProperty("image", it) } })
     }, 1_900_000_000_000L + revision).let { tx -> JsonObject().apply { addProperty("tx", tx.envelope()) }.let { "[$it]" } }
-    private fun png(noise: Boolean = false): ByteArray {
+    private fun png(noise: Boolean = false, tint: Int = color): ByteArray {
         val size = if (noise) 448 else 32
         val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
         if (noise) {
             val random = java.util.Random(82)
             for (y in 0 until size) for (x in 0 until size)
-                bitmap.setPixel(x, y, if (x in 187..260 && y in 187..260) color else Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
-        } else bitmap.eraseColor(color)
+                bitmap.setPixel(x, y, if (x in 187..260 && y in 187..260) tint else Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)))
+        } else bitmap.eraseColor(tint)
         return try { ByteArrayOutputStream().also { check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)) }.toByteArray() }
         finally { bitmap.recycle() }
     }
