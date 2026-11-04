@@ -33,7 +33,7 @@ class LikePulseMotionTest {
                 val device = UiDevice.getInstance(instrumentation)
                 val folder = File(context.cacheDir, "like-pulse-evidence").apply { mkdirs() }
                 val author = "Anon-${node.postAuthor.take(6)}"
-                val selector = By.desc("Like post by $author")
+                val selector = By.desc("Like post by $author").enabled(true)
                 val density = context.resources.displayMetrics.density
                 observeModuleWindowMotionScale(activity, scale, folder)
                 var expected = 0
@@ -45,8 +45,16 @@ class LikePulseMotionTest {
                         requireNotNull(device.wait(Until.findObject(By.desc("View profile for $author")), 15_000)).click()
                         check(device.wait(Until.hasObject(By.text("Profile")), 15_000))
                     }
+                    if (surface == "thread") check(device.wait(Until.gone(By.text("Loading replies")), 15_000))
+                    if (surface == "profile") {
+                        check(device.wait(Until.gone(By.text("Loading profile history")), 15_000))
+                        check(device.wait(Until.gone(By.text("Loading profile details...")), 15_000))
+                        androidx.test.uiautomator.UiScrollable(androidx.test.uiautomator.UiSelector().scrollable(true))
+                            .scrollIntoView(androidx.test.uiautomator.UiSelector().description("Like post by $author"))
+                    }
                     val control = requireNotNull(device.wait(Until.findObject(selector), 15_000))
-                    assertTrue(control.isEnabled && control.isClickable)
+                    captureNativeScreen(File(folder, "scale-$scale-$surface-ready.png"))
+                    assertTrue("The positively enabled heart must expose a clickable accessibility action", control.isClickable)
                     val bounds = control.visibleBounds
                     assertTrue("The accessible heart keeps its48dp target", bounds.width() >= 48 * density && bounds.height() >= 48 * density)
                     val imageRegion = Rect(bounds.left, bounds.top, bounds.right, bounds.bottom - (14 * density).toInt())
@@ -150,7 +158,7 @@ private fun withLikeMotionFixture(block: (ActivityScenario<MainActivity>, PostLi
         val node = PostLikePeer()
         node.peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
-                withFailureCapture({ captureFeedEvidence("like-pulse-evidence/failure.png") }) { block(activity, node) }
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "like-pulse-evidence/failure.png")) }) { block(activity, node) }
                 assertEquals(SaitoBackend.OWNER, backends.load())
                 assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                 assertTrue(node.peer.reports.isEmpty())
