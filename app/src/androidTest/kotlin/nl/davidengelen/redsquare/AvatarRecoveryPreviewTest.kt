@@ -29,13 +29,16 @@ class AvatarRecoveryPreviewTest {
     private val color = Color.rgb(220, 30, 40)
 
     @Test fun anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry() {
-        val available = AtomicBoolean(false)
+        val retryArmed = AtomicBoolean(false)
+        val releaseImage = java.util.concurrent.CountDownLatch(1)
         val bytes = png()
         MockWebServer().use { images ->
             images.dispatcher = object : Dispatcher() {
-                override fun dispatch(request: RecordedRequest) = if (available.get())
-                    MockResponse.Builder().body(Buffer().write(bytes)).build()
-                else MockResponse.Builder().code(503).build()
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    if (!retryArmed.get()) return MockResponse.Builder().code(503).build()
+                    check(releaseImage.await(10, java.util.concurrent.TimeUnit.SECONDS))
+                    return MockResponse.Builder().body(Buffer().write(bytes)).build()
+                }
             }
             images.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             withAvatarJourney("Light") { _, _, response, _, author ->
@@ -46,8 +49,11 @@ class AvatarRecoveryPreviewTest {
                 row(author.publicKey).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Retry profile picture").isDisplayed() }
                 capture("unavailable-generated-retry")
-                available.set(true)
-                ui.onNodeWithContentDescription("Retry profile picture").performClick()
+                // Keep every successful response behind the actual click. A concurrent
+                // Profile observation may already retry loading, but cannot hide the button.
+                retryArmed.set(true)
+                try { ui.onNodeWithContentDescription("Retry profile picture").performClick() }
+                finally { releaseImage.countDown() }
                 hasColor(ui.onNodeWithContentDescription("Profile picture"))
                 capture("retry-profile-loaded")
                 ui.onNode(hasText("Home") and hasClickAction()).performClick()
