@@ -1,6 +1,19 @@
 # Implementation handoff
 
-## Unified redesign86:78 complete, STOP
+## Unified redesign86:82 active, stop after82
+
+The owner requested ONE more issue after78. Active82 is SHARED VERIFIED PROFILE
+PICTURES, not block status (some earlier handoff attribution to82 was wrong).
+Review base afcaa3502. Finish82/verify/review/commit then STOP before another
+issue. No intermediate beta. Actual GitHub ticket is authority.
+
+Initial signed synthetic feed-avatar native pixel tracer is added at the agreed
+UI/controlled signed-peer seam. App source unchanged; this must fail before the
+shared implementation. Planned reuse: SaitoProfiles signature/merge semantics,
+selected-node AndroidProfileDetailsCache and bounded raster loader. No live node
+changes, public writes, external avatar provider or owner credential required.
+
+## Previous checkpoint:78 complete
 
 The owner requested ONE more issue. Issue78 is complete, reviewed and verified.
 Stop now and wait for a new request. Do not start82 or another issue. Final
