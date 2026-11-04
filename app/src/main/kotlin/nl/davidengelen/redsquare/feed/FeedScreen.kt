@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
@@ -516,6 +517,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 val composeLabel = stringResource(R.string.post_new)
                 FloatingActionButton(onClick = { composing = true },
                     modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen)
+                        .size(if (LocalDensity.current.fontScale > 1.3f) 48.dp else 56.dp)
                         .semantics { text = AnnotatedString(composeLabel) },
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary) {

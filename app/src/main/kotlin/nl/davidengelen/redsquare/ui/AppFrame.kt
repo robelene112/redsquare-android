@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -68,14 +69,24 @@ internal fun CompactBackupNotice(visible: Boolean, enabled: Boolean, onBackup: (
             .animateContentSize(tween(AppSpacing.transitionMillis)), shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp)) {
-                Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
                 if (LocalDensity.current.fontScale > 1.3f) {
-                    BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.fillMaxWidth())
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                        BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
-                        BackupNoticeAction(R.string.later, enabled, onLater)
+                    // The warning is also the action, rather than an extra heading.
+                    // Keep two full48dp rows at large text, with a conventional dismiss control.
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        BackupNoticeAction(R.string.wallet_backup_reminder, enabled, onBackup, Modifier.weight(1f))
+                        FrameIconButton(R.drawable.ic_close, stringResource(R.string.later), enabled, onLater)
+                    }
+                    val importLabel = stringResource(R.string.wallet_import_existing)
+                    TextButton(onClick = onImport, enabled = enabled,
+                        modifier = Modifier.fillMaxWidth().semantics { contentDescription = importLabel },
+                        shape = RoundedCornerShape(AppSpacing.small)) {
+                        Icon(painterResource(R.drawable.ic_wallet), null, Modifier.size(20.dp))
+                        Spacer(Modifier.width(AppSpacing.small))
+                        Text(stringResource(R.string.wallet_import_compact), Modifier.clearAndSetSemantics { },
+                            style = MaterialTheme.typography.labelMedium)
                     }
                 } else {
+                    Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.weight(1f))
                         BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)

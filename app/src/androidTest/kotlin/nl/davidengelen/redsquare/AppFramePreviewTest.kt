@@ -130,15 +130,17 @@ class AppFramePreviewTest {
                         withFailureCapture({ capture("$name-first-failure.png") }) {
                         val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
                         val minimum = 48 * context.resources.displayMetrics.density - 1
+                        val backupLabel = if (scale > 1.3f) "Back up your wallet" else "Back up"
                         for (label in listOf("Account", "Home", "Search", "Notifications", "Chat", "Your profile",
-                            "Back up", "Later", "Import an existing wallet", "New post", "More feed actions")) {
-                            val target = if (label == "Account") hasContentDescription(label) else hasText(label)
+                            backupLabel, "Later", "Import an existing wallet", "New post", "More feed actions")) {
+                            val described = label == "Account" || (scale > 1.3f && label == "Import an existing wallet")
+                            val target = if (described) hasContentDescription(label) else hasText(label)
                             val node = ui.onNode(target and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()
                             val visualBounds = node.boundsInRoot
                             val bounds = node.touchBoundsInRoot
                             val selectedTab = node.config.getOrNull(SemanticsProperties.Role) == Role.Tab &&
                                 node.config.getOrNull(SemanticsProperties.Selected) == true
-                            var native = device.findObject(if (label == "Account") By.desc(label) else By.text(label))
+                            var native = device.findObject(if (described) By.desc(label) else By.text(label))
                             // Compose advertises a selected tab as selected rather than ACTION_CLICK.
                             while (native != null && !native.isClickable && !(selectedTab && native.isSelected)) native = native.parent
                             val nativeBounds = native?.visibleBounds
@@ -205,7 +207,7 @@ class AppFramePreviewTest {
                             addProperty("theme", theme); addProperty("layoutOnly", true)
                         }.toString())
                         capture("$name.png")
-                        ui.onNode(hasText("Back up") and hasClickAction()).performClick()
+                        ui.onNode(hasText(backupLabel) and hasClickAction()).performClick()
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_private)).performScrollTo().assertIsDisplayed()
                         capture("$name-backup-guidance.png")
                         ui.onNodeWithText("Done").performClick()
