@@ -61,8 +61,12 @@ class AvatarMotionTest {
                     response.set(JsonObject().apply { addProperty("tx", tx.envelope()) }.let { "[$it]" })
                     val movie = File(folder, "scale-$scale-avatar-$index.mp4")
                     val recording = recordNativeTransition(movie, recordingSeconds = 5) {
-                        val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
-                        check(device.swipe(list.centerX(), list.top + 20, list.centerX(), list.bottom - 30, 30))
+                        // A one-post feed can have no forward scroll range. Pull inside the
+                        // positively observed post and above the real navigation captions.
+                        val post = requireNotNull(device.findObject(By.text("Shared avatar journey"))).visibleBounds
+                        val navigation = requireNotNull(device.findObject(By.text("Home"))).visibleBounds
+                        check(navigation.top - 50 > post.top + 80)
+                        check(device.swipe(post.centerX(), post.top + 4, post.centerX(), navigation.top - 50, 30))
                         awaitColor(color)
                     }
                     val frames = retainNativeMotionFrames(movie)
