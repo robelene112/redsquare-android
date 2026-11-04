@@ -34,7 +34,13 @@ class ModuleHeaderMotionTest {
         val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
             JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
         }
-        fun accountVisible(): Boolean = device.findObject(By.desc("Account"))?.visibleBounds?.let { !it.isEmpty } == true
+        fun accountVisible(): Boolean? = try {
+            device.findObject(By.desc("Account"))?.visibleBounds?.let { !it.isEmpty } == true
+        } catch (_: androidx.test.uiautomator.StaleObjectException) {
+            // The header is moving between platform snapshots. Neither visibility
+            // nor absence is established; retry the same condition within its original budget.
+            null
+        }
         fun await(timeout: Long, message: String, condition: () -> Boolean) {
             val deadline = SystemClock.elapsedRealtime() + timeout
             while (!condition() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
@@ -61,12 +67,12 @@ class ModuleHeaderMotionTest {
                 check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
                 requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
                 check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
-                await(5_000, "Expanded app navigation must be visible") { accountVisible() }
+                await(5_000, "Expanded app navigation must be visible") { accountVisible() == true }
                 val navigation = requireNotNull(device.findObject(By.text("Home"))).visibleBounds
                 captureNativeScreen(File(folder, "scale-$scale-expanded.png"))
                 movie("collapse") {
                     swipe(up = true)
-                    await(5_000, "Reading down must collapse the actual app header") { !accountVisible() }
+                    await(5_000, "Reading down must collapse the actual app header") { accountVisible() == false }
                 }
                 assertEquals("Module navigation remains anchored during reading", navigation,
                     requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
@@ -74,20 +80,20 @@ class ModuleHeaderMotionTest {
                 captureNativeScreen(File(folder, "scale-$scale-collapsed.png"))
                 movie("keyboard") {
                     check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_TAB))
-                    await(5_000, "Keyboard navigation must reveal the collapsed shared controls") { accountVisible() }
+                    await(5_000, "Keyboard navigation must reveal the collapsed shared controls") { accountVisible() == true }
                     val focused = requireNotNull(device.findObject(By.focused(true)))
                     assertFalse("Keyboard focus must be visible", focused.visibleBounds.isEmpty)
                 }
                 swipe(up = true)
-                await(5_000, "Touch reading can collapse chrome again after keyboard navigation") { !accountVisible() }
+                await(5_000, "Touch reading can collapse chrome again after keyboard navigation") { accountVisible() == false }
                 check(device.pressDPadUp())
-                await(5_000, "D-pad navigation must reveal the collapsed shared controls") { accountVisible() }
+                await(5_000, "D-pad navigation must reveal the collapsed shared controls") { accountVisible() == true }
                 captureNativeScreen(File(folder, "scale-$scale-keyboard-revealed.png"))
                 swipe(up = true)
-                await(5_000, "Reading can collapse chrome before the upward gesture") { !accountVisible() }
+                await(5_000, "Reading can collapse chrome before the upward gesture") { accountVisible() == false }
                 movie("reveal") {
                     swipe(up = false)
-                    await(5_000, "Reading up must reveal the actual app header") { accountVisible() }
+                    await(5_000, "Reading up must reveal the actual app header") { accountVisible() == true }
                 }
                 assertEquals(navigation, requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
                 captureNativeScreen(File(folder, "scale-$scale-revealed.png"))

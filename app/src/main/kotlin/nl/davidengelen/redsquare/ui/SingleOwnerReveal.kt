@@ -19,5 +19,5 @@ internal fun SingleOwnerReveal(target: Any?, modifier: Modifier = Modifier, cont
             opacity.animateTo(1f, tween(AppSpacing.transitionMillis))
         }
     }
-    Box(modifier.graphicsLayer { alpha = opacity.value }) { content() }
+    Box(modifier.graphicsLayer { alpha = if (previous == target) opacity.value else 0f }) { content() }
 }

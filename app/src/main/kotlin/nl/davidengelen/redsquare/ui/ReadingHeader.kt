@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.ui
 
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,7 +12,13 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.layout.Layout
@@ -29,8 +36,11 @@ import nl.davidengelen.redsquare.R
 
 /** A feature retains its reading offset while other destinations render expanded chrome. */
 @OptIn(ExperimentalMaterial3Api::class)
-internal class ReadingHeaderState(private val behavior: TopAppBarScrollBehavior,
-    private val enabled: State<Boolean>, private val scope: CoroutineScope) {
+internal class ReadingHeaderState(
+    private val behavior: TopAppBarScrollBehavior,
+    private val enabled: State<Boolean>,
+    private val scope: CoroutineScope,
+) {
     var inMotion by mutableStateOf(false)
         private set
     private var generation = 0L
@@ -86,8 +96,15 @@ internal class ReadingHeaderState(private val behavior: TopAppBarScrollBehavior,
         }
     }
 
-    fun showNavigation() {
+    fun showNavigation(immediate: Boolean = false) {
+        if (!enabled.value || behavior.state.heightOffset >= 0f) return
         val token = beginMotion()
+        if (immediate) {
+            // Hardware focus must be visible before the next key's normal traversal.
+            behavior.state.heightOffset = 0f
+            finishMotion(token)
+            return
+        }
         revealing = scope.launch {
             try {
                 animate(behavior.state.heightOffset, 0f, animationSpec = tween(AppSpacing.transitionMillis)) { value, _ ->
@@ -123,7 +140,9 @@ internal fun rememberReadingHeaderState(enabled: Boolean): ReadingHeaderState {
 /** Read the changing offset in layout, without recomposing a live feature on every drag frame. */
 @Composable
 internal fun ReadingHeader(state: ReadingHeaderState, content: @Composable () -> Unit) {
-    Layout(content = { Column(Modifier.fillMaxWidth()) { content() } }, modifier = Modifier.clipToBounds()) { children, constraints ->
+    Layout(content = { Column(Modifier.fillMaxWidth()) { content() } }, modifier = Modifier
+        .onFocusChanged { if (it.hasFocus) state.showNavigation(immediate = true) }
+        .focusGroup().clipToBounds()) { children, constraints ->
         val child = children.single().measure(constraints.copy(minHeight = 0))
         state.measuredHeight(child.height)
         val offset = state.offset().roundToInt().coerceIn(-child.height, 0)
@@ -136,8 +155,13 @@ internal fun ReadingHeader(state: ReadingHeaderState, content: @Composable () ->
 internal fun Modifier.readingNavigation(state: ReadingHeaderState): Modifier {
     val label = stringResource(R.string.show_app_navigation)
     val description = stringResource(R.string.app_navigation_controls)
-    return if (state.navigationHidden) semantics {
+    val keyboard = onPreviewKeyEvent { event ->
+        if (event.type == KeyEventType.KeyDown && event.key in listOf(Key.Tab, Key.DirectionUp,
+                Key.DirectionDown, Key.DirectionLeft, Key.DirectionRight)) state.showNavigation(immediate = true)
+        false // Keep normal keyboard traversal and activation owned by the actual focused control.
+    }
+    return if (state.navigationHidden) keyboard.semantics {
         contentDescription = description
         customActions = listOf(CustomAccessibilityAction(label) { state.showNavigation(); true })
-    } else this
+    } else keyboard
 }
