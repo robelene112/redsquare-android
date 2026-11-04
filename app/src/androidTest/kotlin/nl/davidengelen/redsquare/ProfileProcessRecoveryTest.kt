@@ -134,8 +134,14 @@ class ProfileProcessRecoveryTest {
     @Test fun coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels() {
         val row = continuation("candidate")
         val peer = ControlledFeedPeer("[]", profileArchiveResponse = { criteria ->
-            assertEquals(owner(), criteria.get("field2").asString)
-            if (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) "[$row]" else "[]"
+            val requestedAuthor = criteria.get("field2").asString
+            // The retained signed reference feed can also request its own avatar.
+            // It must never receive this wallet's signed profile candidate.
+            if (requestedAuthor != owner() && requestedAuthor == "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR") "[]"
+            else {
+                assertEquals(owner(), requestedAuthor)
+                if (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) "[$row]" else "[]"
+            }
         }, archiveResponse = { "[]" })
         launch(peer) {
             openEditor(editable = false)
