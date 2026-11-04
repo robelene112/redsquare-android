@@ -53,7 +53,7 @@ internal fun withAvatarJourney(theme: String, block: (ActivityScenario<MainActiv
         state.prepare()
         wallets.replace(prior, reader)
         backend.save(SaitoBackend.OWNER)
-        check(appearance.edit().putString("mode", theme).commit())
+        check(appearance.edit().putString("mode", theme.uppercase()).commit())
         check(context.getSharedPreferences("notification-permission", 0).edit()
             .putBoolean("social-offered:${reader.publicKey}", true).commit())
         peer.start().use { server ->
