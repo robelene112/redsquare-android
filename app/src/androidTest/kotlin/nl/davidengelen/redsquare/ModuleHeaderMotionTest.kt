@@ -1,0 +1,110 @@
+package nl.davidengelen.redsquare
+
+import android.os.Build
+import android.os.SystemClock
+import android.view.ViewGroup
+import androidx.compose.runtime.Recomposer
+import androidx.compose.ui.MotionDurationScale
+import androidx.compose.ui.platform.findViewTreeCompositionContext
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import java.io.File
+import org.junit.Assert.*
+import org.junit.Test
+
+/** Real gestures and window motion, with no Compose clock substituting for system preferences. */
+class ModuleHeaderMotionTest {
+    @Test fun readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion() {
+        for (scale in listOf(0, 1)) verify(scale)
+    }
+
+    private fun verify(scale: Int) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val device = UiDevice.getInstance(instrumentation)
+        val originals = listOf("window_animation_scale", "transition_animation_scale", "animator_duration_scale")
+            .associateWith { device.executeShellCommand("settings get global $it").trim() }
+        check(originals.values.all { it == "null" || it.toFloatOrNull()?.let { value -> value.isFinite() && value >= 0 } == true })
+        val folder = File(context.cacheDir, "module-header-motion-evidence").apply { mkdirs() }
+        val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
+            JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
+        }
+        fun accountVisible(): Boolean = device.findObject(By.desc("Account"))?.visibleBounds?.let { !it.isEmpty } == true
+        fun await(timeout: Long, message: String, condition: () -> Boolean) {
+            val deadline = SystemClock.elapsedRealtime() + timeout
+            while (!condition() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
+            check(condition()) { message }
+        }
+        fun swipe(up: Boolean) {
+            val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
+            check(list.height() >= 100)
+            val upper = list.top + list.height() / 5
+            val lower = list.bottom - list.height() / 5
+            check(device.swipe(list.centerX(), if (up) lower else upper, list.centerX(), if (up) upper else lower, 20))
+        }
+        fun movie(name: String, action: () -> Unit) {
+            val file = File(folder, "scale-$scale-$name.mp4")
+            val recording = recordNativeTransition(file, recordingSeconds = 5, dismiss = action)
+            val observed = retainNativeMotionFrames(file)
+            observed.add("recording", recording)
+            File(folder, "scale-$scale-$name.json").writeText(observed.toString())
+        }
+        var primary: Throwable? = null
+        try {
+            originals.keys.forEach { device.executeShellCommand("settings put global $it $scale") }
+            withAppFrameFixture("header-$scale", "module-header-motion-evidence", rows) { activity ->
+                check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
+                requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
+                check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
+                await(5_000, "Expanded app navigation must be visible") { accountVisible() }
+                val navigation = requireNotNull(device.findObject(By.text("Home"))).visibleBounds
+                captureNativeScreen(File(folder, "scale-$scale-expanded.png"))
+                movie("collapse") {
+                    swipe(up = true)
+                    await(5_000, "Reading down must collapse the actual app header") { !accountVisible() }
+                }
+                assertEquals("Module navigation remains anchored during reading", navigation,
+                    requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
+                assertTrue(device.findObjects(By.textContains("Reference post ")).any { !it.visibleBounds.isEmpty })
+                captureNativeScreen(File(folder, "scale-$scale-collapsed.png"))
+                movie("reveal") {
+                    swipe(up = false)
+                    await(5_000, "Reading up must reveal the actual app header") { accountVisible() }
+                }
+                assertEquals(navigation, requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
+                captureNativeScreen(File(folder, "scale-$scale-revealed.png"))
+                movie("module") {
+                    requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
+                    requireNotNull(device.wait(Until.findObject(By.text("Stack")), 5_000)).click()
+                    check(device.wait(Until.hasObject(By.text("Stack design preview")), 5_000))
+                }
+                movie("article") {
+                    requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()
+                    check(device.wait(Until.hasObject(By.text("Article preview")), 5_000))
+                }
+                activity.onActivity { screen ->
+                    val host = requireNotNull(screen.findViewById<ViewGroup>(android.R.id.content).getChildAt(0))
+                    val parent = requireNotNull(host.findViewTreeCompositionContext())
+                    val observedScale = parent.effectCoroutineContext[MotionDurationScale]?.scaleFactor
+                    assertEquals("The real window must follow this system motion setting", scale.toFloat(), observedScale)
+                    File(folder, "scale-$scale-window.json").writeText(JsonObject().apply {
+                        addProperty("isRecomposer", parent is Recomposer)
+                        addProperty("windowMotionScale", observedScale)
+                        addProperty("systemMotionScale", android.provider.Settings.Global.getFloat(screen.contentResolver, android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f))
+                    }.toString())
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, *originals.map { (key, value) -> {
+                device.executeShellCommand(if (value == "null") "settings delete global $key" else "settings put global $key $value")
+                check(device.executeShellCommand("settings get global $key").trim() == value)
+            } }.toTypedArray())
+        }
+    }
+}
