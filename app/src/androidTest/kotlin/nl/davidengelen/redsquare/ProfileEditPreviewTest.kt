@@ -45,7 +45,7 @@ class ProfileEditPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.")
+            it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.") || it.name.startsWith("avatarprofiles.")
         }?.forEach {
             check(it.delete()) { "Could not reset emulator profile fixtures" }
         }

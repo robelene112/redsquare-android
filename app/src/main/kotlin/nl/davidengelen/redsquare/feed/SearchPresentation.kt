@@ -47,7 +47,7 @@ internal fun SearchPersonResult(key: String, name: String, cachedName: Boolean,
                 .semantics { contentDescription = profileLabel },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                GeneratedProfilePicture(key, Modifier.size(40.dp).clip(CircleShape).clearAndSetSemantics { })
+                ProfileAvatar(key, Modifier.size(40.dp).clip(CircleShape).clearAndSetSemantics { })
                 Column(Modifier.weight(1f)) {
                     Text(name, maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
                     Text("${key.take(8)}…${key.takeLast(6)}", maxLines = 1, overflow = TextOverflow.Ellipsis,

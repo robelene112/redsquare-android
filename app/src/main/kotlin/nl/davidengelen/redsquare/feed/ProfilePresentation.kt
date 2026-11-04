@@ -32,7 +32,7 @@ import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
 /** Public or unsent appearance, rendered with the same identity hierarchy. */
-internal data class ProfileAppearance(val picture: String?, val banner: String?, val bio: String)
+internal data class ProfileAppearance(val picture: String?, val banner: String?, val bio: String, val verified: nl.davidengelen.redsquare.saito.SaitoProfile? = null)
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -47,9 +47,10 @@ internal fun ProfileIdentityHeader(author: String, backend: SaitoBackend, appear
                 MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.surfaceContainerHigh))))
             Row(Modifier.fillMaxWidth().padding(top = maxWidth / 3 - 24.dp),
                 verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
-                ProfileImage(appearance.picture, ProfileImageKind.PICTURE, author, backend,
-                    Modifier.size(80.dp).border(4.dp, MaterialTheme.colorScheme.surface, CircleShape)
-                        .padding(4.dp).clip(CircleShape))
+                val picture = Modifier.size(80.dp).border(4.dp, MaterialTheme.colorScheme.surface, CircleShape)
+                    .padding(4.dp).clip(CircleShape)
+                if (appearance.verified != null) ProfileAvatar(author, picture, appearance.verified, showRetry = true)
+                else ProfileImage(appearance.picture, ProfileImageKind.PICTURE, author, backend, picture)
                 Spacer(Modifier.weight(1f))
                 Box(Modifier.padding(top = 24.dp)) { primaryAction() }
             }

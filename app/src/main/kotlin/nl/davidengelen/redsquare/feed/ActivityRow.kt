@@ -73,7 +73,7 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: Fe
                     .semantics { contentDescription = profileLabel },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                    GeneratedProfilePicture(author, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
+                    ProfileAvatar(author, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
                     Text(name, Modifier.weight(1f), maxLines = 2, overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.titleSmall)
                 }

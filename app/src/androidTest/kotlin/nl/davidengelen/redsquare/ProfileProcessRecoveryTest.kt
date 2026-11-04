@@ -60,7 +60,7 @@ class ProfileProcessRecoveryTest {
         guard()
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.")
+            it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.") || it.name.startsWith("avatarprofiles.")
         }?.forEach { check(it.delete()) }
         val author = owner()
         val owned = mutableListOf<Uri>()

@@ -309,6 +309,8 @@ class MainActivity : ComponentActivity() {
                 Os.fsync(descriptor)
             } }
             RedSquareTheme(this@MainActivity, appearance) {
+                nl.davidengelen.redsquare.feed.ProfileAvatarScope(wallet, backend,
+                    backend?.let { FeedEndpoints.fromIntent(intent, it) }) {
                 CompositionLocalProvider(LocalPublishingAgreement provides publishingAgreement,
                     LocalVideoFixture provides VideoFixture.fromIntent(intent),
                     LocalVideoDiagnostics provides videoDiagnostics,
@@ -772,6 +774,7 @@ class MainActivity : ComponentActivity() {
                             Text(stringResource(R.string.wallet_close_guide))
                         } }
                     )
+                }
                 }
                 }
                 }

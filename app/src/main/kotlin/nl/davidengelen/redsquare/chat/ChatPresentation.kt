@@ -19,7 +19,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
+import nl.davidengelen.redsquare.feed.ProfileAvatar
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -95,7 +95,7 @@ internal fun ConversationDetails(onDismiss: () -> Unit, content: @Composable Col
 internal fun ChatIdentityRow(key: String, title: String, subtitle: String, titleMaxLines: Int = Int.MAX_VALUE) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically) {
-        GeneratedProfilePicture(key, Modifier.size(40.dp).clip(CircleShape))
+        ProfileAvatar(key, Modifier.size(40.dp).clip(CircleShape))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium, maxLines = titleMaxLines, overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurface)

@@ -36,10 +36,10 @@ internal object PostImageLoader {
         override fun sizeOf(key: String, value: Bitmap) = maxOf(256 * 1024, value.allocationByteCount)
     }
 
-    suspend fun load(source: String, backend: SaitoBackend): Bitmap = withContext(Dispatchers.IO) {
+    suspend fun load(source: String, backend: SaitoBackend, identity: String = ""): Bitmap = withContext(Dispatchers.IO) {
         val digest = MessageDigest.getInstance("SHA-256").digest(source.toByteArray(Charsets.UTF_8))
             .joinToString("") { "%02x".format(it) }
-        val key = "${backend.id}:$digest"
+        val key = "${backend.id}:$identity:$digest"
         cache.get(key) ?: slots.withPermit {
             cache.get(key) ?: run {
                 val bytes = bytes(source, backend)

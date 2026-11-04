@@ -75,6 +75,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
+    val avatars = LocalProfileAvatars.current
     val personal = LocalPersonalControls.current
     val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope) } }
     val quotes = remember(wallet, backend, endpoint) { QuoteState(context, wallet, backend, endpoint, scope) }
@@ -489,7 +490,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 Text(stringResource(R.string.feed_empty))
             // Keep a restored list position until the asynchronous cache read has finished.
             val refreshContent: () -> Unit = {
-                if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
+                if (wallet != null) { avatars?.refresh(); pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
             }
             if (cacheReady && personal?.ready == true) PullToRefreshBox(
                 isRefreshing = pullRefreshing,

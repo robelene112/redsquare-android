@@ -18,7 +18,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
+import nl.davidengelen.redsquare.feed.ProfileAvatar
 
 internal enum class AppModule(val title: Int) {
     RED_SQUARE(R.string.app_name), STACK(R.string.stack_title)
@@ -63,8 +63,8 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                 IconButton(onClick = { accountOpen = true },
                     enabled = walletEnabled || settingsEnabled,
                     modifier = Modifier.size(48.dp).semantics { contentDescription = accountLabel }) {
-                    if (owner != null) GeneratedProfilePicture(owner,
-                        Modifier.size(36.dp).clip(CircleShape).clearAndSetSemantics { })
+                    if (owner != null) ProfileAvatar(owner,
+                        Modifier.size(36.dp).clip(CircleShape).clearAndSetSemantics { }, cachedOnly = true)
                     else Icon(painterResource(R.drawable.ic_profile), null)
                 }
                 AppMenu(accountOpen, onDismissRequest = { accountOpen = false }) {

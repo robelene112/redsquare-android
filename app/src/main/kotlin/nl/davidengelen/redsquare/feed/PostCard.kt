@@ -56,7 +56,7 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
                 .clickable(role = Role.Button, onClickLabel = profileLabel) { onIdentity(post.author) }
                 .semantics { contentDescription = profileLabel },
                 horizontalArrangement = Arrangement.spacedBy(AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
-                GeneratedProfilePicture(post.author, Modifier.size(40.dp).clip(CircleShape).clearAndSetSemantics { })
+                ProfileAvatar(post.author, Modifier.size(40.dp).clip(CircleShape).clearAndSetSemantics { })
                 Column(Modifier.weight(1f)) {
                     Text(author, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
                     Text(timestamp, maxLines = 2, style = MaterialTheme.typography.labelSmall,

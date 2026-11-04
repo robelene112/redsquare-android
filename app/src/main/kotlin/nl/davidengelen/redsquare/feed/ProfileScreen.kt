@@ -229,7 +229,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         LazyColumn(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             item(key = "profile-details") {
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                    ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty()),
+                    ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty(), profile),
                         onDetails = { identityOpen = true }) {
                         if (own) Button(onClick = { view.editing = true }, modifier = Modifier.heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.profile_edit))
