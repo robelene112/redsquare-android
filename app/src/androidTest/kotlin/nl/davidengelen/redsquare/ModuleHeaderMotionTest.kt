@@ -114,6 +114,12 @@ class ModuleHeaderMotionTest {
                 movie("menu-keyboard") {
                     requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
                     check(device.wait(Until.hasObject(By.text("Stack")), 5_000))
+                    // Preserve the original Escape-first regression without a prior
+                    // Tab supplying focus on the host's behalf.
+                    check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
+                    check(device.wait(Until.gone(By.text("Stack")), 5_000))
+                    requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
+                    check(device.wait(Until.hasObject(By.text("Stack")), 5_000))
                     check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_TAB))
                     await(5_000, "Tab must reach a real clickable menu row") {
                         focusedMenuText() in setOf("Red Square", "Stack")
