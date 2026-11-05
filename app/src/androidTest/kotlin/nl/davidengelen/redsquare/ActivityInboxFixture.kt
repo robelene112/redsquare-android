@@ -16,6 +16,7 @@ import org.junit.Assert.*
 internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("incomingLike"), actorName: String? = null,
     evidenceFolder: String = "activity-inbox-evidence",
     additionalEvents: () -> List<JsonObject> = { emptyList() },
+    onArchiveRead: (JsonObject) -> Unit = {},
     block: (ActivityScenario<MainActivity>, ControlledFeedPeer) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
@@ -34,7 +35,10 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
     val root = reference.get("root")
     val baseEvents = eventNames.map { reference.getAsJsonObject(it) }
     fun events() = baseEvents + additionalEvents()
-    fun rows(kind: String) = events().filter { it.get("field1").asString == kind }.joinToString(",", "[", "]")
+    fun rows(kind: String, criteria: JsonObject) = events().filter { it.get("field1").asString == kind }
+        .filter { it.get("created_at").asLong < (criteria.get("created_earlier_than")?.asLong ?: Long.MAX_VALUE) }
+        .sortedByDescending { it.get("created_at").asLong }.take(criteria.get("limit")?.asInt ?: 100)
+        .joinToString(",", "[", "]")
     fun original(kind: String, target: String) = (listOf(root.asJsonObject) + events())
         .filter { it.get("field1").asString == kind && it.get("sig").asString == target }
         .joinToString(",", "[", "]")
@@ -58,17 +62,19 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
             else -> error("Unexpected activity registry request")
         }
     }, quoteArchiveResponse = { criteria ->
-        if (criteria.has("field3")) rows("RedSquareRetweet") else "[]"
+        onArchiveRead(criteria)
+        if (criteria.has("field3")) rows("RedSquareRetweet", criteria) else "[]"
     }, archiveResponse = { criteria ->
+        onArchiveRead(criteria)
         when (criteria.get("field1").asString) {
             // ControlledFeedPeer routes exact quote lookups through archiveResponse too.
             "RedSquareRetweet" -> original("RedSquareRetweet", criteria.get("sig").asString)
             "RedSquareLike" -> if (criteria.get("field3")?.asString == wallet.publicKey ||
-                criteria.get("field2")?.asString == actor) rows("RedSquareLike") else "[]"
+                criteria.get("field2")?.asString == actor) rows("RedSquareLike", criteria) else "[]"
             "RedSquare" -> when {
                 criteria.has("sig") -> original("RedSquare", criteria.get("sig").asString)
                 criteria.get("field3")?.asString == wallet.publicKey ||
-                    !criteria.get("field4")?.asString.isNullOrEmpty() || criteria.get("field2")?.asString == actor -> rows("RedSquare")
+                    !criteria.get("field4")?.asString.isNullOrEmpty() || criteria.get("field2")?.asString == actor -> rows("RedSquare", criteria)
                 else -> "[$root]"
             }
             else -> error("Unexpected activity fixture read")
