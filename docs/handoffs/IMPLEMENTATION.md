@@ -11,29 +11,35 @@ consistent-source complete app gates, signed in-place update and publication.
 ACTIVE93: genuine selected-node block observation. Claimed, only blocker87closed.
 Review base b0078e033d946dc8273bf26962b22278ea2e31c0. Continue93,81,83,94 then beta.
 90completed/closed inb0078e033, trackercomment6667883771. No approval boundary.
-First snapshot tracer RED42099524913 at99f41; actual lightweight-options tracer
-RED42100785834 at557629c6b, both intended15s missing header height. Current first
-implementation c017350f4: SaitoNodeBlock validates published JSONblockchain tip,
-NodeBlocks.kt performs small cancellable foreground-only30s GET/options reads,
-shared AppHeader/Connection details show height, node, blocktime and receivedtime.
-No monetary source changed. Core119 tests freshly PASS local1m31,0fail/error/skip,
-including old block metadata accepted while old payment funding still rejected.
-Core log /tmp/redesign93-core-first.log; build session50321 finished, no local build.
-GREEN10native42102264768 atc017 currently building. No result yet.
+Current HEAD4ea3c4963e647c2c4712315a26cfadd66adf2e05; production04dcd01f8.
+Initial snapshot tracer RED42099524913; precise/options tracer RED42100785834;
+first native GREEN42102264768. Availability tracer RED42104075126 then
+GREEN42105364120. Boundary/availability native10 GREEN42107939021 (4methods).
+Core119 freshly PASS local1m31,0fail/error/skip, including old metadata accepted
+while stale monetary funding still rejected. No payment-freshness source changed.
 
-Use86's already agreed nativeUI/controlledHTTP+signedpeer/persistence seams. First
-fixture nodeBlockApiUrl supports validated127.0.0.1/options; distinct from wallet
-funding to preserve those counters. Reader supports separate official fixture;
-AppFrameFixture forwards only owner currently, extend for swap tests. Existing
-controlled feed/wallet fixtures without explicit node URL perform NO public block
-reads. Release always uses selected approved HTTPS origin, no extra backend UI.
-Async callback cancellation closes old reads on selection/lifecycle changes;
-observed state is separately remembered per selected backend. Source freshness
-and data/error status treatment remain TODO, along with actual reconnect, swapped/
-late-node response, missing/old, feed-refresh independence, narrow/pixel/themed/
-large-text and normal/zero native evidence. Do not close93 after first tracer.
-Final affected regression/source checks, fresh two-axis reviews and commit still
-required.94 retains actual final-source complete app and signed beta gates.
+NodeBlocks.kt owns cancellable, bounded foreground30s lightweight GET/options,
+strict SaitoNodeBlock published-tip parser and selected-node-lived stable state.
+Freshness keeps source blocktime separate from monotonic successful-check age;
+old/missing/disconnected preserve prior observations and source, never global lag.
+Separate validated127.0.0.1/options fixtures isolate owner/official reads without
+consuming balance fixture counts or causing public reads in controlled tests.
+Release supports only selected approved HTTPS origin, no fallback/custom UI.
+Native boundary10 proves actual late old-node reply cannot populate new node and
+block arrival cannot complete an independently held signed feed refresh.
+
+Current final focused runs:17 42109245127 and10 42109628396, both4ea3c4963.
+Adds missing-initial,12viewportcells/OS (320/412dp,100/130/200%,light/dark),
+actual normal/zero-motion old/disconnected/reconnected/reading-arrival recordings.
+Each class retains180s. All classes included additively in fullChat; no dropped
+original assertion/deadline. Inspect raw results and actual frames before closure.
+Original availability PNG vsXML observed differing states across separate capture
+calls, cause unproved. Preserve originals plus additional no-input UI-idle capture;
+not an assertion of atomic screenshots or a proven app repaint fix.
+Two independent93source reviewers now running, no implementation delegation.
+Final affected shell/header/reading regression, lint/source, evidence retention,
+review fixes and completioncommit/closure still required.94 owns complete final
+consistent-source app/update/publication gates. No local build is running.
 
 90review base835021c03c80c6c1351631aa57b647f1d9b759d1; last production
 3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13. Final broad32UI+3actual process gates
@@ -63,18 +69,12 @@ source-backed balance snapshot contract. Current named production server.ts read
 through network-disabled/read-only Docker still defines GET/balance/:keys? ->
 getBalanceSnapshot(keys), lines522-545; SHA2565cca9333856502e827a36a78ce87d2d2406d0914724b4a35cb860942e0800752,
 installed saito-js0.3.2. No options/wallet/database/service state was read or changed.
-93is now claimed; baseb0078e033. Initial snapshot tracer RED42099524913 at99f41
-fails expected header height after15s, no app metadata implementation. Further
-source inspection selects lightweight public GET/options instead: server.ts752
-calls getClientOptions; storage-core.ts636-680 publishes options.blockchain;
-blockchain.ts41-49 saves live core last_block_id/hash/timestamp and128-130 updates
-on new blocks. Both actual public/options reads200 (~1.2KB) match source fields;
-only block metadata retained outside repo. Owner node reported1180213 with block
-age~17.5h, official1182301 with recent block. No global lag claim or node change.
-Use Options metadata, not repeated wallet snapshots, and preserve all monetary
-code/freshness guards. Updated exact-options native tracer must RED before app
-implementation. Dedicated nodeBlockApiUrl fixture stays separate from wallet and
-feed fixtures. Normal controlled tests must not initiate public node reads.
+Lightweight public GET/options is selected: server.ts752 calls getClientOptions;
+storage-core.ts636-680 publishes options.blockchain; blockchain.ts41-49 saves
+live core last_block_id/hash/timestamp and128-130 updates on new blocks.
+Both actual public/options reads200 (~1.2KB) match source fields; only block
+metadata retained outside repo. Owner reported1180213 with block age~17.5h;
+official1182301 with recent block. No global lag claim or node change.
 Public read artifacts /mnt/storage/redsquare-android-artifacts/redesign93-public*
 contain only published block fields, not whole public config or wallet state.
 
