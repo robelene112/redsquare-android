@@ -45,7 +45,7 @@ private fun ComposeTestRule.verifyAccountViewports(width: Int) {
             onNode(hasText("Close wallet") and hasClickAction()).assertHeightIsAtLeast(48.dp).performClick()
             waitUntil(10_000) { onNode(hasText("Home") and isSelected()).isDisplayed() }
             openSettings()
-            captureNativeScreen(File(folder, "$label-settings.png"))
+            captureNativeScreen(File(folder, "$label-settings.png"), "Privacy and safety")
             onNodeWithText("Node").performScrollTo().performClick()
             for (domain in listOf("saito.io", "saito.davidengelen.nl")) {
                 onNode(hasText(domain) and hasClickAction()).performScrollTo().assertIsDisplayed()
