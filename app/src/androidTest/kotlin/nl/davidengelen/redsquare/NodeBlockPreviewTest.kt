@@ -49,4 +49,68 @@ class NodeBlockPreviewTest {
             }
         }
     }
+
+    @Test fun oldAndUnavailableReportsRemainHonestUntilTheNodeReconnects() {
+        val mode = java.util.concurrent.atomic.AtomicReference("old")
+        MockWebServer().use { node ->
+            node.dispatcher = object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    check(request.target == "/options")
+                    return when (mode.get()) {
+                        "missing" -> MockResponse.Builder().body("{\"blockchain\":{}}").build()
+                        "disconnected" -> MockResponse.Builder()
+                            .onResponseStart(mockwebserver3.SocketEffect.CloseSocket()).build()
+                        else -> {
+                            val old = mode.get() == "old"
+                            val height = if (old) 2345 else 3456
+                            val time = System.currentTimeMillis() - if (old) 30 * 60_000 else 1_000
+                            MockResponse.Builder().body("""{"blockchain":{"last_block_id":$height,"last_timestamp":$time,"last_block_hash":"${"cd".repeat(32)}"}}""").build()
+                        }
+                    }
+                }
+            }
+            node.start(InetAddress.getByName("127.0.0.1"), 0)
+            withAppFrameFixture("availability", "node-block-evidence",
+                nodeBlockApiUrl = "http://127.0.0.1:${node.port}/options") { _ ->
+                val folder = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                    "node-block-evidence").apply { mkdirs() }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Block 2,345", substring = true).isDisplayed() }
+                captureNativeScreen(File(folder, "old-before-freshness-check.png"))
+                ui.waitUntil(10_000) { ui.onNodeWithText("Block 2,345 · older").isDisplayed() }
+                ui.onNodeWithContentDescription("Connection details").performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithText("Older block information").isDisplayed() }
+                captureNativeScreen(File(folder, "older-block-details.png"))
+
+                mode.set("missing")
+                ui.onNode(hasText("Check again") and hasClickAction()).assertIsEnabled().performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Block information unavailable").isDisplayed() }
+                ui.onNode(hasText("Block 2,345") and hasAnyAncestor(isDialog())).assertIsDisplayed()
+                ui.onNodeWithText("Block 0").assertDoesNotExist()
+                captureNativeScreen(File(folder, "missing-report-retains-source.png"))
+
+                mode.set("disconnected")
+                ui.onNode(hasText("Check again") and hasClickAction()).assertIsEnabled().performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Could not reach this node").isDisplayed() }
+                ui.onNode(hasText("Block 2,345") and hasAnyAncestor(isDialog())).assertIsDisplayed()
+                ui.onNode(hasText("Node: saito.davidengelen.nl") and hasAnyAncestor(isDialog())).assertIsDisplayed()
+                captureNativeScreen(File(folder, "disconnected-retains-source.png"))
+
+                mode.set("fresh")
+                ui.onNode(hasText("Check again") and hasClickAction()).assertIsEnabled().performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasText("Block 3,456") and hasAnyAncestor(isDialog())).isDisplayed() }
+                ui.onNodeWithText("Could not reach this node").assertDoesNotExist()
+                ui.onNodeWithText("Older block information").assertDoesNotExist()
+                captureNativeScreen(File(folder, "node-reconnected.png"))
+                ui.onNodeWithText("Done").performClick()
+                ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                ui.onNodeWithText("Block 3,456").assertIsDisplayed()
+                ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
+                ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+            }
+        }
+    }
+
 }
