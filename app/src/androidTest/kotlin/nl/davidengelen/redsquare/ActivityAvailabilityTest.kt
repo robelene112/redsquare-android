@@ -72,7 +72,9 @@ abstract class ActivityAvailabilityFixture(private val widthDp: Int) {
                 ui.onAllNodesWithText("Unread").assertCountEquals(0)
                 peer.rejectNewConnections = false
                 ui.onNodeWithText("Retry").performClick()
-                ui.waitUntil(15_000) { ui.onNodeWithText("No unread activity").isDisplayed() && ui.refreshableContentReady() }
+                ui.waitUntil(15_000) { ui.onNodeWithText("No unread activity").isDisplayed() && ui.refreshableContentReady() &&
+                    ui.onAllNodesWithText("Could not refresh activity.").fetchSemanticsNodes().isEmpty() &&
+                    ui.onAllNodesWithText("Some activity could not be loaded.").fetchSemanticsNodes().isEmpty() }
                 ui.onNodeWithText("Liked your post").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-recovered.png"), "Liked your post")
                 ui.onNode(hasText("Home") and hasClickAction()).performClick()
