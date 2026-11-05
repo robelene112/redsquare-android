@@ -29,7 +29,10 @@ See `docs/evidence/ticket80/README.md` and native-results.json for exact mapping
 all failures/corrections, original captures and limits. No owner/provider/store or
 physical Pixel acceptance, no production changes/public writes and no beta.
 
-#92 is next and authorized, not implemented yet. Retain #80's honest states while
+#92 is ACTIVE, review base1f4ba191d1ae7783a283491649f278aa5b5f729b. The first
+new native tracer groups three actual signed Like actors on one target, while
+retaining an individual reply and exact post navigation. Test-only RED is next.
+Retain #80's honest states while
 grouping Likes per exact target, keeping distinct actors, underlying event/read IDs,
 direct navigation and automatic newest-event resurfacing. Preserve every original
 criterion and native signed-peer/identity/history boundary. Parent86/55/84/1/36

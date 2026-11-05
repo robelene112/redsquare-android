@@ -1690,6 +1690,7 @@ verify_activity_availability() {
 verify_activity_inbox() {
     local failed_inbox=0
     verify_activity_availability || failed_inbox=1
+    verify_group_chat_native ActivityGroupingPreviewTest 180 activity-groups activity-group-evidence || failed_inbox=1
     verify_group_chat_native LikeHistoryContractPreviewTest 180 like-history-contract like-history-contract-evidence || failed_inbox=1
     verify_group_chat_native ActivityInboxPreviewTest 180 activity-inbox activity-inbox-evidence || failed_inbox=1
     verify_group_chat_native ActivityInboxViewportTest 180 activity-inbox-viewport activity-inbox-viewport-evidence || failed_inbox=1
@@ -1697,6 +1698,10 @@ verify_activity_inbox() {
     verify_group_chat_native ActivityInboxRevisionTest 180 activity-revisions activity-revision-evidence || failed_inbox=1
     return "$failed_inbox"
 }
+if [[ "${TEST_SCOPE:-full}" == activity-groups* ]]; then
+    verify_group_chat_native ActivityGroupingPreviewTest 180 activity-groups activity-group-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == activity-availability* ]]; then
     verify_activity_availability
     exit 0
