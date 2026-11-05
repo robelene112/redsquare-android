@@ -59,19 +59,6 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
         onDismissRequest = { transfers.cancel(); onClose() },
         title = stringResource(if (reviewStep) R.string.transfer_confirm else R.string.transfer_send),
         closeLabel = stringResource(R.string.transfer_close_task),
-        headerExtra = {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(
-                    stringResource(if (reviewStep) R.string.transfer_step_review else R.string.transfer_step_details),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                LinearProgressIndicator(
-                    progress = { if (reviewStep) 1f else 0.5f },
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        },
         text = {
             Column(
                 Modifier
@@ -80,6 +67,17 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text(
+                        stringResource(if (reviewStep) R.string.transfer_step_review else R.string.transfer_step_details),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    LinearProgressIndicator(
+                        progress = { if (reviewStep) 1f else 0.5f },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
                 InlineStatus(
                     transfers.message?.let { stringResource(it) }
                         ?: if (transfers.busy) stringResource(R.string.status_transfer_processing) else null,
