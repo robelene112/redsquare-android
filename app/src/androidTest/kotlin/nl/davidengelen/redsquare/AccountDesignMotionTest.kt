@@ -37,6 +37,7 @@ class AccountDesignMotionTest {
                     check(device.wait(Until.hasObject(By.text("saito.davidengelen.nl")), 5_000))
                 }
                 captureNativeScreen(File(folder, "scale-$scale-node.png"))
+                click("Back to Settings")
                 click("Close settings")
                 requireNotNull(device.wait(Until.findObject(By.desc("Account")), 5_000)).click()
                 movie("wallet-open") { click("Wallet"); check(device.wait(Until.hasObject(By.text("Your wallet")), 5_000)) }

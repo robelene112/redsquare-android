@@ -59,6 +59,7 @@ private fun ComposeTestRule.verifyAccountViewports(width: Int) {
                 onNode(hasText(theme) and hasClickAction()).performScrollTo().assertHeightIsAtLeast(48.dp)
             }
             captureNativeScreen(File(folder, "$label-appearance.png"))
+            onNode(hasText("Back to Settings") and hasClickAction()).performClick()
             onNode(hasText("Close settings") and hasClickAction()).performClick()
             waitUntil(10_000) { onNode(hasText("Home") and isSelected()).isDisplayed() }
         }

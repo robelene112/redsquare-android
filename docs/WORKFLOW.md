@@ -357,6 +357,14 @@ complete first-release scope and the established production boundaries.
    pending receipt under unavailable optional bookkeeping. Its separate180second
    class is added to full/Chat scopes; the original eleven-case command and both
    process gates keep their existing identities, assertions and deadlines.
+   `wallet-design` and its Android17 variant isolate90's real task-header/review
+   checks,320/412dp account matrices and actual normal/zero motion, each class180s.
+   Complete Social includes these checks before the unchanged transfer/PIN/IME
+   and actual process-recovery gates. `wallet-redesign` and its Android17 variant
+   additionally run original appearance, transfer, export/auth/process, backup,
+   import/risk and storage/process checks at their existing deadlines. Controlled
+   balances never imply public payment delivery.94 retains final complete-source
+   application and signed-update/publication acceptance.
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. The full harness includes the local social receipt/tap/
