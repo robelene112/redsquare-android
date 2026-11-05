@@ -149,9 +149,9 @@ internal fun NodeConnectionDetails(node: String?, blocks: NodeBlockState? = null
             }
             Text(stringResource(R.string.node_block_feed_separate), style = MaterialTheme.typography.bodySmall)
         } }, dismissButton = {
-            TextButton(enabled = report?.backend != null && !report.checking,
+            TextButton(modifier = Modifier.heightIn(min = 48.dp), enabled = report?.backend != null && !report.checking,
                 onClick = { report?.checkAgain() }) { Text(stringResource(R.string.node_block_check_again)) }
-        }, confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) } })
+        }, confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = onDismiss) { Text(stringResource(R.string.done)) } })
 }
 
 @Composable
