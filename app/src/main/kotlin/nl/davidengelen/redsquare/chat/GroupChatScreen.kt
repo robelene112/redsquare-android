@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.chat
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.SingleOwnerReveal
 
 import androidx.activity.compose.BackHandler
 import androidx.activity.ComponentActivity
@@ -347,7 +348,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val statusSections = if (entry?.queuedMessage != null)
         listOf(GroupStatusSection.HISTORY, GroupStatusSection.MANAGEMENT)
     else listOf(GroupStatusSection.MANAGEMENT, GroupStatusSection.HISTORY)
-    BoxWithConstraints(modifier.fillMaxSize()) {
+    SingleOwnerReveal(entry?.group?.id, modifier.fillMaxSize()) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
     val statusMaxHeight=minOf(maxHeight/3,80.dp)
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
@@ -633,6 +635,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     }
                 })
         }
+    }
     }
     }
     if(creating) CreateGroupDialog(wallet,backend,busy,onDismiss={if(!busy)creating=false}) { name,invitees ->

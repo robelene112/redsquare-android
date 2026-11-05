@@ -533,7 +533,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(home) }
         val revealTarget: Any = when {
-            reviewingChat -> PrimaryDestination.CHAT
+            reviewingChat -> PrimaryDestination.CHAT to chatAlertGeneration
             reviewingQueue -> FeedOverlay.QUEUE
             reviewingChanges -> FeedOverlay.AUTHOR_CHANGES
             composing -> FeedOverlay.COMPOSER

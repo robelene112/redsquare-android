@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.chat
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.SingleOwnerReveal
 
 import androidx.activity.compose.BackHandler
 
@@ -54,11 +55,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         } })
     var groupDestination by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
+    SingleOwnerReveal(reviewingGroups, modifier) {
     if (reviewingGroups) {
-        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata,groupDestination, onInitialDestinationClosed) {
+        GroupChatScreen(wallet,endpoint,backend,Modifier.fillMaxSize(),onWalletMetadata,groupDestination, onInitialDestinationClosed) {
             reviewingGroups=false; groupDestination=null
         }
-        return
+        return@SingleOwnerReveal
     }
 
     val personal = LocalPersonalControls.current
@@ -317,7 +319,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 
     val keyboardVisible = WindowInsets.isImeVisible
     var details by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
-    BoxWithConstraints(modifier.fillMaxSize()) {
+    SingleOwnerReveal(counterparty, Modifier.fillMaxSize()) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
     val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -476,9 +479,11 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
     }
     }
+    }
     if (addingContact && counterparty == null) ChatPublicKeyDialog(wallet.publicKey, ChatKeyPurpose.PRIVATE, savingContact, contactFailed,
         onDismiss = { if (!savingContact) { addingContact = false; contactFailed = false } }, onConfirm = ::openContact)
     identityAuthor?.let { author -> IdentityDetailsDialog(author) { identityAuthor = null } }
+    }
 }
 
 private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>,
