@@ -82,21 +82,21 @@ class NodeBlockPreviewTest {
                 ui.waitUntil(10_000) { ui.onNodeWithText("Block 2,345 · older").isDisplayed() }
                 ui.onNodeWithContentDescription("Connection details").performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Older block information").isDisplayed() }
-                captureNativeScreen(File(folder, "older-block-details.png"))
+                captureState(folder, "older-block-details", "Older block information")
 
                 mode.set("missing")
                 requestCheck()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Block information unavailable").isDisplayed() }
                 ui.onNode(hasText("Block 2,345") and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 ui.onNodeWithText("Block 0").assertDoesNotExist()
-                captureNativeScreen(File(folder, "missing-report-retains-source.png"))
+                captureState(folder, "missing-report-retains-source", "Block information unavailable")
 
                 mode.set("disconnected")
                 requestCheck()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not reach this node").isDisplayed() }
                 ui.onNode(hasText("Block 2,345") and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 ui.onNode(hasText("Node: saito.davidengelen.nl") and hasAnyAncestor(isDialog())).assertIsDisplayed()
-                captureNativeScreen(File(folder, "disconnected-retains-source.png"))
+                captureState(folder, "disconnected-retains-source", "Could not reach this node")
 
                 mode.set("fresh")
                 requestCheck()
@@ -107,7 +107,7 @@ class NodeBlockPreviewTest {
                 }
                 ui.onNodeWithText("Could not reach this node").assertDoesNotExist()
                 ui.onNodeWithText("Older block information").assertDoesNotExist()
-                captureNativeScreen(File(folder, "node-reconnected.png"))
+                captureState(folder, "node-reconnected", "Block 3,456")
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 ui.onNodeWithText("Block 3,456").assertIsDisplayed()
@@ -122,6 +122,13 @@ class NodeBlockPreviewTest {
         val action = hasText("Check again") and hasClickAction()
         ui.waitUntil(15_000) { ui.onNode(action and isEnabled()).isDisplayed() }
         ui.onNode(action).assertIsEnabled().performClick()
+    }
+
+
+    private fun captureState(folder: File, name: String, expectedText: String) {
+        captureNativeScreen(File(folder, "$name.png"))
+        ui.waitForIdle()
+        captureNativeScreen(File(folder, "$name-no-input.png"), expectedText)
     }
 
 }

@@ -286,6 +286,7 @@ case "${TEST_SCOPE:-full}" in
 esac
 verify_node_blocks() {
     verify_group_chat_native NodeBlockPreviewTest 180 node-blocks node-block-evidence
+    verify_group_chat_native NodeBlockBoundaryTest 180 node-boundary node-boundary-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == node-blocks* ]]; then
     verify_node_blocks

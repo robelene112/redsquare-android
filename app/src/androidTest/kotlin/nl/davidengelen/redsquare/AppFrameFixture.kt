@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 
 /** Read-only frame peer and declared local state, restored after the Activity closes. No recomposer replacement. */
-internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, block: (ActivityScenario<MainActivity>) -> Unit) {
+internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, block: (ActivityScenario<MainActivity>) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -44,6 +44,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
                 .putExtra("usernameFixtureRegistrar", registryResponse != null)
             balanceApiUrl?.let { launchIntent.putExtra("balanceApiUrl", it) }
             nodeBlockApiUrl?.let { launchIntent.putExtra("nodeBlockApiUrl", it) }
+            nodeBlockOfficialApiUrl?.let { launchIntent.putExtra("nodeBlockOfficialApiUrl", it) }
             ActivityScenario.launch<MainActivity>(launchIntent).use { activity ->
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "$evidenceFolder/$name-failure.png")) }) {
                     block(activity)
