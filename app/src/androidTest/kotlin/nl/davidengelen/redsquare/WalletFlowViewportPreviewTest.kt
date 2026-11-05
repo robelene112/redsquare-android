@@ -82,7 +82,8 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithContentDescription("Amount in SAITO").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("1.25")
                 ui.waitUntil(5_000) { focusedWindowShowsIme() }
-                ui.onNodeWithContentDescription("Amount in SAITO").assertIsDisplayed()
+                val educationAcknowledged = ui.acknowledgeKeyboardFontEducation()
+                ui.onNodeWithContentDescription("Amount in SAITO").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Confirm SAITO transfer").assertDoesNotExist()
                 ui.onNodeWithText("Authenticate and send").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-payment-details-ime.png"), "Amount in SAITO")
@@ -91,6 +92,7 @@ class WalletFlowViewportPreviewTest {
                 val visible = field.fetchSemanticsNode().boundsInRoot
                 val density = context.resources.displayMetrics.density
                 File(folder, "$label-payment-field-geometry.json").writeText(com.google.gson.JsonObject().apply {
+                    addProperty("keyboardEducationAcknowledged", educationAcknowledged)
                     addProperty("wholeHeightPixels", (whole.bottom.value - whole.top.value) * density)
                     addProperty("visibleHeightPixels", visible.height)
                     addProperty("fontScale", context.resources.configuration.fontScale)
