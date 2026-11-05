@@ -160,7 +160,6 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             delay(10_000)
             if (!loading && !markingRead) {
                 backgroundRead = true
-                pending = emptyMap()
                 refresh++
             }
         }
@@ -171,13 +170,18 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         if (wallet == null) return@LaunchedEffect
         val generation = ++loadGeneration
         val streams = notificationStreams(followed, ownPosts)
-        val requested = pending.filterKeys { it in streams }.ifEmpty {
+        val background = backgroundRead
+        val requested = if (background) {
+            // Like-only newest reads have separate ownership from the reader's older-history continuation.
+            mapOf(NotificationStream("RedSquareLike") to System.currentTimeMillis() + 1)
+        } else pending.filterKeys { it in streams }.ifEmpty {
             val before = System.currentTimeMillis() + 1
             (streams.filter { it.author == null && it.target == null } +
                 streams.filter { it.target != null }.take(10) + streams.filter { it.author != null }.take(20))
-                .associateWith { before }.also { cursors = it }
+                .associateWith { before }
         }
-        pending = requested
+        cursors = cursors + requested.filterKeys { it !in cursors }
+        if (!background) pending = requested
         loading = true
         if (!backgroundRead) partialRead = false
         // A background feed update must not overwrite an in-flight verified mark commit.
@@ -200,10 +204,11 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                     cachedArchive(batch, setOf("create tweet")), cachedArchive(batch, setOf("retweet")),
                     wallet.publicKey, name, registrar, followed)
             }
-        fun publish(pages: NotificationPages) {
+        fun publish(pages: NotificationPages): Boolean {
             val priorIds = events.map { it.id }.toHashSet()
+            val newLikes = pages.likes.likes.any { it.id !in priorIds }
             val returnToTop = !position.isScrollInProgress && position.firstVisibleItemIndex == 0 &&
-                position.firstVisibleItemScrollOffset == 0 && pages.likes.likes.any { it.id !in priorIds }
+                position.firstVisibleItemScrollOffset == 0 && newLikes
             events = availableActivity(pages.likes.likes, events, { it.id }, { it.createdAt })
             replies = availableActivity(pages.replies.posts.filter { it.author != wallet.publicKey && it.parentId.isNotEmpty() },
                 replies, { it.id }, { it.createdAt })
@@ -213,13 +218,14 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             contacts = availableActivity(pages.contacts, contacts, { it.id }, { it.createdAt })
             ignored = pages.ignoredRows
             if (returnToTop) followNewest++
+            return newLikes
         }
         val saved = withContext(Dispatchers.IO) { history!!.load() }
         cacheWarning = saved.unreadable
         val cached = withContext(Dispatchers.IO) { readAvailableHistory(saved.envelopes) }
-        cached.forEach(::publish)
+        cached.forEach { publish(it) }
         val available = withContext(Dispatchers.IO) { readAvailableHistory(knownPosts.map { it.envelope }) }
-        available.forEach(::publish)
+        available.forEach { publish(it) }
         val availableEnvelopes = available.flatMap { it.envelopes }
         if (availableEnvelopes.isNotEmpty()) {
             try { withContext(Dispatchers.IO) { history!!.save(availableEnvelopes) } }
@@ -261,22 +267,34 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 }
             }
             pages.forEach { result -> result.pages?.let { content ->
-                publish(content)
+                val newLikes = publish(content)
                 val next = nextCursor(result)
-                cursors = cursors + (result.stream to next.before)
+                val prior = cursors[result.stream]
+                if (background) {
+                    // Keep an older reader cursor. Duplicate newest pages must not reopen exhausted history.
+                    if (prior == null && newLikes) cursors = cursors + (result.stream to next.before)
+                    if (next.before == null) pending = pending - result.stream
+                } else {
+                    val continued = if (prior != null && result.before > prior && next.before != null)
+                        minOf(prior, next.before) else next.before
+                    cursors = cursors + (result.stream to continued)
+                    pending = pending - result.stream
+                }
                 pagingWarning = pagingWarning || next.warning
-                pending = pending - result.stream
             } }
+            if (background) pages.filter { it.pages == null && it.stream !in pending }.forEach {
+                pending = pending + (it.stream to it.before)
+            }
             ignored = available.sumOf { it.ignoredRows } + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
             try { withContext(Dispatchers.IO) {
                 history!!.save(pages.mapNotNull { it.pages }.flatMap { it.envelopes })
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
-            failed = pages.any { it.pages == null }
+            failed = pages.any { it.pages == null } || pending.isNotEmpty()
             partialRead = failed && pages.any { it.pages != null }
             if (!failed) completedRead = true
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true }
+        catch (_: Exception) { failed = true; partialRead = false }
         finally { if (generation == loadGeneration) { loading = false; backgroundRead = false } }
     }
     fun markObserved(observed: List<String>) {
@@ -380,7 +398,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             else -> null
         }
         InlineStatus(status?.let { stringResource(it) }, when {
-            loading || markingRead -> StatusTone.WORKING
+            (loading && !backgroundRead) || markingRead -> StatusTone.WORKING
             partialRead -> StatusTone.WARNING
             failed -> StatusTone.ERROR
             else -> StatusTone.INFO
