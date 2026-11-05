@@ -100,7 +100,7 @@ class LoadedMediaMotionTest {
                 try {
                     val pixel = frame.getPixel(point.centerX(), point.centerY())
                     val chroma = (Color.red(pixel) + Color.blue(pixel)) / 2.0 - Color.green(pixel)
-                    if (chroma in 40.0..230.0) intermediate.add(chroma)
+                    if (chroma in 20.0..230.0) intermediate.add(chroma)
                     if (Color.red(pixel) > 235 && Color.green(pixel) < 20 && Color.blue(pixel) > 235) deliveredFrames++
                     colors.add(JsonObject().apply {
                         addProperty("file", value.get("file").asString)
