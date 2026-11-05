@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NodeBlockMotionTest:
+INSTRUMENTATION_STATUS: test=normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Block arrival preserves the exact visible reading anchor expected:<(Reference post 20, Rect(18, 78 - 145, 85))> but was:<(Reference post 19, Rect(18, 192 - 145, 211))>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$lambda$12$lambda$11$lambda$10(NodeBlockMotionTest.kt:96)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$934PHJG7ecJkFeLb_nmzeOmI7XI(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$movie(NodeBlockMotionTest.kt:40)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$lambda$12$lambda$11(NodeBlockMotionTest.kt:76)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$SGtbJfobEXLEoBNbsAjc-0tbV1E(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13(NodeBlockMotionTest.kt:67)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$jdF5I1_vsK_dhsH5Vgsv8HNIQCA(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(nl.davidengelen.redsquare.NodeBlockMotionTest):
+java.lang.AssertionError: Block arrival preserves the exact visible reading anchor expected:<(Reference post 20, Rect(18, 78 - 145, 85))> but was:<(Reference post 19, Rect(18, 192 - 145, 211))>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$lambda$12$lambda$11$lambda$10(NodeBlockMotionTest.kt:96)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$934PHJG7ecJkFeLb_nmzeOmI7XI(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$movie(NodeBlockMotionTest.kt:40)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$lambda$12$lambda$11(NodeBlockMotionTest.kt:76)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$SGtbJfobEXLEoBNbsAjc-0tbV1E(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13(NodeBlockMotionTest.kt:67)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$jdF5I1_vsK_dhsH5Vgsv8HNIQCA(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 26.965
+There was 1 failure:
+1) normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(nl.davidengelen.redsquare.NodeBlockMotionTest)
+java.lang.AssertionError: Block arrival preserves the exact visible reading anchor expected:<(Reference post 20, Rect(18, 78 - 145, 85))> but was:<(Reference post 19, Rect(18, 192 - 145, 211))>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$lambda$12$lambda$11$lambda$10(NodeBlockMotionTest.kt:96)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$934PHJG7ecJkFeLb_nmzeOmI7XI(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$movie(NodeBlockMotionTest.kt:40)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13$lambda$12$lambda$11(NodeBlockMotionTest.kt:76)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$SGtbJfobEXLEoBNbsAjc-0tbV1E(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$13(NodeBlockMotionTest.kt:67)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$jdF5I1_vsK_dhsH5Vgsv8HNIQCA(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

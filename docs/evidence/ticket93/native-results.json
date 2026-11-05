@@ -1,0 +1,208 @@
+{
+  "ticket": 93,
+  "status": "complete",
+  "reviewBase": "b0078e033d946dc8273bf26962b22278ea2e31c0",
+  "productionAndFinalFeatureSource": "3b1afd4fe15f142fb91afec25c6c1a96d1bf6fc0",
+  "sourceCheck": {
+    "run": 42115917586,
+    "conclusion": "success",
+    "coreMethods": 119,
+    "coreExecution": "FROM-CACHE",
+    "gatewayTask": "FROM-CACHE",
+    "gatewayMethodCountRetained": false,
+    "lintErrors": 0,
+    "lintWarnings": 55,
+    "lintHints": 1
+  },
+  "separateFreshCoreCheck": {
+    "methods": 119,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "parserSource": "c017350f4",
+    "parserUnchangedSince": true
+  },
+  "sourceReview": {
+    "standardsFindings": 0,
+    "specFindings": 0
+  },
+  "platforms": {
+    "10": {
+      "run": 42115910068,
+      "conclusion": "success",
+      "source": "3b1afd4fe15f142fb91afec25c6c1a96d1bf6fc0",
+      "uiMethods": {
+        "node-blocks-ui.txt": 3,
+        "node-boundary-ui.txt": 2,
+        "node-narrow-ui.txt": 1,
+        "node-motion-ui.txt": 1,
+        "node-pixel-ui.txt": 1
+      },
+      "uiMethodTotal": 8,
+      "viewportCells": 12,
+      "nativeActionHeightsDp": {
+        "100": 48,
+        "130": 48,
+        "200": 54
+      },
+      "nativeCloseTargetDp": [
+        48,
+        48
+      ],
+      "normalZeroMovies": 8,
+      "originalMotionFrames": 289,
+      "sourceFindings": 0,
+      "viewportFindings": 0,
+      "motionReview": "zero_actionable_findings",
+      "motion": {
+        "0": {
+          "window": {
+            "isRecomposer": true,
+            "windowMotionScale": 0.0,
+            "systemMotionScale": 0.0
+          },
+          "reading": {
+            "collapsedAfterMillis": 1424,
+            "responseDelayMillis": 4000
+          },
+          "stationary": {
+            "firstObservedText": "Reference post 20",
+            "firstObservedBounds": "[18,78][145,85]",
+            "settledText": "Reference post 20",
+            "settledBounds": "[18,78][145,85]",
+            "settledAfterMillis": 1641
+          }
+        },
+        "1": {
+          "window": {
+            "isRecomposer": true,
+            "windowMotionScale": 1.0,
+            "systemMotionScale": 1.0
+          },
+          "reading": {
+            "collapsedAfterMillis": 1429,
+            "responseDelayMillis": 4000
+          },
+          "stationary": {
+            "firstObservedText": "Reference post 20",
+            "firstObservedBounds": "[18,78][145,85]",
+            "settledText": "Reference post 19",
+            "settledBounds": "[18,190][145,209]",
+            "settledAfterMillis": 1891
+          }
+        }
+      }
+    },
+    "17": {
+      "run": 42115913790,
+      "conclusion": "success",
+      "source": "3b1afd4fe15f142fb91afec25c6c1a96d1bf6fc0",
+      "uiMethods": {
+        "node-blocks-ui.txt": 3,
+        "node-boundary-ui.txt": 2,
+        "node-narrow-ui.txt": 1,
+        "node-motion-ui.txt": 1,
+        "node-pixel-ui.txt": 1
+      },
+      "uiMethodTotal": 8,
+      "viewportCells": 12,
+      "nativeActionHeightsDp": {
+        "100": 48,
+        "130": 48,
+        "200": 54
+      },
+      "nativeCloseTargetDp": [
+        48,
+        48
+      ],
+      "normalZeroMovies": 8,
+      "originalMotionFrames": 348,
+      "sourceFindings": 0,
+      "viewportFindings": 0,
+      "motionReview": "zero_actionable_findings",
+      "motion": {
+        "0": {
+          "window": {
+            "isRecomposer": true,
+            "windowMotionScale": 0.0,
+            "systemMotionScale": 0.0
+          },
+          "reading": {
+            "collapsedAfterMillis": 2028,
+            "responseDelayMillis": 4000
+          },
+          "stationary": {
+            "firstObservedText": "Reference post 20",
+            "firstObservedBounds": "[18,78][145,85]",
+            "settledText": "Reference post 20",
+            "settledBounds": "[18,78][145,85]",
+            "settledAfterMillis": 2230
+          }
+        },
+        "1": {
+          "window": {
+            "isRecomposer": true,
+            "windowMotionScale": 1.0,
+            "systemMotionScale": 1.0
+          },
+          "reading": {
+            "collapsedAfterMillis": 1987,
+            "responseDelayMillis": 4000
+          },
+          "stationary": {
+            "firstObservedText": "Reference post 20",
+            "firstObservedBounds": "[18,78][145,85]",
+            "settledText": "Reference post 20",
+            "settledBounds": "[18,78][145,85]",
+            "settledAfterMillis": 2188
+          }
+        }
+      }
+    }
+  },
+  "affectedOriginalRegression": {
+    "source": "cd1f7d3ca33e1ca4dbdaf26a791fb0e1eaa3c4e7",
+    "android10Run": 42109805756,
+    "android17Run": 42109825905,
+    "methodsPerOs": 5,
+    "conclusions": [
+      "success",
+      "success"
+    ],
+    "sampledMoviesPerOs": 14,
+    "renderedFindings": 0
+  },
+  "resolvedVisualFindings": [
+    {
+      "priorRun": 42110457489,
+      "finding": "Floating native accessibility bounds clipped to40dp despiteCompose48dp",
+      "repair": "Established AppDialogWindow alignment",
+      "finalNativeHeightsDp": [
+        48,
+        54
+      ]
+    },
+    {
+      "priorRun": 42114263362,
+      "finding": "Open floating details briefly disappears duringzero-motionstatusupdates",
+      "durationsMillis": [
+        21,
+        18,
+        34
+      ],
+      "sourceCause": "unproved",
+      "repair": "Reuse shared fixed AccountDialog",
+      "android10FinalReview": "No dropout in all original zero old/recovered frames",
+      "android17FinalReview": "No dropout in all original zero old/recovered frames"
+    }
+  ],
+  "publicReadOnlyObservations": "public-options-observations.json",
+  "publicTransactionsSubmitted": 0,
+  "wholeAppAcceptance": false,
+  "betaPublished": false,
+  "limits": [
+    "Controlled emulator and signed-peer results do not establish physical Pixel, provider or store acceptance.",
+    "Focused feature gates are not a complete application pass. Issue #94 retains consistent-final-source whole-app gates, signed in-place update and beta publication.",
+    "Actual Stack archive/publishing/payment integration and #1/#36/#55/#84 acceptance remain independent."
+  ]
+}

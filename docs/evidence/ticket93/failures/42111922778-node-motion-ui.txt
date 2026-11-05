@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NodeBlockMotionTest:
+INSTRUMENTATION_STATUS: test=normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: The actual working dialog must expose its stable enabled Done target inside1s
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.currentWorkingActionBounds(NodeBlockMotionTest.kt:127)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$lambda$11$lambda$10$lambda$9(NodeBlockMotionTest.kt:73)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$n9OjfIEUS1iN3en_DCdF3y-5XT8(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$movie(NodeBlockMotionTest.kt:40)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$lambda$11$lambda$10(NodeBlockMotionTest.kt:70)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$OnohsyPMfo5rPYIinTuCjg0MO_w(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12(NodeBlockMotionTest.kt:61)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$7ei9I1ke4m6XeV1wlglNO2JE4h4(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(nl.davidengelen.redsquare.NodeBlockMotionTest):
+java.lang.IllegalStateException: The actual working dialog must expose its stable enabled Done target inside1s
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.currentWorkingActionBounds(NodeBlockMotionTest.kt:127)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$lambda$11$lambda$10$lambda$9(NodeBlockMotionTest.kt:73)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$n9OjfIEUS1iN3en_DCdF3y-5XT8(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$movie(NodeBlockMotionTest.kt:40)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$lambda$11$lambda$10(NodeBlockMotionTest.kt:70)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$OnohsyPMfo5rPYIinTuCjg0MO_w(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12(NodeBlockMotionTest.kt:61)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$7ei9I1ke4m6XeV1wlglNO2JE4h4(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 29.381
+There was 1 failure:
+1) normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(nl.davidengelen.redsquare.NodeBlockMotionTest)
+java.lang.IllegalStateException: The actual working dialog must expose its stable enabled Done target inside1s
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.currentWorkingActionBounds(NodeBlockMotionTest.kt:127)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$lambda$11$lambda$10$lambda$9(NodeBlockMotionTest.kt:73)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$n9OjfIEUS1iN3en_DCdF3y-5XT8(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$movie(NodeBlockMotionTest.kt:40)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12$lambda$11$lambda$10(NodeBlockMotionTest.kt:70)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$OnohsyPMfo5rPYIinTuCjg0MO_w(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$12(NodeBlockMotionTest.kt:61)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$7ei9I1ke4m6XeV1wlglNO2JE4h4(Unknown Source:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,24 @@
+[
+  {
+    "node": "saito.davidengelen.nl",
+    "observedAtMillis": 1793909272998,
+    "httpStatus": 200,
+    "bodyBytes": 1229,
+    "blockchain": {
+      "last_block_id": 1180213,
+      "last_block_hash": "641ea2da53b3f8811a0f4bf53170d83e5a9a632885aedbd222fcdfd64d905d6b",
+      "last_timestamp": 1793845855081
+    }
+  },
+  {
+    "node": "saito.io",
+    "observedAtMillis": 1793909272998,
+    "httpStatus": 200,
+    "bodyBytes": 1211,
+    "blockchain": {
+      "last_block_id": 1182301,
+      "last_block_hash": "f12ce56c0805998c778010b3671ebb6141765dec94c007588a5ec38774c96986",
+      "last_timestamp": 1793909270602
+    }
+  }
+]

@@ -1,0 +1,116 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NodeBlockViewportTest:
+INSTRUMENTATION_STATUS: test=narrowBlockStatusAndDetailsRemainReadable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Actual height is 40.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports$lambda$7$lambda$6$lambda$5(NodeBlockViewportTest.kt:52)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.$r8$lambda$uvp04iYYZG8jc1LAeVrFJRyuG-U(NodeBlockViewportTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports$lambda$7$lambda$6(NodeBlockViewportTest.kt:38)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.$r8$lambda$cCIrj8K5BaFdO55V_ZfEv6RXL5w(NodeBlockViewportTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports(NodeBlockViewportTest.kt:34)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.access$nodeBlockViewports(NodeBlockViewportTest.kt:1)
+	at nl.davidengelen.redsquare.NodeBlockViewportTest.narrowBlockStatusAndDetailsRemainReadable(NodeBlockViewportTest.kt:16)
+
+INSTRUMENTATION_STATUS: stream=
+Error in narrowBlockStatusAndDetailsRemainReadable(nl.davidengelen.redsquare.NodeBlockViewportTest):
+java.lang.AssertionError: Actual height is 40.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports$lambda$7$lambda$6$lambda$5(NodeBlockViewportTest.kt:52)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.$r8$lambda$uvp04iYYZG8jc1LAeVrFJRyuG-U(NodeBlockViewportTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports$lambda$7$lambda$6(NodeBlockViewportTest.kt:38)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.$r8$lambda$cCIrj8K5BaFdO55V_ZfEv6RXL5w(NodeBlockViewportTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports(NodeBlockViewportTest.kt:34)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.access$nodeBlockViewports(NodeBlockViewportTest.kt:1)
+	at nl.davidengelen.redsquare.NodeBlockViewportTest.narrowBlockStatusAndDetailsRemainReadable(NodeBlockViewportTest.kt:16)
+
+INSTRUMENTATION_STATUS: test=narrowBlockStatusAndDetailsRemainReadable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.303
+There was 1 failure:
+1) narrowBlockStatusAndDetailsRemainReadable(nl.davidengelen.redsquare.NodeBlockViewportTest)
+java.lang.AssertionError: Actual height is 40.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports$lambda$7$lambda$6$lambda$5(NodeBlockViewportTest.kt:52)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.$r8$lambda$uvp04iYYZG8jc1LAeVrFJRyuG-U(NodeBlockViewportTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports$lambda$7$lambda$6(NodeBlockViewportTest.kt:38)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.$r8$lambda$cCIrj8K5BaFdO55V_ZfEv6RXL5w(NodeBlockViewportTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.nodeBlockViewports(NodeBlockViewportTest.kt:34)
+	at nl.davidengelen.redsquare.NodeBlockViewportTestKt.access$nodeBlockViewports(NodeBlockViewportTest.kt:1)
+	at nl.davidengelen.redsquare.NodeBlockViewportTest.narrowBlockStatusAndDetailsRemainReadable(NodeBlockViewportTest.kt:16)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
