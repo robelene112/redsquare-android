@@ -1,0 +1,74 @@
+{
+  "ticket": 90,
+  "reviewBase": "835021c03c80c6c1351631aa57b647f1d9b759d1",
+  "productionSource": "3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13",
+  "platforms": {
+    "10": {
+      "conclusion": "success",
+      "headSha": "58dfcfa1fb6a25e2540996c0d377a68cbc04f680",
+      "status": "completed",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/42095757828",
+      "checkedOutSource": "58dfcfa1fb6a25e2540996c0d377a68cbc04f680",
+      "uiMethods": {
+        "wallet-import-ui": 7,
+        "wallet-design-ui": 2,
+        "account-design-motion-ui": 1,
+        "account-design-pixel-ui": 1,
+        "wallet-backup-ui": 1,
+        "appearance-ui": 1,
+        "wallet-export-ui": 5,
+        "wallet-flow-viewport-ui": 1,
+        "transfers-ui": 10,
+        "wallet-storage-recovery-ui": 1,
+        "account-design-compact-ui": 1,
+        "wallet-risk-ui": 1
+      },
+      "totalUiMethods": 32,
+      "nativePng": 357,
+      "nativeMovies": 8,
+      "processGates": [
+        "wallet-export-process",
+        "transfer-process",
+        "wallet-import-process"
+      ]
+    },
+    "17": {
+      "conclusion": "success",
+      "headSha": "32eb9f73f63537c9918919cf5d7b05c4bfe3f851",
+      "status": "completed",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/42094963847",
+      "checkedOutSource": "32eb9f73f63537c9918919cf5d7b05c4bfe3f851",
+      "uiMethods": {
+        "wallet-import-ui": 7,
+        "wallet-design-ui": 2,
+        "account-design-motion-ui": 1,
+        "account-design-pixel-ui": 1,
+        "wallet-backup-ui": 1,
+        "appearance-ui": 1,
+        "wallet-export-ui": 5,
+        "wallet-flow-viewport-ui": 1,
+        "transfers-ui": 10,
+        "wallet-storage-recovery-ui": 1,
+        "account-design-compact-ui": 1,
+        "wallet-risk-ui": 1
+      },
+      "totalUiMethods": 32,
+      "nativePng": 491,
+      "nativeMovies": 8,
+      "processGates": [
+        "wallet-export-process",
+        "transfer-process",
+        "wallet-import-process"
+      ]
+    }
+  },
+  "sourceCheck": {
+    "run": 42093749985,
+    "source": "3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13",
+    "coreValidatedCachedTests": 117,
+    "gatewayValidatedCachedTests": 16,
+    "lintErrors": 0,
+    "lintWarnings": 55,
+    "lintHints": 1
+  }
+}

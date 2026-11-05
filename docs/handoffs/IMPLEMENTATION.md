@@ -8,55 +8,38 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-Active #90: Wallet and Settings shared presentation. Claimed with zero blockers.
-Review base835021c03c80c6c1351631aa57b647f1d9b759d1. Real task-header RED10
-42083120494, first GREEN10 42084565308. Child receive/review RED10 42086633967
-(after42085614149 exposed a test-only localhost URL error). Production migrated
-through a7d6a1011: AccountDialog, account cards/rows/choices and real Wallet,
-Settings, receive, transfer review and recovery windows, original controllers kept.
-Both new child/header methods pass10/17. Broad83ece PASS42089005702 (10) and
-42089010358 (17), each32UI methods plus actual transfer/export/storage process
-checks. Focused c148 PASS42090783136 (10) and42090788634 (17), each5newmethods,
-12viewport cells and8normal/zero-motion movies. Explicit Compose readiness fixes
-the earlier native Settings capture (e042 focused42089706359/42089712188 fail
-while still observing the account popup). Original criteria and bounds unchanged.
-Source/debug lint PASS42088571257 at24b5c:117/16 validated cached task results;
-0lint errors,55existing warnings,1hint. Both final source review axes atc1480findings.
-Independent native review inspects144viewport PNG and16full decoded sequences,
-0additional layout findings.17zero-motion return has one dimmed feed frame257ms,
-normal275ms, exact cause unproved; do not claim completely flash-free return.
+#90 is COMPLETE, with final completion commit/evidence to be recorded in the
+tracker. Continue directly to #93, then #81, #83 and #94; do not stop for approval.
+90review base835021c03c80c6c1351631aa57b647f1d9b759d1; last production
+3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13. Final broad32UI+3actual process gates
+PASS42095757828 (10/source58df) and42094963847 (17/source32eb), same production.
+Source/debug lint PASS42093749985:117/16validatedcached results,0errors55existing
+warnings1hint. Both source axes and final native payment/receive reviews0actionable
+findings. Original class/request/process assertions/deadlines retained.
 
-Still ACTIVE90: my native inspection finds cropped Amount label320/200+IME.
-New meaningful RED10 42092585777 atfe9 confirms88px whole field vs76px visible;
-130%72/72passes. Initial geometry-test run42092041308 fails compilation only
-(DpRect.height import); fe9 fixes top/bottom measurement, not production.
-Production fix3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13 moves existing step/progress
-into scrolling form and removes unused AccountDialog.headerExtra. Payment/auth/
-cancel/footer logic unchanged. GREEN focused42093550633 (10)/42093556247 (17)
-RUNNING; fresh broad/source checks and payment visual inspection still required.
-Do not close90 yet. Both source delta review axes0findings.
+See docs/evidence/ticket90/README.md and native-results.json for exact source/
+run/failure/matrix/motion mapping. Full focused Amount field now72/72 or88/88px
+with actual IME; Gboard education is acknowledged only in17dark cells without
+hiding keyboard or reducing font. Source fix scrolls step guidance with the form.
+Account helper waits for visible popup/removal before its scoped original action.
+Keep final17zero-motion observation qualified: one dimmed feed frame278ms, normal
+295ms (earlier257/275); cause unproved, no claim of completely flash-free return.
+Native results do not establish physical Pixel/provider/store/owner acceptance.
+94still owns final consistent-source whole-app, signed in-place update and beta.
 
-Large artifacts /mnt/storage/redsquare-android-artifacts/redesign90-*; no local
-build active. Temporary Pillow13 venv /mnt/storage/redsquare-android-artifacts/
-image-tools90/bin/python for native contact sheets, outside Git. Fix helper
-/tmp/redesign90-scroll-step.py already applied, do not reapply.
+No CI/local build remains active for90. Large temporary outputs remain in storage
+redesign90-* folders, outside Git. Temporary image runtime is
+/mnt/storage/redsquare-android-artifacts/image-tools90/bin/python (Pillow13).
+Do not reapply /tmp/redesign90-scroll-step.py; it is already committed.
 
-Latest90: input GREEN10 42093550633 at3f7, all4cells72/72 or88/88 and new
-Amount PNG fully readable. Input17 42093556247 fails ONLY200dark49/88 with
-actual Gboard126px 'Keyboard font size updated'/OK; other3cells full. Test32eb
-reuses existing actual Gboard package-scoped acknowledgment, retaining font/IME,
-assertions/deadline and recording acknowledgment. Source/debug3f7 PASS42093749985.
-Fresh broad10 42094638664 fails Pixel200 menu setup (Settings semantic node not
-shown; later capture has no popup, cause unproved), while narrow matrix passes.
-Test58df observes usable popup/removal within5s and scopes original assertions
-and clicks to actualPopup. Both fixture-delta source reviews0findings. No production
-change after3f7. Final broad17 42094963847 at32eb and10 42095757828 at58df RUNNING;
-retain original failed runs, require real native results/visuals before closing90.
-No local build. Latest review agents wallet90_final_spec/standards are read-only.
-
-No real transfer or production node change is authorized by styling work.
-Do not stop after90: finish all five and beta.94 owns final consistent-source full
-application checks, signed in-place update and publication.
+Read-only preparation for93 only: existing WalletBalances/SaitoBalanceSnapshot
+and docs/research/NATIVE_WALLET_SYNC.md / NATIVE_SAITO_TRANSFER_CONTRACT.md are the
+source-backed balance snapshot contract. Current named production server.ts read
+through network-disabled/read-only Docker still defines GET/balance/:keys? ->
+getBalanceSnapshot(keys), lines522-545; SHA2565cca9333856502e827a36a78ce87d2d2406d0914724b4a35cb860942e0800752,
+installed saito-js0.3.2. No options/wallet/database/service state was read or changed.
+93not implemented/claimed yet; inspect its actual contract and testing boundaries
+before choosing observation semantics. Preserve monetary freshness validation.
 
 Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
 `codex/unified-redesign`; preserve unrelated canonical Chat work. Shared skills
