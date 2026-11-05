@@ -1,0 +1,176 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityAvailabilityTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityAvailabilityTest:
+INSTRUMENTATION_STATUS: test=retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityAvailabilityTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Available activity is read' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset$lambda$15$lambda$14(ActivityAvailabilityTest.kt:61)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$PB-TiLl7WZtlvZe0-thb2wPHDKw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset$lambda$15(ActivityAvailabilityTest.kt:52)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$bAe3LenlWfTX6D2pYL5zgdulp3Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$13$lambda$12$lambda$11(ActivityInboxFixture.kt:86)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$BwmC8Rb5oN29Dvy0ZKrVcN9LM0c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:85)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset(ActivityAvailabilityTest.kt:50)
+
+INSTRUMENTATION_STATUS: stream=
+Error in retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset(nl.davidengelen.redsquare.ActivityAvailabilityTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Available activity is read' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset$lambda$15$lambda$14(ActivityAvailabilityTest.kt:61)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$PB-TiLl7WZtlvZe0-thb2wPHDKw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset$lambda$15(ActivityAvailabilityTest.kt:52)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$bAe3LenlWfTX6D2pYL5zgdulp3Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$13$lambda$12$lambda$11(ActivityInboxFixture.kt:86)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$BwmC8Rb5oN29Dvy0ZKrVcN9LM0c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:85)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset(ActivityAvailabilityTest.kt:50)
+
+INSTRUMENTATION_STATUS: test=retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityAvailabilityTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityAvailabilityTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox$lambda$6$lambda$5(ActivityAvailabilityTest.kt:24)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$_rzQVDrpDV3RX6GRiF1lwR4MPsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox$lambda$6(ActivityAvailabilityTest.kt:21)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$F_yc4R2VH2B1xzKkZLgpS1FAng4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$13$lambda$12$lambda$11(ActivityInboxFixture.kt:86)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$BwmC8Rb5oN29Dvy0ZKrVcN9LM0c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:85)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox(ActivityAvailabilityTest.kt:19)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox(nl.davidengelen.redsquare.ActivityAvailabilityTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox$lambda$6$lambda$5(ActivityAvailabilityTest.kt:24)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$_rzQVDrpDV3RX6GRiF1lwR4MPsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox$lambda$6(ActivityAvailabilityTest.kt:21)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$F_yc4R2VH2B1xzKkZLgpS1FAng4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$13$lambda$12$lambda$11(ActivityInboxFixture.kt:86)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$BwmC8Rb5oN29Dvy0ZKrVcN9LM0c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:85)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox(ActivityAvailabilityTest.kt:19)
+
+INSTRUMENTATION_STATUS: test=failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.541
+There were 2 failures:
+1) retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset(nl.davidengelen.redsquare.ActivityAvailabilityTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Available activity is read' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset$lambda$15$lambda$14(ActivityAvailabilityTest.kt:61)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$PB-TiLl7WZtlvZe0-thb2wPHDKw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset$lambda$15(ActivityAvailabilityTest.kt:52)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$bAe3LenlWfTX6D2pYL5zgdulp3Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$13$lambda$12$lambda$11(ActivityInboxFixture.kt:86)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$BwmC8Rb5oN29Dvy0ZKrVcN9LM0c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:85)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.retainedReadEventsRemainAvailableDuringAnOutageAndRecoverWithoutReset(ActivityAvailabilityTest.kt:50)
+2) failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox(nl.davidengelen.redsquare.ActivityAvailabilityTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox$lambda$6$lambda$5(ActivityAvailabilityTest.kt:24)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$_rzQVDrpDV3RX6GRiF1lwR4MPsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox$lambda$6(ActivityAvailabilityTest.kt:21)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.$r8$lambda$F_yc4R2VH2B1xzKkZLgpS1FAng4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$13$lambda$12$lambda$11(ActivityInboxFixture.kt:86)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$BwmC8Rb5oN29Dvy0ZKrVcN9LM0c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:85)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityAvailabilityTest.failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox(ActivityAvailabilityTest.kt:19)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

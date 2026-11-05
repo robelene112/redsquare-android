@@ -1,0 +1,70 @@
+{
+  "ticket": 80,
+  "reviewBase": "919d5eaf251153646347ff561d3d9185cc6a149d",
+  "lastProductionChange": "30be8f4b9",
+  "behavioralSource": "12aaf39f2",
+  "fullNativeSource": "81207a746",
+  "availabilitySource": "27636b46b",
+  "platforms": {
+    "10": {
+      "fullRun": 42049913067,
+      "conclusion": "success",
+      "uiMethods": {
+        "activity-availability-ui": 2,
+        "activity-inbox-ui": 1,
+        "activity-state-ui": 1,
+        "activity-revisions-ui": 1,
+        "like-history-contract-ui": 1,
+        "notifications-ui": 32,
+        "activity-availability-pixel-ui": 2,
+        "activity-inbox-viewport-ui": 1
+      },
+      "uiMethodTotal": 41,
+      "permissionMethods": 1,
+      "actualProcessDeath": true,
+      "focusedAvailabilityRun": 42049374065,
+      "focusedMethods": 4,
+      "emptyFailurePartialViewportCells": 12,
+      "cachedReadRecoveryViewportCells": 8,
+      "normalNativePngCount": 52
+    },
+    "17": {
+      "fullRun": 42049918203,
+      "conclusion": "success",
+      "uiMethods": {
+        "activity-availability-ui": 2,
+        "activity-inbox-ui": 1,
+        "activity-state-ui": 1,
+        "activity-revisions-ui": 1,
+        "like-history-contract-ui": 1,
+        "notifications-ui": 32,
+        "activity-availability-pixel-ui": 2,
+        "activity-inbox-viewport-ui": 1
+      },
+      "uiMethodTotal": 41,
+      "permissionMethods": 2,
+      "actualProcessDeath": true,
+      "focusedAvailabilityRun": 42049378304,
+      "focusedMethods": 4,
+      "emptyFailurePartialViewportCells": 12,
+      "cachedReadRecoveryViewportCells": 8,
+      "normalNativePngCount": 52
+    }
+  },
+  "reviews": {
+    "standards": 0,
+    "spec": 0,
+    "nativeVisual": 0
+  },
+  "hostChecks": {
+    "core": 117,
+    "gateway": 16,
+    "lint": "PASS; single worker, clean wrapper exit0"
+  },
+  "limits": [
+    "Controlled signed peers and guarded dev emulators",
+    "No physical Pixel, provider, store or final whole-app/signed-update acceptance",
+    "No intermediate beta publication"
+  ],
+  "sourceDeltasAfterFullProof": "Runner-only explicit failure propagation for required fixture and permission setup at47b1ee29f; app and tests unchanged. Shell syntax and source review pass. Not final consistent-source whole-app proof."
+}

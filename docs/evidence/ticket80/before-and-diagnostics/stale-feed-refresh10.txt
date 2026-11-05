@@ -1,0 +1,399 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning(NotificationsPreviewTest.kt:246)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning(NotificationsPreviewTest.kt:246)
+
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.mentionJourney(NotificationsPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:60)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.mentionJourney(NotificationsPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:60)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce(NotificationsPreviewTest.kt:224)
+
+INSTRUMENTATION_STATUS: stream=
+Error in rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce(NotificationsPreviewTest.kt:224)
+
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(NotificationsPreviewTest.kt:457)
+
+INSTRUMENTATION_STATUS: stream=
+Error in remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted(NotificationsPreviewTest.kt:457)
+
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:24)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile(NotificationsPreviewTest.kt:24)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.missingReferenceJourney(NotificationsPreviewTest.kt:837)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry(NotificationsPreviewTest.kt:155)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.missingReferenceJourney(NotificationsPreviewTest.kt:837)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry(NotificationsPreviewTest.kt:155)
+
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney(NotificationsPreviewTest.kt:373)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(NotificationsPreviewTest.kt:369)
+
+INSTRUMENTATION_STATUS: stream=
+Error in followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedJourney(NotificationsPreviewTest.kt:373)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace(NotificationsPreviewTest.kt:369)
+
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(NotificationsPreviewTest.kt:182)
+
+INSTRUMENTATION_STATUS: stream=
+Error in savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt(NotificationsPreviewTest.kt:182)
+
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(NotificationsPreviewTest.kt:122)
+
+INSTRUMENTATION_STATUS: stream=
+Error in incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(NotificationsPreviewTest.kt:122)
+
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:105)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1188)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1173)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:105)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1

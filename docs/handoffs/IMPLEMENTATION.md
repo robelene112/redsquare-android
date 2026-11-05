@@ -2,56 +2,38 @@
 
 ## Active authorization: TWO tickets, #80 then #92
 
-The owner requested two more tickets on 2026-11-05. Complete #80, then #92,
-sequentially; verify, review and commit each, then stop. #80 is claimed. #92
-remains unclaimed until #80 completes. No intermediate beta; #94 retains the
-final integrated verification, signed update and publication gates.
+The owner requested two more tickets on 2026-11-05. #80 is COMPLETE. Finish #92
+sequentially, verify/review/commit it, then stop. No intermediate beta; #94 retains
+integrated consistent-source whole-app, signed update and publication gates.
 
 Active worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
-`codex/unified-redesign`; preserve the unrelated canonical Chat work.
-#80 review base `919d5eaf251153646347ff561d3d9185cc6a149d`. Test-only source
-`04f356a12` RED run 42041591403 reproduces the actual false empty/read UI on
-Android 10. Raw/rendered packet is under the external artifacts root as
-`redesign80-red-42041591403`; use the in-scope
-`availability-320-font100-light-failure.png`, not the outer capture after closure.
+`codex/unified-redesign`. Preserve unrelated canonical Chat work. Sparse evidence
+requires `git add --sparse`. No local build or CI run remains active for #80.
 
-Production fix `724f6adcf`, corrected source `12aaf39f2`: honest unavailable,
-partial, successful empty and cached-outage surfaces with accessible Retry and
-available-history count qualification. Remaining eligible streams/cursors also
-qualify counts and suppress the welcoming empty state. Read IDs/data remain.
-Both independent source reviews are clean through12aaf. New real signed-peer
-availability/recovery journeys run at320/412dp in Light/Dark; failed/partial/empty
-uses100/130/200%, retained-read outage/recreation/recovery uses100/200%.
-Each class retains180s; the runner aggregates every new/original inbox class.
+### #80 complete
 
-Current source `a8e6e93d3`, last production change `30be8f4b9` (copy only;
-behavioral fix12aaf). Both source reviews are clean througha8e. Full notifications
-runs42048329387(10)/42048334221(17) are active. Parallel new availability-only
-run42048258171(10) at865bc has identical production code and same four new tests.
-Earlier runs are NOT acceptance:12aaf full runs42043321175/42043325618 stopped
-on a stale common feed inline-Refresh selector. Corrected34b runs42045397557/
-42045402587 executed32 methods,30PASS each. Their failures were old permanent
-parent copy (now #79 Details) and a profile-control test clicking the nonclickable
-Mute account title. Source1957662 fixed parent Details and confirmation scope;
-42046866509(10) executes31/32PASS, but its sheet-only failure PNG shows the first
-heading click did not open confirmation. Parent test is now passing. Latest a8e
-clicks actual enabled Mute/Block button before confirming the Cancel-containing
-root. Preserve every data/read/identity/restoration assertion and deadline.
-An earlier isDialog hypothesis was not established. Failure-only all-root Compose
-captures are now retained in notification-evidence. Intermediate865bc full runs
-42048247275/42048253094 were cancelled, with no pass claim. Other superseded
-runs42042788428/42042793054 were cancelled after source review fixes.
+Review base `919d5eaf251153646347ff561d3d9185cc6a149d`; behavioral source12aaf,
+last production change30be (copy only). Full native source81207: PASS42049913067
+(10)/42049918203(17), each41UI methods plus1/2permission methods and actual
+process-death continuity. Stronger focused availability PASS42049374065(10)/
+42049378304(17) at27636, four methods each, identical production source.
+Source47b adds only explicit setup failure propagation in the aggregated runner;
+source review and shell syntax pass. No final consistent-source whole-app claim.
 
-External raw/rendered packets use names redesign80-red/candidate10/candidate17/
-fixture10/fixture17/corrected10 plus run ID. Fresh results, native inspection,
-evidence, completion commit and80closure remain pending. Local log
-`/tmp/redesign80-final-build.log` reports Gradle BUILD SUCCESSFUL (16m57s), wrapper
-exit0, for earlier production source with test deltas. Later
-`/tmp/redesign80-settled-build.log` reports Gradle BUILD SUCCESSFUL (10m25s), but
-wrapper exit143 after completion; do not call that a clean wrapper pass. Its
-cause is unestablished. Final lint at current source remains to run. One local
-build writer only. Do not start92 until80 completes; then finish92 and stop.
-No intermediate beta before94; preserve unrelated canonical Chat work.
+Evidenced first-load unavailable/Retry, partial results, successful empty, cached
+read state/outage/recreation/applied recovery, remaining-history qualifiers,
+320/412dp Light/Dark and100/130/200% text (read-state recovery100/200%).52original
+native PNGs perOS retained. Both source review axes and independent native visual
+review have zero findings. Host checks and clean final single-worker lint PASS.
+See `docs/evidence/ticket80/README.md` and native-results.json for exact mapping,
+all failures/corrections, original captures and limits. No owner/provider/store or
+physical Pixel acceptance, no production changes/public writes and no beta.
+
+#92 is next and authorized, not implemented yet. Retain #80's honest states while
+grouping Likes per exact target, keeping distinct actors, underlying event/read IDs,
+direct navigation and automatic newest-event resurfacing. Preserve every original
+criterion and native signed-peer/identity/history boundary. Parent86/55/84/1/36
+stay independent. Stop after92; do not claim or start a third ticket.
 
 ## Completed authorization: TWO tickets, #91 then #79
 
