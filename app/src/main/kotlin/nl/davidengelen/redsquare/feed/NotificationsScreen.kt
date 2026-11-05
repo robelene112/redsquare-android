@@ -65,7 +65,9 @@ private data class NotificationPages(val likes: ArchiveLikePage, val replies: Ar
 
 private const val MAX_NOTIFICATION_READS = 33
 private data class NotificationStream(val kind: String, val author: String? = null, val target: String? = null)
-private data class NotificationRead(val stream: NotificationStream, val before: Long, val pages: NotificationPages?)
+private data class NotificationRead(val stream: NotificationStream, val position: ActivityPageRead, val pages: NotificationPages?) {
+    val before: Long get() = position.before
+}
 private data class NotificationCursor(val before: Long?, val warning: Boolean = false)
 
 /** Strict Archive bounds overlap one timestamp; a repeated full tie makes coverage uncertain. */
@@ -144,7 +146,9 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var partialRead by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
     var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var cursors by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long?>>(emptyMap()) }
-    var pending by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long>>(emptyMap()) }
+    var pending by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, ActivityPageRead>>(emptyMap()) }
+    var likeHistory by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(ActivityLikeHistory()) }
+    var likeHeadFailed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
     var pagingWarning by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
     var loadGeneration by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
@@ -173,14 +177,14 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val background = backgroundRead
         val requested = if (background) {
             // Like-only newest reads have separate ownership from the reader's older-history continuation.
-            mapOf(NotificationStream("RedSquareLike") to System.currentTimeMillis() + 1)
+            mapOf(NotificationStream("RedSquareLike") to ActivityPageRead.Newest(System.currentTimeMillis() + 1))
         } else pending.filterKeys { it in streams }.ifEmpty {
             val before = System.currentTimeMillis() + 1
             (streams.filter { it.author == null && it.target == null } +
                 streams.filter { it.target != null }.take(10) + streams.filter { it.author != null }.take(20))
-                .associateWith { before }
+                .associateWith { ActivityPageRead.Newest(before) }
         }
-        cursors = cursors + requested.filterKeys { it !in cursors }
+        cursors = cursors + requested.filterKeys { it !in cursors }.mapValues { it.value.before }
         if (!background) pending = requested
         loading = true
         if (!backgroundRead) partialRead = false
@@ -250,9 +254,9 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                         return peer.request(request.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
                     }
                     coroutineScope {
-                        requested.map { (stream, before) -> async {
+                        requested.map { (stream, position) -> async {
                             val content = try {
-                                val response = read(stream, before)
+                                val response = read(stream, position.before)
                                 notificationPages(if (stream.kind == "RedSquareLike") response else "[]",
                                     if (stream.kind == "RedSquare") response else "[]",
                                     if (stream.kind == "RedSquareRetweet") response else "[]", wallet.publicKey, name, registrar, followed)
@@ -261,29 +265,35 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                                 currentCoroutineContext().ensureActive()
                                 null
                             }
-                            NotificationRead(stream, before, content)
+                            NotificationRead(stream, position, content)
                         } }.awaitAll()
                     }
                 }
             }
-            pages.forEach { result -> result.pages?.let { content ->
-                val newLikes = publish(content)
-                val next = nextCursor(result)
-                val prior = cursors[result.stream]
-                if (background) {
-                    // Keep an older reader cursor. Duplicate newest pages must not reopen exhausted history.
-                    if (prior == null && newLikes) cursors = cursors + (result.stream to next.before)
-                    if (next.before == null) pending = pending - result.stream
-                } else {
-                    val continued = if (prior != null && result.before > prior && next.before != null)
-                        minOf(prior, next.before) else next.before
-                    cursors = cursors + (result.stream to continued)
-                    pending = pending - result.stream
+            pages.forEach { result ->
+                val like = result.stream.kind == "RedSquareLike"
+                val newestLike = like && (result.position is ActivityPageRead.Newest || !likeHistory.observed)
+                if (newestLike) likeHeadFailed = result.pages == null
+                result.pages?.let { content ->
+                    val newLikes = publish(content)
+                    val next = nextCursor(result)
+                    if (like) {
+                        likeHistory = likeHistory.observe(result.position, content.likes, next.before, newLikes)
+                        cursors = cursors + (result.stream to likeHistory.continuation?.before)
+                    } else {
+                        cursors = cursors + (result.stream to next.before)
+                    }
+                    pagingWarning = pagingWarning || next.warning
+                    val waiting = pending[result.stream]
+                    val supersededHead = waiting is ActivityPageRead.Newest && result.position is ActivityPageRead.Newest &&
+                        result.before >= waiting.before
+                    val exhaustiveHead = like && result.position is ActivityPageRead.Newest && next.before == null &&
+                        waiting != null && result.before >= waiting.before
+                    if (waiting == result.position || supersededHead || exhaustiveHead) pending = pending - result.stream
                 }
-                pagingWarning = pagingWarning || next.warning
-            } }
+            }
             if (background) pages.filter { it.pages == null && it.stream !in pending }.forEach {
-                pending = pending + (it.stream to it.before)
+                pending = pending + (it.stream to it.position)
             }
             val unreadableCount = available.sumOf { it.ignoredRows } + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
             // A Like-only check cannot clear an unresolved warning learned from another stream.
@@ -292,7 +302,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 history!!.save(pages.mapNotNull { it.pages }.flatMap { it.envelopes })
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
-            failed = pages.any { it.pages == null } || pending.isNotEmpty()
+            failed = likeHeadFailed || pages.any { it.pages == null } || pending.isNotEmpty()
             partialRead = failed && pages.any { it.pages != null }
             if (!failed) completedRead = true
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -416,9 +426,12 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             }
         }
         val undiscovered = eligibleStreams.filter { it !in cursors }.take(20)
-        val older = if (retainedCount < NotificationHistoryStore.MAX_EVENTS)
-            cursors.filter { (stream, before) -> stream in eligibleStreams && before != null }
-                .mapValues { requireNotNull(it.value) } else emptyMap()
+        val older = cursors.filter { (stream, before) -> stream in eligibleStreams && before != null &&
+            (retainedCount < NotificationHistoryStore.MAX_EVENTS || (stream.kind == "RedSquareLike" && likeHistory.catchUp != null)) }
+            .mapValues { (stream, before) ->
+                if (stream.kind == "RedSquareLike") likeHistory.continuation ?: ActivityPageRead.Older(requireNotNull(before))
+                else ActivityPageRead.Older(requireNotNull(before))
+            }
         LazyColumn(Modifier.weight(1f), state = position) {
             if (visible.isEmpty() && completedRead && (!loading || backgroundRead) && !failed && ignored == 0 &&
                 !cacheWarning && !pagingWarning && !moreHistory) item(key = "empty-activity") {
@@ -446,7 +459,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 backgroundRead = false
                 val before = System.currentTimeMillis() + 1
                 // Discover remaining known parents and contacts before spending the remaining budget on older pages.
-                pending = (undiscovered.associateWith { before } + older).entries.take(MAX_NOTIFICATION_READS)
+                pending = (undiscovered.associateWith { ActivityPageRead.Newest(before) } + older).entries.take(MAX_NOTIFICATION_READS)
                     .associate { it.key to it.value }
                 cursors = cursors + undiscovered.associateWith { before }
                 if (pending.isNotEmpty()) refresh++
