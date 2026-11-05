@@ -163,9 +163,9 @@ jobs:
           VERIFICATION_SCOPE: ${{ inputs.scope || 'source' }}
         run: |
           if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
-            ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance
+            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance
           else
-            ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
+            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - name: Restore pinned TalkBack tool
         if: (startsWith(inputs.scope, 'wallet-talkback') || startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'wallet' || matrix.partition == 'all')))

@@ -5,8 +5,6 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import nl.davidengelen.redsquare.saito.SaitoTransaction
-import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -24,22 +22,9 @@ class ActivityGroupingBurstTest {
         val reference = instrumentation.context.assets.open("native-notification-reference.json").reader().use {
             JsonParser.parseReader(it).asJsonObject
         }
-        val target = reference.getAsJsonObject("root").get("sig").asString
-        val owner = reference.getAsJsonObject("incomingLike").get("field3").asString
-        val actor = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Published unsafe test scalar only.
         val oldTime = 1_700_000_100_000L
         val newTime = oldTime + 1_000
-        fun like(time: Long): JsonObject {
-            val tx = SaitoTransaction.create(actor, JsonObject().apply {
-                addProperty("module", "RedSquare"); addProperty("request", "like tweet")
-                add("data", JsonObject().apply { addProperty("signature", target) })
-            }, time, listOf(owner))
-            return JsonObject().apply {
-                addProperty("tx", tx.envelope()); addProperty("sig", tx.id)
-                addProperty("field1", "RedSquareLike"); addProperty("field2", actor.publicKey)
-                addProperty("field3", owner); addProperty("field4", target); addProperty("created_at", time)
-            }
-        }
+        fun like(time: Long) = signedActivityLike(reference, time)
         val old = (0L..9L).flatMap { index -> val row = like(oldTime + index); List(30) { row } }
         val burst = (0L..149L).map { like(newTime + it) }
         val additional = AtomicReference(old)

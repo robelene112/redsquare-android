@@ -38,20 +38,7 @@ class ActivityGroupingPreviewTest {
         val reference = instrumentation.context.assets.open("native-notification-reference.json").reader().use {
             com.google.gson.JsonParser.parseReader(it).asJsonObject
         }
-        val root = reference.getAsJsonObject("root").get("sig").asString
-        val owner = reference.getAsJsonObject("incomingLike").get("field3").asString
-        val actor = nl.davidengelen.redsquare.saito.SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture.
-        val body = com.google.gson.JsonObject().apply {
-            addProperty("module", "RedSquare"); addProperty("request", "like tweet")
-            add("data", com.google.gson.JsonObject().apply { addProperty("signature", root) })
-        }
-        val time = 1_700_000_010_000L
-        val tx = nl.davidengelen.redsquare.saito.SaitoTransaction.create(actor, body, time, listOf(owner))
-        val incoming = com.google.gson.JsonObject().apply {
-            addProperty("tx", tx.envelope()); addProperty("sig", tx.id)
-            addProperty("field1", "RedSquareLike"); addProperty("field2", actor.publicKey)
-            addProperty("field3", owner); addProperty("field4", root); addProperty("created_at", time)
-        }
+        val incoming = signedActivityLike(reference, 1_700_000_010_000L)
         val additional = java.util.concurrent.atomic.AtomicReference<List<com.google.gson.JsonObject>>(emptyList())
         withActivityInbox("read-to-new", listOf("incomingLike", "missingOriginalLike", "incomingReply"),
             evidenceFolder = "activity-group-evidence", additionalEvents = { additional.get() }) { activity, peer ->
@@ -66,11 +53,12 @@ class ActivityGroupingPreviewTest {
             ui.onNode(hasScrollToIndexAction()).performScrollToIndex(0)
             additional.set(listOf(incoming))
             // No Refresh or New activity activation: the mounted inbox must discover and apply the signed event.
-            ui.waitUntil(15_000) { ui.onNodeWithText("3 unread").isDisplayed() &&
-                ui.onNode(hasText("Liked your post") and hasText("Unread") and hasClickAction()).isDisplayed() }
-            val like = ui.onNode(hasText("Liked your post") and hasClickAction()).getUnclippedBoundsInRoot()
-            val reply = ui.onNode(hasText("Replied to your post") and hasClickAction()).getUnclippedBoundsInRoot()
-            org.junit.Assert.assertTrue("New activity automatically raises the same target above the reply", like.top < reply.top)
+            ui.waitUntil(15_000) {
+                val like = ui.onNode(hasText("Liked your post") and hasText("Unread") and hasClickAction())
+                val reply = ui.onNode(hasText("Replied to your post") and hasClickAction())
+                ui.onNodeWithText("3 unread").isDisplayed() && like.isDisplayed() &&
+                    like.getUnclippedBoundsInRoot().top < reply.getUnclippedBoundsInRoot().top
+            }
             ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
             captureNativeScreen(File(folder, "automatically-resurfaced.png"), "3 unread")
             ui.onAllNodesWithContentDescription("Activity options for Anon-pncSjs").onFirst().performClick()
@@ -93,4 +81,33 @@ class ActivityGroupingPreviewTest {
             captureNativeScreen(File(folder, "group-read-cached-outage.png"), "Could not refresh activity.")
         }
     }
+
+    @Test fun samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val folder = File(instrumentation.targetContext.cacheDir, "activity-group-evidence").apply { mkdirs() }
+        val reference = instrumentation.context.assets.open("native-notification-reference.json").reader().use {
+            com.google.gson.JsonParser.parseReader(it).asJsonObject
+        }
+        val missing = reference.getAsJsonObject("missingOriginalLike").get("field4").asString
+        val lookups = java.util.concurrent.CopyOnWriteArrayList<String>()
+        withActivityInbox("two-targets", listOf("incomingLike", "missingOriginalLike"),
+            evidenceFolder = "activity-group-evidence", onArchiveRead = { query ->
+                query.get("sig")?.let { lookups.add(it.asString) }
+            }) { _, _ ->
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.refreshableContentReady() && ui.onNodeWithText("2 unread").isDisplayed() }
+            ui.onNode(hasText("Liked a post") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("This post is unavailable on this node. You can retry or return to notifications.").isDisplayed() }
+            org.junit.Assert.assertTrue("The group requests its signed exact target", lookups.contains(missing))
+            ui.onNodeWithText("Retry").assertIsDisplayed()
+            captureNativeScreen(File(folder, "missing-preview-direct-reference.png"))
+            ui.onNodeWithText("Back").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("1 unread").isDisplayed() }
+            ui.onNode(hasText("Liked your post") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+            ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+        }
+    }
+
 }
