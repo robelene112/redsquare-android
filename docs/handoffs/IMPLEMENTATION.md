@@ -24,14 +24,34 @@ availability/recovery journeys run at320/412dp in Light/Dark; failed/partial/emp
 uses100/130/200%, retained-read outage/recreation/recovery uses100/200%.
 Each class retains180s; the runner aggregates every new/original inbox class.
 
-Corrected-source full notifications runs42043321175(10)/42043325618(17) active.
-Earlier724f dispatches42042788428/42042793054 were cancelled after source review
-corrections, with no acceptance claim. Local stable-source compile/lint active,
-log `/tmp/redesign80-final-build.log`, exec session67378. One build writer only.
-Prior local compile ran across a resource edit and failed on the new R identifier;
-fresh CI compiles the corrected source. Do not edit source during this build.
-Native results, rendered inspection, evidence and issue closure remain pending.
-Do not start92 before80 completes; then finish92 and stop. No beta before94.
+Current source `a8e6e93d3`, last production change `30be8f4b9` (copy only;
+behavioral fix12aaf). Both source reviews are clean througha8e. Full notifications
+runs42048329387(10)/42048334221(17) are active. Parallel new availability-only
+run42048258171(10) at865bc has identical production code and same four new tests.
+Earlier runs are NOT acceptance:12aaf full runs42043321175/42043325618 stopped
+on a stale common feed inline-Refresh selector. Corrected34b runs42045397557/
+42045402587 executed32 methods,30PASS each. Their failures were old permanent
+parent copy (now #79 Details) and a profile-control test clicking the nonclickable
+Mute account title. Source1957662 fixed parent Details and confirmation scope;
+42046866509(10) executes31/32PASS, but its sheet-only failure PNG shows the first
+heading click did not open confirmation. Parent test is now passing. Latest a8e
+clicks actual enabled Mute/Block button before confirming the Cancel-containing
+root. Preserve every data/read/identity/restoration assertion and deadline.
+An earlier isDialog hypothesis was not established. Failure-only all-root Compose
+captures are now retained in notification-evidence. Intermediate865bc full runs
+42048247275/42048253094 were cancelled, with no pass claim. Other superseded
+runs42042788428/42042793054 were cancelled after source review fixes.
+
+External raw/rendered packets use names redesign80-red/candidate10/candidate17/
+fixture10/fixture17/corrected10 plus run ID. Fresh results, native inspection,
+evidence, completion commit and80closure remain pending. Local log
+`/tmp/redesign80-final-build.log` reports Gradle BUILD SUCCESSFUL (16m57s), wrapper
+exit0, for earlier production source with test deltas. Later
+`/tmp/redesign80-settled-build.log` reports Gradle BUILD SUCCESSFUL (10m25s), but
+wrapper exit143 after completion; do not call that a clean wrapper pass. Its
+cause is unestablished. Final lint at current source remains to run. One local
+build writer only. Do not start92 until80 completes; then finish92 and stop.
+No intermediate beta before94; preserve unrelated canonical Chat work.
 
 ## Completed authorization: TWO tickets, #91 then #79
 
