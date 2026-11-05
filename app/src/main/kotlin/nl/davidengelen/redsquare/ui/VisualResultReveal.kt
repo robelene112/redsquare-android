@@ -18,12 +18,15 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 @Composable
 internal fun <T> VisualResultReveal(target: T, modifier: Modifier, content: @Composable (T, Boolean) -> Unit) {
     val latest by rememberUpdatedState(target)
-    Crossfade(targetState = target, modifier = modifier,
-        animationSpec = tween(AppSpacing.transitionMillis, easing = Easing { fraction ->
+    val observedEasing = androidx.compose.runtime.remember {
+        Easing { fraction ->
             val value = FastOutSlowInEasing.transform(fraction)
             if (BuildConfig.DEBUG) android.util.Log.d("DEBUG-m81", "easing:${android.os.SystemClock.elapsedRealtimeNanos()}:$fraction:$value")
             value
-        }), label = "Loaded result") { rendered ->
+        }
+    }
+    Crossfade(targetState = target, modifier = modifier,
+        animationSpec = tween(AppSpacing.transitionMillis, easing = observedEasing), label = "Loaded result") { rendered ->
         val current = rendered == latest
         Box(Modifier.fillMaxSize().then(if (current) Modifier else Modifier.clearAndSetSemantics { })) {
             content(rendered, current)
