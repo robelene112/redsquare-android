@@ -85,22 +85,26 @@ class NodeBlockPreviewTest {
                 captureNativeScreen(File(folder, "older-block-details.png"))
 
                 mode.set("missing")
-                ui.onNode(hasText("Check again") and hasClickAction()).assertIsEnabled().performClick()
+                requestCheck()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Block information unavailable").isDisplayed() }
                 ui.onNode(hasText("Block 2,345") and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 ui.onNodeWithText("Block 0").assertDoesNotExist()
                 captureNativeScreen(File(folder, "missing-report-retains-source.png"))
 
                 mode.set("disconnected")
-                ui.onNode(hasText("Check again") and hasClickAction()).assertIsEnabled().performClick()
+                requestCheck()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not reach this node").isDisplayed() }
                 ui.onNode(hasText("Block 2,345") and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 ui.onNode(hasText("Node: saito.davidengelen.nl") and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 captureNativeScreen(File(folder, "disconnected-retains-source.png"))
 
                 mode.set("fresh")
-                ui.onNode(hasText("Check again") and hasClickAction()).assertIsEnabled().performClick()
+                requestCheck()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Block 3,456") and hasAnyAncestor(isDialog())).isDisplayed() }
+                ui.waitUntil(5_000) {
+                    ui.onAllNodesWithText("Could not reach this node").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() &&
+                        ui.onAllNodesWithText("Older block information").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                }
                 ui.onNodeWithText("Could not reach this node").assertDoesNotExist()
                 ui.onNodeWithText("Older block information").assertDoesNotExist()
                 captureNativeScreen(File(folder, "node-reconnected.png"))
@@ -111,6 +115,13 @@ class NodeBlockPreviewTest {
                 ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             }
         }
+    }
+
+
+    private fun requestCheck() {
+        val action = hasText("Check again") and hasClickAction()
+        ui.waitUntil(15_000) { ui.onNode(action and isEnabled()).isDisplayed() }
+        ui.onNode(action).assertIsEnabled().performClick()
     }
 
 }

@@ -2,6 +2,15 @@
     <string name="node_block_height">Block %1$s</string>
     <string name="node_block_unknown">Block unavailable</string>
     <string name="node_block_time">Block time</string>
-    <string name="node_block_checked_at">Checked at</string>
+    <string name="node_block_checked_at">Last successful check</string>
     <string name="node_block_feed_separate">Post history refreshes separately.</string>
+    <string name="node_block_checking">Checking block info</string>
+    <string name="node_block_unreachable">Node unreachable</string>
+    <string name="node_block_old_status">Older block information</string>
+    <string name="node_block_missing">Block information unavailable</string>
+    <string name="node_block_disconnected">Could not reach this node</string>
+    <string name="node_block_check_old">Last check is older</string>
+    <string name="node_block_check_again">Check again</string>
+    <string name="node_block_older">%1$s · older</string>
+    <string name="node_block_last_seen">%1$s · last seen</string>
 </resources>

@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.os.SystemClock
 import androidx.compose.runtime.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -19,42 +20,100 @@ import nl.davidengelen.redsquare.saito.SaitoNodeBlock
 import okhttp3.*
 
 internal data class NodeBlockObservation(val backend: SaitoBackend, val block: SaitoNodeBlock,
-    val receivedAtMillis: Long)
+    val receivedAtMillis: Long, val receivedAtElapsedMillis: Long = SystemClock.elapsedRealtime())
+
+internal enum class NodeBlockFailure { INFORMATION, CONNECTION }
+internal sealed interface NodeBlockRead {
+    data class Reported(val block: SaitoNodeBlock) : NodeBlockRead
+    data object Unavailable : NodeBlockRead
+    data object Disconnected : NodeBlockRead
+}
+
+/** Observable report state and one interruptible check action, scoped to one selected node. */
+@Stable
+internal class NodeBlockState(val backend: SaitoBackend?) {
+    var observation by mutableStateOf<NodeBlockObservation?>(null)
+        private set
+    var checking by mutableStateOf(false)
+        private set
+    var failure by mutableStateOf<NodeBlockFailure?>(null)
+        private set
+    internal var generation by mutableIntStateOf(0)
+        private set
+    private var manual by mutableStateOf(false)
+    private var nowMillis by mutableLongStateOf(System.currentTimeMillis())
+    private var nowElapsedMillis by mutableLongStateOf(SystemClock.elapsedRealtime())
+
+    val olderBlock: Boolean get() = observation?.let { nowMillis - it.block.timestamp > 5 * 60_000L } == true
+    val lastSeen: Boolean get() = observation?.let {
+        failure != null || nowElapsedMillis - it.receivedAtElapsedMillis > 90_000L
+    } == true
+    val showProgress: Boolean get() = checking && (manual || observation == null)
+
+    fun checkAgain() {
+        if (checking || backend == null) return
+        checking = true
+        manual = true
+        generation++
+    }
+
+    internal fun begin() {
+        checking = true
+        nowMillis = System.currentTimeMillis()
+        nowElapsedMillis = SystemClock.elapsedRealtime()
+    }
+
+    internal fun finish(result: NodeBlockRead) {
+        nowMillis = System.currentTimeMillis()
+        nowElapsedMillis = SystemClock.elapsedRealtime()
+        when (result) {
+            is NodeBlockRead.Reported -> {
+                backend?.let { observation = NodeBlockObservation(it, result.block, nowMillis, nowElapsedMillis) }
+                failure = null
+            }
+            NodeBlockRead.Unavailable -> failure = NodeBlockFailure.INFORMATION
+            NodeBlockRead.Disconnected -> failure = NodeBlockFailure.CONNECTION
+        }
+        checking = false
+        manual = false
+    }
+}
 
 /** Each selected-node lifetime owns its results; old requests cannot populate another node. */
 @Composable
-internal fun rememberNodeBlockObservation(backend: SaitoBackend?, intent: Intent): NodeBlockObservation? {
+internal fun rememberNodeBlocks(backend: SaitoBackend?, intent: Intent): NodeBlockState {
     val reader = remember(intent) { NodeBlockReader.fromIntent(intent) }
-    val observed = remember(backend) { mutableStateOf<NodeBlockObservation?>(null) }
+    val status = remember(backend) { NodeBlockState(backend) }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    LaunchedEffect(backend, reader, lifecycle) {
+    LaunchedEffect(status, status.generation, reader, lifecycle) {
         val selected = backend ?: return@LaunchedEffect
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
-                reader.read(selected)?.let { observed.value = NodeBlockObservation(selected, it, System.currentTimeMillis()) }
+                status.begin()
+                status.finish(reader.read(selected))
                 delay(30_000)
             }
         }
     }
-    return observed.value
+    return status
 }
 
 /** Small public node-bootstrap reads; wallet funding, peer selection and feed refresh are independent. */
 private class NodeBlockReader(private val endpoints: Map<SaitoBackend, String?>) {
-    suspend fun read(backend: SaitoBackend): SaitoNodeBlock? {
-        val endpoint = endpoints[backend] ?: return null
+    suspend fun read(backend: SaitoBackend): NodeBlockRead {
+        val endpoint = endpoints[backend] ?: return NodeBlockRead.Unavailable
         return suspendCancellableCoroutine { result ->
             val call = client.newCall(Request.Builder().url(endpoint)
                 .header("Cache-Control", "no-cache, no-store").build())
             result.invokeOnCancellation { call.cancel() }
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, failure: IOException) {
-                    if (result.isActive) result.resume(null)
+                    if (result.isActive) result.resume(NodeBlockRead.Disconnected)
                 }
                 override fun onResponse(call: Call, response: Response) {
                     val block = try {
                         response.use {
-                            if (!it.isSuccessful || it.body.contentLength() > SaitoNodeBlock.MAX_BYTES) null
+                            if (!it.isSuccessful || it.body.contentLength() > SaitoNodeBlock.MAX_BYTES) NodeBlockRead.Unavailable
                             else {
                                 val bytes = ByteArrayOutputStream(4096)
                                 it.body.byteStream().use { stream ->
@@ -66,10 +125,12 @@ private class NodeBlockReader(private val endpoints: Map<SaitoBackend, String?>)
                                         bytes.write(buffer, 0, read)
                                     }
                                 }
-                                SaitoNodeBlock.parse(bytes.toByteArray(), System.currentTimeMillis())
+                                try { NodeBlockRead.Reported(SaitoNodeBlock.parse(bytes.toByteArray(), System.currentTimeMillis())) }
+                                catch (_: Exception) { NodeBlockRead.Unavailable }
                             }
                         }
-                    } catch (_: Exception) { null }
+                    } catch (_: IOException) { NodeBlockRead.Disconnected }
+                    catch (_: Exception) { NodeBlockRead.Unavailable }
                     if (result.isActive) result.resume(block)
                 }
             })
