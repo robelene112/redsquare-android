@@ -489,9 +489,10 @@ class NotificationsPreviewTest {
                 ui.openProfileActions()
                 val remaining = deadline - android.os.SystemClock.elapsedRealtime()
                 check(remaining > 0)
-                ui.waitUntil(remaining) { ui.onAllNodes(hasText(control) and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.onNodeWithText(control).performClick()
+                val sheetAction = hasText(confirmation) and hasClickAction() and isEnabled()
+                ui.waitUntil(remaining) { ui.onNode(sheetAction).isDisplayed() }
+                ui.onNodeWithText(control).assertIsDisplayed()
+                ui.onNode(sheetAction).performClick()
                 val confirmedAction = hasText(confirmation) and hasClickAction() and
                     hasAnyAncestor(isRoot() and hasAnyDescendant(hasText("Cancel")))
                 ui.waitUntil(15_000) { ui.onNode(confirmedAction).isDisplayed() }
