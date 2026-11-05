@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
+import com.google.gson.JsonObject
 import java.io.File
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -14,6 +15,7 @@ import org.junit.Assert.*
 /** Existing independently signed activity fixtures, isolated from every release identity. */
 internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("incomingLike"), actorName: String? = null,
     evidenceFolder: String = "activity-inbox-evidence",
+    additionalEvents: () -> List<JsonObject> = { emptyList() },
     block: (ActivityScenario<MainActivity>, ControlledFeedPeer) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
@@ -30,9 +32,10 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
         JsonParser.parseReader(it).asJsonObject
     }
     val root = reference.get("root")
-    val events = eventNames.map { reference.getAsJsonObject(it) }
-    fun rows(kind: String) = events.filter { it.get("field1").asString == kind }.joinToString(",", "[", "]")
-    fun original(kind: String, target: String) = (listOf(root.asJsonObject) + events)
+    val baseEvents = eventNames.map { reference.getAsJsonObject(it) }
+    fun events() = baseEvents + additionalEvents()
+    fun rows(kind: String) = events().filter { it.get("field1").asString == kind }.joinToString(",", "[", "]")
+    fun original(kind: String, target: String) = (listOf(root.asJsonObject) + events())
         .filter { it.get("field1").asString == kind && it.get("sig").asString == target }
         .joinToString(",", "[", "]")
     val actor = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
