@@ -1606,6 +1606,7 @@ verify_wallet_design() {
     verify_group_chat_native WalletDesignPreviewTest 180 wallet-design wallet-design-evidence
     verify_group_chat_native AccountDesignViewportTest 180 account-design-compact account-design-viewport-evidence
     verify_group_chat_native AccountDesignPixelViewportTest 180 account-design-pixel account-design-viewport-evidence
+    verify_group_chat_native AccountDesignMotionTest 180 account-design-motion account-design-motion-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == wallet-design* ]]; then
     verify_wallet_design
