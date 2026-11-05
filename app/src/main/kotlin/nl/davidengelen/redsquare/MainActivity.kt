@@ -12,7 +12,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,14 +31,10 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.Button
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -48,7 +43,6 @@ import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -62,7 +56,6 @@ import java.io.File
 import java.io.IOException
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
-import nl.davidengelen.redsquare.saito.ImportBalance
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.feed.FeedScreen
 import nl.davidengelen.redsquare.feed.FeedEndpoints
@@ -82,6 +75,11 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
 import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.AccountDialog
+import nl.davidengelen.redsquare.ui.AccountActionRow
+import nl.davidengelen.redsquare.ui.AccountChoiceRow
+import nl.davidengelen.redsquare.ui.SingleOwnerReveal
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.ui.RedSquareTheme
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.ui.NodeConnectionDetails
@@ -164,6 +162,7 @@ class MainActivity : ComponentActivity() {
             var settingsOpen by remember { mutableStateOf(false) }
             var connectionDetailsOpen by remember { mutableStateOf(false) }
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
+            val settingsStates = rememberSaveableStateHolder()
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
             var moduleSwitchFailed by remember { mutableStateOf(false) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
@@ -472,20 +471,23 @@ class MainActivity : ComponentActivity() {
                         backLabel = if (settingsCategory != null) stringResource(R.string.settings_back) else null,
                         dismissEnabled = !savingBackend,
                         text = {
-                            Column(Modifier.verticalScroll(rememberScrollState())) {
+                            SingleOwnerReveal(settingsCategory, Modifier.fillMaxSize()) {
+                            settingsStates.SaveableStateProvider(settingsCategory ?: "index") {
+                            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                                verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                                 if (settingsCategory == null) {
                                     Text(stringResource(R.string.settings_preferences_summary), style = MaterialTheme.typography.bodySmall)
-                                    SettingsCategoryRow(stringResource(R.string.settings_privacy_safety),
+                                    AccountActionRow(stringResource(R.string.settings_privacy_safety), R.drawable.ic_profile, summary =
                                         stringResource(R.string.settings_personal_summary)) { settingsCategory = "privacy" }
-                                    SettingsCategoryRow(stringResource(R.string.settings_notifications_privacy),
+                                    AccountActionRow(stringResource(R.string.settings_notifications_privacy), R.drawable.ic_notifications, summary =
                                         stringResource(if (androidx.core.app.NotificationManagerCompat.from(applicationContext)
                                             .areNotificationsEnabled()) R.string.settings_notifications_allowed
                                             else R.string.settings_notifications_blocked)) { settingsCategory = "notifications" }
-                                    SettingsCategoryRow(stringResource(R.string.server_choice),
+                                    AccountActionRow(stringResource(R.string.server_choice), R.drawable.ic_globe, summary =
                                         backend?.domain ?: stringResource(R.string.feed_loading)) { settingsCategory = "node" }
-                                    SettingsCategoryRow(stringResource(R.string.appearance),
+                                    AccountActionRow(stringResource(R.string.appearance), R.drawable.ic_appearance, summary =
                                         stringResource(appearance.label)) { settingsCategory = "appearance" }
-                                    SettingsCategoryRow(stringResource(R.string.settings_about),
+                                    AccountActionRow(stringResource(R.string.settings_about), R.drawable.ic_info, summary =
                                         stringResource(R.string.settings_about_summary)) { settingsCategory = "about" }
                                 }
                                 if (settingsCategory == "privacy") {
@@ -530,11 +532,12 @@ class MainActivity : ComponentActivity() {
                                 if (settingsCategory == "node") {
                                 Spacer(Modifier.height(12.dp))
                                 Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)
-                                if (backendSaveError) Text(stringResource(R.string.backend_save_error))
+                                InlineStatus(if (backendSaveError) stringResource(R.string.backend_save_error) else null, StatusTone.ERROR)
                                 Column(Modifier.selectableGroup()) {
                                 SaitoBackend.entries.forEach { choice ->
-                                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(
-                                        selected = backend == choice, role = Role.RadioButton,
+                                    AccountChoiceRow(title = choice.domain,
+                                        selected = backend == choice,
+                                        summary = if (backend == choice) stringResource(R.string.settings_selected) else null,
                                         enabled = !savingBackend, onClick = {
                                             savingBackend = true
                                             backendSaveError = false
@@ -556,22 +559,17 @@ class MainActivity : ComponentActivity() {
                                                     }
                                                 } finally { savingBackend = false }
                                             }
-                                        }), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                                        RadioButton(selected = backend == choice, onClick = null, enabled = !savingBackend)
-                                        Text(choice.domain, Modifier.padding(start = 8.dp))
-                                        if (backend == choice) Text(stringResource(R.string.settings_selected), Modifier.padding(start = 8.dp),
-                                            style = MaterialTheme.typography.bodySmall)
-                                    }
+                                        })
                                 }
                                 }
                                 }
                                 if (settingsCategory == "appearance") {
                                 Spacer(Modifier.height(12.dp))
-                                if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
+                                InlineStatus(if (appearanceSaveError) stringResource(R.string.appearance_save_error) else null, StatusTone.ERROR)
                                 Column(Modifier.selectableGroup()) {
                                 Appearance.entries.forEach { choice ->
-                                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(
-                                        selected = appearance == choice, role = Role.RadioButton,
+                                    AccountChoiceRow(title = stringResource(choice.label),
+                                        selected = appearance == choice,
                                         enabled = appearanceReady && !savingAppearance, onClick = {
                                             savingAppearance = true
                                             appearanceSaveError = false
@@ -583,11 +581,7 @@ class MainActivity : ComponentActivity() {
                                                 catch (_: Exception) { appearanceSaveError = true }
                                                 finally { savingAppearance = false }
                                             }
-                                        }), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                                        RadioButton(selected = appearance == choice, onClick = null,
-                                            enabled = appearanceReady && !savingAppearance)
-                                        Text(stringResource(choice.label), Modifier.padding(start = 8.dp))
-                                    }
+                                        })
                                 }
                                 }
                                 }
@@ -595,6 +589,8 @@ class MainActivity : ComponentActivity() {
                                 Spacer(Modifier.height(12.dp))
                                 nl.davidengelen.redsquare.ui.AboutApp()
                                 }
+                            }
+                            }
                             }
                         },
                         confirmButton = {
@@ -651,16 +647,6 @@ class MainActivity : ComponentActivity() {
                 }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun SettingsCategoryRow(title: String, summary: String, onClick: () -> Unit) {
-    OutlinedCard(onClick = onClick, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-            Text(title, style = MaterialTheme.typography.titleSmall)
-            Text(summary, style = MaterialTheme.typography.bodySmall)
         }
     }
 }

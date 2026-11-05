@@ -12,6 +12,12 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.saito.ImportBalance
+import nl.davidengelen.redsquare.ui.AccountCard
+import nl.davidengelen.redsquare.ui.AccountActionRow
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.text.font.FontFamily
 import nl.davidengelen.redsquare.ui.AccountDialog
 
 internal enum class WalletDestination { RECEIVE, SEND, RECOVERY }
@@ -34,22 +40,31 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                 Modifier.fillMaxWidth().verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Card(Modifier.fillMaxWidth()) {
+                AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(stringResource(R.string.wallet_identity_heading), style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.wallet_identity_heading), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
                         when {
-                            address != null -> Text(address, Modifier.semantics { contentDescription = addressLabel })
+                            address != null -> Text(address, Modifier.semantics { contentDescription = addressLabel },
+                                style = MaterialTheme.typography.bodyMedium, fontFamily = FontFamily.Monospace)
                             failed -> Text(stringResource(R.string.wallet_unavailable))
                             else -> Text(stringResource(R.string.wallet_opening))
                         }
                     }
                 }
-                if (walletExport.busy) Text(stringResource(R.string.wallet_export_in_progress))
-                if (walletImport.busy) Text(stringResource(R.string.wallet_import_in_progress))
-                walletExport.message?.let { Text(stringResource(it)) }
-                walletImport.message?.let { Text(stringResource(it)) }
+                InlineStatus(if (walletExport.busy) stringResource(R.string.wallet_export_in_progress) else null, StatusTone.WORKING)
+                InlineStatus(if (walletImport.busy) stringResource(R.string.wallet_import_in_progress) else null, StatusTone.WORKING)
+                walletExport.message?.let { message -> InlineStatus(stringResource(message), when (message) {
+                    R.string.wallet_export_saved -> StatusTone.SUCCESS
+                    R.string.wallet_export_cancelled -> StatusTone.INFO
+                    else -> StatusTone.ERROR
+                }) }
+                walletImport.message?.let { message -> InlineStatus(stringResource(message), when (message) {
+                    R.string.wallet_import_saved -> StatusTone.SUCCESS
+                    R.string.wallet_import_cancelled -> StatusTone.INFO
+                    else -> StatusTone.ERROR
+                }) }
                 walletImport.preview?.let { preview ->
-                    Card(Modifier.fillMaxWidth()) {
+                    AccountCard {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             Text(stringResource(R.string.wallet_import_step), style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.primary)
@@ -109,40 +124,34 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                         }
                     }
                 }
-                if (walletImport.preview == null) Card(Modifier.fillMaxWidth()) {
+                if (walletImport.preview == null) AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(stringResource(R.string.wallet_backup_section), style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.wallet_backup_section), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
                         Text(stringResource(R.string.wallet_backup_section_detail), style = MaterialTheme.typography.bodySmall)
-                        TextButton(enabled = address != null && !walletExport.busy && !walletImport.busy,
-                            onClick = { walletExport.start() }) { Text(stringResource(R.string.wallet_export)) }
-                        TextButton(enabled = address != null && !walletExport.busy && !walletImport.busy,
-                            onClick = { walletExport.clearMessage(); walletImport.start() }) {
-                            Text(stringResource(R.string.wallet_import))
-                        }
+                        AccountActionRow(stringResource(R.string.wallet_export), R.drawable.ic_save,
+                            enabled = address != null && !walletExport.busy && !walletImport.busy,
+                            onClick = { walletExport.start() })
+                        AccountActionRow(stringResource(R.string.wallet_import), R.drawable.ic_wallet,
+                            enabled = address != null && !walletExport.busy && !walletImport.busy, onClick = { walletExport.clearMessage(); walletImport.start() })
                         Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
                     }
                 }
-                if (walletImport.preview == null) Card(Modifier.fillMaxWidth()) {
+                if (walletImport.preview == null) AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(stringResource(R.string.wallet_payments_section), style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.wallet_payments_section), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
                         Text(stringResource(R.string.wallet_payments_section_detail), style = MaterialTheme.typography.bodySmall)
-                        TextButton(enabled = address != null && !walletExport.busy && !walletImport.busy,
-                            onClick = { onOpen(WalletDestination.RECEIVE) }) {
-                            Text(stringResource(R.string.wallet_balance_receive))
-                        }
-                        TextButton(enabled = address != null && transfersAvailable && !walletExport.busy && !walletImport.busy,
-                            onClick = { onOpen(WalletDestination.SEND) }) {
-                            Text(stringResource(R.string.transfer_send))
-                        }
+                        AccountActionRow(stringResource(R.string.wallet_balance_receive), R.drawable.ic_wallet,
+                            enabled = address != null && !walletExport.busy && !walletImport.busy, onClick = { onOpen(WalletDestination.RECEIVE) })
+                        AccountActionRow(stringResource(R.string.transfer_send), R.drawable.ic_forward,
+                            enabled = address != null && transfersAvailable && !walletExport.busy && !walletImport.busy, onClick = { onOpen(WalletDestination.SEND) })
                     }
                 }
-                if (walletImport.preview == null) Card(Modifier.fillMaxWidth()) {
+                if (walletImport.preview == null) AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(stringResource(R.string.wallet_recovery_section), style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.wallet_recovery_section), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
                         Text(stringResource(R.string.wallet_recovery_section_detail), style = MaterialTheme.typography.bodySmall)
-                        TextButton(onClick = { onOpen(WalletDestination.RECOVERY) }) {
-                            Text(stringResource(R.string.wallet_recovery_guide))
-                        }
+                            AccountActionRow(stringResource(R.string.wallet_recovery_guide), R.drawable.ic_info,
+                            onClick = { onOpen(WalletDestination.RECOVERY) })
                     }
                 }
             }
