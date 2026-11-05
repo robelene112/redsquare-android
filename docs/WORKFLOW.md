@@ -11,11 +11,10 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The latest owner request authorizes exactly TWO redesign tickets: #80 then #92.
-#80 is complete. Finish #92 with verification, review and a commit, then stop.
-Later requests default to one ticket unless the owner specifies a sequence.
-The earlier unattended16-ticket authorization remains superseded. Previous
-bounded batches, including89/88, are complete.
+The latest owner request authorizes the FIVE remaining redesign tickets:
+#90, #93, #81, #83 and #94, sequentially, then beta publication through #94.
+Continue between these tickets without asking again. This replaces the earlier
+two-ticket stop boundary. No parallel ticket implementation or intermediate beta.
 
 The approved redesign86 scope and ticket sequence remain. Publish the integrated
 signed beta after94's final verification; no intermediate beta is requested.
