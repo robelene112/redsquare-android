@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,9 +43,7 @@ internal fun ProfileIdentityHeader(author: String, backend: SaitoBackend, appear
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
         BoxWithConstraints(Modifier.fillMaxWidth()) {
             val banner = Modifier.fillMaxWidth().aspectRatio(3f).clip(RoundedCornerShape(16.dp))
-            if (appearance.banner != null) ProfileImage(appearance.banner, ProfileImageKind.BANNER, author, backend, banner)
-            else Box(banner.background(Brush.linearGradient(listOf(
-                MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.surfaceContainerHigh))))
+            ProfileImage(appearance.banner, ProfileImageKind.BANNER, author, backend, banner)
             Row(Modifier.fillMaxWidth().padding(top = maxWidth / 3 - 24.dp),
                 verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
                 val picture = Modifier.size(80.dp).border(4.dp, MaterialTheme.colorScheme.surface, CircleShape)
