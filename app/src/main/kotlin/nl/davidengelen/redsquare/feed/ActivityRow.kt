@@ -4,6 +4,8 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,8 +32,9 @@ import java.util.Locale
 /** Distinct author and event targets; read feedback only follows a verified local save. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: FeedPost?, previewLoading: Boolean, unread: Boolean?,
-    canMark: Boolean, onMark: () -> Unit, onIdentity: () -> Unit, onOpen: () -> Unit) {
+internal fun ActivityRow(authors: List<String>, createdAt: Long, caption: Int, post: FeedPost?, previewLoading: Boolean, likeCount: Int?, unread: Boolean?,
+    canMark: Boolean, onMark: () -> Unit, onIdentity: (String) -> Unit, onOpen: () -> Unit) {
+    val author = authors.first()
     val name = registeredIdentity(author).name
     val timestamp = remember(createdAt) {
         DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH).format(Date(createdAt))
@@ -62,20 +66,36 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: Fe
         else -> R.drawable.ic_compose
     }
     var options by remember { mutableStateOf(false) }
+    var people by remember { mutableStateOf(false) }
     var identity by rememberSaveable(author, createdAt) { mutableStateOf(false) }
     val background by animateColorAsState(if (unread == true) MaterialTheme.colorScheme.surfaceContainerLow
         else MaterialTheme.colorScheme.surface, tween(AppSpacing.transitionMillis), label = "Activity read status")
     Surface(color = background) {
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.Top) {
+                if (authors.size == 1) {
                 Row(Modifier.weight(1f).heightIn(min = 48.dp)
-                    .clickable(role = Role.Button, onClickLabel = profileLabel, onClick = onIdentity)
+                    .clickable(role = Role.Button, onClickLabel = profileLabel, onClick = { onIdentity(author) })
                     .semantics { contentDescription = profileLabel },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     ProfileAvatar(author, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
                     Text(name, Modifier.weight(1f), maxLines = 2, overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.titleSmall)
+                }
+                } else Column(Modifier.weight(1f).padding(bottom = 4.dp)) {
+                    Row {
+                        authors.take(3).forEach { actor ->
+                            val actorName = registeredIdentity(actor).name
+                            val actorLabel = stringResource(R.string.post_profile_for, actorName)
+                            IconButton(onClick = { onIdentity(actor) }, modifier = Modifier.size(48.dp)
+                                .semantics { contentDescription = actorLabel }) {
+                                ProfileAvatar(actor, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
+                            }
+                        }
+                    }
+                    Text(pluralStringResource(R.plurals.activity_other_people, authors.size - 1, name, authors.size - 1),
+                        maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
                 }
                 Box {
                     IconButton(onClick = { options = true }, modifier = Modifier.size(48.dp)
@@ -85,6 +105,8 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: Fe
                     DropdownMenu(expanded = options, onDismissRequest = { options = false }) {
                         DropdownMenuItem(text = { Text(stringResource(R.string.activity_mark_read)) },
                             enabled = canMark, onClick = { options = false; onMark() })
+                        if (likeCount != null) DropdownMenuItem(text = { Text(stringResource(R.string.activity_like_people)) },
+                            onClick = { options = false; people = true })
                         DropdownMenuItem(text = { Text(stringResource(R.string.profile_identity_details)) },
                             onClick = { options = false; identity = true })
                     }
@@ -115,4 +137,24 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: Fe
         }
     }
     if (identity) IdentityDetailsDialog(author) { identity = false }
+    if (people && likeCount != null) AlertDialog(onDismissRequest = { people = false },
+        title = { Text(stringResource(R.string.activity_like_people)) },
+        text = { Column {
+            Text(stringResource(R.string.activity_like_totals,
+                pluralStringResource(R.plurals.activity_likes, likeCount, likeCount),
+                pluralStringResource(R.plurals.activity_people, authors.size, authors.size)),
+                style = MaterialTheme.typography.bodyMedium)
+            LazyColumn(Modifier.heightIn(max = 320.dp)) { items(authors, key = { it }) { actor ->
+                val actorName = registeredIdentity(actor).name
+                val actorLabel = stringResource(R.string.post_profile_for, actorName)
+                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                    .clickable(role = Role.Button) { people = false; onIdentity(actor) }
+                    .semantics { contentDescription = actorLabel },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                    ProfileAvatar(actor, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
+                    Text(actorName, style = MaterialTheme.typography.bodyMedium)
+                }
+            } }
+        } }, confirmButton = { TextButton(onClick = { people = false }) { Text(stringResource(R.string.done)) } })
 }

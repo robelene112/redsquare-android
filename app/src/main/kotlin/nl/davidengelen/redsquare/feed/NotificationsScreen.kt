@@ -40,6 +40,13 @@ import nl.davidengelen.redsquare.saito.*
 private data class NotificationRow(val id: String, val author: String, val createdAt: Long,
     val post: FeedPost?, val caption: Int, val target: String = post?.id.orEmpty())
 
+/** Group keys are presentation-only. Persistence and read commits always use signed event IDs. */
+private data class NotificationItem(val key: String, val events: List<NotificationRow>, val like: Boolean = false) {
+    val latest: NotificationRow get() = events.first()
+    val authors: List<String> get() = events.map { it.author }.distinct()
+    fun unread(readIds: Set<String>): Boolean = events.any { it.id !in readIds }
+}
+
 /** Addressing is a fallback only while the original's signed author is unknown. */
 private fun referenceCaption(owner: String?, target: FeedPost?, recipients: List<String>,
     ownCaption: Int, neutralCaption: Int): Int? = when {
@@ -300,12 +307,17 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val contactRows = contacts.filter { it.author in followed }.map { post ->
             NotificationRow(post.id, post.author, post.createdAt, post, R.string.notifications_posted)
         }
-        val rows = (quoteRows + repostRows + likeRows + replyRows +
+        val individual = (quoteRows + repostRows + replyRows +
             mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) } + contactRows)
-            .distinctBy { it.id }
-        val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }
-        val previews = rememberActivityPreviews(visible.mapNotNull { it.post }.distinctBy { it.id }, backend)
-        val unread = visible.count { it.id !in readIds }
+            .distinctBy { it.id }.filter { personal?.hidesPosts(it.author) == false }
+            .map { NotificationItem(it.id, listOf(it)) }
+        val groupedLikes = likeRows.filter { personal?.hidesPosts(it.author) == false }
+            .groupBy { it.target }.map { (target, members) ->
+                NotificationItem("like:$target", members.distinctBy { it.id }.sortedWith(compareByDescending<NotificationRow> { it.createdAt }.thenByDescending { it.id }), like = true)
+            }
+        val visible = (individual + groupedLikes).sortedWith(compareByDescending<NotificationItem> { it.latest.createdAt }.thenBy { it.key })
+        val previews = rememberActivityPreviews(visible.mapNotNull { it.latest.post }.distinctBy { it.id }, backend)
+        val unread = visible.count { it.unread(readIds) }
         val eligibleStreams = notificationStreams(followed, ownPosts)
         val moreHistory = eligibleStreams.any { it !in cursors || cursors[it] != null }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -320,7 +332,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 }
             } else Spacer(Modifier.weight(1f))
             FrameIconButton(R.drawable.ic_read_all, stringResource(R.string.notifications_mark_read),
-                enabled = readReady && !markingRead && unread > 0) { markObserved(visible.map { it.id }) }
+                enabled = readReady && !markingRead && unread > 0) { markObserved(visible.flatMap { item -> item.events.map { it.id } }) }
         }
         val retainedCount = (events.map { it.id } + replies.map { it.id } + mentions.map { it.id } +
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
@@ -367,13 +379,15 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 Text(stringResource(R.string.activity_empty), Modifier.fillMaxWidth().padding(vertical = AppSpacing.gap),
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            items(visible, key = { it.id }) { event ->
+            items(visible, key = { it.key }) { item ->
+                val event = item.latest
                 val available = event.post?.id?.let(previews.posts::get)
-                ActivityRow(event.author, event.createdAt, event.caption, available, previewLoading = previews.loading,
-                    unread = if (readReady) event.id !in readIds else null,
-                    canMark = readReady && !markingRead && event.id !in readIds,
-                    onMark = { markObserved(listOf(event.id)) },
-                    onIdentity = { onIdentity(event.author) },
+                ActivityRow(item.authors, event.createdAt, event.caption, available, previewLoading = previews.loading,
+                    likeCount = if (item.like) item.events.size else null,
+                    unread = if (readReady) item.unread(readIds) else null,
+                    canMark = readReady && !markingRead && item.unread(readIds),
+                    onMark = { markObserved(item.events.map { it.id }) },
+                    onIdentity = onIdentity,
                     onOpen = { available?.let(onPost) ?: onReference(event.target) })
             }
         }

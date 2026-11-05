@@ -24,6 +24,7 @@ class ActivityGroupingPreviewTest {
             ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
             ui.onNodeWithText("2 unread").assertIsDisplayed()
             ui.onNodeWithText("Replied to your post").assertIsDisplayed()
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Liked your post"))
             ui.onNode(hasText("Liked your post") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
