@@ -1873,6 +1873,16 @@ verify_wallet_backup_reminder() {
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-backup-evidence > "$evidence/wallet-backup-evidence.tar" || true
     grep -q 'OK (1 test)' "$evidence/wallet-backup-ui.txt"
 }
+if [[ "${TEST_SCOPE:-full}" == wallet-redesign* ]]; then
+    verify_appearance
+    verify_transfers
+    verify_wallet_export
+    verify_wallet_backup_reminder
+    verify_wallet_import
+    verify_wallet_storage_recovery
+    printf '%s\n' 'Complete affected account journeys only;94 retains final whole-app and signed beta gates.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == export* ]]; then
     verify_wallet_export
     verify_wallet_backup_reminder

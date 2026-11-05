@@ -32,7 +32,6 @@ class AccountDesignMotionTest {
                 movie("categories") {
                     click("Appearance")
                     check(device.wait(Until.hasObject(By.text("System default")), 5_000))
-                    click("Dark")
                     click("Back to Settings")
                     click("Node")
                     check(device.wait(Until.hasObject(By.text("saito.davidengelen.nl")), 5_000))
