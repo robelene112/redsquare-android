@@ -40,6 +40,7 @@ class ImageRetryOwnershipTest {
                     addProperty("og:image", media.url("/retry-$scale.png").toString())
                 }) }
                 val row = linkedFeedRow("One deliberate image retry", metadata = metadata.toString())
+                withInterceptedPostLinks {
                 withAppFrameFixture("retry-$scale", "image-retry-evidence", "[$row]") { activity ->
                     requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
                     check(device.wait(Until.hasObject(By.text(context.getString(R.string.image_unavailable))), 10_000))
@@ -66,7 +67,9 @@ class ImageRetryOwnershipTest {
                     assertEquals("The exiting Retry must not start another read after the deliberate replacement starts", 2, calls.get())
                     check(device.wait(Until.gone(By.text(context.getString(R.string.image_unavailable))), 5_000))
                     check(device.wait(Until.gone(By.text(context.getString(R.string.image_loading))), 5_000))
+                    assertTrue(device.hasObject(By.text("One deliberate image retry")))
                     captureNativeScreen(File(folder, "scale-$scale-loaded.png"))
+                }
                 }
             }
         }
