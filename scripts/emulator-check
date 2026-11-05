@@ -1645,11 +1645,11 @@ if [[ "$full_social" == true ]]; then verify_transfers; fi
 verify_notifications() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     # Public unsafe scalar1/3 imports live under the SAF provider's UID, not the target app's UID.
-    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents || return 1
     printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
-        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/notification-owner-import.json > /dev/null
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/notification-owner-import.json > /dev/null || return 1
     printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx","privateKey":"0000000000000000000000000000000000000000000000000000000000000003"}}' | \
-        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/notification-other-import.json > /dev/null
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/notification-other-import.json > /dev/null || return 1
     # The expanded notification batch exceeded 120s on API37; individual assertions and RPC deadlines stay bounded.
     timeout 240 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.NotificationsPreviewTest \
@@ -1662,14 +1662,15 @@ verify_notifications() {
 verify_notification_permission() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     local notification_api
-    notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+    notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')" || return 1
+    [[ "$notification_api" =~ ^[0-9]+$ ]] || return 1
     local notification_choice
     for notification_choice in allowingAlertsKeepsInAppReadingOptional denyingAlertsKeepsInAppReadingAvailable; do
         if [[ "$notification_api" -lt 33 && "$notification_choice" == denying* ]]; then continue; fi
         if [[ "$notification_api" -ge 33 ]]; then
             # Revocation can kill the target; do it between separate instrumentation processes.
-            adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
-            adb shell pm clear-permission-flags nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS user-set user-fixed
+            adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
+            adb shell pm clear-permission-flags nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS user-set user-fixed || return 1
         fi
         timeout 90 adb shell am instrument -w -r \
             -e class "nl.davidengelen.redsquare.NotificationPermissionPreviewTest#$notification_choice" \
