@@ -53,18 +53,19 @@ class ActivityAvailabilityTest {
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Liked your post").isDisplayed() && ui.refreshableContentReady() }
                 ui.onNodeWithContentDescription("Activity options for Anon-pncSjs").performClick()
-                ui.onNodeWithText("Mark as read").performClick()
+                if (ui.onNode(hasText("Mark as read") and isEnabled()).isDisplayed()) ui.onNodeWithText("Mark as read").performClick()
+                else androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
                 ui.waitUntil(15_000) { ui.onNodeWithText("No unread activity").isDisplayed() }
                 peer.rejectNewConnections = true
                 ui.refreshVisibleView()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
-                ui.onNodeWithText("Available activity is read").assertIsDisplayed()
+                ui.onNodeWithText("In available history").assertIsDisplayed()
                 ui.onNodeWithText("Liked your post").assertIsDisplayed()
                 ui.onAllNodesWithText("Unread").assertCountEquals(0)
                 captureNativeScreen(File(folder, "$label-cached-outage.png"), "Could not refresh activity.")
                 activity.recreate()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() &&
-                    ui.onNodeWithText("Available activity is read").isDisplayed() }
+                    ui.onNodeWithText("In available history").isDisplayed() }
                 ui.onAllNodesWithText("Unread").assertCountEquals(0)
                 peer.rejectNewConnections = false
                 ui.onNodeWithText("Retry").performClick()

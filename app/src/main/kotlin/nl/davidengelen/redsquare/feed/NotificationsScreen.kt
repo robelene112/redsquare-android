@@ -128,6 +128,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var cacheWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
     var loading by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(true) }
     var failed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
+    var completedRead by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
+    var partialRead by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
     var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
     var cursors by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long?>>(emptyMap()) }
     var pending by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long>>(emptyMap()) }
@@ -148,6 +150,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         }
         pending = requested
         loading = true
+        partialRead = false
         // A background feed update must not overwrite an in-flight verified mark commit.
         if (!markingRead) {
             readReady = false
@@ -237,6 +240,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
             failed = pages.any { it.pages == null }
+            partialRead = failed && pages.any { it.pages != null }
+            if (!failed) completedRead = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { if (generation == loadGeneration) loading = false }
@@ -302,11 +307,16 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val previews = rememberActivityPreviews(visible.mapNotNull { it.post }.distinctBy { it.id }, backend)
         val unread = visible.count { it.id !in readIds }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            if (readReady && (visible.isNotEmpty() || !loading)) Text(
-                if (unread == 0) stringResource(R.string.notifications_read_none)
-                else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f),
-                style = MaterialTheme.typography.labelLarge)
-            else Spacer(Modifier.weight(1f))
+            if (readReady && (visible.isNotEmpty() || (completedRead && !loading && !failed && ignored == 0))) {
+                Column(Modifier.weight(1f)) {
+                    Text(if (unread == 0) stringResource(R.string.notifications_read_none)
+                        else stringResource(R.string.notifications_unread_count, unread),
+                        style = MaterialTheme.typography.labelLarge)
+                    if (loading || failed || ignored > 0 || pagingWarning || cacheWarning)
+                        Text(stringResource(R.string.activity_available_scope),
+                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            } else Spacer(Modifier.weight(1f))
             FrameIconButton(R.drawable.ic_read_all, stringResource(R.string.notifications_mark_read),
                 enabled = readReady && !markingRead && unread > 0) { markObserved(visible.map { it.id }) }
         }
@@ -314,13 +324,29 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
         val notices = buildList {
             if (readWarning) add(R.string.notifications_read_status_warning to R.string.notifications_read_status_warning_detail)
-            if (failed) add(R.string.notifications_read_error to R.string.notifications_read_error_detail)
             if (cacheWarning || previews.unreadable) add(R.string.notifications_cache_warning to R.string.notifications_cache_warning_detail)
             if (ignored > 0) add(R.string.notifications_unverified to R.string.notifications_unverified)
             if (pagingWarning) add(R.string.notifications_paging_warning to R.string.notifications_paging_warning_detail)
             if (retainedCount >= NotificationHistoryStore.MAX_EVENTS)
                 add(R.string.notifications_history_limit to R.string.notifications_history_limit_detail)
         }
+        val status = when {
+            markingRead -> R.string.activity_saving_read
+            loading -> R.string.notifications_loading
+            partialRead -> R.string.activity_partial
+            failed && visible.isEmpty() && !completedRead -> R.string.activity_unavailable
+            failed -> R.string.notifications_read_error
+            else -> null
+        }
+        InlineStatus(status?.let { stringResource(it) }, when {
+            loading || markingRead -> StatusTone.WORKING
+            partialRead -> StatusTone.WARNING
+            failed -> StatusTone.ERROR
+            else -> StatusTone.INFO
+        }, details = if (failed && !loading) listOf(stringResource(R.string.notifications_read_error_detail)) else emptyList(),
+            actionLabel = if (failed && !loading) stringResource(R.string.retry) else null,
+            actionEnabled = wallet != null && !loading && !markingRead,
+            onAction = { if (!loading && !markingRead) refresh++ })
         // Several independent warnings remain individually discoverable without consuming the entire inbox.
         if (notices.isNotEmpty()) Column(Modifier.heightIn(max = 120.dp).verticalScroll(rememberScrollState())) {
             notices.forEach { (summary, detail) ->
@@ -328,18 +354,14 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                     details = if (summary == detail) emptyList() else listOf(stringResource(detail)))
             }
         }
-        InlineStatus(when {
-            markingRead -> stringResource(R.string.activity_saving_read)
-            loading -> stringResource(R.string.notifications_loading)
-            else -> null
-        }, StatusTone.WORKING)
         val eligibleStreams = notificationStreams(followed, ownPosts)
         val undiscovered = eligibleStreams.filter { it !in cursors }.take(20)
         val older = if (retainedCount < NotificationHistoryStore.MAX_EVENTS)
             cursors.filter { (stream, before) -> stream in eligibleStreams && before != null }
                 .mapValues { requireNotNull(it.value) } else emptyMap()
         LazyColumn(Modifier.weight(1f)) {
-            if (visible.isEmpty() && !loading) item(key = "empty-activity") {
+            if (visible.isEmpty() && completedRead && !loading && !failed && ignored == 0 &&
+                !cacheWarning && !pagingWarning) item(key = "empty-activity") {
                 Text(stringResource(R.string.activity_empty), Modifier.fillMaxWidth().padding(vertical = AppSpacing.gap),
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }

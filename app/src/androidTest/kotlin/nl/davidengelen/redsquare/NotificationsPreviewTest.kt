@@ -203,7 +203,7 @@ class NotificationsPreviewTest {
 
     @Test fun healthyRepliesRemainAvailableWhenTheLikesArchiveFails() {
         withNotifications("partial-history", Mode.PARTIAL) { actor, _, _ ->
-            waitFor("Could not refresh activity.")
+            waitFor("Some activity could not be loaded.")
             waitFor("Replied to your post")
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
@@ -742,7 +742,7 @@ class NotificationsPreviewTest {
                 JsonParser.parseReader(it).asJsonObject.getAsJsonObject("boundaryIncomingLike").get("field2").asString
             }
         withNotifications("stream-retry", Mode.RETRY) { _, _, responses ->
-            waitFor("Could not refresh activity.")
+            waitFor("Some activity could not be loaded.")
             waitFor("Replied to your post")
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
@@ -754,7 +754,7 @@ class NotificationsPreviewTest {
             waitFor("2 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-            ui.onAllNodesWithText("Could not refresh activity.")
+            ui.onAllNodesWithText("Some activity could not be loaded.")
                 .assertCountEquals(0)
             ui.onNodeWithText("Replied to your post").assertIsDisplayed()
             ui.onNodeWithText("Liked your post").assertIsDisplayed()

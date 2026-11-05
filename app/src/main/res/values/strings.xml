@@ -424,7 +424,7 @@
     <string name="notifications_title">Notifications</string>
     <string name="notifications_loading">Loading notifications...</string>
     <string name="notifications_read_error">Could not refresh activity.</string>
-    <string name="notifications_read_error_detail">Could not load notifications. Check your connection and try Refresh.</string>
+    <string name="notifications_read_error_detail">Some activity may be missing. Available events and their read status are kept. Check your connection and try Retry or Refresh.</string>
     <string name="notifications_cache_warning">Local activity history is incomplete.</string>
     <string name="notifications_cache_warning_detail">Some notification history could not be read or saved on this phone. Available activity still appears here.</string>
     <string name="notifications_unverified">Some activity could not be verified.</string>
