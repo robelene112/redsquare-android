@@ -37,7 +37,14 @@ internal fun withAvatarJourney(theme: String, block: (ActivityScenario<MainActiv
     val requests = AtomicInteger()
     val peer = ControlledFeedPeer(row(root), advertisedServices = "archive||;relay||", profileArchiveResponse = { query ->
         if (query.get("field2").asString == author.publicKey) { requests.incrementAndGet(); response.get() } else "[]"
-    }, archiveResponse = { query -> when (query.get("field1").asString) {
+    }, archiveResponse = { query -> when (query.get("field1")?.asString) {
+        null -> {
+            // Private history uses its authenticated conversation field, not a module field.
+            check(query.get("request")?.asString == "load" &&
+                query.get("field3")?.asString == PrivateChat.conversationId(reader.publicKey, author.publicKey) &&
+                query.get("limit")?.asInt == 50 && (query.get("created_earlier_than")?.asLong ?: 0) > 0)
+            "[]"
+        }
         "RedSquareLike" -> if (query.get("field3")?.asString == reader.publicKey) row(like) else "[]"
         "RedSquare" -> when {
             query.get("sig")?.asString == own.id -> row(own)
