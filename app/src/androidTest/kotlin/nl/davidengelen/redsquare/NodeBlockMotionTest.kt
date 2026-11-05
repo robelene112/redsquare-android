@@ -41,8 +41,9 @@ class NodeBlockMotionTest {
                 val frames = retainNativeMotionFrames(file); frames.add("recording", recording)
                 File(folder, "scale-$scale-$name.json").writeText(frames.toString())
             }
-            fun headerVisible(): Boolean = nativeWindowNodes().any {
-                it.contentDescription?.toString() == "Connection details" && it.isVisibleToUser
+            fun headerVisible(): Boolean = nativeWindowNodes().any { node ->
+                val bounds = Rect().apply { node.getBoundsInScreen(this) }
+                node.contentDescription?.toString() == "Connection details" && node.isVisibleToUser && !bounds.isEmpty
             }
             fun readingAnchor(): Pair<String, Rect> = requireNotNull(nativeWindowNodes().mapNotNull { node ->
                 val text = node.text?.toString() ?: return@mapNotNull null
