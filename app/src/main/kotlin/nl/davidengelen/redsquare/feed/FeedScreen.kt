@@ -388,7 +388,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
         when (val destination = navigation.lastOrNull()) {
             is BrowseDestination.Notifications -> {
-                NotificationsScreen(wallet, endpoint, backend, posts, following?.accounts.orEmpty(), childModifier, onBack = { back() },
+                NotificationsScreen(wallet, endpoint, backend, posts, following?.accounts.orEmpty(), lifecycle, childModifier, onBack = { back() },
                     onPost = { navigation.add(BrowseDestination.Conversation(it)) },
                     onIdentity = { openProfile(it) },
                     onReference = { navigation.add(BrowseDestination.Reference(it)) })
