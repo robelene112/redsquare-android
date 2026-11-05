@@ -10,13 +10,30 @@ consistent-source complete app gates, signed in-place update and publication.
 
 ACTIVE93: genuine selected-node block observation. Claimed, only blocker87closed.
 Review base b0078e033d946dc8273bf26962b22278ea2e31c0. Continue93,81,83,94 then beta.
-90completed/closed in b0078e033, trackercomment6667883771. No approval boundary.
-Testing uses86's already agreed native UI/controlled HTTP+signedpeer/persistence
-seams. Preserve financial freshness guards; block observation never proves feed
-refresh completion or global network lag. Plan first native tracer from a real
-controlled snapshot to shared header and Connection details, genuine RED before
-implementation. Controlled node observation needs its own loopback extra, separate
-from WalletBalances funding fixtures, to avoid consuming their reads.
+90completed/closed inb0078e033, trackercomment6667883771. No approval boundary.
+First snapshot tracer RED42099524913 at99f41; actual lightweight-options tracer
+RED42100785834 at557629c6b, both intended15s missing header height. Current first
+implementation c017350f4: SaitoNodeBlock validates published JSONblockchain tip,
+NodeBlocks.kt performs small cancellable foreground-only30s GET/options reads,
+shared AppHeader/Connection details show height, node, blocktime and receivedtime.
+No monetary source changed. Core119 tests freshly PASS local1m31,0fail/error/skip,
+including old block metadata accepted while old payment funding still rejected.
+Core log /tmp/redesign93-core-first.log; build session50321 finished, no local build.
+GREEN10native42102264768 atc017 currently building. No result yet.
+
+Use86's already agreed nativeUI/controlledHTTP+signedpeer/persistence seams. First
+fixture nodeBlockApiUrl supports validated127.0.0.1/options; distinct from wallet
+funding to preserve those counters. Reader supports separate official fixture;
+AppFrameFixture forwards only owner currently, extend for swap tests. Existing
+controlled feed/wallet fixtures without explicit node URL perform NO public block
+reads. Release always uses selected approved HTTPS origin, no extra backend UI.
+Async callback cancellation closes old reads on selection/lifecycle changes;
+observed state is separately remembered per selected backend. Source freshness
+and data/error status treatment remain TODO, along with actual reconnect, swapped/
+late-node response, missing/old, feed-refresh independence, narrow/pixel/themed/
+large-text and normal/zero native evidence. Do not close93 after first tracer.
+Final affected regression/source checks, fresh two-axis reviews and commit still
+required.94 retains actual final-source complete app and signed beta gates.
 
 90review base835021c03c80c6c1351631aa57b647f1d9b759d1; last production
 3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13. Final broad32UI+3actual process gates

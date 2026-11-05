@@ -21,3 +21,8 @@ in place of its anonymous name. It is distinct from the profile bio or banner.
 Messages retained on the current device or recoverable from the selected
 backend or compatible peers, which the user's identity can read. Availability
 does not imply permanent storage or complete recovery on another device.
+
+**Node block observation**:
+A selected node's reported block height and block time, paired with when the app
+checked that information. It describes that node's report, rather than a global
+network lag estimate or the completeness of post history.
