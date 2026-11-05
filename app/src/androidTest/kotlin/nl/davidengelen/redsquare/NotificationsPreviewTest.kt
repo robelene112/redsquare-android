@@ -415,35 +415,38 @@ class NotificationsPreviewTest {
                 JsonParser.parseReader(it).asJsonObject.getAsJsonObject("olderIncomingLike").get("field2").asString
             }
         withNotifications("older-activity", Mode.PAGING) { _, scenario, responses ->
-            waitFor("2 unread")
+            waitFor("1 unread")
             ui.onNodeWithText("In available history").assertIsDisplayed()
+            expectLikePeopleCount(2, 2)
             waitFor("Load more activity")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Load more activity") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
-            waitFor("3 unread")
-            ui.waitUntil(15_000) { ui.refreshableContentReady() }
+            ui.waitUntil(15_000) { responses.olderReads.get() > 0 && ui.refreshableContentReady() }
+            waitFor("1 unread")
+            expectLikePeopleCount(3, 3)
             ui.onNodeWithText("Load more activity").assertIsNotEnabled()
             assertTrue("Older history must overlap the timestamp boundary", responses.olderReads.get() > 0)
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
             ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/older-activity.png"), "3 unread")
+                "notification-evidence/older-activity.png"), "1 unread")
             ui.onNodeWithContentDescription(actorLabel(olderActor)).performClick()
             waitFor("Profile")
             ui.inspectProfileIdentity(olderActor)
             ui.onNodeWithText("Back").performClick()
-            waitFor("3 unread")
+            waitFor("1 unread")
             responses.change()
             scenario.recreate()
             waitFor("Some activity could not be loaded.")
             ui.waitUntil(15_000) { responses.ownerReads.get() > 0 &&
                 ui.refreshableContentReady() }
-            waitFor("3 unread")
+            waitFor("1 unread")
+            expectLikePeopleCount(3, 3)
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
             ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/older-activity-recreated.png"), "3 unread")
+                "notification-evidence/older-activity-recreated.png"), "1 unread")
         }
     }
 
@@ -538,18 +541,20 @@ class NotificationsPreviewTest {
                 JsonParser.parseReader(it).asJsonObject.getAsJsonObject("boundaryIncomingLike").get("field2").asString
             }
         withNotifications("backend-isolation", Mode.BACKEND) { ownerActor, _, responses ->
-            waitFor("2 unread")
+            waitFor("1 unread")
             waitFor("Liked your post")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
+            expectLikePeopleCount(2, 2)
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
             switchNotificationBackend("saito.io")
-            waitFor("2 unread")
+            waitFor("1 unread")
             waitForActor(officialActor)
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithContentDescription(actorLabel(ownerActor)).assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/backend-official.png"), "2 unread")
+                "notification-evidence/backend-official.png"), "1 unread")
+            expectLikePeopleCount(2, 2)
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
             switchNotificationBackend("saito.davidengelen.nl", returningToNotifications = true)
@@ -564,11 +569,20 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             ui.onNodeWithText("No unread activity").assertIsDisplayed()
             ui.onNodeWithContentDescription(actorLabel(ownerActor)).assertIsDisplayed()
-            ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
             ui.onAllNodesWithContentDescription(actorLabel(officialActor)).assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/backend-owner-failed.png"), "No unread activity")
         }
+    }
+
+    /** Group count is the visible unread unit; real event/person totals retain the original data-loss goals. */
+    private fun expectLikePeopleCount(likes: Int, people: Int) {
+        ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Liked your post"))
+        ui.onAllNodes(hasContentDescription("Activity options for", substring = true)).onLast().performClick()
+        ui.onNodeWithText("People who liked this post").performClick()
+        waitFor("$likes likes from $people ${if (people == 1) "person" else "people"}")
+        ui.onNodeWithText("Done").performClick()
     }
 
     private fun switchNotificationBackend(domain: String, returningToNotifications: Boolean = false) {
@@ -638,21 +652,24 @@ class NotificationsPreviewTest {
 
     @Test fun retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation() {
         withNotifications("cache-budget", Mode.CACHE_BUDGET) { _, scenario, _ ->
-            waitFor("150 unread")
+            waitFor("1 unread")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
+            expectLikePeopleCount(150, 1)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/cache-budget.png"), "150 unread")
+                "notification-evidence/cache-budget.png"), "1 unread")
             scenario.recreate()
-            waitFor("150 unread")
+            waitFor("1 unread")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
-            ui.onNodeWithText("150 unread").assertIsDisplayed()
+            expectLikePeopleCount(150, 1)
+            ui.onNodeWithText("1 unread").assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/cache-budget-unread-recreated.png"), "150 unread")
+                "notification-evidence/cache-budget-unread-recreated.png"), "1 unread")
             ui.onNodeWithText("Mark all as read").assertIsEnabled().performClick()
             waitFor("No unread activity")
             scenario.recreate()
             waitFor("No unread activity")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
+            expectLikePeopleCount(150, 1)
             ui.onAllNodesWithText("Liked your post")[0].assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget-recreated.png"), "No unread activity")
@@ -746,15 +763,16 @@ class NotificationsPreviewTest {
                 responses.healthyReplyReads.get())
             responses.makeLateActivityAvailable()
             ui.refreshVisibleView()
-            waitFor("3 unread")
-            ui.waitUntil(15_000) { ui.refreshableContentReady() }
+            ui.waitUntil(15_000) { responses.healthyReplyReads.get() > healthyReads && ui.refreshableContentReady() }
+            waitFor("2 unread")
+            expectLikePeopleCount(2, 2)
             assertTrue("Fresh Refresh must check healthy streams again", responses.healthyReplyReads.get() > healthyReads)
-            ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(lateActor)))
             ui.onNodeWithContentDescription(actorLabel(lateActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/stream-retry-late.png"), "3 unread")
+                "notification-evidence/stream-retry-late.png"), "2 unread")
             ui.onNodeWithContentDescription(actorLabel(lateActor)).performClick()
             waitFor("Profile")
             ui.inspectProfileIdentity(lateActor)
