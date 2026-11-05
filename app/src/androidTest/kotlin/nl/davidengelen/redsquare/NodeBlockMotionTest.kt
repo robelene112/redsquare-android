@@ -68,7 +68,7 @@ class NodeBlockMotionTest {
                     movie("reconnected") { mode.set("recovered"); click("Check again"); awaitText("Block 9,999") }
                     val checkBounds = requireNotNull(device.findObject(By.text("Check again"))).visibleBounds
                     val doneBounds = requireNotNull(device.findObject(By.text("Done"))).visibleBounds
-                    movie("reading", 12) {
+                    movie("reading", 5) {
                         mode.set("advance"); tap(checkBounds)
                         check(advancing.await(2, TimeUnit.SECONDS))
                         tap(doneBounds)
