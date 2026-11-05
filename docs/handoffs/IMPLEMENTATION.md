@@ -14,16 +14,33 @@ Review base835021c03c80c6c1351631aa57b647f1d9b759d1. Real task-header RED10
 (after42085614149 exposed a test-only localhost URL error). Production migrated
 through a7d6a1011: AccountDialog, account cards/rows/choices and real Wallet,
 Settings, receive, transfer review and recovery windows, original controllers kept.
-Full child/header methods PASS17 in42088113599, whose new matrix then fails at
-its missing category-to-index Back step. Test83ece fixes that actual route; test
-e042 waits for the real Settings index before retaining its screenshot.
-Source/debug lint PASS42088571257 at24b5c (same production):117/16 validated
-cached results;0lint errors,55existing warnings,1hint. Both interim source review
-axes report0remaining findings. Native/motion visual and complete affected account
-acceptance remain PENDING, not complete. Broad83ece:42089005702 (10),42089010358
-(17); focused e042:42089706359 (10),42089712188 (17), all running. Preserve original
-assertions/deadlines and actual PIN/IME/process checks. Temporary artifacts under
-/mnt/storage/redsquare-android-artifacts/redesign90-*. No local build is active.
+Both new child/header methods pass10/17. Broad83ece PASS42089005702 (10) and
+42089010358 (17), each32UI methods plus actual transfer/export/storage process
+checks. Focused c148 PASS42090783136 (10) and42090788634 (17), each5newmethods,
+12viewport cells and8normal/zero-motion movies. Explicit Compose readiness fixes
+the earlier native Settings capture (e042 focused42089706359/42089712188 fail
+while still observing the account popup). Original criteria and bounds unchanged.
+Source/debug lint PASS42088571257 at24b5c:117/16 validated cached task results;
+0lint errors,55existing warnings,1hint. Both final source review axes atc1480findings.
+Independent native review inspects144viewport PNG and16full decoded sequences,
+0additional layout findings.17zero-motion return has one dimmed feed frame257ms,
+normal275ms, exact cause unproved; do not claim completely flash-free return.
+
+Still ACTIVE90: my native inspection finds cropped Amount label320/200+IME.
+New meaningful RED10 42092585777 atfe9 confirms88px whole field vs76px visible;
+130%72/72passes. Initial geometry-test run42092041308 fails compilation only
+(DpRect.height import); fe9 fixes top/bottom measurement, not production.
+Production fix3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13 moves existing step/progress
+into scrolling form and removes unused AccountDialog.headerExtra. Payment/auth/
+cancel/footer logic unchanged. GREEN focused42093550633 (10)/42093556247 (17)
+RUNNING; fresh broad/source checks and payment visual inspection still required.
+Do not close90 yet. Standards delta review0findings; Spec delta pending.
+
+Large artifacts /mnt/storage/redsquare-android-artifacts/redesign90-*; no local
+build active. Temporary Pillow13 venv /mnt/storage/redsquare-android-artifacts/
+image-tools90/bin/python for native contact sheets, outside Git. Fix helper
+/tmp/redesign90-scroll-step.py already applied, do not reapply.
+
 No real transfer or production node change is authorized by styling work.
 Do not stop after90: finish all five and beta.94 owns final consistent-source full
 application checks, signed in-place update and publication.
