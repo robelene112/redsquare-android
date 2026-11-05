@@ -1713,12 +1713,13 @@ if [[ "${TEST_SCOPE:-full}" == activity-inbox* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == notifications* ]]; then
-    verify_notifications
-    verify_activity_inbox
-    verify_notification_permission
-    python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process"
+    notifications_failed=0
+    verify_notifications || notifications_failed=1
+    verify_activity_inbox || notifications_failed=1
+    verify_notification_permission || notifications_failed=1
+    python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process" || notifications_failed=1
     printf '%s\n' 'Focused in-app notifications check only; full acceptance and closed-app pushes not run.' > "$evidence/scope.txt"
-    exit 0
+    exit "$notifications_failed"
 fi
 if [[ "$full_social" == true ]]; then
     verify_notifications

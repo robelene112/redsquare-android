@@ -480,6 +480,8 @@ class NotificationsPreviewTest {
             for ((control, confirmation, removal) in listOf(
                 Triple("Mute account", "Mute", "Unmute account"),
                 Triple("Block account", "Block", "Unblock account"))) {
+                // Each control gets a real healthy-read -> outage cycle, independent of the previous control's fault.
+                responses.changed.set(false)
                 waitFor("1 unread")
                 waitFor("Liked your post")
                 ui.waitUntil(15_000) { ui.refreshableContentReady() }
