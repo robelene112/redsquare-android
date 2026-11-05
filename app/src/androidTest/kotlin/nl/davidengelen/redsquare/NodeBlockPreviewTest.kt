@@ -118,6 +118,34 @@ class NodeBlockPreviewTest {
     }
 
 
+    @Test fun missingInitialMetadataDoesNotInventAZeroHeightOrHideAvailablePosts() {
+        MockWebServer().use { node ->
+            node.dispatcher = object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    check(request.target == "/options")
+                    return MockResponse.Builder().body("{\"blockchain\":{}}").build()
+                }
+            }
+            node.start(InetAddress.getByName("127.0.0.1"), 0)
+            withAppFrameFixture("initial-missing", "node-block-evidence",
+                nodeBlockApiUrl = "http://127.0.0.1:${node.port}/options") { _ ->
+                ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Block unavailable").isDisplayed() }
+                ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                ui.onNodeWithContentDescription("Connection details").performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithText("Block information unavailable").isDisplayed() }
+                ui.onNodeWithText("Block height has not been observed.").assertIsDisplayed()
+                ui.onNodeWithText("Block 0").assertDoesNotExist()
+                ui.onNodeWithText("Last successful check").assertDoesNotExist()
+                val folder = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                    "node-block-evidence").apply { mkdirs() }
+                captureState(folder, "initial-height-unknown", "Block height has not been observed.")
+                ui.onNodeWithText("Done").performClick()
+            }
+        }
+    }
+
     private fun requestCheck() {
         val action = hasText("Check again") and hasClickAction()
         ui.waitUntil(15_000) { ui.onNode(action and isEnabled()).isDisplayed() }

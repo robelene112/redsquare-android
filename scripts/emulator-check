@@ -285,8 +285,13 @@ case "${TEST_SCOPE:-full}" in
     status-recovery*) verify_status_ui recovery; exit ;;
 esac
 verify_node_blocks() {
-    verify_group_chat_native NodeBlockPreviewTest 180 node-blocks node-block-evidence
-    verify_group_chat_native NodeBlockBoundaryTest 180 node-boundary node-boundary-evidence
+    local node_failed=0
+    verify_group_chat_native NodeBlockPreviewTest 180 node-blocks node-block-evidence || node_failed=1
+    verify_group_chat_native NodeBlockBoundaryTest 180 node-boundary node-boundary-evidence || node_failed=1
+    verify_group_chat_native NodeBlockViewportTest 180 node-narrow node-viewport-evidence || node_failed=1
+    verify_group_chat_native NodeBlockPixelViewportTest 180 node-pixel node-viewport-evidence || node_failed=1
+    verify_group_chat_native NodeBlockMotionTest 180 node-motion node-motion-evidence || node_failed=1
+    return "$node_failed"
 }
 if [[ "${TEST_SCOPE:-full}" == node-blocks* ]]; then
     verify_node_blocks

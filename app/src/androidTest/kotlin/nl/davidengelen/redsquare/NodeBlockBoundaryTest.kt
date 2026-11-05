@@ -73,7 +73,7 @@ class NodeBlockBoundaryTest {
                     ui.onNodeWithText("Node: saito.io").assertIsDisplayed()
                     capture("official-after-late-owner")
                     chooseNode("saito.davidengelen.nl")
-                    ui.waitUntil(15_000) { ui.onNodeWithText("Block 2,222").isDisplayed() }
+                    ui.waitUntil(15_000) { ui.onNodeWithText("Block 2,222").isDisplayed() && ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
                     ui.onNodeWithText("Block 9,999").assertDoesNotExist()
                     ui.onNodeWithText("Block 7,777").assertDoesNotExist()
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
@@ -124,7 +124,7 @@ class NodeBlockBoundaryTest {
                     checkNode()
                     ui.waitUntil(5_000) { ui.onNode(hasText("Block 5,555") and hasAnyAncestor(isDialog())).isDisplayed() }
                     ui.onNodeWithText("Done").performClick()
-                    ui.waitUntil(5_000) { ui.onNodeWithText("Block 5,555").isDisplayed() }
+                    ui.waitUntil(5_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() && ui.onNodeWithText("Block 5,555").isDisplayed() }
                     assertTrue("Block arrival must be observed while the original feed RPC is still pending",
                         SystemClock.elapsedRealtime() - feedStarted.get() < 12_000)
                     assertFalse("Pending feed work must remain pending after a new block", ui.refreshableContentReady())
