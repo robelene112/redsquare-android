@@ -166,7 +166,7 @@ class NotificationsPreviewTest {
             waitFor("Liked your post")
             responses.change()
             scenario.recreate()
-            waitFor("Could not refresh activity.")
+            waitFor("Some activity could not be loaded.")
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cached-history-recreated.png"), "Notifications")
             waitFor("Liked your post")
@@ -188,8 +188,7 @@ class NotificationsPreviewTest {
             waitFor("Liked your post")
             responses.change()
             scenario.recreate()
-            ui.waitUntil(20_000) { responses.ownerReads.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(20_000) { responses.ownerReads.get() > 0 && ui.refreshableContentReady() }
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/pruned-history-recreated.png"), "Notifications")
             waitFor("Liked your post")
@@ -245,8 +244,7 @@ class NotificationsPreviewTest {
     @Test fun anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning() {
         withNotifications("null-repost-history", Mode.NULL_HISTORY) { actor, scenario, responses ->
             waitFor("Reposted your post")
-            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(20_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Local activity history is incomplete.")
                 .assertCountEquals(0)
             responses.change()
@@ -270,11 +268,10 @@ class NotificationsPreviewTest {
             waitFor("1 unread")
             ui.onNodeWithText("Mark all as read").assertIsDisplayed().assertIsEnabled().performClick()
             waitFor("No unread activity")
-            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(20_000) { ui.refreshableContentReady() }
             responses.change()
             scenario.recreate()
-            waitFor("Could not refresh activity.")
+            waitFor("Some activity could not be loaded.")
             waitFor("Liked your post")
             waitFor("No unread activity")
             ui.onAllNodesWithText("1 unread").assertCountEquals(0)
@@ -289,8 +286,7 @@ class NotificationsPreviewTest {
     @Test fun aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries() {
         withNotifications("read-save-failure", Mode.READ_SAVE_FAULT) { actor, _, control ->
             waitFor("1 unread")
-            ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(20_000) { ui.refreshableContentReady() }
             control.blockReadSaving()
             ui.onNodeWithText("Mark all as read").assertIsDisplayed().assertIsEnabled().performClick()
             waitFor("Read status is unavailable.")
@@ -373,8 +369,7 @@ class NotificationsPreviewTest {
         withNotifications(evidenceName, mode) { actor, _, responses ->
             fun assertNoFollowedActivity() {
                 waitFor("Liked your post")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 ui.onAllNodesWithText("Posted").assertCountEquals(0)
             }
             assertNoFollowedActivity()
@@ -422,8 +417,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
             waitFor("3 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Load more activity").assertIsNotEnabled()
             assertTrue("Older history must overlap the timestamp boundary", responses.olderReads.get() > 0)
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
@@ -437,10 +431,9 @@ class NotificationsPreviewTest {
             waitFor("3 unread")
             responses.change()
             scenario.recreate()
-            waitFor("Could not refresh activity.")
+            waitFor("Some activity could not be loaded.")
             ui.waitUntil(15_000) { responses.ownerReads.get() > 0 &&
-                ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.refreshableContentReady() }
             waitFor("3 unread")
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
             ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
@@ -456,8 +449,7 @@ class NotificationsPreviewTest {
             }
         withNotifications("remaining-contacts", Mode.CONTACT_CONTINUATION) { _, _, responses ->
             waitFor("1 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Posted").assertCountEquals(0)
             ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
             waitFor("2 unread")
@@ -485,8 +477,7 @@ class NotificationsPreviewTest {
                 Triple("Block account", "Block", "Unblock account"))) {
                 waitFor("1 unread")
                 waitFor("Liked your post")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed().performClick()
                 waitFor("Profile")
                 val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
@@ -504,18 +495,16 @@ class NotificationsPreviewTest {
                 waitFor("No unread activity")
                 ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
                 ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(0)
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
                 responses.change()
                 scenario.recreate()
-                waitFor("Could not refresh activity.")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                waitFor("No unread activity")
+                waitFor("Some activity could not be loaded.")
+                ui.waitUntil(15_000) { ui.refreshableContentReady() }
+                ui.onAllNodesWithText("No unread activity").assertCountEquals(0)
                 ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
                 ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(0)
                 captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                    "notification-evidence/personal-${confirmation.lowercase()}-recreated.png"), "No unread activity")
+                    "notification-evidence/personal-${confirmation.lowercase()}-recreated.png"), "Some activity could not be loaded.")
                 ui.openSettings()
                 ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                 waitFor("Muted and blocked accounts")
@@ -541,15 +530,13 @@ class NotificationsPreviewTest {
         withNotifications("backend-isolation", Mode.BACKEND) { ownerActor, _, responses ->
             waitFor("2 unread")
             waitFor("Liked your post")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
             switchNotificationBackend("saito.io")
             waitFor("2 unread")
             waitForActor(officialActor)
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithContentDescription(actorLabel(ownerActor)).assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/backend-official.png"), "2 unread")
@@ -558,14 +545,12 @@ class NotificationsPreviewTest {
             switchNotificationBackend("saito.davidengelen.nl", returningToNotifications = true)
             waitFor("No unread activity")
             waitForActor(ownerActor)
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithContentDescription(actorLabel(officialActor)).assertCountEquals(0)
             responses.change()
             ui.refreshVisibleView()
-            waitFor("Could not refresh activity.")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            waitFor("Some activity could not be loaded.")
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             ui.onNodeWithText("No unread activity").assertIsDisplayed()
             ui.onNodeWithContentDescription(actorLabel(ownerActor)).assertIsDisplayed()
@@ -588,8 +573,7 @@ class NotificationsPreviewTest {
             ui.onNode(hasText("Activity") and !hasClickAction()).assertIsDisplayed()
         } else {
             waitFor("Native Red Square reference post")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
         }
     }
@@ -619,8 +603,7 @@ class NotificationsPreviewTest {
     @Test fun moreActivityDiscoversRepliesToTheEleventhKnownOwnPost() {
         withNotifications("remaining-parents", Mode.PARENT_CONTINUATION) { actor, _, responses ->
             waitFor("1 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
             assertEquals("The eleventh parent must not be part of the first bounded batch", 0, responses.parentIndexedReads.get())
             ui.onNodeWithText("Load more activity").assertIsDisplayed().assertIsEnabled().performClick()
@@ -646,14 +629,12 @@ class NotificationsPreviewTest {
     @Test fun retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation() {
         withNotifications("cache-budget", Mode.CACHE_BUDGET) { _, scenario, _ ->
             waitFor("150 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget.png"), "150 unread")
             scenario.recreate()
             waitFor("150 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("150 unread").assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget-unread-recreated.png"), "150 unread")
@@ -661,8 +642,7 @@ class NotificationsPreviewTest {
             waitFor("No unread activity")
             scenario.recreate()
             waitFor("No unread activity")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Liked your post")[0].assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget-recreated.png"), "No unread activity")
@@ -673,16 +653,14 @@ class NotificationsPreviewTest {
         withNotifications("history-load-fault", Mode.HISTORY_LOAD_FAULT) { actor, scenario, responses ->
             waitFor("Local activity history is incomplete.")
             waitFor("1 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/history-load-fault.png"), "1 unread")
             responses.allowHistorySaving()
             ui.refreshVisibleView()
             ui.waitUntil(15_000) {
-                ui.onAllNodes(hasText("Refresh") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
+                ui.refreshableContentReady() &&
                     ui.onAllNodesWithText("Local activity history is incomplete.")
                         .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
             }
@@ -690,9 +668,8 @@ class NotificationsPreviewTest {
                 .assertCountEquals(0)
             responses.change()
             scenario.recreate()
-            waitFor("Could not refresh activity.")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            waitFor("Some activity could not be loaded.")
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("1 unread").assertIsDisplayed()
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed()
@@ -707,8 +684,7 @@ class NotificationsPreviewTest {
         withNotifications("read-load-fault", Mode.READ_LOAD_FAULT) { actor, scenario, responses ->
             waitFor("Read status is unavailable.")
             waitFor("Liked your post")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed()
             ui.onNodeWithText("Mark all as read").assertIsNotEnabled()
             ui.onAllNodesWithText("No unread activity").assertCountEquals(0)
@@ -718,17 +694,15 @@ class NotificationsPreviewTest {
             responses.allowReadSaving()
             ui.refreshVisibleView()
             waitFor("1 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Read status is unavailable.")
                 .assertCountEquals(0)
             ui.onNodeWithText("Mark all as read").assertIsEnabled().performClick()
             waitFor("No unread activity")
             responses.change()
             scenario.recreate()
-            waitFor("Could not refresh activity.")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            waitFor("Some activity could not be loaded.")
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("No unread activity").assertIsDisplayed()
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed()
@@ -746,15 +720,13 @@ class NotificationsPreviewTest {
             waitFor("Some activity could not be loaded.")
             waitFor("Replied to your post")
             waitFor("1 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             val healthyReads = responses.healthyReplyReads.get()
             assertTrue("The healthy reply stream must have been read", healthyReads > 0)
             responses.change()
             ui.onNodeWithText("Load more activity").assertIsEnabled().performClick()
             waitFor("2 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Some activity could not be loaded.")
                 .assertCountEquals(0)
             ui.onNodeWithText("Replied to your post").assertIsDisplayed()
@@ -765,8 +737,7 @@ class NotificationsPreviewTest {
             responses.makeLateActivityAvailable()
             ui.refreshVisibleView()
             waitFor("3 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             assertTrue("Fresh Refresh must check healthy streams again", responses.healthyReplyReads.get() > healthyReads)
             ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
@@ -786,8 +757,7 @@ class NotificationsPreviewTest {
         val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
         withNotifications("wallet-isolation", Mode.WALLET) { _, _, _ ->
             waitFor("2 unread")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
             ui.onNodeWithText("Mentioned you").assertIsDisplayed()
             ui.onNodeWithText("Mark all as read").performClick()
@@ -796,13 +766,11 @@ class NotificationsPreviewTest {
             waitFor("Shared mention for wallet isolation")
             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty())
                 ui.onNodeWithText("Later").performClick()
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Notifications").assertIsDisplayed().performClick()
             waitFor("1 unread")
             waitFor("Mentioned you")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
             ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
             ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
@@ -811,8 +779,7 @@ class NotificationsPreviewTest {
             waitFor("No unread activity")
             importNotificationWallet("notification-owner-import.json", owner.publicKey)
             waitFor("No unread activity")
-            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() }
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
             ui.onNodeWithText("Mentioned you").assertIsDisplayed()
             ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
@@ -1185,8 +1152,7 @@ class NotificationsPreviewTest {
                             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                         }
                         waitFor("Native Red Square reference post")
-                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
-                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        ui.waitUntil(20_000) { ui.refreshableContentReady() }
                         peer.assertRequestObserved()
                         if (mode == Mode.USERNAME) waitFor("NativeCase7@saito")
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty())
