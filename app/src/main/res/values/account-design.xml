@@ -1,4 +1,7 @@
 <resources>
     <string name="wallet_close_task">Close wallet</string>
     <string name="settings_close_task">Close settings</string>
+    <string name="wallet_receive_close_task">Close balance and receive</string>
+    <string name="transfer_close_task">Close transfer</string>
+    <string name="wallet_recovery_close_task">Close recovery guidance</string>
 </resources>

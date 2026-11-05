@@ -45,7 +45,9 @@ internal fun AccountDialog(title: String, closeLabel: String, onDismissRequest: 
                         vertical = AppSpacing.small)) { headerExtra() }
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen,
-                        vertical = AppSpacing.gap)) { text() }
+                        vertical = AppSpacing.gap)) {
+                        ProvideTextStyle(MaterialTheme.typography.bodyMedium) { text() }
+                    }
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     FlowRow(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 4.dp),
                         horizontalArrangement = Arrangement.End, verticalArrangement = Arrangement.Center) {

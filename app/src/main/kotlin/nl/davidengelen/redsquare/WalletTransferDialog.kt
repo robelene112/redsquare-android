@@ -9,8 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -37,6 +35,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.animation.core.tween
 import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.AccountDialog
+import nl.davidengelen.redsquare.ui.AccountCard
+import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.StatusTone
 
 @Composable
@@ -54,11 +55,12 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
     val canPrepare = recordsReadable &&
         (transfers.pending.isEmpty() || transfers.available?.toBigDecimalOrNull()?.signum() == 1)
     val reviewStep = reviewed != null
-    AlertDialog(
+    AccountDialog(
         onDismissRequest = { transfers.cancel(); onClose() },
-        title = {
+        title = stringResource(if (reviewStep) R.string.transfer_confirm else R.string.transfer_send),
+        closeLabel = stringResource(R.string.transfer_close_task),
+        headerExtra = {
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(stringResource(if (reviewStep) R.string.transfer_confirm else R.string.transfer_send))
                 Text(
                     stringResource(if (reviewStep) R.string.transfer_step_review else R.string.transfer_step_details),
                     style = MaterialTheme.typography.labelMedium,
@@ -74,7 +76,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .animateContentSize(tween(180))
+                    .animateContentSize(tween(AppSpacing.transitionMillis))
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
@@ -86,7 +88,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     else StatusTone.ERROR,
                 )
                 if (reviewed != null) {
-                    Card(Modifier.fillMaxWidth()) {
+                    AccountCard {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             TransferReviewValue(R.string.transfer_recipient_review, reviewed.recipient)
                             TransferReviewValue(R.string.transfer_amount_review, WalletTransfers.display(reviewed.amount))
@@ -98,7 +100,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     Text(stringResource(R.string.transfer_public_warning), style = MaterialTheme.typography.bodySmall)
                 } else {
                     transfers.available?.let {
-                        Card(Modifier.fillMaxWidth()) {
+                        AccountCard {
                             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text(stringResource(R.string.transfer_available, it), style = MaterialTheme.typography.titleMedium)
                             }

@@ -6,13 +6,14 @@ import android.content.Context
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -32,6 +33,8 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import nl.davidengelen.redsquare.ui.AccountDialog
+import nl.davidengelen.redsquare.ui.AccountCard
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot
 
@@ -48,25 +51,26 @@ fun WalletBalanceDialog(publicKey: String, backend: SaitoBackend?, balances: Wal
         observation = backend?.let { withContext(Dispatchers.IO) { balances.read(it, publicKey) } }
         loading = false
     }
-    AlertDialog(onDismissRequest = onClose,
-        title = { Text(stringResource(R.string.wallet_balance_receive)) },
+    AccountDialog(onDismissRequest = onClose,
+        title = stringResource(R.string.wallet_balance_receive),
+        closeLabel = stringResource(R.string.wallet_receive_close_task),
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp)) {
-                Card {
+                AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(6.dp)) {
                         Text(stringResource(R.string.wallet_balance_reported), style = MaterialTheme.typography.labelLarge)
                         Text(when {
                             loading -> stringResource(R.string.wallet_balance_loading)
                             observation != null -> stringResource(R.string.wallet_balance_amount, observation!!.saito)
                             else -> stringResource(R.string.wallet_balance_unavailable)
-                        }, style = MaterialTheme.typography.headlineSmall)
+                        }, style = if (!loading && observation != null) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.bodyLarge)
                         backend?.let { Text(stringResource(R.string.wallet_balance_source, it.domain)) }
                     }
                 }
                 Text(stringResource(R.string.wallet_balance_observation), style = MaterialTheme.typography.bodySmall)
                 TextButton(enabled = !loading, onClick = { refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
                 val label = stringResource(R.string.wallet_receiving_address)
-                Card {
+                AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)) {
                         Text(label, style = MaterialTheme.typography.labelLarge)
                         SelectionContainer {
@@ -87,7 +91,7 @@ fun WalletBalanceDialog(publicKey: String, backend: SaitoBackend?, balances: Wal
                         }
                     }
                 }
-                ReceivingAddressQr(publicKey)
+                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { ReceivingAddressQr(publicKey) }
             }
         },
         confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.done)) } })

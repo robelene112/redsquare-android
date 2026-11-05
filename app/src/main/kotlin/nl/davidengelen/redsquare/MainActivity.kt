@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.MaterialTheme
@@ -627,9 +626,10 @@ class MainActivity : ComponentActivity() {
                             walletOpen = true
                         }
                     }
-                    if (recoveryGuideOpen) AlertDialog(
+                    if (recoveryGuideOpen) AccountDialog(
                         onDismissRequest = { recoveryGuideOpen = false; walletOpen = true },
-                        title = { Text(stringResource(R.string.wallet_recovery_guide)) },
+                        title = stringResource(R.string.wallet_recovery_guide),
+                        closeLabel = stringResource(R.string.wallet_recovery_close_task),
                         text = {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
                                 Text(stringResource(R.string.wallet_recovery_private))
