@@ -1602,7 +1602,15 @@ record_transfer_import_fixture_sizes() {
         > "$output_file"
     awk 'NF != 1 || $1 !~ /^[1-9][0-9]*$/ { exit 1 } END { if (NR != 2) exit 1 }' "$output_file"
 }
+verify_wallet_design() {
+    verify_group_chat_native WalletDesignPreviewTest 180 wallet-design wallet-design-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == wallet-design* ]]; then
+    verify_wallet_design
+    exit 0
+fi
 verify_transfers() {
+    verify_wallet_design
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     write_transfer_import_fixtures
     record_transfer_import_fixture_sizes "$evidence/transfers-import-fixtures.txt"

@@ -1,5 +1,29 @@
 # Implementation handoff
 
+## Active authorization: FIVE remaining redesign tickets and beta publication
+
+The owner explicitly authorized completing #90, #93, #81, #83 and #94 sequentially,
+including the final beta rollout. Continue between tickets without asking again.
+Use one ticket at a time, with tests, both reviews and a completion commit per
+ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
+consistent-source complete app gates, signed in-place update and publication.
+
+Active #90: Wallet and Settings shared presentation. Claimed with zero blockers.
+Review base835021c03c80c6c1351631aa57b647f1d9b759d1. First native tracer checks
+real account routes, headed task titles, clear48dp Close actions and retained feed.
+Run the test-only RED before implementing shared account surfaces. Use the
+already approved native UI/controlled signed-peer/persistence boundaries; preserve
+all original wallet import/export/auth/payment/recovery assertions and deadlines.
+No real transfer or production node change is authorized by styling work.
+
+Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`; preserve unrelated canonical Chat work. Shared skills
+synchronized/up-to-date, branch fetched/clean at835021 before90. Existing Docker
+local2500MB/1792MB and CI3GB compiler bounds apply; keep large artifacts on storage.
+No separate cybersecurity campaigns or external test services. Use actual native
+screens and normal/zero-motion recordings, not only endpoint checks. #36 retains
+physical/provider/store/owner setup. Do not stop after90: finish all five and beta.
+
 ## Completed authorization: TWO tickets, #80 then #92
 
 Both authorized tickets are COMPLETE, verified, reviewed and committed. Stop
