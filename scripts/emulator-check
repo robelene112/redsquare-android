@@ -1612,22 +1612,8 @@ if [[ "${TEST_SCOPE:-full}" == wallet-design* ]]; then
     verify_wallet_design
     exit 0
 fi
-verify_transfers() {
-    verify_wallet_design
+verify_wallet_inputs() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    write_transfer_import_fixtures
-    record_transfer_import_fixture_sizes "$evidence/transfers-import-fixtures.txt"
-    # Include the bounded two-import/backend-isolation journey alongside real-PIN cases.
-    timeout 240 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.WalletTransferPreviewTest,nl.davidengelen.redsquare.WalletTransferStatusTest \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/transfers-ui.txt" || true
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - transfer-evidence \
-        > "$evidence/transfers-evidence.tar" || true
-    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/transfers-ui.txt"; then
-        adb exec-out screencap -p > "$evidence/transfers-system-screen.png" || true
-        return 1
-    fi
     # Exercise the visible wallet and send stages at 130%/200% in both themes.
     # The transfer status tests deliberately remove their private test documents.
     # Provision these same public fixtures again for the following viewport run.
@@ -1645,6 +1631,28 @@ verify_transfers() {
         adb exec-out screencap -p > "$evidence/wallet-flow-viewport-system-screen.png" || true
         return 1
     fi
+}
+if [[ "${TEST_SCOPE:-full}" == wallet-input* ]]; then
+    verify_wallet_inputs
+    exit 0
+fi
+verify_transfers() {
+    verify_wallet_design
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    write_transfer_import_fixtures
+    record_transfer_import_fixture_sizes "$evidence/transfers-import-fixtures.txt"
+    # Include the bounded two-import/backend-isolation journey alongside real-PIN cases.
+    timeout 240 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.WalletTransferPreviewTest,nl.davidengelen.redsquare.WalletTransferStatusTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/transfers-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - transfer-evidence \
+        > "$evidence/transfers-evidence.tar" || true
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/transfers-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/transfers-system-screen.png" || true
+        return 1
+    fi
+    verify_wallet_inputs
     python3 "$repo_dir/scripts/transfer-process-check" --evidence "$evidence/transfer-process"
 }
 if [[ "${TEST_SCOPE:-full}" == transfers* ]]; then
