@@ -52,6 +52,24 @@ private fun ComposeTestRule.nodeBlockViewports(width: Int) {
                 close.assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp)
                 onNode(hasText("Check again") and hasClickAction()).assertIsDisplayed()
                     .assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp)
+                val nativeActions = com.google.gson.JsonObject()
+                var density = 0f
+                activity.onActivity { density = it.resources.displayMetrics.density }
+                val root = requireNotNull(InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow)
+                for (name in listOf("Done", "Check again")) {
+                    val text = root.findAccessibilityNodeInfosByText(name).single { it.text?.toString() == name && it.isVisibleToUser }
+                    val action = if (text.isClickable) text else requireNotNull(text.parent).also { check(it.isClickable) }
+                    val bounds = android.graphics.Rect().apply { action.getBoundsInScreen(this) }
+                    nativeActions.add(name, com.google.gson.JsonObject().apply {
+                        addProperty("left", bounds.left); addProperty("top", bounds.top)
+                        addProperty("right", bounds.right); addProperty("bottom", bounds.bottom)
+                        addProperty("density", density)
+                    })
+                    check(bounds.height() >= 48 * density && bounds.width() >= 48 * density) {
+                        "Native $name target must retain48dp access, observed ${bounds.width()}x${bounds.height()} at density$density"
+                    }
+                }
+                File(folder, "$label-native-actions.json").writeText(nativeActions.toString())
                 captureNativeScreen(File(folder, "$label-times-and-actions.png"))
                 close.performClick()
                 waitUntil(10_000) { onAllNodes(isDialog()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }

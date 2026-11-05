@@ -130,7 +130,8 @@ internal fun NodeConnectionDetails(node: String?, blocks: NodeBlockState? = null
         shape = RoundedCornerShape(AppSpacing.cardRadius),
         title = { Text(stringResource(R.string.connection_details), Modifier.semantics { heading() },
             style = MaterialTheme.typography.titleMedium) },
-        text = { Column(Modifier.verticalScroll(rememberScrollState()),
+        text = { AppDialogWindow()
+            Column(Modifier.verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Text(if (node != null) stringResource(R.string.selected_server, node)
                 else stringResource(R.string.connection_node_unavailable))

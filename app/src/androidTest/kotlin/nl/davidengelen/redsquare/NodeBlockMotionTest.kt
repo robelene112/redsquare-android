@@ -41,9 +41,15 @@ class NodeBlockMotionTest {
                 val frames = retainNativeMotionFrames(file); frames.add("recording", recording)
                 File(folder, "scale-$scale-$name.json").writeText(frames.toString())
             }
-            fun headerVisible(): Boolean = device.findObject(By.desc("Connection details"))?.visibleBounds?.isEmpty == false
-            fun readingAnchor(): Pair<String, Rect> = requireNotNull(device.findObjects(By.textContains("Reference post "))
-                .filter { !it.visibleBounds.isEmpty }.minByOrNull { it.visibleBounds.top }).let { it.text to it.visibleBounds }
+            fun headerVisible(): Boolean = nativeWindowNodes().any {
+                it.contentDescription?.toString() == "Connection details" && it.isVisibleToUser
+            }
+            fun readingAnchor(): Pair<String, Rect> = requireNotNull(nativeWindowNodes().mapNotNull { node ->
+                val text = node.text?.toString() ?: return@mapNotNull null
+                if (!text.contains("Reference post ") || !node.isVisibleToUser) return@mapNotNull null
+                val bounds = Rect().apply { node.getBoundsInScreen(this) }
+                if (bounds.isEmpty) null else text to bounds
+            }.minByOrNull { it.second.top })
             MockWebServer().use { node ->
                 node.dispatcher = object : Dispatcher() {
                     override fun dispatch(request: RecordedRequest): MockResponse {
@@ -99,6 +105,17 @@ class NodeBlockMotionTest {
                 }
             }
         }
+    }
+
+    /** Snapshot native node data together, without retaining UiObject2 handles while chrome moves. */
+    private fun nativeWindowNodes(): List<android.view.accessibility.AccessibilityNodeInfo> {
+        val nodes = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
+        fun visit(node: android.view.accessibility.AccessibilityNodeInfo) {
+            nodes.add(node)
+            for (index in 0 until node.childCount) node.getChild(index)?.let(::visit)
+        }
+        InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow?.let(::visit)
+        return nodes
     }
 
     /** Observe the current native target after the working notice changes dialog geometry.
