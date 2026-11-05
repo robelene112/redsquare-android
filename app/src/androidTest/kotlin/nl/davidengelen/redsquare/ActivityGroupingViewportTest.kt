@@ -43,6 +43,10 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
             name, "activity-group-viewport-evidence") { activity, _ ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.withPostViewports(activity, folder, "groups", widthDp = width) { label, _ ->
+              withFailureCapture({
+                File(folder, "$label-roots.txt").writeText(ui.onAllNodes(isRoot(), useUnmergedTree = true)
+                    .printToString(maxDepth = Int.MAX_VALUE))
+              }) {
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.refreshableContentReady() && ui.onNodeWithText("2 unread").isDisplayed() }
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Liked your post"))
@@ -68,6 +72,7 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                     rectangles += bounds
                     targets.addProperty(actorLabel, bounds.flattenToString())
                 }
+                ui.onNodeWithText("and 2 others").assertIsDisplayed()
                 File(folder, "$label-avatar-targets.json").writeText(targets.toString())
                 captureNativeScreen(File(folder, "$label-people-strip.png"))
                 // The latest fixture actor can vary only through the documented signed tie ordering.
@@ -82,6 +87,7 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Replied to your post"))
                 ui.onNode(hasText("Replied to your post") and hasText("Reply notification reference") and hasClickAction()).assertIsDisplayed()
                 ui.onNode(hasText("Home") and hasClickAction()).performClick()
+              }
             }
         }
     }

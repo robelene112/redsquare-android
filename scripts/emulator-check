@@ -1702,6 +1702,12 @@ verify_activity_inbox() {
     verify_group_chat_native ActivityInboxRevisionTest 180 activity-revisions activity-revision-evidence || failed_inbox=1
     return "$failed_inbox"
 }
+if [[ "${TEST_SCOPE:-full}" == activity-group-viewports* ]]; then
+    groups_failed=0
+    verify_group_chat_native ActivityGroupingNarrowViewportTest 180 activity-group-narrow activity-group-viewport-evidence || groups_failed=1
+    verify_group_chat_native ActivityGroupingPixelViewportTest 180 activity-group-pixel activity-group-viewport-evidence || groups_failed=1
+    exit "$groups_failed"
+fi
 if [[ "${TEST_SCOPE:-full}" == activity-groups* ]]; then
     groups_failed=0
     verify_group_chat_native ActivityGroupingPreviewTest 180 activity-groups activity-group-evidence || groups_failed=1

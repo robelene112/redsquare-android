@@ -2,8 +2,8 @@
     <string name="activity_like_people">People who liked this post</string>
     <string name="activity_like_totals">%1$s from %2$s</string>
     <plurals name="activity_other_people">
-        <item quantity="one">%1$s and %2$d other</item>
-        <item quantity="other">%1$s and %2$d others</item>
+        <item quantity="one">and %d other</item>
+        <item quantity="other">and %d others</item>
     </plurals>
     <plurals name="activity_likes">
         <item quantity="one">%d like</item>

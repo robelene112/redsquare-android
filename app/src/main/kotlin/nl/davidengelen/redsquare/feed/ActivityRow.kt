@@ -96,8 +96,10 @@ internal fun ActivityRow(authors: List<String>, createdAt: Long, caption: Int, p
                             }
                         }
                     }
-                    Text(pluralStringResource(R.plurals.activity_other_people, authors.size - 1, name, authors.size - 1),
-                        maxLines = 2, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
+                    Text(name, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleSmall)
+                    Text(pluralStringResource(R.plurals.activity_other_people, authors.size - 1, authors.size - 1),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Box {
                     IconButton(onClick = { options = true }, modifier = Modifier.size(48.dp)
