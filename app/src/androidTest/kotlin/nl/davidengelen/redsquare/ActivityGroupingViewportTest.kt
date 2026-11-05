@@ -52,6 +52,9 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                 captureNativeScreen(File(folder, "$label-group.png"), "Liked your post")
                 // Align the avatar strip separately at large text, where a complete row is taller than the viewport.
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(labels[2]))
+                ui.waitUntil(15_000) {
+                    labels.all { ui.onAllNodesWithContentDescription(it).onLast().isDisplayed() }
+                }
                 val rectangles = mutableListOf<Rect>()
                 val targets = JsonObject()
                 for (actorLabel in labels) {
