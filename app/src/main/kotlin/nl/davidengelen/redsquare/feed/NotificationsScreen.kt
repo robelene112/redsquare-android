@@ -303,10 +303,15 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             } } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { cacheWarning = true }
             failed = likeHeadFailed || pages.any { it.pages == null } || pending.isNotEmpty()
-            partialRead = failed && pages.any { it.pages != null }
+            partialRead = failed && (pages.any { it.pages != null } || (background && partialRead))
             if (!failed) completedRead = true
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true; partialRead = false }
+        catch (_: Exception) {
+            failed = true
+            if (!background) partialRead = false
+            if (requested.any { (stream, position) -> stream.kind == "RedSquareLike" &&
+                    (position is ActivityPageRead.Newest || !likeHistory.observed) }) likeHeadFailed = true
+        }
         finally { if (generation == loadGeneration) { loading = false; backgroundRead = false } }
     }
     fun markObserved(observed: List<String>) {
