@@ -34,12 +34,25 @@ Production fix3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13 moves existing step/progr
 into scrolling form and removes unused AccountDialog.headerExtra. Payment/auth/
 cancel/footer logic unchanged. GREEN focused42093550633 (10)/42093556247 (17)
 RUNNING; fresh broad/source checks and payment visual inspection still required.
-Do not close90 yet. Standards delta review0findings; Spec delta pending.
+Do not close90 yet. Both source delta review axes0findings.
 
 Large artifacts /mnt/storage/redsquare-android-artifacts/redesign90-*; no local
 build active. Temporary Pillow13 venv /mnt/storage/redsquare-android-artifacts/
 image-tools90/bin/python for native contact sheets, outside Git. Fix helper
 /tmp/redesign90-scroll-step.py already applied, do not reapply.
+
+Latest90: input GREEN10 42093550633 at3f7, all4cells72/72 or88/88 and new
+Amount PNG fully readable. Input17 42093556247 fails ONLY200dark49/88 with
+actual Gboard126px 'Keyboard font size updated'/OK; other3cells full. Test32eb
+reuses existing actual Gboard package-scoped acknowledgment, retaining font/IME,
+assertions/deadline and recording acknowledgment. Source/debug3f7 PASS42093749985.
+Fresh broad10 42094638664 fails Pixel200 menu setup (Settings semantic node not
+shown; later capture has no popup, cause unproved), while narrow matrix passes.
+Test58df observes usable popup/removal within5s and scopes original assertions
+and clicks to actualPopup. Both fixture-delta source reviews0findings. No production
+change after3f7. Final broad17 42094963847 at32eb and10 42095757828 at58df RUNNING;
+retain original failed runs, require real native results/visuals before closing90.
+No local build. Latest review agents wallet90_final_spec/standards are read-only.
 
 No real transfer or production node change is authorized by styling work.
 Do not stop after90: finish all five and beta.94 owns final consistent-source full

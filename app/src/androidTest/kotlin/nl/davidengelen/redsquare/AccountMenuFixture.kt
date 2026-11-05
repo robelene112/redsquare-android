@@ -18,8 +18,8 @@ internal fun ComposeTestRule.revealAppNavigation() {
 internal fun ComposeTestRule.openAccountMenu() {
     val menu = (hasText("Wallet") or hasText("Settings")) and hasClickAction() and hasAnyAncestor(isPopup())
     val settings = hasText("Settings") and menu
-    // A previous window can still expose semantics while its popup is leaving.
-    // Observe a usable menu or its complete removal before another native tap.
+    // Semantic presence alone does not establish a usable popup.
+    // Observe a visible menu or its complete removal before another native tap.
     waitUntil(5_000) {
         onAllNodes(menu).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() ||
             onNode(settings).isDisplayed()
