@@ -17,7 +17,7 @@ internal data class ActivityLikeHistory(
     val olderBefore: Long? = null,
     val catchUp: ActivityPageRead.CatchUp? = null,
 ) {
-    val continuation: ActivityPageRead? get() = catchUp ?: olderBefore?.let(ActivityPageRead::Older)
+    val continuation: ActivityPageRead? get() = catchUp ?: olderBefore?.let { ActivityPageRead.Older(it) }
 
     fun observe(read: ActivityPageRead, page: ArchiveLikePage, nextBefore: Long?, newEvents: Boolean): ActivityLikeHistory {
         val pageHead = page.likes.maxOfOrNull { it.createdAt } ?: page.oldestCreatedAt
