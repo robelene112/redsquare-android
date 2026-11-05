@@ -107,31 +107,17 @@ class NodeBlockMotionTest {
         }
     }
 
-    /** Snapshot native node data together, without retaining UiObject2 handles while chrome moves. */
-    private fun nativeWindowNodes(): List<android.view.accessibility.AccessibilityNodeInfo> {
-        val nodes = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
-        fun visit(node: android.view.accessibility.AccessibilityNodeInfo) {
-            nodes.add(node)
-            for (index in 0 until node.childCount) node.getChild(index)?.let(::visit)
-        }
-        InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow?.let(::visit)
-        return nodes
-    }
-
     /** Observe the current native target after the working notice changes dialog geometry.
      * UiDevice idle waits would consume the held request, so sample the actual accessibility
      * window directly and still inject physical input inside the original response interval. */
     private fun currentWorkingActionBounds(label: String): Rect {
-        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
         val deadline = SystemClock.elapsedRealtime() + 1_000
         var previous: Rect? = null
         var stableSince = 0L
         while (SystemClock.elapsedRealtime() < deadline) {
-            val root = automation.rootInActiveWindow
-            val working = root?.findAccessibilityNodeInfosByText("Checking block info")
-                ?.any { it.text?.toString() == "Checking block info" && it.isVisibleToUser } == true
-            val text = root?.findAccessibilityNodeInfosByText(label)
-                ?.singleOrNull { it.text?.toString() == label && it.isVisibleToUser && it.isEnabled }
+            val nodes = nativeWindowNodes()
+            val working = nodes.any { it.text?.toString() == "Checking block info" && it.isVisibleToUser }
+            val text = nodes.singleOrNull { it.text?.toString() == label && it.isVisibleToUser && it.isEnabled }
             val target = if (text?.isClickable == true) text else text?.parent?.takeIf { it.isClickable && it.isEnabled }
             val bounds = target?.let { Rect().apply { it.getBoundsInScreen(this) } }?.takeUnless { it.isEmpty }
             val now = SystemClock.elapsedRealtime()

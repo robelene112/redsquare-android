@@ -55,9 +55,9 @@ private fun ComposeTestRule.nodeBlockViewports(width: Int) {
                 val nativeActions = com.google.gson.JsonObject()
                 var density = 0f
                 activity.onActivity { density = it.resources.displayMetrics.density }
-                val root = requireNotNull(InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow)
+                val nodes = nativeWindowNodes()
                 for (name in listOf("Done", "Check again")) {
-                    val text = root.findAccessibilityNodeInfosByText(name).single { it.text?.toString() == name && it.isVisibleToUser }
+                    val text = nodes.single { it.text?.toString() == name && it.isVisibleToUser }
                     val action = if (text.isClickable) text else requireNotNull(text.parent).also { check(it.isClickable) }
                     val bounds = android.graphics.Rect().apply { action.getBoundsInScreen(this) }
                     nativeActions.add(name, com.google.gson.JsonObject().apply {
