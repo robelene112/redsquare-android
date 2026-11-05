@@ -185,6 +185,7 @@ class GiphyPostingTest {
         ui.waitUntil(10_000) { ui.onAllNodesWithText("By Owned publisher").fetchSemanticsNodes().isNotEmpty() }
         ui.onNode(hasScrollAction()).performScrollToNode(hasText("By Owned publisher"))
         ui.onNodeWithText("By Owned publisher").assertIsDisplayed()
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Source"))
         ui.onNodeWithText("Source").assertIsDisplayed()
         capture(name)
     }

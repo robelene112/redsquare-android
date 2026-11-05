@@ -27,14 +27,19 @@ class DestinationRevealMotionTest {
                 requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
                 val action = requireNotNull(device.findObject(By.text("Search"))).visibleBounds
                 val file = File(folder, "scale-$scale-search.mp4")
+                var titleDeadline = 0L
                 val recording = recordNativeTransition(file, recordingSeconds = 4) {
+                    titleDeadline = SystemClock.elapsedRealtime() + 5_000
                     check(device.click(action.centerX(), action.centerY()))
-                    val deadline = SystemClock.elapsedRealtime() + 5_000
-                    while (searchTitle(device.displayHeight) == null && SystemClock.elapsedRealtime() < deadline)
-                        SystemClock.sleep(16)
-                    check(searchTitle(device.displayHeight) != null)
                 }
-                val bounds = requireNotNull(searchTitle(device.displayHeight))
+                // Native hierarchy snapshots can block the main thread. Observe readiness
+                // after recording, within the original budget measured from the actual tap.
+                var title = searchTitle(device.displayHeight)
+                while (title == null && SystemClock.elapsedRealtime() < titleDeadline) {
+                    SystemClock.sleep(16)
+                    title = searchTitle(device.displayHeight)
+                }
+                val bounds = requireNotNull(title)
                 val template = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
                 try {
                     File(folder, "scale-$scale-search-template.png").outputStream().use {
