@@ -91,13 +91,13 @@ class WalletFlowViewportPreviewTest {
                 val visible = field.fetchSemanticsNode().boundsInRoot
                 val density = context.resources.displayMetrics.density
                 File(folder, "$label-payment-field-geometry.json").writeText(com.google.gson.JsonObject().apply {
-                    addProperty("wholeHeightPixels", whole.height.value * density)
+                    addProperty("wholeHeightPixels", (whole.bottom.value - whole.top.value) * density)
                     addProperty("visibleHeightPixels", visible.height)
                     addProperty("fontScale", context.resources.configuration.fontScale)
                     addProperty("widthDp", context.resources.configuration.screenWidthDp)
                 }.toString())
                 assertTrue("The complete focused payment field, including its label, must fit above the IME",
-                    kotlin.math.abs(whole.height.value * density - visible.height) <= 1f)
+                    kotlin.math.abs((whole.bottom.value - whole.top.value) * density - visible.height) <= 1f)
 
                 ui.onNodeWithContentDescription("Public memo").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Public memo").performTextInput("viewport memo")
