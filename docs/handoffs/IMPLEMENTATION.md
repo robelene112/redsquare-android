@@ -46,8 +46,20 @@ source-backed balance snapshot contract. Current named production server.ts read
 through network-disabled/read-only Docker still defines GET/balance/:keys? ->
 getBalanceSnapshot(keys), lines522-545; SHA2565cca9333856502e827a36a78ce87d2d2406d0914724b4a35cb860942e0800752,
 installed saito-js0.3.2. No options/wallet/database/service state was read or changed.
-93not implemented/claimed yet; inspect its actual contract and testing boundaries
-before choosing observation semantics. Preserve monetary freshness validation.
+93is now claimed; baseb0078e033. Initial snapshot tracer RED42099524913 at99f41
+fails expected header height after15s, no app metadata implementation. Further
+source inspection selects lightweight public GET/options instead: server.ts752
+calls getClientOptions; storage-core.ts636-680 publishes options.blockchain;
+blockchain.ts41-49 saves live core last_block_id/hash/timestamp and128-130 updates
+on new blocks. Both actual public/options reads200 (~1.2KB) match source fields;
+only block metadata retained outside repo. Owner node reported1180213 with block
+age~17.5h, official1182301 with recent block. No global lag claim or node change.
+Use Options metadata, not repeated wallet snapshots, and preserve all monetary
+code/freshness guards. Updated exact-options native tracer must RED before app
+implementation. Dedicated nodeBlockApiUrl fixture stays separate from wallet and
+feed fixtures. Normal controlled tests must not initiate public node reads.
+Public read artifacts /mnt/storage/redsquare-android-artifacts/redesign93-public*
+contain only published block fields, not whole public config or wallet state.
 
 Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
 `codex/unified-redesign`; preserve unrelated canonical Chat work. Shared skills

@@ -10,11 +10,10 @@ import mockwebserver3.Dispatcher
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import mockwebserver3.RecordedRequest
-import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Rule
 import org.junit.Test
 
-/** Genuine selected-node snapshot metadata, independent of signed Archive feed delivery. */
+/** Genuine selected-node published block metadata, independent of signed Archive feed delivery. */
 class NodeBlockPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
@@ -22,14 +21,13 @@ class NodeBlockPreviewTest {
         MockWebServer().use { node ->
             node.dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
-                    check(request.target.startsWith("/balance/") &&
-                        SaitoWallet.isPublicKey(request.target.removePrefix("/balance/")))
-                    return MockResponse.Builder().body("${System.currentTimeMillis() - 1_000}-1234-${"ab".repeat(32)}.snap\n").build()
+                    check(request.target == "/options")
+                    return MockResponse.Builder().body("""{"blockchain":{"last_block_id":1234,"last_timestamp":${System.currentTimeMillis() - 1_000},"last_block_hash":"${"ab".repeat(32)}"}}""").build()
                 }
             }
             node.start(InetAddress.getByName("127.0.0.1"), 0)
             withAppFrameFixture("height-tracer", "node-block-evidence",
-                nodeBlockApiUrl = "http://127.0.0.1:${node.port}/balance/") { _ ->
+                nodeBlockApiUrl = "http://127.0.0.1:${node.port}/options") { _ ->
                 val folder = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                     "node-block-evidence").apply { mkdirs() }
                 ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
