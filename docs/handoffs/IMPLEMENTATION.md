@@ -9,12 +9,24 @@ ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
 Active #90: Wallet and Settings shared presentation. Claimed with zero blockers.
-Review base835021c03c80c6c1351631aa57b647f1d9b759d1. First native tracer checks
-real account routes, headed task titles, clear48dp Close actions and retained feed.
-Run the test-only RED before implementing shared account surfaces. Use the
-already approved native UI/controlled signed-peer/persistence boundaries; preserve
-all original wallet import/export/auth/payment/recovery assertions and deadlines.
+Review base835021c03c80c6c1351631aa57b647f1d9b759d1. Real task-header RED10
+42083120494, first GREEN10 42084565308. Child receive/review RED10 42086633967
+(after42085614149 exposed a test-only localhost URL error). Production migrated
+through a7d6a1011: AccountDialog, account cards/rows/choices and real Wallet,
+Settings, receive, transfer review and recovery windows, original controllers kept.
+Full child/header methods PASS17 in42088113599, whose new matrix then fails at
+its missing category-to-index Back step. Test83ece fixes that actual route; test
+e042 waits for the real Settings index before retaining its screenshot.
+Source/debug lint PASS42088571257 at24b5c (same production):117/16 validated
+cached results;0lint errors,55existing warnings,1hint. Both interim source review
+axes report0remaining findings. Native/motion visual and complete affected account
+acceptance remain PENDING, not complete. Broad83ece:42089005702 (10),42089010358
+(17); focused e042:42089706359 (10),42089712188 (17), all running. Preserve original
+assertions/deadlines and actual PIN/IME/process checks. Temporary artifacts under
+/mnt/storage/redsquare-android-artifacts/redesign90-*. No local build is active.
 No real transfer or production node change is authorized by styling work.
+Do not stop after90: finish all five and beta.94 owns final consistent-source full
+application checks, signed in-place update and publication.
 
 Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
 `codex/unified-redesign`; preserve unrelated canonical Chat work. Shared skills
