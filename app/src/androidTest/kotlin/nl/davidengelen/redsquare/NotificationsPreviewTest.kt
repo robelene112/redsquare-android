@@ -583,6 +583,7 @@ class NotificationsPreviewTest {
         ui.onNodeWithText("People who liked this post").performClick()
         waitFor("$likes likes from $people ${if (people == 1) "person" else "people"}")
         ui.onNodeWithText("Done").performClick()
+        ui.waitUntil(10_000) { ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
     }
 
     private fun switchNotificationBackend(domain: String, returningToNotifications: Boolean = false) {
@@ -652,15 +653,24 @@ class NotificationsPreviewTest {
 
     @Test fun retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation() {
         withNotifications("cache-budget", Mode.CACHE_BUDGET) { _, scenario, _ ->
+            fun inspectRetainedPeople() {
+                expectLikePeopleCount(150, 1)
+                // Compose's dialog removal and the Android window return are separate observations.
+                ui.waitUntil(10_000) {
+                    var focused = false
+                    scenario.onActivity { focused = it.window.decorView.hasWindowFocus() }
+                    focused && ui.onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty()
+                }
+            }
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
-            expectLikePeopleCount(150, 1)
+            inspectRetainedPeople()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget.png"), "1 unread")
             scenario.recreate()
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
-            expectLikePeopleCount(150, 1)
+            inspectRetainedPeople()
             ui.onNodeWithText("1 unread").assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget-unread-recreated.png"), "1 unread")
@@ -669,7 +679,7 @@ class NotificationsPreviewTest {
             scenario.recreate()
             waitFor("No unread activity")
             ui.waitUntil(15_000) { ui.refreshableContentReady() }
-            expectLikePeopleCount(150, 1)
+            inspectRetainedPeople()
             ui.onAllNodesWithText("Liked your post")[0].assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cache-budget-recreated.png"), "No unread activity")

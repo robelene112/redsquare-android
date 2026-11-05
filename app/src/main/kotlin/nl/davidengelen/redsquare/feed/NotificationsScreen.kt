@@ -378,7 +378,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 NotificationItem("like:$target", members.distinctBy { it.id }.sortedWith(compareByDescending<NotificationRow> { it.createdAt }.thenByDescending { it.id }), like = true)
             }
         val visible = (individual + groupedLikes).sortedWith(compareByDescending<NotificationItem> { it.latest.createdAt }.thenBy { it.key })
-        val previews = rememberActivityPreviews(visible.mapNotNull { it.latest.post }.distinctBy { it.id }, backend)
+        val previews = rememberActivityPreviews(visible.mapNotNull { it.latest.post }.distinctBy { it.id }.sortedBy { it.id }, backend)
         val unread = visible.count { it.unread(readIds) }
         val eligibleStreams = notificationStreams(followed, ownPosts)
         val moreHistory = eligibleStreams.any { it !in cursors || cursors[it] != null }
