@@ -29,14 +29,38 @@ See `docs/evidence/ticket80/README.md` and native-results.json for exact mapping
 all failures/corrections, original captures and limits. No owner/provider/store or
 physical Pixel acceptance, no production changes/public writes and no beta.
 
-#92 is ACTIVE, review base1f4ba191d1ae7783a283491649f278aa5b5f729b. The first
-new native tracer groups three actual signed Like actors on one target, while
-retaining an individual reply and exact post navigation. Test-only RED is next.
-Retain #80's honest states while
-grouping Likes per exact target, keeping distinct actors, underlying event/read IDs,
-direct navigation and automatic newest-event resurfacing. Preserve every original
-criterion and native signed-peer/identity/history boundary. Parent86/55/84/1/36
-stay independent. Stop after92; do not claim or start a third ticket.
+#92 is ACTIVE, review base1f4ba191d1ae7783a283491649f278aa5b5f729b.
+Current native source6cfc4ab087ff3ce0239240d9306bd4909f632a63: broad affected
+notifications10 run42065475340 and17 run42065481253 IN PROGRESS. Do not treat
+build completion as device acceptance. Production last changedda9a4d0c6;
+range ownership fixd096/355 separates newest-head catch-up from older history.
+
+Implemented exact-target Like groups with distinct bounded ProfileAvatar actors,
+per-event reads, direct target/reference navigation, quiet lifecycle-scoped
+newest-Like checks and automatic resurfacing. Small People dialogs wrap; large
+ones remain lazy/bounded. Known partial coverage and failed-head ownership survive
+quiet retries. Replies stay individual. Original32 notification regressions retain
+data/identity/cache goals, adapting unread counts to groups and checking literal
+Like/person totals. New native checks cover3functional methods, a150-new-event
+burst preserving older paging,320/412dp Light/Dark100/130/200% and actual1/0motion.
+All original class/assertion deadlines remain unchanged.
+
+Earlier native REDs:42052527296 separate rows;42054867561 missing automatic
+resurfacing;42060508924 skips burst middle (110instead157 Likes). Initial focused
+green42058638445 passes2methods on10 before the burst repair. Corrected355
+run42062553476 failed Java compiler heap before UI;0c29 run42056057905 also
+compiler OOM. CI now gives only the compiler3GB, retaining the local2500MB
+container and1792MB heap.6938 run42065265946 failed checkout because an
+abbreviated source_ref was interpreted as a branch; broad runs use full40charSHA.
+No corrected burst, new viewport/motion or broad acceptance claimed yet.
+
+Source Standards/Spec throughda9 have0findings. Review of6938 found one test
+observer expecting opening a target to mark it read, corrected6cfc to retain the
+existing explicit read semantics. Reviews of final code, actual movies/rendered
+states, clean lint and retained ticket92 evidence remain required before closing.
+Artifacts stay under/mnt/storage/redsquare-android-artifacts/redesign92-*.
+No production operations or public writes. Parent86/55/84/1/36 stay independent.
+Finish92, then stop this two-ticket batch. No beta now;94 owns that gate.
 
 ## Completed authorization: TWO tickets, #91 then #79
 
