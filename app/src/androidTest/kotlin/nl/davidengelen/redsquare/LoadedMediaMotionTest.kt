@@ -94,13 +94,15 @@ class LoadedMediaMotionTest {
                         giphyFixtureUrl = media.url("/").toString().trimEnd('/')) { activity ->
                         requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
                         check(requested.await(5, TimeUnit.SECONDS))
-                        val image = requireNotNull(device.wait(Until.findObject(By.desc("Image 1 of 1")), 5_000)).visibleBounds
-                        val loading = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000)).visibleBounds
+                        val placeholder = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000))
+                        val image = placeholder.parent.visibleBounds
+                        val loading = placeholder.visibleBounds
                         SystemClock.sleep(250)
                         captureNativeScreen(File(folder, "scale-$scale-drawable-loading.png"))
                         recordArrival("drawable", scale, folder, loading, activity) { release.countDown() }
                         assertEquals("Drawable replacement retains its actual native container", image,
-                            requireNotNull(device.wait(Until.findObject(By.desc("Image 1 of 1")), 5_000)).visibleBounds)
+                            requireNotNull(device.wait(Until.findObject(By.clazz("android.widget.ImageView")
+                                .pkg(instrumentation.targetContext.packageName)), 5_000)).visibleBounds)
                         assertTrue(device.hasObject(By.text("An owned provider image arrives")))
                         captureNativeScreen(File(folder, "scale-$scale-drawable-loaded.png"))
                     }
