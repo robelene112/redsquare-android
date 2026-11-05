@@ -306,13 +306,15 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }
         val previews = rememberActivityPreviews(visible.mapNotNull { it.post }.distinctBy { it.id }, backend)
         val unread = visible.count { it.id !in readIds }
+        val eligibleStreams = notificationStreams(followed, ownPosts)
+        val moreHistory = eligibleStreams.any { it !in cursors || cursors[it] != null }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (readReady && (visible.isNotEmpty() || (completedRead && !loading && !failed && ignored == 0))) {
                 Column(Modifier.weight(1f)) {
                     Text(if (unread == 0) stringResource(R.string.notifications_read_none)
                         else stringResource(R.string.notifications_unread_count, unread),
                         style = MaterialTheme.typography.labelLarge)
-                    if (loading || failed || ignored > 0 || pagingWarning || cacheWarning)
+                    if (loading || failed || ignored > 0 || pagingWarning || cacheWarning || moreHistory)
                         Text(stringResource(R.string.activity_available_scope),
                             style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
@@ -336,6 +338,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             partialRead -> R.string.activity_partial
             failed && visible.isEmpty() && !completedRead -> R.string.activity_unavailable
             failed -> R.string.notifications_read_error
+            completedRead && visible.isEmpty() && moreHistory -> R.string.activity_more_history
             else -> null
         }
         InlineStatus(status?.let { stringResource(it) }, when {
@@ -354,14 +357,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                     details = if (summary == detail) emptyList() else listOf(stringResource(detail)))
             }
         }
-        val eligibleStreams = notificationStreams(followed, ownPosts)
         val undiscovered = eligibleStreams.filter { it !in cursors }.take(20)
         val older = if (retainedCount < NotificationHistoryStore.MAX_EVENTS)
             cursors.filter { (stream, before) -> stream in eligibleStreams && before != null }
                 .mapValues { requireNotNull(it.value) } else emptyMap()
         LazyColumn(Modifier.weight(1f)) {
             if (visible.isEmpty() && completedRead && !loading && !failed && ignored == 0 &&
-                !cacheWarning && !pagingWarning) item(key = "empty-activity") {
+                !cacheWarning && !pagingWarning && !moreHistory) item(key = "empty-activity") {
                 Text(stringResource(R.string.activity_empty), Modifier.fillMaxWidth().padding(vertical = AppSpacing.gap),
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }

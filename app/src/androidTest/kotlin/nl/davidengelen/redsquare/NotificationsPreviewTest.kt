@@ -416,6 +416,7 @@ class NotificationsPreviewTest {
             }
         withNotifications("older-activity", Mode.PAGING) { _, scenario, responses ->
             waitFor("2 unread")
+            ui.onNodeWithText("In available history").assertIsDisplayed()
             waitFor("Load more activity")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Load more activity") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

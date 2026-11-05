@@ -9,7 +9,10 @@ import org.junit.Rule
 import org.junit.Test
 
 /** Actual signed archive results and failures, never a synthetic screen state. */
-class ActivityAvailabilityTest {
+class ActivityAvailabilityTest : ActivityAvailabilityFixture(320)
+class ActivityAvailabilityPixelTest : ActivityAvailabilityFixture(412)
+
+abstract class ActivityAvailabilityFixture(private val widthDp: Int) {
     @get:Rule val ui = createEmptyComposeRule()
 
     @Test fun failedAndPartialReadsNeverClaimAnEmptyOrFullyReadInbox() {
@@ -18,7 +21,7 @@ class ActivityAvailabilityTest {
         val empty = context.getString(R.string.activity_empty)
         withActivityInbox("availability", emptyList(), evidenceFolder = "activity-availability-evidence") { activity, peer ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
-            ui.withPostViewports(activity, folder, "availability", scales = listOf(1f, 1.3f, 2f)) { label, _ ->
+            ui.withPostViewports(activity, folder, "availability", scales = listOf(1f, 1.3f, 2f), widthDp = widthDp) { label, _ ->
                 peer.rejectNewConnections = true
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Activity unavailable").isDisplayed() }
@@ -49,7 +52,7 @@ class ActivityAvailabilityTest {
         val folder = File(context.cacheDir, "activity-availability-evidence").apply { mkdirs() }
         withActivityInbox("retained-read", evidenceFolder = "activity-availability-evidence") { activity, peer ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
-            ui.withPostViewports(activity, folder, "retained-read", scales = listOf(1f, 2f)) { label, _ ->
+            ui.withPostViewports(activity, folder, "retained-read", scales = listOf(1f, 2f), widthDp = widthDp) { label, _ ->
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Liked your post").isDisplayed() && ui.refreshableContentReady() }
                 ui.onNodeWithContentDescription("Activity options for Anon-pncSjs").performClick()
