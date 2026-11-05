@@ -53,6 +53,10 @@ compiler OOM. CI now gives only the compiler3GB, retaining the local2500MB
 container and1792MB heap.6938 run42065265946 failed checkout because an
 abbreviated source_ref was interpreted as a branch; broad runs use full40charSHA.
 No corrected burst, new viewport/motion or broad acceptance claimed yet.
+Local1792MB compilation also exhausted heap headroom and was stopped143; local
+lint depends on that compilation and was stopped143. No local pass claimed.
+Source/lint run42067317225 at7d5ceb958 uses newsource-debug CI scope, explicitly
+excluding both device steps. Standards review of this delta has0findings.
 
 Source Standards/Spec throughda9 have0findings. Review of6938 found one test
 observer expecting opening a target to mark it read, corrected6cfc to retain the

@@ -123,43 +123,44 @@ private fun <T> availableActivity(incoming: List<T>, retained: List<T>, id: (T) 
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>, followed: Set<String>, lifecycle: Lifecycle,
     modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
+    val walletKey = wallet?.publicKey
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val registrar = LocalRegistryAuthority.current
-    var events by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
-    var replies by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
-    var mentions by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
-    var reposts by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
-    var quotes by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
-    var contacts by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
-    val history = remember(wallet?.publicKey, backend) { wallet?.let { NotificationHistoryStore(context, backend, it.publicKey) } }
-    val readStore = remember(wallet?.publicKey, backend) { wallet?.let { NotificationReadStore(context, backend, it.publicKey) } }
+    var events by remember(walletKey, backend, endpoint) { mutableStateOf<List<ProfileLike>>(emptyList()) }
+    var replies by remember(walletKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var mentions by remember(walletKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var reposts by remember(walletKey, backend, endpoint) { mutableStateOf<List<RedSquareAction>>(emptyList()) }
+    var quotes by remember(walletKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    var contacts by remember(walletKey, backend, endpoint) { mutableStateOf<List<FeedPost>>(emptyList()) }
+    val history = remember(walletKey, backend) { wallet?.let { NotificationHistoryStore(context, backend, it.publicKey) } }
+    val readStore = remember(walletKey, backend) { wallet?.let { NotificationReadStore(context, backend, it.publicKey) } }
     val scope = rememberCoroutineScope()
-    var readIds by remember(wallet?.publicKey, backend) { mutableStateOf<Set<String>>(emptySet()) }
-    var readReady by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
-    var readWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
-    var markingRead by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
-    var cacheWarning by remember(wallet?.publicKey, backend) { mutableStateOf(false) }
-    var loading by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(true) }
-    var failed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
-    var completedRead by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
-    var partialRead by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
-    var ignored by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
-    var cursors by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long?>>(emptyMap()) }
-    var pending by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, ActivityPageRead>>(emptyMap()) }
-    var likeHistory by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(ActivityLikeHistory()) }
-    var likeHeadFailed by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
-    var pagingWarning by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
-    var loadGeneration by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
+    var readIds by remember(walletKey, backend) { mutableStateOf<Set<String>>(emptySet()) }
+    var readReady by remember(walletKey, backend) { mutableStateOf(false) }
+    var readWarning by remember(walletKey, backend) { mutableStateOf(false) }
+    var markingRead by remember(walletKey, backend) { mutableStateOf(false) }
+    var cacheWarning by remember(walletKey, backend) { mutableStateOf(false) }
+    var loading by remember(walletKey, backend, endpoint) { mutableStateOf(true) }
+    var failed by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
+    var completedRead by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
+    var partialRead by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
+    var ignored by remember(walletKey, backend, endpoint) { mutableIntStateOf(0) }
+    var cursors by remember(walletKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, Long?>>(emptyMap()) }
+    var pending by remember(walletKey, backend, endpoint) { mutableStateOf<Map<NotificationStream, ActivityPageRead>>(emptyMap()) }
+    var likeHistory by remember(walletKey, backend, endpoint) { mutableStateOf(ActivityLikeHistory()) }
+    var likeHeadFailed by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
+    var pagingWarning by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
+    var loadGeneration by remember(walletKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
-    var backgroundRead by remember(wallet?.publicKey, backend, endpoint) { mutableStateOf(false) }
+    var backgroundRead by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
     val position = rememberLazyListState()
-    var followNewest by remember(wallet?.publicKey, backend, endpoint) { mutableIntStateOf(0) }
+    var followNewest by remember(walletKey, backend, endpoint) { mutableIntStateOf(0) }
     LaunchedEffect(followNewest) {
         if (followNewest > 0 && !position.isScrollInProgress) position.scrollToItem(0)
     }
     // Each completed request or read commit starts a fresh quiet interval. No overlapping reads or idle background polling.
-    LaunchedEffect(wallet?.publicKey, backend, endpoint, lifecycle, loading, markingRead) {
+    LaunchedEffect(walletKey, backend, endpoint, lifecycle, loading, markingRead) {
         if (wallet != null && !loading && !markingRead) lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             delay(10_000)
             if (!loading && !markingRead) {
@@ -168,7 +169,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             }
         }
     }
-    val ownPosts = knownPosts.filter { it.author == wallet?.publicKey }
+    val ownPosts = knownPosts.filter { it.author == walletKey }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, backend, endpoint, knownPosts, followed, refresh) {
         if (wallet == null) return@LaunchedEffect
@@ -339,28 +340,28 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         PersonalControlsStatus(personal)
         val repostRows = reposts.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
-            referenceCaption(wallet?.publicKey, target, event.recipients,
+            referenceCaption(walletKey, target, event.recipients,
                 R.string.notifications_repost_own, R.string.notifications_repost)?.let { caption ->
                 NotificationRow(event.id, event.author, event.createdAt, target, caption, event.target)
             }
         }
         val quoteRows = quotes.mapNotNull { quote ->
             val target = quote.quoted ?: knownPosts.firstOrNull { it.id == quote.quoteTarget }
-            referenceCaption(wallet?.publicKey, target, quote.recipients,
+            referenceCaption(walletKey, target, quote.recipients,
                 R.string.notifications_quote_own, R.string.notifications_quote)?.let { caption ->
                 NotificationRow(quote.id, quote.author, quote.createdAt, quote, caption)
             }
         }
         val likeRows = events.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
-            referenceCaption(wallet?.publicKey, target, event.recipients,
+            referenceCaption(walletKey, target, event.recipients,
                 R.string.notifications_like_own, R.string.notifications_like)?.let { caption ->
                 NotificationRow(event.id, event.author, event.createdAt, target, caption, event.target)
             }
         }
         val replyRows = replies.mapNotNull { reply ->
             val target = knownPosts.firstOrNull { it.id == reply.parentId }
-            referenceCaption(wallet?.publicKey, target, reply.recipients,
+            referenceCaption(walletKey, target, reply.recipients,
                 R.string.notifications_reply_own, R.string.notifications_reply)?.let { caption ->
                 NotificationRow(reply.id, reply.author, reply.createdAt, reply, caption)
             }
@@ -473,5 +474,5 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             Text(stringResource(R.string.notifications_more), style = MaterialTheme.typography.labelMedium)
         }
     }
-    wallet?.publicKey?.let { SocialNotificationPermissionPrompt(it) }
+    walletKey?.let { SocialNotificationPermissionPrompt(it) }
 }
