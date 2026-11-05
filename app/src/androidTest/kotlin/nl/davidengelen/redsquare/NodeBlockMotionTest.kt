@@ -67,10 +67,12 @@ class NodeBlockMotionTest {
                     movie("disconnected") { mode.set("offline"); click("Check again"); awaitText("Could not reach this node") }
                     movie("reconnected") { mode.set("recovered"); click("Check again"); awaitText("Block 9,999") }
                     val checkBounds = requireNotNull(device.findObject(By.text("Check again"))).visibleBounds
-                    val doneBounds = requireNotNull(device.findObject(By.text("Done"))).visibleBounds
                     movie("reading", 5) {
                         mode.set("advance"); tap(checkBounds)
                         check(advancing.await(2, TimeUnit.SECONDS))
+                        val doneBounds = currentWorkingActionBounds("Done")
+                        File(folder, "scale-$scale-working-done-target.json").writeText(
+                            "{\"left\":${doneBounds.left},\"top\":${doneBounds.top},\"right\":${doneBounds.right},\"bottom\":${doneBounds.bottom}}")
                         tap(doneBounds)
                         check(device.wait(Until.gone(By.text("Connection details")), 3_000))
                         val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
@@ -97,6 +99,32 @@ class NodeBlockMotionTest {
                 }
             }
         }
+    }
+
+    /** Observe the current native target after the working notice changes dialog geometry.
+     * UiDevice idle waits would consume the held request, so sample the actual accessibility
+     * window directly and still inject physical input inside the original response interval. */
+    private fun currentWorkingActionBounds(label: String): Rect {
+        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val deadline = SystemClock.elapsedRealtime() + 1_000
+        var previous: Rect? = null
+        var stableSince = 0L
+        while (SystemClock.elapsedRealtime() < deadline) {
+            val root = automation.rootInActiveWindow
+            val working = root?.findAccessibilityNodeInfosByText("Checking block info")
+                ?.any { it.text?.toString() == "Checking block info" && it.isVisibleToUser } == true
+            val text = root?.findAccessibilityNodeInfosByText(label)
+                ?.singleOrNull { it.text?.toString() == label && it.isVisibleToUser && it.isEnabled }
+            val target = if (text?.isClickable == true) text else text?.parent?.takeIf { it.isClickable && it.isEnabled }
+            val bounds = target?.let { Rect().apply { it.getBoundsInScreen(this) } }?.takeUnless { it.isEmpty }
+            val now = SystemClock.elapsedRealtime()
+            if (working && bounds != null) {
+                if (bounds == previous && now - stableSince >= 100) return bounds
+                if (bounds != previous) { previous = bounds; stableSince = now }
+            } else { previous = null; stableSince = now }
+            SystemClock.sleep(16)
+        }
+        error("The actual working dialog must expose its stable enabled $label target inside1s")
     }
 
     private fun tap(bounds: Rect) {
