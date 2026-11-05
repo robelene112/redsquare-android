@@ -285,7 +285,9 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             if (background) pages.filter { it.pages == null && it.stream !in pending }.forEach {
                 pending = pending + (it.stream to it.before)
             }
-            ignored = available.sumOf { it.ignoredRows } + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
+            val unreadableCount = available.sumOf { it.ignoredRows } + pages.mapNotNull { it.pages }.sumOf { it.ignoredRows }
+            // A Like-only check cannot clear an unresolved warning learned from another stream.
+            ignored = if (background) maxOf(ignored, unreadableCount) else unreadableCount
             try { withContext(Dispatchers.IO) {
                 history!!.save(pages.mapNotNull { it.pages }.flatMap { it.envelopes })
             } } catch (cancelled: CancellationException) { throw cancelled }
