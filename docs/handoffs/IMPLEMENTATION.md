@@ -1,6 +1,6 @@
 # Implementation handoff
 
-## Active authorization: FIVE remaining redesign tickets and beta publication
+## Active authorization: five redesign tickets and beta publication
 
 The owner explicitly authorized completing #90, #93, #81, #83 and #94 sequentially,
 including the final beta rollout. Continue between tickets without asking again.
@@ -8,38 +8,57 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-ACTIVE93: genuine selected-node block observation. Claimed, only blocker87closed.
-Review base b0078e033d946dc8273bf26962b22278ea2e31c0. Continue93,81,83,94 then beta.
-90completed/closed inb0078e033, trackercomment6667883771. No approval boundary.
-Current HEAD4ea3c4963e647c2c4712315a26cfadd66adf2e05; production04dcd01f8.
-Initial snapshot tracer RED42099524913; precise/options tracer RED42100785834;
-first native GREEN42102264768. Availability tracer RED42104075126 then
-GREEN42105364120. Boundary/availability native10 GREEN42107939021 (4methods).
-Core119 freshly PASS local1m31,0fail/error/skip, including old metadata accepted
-while stale monetary funding still rejected. No payment-freshness source changed.
+## Completed #93, next #81
 
-NodeBlocks.kt owns cancellable, bounded foreground30s lightweight GET/options,
-strict SaitoNodeBlock published-tip parser and selected-node-lived stable state.
-Freshness keeps source blocktime separate from monotonic successful-check age;
-old/missing/disconnected preserve prior observations and source, never global lag.
-Separate validated127.0.0.1/options fixtures isolate owner/official reads without
-consuming balance fixture counts or causing public reads in controlled tests.
-Release supports only selected approved HTTPS origin, no fallback/custom UI.
-Native boundary10 proves actual late old-node reply cannot populate new node and
-block arrival cannot complete an independently held signed feed refresh.
+#93 is development-complete: truthful selected-node block reports and shared
+connection details. Last production and final native source:
+3b1afd4fe15f142fb91afec25c6c1a96d1bf6fc0. Review base b0078e033d946dc8273bf26962b22278ea2e31c0.
+Final complete focused native PASS:10 42115910068,17 42115913790,8methods/OS.
+Both platforms retain12viewportcells (320/412dp,100/130/200%,light/dark),8actual
+normal/zero movies, exactreadinganchor, heldfeedindependence, late-node routing,
+old/missing/disconnected/recovery, native48/54dpfooter and48dpclose receipts.
+Both source axes0findings; independentfinalrenderedreviewsall36PNGs/nativebounds,
+all8orderedmovie samples andevery0old/recoveredframe:0actionablefindings.
+Originalshell/header/menu/readingregressionPASS10 42109805756/17 42109825905
+atcd1,5methodseach; originalroute/renderedreviews0findings. Notwholeappacceptance.
+Finalsource/debugPASS42115917586 at3b:119corecache reuse,gatewaytaskFROM-CACHE,
+0linterrors55existingwarnings1hint. Separatefresh119core0failure/error/skip atc017,
+parserunchanged. No newgatewaycountclaim:uploadedartifactdoesnotretaingatewayHTML.
 
-Current final focused runs:17 42109245127 and10 42109628396, both4ea3c4963.
-Adds missing-initial,12viewportcells/OS (320/412dp,100/130/200%,light/dark),
-actual normal/zero-motion old/disconnected/reconnected/reading-arrival recordings.
-Each class retains180s. All classes included additively in fullChat; no dropped
-original assertion/deadline. Inspect raw results and actual frames before closure.
-Original availability PNG vsXML observed differing states across separate capture
-calls, cause unproved. Preserve originals plus additional no-input UI-idle capture;
-not an assertion of atomic screenshots or a proven app repaint fix.
-Two independent93source reviewers now running, no implementation delegation.
-Final affected shell/header/reading regression, lint/source, evidence retention,
-review fixes and completioncommit/closure still required.94 owns complete final
-consistent-source app/update/publication gates. No local build is running.
+NodeReaderforeground-only30s boundedcancellableGET/options, strictpublishedtip
+parser andselected-node-livedstate. Sourceblocktime andmonotoniccheckage distinct.
+No fabricatedzero/global lag/failover/custombackend/paymentfreshnesschange.
+No publictransactions, blockproduction ornodeconfigurationchange. Publicmetadata
+observationsseparate;ownerpublishedoldtipvsrecentofficial wasactual, notglobalproof.
+Read-onlyAPI/sourcecontractin docs/evidence/ticket93/README.md andglossary.
+
+Nativevisualfindingswerefixedratherthanwaived:actual40dpA11yclipping reusedexisting
+AppDialogWindow alignment; original0scaleopenfloatingdialogdropouts21/18/34ms
+promptedsharedfixedAccountDialog. FinaloriginalframescontinuousonbothOS.
+Failed/supersededrunsremainrecorded,notaccepted. Stable200msreadingbefore3.5sec
+retainsoriginal4secarrival/exactpostarrivalanchor; failuremoviesretainedbefore
+originalassertionrethrows. BothfinalfullfocusedrunsnowSAME3bsource,notmixedpasses.
+Evidence docs/evidence/ticket93 (~50MB); exactmappingnative-results.json. Large
+originaldownloads/extracts persistoutsideGitstorage redesign93-fixed10-42115910068,
+redesign93-fixed17-42115913790, source3b-42115917586, earlier93-*failures.
+No local/CIbuild remainsactive. Canonicalcheckout'sunrelatedChatworkuntouched.
+
+Continue immediately with #81, then #83, then #94 andbeta. No newapprovalneeded.
+#81 title:[P2] Add coherent transitions to destination changes and loaded-content
+replacement. Nativeblocked_bylistEMPTYverifiedbefore93closure. Unclaimeduntil93
+completioncommit/closure. Pinthatcompletioncommit as81reviewbase,fetchissue81/
+comments,parent55/84/86,claim@me. Read implement/tdd/tests/mocking/standards asneeded.
+CurrentFeedScreen primary/secondarycontent directly branchesaround350-550 andcalls
+content()insideBox. ExistingSingleOwnerReveal disposesoldfeatureimmediately and
+fadesnew180ms; avoidblindCrossfade/duplicatecontrollers/focus. Settingscategories
+alreadyshared180ms via90; PostImages/ProfileMedia/avatars alreadyhavepartial
+loadedreveals via82/88,inspectactualgaps. ChatScreen hasgroups earlyreturn and
+privatecounterparty branching; inspectChat/GroupChatnavigationtoo. Needactual
+normal/zero moviesHome/Search/Chat,thread/back,Settings,imagearrival,rapidinput,
+immediatefieldfocus/lifecycle0/1. Testonlyatauthorized86native/signedpeer seams.
+No implementationof81yet. #83 remainscompactconsecutiveverifiedsenderChatgroups;
+#94retainsactualfinalsourcecomplete10/17all3partitions,release/performance/lint,
+signedinplaceupdate/isolationandVPSbeta. DoNOTauto-close1/36/55/84.
 
 90review base835021c03c80c6c1351631aa57b647f1d9b759d1; last production
 3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13. Final broad32UI+3actual process gates

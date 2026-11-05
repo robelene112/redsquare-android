@@ -11,7 +11,7 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The latest owner request authorizes the FIVE remaining redesign tickets:
+The latest owner request authorizes the five redesign tickets:
 #90, #93, #81, #83 and #94, sequentially, then beta publication through #94.
 Continue between these tickets without asking again. This replaces the earlier
 two-ticket stop boundary. No parallel ticket implementation or intermediate beta.
