@@ -60,9 +60,12 @@ import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.ui.rememberReadingAnchorModifier
 import nl.davidengelen.redsquare.ui.ModuleNavigation
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.SingleOwnerReveal
 import nl.davidengelen.redsquare.ui.PrimaryDestination
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
+
+private enum class FeedOverlay { QUEUE, AUTHOR_CHANGES, COMPOSER }
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
@@ -529,10 +532,21 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val dockCompose = home && wallet != null && LocalDensity.current.fontScale > 1.3f
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(home) }
+        val revealTarget: Any = when {
+            reviewingChat -> PrimaryDestination.CHAT
+            reviewingQueue -> FeedOverlay.QUEUE
+            reviewingChanges -> FeedOverlay.AUTHOR_CHANGES
+            composing -> FeedOverlay.COMPOSER
+            else -> navigation.lastOrNull() ?: PrimaryDestination.HOME
+        }
         Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
-            content()
-            if (home && wallet != null && !dockCompose) ComposePostButton(
-                Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
+            SingleOwnerReveal(revealTarget, Modifier.fillMaxSize()) {
+                Box(Modifier.fillMaxSize()) {
+                    content()
+                    if (home && wallet != null && !dockCompose) ComposePostButton(
+                        Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
+                }
+            }
         }
 
         val destination = navigation.lastOrNull()

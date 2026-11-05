@@ -8,7 +8,47 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Completed #93, next #81
+## Active #81, then #83, then #94 and beta
+
+#93 CLOSED in3b7bf5b04638ddced7b63add45c84b08b40db7b6; trackercomment6670692019.
+#81claimed@me, nativeblocked_byEMPTY. Reviewbase3b7bf5b04638ddced7b63add45c84b08b40db7b6.
+LatesttestonlyHEADa1581a4590dc07b2669f5812deed3959687eedcf, baseline10native
+42118910510 running. No81productionchange yet. DoNOTstopafter81:83then94+beta.
+
+FirstTDDsliceDestinationRevealMotionTest: actualnormal/zero Home->Search video,
+publicnativeTitleinkmean/variance projectionagainstfinalSearchheaderpixels,
+requires2distinctuniformintermediateframesat1andnotat0. Originalsystem/window
+scale0/1receipt, nativeScreenRecord4s/decoder,180classbound. BaselineexpectedRED
+forcurrentdirectFeedScreen.content()replacement, butinspectactualresultbefore
+implementation. Scope destination-reveal/itsAndroid17variant withbothSDKguards;
+newclassretainedadditivelyinfullChat. ItuseswithAppFrameFixture/nativeWindowNodes,
+noComposeclock/nointernalstate/no publictransaction. Needbefore/aftermoviesreview.
+
+PlanfirstGREEN: useexistingSingleOwnerReveal onFeedScreencontenthosttargetactual
+BrowseDestination/overlayidentity, includefloatingcomposerbuttoninsideownedbody;
+keepRootcontroller/network/drafts outsidefade,noCrossfadeoldstatefulscreens.
+InspectactualsecondaryChat/groupbranches too. Primarysourcedirect350-550.
+Settingscategoriesalreadysharedfadevia90. PostImage hasCrossfade(image,failed)
+INCLUDINGoldRetryUI,sooutgoingRetrycanretaininput; saferoneownedcontentwithstable
+SurfaceVariantbacking. ProfileImage stilldirectloadedrender, truegap. GiphyImage
+stilldirectDrawable/AndroidView, truegap; keepDrawablelifecycleeffectoutsidefade,
+onlytargetready/failure(sodon'tfadeeveryGIFframe). Needmeaningfulnextverticalslices
+at sameagreedUI/signedpeer/controlledHTTPseams, notalltestsfirst. Existing
+FeedMediaMotionTest verifiesactualmagentaHTTPthumbnail,AvatarMotionTest covers
+signedpicture/removal(actualProfileAvatarshared),AccountDesignMotionTest covers
+Settingscategories; preserveandreuseappropriateoriginalregressions.
+PrivateChatScreencurrentlyearlyreturnsGroupsatline57 thenprivatecontrollers+UI;
+privateUIBoxWithConstraintsat~320,GroupChatUI~350. Additionalwrappersmustnotkeep
+oldfocus/effectsorloseState. Allcode-readonlysofaraftertesttracer.
+
+Usefulfixtures:withAvatarJourney(theme) usespublishedsynthetickeys1/2,controlled
+profileArchive AtomicReference; ownpublicprofilebannercanbesignedsourceHTTPURL
+thenpulledandopenedviaViewprofileforAnon-... label. PostImageLoader supports
+publicsafeHTTP/data2MB, canholdMockWebServerpacketforexactimagearrival. Profile
+identityheaderusesProfileImage forbanner anddraftpicture;verifiedlivepicturesuse
+sharedProfileAvataralready82. No extraownerinputneeded.
+
+## Completed #93
 
 #93 is development-complete: truthful selected-node block reports and shared
 connection details. Last production and final native source:
