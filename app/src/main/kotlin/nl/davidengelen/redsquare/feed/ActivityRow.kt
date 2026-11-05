@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare.feed
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -144,17 +146,26 @@ internal fun ActivityRow(authors: List<String>, createdAt: Long, caption: Int, p
                 pluralStringResource(R.plurals.activity_likes, likeCount, likeCount),
                 pluralStringResource(R.plurals.activity_people, authors.size, authors.size)),
                 style = MaterialTheme.typography.bodyMedium)
-            LazyColumn(Modifier.heightIn(max = 320.dp)) { items(authors, key = { it }) { actor ->
-                val actorName = registeredIdentity(actor).name
-                val actorLabel = stringResource(R.string.post_profile_for, actorName)
-                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
-                    .clickable(role = Role.Button) { people = false; onIdentity(actor) }
-                    .semantics { contentDescription = actorLabel },
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                    ProfileAvatar(actor, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
-                    Text(actorName, style = MaterialTheme.typography.bodyMedium)
-                }
-            } }
+            val openPerson: (String) -> Unit = { people = false; onIdentity(it) }
+            if (authors.size <= 6) Column(Modifier.heightIn(max = 320.dp).verticalScroll(rememberScrollState())) {
+                authors.forEach { ActivityPerson(it, openPerson) }
+            } else LazyColumn(Modifier.heightIn(max = 320.dp)) {
+                items(authors, key = { it }) { ActivityPerson(it, openPerson) }
+            }
         } }, confirmButton = { TextButton(onClick = { people = false }) { Text(stringResource(R.string.done)) } })
+}
+
+/** Small groups wrap naturally; larger lists reuse the same actual 48dp profile target lazily. */
+@Composable
+private fun ActivityPerson(author: String, onOpen: (String) -> Unit) {
+    val name = registeredIdentity(author).name
+    val label = stringResource(R.string.post_profile_for, name)
+    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
+        .clickable(role = Role.Button) { onOpen(author) }
+        .semantics { contentDescription = label },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+        ProfileAvatar(author, Modifier.size(32.dp).clip(CircleShape).clearAndSetSemantics { })
+        Text(name, style = MaterialTheme.typography.bodyMedium)
+    }
 }
