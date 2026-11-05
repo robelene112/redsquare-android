@@ -25,7 +25,7 @@ internal fun withAvatarJourney(theme: String, block: (ActivityScenario<MainActiv
     val appearance = context.getSharedPreferences("appearance", 0)
     val priorAppearance = appearance.getString("mode", null)
     val state = ChatFixtureState(context, listOf("feed.", "conversation.", "profile.", "profilemeta.", "search.",
-        "authorposts.", "namemap.", "notifications.", "notificationread.", "following.", "personal.", "chat."), reader.publicKey)
+        "authorposts.", "namemap.", "notifications.", "notificationread.", "following.", "personal.", "chat.", "chatwork.", "chatreactions.", "groupchat."), reader.publicKey)
     val root = SaitoTransaction.create(author, RedSquarePosts.message("Shared avatar journey"), 1_790_000_000_000L)
     val own = SaitoTransaction.create(reader, RedSquarePosts.message("Avatar activity target"), 1_790_000_000_001L)
     val like = SaitoTransaction.create(author, JsonObject().apply {
