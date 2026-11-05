@@ -317,14 +317,19 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Replied to a post").assertIsDisplayed().performClick()
             waitFor("Reply with unavailable parent")
             ui.onNodeWithText("Reply with unavailable parent").assertIsDisplayed()
-            waitFor("The parent post is not available here. Try Refresh.")
-            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-                "notification-evidence/missing-reply-parent.png"), "The parent post is not available here. Try Refresh.")
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            val parentSummary = context.getString(R.string.conversation_parent_summary)
+            waitFor(parentSummary)
+            ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, parentSummary)).performClick()
+            ui.onNodeWithText(context.getString(R.string.conversation_parent_unavailable)).performScrollTo().assertIsDisplayed()
+            captureNativeScreen(File(context.cacheDir, "notification-evidence/missing-reply-parent.png"),
+                context.getString(R.string.conversation_parent_unavailable))
+            ui.onNodeWithText("Done").performClick()
             ui.refreshVisibleView()
             waitFor("Original recovered after retry")
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Original recovered after retry"))
             ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
-            ui.onAllNodesWithText("The parent post is not available here. Try Refresh.").assertCountEquals(0)
+            ui.onAllNodesWithText(parentSummary).assertCountEquals(0)
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to a post")
             ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(2)[0].assertIsDisplayed().performClick()
@@ -487,8 +492,10 @@ class NotificationsPreviewTest {
                 ui.waitUntil(remaining) { ui.onAllNodes(hasText(control) and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText(control).performClick()
-                waitFor(confirmation)
-                ui.onNodeWithText(confirmation, substring = false).performClick()
+                val confirmedAction = hasText(confirmation) and hasClickAction() and
+                    hasAnyAncestor(isDialog() and hasAnyDescendant(hasText("Cancel")))
+                ui.waitUntil(15_000) { ui.onNode(confirmedAction).isDisplayed() }
+                ui.onNode(confirmedAction).performClick()
                 waitFor(removal)
                 ui.closeProfileActions()
                 ui.onNodeWithText("Back").performClick()
