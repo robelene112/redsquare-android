@@ -7,13 +7,31 @@ sequentially; verify, review and commit each, then stop. #80 is claimed. #92
 remains unclaimed until #80 completes. No intermediate beta; #94 retains the
 final integrated verification, signed update and publication gates.
 
-Active worktree/branch are unchanged. #80 review base:
-`919d5eaf251153646347ff561d3d9185cc6a149d`. Test-only source `04f356a12`
-adds real failed/partial Activity reads, native recovery and retained read state
-at the existing signed-peer seam. RED run 42041591403 is active on Android 10.
-Production code is unchanged. The test peer's deliberate error response follows
-normal validation; it does not accept malformed history queries.
+Active worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`; preserve the unrelated canonical Chat work.
+#80 review base `919d5eaf251153646347ff561d3d9185cc6a149d`. Test-only source
+`04f356a12` RED run 42041591403 reproduces the actual false empty/read UI on
+Android 10. Raw/rendered packet is under the external artifacts root as
+`redesign80-red-42041591403`; use the in-scope
+`availability-320-font100-light-failure.png`, not the outer capture after closure.
 
+Production fix `724f6adcf`, corrected source `12aaf39f2`: honest unavailable,
+partial, successful empty and cached-outage surfaces with accessible Retry and
+available-history count qualification. Remaining eligible streams/cursors also
+qualify counts and suppress the welcoming empty state. Read IDs/data remain.
+Both independent source reviews are clean through12aaf. New real signed-peer
+availability/recovery journeys run at320/412dp in Light/Dark; failed/partial/empty
+uses100/130/200%, retained-read outage/recreation/recovery uses100/200%.
+Each class retains180s; the runner aggregates every new/original inbox class.
+
+Corrected-source full notifications runs42043321175(10)/42043325618(17) active.
+Earlier724f dispatches42042788428/42042793054 were cancelled after source review
+corrections, with no acceptance claim. Local stable-source compile/lint active,
+log `/tmp/redesign80-final-build.log`, exec session67378. One build writer only.
+Prior local compile ran across a resource edit and failed on the new R identifier;
+fresh CI compiles the corrected source. Do not edit source during this build.
+Native results, rendered inspection, evidence and issue closure remain pending.
+Do not start92 before80 completes; then finish92 and stop. No beta before94.
 
 ## Completed authorization: TWO tickets, #91 then #79
 
