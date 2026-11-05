@@ -27,6 +27,7 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.ui.VisualResultReveal
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.nio.ByteBuffer
 
@@ -45,33 +46,40 @@ internal fun GiphyImage(source: String, label: String?, modifier: Modifier, fit:
         catch (_: Exception) { failed = true }
     }
     val ready = drawable
+    // Lifecycle and loading have one owner; only inert rendered results overlap.
+    DisposableEffect(ready, lifecycle) {
+        val animation = ready as? Animatable
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> animation?.start()
+                Lifecycle.Event.ON_PAUSE -> animation?.stop()
+                else -> Unit
+            }
+        }
+        lifecycle.addObserver(observer)
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) animation?.start()
+        onDispose { lifecycle.removeObserver(observer); animation?.stop() }
+    }
     val description = if (label == null) Modifier else Modifier.semantics { contentDescription = label }
-    Box(modifier.then(description).background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
-        if (ready != null) {
-            DisposableEffect(ready, lifecycle) {
-                val animation = ready as? Animatable
-                val observer = LifecycleEventObserver { _, event ->
-                    when (event) {
-                        Lifecycle.Event.ON_RESUME -> animation?.start()
-                        Lifecycle.Event.ON_PAUSE -> animation?.stop()
-                        else -> Unit
+    key(source, configuration) {
+        VisualResultReveal(drawable to failed,
+            modifier.then(description).background(MaterialTheme.colorScheme.surfaceVariant)) { (rendered, unavailable), current ->
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                if (rendered != null) key(rendered) {
+                    AndroidView(factory = { context -> ImageView(context).apply { cropToPadding = true } },
+                        modifier = Modifier.fillMaxSize(), update = { view ->
+                            view.scaleType = if (fit) ImageView.ScaleType.FIT_CENTER else ImageView.ScaleType.CENTER_CROP
+                            if (view.drawable !== rendered) view.setImageDrawable(rendered)
+                        }, onRelease = { view -> (view.drawable as? Animatable)?.stop(); view.setImageDrawable(null) })
+                } else if (unavailable) Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(stringResource(R.string.image_unavailable))
+                    TextButton(enabled = current && drawable == null && failed,
+                        onClick = { if (drawable == null && failed) { failed = false; attempt++ } }) {
+                        Text(stringResource(R.string.retry))
                     }
-                }
-                lifecycle.addObserver(observer)
-                if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) animation?.start()
-                onDispose { lifecycle.removeObserver(observer); animation?.stop() }
+                } else Text(stringResource(R.string.image_loading))
             }
-            key(ready) {
-                AndroidView(factory = { context -> ImageView(context).apply { cropToPadding = true } }, modifier = Modifier.fillMaxSize(),
-                    update = { view ->
-                        view.scaleType = if (fit) ImageView.ScaleType.FIT_CENTER else ImageView.ScaleType.CENTER_CROP
-                        if (view.drawable !== ready) view.setImageDrawable(ready)
-                    }, onRelease = { view -> (view.drawable as? Animatable)?.stop(); view.setImageDrawable(null) })
-            }
-        } else if (failed) Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(stringResource(R.string.image_unavailable))
-            TextButton(onClick = { attempt++ }) { Text(stringResource(R.string.retry)) }
-        } else Text(stringResource(R.string.image_loading))
+        }
     }
 }
 
