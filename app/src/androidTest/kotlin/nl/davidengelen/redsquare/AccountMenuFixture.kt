@@ -17,19 +17,27 @@ internal fun ComposeTestRule.revealAppNavigation() {
 
 internal fun ComposeTestRule.openAccountMenu() {
     val menu = (hasText("Wallet") or hasText("Settings")) and hasClickAction() and hasAnyAncestor(isPopup())
-    if (onAllNodes(menu).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) return
+    val settings = hasText("Settings") and menu
+    // A previous window can still expose semantics while its popup is leaving.
+    // Observe a usable menu or its complete removal before another native tap.
+    waitUntil(5_000) {
+        onAllNodes(menu).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() ||
+            onNode(settings).isDisplayed()
+    }
+    if (onNode(settings).isDisplayed()) return
     revealAppNavigation()
     onNodeWithContentDescription("Account").assertIsDisplayed().assertIsEnabled().performClick()
+    waitUntil(5_000) { onNode(settings).isDisplayed() }
 }
 
 internal fun ComposeTestRule.openWallet() {
     openAccountMenu()
-    onNode(hasText("Wallet") and hasClickAction()).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(hasText("Wallet") and hasClickAction() and hasAnyAncestor(isPopup())).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 internal fun ComposeTestRule.openSettings() {
     openAccountMenu()
-    onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(hasText("Settings") and hasClickAction() and hasAnyAncestor(isPopup())).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 /** Retain the caller's original first-use/keyboard readiness deadline. */
