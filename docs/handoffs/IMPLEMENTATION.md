@@ -1,5 +1,20 @@
 # Implementation handoff
 
+## Active authorization: TWO tickets, #80 then #92
+
+The owner requested two more tickets on 2026-11-05. Complete #80, then #92,
+sequentially; verify, review and commit each, then stop. #80 is claimed. #92
+remains unclaimed until #80 completes. No intermediate beta; #94 retains the
+final integrated verification, signed update and publication gates.
+
+Active worktree/branch are unchanged. #80 review base:
+`919d5eaf251153646347ff561d3d9185cc6a149d`. Test-only source `04f356a12`
+adds real failed/partial Activity reads, native recovery and retained read state
+at the existing signed-peer seam. RED run 42041591403 is active on Android 10.
+Production code is unchanged. The test peer's deliberate error response follows
+normal validation; it does not accept malformed history queries.
+
+
 ## Completed authorization: TWO tickets, #91 then #79
 
 Both authorized tickets are COMPLETE, verified, reviewed and committed. Stop
