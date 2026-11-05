@@ -70,25 +70,28 @@ class LoadedMediaMotionTest {
         val samples = JsonArray()
         var deliveryFailure: Throwable? = null
         val movie = File(folder, "scale-$scale-$name.mp4")
+        var deliveryDeadline = 0L
         val recording = recordNativeTransition(movie, recordingSeconds = 4) {
-            try {
-                deliver()
-                val deadline = SystemClock.elapsedRealtime() + 10_000
-                var stable = 0
-                while (stable < 2 && SystemClock.elapsedRealtime() < deadline) {
-                    val screen = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
-                    val pixel = try { screen.getPixel(point.centerX(), point.centerY()) } finally { screen.recycle() }
-                    val matches = Color.red(pixel) > 235 && Color.green(pixel) < 20 && Color.blue(pixel) > 235
-                    samples.add(JsonObject().apply {
-                        addProperty("elapsedMillis", SystemClock.elapsedRealtime()); addProperty("argb", pixel)
-                        addProperty("matches", matches)
-                    })
-                    stable = if (matches) stable + 1 else 0
-                    if (stable < 2) SystemClock.sleep(40)
-                }
-                assertEquals("Delivered media must actually replace loading pixels", 2, stable)
-            } catch (failure: Throwable) { deliveryFailure = failure }
+            deliveryDeadline = SystemClock.elapsedRealtime() + 10_000
+            try { deliver() } catch (failure: Throwable) { deliveryFailure = failure }
         }
+        // Keep SurfaceFlinger screenshot capture out of the recorded transition itself.
+        // The original10s delivery budget still starts when the packet is released.
+        if (deliveryFailure == null) try {
+            var stable = 0
+            while (stable < 2 && SystemClock.elapsedRealtime() < deliveryDeadline) {
+                val screen = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
+                val pixel = try { screen.getPixel(point.centerX(), point.centerY()) } finally { screen.recycle() }
+                val matches = Color.red(pixel) > 235 && Color.green(pixel) < 20 && Color.blue(pixel) > 235
+                samples.add(JsonObject().apply {
+                    addProperty("elapsedMillis", SystemClock.elapsedRealtime()); addProperty("argb", pixel)
+                    addProperty("matches", matches)
+                })
+                stable = if (matches) stable + 1 else 0
+                if (stable < 2) SystemClock.sleep(40)
+            }
+            assertEquals("Delivered media must actually replace loading pixels", 2, stable)
+        } catch (failure: Throwable) { deliveryFailure = failure }
         cleanupAfterTest(deliveryFailure, {
             val frames = retainNativeMotionFrames(movie)
             val colors = JsonArray()
