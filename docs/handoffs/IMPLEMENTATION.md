@@ -8,8 +8,16 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-#90 is COMPLETE, with final completion commit/evidence to be recorded in the
-tracker. Continue directly to #93, then #81, #83 and #94; do not stop for approval.
+ACTIVE93: genuine selected-node block observation. Claimed, only blocker87closed.
+Review base b0078e033d946dc8273bf26962b22278ea2e31c0. Continue93,81,83,94 then beta.
+90completed/closed in b0078e033, trackercomment6667883771. No approval boundary.
+Testing uses86's already agreed native UI/controlled HTTP+signedpeer/persistence
+seams. Preserve financial freshness guards; block observation never proves feed
+refresh completion or global network lag. Plan first native tracer from a real
+controlled snapshot to shared header and Connection details, genuine RED before
+implementation. Controlled node observation needs its own loopback extra, separate
+from WalletBalances funding fixtures, to avoid consuming their reads.
+
 90review base835021c03c80c6c1351631aa57b647f1d9b759d1; last production
 3f7da3e346d27253c4dc6557b9a2a7ca6dff2e13. Final broad32UI+3actual process gates
 PASS42095757828 (10/source58df) and42094963847 (17/source32eb), same production.

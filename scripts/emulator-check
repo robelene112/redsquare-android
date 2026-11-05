@@ -284,6 +284,13 @@ case "${TEST_SCOPE:-full}" in
     status-motion*) verify_status_ui motion; exit ;;
     status-recovery*) verify_status_ui recovery; exit ;;
 esac
+verify_node_blocks() {
+    verify_group_chat_native NodeBlockPreviewTest 180 node-blocks node-block-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == node-blocks* ]]; then
+    verify_node_blocks
+    exit 0
+fi
 verify_appearance() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     # Keep system-only setup/lock diagnostics for the night-mode fixture.
@@ -344,7 +351,7 @@ if [[ "${TEST_SCOPE:-full}" == beta-ui* ]]; then
     printf '%s\n' 'Focused native appearance only; full beta acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "$full_chat" == true ]]; then verify_appearance; fi
+if [[ "$full_chat" == true ]]; then verify_node_blocks; verify_appearance; fi
 
 verify_browse() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
