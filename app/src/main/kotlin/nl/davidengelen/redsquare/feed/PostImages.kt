@@ -3,9 +3,8 @@ package nl.davidengelen.redsquare.feed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.VisualResultReveal
 import androidx.compose.foundation.Image
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -94,13 +93,15 @@ internal fun PostImage(source: String, backend: SaitoBackend, label: String?, mo
         catch (_: Exception) { failed = true }
     }
     key(source, backend) {
-        Crossfade(targetState = image to failed, modifier = modifier,
-            animationSpec = tween(AppSpacing.transitionMillis), label = "Post image loading") { (ready, unavailable) ->
+        VisualResultReveal(image to failed, modifier) { (ready, unavailable), current ->
             if (ready != null) Image(ready, label, Modifier.fillMaxSize(), contentScale = scale)
             else Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
                 if (unavailable) Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(stringResource(R.string.image_unavailable))
-                    TextButton(onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
+                    TextButton(enabled = current && image == null && failed,
+                        onClick = { if (image == null && failed) { failed = false; retry++ } }) {
+                        Text(stringResource(R.string.retry))
+                    }
                 }
                 else Text(stringResource(R.string.image_loading))
             }
