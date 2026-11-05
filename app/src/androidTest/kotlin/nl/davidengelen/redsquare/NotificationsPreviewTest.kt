@@ -493,7 +493,7 @@ class NotificationsPreviewTest {
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText(control).performClick()
                 val confirmedAction = hasText(confirmation) and hasClickAction() and
-                    hasAnyAncestor(isDialog() and hasAnyDescendant(hasText("Cancel")))
+                    hasAnyAncestor(isRoot() and hasAnyDescendant(hasText("Cancel")))
                 ui.waitUntil(15_000) { ui.onNode(confirmedAction).isDisplayed() }
                 ui.onNode(confirmedAction).performClick()
                 waitFor(removal)
@@ -1144,8 +1144,13 @@ class NotificationsPreviewTest {
                         officialServer?.let { putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${it.port}/wsopen") }
                         balances?.let { putExtra("balanceApiUrl", "http://127.0.0.1:${it.port}/balance/") }
                     }).use { scenario ->
-                    withFailureCapture({ retainQuoteTargetReads(); captureNativeScreen(File(context.cacheDir,
-                        "notification-evidence/$evidenceName-first-failure.png")) }) {
+                    withFailureCapture({ retainQuoteTargetReads()
+                        File(context.cacheDir, "notification-evidence/$evidenceName-roots.txt").apply {
+                            parentFile?.mkdirs()
+                            writeText(ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
+                        }
+                        captureNativeScreen(File(context.cacheDir,
+                            "notification-evidence/$evidenceName-first-failure.png")) }) {
                         if (mode == Mode.WALLET) {
                             waitFor("Shared mention for wallet isolation")
                             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
