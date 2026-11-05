@@ -1681,12 +1681,17 @@ verify_notification_permission() {
     done
 }
 verify_activity_inbox() {
+    verify_group_chat_native ActivityAvailabilityTest 180 activity-availability activity-availability-evidence
     verify_group_chat_native LikeHistoryContractPreviewTest 180 like-history-contract like-history-contract-evidence
     verify_group_chat_native ActivityInboxPreviewTest 180 activity-inbox activity-inbox-evidence
     verify_group_chat_native ActivityInboxViewportTest 180 activity-inbox-viewport activity-inbox-viewport-evidence
     verify_group_chat_native ActivityInboxStateTest 180 activity-state activity-state-evidence
     verify_group_chat_native ActivityInboxRevisionTest 180 activity-revisions activity-revision-evidence
 }
+if [[ "${TEST_SCOPE:-full}" == activity-availability* ]]; then
+    verify_group_chat_native ActivityAvailabilityTest 180 activity-availability activity-availability-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == activity-revisions* ]]; then
     verify_group_chat_native ActivityInboxRevisionTest 180 activity-revisions activity-revision-evidence
     exit 0

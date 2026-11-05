@@ -30,6 +30,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
     @Volatile var withholdArchiveReply = false
+    @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
     @Volatile var reportReplyIsError = false
     @Volatile var rejectNewConnections = false
     @Volatile var rejectionDelayMillis = 0L
@@ -248,7 +249,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             rows
                         }
                         if (!withholdArchiveReply) {
-                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            webSocket.send((byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
+                                frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
                         }
                         requests.incrementAndGet()
                         received.countDown()
