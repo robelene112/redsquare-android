@@ -1,6 +1,13 @@
 package nl.davidengelen.redsquare.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.semantics.heading
+import nl.davidengelen.redsquare.NodeBlockObservation
+import java.text.DateFormat
+import java.text.NumberFormat
+import java.util.Date
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -27,7 +34,8 @@ internal enum class AppModule(val title: Int) {
 /** Shared account navigation over the real installation, never a preview wallet. */
 @Composable
 internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletEnabled: Boolean, settingsEnabled: Boolean,
-    onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit, onConnectionDetails: () -> Unit) {
+    onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit, onConnectionDetails: () -> Unit,
+    observation: NodeBlockObservation? = null) {
     val switchLabel = stringResource(R.string.switch_app, stringResource(module.title))
     val accountLabel = stringResource(R.string.account)
     var appsOpen by remember { mutableStateOf(false) }
@@ -80,9 +88,16 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
         if (node != null) TextButton(onClick = onConnectionDetails,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
             contentPadding = PaddingValues(horizontal = 4.dp)) {
-            Text(stringResource(R.string.selected_server, node), Modifier.weight(1f),
-                style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            val block = observation?.takeIf { it.backend.domain == node }
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(stringResource(R.string.selected_server, node),
+                    style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                SingleOwnerReveal(block?.block?.height) {
+                    Text(if (block == null) stringResource(R.string.node_block_unknown) else nodeBlockLabel(block),
+                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
             Icon(painterResource(R.drawable.ic_info), stringResource(R.string.connection_details), Modifier.size(18.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
@@ -92,12 +107,30 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
 
 /** Shared-host modal ownership also keeps pending routes behind the open information view. */
 @Composable
-internal fun NodeConnectionDetails(node: String?, onDismiss: () -> Unit) {
+internal fun NodeConnectionDetails(node: String?, observation: NodeBlockObservation? = null, onDismiss: () -> Unit) {
+    val block = observation?.takeIf { it.backend.domain == node }
     AlertDialog(onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.connection_details)) },
-        text = { Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+        shape = RoundedCornerShape(AppSpacing.cardRadius),
+        title = { Text(stringResource(R.string.connection_details), Modifier.semantics { heading() },
+            style = MaterialTheme.typography.titleMedium) },
+        text = { Column(Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Text(if (node != null) stringResource(R.string.selected_server, node)
                 else stringResource(R.string.connection_node_unavailable))
-            Text(stringResource(R.string.block_observation_unavailable), style = MaterialTheme.typography.bodyMedium)
+            if (block == null) Text(stringResource(R.string.block_observation_unavailable))
+            else AccountCard {
+                Column(Modifier.padding(AppSpacing.gap), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                    Text(nodeBlockLabel(block), style = MaterialTheme.typography.titleLarge)
+                    Text(stringResource(R.string.node_block_time), style = MaterialTheme.typography.labelSmall)
+                    Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(block.block.timestamp)))
+                    Text(stringResource(R.string.node_block_checked_at), style = MaterialTheme.typography.labelSmall)
+                    Text(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(block.receivedAtMillis)))
+                }
+            }
+            Text(stringResource(R.string.node_block_feed_separate), style = MaterialTheme.typography.bodySmall)
         } }, confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.done)) } })
 }
+
+@Composable
+private fun nodeBlockLabel(observation: NodeBlockObservation): String =
+    stringResource(R.string.node_block_height, NumberFormat.getIntegerInstance().format(observation.block.height))

@@ -337,6 +337,7 @@ class MainActivity : ComponentActivity() {
                 }) {
                 // safeDrawing remains the sole IME/system-inset owner. Secondary
                 // chrome returns when typing ends without dismissing any reminders.
+                val nodeBlock = rememberNodeBlockObservation(backend, intent)
                 val keyboardVisible = WindowInsets.isImeVisible
                 val featureUnobstructed = !settingsOpen && !connectionDetailsOpen && !policiesOpen &&
                     !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
@@ -365,7 +366,7 @@ class MainActivity : ComponentActivity() {
                             onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
                             onSettings = { settingsOpen = true },
                             onModule = ::selectModule,
-                            onConnectionDetails = { connectionDetailsOpen = true })
+                            onConnectionDetails = { connectionDetailsOpen = true }, observation = nodeBlock)
                         nl.davidengelen.redsquare.ui.InlineStatus(
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
@@ -450,7 +451,7 @@ class MainActivity : ComponentActivity() {
                             }
                         } else chrome(true)
                     }
-                    if (connectionDetailsOpen) NodeConnectionDetails(backend?.domain) { connectionDetailsOpen = false }
+                    if (connectionDetailsOpen) NodeConnectionDetails(backend?.domain, nodeBlock) { connectionDetailsOpen = false }
                     if (settingsOpen) AccountDialog(
                         onDismissRequest = {
                             if (!savingBackend) {
