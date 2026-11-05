@@ -37,9 +37,19 @@ class NodeBlockMotionTest {
             fun awaitText(text: String) { check(device.wait(Until.hasObject(By.text(text)), 10_000)) { text } }
             fun movie(name: String, seconds: Int = 5, action: () -> Unit) {
                 val file = File(folder, "scale-$scale-$name.mp4")
-                val recording = recordNativeTransition(file, recordingSeconds = seconds, dismiss = action)
-                val frames = retainNativeMotionFrames(file); frames.add("recording", recording)
-                File(folder, "scale-$scale-$name.json").writeText(frames.toString())
+                var actionFailure: Throwable? = null
+                try {
+                    val recording = recordNativeTransition(file, recordingSeconds = seconds) {
+                        try { action() } catch (failure: Throwable) { actionFailure = failure }
+                    }
+                    val frames = retainNativeMotionFrames(file); frames.add("recording", recording)
+                    frames.addProperty("actionAssertionsPassed", actionFailure == null)
+                    File(folder, "scale-$scale-$name.json").writeText(frames.toString())
+                } catch (captureFailure: Throwable) {
+                    val primary = actionFailure
+                    if (primary == null) throw captureFailure else primary.addSuppressed(captureFailure)
+                }
+                actionFailure?.let { throw it }
             }
             fun headerVisible(): Boolean = nativeWindowNodes().any { node ->
                 val bounds = Rect().apply { node.getBoundsInScreen(this) }
@@ -90,7 +100,25 @@ class NodeBlockMotionTest {
                         assertFalse("Reading must collapse the actual block-status header", headerVisible())
                         val hiddenAfter = SystemClock.elapsedRealtime() - advanceStarted.get()
                         assertTrue("Collapse occurs before the controlled4s response arrives", hiddenAfter < 4_000)
-                        val anchor = readingAnchor()
+                        val firstAnchor = readingAnchor()
+                        var anchor = firstAnchor
+                        var stableSince = SystemClock.elapsedRealtime()
+                        val settledDeadline = advanceStarted.get() + 3_500
+                        while (SystemClock.elapsedRealtime() < settledDeadline &&
+                            SystemClock.elapsedRealtime() - stableSince < 200) {
+                            SystemClock.sleep(32)
+                            val current = readingAnchor()
+                            if (current != anchor) { anchor = current; stableSince = SystemClock.elapsedRealtime() }
+                        }
+                        assertTrue("The reading gesture must settle before the original4s response arrives",
+                            SystemClock.elapsedRealtime() - stableSince >= 200 && SystemClock.elapsedRealtime() < settledDeadline)
+                        File(folder, "scale-$scale-reading-start.json").writeText(com.google.gson.JsonObject().apply {
+                            addProperty("firstObservedText", firstAnchor.first)
+                            addProperty("firstObservedBounds", firstAnchor.second.toShortString())
+                            addProperty("settledText", anchor.first)
+                            addProperty("settledBounds", anchor.second.toShortString())
+                            addProperty("settledAfterMillis", SystemClock.elapsedRealtime() - advanceStarted.get())
+                        }.toString())
                         // Observe the real delayed response interval, with no new input or test clock.
                         SystemClock.sleep(4_500)
                         assertFalse("A new block must not reveal a collapsed header", headerVisible())
