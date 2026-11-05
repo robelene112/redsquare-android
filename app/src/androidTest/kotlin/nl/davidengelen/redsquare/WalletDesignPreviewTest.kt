@@ -45,7 +45,7 @@ class WalletDesignPreviewTest {
         fundedTransferServer().use { balanceServer ->
             balanceServer.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             withAppFrameFixture("review-return", "wallet-design-evidence",
-                balanceApiUrl = balanceServer.url("/balance/").toString()) { _ ->
+                balanceApiUrl = "http://127.0.0.1:${balanceServer.port}/balance/") { _ ->
                 ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
