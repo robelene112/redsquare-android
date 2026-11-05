@@ -17,6 +17,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import mockwebserver3.*
 import nl.davidengelen.redsquare.saito.SaitoTransaction
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import okio.Buffer
 import org.junit.Assert.*
 import org.junit.Test
@@ -58,6 +59,50 @@ class LoadedMediaMotionTest {
                         assertTrue("The raster retains the profile's3:1 banner container", kotlin.math.abs(banner.width() - banner.height() * 3) <= 3)
                         assertTrue("The actual loading placeholder stays inside the eventual banner", banner.contains(loading.centerX(), loading.centerY()))
                         captureNativeScreen(File(folder, "scale-$scale-banner-loaded.png"))
+                    }
+                } finally { release.countDown() }
+            }
+        }
+    }
+
+    @Test fun providerDrawableRevealsDeliveredPixelsInsideItsOriginalImageContainer() {
+        for (scale in listOf(1, 0)) withNativeModuleMotionScale(scale) {
+            val instrumentation = InstrumentationRegistry.getInstrumentation()
+            val device = UiDevice.getInstance(instrumentation)
+            val folder = File(instrumentation.targetContext.cacheDir, "loaded-media-evidence").apply { mkdirs() }
+            val requested = CountDownLatch(1)
+            val release = CountDownLatch(1)
+            MockWebServer().use { media ->
+                media.dispatcher = object : Dispatcher() {
+                    override fun dispatch(request: RecordedRequest): MockResponse {
+                        check(request.url.encodedPath == "/media/arrival-$scale.png")
+                        requested.countDown(); check(release.await(10, TimeUnit.SECONDS))
+                        return MockResponse.Builder().body(Buffer().write(linkPreviewPng())).build()
+                    }
+                }
+                media.start(InetAddress.getByName("127.0.0.1"), 0)
+                val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture only.
+                val post = SaitoTransaction.create(author, JsonObject().apply {
+                    addProperty("module", "RedSquare"); addProperty("request", "create tweet")
+                    add("data", JsonObject().apply {
+                        addProperty("text", "An owned provider image arrives")
+                        add("images", JsonArray().apply { add(media.url("/media/arrival-$scale.png").toString()) })
+                    })
+                }, 1_700_000_000_000L)
+                try {
+                    withAppFrameFixture("drawable-$scale", "loaded-media-evidence", "[${postingArchiveRow(post)}]",
+                        giphyFixtureUrl = media.url("/").toString().trimEnd('/')) { activity ->
+                        requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
+                        check(requested.await(5, TimeUnit.SECONDS))
+                        val image = requireNotNull(device.wait(Until.findObject(By.desc("Image 1 of 1")), 5_000)).visibleBounds
+                        val loading = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000)).visibleBounds
+                        SystemClock.sleep(250)
+                        captureNativeScreen(File(folder, "scale-$scale-drawable-loading.png"))
+                        recordArrival("drawable", scale, folder, loading, activity) { release.countDown() }
+                        assertEquals("Drawable replacement retains its actual native container", image,
+                            requireNotNull(device.wait(Until.findObject(By.desc("Image 1 of 1")), 5_000)).visibleBounds)
+                        assertTrue(device.hasObject(By.text("An owned provider image arrives")))
+                        captureNativeScreen(File(folder, "scale-$scale-drawable-loaded.png"))
                     }
                 } finally { release.countDown() }
             }
