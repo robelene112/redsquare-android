@@ -1,0 +1,93 @@
+{
+  "ticket": 92,
+  "reviewBase": "1f4ba191d1ae7783a283491649f278aa5b5f729b",
+  "productionAndNativeSource": "67d8bfd0919d880ce06d128c5afb65187615a3ef",
+  "sourceCheckRun": 42074736707,
+  "sourceCheckConclusion": "success",
+  "hostChecks": {
+    "core": 117,
+    "gateway": 16,
+    "validatedGradleResultsReused": true
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 55,
+    "hints": 1
+  },
+  "sourceReview": {
+    "standardsFindings": 0,
+    "specFindings": 0
+  },
+  "independentVisualReview": {
+    "android10Findings": 0,
+    "android17Findings": 0,
+    "viewportsAndOriginalMotion": true
+  },
+  "platforms": {
+    "10": {
+      "run": 42076520352,
+      "source": "67d8bfd0919d880ce06d128c5afb65187615a3ef",
+      "conclusion": "success",
+      "uiMethods": {
+        "activity-group-pixel-ui.txt": 1,
+        "activity-groups-ui.txt": 3,
+        "activity-group-burst-ui.txt": 1,
+        "activity-group-motion-ui.txt": 1,
+        "activity-availability-ui.txt": 2,
+        "activity-inbox-ui.txt": 1,
+        "activity-state-ui.txt": 1,
+        "activity-revisions-ui.txt": 1,
+        "like-history-contract-ui.txt": 1,
+        "notifications-ui.txt": 32,
+        "activity-group-narrow-ui.txt": 1,
+        "activity-availability-pixel-ui.txt": 2,
+        "activity-inbox-viewport-ui.txt": 1
+      },
+      "uiMethodTotal": 48,
+      "permissionMethods": 1,
+      "actualProcessDeath": true,
+      "zeroPublicTransactions": true,
+      "normalZeroMotionMovies": 4,
+      "originalMotionPngs": 90,
+      "focusedViewportRun": 42074570253,
+      "viewportCells": 12,
+      "retainedFocusedViewportOriginalPngs": 36
+    },
+    "17": {
+      "run": 42075647474,
+      "source": "67d8bfd0919d880ce06d128c5afb65187615a3ef",
+      "conclusion": "success",
+      "uiMethods": {
+        "activity-group-pixel-ui.txt": 1,
+        "activity-groups-ui.txt": 3,
+        "activity-group-burst-ui.txt": 1,
+        "activity-group-motion-ui.txt": 1,
+        "activity-availability-ui.txt": 2,
+        "activity-inbox-ui.txt": 1,
+        "activity-state-ui.txt": 1,
+        "activity-revisions-ui.txt": 1,
+        "like-history-contract-ui.txt": 1,
+        "notifications-ui.txt": 32,
+        "activity-group-narrow-ui.txt": 1,
+        "activity-availability-pixel-ui.txt": 2,
+        "activity-inbox-viewport-ui.txt": 1
+      },
+      "uiMethodTotal": 48,
+      "permissionMethods": 2,
+      "actualProcessDeath": true,
+      "zeroPublicTransactions": true,
+      "normalZeroMotionMovies": 4,
+      "originalMotionPngs": 141,
+      "focusedViewportRun": 42074575625,
+      "viewportCells": 12,
+      "retainedFocusedViewportOriginalPngs": 36
+    }
+  },
+  "wholeAppAcceptance": false,
+  "betaPublished": false,
+  "limits": [
+    "Controlled signed-peer/dev-emulator evidence only",
+    "No physical Pixel, public delivery, push-provider or store acceptance",
+    "Issue94 retains consistent-source whole-app and signed-update/publication gates"
+  ]
+}

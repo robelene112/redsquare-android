@@ -1,0 +1,82 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityGroupingPreviewTest:
+INSTRUMENTATION_STATUS: test=aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead$lambda$19(ActivityGroupingPreviewTest.kt:69)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.$r8$lambda$IBtRb1QivO0LmpxjN7nf7VJIveI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$14$lambda$13$lambda$12(ActivityInboxFixture.kt:89)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$JykwwUQOGvmf6bhmg-ZBHx_ZV4k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:88)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead(ActivityGroupingPreviewTest.kt:56)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead(nl.davidengelen.redsquare.ActivityGroupingPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead$lambda$19(ActivityGroupingPreviewTest.kt:69)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.$r8$lambda$IBtRb1QivO0LmpxjN7nf7VJIveI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$14$lambda$13$lambda$12(ActivityInboxFixture.kt:89)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$JykwwUQOGvmf6bhmg-ZBHx_ZV4k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:88)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead(ActivityGroupingPreviewTest.kt:56)
+
+INSTRUMENTATION_STATUS: test=aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=severalPeopleLikingOnePostShareOneDirectDestinationWithoutSwallowingReplies
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=severalPeopleLikingOnePostShareOneDirectDestinationWithoutSwallowingReplies
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.078
+There was 1 failure:
+1) aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead(nl.davidengelen.redsquare.ActivityGroupingPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead$lambda$19(ActivityGroupingPreviewTest.kt:69)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.$r8$lambda$IBtRb1QivO0LmpxjN7nf7VJIveI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$14$lambda$13$lambda$12(ActivityInboxFixture.kt:89)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$JykwwUQOGvmf6bhmg-ZBHx_ZV4k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:88)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead(ActivityGroupingPreviewTest.kt:56)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

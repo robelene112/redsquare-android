@@ -1,70 +1,57 @@
 # Implementation handoff
 
-## Active authorization: TWO tickets, #80 then #92
+## Completed authorization: TWO tickets, #80 then #92
 
-The owner requested two more tickets on 2026-11-05. #80 is COMPLETE. Finish #92
-sequentially, verify/review/commit it, then stop. No intermediate beta; #94 retains
-integrated consistent-source whole-app, signed update and publication gates.
+Both authorized tickets are COMPLETE, verified, reviewed and committed. Stop
+until the next owner request. No intermediate beta was published. #94 retains
+consistent-source whole-app, signed in-place update and publication gates.
+Parents #55/#84/#86/#1/#36 retain independent acceptance. Next ready ticket is
+#90 (Wallet and Settings visual rollout), with zero open blockers, unclaimed.
+#93 (truthful selected-node block observations) is also unblocked and unclaimed.
+Do not start either without the next request.
 
-Active worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
-`codex/unified-redesign`. Preserve unrelated canonical Chat work. Sparse evidence
-requires `git add --sparse`. No local build or CI run remains active for #80.
+Worktree `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Preserve unrelated canonical Chat work. Evidence uses
+sparse checkout, so add it with `git add --sparse`. No local build or CI run remains
+active for this batch. Published beta remains unchanged.
+
+### #92 complete
+
+Review base `1f4ba191d1ae7783a283491649f278aa5b5f729b`. Accepted production/native
+source `67d8bfd0919d880ce06d128c5afb65187615a3ef`. Broad notifications PASS:
+42076520352 (10),42075647474 (17), each48 UI methods plus1/2permission methods
+and actual process-death continuity. Strong focused viewport PASS42074570253 (10)
+and42074575625 (17) at the same source. Source/debug lint PASS42074736707;117/16
+core/gateway validated task results reused, lint0errors with55existing warnings
+and1hint. Both source axes and independent native viewport/motion review0findings.
+
+Exact-post Like groups retain distinct bounded verified-avatar targets, direct
+post/reference navigation, per-event reads and individual replies. New verified
+Likes automatically raise/unread the same group while Activity is open. Burst
+catch-up preserves both unseen newer pages and older continuation. Duplicate
+reads, cache, recreation and wallet/node boundaries remain. The separate localized
+actor count stays visible beside long names; resolved previews remain during
+movement.12viewport cells and4original1/0motion movies perOS are retained.
+
+See `docs/evidence/ticket92/README.md` and `native-results.json` for exact mapping,
+originals, failed observer/compiler runs and limits. A reused per-composition
+walletKey mitigates Kotlin FIR heap exhaustion at the retained1792MB local bound;
+CI compiler3GB stays separate from app/device limits and local2500MB container.
+`source-debug` runs source/lint with zero devices; `activity-group-viewports` and
+its Android17 variant isolate both viewport classes at original180s bounds.
+Existing full coverage stays additive. No public writes or production changes.
 
 ### #80 complete
 
 Review base `919d5eaf251153646347ff561d3d9185cc6a149d`; behavioral source12aaf,
-last production change30be (copy only). Full native source81207: PASS42049913067
-(10)/42049918203(17), each41UI methods plus1/2permission methods and actual
-process-death continuity. Stronger focused availability PASS42049374065(10)/
-42049378304(17) at27636, four methods each, identical production source.
-Source47b adds only explicit setup failure propagation in the aggregated runner;
-source review and shell syntax pass. No final consistent-source whole-app claim.
-
-Evidenced first-load unavailable/Retry, partial results, successful empty, cached
-read state/outage/recreation/applied recovery, remaining-history qualifiers,
-320/412dp Light/Dark and100/130/200% text (read-state recovery100/200%).52original
-native PNGs perOS retained. Both source review axes and independent native visual
-review have zero findings. Host checks and clean final single-worker lint PASS.
-See `docs/evidence/ticket80/README.md` and native-results.json for exact mapping,
-all failures/corrections, original captures and limits. No owner/provider/store or
-physical Pixel acceptance, no production changes/public writes and no beta.
-
-#92 is ACTIVE, review base1f4ba191d1ae7783a283491649f278aa5b5f729b.
-Current native source6cfc4ab087ff3ce0239240d9306bd4909f632a63: broad affected
-notifications10 run42065475340 and17 run42065481253 IN PROGRESS. Do not treat
-build completion as device acceptance. Production last changedda9a4d0c6;
-range ownership fixd096/355 separates newest-head catch-up from older history.
-
-Implemented exact-target Like groups with distinct bounded ProfileAvatar actors,
-per-event reads, direct target/reference navigation, quiet lifecycle-scoped
-newest-Like checks and automatic resurfacing. Small People dialogs wrap; large
-ones remain lazy/bounded. Known partial coverage and failed-head ownership survive
-quiet retries. Replies stay individual. Original32 notification regressions retain
-data/identity/cache goals, adapting unread counts to groups and checking literal
-Like/person totals. New native checks cover3functional methods, a150-new-event
-burst preserving older paging,320/412dp Light/Dark100/130/200% and actual1/0motion.
-All original class/assertion deadlines remain unchanged.
-
-Earlier native REDs:42052527296 separate rows;42054867561 missing automatic
-resurfacing;42060508924 skips burst middle (110instead157 Likes). Initial focused
-green42058638445 passes2methods on10 before the burst repair. Corrected355
-run42062553476 failed Java compiler heap before UI;0c29 run42056057905 also
-compiler OOM. CI now gives only the compiler3GB, retaining the local2500MB
-container and1792MB heap.6938 run42065265946 failed checkout because an
-abbreviated source_ref was interpreted as a branch; broad runs use full40charSHA.
-No corrected burst, new viewport/motion or broad acceptance claimed yet.
-Local1792MB compilation also exhausted heap headroom and was stopped143; local
-lint depends on that compilation and was stopped143. No local pass claimed.
-Source/lint run42067317225 at7d5ceb958 uses newsource-debug CI scope, explicitly
-excluding both device steps. Standards review of this delta has0findings.
-
-Source Standards/Spec throughda9 have0findings. Review of6938 found one test
-observer expecting opening a target to mark it read, corrected6cfc to retain the
-existing explicit read semantics. Reviews of final code, actual movies/rendered
-states, clean lint and retained ticket92 evidence remain required before closing.
-Artifacts stay under/mnt/storage/redsquare-android-artifacts/redesign92-*.
-No production operations or public writes. Parent86/55/84/1/36 stay independent.
-Finish92, then stop this two-ticket batch. No beta now;94 owns that gate.
+last production change30be (copy only). Full native source81207 PASS42049913067
+(10)/42049918203 (17), each41UI methods plus1/2permissions and actual process-death
+continuity. Strong focused availability PASS42049374065 (10)/42049378304 (17) at
+27636 with identical production.52originalPNG perOS retain honest first-load,
+partial/empty, cache/outage/read/recreation/recovery at320/412dp, themes and large
+text. Both source axes and independent native visual review0findings; host checks
+and clean single-worker lint PASS.47b's runner-only setup failure propagation was
+reviewed and shell-checked. See `docs/evidence/ticket80/README.md` and JSON.
 
 ## Completed authorization: TWO tickets, #91 then #79
 

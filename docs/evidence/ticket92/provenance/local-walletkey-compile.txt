@@ -1,0 +1,51 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:compileDebugKotlin
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:75:41 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:157:51 'fun rememberTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API that takes a preferred positioning. Please use rememberTooltipPositionProvider with TooltipAnchorPosition.Above if this same behavior is desired.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppFrame.kt:153:71 'fun rememberPlainTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API.
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:processDebugAndroidTestManifest UP-TO-DATE
+> Task :app:generateDebugAndroidTestBuildConfig UP-TO-DATE
+> Task :app:checkDebugAndroidTestAarMetadata UP-TO-DATE
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :app:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugAndroidTestResources UP-TO-DATE
+> Task :app:mergeDebugAndroidTestResources UP-TO-DATE
+> Task :app:processDebugAndroidTestResources UP-TO-DATE
+> Task :app:compileDebugAndroidTestKotlin
+w: file:///workspace/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt:171:96 'var isChecked: Boolean' is deprecated. Deprecated in Java.
+w: file:///workspace/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt:172:92 'var isChecked: Boolean' is deprecated. Deprecated in Java.
+w: file:///workspace/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt:190:70 'var isChecked: Boolean' is deprecated. Deprecated in Java.
+w: Detected multiple Kotlin daemon sessions at 
+
+BUILD SUCCESSFUL in 5m 46s
+29 actionable tasks: 3 executed, 26 up-to-date

@@ -1,0 +1,70 @@
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6293208Z > Task :app:mergeExtDexDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6294770Z > Task :app:mergeLibDexDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6296330Z > Task :app:mergeDebugAndroidTestJniLibFolders
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6297857Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6298244Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6298599Z > Task :app:validateSigningDebugAndroidTest
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:02.6298933Z > Task :app:writeDebugAndroidTestSigningConfigVersions
+native-proof (all)	Build and verify native sources	2026-11-05T16:34:29.8269587Z > Task :app:compileDebugKotlin
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1291954Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1322496Z The Daemon will expire after the build after running out of JVM heap space.
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1323260Z The project memory settings are likely not configured or are configured to an insufficient value.
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1352207Z The daemon will restart for the next build, which may increase subsequent build times.
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1352813Z These settings can be adjusted by setting 'org.gradle.jvmargs' in 'gradle.properties'.
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1353393Z The currently configured max heap space is '3 GiB' and the configured max metaspace is 'unknown'.
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1354360Z For more information on how to set these values, please refer to https://docs.gradle.org/8.11.1/userguide/build_environment.html#sec:configuring_jvm_memory in the Gradle documentation.
+native-proof (all)	Build and verify native sources	2026-11-05T16:37:04.1355208Z To disable this warning, set 'org.gradle.daemon.performance.disable-logging=true'.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6269516Z e: java.lang.OutOfMemoryError: Java heap space
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6270037Z 	at java.base/java.util.Arrays.copyOf(Arrays.java:3481)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6270316Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6270914Z 	at org.jetbrains.kotlin.kotlinx.collections.immutable.implementations.immutableList.PersistentVector.add(PersistentVector.kt:39)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6271729Z > Task :app:compileDebugKotlin FAILED
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6282549Z 	at org.jetbrains.kotlin.fir.resolve.dfa.LogicSystem.addImplication(LogicSystem.kt:86)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6283265Z 	at org.jetbrains.kotlin.fir.resolve.dfa.FirDataFlowAnalyzer.addImplication(FirDataFlowAnalyzer.kt:1559)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6284119Z 	at org.jetbrains.kotlin.fir.resolve.dfa.FirDataFlowAnalyzer.exitSafeCall$lambda$29(FirDataFlowAnalyzer.kt:906)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6284896Z 	at org.jetbrains.kotlin.fir.resolve.dfa.FirDataFlowAnalyzer$$Lambda$2900/0x00007f29c54e9630.invoke(Unknown Source)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6285630Z 	at org.jetbrains.kotlin.fir.resolve.dfa.FirDataFlowAnalyzer.buildDefaultFlow(FirDataFlowAnalyzer.kt:1415)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6286169Z 59 actionable tasks: 27 executed, 32 from cache
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6286826Z 	at org.jetbrains.kotlin.fir.resolve.dfa.FirDataFlowAnalyzer.mergeIncomingFlow(FirDataFlowAnalyzer.kt:1461)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6287647Z 	at org.jetbrains.kotlin.fir.resolve.dfa.FirDataFlowAnalyzer.exitSafeCall(FirDataFlowAnalyzer.kt:867)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6288713Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirExpressionsResolveTransformer.transformSafeCallExpression(FirExpressionsResolveTransformer.kt:428)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6290196Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirAbstractBodyResolveTransformerDispatcher.transformSafeCallExpression(FirAbstractBodyResolveTransformerDispatcher.kt:389)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6291918Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirAbstractBodyResolveTransformerDispatcher.transformSafeCallExpression(FirAbstractBodyResolveTransformerDispatcher.kt:24)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6293105Z 	at org.jetbrains.kotlin.fir.expressions.FirSafeCallExpression.transform(FirSafeCallExpression.kt:35)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6293951Z 	at org.jetbrains.kotlin.fir.visitors.FirTransformerUtilKt.transformInplace(FirTransformerUtil.kt:20)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6294772Z 	at org.jetbrains.kotlin.fir.expressions.impl.FirArgumentListImpl.transformArguments(FirArgumentListImpl.kt:31)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6295633Z 	at org.jetbrains.kotlin.fir.expressions.impl.FirArgumentListImpl.transformChildren(FirArgumentListImpl.kt:26)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6296479Z 	at org.jetbrains.kotlin.fir.expressions.impl.FirArgumentListImpl.transformChildren(FirArgumentListImpl.kt:17)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6298142Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirAbstractBodyResolveTransformerDispatcher.transformElement(FirAbstractBodyResolveTransformerDispatcher.kt:89)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6299636Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirAbstractBodyResolveTransformerDispatcher.transformElement(FirAbstractBodyResolveTransformerDispatcher.kt:24)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6300748Z 	at org.jetbrains.kotlin.fir.visitors.FirTransformer.transformArgumentList(FirTransformer.kt:167)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6307082Z 	at org.jetbrains.kotlin.fir.expressions.FirArgumentList.transform(FirArgumentList.kt:29)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6308144Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirPartialBodyResolveTransformer.transformElement(FirPartialBodyResolveTransformer.kt:36)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6310091Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirPartialBodyResolveTransformer.transformElement(FirPartialBodyResolveTransformer.kt:13)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6311185Z 	at org.jetbrains.kotlin.fir.visitors.FirTransformer.transformArgumentList(FirTransformer.kt:167)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6312131Z 	at org.jetbrains.kotlin.fir.expressions.FirArgumentList.transform(FirArgumentList.kt:29)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6313283Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirExpressionsResolveTransformer.transformFunctionCallInternal$resolve(FirExpressionsResolveTransformer.kt:516)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6314715Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirExpressionsResolveTransformer.transformFunctionCall(FirExpressionsResolveTransformer.kt:453)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6316071Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirExpressionsResolveTransformer.transformFunctionCall(FirExpressionsResolveTransformer.kt:70)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6317125Z 	at org.jetbrains.kotlin.fir.expressions.FirFunctionCall.transform(FirFunctionCall.kt:45)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6318021Z 	at org.jetbrains.kotlin.fir.expressions.impl.FirSafeCallExpressionImpl.transformReceiver(FirSafeCallExpressionImpl.kt:53)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6319046Z 	at org.jetbrains.kotlin.fir.expressions.impl.FirSafeCallExpressionImpl.transformReceiver(FirSafeCallExpressionImpl.kt:23)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6320339Z 	at org.jetbrains.kotlin.fir.resolve.transformers.body.resolve.FirExpressionsResolveTransformer.transformSafeCallExpression(FirExpressionsResolveTransformer.kt:415)
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6321241Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6321356Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6321678Z FAILURE: Build failed with an exception.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6321971Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6322166Z * What went wrong:
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6322535Z Execution failed for task ':app:compileDebugKotlin'.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6323303Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6324195Z    > Not enough memory to run compilation.  Try to increase it via 'gradle.properties':
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6324734Z      org.gradle.jvmargs=-Xmx<size>
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6325022Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6325205Z * Try:
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6325560Z > Run with --stacktrace option to get the stack trace.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6326027Z > Run with --info or --debug option to get more log output.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6326460Z > Run with --scan to get full insights.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6326862Z > Get more help at https://help.gradle.org.
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6327158Z 
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:46.6327354Z BUILD FAILED in 12m 6s
+native-proof (all)	Build and verify native sources	2026-11-05T16:45:47.0121017Z ##[error]Process completed with exit code 1.

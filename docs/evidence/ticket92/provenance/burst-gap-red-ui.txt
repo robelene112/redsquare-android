@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingBurstTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityGroupingBurstTest:
+INSTRUMENTATION_STATUS: test=catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingBurstTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation$expectTotal(ActivityGroupingBurstTest.kt:50)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation$lambda$21(ActivityGroupingBurstTest.kt:74)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.$r8$lambda$mBl-3xRD5qTq37ZW9aBvZUDfkt0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation(ActivityGroupingBurstTest.kt:54)
+
+INSTRUMENTATION_STATUS: stream=
+Error in catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation(nl.davidengelen.redsquare.ActivityGroupingBurstTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation$expectTotal(ActivityGroupingBurstTest.kt:50)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation$lambda$21(ActivityGroupingBurstTest.kt:74)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.$r8$lambda$mBl-3xRD5qTq37ZW9aBvZUDfkt0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation(ActivityGroupingBurstTest.kt:54)
+
+INSTRUMENTATION_STATUS: test=catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.681
+There was 1 failure:
+1) catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation(nl.davidengelen.redsquare.ActivityGroupingBurstTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation$expectTotal(ActivityGroupingBurstTest.kt:50)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation$lambda$21(ActivityGroupingBurstTest.kt:74)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.$r8$lambda$mBl-3xRD5qTq37ZW9aBvZUDfkt0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingBurstTest.catchingUpANewBurstDoesNotSkipItsMiddleOrForgetTheOlderContinuation(ActivityGroupingBurstTest.kt:54)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
