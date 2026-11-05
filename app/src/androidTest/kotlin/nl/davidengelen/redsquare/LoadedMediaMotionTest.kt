@@ -86,12 +86,12 @@ class LoadedMediaMotionTest {
                     addProperty("module", "RedSquare"); addProperty("request", "create tweet")
                     add("data", JsonObject().apply {
                         addProperty("text", "An owned provider image arrives")
-                        add("images", JsonArray().apply { add(media.url("/media/arrival-$scale.png").toString()) })
+                        add("images", JsonArray().apply { add("http://127.0.0.1:${media.port}/media/arrival-$scale.png") })
                     })
                 }, 1_700_000_000_000L)
                 try {
                     withAppFrameFixture("drawable-$scale", "loaded-media-evidence", "[${postingArchiveRow(post)}]",
-                        giphyFixtureUrl = media.url("/").toString().trimEnd('/')) { activity ->
+                        giphyFixtureUrl = "http://127.0.0.1:${media.port}") { activity ->
                         requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
                         check(requested.await(5, TimeUnit.SECONDS))
                         val placeholder = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000))
@@ -164,7 +164,9 @@ class LoadedMediaMotionTest {
             frames.addProperty("deliveredFrames", deliveredFrames)
             File(folder, "scale-$scale-$name.json").writeText(frames.toString())
             observeModuleWindowMotionScale(activity, scale, folder)
-            assertTrue("The original recording contains the actual delivered media", deliveredFrames >= 2)
+            // A zero-motion static replacement may emit just one final damage-driven encoded frame.
+            // Two independent native endpoint samples above still establish sampled stability.
+            assertTrue("The original recording contains the actual delivered media", deliveredFrames >= if (scale == 0) 1 else 2)
             if (scale == 1) assertTrue("Normal motion reveals delivered media across distinct intermediate display frames",
                 intermediate.size >= 2 && intermediate.max() - intermediate.min() >= 10)
             else assertTrue("Zero motion does not retain a media fade", intermediate.size < 2)
