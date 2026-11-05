@@ -2,6 +2,9 @@ package nl.davidengelen.redsquare.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import nl.davidengelen.redsquare.BuildConfig
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -16,7 +19,11 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 internal fun <T> VisualResultReveal(target: T, modifier: Modifier, content: @Composable (T, Boolean) -> Unit) {
     val latest by rememberUpdatedState(target)
     Crossfade(targetState = target, modifier = modifier,
-        animationSpec = tween(AppSpacing.transitionMillis), label = "Loaded result") { rendered ->
+        animationSpec = tween(AppSpacing.transitionMillis, easing = Easing { fraction ->
+            val value = FastOutSlowInEasing.transform(fraction)
+            if (BuildConfig.DEBUG) android.util.Log.d("DEBUG-m81", "easing:${android.os.SystemClock.elapsedRealtimeNanos()}:$fraction:$value")
+            value
+        }), label = "Loaded result") { rendered ->
         val current = rendered == latest
         Box(Modifier.fillMaxSize().then(if (current) Modifier else Modifier.clearAndSetSemantics { })) {
             content(rendered, current)

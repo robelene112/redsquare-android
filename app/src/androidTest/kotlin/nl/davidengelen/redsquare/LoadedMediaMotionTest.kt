@@ -114,6 +114,8 @@ class LoadedMediaMotionTest {
     private fun recordArrival(name: String, scale: Int, folder: File, point: Rect,
         activity: ActivityScenario<MainActivity>, deliver: () -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val before = File(folder, "before-$name").apply { mkdirs() }
+        observeModuleWindowMotionScale(activity, scale, before)
         val samples = JsonArray()
         var deliveryFailure: Throwable? = null
         val movie = File(folder, "scale-$scale-$name.mp4")
