@@ -126,12 +126,9 @@ internal fun NodeConnectionDetails(node: String?, blocks: NodeBlockState? = null
         report?.failure != null -> StatusTone.ERROR
         else -> StatusTone.WARNING
     }
-    AlertDialog(onDismissRequest = onDismiss,
-        shape = RoundedCornerShape(AppSpacing.cardRadius),
-        title = { Text(stringResource(R.string.connection_details), Modifier.semantics { heading() },
-            style = MaterialTheme.typography.titleMedium) },
-        text = { AppDialogWindow()
-            Column(Modifier.verticalScroll(rememberScrollState()),
+    AccountDialog(title = stringResource(R.string.connection_details),
+        closeLabel = stringResource(R.string.node_block_close_details), onDismissRequest = onDismiss,
+        text = { Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Text(if (node != null) stringResource(R.string.selected_server, node)
                 else stringResource(R.string.connection_node_unavailable))

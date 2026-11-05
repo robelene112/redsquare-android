@@ -37,10 +37,19 @@ class NodeBlockMotionTest {
             fun awaitText(text: String) { check(device.wait(Until.hasObject(By.text(text)), 10_000)) { text } }
             fun movie(name: String, seconds: Int = 5, action: () -> Unit) {
                 val file = File(folder, "scale-$scale-$name.mp4")
+                val openWindow = if (name == "reading") null else Rect().apply {
+                    requireNotNull(nativeWindowNodes().firstOrNull()).getBoundsInScreen(this)
+                }
                 var actionFailure: Throwable? = null
                 try {
                     val recording = recordNativeTransition(file, recordingSeconds = seconds) {
-                        try { action() } catch (failure: Throwable) { actionFailure = failure }
+                        try {
+                            action()
+                            if (openWindow != null) {
+                                val after = Rect().apply { requireNotNull(nativeWindowNodes().firstOrNull()).getBoundsInScreen(this) }
+                                assertEquals("Changing block information must not resize the open details window", openWindow, after)
+                            }
+                        } catch (failure: Throwable) { actionFailure = failure }
                     }
                     val frames = retainNativeMotionFrames(file); frames.add("recording", recording)
                     frames.addProperty("actionAssertionsPassed", actionFailure == null)
