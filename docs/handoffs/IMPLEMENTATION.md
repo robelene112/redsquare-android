@@ -8,20 +8,39 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: import-entry repair I, focused verification running
+## ACTIVE: complete final I verification running
 
-Current CODE source: f2dc6c2ddc0148c4839d44b60787df99a34d661e (I).
-H full10 Wallet failed one of seven WalletImportPreview methods at picker-root
-selection. Native original shows wallet plus saved-backup status, clipped Export,
-no visible Import/picker. Six other methods passed. I reveals the real Import
-entry before touch and adds a preactivation capture. No producer input, original
-assertion, deadline or identity changes. Both source axes zero unresolved findings.
-Hypothesis still needs runtime confirmation. Targeted import checks running:
-10:42224555629; 17:42224560097. Other H full jobs remain active; do not cancel or
-assemble into a false pass. Retained failure: ticket94/failures/fullH-wallet10.
-Producer equivalence receipt now verifies all 440 B→I inputs. Signed89 unchanged,
-stable latest83. After focused results, a fresh successful complete I source is
-required. Prior H status below is historical except its still-running jobs.
+CODE source: f2dc6c2ddc0148c4839d44b60787df99a34d661e (I).
+Both original focused import scopes PASS: Android 10 run42224555629, Android 17
+run42224560097. Seven import methods plus original replacement-risk, storage and
+actual process-death recovery complete. Native entry capture shows Import fully
+visible after the original backup saved status. Original assertions/deadlines/
+identity and independent restoration remain. Both source axes zero findings;
+both targeted native axes inspected all48PNG/4XML and original import/risk/
+storage/process logs, zero findings. Fully visible enabled Import is252×48px.
+Class151.695s/202.639s stays inside300s. Narrow/light, non-atomic capture limits
+and assertion-based exact persistence remain explicit. Packets: focused-importI-10/-17.
+
+RUNNING final complete I, do not duplicate/cancel:
+- Android 10:42225564555.
+- Android 17:42225947593.
+Exact immutable tag proof-redesign94-f2dc6c2, metadata/source/workflow I, public
+reads true, all original Chat/Social/Wallet jobs. Frozen catalog unchanged.
+No complete final pass yet. After all three jobs succeed per SDK, run the frozen
+collector with exact I, then both actual cross-module native/motion reviews,
+then promote exact signed89 with unchanged notes and verify public result.
+
+The prior H Android 10 Wallet failed one of seven import methods: original
+native shows saved-backup status, clipped Export and no Import/picker. Six other
+methods passed. I scrolls/displays/enables Import before its existing touch and
+captures that actual entry. Evidence: failures/fullH-wallet10. H Android 17
+Wallet passed; other H jobs still running. Keep failed H complete acceptance
+separate from targeted I and eventual complete I. Do not assemble passes.
+
+All 440 producer paths/modes/types/blobs B→I remain equal; signed89 source B and
+original update proof are separate from instrumentation I. Stable latest83,
+89 staged, not promoted. Owner-approved one node restart already fulfilled;
+no further production mutation. No local builder or implementation agent active.
 
 ## Previous full H verification
 

@@ -1,9 +1,10 @@
 # Unified redesign release verification (#94)
 
-Current repair source is `f2dc6c2ddc0148c4839d44b60787df99a34d661e`
-(I). Complete H runs `42220261090` / `42220264070` still have active jobs, but
-Android 10 Wallet has failed. Original import focused checks now run on I as
-`42224555629` / `42224560097`.
+Current verification source is `f2dc6c2ddc0148c4839d44b60787df99a34d661e`
+(I). Complete I runs `42225564555` / `42225947593` are running with all three
+partitions and public reads. Original focused import checks on I passed as
+`42224555629` / `42224560097`, including actual process recovery. Earlier H
+Android 10 Wallet failed; H Android 17 Wallet passed. These are distinct runs.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
 producer input paths, modes, types and blobs are equal from B to I. The later
@@ -362,3 +363,22 @@ activation. Both source review axes have zero unresolved findings. Runtime
 confirmation is pending; no picker or production defect is inferred. Original
 assertions, deadlines and test identities remain. Other H partitions continue;
 none can turn this failed complete run into full acceptance.
+
+
+Focused I import scopes now pass on both SDKs, runs42224555629/42224560097.
+Each packet retains 24PNG/2XML, original seven import scenarios, replacement
+risk, storage recovery and actual process-death continuity. Targeted native
+reviews are pending. Complete I runs42225564555/42225947593 execute through
+immutable tag proof-redesign94-f2dc6c2. No complete pass or promotion yet.
+
+
+Both targeted import native review axes now report zero actionable findings.
+Each inspected all 48PNG/4XML across both SDKs, plus original import/risk/storage
+and actual interrupted/cold recovery logs. Import has a fully visible, enabled,
+clickable 252×48px parent after successful backup. Incoming public identity
+persists through recreation; failed-save/cold states retain the outgoing identity
+and owner feed retains its selected node. Original import runtimes151.695s/
+202.639s remain within300s. Both axes verified 440 equal producer inputs B→I.
+Limits: narrow/light captures, non-atomic PNG/XML; exact saved-state, safeguards
+and no replay additionally rely on passing assertions. No exclusive cause,
+complete application, physical-device or additional signed-update claim follows.
