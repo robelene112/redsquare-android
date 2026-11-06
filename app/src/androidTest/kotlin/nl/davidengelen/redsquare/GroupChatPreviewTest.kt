@@ -690,8 +690,17 @@ class GroupChatPreviewTest {
                         ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                         waitFor("Groups");ui.onNodeWithText("Groups").assertIsDisplayed().performClick()
                         waitFor("Create group")
-                        ui.waitUntil(15_000){ui.onAllNodes(hasText("Create group") and isEnabled()).fetchSemanticsNodes().size==1}
-                        ui.onNodeWithText("Create group").assertIsDisplayed().assertIsEnabled()
+                        // Imported watch metadata can replace the store after an
+                        // enabled-node lookup. Observe the actual enabled button
+                        // inside its original readiness budget, without a second
+                        // assertion racing the next asynchronous reload.
+                        ui.waitUntil(15_000){
+                            if(ui.onAllNodesWithText("Create group").fetchSemanticsNodes(atLeastOneRootRequired=false).size!=1)false
+                            else try {
+                                ui.onNodeWithText("Create group").assertIsDisplayed().assertIsEnabled()
+                                true
+                            }catch(_:AssertionError){false}
+                        }
                         var nextRequestId=800
                         fun deliver(transaction:SaitoTransaction,acknowledgement:Byte=13){
                             val requestId=nextRequestId++
