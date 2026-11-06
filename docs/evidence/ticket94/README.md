@@ -1,13 +1,14 @@
 # Unified redesign release verification (#94)
 
-Current repair source is `7d9d79f26d36574983f4e60bd0c46be75f8ee75b`
-(K). Focused ChatQueue10/17 `42228886016` / `42228890462` and FeedRedesign10/17
-`42228894833` / `42228899217` are running. Earlier complete H/I runs have failed
-partitions and cannot establish final acceptance. Original import checks on I
-passed on both SDKs, including actual process recovery and both native reviews.
+Current diagnostic source is `e604077c0de054617e82c1eaaca62b70e6b2fa39`
+(M). K feed scopes passed both SDKs; K ChatQueue passed12/13, retaining a
+45px visible Members target against the original48dp minimum. A genuine owned
+scroll plus actual offset/max observation now distinguishes incomplete reveal
+from end-of-content clipping, runs42231372442/42231376659. L notification-return
+root-safe checks run42230449212/42230453611. Final complete proof remains pending.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
-producer input paths, modes, types and blobs are equal from B to K. The later
+producer input paths, modes, types and blobs are equal from B to M. The later
 changes correct instrumentation only. See `candidate89-producer-equivalence.json`.
 The actual artifact, release configuration and original update observations retain
 their separate provenance. Stable latest remains 83.
@@ -399,3 +400,19 @@ unchanged physical48dp check and real click. Original identity/envelope/queue/
 backend/no-transmission/cancel/recovery assertions and bounds remain. Both source
 review axes zero findings. Thin originals: failures/fullI-social10 and
 fullH-chat10/-17. Fresh K focus, full gates and final native review remain pending.
+
+
+K FeedRedesign10/17 pass42228894833/42228899217, retaining all original reading,
+refresh, link, writing and motion assertions. K ChatQueue10/17 pass12/13 each,
+with node switching corrected but Members still45visiblepx after semantic scroll.
+Source/native reviews cannot distinguish remaining travel from layout overflow
+without real scroll values/max. M records those values around a genuine owned
+upward swipe, then retains original48dp native bounds and real physical click.
+No acceptance waiver or producer fix is inferred. Both M source axes0.
+
+I10 Chat also fails1/12 SocialPushTap at immediate post-notification dialog
+assertion with no Compose root. Later native dialog/Done are present; empty
+crash logs are limited evidence. L reuses root-safe observation and shares the
+original15s Conversation arrival budget across dialog wait/Done/Conversation.
+Both source axes0; focused execution and final full proof remain pending.
+Both I full Wallet jobs pass. All earlier failed full runs remain failed.

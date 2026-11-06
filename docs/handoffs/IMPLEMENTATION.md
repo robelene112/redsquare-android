@@ -8,51 +8,55 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: focused final fixture repairs on K
+## ACTIVE: physical Members discriminator M, push-return observation L
 
-CODE source: 7d9d79f26d36574983f4e60bd0c46be75f8ee75b (K).
-J9484d5784 adds actual initial feed content/Refresh readiness within the SHARED
-original15s initial budget before scrolling to post10. Full I10 Social42225564555
-failed in3.734s with empty list and actual Loading posts capture. Original exact
-post/pixel/thread/profile/draft assertions remain. Source review axes zero.
+CODE M: e604077c0de054617e82c1eaaca62b70e6b2fa39, branchcodex/unified-redesign,
+worktree/mnt/storage/redsquare-android-artifacts/redesign86. Root soleimplementer.
+#90/#93/#81/#83CLOSED, #94stillOPEN. Continueauthorizedfive-ticket+beta sequence.
 
-K additionally strengthens the existing15s FeedWritingViewport readiness predicate
-with exact body PRESENCE (preserves scroll) and Refresh, before the200% Quote
-scroll. Bounded audit:61withAppFrameFixture files/54Later sites, no other definite
-initial empty-feed omissions. All Conversation callers already await body.
-K corrects ChatQueue's group-scope Settings waits to actual Node category before
-backend choices, and fully reveals clickable Members before unchanged physical
-48dp assertion. H10/17 Chat both fail2/13 ChatQueue methods (11pass): backend
-choice awaited at Settings index; Members parent48px clips3px at viewportbottom,
-so visible45px. Original noTx/relay/envelope/wallet/backend/cancel/recovery remain.
-Both K source axes zero unresolved findings. No producer input or testID changes.
+K FeedRedesign10/17 PASS42228894833/42228899217. EarlierJreadinessbothPASS
+42228449300/42228452911. Readinginitial15s shareddeadlineandWritingexisting15s
+contentpresence/Refresh guard retained. Actualpost10/pixel/draft/IME remains.
+Packetsfocused-feedK-10/-17 (206/205PNG,185XML). Standardsagentreviewing targeted
+48writingpairs+2anchors now; nofullfinalnativeclaim.
+K ChatQueue10/17 FAILED42228886016/42228890462,12/13eachPASS. Nodecategory
+correctionnowpasses; onlyMembers visible45px aftersemantic .performScrollTo
+stillfailsoriginal48minimum. Actualclickparent[24,499][108,547]48px intersects
+scrollviewportbottom544. No current/maxscrollrecordyet, so cannotclassify solely
+asobserverorprodbug. Bothsource/nativeaxesconfirmthatuncertainty.
+M performs genuineupwardswipeINSIDE ownedConversationinformationandcontrols,
+records actualbefore/max/after/max in group-cancel-members-scroll.json, then
+UNCHANGEDphysical48check/realMemberstap/queue/noTx/isolation/cleanup. Bothsource
+reviews0. Focused six originalgroupmethodsRUNNING10:42231372442,17:42231376659.
+If finiteENDstillclips45, fixactualproducerlayout; do NOTlower48 ordeclarepass.
+If realtravelrestores48 andallassertspass, fixture revealwasincomplete.
 
-RUNNING focused exact K through immutable tag proof-redesign94-7d9d79f:
-- ChatQueue10:42228886016;17:42228890462.
-- FeedRedesign10:42228894833;17:42228899217.
-Earlier JFeedRedesign10/17 also running42228449300/42228452911; do not cancel.
-I full10/17 still have running jobs42225564555/42225947593, but I10Social already
-FAILED. PriorH10full42220261090 completeFAILED (SocialPASS, Wallet/ChatFAIL).
-PriorH17full42220264070 WalletPASS/ChatFAIL, Socialstillrunning atlatestpoll.
-None is complete final K acceptance. Preserve original failures in ticket94/
-failures/fullI-social10 and fullH-chat10/-17. All raw partitions downloaded for
-H10 and H17wallet/chat externally; don't redownload same directories.
+L e7541a38a root-safe notificationreturn: I10Chatfull42225564555 fails1/12
+SocialPushTap at340, immediateConnectiondetails assert hasnoComposeroot during
+Androidreturn; laternativecorrectdialogandDone, emptycrashlog(noabsoluteclaim).
+L waitsactualtitle usingexistingroot-safehelperand shares originalConversation
+15s budget via monotonicdeadline, preservesrealDone/noConversationuntilclose/
+body/drafts/intentchecks. Bothsourceaxes0. LSocialPushfocusRUNNING10:42230449212,
+17:42230453611. ThinoriginalfullI-chat10; externalrawpushI10failure.
 
-Both focused I original import scopes PASS42224555629/42224560097, both native
-axes all48PNG/4XML, zero findings;151.695s/202.639s inside300s. Entry252×48px,
-identity/recreation/failedsave/risk/storage/actualprocess checks pass. Limits:
-narrow/light, non-atomic captures and assertion-based exact persistence.
+AllHfullscompleteFAILED:10SocialPASS/WalletFAIL/ChatFAIL;17SocialPASS/WalletPASS/
+ChatFAIL. I10fullcompleteFAILED(Socialempty-feed,Chatrootless;WalletPASS).
+I17full42225947593stillSocial/Chatrunning,WalletPASS. Keepalloutcomesseparate.
+RawH10/H17all3partitionsdownloadedexternally. RawI10Social/Chatdownloaded, no
+I10Walletdownloadneeded. OriginalHChat2/13bothretainedfullH-chat10/-17.
+Kqueuefailedoriginals retainedfailures/focusedK-queue10/-17.
 
-All440producer paths/modes/types/blobs equal B→K; signed89 producerB, SHA256
-6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5. Stable latest83,
-89 staged/not promoted. Receipt updated toK; actual artifact/update proof B
-remain distinct. Native final selection plans nowK/artifactB, no final reviewyet.
-After focused repairs pass, dispatch fresh COMPLETE K10/17 using same exact tag,
-public reads true, frozen collector/catalog unchanged. On successful all3jobs/SDK,
-download full, run frozen collector exactK, actual two-axis cross-module native/
-motion review, promote exact89 unchangednotes, verifypublic, commit/close94only.
-Owner-approved node restart already fulfilled and nodecaughtup; no further
-production mutation. No local builder or implementation agent active.
+440producer paths/modes/types/blobs remain B→M equal; receiptupdatedM. Signed89
+producer95725b005d086c970118054e78046db10563a76c, hash6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5,
+stablelatest83,89stagedNOTpromoted. IfMprovesproducerdefectandproducerchanges,
+89cannotbefinal: newcandidate/updateproofsneeded. No silentartifactreuse then.
+AfterALLknownrepairs/focuspass, freshcompleteFINAL10/17 on exactimmutabletag,
+publicreadstrue, frozencatalog/collector unchanged. All3jobs/SDKmustsucceed;
+thenfrozencollector exactsource, actualtwo-axis finalcross-modulenative/motion,
+exactcandidatepromotion/verify/commitclose94only. Keep1/36/55/84 independent.
+Finalnativeexternalplans nowM/artifactB, notyetreviewed. Ownerapprovedonerestart
+alreadyfulfilled, synchronizednode, nofurtherproductionmutation. Nolocalbuilder.
+Currentuncommittedproofs/docsneedretaining; donotredownloadexistingrawpaths.
 
 ## Previous full H verification
 
