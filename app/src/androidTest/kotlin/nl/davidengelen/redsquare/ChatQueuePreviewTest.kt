@@ -187,6 +187,23 @@ class ChatQueuePreviewTest {
                         // Lazy search can stop once a target intersects the viewport.
                         // Reveal the entire real button before the unchanged 48dp check.
                         ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().assertIsDisplayed()
+                        // Distinguish incomplete semantic reveal from a clipped target
+                        // at the actual end of this independently scrollable dialog.
+                        val information=ui.onNodeWithContentDescription("Conversation information and controls")
+                        fun position():Pair<Float,Float> {
+                            val axis=information.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange]
+                            return ui.runOnIdle { axis.value() to axis.maxValue() }
+                        }
+                        val beforePhysicalScroll=position()
+                        information.performTouchInput { swipeUp() }
+                        val afterPhysicalScroll=position()
+                        File(context.cacheDir,"chat-queue-evidence/group-cancel-members-scroll.json").writeText(
+                            com.google.gson.JsonObject().apply {
+                                addProperty("before",beforePhysicalScroll.first)
+                                addProperty("beforeMaximum",beforePhysicalScroll.second)
+                                addProperty("after",afterPhysicalScroll.first)
+                                addProperty("afterMaximum",afterPhysicalScroll.second)
+                            }.toString())
                         val members=physicalChatAction(scenario,"members-action",action="Members")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(members.centerX(),members.centerY()))
