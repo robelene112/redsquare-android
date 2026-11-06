@@ -24,13 +24,47 @@ class DestinationRevealMotionTest {
             val folder = File(context.cacheDir, "destination-reveal-evidence").apply { mkdirs() }
             withAppFrameFixture("search-$scale", "destination-reveal-evidence") { activity ->
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
+                val preparationDeadline = SystemClock.elapsedRealtime() + 5_000
                 requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
-                val action = requireNotNull(device.findObject(By.text("Search"))).visibleBounds
+                var previous: Rect? = null
+                var action: Rect? = null
+                val preparation = JsonArray()
+                withFailureCapture({ File(folder, "scale-$scale-search-preparation.json").writeText(preparation.toString()) }) {
+                    while (SystemClock.elapsedRealtime() < preparationDeadline && action == null) {
+                        val nodes = nativeWindowNodes()
+                        val bannerGone = nodes.none { it.text?.toString() == "Back up your wallet" && it.isVisibleToUser }
+                        val refreshReady = nodes.any { node -> node.isEnabled && node.isVisibleToUser &&
+                            node.actionList.any { it.label?.toString() == "Refresh" } }
+                        var target = device.findObject(By.text("Search"))
+                        while (target != null && !target.isClickable) target = target.parent
+                        val bounds = target?.visibleBounds?.takeIf {
+                            it.width() >= 48 * context.resources.displayMetrics.density &&
+                                it.height() >= 48 * context.resources.displayMetrics.density
+                        }
+                        preparation.add(JsonObject().apply {
+                            addProperty("elapsedMillis", SystemClock.elapsedRealtime())
+                            addProperty("bannerGone", bannerGone); addProperty("refreshReady", refreshReady)
+                            addProperty("searchBounds", bounds?.toShortString())
+                        })
+                        if (bannerGone && refreshReady && bounds != null && previous == bounds) action = Rect(bounds)
+                        previous = if (bannerGone && refreshReady) bounds else null
+                        if (action == null) SystemClock.sleep(16)
+                    }
+                    check(action != null && SystemClock.elapsedRealtime() <= preparationDeadline) {
+                        "The original five-second preparation budget requires settled navigation and completed feed loading"
+                    }
+                    observeModuleWindowMotionScale(activity, scale, folder)
+                    File(folder, "scale-$scale-window.json").copyTo(
+                        File(folder, "scale-$scale-window-before.json"), overwrite = true)
+                    check(SystemClock.elapsedRealtime() <= preparationDeadline)
+                    File(folder, "scale-$scale-search-preparation.json").writeText(preparation.toString())
+                }
+                val readyAction = requireNotNull(action)
                 val file = File(folder, "scale-$scale-search.mp4")
                 var titleDeadline = 0L
                 val recording = recordNativeTransition(file, recordingSeconds = 4) {
                     titleDeadline = SystemClock.elapsedRealtime() + 5_000
-                    check(device.click(action.centerX(), action.centerY()))
+                    check(device.click(readyAction.centerX(), readyAction.centerY()))
                 }
                 // Native hierarchy snapshots can block the main thread. Observe readiness
                 // after recording, within the original budget measured from the actual tap.
