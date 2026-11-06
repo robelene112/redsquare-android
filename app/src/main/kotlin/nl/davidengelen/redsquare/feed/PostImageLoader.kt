@@ -45,6 +45,9 @@ internal object PostImageLoader {
                 val bytes = bytes(source, backend)
                 currentCoroutineContext().ensureActive()
                 val bitmap = decode(bytes)
+                // Queue the initial texture upload on this decoding worker before the
+                // raster becomes visible, instead of paying for it in its first frame.
+                bitmap.prepareToDraw()
                 currentCoroutineContext().ensureActive()
                 cache.put(key, bitmap)
                 bitmap
