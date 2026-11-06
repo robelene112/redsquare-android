@@ -2005,3 +2005,17 @@ Four additive methods require519/520 identities,156/157 normal completions,
 35 deliberate interruptions,34 continuity records and117 archives. Full
 execution/source/run bindings remain pending. All three partitions in each
 complete run must succeed. No focused/failure assembly is authorized.
+
+
+P17 Chat completes with the same original attachment-focus observer failure
+(line65), retained under failures/fullP-chat17. It does not introduce a new
+identified defect; Q focused viewer passes on both SDKs. P10 Social passes.
+Q17 full Wallet now passes; remaining Q partitions still run. No full acceptance.
+
+
+Both P complete runs are now FAILED. P10: Wallet policy observer, SocialPASS,
+Chat original attachment-focus observer. P17: Wallet/SocialPASS, Chat same
+attachment-focus observer. Original P10Chat evidence is in failures/fullP-chat10.
+Q corrects both known observations; both focused scopes pass on both SDKs and
+both complete Q Wallet partitions pass. Q Social/Chat remain active. No other
+identified assertion failure in these inspected P packets. No full acceptance.
