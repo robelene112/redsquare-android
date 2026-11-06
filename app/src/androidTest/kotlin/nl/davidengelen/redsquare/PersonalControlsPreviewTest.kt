@@ -226,11 +226,8 @@ class PersonalControlsPreviewTest {
                 ui.openProfileActions()
                 waitFor("Mute account")
                 muteAccount()
-                waitFor("Block account")
-                ui.onNodeWithText("Block account").performClick()
-                waitFor("Block hides this account's posts, social notifications and incoming Chat messages.")
-                ui.onNodeWithText("Block", substring = false).performClick()
-                waitFor("Unblock account")
+                confirmAccountControl("Block account", "Block",
+                    "Block hides this account's posts, social notifications and incoming Chat messages.", "Unblock account")
                 // Block must hide social content independently of Mute.
                 ui.onNodeWithText("Unmute account").performClick()
                 waitFor("Mute account")
@@ -843,12 +840,24 @@ class PersonalControlsPreviewTest {
         check(marker.delete() && obstruction.delete())
     }
 
-    private fun muteAccount() {
-        waitFor("Mute account")
-        ui.onNodeWithText("Mute account").performClick()
-        waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-        ui.onNodeWithText("Mute", substring = false).performClick()
-        waitFor("Unmute account")
+    private fun muteAccount() = confirmAccountControl("Mute account", "Mute",
+        "Mute hides this account's posts and social notifications. Chat messages remain available.", "Unmute account")
+
+    private fun confirmAccountControl(label: String, action: String, detail: String, activeLabel: String) {
+        // Profile actions shows a descriptive title plus a short action; the saved
+        // choices list uses the full label. Select a real button in either surface.
+        val entry = (hasText(label) or hasText(action)) and hasClickAction() and isEnabled()
+        ui.waitUntil(15_000) { ui.onNode(entry).isDisplayed() }
+        ui.onNode(entry).performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
+        // The explanation is also inline in Profile actions. A genuine confirmation
+        // additionally owns Cancel; its action must not resolve to the button behind it.
+        val dialog = isDialog() and hasAnyDescendant(hasText(label)) and
+            hasAnyDescendant(hasText("Cancel") and hasClickAction())
+        val confirmation = hasText(action) and hasClickAction() and hasAnyAncestor(dialog)
+        ui.waitUntil(15_000) { ui.onNode(confirmation).isDisplayed() }
+        ui.onNode(hasText(detail) and hasAnyAncestor(dialog)).assertIsDisplayed()
+        ui.onNode(confirmation).assertIsEnabled().performClick()
+        waitFor(activeLabel)
     }
 
     private fun showStandalonePost(text: String): SemanticsNodeInteraction {
