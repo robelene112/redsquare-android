@@ -120,10 +120,31 @@ class LoadedMediaMotionTest {
         var deliveryFailure: Throwable? = null
         val movie = File(folder, "scale-$scale-$name.mp4")
         var deliveryDeadline = 0L
-        val recording = recordNativeTransition(movie, recordingSeconds = 4) {
-            deliveryDeadline = SystemClock.elapsedRealtime() + 10_000
-            try { deliver() } catch (failure: Throwable) { deliveryFailure = failure }
-        }
+        val frameSampler = java.util.concurrent.Executors.newSingleThreadExecutor()
+        var sampling: java.util.concurrent.Future<JsonArray>? = null
+        val recording = try {
+            recordNativeTransition(movie, recordingSeconds = 4) {
+                deliveryDeadline = SystemClock.elapsedRealtime() + 10_000
+                val main = android.os.Looper.getMainLooper().thread
+                sampling = frameSampler.submit<JsonArray> {
+                    val captured = JsonArray()
+                    val until = SystemClock.elapsedRealtime() + 500
+                    while (SystemClock.elapsedRealtime() < until) {
+                        val observed = SystemClock.elapsedRealtimeNanos()
+                        val stack = main.stackTrace
+                        captured.add(JsonObject().apply {
+                            addProperty("elapsedNanos", observed)
+                            addProperty("completedNanos", SystemClock.elapsedRealtimeNanos())
+                            add("stack", JsonArray().apply { stack.forEach { add(it.toString()) } })
+                        })
+                        SystemClock.sleep(8)
+                    }
+                    captured
+                }
+                try { deliver() } catch (failure: Throwable) { deliveryFailure = failure }
+            }
+        } finally { frameSampler.shutdown() }
+        File(folder, "scale-$scale-$name-main-stacks.json").writeText(requireNotNull(sampling).get(2, TimeUnit.SECONDS).toString())
         // Keep SurfaceFlinger screenshot capture out of the recorded transition itself.
         // The original10s delivery budget still starts when the packet is released.
         if (deliveryFailure == null) try {
