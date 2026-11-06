@@ -1,10 +1,12 @@
 # Unified redesign release verification (#94)
 
-Current verification source is `08be1b3b95d2e89fef7c73406264d0ed202b110b`
-(H). Complete Android 10/17 runs `42220261090` / `42220264070` are still running.
+Current repair source is `f2dc6c2ddc0148c4839d44b60787df99a34d661e`
+(I). Complete H runs `42220261090` / `42220264070` still have active jobs, but
+Android 10 Wallet has failed. Original import focused checks now run on I as
+`42224555629` / `42224560097`.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
-producer input paths, modes, types and blobs are equal from B to H. The later
+producer input paths, modes, types and blobs are equal from B to I. The later
 changes correct instrumentation only. See `candidate89-producer-equivalence.json`.
 The actual artifact, release configuration and original update observations retain
 their separate provenance. Stable latest remains 83.
@@ -349,3 +351,14 @@ payload equality and no replay rely on assertions and checkpoint data, not
 screenshots alone. Android 17 warning XML had clipped bounds while the PNG
 painted both complete lines. These focused observations do not replace the
 complete H catalog or final cross-module native/motion review.
+
+
+Full H Android 10 Wallet failed one of seven import methods: after a successful
+real export, the test attempted an offscreen Import action and never observed
+the picker. Six other methods passed. Original native/log evidence is retained
+in `failures/fullH-wallet10`. Repair I scrolls to and asserts the actual enabled,
+displayed Import entry before touching it, and captures that entry during wallet
+activation. Both source review axes have zero unresolved findings. Runtime
+confirmation is pending; no picker or production defect is inferred. Original
+assertions, deadlines and test identities remain. Other H partitions continue;
+none can turn this failed complete run into full acceptance.

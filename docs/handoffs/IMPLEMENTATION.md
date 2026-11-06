@@ -8,7 +8,22 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: fullH verification running after all targeted repairs passed
+## ACTIVE: import-entry repair I, focused verification running
+
+Current CODE source: f2dc6c2ddc0148c4839d44b60787df99a34d661e (I).
+H full10 Wallet failed one of seven WalletImportPreview methods at picker-root
+selection. Native original shows wallet plus saved-backup status, clipped Export,
+no visible Import/picker. Six other methods passed. I reveals the real Import
+entry before touch and adds a preactivation capture. No producer input, original
+assertion, deadline or identity changes. Both source axes zero unresolved findings.
+Hypothesis still needs runtime confirmation. Targeted import checks running:
+10:42224555629; 17:42224560097. Other H full jobs remain active; do not cancel or
+assemble into a false pass. Retained failure: ticket94/failures/fullH-wallet10.
+Producer equivalence receipt now verifies all 440 B→I inputs. Signed89 unchanged,
+stable latest83. After focused results, a fresh successful complete I source is
+required. Prior H status below is historical except its still-running jobs.
+
+## Previous full H verification
 
 Final CODE consumerH08be1b3b95d2e89fef7c73406264d0ed202b110b. Signed89 producer
 source remains95725b005d086c970118054e78046db10563a76c; exact APK hash remains

@@ -1,0 +1,14 @@
+{
+  "run": 42220261090,
+  "source": "08be1b3b95d2e89fef7c73406264d0ed202b110b",
+  "walletJob": 127900246451,
+  "walletConclusion": "failure",
+  "fullRunStillRunningAtObservation": true,
+  "failedTest": "WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+  "line": 490,
+  "passingOtherMethods": 6,
+  "nativeObservation": "Wallet remains visible with backup-saved status; export text clipped to one pixel; no import action or picker visible.",
+  "hypothesis": "Import touch before scrolling misses offscreen action. Runtime confirmation remains pending.",
+  "repairSource": "f2dc6c2ddc0148c4839d44b60787df99a34d661e",
+  "originalBoundsAndIdentitiesUnchanged": true
+}
