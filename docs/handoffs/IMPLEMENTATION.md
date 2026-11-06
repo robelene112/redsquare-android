@@ -8,6 +8,28 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
+## Node recovery explicitly authorized and started on6November
+
+David answered yes to one controlled saito.service restart plus bounded sync checks.
+Do not ask again. The restart succeeded at11:08:07UTC on live netcup; PID changed
+2553910→3257586, service active/running. Initial Docker attempt lacked root and
+failed before contacting systemd; explicit --user0:0 then succeeded, exactly one
+actual service restart. No config/source/wallet/database edits. HTTP initially502
+while native block loading runs. External bounded600s readonly probe session63545
+uses public disposable-emulator address only, writes
+`/mnt/storage/redsquare-android-artifacts/redesign94-node-recovery-observations.jsonl`.
+It checks every20s, requires two fresh matching owner/official tip observations,
+and never restarts the service. At11:10 loading remains active, HTTP port not yet
+listening. No successful recovery or cause claimed yet.
+
+Final full collector requires metadata.headSha and proof-workflow/source all equal
+the executing source. To test exact signed89 source95725b, dispatch via a dedicated
+Git tag pointing at95725b rather than current documentation HEAD59834b. Tag
+`proof-redesign94-95725b0` was absent at11:10; create/check it before full dispatch.
+Then full10/17 all3partitions, exact original gates/catalog; native final review,
+exact89 promotion and close94 only after real acceptance. Previous permission
+wording below is historical and superseded by this approval.
+
 ## Active #94: finish independent repairs, then authorized node recovery and final beta
 
 Current implementation/build source: `95725b005d086c970118054e78046db10563a76c`, branch

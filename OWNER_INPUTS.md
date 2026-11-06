@@ -118,20 +118,14 @@ door placeholders om een issue te kunnen sluiten.
 
 ## Beheeractie voor de achterlopende node (#94)
 
-- [ ] Toestemming voor een concrete herstelactie aan de productie-node. Een
-  mogelijke eerste stap is één gecontroleerde herstart van `saito.service`,
-  gevolgd door begrensde controle op synchronisatie en actuele saldosnapshots.
-  De agent doet de technische uitvoering en vraagt de concrete actie ter
-  goedkeuring zodra het zelfstandige appwerk gereed is. De oorzaak en het
-  resultaat van een herstart staan nog niet vast.
+- [x] David heeft op6november expliciet toestemming gegeven voor één gecontroleerde
+  herstart van `saito.service`, gevolgd door controle van synchronisatie en actuele
+  saldosnapshots. De herstart is uitgevoerd om11:08:07UTC; het nieuwe proces heeft
+  PID3257586. De toestemming hoeft niet opnieuw te worden gevraagd.
+- [ ] De begrensde opstart- en synchronisatiecontrole moet nog slagen. Een draaiend
+  proces alleen is geen bewijs van HTTP-bereikbaarheid of actuele blokgegevens.
 
-Alleen-lezen vastgesteld op 6 november rond 07:49 UTC: jouw node leverde
-block1180213 met tijdstip 5 november 02:30:55 UTC, ruim29 uur oud. De actuele
-snapshot van Saito.io en beide ingestelde upstreams waren recent. De service
-draait en blockproductie blijft uitgeschakeld. Er zijn geen nodeconfiguraties,
-wallets, databases of services gewijzigd.
-
-De app weigert dit oude saldo terecht als actueel te tonen. De bestaande
-vijftienminutengrens wordt behouden. Daardoor kan de verplichte openbare
-saldo-acceptatie op jouw node nog niet slagen. Dit is een echte beheerafhankelijkheid,
-geen ontbrekende KVK-invoer, en wordt niet met een placeholder afgetekend.
+Voor de herstart leverde jouw node block1180213 van5november02:30:55UTC. De app
+weigerde dat oude saldo terecht als actueel te tonen; de vijftienminutengrens
+blijft behouden. Het resultaat van de herstart wordt nog gecontroleerd. Er zijn
+geen nodeconfiguraties, wallets of databases gewijzigd.
