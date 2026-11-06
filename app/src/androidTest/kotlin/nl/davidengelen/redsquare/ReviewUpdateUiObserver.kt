@@ -111,7 +111,7 @@ class ReviewUpdateUiObserver {
             // authored caption AND public identity/time, not old text layout.
             requireNotNull(card.findObject(By.descStartsWith("Post actions for "))).click()
             find(text("Public identity")).click()
-            val author = find(By.textMatches("[1-9A-HJ-NP-Za-km-z]{44}")).text
+            val author = find(By.text(java.util.regex.Pattern.compile("[1-9A-HJ-NP-Za-km-z]{44}"))).text
             val published = find(By.textStartsWith("Published ")).text
             val cachedPost = JSONObject().put("caption", observedCaption).put("author", author).put("published", published)
             if (expectedPost != null) {

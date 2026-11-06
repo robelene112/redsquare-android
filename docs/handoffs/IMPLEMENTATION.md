@@ -37,7 +37,13 @@ for stage/promote. Latest-before-stage bytes are retained beside that file.
 Raw failed84 downloads are `redesign94-candidate84-update10-42163060906` and
 `redesign94-candidate84-update17-42163063495` under that artifact root; selected
 failure native/log/download/restoration receipts are committed under ticket94.
-No build is active before the next candidate85 build. Both review agents idle.
+Candidate85 was then built/staged at source25b536a87df5fc11a5222e14a51652ec2efe420f,
+SHA25668831b751707f9b16693faf515a69895a5e4a4488619563dcbd8ba15e685afa8.
+Its42164735390/42164737915 failed instrumentation compilation at By.textMatches.
+The actual API is By.text(Pattern), now corrected and locally compiled SUCCESS
+in2m10s. Build/stage candidate86 next, on this new exact source. Do not promote84
+or85. Stable latest remains83, shared version counter85. No full94 run yet.
+Both review agents idle; their last logical/source findings are resolved.
 Root47GB/storage49GB free last observed; use the additional disk for artifacts.
 
 ## #83 complete, continue #94 and publish beta

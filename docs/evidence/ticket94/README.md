@@ -57,3 +57,11 @@ caption equality, plus the actual post's public key and Published timestamp.
 It retains the full observed native text for capture readiness, allowing the
 approved URL-to-link-card layout change without inventing observed values.
 Revised runtime verification and the final signed candidate remain required.
+
+Candidate85, source25b536a87df5fc11a5222e14a51652ec2efe420f,
+SHA25668831b751707f9b16693faf515a69895a5e4a4488619563dcbd8ba15e685afa8,
+was staged without changing latest83. Its observations42164735390/42164737915
+stopped at instrumentation compilation because UiAutomator has By.text(Pattern),
+not By.textMatches. No native update result is claimed for85. The API call is
+corrected; local instrumentation compilation passed in2m10s. A new exact-source
+candidate and both runtime update observations remain required.
