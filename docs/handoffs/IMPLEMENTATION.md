@@ -8,7 +8,53 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: complete final verification on P, aggregate resource ceiling corrected
+## ACTIVE: complete final verification Q, focused TalkBack repairs pass
+
+CODE Q: `4f2bd89f49a4fc2b01c989b452b9ff675f82620b`, same worktree and branch.
+#90/#93/#81/#83 closed; #94 remains open. Root sole implementer.
+
+Complete Q runs, immutable tag `proof-redesign94-4f2bd89`, exact source/workflow Q,
+all three partitions, public reads true, aggregate ceiling120minutes:
+- Android10: https://github.com/robelene112/redsquare-android/actions/runs/42252100677
+- Android17: https://github.com/robelene112/redsquare-android/actions/runs/42252105477
+Do not cancel or duplicate. Successful complete collector and actual final
+cross-module native/motion reviews remain required before exact89 promotion.
+Use fresh raw folders `redesign94-fullQ10-42252100677` and
+`redesign94-fullQ17-42252105477`, then collector labels `finalQ-android10` and
+`finalQ-android17`, exact Q source. External final review plans now source Q.
+
+Q changes only three androidTest files. Real TalkBack keyboard navigation reached
+and spoke Image1of2 on a parent whose own description was null. Q reads the
+actual accessibility-focused subtree's description for origin and return.
+Policy10's delayed screen-state event replaced requested owner-radio focus with
+Back to Settings19ms later. Q waits for fresh actual Back focus and completed
+Back speech before reacquiring the real radios and requesting owner focus once.
+The entire handoff/lookup/owner-focus shares the original5seconds; contextual
+speech retains10seconds. No repeated refocus, synthetic attachment focus,
+changed acceptance identity or larger UI/class/process limit.
+
+Both policies scopes pass42250713411/42250717521; both viewer scopes pass
+42250722126/42250726202. Focused packets `focused-policiesQ-10/-17` retain20PNG/
+21XML each; `focused-viewerQ-10/-17` retain8PNG/10XML each, original runtime,
+service/engine and real keyboard evidence. Both Q source review axes zero;
+actual targeted native reviews both zero (Standards56PNG/62XML, Spec32PNG/62XML,
+18speech records each). Limits recorded in evidence README. Original failures retained under
+`failures/fullP-wallet10` and `failures/fullN-chat10`.
+
+Earlier P complete10 has failed Wallet due to the now-corrected policy observer;
+P17 Wallet passes. Other P partitions still execute and must be inspected.
+N10 Wallet passes, Social callback and Chat focus observer fail; N17 Wallet
+passes, Chat/Social hit the old75minute watchdog (Chat also records viewer
+assertion). These remain failed/incomplete and cannot replace Q acceptance.
+
+Signed89 remains actual source B, staged and NOT promoted; stable latest83.
+Updated receipt explicitly records439 equal audited APK-input-superset paths
+B→Q and the original440-path inequality from the sole non-APK CI workflow
+change. Full revision/debug-release binary equality is not claimed. Actual
+signed update B observations remain separate. The one approved production
+restart was completed11:08:07UTC; no further production mutation authorized.
+
+## Previous P verification, superseded by Q
 
 CODE P: 7a0a85ed3ada21c6300b099c4b2702a7daaff2f5. Worktree
 /mnt/storage/redsquare-android-artifacts/redesign86; branchcodex/unified-redesign.
