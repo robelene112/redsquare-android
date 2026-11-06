@@ -27,34 +27,74 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 
+/** One accessible sender header for a visual sequence of individually signed messages. */
+@Composable
+internal fun ChatSenderHeader(author: String, onIdentity: (String) -> Unit) {
+    val identity = registeredIdentity(author).name
+    val label = stringResource(R.string.chat_message_identity_for, identity)
+    Row(Modifier.fillMaxWidth(0.94f).heightIn(min = 48.dp)
+        .clickable(role = Role.Button, onClickLabel = label) { onIdentity(author) }
+        .semantics { contentDescription = label }.padding(horizontal = 12.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        ProfileAvatar(author, Modifier.size(32.dp).clip(CircleShape))
+        Text(identity, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium)
+    }
+}
+
 /** The same readable message surface for private and unencrypted group conversations. */
 @Composable
 internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, outgoing: Boolean,
     backend: SaitoBackend, selectable: Boolean = false, actions: (@Composable () -> Unit)? = null,
-    onQuote: (String) -> Unit, onIdentity: ((String) -> Unit)? = null) {
-    Surface(Modifier.fillMaxWidth(0.94f), shape = RoundedCornerShape(
+    onQuote: (String) -> Unit, onIdentity: ((String) -> Unit)? = null, showIdentity: Boolean = true) {
+    val identity = registeredIdentity(author).name
+    val senderDescription = stringResource(R.string.chat_message_from, identity)
+    val timestamp = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH).format(Date(createdAt))
+    val messageContent: @Composable () -> Unit = {
+        if (selectable) SelectionContainer { PrivateMessageText(text, backend, onQuote) }
+        else PrivateMessageText(text, backend, onQuote)
+    }
+    val time: @Composable (Modifier) -> Unit = { modifier ->
+        Text(timestamp, modifier, style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+    val media = remember(text) { chatPhoto(privateMessageBody(text)) != null }
+    Surface(Modifier.fillMaxWidth(0.94f).then(if (showIdentity) Modifier else
+        Modifier.semantics { contentDescription = senderDescription }), shape = RoundedCornerShape(
         topStart = 16.dp, topEnd = 16.dp,
         bottomStart = if (outgoing) 16.dp else 4.dp,
         bottomEnd = if (outgoing) 4.dp else 16.dp),
         color = if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
         contentColor = if (outgoing) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
-        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                val identity = registeredIdentity(author).name
-                if (onIdentity == null) {
-                    Text(identity, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium)
-                } else {
+        Column(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            if (showIdentity) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     val label = stringResource(R.string.chat_message_identity_for, identity)
-                    Text(identity, Modifier.weight(1f).heightIn(min = 48.dp)
+                    val target = if (onIdentity == null) Modifier else Modifier.heightIn(min = 48.dp)
                         .clickable(role = Role.Button, onClickLabel = label) { onIdentity(author) }
-                        .semantics { contentDescription = label }, style = MaterialTheme.typography.labelMedium)
+                        .semantics { contentDescription = label }
+                    Box(Modifier.weight(1f).then(target), contentAlignment = Alignment.CenterStart) {
+                        Text(identity, style = MaterialTheme.typography.labelMedium)
+                    }
+                    actions?.invoke()
                 }
-                actions?.invoke()
+                messageContent()
+                time(Modifier)
+            } else if (media) {
+                // Keep images and their attribution at the complete bubble width.
+                messageContent()
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    time(Modifier.weight(1f))
+                    actions?.invoke()
+                }
+            } else {
+                Row(verticalAlignment = Alignment.Top) {
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        messageContent()
+                        time(Modifier)
+                    }
+                    actions?.invoke()
+                }
             }
-            if (selectable) SelectionContainer { PrivateMessageText(text, backend, onQuote) }
-            else PrivateMessageText(text, backend, onQuote)
-            Text(DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH).format(Date(createdAt)),
-                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
@@ -62,13 +102,15 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
 /** Contextual actions share the bubble's identity; callbacks retain each conversation's permissions. */
 @Composable
 internal fun ChatMessageActions(liked: Boolean, canLike: Boolean, canReply: Boolean,
-    onLike: () -> Unit, onReply: () -> Unit, onCopy: () -> Unit) {
+    onLike: () -> Unit, onReply: () -> Unit, onCopy: () -> Unit, onIdentity: (() -> Unit)? = null) {
     var expanded by remember { mutableStateOf(false) }
     Box {
         IconButton(onClick = { expanded = true }) {
             Icon(painterResource(R.drawable.ic_more), stringResource(R.string.chat_message_actions))
         }
         DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
+            if (onIdentity != null) DropdownMenuItem(text = { Text(stringResource(R.string.profile_identity_details)) },
+                onClick = { expanded = false; onIdentity() })
             DropdownMenuItem(text = { Text(stringResource(if (liked) R.string.chat_unlike else R.string.chat_like)) },
                 enabled = canLike, onClick = { expanded = false; onLike() })
             DropdownMenuItem(text = { Text(stringResource(R.string.post_reply)) }, enabled = canReply,

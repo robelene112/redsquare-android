@@ -440,15 +440,25 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     Text(stringResource(R.string.chat_reaction_retry))
                 }
             }
+            val groups = remember(visible) { chatVisualGroups(visible, { it.id }, { it.author }, { it.createdAt }) }
+            val renderedKeys = remember(groups) { groups.flatMap { listOf(it.headerKey) + it.messages.map { message -> message.id } } }
             ConversationContent(Modifier.weight(1f),
                 history = { historyModifier ->
-                    ConversationMessageList(visible.map { it.id }, "${wallet.publicKey}:${backend.id}:private:$contact",
+                    ConversationMessageList(renderedKeys, "${wallet.publicKey}:${backend.id}:private:$contact",
                         stringResource(R.string.chat_messages), historyModifier,
                         requestMessage = outgoingRequest, historyMessageKeys = entries.map { it.message.id },
-                        historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty()) { showMessage ->
-                        items(visible, key = { it.id }) { message ->
+                        historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp)) { showMessage ->
+                        groups.forEach { group ->
+                        item(key = group.headerKey) {
+                            Column(Modifier.fillMaxWidth().padding(top = 6.dp),
+                                horizontalAlignment = if (group.senderPublicKey == wallet.publicKey) Alignment.End else Alignment.Start) {
+                                ChatSenderHeader(group.senderPublicKey) { identityAuthor = it }
+                            }
+                        }
+                        items(group.messages, key = { it.id }) { message ->
                             val outgoing = message.author == wallet.publicKey
-                            Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                            Column(Modifier.fillMaxWidth().padding(vertical = 1.dp),
                                 horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
                                 var copyFailed by remember(message.id) { mutableStateOf(false) }
                                 val replyPrefix = remember(message) { privateReplyPrefix(message) }
@@ -460,14 +470,17 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                                             canReply = replies.replyTo != null && replyPrefix != null,
                                             onLike = { reactions.toggle(message, publishing::beforePublishing) },
                                             onReply = { replies.replyTo?.invoke(message) },
-                                            onCopy = { copyFailed = !copyPrivateMessage(context, message.text) })
+                                            onCopy = { copyFailed = !copyPrivateMessage(context, message.text) },
+                                            onIdentity = { identityAuthor = message.author })
                                     }, onQuote = { reference ->
-                                    val index = visible.indexOfFirst { it.author + it.createdAt == reference }
+                                    val messageId = visible.firstOrNull { it.author + it.createdAt == reference }?.id
+                                    val index = renderedKeys.indexOf(messageId)
                                     if (index >= 0) showMessage(index)
-                                }, onIdentity = { identityAuthor = it })
+                                }, onIdentity = { identityAuthor = it }, showIdentity = false)
                                 if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
                                 if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                             }
+                        }
                         }
                     }
                 }, composer = { composerModifier ->
