@@ -521,7 +521,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true
             val attachmentPermitted=editable&&loaded&&!readFailed
             val permitted=attachmentPermitted&&!preparingPhoto
-            val messageKeys = visible.map { it.id } + entry.queuedMessage?.let { listOf("queued:${it.candidate.id}") }.orEmpty()
+            val groups = remember(visible) { chatVisualGroups(visible, { it.id }, { it.author }, { it.createdAt }) }
+            val messageKeys = groups.flatMap { listOf(it.headerKey) + it.messages.map { message -> message.id } } +
+                entry.queuedMessage?.let { listOf("queued:${it.candidate.id}") }.orEmpty()
             LaunchedEffect(entry.group.id,entry.queuedMessage?.candidate?.id) {
                 if(entry.queuedMessage!=null)latestRequest++
             }
@@ -531,10 +533,17 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         messagesLabel, historyModifier,
                         historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && visible.isEmpty(),
                         requestLatest = latestRequest, historyMessageKeys = entry.messages.map { it.id }, requestMessage = outgoingRequest,
-                        verticalArrangement = Arrangement.spacedBy(8.dp)) { showMessage ->
-                        items(visible,key={it.id}){item->
+                        verticalArrangement = Arrangement.spacedBy(2.dp)) { showMessage ->
+                        groups.forEach { group ->
+                        item(key = group.headerKey) {
+                            Column(Modifier.fillMaxWidth().padding(top = 6.dp),
+                                horizontalAlignment = if (group.senderPublicKey == wallet.publicKey) Alignment.End else Alignment.Start) {
+                                ChatSenderHeader(group.senderPublicKey) { identityAuthor = it }
+                            }
+                        }
+                        items(group.messages,key={it.id}){item->
                             val outgoing=item.author==wallet.publicKey
-                            Column(Modifier.fillMaxWidth().padding(vertical=6.dp),
+                            Column(Modifier.fillMaxWidth().padding(vertical=1.dp),
                                 horizontalAlignment=if(outgoing)Alignment.End else Alignment.Start){
                                 var copyFailed by remember(item.id){mutableStateOf(false)}
                                 val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
@@ -550,14 +559,17 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                                 }
                                             }, onReply = {
                                                 if(!navigation.transitioning)replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
-                                            }, onCopy = {copyFailed=!copyPrivateMessage(context,item.text)})
+                                            }, onCopy = {copyFailed=!copyPrivateMessage(context,item.text)},
+                                            onIdentity = { identityAuthor = item.author })
                                     }, onQuote = { reference ->
-                                    val index=visible.indexOfFirst{it.author+it.createdAt==reference}
+                                    val messageId = visible.firstOrNull { it.author + it.createdAt == reference }?.id
+                                    val index = messageKeys.indexOf(messageId)
                                     if(index>=0)showMessage(index)
-                                }, onIdentity = { identityAuthor = it })
+                                }, onIdentity = { identityAuthor = it }, showIdentity = false)
                                 if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
                                 if(copyFailed)Text(stringResource(R.string.chat_copy_error))
                             }
+                        }
                         }
                         entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
                             val pending=queued.message
