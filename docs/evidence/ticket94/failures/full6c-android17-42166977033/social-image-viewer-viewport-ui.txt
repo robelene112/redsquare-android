@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageViewerViewportTest:
+INSTRUMENTATION_STATUS: test=viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with (ContentDescription = 'Image 1 of 2' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.exercise(ImageViewerViewportTest.kt:96)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6$lambda$5(ImageViewerViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$ISH0k8M0xUV--zO-uqltmNZ3qmI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6(ImageViewerViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$tsjcM1u6fgjEccjJjcagQDTdsKI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(ImageViewerViewportTest.kt:32)
+
+INSTRUMENTATION_STATUS: stream=
+Error in viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(nl.davidengelen.redsquare.ImageViewerViewportTest):
+java.lang.AssertionError: Assert failed: The component with (ContentDescription = 'Image 1 of 2' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.exercise(ImageViewerViewportTest.kt:96)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6$lambda$5(ImageViewerViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$ISH0k8M0xUV--zO-uqltmNZ3qmI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6(ImageViewerViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$tsjcM1u6fgjEccjJjcagQDTdsKI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(ImageViewerViewportTest.kt:32)
+
+INSTRUMENTATION_STATUS: test=viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.445
+There was 1 failure:
+1) viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(nl.davidengelen.redsquare.ImageViewerViewportTest)
+java.lang.AssertionError: Assert failed: The component with (ContentDescription = 'Image 1 of 2' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.exercise(ImageViewerViewportTest.kt:96)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6$lambda$5(ImageViewerViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$ISH0k8M0xUV--zO-uqltmNZ3qmI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6(ImageViewerViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$tsjcM1u6fgjEccjJjcagQDTdsKI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(ImageViewerViewportTest.kt:32)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -223,7 +223,19 @@ class FeedPreviewTest {
 
                     server.close()
                     ui.pullToRefresh("conversation-post-list")
-                    waitForText("Replies could not be refreshed. Available posts remain visible.")
+                    val outageDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+                    fun remainingOutageTime(): Long = (outageDeadline - android.os.SystemClock.elapsedRealtime()).also {
+                        check(it > 0) { "Conversation error guidance must be observed within the original fifteen seconds" }
+                    }
+                    ui.waitUntil(remainingOutageTime()) { ui.onNodeWithText("Could not refresh replies").isDisplayed() }
+                    ui.onNodeWithContentDescription("Details: Could not refresh replies").performClick()
+                    ui.waitUntil(remainingOutageTime()) {
+                        ui.onNodeWithText("Replies could not be refreshed. Available posts remain visible.").isDisplayed()
+                    }
+                    check(android.os.SystemClock.elapsedRealtime() <= outageDeadline)
+                    captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
+                        "feed-readiness-evidence/conversation-refresh-outage-details.png"))
+                    ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText(postText).assertIsDisplayed()
 
                     replacement = peer.start(restartPort)
@@ -231,10 +243,14 @@ class FeedPreviewTest {
                     ui.pullToRefresh("conversation-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() > recoveryRequestCount }
                     ui.waitUntil(15_000) {
-                        ui.onAllNodes(hasText("Replies could not be refreshed. Available posts remain visible."))
-                            .fetchSemanticsNodes().isEmpty()
+                        ui.onNodeWithText("Conversation updated.").isDisplayed() &&
+                            ui.onAllNodesWithText("Could not refresh replies").fetchSemanticsNodes().isEmpty() &&
+                            ui.onAllNodes(hasText("Replies could not be refreshed. Available posts remain visible."))
+                                .fetchSemanticsNodes().isEmpty()
                     }
                     ui.onNodeWithText(postText).assertIsDisplayed()
+                    captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
+                        "feed-readiness-evidence/conversation-refresh-recovered.png"))
                     peer.assertHealthy()
                 }
             }

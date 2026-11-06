@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.DestinationJourneyMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.DestinationJourneyMotionTest:
+INSTRUMENTATION_STATUS: test=primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.DestinationJourneyMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion$lambda$17$lambda$16(DestinationJourneyMotionTest.kt:81)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.$r8$lambda$cfdp_vnZtpD-6Kls3XiqmIGjBag(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion$lambda$17(DestinationJourneyMotionTest.kt:52)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.$r8$lambda$34d_rdzo13RG0dl7nkx-v7fHV10(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion(DestinationJourneyMotionTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion(nl.davidengelen.redsquare.DestinationJourneyMotionTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion$lambda$17$lambda$16(DestinationJourneyMotionTest.kt:81)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.$r8$lambda$cfdp_vnZtpD-6Kls3XiqmIGjBag(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion$lambda$17(DestinationJourneyMotionTest.kt:52)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.$r8$lambda$34d_rdzo13RG0dl7nkx-v7fHV10(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion(DestinationJourneyMotionTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.975
+There was 1 failure:
+1) primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion(nl.davidengelen.redsquare.DestinationJourneyMotionTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion$lambda$17$lambda$16(DestinationJourneyMotionTest.kt:81)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.$r8$lambda$cfdp_vnZtpD-6Kls3XiqmIGjBag(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion$lambda$17(DestinationJourneyMotionTest.kt:52)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.$r8$lambda$34d_rdzo13RG0dl7nkx-v7fHV10(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.DestinationJourneyMotionTest.primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion(DestinationJourneyMotionTest.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

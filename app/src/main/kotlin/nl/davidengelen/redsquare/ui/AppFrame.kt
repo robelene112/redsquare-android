@@ -128,20 +128,28 @@ internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected
         val gap = with(density) { AppSpacing.small.roundToPx() }
         val labelWidth = (constraints.maxWidth - gap * (entries.size - 1)) /
             entries.size - gap
-        val compact = captions.any { measurer.measure(it, style, softWrap = false).size.width > labelWidth }
+        val captionWidths = captions.map { measurer.measure(it, style, softWrap = false).size.width }
+        val compact = captionWidths.any { it > labelWidth }
+        // A 48dp action plus 16dp breathing room can share a wide navigation bar.
+        // Include the extra inter-item gap before deciding that every caption fits.
+        val actionSlotWidth = 64.dp
+        val actionWidth = with(density) { actionSlotWidth.roundToPx() }
+        val inlineLabelWidth = (constraints.maxWidth - actionWidth - gap * entries.size) / entries.size - gap
+        val inlineAction = trailingAction != null && captionWidths.all { it <= inlineLabelWidth }
+        val separateAction = trailingAction != null && !inlineAction
         Column {
-            if (compact || trailingAction != null) Box(Modifier.fillMaxWidth()
-                .heightIn(min = if (trailingAction != null) 48.dp else 0.dp)) {
+            if (compact || separateAction) Box(Modifier.fillMaxWidth()
+                .heightIn(min = if (separateAction) 48.dp else 0.dp)) {
                 Crossfade(selected, animationSpec = tween(AppSpacing.transitionMillis),
                     modifier = Modifier.fillMaxWidth().align(Alignment.Center)
-                        .padding(horizontal = if (trailingAction != null) 72.dp else 0.dp).clearAndSetSemantics { },
+                        .padding(horizontal = if (separateAction) 72.dp else 0.dp).clearAndSetSemantics { },
                     label = "Navigation caption") { destination ->
                     Box(Modifier.fillMaxWidth().padding(top = 4.dp), contentAlignment = Alignment.Center) {
                         Text(stringResource(destination.caption), style = MaterialTheme.typography.labelLarge, maxLines = 1)
                     }
                 }
-                if (trailingAction != null) Box(Modifier.align(Alignment.CenterEnd)
-                    .padding(end = AppSpacing.screen)) { trailingAction() }
+                if (separateAction) Box(Modifier.align(Alignment.CenterEnd)
+                    .padding(end = AppSpacing.screen)) { trailingAction?.invoke() }
             }
             NavigationBar(modifier = if (compact) Modifier.height(64.dp) else Modifier,
                 containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
@@ -165,6 +173,9 @@ internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected
                             }
                         }
                     }
+                }
+                if (inlineAction) Box(Modifier.width(actionSlotWidth), contentAlignment = Alignment.Center) {
+                    trailingAction?.invoke()
                 }
             }
         }

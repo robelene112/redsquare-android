@@ -16,7 +16,14 @@ internal class ChatFixtureState(private val context: android.content.Context,
         .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
             Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }
     fun prepare() {
-        synchronized(SaitoLocalState.lock) { files.keys.forEach { check(File(context.noBackupFilesDir, it).delete()) } }
+        synchronized(SaitoLocalState.lock) {
+            files.keys.forEach { name ->
+                val file = File(context.noBackupFilesDir, name)
+                // Two captured wallet scopes may share the same public avatar cache.
+                // An absent file is already prepared; a present file must still clear successfully.
+                check(!file.exists() || (file.isFile && file.delete()))
+            }
+        }
         preferences.forEach { (prefs, key, _) -> check(prefs.edit().apply {
             if (key.startsWith("social-offered:")) remove(key) else putBoolean(key, true)
         }.commit()) }

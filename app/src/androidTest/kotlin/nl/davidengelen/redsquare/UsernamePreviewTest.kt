@@ -470,7 +470,7 @@ class UsernamePreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodesWithText(error).fetchSemanticsNodes().isNotEmpty() }
                     val device = UiDevice.getInstance(instrumentation)
                     if (device.hasObject(By.pkg("com.android.inputmethod.latin"))) {
-                        check(device.pressBack()) // Hide the positively observed emulator IME, preserving this screen.
+                        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK) // Actual IME closure is required below.
                         check(device.wait(Until.gone(By.pkg("com.android.inputmethod.latin")), 5_000))
                     }
                     ui.onNodeWithText(error).performScrollTo().assertIsDisplayed()

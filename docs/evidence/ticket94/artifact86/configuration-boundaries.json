@@ -1,0 +1,13 @@
+{
+  "consumerBuildCommit": "f2f5b22d71bf8d5fc211dd767e6b7619071cafb4",
+  "signedOrdinaryVersion": 86,
+  "variant": "release",
+  "reviewBuild": true,
+  "fullGateVariants": [
+    "debug",
+    "release",
+    "performance"
+  ],
+  "fullGateDefaultVersionCode": 1,
+  "note": "Full gate variants retain their declared default generated configuration; the separate actual signed83-to86 native update gates exercise the shipped ordinary review APK."
+}

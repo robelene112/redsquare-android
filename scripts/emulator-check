@@ -168,6 +168,78 @@ verify_group_chat_native() {
     timeout 10 adb logcat -d -b crash -v threadtime > "$evidence/$prefix-failure-crash.txt" 2>&1 || true
     return 1
 }
+if [[ "${TEST_SCOPE:-full}" == push-binding-cache-regression* ]]; then
+    [[ "$(timeout 15 adb get-serialno)" == emulator-* ]] || { echo 'A disposable emulator is required' >&2; exit 2; }
+    binding_api="$(timeout 15 adb shell getprop ro.build.version.sdk | tr -d '\r')"
+    [[ "$binding_api" =~ ^[0-9]+$ ]] || { echo 'Require a known emulator API' >&2; exit 2; }
+    cache_fixture='no_backup/avatarprofiles.push-binding-fixture.v1'
+    timeout 15 adb shell run-as nl.davidengelen.redsquare.dev test ! -e "$cache_fixture" || {
+        echo 'Preserve any existing fixture-path state' >&2; exit 2;
+    }
+    timeout 15 adb shell run-as nl.davidengelen.redsquare.dev mkdir -p no_backup
+    printf '%s\n' 'Owned public shared-cache fixture' > "$evidence/push-binding-cache-expected.txt"
+    binding_primary=0
+    if timeout 15 adb shell run-as nl.davidengelen.redsquare.dev tee "$cache_fixture" \
+        < "$evidence/push-binding-cache-expected.txt" > /dev/null; then
+        : # The cache baseline is present before either wallet scope captures it.
+    else
+        binding_primary=1
+    fi
+    binding_permission_restore=0
+    binding_permission_before=not-applicable
+    if [[ "$binding_primary" == 0 && "$binding_api" -ge 33 ]]; then
+        if timeout 15 adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/push-binding-permission-before.txt"; then
+            if grep -Fq 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/push-binding-permission-before.txt"; then
+                binding_permission_before=granted
+            else
+                binding_permission_before=denied
+                # Own restoration before a grant that could partly succeed.
+                binding_permission_restore=1
+                timeout 15 adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || binding_primary=1
+            fi
+        else
+            binding_primary=1
+        fi
+    fi
+    if [[ "$binding_primary" == 0 ]]; then
+        verify_group_chat_native PushBindingPreviewTest 90 push-binding push-binding-evidence || binding_primary=$?
+    fi
+    binding_cleanup=0
+    timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev cat "$cache_fixture" \
+        > "$evidence/push-binding-cache-restored.txt" || binding_cleanup=1
+    cmp "$evidence/push-binding-cache-expected.txt" "$evidence/push-binding-cache-restored.txt" || binding_cleanup=1
+    # Remove only the originally absent owned seed, independently of the class result.
+    timeout 15 adb shell run-as nl.davidengelen.redsquare.dev rm "$cache_fixture" || binding_cleanup=1
+    timeout 15 adb shell run-as nl.davidengelen.redsquare.dev test ! -e "$cache_fixture" || binding_cleanup=1
+    if [[ "$binding_permission_restore" == 1 ]]; then
+        timeout 15 adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || binding_cleanup=1
+    fi
+    if [[ "$binding_permission_before" == granted || "$binding_permission_before" == denied ]]; then
+        if timeout 15 adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/push-binding-permission-after.txt"; then
+            binding_permission_after=denied
+            if grep -Fq 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/push-binding-permission-after.txt"; then binding_permission_after=granted; fi
+            [[ "$binding_permission_before" == "$binding_permission_after" ]] || binding_cleanup=1
+        else
+            binding_cleanup=1
+        fi
+    fi
+    printf 'class_exit=%s\nrestoration_exit=%s\n' "$binding_primary" "$binding_cleanup" \
+        > "$evidence/push-binding-cache-restoration.txt"
+    printf '%s\n' 'Original push binding with pre-existing shared avatar state only; not complete app acceptance.' > "$evidence/scope.txt"
+    if [[ "$binding_primary" != 0 ]]; then exit "$binding_primary"; fi
+    exit "$binding_cleanup"
+fi
+if [[ "${TEST_SCOPE:-full}" == feed-refresh-regression* ]]; then
+    refresh_regression_failed=0
+    verify_group_chat_native 'FeedPreviewTest#conversationPullRefreshKeepsTheSelectedPostAndReportsOfflineRecovery' \
+        180 feed-refresh-regression feed-readiness-evidence || refresh_regression_failed=1
+    if [[ "$refresh_regression_failed" != 0 ]]; then
+        timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures \
+            > "$evidence/feed-ui-failures.tar" || true
+    fi
+    printf '%s\n' 'Original conversation pull-refresh/error/details/recovery method only; not complete app acceptance.' > "$evidence/scope.txt"
+    exit "$refresh_regression_failed"
+fi
 verify_status_talkback() (
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'Disposable emulator required' >&2; exit 2; }
     talkback_artifacts="$repo_dir/.scratch/talkback-tool/artifacts"

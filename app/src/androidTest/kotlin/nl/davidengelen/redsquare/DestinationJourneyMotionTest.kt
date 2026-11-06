@@ -78,7 +78,9 @@ class DestinationJourneyMotionTest {
                 activity.onActivity { screen -> ime = ViewCompat.getRootWindowInsets(screen.window.decorView)
                     ?.isVisible(WindowInsetsCompat.Type.ime()) == true }
                 if (ime) {
-                    check(device.pressBack())
+                    // The original goal is actual IME dismissal. UiAutomator's
+                    // Boolean reports an accessibility event, not that outcome.
+                    instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
                     val deadline = SystemClock.elapsedRealtime() + 5_000
                     do {
                         activity.onActivity { screen -> ime = ViewCompat.getRootWindowInsets(screen.window.decorView)

@@ -1,0 +1,3169 @@
+{
+  "consumerBuildCommit": "f2f5b22d71bf8d5fc211dd767e6b7619071cafb4",
+  "finalHarnessSource": "6c993209f793acb5b0e511f24acce215ab5bc32b",
+  "consumerTrackedTreeSha256": "fe0510e3ba5605de349c31d5f5b43137e7b8aa90c89af3a2bfa65043dacb9669",
+  "harnessTrackedTreeSha256": "fe0510e3ba5605de349c31d5f5b43137e7b8aa90c89af3a2bfa65043dacb9669",
+  "identityScope": "All tracked files except docs/ and app/src/androidTest/, including production resources/core/Gradle/wrapper/build support/scripts/workflows.",
+  "trackedInputs": [
+    {
+      "path": ".agents/UPSTREAM_LICENSE",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f1dd2c09108dde1a5f56097cee8461b3ea834499"
+    },
+    {
+      "path": ".agents/skills.lock.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "58407027211b79d88863bd52aec5b9cc9e1a6490"
+    },
+    {
+      "path": ".agents/skills/ask-matt/PHASE-BOUNDARIES.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fb58ef9febcfd558cdb4517e370f19034869ba26"
+    },
+    {
+      "path": ".agents/skills/ask-matt/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4bfeeb61dae548b8b7754c4fba7bd40ab3926099"
+    },
+    {
+      "path": ".agents/skills/ask-matt/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5c60d51b5b1248d7210bff8c6b42a5a06524b8a4"
+    },
+    {
+      "path": ".agents/skills/code-review/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "373a4f26e6cfa3617778397945bb069d9cb184bc"
+    },
+    {
+      "path": ".agents/skills/code-review/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9076774ba327f49068db9273feceda03bfe940fa"
+    },
+    {
+      "path": ".agents/skills/codebase-design/DEEPENING.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cd94075cfd754d147555c5d747a16431ed4c7dd8"
+    },
+    {
+      "path": ".agents/skills/codebase-design/DESIGN-IT-TWICE.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d0990138c35c800bd821289a73115e52680c1620"
+    },
+    {
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3f63c8146dd2604b419c929e9876b90c30d410e9"
+    },
+    {
+      "path": ".agents/skills/codebase-design/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3180715edb37f6e96bec42f92f00169faa8886ef"
+    },
+    {
+      "path": ".agents/skills/diagnosing-bugs/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d039541ddd1c46e6ddbd662fe99d49b686fc5e12"
+    },
+    {
+      "path": ".agents/skills/diagnosing-bugs/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a13a755a77634ce61a649a3a0d905a66d3865b35"
+    },
+    {
+      "path": ".agents/skills/diagnosing-bugs/scripts/hitl-loop.template.sh",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "243198464a8401a7ba1d63b3708fa43c3d067665"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/ADR-FORMAT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d7e61f30a9fd8ca70d9ee68f019c2a9ebf2d13f7"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/GLOSSARY-FORMAT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9c0b4c7a2e8507c23cbb5e0baa66d81699321cc6"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a4438c6879c517d1a08e2b5fbca049b632688dfe"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7f1522d2f11506ee205275ab7c282aa52366ecf6"
+    },
+    {
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3947ff9c4ad980d14fc07fccbf659d47c114e81d"
+    },
+    {
+      "path": ".agents/skills/grill-me/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4d6fb0c746c5d21364dce5d0cf8c51eab9712e7b"
+    },
+    {
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "62b9efb6f991d1b229adee7506962f13ced0c499"
+    },
+    {
+      "path": ".agents/skills/grill-with-docs/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5dbe2780a51be3e9b118bd7758a73e54a9384e11"
+    },
+    {
+      "path": ".agents/skills/grilling/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "df69d9936880cd3314c28858c6c52f48db23b856"
+    },
+    {
+      "path": ".agents/skills/grilling/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ddbdb96139c0c1dfe6bca698f39d0465674b8a39"
+    },
+    {
+      "path": ".agents/skills/handoff/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a224edc643a20ddb989f9bca1547440169159810"
+    },
+    {
+      "path": ".agents/skills/handoff/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6e1d8da121beceddc2f9ec7fa8714c1d914dd11a"
+    },
+    {
+      "path": ".agents/skills/implement-spec/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "183923797ab58f1b3ef09e03bc1f1f203c309f37"
+    },
+    {
+      "path": ".agents/skills/implement-spec/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f5e91af21e38eb1a167ea5aa93dfc7da3c4637b4"
+    },
+    {
+      "path": ".agents/skills/implement/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "bd49e472984c7b99aac40286fdae749bb955a842"
+    },
+    {
+      "path": ".agents/skills/implement/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f8794dc153b409052a9167baf10858cf01b36175"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/HTML-REPORT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e39e8255b8797cf8257d014fb6658fb533f3a399"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "44cc7d3136c44534d68ac523fa6cd37e759d2846"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "706fdca096da5937fe57875a9154017d50668c42"
+    },
+    {
+      "path": ".agents/skills/pr/CREDITS.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5314bda2fa6005e264c9b5c1de7c425e719dc91f"
+    },
+    {
+      "path": ".agents/skills/pr/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "84dd4fb2f068e9f6282690235d20dd505b418119"
+    },
+    {
+      "path": ".agents/skills/pr/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "48286f48f53b937cc19c0e39899b5f956271a98d"
+    },
+    {
+      "path": ".agents/skills/prototype/LOGIC.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "32be86a0a5d9928db84b3988e55f9debe476ab40"
+    },
+    {
+      "path": ".agents/skills/prototype/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a0044501fe0d385b4d8575b610188ede9b236ccf"
+    },
+    {
+      "path": ".agents/skills/prototype/UI.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3977951663490882c2632b40695d9f59a2fe2408"
+    },
+    {
+      "path": ".agents/skills/prototype/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1618b147965bc729b7bf3e8da5f130132067aadc"
+    },
+    {
+      "path": ".agents/skills/research/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fecee97e9457ba039678d2fcf1b1bc9fca78307d"
+    },
+    {
+      "path": ".agents/skills/research/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e18b96ca0ccc1003889d5d6991386207c2454bc2"
+    },
+    {
+      "path": ".agents/skills/retro/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "12149acf2dd23b4514dec57b04a6293eaa1352fa"
+    },
+    {
+      "path": ".agents/skills/retro/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a2f0bac3f9cebf29beee2e79960cb876e0adc65d"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "293c25b75590119794af03b037ba4288054a32b3"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "65a0da8128c98051183235e490767a8065310868"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/domain.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4032de016c1e91119d33d477633e2b8f265f4195"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/issue-tracker-github.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a63510f74038300d8da354553f9d31d1bd954d94"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/issue-tracker-gitlab.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "81499dca459e8097d560b641f8ba7c2e1c7c9da4"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/issue-tracker-local.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0209a19af92c9c485cf3acc3d9e253171517ea17"
+    },
+    {
+      "path": ".agents/skills/setup-matt-pocock-skills/triage-labels.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5276464244857a3cc29890ff4a978a197b21f3fc"
+    },
+    {
+      "path": ".agents/skills/tdd/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "01eadaa34e7c9a63a67d6dc3cce1cc81b0e49985"
+    },
+    {
+      "path": ".agents/skills/tdd/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "651b838a7663e027b1b8884491e867f26bb9a021"
+    },
+    {
+      "path": ".agents/skills/tdd/mocking.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "71cbfee674d93244ce81d1830b930ca9a69200bd"
+    },
+    {
+      "path": ".agents/skills/tdd/tests.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7ab86479f925a1f9e8ba680af33cb3b12e015381"
+    },
+    {
+      "path": ".agents/skills/teach/GLOSSARY-FORMAT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fdd7e366ad9760588b28981e42b3d3b561e56aca"
+    },
+    {
+      "path": ".agents/skills/teach/LEARNING-RECORD-FORMAT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "953c61422776b47612c3c945920358ad7b5daee7"
+    },
+    {
+      "path": ".agents/skills/teach/MISSION-FORMAT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "45250bb1bad70988bf381625931df64645e10246"
+    },
+    {
+      "path": ".agents/skills/teach/RESOURCES-FORMAT.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "18b588c8b6f96a50ae2352f264928c643d2782e4"
+    },
+    {
+      "path": ".agents/skills/teach/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "493fa3bae0dada971c4dfb965790e56920b1dced"
+    },
+    {
+      "path": ".agents/skills/teach/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3452a850e3b0c1f0a3d41b2bfd45164d2d38d7f6"
+    },
+    {
+      "path": ".agents/skills/to-questionnaire/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "dadd0c00d6a350acaa15bb9ca1b96b20ead684ca"
+    },
+    {
+      "path": ".agents/skills/to-questionnaire/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a58d14765beb4acb4c9708b516310558e1308a22"
+    },
+    {
+      "path": ".agents/skills/to-spec/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3f52599ae2a4347aee5a07432c2707518e691a7f"
+    },
+    {
+      "path": ".agents/skills/to-spec/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "549e6f76f020a1b9ba65f52ccda336566ee6222a"
+    },
+    {
+      "path": ".agents/skills/to-tickets/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9b77a01db9460c99c22d03c910c349f890f12c0e"
+    },
+    {
+      "path": ".agents/skills/to-tickets/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "24605a5db64e4fc750b999aa94aea126bee814ee"
+    },
+    {
+      "path": ".agents/skills/triage/AGENT-BRIEF.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1462fcd9e8cc21921158c296149dc05d9be39d20"
+    },
+    {
+      "path": ".agents/skills/triage/OUT-OF-SCOPE.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c9fba2f77ee0619975ec8488c0d4861a0c7e3151"
+    },
+    {
+      "path": ".agents/skills/triage/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3fd5617e906cf9b71a6b17424791adb905fc248b"
+    },
+    {
+      "path": ".agents/skills/triage/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "acb366cf0f2527e8925ff1223b77610ac0b1be4c"
+    },
+    {
+      "path": ".agents/skills/wait-what/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9b15cd1a7dda0854ca093e29e3e0de57e241b2ac"
+    },
+    {
+      "path": ".agents/skills/wait-what/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6f7a9c33f99ec4ba70d986d6fc0de06c8b811bc3"
+    },
+    {
+      "path": ".agents/skills/wayfinder/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e28cf3018906d6d60fc5b25390b4eeea035dd290"
+    },
+    {
+      "path": ".agents/skills/wayfinder/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b37544751e0570f9df8de6c02aef238de8c3e1e0"
+    },
+    {
+      "path": ".agents/skills/wizard/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c4294ad8298b9b95fc727496b1b802b1f7363fba"
+    },
+    {
+      "path": ".agents/skills/wizard/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b601bdf3a321e7d32d5714681540b811287d3988"
+    },
+    {
+      "path": ".agents/skills/wizard/template.sh",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2d0de38e641662269c8bec5a40eed9bf1e993edc"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/SKILL-MECHANICS.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9cdbdb22aadc438755392216e75ad9a14cc9832e"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/SKILL.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a37608daf6e835e767deecfb498facecaaba82ba"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/agents/openai.yaml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "079c933b75743dec18b5d0c01006def20b6aad26"
+    },
+    {
+      "path": ".github/workflows/android-proof.yml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "045b2fe65f1cc4927f565529475222510a821e15"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c0e35613881a56424fa3c0f1ca76aa627c953adf"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "539d132fa6d8dfdf811675158cdef1e6aa940b5d"
+    },
+    {
+      "path": "CODING_STANDARDS.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f4842cea23942596d9e5785de980b3f72ea3b472"
+    },
+    {
+      "path": "GLOSSARY.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7f8a64698e659f044c5e9cf27b5a92e41ccebc95"
+    },
+    {
+      "path": "OWNER_INPUTS.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "df7f37f1282cd56b814be87c4de161204aeb22de"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "240c2544ba7b40e985da69415db213ceafa1e627"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+    },
+    {
+      "path": "app/src/debug/AndroidManifest.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4a9a38759c47d1cc861d1c329918248f399f7db9"
+    },
+    {
+      "path": "app/src/debug/kotlin/nl/davidengelen/redsquare/CompatibilityActivity.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "57070ea6fe04584cba68127a70e84d03e930cacc"
+    },
+    {
+      "path": "app/src/debug/res/values/strings.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6dea0569eb2fc3593df8f00cb36d22e6aaca8a5d"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "81af392f2ad46e691bd75bed8e52642bdd43dcf2"
+    },
+    {
+      "path": "app/src/main/assets/licenses/identicon.txt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "20890ee389d569f3eac0183a664f34e7909e8fa0"
+    },
+    {
+      "path": "app/src/main/assets/licenses/zxing-3.5.4.txt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5a17cdccdc0e24154091deed487b311ffb7f1050"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/AndroidWalletStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9ff0af319956449bbceb6a9fe9e2805e613b3039"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "82094dd8fe824c7333720328eb40ac7a2c9a8033"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/NodeBlocks.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "588f0cf56cd797375cd11e85a2ab0c264888d680"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/NotificationPermissionPrompt.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "aaf727a0d7bf0bd7e65104e45c0d80404e1f52a1"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/PreviewUpdates.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a3f5ef5b50cef6f978ac2640438ab1355fd0e8c4"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/QueuedDeliveryContext.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "89110220313855760179f7ce41a62912341beb2e"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/RedSquareApplication.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d4cdf6a3cbd4da83edddb1979235720441c48de8"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletBalanceDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6a6540fd49ca93f80d0a7e0f94e84c6bbf39e49c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletBalances.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ceb2c5d8d72d41acc73fca708e5219c0cd0bd9dd"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "55a50109950ed337bbe50ee254447ae21939d193"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletExport.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "302d25f6777991405de2b8c8c855de154b0251ee"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletImport.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4eb46569590a24a5eb9eb756bd5a1c89212da063"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletTransferDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "552898cc5edf189d4b3e3d15d9fc5364d409f44a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/WalletTransfers.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a0fa3cc09b23de13348008eb9fbb3d68c45ae431"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatAlertPreviewChoice.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "017ef1a9d43c8d75435a2888c95822ab066b730b"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatAlertReference.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4a692da19e3c4cc8bdf35646d7031474b80aac35"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatAlertSettings.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b9adc0adc0c96e1e4c1c7374648b1610eb63928d"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatArchiveOriginal.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0cb3f1f2b8c1158f87c026c29869534981c49e18"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatComposer.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5a090b12c46762f11b0892a45f2b292fa3cfe338"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatHistoryStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "67fa371ff0d3e7c651a8a3d1ceb3249943f9c506"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatImageMessage.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f8e3aecee424c56a18b700675f69a89b937ef4a2"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatIncoming.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "70ce6aa986f2e4c3854b8cc0a0b5258ecbb66791"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatMessageGroups.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1b843751a8082bd3a064102b27bf97c6ce76d2f6"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatNotifications.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8391c4cd0aee641fdf5178a53584b2873277afa0"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatPhotoAttachment.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "bd6be564c86581734af610331ebe7d808d701ab2"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatPresentation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0c7de0e04a08978f91f199f6856f3c252a721c1d"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatPublicKeyDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "07286c09d4b70a0e1d4eedd9660b2c69d807108e"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatQueueWorker.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5eba595aa393d49af4347786103e1aa87f1e6c52"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatReactionState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b3b88b39aef9d73dd7390a473ab3057786667243"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatReactionStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5b66727c76fd0eb4b7883de251efdf8f87399b59"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7148e9b2f8509e3534be518166e3b425f73ff44b"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatSubmission.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "60d378f80ed2e03d5befa854cb5807760dc023c3"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ChatWorkStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "461fc9b4af3580a7ed7784f5346d59f24abfed19"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ConversationLayout.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "92fdb90e967346dd46d3514ba93743d7491c58c4"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ConversationMessageList.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "993da9a8c088ae98856b212043a238dc3b265332"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/ConversationMuteButton.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e927fbce1515bdf548c6006e6f14d7bb137456af"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/CreateGroupDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0b3b8ab8d7388409cec934b024d436410976eb98"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/EncryptedChatRecord.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "32795ff93b9de1fcbc72f9f9a2f63b0396df4dd2"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupChatScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "487e994185f07cfea18c0d8973faf15a0f004efd"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupChatStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2397ca98d14bf3db9fa9b41637315aa8e2ea086d"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupDiscoveryPage.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7b3e69e6d378b43861b77953f3d485ba97e82260"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupHistoryPage.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "50de98b2e5577ac219d690ce683bb10a9e3e13d4"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupInvitationDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "dd34ed616b580edf604ea408fef6e045572f1738"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/GroupMessageDelivery.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b93d40a5fd7fdb22ae79b00a830f8077c280b989"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/JoinGroupDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "aaf94429963a92399566e627a8181830b32bcb9d"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/PrivateMessageCopy.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f764f7f75cd0b199b326b992ecbffead7d8eaf60"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/PrivateMessageDelivery.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "59968c43c8ba68e8361cc0ce8e5cb7157dd2f555"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/chat/PrivateMessageText.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b161bd4e6709d8b425b605ea82af41ddc0aa3641"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityLikeHistory.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6322e8455da4e57bfcb47460c698b96fdbce3f97"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityPreviews.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6a5c61737304db50467dd47498aca78c49b58669"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityRow.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ebd48a41dffdcbb1f4ee1d5fb2543caa16fd6d7e"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AndroidFeedCache.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c3f39e07b9d5e0aabdd0c663448b70dd5489bc62"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AndroidPostRevisions.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "61e6380d2c10b8d49a392de41d87217a790b3792"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AndroidProfileCache.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "15685834b314d50020199bfb2ecaf978ba3a80d1"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AndroidProfileDetailsCache.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "517dde65a41132827f0b977069fbc0dde2b1ce0a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AndroidSearchCache.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "77262a8f29ad002a4744acda9a740f6634266036"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AuthorEditScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5efac138fd09356c654c9de6047e5231ad47ce80"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AuthorEditState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "bdee8cddfacddc7429fbd0217091e5414fa1c49f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AvatarImageCache.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8d75ad34bcc3b0745426f381dd7a131fd2b633cf"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/AvatarProfileCache.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "da2c68203ca5682f90d8ee9fd3ccdc64c1123e0a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ConversationScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ada052e7ed5140ff6aeb8d2ff12b2ae09bd1481c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/FeedEndpoints.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6dc7241d1efedfeb6c1e3c8745fcbf8007639e3d"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/FeedNavigationMemory.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "47c5f10f10b6b7fd06ed2b11aeaa3b7b74f89dcf"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/FeedScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f638b05321658feb94964b424d56d143a1e02f97"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/FeedToolbar.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "72995b4c3154f13888b16f0bcf5847cd3144fd6a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/FollowingState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ad8373d0d94a21d58aaf512d4d6d797b622ee41b"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/FollowingStatus.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6ce226208492c9d44d8d903b3adc22feaec9c195"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/GeneratedProfilePicture.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0be36774ff9d0f905f20f8b73e7843a1dce200a9"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a36254747a80a038361e3f58a0f4884f898a09e4"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/NotificationHistoryStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fda4d6cea1b94ccdcf3fe0fe034ba9fd536c1b2f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/NotificationReadStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1413a83beb1b2a6cc1f7a1ed8fd9fdf6d88c9bda"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/NotificationReferenceScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7978d039ec6d1ce81eb8155b409b3e728592090f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/NotificationsScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fd0e5e2e6f6d977555a60263fa18982294e1123e"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostAvailability.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "92e2bed03d2e5fa6c3b65488c737aa5082f73f8a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostCard.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6f44ea04930d176f8f08dbad93e155960c9cf735"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerMemory.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "187ba4ec09f407316e17a15120817a1945ddd0c9"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "561580fa1ccbb6485bebf664f21a98b6dd60a0d0"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "aab69ae235dbe0fe03ff29d85ba98ed409a3ea0a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostContent.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d92a824c74ace27fd8b7613b5e8fe6daae7998cd"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostDraftStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ce440114506914e79ca4d8323656db143e5ab145"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostImageLoader.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "46d44cfcebe0207ef18945a63152bad5a60dbc80"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostImagePreparation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2265c89177f8c4662a9d22fe82850e5dfc993133"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostImages.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c72299a16e701591578ae58019863fd739f4278a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostNavigation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6dc5b82b83abf2ae2fc70b8edc2fb950540e8dc3"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostQueueSession.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a52131dc3e60bd5042cc1cfc2db8b3decf2ab7da"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostQueueWorker.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "184b092f741b0d3b3e965d39f3e02dfc7c4ccb3c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostVideo.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "008b65d70fc86b51f01b8d129a0fd8f30066ab47"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileAvatars.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a2a8911122773e8a7f04fd144981808379b9bd01"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileDraftStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f04bbb33c7995257195f24cf8a20130ee450e8b6"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8a8d7ebbe03e2426db87f822c25a4a3ffdc6bba4"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileMedia.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e7b155b12f4b52640b92e22dedf9ea2c5f397f6a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfilePresentation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "df06b795d81ef0ed1d5a22864cd8589d3bcc381e"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4655bb18734a566b675cdca5e29aa31634620a23"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PublicStringStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5251cefb4c1892abe752808f94c487ff9c8177c6"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PublishingEditor.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "87472eb51f383b3924084012e9e3730c3d9fb52f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PublishingWorkItem.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6512e3b86311058e43d064bdb03d78741feac8f8"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/QueuedPostsScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "84fa8776221d994fe21114cc30ff7c3584da3705"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/QuoteState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9441cdbb667aa52115c15ad550f96ef713a83a99"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/QuotedPost.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ff45b4a206575a952537ba1f9cf375156ddad016"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ReportAction.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9084795f6a6b5f5c141a5d88c7993c3309492284"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ReportState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "56ddb32cee2b693c73e24263af7bd450350d7330"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/SavedAuthorActionsScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2e468f67233b30372755578fc476ec493eb968fd"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/SearchPresentation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a8b1f76b84aebbd4fee4a32f8c6d8007eaeaa3eb"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/SearchScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7a03683d98513484bd46c610e12a4cc7a9c9eac9"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/SocialActionJournal.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1791f3735107a7089d3a698200c3aed64b28dafc"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/SocialActions.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "11d3dd0320bbeb8e24470181e82d4e79a6488193"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/SocialState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8ca1fc618b8e4d4329e9e8ba4602a677d08f54ff"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/VideoBrowser.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ef8abe59660cbca4f4419af756b3f5ced3c69e2c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/feed/VideoDiagnostics.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a4d4326e21e25c50903d68d5466f3907e45ebb28"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/identity/IdentityDetailsDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3af381806a8a0e2847620d015a8137b379486a94"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/media/GiphyAttribution.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e62ad48d1365ab305a1d7826b06164206266d157"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/media/GiphyAttributionStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "577728a93058af5e3421dc3f122db28d1e529a05"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/media/GiphyImage.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ff953b38328edb38d7fa5e82c245cbc0486bc48f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/media/GiphyPicker.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5b4583c7009a3aa721ed122899952ff6ed7a1a40"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/media/GiphyProvider.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4358202319b44944f1d7c603da6c24a4ca2f7ae1"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/moderation/AndroidPersonalControls.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c75d564ccd6f1c3a9accb2a89de02344869b1668"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/moderation/PersonalControls.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1fd2a42feac257781459d750305c4c603696ff1b"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/ChatPushChoice.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6c46f8b34939c89153a260ca3736070380fca3c9"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/ChatPushReference.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b0e55106bec2ed5e1d9631a4bf9575b5dc875e85"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/ChatPushSettings.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5f22fdc9f9ca7730657072dcbc6ac9514f7207fc"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/ChatWakeRoute.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "55b4916810035abd45ec4813c2852721085f6535"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/GroupChatPush.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b0bebe5206a092ccd197cfd0c3299e2d82e336e2"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/NotificationReceiptLedger.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "98bf7c5db6a6609199ab7e9ffe876163bdb36460"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/NotificationRoutes.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "360f0c987cb2f96492fc2618dffe5ba3b9ed7e39"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PrivateChatPush.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2df6e104253901336410a36b6b39a9319750c04b"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PushGatewayBinding.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3f15b6c0c35a58e7ead7a8277faf2dafc5c3004e"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PushRegistrationWorker.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "645b50c25eca68cf40dd88ad3d672a68ecaf5598"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/PushTransport.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6fe38014078eeba379f344af61b6b5e4cfe8f1db"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/RedSquareMessagingService.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cfe2e9686bb54de53caf4e305ae9ee807d5585a8"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialAlertChoice.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "234cc795ef154f40df26ea6d68c0d997c6befe81"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialNotificationPermissionPrompt.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ca43e6a4e8dbaf3f1ff64913323d4b393345d75c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialPush.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1615d62d979f853986ff110a07f391d8fdb76391"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialPushSettings.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0acc1b0861b66a8e2da6286cf75b94daa16bfbcd"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialPushWakeWorker.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6814dd69b40cf2624b3c066dbe89ea9e6f825ef5"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialPushWorker.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "758f6d25e6b03c15dfbfc5168e06a6edc452316c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/policy/PolicyCenter.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1c462344bdb2b7da7650c0d92977fcff2dc7c75b"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/policy/PublisherEmailDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ca673a400e02ff24f0f66d8e2abe251f4f18003c"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/policy/PublisherRequestsDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "03d6798434d0437cf9d252cf13dff680dfe74e71"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/policy/PublisherRoutes.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ede94d37a4229833906d0289ca914a6dce2954e8"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/policy/PublishingAgreement.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "37de99e2bd10532f997701617bfdaf7adab7f5d5"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/policy/PublishingAgreementStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ffa7833955830d499455607c253408956a8ed0ed"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/RegisteredIdentity.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ba8f7470c03fd5a3f83f0f59a1448d9ba5dbf89f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/RegisteredNameStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f2743e4a07ba2e5536a4b5bcfc4c1741f6762ca3"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/RegistryAuthority.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a8d5282d86c020ff074cc789799ee79f87fa4536"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/RegistryLookup.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c1d3066794bf18448f390f623a29e43f4aa612af"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/UsernameRequestStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9c3e231b1d240cf3f5e40ba9830322ccf69e672f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/UsernameScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d625d65e60c6f591c30a0de78d97ecc8c7c26441"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/UsernameState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cd094a59ed186daac3e6850f6168e8b4fd8ed0ee"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/AndroidBackendStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b612490f0233fa34b4a0672f2c8438e5c702e052"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/AndroidInternetStatus.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6636d632ffb161619fb17c6ef1ebeaf2c05edc47"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/DeliveryAttempts.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ca60f83eabac1130ba966169402848c48833ec43"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/EncryptedLocalFile.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7aac6a7f0204ce6b2e0ed24e9a3b858bbcef5613"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoLocalState.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "072fecf085867276166e3116b8f9b905a68f9a88"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoPeer.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "173ed24d2f32ed8049c978839c27a185947cc8f4"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/saito/TransferStore.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "928d6d7e0e385d1840ff8940f380c7832cf94b30"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackReviewScreen.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "30be9105e35af01cc335d5a6a5a946ab25b43be8"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AboutApp.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7d9745998f8684363bce6c4ace63e91a04c4c406"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AccountDialog.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "34cb15c9443f224fc42e872163b8d9f83fe45907"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AccountPresentation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "db0ed6a2c7419170a3d48e85c1285e9388f8b40a"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppDialogWindow.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "052b499b1e5e5f6b327652a0706d9b9b45410458"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppFrame.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "efb026ae9ee9d263b1011fd551348f5fad06263d"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppMenu.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9bf8615f855a105d0cd02a2affa959ab2fdb4e50"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/InlineStatus.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b3b980ca024e1ae4b8fcd5ae414fa8d49ad56ded"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/KeyboardVisibility.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "333487d0a45add1ecc607b9786cabdd985705077"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/ModuleShell.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ced79501828a64f60deb7d9d996cab11d366b04f"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/ReadingAnchor.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3ed002f4b991561052610320e31036b3b443d705"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/ReadingHeader.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9c9e48ffa9b5d311428b084537e4c26f306a10f0"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/RedSquareTheme.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1be65d29c7cf95e966db4e2b8a4ed535421d0002"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/RefreshAction.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "dc2b99a2428a703c7d6a33ccb9ecd667c5e12c16"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/SingleOwnerReveal.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0d88b3905a12a16e00ef63aada5d6b78bfb93027"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/SystemMotion.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "27d6efe7f8c78702ca575eab8dd18450ac946fac"
+    },
+    {
+      "path": "app/src/main/kotlin/nl/davidengelen/redsquare/ui/VisualResultReveal.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a9a1e91508d478eb3fa2867d229cbcee6d063079"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_appearance.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "de2bf7b2b0fd699bec14dfef2c73335dfe8f0b4d"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_article.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1e44c477f6b0dce4398df59954e37a23bf4d5049"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_back.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9dce46cf255e0cca1171c8772288fcffb2a4a014"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_bookmark.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f390a6e97fcf19867a28f04fb0d7b5b5721b38e9"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_chat.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4473d0264bcad3a6f6682008820969f9857b4d53"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_chevron_down.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fb4ad6aacc9b147e82fa11e38f72a56d3d25c77d"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_close.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9cb8b43324a4102bf9a62e6157623e746518de98"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_compose.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "34bd7a0651e9cce661b41f3f0ad065d5a3cac424"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_copy.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a66d8c35f2ec8de14ec294c60bf5697a465bc5aa"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_forward.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c599204220a01fce9122daf7f22cc3da6cf3f998"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_gif.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f2ade48f5279952cd24af626e5f5499d804073fb"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_globe.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "468179ab7d7b7eb288d4f5cd40ecc45047a551d3"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_home.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d55300e1da583320bf3830cb4c84ae3cb49309a2"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_image.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "34456f8e0a9d4a64b2382d7a536c178fba7e8772"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_info.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "313d8c93c2eb7e3e38a6b3e1f5f8069040ac70ed"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_launcher_foreground.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fd8db336fabb068db18cf0d9f8ebde7e3e2eee44"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_like.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "28cbcd9061178c58fb5f6541c20a0265d3590c98"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_like_filled.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b069b32873460b74b43c63850af4ccf1698718cd"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_more.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "23559a601d9416146d77a45758fc6bb12711bf48"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_notifications.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0a0df6cc354364f899cc74cbefc8b6e01a43a5ce"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_notifications_off.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "295e442585b702831060faef04d593d035e0967c"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_profile.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8a240f091ff073c095fde65f63ee523ee75a7d05"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_quote.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b8a53b20489482422d9c274676475f4331da9db2"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_read_all.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f15417d6d3c6019f95d655259950b61afb2fa1c2"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_refresh.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "89f0ac6719566832d3a05ad31f614a386b2cbb2c"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_repost.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5bf687a7c0f4ea73a7ac29b884f5b314b9858135"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_save.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "962e238ff5d9a18377371196e2cf3d04b82d6a8b"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_search.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1509bcc6465f77d4400aba7d8af07efc30546ad0"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_settings.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "983ab37928e725120ddd9339cbd170ffdc3d385e"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_share.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cdec7eee4882496d601979533d2490221de46ca4"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_wallet.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "75d9747fee953f481aae01c130ce6a8f936fd72b"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_zoom_in.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d84953fb3b7138f337d8d426d6cb50108924d9b7"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_zoom_out.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3021b70eb12190c19e0309e84decdd2cfdf30564"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_zoom_reset.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1ee42bacd54fb6435028dada1857a72f35d7e94a"
+    },
+    {
+      "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3c0ab76e0f8e6413227792de2502a77466e540ff"
+    },
+    {
+      "path": "app/src/main/res/values/about.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "caf16bb305ac072da47aa026e4e089f712b5f79b"
+    },
+    {
+      "path": "app/src/main/res/values/account-design.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "59a671440b9a588dd0dfdf5253c756e18d1fd9df"
+    },
+    {
+      "path": "app/src/main/res/values/activity-availability.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "91423176cdda59df558b81e75484887d03c5dde3"
+    },
+    {
+      "path": "app/src/main/res/values/activity-groups.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fdf1f4e5cf3a2df418bc361b27f6c80fc350fab2"
+    },
+    {
+      "path": "app/src/main/res/values/chat-presentation.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e53c0acff207da2edfc48cdd28fd1dff54dd0264"
+    },
+    {
+      "path": "app/src/main/res/values/colors.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2d0b57ef4ca2abc714644efbda362e95ac514394"
+    },
+    {
+      "path": "app/src/main/res/values/conversation-redesign.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3477c53ff0fe2288849f131d56cabe4ddce1830a"
+    },
+    {
+      "path": "app/src/main/res/values/frame.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ff67e4e7b0bccbe2ac8f80d06d1280a4d04626d8"
+    },
+    {
+      "path": "app/src/main/res/values/node-blocks.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5b073dc111996d97694fa9b7cff4183a12948ba5"
+    },
+    {
+      "path": "app/src/main/res/values/policies.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "08894e66e7e4df0ea65eb94996ff3592df1f24b5"
+    },
+    {
+      "path": "app/src/main/res/values/post-links.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9741a9984820ef4eea94b9dbf49ca0f340952367"
+    },
+    {
+      "path": "app/src/main/res/values/publisher.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1d324254f0702326aca27e3dbb1cd2688b1ee2ec"
+    },
+    {
+      "path": "app/src/main/res/values/publishing.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f78dc0656dae4d9a8f85d73316c620ceb46330a6"
+    },
+    {
+      "path": "app/src/main/res/values/stack.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "84cf19ec9d7603571716e63fa181dd63a046ad4f"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c318fedbc3901e849ddfa13859d7a2af28b072a2"
+    },
+    {
+      "path": "app/src/main/res/values/themes.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f110ca04fc5ce017978c1fc51d793231e1f5605c"
+    },
+    {
+      "path": "app/src/performance/AndroidManifest.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "63bcb06b0a82f9afc396a27b539889b7a4f54aaa"
+    },
+    {
+      "path": "app/src/performance/res/values/strings.xml",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "11c32f3a860b13962d443d9b43d6cd789be0ffd2"
+    },
+    {
+      "path": "build-support/Dockerfile",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f4bf765896cc8e7d042fe9a84c9ccd785d049228"
+    },
+    {
+      "path": "build-support/Emulator.Dockerfile",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "044b9c57011545533333046c3e7482760b2ccf83"
+    },
+    {
+      "path": "build-support/references/author-actions-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2e8ac51dbda530249f6c70b5b00cb03e9817b75d"
+    },
+    {
+      "path": "build-support/references/author-actions-web-receiver.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8d8f1b372373d466ad9cc22026d6e7ee826a5d91"
+    },
+    {
+      "path": "build-support/references/block-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0333e5a0af2cfdfe455a787f1dd0416f28c17622"
+    },
+    {
+      "path": "build-support/references/chat-photo-caption-browser.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5b1786e1c0561b672085a60f0d5ce6b5737739cb"
+    },
+    {
+      "path": "build-support/references/chat-photo-caption-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4db7a92066511438fd6b8b7495796e5e9afc1a35"
+    },
+    {
+      "path": "build-support/references/following-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "233634ced39709066a6ee77ca60a6b959adcb324"
+    },
+    {
+      "path": "build-support/references/following-retention-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "567258701c088c397bd209ac616d83aed9160ee7"
+    },
+    {
+      "path": "build-support/references/gateway-social-block-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "609a2c49bfb59c6475b0f11cdb53587d26318141"
+    },
+    {
+      "path": "build-support/references/gif-web-browser.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "aa87b1afe795d526050b9e7d323a94b6f70de574"
+    },
+    {
+      "path": "build-support/references/gif-web-render.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d30b38f57910e11385f83b924d8daf1326000f48"
+    },
+    {
+      "path": "build-support/references/group-chat-message-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4733551570271e5212fb046670f18152c41fac18"
+    },
+    {
+      "path": "build-support/references/identicon-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "63a9b8d628d7756adfa2c604bd26fa5ecd8584c8"
+    },
+    {
+      "path": "build-support/references/images-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "06628f8ab9057e1cb671bf1beb6b26b61058c79c"
+    },
+    {
+      "path": "build-support/references/images-web-browser.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "10bc40b6bc22bd76db04a3c82fad25295e3f2a2a"
+    },
+    {
+      "path": "build-support/references/notification-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "648bfd816977dd7fee0d52a3ba4e00db7bef108f"
+    },
+    {
+      "path": "build-support/references/payment-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e37411362bf04f13d7cc38b3d7fc0d7d9774a87e"
+    },
+    {
+      "path": "build-support/references/posting-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3164f9db405c79c5c7280f2ded7e5f7fc7d6d356"
+    },
+    {
+      "path": "build-support/references/private-chat-like-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "116033951937cdf5bdc635864f132090b5b10ab4"
+    },
+    {
+      "path": "build-support/references/private-chat-public-read.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6cc7580ba6c9a42408a10257552fb95dac461940"
+    },
+    {
+      "path": "build-support/references/private-chat-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "64b87832f2b8e13e1f06121dad6e33dda0b958bd"
+    },
+    {
+      "path": "build-support/references/profile-like-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7e31a787aff5e9992e7c03de75477222549367cb"
+    },
+    {
+      "path": "build-support/references/profile-native-web-receiver.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "bdaefec48816a2265101d675cab85bbe434de105"
+    },
+    {
+      "path": "build-support/references/profile-paging-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5908084579b1c19b44cf921cc42b588baab300fa"
+    },
+    {
+      "path": "build-support/references/profile-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cb0c1b574750d9f0925f042e75da3f66601b4b5a"
+    },
+    {
+      "path": "build-support/references/quote-author-receiver-diagnostic.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a479e9c6fafc7293dc991a45d1e5a58ef29dc5d3"
+    },
+    {
+      "path": "build-support/references/quote-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ba55c9b7058f15b8c67ad05d7983b6d0dc0d8123"
+    },
+    {
+      "path": "build-support/references/quote-web-render.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7de630a3aaf5f8ac61b061af60e9c3186df7caf2"
+    },
+    {
+      "path": "build-support/references/registry-native-web-receiver.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4dcdff3cede90d040ffa537c108d4510bb0a004c"
+    },
+    {
+      "path": "build-support/references/registry-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5d30dfd0db3afbb3f15a2c278ef01cf9f0f27528"
+    },
+    {
+      "path": "build-support/references/report-native-web-receiver.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d6459e140dbeeaa73fa662977e2f2b36537ee77c"
+    },
+    {
+      "path": "build-support/references/search-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f97ef9032255ebefeb19f38351e5ffdb541d0db3"
+    },
+    {
+      "path": "build-support/references/signed-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "999ce4080aadf8925a281d13c14fc097ad0a8d07"
+    },
+    {
+      "path": "build-support/references/social-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "297f2ece64f14130f707b3c9304a764bb0ef33b9"
+    },
+    {
+      "path": "build-support/references/thread-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "66eafa7ff4d0e46d57ff3cedfd29eb3070c7f9c3"
+    },
+    {
+      "path": "build-support/references/verify-author-native-frames.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "bc1f11863f4d3a69847ff7d72573b8b95bb919d3"
+    },
+    {
+      "path": "build-support/references/verify-block.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "51c21c1e30603ab8e7fe923a425d866a713aa06b"
+    },
+    {
+      "path": "build-support/references/verify-gif-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6f6fec119684bb7fef0839f39519e13caf792a47"
+    },
+    {
+      "path": "build-support/references/verify-image-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "709aa8e8ea0cf239e8c9c43845d217c276207a07"
+    },
+    {
+      "path": "build-support/references/verify-payment-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "091028b430746a7600720e28ae4f5444589b4320"
+    },
+    {
+      "path": "build-support/references/verify-profile-native-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cc03b8bf56292fdba8e314633781045bd8936556"
+    },
+    {
+      "path": "build-support/references/verify-quote-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b86040e308d2e39377095ba79638a52a4534493c"
+    },
+    {
+      "path": "build-support/references/verify-registry-native-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b6305df8c55702beed20b25525da84b1ce222125"
+    },
+    {
+      "path": "build-support/references/verify-report-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e097faa94c1a678d2b862e802e19f06521d14548"
+    },
+    {
+      "path": "build-support/references/verify-social-frame.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6b0b7174e030761109e639905bc3698c2f6dcae5"
+    },
+    {
+      "path": "build-support/references/verify-video-links.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fff78df276ab07869c5cc1ad8f875e6ba5aa3aeb"
+    },
+    {
+      "path": "build-support/references/video-reference.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "38b7bf2fb1ece003316f53f5ff15cc85078733c2"
+    },
+    {
+      "path": "build-support/review.html",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7ec640db604fc7338d079f7408408248eebc8c0e"
+    },
+    {
+      "path": "build-support/video-browser-diagnostics.cjs",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6d82f7b0a440cab877e840c002eacf474e91f359"
+    },
+    {
+      "path": "build.gradle.kts",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    {
+      "path": "core/build.gradle.kts",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/feed/PostLikeInputPolicy.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e31ba666649212289ea761505f394afb86f31040"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/ArchiveRows.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5870202cfb3008ca1839bf5aae12cd48dfacc718"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/GroupChat.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d4858b59c320c6e2a66578c40faf301bd1ea79af"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/GroupInvitation.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "686ed915f11164b720605436f1dea6641b248d89"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/ImportBalance.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9fdcb11e6e204a3a87116c7d278d69bf9dcc372c"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/PostRevision.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "aa6d3e461fd66a7906bc9b5ee104ecb189545fb5"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/PrivateChat.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f813f5247d6143221da6a2221817b35c261c8f0c"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/PrivateChatLike.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fe7cca23b004ff3b4b58e9d75d59e53d9d1fadbe"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/PushCategories.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "609803d207310397e02c7f872cf5902d87e0ef43"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/PushSubscriptionClient.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ce7a757f47341a12e2802daeeb63a81d2069cb00"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareActions.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "dd2d6d2647c4947eed3b6b5beb3ef7dc182c5d98"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareAuthorActions.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f1530c5d275434c42daac69742e19ba437885c77"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareFeed.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d9f8afc867aa253de2108505c484f480e40b13a9"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareImages.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "deec1d925fd40ca5b67f82e6de51a4163fd97d29"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareLikes.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7d1b1e0b9c82ae7f0d93abc8028c2bf27ef573ec"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareLinks.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4f5e713eefa71a532d2bcbbf5656ac1614546a66"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquarePosts.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "790402f6f164bd88490e6e56e70cfcf294f38ce1"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/RedSquareVideo.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "684d516d338cfb0ed2dc7ea3d18311aa6c778469"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoBackend.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7b61967e98c766d1e3d9a567d14cd9bf5437cb48"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoBalanceSnapshot.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "55dcb3a3a3d4d31eb04e158d298092ca2155bb38"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoEnvelope.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ca8b77de05667cc029db5752be658c5dd37178c3"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoFullBlock.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1f8d70308816b86b69a22135f7cd479384e85de3"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoIdenticon.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d8e857d8363a4a0a4bfc6714c7e0950636b08a23"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoNodeBlock.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9006fc3ed40b648e9b34327e643a89d83dc702e1"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoPayment.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "43a16d76d311d80c35e4bdc234fecc0799da6a12"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoPaymentChain.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "58577fd0a2f918afa1a5e29c0723236f56e4de4c"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoProfiles.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c20c3448b45464dbc058fd60565ff3c1cafaf4d4"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoRegistry.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e2504302ae0ca926f0ae8b547d69ba525f65a76f"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoTransaction.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3e02c2f887b53ee6fc197f47be61884dcc753019"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoTransactionPreimage.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "dea38bb6ab49ae8a6030d1516e85d1db319c8265"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoWallet.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "78220c7fec71d563a36a0b9a25376173cea10002"
+    },
+    {
+      "path": "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoWire.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "dbfe6d3bcb8f399a00f5bd3c24a07294bc071a61"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/ControlledLikeArchiveContractTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5ac40585557f9edf9cd8ed7e32cc9ea00607f494"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/HostArchivePeer.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c65c4974cf7f97086309b4fb9117566d419035e9"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/feed/PostLikeInputPolicyTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "836fd748e43956285478c9e28d2973f7fadaff09"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/GroupAdminTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f0da0910e9d10a521228b3d17723e3166b83d561"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/GroupChatTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e06a33e3106777cbf56319427d33f76c8b27b487"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/GroupInvitationTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cc7d79cb6cdcbe673440ef83c6ff4b4696d8b2f4"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/PrivateChatTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4709cae0e04759d509b463482bc4c9ce1175ab24"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareActionsTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8ec0272b764fb039d8c17df0a15fc2ff589c0a5e"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareAuthorActionsTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e58d7f6db7e70b444f22f21e549ada3007587d20"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareFeedTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a4326abbb466444609d4b65c8eeb5f584a977922"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareImagesTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "832b6a81e0952f9719c839bb8ecaf425c27a7c4e"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareNotificationsTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "479360168644c4d158726e75f477d75ea257245e"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareQuotesTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "31731c7831bbe2331a931db4e46f169ba9fc0b04"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/RedSquareVideoTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f4be6c8208b4a39d0567047f2ecbe455bc5c52cd"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoFullBlockTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "cb810000ebe776e41a28c91ea1eb76de5c0b190e"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoIdenticonTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "40aec7624cc37678673f1a4d51d12c881f0882e2"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoNodeBlockTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c2abf96d308d35f8b145265b181a064cee02082d"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoPaymentChainTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "869183b3a64ae1aec8b02249ab6136b9adb155eb"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoPaymentTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6fe2deacb6bbec5cdff5e60afefbacfe56773514"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoProfilesTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "975ba577e5d63157daeba99552942bb44820dd8c"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoRegistryTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7d7896a4e40d0defb19faaa4d7a68afb59a0b814"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoTransactionTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d005f022963b3d42413370262519bcc1bf4b7d74"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoWalletTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9812ffbe25b1e543c0eb8729228917a92a01868d"
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SaitoWireTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "10e8275f15032b96fb5c427dbb1715f899ca1702"
+    },
+    {
+      "path": "core/src/test/resources/native-archive-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a2ee5649db6ad9c21d1f8b0ef944b768a0cb18bd"
+    },
+    {
+      "path": "core/src/test/resources/native-author-actions-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "238a7e3b6ff7a5090a9c22cd06e7289c831645e0"
+    },
+    {
+      "path": "core/src/test/resources/native-block-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e6040146e964b5d5208f868e0e38bc14d179e064"
+    },
+    {
+      "path": "core/src/test/resources/native-feed-null-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e14b37684929d2fe0d2841ca1d9a07a3a0cbfd8a"
+    },
+    {
+      "path": "core/src/test/resources/native-feed-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "160e776270e1d64d7ccab6a8de1c77dfde6e013b"
+    },
+    {
+      "path": "core/src/test/resources/native-feed-scroll-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0fc83035f25c3c7c13ede259cb2b5bf32dd07217"
+    },
+    {
+      "path": "core/src/test/resources/native-group-chat-admin-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e14d3530b97a6efe83109549f9259d816de96393"
+    },
+    {
+      "path": "core/src/test/resources/native-group-chat-creation-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a86b92cd43e47e1fe8fb2f8ea5570df2dadddb10"
+    },
+    {
+      "path": "core/src/test/resources/native-group-chat-join-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6c63ead42250d8488cc925c59f8c0254624a2ac8"
+    },
+    {
+      "path": "core/src/test/resources/native-group-chat-leave-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ab7eeea004f243079170e4172d09ef6cd6f2d388"
+    },
+    {
+      "path": "core/src/test/resources/native-group-chat-like-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1c2b0838d70a1da14e6fc02ce117cf76f6fbaa95"
+    },
+    {
+      "path": "core/src/test/resources/native-group-chat-message-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6d4394fa250080cf52021ab2b68f745f54d289d3"
+    },
+    {
+      "path": "core/src/test/resources/native-identicon-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "aae5e46156213d13827c7db081ef9aabf0819afc"
+    },
+    {
+      "path": "core/src/test/resources/native-images-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7769d7ab9547c8ace864961adbe987b6dba77952"
+    },
+    {
+      "path": "core/src/test/resources/native-notification-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "599dd3ec73394af3487e9e1d596c3a08556c2c47"
+    },
+    {
+      "path": "core/src/test/resources/native-payment-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4eef50bd5d06302e4efd9a1c2ab9e569defab9d9"
+    },
+    {
+      "path": "core/src/test/resources/native-posting-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b55c7209ad711a88bde467217c4fdfdef534ab08"
+    },
+    {
+      "path": "core/src/test/resources/native-private-chat-mentioned-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5ce197a7ee5f3bda606b2697503412fe59710d30"
+    },
+    {
+      "path": "core/src/test/resources/native-private-chat-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "bef0e53a49ac28020d350532b1123371dffcca98"
+    },
+    {
+      "path": "core/src/test/resources/native-profile-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e4f205770db8c44581f0fdb1ebdd76d48a9d2c66"
+    },
+    {
+      "path": "core/src/test/resources/native-quote-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3c34584e220e55cd92b28b27cbd8c803e4810500"
+    },
+    {
+      "path": "core/src/test/resources/native-registry-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2fd823e6a3db5094897c9975cf0a9e15440ebaef"
+    },
+    {
+      "path": "core/src/test/resources/native-social-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4132de2bffbfb9dd7de4d88da653940b20fa1f7b"
+    },
+    {
+      "path": "core/src/test/resources/native-video-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "70353853fa7436444beb15dccfef4c7ac8ed0cc5"
+    },
+    {
+      "path": "gradle.properties",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "66974a7b674d72bf28fca5ac6c8682f780b97127"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a4b76b9530d66f5e68d973ea569d8e19de379189"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    },
+    {
+      "path": "gradlew",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "f5feea6d6b116baaca5a2642d4d9fa1f47d574a7"
+    },
+    {
+      "path": "gradlew.bat",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9b42019c7915b971238526075306ffba3b666dd5"
+    },
+    {
+      "path": "push-gateway/build.gradle.kts",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/FcmSender.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4a3f01efeb2bf0616c5c98488efcabaeb0ff0ba9"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchive.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7af9d853c93ddb0e3d521ca8e2a1c93186b78aab"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChain.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "5d4ec51340ec1c6d47d5ef811e2cc7507acda7ff"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChatObserver.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "1ed6a3b62fc35704a751c5057355a7841a69ea57"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChatOriginals.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0b67f219ddd2aed78967668a8d66b772f4781109"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayMain.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e4d4b3979e8bd3bfc9cd61990568ff92fcb10e9e"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayObserver.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "59ce5ab4ce3ed444440ac130bd5b57552e69f6e3"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "41ecff2da52e9246ead7e270fc58b2fc9f5a2e1e"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayShutdown.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "69cc2a28e781bc8ae0e4cec0e6226ef44a14d07b"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayStateFile.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "16d21e2a0ab6346648a8a6dddc555393b10cf26a"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8b1ce905acb60af66c1e65352c6814c3748071bd"
+    },
+    {
+      "path": "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "4ca18588407efaa7d250a9407348362ddc027454"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/FcmSenderTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "9d631cf88d261de10d546d3f79e9f45f8ebb52aa"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchiveTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2dfe2a671b25cde34d2e0a1db4db0c808a0d9019"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayChainDeliveryTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "d0515459cc70bf1587582b080aaa0be728bcde0c"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayChainTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "ae19d7382346bf3be29d5ad9d2a5037348d7d2c0"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayDeliveryTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e99f3a3c5cff5355bb39250e16d983f4edc7d358"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayGroupChatDeliveryTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e86bfdebd22d9b08b97eeb61db654e337dd5ee99"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayPrivateChatDeliveryTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "65677ee72f0173a0b82a72684cdd47572a639e9c"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayProcessTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "7942812fb3bb5b88272862ef6de804e2fbd69d94"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "512421024e824295d284f8cf9585b39d87522082"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionClientTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c2143d7c4f442bde7985db6be93a322d80fe9bfc"
+    },
+    {
+      "path": "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionLifecycleTest.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "596fce871353c833df7b4005b6fa858eab54060c"
+    },
+    {
+      "path": "push-gateway/src/test/resources/gateway-social-block-reference.json",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "6b5358f5e07b51848e5bba52ca9668f543d2bf27"
+    },
+    {
+      "path": "scripts/android-build",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "e0bf267ba8f9665b9e704a476ac1452d5721c15f"
+    },
+    {
+      "path": "scripts/android-emulator",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "71e8ae5ffc45c850c300e31789d2562bcf4df6f3"
+    },
+    {
+      "path": "scripts/author-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b37510d6aad20261b7c9bd33a06fcc8aed1fe2a3"
+    },
+    {
+      "path": "scripts/chat-mute-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "364def784a4a45ea5fe42ea3f77af2ab913c0787"
+    },
+    {
+      "path": "scripts/chat-queue-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "d612c3e7061513f6cf68eb57fe03688c87d36bb6"
+    },
+    {
+      "path": "scripts/chat_push_process_check.py",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "fa8872ad140cc18c26537dbf417f833a325b7f3f"
+    },
+    {
+      "path": "scripts/ci-android-device",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "b7def0d2ccabc1b0ae0a4ccf5cc6dd3d7f56f69a"
+    },
+    {
+      "path": "scripts/ci-android-setup",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "1e5cd31910edcba28aad03ec6bae69a1984cee66"
+    },
+    {
+      "path": "scripts/ci-review-update",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "9486eeaa55e1f72e79f4c3419220ac5a6538d85c"
+    },
+    {
+      "path": "scripts/ci-sdk-install",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "3fceedeb854330b7e18b55068c9205cd61b2a458"
+    },
+    {
+      "path": "scripts/ci-talkback-setup",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "2f7294601a908c7565bf371b3605543b6f1c30c3"
+    },
+    {
+      "path": "scripts/diagnostic-ui.py",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "f02a51a29a25aa2b7488f739eb31ce2b178fb70a"
+    },
+    {
+      "path": "scripts/emulator-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "fce50359c420dbcfe3809d800176d03b22451765"
+    },
+    {
+      "path": "scripts/feed-device-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "1915dc81b7c84a7458c77fc15050cc916997286e"
+    },
+    {
+      "path": "scripts/group-chat-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "cff749e77a66d6fb2fecac000b5385ec9f79212e"
+    },
+    {
+      "path": "scripts/group-push-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "1641418d85b5091a7ae91f8784b47b04b019c772"
+    },
+    {
+      "path": "scripts/image-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "b7bc3bf37962fa65716b8cfce7be47f63ef9fbd7"
+    },
+    {
+      "path": "scripts/notification-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "b0d52900da255797278fe4eb0cf5b538635ec842"
+    },
+    {
+      "path": "scripts/performance-device-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c0c27d3214c34445cb0680da327eff10fd8b916d"
+    },
+    {
+      "path": "scripts/personal-controls-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "97d4a99f5e852c8266b22ae042fb3197a8da958d"
+    },
+    {
+      "path": "scripts/play-bundle",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "2620bf81f28a5a87f60883576601d8ddbbfeb553"
+    },
+    {
+      "path": "scripts/post-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "76085593735c41af863a53e50838dbb0407b1e8f"
+    },
+    {
+      "path": "scripts/post-queue-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "4d791d002fa8a99b6677899c0a3ea3384c599e5e"
+    },
+    {
+      "path": "scripts/private-chat-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "8c79331170a989f74f8d27b3e6e261ad9680207d"
+    },
+    {
+      "path": "scripts/private-push-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "89b2e91101f1fa48bdb2b885b084bff1ae61a535"
+    },
+    {
+      "path": "scripts/process_check_utils.py",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "efc5735f751c9ea8544f43597777ccb30e92bfa0"
+    },
+    {
+      "path": "scripts/profile-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "76ffde51fb56870d7990e6a48025195b7d423fa1"
+    },
+    {
+      "path": "scripts/publishing-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "c4631c40f483f9d8b2a9181bbf226019800fbd61"
+    },
+    {
+      "path": "scripts/report-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "184e49d75d3823b870082bb950e0356cd6276345"
+    },
+    {
+      "path": "scripts/review-build",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "9bad6df4b328343652adc10d4ec21c85be9c3f29"
+    },
+    {
+      "path": "scripts/review-publish",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "d746f5a130bdf79cc47db1a2cfca87a6da32c585"
+    },
+    {
+      "path": "scripts/review-update-work-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "3a9ce71ff07bff0cde33a6dfaa815f1fbc1ba1b5"
+    },
+    {
+      "path": "scripts/signing-init",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "12d9c137c3dee0ed6a616c60a9e70d6181355a9b"
+    },
+    {
+      "path": "scripts/social-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "568057ab4b1e92e436641753698817fe3e60505d"
+    },
+    {
+      "path": "scripts/social-push-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "2372c5c30b5281bd471f2a26a0738d5baf9dfe1c"
+    },
+    {
+      "path": "scripts/social-push-scheduled-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "d82fab357bafd8a91521e64023cdac67cfbb3bd6"
+    },
+    {
+      "path": "scripts/transfer-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "a761088bc60c3ce36d49b853daa73493a26e7739"
+    },
+    {
+      "path": "scripts/username-process-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "ddaab438007bd65c216499085fdbf02f1df2b116"
+    },
+    {
+      "path": "scripts/wallet-device-check",
+      "mode": "100755",
+      "kind": "blob",
+      "gitObject": "9771e5e085f75a98d86171d633339afc5a932057"
+    },
+    {
+      "path": "scripts/wallet-export-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "2c02887ec2d84cfe54b2b1fdb11107feac521bba"
+    },
+    {
+      "path": "scripts/wallet-import-process-check",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e25acd830d423c90bcc7882235ad1bf843e2e9e2"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "0095b7ade761bc539b703724c717ece3a9d1879b"
+    },
+    {
+      "path": "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt",
+      "mode": "100644",
+      "kind": "blob",
+      "gitObject": "e2d08ba71c838df833a2fe9d2f4926511bce7df0"
+    }
+  ],
+  "artifact": {
+    "versionCode": 86,
+    "versionName": "0.1.86",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "af51c6983b5a45c08b4e2982b97a332b224d94c6e0813f4129ee618c3ba47e36",
+    "commit": "f2f5b22d71bf8d5fc211dd767e6b7619071cafb4",
+    "variant": "release"
+  },
+  "limits": "Equivalent tracked consumer source/build inputs, not the same full Git revision or identical debug/release binary. Signed ordinary version86 has REVIEW_BUILD=true; full gates also build debug/performance with their declared default configurations."
+}

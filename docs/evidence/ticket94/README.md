@@ -82,3 +82,51 @@ harness/full-run commit and verify equal consumer-source/build-input tree hashes
 This is equivalent consumer source, not an identical full Git revision or an
 identical debug/release binary. Actual version86, release/debug configuration,
 manifest signing identity and downloaded artifact hash remain explicit.
+
+## Candidate86 signed-update observations (before the integration layout repair)
+
+Both actual83-to86 update scopes passed on exact harness
+6c993209f793acb5b0e511f24acce215ab5bc32b: Android10 run42166921730 and
+Android17 run42166924610. Original wallet observations, exact unsent draft,
+offline caption/key/Published time, Light preference, distinct package UIDs and
+debug identity all pass, including a further cold launch. Both restoration
+receipts have zero failures. Downloaded APK hashes equal the immutable signed86
+artifact. Actual signing/package/manifest receipts are in `artifact86`.
+
+`candidate86-source-equivalence.json` records the real build commitf2f5b22 and
+final harness6c993209 separately. Both independently reviewed trees contain the
+same525 tracked inputs outside docs/androidTest, SHA256fe0510e3ba5605de349c31d5f5b43137e7b8aa90c89af3a2bfa65043dacb9669.
+This is equal consumer/build source, not an identical complete revision or
+identical debug/release binary. Variant/version/generated-configuration limits
+are explicit in the artifact receipt.
+
+Both update native review axes report zero findings. Each inspected all30 PNGs
+across both SDKs; standards parsed28 XMLs and spec selected10. Immediate-update
+and cold verification share capture names, so final verify originals show the
+later cold state. Both invocations have separate successful logs and equal
+observed values. Native XML/PNG remain non-atomic. Full-source application
+acceptance and final cross-module native/motion review are still pending.
+
+## Complete6c regression failures and repairs in progress
+
+The complete10/17 runs42166974293/42166977033 failed all three partitions.
+They stopped at the first failed class in each partition, so they do not prove
+execution of the entire literal catalog. Selected original traces and native
+failures are retained under `failures/full6c-*`.
+
+Conversation guidance needs the actual scoped Details observation rather than
+an obsolete inline expectation. Native Back needs the actual IME disappearance
+check, not UiAutomator's accessibility-event return value. Shared-cache fixture
+preparation must accept files already cleared by another captured wallet scope,
+while preserving exact independent restoration.
+
+A real production defect also needs repair: landscape200% duplicates the selected
+Home caption above an otherwise fully labelled bar and docked Compose, leaving
+zero feed viewport after closing the viewer. The navigation now reserves a64dp
+action slot and its extra gap before moving Compose inline only when every
+caption fits. Otherwise the old layout remains. Original viewer return visibility
+is retained, plus native48dp disjoint/equal navigation target observations.
+
+Because production inputs change, candidate86 and its old equivalence receipt
+are not final87 proof. Fresh focused validation, new signed87 update observations,
+complete final-source gates and native review remain required before publication.

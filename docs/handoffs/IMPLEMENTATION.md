@@ -8,67 +8,85 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Active #94: integrated verification and signed beta
+## Active #94: finish integration repairs, full proof and beta publication
 
-CURRENT05:02UTC: exact sourcef2f5b22d71bf8d5fc211dd767e6b7619071cafb4
-built/staged candidate86, SHA256af51c6983b5a45c08b4e2982b97a332b224d94c6e0813f4129ee618c3ba47e36.
-Stable latest remains83 and its bytes were verified unchanged after staging.
-Active candidate-update10 run42165854561 and17 run42165857533. Do not duplicate.
-No full94 dispatch yet. Both source reviews have zero unresolved logical findings;
-latest API correction compiled locally SUCCESS2m10. Source/type errors in85 are
-not native acceptance. No local build is active. Keep exact source frozen through
-candidate update and the subsequent complete full-android10/full-android17 runs.
-Continue through review and beta promotion, no owner input needed.
+The owner authorized all five tickets and beta. #90/#93/#81/#83 are closed.
+Continue94 to actual final publication without another question. Current committed
+source6c993209f793acb5b0e511f24acce215ab5bc32b; owned working delta below.
+Use `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`; preserve unrelated canonical Chat WIP.
 
-UPDATE:86 Android17 run42165857533 SUCCESS complete actual update. Android10
-42165854561 fails only immediate second draft-reopen check; captured UI says
-Loading saved work and disabled editor. Initial post-update draft comparison,
-cache caption/key/time, Light and wallet gate passed. Sole observer fix waits
-enabled editor/Save with same20s lookup and exact draft assertions. Both reviews0.
-Keep signed86. Reviewers independently verified no consumer code/resources/build
-input changed; record actual build commitf2f5b22 and later exact harness/full-run
-commit separately, with equal tree hashes over tracked inputs excluding only
-docs and androidTest. Do not relabel manifest source or call binaries identical.
-After local compile, freeze/commit the readiness fix, dispatch candidate-update
-10/17 with candidate_version86 on that new source. Full94 still pending; then
-full-android10/full-android17 exact new source, collect/review/promote86.
+Ordinary latest remains83. Signed candidates84/85/86 are staged only.86 build
+f2f5b22d71bf8d5fc211dd767e6b7619071cafb4,
+SHA256af51c6983b5a45c08b4e2982b97a332b224d94c6e0813f4129ee618c3ba47e36.
+Actual83-to86 update10/17 runs42166921730/42166924610 passed on harness6c,
+including wallet/draft/offline caption+key+Published/Light/UID isolation and cold
+launch. Both update native reviews0. See update-android10/17, artifact86 and
+candidate86-source-equivalence.json under ticket94. These are historical86 proof:
+a real production layout fix below invalidates86 as the final candidate.
+Do not promote86. Next signed version87 must be built after focused validation.
 
+Complete6c full10 run42166974293 and full17 run42166977033 are FAILED,
+all six jobs completed. Do not assemble their partial results into a full pass.
+Retained selected failures at `docs/evidence/ticket94/failures/full6c-*`.
+Raw roots externally: `redesign94-full10-6c-42166974293` and
+`redesign94-full17-6c-42166977033` under the artifact root.
 
-Review base03636e7d2bd6b5c06ec1c1815c7c6e215ec2cb22. #83 is closed with
-completion comment6676669407. All remaining work is94 and authorized beta.
-The working delta adds immutable staging/promotion to review-publish, opt-in
-candidate-update scopes, a real ordinary-app local-work observer that retains
-the existing wallet update gate, and the literal complete catalog/collector at
-`docs/evidence/ticket94`. No full94 run or candidate acceptance is claimed yet.
-Read its README for the frozen counts and actual required gates. Source review
-caught/fixed CLI schema, immutable legacy inputs, exact archive paths, cleanup
-failure preservation and completed-observation timing. Both source review axes now report zero unresolved findings. Source71f66dd25
-built/staged signed candidate84, but real83-to84 observations42163060906/42163063495
-failed only exact old body layout comparison: old caption+URL becomes caption+
-link card. Native failure captures show the exact caption cached offline.
-Original wallet gate and Light passed; restoration passed on both SDKs. These
-failed runs are not acceptance. The revised observer compares actual caption
-line, public key and Published time, and uses actual full text for screenshot
-readiness. Both incremental reviews are zero. Build/stage candidate85 on this
-new source, run both candidate-update scopes, then complete full-android10/17
-on that same exact source. No full94 run has started yet. Ordinary public beta
-is still83; counter84. Staged84 is immutable and must not be promoted.
+Four diagnosed defects and current uncommitted fixes:
 
-Candidate84 SHA256801ad531fb9e3546e47bf68ce93dff2e2b50d55eb0e1e798337b41895bf26da1.
-Exact beta notes live externally at
-`/mnt/storage/redsquare-android-artifacts/redesign94-beta-notes.txt`; reuse them
-for stage/promote. Latest-before-stage bytes are retained beside that file.
-Raw failed84 downloads are `redesign94-candidate84-update10-42163060906` and
-`redesign94-candidate84-update17-42163063495` under that artifact root; selected
-failure native/log/download/restoration receipts are committed under ticket94.
-Candidate85 was then built/staged at source25b536a87df5fc11a5222e14a51652ec2efe420f,
-SHA25668831b751707f9b16693faf515a69895a5e4a4488619563dcbd8ba15e685afa8.
-Its42164735390/42164737915 failed instrumentation compilation at By.textMatches.
-The actual API is By.text(Pattern), now corrected and locally compiled SUCCESS
-in2m10s. Build/stage candidate86 next, on this new exact source. Do not promote84
-or85. Stable latest remains83, shared version counter85. No full94 run yet.
-Both review agents idle; their last logical/source findings are resolved.
-Root47GB/storage49GB free last observed; use the additional disk for artifacts.
+1. Wallet10/17 FeedPreviewTest:226 looked for old long Conversation warning
+inline. #79 intentionally moves it behind Details. Test now uses one completed
+15s budget through compact summary/scoped Details/exact old guidance; closes
+Details, preserves post, and requires fresh request+success+both warnings absent
+on recovery. New captures use existing feed-readiness archive.
+2. Chat10 DestinationJourneyMotionTest:81 checked UiAutomator pressBack Boolean
+before its actual5s IME-gone goal. Inject real Back directly and retain that goal
+and navigation assertions. Same invalid Boolean in UsernamePreviewTest is now
+removed while retaining its actual5s IME disappearance check. Failure movies
+precede Back and do not prove whether old Back closed the keyboard.
+3. Social10/17 ImageViewerViewportTest:96 is a real layout defect: at200%
+landscape, duplicate48dp Home/Compose row plus80dp navigation leaves zero feed
+viewport. AppFrame.ModuleNavigation now moves Compose inline ONLY if captions
+fit after reserving64dp and the extra gap; otherwise original compact/fallback
+layout remains. Original image-visible return assertion remains, with extra
+landscape return PNG/native six disjoint48dp targets/five equal widths.
+4. Chat17 PushBindingPreviewTest:93 fails in ChatFixtureState.prepare:19 because
+two eager wallet scopes share avatarprofiles.* snapshots and the second deletes
+already-absent shared files. Preparation is now idempotent for absent files;
+existing files must remain regular and delete successfully. Restore unchanged.
+New guarded synthetic cache scope exercises original90s binding class, checks
+exact sentinel restoration, removes only owned seed independently. New adb setup
+and cleanup calls bounded15s; Both incremental reviews confirm0 after the bounded commands and permission restoration.
+
+New focused scopes: feed-refresh-regression and push-binding-cache-regression,
+both Android17 variants, choices plus BOTH runtime exclusion guards. They do not
+change full inclusion, IDs or bounds. Shell syntax passed. Product+tests compiled
+SUCCESS4m24 at redesign94-focused-fixes-compile.txt. Latest local compile after the Username test-only correction passed in2m22s,
+external logredesign94-final-observer-compile.txt. Native target traversal now
+uses the same selected-tab exception as the existing NavigationPreview helper;
+actual rawXML proves Home is selected/focusable, not redundantly clickable. No beta87 build yet. Both incremental source reviews report0 after bounded-adb/permission/Username
+edits. All major Kotlin changes compiled; selected-tab target lookup now matches
+the existing native Navigation helper and observed selected/nonclickable Home.
+
+Next: finish compile/review, commit/push, then focused image-viewer, navigation,
+destination-journey, feed-refresh-regression and push-binding-cache-regression
+on both SDKs. Keep original bounds/assertions. Fix findings, build/stage87 only
+after product layout passes; actual87 update and complete full10/17 must pass on
+one consistent final source. Native full review then promote through existing
+VPS route using exact notes in external redesign94-beta-notes.txt. No owner input
+needed. No node changes or public transactions. #1/#36/#55/#84 stay open.
+
+Frozen94 catalog/collector remain valid: no method identities added by these
+repairs,626/627 identities,211 classes,228/229 normal completions,35 deliberate
+interruptions,34 continuities,177 literal archives per SDK. Changed CI selection
+files must be recorded separately from actual consumer-build inputs; the earlier
+525-input equality receipt only describes f2 versus6c, not the upcoming source.
+
+Prepared native review selection/helpers outside Git:
+`redesign94-final-native-review-plan/selection.json` (98 stills/22movies perSDK),
+`redesign94-final-native-review-standards/{selection-plan.json,index_native.py}`.
+Full packets must resolve actual filenames/overwritten captures before review.
+Root and storage last verified47GB/49GB free; use additional disk for artifacts.
 
 ## #83 complete, continue #94 and publish beta
 

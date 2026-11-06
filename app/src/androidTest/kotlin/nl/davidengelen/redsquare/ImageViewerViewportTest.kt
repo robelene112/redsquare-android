@@ -94,6 +94,27 @@ class ImageViewerViewportTest {
         ui.onNode(hasText("Close image") and hasClickAction()).performClick()
         ui.waitUntil(10_000) { ui.onAllNodesWithText("Close image").fetchSemanticsNodes().isEmpty() }
         ui.onNode(attachment).assertIsDisplayed()
+        if (label.endsWith("-landscape")) {
+            val navigation = mutableListOf<android.graphics.Rect>()
+            val observed = JsonObject()
+            for (name in listOf("Home", "Search", "Notifications", "Chat", "Your profile", "New post")) {
+                var native = requireNotNull(device.findObject(androidx.test.uiautomator.By.pkg(instrumentation.targetContext.packageName).text(name)))
+                // The selected native tab exposes selection/focus instead of a redundant click.
+                while (!native.isClickable && !native.isSelected) native = requireNotNull(native.parent)
+                val bounds = native.visibleBounds
+                assertTrue("$name retains its48dp target after returning to the image", bounds.width() >= minimum && bounds.height() >= minimum)
+                assertTrue(bounds.left >= 0 && bounds.top >= 0 && bounds.right <= device.displayWidth && bounds.bottom <= device.displayHeight)
+                assertTrue("Navigation and Compose targets stay disjoint", navigation.none { android.graphics.Rect.intersects(it, bounds) })
+                navigation += bounds
+                observed.addProperty(name, bounds.flattenToString())
+            }
+            val widths = navigation.take(5).map { it.width() }
+            assertTrue("The five destinations retain equal widths", widths.max() - widths.min() <= 1)
+            File(folder, "$label-return-navigation.json").writeText(JsonObject().apply {
+                addProperty("minimumPixels", minimum); addProperty("disjoint", true); add("targets", observed)
+            }.toString())
+            captureNativeScreen(File(folder, "$label-closed.png"))
+        }
     }
 
     private fun restore(device: UiDevice, key: String, value: String) {
