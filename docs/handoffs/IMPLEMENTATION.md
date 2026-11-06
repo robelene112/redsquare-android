@@ -1,6 +1,45 @@
 # Implementation handoff
 
-## ACTIVE: R10 passes, R17 WalletTalkBack setup repair awaiting focused runtime
+## ACTIVE: source S, precise TalkBack setup activation, focused and full gates running
+
+CODE S `ed819bc1cc121920e3aae6b12e335363ad8d0f3a`, immutable tag
+`proof-redesign94-ed819bc`. Root solewriter. #90/#93/#81/#83closed, #94open.
+Local instrumentation compile PASS4m53. Both source axes zero unresolved findings
+for the real Later ACTION_CLICK and positive foreground/dismissal within original
+shared15s. Source change only WalletTalkBackPreviewTest; no APK producer change.
+
+Focused wallet-talkback runs10/17:42279962652/42279967466.
+Complete all3/public-read runs10/17:42280027569/42280031596.
+All use exactS source/workflow/tag; no cancel/duplicate. The focused and complete
+runs use independent runners, dispatched together after typecheck/source review.
+Wait for actual outcomes; do not assume any pass. SourceR catalog/helper freeze
+is unchanged and predates S execution: same frozen identities, deadlines, archive
+inventory/tool/engine pins and strict keyboard subtree verifier.
+
+Fresh successful raw folders: `redesign94-fullS10-42280027569` and
+`redesign94-fullS17-42280031596`, then collector labels `finalS-android10` and
+`finalS-android17`, exactS. After both complete collectors, followup final native
+review axes on actualS packets. Plans nowS; priorR10partial reviews are preserved
+but are not two-SDK/finalS acceptance. Reviewers final94_native_standards/spec
+are idle and reusable. No unreviewed new implementation agent.
+
+R10 complete/frozen collector PASS625+1 remains valid older evidence, committed
+under `finalR-android10`; R17 FAILWalletTalkBack setup beforepayment remains
+under `failures/fullR-chat17`. Actual failure foreground is DocumentsUI test
+backups, not merely a root transition. Moving-banner coordinate misactivation is
+a supported hypothesis, not exclusive proven cause. Do not mask the external
+window or relax the Account helper; new setup requires appforeground positively.
+
+Signed89 remains B source with439 audited equal APK-input paths B→S and explicit
+440-path CI-only exception. Actual B release/update provenance remains separate;
+no new APK or whole-revision/debug-release binary equality. Stablelatest83,
+89staged NOTpromoted. Complete S acceptance, both actual finalnative/motion axes,
+exact89 promotion with unchanged notes and publichash verification remain.
+Close94only afterwards; keep1/36/55/84/86 and externalStack/Pixel/provider/KVK/Play
+criteria independent. The one production node restart is fulfilled; no new node
+mutation authorized. Continue owner-authorized five-ticket/beta task.
+
+## Previous: R10 passes, R17 WalletTalkBack setup repair awaiting focused runtime
 
 R10 complete42265166557 and frozen collector PASS625+1 inherited Profile
 assumption,626identities,177archives, exactR. Original packet `finalR-android10`.
