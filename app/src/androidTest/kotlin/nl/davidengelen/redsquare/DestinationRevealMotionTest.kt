@@ -23,8 +23,9 @@ class DestinationRevealMotionTest {
             val context = instrumentation.targetContext
             val device = UiDevice.getInstance(instrumentation)
             val folder = File(context.cacheDir, "destination-reveal-evidence").apply { mkdirs() }
-            withRevealTrace(folder, scale) { markTap ->
+            withRevealTrace(folder, scale) { markTap, attachWindow ->
             withAppFrameFixture("search-$scale", "destination-reveal-evidence") { activity ->
+                attachWindow(activity)
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
                 val preparationDeadline = SystemClock.elapsedRealtime() + 5_000
                 requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
@@ -136,11 +137,16 @@ class DestinationRevealMotionTest {
     private data class DrawSample(val event: String, val targetType: String, val targetIdentity: Int,
         val opacity: Float, val motionScale: Float, val nanos: Long)
 
-    private fun withRevealTrace(folder: File, scale: Int, block: (() -> Unit) -> Unit) {
+    private fun withRevealTrace(folder: File, scale: Int,
+        block: (() -> Unit, (androidx.test.core.app.ActivityScenario<MainActivity>) -> Unit) -> Unit) {
         val previous = RevealDrawObservation.listener
         check(previous == null) { "This disposable debug fixture must own its reveal observation" }
         val lock = Any()
         val samples = mutableListOf<DrawSample>()
+        data class FrameCommit(val targetType: String, val targetIdentity: Int, val registeredNanos: Long, val committedNanos: Long)
+        val commits = mutableListOf<FrameCommit>()
+        val registrations = mutableListOf<Pair<android.view.ViewTreeObserver, Runnable>>()
+        var rootView: android.view.View? = null
         var dropped = 0
         var tapNanos: Long? = null
         var primary: Throwable? = null
@@ -150,15 +156,45 @@ class DestinationRevealMotionTest {
                     if (samples.size < 2_048) samples.add(DrawSample(event, type, identity, opacity, motionScale, nanos))
                     else dropped++
                 }
+                val view = rootView
+                if (event == "first-content-draw" && synchronized(lock) { registrations.size < 64 } &&
+                    view?.isHardwareAccelerated == true &&
+                    android.os.Looper.myLooper() == android.os.Looper.getMainLooper()) {
+                    val observer = view.viewTreeObserver
+                    if (observer.isAlive) {
+                        val registered = System.nanoTime()
+                        val callback = Runnable { synchronized(lock) {
+                            if (commits.size < 64) commits.add(FrameCommit(type, identity, registered, System.nanoTime()))
+                        } }
+                        synchronized(lock) { registrations.add(observer to callback) }
+                        observer.registerFrameCommitCallback(callback)
+                    }
+                }
             }
-            block { tapNanos = System.nanoTime() }
+            block({ tapNanos = System.nanoTime() }, { activity ->
+                activity.onActivity { rootView = it.window.decorView }
+            })
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             cleanupAfterTest(primary, { RevealDrawObservation.listener = previous }, {
+                InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                    synchronized(lock) { registrations.toList() }.forEach { (observer, callback) ->
+                        if (observer.isAlive) observer.unregisterFrameCommitCallback(callback)
+                    }
+                }
+            }, {
                 val result = JsonObject().apply {
                     addProperty("clock", "System.nanoTime")
                     addProperty("tapNanos", tapNanos)
                     addProperty("droppedObservations", dropped)
+                    addProperty("frameCommitMeaning", "Rendered into a frame and submitted to the swap chain; not necessarily visible. No invalidation or clock changes requested.")
+                    addProperty("frameCommitApi", "https://developer.android.com/reference/android/view/ViewTreeObserver#registerFrameCommitCallback(java.lang.Runnable)")
+                    add("frameCommits", JsonArray().apply {
+                        synchronized(lock) { commits.toList() }.forEach { commit -> add(JsonObject().apply {
+                            addProperty("targetType", commit.targetType); addProperty("targetIdentity", commit.targetIdentity)
+                            addProperty("registeredNanos", commit.registeredNanos); addProperty("committedNanos", commit.committedNanos)
+                        }) }
+                    })
                     add("observations", JsonArray().apply {
                         synchronized(lock) { samples.toList() }.forEach { sample -> add(JsonObject().apply {
                             addProperty("event", sample.event); addProperty("targetType", sample.targetType)
