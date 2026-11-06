@@ -447,3 +447,9 @@ closed-app public-provider, physical-device or complete-M claim follows.
 
 Complete M runs42232393578/42232677166 now execute the frozen catalog. Final
 collector, full-source native/motion reviews and exact89 promotion remain pending.
+
+
+Earlier I17 Chat42225947593 completed with the original two group-queue failures
+(index-before-Node wait and45px Members target); its actual log is retained in
+failures/fullI-chat17. These are corrected and focused-pass on M. Wallet passed;
+I17 Social remains pending at14:35. Current M full gates remain separate.

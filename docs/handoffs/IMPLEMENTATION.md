@@ -69,8 +69,9 @@ KVK/Play acceptance independent. No owner input required for routine tests.
 
 Earlier H fulls both FAILED:10SocialPASS/WalletFAIL/ChatFAIL;17SocialPASS/WalletPASS/
 ChatFAIL. I10full FAILED(Social empty initial feed; Chat rootless tap; WalletPASS).
-I17full42225947593 still Social/Chat running at14:18, WalletPASS. Inspect eventual
-actual outcome; do not assume its failures match earlier ones. RawH10/H17 all
+I17full42225947593: WalletPASS, ChatFAIL with the same two original group-queue
+failures (actual log inspected, sourceI). Social still running at14:35. Inspect
+its eventual actual outcome. RawH10/H17 all
 partitions and I10Social/Chat already downloaded. Do not redownload into existing
 folders. Thin failures and focused packets are retained under ticket94.
 
