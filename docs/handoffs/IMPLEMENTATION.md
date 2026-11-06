@@ -8,39 +8,51 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: complete final I verification running
+## ACTIVE: focused final fixture repairs on K
 
-CODE source: f2dc6c2ddc0148c4839d44b60787df99a34d661e (I).
-Both original focused import scopes PASS: Android 10 run42224555629, Android 17
-run42224560097. Seven import methods plus original replacement-risk, storage and
-actual process-death recovery complete. Native entry capture shows Import fully
-visible after the original backup saved status. Original assertions/deadlines/
-identity and independent restoration remain. Both source axes zero findings;
-both targeted native axes inspected all48PNG/4XML and original import/risk/
-storage/process logs, zero findings. Fully visible enabled Import is252×48px.
-Class151.695s/202.639s stays inside300s. Narrow/light, non-atomic capture limits
-and assertion-based exact persistence remain explicit. Packets: focused-importI-10/-17.
+CODE source: 7d9d79f26d36574983f4e60bd0c46be75f8ee75b (K).
+J9484d5784 adds actual initial feed content/Refresh readiness within the SHARED
+original15s initial budget before scrolling to post10. Full I10 Social42225564555
+failed in3.734s with empty list and actual Loading posts capture. Original exact
+post/pixel/thread/profile/draft assertions remain. Source review axes zero.
 
-RUNNING final complete I, do not duplicate/cancel:
-- Android 10:42225564555.
-- Android 17:42225947593.
-Exact immutable tag proof-redesign94-f2dc6c2, metadata/source/workflow I, public
-reads true, all original Chat/Social/Wallet jobs. Frozen catalog unchanged.
-No complete final pass yet. After all three jobs succeed per SDK, run the frozen
-collector with exact I, then both actual cross-module native/motion reviews,
-then promote exact signed89 with unchanged notes and verify public result.
+K additionally strengthens the existing15s FeedWritingViewport readiness predicate
+with exact body PRESENCE (preserves scroll) and Refresh, before the200% Quote
+scroll. Bounded audit:61withAppFrameFixture files/54Later sites, no other definite
+initial empty-feed omissions. All Conversation callers already await body.
+K corrects ChatQueue's group-scope Settings waits to actual Node category before
+backend choices, and fully reveals clickable Members before unchanged physical
+48dp assertion. H10/17 Chat both fail2/13 ChatQueue methods (11pass): backend
+choice awaited at Settings index; Members parent48px clips3px at viewportbottom,
+so visible45px. Original noTx/relay/envelope/wallet/backend/cancel/recovery remain.
+Both K source axes zero unresolved findings. No producer input or testID changes.
 
-The prior H Android 10 Wallet failed one of seven import methods: original
-native shows saved-backup status, clipped Export and no Import/picker. Six other
-methods passed. I scrolls/displays/enables Import before its existing touch and
-captures that actual entry. Evidence: failures/fullH-wallet10. H Android 17
-Wallet passed; other H jobs still running. Keep failed H complete acceptance
-separate from targeted I and eventual complete I. Do not assemble passes.
+RUNNING focused exact K through immutable tag proof-redesign94-7d9d79f:
+- ChatQueue10:42228886016;17:42228890462.
+- FeedRedesign10:42228894833;17:42228899217.
+Earlier JFeedRedesign10/17 also running42228449300/42228452911; do not cancel.
+I full10/17 still have running jobs42225564555/42225947593, but I10Social already
+FAILED. PriorH10full42220261090 completeFAILED (SocialPASS, Wallet/ChatFAIL).
+PriorH17full42220264070 WalletPASS/ChatFAIL, Socialstillrunning atlatestpoll.
+None is complete final K acceptance. Preserve original failures in ticket94/
+failures/fullI-social10 and fullH-chat10/-17. All raw partitions downloaded for
+H10 and H17wallet/chat externally; don't redownload same directories.
 
-All 440 producer paths/modes/types/blobs B→I remain equal; signed89 source B and
-original update proof are separate from instrumentation I. Stable latest83,
-89 staged, not promoted. Owner-approved one node restart already fulfilled;
-no further production mutation. No local builder or implementation agent active.
+Both focused I original import scopes PASS42224555629/42224560097, both native
+axes all48PNG/4XML, zero findings;151.695s/202.639s inside300s. Entry252×48px,
+identity/recreation/failedsave/risk/storage/actualprocess checks pass. Limits:
+narrow/light, non-atomic captures and assertion-based exact persistence.
+
+All440producer paths/modes/types/blobs equal B→K; signed89 producerB, SHA256
+6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5. Stable latest83,
+89 staged/not promoted. Receipt updated toK; actual artifact/update proof B
+remain distinct. Native final selection plans nowK/artifactB, no final reviewyet.
+After focused repairs pass, dispatch fresh COMPLETE K10/17 using same exact tag,
+public reads true, frozen collector/catalog unchanged. On successful all3jobs/SDK,
+download full, run frozen collector exactK, actual two-axis cross-module native/
+motion review, promote exact89 unchangednotes, verifypublic, commit/close94only.
+Owner-approved node restart already fulfilled and nodecaughtup; no further
+production mutation. No local builder or implementation agent active.
 
 ## Previous full H verification
 

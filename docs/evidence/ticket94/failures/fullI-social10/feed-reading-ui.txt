@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedReadingRedesignTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedReadingRedesignTest:
+INSTRUMENTATION_STATUS: test=threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedReadingRedesignTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches TestTag = 'post-card-1b6a53fdb1d3' in scrollable container
+Semantics of the node:
+Node #164 at (l=18.0, t=224.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@7e71dde'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+Selector used: (TestTag = 'feed-post-list')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel$lambda$9(FeedReadingRedesignTest.kt:24)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.$r8$lambda$UJiQypVB_GKd9P7bsujelN2Vtdc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel(FeedReadingRedesignTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel(nl.davidengelen.redsquare.FeedReadingRedesignTest):
+java.lang.AssertionError: No node found that matches TestTag = 'post-card-1b6a53fdb1d3' in scrollable container
+Semantics of the node:
+Node #164 at (l=18.0, t=224.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@7e71dde'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+Selector used: (TestTag = 'feed-post-list')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel$lambda$9(FeedReadingRedesignTest.kt:24)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.$r8$lambda$UJiQypVB_GKd9P7bsujelN2Vtdc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel(FeedReadingRedesignTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.734
+There was 1 failure:
+1) threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel(nl.davidengelen.redsquare.FeedReadingRedesignTest)
+java.lang.AssertionError: No node found that matches TestTag = 'post-card-1b6a53fdb1d3' in scrollable container
+Semantics of the node:
+Node #164 at (l=18.0, t=224.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@7e71dde'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+Selector used: (TestTag = 'feed-post-list')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel$lambda$9(FeedReadingRedesignTest.kt:24)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.$r8$lambda$UJiQypVB_GKd9P7bsujelN2Vtdc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedReadingRedesignTest.threadProfileAndUnsentWritingReturnToTheSameFeedPostAndPixel(FeedReadingRedesignTest.kt:21)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

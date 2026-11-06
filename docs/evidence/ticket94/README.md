@@ -1,13 +1,13 @@
 # Unified redesign release verification (#94)
 
-Current verification source is `f2dc6c2ddc0148c4839d44b60787df99a34d661e`
-(I). Complete I runs `42225564555` / `42225947593` are running with all three
-partitions and public reads. Original focused import checks on I passed as
-`42224555629` / `42224560097`, including actual process recovery. Earlier H
-Android 10 Wallet failed; H Android 17 Wallet passed. These are distinct runs.
+Current repair source is `7d9d79f26d36574983f4e60bd0c46be75f8ee75b`
+(K). Focused ChatQueue10/17 `42228886016` / `42228890462` and FeedRedesign10/17
+`42228894833` / `42228899217` are running. Earlier complete H/I runs have failed
+partitions and cannot establish final acceptance. Original import checks on I
+passed on both SDKs, including actual process recovery and both native reviews.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
-producer input paths, modes, types and blobs are equal from B to I. The later
+producer input paths, modes, types and blobs are equal from B to K. The later
 changes correct instrumentation only. See `candidate89-producer-equivalence.json`.
 The actual artifact, release configuration and original update observations retain
 their separate provenance. Stable latest remains 83.
@@ -382,3 +382,20 @@ and owner feed retains its selected node. Original import runtimes151.695s/
 Limits: narrow/light captures, non-atomic PNG/XML; exact saved-state, safeguards
 and no replay additionally rely on passing assertions. No exclusive cause,
 complete application, physical-device or additional signed-update claim follows.
+
+
+Full I Android10 Social failed the reading-anchor test in3.734s: list rowCount0,
+actual native Loading posts, no crash. J awaits actual first reference body and
+available Refresh within the original shared15s initial budget before original
+post10/pixel journeys. K adds the same content-presence/readiness precondition
+to FeedWriting's existing15s predicate. A bounded audit covered61frame-fixture
+files/54Later sites; no further definite initial empty-feed omission was found.
+
+Full H Chat fails2/13 ChatQueue methods on each SDK. One waits for a backend
+choice before entering Node; another observes Members visible-height45px because
+its actual48px parent extends3px beyond the scroll viewport. K follows the actual
+Node category and fully scrolls the exact Members action into view before the
+unchanged physical48dp check and real click. Original identity/envelope/queue/
+backend/no-transmission/cancel/recovery assertions and bounds remain. Both source
+review axes zero findings. Thin originals: failures/fullI-social10 and
+fullH-chat10/-17. Fresh K focus, full gates and final native review remain pending.
