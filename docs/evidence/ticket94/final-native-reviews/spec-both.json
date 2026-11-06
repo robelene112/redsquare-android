@@ -1,0 +1,59 @@
+{
+  "source": "ed819bc1cc121920e3aae6b12e335363ad8d0f3a",
+  "axis": "Spec native rendering and motion",
+  "conclusion": "Zero unresolved actionable findings in bounded actual finalS Android10/17 native review",
+  "runs": {
+    "10": 42280027569,
+    "17": 42280031596
+  },
+  "completeCollectorResults": {
+    "10": {
+      "passed": 625,
+      "inheritedProfileAssumptions": 1
+    },
+    "17": {
+      "passed": 627,
+      "assumptions": 0
+    }
+  },
+  "reviewedSDKs": [
+    {
+      "sdk": "10",
+      "receipt": "/mnt/storage/redsquare-android-artifacts/final94-spec-review-S/10/reviewed.json",
+      "sha256": "f3e7ae034612d20b2f36673d58b4426a06940398df4e55b473168c1440e2078e",
+      "stills": 121,
+      "movies": 28,
+      "inspectedFrames": 284,
+      "selectedMoviesTotalDecodedFrames": 602
+    },
+    {
+      "sdk": "17",
+      "receipt": "/mnt/storage/redsquare-android-artifacts/final94-spec-review-S/17/reviewed.json",
+      "sha256": "7e1b9d1264b0c088bf1b581a4066ba8e4e9f65eefddaf6bbe31ccab76540b505",
+      "stills": 121,
+      "movies": 28,
+      "inspectedFrames": 286,
+      "selectedMoviesTotalDecodedFrames": 878
+    }
+  ],
+  "actualInspectedStills": 242,
+  "actualInspectedMovies": 56,
+  "actualInspectedOriginalDecodedFrames": 570,
+  "selectedMovieTotalDecodedFrames": 1480,
+  "coverage": [
+    "Shared navigation, feed, post/reply/quote writing, thread/profile and own editor recovery",
+    "Grouped Activity, exact post/draft route from Stack notification, private/group Chat and queue Members action",
+    "Wallet identity/recovery/payment/no-send and Settings categories/node/appearance",
+    "320/412dp,100/130/200%,light/dark,system IME and recovery, normal/zero motion",
+    "Actual native and recomposer/window scales1/0; original chronological frame indices and monotonic PTS, recorder exit0",
+    "FullS wallet ACTION_CLICK reminder dismissal, app foreground, reviewed recipient/amount/fee/node and outgoingTransactions0 on both SDKs",
+    "Policy initial keyboard handoff/radio speech and viewer original/return keyboard focus/speech, account font-scale/navigation receipts and actual Like process recovery"
+  ],
+  "limits": [
+    "Bounded representative review, not every full packet image/frame; recordings inspected through retained decoded original frames, not continuous playback",
+    "XML, screenshots, Compose assertions and paint timings are non-atomic observations",
+    "Fixture solid-color images are controlled inputs, not production defaults",
+    "Signed83-to89 continuity independently reviewed; candidate producer source95725b differs from tested sourceS, no binary/full revision equality claim",
+    "No physical Pixel performance/gesture feel, actual configured provider lifecycle, real Stack protocol, legal/KVK or Play acceptance; #1/#36/#55/#84/#86 retain independent authority"
+  ]
+}

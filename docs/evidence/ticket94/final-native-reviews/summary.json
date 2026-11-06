@@ -1,0 +1,43 @@
+{
+  "source": "ed819bc1cc121920e3aae6b12e335363ad8d0f3a",
+  "twoSdkFinalReviews": true,
+  "unresolvedActionableFindings": {
+    "standards": 0,
+    "spec": 0
+  },
+  "standards": {
+    "android10": {
+      "nativePngs": 134,
+      "xmls": 133,
+      "movies": 42,
+      "uniqueOriginalFrames": 416
+    },
+    "android17": {
+      "nativePngs": 134,
+      "xmls": 133,
+      "movies": 42,
+      "uniqueOriginalFrames": 516
+    }
+  },
+  "spec": {
+    "android10": {
+      "nativeStills": 121,
+      "movies": 28,
+      "inspectedOriginalFrames": 284,
+      "retainedDecodedFrames": 602
+    },
+    "android17": {
+      "nativeStills": 121,
+      "movies": 28,
+      "inspectedOriginalFrames": 286,
+      "retainedDecodedFrames": 878
+    }
+  },
+  "limits": [
+    "Bounded actual native review, not every generated sheet.",
+    "PNG/XML/assertion/focus-paint observations are non-atomic.",
+    "Emulator frames and real synthesis callbacks do not establish physical fluency or audibility.",
+    "Actual Stack protocol, physical Pixel, provider lifecycle, KVK/Play and owner visual acceptance remain independent."
+  ],
+  "provenance": "Only fresh finalS-android10/finalS-android17 originals reviewed for the final conclusion, no R/Q substitution. Signed89 actual producerB and original signed-update proof remain separate;439 audited APK inputs equal S, original440superset retains CI-only workflow exception."
+}

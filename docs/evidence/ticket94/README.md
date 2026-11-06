@@ -1,6 +1,30 @@
 # Unified redesign release verification (#94)
 
-## ACTIVE: both complete S gates and frozen collectors pass, final native review pending
+## ACTIVE: all final S verification/reviews accepted, exact89 promotion now authorized
+
+Both complete S workflows/frozen collectors pass on exacted819bc1c:10run
+42280027569 (625+1 inherited Profile assumption),17run42280031596 (627+0).
+Both finalnative review axes now zero unresolved actionable findings using FRESH
+S10/S17 originals only. Standards134PNG/133XML perSDK,42movies each,416/516unique
+originalframes. Spec121stills/28movies perSDK,284/286inspectedframes from602/878
+decoded. Machine-readable exact reviewedpaths/hashes/frameindices and separate
+axis counts in `final-native-reviews`. No R/Q image substitution or waived goal.
+
+Normal/zero system/window/recomposer receipts and original recorders agree;
+selection covers meaningful320/412,100/130/200%,light/dark/IME/recovery acrossall
+modules. Non-atomiccaptures, boundedselection, syntheticfixturecolors and no
+physicalfluency/audibility claims remain explicit. Original B signed83→89 update
+10/17 proof remains independentlyaccepted.439audited equal APK-input paths B→S,
+original440comparisononeCI-only exception, actualartifact/configuration separate.
+
+Root may NOW promote EXACT staged89 with unchanged notes, per existing owner
+five-ticket/beta authorization; no further approval needed. Verifypublic latest/
+page/downloadhash, retainactualpublicationproof, completioncommit/push/comment,
+close94only. Stablelatest currently83; no publication/completion claim before
+scriptverification. No newAPK/source/runtime/code changes required. Otherowner/
+parent/external criteria remain independent. No additional node mutation.
+
+## Previous: both complete S gates and frozen collectors pass, final native review pending
 
 Source `ed819bc1cc121920e3aae6b12e335363ad8d0f3a`, immutable tag
 `proof-redesign94-ed819bc`. Android10run42280027569 and17run42280031596 both
