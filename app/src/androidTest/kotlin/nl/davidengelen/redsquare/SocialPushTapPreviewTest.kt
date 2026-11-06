@@ -335,13 +335,22 @@ class SocialPushTapPreviewTest {
                         assertTrue(device.openNotification())
                         val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), 10_000))
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), alertText)
+                        val stackArrivalBy = android.os.SystemClock.elapsedRealtime() + 15_000
                         alert.click()
+                        fun stackArrivalRemaining(): Long {
+                            val remaining = stackArrivalBy - android.os.SystemClock.elapsedRealtime()
+                            check(remaining > 0) { "Notification arrival exceeded its 15-second budget" }
+                            return remaining
+                        }
                         if (stack) {
+                            // Android can unmount Compose roots during the notification return.
+                            // Share the original Conversation arrival budget with this observation.
+                            waitFor(hasText("Connection details"), stackArrivalRemaining())
                             ui.onNodeWithText("Connection details").assertIsDisplayed()
                             ui.onAllNodesWithText("Conversation").assertCountEquals(0)
                             ui.onNodeWithText("Done").performClick()
                         }
-                        waitFor(hasText("Conversation"))
+                        waitFor(hasText("Conversation"), if (stack) stackArrivalRemaining() else 15_000)
                         waitFor(hasText(targetText))
                         ui.onNodeWithText(targetText).assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-conversation.png"), targetText)
@@ -549,9 +558,9 @@ class SocialPushTapPreviewTest {
         ui.waitUntil(5_000) { activeMainActivities().isEmpty() }
     }
 
-    private fun waitFor(matcher: SemanticsMatcher) {
+    private fun waitFor(matcher: SemanticsMatcher, timeoutMillis: Long = 15_000) {
         // A notification tap can return before the Activity has a Compose root.
-        ui.waitUntil(15_000) {
+        ui.waitUntil(timeoutMillis) {
             ui.onAllNodes(matcher).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
