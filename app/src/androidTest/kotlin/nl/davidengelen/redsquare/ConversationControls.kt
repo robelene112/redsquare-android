@@ -41,8 +41,10 @@ internal fun ComposeTestRule.openMessageActions(last: Boolean = false) {
 internal fun ComposeTestRule.closeMessageActions() {
     waitForIdle()
     if (onAllNodes(isPopup()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
-        val reported = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
-        println("Back injection reported $reported; observing message-menu dismissal")
+        // Inject the same real Back key without UiDevice's additional wait for a
+        // TYPE_WINDOW_CONTENT_CHANGED event. The popup's actual disappearance,
+        // observed below within the original five seconds, is the completion signal.
+        InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
         waitUntil(5_000) { onAllNodes(isPopup()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
     }
 }
