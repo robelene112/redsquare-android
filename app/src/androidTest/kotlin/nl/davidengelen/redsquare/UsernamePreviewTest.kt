@@ -915,7 +915,7 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                         capture("username-import-preview.png", "Saved name: NativeCase7@saito")
                         assertEquals(fixture.publicKey, displayedWalletAddress(ui))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Cancel").assertIsEnabled().performClick()
                         waitForEnabled("New post")
                         ui.onNodeWithText("Your profile").performClick()
                         waitForText("NativeCase7@saito")
@@ -1051,7 +1051,7 @@ class UsernamePreviewTest {
                             ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                             capture("username-pending-import-preview.png", "Pending work belongs to your current wallet")
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
-                            ui.onNodeWithText("Done").performClick()
+                            ui.onNodeWithText("Cancel").assertIsEnabled().performClick()
                             val ownerChecksBeforeReturning = ownerPeer.registryQueries.count {
                                 it.get("request").asString == "registry namecheck" &&
                                     it.get("identifier")?.asString == "NativeCase7@saito"
