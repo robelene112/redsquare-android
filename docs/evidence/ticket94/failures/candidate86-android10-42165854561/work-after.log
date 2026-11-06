@@ -1,0 +1,47 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReviewUpdateUiObserver:
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$lambda$20(ReviewUpdateUiObserver.kt:133)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.$r8$lambda$R0aAiJuln5NKVd05loQ4s-fyUlA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences(ReviewUpdateUiObserver.kt:59)
+
+INSTRUMENTATION_STATUS: stream=
+Error in observeRetainedLocalWorkAndPreferences(nl.davidengelen.redsquare.ReviewUpdateUiObserver):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$lambda$20(ReviewUpdateUiObserver.kt:133)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.$r8$lambda$R0aAiJuln5NKVd05loQ4s-fyUlA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences(ReviewUpdateUiObserver.kt:59)
+
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.204
+There was 1 failure:
+1) observeRetainedLocalWorkAndPreferences(nl.davidengelen.redsquare.ReviewUpdateUiObserver)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$lambda$20(ReviewUpdateUiObserver.kt:133)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.$r8$lambda$R0aAiJuln5NKVd05loQ4s-fyUlA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences(ReviewUpdateUiObserver.kt:59)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

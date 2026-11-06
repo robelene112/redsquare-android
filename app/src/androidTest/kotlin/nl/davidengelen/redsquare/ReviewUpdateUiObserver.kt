@@ -121,19 +121,19 @@ class ReviewUpdateUiObserver {
             find(text("Done")).click()
             feed()
             find(text("New post")).click()
-            val editor = find(By.clazz("android.widget.EditText"))
+            val editor = find(By.clazz("android.widget.EditText").enabled(true))
             if (phase == "prepare") editor.text = draft
             else check(editor.text == draft) { "The exact unsent draft must survive the signed update" }
             // Hide the real IME so the physically tapped Save action is unobscured.
             hideKeyboard()
-            find(text("Save draft")).click()
+            find(text("Save draft").enabled(true)).click()
             feed()
             captureNativeScreen(File(folder, "$phase-draft-saved.png"))
             find(text("New post")).click()
-            check(find(By.clazz("android.widget.EditText")).text == draft)
+            check(find(By.clazz("android.widget.EditText").enabled(true)).text == draft)
             captureNativeScreen(File(folder, "$phase-draft-reopened.png"), draft)
             hideKeyboard()
-            find(text("Save draft")).click()
+            find(text("Save draft").enabled(true)).click()
             feed()
             val observation = JSONObject().put("phase", phase).put("appearance", "LIGHT")
                 .put("cachedPost", cachedPost).put("draft", draft).put("draftRemainsUnsent", true)

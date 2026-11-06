@@ -65,3 +65,20 @@ stopped at instrumentation compilation because UiAutomator has By.text(Pattern),
 not By.textMatches. No native update result is claimed for85. The API call is
 corrected; local instrumentation compilation passed in2m10s. A new exact-source
 candidate and both runtime update observations remain required.
+
+Candidate86 (buildf2f5b22d71bf8d5fc211dd767e6b7619071cafb4,
+SHA256af51c6983b5a45c08b4e2982b97a332b224d94c6e0813f4129ee618c3ba47e36)
+completed its real Android17 update observation42165857533. Android10 observation
+42165854561 failed the immediate second draft reopening check while its captured
+window explicitly showed Loading saved work and disabled controls. The initial
+post-update exact draft comparison, cached caption/key/time, Light and original
+wallet gate had already passed. That Android10 observation stays failed.
+
+The observer now waits for enabled editor/Save controls within its unchanged
+20-second lookup bounds, preserving exact text equality. Both source axes have
+zero findings. Only test/hand-off files change, so the signed86 APK is retained.
+Final provenance will record its actual build commit separately from the final
+harness/full-run commit and verify equal consumer-source/build-input tree hashes.
+This is equivalent consumer source, not an identical full Git revision or an
+identical debug/release binary. Actual version86, release/debug configuration,
+manifest signing identity and downloaded artifact hash remain explicit.

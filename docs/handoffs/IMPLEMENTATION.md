@@ -10,6 +10,30 @@ consistent-source complete app gates, signed in-place update and publication.
 
 ## Active #94: integrated verification and signed beta
 
+CURRENT05:02UTC: exact sourcef2f5b22d71bf8d5fc211dd767e6b7619071cafb4
+built/staged candidate86, SHA256af51c6983b5a45c08b4e2982b97a332b224d94c6e0813f4129ee618c3ba47e36.
+Stable latest remains83 and its bytes were verified unchanged after staging.
+Active candidate-update10 run42165854561 and17 run42165857533. Do not duplicate.
+No full94 dispatch yet. Both source reviews have zero unresolved logical findings;
+latest API correction compiled locally SUCCESS2m10. Source/type errors in85 are
+not native acceptance. No local build is active. Keep exact source frozen through
+candidate update and the subsequent complete full-android10/full-android17 runs.
+Continue through review and beta promotion, no owner input needed.
+
+UPDATE:86 Android17 run42165857533 SUCCESS complete actual update. Android10
+42165854561 fails only immediate second draft-reopen check; captured UI says
+Loading saved work and disabled editor. Initial post-update draft comparison,
+cache caption/key/time, Light and wallet gate passed. Sole observer fix waits
+enabled editor/Save with same20s lookup and exact draft assertions. Both reviews0.
+Keep signed86. Reviewers independently verified no consumer code/resources/build
+input changed; record actual build commitf2f5b22 and later exact harness/full-run
+commit separately, with equal tree hashes over tracked inputs excluding only
+docs and androidTest. Do not relabel manifest source or call binaries identical.
+After local compile, freeze/commit the readiness fix, dispatch candidate-update
+10/17 with candidate_version86 on that new source. Full94 still pending; then
+full-android10/full-android17 exact new source, collect/review/promote86.
+
+
 Review base03636e7d2bd6b5c06ec1c1815c7c6e215ec2cb22. #83 is closed with
 completion comment6676669407. All remaining work is94 and authorized beta.
 The working delta adds immutable staging/promotion to review-publish, opt-in
