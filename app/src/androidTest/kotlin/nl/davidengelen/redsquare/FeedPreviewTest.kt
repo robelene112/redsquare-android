@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -133,6 +134,7 @@ class FeedPreviewTest {
                     val obstruction = java.io.File(blocked, "obstruction").apply { writeText("public fixture") }
                     try {
                         peer.rows = "[$updated]"
+                        prepareCacheRefresh("before-obstructed-refresh")
                         val beforeRefresh = peer.requests.get()
                         ui.pullToRefresh("feed-post-list")
                         ui.waitUntil(15_000) { peer.requests.get() > beforeRefresh }
@@ -144,16 +146,23 @@ class FeedPreviewTest {
                         }
                         waitForText("New reference post")
                         waitForText("Some posts could not be saved or opened for offline reading.")
+                        captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
+                            "feed-readiness-evidence/cache-obstructed-warning.png"))
                     } finally {
                         check(obstruction.delete())
                         check(blocked.delete())
                         check(preserved.renameTo(blocked))
                     }
+                    prepareCacheRefresh("before-recovered-refresh")
+                    val beforeRecovery = peer.requests.get()
                     ui.pullToRefresh("feed-post-list")
                     ui.waitUntil(15_000) {
-                        ui.onAllNodes(hasText("Some posts could not be saved or opened for offline reading.")).fetchSemanticsNodes().isEmpty()
+                        peer.requests.get() > beforeRecovery && ui.onNodeWithText("Feed updated.").isDisplayed() &&
+                            ui.onAllNodes(hasText("Some posts could not be saved or opened for offline reading.")).fetchSemanticsNodes().isEmpty()
                     }
                     ui.onNodeWithText("New reference post").assertIsDisplayed()
+                    captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
+                        "feed-readiness-evidence/cache-recovered.png"))
                     peer.assertHealthy()
                 }
             }
@@ -263,6 +272,17 @@ class FeedPreviewTest {
     private fun firstPostBodyLineHeight(): Float {
         val layout = firstPostBodyLayout()
         return layout.getLineBottom(0) - layout.getLineTop(0)
+    }
+
+    private fun prepareCacheRefresh(stage: String) {
+        // Locating the original post can leave newer retained posts above it.
+        // A physical downward swipe refreshes only after reaching the actual list top.
+        val list = ui.onNodeWithTag("feed-post-list")
+        list.performScrollToIndex(0)
+        val axis = list.fetchSemanticsNode().config[SemanticsProperties.VerticalScrollAxisRange]
+        check(ui.runOnIdle { axis.value() } == 0f) { "The cache regression must pull from the feed's actual top" }
+        captureNativeScreen(java.io.File(instrumentation.targetContext.cacheDir,
+            "feed-readiness-evidence/cache-$stage.png"))
     }
 
     private fun firstPostBodyLayout(): TextLayoutResult {

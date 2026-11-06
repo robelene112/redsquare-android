@@ -231,13 +231,13 @@ if [[ "${TEST_SCOPE:-full}" == push-binding-cache-regression* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == feed-refresh-regression* ]]; then
     refresh_regression_failed=0
-    verify_group_chat_native 'FeedPreviewTest#conversationPullRefreshKeepsTheSelectedPostAndReportsOfflineRecovery' \
+    verify_group_chat_native 'FeedPreviewTest' \
         180 feed-refresh-regression feed-readiness-evidence || refresh_regression_failed=1
     if [[ "$refresh_regression_failed" != 0 ]]; then
         timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures \
             > "$evidence/feed-ui-failures.tar" || true
     fi
-    printf '%s\n' 'Original conversation pull-refresh/error/details/recovery method only; not complete app acceptance.' > "$evidence/scope.txt"
+    printf '%s\n' 'Original six feed refresh/cache/conversation methods with the same180-second focused bound; not complete app acceptance.' > "$evidence/scope.txt"
     exit "$refresh_regression_failed"
 fi
 verify_status_talkback() (
