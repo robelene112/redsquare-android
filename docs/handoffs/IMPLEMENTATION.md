@@ -8,16 +8,59 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Active #83, then #94 and beta
+## #83 complete, continue #94 and publish beta
 
-#81 CLOSED: completion236fd41fb +provenance27ebdff8, tracker6673898265. #83 claimed@me,
-no nativeblockers. Reviewbase27ebdff8362da11438f9602da969d9a405a79dd8.
-FirstnativeTDDslice ChatGroupingPreviewTest: realencrypted2private originals signed
-unsafeauthor1 toreader2, timestamps5minutesapartinclusive, actual412dp light/dark
-UI expectsone senderheader whilepreserving2menus/timestamps/exactidentity/originals.
-UsesexistingAvatarJourney declaredownedcache, restoredwallet/backend/preferences.
-Newchat-grouping(+17)180scope/fullChatadditive/bothSDKguards. AppUIunchangeduntil
-realRED. Source/spec83+86read. Ownerall5authorization:doNOTstopafter83,continue94beta.
+Chat grouping is implemented and verified on exact source
+`9f00665e3da30a15b50ed6e81d0d0f0ade500828`, reviewed against
+`27ebdff8362da11438f9602da969d9a405a79dd8`. Product code ends at77ec61;
+later commits improve native test observation without changing assertions or
+bounds. Both source and native review axes have zero unresolved findings.
+
+All six complete focused scopes passed: grouping10/17 runs42159567235/
+42159570266, original reading10/17 runs42159573098/42159575754, original
+private actions10/17 runs42159564315/42159561731. Each SDK has22 methods,
+12 classes. The original ten-method action classes took80.421/105.610seconds
+within their unchanged180-second bounds. No failed partial execution is accepted.
+
+See `docs/evidence/ticket83/README.md` for native originals, exact source/run
+receipts, literal identities, observer history and evidence limits. Standards
+review inspected286 selected PNGs, spec review154. All48 grouping header
+receipts match native XML; all144 fixed-header targets are at least48x48px.
+XML/PNG observations are non-atomic. The zero-reply pre-tap XML alone does not
+prove an offscreen original; the unchanged Compose assertion and PNG sequence do.
+
+Continue #94 immediately, then authorized beta publication. Do not ask again or
+stop after83. Use `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Preserve unrelated Chat WIP in the canonical checkout.
+No new beta has been published yet. Ordinary public beta remains83, certificate
+`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
+
+#94 requires complete same-final-source full-android10/full-android17 gates,
+original assertions/deadlines, independent literal catalog frozen before runs,
+fresh representative native/motion review, actual new signed in-place update
+with wallet/draft/cache/preference retention and package isolation, then VPS
+publication. Focused passes do not replace these requirements. Keep owner visual
+acceptance55, parent84, release36 and spec1 open unless separately satisfied.
+
+Read-only #94 preparation lives outside Git:
+`/tmp/redsquare94-full-collector.py`, `/tmp/redsquare94-full-identity-reference.json`,
+`/tmp/redsquare94-prior10-identities.json`, `...prior17-identities.json`,
+`...static-additions-plan.json`, `...independent-additions-review.json`,
+`...independent-archive-review.json`, `...collector-fidelity-review.json`.
+Static targets:626/627 identities,211 classes,228/229 normal completions,
+35 deliberate interruptions,34 continuity records,177 archives per SDK.
+These are preparation, not frozen acceptance or executed proof. The catalog
+must include82 planned methods,20 additional normal identities and17 explicit
+superseded Like identities. Existing pending-Like UI validators become the
+owner-approved immediate-Like and unavailable-Repost validators; all other old
+speech/reading/navigation/cleanup/tool-pin requirements remain.
+
+Review scripts currently publish immediately. Add deliberate candidate staging
+and later promotion so the actual new signed artifact can be tested before
+changing latest.json. Existing5-to8 update gates remain; they do not prove a
+new candidate preserves drafts/cache/preferences. No signing secrets in Git or
+logs. No node or public-transaction work. Physical Pixel performance, Stack
+functionality, providers, KVK and Play remain explicitly pending release work.
 
 ## #81 verified and committed, continue #83 then #94 and beta
 

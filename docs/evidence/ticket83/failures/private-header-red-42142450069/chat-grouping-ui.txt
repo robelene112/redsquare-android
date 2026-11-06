@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatGroupingPreviewTest:
+INSTRUMENTATION_STATUS: test=privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Consecutive authenticated messages five minutes apart have one visual sender header expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader$lambda$7$lambda$6(ChatGroupingPreviewTest.kt:40)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.$r8$lambda$ylA0mThxMQkKFWYfFPGBoOBMkRQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader$lambda$7(ChatGroupingPreviewTest.kt:30)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.$r8$lambda$Z8xlFrzNqSfF-_6s6Qbut5fAIf8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader(ChatGroupingPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader(nl.davidengelen.redsquare.ChatGroupingPreviewTest):
+java.lang.AssertionError: Consecutive authenticated messages five minutes apart have one visual sender header expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader$lambda$7$lambda$6(ChatGroupingPreviewTest.kt:40)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.$r8$lambda$ylA0mThxMQkKFWYfFPGBoOBMkRQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader$lambda$7(ChatGroupingPreviewTest.kt:30)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.$r8$lambda$Z8xlFrzNqSfF-_6s6Qbut5fAIf8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader(ChatGroupingPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.97
+There was 1 failure:
+1) privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader(nl.davidengelen.redsquare.ChatGroupingPreviewTest)
+java.lang.AssertionError: Consecutive authenticated messages five minutes apart have one visual sender header expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader$lambda$7$lambda$6(ChatGroupingPreviewTest.kt:40)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.$r8$lambda$ylA0mThxMQkKFWYfFPGBoOBMkRQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader$lambda$7(ChatGroupingPreviewTest.kt:30)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.$r8$lambda$Z8xlFrzNqSfF-_6s6Qbut5fAIf8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.ChatGroupingPreviewTest.privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader(ChatGroupingPreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

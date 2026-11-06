@@ -1,0 +1,54 @@
+{
+  "grouping": {
+    "ChatGroupingPreviewTest": [
+      "privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader",
+      "theSameSenderAfterMoreThanFiveMinutesStartsAnotherHeader"
+    ],
+    "GroupChatGroupingPreviewTest": [
+      "consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne"
+    ],
+    "PrivateGroupingNarrowTest": [
+      "longNamesTextPhotoRepliesAndImeRemainReadable"
+    ],
+    "PrivateGroupingPixelTest": [
+      "longNamesTextPhotoRepliesAndImeRemainReadable"
+    ],
+    "GroupGroupingNarrowTest": [
+      "longNamesTextPhotoRepliesAndImeRemainReadable"
+    ],
+    "GroupGroupingPixelTest": [
+      "longNamesTextPhotoRepliesAndImeRemainReadable"
+    ]
+  },
+  "reading": {
+    "ConversationViewportPreviewTest": [
+      "openingACachedPrivateConversationExposesItsLatestMessage"
+    ],
+    "PrivateConversationReadingPreviewTest": [
+      "newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader"
+    ],
+    "GroupConversationReadingPreviewTest": [
+      "cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading"
+    ],
+    "GroupConversationPolishPreviewTest": [
+      "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText"
+    ],
+    "ConversationFilteringPreviewTest": [
+      "blockingAndRevealingCachedMessagesDoNotSignalNewArrivals"
+    ]
+  },
+  "actions": {
+    "PrivateChatActionsPreviewTest": [
+      "aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending",
+      "anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending",
+      "explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening",
+      "incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening",
+      "anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes",
+      "anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain",
+      "switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer",
+      "replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal",
+      "authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive",
+      "unavailableReactionStorageDoesNotHideReadableMessagesAndCanRecover"
+    ]
+  }
+}

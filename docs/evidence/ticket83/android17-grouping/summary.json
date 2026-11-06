@@ -1,0 +1,1713 @@
+{
+  "source": "9f00665e3da30a15b50ed6e81d0d0f0ade500828",
+  "sdk": "17",
+  "scope": "grouping",
+  "run": 42159570266,
+  "methods": 7,
+  "classes": 6,
+  "identities": [
+    {
+      "testClass": "ChatGroupingPreviewTest",
+      "test": "privateMessagesAtTheFiveMinuteBoundaryShareOneSenderHeader",
+      "occurrences": 1
+    },
+    {
+      "testClass": "ChatGroupingPreviewTest",
+      "test": "theSameSenderAfterMoreThanFiveMinutesStartsAnotherHeader",
+      "occurrences": 1
+    },
+    {
+      "testClass": "GroupChatGroupingPreviewTest",
+      "test": "consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne",
+      "occurrences": 1
+    },
+    {
+      "testClass": "GroupGroupingNarrowTest",
+      "test": "longNamesTextPhotoRepliesAndImeRemainReadable",
+      "occurrences": 1
+    },
+    {
+      "testClass": "GroupGroupingPixelTest",
+      "test": "longNamesTextPhotoRepliesAndImeRemainReadable",
+      "occurrences": 1
+    },
+    {
+      "testClass": "PrivateGroupingNarrowTest",
+      "test": "longNamesTextPhotoRepliesAndImeRemainReadable",
+      "occurrences": 1
+    },
+    {
+      "testClass": "PrivateGroupingPixelTest",
+      "test": "longNamesTextPhotoRepliesAndImeRemainReadable",
+      "occurrences": 1
+    }
+  ],
+  "normalCompletions": 6,
+  "inventory": [
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-activity-lifecycle.jsonl",
+      "bytes": 1775,
+      "sha256": "fdbd9fa64824a6c506e5292b3db9e6a47bb2e3e7a3ee1ddfd8cd7d6011cca03a"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-font-scale.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-412-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc0b611e2f34cc8ca3bd13498c23830c8a5c6264b840dd47033f2a3e0ff8abce"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-412-font100-light.xml",
+      "bytes": 60813,
+      "sha256": "b8dc6574725df20c625c22774462a7707b76dba29a1e1b907f49e2645e33e558"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-412-font100-light.png",
+      "bytes": 37884,
+      "sha256": "8a3491a0d9eb197250effd20f9d33ba3f002fe2213f40acb247498d573a1956c"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/native-capture-timings.jsonl",
+      "bytes": 735,
+      "sha256": "7cbf2a1b2217209688ca509f278f72b3039e7f8230380e5b72b3349e69512ed8"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-412-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "19431f18c4e98bf2b9ed02cff3ae7959b2840dbd9b0a1d383b57a69267b3ddb8"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-412-font100-dark.xml",
+      "bytes": 60809,
+      "sha256": "a517ffffb70b4a84d623d14b79bf1975db9b979af96bbe251f51686ed965fff2"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-412-font100-dark.png",
+      "bytes": 38866,
+      "sha256": "8cb0fdf8e0f9de6ffa152bdf6449902d40c98bfd8512f97eb7d3bae7499e4687"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-separated-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-activity-lifecycle.jsonl",
+      "bytes": 1771,
+      "sha256": "5fad13dd6cae953e6d84182fcb45eac80178e594d79a8c9bf60d98c298bdc0af"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-font-scale.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-412-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc0b611e2f34cc8ca3bd13498c23830c8a5c6264b840dd47033f2a3e0ff8abce"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-412-font100-light-grouped.xml",
+      "bytes": 58143,
+      "sha256": "3f4266aa20e59a23aa0e424a36b451be357d8b786c1e5cb47243067a02d35109"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-412-font100-light-grouped.png",
+      "bytes": 36709,
+      "sha256": "b5fbacbb363c8e3e4c8b261af657095a75733522326adb542adb3c2d0acec3e5"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-412-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "19431f18c4e98bf2b9ed02cff3ae7959b2840dbd9b0a1d383b57a69267b3ddb8"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-412-font100-dark-grouped.xml",
+      "bytes": 58143,
+      "sha256": "3f4266aa20e59a23aa0e424a36b451be357d8b786c1e5cb47243067a02d35109"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-412-font100-dark-grouped.png",
+      "bytes": 37305,
+      "sha256": "e9e9ee1afb378e768436643a303db988b38eb28e85429ec9a7a35393477db914"
+    },
+    {
+      "file": "originals/chat-grouping-evidence/private-boundary-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-activity-lifecycle.jsonl",
+      "bytes": 6261,
+      "sha256": "d8ea6c711c69e29192a7d1e6644bc4adade58f80236b6d6b52f57f1da0947797"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-font-scale.json",
+      "bytes": 98,
+      "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-text.xml",
+      "bytes": 61155,
+      "sha256": "67961f027ffabae81f6e3df86a45b819287a0bcee56eb89861ae3b10d68cfd6a"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-text.png",
+      "bytes": 44018,
+      "sha256": "6c9cc8b80a914382b4faf7c7f7714baab8ff302327f91bbfef70bbca10dcaa0f"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/native-capture-timings.jsonl",
+      "bytes": 5966,
+      "sha256": "1fe7fe13bfdd698b802a3f84b6d1983a1eeb02bc5464321b205813671ed35a84"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-photo-reply.xml",
+      "bytes": 56101,
+      "sha256": "ae38042279b301a09a8ffaa06608daf39515c5e75354c6db5165cb18c1d16c83"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-photo-reply.png",
+      "bytes": 34603,
+      "sha256": "d2fe5e3f6970cd79287f2e164860c0d33446fccfd8e97db831a8639c7bd71613"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-full-details.xml",
+      "bytes": 31237,
+      "sha256": "4626dfb0d8ead8b89358d1066a79257b01e803a9a531e5df388209e121f28d88"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-full-details.png",
+      "bytes": 35545,
+      "sha256": "154fff24adec9d80a319d0e1d48a661fd4329816b66bc8b55288743b1f636cfe"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "fb680cd0201c219d9a3153a1b5fea613bd2e797a437a97c16c25ed4492b6a258"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-message-actions.png",
+      "bytes": 41027,
+      "sha256": "d6a35377f2ee4c8c0b0795fa32f0fc06dacd9cc1f5ea5f89005565072585254a"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-history-with-ime.xml",
+      "bytes": 110204,
+      "sha256": "a754c981ad6149508e02de041a9620fcd5f68c21d1bd6f1c52bf37d2aadca19b"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-history-with-ime.png",
+      "bytes": 46310,
+      "sha256": "0cb38a7e1069ef3731b8c534178a25e760522e8291e1a622c70270b719bdaa9b"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-text.xml",
+      "bytes": 61155,
+      "sha256": "67961f027ffabae81f6e3df86a45b819287a0bcee56eb89861ae3b10d68cfd6a"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-text.png",
+      "bytes": 45154,
+      "sha256": "f88dc1d50800dfe5a86ae428a0aae21b503b2d999c4c93491e49cac06e1dbb42"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-photo-reply.xml",
+      "bytes": 61155,
+      "sha256": "67961f027ffabae81f6e3df86a45b819287a0bcee56eb89861ae3b10d68cfd6a"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-photo-reply.png",
+      "bytes": 35311,
+      "sha256": "247709caea6ce50de68355611383f90037eb1c272af23db92d2d0e7ec39227eb"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-full-details.xml",
+      "bytes": 31237,
+      "sha256": "4626dfb0d8ead8b89358d1066a79257b01e803a9a531e5df388209e121f28d88"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-full-details.png",
+      "bytes": 35658,
+      "sha256": "e3d49b9df94f901c3411b42ac8685bff8670732a06ec1207e7f65ae325a60b58"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "fb680cd0201c219d9a3153a1b5fea613bd2e797a437a97c16c25ed4492b6a258"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-message-actions.png",
+      "bytes": 41738,
+      "sha256": "15e42f518f59162131510832fbf84d0b21e855e4103f601b27a5841aac0902ec"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-history-with-ime.xml",
+      "bytes": 110204,
+      "sha256": "a754c981ad6149508e02de041a9620fcd5f68c21d1bd6f1c52bf37d2aadca19b"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-history-with-ime.png",
+      "bytes": 46881,
+      "sha256": "d85920701da689578b01fe700c1a2b4951e4892a3218e34d18acb0affe781eae"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-configuration.json",
+      "bytes": 78,
+      "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-text.xml",
+      "bytes": 59784,
+      "sha256": "b4f3ecce36cd6b9dfe5d1536addc0c4bed60e0979899a3b48253c39842ad3069"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-text.png",
+      "bytes": 52271,
+      "sha256": "8a87cab55c09836d8daac2a8b370f37fddb499ecb5bee4c918f7ca6ab9024cfc"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-photo-reply.xml",
+      "bytes": 55173,
+      "sha256": "62e5684a70ca1200193419d3b4ba1021beb14bc10a69409cfc522160f9747200"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-photo-reply.png",
+      "bytes": 37816,
+      "sha256": "6bcb92683fff14836ae0e6af0a28f72fa85a5adf229571fff88fa1a33ab5d23a"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-full-details.xml",
+      "bytes": 31235,
+      "sha256": "f9a49db8763c6deade0c2bcc6964be61b1ebfdc784276594ed1ea29c1f0e36a5"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-full-details.png",
+      "bytes": 38123,
+      "sha256": "582260835f178f8f780fbda6dd2c09ce18cbf9d14045e853fe591001580da876"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "ea522a5dcd883a91b2c2f4cfea5e65f55076e359459f9288c7d5d3edf84a76e3"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-message-actions.png",
+      "bytes": 39142,
+      "sha256": "c9c25ea7f64ae99330f339b8cfc8cc71634d0ce447442aec742e7ea46428a1bf"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-history-with-ime.xml",
+      "bytes": 105173,
+      "sha256": "e6c515503ed626e79adbfac6887b04c7c80d4d016e8f1555e0452f3647950956"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-history-with-ime.png",
+      "bytes": 45945,
+      "sha256": "6e473e35575afca7d8cb5985ca9e6983b715acb4a1968a674bfdcf3c91b8d9a6"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-text.xml",
+      "bytes": 59784,
+      "sha256": "b4f3ecce36cd6b9dfe5d1536addc0c4bed60e0979899a3b48253c39842ad3069"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-text.png",
+      "bytes": 52955,
+      "sha256": "4771961ab880784dfdab3a3ce2ebdbe9047d6b3a51bc03136ef6ea8f9d100628"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-photo-reply.xml",
+      "bytes": 59784,
+      "sha256": "b4f3ecce36cd6b9dfe5d1536addc0c4bed60e0979899a3b48253c39842ad3069"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-photo-reply.png",
+      "bytes": 38648,
+      "sha256": "5886d8923c81f3c0ed19fd8e06a5d1903b57a426a03e9a9b1253fcfd4ffebf20"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-full-details.xml",
+      "bytes": 31235,
+      "sha256": "f9a49db8763c6deade0c2bcc6964be61b1ebfdc784276594ed1ea29c1f0e36a5"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-full-details.png",
+      "bytes": 38439,
+      "sha256": "1940320f5e3cc61f90400be81f970cd6683de6658c58e2c1c142de53abeffb95"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "ea522a5dcd883a91b2c2f4cfea5e65f55076e359459f9288c7d5d3edf84a76e3"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-message-actions.png",
+      "bytes": 39683,
+      "sha256": "1fdcad1b71b8fe2cb8a52ea0595df11cd56ed82cb8a4655141c5d856a766dc3d"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-history-with-ime.xml",
+      "bytes": 108739,
+      "sha256": "6d5d7e2ecfe891fdd5e89fd2beb187405aa7c273e890c84da4ab75a987d4d849"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-history-with-ime.png",
+      "bytes": 53479,
+      "sha256": "adb2f4df04450973462258b727a68361fbdc8a26d2a14aff4a0a8a65a164b133"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-configuration.json",
+      "bytes": 78,
+      "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-text.xml",
+      "bytes": 43559,
+      "sha256": "8b8fa57900f7a2701d8d5a8312d347c40572df429c0eaf3ee05f0396025fa3e1"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-text.png",
+      "bytes": 44792,
+      "sha256": "7f2544b969a1ece16935f5a800a8f126dee39146a274a982529a87a5246b13a1"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-photo-reply.xml",
+      "bytes": 44003,
+      "sha256": "c0b3646483c83ff8e971ed730b79b025e74b03d7821c75da625f41bde83fbd26"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-photo-reply.png",
+      "bytes": 37850,
+      "sha256": "77a1e3ab7805a08a057d5be707e3a6b136db02b98879faa72cf5ae7a9b25d1c8"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-full-details.xml",
+      "bytes": 24009,
+      "sha256": "8abf431860db16906b98774c6d8e855f4cbc55a6d34cd8ab40a551323769df57"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-full-details.png",
+      "bytes": 40393,
+      "sha256": "a0a9f30265f3fb2787a0c2d5a1c053cfaecd807c9f20fcfa61e6592b3deb6aba"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-message-actions.xml",
+      "bytes": 16518,
+      "sha256": "2afcc603fcfa06e9df968a48e4464889c97ad212baefa9540bd8be515bdd5cf5"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-message-actions.png",
+      "bytes": 41990,
+      "sha256": "68809d54fdb2353119328cb4f4a1b2c471dd151edb617d2f356dafd4bbf07870"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-history-with-ime.xml",
+      "bytes": 100456,
+      "sha256": "9c6494ffaa089ec73999112682b9bbd921d275ec0052ab8a32342d78a157b959"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-history-with-ime.png",
+      "bytes": 50161,
+      "sha256": "8d06b0905cad53c84fbedbc120c252bae820389420cb71686341b65586edc0fb"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "316d098094b31bb978f77058ddffecf386691283f1ab52259aac993c7a0f7209"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-text.xml",
+      "bytes": 43558,
+      "sha256": "462b0ceecb5aaf5cc56ca9b557f1e3fe2569567030fa6cf0714a4912ba75a81c"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-text.png",
+      "bytes": 45247,
+      "sha256": "1c30e9672c1ebb010a48f1fd9f7bd226d87b4c1222e3b89983a242bcda144e0c"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-photo-reply.xml",
+      "bytes": 43558,
+      "sha256": "462b0ceecb5aaf5cc56ca9b557f1e3fe2569567030fa6cf0714a4912ba75a81c"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-photo-reply.png",
+      "bytes": 38350,
+      "sha256": "88ea71e2990c2152bcbcaef3f227e8d96adb044dc7ccbf9c77df7c71f562aff8"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-full-details.xml",
+      "bytes": 24008,
+      "sha256": "bcc609934a6ad5c6e26d4d28422991c2408f4de6f09c20c6430113ba5b719e9a"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-full-details.png",
+      "bytes": 40333,
+      "sha256": "7782ba58bc1e6d47b5372272f43b61b515d6015f9323fb50674467d58d7fdb2e"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-message-actions.xml",
+      "bytes": 16517,
+      "sha256": "204ab563caaa92e60558eb8207612d8a06e220222ce42cb553717b1ea0a9a3ff"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-message-actions.png",
+      "bytes": 42074,
+      "sha256": "17c18ed08c798a6e5151be2349e3bf17f87a817ce2cbf47f0ff5e28f90dad260"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-history-with-ime.xml",
+      "bytes": 102650,
+      "sha256": "57a209c58ed0350c4506ca54cdce5a132818823f38f771e0fae5e545ef43411c"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-history-with-ime.png",
+      "bytes": 61026,
+      "sha256": "e47ed1c96b6ba36142c745a95b8b19c5d04fb2f7c7a57179cd91c13507180f13"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "316d098094b31bb978f77058ddffecf386691283f1ab52259aac993c7a0f7209"
+    },
+    {
+      "file": "originals/chat-grouping-group-320-evidence/chat-grouping-group-320-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-activity-lifecycle.jsonl",
+      "bytes": 6261,
+      "sha256": "f9bfa9f1fa731c264523ae79a481b2600f0beb6492c392ccbb4b0e25d8fc1c83"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-font-scale.json",
+      "bytes": 98,
+      "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc0b611e2f34cc8ca3bd13498c23830c8a5c6264b840dd47033f2a3e0ff8abce"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-text.xml",
+      "bytes": 63373,
+      "sha256": "2b8211674f7d002e686e3ad3a172d923ee5ee414360e09834f92b7a5f88c5409"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-text.png",
+      "bytes": 46966,
+      "sha256": "dc477eac6cb94e5015d7ebfdf90b66323dfc47c64946e7f516dd056dd495c006"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/native-capture-timings.jsonl",
+      "bytes": 5965,
+      "sha256": "68c8eb73b32b9a40cbe6c7de2c7a4fa581ffe743c240650682d84263b1d0c453"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-photo-reply.xml",
+      "bytes": 63373,
+      "sha256": "2b8211674f7d002e686e3ad3a172d923ee5ee414360e09834f92b7a5f88c5409"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-photo-reply.png",
+      "bytes": 46966,
+      "sha256": "dc477eac6cb94e5015d7ebfdf90b66323dfc47c64946e7f516dd056dd495c006"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-full-details.xml",
+      "bytes": 31258,
+      "sha256": "d18e1745092573e35e7a59b8c41a8d8f9a0c0422b82f04825684976ed0b49f56"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-full-details.png",
+      "bytes": 53115,
+      "sha256": "88027968db30a49213d646b2926143f01cd0a2a308706e9f5052e7d66da1d489"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-message-actions.xml",
+      "bytes": 18949,
+      "sha256": "150e91ff32f9bc61f4a429f00890eb0b411bb0fce32fb1c3389032d653cc418d"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-message-actions.png",
+      "bytes": 50457,
+      "sha256": "d7059783458cbf2acd721179925f4f8c0032129ad14843f8dead1547e0d2e02b"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-history-with-ime.xml",
+      "bytes": 112436,
+      "sha256": "dfc8ff833f98df98c9bfc8ed5b3198e517e012eedf30c2a8c1f10f9222cfeca9"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-history-with-ime.png",
+      "bytes": 51529,
+      "sha256": "b63d85128b0990bbcb6e8786cc9c52b3c270bff4efc4f59d8617167d53a92bed"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "19431f18c4e98bf2b9ed02cff3ae7959b2840dbd9b0a1d383b57a69267b3ddb8"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-text.xml",
+      "bytes": 63373,
+      "sha256": "2b8211674f7d002e686e3ad3a172d923ee5ee414360e09834f92b7a5f88c5409"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-text.png",
+      "bytes": 47512,
+      "sha256": "84479729428d8f62e1a0d66165b8cffae0338e1e5bc6e8f58340bbfe95ae20b3"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-photo-reply.xml",
+      "bytes": 63373,
+      "sha256": "2b8211674f7d002e686e3ad3a172d923ee5ee414360e09834f92b7a5f88c5409"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-photo-reply.png",
+      "bytes": 47512,
+      "sha256": "84479729428d8f62e1a0d66165b8cffae0338e1e5bc6e8f58340bbfe95ae20b3"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-full-details.xml",
+      "bytes": 31258,
+      "sha256": "d18e1745092573e35e7a59b8c41a8d8f9a0c0422b82f04825684976ed0b49f56"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-full-details.png",
+      "bytes": 53697,
+      "sha256": "01d1cc07b122d045f8c65f7216b896b6bd1d98d05b803aa62af16daf29918f4a"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-message-actions.xml",
+      "bytes": 18947,
+      "sha256": "d0b8e67d778ff77061af7121aa2db791ccce3a4746a63d75c00b2d35a7e2b189"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-message-actions.png",
+      "bytes": 50902,
+      "sha256": "0f9e294029194fdd2ad0e5f6e92b3248b77ccd9e67d0b0d46bea094f43fca4ad"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-history-with-ime.xml",
+      "bytes": 112434,
+      "sha256": "a230f88b9e327e5a7e3d6ec35aa2379461cd87a6bab02d42fbed6a46e44424db"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-history-with-ime.png",
+      "bytes": 51821,
+      "sha256": "571eb6bc17491e763786f5bed71a54a06d491a6d0cc2759481d1ee63ad3f0834"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc2f4f6f4fb50a0596b71ecf41a63b82f4527a2bd56f7cb90d5bddded10de128"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-text.xml",
+      "bytes": 63371,
+      "sha256": "f5a5c0e144731b84da8a275bcbf9676bc837bd8d546d12b860bf28ec2e117f48"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-text.png",
+      "bytes": 60308,
+      "sha256": "86b2af7ab38d1b0de1a06cf99a2d3ca5b34868362315f9fbb31fbf0685ad5dd5"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-photo-reply.xml",
+      "bytes": 63371,
+      "sha256": "f5a5c0e144731b84da8a275bcbf9676bc837bd8d546d12b860bf28ec2e117f48"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-photo-reply.png",
+      "bytes": 60308,
+      "sha256": "86b2af7ab38d1b0de1a06cf99a2d3ca5b34868362315f9fbb31fbf0685ad5dd5"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-full-details.xml",
+      "bytes": 31253,
+      "sha256": "d7d9fa758420c0bb39c33da055ead932600cf6de14d16fe4f2ff027d4906926c"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-full-details.png",
+      "bytes": 65571,
+      "sha256": "b854a5edfb1bb2538acecadcf1739eb070b245163c26b21fbb8ac789cabae352"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-message-actions.xml",
+      "bytes": 18947,
+      "sha256": "fc57e5f99d0fdceb8b1e5ad58e958377b5fc97eb05c359bcd379941e6d14e856"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-message-actions.png",
+      "bytes": 63635,
+      "sha256": "962ac0d16aa79094f342dccc17849ce789e45f53fcf91781804c4ecafb0ef304"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-history-with-ime.xml",
+      "bytes": 109699,
+      "sha256": "4c911f3435fd92f2838fc76aefb999d5abd03bcb3ff0921f3e3cd042344da3fb"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-history-with-ime.png",
+      "bytes": 61719,
+      "sha256": "0c386ba100e1010e12f69fbfd8b8f82920d2134152a7b90548e252297f35311c"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "f30f8285abd83b58552639e1247088f5f93266fd609794b05eab6608e00c4015"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-text.xml",
+      "bytes": 63371,
+      "sha256": "f5a5c0e144731b84da8a275bcbf9676bc837bd8d546d12b860bf28ec2e117f48"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-text.png",
+      "bytes": 60708,
+      "sha256": "836122a8c39a0a2fc026b90148f0bb4ed54209b437d108382df3ef4c87d298c2"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-photo-reply.xml",
+      "bytes": 63371,
+      "sha256": "f5a5c0e144731b84da8a275bcbf9676bc837bd8d546d12b860bf28ec2e117f48"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-photo-reply.png",
+      "bytes": 60708,
+      "sha256": "836122a8c39a0a2fc026b90148f0bb4ed54209b437d108382df3ef4c87d298c2"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-full-details.xml",
+      "bytes": 31253,
+      "sha256": "d7d9fa758420c0bb39c33da055ead932600cf6de14d16fe4f2ff027d4906926c"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-full-details.png",
+      "bytes": 66459,
+      "sha256": "c1bea3f203e55523246ffe681e04561d30574ab018f4d03e476179c4f71f9fb0"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "576397616429276f9444c68dd240b5f012e24c2aef5609141de4722c46ac2768"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-message-actions.png",
+      "bytes": 64038,
+      "sha256": "12de185785e195e1ea59705b011afb88da87491163b20f3236863d771719d66a"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-history-with-ime.xml",
+      "bytes": 111471,
+      "sha256": "fad91b93a5d92300a714fed37ce4db073225ec78274129df5ca7519c34e8dffe"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-history-with-ime.png",
+      "bytes": 62388,
+      "sha256": "12eaf2f7bda5dd3745885c52d64facc4fd066bb7d55b2a29b58174c5d3648678"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font130-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-configuration.json",
+      "bytes": 78,
+      "sha256": "ffe1dac885c779aa43834c69310e3175216cf35ed5e81385634aa4c9587170dc"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-text.xml",
+      "bytes": 55137,
+      "sha256": "c718f06a14509bf67d8d070854c5c345a7fa9d0e923d4050f2baf8c1250d6234"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-text.png",
+      "bytes": 77222,
+      "sha256": "49490e702a39c6cf246a7d9683626c8f95fb6b91f7e7371bc43ac19a25196fca"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-photo-reply.xml",
+      "bytes": 51519,
+      "sha256": "77b310faec44f8a229def4975ad16d31bbf18837e09e10a39a6f1903f10bbcbc"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-photo-reply.png",
+      "bytes": 64990,
+      "sha256": "0a7179b9987199e0dcf6db7ad2d5b5933ac91f109b288e097e7a27395bb32f49"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-full-details.xml",
+      "bytes": 31242,
+      "sha256": "9cd91ec70e9752d4b2c66934b57e5b18d981f9e3ba0c5ac482b170278c4eade3"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-full-details.png",
+      "bytes": 69429,
+      "sha256": "8f600799796161fe38593e25b527a588726658e77a3181ac724f28cb2c6a9c8c"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "15101cc7b3bba182e097f147dfbe84bff460b7aff2517e9adbaa8e5a4c10fbc1"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-message-actions.png",
+      "bytes": 68012,
+      "sha256": "8bfbbbb88bf76d54084efb1e98c2dd3bbd42bc3addf47f97b7eec023d7d036bf"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-history-with-ime.xml",
+      "bytes": 108858,
+      "sha256": "055fa56b16b69eebea47d165a79ed04c38a53b8871a025813b478bbf756f361d"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-history-with-ime.png",
+      "bytes": 91209,
+      "sha256": "d92fe8c7cd350d583e5a2d6c8bc6559d9988b2f3a221001e13fb027e36cd231c"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "256f0bb2f2840533710d7b667c8e8ac584b5091d3c70556b0e79d33fc7e523da"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "fb9bad6820c58e024c6b18bb3e654f442d98486497ad298c32d57040190ab603"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-text.xml",
+      "bytes": 55137,
+      "sha256": "c718f06a14509bf67d8d070854c5c345a7fa9d0e923d4050f2baf8c1250d6234"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-text.png",
+      "bytes": 77577,
+      "sha256": "18243b64ee602f79ee2406962180b024a2959287de8dae35e86576b930b334bd"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-photo-reply.xml",
+      "bytes": 55137,
+      "sha256": "c718f06a14509bf67d8d070854c5c345a7fa9d0e923d4050f2baf8c1250d6234"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-photo-reply.png",
+      "bytes": 65382,
+      "sha256": "810790c3850c5decc445da670188ca70eb78b1854c88e788b3055f33ddc04aec"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-full-details.xml",
+      "bytes": 31242,
+      "sha256": "9cd91ec70e9752d4b2c66934b57e5b18d981f9e3ba0c5ac482b170278c4eade3"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-full-details.png",
+      "bytes": 69722,
+      "sha256": "56fc4fc1dc474d841b55d5323693c3d2efa73a7fa030cad151974a3d9509d3e8"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "15101cc7b3bba182e097f147dfbe84bff460b7aff2517e9adbaa8e5a4c10fbc1"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-message-actions.png",
+      "bytes": 68466,
+      "sha256": "0fea4248435d6f23fdb6a651059b06b29bfa0815db2dc11d587ebb6de7fac596"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-history-with-ime.xml",
+      "bytes": 111038,
+      "sha256": "5df05658902d9bd07f333f7159d6bd12e05504e328d8858aa576c46ef94a5be6"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-history-with-ime.png",
+      "bytes": 95165,
+      "sha256": "f167fbebc19aa70e3fb7d0c36559462fbc32bf5c4340215c9863e21a01990d70"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "256f0bb2f2840533710d7b667c8e8ac584b5091d3c70556b0e79d33fc7e523da"
+    },
+    {
+      "file": "originals/chat-grouping-group-412-evidence/chat-grouping-group-412-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-activity-lifecycle.jsonl",
+      "bytes": 6254,
+      "sha256": "a282e5df750b296b60927d8d2d0f9df4e9dc4416c1c1aec3199f4f840f2b7e86"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-font-scale.json",
+      "bytes": 98,
+      "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-text.xml",
+      "bytes": 60244,
+      "sha256": "fad24f94964afc4980c60938fd66a8b905b52607759fc2108fe20143830e3b05"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-text.png",
+      "bytes": 44345,
+      "sha256": "b5b823b6d3b6385b8b7bd9eeef94ed8f1e00be0b808db4ffdd9b6b989711c5f9"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/native-capture-timings.jsonl",
+      "bytes": 6025,
+      "sha256": "8918be0cc2012b7c28e78d7d1495e8ac239594eca14e06de9e0dcd183300f128"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-photo-reply.xml",
+      "bytes": 56120,
+      "sha256": "58f7bab346f3c41ed43e42ae0fb73fbcff1e9816db6bf0cd3b767c4271822d0a"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-photo-reply.png",
+      "bytes": 35317,
+      "sha256": "eae9cd3bd75ddefc467191c40513ac0966cc171d3840b22abd9a6d2b9e8ecccd"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-full-details.xml",
+      "bytes": 25645,
+      "sha256": "e0343ffc4fc29ef8f6c91886bb2d9f592164475d04d542d183757d13ecdbf1f0"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-full-details.png",
+      "bytes": 35960,
+      "sha256": "3ce295e3ee198adbc916fc7caebd47c1196fdb1d1e7870e8dc7a7f62430896b2"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "142354f7340fd7b18949afc6d0b6a9dea5134c3fc3d327d61a8e6431951cf702"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-message-actions.png",
+      "bytes": 40959,
+      "sha256": "ffcaadace307f2f18058ac6131088ed17cb4cf11e4a995741ca4fdf66b7392ee"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-history-with-ime.xml",
+      "bytes": 109290,
+      "sha256": "6bc36bc996f4da2c21192e291c4d690c392cf594c07f373d4efd291158242a38"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-history-with-ime.png",
+      "bytes": 46555,
+      "sha256": "045edb859027d8f762cea73718117fb89b271dac6bffc3a46e81a9ca53194264"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-text.xml",
+      "bytes": 60244,
+      "sha256": "fad24f94964afc4980c60938fd66a8b905b52607759fc2108fe20143830e3b05"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-text.png",
+      "bytes": 45373,
+      "sha256": "70de646e3034d8c33ec54bead98955fa85d13a41c14a75eb1cfeaa538c34c78b"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-photo-reply.xml",
+      "bytes": 60244,
+      "sha256": "fad24f94964afc4980c60938fd66a8b905b52607759fc2108fe20143830e3b05"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-photo-reply.png",
+      "bytes": 36101,
+      "sha256": "b44ca150fbecb075e26e78c27308309fdd64ce95e8da1f7551b6856d9a5b777d"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-full-details.xml",
+      "bytes": 25645,
+      "sha256": "e0343ffc4fc29ef8f6c91886bb2d9f592164475d04d542d183757d13ecdbf1f0"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-full-details.png",
+      "bytes": 36109,
+      "sha256": "51c0863149d4a6714782f7e2e092fce568c29e341861c16fdbb9614582fb3a9a"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "142354f7340fd7b18949afc6d0b6a9dea5134c3fc3d327d61a8e6431951cf702"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-message-actions.png",
+      "bytes": 41735,
+      "sha256": "609aa259655183386dbc614b16139cc07f3123d819bed338dc9117ce255b4ae5"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-history-with-ime.xml",
+      "bytes": 109290,
+      "sha256": "c29a3b57f3270e1ae36ca4cb455f692bf854075cc7156eadf5e347cba7f3b523"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-history-with-ime.png",
+      "bytes": 47270,
+      "sha256": "91a9cf9200084ad286a8cf0ce61961467efbb765fd3ac8f6e2f91f31a94728c1"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-configuration.json",
+      "bytes": 78,
+      "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-text.xml",
+      "bytes": 58883,
+      "sha256": "82b1afaeec21d5f664ffefc15be603871df2688c7257562ee46f2e315566e0fa"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-text.png",
+      "bytes": 54962,
+      "sha256": "8a895a3b7e76ef92d45afb4ae1a8c26a4ecfe0f752b6a3793bb531970ac6bf55"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-photo-reply.xml",
+      "bytes": 54721,
+      "sha256": "4d94c9d378f3d1a59d0894a7f1e0ac36c06e90febadc5c287851173e6d3b928e"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-photo-reply.png",
+      "bytes": 39327,
+      "sha256": "ac99b2ed49a827b99ad7c5c3bb9752bb64eae612d3b3a997fab95b6c235c03e6"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-full-details.xml",
+      "bytes": 25647,
+      "sha256": "0a07dbf71de6c4c0a3e9f439e1aa36eaf85189b7e93abd2c916326d3fc7b26c1"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-full-details.png",
+      "bytes": 43244,
+      "sha256": "c68156fd938c6b8d266fdc6334dcc67cbd90f93eab4e903b6d1c92bf0cb7219e"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-message-actions.xml",
+      "bytes": 18950,
+      "sha256": "2be7501efe0bd7349451b997921707862cb158ec170ca97d308693e83e54ebd5"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-message-actions.png",
+      "bytes": 41746,
+      "sha256": "299507597b3930ef6fd9ab45d4b101b022f7f385ac9b390d4b1c1e81b08afdf5"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-history-with-ime.xml",
+      "bytes": 105225,
+      "sha256": "7af14eae7744c4b630eb7f1650783d05c01c43256e7d2dea3865cb03f11094ee"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-history-with-ime.png",
+      "bytes": 46670,
+      "sha256": "1b5ac40ed72175784e65e2d01c63f8104d1bc070b2d276ee98fb2ed0abca7d5f"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-text.xml",
+      "bytes": 58883,
+      "sha256": "82b1afaeec21d5f664ffefc15be603871df2688c7257562ee46f2e315566e0fa"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-text.png",
+      "bytes": 55728,
+      "sha256": "494ee2a7eb6715eb1b52a67de08376eb333089856218878e778f16a6977f3e68"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-photo-reply.xml",
+      "bytes": 58883,
+      "sha256": "82b1afaeec21d5f664ffefc15be603871df2688c7257562ee46f2e315566e0fa"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-photo-reply.png",
+      "bytes": 40233,
+      "sha256": "a20032872cfda6cbe7e781dbfafe248a1c7436828c337502c177466798e9bdeb"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-full-details.xml",
+      "bytes": 25647,
+      "sha256": "00323fdc25e47d49049f4535d9893ab4ce5d72dbf1546e243b7ac7db71f581a3"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-full-details.png",
+      "bytes": 43049,
+      "sha256": "3450cfd8d0e9c35c411b0468cdd89694734c541bc820fc67d079b036ddf0c332"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-message-actions.xml",
+      "bytes": 18949,
+      "sha256": "8501425b1fb49de419941e792794de7f1b2850614a53399e380cac2080f705bf"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-message-actions.png",
+      "bytes": 41843,
+      "sha256": "e39fc50d5f3491a41b2f32ed078e696b8f2a54f8d47073290ad22ecee02b830e"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-history-with-ime.xml",
+      "bytes": 108790,
+      "sha256": "76c41d404487070b5fcc53e91cfab657934236bb16759b6489328150385fbecb"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-history-with-ime.png",
+      "bytes": 53850,
+      "sha256": "362db124b5527c16c1bd546db89934118f4ea296460e64f1294176f2e62b0b96"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "9dda6899d1ed72d287bbb9fb590315db5af72e44f5d09144e8205736b92fab55"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-configuration.json",
+      "bytes": 78,
+      "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-text.xml",
+      "bytes": 43118,
+      "sha256": "260b0dd3db11cfa76a8c8d8b0f9687693ebd0b713accf8cc32696ff92b27fbb7"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-text.png",
+      "bytes": 44679,
+      "sha256": "a8390441fc6c3ed0434b113d21e42a84073efd656f7335c50310e1520cc28bd6"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-photo-reply.xml",
+      "bytes": 43550,
+      "sha256": "9f41cc7ae9535947943b59193bfd76030f28fd60a0e73d7b9dc2f2a24df60f47"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-photo-reply.png",
+      "bytes": 37122,
+      "sha256": "5b2308a215e52ac5a79c034afebe0efbd0a04055a290af57343881747f79e75a"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-full-details.xml",
+      "bytes": 19728,
+      "sha256": "a4b5b65baffb1e3b71feb80ec63234177e63b3cffa899c3ec4d217f5539ee20d"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-full-details.png",
+      "bytes": 44079,
+      "sha256": "240f99859e62f65ca730139aa731d027cf6062e7a59cee6e7e84151dfa35b939"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-message-actions.xml",
+      "bytes": 16517,
+      "sha256": "89f9fab07af24c30670c0655d1157799daa827429217223730e61d3a68ce8dfb"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-message-actions.png",
+      "bytes": 41315,
+      "sha256": "572296b53e30fe68649d0b61a5869eaad3e3c33eec0bda1bab023b9a1697f5c9"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-history-with-ime.xml",
+      "bytes": 99999,
+      "sha256": "ac75d9bd23444509e6bf488f6e02368634e769e95481cc69e3aa6c6be44d8d86"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-history-with-ime.png",
+      "bytes": 51825,
+      "sha256": "36a1301cf850f8a3180442ac554bebbe6a5d7bf31c0dbc3b0e8b95f44e5e0389"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "316d098094b31bb978f77058ddffecf386691283f1ab52259aac993c7a0f7209"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-text.xml",
+      "bytes": 43118,
+      "sha256": "260b0dd3db11cfa76a8c8d8b0f9687693ebd0b713accf8cc32696ff92b27fbb7"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-text.png",
+      "bytes": 44984,
+      "sha256": "2d81e2f6c79118fa5363d58745459d25bd4c678f1d2ed975bcc5caafd3aa2fef"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-photo-reply.xml",
+      "bytes": 43118,
+      "sha256": "260b0dd3db11cfa76a8c8d8b0f9687693ebd0b713accf8cc32696ff92b27fbb7"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-photo-reply.png",
+      "bytes": 37546,
+      "sha256": "faa407e5b459209ecbd05318155d5dd56c05eba90a59d9492ef977095a42c157"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-full-details.xml",
+      "bytes": 19728,
+      "sha256": "a4b5b65baffb1e3b71feb80ec63234177e63b3cffa899c3ec4d217f5539ee20d"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-full-details.png",
+      "bytes": 43599,
+      "sha256": "d8daed676a54972269f4dc3621098069e06ba0cd8edc2c508b11ff13fce25b79"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-message-actions.xml",
+      "bytes": 16517,
+      "sha256": "89f9fab07af24c30670c0655d1157799daa827429217223730e61d3a68ce8dfb"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-message-actions.png",
+      "bytes": 41296,
+      "sha256": "05e0e296ed22d53f6da78ca659351bc96086d78bb75600195d2da8ea7a793b04"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.xml",
+      "bytes": 102204,
+      "sha256": "cf4d9fac50e986ca23cb6f6bfef7c8938662c839514e5ce39b2454034c48e3fd"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.png",
+      "bytes": 62653,
+      "sha256": "7d3fe1969137b25d97fa69cda9a0a3553a73df0e16fa2e24f279a27a9b52fc3f"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "316d098094b31bb978f77058ddffecf386691283f1ab52259aac993c7a0f7209"
+    },
+    {
+      "file": "originals/chat-grouping-private-320-evidence/chat-grouping-private-320-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-activity-lifecycle.jsonl",
+      "bytes": 6254,
+      "sha256": "d686424ab118fb8592db60dd35432743eb250f2adfc0ec4b83dbe96f128f398e"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-font-scale.json",
+      "bytes": 98,
+      "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc0b611e2f34cc8ca3bd13498c23830c8a5c6264b840dd47033f2a3e0ff8abce"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-text.xml",
+      "bytes": 62460,
+      "sha256": "3e7178d757f0e8d157e90ad4ebcd7d1ef03261c3976f48acd4e458d42842c330"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-text.png",
+      "bytes": 47624,
+      "sha256": "90da582cd6baacf2980c52f274827652b803b91bb3442d8adb730926d87ce1a0"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/native-capture-timings.jsonl",
+      "bytes": 6025,
+      "sha256": "195c4c81f9cbe88da25d9d769e5f7d91a363a15716cc52930826e9e61f8a9427"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-photo-reply.xml",
+      "bytes": 62460,
+      "sha256": "3e7178d757f0e8d157e90ad4ebcd7d1ef03261c3976f48acd4e458d42842c330"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-photo-reply.png",
+      "bytes": 47624,
+      "sha256": "90da582cd6baacf2980c52f274827652b803b91bb3442d8adb730926d87ce1a0"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-full-details.xml",
+      "bytes": 25654,
+      "sha256": "8d9f1f4b0de1508fc0ad46352661dff889120cd9c4b82fa9b833aa1a0422f807"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-full-details.png",
+      "bytes": 54494,
+      "sha256": "97c3aaff0474e99e0460c366a8efd3f3853aba1b489eeb391790d77f4281c305"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-message-actions.xml",
+      "bytes": 18947,
+      "sha256": "e6e629492eec7d70935953479a4087a792386c5246790cc9ad9e01923df09640"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-message-actions.png",
+      "bytes": 51176,
+      "sha256": "2ccba5b786f6e1abbb25e30ba787256f303d9ffba85f09b3db90719f9610a00f"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-history-with-ime.xml",
+      "bytes": 111521,
+      "sha256": "a7e10f596a729c3e80be159cdffe42d855e2a4460518ce79baa5471dbc3d8f6b"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-history-with-ime.png",
+      "bytes": 55299,
+      "sha256": "0d86b913545a8f40fe96e013234064973dc044765ed283d5a728b8499a4ec776"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "19431f18c4e98bf2b9ed02cff3ae7959b2840dbd9b0a1d383b57a69267b3ddb8"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-text.xml",
+      "bytes": 62458,
+      "sha256": "44c5d35435214e8582746cbcd1598405be7b30496a429a671ecf88edb96f11d0"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-text.png",
+      "bytes": 48373,
+      "sha256": "534e2a233a75a860120cf4bcdc7eba11d7140a341cdd54c1fcb11e0357b395f1"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-photo-reply.xml",
+      "bytes": 62458,
+      "sha256": "44c5d35435214e8582746cbcd1598405be7b30496a429a671ecf88edb96f11d0"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-photo-reply.png",
+      "bytes": 48373,
+      "sha256": "534e2a233a75a860120cf4bcdc7eba11d7140a341cdd54c1fcb11e0357b395f1"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-full-details.xml",
+      "bytes": 25654,
+      "sha256": "8d9f1f4b0de1508fc0ad46352661dff889120cd9c4b82fa9b833aa1a0422f807"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-full-details.png",
+      "bytes": 55368,
+      "sha256": "5ee91a8267421123542cd9546f920ce921249924f6697eea0cca830191bc2b8b"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-message-actions.xml",
+      "bytes": 18947,
+      "sha256": "e6e629492eec7d70935953479a4087a792386c5246790cc9ad9e01923df09640"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-message-actions.png",
+      "bytes": 51788,
+      "sha256": "601a5325689e7edd31da5abb3cc4008ac0609a5c0100dd515daa457c179e21ba"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-history-with-ime.xml",
+      "bytes": 111521,
+      "sha256": "a7e10f596a729c3e80be159cdffe42d855e2a4460518ce79baa5471dbc3d8f6b"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-history-with-ime.png",
+      "bytes": 55706,
+      "sha256": "309615e0ef72f5adb68ed1ad496bc1bd644c9aedb1162c0f685d71d40622817a"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc2f4f6f4fb50a0596b71ecf41a63b82f4527a2bd56f7cb90d5bddded10de128"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-text.xml",
+      "bytes": 62458,
+      "sha256": "4ee503dbbb21daa692e1b2ab4b0e1faafd3f0a80bdfe284ed47498fea9afa043"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-text.png",
+      "bytes": 60857,
+      "sha256": "966660a0309d01c5b12b8938bf2c08a20d6d01855615974dbd2bc35f04d7c812"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-photo-reply.xml",
+      "bytes": 62458,
+      "sha256": "4ee503dbbb21daa692e1b2ab4b0e1faafd3f0a80bdfe284ed47498fea9afa043"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-photo-reply.png",
+      "bytes": 60857,
+      "sha256": "966660a0309d01c5b12b8938bf2c08a20d6d01855615974dbd2bc35f04d7c812"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-full-details.xml",
+      "bytes": 25654,
+      "sha256": "cf68967696b19ade35ba838f901211fde39921e4689a59e0f2e9a3b8e14a5a93"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-full-details.png",
+      "bytes": 66610,
+      "sha256": "f9f227ad59d3ed406c6a5d77b5e43ec878c599b36ee6ba8dbd1c70035c526ba4"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "9aecbcf48b43330892df382a7af4e641d3b840a15026590ef9e12911eb537257"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-message-actions.png",
+      "bytes": 64188,
+      "sha256": "e8327f4d856c333d9280fdf2510a75183f4b5f8d8f284d694a91b6d42ba41d1f"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-history-with-ime.xml",
+      "bytes": 108786,
+      "sha256": "0c2de8bccc01c98ad44ca8d39c6aba3521733b0b6f508510e6e6dd60212c2153"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-history-with-ime.png",
+      "bytes": 63476,
+      "sha256": "855ad7486830c37e5abd54b1b8a77e2367f98abe8bcceee221cda35b18b62070"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "f30f8285abd83b58552639e1247088f5f93266fd609794b05eab6608e00c4015"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-text.xml",
+      "bytes": 62457,
+      "sha256": "21044c63bf36724c9a85b4ae4581526f5f304a71258811039e181f0372e6a905"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-text.png",
+      "bytes": 61237,
+      "sha256": "236ad96e7b257e0f7aec68a1f600c0697ba62be9295328d46335da2c94e0992d"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-photo-reply.xml",
+      "bytes": 62457,
+      "sha256": "21044c63bf36724c9a85b4ae4581526f5f304a71258811039e181f0372e6a905"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-photo-reply.png",
+      "bytes": 61237,
+      "sha256": "236ad96e7b257e0f7aec68a1f600c0697ba62be9295328d46335da2c94e0992d"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-full-details.xml",
+      "bytes": 25653,
+      "sha256": "a285e93d622a41f29f1734c4bc476e6a8035df3738e54a85e0182a27bd1b5b6d"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-full-details.png",
+      "bytes": 67544,
+      "sha256": "60a78817953cc8aa6072fc0c2a2a5c55967b64cca332d1d9d4d3264ce98b6931"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "9aecbcf48b43330892df382a7af4e641d3b840a15026590ef9e12911eb537257"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-message-actions.png",
+      "bytes": 64754,
+      "sha256": "4dfa1d8c8e38bff7a9149609363663de1e891aa9df3726f4708f1c34958d80f5"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-history-with-ime.xml",
+      "bytes": 111521,
+      "sha256": "f0b534c8a600f70019bfb9c2811b445a3ead6bee0ccce442949abb97ac51a0eb"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-history-with-ime.png",
+      "bytes": 63956,
+      "sha256": "12ad9d62a4f1403460c2ef92e474f1d9ae16470616295b35376fd04fb958c501"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font130-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "b8069ac37d9ae28d8a659be1b25486f5fe043c73ec6f2da5f81902f538c32a10"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-configuration.json",
+      "bytes": 78,
+      "sha256": "ffe1dac885c779aa43834c69310e3175216cf35ed5e81385634aa4c9587170dc"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-text.xml",
+      "bytes": 54226,
+      "sha256": "406a9dcbdbe507327df2e7facc94c834340b36746843e39fb88520e7265566f5"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-text.png",
+      "bytes": 77563,
+      "sha256": "3e8c3ed6b389c9338a4b01adee6c2b517d317bc11f44a54c484f36687cd1ebda"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.xml",
+      "bytes": 51506,
+      "sha256": "8f2fb026262a83d7e51e3a89667b2bfcfcd4f48a9f92ed31e7109c9aed5d3094"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.png",
+      "bytes": 67199,
+      "sha256": "14e7015ad37871a6c68a3e659654a8e514dee13dff231952d122bc8fced39f07"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-full-details.xml",
+      "bytes": 25653,
+      "sha256": "1e4854cd866995db05695305aa05a2d1dceab0b719ac1e609957dcaaac6ed82a"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-full-details.png",
+      "bytes": 69479,
+      "sha256": "bb40685cf8846b53df9fd406f639186fc752c729eff443f5e765ccb957066d83"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "92c941c3fdd87389c4408c65f9bda87e88c37faffab9494050e2253bf3388cb7"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-message-actions.png",
+      "bytes": 68512,
+      "sha256": "d5eff4eb69b483f2dff260ea9a3dd3578ecf1433f27503219558714820d3c452"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-history-with-ime.xml",
+      "bytes": 109312,
+      "sha256": "deef76afb882844de7eb980fc05f08424d63930975be28c67614bff5da36c1bd"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-history-with-ime.png",
+      "bytes": 92220,
+      "sha256": "85e2a8113fec4b02ee8c6b39d6dce0d4e94c5911ba19796234b2e52970584f08"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "256f0bb2f2840533710d7b667c8e8ac584b5091d3c70556b0e79d33fc7e523da"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "fb9bad6820c58e024c6b18bb3e654f442d98486497ad298c32d57040190ab603"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-text.xml",
+      "bytes": 54226,
+      "sha256": "406a9dcbdbe507327df2e7facc94c834340b36746843e39fb88520e7265566f5"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-text.png",
+      "bytes": 77838,
+      "sha256": "ddfa2e5fe9cc9c7f31a2431c9b13e00acccf0530f8074eb92ecfe9144c2f796c"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-photo-reply.xml",
+      "bytes": 54226,
+      "sha256": "406a9dcbdbe507327df2e7facc94c834340b36746843e39fb88520e7265566f5"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-photo-reply.png",
+      "bytes": 67521,
+      "sha256": "3b3b3ae18beaf46909a06ef4ac089a4f3c55c1d93e2f2c295d0a64c5be14c5e6"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-full-details.xml",
+      "bytes": 25653,
+      "sha256": "1e4854cd866995db05695305aa05a2d1dceab0b719ac1e609957dcaaac6ed82a"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-full-details.png",
+      "bytes": 69727,
+      "sha256": "9013440adb4b6d29a310d816c4179bc43c3db3c17ee26f1ca3c6a1f239117570"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-message-actions.xml",
+      "bytes": 18946,
+      "sha256": "92c941c3fdd87389c4408c65f9bda87e88c37faffab9494050e2253bf3388cb7"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-message-actions.png",
+      "bytes": 68842,
+      "sha256": "054e5df11e8fea9ac1c31e69fe109482a153307dcbd02a915a17f1cec04f6667"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-history-with-ime.xml",
+      "bytes": 110592,
+      "sha256": "432b939ecd038a9d81514843e1f5fd35a27a0426e4a81b1dbd7216629ac2699d"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-history-with-ime.png",
+      "bytes": 97571,
+      "sha256": "641f1e8f80e516c22c730338016cb839ee583123ba5a816b653f7b5a45fb18f1"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-dark-native-header-targets.json",
+      "bytes": 199,
+      "sha256": "256f0bb2f2840533710d7b667c8e8ac584b5091d3c70556b0e79d33fc7e523da"
+    },
+    {
+      "file": "originals/chat-grouping-private-412-evidence/chat-grouping-private-412-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-activity-lifecycle.jsonl",
+      "bytes": 1774,
+      "sha256": "7fe3a48dea92f8c52c2c6ccacd1ee858841941a9298bfa08a66795962a6652c4"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-font-scale.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-412-font100-light-configuration.json",
+      "bytes": 78,
+      "sha256": "fc0b611e2f34cc8ca3bd13498c23830c8a5c6264b840dd47033f2a3e0ff8abce"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-412-font100-light-grouped.xml",
+      "bytes": 64910,
+      "sha256": "9aa926600ba5c2d1003db5d5652344cfb862a5adb4482e7fa7b056cc7bb169b9"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-412-font100-light-grouped.png",
+      "bytes": 40971,
+      "sha256": "cab564ba5bd3a64d0fe9ba012a1f49fc8c27c91707c8b9904a39d61f2fd8a10e"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/native-capture-timings.jsonl",
+      "bytes": 372,
+      "sha256": "9054b7aa40dff5f8b0ef223b9ab05f6eafad0cbf7f7025f32130d1ea0425adad"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-412-font100-dark-configuration.json",
+      "bytes": 77,
+      "sha256": "19431f18c4e98bf2b9ed02cff3ae7959b2840dbd9b0a1d383b57a69267b3ddb8"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-412-font100-dark-grouped.xml",
+      "bytes": 64910,
+      "sha256": "9aa926600ba5c2d1003db5d5652344cfb862a5adb4482e7fa7b056cc7bb169b9"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-412-font100-dark-grouped.png",
+      "bytes": 41738,
+      "sha256": "826a49d94263c4e03550e70b3ae3779a9f0cf824984007ddc430938518a49e39"
+    },
+    {
+      "file": "originals/group-chat-grouping-evidence/group-senders-font-restored.json",
+      "bytes": 98,
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    }
+  ]
+}

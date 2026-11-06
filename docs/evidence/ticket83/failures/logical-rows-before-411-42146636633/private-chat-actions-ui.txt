@@ -1,0 +1,213 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatActionsPreviewTest:
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$124$lambda$123$lambda$122(PrivateChatHistoryFixture.kt:806)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$FxbKnfyXFAgqCjjc3ff8YrR-Nv8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda55.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:264)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(PrivateChatActionsPreviewTest.kt:13)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$124$lambda$123$lambda$122(PrivateChatHistoryFixture.kt:806)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$FxbKnfyXFAgqCjjc3ff8YrR-Nv8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda55.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:264)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(PrivateChatActionsPreviewTest.kt:13)
+
+INSTRUMENTATION_STATUS: test=aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$124$lambda$123$lambda$122(PrivateChatHistoryFixture.kt:806)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$FxbKnfyXFAgqCjjc3ff8YrR-Nv8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda55.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:264)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(PrivateChatActionsPreviewTest.kt:16)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$124$lambda$123$lambda$122(PrivateChatHistoryFixture.kt:806)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$FxbKnfyXFAgqCjjc3ff8YrR-Nv8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda55.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:264)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(PrivateChatActionsPreviewTest.kt:16)
+
+INSTRUMENTATION_STATUS: test=anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableReactionStorageDoesNotHideReadableMessagesAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableReactionStorageDoesNotHideReadableMessagesAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 165.054
+There were 2 failures:
+1) aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$124$lambda$123$lambda$122(PrivateChatHistoryFixture.kt:806)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$FxbKnfyXFAgqCjjc3ff8YrR-Nv8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda55.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:264)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending(PrivateChatActionsPreviewTest.kt:13)
+2) anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(nl.davidengelen.redsquare.PrivateChatActionsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory$lambda$124$lambda$123$lambda$122(PrivateChatHistoryFixture.kt:806)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.$r8$lambda$FxbKnfyXFAgqCjjc3ff8YrR-Nv8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture$$ExternalSyntheticLambda55.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatHistoryFixture.exerciseHistory(PrivateChatHistoryFixture.kt:264)
+	at nl.davidengelen.redsquare.PrivateChatActionsPreviewTest.anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending(PrivateChatActionsPreviewTest.kt:16)
+
+FAILURES!!!
+Tests run: 10,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

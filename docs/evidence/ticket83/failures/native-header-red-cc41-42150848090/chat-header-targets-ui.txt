@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateGroupingPixelTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateGroupingPixelTest:
+INSTRUMENTATION_STATUS: test=longNamesTextPhotoRepliesAndImeRemainReadable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateGroupingPixelTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Native accessible Back retains its complete48dp target at chat-grouping-private-412-412-font100-light: {"bounds":"18 28 66 58","width":48,"height":30}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16$lambda$15$lambda$9(ChatGroupingViewportFixture.kt:94)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$qOzgh0V-qD3rFbgqJ5_xGmuizj8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:128)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16$lambda$15(ChatGroupingViewportFixture.kt:75)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$IsVyUmXmWM6xZUEAFDmvNkaXLKA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16(ChatGroupingViewportFixture.kt:45)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$qo_3J7Ll9tnXSTln5oLVOyo--ac(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports(ChatGroupingViewportFixture.kt:22)
+	at nl.davidengelen.redsquare.PrivateGroupingPixelTest.longNamesTextPhotoRepliesAndImeRemainReadable(PrivateGroupingPixelTest.kt:10)
+
+INSTRUMENTATION_STATUS: stream=
+Error in longNamesTextPhotoRepliesAndImeRemainReadable(nl.davidengelen.redsquare.PrivateGroupingPixelTest):
+java.lang.AssertionError: Native accessible Back retains its complete48dp target at chat-grouping-private-412-412-font100-light: {"bounds":"18 28 66 58","width":48,"height":30}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16$lambda$15$lambda$9(ChatGroupingViewportFixture.kt:94)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$qOzgh0V-qD3rFbgqJ5_xGmuizj8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:128)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16$lambda$15(ChatGroupingViewportFixture.kt:75)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$IsVyUmXmWM6xZUEAFDmvNkaXLKA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16(ChatGroupingViewportFixture.kt:45)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$qo_3J7Ll9tnXSTln5oLVOyo--ac(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports(ChatGroupingViewportFixture.kt:22)
+	at nl.davidengelen.redsquare.PrivateGroupingPixelTest.longNamesTextPhotoRepliesAndImeRemainReadable(PrivateGroupingPixelTest.kt:10)
+
+INSTRUMENTATION_STATUS: test=longNamesTextPhotoRepliesAndImeRemainReadable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 15.03
+There was 1 failure:
+1) longNamesTextPhotoRepliesAndImeRemainReadable(nl.davidengelen.redsquare.PrivateGroupingPixelTest)
+java.lang.AssertionError: Native accessible Back retains its complete48dp target at chat-grouping-private-412-412-font100-light: {"bounds":"18 28 66 58","width":48,"height":30}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16$lambda$15$lambda$9(ChatGroupingViewportFixture.kt:94)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$qOzgh0V-qD3rFbgqJ5_xGmuizj8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:128)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16$lambda$15(ChatGroupingViewportFixture.kt:75)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$IsVyUmXmWM6xZUEAFDmvNkaXLKA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports$lambda$16(ChatGroupingViewportFixture.kt:45)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.$r8$lambda$qo_3J7Ll9tnXSTln5oLVOyo--ac(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.ChatGroupingViewportFixtureKt.inspectGroupedChatViewports(ChatGroupingViewportFixture.kt:22)
+	at nl.davidengelen.redsquare.PrivateGroupingPixelTest.longNamesTextPhotoRepliesAndImeRemainReadable(PrivateGroupingPixelTest.kt:10)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

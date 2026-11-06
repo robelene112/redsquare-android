@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatGroupingPreviewTest:
+INSTRUMENTATION_STATUS: test=consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Each consecutive verified sender group has one identity header expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne$lambda$9$lambda$8(GroupChatGroupingPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.$r8$lambda$vSkgTlqPG1DqHxvnZt5I2ETjeTs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne$lambda$9(GroupChatGroupingPreviewTest.kt:34)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.$r8$lambda$nNVYWAXpWskaloijU8xWfv5cvjk(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne(GroupChatGroupingPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne(nl.davidengelen.redsquare.GroupChatGroupingPreviewTest):
+java.lang.AssertionError: Each consecutive verified sender group has one identity header expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne$lambda$9$lambda$8(GroupChatGroupingPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.$r8$lambda$vSkgTlqPG1DqHxvnZt5I2ETjeTs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne$lambda$9(GroupChatGroupingPreviewTest.kt:34)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.$r8$lambda$nNVYWAXpWskaloijU8xWfv5cvjk(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne(GroupChatGroupingPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.707
+There was 1 failure:
+1) consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne(nl.davidengelen.redsquare.GroupChatGroupingPreviewTest)
+java.lang.AssertionError: Each consecutive verified sender group has one identity header expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne$lambda$9$lambda$8(GroupChatGroupingPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.$r8$lambda$vSkgTlqPG1DqHxvnZt5I2ETjeTs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:81)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne$lambda$9(GroupChatGroupingPreviewTest.kt:34)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.$r8$lambda$nNVYWAXpWskaloijU8xWfv5cvjk(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.GroupChatGroupingPreviewTest.consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne(GroupChatGroupingPreviewTest.kt:20)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
