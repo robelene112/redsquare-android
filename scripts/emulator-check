@@ -290,6 +290,10 @@ case "${TEST_SCOPE:-full}" in
     status-motion*) verify_status_ui motion; exit ;;
     status-recovery*) verify_status_ui recovery; exit ;;
 esac
+if [[ "${TEST_SCOPE:-full}" == chat-header-targets* ]]; then
+    verify_group_chat_native PrivateGroupingPixelTest 180 chat-header-targets chat-grouping-private-412-evidence
+    exit
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-grouping* ]]; then
     grouping_failed=0
     verify_group_chat_native ChatGroupingPreviewTest 180 chat-grouping chat-grouping-evidence || grouping_failed=1

@@ -95,7 +95,7 @@ private fun SemanticsNodeInteraction.fetchSemanticsNodesOrEmpty() =
 
 /** Full details and contextual actions, then a real system IME with readable history. */
 internal fun ComposeTestRule.inspectConversationControls(activity: ActivityScenario<MainActivity>, folder: File,
-    label: String, identity: String, group: Boolean) {
+    label: String, identity: String, group: Boolean, onImeVisible: (() -> Unit)? = null) {
     onNodeWithText("Like").assertDoesNotExist()
     onNodeWithText("Reply").assertDoesNotExist()
     onNodeWithText("Copy").assertDoesNotExist()
@@ -125,6 +125,7 @@ internal fun ComposeTestRule.inspectConversationControls(activity: ActivityScena
     onNodeWithText(if (group) "Unencrypted" else "Encrypted").assertIsDisplayed()
     onNodeWithText("Send").assertIsDisplayed()
     captureNativeScreen(File(folder, "$label-history-with-ime.png"))
+    onImeVisible?.invoke()
     val reported = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
     println("Back injection reported $reported; observing system keyboard dismissal")
     waitUntil(10_000) { !keyboardVisible() }

@@ -72,7 +72,29 @@ internal fun ComposeTestRule.inspectGroupedChatViewports(group: Boolean, width: 
                 onNodeWithText(sender.publicKey).performScrollTo().assertIsDisplayed()
                 onNodeWithText("Done").performClick()
             }
-            inspectConversationControls(activity, folder, label, if (group) room.id else sender.publicKey, group)
+            inspectConversationControls(activity, folder, label, if (group) room.id else sender.publicKey, group) {
+                val device = androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                check(context.resources.configuration.densityDpi == 160)
+                val observed = com.google.gson.JsonObject()
+                val targets = listOf("Back" to androidx.test.uiautomator.By.pkg(context.packageName).text("Back"),
+                    "Mute conversation" to androidx.test.uiautomator.By.pkg(context.packageName).desc("Mute conversation"),
+                    "Conversation details" to androidx.test.uiautomator.By.pkg(context.packageName).desc("Conversation details"))
+                for ((targetName, selector) in targets) {
+                    var target = requireNotNull(device.findObject(selector))
+                    while (!target.isClickable) target = requireNotNull(target.parent)
+                    val rect = target.visibleBounds
+                    observed.add(targetName, com.google.gson.JsonObject().apply {
+                        addProperty("bounds", rect.flattenToString()); addProperty("width", rect.width()); addProperty("height", rect.height())
+                    })
+                }
+                File(folder, "$label-native-header-targets.json").writeText(observed.toString())
+                for ((targetName, values) in observed.entrySet()) {
+                    val rect = values.asJsonObject
+                    // The real48dp controls allow one physical pixel of native-bound rounding.
+                    assertTrue("Native accessible $targetName retains its complete48dp target at $label: $rect",
+                        rect.get("width").asInt >= 47 && rect.get("height").asInt >= 47)
+                }
+            }
             assertEquals(originals, if (group) requireNotNull(groupStore.load(room.id)).originals
                 else privateStore.load().entries.map { it.envelope })
             assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
