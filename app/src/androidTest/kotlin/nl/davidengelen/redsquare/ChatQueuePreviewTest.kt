@@ -184,6 +184,9 @@ class ChatQueuePreviewTest {
                         ui.onNode(hasContentDescription("Conversation details") and hasClickAction()).performClick()
                         ui.onNodeWithContentDescription("Conversation information and controls")
                             .performScrollToNode(hasText("Members") and hasClickAction())
+                        // Lazy search can stop once a target intersects the viewport.
+                        // Reveal the entire real button before the unchanged 48dp check.
+                        ui.onNode(hasText("Members") and hasClickAction()).performScrollTo().assertIsDisplayed()
                         val members=physicalChatAction(scenario,"members-action",action="Members")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(members.centerX(),members.centerY()))
@@ -248,7 +251,7 @@ class ChatQueuePreviewTest {
                             check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
                             check(nl.davidengelen.redsquare.chat.GroupChatStore.hasWork(context,wallet,SaitoBackend.OWNER))
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-identity-paused.png"))
-                            ui.openSettings();waitFor("saito.io")
+                            ui.openSettings();waitFor("Node")
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             ui.waitUntil(20_000){alternate.clientKeys.contains(replacement.publicKey)}
@@ -259,7 +262,7 @@ class ChatQueuePreviewTest {
                             check(wallets.loadExisting().exportJson()==wallet.exportJson()&&backends.load()==SaitoBackend.OFFICIAL)
                             check(requireNotNull(store.load(key.publicKey)).queuedMessage?.candidate?.envelope()==queued.envelope())
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-backend-paused.png"))
-                            ui.openSettings();waitFor("saito.davidengelen.nl")
+                            ui.openSettings();waitFor("Node")
                             ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick();open()
                         }

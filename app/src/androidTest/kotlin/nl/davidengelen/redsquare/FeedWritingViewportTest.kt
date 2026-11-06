@@ -28,7 +28,12 @@ class FeedWritingViewportTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(activity, folder, "writing", widthDp = width) { label, theme ->
-                ui.waitUntil(15_000) { ui.onNodeWithTag("feed-post-list").isDisplayed() }
+                ui.waitUntil(15_000) {
+                    ui.onNodeWithTag("feed-post-list").isDisplayed() &&
+                        ui.onAllNodes(hasText("Native Red Square reference post"), useUnmergedTree = true)
+                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
+                        ui.refreshableContentReady()
+                }
                 val scale = context.resources.configuration.fontScale
                 val reply = scale > 1.1f && scale < 1.5f
                 val quote = scale > 1.5f
