@@ -17,8 +17,10 @@ import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import java.io.File
 import java.net.InetAddress
 import mockwebserver3.MockWebServer
@@ -26,16 +28,31 @@ import mockwebserver3.MockResponse
 
 class UsernamePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    @get:Rule val testName = TestName()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
     @Before fun prepare() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        observeMethodBoundary("before-test-method")
         context.noBackupFilesDir.listFiles()?.filter {
             it.name.startsWith("namerequest.") || it.name.startsWith("namemap.")
         }?.forEach { check(it.delete()) { "Could not reset emulator username fixtures" } }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
+    }
+
+    @After fun observeMethodFinished() = observeMethodBoundary("after-test-method")
+
+    private fun observeMethodBoundary(phase: String) {
+        try {
+            val folder = File(context.cacheDir, "username-evidence").apply { mkdirs() }
+            File(folder, "method-times.jsonl").appendText(JsonObject().apply {
+                addProperty("method", testName.methodName); addProperty("phase", phase)
+                addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+                addProperty("pid", android.os.Process.myPid())
+            }.toString() + "\n")
+        } catch (_: Throwable) { /* Optional timing must preserve the test outcome. */ }
     }
 
     @Test fun aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply() = withRegistryWallet(
@@ -911,9 +928,10 @@ class UsernamePreviewTest {
                         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithContentDescription(selected).assertTextEquals(incoming.publicKey)
                         ui.onNodeWithText("Saved name: NativeCase7@saito").performScrollTo().assertIsDisplayed()
+                        capture("username-import-saved-name.png", "Saved name: NativeCase7@saito")
                         ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff()
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
-                        capture("username-import-preview.png", "Saved name: NativeCase7@saito")
+                        capture("username-import-preview.png", "Confirm replacement")
                         assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Cancel").assertIsEnabled().performClick()
                         waitForEnabled("New post")
@@ -1047,9 +1065,10 @@ class UsernamePreviewTest {
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                             chooseWalletImport(ui, filename, incoming)
                             ui.onNodeWithText("Pending work belongs to your current wallet").performScrollTo().assertIsDisplayed()
+                            capture("username-pending-import-work.png", "Pending work belongs to your current wallet")
                             ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff()
                             ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
-                            capture("username-pending-import-preview.png", "Pending work belongs to your current wallet")
+                            capture("username-pending-import-preview.png", "Confirm replacement")
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Cancel").assertIsEnabled().performClick()
                             val ownerChecksBeforeReturning = ownerPeer.registryQueries.count {
