@@ -32,11 +32,10 @@ test_cores=1
 host_cores=$(getconf _NPROCESSORS_ONLN)
 [[ "$host_cores" =~ ^[1-9][0-9]*$ ]] || { echo 'Unknown host CPU capacity' >&2; exit 1; }
 if [[ "$acceleration" == on ]]; then
-    # Share the standard public runner's available capacity with the software
-    # renderer and recorder instead of constraining all guest work to two CPUs.
+    # Preserve the established KVM allocation. Record actual capacity separately
+    # so native rendering observations stay bound to their runtime configuration.
     test_memory=2048
     test_cores=2
-    if ((host_cores >= 4)); then test_cores=4; fi
 fi
 printf 'host_cores=%s\nguest_cores=%s\nguest_memory_mb=%s\nacceleration=%s\n' \
     "$host_cores" "$test_cores" "$test_memory" "$acceleration" > "$evidence/emulator-capacity.txt"

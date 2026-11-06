@@ -3,7 +3,7 @@ package nl.davidengelen.redsquare.ui
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.Easing
-import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import nl.davidengelen.redsquare.BuildConfig
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +20,7 @@ internal fun <T> VisualResultReveal(target: T, modifier: Modifier, content: @Com
     val latest by rememberUpdatedState(target)
     val observedEasing = androidx.compose.runtime.remember {
         Easing { fraction ->
-            val value = FastOutSlowInEasing.transform(fraction)
+            val value = LinearEasing.transform(fraction)
             if (BuildConfig.DEBUG) android.util.Log.d("DEBUG-m81", "easing:${android.os.SystemClock.elapsedRealtimeNanos()}:$fraction:$value")
             value
         }
