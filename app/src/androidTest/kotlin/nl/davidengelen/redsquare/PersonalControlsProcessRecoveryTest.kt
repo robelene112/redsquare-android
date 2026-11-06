@@ -52,21 +52,17 @@ class PersonalControlsProcessRecoveryTest {
                 ui.onNodeWithText("Done").performClick()
                 openProfile(muted)
                 ui.openProfileActions()
-                waitForEnabled("Mute account")
-                ui.onNodeWithText("Mute account").performClick()
-                waitFor("Mute hides this account's posts and social notifications. Chat messages remain available.")
-                ui.onNodeWithText("Mute", substring = false).performClick()
-                waitForEnabled("Unmute account")
+                ui.confirmAccountControl("Mute account", "Mute",
+                    "Mute hides this account's posts and social notifications. Chat messages remain available.",
+                    hasText("Unmute account") and isEnabled())
                 ui.closeProfileActions()
                 ui.onNodeWithText("Back").performClick()
                 showPost(otherText)
                 openProfile(blocked)
                 ui.openProfileActions()
-                waitForEnabled("Block account")
-                ui.onNodeWithText("Block account").performClick()
-                waitFor("Block hides this account's posts, social notifications and incoming Chat messages.")
-                ui.onNodeWithText("Block", substring = false).performClick()
-                waitForEnabled("Unblock account")
+                ui.confirmAccountControl("Block account", "Block",
+                    "Block hides this account's posts, social notifications and incoming Chat messages.",
+                    hasText("Unblock account") and isEnabled())
                 ui.closeProfileActions()
                 ui.onNodeWithText("Back").performClick()
             }

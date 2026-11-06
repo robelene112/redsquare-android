@@ -956,10 +956,12 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             chooseWalletImport(ui, "00-chat-work-import-fixture.json", counterpart)
                             waitFor(context.getString(R.string.wallet_import_pending_work))
                             ui.onNodeWithText(context.getString(R.string.wallet_import_pending_work)).performScrollTo().assertIsDisplayed()
-                            ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/chat-work-wallet-replacement.png"),
                                 context.getString(R.string.wallet_import_pending_work))
-                            ui.onNodeWithText("Done").performClick()
+                            ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                            captureNativeScreen(File(context.cacheDir, "private-chat-evidence/chat-work-wallet-replacement-confirmation.png"),
+                                "Confirm replacement")
+                            ui.onNodeWithText("Cancel").assertIsDisplayed().assertIsEnabled().performClick()
                             waitFor(context.getString(R.string.chat_send_unknown))
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
