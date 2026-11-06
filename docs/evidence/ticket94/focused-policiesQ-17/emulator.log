@@ -1,0 +1,109 @@
+INFO         | Android emulator version 37.2.13.0 (build_id 16740729) (CL:N/A)
+INFO         | Graphics backend: gfxstream
+INFO         | Found systemPath /usr/local/lib/android/sdk/system-images/android-37.0/google_apis/x86_64/
+INFO         | Saving last run QEMU version for the AVD to 2
+INFO         | Guest usage of host flag 'VulkanVirtualQueue' will be ignored.
+INFO         | Feature 'Vulkan' (21) is overridden to 'disabled'
+INFO         | Increasing RAM size to 4096MB
+INFO         | Guest GLES Driver: Auto (ext controls)
+INFO         | emuglConfig_init: vulkan_mode_selected:swiftshader gles_mode_selected:swiftshader
+INFO         | Checking system compatibility:
+INFO         |   Checking: hasSufficientDiskSpace
+INFO         |      Ok: Disk space requirements to run avd: `redsquare-proof` are met
+INFO         |   Checking: hasSufficientHwGpu
+INFO         |      Ok: Hardware GPU compatibility checks are not required
+INFO         |   Checking: hasSufficientSystem
+INFO         |      Warning: Suggested minimum system RAM to run avd 'redsquare-proof' is 16384 MiB (available: 15983 MiB)
+USER_WARNING | Suggested minimum system RAM to run avd 'redsquare-proof' is 16384 MiB (available: 15983 MiB).
+WARNING      | Feature QuickbootFileBacked is disabled due to stability issues, if you really want that, the environment variable ANDROID_EMU_FORCE_QUICKBOOT_FILE_BACKED need to set to 1
+INFO         | Storing crashdata in: /tmp/android-runner/emu-crash-37.2.13.db, detection is enabled for process: 3992
+INFO         | Initializing gfxstream backend
+INFO         | startOpenglesRendererImpl: gpu info
+INFO         | 
+INFO         | Vulkan 1.4 is not supported for the guest and won't be enabled
+INFO         | SharedLibrary::open for [libX11]
+WARNING      | Could not open libX11.so, try libX11.so.6
+INFO         | SharedLibrary::open for [libX11.so.6]
+INFO         | SharedLibrary::open for [libX11-xcb]
+WARNING      | Could not open libX11-xcb.so, try libX11-xcb.so.1
+INFO         | SharedLibrary::open for [libX11-xcb.so.1]
+INFO         | Graphics Adapter Vendor Google (Google Inc.)
+INFO         | Graphics Adapter Android Emulator OpenGL ES Translator (Google SwiftShader)
+INFO         | Graphics API Version OpenGL ES 3.0 (OpenGL ES 3.0 SwiftShader 4.0.0.1)
+INFO         | Graphics API Extensions GL_OES_EGL_sync GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_depth24 GL_OES_depth32 GL_OES_element_index_uint GL_OES_texture_float GL_OES_texture_float_linear GL_OES_compressed_paletted_texture GL_OES_compressed_ETC1_RGB8_texture GL_OES_depth_texture GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_packed_depth_stencil GL_OES_vertex_half_float GL_OES_standard_derivatives GL_OES_texture_npot GL_OES_rgb8_rgba8 GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_texture_format_BGRA8888 GL_APPLE_texture_format_BGRA8888 
+INFO         | Graphics Device Extensions N/A
+INFO         | Sending adb public key [QAAAAOGrzOzfJ2fknKqW6PubCorDf8ktthfDpLGO+s/HwOSi904ocS9qvz6RvEvmeaz98GFKUWUuPjFc+3+w0j4q+5kf0tBKA6IVi44BfTBaULBcP1H2mry5cRKRm3WZLAqeWY1XvbQrOBzxgRCXgZ7rG08ugBiXmfJeX98qf3Edalj6J6w/615hX0FMZkw8dg9DO2D8qe6XZrsJrBUTfH3SxmcwgKtav72WIxKza+l2a7nvjW/QnKZeiQYguU5HZO30k/2L3PMrInEtNd3SUuoSiWq/A14rnFmdbImY8sgWY6RAS3kihitxWE6jc8IR7YFZrfIPjZrTuk54Ioi+Tm6LZ3ECyWHErmzreXXYWPaw7w0Tec51YxFGzZyCWNoP2CleTphUN1Zazly0aYrpdn26LaYu+oB1EdJAaIrr8k1Y25PMNZpld4h7htqtzqWxV67CnFerruh9qcP6NrnNF8DKv1zat/rGwzTkw5Vjqx3xrIdwFKx3cln2Yrv6a7YYZsvxA88oDjEOKIoX8OByvCs9e14Lc61YkLwRkUgaK0xrQd7o5JmhzA8agoe5zpP76+EvlJutFY8O4a+Kjz+RhnGZX+YTWG6jzl3n23xlGzjGIEoAQfHjMf0mpKht2vgGI1MVhBWDrYU6/ng09W3nN/BIASVm6TiCJznakihWdCPe7miWpEkTUAEAAQA= runner@unknown]
+INFO         | Userspace boot properties:
+INFO         |   androidboot.boot_devices=pci0000:00/0000:00:03.0 pci0000:00/0000:00:06.0
+INFO         |   androidboot.dalvik.vm.heapsize=576m
+INFO         |   androidboot.debug.hwui.renderer=skiagl
+INFO         |   androidboot.debug.sf.nobootanimation=1
+INFO         |   androidboot.hardware=ranchu
+INFO         |   androidboot.hardware.gltransport=pipe
+INFO         |   androidboot.logcat=*:V
+INFO         |   androidboot.opengles.version=196608
+INFO         |   androidboot.qemu=1
+INFO         |   androidboot.qemu.adb.pubkey=QAAAAOGrzOzfJ2fknKqW6PubCorDf8ktthfDpLGO+s/HwOSi904ocS9qvz6RvEvmeaz98GFKUWUuPjFc+3+w0j4q+5kf0tBKA6IVi44BfTBaULBcP1H2mry5cRKRm3WZLAqeWY1XvbQrOBzxgRCXgZ7rG08ugBiXmfJeX98qf3Edalj6J6w/615hX0FMZkw8dg9DO2D8qe6XZrsJrBUTfH3SxmcwgKtav72WIxKza+l2a7nvjW/QnKZeiQYguU5HZO30k/2L3PMrInEtNd3SUuoSiWq/A14rnFmdbImY8sgWY6RAS3kihitxWE6jc8IR7YFZrfIPjZrTuk54Ioi+Tm6LZ3ECyWHErmzreXXYWPaw7w0Tec51YxFGzZyCWNoP2CleTphUN1Zazly0aYrpdn26LaYu+oB1EdJAaIrr8k1Y25PMNZpld4h7htqtzqWxV67CnFerruh9qcP6NrnNF8DKv1zat/rGwzTkw5Vjqx3xrIdwFKx3cln2Yrv6a7YYZsvxA88oDjEOKIoX8OByvCs9e14Lc61YkLwRkUgaK0xrQd7o5JmhzA8agoe5zpP76+EvlJutFY8O4a+Kjz+RhnGZX+YTWG6jzl3n23xlGzjGIEoAQfHjMf0mpKht2vgGI1MVhBWDrYU6/ng09W3nN/BIASVm6TiCJznakihWdCPe7miWpEkTUAEAAQA= runner@unknown
+INFO         |   androidboot.qemu.avd_name=redsquare-proof
+INFO         |   androidboot.qemu.camera_hq_edge_processing=0
+INFO         |   androidboot.qemu.camera_protocol_ver=1
+INFO         |   androidboot.qemu.cpuvulkan.version=4210688
+INFO         |   androidboot.qemu.gltransport.drawFlushInterval=800
+INFO         |   androidboot.qemu.gltransport.name=pipe
+INFO         |   androidboot.qemu.hwcodec.avcdec=2
+INFO         |   androidboot.qemu.hwcodec.hevcdec=2
+INFO         |   androidboot.qemu.hwcodec.vpxdec=2
+INFO         |   androidboot.qemu.settings.system.screen_off_timeout=2147483647
+INFO         |   androidboot.qemu.skin=320x640
+INFO         |   androidboot.qemu.virtiowifi=1
+INFO         |   androidboot.qemu.vsync=60
+INFO         |   androidboot.serialno=EMULATOR37X2X13X0
+INFO         |   androidboot.vbmeta.digest=b486c947d336ef3fcf9dd40bb66aa55c11e4f3a512918e5df104b5d805430ffd
+INFO         |   androidboot.vbmeta.hash_alg=sha256
+INFO         |   androidboot.vbmeta.size=6848
+INFO         |   androidboot.veritymode=enforcing
+WARNING: cannnot unmap ptr 0x7f0bb3a01000 as it is in the protected range from 0x7f0ab3a00000 to 0x7f0bb3c00000
+pc_memory_init: above 4g size: 40000000
+INFO         | Monitoring duration of emulator setup.
+WARNING      | The emulator now requires a signed jwt token for gRPC access! Use the -grpc flag if you really want an open unprotected grpc port
+INFO         | Using security allow list from: /usr/local/lib/android/sdk/emulator/lib/emulator_access.json
+INFO         | The active JSON Web Key Sets can be found here: /run/user/1001/avd/running/3992/jwks/44933593-295f-4e0a-838d-e2a819898144/active.jwk
+INFO         | Scanning /run/user/1001/avd/running/3992/jwks/44933593-295f-4e0a-838d-e2a819898144 for jwk keys.
+INFO         | Started GRPC server at 127.0.0.1:8554, security: Local, auth: +token
+INFO         | Advertising in: /run/user/1001/avd/running/pid_3992.ini
+INFO         | Activated packet streamer for bluetooth emulation
+INFO         | Activated packet streamer for uwb emulation
+INFO         | Successfully initialized netsim WiFi
+INFO         | Setting display: 0 configuration to: 320x640, dpi: 160x160 
+INFO         | setDisplayActiveConfig: id:0, 320x640
+INFO         | emulatorSetupEnvironment: Environment scene is not required
+USER_INFO    | Emulator is performing a full startup. This may take upto two minutes, or more.
+WARNING      | Failed to process .ini file /home/runner/.android/emu-update-last-check.ini for reading.
+WARNING      | Failed to process .ini file /home/runner/.android/emu-update-last-check.ini for reading.
+INFO         | Boot completed in 46436 ms
+INFO         | Increasing screen off timeout, logcat buffer size to 2M.
+ERROR        | Failed to find ColorBuffer: 342
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 346
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 350
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 354
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 389
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 393
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 397
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 406
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 434
+ERROR        | Failed to bind to texture: invalid color buffer.
+ERROR        | Failed to find ColorBuffer: 443
+ERROR        | Failed to bind to texture: invalid color buffer.
+INFO         | Wait for emulator (pid 3992) 20 seconds to shutdown gracefully before kill;you can set environment variable ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL(in seconds) to change the default value (20 seconds)
+
+USER_INFO    | Snapshots have been disabled by the user, save request is ignored.
+INFO         | Saving snapshot 'default_boot' took 1 ms
+ERROR        | stop: Not implemented

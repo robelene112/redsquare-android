@@ -1,19 +1,23 @@
 # Unified redesign release verification (#94)
 
-Current final verification source is `7a0a85ed3ada21c6300b099c4b2702a7daaff2f5`
-(P). Complete Android10/17 runs42245609199/42246000706 execute all three partitions
-and public reads through immutable tag proof-redesign94-7a0a85e. All currently
-known repairs have passing focused/source/native checks. Aggregate full-job
-capacity is120minutes; original feature/class/process deadlines and frozen
-acceptance remain unchanged. Original440-path equality is false for one CI-only
-workflow change;439 independently audited APK-input-superset paths equal B→P.
-Signed89 retains its actual B build/configuration/signature/update provenance.
-No complete application pass or beta promotion is claimed. Signed candidate 89
-was built on `95725b005d086c970118054e78046db10563a76c` (B). Current receipt
-discloses the CI-only workflow difference separately from the equal439-path
-APK-input superset; historical440-path equality below applies only through O. See `candidate89-producer-equivalence.json`.
-The actual artifact, release configuration and original update observations retain
-their separate provenance. Stable latest remains 83.
+Current final verification source is `4f2bd89f49a4fc2b01c989b452b9ff675f82620b`
+(Q). Complete runs42252100677/42252105477 execute all three partitions and public
+reads through immutable tag `proof-redesign94-4f2bd89`. All four Q focused
+policies/viewer scopes pass on Android10/17. Both source axes report zero
+findings; both actual targeted native axes report zero findings. Q corrects observation
+of TalkBack's real initial focus handoff and description ownership on the actual
+focused attachment subtree, retaining original limits, physical keyboard
+navigation and service/engine proof. Original failures remain under
+`failures/fullP-wallet10` and `failures/fullN-chat10`.
+
+Aggregate full-job capacity is120minutes; original feature/class/process
+deadlines and frozen acceptance remain unchanged. Original440-path equality
+is false for one CI-only workflow change;439 independently audited APK-input-
+superset paths equal B→Q. Signed89 retains its actual B build/configuration/
+signature/update provenance. Candidate89 was built on
+`95725b005d086c970118054e78046db10563a76c` (B). Historical440-path equality below
+applies only through O. See `candidate89-producer-equivalence.json`.
+No complete application pass or beta promotion is claimed. Stable latest83.
 
 The owner-authorized node restart completed at 11:08:07 UTC on November 6.
 The node caught up, with two consecutive matching owner/official snapshots.
@@ -512,3 +516,23 @@ IDs each are in receipts. The decoded Like checkpoint is reached inside original
 Full P runs42245609199/42246000706 are now active. Three successful jobs perSDK,
 frozen full collector, actual final cross-module native/motion reviews and exact
 89 promotion remain required. No failed/focused source assembly establishes this.
+
+
+Q targeted native reviews both report zero actionable findings. Standards
+inspected all56PNG/62XML; Spec inspected32selectedPNG (all16viewer plus16policy)
+and all62XML. Both checked18contextual speech records against actual matching
+START/AUDIO/DONE callbacks without ERROR/STOP. Original Policy runtimes38.289s/
+59.033s and Viewer45.919s/49.599s pass. Each viewer uses nine genuine keyboard
+commands within16; actual origin/return descriptions belong to descendants of
+the exact focused parent. Both policy radio rows are48px high, owner remains
+selected while official receives focus, and exact saved writing draft reopens.
+Standards independently recomputed439equal audited APK-input paths and explicit
+440-path workflow inequality.
+
+Limits: initial Back handoff is established by original passing assertions
+within the shared5s, without a separate retained capture; subsequent log clearing
+removes that earlier speech from the retained owner recording. Android10's
+returned-focus PNG lacks painted green outline despite passing actual-focus
+check. PNG/XML/focus captures are non-atomic; service synthesis is not physical
+audibility. Focused results do not establish full-Q acceptance, policy/provider
+readiness or exclusive cause of historical failures.
