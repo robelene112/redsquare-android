@@ -290,6 +290,10 @@ case "${TEST_SCOPE:-full}" in
     status-motion*) verify_status_ui motion; exit ;;
     status-recovery*) verify_status_ui recovery; exit ;;
 esac
+if [[ "${TEST_SCOPE:-full}" == chat-grouping* ]]; then
+    verify_group_chat_native ChatGroupingPreviewTest 180 chat-grouping chat-grouping-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == destination-redesign* ]]; then
     motion_failed=0
     verify_group_chat_native DestinationRevealMotionTest 180 destination-reveal destination-reveal-evidence || motion_failed=1
@@ -625,6 +629,7 @@ if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
     exit 0
 fi
 if [[ "$full_chat" == true ]]; then
+    verify_group_chat_native ChatGroupingPreviewTest 180 chat-grouping chat-grouping-evidence
     verify_group_chat_native DestinationJourneyMotionTest 180 destination-journey destination-journey-evidence
     verify_group_chat_native LoadedMediaMotionTest 180 loaded-media loaded-media-evidence
     verify_group_chat_native ImageRetryOwnershipTest 180 image-retry image-retry-evidence

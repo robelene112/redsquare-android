@@ -8,6 +8,17 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
+## Active #83, then #94 and beta
+
+#81 CLOSED: completion236fd41fb +provenance27ebdff8, tracker6673898265. #83 claimed@me,
+no nativeblockers. Reviewbase27ebdff8362da11438f9602da969d9a405a79dd8.
+FirstnativeTDDslice ChatGroupingPreviewTest: realencrypted2private originals signed
+unsafeauthor1 toreader2, timestamps5minutesapartinclusive, actual412dp light/dark
+UI expectsone senderheader whilepreserving2menus/timestamps/exactidentity/originals.
+UsesexistingAvatarJourney declaredownedcache, restoredwallet/backend/preferences.
+Newchat-grouping(+17)180scope/fullChatadditive/bothSDKguards. AppUIunchangeduntil
+realRED. Source/spec83+86read. Ownerall5authorization:doNOTstopafter83,continue94beta.
+
 ## #81 verified and committed, continue #83 then #94 and beta
 
 The owner authorized allfive tickets90,93,81,83,94 and finalbeta sequentially.
