@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalViewConfiguration
+import androidx.compose.ui.platform.ViewConfiguration
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -148,7 +151,7 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
     val showMessage: (Int) -> Unit = { index ->
         if (index in messageKeys.indices) scope.launch { messageList.animateScrollToItem(index) }
     }
-    Box(modifier.onSizeChanged { viewportHeight = it.height }.clipToBounds()
+    BoundedHistoryViewport(modifier.onSizeChanged { viewportHeight = it.height }
         .preserveReadingAnchor(messageList, enabled = !following, relativeToRoot = true)) {
         LazyColumn(Modifier.fillMaxSize().semantics {
             contentDescription = messagesLabel
@@ -178,4 +181,22 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
 /** Screen readers count individual messages, independently of decorative lazy sender headers. */
 internal fun Modifier.conversationMessageRow(index: Int): Modifier = semantics {
     collectionItemInfo = CollectionItemInfo(index, 1, 0, 1)
+}
+
+/** The noninteractive clip must not expand over fixed controls; every child keeps normal touch targets. */
+@Composable
+private fun BoundedHistoryViewport(modifier: Modifier, content: @Composable BoxScope.() -> Unit) {
+    val inherited = LocalViewConfiguration.current
+    val boundary = remember(inherited) {
+        object : ViewConfiguration by inherited {
+            override val minimumTouchTargetSize = DpSize.Zero
+        }
+    }
+    // Compose extends an ancestor clip by that ancestor's minimum touch size.
+    // Only this noninteractive boundary uses zero; restore all defaults inside it.
+    CompositionLocalProvider(LocalViewConfiguration provides boundary) {
+        Box(modifier.clipToBounds()) {
+            CompositionLocalProvider(LocalViewConfiguration provides inherited) { content() }
+        }
+    }
 }
