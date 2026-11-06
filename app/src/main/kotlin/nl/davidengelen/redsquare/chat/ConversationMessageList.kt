@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
@@ -147,7 +148,7 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
     val showMessage: (Int) -> Unit = { index ->
         if (index in messageKeys.indices) scope.launch { messageList.animateScrollToItem(index) }
     }
-    Box(modifier.onSizeChanged { viewportHeight = it.height }
+    Box(modifier.onSizeChanged { viewportHeight = it.height }.clipToBounds()
         .preserveReadingAnchor(messageList, enabled = !following, relativeToRoot = true)) {
         LazyColumn(Modifier.fillMaxSize().semantics {
             contentDescription = messagesLabel
