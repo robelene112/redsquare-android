@@ -18,8 +18,9 @@ internal fun NativeTalkBackObservation.focusAndHear(label: String, description: 
 
 /** Observe service-owned navigation without requesting duplicate focus or speech. */
 internal fun NativeTalkBackObservation.captureFocusedSpeech(label: String, description: String,
-    folder: File, target: AccessibilityNodeInfo, completionTimeoutMillis: Long = 10_000) {
-    waitFor(5_000) {
+    folder: File, target: AccessibilityNodeInfo, completionTimeoutMillis: Long = 10_000,
+    focusTimeoutMillis: Long = 5_000) {
+    waitFor(focusTimeoutMillis) {
         appRoots(automation).any { it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == target }
     }
     waitFor(completionTimeoutMillis) { completedFragments(device, description).isNotEmpty() }

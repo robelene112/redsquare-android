@@ -142,11 +142,24 @@ class PolicyCenterPreviewTest {
                     NativeTalkBackObservation(talkBackFolder).observe {
                         device.waitForIdle(5_000)
                         ui.waitForAccountMenu(20_000)
+                        // Retain only this window's initial TalkBack handoff.
+                        device.executeShellCommand("logcat -c")
                         ui.openSettings()
                         waitFor("Node")
                         ui.onNodeWithText("Node").performClick()
                         waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
 
+                        val ownerFocusBy = android.os.SystemClock.elapsedRealtime() + 5_000
+                        fun ownerFocusRemaining(): Long = (ownerFocusBy - android.os.SystemClock.elapsedRealtime()).also {
+                            check(it > 0) { "Initial window handoff and owner-radio focus must complete within five seconds" }
+                        }
+                        // The service initializes the new window asynchronously.
+                        // Observe its actual first focus and fresh completed speech
+                        // before one radio-focus request, sharing the original5s.
+                        waitFor(ownerFocusRemaining()) {
+                            focusedText(automation) == "Back to Settings" &&
+                                completedFragments(device, "Back to Settings").isNotEmpty()
+                        }
                         fun collectRadioRows(node: android.view.accessibility.AccessibilityNodeInfo,
                             rows: MutableList<android.view.accessibility.AccessibilityNodeInfo>) {
                             if (node.isVisibleToUser && node.isFocusable && node.isCheckable) rows += node
@@ -173,7 +186,8 @@ class PolicyCenterPreviewTest {
                         device.executeShellCommand("logcat -c")
                         assertTrue("TalkBack can focus the selected node radio",
                             selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
-                        captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow)
+                        captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow,
+                            focusTimeoutMillis = ownerFocusRemaining())
                         waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
                         assertTrue("TalkBack announces the selected radio state",
                             Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))

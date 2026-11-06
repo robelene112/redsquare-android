@@ -57,9 +57,9 @@ class TalkBackImageViewerPreviewTest {
                             root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.let { it != previous } == true
                         }
                     }
-                    reachedOrigin = appRoots(automation).any { root ->
-                        root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.contentDescription?.toString() == "Image 1 of 2"
-                    }
+                    // The real focused clickable parent can own the image's
+                    // description through its focused subtree.
+                    reachedOrigin = focusedDescription(automation) == "Image 1 of 2"
                     if (reachedOrigin) break
                 }
                 assertTrue("TalkBack navigation reaches the original attachment", reachedOrigin)
@@ -109,9 +109,7 @@ class TalkBackImageViewerPreviewTest {
                 click(automation, "Close image")
                 check(device.wait(Until.gone(By.text("Close image")), 10_000))
                 waitFor(10_000) {
-                    appRoots(automation).any { root ->
-                        root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.contentDescription?.toString() == "Image 1 of 2"
-                    }
+                    focusedDescription(automation) == "Image 1 of 2"
                 }
                 capture(automation, File(folder, "returned-focus.png"))
                 device.dumpWindowHierarchy(File(folder, "returned-focus.xml"))
