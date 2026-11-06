@@ -8,6 +8,116 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
+## ACTIVE: fullH verification running after all targeted repairs passed
+
+Final CODE consumerH08be1b3b95d2e89fef7c73406264d0ed202b110b. Signed89 producer
+source remains95725b005d086c970118054e78046db10563a76c; exact APK hash remains
+6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5. All440tracked
+producer-superset paths/modes/types/blobs equal B→H. Candidate89-producer-equivalence
+receipt updated; artifact source/config and corrected instrumentation are distinct.
+No new APK needed for fixture-only repairs. Stable latest83,89 staged, not promoted.
+
+ALL TARGETED H scopes PASS:
+- controls10/17:42218962570/42218966643, all8preview methods +real process death/
+  checkpoint/cold-PID/guard recovery. Shared actual confirmation helper preserves
+  Previewtext and Processenabled postconditions, original15s.
+- chat-ui10/17:42218970233/42218973591, both originalPrivate classes +process;
+  activeimportpreview closes actualCancel, warningcaptured beforeConfirm scroll,
+  disabledConfirm captured separately, UNKNOWN/exactwallet/backend/encoded/no-replay.
+Earlier GChatMute bothPASS42217527946/42217531927 (all8); DImageViewer bothPASS
+42215466291/42215469793,45.491/52.169s. OriginalB10withoutobserver alsoPASS
+42217268250, so original180s viewerhang cause remainsunknown, notsamplerfix.
+Cpublic10PASS42213695291, Dpublic17PASS42215472985bothbackendreads; C17peerdisconnect
+42213698334 retained asunprovedtransient, no automatic retry/bound relaxation.
+All source fixes throughH two-axis review0. Audits covered84Settings routes/37files
+and301selectors/81files,14detailedfiles+2viewporthelpers; all definite misses fixed.
+A false Unmute-title finding was retracted; valid active-label caller unchanged.
+
+RUNNING complete finalH, DO NOT duplicate/cancel:
+- Android10:42220261090.
+- Android17:42220264070.
+Exact tag proof-redesign94-08be1b3 ensures metadata.headSha/source/workflow allH.
+Public reads true, all3Chat/Social/Wallet partitions, frozen626/627 IDs unchanged.
+No accepted full94 pass yet. Bfull42209783820/42209787079all6FAILED; originals
+retained externally and thin failures underticket94/failures/full957-*.
+No assembling failedB/focusedHinto falsefullpass. Oldbodybelowhistorical.
+
+Latest public read-only observation, November 6 at 13:09:49 UTC: official
+Saito.io recovered from its earlier stale snapshot and now serves height 1184295,
+age 2.577 minutes, within the original 15-minute guard. The owner's node and
+both configured upstreams show identical height 1184300 and hash. Retain the
+historical stale observation without treating it as a current failure or waiving
+any gate. Receipt: node-recovery/redesign94-public-snapshot-status.json.
+The owner-approved restart is fulfilled; no further production mutation.
+
+Focused native reviews are complete, with zero actionable findings: standards
+inspected 58 controls PNG/XML pairs plus 12 ChatMute pairs; spec inspected 40
+private-Chat pairs. Both confirmed the real cancellation/recovery controls and
+unchanged retained-work/no-replay assertions. Non-atomic captures, missing
+confirmation frames and checkpoint-based conclusions remain explicit limits.
+See ticket94 README. Final full-H native/motion review remains pending.
+
+After successfulall3Hpartitions/SDK: downloadraw, frozen full-collector.py exactH,
+then independent actualnative/motion reviews using externalplansnowH/artifactB.
+If complete acceptance holds, promoteexact89 with external unchangednotes, verify
+publiclatest/page/downloadchecksum, commitcompletion andclose94 only. Keep1/36/
+55/84 independent. Current uncommitted docs/proofs need final retention. No local
+build writer or implementation subagent active; reviewagentsdoneandcanreuse.
+
+## Latest #94: final fixture compatibility repairs, focused checks running
+
+Current CODE consumer08be1b3b95d2e89fef7c73406264d0ed202b110b (H), branch
+codex/unified-redesign, worktree /mnt/storage/redsquare-android-artifacts/redesign86.
+No producer change since signed89 source95725b. All440tracked producer-superset
+paths/modes/types/blobs still equal. Receipt candidate89-producer-equivalence.json
+now points atH; producer/artifact source957 and actual original update proof stay
+separate from corrected instrumentationH. Do not claim tests/binaries identical.
+
+All six full957 jobs FAILED. Raw packets are retained under external
+redesign94-full10-957-42209783820 andfull17-957-42209787079, all3partitions downloaded.
+Thin original failures are being retained in ticket94/failures/full957-*.
+- Both Wallet: real owner balance/funding0 pass, then obsolete transfer Done fails.
+  Cc3168d2 clicks actual Close transfer. Public10C42213695291PASS;17C42213698334
+  fails a new peer connection SocketException/Timeout(HTTP0). No cause proved.
+  D17public42215472985PASSbothnodes; original bounds/no automatic retry unchanged.
+- Social10: ImageViewerViewport180timeout124, noJUnit failure. Sixcells captured
+  within20s, portrait replacement resumed then stalled. Dbb30568 adds bounded
+  phase/test+main stack observation, no UI/clock/bound change. FocusD10/17
+  42215466291/42215469793PASS45.491/52.169s. OriginalB10 without observer baseline
+  42217268250alsoPASS; original stall cause unknown, no sampler-fix claim.
+- Social17: all8PersonalControls fail because old helper clicks static expanded
+  profile titles and mistakes inline explanation for confirmation. E0100 fixes
+  actualaction/Cancel-owning confirmation, F0890 permits scrolling before display
+  and corrects one Privacy category caller. Gce9all8preview methodsPASS(10Time95.566),
+  but process-recovery seed still used obsolete sequence and fails before checkpoint.
+  Hsharesrealconfirm helper; process caller retains enabled postcondition and all
+  actualkill/checkpoint/cold-PID/restore logic. No fake termination, no new@TestIDs.
+- Both Chat: ChatMute8methods7PASS/1FAIL, missing Node category before official
+  choice. Gce9adds that actual UI step. Focus42217527946/42217531927PASSboth.
+
+Bounded compatibility audits: Standards84Settings callers/37files plusdirectentries,
+0remaining. Spec301selectors/81files,14detail+2viewporthelpers: found process helper
+above and PrivateChatHistoryFixture.pendingImport oldDone. HactualCancel closes
+activepreview; warningcapturemoved immediatelyafteractualdisplay, disabledConfirm
+retained+separatecapture. UNKNOWN/exactencoded/wallet/backend/no-replay unchanged.
+Both axes0 for each committed repair throughH. A reported static Unmute mismatch
+was retracted after actualsource proved activefull-labelbutton; callerunchanged.
+AccidentalHEAD-source chat dispatch42217462469 was cancelled, never accepted.
+
+RUNNING exactH, do not duplicate/cancel:
+- controls10/17:42218962570/42218966643 (original8 +actualprocess recovery).
+- chat-ui10/17:42218970233/42218973591 (both originalPrivate classes +process).
+All earlierB/C/D/E/Gruns completed; no full acceptance. New complete full10/17 on
+finalH still REQUIRED, all3partitions, frozen626/627catalog and source/workflow/head
+matching through exactH prooftag. Wait focused checks/any new findings first.
+Never combine failedB/focusedHinto falsefullpass. Keep signed89 unchanged unless
+producer changes. Final native review and exact89promotion onlyafteractual full.
+
+Currentuncommitted: updatedREADME/handoff, equivalenceJSON, thin full957failures,
+newfocusedpublic/viewer proof folders. External during-full node observation can
+be retained. No local build writer active. Node one approvedrestart fulfilled,
+freshmatching aftercatchup and stillmatching11:40; no furtherproduction mutation.
+
 ## Node recovered; exact-source full verification now active
 
 David explicitly authorized one controlled production restart. It succeeded at

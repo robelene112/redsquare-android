@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.OwnerLiveFeedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.OwnerLiveFeedTest:
+INSTRUMENTATION_STATUS: test=freshInstallationReadsTheSelectedApprovedPublicFeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.OwnerLiveFeedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'Done' (ignoreCase: false)) && (hasAnyAncestorThat((IsDialog is defined) && (hasAnyDescendantThat(Text + InputText + EditableText contains 'Available to send: 0 SAITO' (ignoreCase: false))))))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed$lambda$10$lambda$9(OwnerLiveFeedTest.kt:149)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.$r8$lambda$7ZtMPVWMmbBDeNcImPUUL-e2AIs(OwnerLiveFeedTest.kt:0)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed(OwnerLiveFeedTest.kt:132)
+
+INSTRUMENTATION_STATUS: stream=
+Error in freshInstallationReadsTheSelectedApprovedPublicFeed(nl.davidengelen.redsquare.OwnerLiveFeedTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'Done' (ignoreCase: false)) && (hasAnyAncestorThat((IsDialog is defined) && (hasAnyDescendantThat(Text + InputText + EditableText contains 'Available to send: 0 SAITO' (ignoreCase: false))))))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed$lambda$10$lambda$9(OwnerLiveFeedTest.kt:149)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.$r8$lambda$7ZtMPVWMmbBDeNcImPUUL-e2AIs(OwnerLiveFeedTest.kt:0)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed(OwnerLiveFeedTest.kt:132)
+
+INSTRUMENTATION_STATUS: test=freshInstallationReadsTheSelectedApprovedPublicFeed
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.116
+There was 1 failure:
+1) freshInstallationReadsTheSelectedApprovedPublicFeed(nl.davidengelen.redsquare.OwnerLiveFeedTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'Done' (ignoreCase: false)) && (hasAnyAncestorThat((IsDialog is defined) && (hasAnyDescendantThat(Text + InputText + EditableText contains 'Available to send: 0 SAITO' (ignoreCase: false))))))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed$lambda$10$lambda$9(OwnerLiveFeedTest.kt:149)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.$r8$lambda$7ZtMPVWMmbBDeNcImPUUL-e2AIs(OwnerLiveFeedTest.kt:0)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed(OwnerLiveFeedTest.kt:132)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

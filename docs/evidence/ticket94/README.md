@@ -1,8 +1,21 @@
 # Unified redesign release verification (#94)
 
-This packet is being prepared. Latest producer candidate is611a5faf3 (frame acknowledgement), with diagnostic-only614e5aff0; signed88 is now historical and must not be promoted. A fresh89 and complete final-source proof remain required. No complete94 application pass, candidate update
-or beta publication is claimed yet. Both independent source review axes report zero unresolved findings. Source
-review is separate from execution.
+Current verification source is `08be1b3b95d2e89fef7c73406264d0ed202b110b`
+(H). Complete Android 10/17 runs `42220261090` / `42220264070` are still running.
+No complete application pass or beta promotion is claimed. Signed candidate 89
+was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
+producer input paths, modes, types and blobs are equal from B to H. The later
+changes correct instrumentation only. See `candidate89-producer-equivalence.json`.
+The actual artifact, release configuration and original update observations retain
+their separate provenance. Stable latest remains 83.
+
+The owner-authorized node restart completed at 11:08:07 UTC on November 6.
+The node caught up, with two consecutive matching owner/official snapshots.
+The official service later served an old snapshot, but was fresh again at
+13:09:49 UTC: age 2.577 minutes, within the unchanged 15-minute limit. At that
+observation the owner's node and both configured upstreams had identical height
+1184300 and block hash. Historical failures and observations below remain
+historical; they do not establish current acceptance.
 
 `catalog.json` freezes the accepted complete70 identities plus82 planned and20
 independently identified additions, minus17 owner-approved retired Like
@@ -286,3 +299,53 @@ Unavailable offline imagery does not prove cached-image retention.
 All current runs are complete. Stable latest remains83. The remaining full-source
 application/public-owner gates and promotion require recovery of the stale owner
 node. Explicit production authorization has not yet been received or exercised.
+
+Full957 wallet jobs fail on bothSDKs at OwnerLiveFeedTest:149 after real owner
+balance/funding zero checks pass: an obsolete Done/dialog selector is absent from
+the redesigned payment task. Actual48dp Close transfer exists in both native
+funding/failure originals. Consumerc3168d2 corrects only this action; financial,
+identity, protocol, signature and15s assertions remain. Both source axes0.
+
+Both independent producer reviews confirm440tracked paths/modes/types/blobs equal
+between signed89 source957 and consumerc3168d2. Explicit exclusions/limits are in
+candidate89-producer-equivalence.json. Actual signed89/old update proofs keep their
+source/configuration; corrected instrumentation requires fresh complete C runs.
+The failed957 jobs and focusedC checks never substitute a complete final pass.
+
+CompleteB runs42209783820/42209787079 remain failed in all six jobs. Subsequent
+test-only fixes follow actual controls: transfer Close, real account confirmation,
+Privacy/Node categories, process-recovery seeds and active import Cancel. Original
+assertions/identities/bounds remain. All targetedH controls/private-Chat scopes
+42218962570/42218966643/42218970233/42218973591 pass, including real process recovery.
+G ChatMute bothpass; D Viewer bothpass, and unobserved baselineB10also passes,
+without establishing the earlier timeout cause. All committed repairs source
+reviews0. Hfull42220261090/42220264070 nowrunning, exact tag/source/workflowH.
+Signed89 retains sourceB with440producer-input-superset equality toH and explicit
+consumer/configuration provenance. No full acceptance or promotion claimed.
+
+At12:48UTC officialSaito.io itself serves a snapshot older than15minutes while
+the owner remains fresh. Normal and no-cache public reads show the same old
+height1184241; official/options also reports thatheight. This is observed external
+unavailability, not permission to waive the public goal or relax freshness.
+
+
+## Latest targeted native reviews, before full H acceptance
+
+Both independent review axes found zero actionable findings in the targeted
+repairs. The standards review inspected all 58 controls PNG/XML pairs across
+both SDKs, including eight pairs extracted from process-recovery archives, plus
+12 selected ChatMute pairs. It confirmed independent Mute/Block choices,
+retained failure policies, withheld content under corrupt or unknown ownership,
+and correct wallet/backend recovery. Actual process changes were 4818 to 5009
+and 5036 to 5132. Confirmation actions and guards also rely on the unchanged
+passing assertions; PNG/XML captures are non-atomic.
+
+The specification review inspected 40 private-Chat PNG/XML pairs across both
+SDKs: complete import warning, unchecked acknowledgement, disabled Confirm,
+actual Cancel, unknown retained work, drafts, replies, cached older history,
+interrupted sends, reactions and quoted markup. All 12 compared process-checkpoint
+fields survived the actual process changes, with zero transmissions. Encoded
+payload equality and no replay rely on assertions and checkpoint data, not
+screenshots alone. Android 17 warning XML had clipped bounds while the PNG
+painted both complete lines. These focused observations do not replace the
+complete H catalog or final cross-module native/motion review.
