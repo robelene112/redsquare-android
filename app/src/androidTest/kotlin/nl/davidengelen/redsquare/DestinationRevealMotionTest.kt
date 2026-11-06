@@ -40,6 +40,7 @@ class DestinationRevealMotionTest {
                     title = searchTitle(device.displayHeight)
                 }
                 val bounds = requireNotNull(title)
+                check(SystemClock.elapsedRealtime() <= titleDeadline) { "The native title observation must finish within the original touch-started5s budget" }
                 val template = requireNotNull(instrumentation.uiAutomation.takeScreenshot())
                 try {
                     File(folder, "scale-$scale-search-template.png").outputStream().use {
