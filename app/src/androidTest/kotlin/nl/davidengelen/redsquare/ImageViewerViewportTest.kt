@@ -16,10 +16,12 @@ import org.junit.Test
 /** Native narrow/large-text/theme and real landscape viewer renders, with platform restoration. */
 class ImageViewerViewportTest {
     @get:Rule val ui = createEmptyComposeRule()
+    @Volatile private var observedPhase = "preparing"
 
     @Test fun viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val device = UiDevice.getInstance(instrumentation)
         val folder = File(context.cacheDir, "image-viewer-viewport-evidence").apply { mkdirs() }
         check(device.isNaturalOrientation)
@@ -27,6 +29,7 @@ class ImageViewerViewportTest {
         val automatic = device.executeShellCommand("settings get system accelerometer_rotation").trim()
         check(rotation in listOf("null", "0", "1", "2", "3") && automatic in listOf("null", "0", "1"))
         val fixture = JsonParser.parseReader(instrumentation.context.assets.open("native-images-reference.json").reader()).asJsonObject
+        val observation = observeThreads(folder)
         var primary: Throwable? = null
         try {
             withAppFrameFixture("viewer-viewport", "image-viewer-viewport-evidence", "[${fixture.getAsJsonObject("ordinary")}]") { activity ->
@@ -35,7 +38,9 @@ class ImageViewerViewportTest {
                 ui.withPostViewports(activity, folder, "viewer") { label, _ ->
                     exercise(folder, label)
                     if (context.resources.configuration.fontScale > 1.9f) {
+                        observedPhase = "$label:rotate-landscape"
                         device.setOrientationLeft()
+                        observedPhase = "$label:await-landscape-refresh"
                         ui.waitUntil(15_000) {
                             context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE &&
                                 ui.refreshableContentReady()
@@ -46,22 +51,28 @@ class ImageViewerViewportTest {
                             addProperty("fontScale", context.resources.configuration.fontScale)
                         }.toString())
                         exercise(folder, "$label-landscape")
+                        observedPhase = "$label:rotate-portrait"
                         device.setOrientationNatural()
+                        observedPhase = "$label:await-portrait-home"
                         ui.waitUntil(15_000) {
                             context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT &&
                                 ui.onNode(hasText("Home") and isSelected()).isDisplayed()
                         }
                     }
+                    observedPhase = "$label:viewport-fixture-after-cell"
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
+            observedPhase = "restoring-platform"
             cleanupAfterTest(primary, { device.setOrientationNatural() }, { device.unfreezeRotation() },
-                { restore(device, "user_rotation", rotation) }, { restore(device, "accelerometer_rotation", automatic) })
+                { restore(device, "user_rotation", rotation) }, { restore(device, "accelerometer_rotation", automatic) },
+                { observation?.close() })
         }
     }
 
     private fun exercise(folder: File, label: String) {
+        observedPhase = "$label:opening-viewer"
         val attachment = hasContentDescription("Image 1 of 2") and hasClickAction()
         ui.waitUntil(15_000) { ui.refreshableContentReady() }
         ui.onNode(hasScrollToIndexAction()).performScrollToNode(attachment)
@@ -72,6 +83,7 @@ class ImageViewerViewportTest {
         val minimum = 48 * instrumentation.targetContext.resources.displayMetrics.density
         val targets = JsonObject()
         val rectangles = mutableListOf<android.graphics.Rect>()
+        observedPhase = "$label:measuring-controls"
         for (name in listOf("Close image", "Previous image", "Next image", "Zoom in", "Zoom out", "Reset zoom", "Move image")) {
             ui.onNode(hasText(name) and hasClickAction()).assertIsDisplayed()
             // Material paints40dp inside its48dp native interaction target.
@@ -87,14 +99,18 @@ class ImageViewerViewportTest {
             addProperty("minimumPixels", minimum); addProperty("disjoint", true); add("targets", targets)
         }.toString())
         ui.onNodeWithContentDescription("Full screen image 1 of 2").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
+        observedPhase = "$label:fit-capture"
         captureNativeScreen(File(folder, "$label-fit.png"), "Image 1 of 2")
         ui.onNode(hasText("Zoom in") and hasClickAction()).performClick()
         ui.onNodeWithText("150%").assertIsDisplayed()
+        observedPhase = "$label:zoom-capture"
         captureNativeScreen(File(folder, "$label-zoom.png"), "150%")
+        observedPhase = "$label:closing-viewer"
         ui.onNode(hasText("Close image") and hasClickAction()).performClick()
         ui.waitUntil(10_000) { ui.onAllNodesWithText("Close image").fetchSemanticsNodes().isEmpty() }
         ui.onNode(attachment).assertIsDisplayed()
         if (label.endsWith("-landscape")) {
+            observedPhase = "$label:measuring-return-navigation"
             val navigation = mutableListOf<android.graphics.Rect>()
             val observed = JsonObject()
             for (name in listOf("Home", "Search", "Notifications", "Chat", "Your profile", "New post")) {
@@ -116,6 +132,33 @@ class ImageViewerViewportTest {
             captureNativeScreen(File(folder, "$label-closed.png"))
         }
     }
+
+    /** Bounded observation only: no input, clocks, state changes or timeout extension. */
+    private fun observeThreads(folder: File): AutoCloseable? = try {
+        val testThread = Thread.currentThread()
+        val mainThread = android.os.Looper.getMainLooper().thread
+        val samples = java.util.concurrent.atomic.AtomicInteger()
+        val executor = java.util.concurrent.Executors.newSingleThreadScheduledExecutor { action ->
+            Thread(action, "Viewer phase observation").apply { isDaemon = true }
+        }
+        val task = executor.scheduleAtFixedRate({
+            if (samples.getAndIncrement() < 18) try {
+                val sample = JsonObject().apply {
+                    addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+                    addProperty("phase", observedPhase)
+                    addProperty("testState", testThread.state.name)
+                    addProperty("mainState", mainThread.state.name)
+                    for ((name, thread) in listOf("testStack" to testThread, "mainStack" to mainThread)) {
+                        add(name, com.google.gson.JsonArray().apply {
+                            thread.stackTrace.take(64).forEach { add(it.toString()) }
+                        })
+                    }
+                }
+                File(folder, "thread-observations.jsonl").appendText(sample.toString() + "\n")
+            } catch (_: Throwable) { /* Optional observation must preserve the original result. */ }
+        }, 10, 10, java.util.concurrent.TimeUnit.SECONDS)
+        AutoCloseable { task.cancel(false); executor.shutdown() }
+    } catch (_: Throwable) { null }
 
     private fun restore(device: UiDevice, key: String, value: String) {
         device.executeShellCommand(if (value == "null") "settings delete system $key" else "settings put system $key $value")
