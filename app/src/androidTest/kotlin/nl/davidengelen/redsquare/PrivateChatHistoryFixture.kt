@@ -19,6 +19,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
     enum class HistoryCase { AVAILABLE, STORAGE_FAILURE, LIVE, SEND, SEND_INTERRUPTED, NEW_SEND, IMPORTED_ID, IMPORTED_PARTIAL, LIST_LIVE, PARTIAL_KEYS, STORAGE_PARTIAL, OTHER_LIVE, MENTIONED, MENTIONED_OUTGOING, MUTED, BLOCKED, UNKNOWN_RETRY, PENDING_IMPORT, DRAFT_NAVIGATION, OLDER_HISTORY, QUOTED_REPLY, LITERAL_MARKUP, UNREADABLE_RECENT_HISTORY, NATIVE_REPLY, NATIVE_REPLY_ZERO, LIKE, INCOMING_LIKE, CONCURRENT_LIKE, REACTION_RETRY, REACTION_BACKENDS, REACTION_WALLETS, ARCHIVED_LIKE, ARCHIVED_LIKE_STORAGE }
 
     fun exerciseHistory(case: HistoryCase) {
+        val caseStarted = android.os.SystemClock.elapsedRealtime()
         fun captureViewport(stage: String) {
             if (InstrumentationRegistry.getArguments().getString("privateHistoryViewport") != "1") return
             val target = InstrumentationRegistry.getInstrumentation().targetContext
@@ -56,6 +57,14 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        fun recordCase(event: String) = runCatching {
+            val folder = File(context.cacheDir, "private-chat-evidence").apply { mkdirs() }
+            File(folder, "case-timings.jsonl").appendText(JsonObject().apply {
+                addProperty("case", case.name); addProperty("event", event); addProperty("started", caseStarted)
+                addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - caseStarted)
+            }.toString() + "\n")
+        }
+        recordCase("started")
         val mentioned = case == HistoryCase.MENTIONED || case == HistoryCase.MENTIONED_OUTGOING
         val replyCase = case == HistoryCase.QUOTED_REPLY || case == HistoryCase.LITERAL_MARKUP
         val fixture = instrumentation.context.assets.open(when {
@@ -1187,6 +1196,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                     }
                 savedFiles.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
             } }
+            recordCase("finished")
             cleanupFailure?.let { throw it }
         }
     }
