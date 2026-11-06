@@ -1,5 +1,29 @@
 # Implementation handoff
 
+## ACTIVE: final R runs with pre-execution corrected verifier freeze
+
+Current final source is `c24a705207795db7e137a3664f3d9a710a86b9a9` (R), immutable
+tag `proof-redesign94-c24a705`. Complete all-partition/public-read runs:
+- Android10: https://github.com/robelene112/redsquare-android/actions/runs/42265166557
+- Android17: https://github.com/robelene112/redsquare-android/actions/runs/42265171360
+Do not duplicate/cancel. New helper SHA256d100f1333ca2475cc5c9617f2f5531794294be6ac6bff2ae2b021ac832015cc5
+was committed/frozen before these runs. Both source review axes zero unresolved
+findings after exact timestamp/label prefix corrections. Regression: one unittest,
+36subcases (two real positives and34negative mutations). No app/instrumentation,
+identity/archive/deadline/tool/other-validator change. All439audited APK-input
+paths B→R equal; original440comparison retains one non-APK workflow difference.
+
+Both complete Q workflows SUCCESS; original Q17 frozen collector FAIL remains
+explicitly retained. Direct invocation of corrected viewer and unchanged final
+navigation validators passes on immutable Q17 originals as a POST-RUN DIAGNOSTIC
+ONLY. It does not retroactively satisfy the frozen-Q contract. No final R/full
+acceptance or promotion yet. Latest83;89staged. Use fresh raw folders
+`redesign94-fullR10-42265166557`/`redesign94-fullR17-42265171360` and collector
+labels `finalR-android10`/`finalR-android17`, exactR. After successful collectors,
+both actual R cross-module native/motion reviews, promote exact89 with unchanged
+notes, verify public version/hash and close94only. Root solewriter. Other parent/
+owner/external criteria remain independent. No new production node mutation.
+
 ## Current checkpoint: Q runtime passes, frozen verifier repair before R
 
 Both complete Q workflows42252100677/42252105477 SUCCESS, all three partitions.
