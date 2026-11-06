@@ -1,0 +1,64 @@
+{
+  "authorization": "David explicitly approved one controlled saito.service restart and bounded sync checks on2026-11-06.",
+  "restartAt": "2026-11-06T11:08:07Z",
+  "oldPid": 2553910,
+  "newPid": 3257586,
+  "actualRestarts": 1,
+  "restartCommand": [
+    "systemctl",
+    "restart",
+    "saito.service"
+  ],
+  "restartCommandExit": 0,
+  "initialNonrootChrootAttempt": "Failed before contacting systemd, exit125; not a service restart.",
+  "initialObservationWindow": {
+    "limitSeconds": 600,
+    "exit": 1,
+    "outcome": "HTTP recovered and height advanced, but not synchronized inside this first observation window."
+  },
+  "progressFollowup": {
+    "limitSeconds": 300,
+    "exit": 0,
+    "actualObservationSeconds": 150.7,
+    "outcome": "Two consecutive fresh matching public owner/official tip observations."
+  },
+  "acceptedLastObservation": {
+    "window": "catchup-after-observed-progress",
+    "observedAt": "2026-11-06T11:22:23.659579+00:00",
+    "elapsedSeconds": 150.7,
+    "owner": {
+      "host": "saito.davidengelen.nl",
+      "status": 200,
+      "timestamp": 1793964100903,
+      "height": 1184099,
+      "blockHash": "06f6b4deeef32bb4d1034141fd9e0293a5281634c3393b3b090a9ae79ad66d07",
+      "ageMinutes": 0.705,
+      "bytes": 92
+    },
+    "official": {
+      "host": "saito.io",
+      "status": 200,
+      "timestamp": 1793964100903,
+      "height": 1184099,
+      "blockHash": "06f6b4deeef32bb4d1034141fd9e0293a5281634c3393b3b090a9ae79ad66d07",
+      "ageMinutes": 0.712,
+      "bytes": 92
+    },
+    "service": {
+      "MainPID": "3257586",
+      "NRestarts": "0",
+      "ActiveState": "active",
+      "SubState": "running",
+      "ActiveEnterTimestamp": "Fri 2026-11-06 11:08:07 UTC"
+    },
+    "freshMatchingTips": true,
+    "consecutiveMatchingObservations": 2
+  },
+  "httpRoutesAtRecovery": {
+    "snake": 200,
+    "redsquare": 200,
+    "options": 200
+  },
+  "manualConfigurationSourceWalletOrDatabaseEdits": false,
+  "limits": "Observed recovery after one approved restart. Original stall cause and permanent reliability are unproved. HTTP/process/snapshot observations are separate; original app15-minute balance freshness is unchanged."
+}

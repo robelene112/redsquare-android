@@ -122,10 +122,12 @@ door placeholders om een issue te kunnen sluiten.
   herstart van `saito.service`, gevolgd door controle van synchronisatie en actuele
   saldosnapshots. De herstart is uitgevoerd om11:08:07UTC; het nieuwe proces heeft
   PID3257586. De toestemming hoeft niet opnieuw te worden gevraagd.
-- [ ] De begrensde opstart- en synchronisatiecontrole moet nog slagen. Een draaiend
-  proces alleen is geen bewijs van HTTP-bereikbaarheid of actuele blokgegevens.
+- [x] De node is weer bereikbaar en bijgewerkt. Om11:22UTC toonden twee
+  opeenvolgende metingen dezelfde actuele blokhoogte en blokhash als Saito.io.
+  Red Square, Snake en de publieke opties antwoordden metHTTP200.
 
 Voor de herstart leverde jouw node block1180213 van5november02:30:55UTC. De app
 weigerde dat oude saldo terecht als actueel te tonen; de vijftienminutengrens
-blijft behouden. Het resultaat van de herstart wordt nog gecontroleerd. Er zijn
+blijft behouden. De herstart herstelde de waargenomen synchronisatie; de oorspronkelijke oorzaak
+is nog niet bewezen. Er zijn
 geen nodeconfiguraties, wallets of databases gewijzigd.

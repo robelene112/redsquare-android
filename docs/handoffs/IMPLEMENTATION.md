@@ -8,27 +8,35 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Node recovery explicitly authorized and started on6November
+## Node recovered; exact-source full verification now active
 
-David answered yes to one controlled saito.service restart plus bounded sync checks.
-Do not ask again. The restart succeeded at11:08:07UTC on live netcup; PID changed
-2553910→3257586, service active/running. Initial Docker attempt lacked root and
-failed before contacting systemd; explicit --user0:0 then succeeded, exactly one
-actual service restart. No config/source/wallet/database edits. HTTP initially502
-while native block loading runs. External bounded600s readonly probe session63545
-uses public disposable-emulator address only, writes
-`/mnt/storage/redsquare-android-artifacts/redesign94-node-recovery-observations.jsonl`.
-It checks every20s, requires two fresh matching owner/official tip observations,
-and never restarts the service. At11:10 loading remains active, HTTP port not yet
-listening. No successful recovery or cause claimed yet.
+David explicitly authorized one controlled production restart. It succeeded at
+11:08:07UTC6November: PID2553910→3257586. No config/source/wallet/database edits;
+no second restart. Initial nonroot chroot failed before systemd, then explicit
+root command succeeded. HTTP was temporarily502 during native block loading.
+The first600s observation window ended before complete catch-up; actual progress
+justified a separate300s follow-up. That passed after150.7s with two consecutive
+fresh owner/official matching snapshots atheight1184099. Snake/RedSquare/options
+allHTTP200. Original stall cause remains unproved. Proofs: ticket94/node-recovery.
+Authorization is fulfilled and must not be requested again for this completed
+restart. Further production mutations still require their own scope.
 
-Final full collector requires metadata.headSha and proof-workflow/source all equal
-the executing source. To test exact signed89 source95725b, dispatch via a dedicated
-Git tag pointing at95725b rather than current documentation HEAD59834b. Tag
-`proof-redesign94-95725b0` was absent at11:10; create/check it before full dispatch.
-Then full10/17 all3partitions, exact original gates/catalog; native final review,
-exact89 promotion and close94 only after real acceptance. Previous permission
-wording below is historical and superseded by this approval.
+RUNNING, exact signed89 source/workflow95725b005d086c970118054e78046db10563a76c:
+- Android10 full:42209783820.
+- Android17 full:42209787079.
+Both dispatched via tag proof-redesign94-95725b0, public reads explicitly true.
+All three Chat/Social/Wallet partitions required. Do not duplicate/cancel them.
+Frozen collector requires metadata.headSha and proof-workflow/source equal the
+executing source. Tag points exactly at95725b, matching artifact89, so later
+operational/evidence documentation commits do not alter tested-source identity.
+
+After full passes: download all three partitions/SDK, run frozen full-collector
+with exact957 source, inspect retained native normal/zero frames and meaningful
+cross-module/viewport/IME/recovery originals with both review agents. External
+review selection plans now point at957 and signed89. Only then promote exact89
+using unchanged notes from external redesign94-beta-notes.txt, verify public
+latest/download, commit completion and close94. Do not auto-close1/36/55/84.
+Previous permission/blocked wording below is historical and superseded here.
 
 ## Active #94: finish independent repairs, then authorized node recovery and final beta
 
