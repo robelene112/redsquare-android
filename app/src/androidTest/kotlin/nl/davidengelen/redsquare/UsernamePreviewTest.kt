@@ -55,6 +55,12 @@ class UsernamePreviewTest {
         } catch (_: Throwable) { /* Optional timing must preserve the test outcome. */ }
     }
 
+    private inline fun <T> observePhase(phase: String, block: () -> T): T {
+        observeMethodBoundary("$phase-start")
+        try { return block() }
+        finally { observeMethodBoundary("$phase-end") }
+    }
+
     @Test fun aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply() = withRegistryWallet(
         SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe reader fixture; name belongs to scalar1.
     ) { reader ->
@@ -69,7 +75,7 @@ class UsernamePreviewTest {
         val text = post.getAsJsonObject("body").getAsJsonObject("data").get("text").asString
         val peer = discoveryPeer(author, "[$row]") { registry.getAsJsonArray("rows").toString() }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-shared-name-failure.png") }) {
@@ -88,7 +94,7 @@ class UsernamePreviewTest {
                     capture("username-shared-feed.png", "NativeCase7@saito")
                     ui.onNode(targetAuthor).performClick()
                     waitForText("Profile")
-                    ui.inspectProfileIdentity(author) {
+                    inspectIdentity(author) {
                         onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(author)),
                             useUnmergedTree = true).assertIsDisplayed()
                     }
@@ -123,7 +129,7 @@ class UsernamePreviewTest {
         peer.registryFallbackBeforeNamecheck = fallbackFirst
         val capturePrefix = if (fallbackFirst) "username-settings-late" else "username-settings"
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 // Isolate Settings discovery from names already looked up by cached feed rows.
                 .putExtra("feedDisabled", true)
@@ -180,7 +186,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true)
                     .putExtra("usernameFixtureRegistrar", true)
@@ -191,7 +197,7 @@ class UsernamePreviewTest {
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         assertTrue("No feed/profile may seed the incoming name before import", peer.registryQueries.isEmpty())
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                        chooseWalletImport(ui, filename, incoming)
+                        observePhase("wallet-picker") { chooseWalletImport(ui, filename, incoming) }
                         waitForText("Node reports zero SAITO")
                         ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                         ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
@@ -217,7 +223,7 @@ class UsernamePreviewTest {
                         val checks = namechecks()
                         assertTrue("Imported name must be verified, not just copied from a hint", checks > 0)
                         capture("username-named-import.png", "NativeCase7@saito")
-                        scenario.recreate()
+                        observePhase("activity-recreate") { scenario.recreate() }
                         discoverInSettings()
                         assertTrue(namechecks() > checks)
                         ui.onNodeWithText("Back").performClick()
@@ -266,7 +272,7 @@ class UsernamePreviewTest {
                 }
             })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-quoted-name-failure.png") }) {
@@ -302,7 +308,7 @@ class UsernamePreviewTest {
             .use { JsonParser.parseReader(it).asJsonObject }
         val peer = discoveryPeer(fixture.publicKey) { reference.getAsJsonArray("rows").toString() }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-discovery-failure.png") }) {
@@ -310,7 +316,7 @@ class UsernamePreviewTest {
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("NativeCase7@saito")
-                    ui.inspectProfileIdentity(fixture.publicKey) {
+                    inspectIdentity(fixture.publicKey) {
                         onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
                             useUnmergedTree = true).assertIsDisplayed()
                     }
@@ -346,7 +352,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
                     withFailureCapture({ capture("username-name-save-failure.png") }) {
@@ -358,7 +364,7 @@ class UsernamePreviewTest {
                         waitForText("NativeCase7@saito")
                         val warning = "Name verified, but could not be saved on this device."
                         waitForText(warning)
-                        ui.inspectProfileIdentity(fixture.publicKey) {
+                        inspectIdentity(fixture.publicKey) {
                             onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
                                 useUnmergedTree = true).assertIsDisplayed()
                         }
@@ -376,17 +382,17 @@ class UsernamePreviewTest {
                         }
                         // A shared label retains its previous warning until the fresh proof/save settles.
                         ui.waitUntil(20_000) { ui.onAllNodesWithText(warning).fetchSemanticsNodes().isEmpty() }
-                        ui.inspectProfileIdentity(fixture.publicKey) {
+                        inspectIdentity(fixture.publicKey) {
                             onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
                                 useUnmergedTree = true).assertIsDisplayed()
                         }
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
                         capture("username-name-save-recovered.png", "NativeCase7@saito")
                         response.set("{\"err\":\"no response\"}")
-                        scenario.recreate()
+                        observePhase("activity-recreate") { scenario.recreate() }
                         waitForText("Profile") // The selected public profile survives Activity recreation.
                         waitForText("NativeCase7@saito")
-                        ui.inspectProfileIdentity(fixture.publicKey)
+                        inspectIdentity(fixture.publicKey)
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
                         capture("username-name-save-cached.png", "NativeCase7@saito")
                         assertTrue(peer.clientKeys.all { it == fixture.publicKey })
@@ -412,7 +418,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true)
                     .putExtra("usernameFixtureRegistrar", true)).use {
@@ -467,7 +473,7 @@ class UsernamePreviewTest {
         peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-            ActivityScenario.launch<MainActivity>(intent).use {
+            launchActivity(intent).use {
                 withFailureCapture({ capture("username-unavailable-failure.png") }) {
                     waitForEnabled("New post")
                     ui.waitForRefreshableContent(20_000) // Wallet readiness alone does not finish the initial feed load.
@@ -516,7 +522,7 @@ class UsernamePreviewTest {
         peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-            ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+            launchActivity(intent).use { scenario ->
                 withFailureCapture({ capture("username-pending-failure.png") }) {
                     openUsername()
                     ui.onNode(hasSetTextAction()).performTextReplacement("NativeCase7")
@@ -544,7 +550,7 @@ class UsernamePreviewTest {
                         addProperty("frame", java.util.Base64.getEncoder().encodeToString(peer.transactions.single()))
                         addProperty("envelope", transaction.envelope())
                     }.toString())
-                    scenario.recreate()
+                    observePhase("activity-recreate") { scenario.recreate() }
                     openUsername()
                     waitForEnabled("Retry registration")
                     ui.onNodeWithText(pending).assertIsDisplayed()
@@ -579,7 +585,7 @@ class UsernamePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 // Explicit scalar2 authority applies only to this isolated emulator fixture.
                 .putExtra("usernameFixtureRegistrar", true)
-            ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+            launchActivity(intent).use { scenario ->
                 withFailureCapture({ capture("username-confirmation-failure.png") }) {
                     openUsername()
                     waitForEnabled("Check name")
@@ -598,7 +604,7 @@ class UsernamePreviewTest {
                     val checksBeforeRecovery = observedChecks()
                     assertTrue("Signed ownership must follow an actual namecheck", checksBeforeRecovery > 0)
                     unavailable.set(true)
-                    scenario.recreate()
+                    observePhase("activity-recreate") { scenario.recreate() }
                     openUsername()
                     waitForText("Username could not be checked. Try again.")
                     assertTrue("Recovery must actually observe the unavailable Registry response",
@@ -630,7 +636,7 @@ class UsernamePreviewTest {
                 reference.getAsJsonArray("rows").toString() else "[]"
         }, archiveResponse = { "[]" })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
                 withFailureCapture({ capture("username-race-failure.png") }) {
@@ -659,7 +665,7 @@ class UsernamePreviewTest {
                     assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
                     capture("username-race.png", taken)
                     val checks = peer.registryQueries.size
-                    scenario.recreate()
+                    observePhase("activity-recreate") { scenario.recreate() }
                     // The retained request is now taken, so its Retry control must remain disabled.
                     reopenTaken()
                     assertTrue(peer.registryQueries.size > checks)
@@ -668,7 +674,7 @@ class UsernamePreviewTest {
                     waitForEnabled("Your profile")
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("Profile")
-                    ui.inspectProfileIdentity(fixture.publicKey) {
+                    inspectIdentity(fixture.publicKey) {
                         onNode(hasText("Anon-${fixture.publicKey.take(6)}") and hasAnySibling(hasText(fixture.publicKey)),
                             useUnmergedTree = true).assertIsDisplayed()
                     }
@@ -680,14 +686,14 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Choose another name").assertIsEnabled().performClick()
                     ui.onNodeWithText("Cancel").performClick()
                     ui.onNodeWithText(taken).assertExists()
-                    scenario.recreate()
+                    observePhase("activity-recreate") { scenario.recreate() }
                     reopenTaken()
                     assertEquals(1, peer.transactions.size)
                     ui.onNodeWithText("Choose another name").performClick()
                     ui.onNodeWithText("Stop retries and choose").performClick()
                     waitForEnabled("Check name")
                     ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
-                    scenario.recreate()
+                    observePhase("activity-recreate") { scenario.recreate() }
                     openUsername()
                     ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(""))).assertIsEnabled()
                     assertEquals("Retirement and reopening must never send", 1, peer.transactions.size)
@@ -699,7 +705,7 @@ class UsernamePreviewTest {
                     try {
                         // Only the external version byte changes. Retirement must stay authenticated.
                         requestFile.writeBytes(retiredBytes.copyOf().apply { this[0] = 1 })
-                        scenario.recreate()
+                        observePhase("activity-recreate") { scenario.recreate() }
                         ui.waitForAccountMenu(20_000)
                         ui.openSettings()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
@@ -751,7 +757,7 @@ class UsernamePreviewTest {
         }
         try {
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true)).use { scenario ->
                     withFailureCapture({ capture("username-request-storage-failure.png") }) {
@@ -780,7 +786,7 @@ class UsernamePreviewTest {
                         // The external encrypted-file boundary becomes unreadable between app sessions.
                         requestFile.writeBytes(byteArrayOf(0, 1, 2))
                         val checks = peer.registryQueries.size
-                        scenario.recreate()
+                        observePhase("activity-recreate") { scenario.recreate() }
                         openSettingsName()
                         val unreadable = "Saved username request could not be opened. Try again."
                         waitForText(unreadable)
@@ -838,7 +844,7 @@ class UsernamePreviewTest {
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)
-            ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+            launchActivity(intent).use { scenario ->
                 withFailureCapture({ capture("username-profile-failure.png") }) {
                     openUsername()
                     waitForEnabled("Check name")
@@ -858,7 +864,7 @@ class UsernamePreviewTest {
                     }.toString())
                     missing.set(true)
                     val checks = peer.registryQueries.count { it.get("request").asString == "registry namecheck" }
-                    scenario.recreate()
+                    observePhase("activity-recreate") { scenario.recreate() }
                     openUsername()
                     waitForText("Your saved username was not found on this node. It has been kept on this device.")
                     assertTrue(peer.registryQueries.count { it.get("request").asString == "registry namecheck" } > checks)
@@ -870,7 +876,7 @@ class UsernamePreviewTest {
                     waitForEnabled("Your profile")
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("NativeCase7@saito")
-                    ui.inspectProfileIdentity(fixture.publicKey) {
+                    inspectIdentity(fixture.publicKey) {
                         onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
                             useUnmergedTree = true).assertIsDisplayed()
                     }
@@ -908,7 +914,7 @@ class UsernamePreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", true)
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
-                ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+                launchActivity(intent).use { scenario ->
                     withFailureCapture({ capture("username-import-failure.png") }) {
                         openUsername()
                         waitForEnabled("Check name")
@@ -923,7 +929,7 @@ class UsernamePreviewTest {
                         ui.openWallet()
                         assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                        chooseWalletImport(ui, filename, incoming.publicKey)
+                        observePhase("wallet-picker") { chooseWalletImport(ui, filename, incoming.publicKey) }
                         val selected = context.getString(R.string.wallet_import_address)
                         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(selected).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithContentDescription(selected).assertTextEquals(incoming.publicKey)
@@ -933,11 +939,11 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                         capture("username-import-preview.png", "Confirm replacement")
                         assertEquals(fixture.publicKey, displayedWalletAddress(ui))
-                        ui.onNodeWithText("Cancel").assertIsEnabled().performClick()
+                        observePhase("wallet-cancel") { ui.onNodeWithText("Cancel").assertIsEnabled().performClick() }
                         waitForEnabled("New post")
                         ui.onNodeWithText("Your profile").performClick()
                         waitForText("NativeCase7@saito")
-                        ui.inspectProfileIdentity(fixture.publicKey)
+                        inspectIdentity(fixture.publicKey)
                         fun incomingLookups() = peer.registryQueries.count {
                             it.get("request").asString == "registry query" &&
                                 it.getAsJsonArray("keys").any { key -> key.asString == incoming.publicKey }
@@ -946,7 +952,7 @@ class UsernamePreviewTest {
                         // Cancelled preview kept the outgoing identity. Now perform the real replacement.
                         ui.openWallet()
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                        chooseWalletImport(ui, filename, incoming.publicKey)
+                        observePhase("wallet-picker") { chooseWalletImport(ui, filename, incoming.publicKey) }
                         waitForText("Node reports zero SAITO")
                         ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                         ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
@@ -957,7 +963,7 @@ class UsernamePreviewTest {
                         waitForEnabled("Your profile")
                         ui.onNodeWithText("Your profile").performClick()
                         waitForText("Profile")
-                        ui.inspectProfileIdentity(incoming.publicKey) {
+                        inspectIdentity(incoming.publicKey) {
                             onNode(hasText("Anon-${incoming.publicKey.take(6)}") and hasAnySibling(hasText(incoming.publicKey)),
                                 useUnmergedTree = true).assertIsDisplayed()
                             onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
@@ -973,7 +979,7 @@ class UsernamePreviewTest {
                         assertTrue("Imported identity must actually query its own key",
                             incomingLookups() > incomingLookupsBeforeReplacement)
                         assertTrue(peer.clientKeys.contains(incoming.publicKey))
-                        scenario.recreate()
+                        observePhase("activity-recreate") { scenario.recreate() }
                         openUsername()
                         ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
                         ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
@@ -1026,7 +1032,7 @@ class UsernamePreviewTest {
         try {
             ownerPeer.start().use { ownerServer ->
                 officialPeer.start().use { officialServer ->
-                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    launchActivity(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")).use { scenario ->
@@ -1063,14 +1069,14 @@ class UsernamePreviewTest {
                             ui.openWallet()
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                            chooseWalletImport(ui, filename, incoming)
+                            observePhase("wallet-picker") { chooseWalletImport(ui, filename, incoming) }
                             ui.onNodeWithText("Pending work belongs to your current wallet").performScrollTo().assertIsDisplayed()
                             capture("username-pending-import-work.png", "Pending work belongs to your current wallet")
                             ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().assertIsOff()
                             ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                             capture("username-pending-import-preview.png", "Confirm replacement")
                             assertEquals(fixture.publicKey, displayedWalletAddress(ui))
-                            ui.onNodeWithText("Cancel").assertIsEnabled().performClick()
+                            observePhase("wallet-cancel") { ui.onNodeWithText("Cancel").assertIsEnabled().performClick() }
                             val ownerChecksBeforeReturning = ownerPeer.registryQueries.count {
                                 it.get("request").asString == "registry namecheck" &&
                                     it.get("identifier")?.asString == "NativeCase7@saito"
@@ -1099,7 +1105,7 @@ class UsernamePreviewTest {
                             // Replace only after the original-backend exact-retry proof above.
                             ui.openWallet()
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()
-                            chooseWalletImport(ui, filename, incoming)
+                            observePhase("wallet-picker") { chooseWalletImport(ui, filename, incoming) }
                             ui.onNodeWithText("Pending work belongs to your current wallet").performScrollTo().assertIsDisplayed()
                             waitForText("Node reports zero SAITO")
                             ui.onNodeWithText("Skip backup").performScrollTo().performClick()
@@ -1119,7 +1125,7 @@ class UsernamePreviewTest {
                             waitForText("Node: saito.io")
                             waitForEnabled("Check name")
                             ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
-                            scenario.recreate()
+                            observePhase("activity-recreate") { scenario.recreate() }
                             openUsername()
                             ui.onAllNodesWithText("Retry registration").assertCountEquals(0)
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
@@ -1199,7 +1205,16 @@ class UsernamePreviewTest {
         }
     }
 
-    private fun openUsername() {
+    private fun launchActivity(intent: Intent) = observePhase("activity-launch") {
+        ActivityScenario.launch<MainActivity>(intent)
+    }
+
+    private fun inspectIdentity(author: String,
+        inspect: androidx.compose.ui.test.junit4.ComposeTestRule.() -> Unit = {}) = observePhase("profile-identity") {
+        ui.inspectProfileIdentity(author, inspect)
+    }
+
+    private fun openUsername() = observePhase("open-username") {
         waitForEnabled("New post")
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         ui.openSettings()
@@ -1212,11 +1227,11 @@ class UsernamePreviewTest {
         }
     }
 
-    private fun waitForText(text: String) {
+    private fun waitForText(text: String) = observePhase("wait-text") {
         ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
     }
 
-    private fun waitForEnabled(text: String) {
+    private fun waitForEnabled(text: String) = observePhase("wait-enabled") {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
     }
 
