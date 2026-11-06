@@ -1,0 +1,15 @@
+{
+  "stageExit": 0,
+  "before": {
+    "latest.json": "55af2f8b3a0a49c14ce852eacd3f4779149ed37407f48b04eb3d1d1796f07cf8",
+    "index.html": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "after": {
+    "latest.json": "55af2f8b3a0a49c14ce852eacd3f4779149ed37407f48b04eb3d1d1796f07cf8",
+    "index.html": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "stableVersion": 83,
+  "outerBuildCommandExit": 143,
+  "gradleOutcome": "BUILD SUCCESSFUL in4m50s; all signing/package/manifest outputs present; staging independently reverified artifact identity and certificate",
+  "promoted": false
+}

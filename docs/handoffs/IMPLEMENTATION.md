@@ -10,10 +10,10 @@ consistent-source complete app gates, signed in-place update and publication.
 
 ## Active #94: finish independent repairs, then authorized node recovery and final beta
 
-Current committed HEAD: `614e5aff006b46ab7d58b6c37fd12dd34621f48e`, branch
+Current implementation/build source: `95725b005d086c970118054e78046db10563a76c`, branch
 `codex/unified-redesign`, worktree `/mnt/storage/redsquare-android-artifacts/redesign86`.
 First four tickets are closed;94 remains active. Preserve canonical Chat WIP.
-Latest public beta is83. No89 build/publication and no accepted full94 pass yet.
+Latest public beta is83. 89 is signed/staged, not promoted. No accepted full94 pass yet.
 
 Owner public balance/options snapshot was stale since2026-11-05 02:30:55UTC,
 height1180213 at07:49 Nov6. Original15-minute freshness check correctly rejects
@@ -60,11 +60,52 @@ username/picker/Cancel), no actions/assertions/bounds changed.614 moves all phas
 string construction inside protected diagnostic catch, preserves original failures.
 Local compile611 SUCCESS4m35; final diagnostic614 will compile in subsequent CI.
 
-RUNNING exact611, do not duplicate:
-- destination-reveal10/17:42193295646/42193299285.
-- usernames10/17:42193304556/42193308497.
-These are diagnosis/focused runs, not full acceptance. Source611 differs from614
-only by protected diagnostic construction. Do not claim614 itself executed.
+Focused611 reveal passes on both SDKs (42193295646/42193299285). Both native axes
+report zero findings across four movies/96frames. Each normal clip contains eight
+intermediates; zero-motion clips contain none. Total tap-to-end is710/979ms;
+180ms denotes the configured tween. Keyboard/rapid-interruption behavior remains
+separately covered by journey/full checks.
+
+Focused611 usernames pass on both SDKs (42193304556/42193308497): all16methods
+finish in134.718/172.957s, plus original ChatIdentity/process tails. Both native
+axes report zero findings across60PNG/60XML. Warning-before-scroll and disabled
+Confirm are observed separately. Android17's storage-error XML and following PNG
+capture different phases. The previous timeout's cause remains unproved; Android17
+has7.043s nominal margin. Measured picker observation cost was not optimized.
+Originals/provenance are in focused-reveal611-* and focused-username611-*.
+
+Signed89 was built on95725b005d086c970118054e78046db10563a76c, SHA256
+6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5.
+Package/certificate are unchanged. Gradle reports SUCCESS4m50; the outer command
+returned143 after all signing/manifest outputs, so do not claim a clean outer
+exit. Staging independently reverified the artifact and exited0. The public
+38,918,691-byte download matches its hash. Stable latest/page remain83.
+Release lint subsequently passed in6m18; log is external redesign94-lint89.txt.
+
+COMPLETED on exact957, all successful:
+- destination-redesign10/17:42194788753/42194792512, all11original affected
+  classes/21methods per SDK. Original180-second class bounds remain.
+- candidate-update10/17:42195571040/42195575094, actual83-to89. Both native axes
+  inspected all30PNG/28XML, zero findings: exact wallet/draft/cache caption,
+  author/Published/Light survive; debug identity/UID isolation and restoration0.
+  Later cold verification overwrites earlier verify images, so only separate
+  logs distinguish the two observations. Offline unavailable images do not prove
+  image-byte cache retention. Raw originals/provenance are retained in
+  focused-destinations957-* and update89-android*.
+
+No test/build/CI writer is active. Remaining independent repairs and update89
+verification are done. The concrete next step requires owner authorization for
+one controlled saito.service restart and bounded readiness/sync/freshness checks.
+Owner balance header was reobserved around09:22UTC Nov6 atheight1180213,
+1851.67minutes old; officialheight1183865 was0.1minutes old. No production mutation
+has occurred. Public beta remains83; candidate89 is staged only.94 stays open.
+
+No full acceptance or promotion yet. Ask concrete
+node recovery permission (one restart plus bounded sync/freshness observations),
+per explicit saito-dev requirement. No production authorization requested yet.
+Then run full10/17, all three partitions, on exact957. Require frozen collector
+checks, final native review and exact89 promotion only after actual acceptance.
+Later documentation commits do not establish execution of a different source.
 
 Previous readiness repairs:
 - FeedPreview cache pulls now explicitly index0/axis0 before physical swipe.

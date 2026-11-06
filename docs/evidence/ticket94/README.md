@@ -243,3 +243,46 @@ packets retain77PNG/77XML each. Standards inspected20 selected pairs, spec36,
 zero actionable findings:48dp Dismiss disjoint Node control, exact draft retained,
 actual category/preview/consent states correct.17 work-retained XML precedes its
 PNG dismissal result; observations are non-atomic. This is focused proof only.
+
+Owned frame-acknowledgement candidate611 passes destination reveal10/17,
+runs42193295646/42193299285. Both independent native axes inspected4movies and
+all96decoded frames. Normal motion has8qualifying intermediates per SDK, spread
+about0.64; zero motion has0. Geometry stable. Trace animation starts530/764ms
+after tap and ends710/979ms;180ms denotes the configured tween, not total arrival.
+A callback is a main-thread acknowledgement, not the exact presentation/GPU time.
+Input/keyboard/rapid interruption require journey/full checks, not these movies.
+
+Username611 focused scopes pass10/17, runs42193304556/42193308497, original16methods
+134.718/172.957seconds inside180, plus original Chat identity and process checks.
+Both native axes inspect all60Username PNGs/60XMLs: warning captures precede the
+scroll, final previews retain unchecked risks/disabled Confirm, name/replacement/
+recreation states coherent.17 storage-error XML precedes a later-state PNG, a
+non-atomic capture limit. Signed no-replay/cancellation/restoration rely on the
+passing original assertions. A pass does not prove the earlier timeout's cause;
+17 retains only7.043s nominal margin. Phase data identify costly native picker
+observation, but no unverified observer optimization was shipped.
+
+Candidate89 is signed/staged on95725b005d086c970118054e78046db10563a76c, SHA256
+6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5. Public download
+matches local artifact, package/certificate independently rechecked by stage
+exit0. Gradle reports SUCCESS4m50; outer build command returned143 after emitting
+all verified outputs, so this is not described as a clean outer-command exit.
+Stable page/latest remain83. Update89 and broader destination checks are running
+on957. Final full gates and promotion remain pending, including stale owner-node
+recovery authorization. No complete94 pass or beta rollout is claimed.
+
+Exact957 broader destination scopes42194788753/42194792512 pass all11classes and
+21methods per SDK, including journey, actual keyboard, loaded media/retry,
+account transitions, search recovery, reading and GIF publishing. This is focused
+coverage, not the frozen complete catalog. Original bounds remain unchanged.
+
+Actual signed83-to89 updates42195571040/42195575094 pass on exact957. Both native
+axes inspect all30PNG/28XML, zero actionable findings: exact wallet identity,
+unsent draft, offline cached caption/author/Published, Light preference, debug
+identity/UID isolation and zero restoration failures. Later cold verification
+overwrites earlier verify images; separate logs establish immediate/cold outcomes.
+Unavailable offline imagery does not prove cached-image retention.
+
+All current runs are complete. Stable latest remains83. The remaining full-source
+application/public-owner gates and promotion require recovery of the stale owner
+node. Explicit production authorization has not yet been received or exercised.

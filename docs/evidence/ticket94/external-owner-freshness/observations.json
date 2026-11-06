@@ -27,5 +27,21 @@
     }
   ],
   "laterMultiHostObservationAttempt": "Timed out before completion; not accepted as a current multi-host health observation. Earlier original HTTP responses retained.",
-  "limits": "The owner public snapshot was stale and the original freshness guard correctly returned unavailable. Service is active; upstream HTTP observations were recent during diagnosis. No root cause or successful recovery is claimed. No service/configuration/wallet/database changes were made."
+  "limits": "The owner public snapshot was stale and the original freshness guard correctly returned unavailable. Service is active; upstream HTTP observations were recent during diagnosis. No root cause or successful recovery is claimed. No service/configuration/wallet/database changes were made.",
+  "laterSuccessfulReadOnlyObservation": {
+    "atUtcMinute": "2026-11-06T09:22Z",
+    "owner": {
+      "height": 1180213,
+      "timestamp": 1793845855081,
+      "ageMinutes": 1851.67,
+      "bytes": 92
+    },
+    "official": {
+      "height": 1183865,
+      "timestamp": 1793956949789,
+      "ageMinutes": 0.1,
+      "bytes": 92
+    },
+    "productionMutation": false
+  }
 }
