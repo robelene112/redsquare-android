@@ -65,7 +65,7 @@ class WalletImportPreviewTest {
                 openWallet("initial")
                 val address = displayedWalletAddress(ui)
                 val previous = AndroidWalletStore(context).loadExisting()
-                ui.onNodeWithText("Import wallet").performClick()
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 selectImportRoot(device)
                 selectVisibleFile(device, "reference-import.json")
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -110,7 +110,7 @@ class WalletImportPreviewTest {
             val address = displayedWalletAddress(ui)
             val failed = "That file is not a valid Saito wallet backup. Your wallet is unchanged."
             for (name in listOf("invalid-import.json", "malformed-utf8-import.json")) {
-                ui.onNodeWithText("Import wallet").performClick()
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 selectImportRoot(device)
                 selectVisibleFile(device, name)
                 try {
@@ -157,7 +157,7 @@ class WalletImportPreviewTest {
                     Triple("reference-import.json", "Replace your wallet", "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"),
                 )
                 for ((name, title, expected) in cases) {
-                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                     selectImportRoot(device)
                     selectVisibleFile(device, name)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(title)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -199,7 +199,7 @@ class WalletImportPreviewTest {
                 chooseTestBackup(device, oldBackup)
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.onNodeWithText("Import wallet").performClick()
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 selectImportRoot(device)
                 selectVisibleFile(device, "reference-import.json")
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Replace your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -218,7 +218,7 @@ class WalletImportPreviewTest {
                 captureFeedEvidence("wallet-import-evidence/fresh-candidate-backup.png")
                 // Selecting again invalidates proof even when the file's identity is the same.
                 ui.onNodeWithText("Back").performClick()
-                ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 selectImportRoot(device)
                 selectVisibleFile(device, "reference-import.json")
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Replace your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -273,7 +273,7 @@ class WalletImportPreviewTest {
                 for ((responseKind, status, skippable) in cases) {
                     kind.set(responseKind)
                     requestedAddress.set(null)
-                    ui.onNodeWithText("Import wallet").performScrollTo().performClick()
+                    ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                     selectImportRoot(device)
                 selectVisibleFile(device, "reference-import.json")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText(status)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -304,7 +304,7 @@ class WalletImportPreviewTest {
             .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
             openWallet("stalled-provider")
             val address = displayedWalletAddress(ui)
-            ui.onNodeWithText("Import wallet").performClick()
+            ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
             selectImportRoot(device)
             selectVisibleFile(device, "stalled-read-import.json")
             val chosenAt = SystemClock.uptimeMillis()
@@ -312,7 +312,7 @@ class WalletImportPreviewTest {
             ui.waitUntil(40_000) { ui.onAllNodes(hasText(failure)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText(failure).assertIsDisplayed()
             assertEquals(address, displayedWalletAddress(ui))
-            ui.onNodeWithText("Import wallet").assertIsEnabled().performClick()
+            ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
             selectImportRoot(device)
             selectVisibleFile(device, "reference-import.json")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Replace your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -372,7 +372,13 @@ class WalletImportPreviewTest {
                     chooseTestBackup(device, originalFile)
                     enterRealSystemPin(device)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNodeWithText("Import wallet").performClick()
+                    // The saved-backup status adds height above recovery actions.
+                    // Reveal the real entry before injecting its touch, rather than
+                    // sending an offscreen tap and then waiting for a picker.
+                    val importEntry = ui.onNodeWithText("Import wallet").performScrollTo()
+                        .assertIsDisplayed().assertIsEnabled()
+                    captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-import-entry.png"))
+                    importEntry.performClick()
                     selectImportRoot(device)
                     selectVisibleFile(device, "reference-import.json")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -401,7 +407,7 @@ class WalletImportPreviewTest {
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     // Restore the outgoing identity through the same real UI so this
                     // test leaves subsequent tests' original wallet intact.
-                    ui.onNodeWithText("Import wallet").performClick()
+                    ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                     selectImportRoot(device)
                     selectVisibleFile(device, originalFile)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
