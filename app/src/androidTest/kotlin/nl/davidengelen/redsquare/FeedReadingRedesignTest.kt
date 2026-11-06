@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -19,8 +20,17 @@ class FeedReadingRedesignTest {
         }
         val post = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }
         withAppFrameFixture("feed-reading", "feed-reading-evidence", rows) {
+            val readyBy = SystemClock.uptimeMillis() + 15_000
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
+            // Dismissing the backup reminder does not finish the asynchronous feed read.
+            // Observe actual content within the original initial-readiness budget.
+            val remaining = readyBy - SystemClock.uptimeMillis()
+            check(remaining > 0) { "Initial feed readiness exceeded its 15-second budget" }
+            ui.waitUntil(remaining) {
+                ui.onNodeWithText("Reference post 20", useUnmergedTree = true).isDisplayed() &&
+                    ui.refreshableContentReady()
+            }
             ui.onNodeWithTag("feed-post-list").performScrollToNode(hasTestTag("post-card-${post.id.take(12)}"))
             ui.revealAppNavigation()
             val target = ui.onNodeWithText("Reference post 10", useUnmergedTree = true)
