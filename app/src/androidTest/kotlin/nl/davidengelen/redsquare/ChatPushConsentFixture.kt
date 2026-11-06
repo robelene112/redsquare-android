@@ -149,6 +149,7 @@ abstract class ChatPushConsentFixture {
                         }
                         ui.waitForAccountMenu(20_000)
                         ui.openSettings()
+                        click("Notifications and privacy")
                         choice("Chat alerts when closed", false)
                         choice("Replies and mentions", false)
                         reconcile(null)
@@ -197,6 +198,7 @@ abstract class ChatPushConsentFixture {
                         scenario.recreate()
                         ui.waitForAccountMenu(20_000)
                         ui.openSettings()
+                        click("Notifications and privacy")
                         choice("Chat alerts when closed", true)
                         assertUnconfiguredServiceNotices("reopened")
                         reconcile("group-chats,private-chats")

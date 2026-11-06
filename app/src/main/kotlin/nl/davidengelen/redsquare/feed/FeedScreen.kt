@@ -23,6 +23,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -244,20 +248,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { tapFailed = true }
     }
-    if (pendingTap != null && tapFailed) {
-        Column {
-            Text(stringResource(R.string.social_push_open_failed))
-            Row {
-                TextButton(enabled = !formNavigation.transitioning, onClick = { tapRetry++ }) {
-                    Text(stringResource(R.string.retry))
-                }
-                TextButton(enabled = !formNavigation.transitioning, onClick = { pendingTap?.let { notificationRoutes?.consume(it) } }) {
-                    Text(stringResource(R.string.social_push_dismiss))
-                }
-            }
-        }
-    }
-
     LaunchedEffect(cache) {
         val saved = withContext(Dispatchers.IO) { cache.load() }
         posts = saved.posts
@@ -532,6 +522,21 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val dockCompose = home && wallet != null && LocalDensity.current.fontScale > 1.3f
     Column(modifier.nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(home) }
+        AnimatedVisibility(pendingTap != null && tapFailed,
+            enter = fadeIn(tween(AppSpacing.transitionMillis)), exit = fadeOut(tween(AppSpacing.transitionMillis))) {
+            Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+                Text(stringResource(R.string.social_push_open_failed), style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.error)
+                Row {
+                    TextButton(enabled = pendingTap != null && tapFailed && !formNavigation.transitioning,
+                        onClick = { tapRetry++ }) { Text(stringResource(R.string.retry)) }
+                    TextButton(enabled = pendingTap != null && tapFailed && !formNavigation.transitioning,
+                        onClick = { pendingTap?.let { notificationRoutes?.consume(it) } }) {
+                        Text(stringResource(R.string.social_push_dismiss))
+                    }
+                }
+            }
+        }
         val revealTarget: Any = when {
             reviewingChat -> PrimaryDestination.CHAT to chatAlertGeneration
             reviewingQueue -> FeedOverlay.QUEUE

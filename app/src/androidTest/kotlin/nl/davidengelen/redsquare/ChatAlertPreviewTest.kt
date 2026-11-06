@@ -269,6 +269,7 @@ class ChatAlertPreviewTest {
         fun choice(): SemanticsNodeInteraction {
             ui.waitForAccountMenu(20_000)
             ui.openSettings()
+            ui.onNodeWithText("Notifications and privacy").performScrollTo().assertIsEnabled().performClick()
             ui.waitUntil(20_000) { ui.onAllNodes(control and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             return ui.onNode(control).performScrollTo().assertIsDisplayed()
         }
@@ -292,11 +293,11 @@ class ChatAlertPreviewTest {
             } catch (_: AssertionError) { false }
         }
         capture("private-previews-enabled")
-        device.pressBack()
+        ui.onNodeWithText("Done").assertIsEnabled().performClick()
         scenario.recreate()
         choice().assertIsOn()
         capture("private-previews-reopened")
-        device.pressBack()
+        ui.onNodeWithText("Done").assertIsEnabled().performClick()
         published("A readable private preview", 1700000140100, 802,
             "A readable private preview", "private-previews-text-alert")
         val photo = instrumentation.context.assets.open("native-images-reference.json").bufferedReader().use {
@@ -317,7 +318,7 @@ class ChatAlertPreviewTest {
             (it.tag to it.id) !in existingAlerts && it.notification.channelId == "private-chats"
         } }
         capture("private-previews-disabled")
-        device.pressBack()
+        ui.onNodeWithText("Done").assertIsEnabled().performClick()
         published("Private text after disabling previews", 1700000140300, 804,
             "New message", "private-previews-disabled-generic")
     }

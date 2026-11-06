@@ -11,6 +11,7 @@ import androidx.test.uiautomator.Until
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import java.io.File
+import nl.davidengelen.redsquare.ui.RevealDrawObservation
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -22,6 +23,7 @@ class DestinationRevealMotionTest {
             val context = instrumentation.targetContext
             val device = UiDevice.getInstance(instrumentation)
             val folder = File(context.cacheDir, "destination-reveal-evidence").apply { mkdirs() }
+            withRevealTrace(folder, scale) { markTap ->
             withAppFrameFixture("search-$scale", "destination-reveal-evidence") { activity ->
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
                 val preparationDeadline = SystemClock.elapsedRealtime() + 5_000
@@ -64,6 +66,7 @@ class DestinationRevealMotionTest {
                 var titleDeadline = 0L
                 val recording = recordNativeTransition(file, recordingSeconds = 4) {
                     titleDeadline = SystemClock.elapsedRealtime() + 5_000
+                    markTap()
                     check(device.click(readyAction.centerX(), readyAction.centerY()))
                 }
                 // Native hierarchy snapshots can block the main thread. Observe readiness
@@ -126,6 +129,46 @@ class DestinationRevealMotionTest {
                     else assertTrue("Zero motion does not retain a destination fade", intermediate.size < 2)
                 } finally { template.recycle() }
             }
+            }
+        }
+    }
+
+    private data class DrawSample(val event: String, val targetType: String, val targetIdentity: Int,
+        val opacity: Float, val motionScale: Float, val nanos: Long)
+
+    private fun withRevealTrace(folder: File, scale: Int, block: (() -> Unit) -> Unit) {
+        val previous = RevealDrawObservation.listener
+        check(previous == null) { "This disposable debug fixture must own its reveal observation" }
+        val lock = Any()
+        val samples = mutableListOf<DrawSample>()
+        var dropped = 0
+        var tapNanos: Long? = null
+        var primary: Throwable? = null
+        try {
+            RevealDrawObservation.listener = RevealDrawObservation.Listener { event, type, identity, opacity, motionScale, nanos ->
+                synchronized(lock) {
+                    if (samples.size < 2_048) samples.add(DrawSample(event, type, identity, opacity, motionScale, nanos))
+                    else dropped++
+                }
+            }
+            block { tapNanos = System.nanoTime() }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { RevealDrawObservation.listener = previous }, {
+                val result = JsonObject().apply {
+                    addProperty("clock", "System.nanoTime")
+                    addProperty("tapNanos", tapNanos)
+                    addProperty("droppedObservations", dropped)
+                    add("observations", JsonArray().apply {
+                        synchronized(lock) { samples.toList() }.forEach { sample -> add(JsonObject().apply {
+                            addProperty("event", sample.event); addProperty("targetType", sample.targetType)
+                            addProperty("targetIdentity", sample.targetIdentity); addProperty("opacity", sample.opacity)
+                            addProperty("windowMotionScale", sample.motionScale); addProperty("monotonicNanos", sample.nanos)
+                        }) }
+                    })
+                }
+                File(folder, "scale-$scale-reveal-trace.json").writeText(result.toString())
+            })
         }
     }
 
