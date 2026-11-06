@@ -145,8 +145,8 @@ class OwnerLiveFeedTest {
                     ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
                     ui.onAllNodes(hasText("Pending. Inclusion has not been verified.")).assertCountEquals(0)
                     captureNativeScreen(File(directory, "funding.png"), "Available to send: 0 SAITO")
-                    ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
-                        hasAnyDescendant(hasText("Available to send: 0 SAITO")))).performClick()
+                    ui.onNode(hasText("Close transfer") and hasClickAction())
+                        .assertIsDisplayed().assertIsEnabled().performClick()
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
                     File(directory, "public-wallet.txt").writeText(
