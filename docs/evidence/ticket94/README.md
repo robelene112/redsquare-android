@@ -1,12 +1,11 @@
 # Unified redesign release verification (#94)
 
-Current repair source is `ecc8b8c5df82a2c999d54b41963a174b72c81670`
-(N). M10 full Social failed late navigation-action observation during a font
-configuration change; original five-second Account helper missed the action that
-appeared after its initial reveal attempt. N follows that actual action once per
-semantic host within the same budget, retaining full stable48dp targets.
-Post-presentation10/17 runs42236680587/42236685108 are pending. Other M full jobs
-continue. All earlier targeted repairs pass, but complete final proof is pending.
+Current final verification source is `ecc8b8c5df82a2c999d54b41963a174b72c81670`
+(N). Complete Android10/17 runs42237989132/42237993076 execute all three partitions
+and public reads through immutable tag proof-redesign94-ecc8b8c. Both focused N
+post-presentation scopes pass the original17methods/seven classes. Native review
+finds zero product issues, with substantially delayed17XML phases explicitly
+limited. All earlier known repairs have passing focused/source/native checks.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
 producer input paths, modes, types and blobs are equal from B to N. The later
@@ -463,3 +462,15 @@ for that actual action, requests it once per semantic host and rejects negative
 bounds before the unchanged stable complete48dp Account action/popup. Both source
 review axes zero. Original5s/class bounds/identities remain. FullM-social10 retains
 original native/log evidence; focusedN and fresh complete final proof are required.
+
+
+N post-presentation scopes pass original17methods/seven classes, runs42236680587/
+42236685108. Formerly failing PostContentViewport completes21.607s/22.362s within
+180s. Native standards inspected all60content PNG/60XML. Ordered images, quote,
+absent counts and font restoration pass. Android10XML corroborates12image centers,
+6quote phases and18action targets≥48×48px. Android17 XML lags strongly:100/130%
+five phases share identical XML; only1quote XML exposes the quote and no action
+XML exposes its actions. PNGs and unchanged Compose/pixel assertions are distinct
+evidence. No Account popup capture exists. The frozen collector's content checks
+retain files without inventing XML phase agreement; collector remains unchanged.
+No complete N acceptance is claimed from these focused samples.

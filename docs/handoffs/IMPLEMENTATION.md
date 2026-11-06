@@ -8,32 +8,72 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: late navigation-action observation repair N
+## ACTIVE: complete final verification on source N
 
 CODE N: ecc8b8c5df82a2c999d54b41963a174b72c81670 (test-only).
-M full10 Social42232393578 FAILED PostContentViewport at font130 transition.
-Class16.54s; original Account helper5s/4950remaining timeout. First recorded
-Account rectangle top-74/bottom-26 was offscreen; then Show app navigation
-appeared while the helper only waited because its one reveal call was earlier.
-Nativecollapsedheader confirms observation. FullM-social10 retains originals;
-externalraw redesign94-fullM10-42232393578/android-native-proof-social.
-N observes actual reveal availability within originalshared5s and requests it
-once per real SemanticsNode.id, avoiding repeated restarts for a running host.
-Rejects negativeleft/top beforeoriginal complete48/stable Accounttap/popup.
-Bothsource reviewaxes0; no producer, classIDs, catalog or timeout changes.
-Focused post-presentation10:42236680587,17:42236685108 RUNNING on exactN.
-Producer receipt nowB→N all440equal; finalnativeplans updatedN/artifactB.
+Root sole implementer, worktree /mnt/storage/redsquare-android-artifacts/redesign86,
+branch codex/unified-redesign. Four authorized tickets closed; #94 still open.
+Continue authorized five-ticket sequence and beta rollout, no new permission.
 
-M full10 WalletPASS, SocialFAIL, Chatstillrunning. M17allstillrunning at14:45.
-Do not duplicate/cancel these; inspectactualremainingoutcomes before next full.
-Earlier I17fullnowcompleteFAILED(SocialPASS/WalletPASS/ChatFAILknown2queuecases).
-CurrentNnotyetfullverified. AfterfocusedNandallknownrepairs pass, freshfullN
-must execute; do not assemblefailedM/focusedNinto fullacceptance. Retain signed89
-producerB, latest83. Mnativequeue andLpushrepairs all focusedpass/reviewedzero,
-so no producer fix needed there. Details and finalcollection/promotioncommands
-in previous overview below apply with the eventual exactfinalsource/runIDs.
-Rootcontinues94 underfullauthorization; oneproductionrestartalreadyfulfilled,
-no additionalproductionmutations. No localbuilder or implementationagent.
+RUNNING complete N, do not duplicate/cancel:
+- Android10:42237989132. Chat127960564723, Social127960564908, Wallet127960565183.
+- Android17:42237993076. Wallet127960578684, Chat127960578870, Social127960579050.
+Exact immutable tag proof-redesign94-ecc8b8c, metadata/source/workflow allN,
+public reads true, all three partitions. Frozen catalog/collector unchanged.
+No complete final pass. Do not assemble failed/focused/source-mixed results.
+
+N fixes the Account test helper after M10Social PostContentViewport failed at
+font130 transition: first Account bounds top-74/bottom-26, then navigation reveal
+appeared after the one initial request. N invokes actual available Show app
+navigation once per semantic host, keeping original shared5s deadline and complete
+stable48dp target/popup checks, adding nonnegative top/left. Both source axes0.
+Original failure in failures/fullM-social10 and external raw fullM10 folder.
+N post-presentation focus PASS10:42236680587,17:42236685108, original17methods/
+7classes. Formerly failing method21.607s/22.362s inside180s. Packets focused-postN-
+10/-17 retain134PNG/128XML each. Native standards all60content PNG/60XML, zero
+product findings: ordered image/quote/count states and font restoration pass.
+Android17 XML substantially lags PNG phases (none of6action XMLs exposesactions),
+so do not claim independent17phase geometry from thoseXMLs. Account popup is not
+captured; actual helper assertions establish it. Original frozen content validator
+requires retained files, not matching phaseXML geometry. Separate nativeLike XML
+conditions pass in the focused samples. No collector was altered or partial full
+acceptance claimed.
+
+All prior known repairs have focused/source/native passes: importI; feedK;
+pushL; group queueM. Actual M group scroll0/max3→3/max3 proves available3px travel,
+then full84×48 Members and physical tap. No producer change needed. Earlier M full
+10WalletPASS/SocialFAIL/Chatpending,17WalletPASS/Social+Chatpending at14:55. Inspect
+all eventual outcomes, do not assume matching failures. Earlier I17 nowcomplete
+FAILED, Social+WalletPASS, Chatknown2queue failures. Do not redownload existing raw.
+
+Signed89 remains producer B95725b005d086c970118054e78046db10563a76c, hash
+6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5. All440tracked
+producer paths/modes/types/blobs B→N equal; receipt committed. Source/variant of
+actual89 and signed83→89 update proofs stay distinct from instrumentationN.
+Stable latest83,89 staged/notpromoted. No new APK required for test-only fixes.
+
+After all3N jobs succeed perSDK, download fresh raw folders:
+/mnt/storage/redsquare-android-artifacts/redesign94-fullN10-42237989132 and
+redesign94-fullN17-42237993076. Preserve android-native-proof-{chat,social,wallet}
+subdirs. Run frozen full-collector.py SDK RAW FRESH_LABEL RUN EXACT_N with
+finalN-android10 /finalN-android17 labels. Frozen626/627 IDs,211classes,228/229
+normal completions,35 deliberate interruptions,34 continuity records,177archives
+perSDK unchanged. Then both ACTUAL final native/motion review axes. External plans
+sourceN/artifactB include5Members/scope/Stack repair observations; indexes/plans
+are not reviews. Reviewer agents wallet_import_standards and wallet_import_spec
+are available, read-only, no implementation delegation.
+
+When complete gates/native reviews pass, promote exact staged89 with unchanged
+/mnt/storage/redsquare-android-artifacts/redesign94-beta-notes.txt stripped. See
+scripts/review-publish --promote .scratch/review-builds/89 --notes. Verifypublic
+latest/page/download checksum, retain evidence, completion commit/push/comment,
+close94only. Keep1/36/55/84 and external Stack/Pixel/provider/KVK/Play acceptance
+independent. Physical review is not routine emulator verification.
+
+Owner-approved one restart fulfilled11:08:07UTC, synchronizednode; no further
+production mutation authorized. No local builder or implementation agent active.
+Current docs/postN packets need retention commit. Historical overview below is
+superseded where it names older source/run IDs or pending outcomes.
 
 ## Previous complete verification on source M
 
