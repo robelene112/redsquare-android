@@ -8,85 +8,54 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Active #94: finish integration repairs, full proof and beta publication
+## Active #94: validate integration repairs, fresh88, complete proof and publish
 
-The owner authorized all five tickets and beta. #90/#93/#81/#83 are closed.
-Continue94 to actual final publication without another question. Current committed
-source6c993209f793acb5b0e511f24acce215ab5bc32b; owned working delta below.
-Use `/mnt/storage/redsquare-android-artifacts/redesign86`, branch
-`codex/unified-redesign`; preserve unrelated canonical Chat WIP.
+CURRENT07:18UTC. Worktree/mnt/storage/redsquare-android-artifacts/redesign86,
+branchcodex/unified-redesign. CanonicalChatWIPuntouched. Ownerauthorizedallfive
+andbeta, noquestions/nointermediatestop. #90/#93/#81/#83closed, #94active.
+Latestpublic83. Signed87staged/hash618e1944abdfb1a43baae76c5739d50ae6717a0a74510db9e5e43b01d6f98d3d
+actualbuild3f4. Actual83→87update10/17 42176242111/42176245109PASS; bothnative
+reviewaxes0, all30PNG/28XML. Wallet/draft/cache/Light/UIDisolation/restoration
+pass. Artifact87/update87-*proof retained. ReleaseLint3f4passed5m43.
 
-Ordinary latest remains83. Signed candidates84/85/86 are staged only.86 build
-f2f5b22d71bf8d5fc211dd767e6b7619071cafb4,
-SHA256af51c6983b5a45c08b4e2982b97a332b224d94c6e0813f4129ee618c3ba47e36.
-Actual83-to86 update10/17 runs42166921730/42166924610 passed on harness6c,
-including wallet/draft/offline caption+key+Published/Light/UID isolation and cold
-launch. Both update native reviews0. See update-android10/17, artifact86 and
-candidate86-source-equivalence.json under ticket94. These are historical86 proof:
-a real production layout fix below invalidates86 as the final candidate.
-Do not promote86. Next signed version87 must be built after focused validation.
+DO NOTPROMOTE87: newrealGroupChatScreenproductrepairrequiresfresh88. Full3f4
+runs42175546621/42175549525failed (10allthree,17wallet/chat;17socialstill
+running07:16). Preservefailedoutcomes, nofalsefullassembly. Failuresretained
+ticket94/failures/full3f4 andexternalrawredesign94-full10/17-3f4-RUN.
+1)10WalletFeedPreview unavailable-cachepull:138noRPC: per-methodPNGmidlist09/08.
+Testonlyfixexplicitindex0+observedaxis0beforeeachphysicalswipe, original15s
+request/content/warning/restorationretained, recoverystrengthenedfreshrequest+
+Feedupdated+warningabsentsame15s. Commit156efb46a. Focusedall6originalmethods
+180s 42178516118/42178519371BOTH PASS. Full11/600unchanged.
+2)10SocialAvatarRecoverylargeallocationguard:actualmax16MiBdeclared512, before
+payload. Historical59/82samenondeterministicfreshprocessanomaly, nocauseproved.
+NewBefore/Afterprocessheap/PID/PPID/64bit/flagsdiagnostics+boundedhostproperties/
+ps/AVD. Noheapraises/servicerestarts/skips/retrieswaived/guardremoval.
+3)17WalletOwnerLiveFeedTest12sRPCtimeoutafteractualfeedvisible. Newbest-effort
+streamstart/received/failedtime/typecapture, unchanged12s/40s/noautomaticretry.
+4)BothChatGroupInvitationRecovery:172,320font200light: groupviewport51dp versus
+54dpUseinvitationbuttonoscillatesclipping. GroupCreate/Joinnowequalwidth/height
+Row, naturaltextwrapsamefonts/actions. Retainoriginal6groupsemantics/15sfull
+visibility/payloadassertions. Sixinitialreadycapturesinsideexistingarchive.
 
-Complete6c full10 run42166974293 and full17 run42166977033 are FAILED,
-all six jobs completed. Do not assemble their partial results into a full pass.
-Retained selected failures at `docs/evidence/ticket94/failures/full6c-*`.
-Raw roots externally: `redesign94-full10-6c-42166974293` and
-`redesign94-full17-6c-42166977033` under the artifact root.
+Currentrepaircodeafter156 reviewedbothaxes0, includingfailurepathlazyinline
+diagnosticallocationcontainment. Localwritercompilecurrentlyactive (session52274),
+logredesign94-group-actions-compile.txt, main+instrumentationKotlin. Newchanges
+needcommit/push, thenfocusedgroup-invitation-recovery10/17, avatars10runtime
+diagnosis, feed17actualpublicstage. Waitlastold17socialresultfordiagnosis.
+Freshfinalfull10/17 musteachbeonecompleteall3successfulpartitionrun, samefrozen
+source. Fullcatalogunchanged626/627IDs,211classes,228/229normal,35interruptions,
+34continuities,177exactpartitionarchives. Original600foundationandallclass
+deadlinesremain. No@TestIDsadded. Collector/helper/catalogfrozenbeforeexecution.
 
-Four diagnosed defects and current uncommitted fixes:
-
-1. Wallet10/17 FeedPreviewTest:226 looked for old long Conversation warning
-inline. #79 intentionally moves it behind Details. Test now uses one completed
-15s budget through compact summary/scoped Details/exact old guidance; closes
-Details, preserves post, and requires fresh request+success+both warnings absent
-on recovery. New captures use existing feed-readiness archive.
-2. Chat10 DestinationJourneyMotionTest:81 checked UiAutomator pressBack Boolean
-before its actual5s IME-gone goal. Inject real Back directly and retain that goal
-and navigation assertions. Same invalid Boolean in UsernamePreviewTest is now
-removed while retaining its actual5s IME disappearance check. Failure movies
-precede Back and do not prove whether old Back closed the keyboard.
-3. Social10/17 ImageViewerViewportTest:96 is a real layout defect: at200%
-landscape, duplicate48dp Home/Compose row plus80dp navigation leaves zero feed
-viewport. AppFrame.ModuleNavigation now moves Compose inline ONLY if captions
-fit after reserving64dp and the extra gap; otherwise original compact/fallback
-layout remains. Original image-visible return assertion remains, with extra
-landscape return PNG/native six disjoint48dp targets/five equal widths.
-4. Chat17 PushBindingPreviewTest:93 fails in ChatFixtureState.prepare:19 because
-two eager wallet scopes share avatarprofiles.* snapshots and the second deletes
-already-absent shared files. Preparation is now idempotent for absent files;
-existing files must remain regular and delete successfully. Restore unchanged.
-New guarded synthetic cache scope exercises original90s binding class, checks
-exact sentinel restoration, removes only owned seed independently. New adb setup
-and cleanup calls bounded15s; Both incremental reviews confirm0 after the bounded commands and permission restoration.
-
-New focused scopes: feed-refresh-regression and push-binding-cache-regression,
-both Android17 variants, choices plus BOTH runtime exclusion guards. They do not
-change full inclusion, IDs or bounds. Shell syntax passed. Product+tests compiled
-SUCCESS4m24 at redesign94-focused-fixes-compile.txt. Latest local compile after the Username test-only correction passed in2m22s,
-external logredesign94-final-observer-compile.txt. Native target traversal now
-uses the same selected-tab exception as the existing NavigationPreview helper;
-actual rawXML proves Home is selected/focusable, not redundantly clickable. No beta87 build yet. Both incremental source reviews report0 after bounded-adb/permission/Username
-edits. All major Kotlin changes compiled; selected-tab target lookup now matches
-the existing native Navigation helper and observed selected/nonclickable Home.
-
-Next: finish compile/review, commit/push, then focused image-viewer, navigation,
-destination-journey, feed-refresh-regression and push-binding-cache-regression
-on both SDKs. Keep original bounds/assertions. Fix findings, build/stage87 only
-after product layout passes; actual87 update and complete full10/17 must pass on
-one consistent final source. Native full review then promote through existing
-VPS route using exact notes in external redesign94-beta-notes.txt. No owner input
-needed. No node changes or public transactions. #1/#36/#55/#84 stay open.
-
-Frozen94 catalog/collector remain valid: no method identities added by these
-repairs,626/627 identities,211 classes,228/229 normal completions,35 deliberate
-interruptions,34 continuities,177 literal archives per SDK. Changed CI selection
-files must be recorded separately from actual consumer-build inputs; the earlier
-525-input equality receipt only describes f2 versus6c, not the upcoming source.
-
-Prepared native review selection/helpers outside Git:
-`redesign94-final-native-review-plan/selection.json` (98 stills/22movies perSDK),
-`redesign94-final-native-review-standards/{selection-plan.json,index_native.py}`.
-Full packets must resolve actual filenames/overwritten captures before review.
-Root and storage last verified47GB/49GB free; use additional disk for artifacts.
+Afterallproductrepairsvalidated: build/stage88, sourceactualnewHEAD; actual83→88
+update10/17 needed (87proofhistorical). Full10/17 andnative/motionreview across
+modulesrequired. Preparedexternalnativeplansinredesign94-final-native-review-*;
+resolveactualfilenamesagainstfreshfullpackets. Fullcollectoronlyall-successsame
+source; neverassemblefocused/oldruns. Thenpromoteexact88withidenticalnotesfrom
+externalredesign94-beta-notes.txt, publicpage/latest/hashverify, completecommit/
+push/close94. #1/#36/#55/#84independentacceptance stayopen. ActualStack,physical
+Pixel/provider/KVK/Playpending. NoVPSnodechanges/publictransactions.
 
 ## #83 complete, continue #94 and publish beta
 

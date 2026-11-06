@@ -139,3 +139,76 @@ not expose test as an executable for run-as. The guard now uses the platform
 shell builtin with the same bounded owned-path predicate. This is test setup,
 not an app or gateway failure. Both seeded scopes will be repeated. Other focused
 results remain pending; none of these replaces complete final-source proof.
+
+## Current final-source verification
+
+Source3f4dfdc3254a69d20b3986a737fa448099b098d9 is the current complete
+application and signed87 build source. All ten focused repair observations pass:
+feed10/17 42174253142/42174256168; seeded binding10/17 42175540821/42175543824;
+destination journey10/17 42174264347/42174267222; image viewer10/17
+42174269632/42174272726; navigation10/17 42174275768/42174278585. The seeded
+scopes use3f4; other focused runs usec055 with identical production inputs.
+
+Both independent focused native review axes inspected all four original
+light/dark200% landscape return PNG/XML pairs and their target receipts. All24
+targets match their XML, are disjoint and at least48dp; destination widths differ
+by at most1px. The original source-image return assertion is retained. The41px
+image strip restores source visibility in this extreme viewport; it does not
+claim comfortable landscape reading or final application acceptance.
+
+Candidate87, SHA256618e1944abdfb1a43baae76c5739d50ae6717a0a74510db9e5e43b01d6f98d3d,
+was staged without changing the stable83 manifest/page. Its actual signing,
+package, manifest and public download receipts are in artifact87. Complete
+Android10/17 runs42175546621/42175549525 and actual83-to87 signed update runs
+42176242111/42176245109 are pending. No final application pass or87 publication
+is claimed until those results and the final native reviews are complete.
+
+Both actual83-to87 update runs now pass. Both independent native review axes
+inspected all30 PNGs and28 XMLs, exact draft/cache/public identity/time/Light
+observations, four wallet observations perSDK, isolation/restoration and all104
+listed hashes. Both report0 findings. Restoration has0 failures. Source and APK
+hash match3f4/87 above. The later cold observation overwrites verify captures;
+immediate/cold logs are independent. XML/PNG remain non-atomic. Complete full
+application/native acceptance and public promotion are still pending.
+
+Full3f4 Android10 Wallet fails the unavailable-cache refresh request at15s. Its
+original per-method PNG shows a mid-list Reference09/08 position. One physical
+downward swipe scrolls toward the top there; it need not trigger refresh. The
+cache test now explicitly scrolls the tagged list to index0 and observes axis0
+before each pull, retaining the original15s request/content/warning/restoration
+checks and strengthening recovery with fresh request+visible success within the
+original15s. It does not assert the origin of retained rows. Both source axes0.
+The focused scope now includes all six original FeedPreview methods under its
+unchanged180s bound; the full11-method/600s invocation and literal IDs stayfixed.
+
+Full3f4 Android10 Social fails the pre-existing large-avatar allocation guard:
+actual process max16MiB versus declared512MiB, before source allocation. This is
+not evidence of avatar source eviction. Full3f4 Android17 Wallet fails a12s
+public node request after the initial native feed was visible. Selected failure
+originals are retained under failures/full3f4. Their failed full results stay
+failed; no full acceptance is claimed. Diagnosis and remaining partitions continue.
+
+The six FeedPreview methods now pass on156efb46ada9c50b796c89a59086a11f562f65fd:
+Android10/17 focused runs42178516118/42178519371. Their original full membership
+and deadlines remain unchanged; this is not a complete application pass.
+
+Both full3f4 Chat jobs fail the original group invitation recovery visibility
+requirement at320/font200/light. Native list bounds486..537 leave51dp, while
+the54dp invitation action alternates clipping at each end. Selected original
+PNG/XML/semantics/target observations are in failures/full3f4/android10-chat and
+android17-chat. Group Create/Join controls now share an equal-width/equal-height
+row with natural text wrapping and unchanged fonts/actions. Original six-group
+collection semantics, full action visibility,15s readiness and protocol checks
+remain. Native ready captures are added inside the existing archive. Both source
+review axes report0 unresolved findings; fresh native proof is still required.
+This production change invalidates87 as final delivery. A fresh signed88 is
+required after validation. Latest83 remains unchanged.
+
+Heap diagnostics now record method/PID/parent/bitness/flags and actual heap sizes
+before/after each original AvatarRecovery method, with matching device heap
+properties/process names/AVD configuration. Historical59/82 evidence reproduced
+16MiB even in a fresh process; no cause or fix is asserted. The original parity
+guard/payload/deadlines stay intact. Public-read progress records exact stream
+start/receipt/failure without retries or changing the12s peer/40s outer bounds.
+Best-effort diagnostics contain allocation/I/O failures so the original outcome
+cannot be replaced. Diagnostic host-command failures remain infrastructure failures.

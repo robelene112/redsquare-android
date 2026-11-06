@@ -196,6 +196,10 @@ class GroupInvitationRecoveryPreviewTest {
                 }
             }
             evidence.writeText(observations.toString())
+            if (evidence.name.endsWith("-recovery-initial-target.json")) {
+                captureNativeScreen(File(evidence.parentFile,
+                    evidence.name.removeSuffix("-recovery-initial-target.json") + "-groups-ready.png"))
+            }
             ui.onNode(action).assertIsDisplayed().performClick()
         }
         waitFor("Paste invitation")

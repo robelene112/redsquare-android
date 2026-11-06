@@ -688,6 +688,12 @@ if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == avatars* ]]; then
     verify_group_chat_native AvatarPropagationPreviewTest 180 avatars avatar-evidence
     verify_group_chat_native AvatarIdentityJourneyTest 180 avatar-journey avatar-evidence
     verify_group_chat_native AvatarCachePreviewTest 180 avatar-cache avatar-evidence
+    for property in dalvik.vm.heapgrowthlimit dalvik.vm.heapsize dalvik.vm.heaptargetutilization ro.config.low_ram ro.build.fingerprint; do
+        printf '%s=' "$property"
+        timeout 15 adb shell getprop "$property" | tr -d '\r'
+    done > "$evidence/avatar-recovery-runtime-properties.txt"
+    timeout 15 adb shell ps -A -o PID,PPID,NAME > "$evidence/avatar-recovery-processes.txt"
+    cp "$avd_home/redsquare-proof.avd/config.ini" "$evidence/avatar-recovery-avd-config.ini"
     verify_group_chat_native AvatarRecoveryPreviewTest 180 avatar-recovery avatar-evidence
     verify_group_chat_native AvatarMotionTest 180 avatar-motion avatar-evidence
     if [[ "${TEST_SCOPE:-full}" == avatars* ]]; then
@@ -2147,6 +2153,8 @@ if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
                 > "$evidence/live-$backend/$wallet_capture" || true
         done
         adb logcat -d -v brief RedSquarePeer:W '*:S' > "$evidence/live-$backend/transport-status.txt"
+        timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/public-read-progress.txt \
+            > "$evidence/live-$backend/public-read-progress.txt" || true
         for public_stream in RedSquare RedSquareRetweet; do
             adb exec-out run-as nl.davidengelen.redsquare.dev cat "cache/live-feed-evidence/public-response-$public_stream.json" \
                 > "$evidence/live-$backend/public-response-$public_stream.json" || true

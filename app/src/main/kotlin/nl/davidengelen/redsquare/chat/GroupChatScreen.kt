@@ -460,9 +460,15 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             Text(stringResource(R.string.chat_load_older))
         }
         if(entry==null) {
-            FlowRow(horizontalArrangement=Arrangement.spacedBy(8.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                Button(enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)creating=true}) { Text(stringResource(R.string.group_create)) }
-                OutlinedButton(enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning){recoveringGroup=null;joining=true}}) { Text(stringResource(R.string.group_join)) }
+            Row(Modifier.height(IntrinsicSize.Min), horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                Button(modifier=Modifier.weight(1f).fillMaxHeight(),
+                    enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)creating=true}) {
+                    Text(stringResource(R.string.group_create),textAlign=androidx.compose.ui.text.style.TextAlign.Center)
+                }
+                OutlinedButton(modifier=Modifier.weight(1f).fillMaxHeight(),
+                    enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning){recoveringGroup=null;joining=true}}) {
+                    Text(stringResource(R.string.group_join),textAlign=androidx.compose.ui.text.style.TextAlign.Center)
+                }
             }
             if(discoveryHasOlder&&discoveryCursor!=null)TextButton(enabled=!busy&&!discoveryLoading&&!navigation.transitioning,onClick={if(!navigation.transitioning)discoveryRequest++}){
                 Text(stringResource(R.string.group_discovery_older))

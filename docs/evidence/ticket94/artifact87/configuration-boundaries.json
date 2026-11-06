@@ -1,0 +1,13 @@
+{
+  "consumerBuildCommit": "3f4dfdc3254a69d20b3986a737fa448099b098d9",
+  "signedOrdinaryVersion": 87,
+  "variant": "release",
+  "reviewBuild": true,
+  "fullGateVariants": [
+    "debug",
+    "release",
+    "performance"
+  ],
+  "fullGateDefaultVersionCode": 1,
+  "note": "Full gates retain their declared default generated configuration. Separate actual83-to87 native update gates exercise the signed ordinary review APK. No physical Pixel/provider acceptance is claimed."
+}

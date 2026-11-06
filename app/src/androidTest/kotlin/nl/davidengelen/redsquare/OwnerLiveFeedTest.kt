@@ -89,7 +89,15 @@ class OwnerLiveFeedTest {
                                     addProperty("created_earlier_than", System.currentTimeMillis() + 1)
                                 }
                                 val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                                val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                                val started = android.os.SystemClock.elapsedRealtime()
+                                recordPublicRead(directory) { "start backend=${backend.id} stream=$stream elapsedMillis=$started" }
+                                val response = try {
+                                    peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                                } catch (failure: Throwable) {
+                                    recordPublicRead(directory) { "failed stream=$stream durationMillis=${android.os.SystemClock.elapsedRealtime() - started} type=${failure.javaClass.simpleName}" }
+                                    throw failure
+                                }
+                                recordPublicRead(directory) { "received stream=$stream durationMillis=${android.os.SystemClock.elapsedRealtime() - started}" }
                                 // Observe the public RPC shape before strict decoding; never
                                 // reinterpret an object/error response as an empty successful page.
                                 runCatching {
@@ -151,6 +159,13 @@ class OwnerLiveFeedTest {
             } finally {
                 captureFeedEvidence("live-feed-evidence/screen.png")
             }
+        }
+    }
+
+    private inline fun recordPublicRead(directory: File, observation: () -> String) {
+        try { File(directory, "public-read-progress.txt").appendText(observation() + "\n") }
+        catch (_: Throwable) {
+            // Even a diagnostic allocation failure must preserve the original request failure.
         }
     }
 }

@@ -17,6 +17,9 @@ import okio.Buffer
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.Before
+import org.junit.After
+import org.junit.rules.TestName
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
@@ -25,8 +28,41 @@ import java.util.concurrent.atomic.AtomicBoolean
 @OptIn(ExperimentalTestApi::class)
 class AvatarRecoveryPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    @get:Rule val testName = TestName()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
     private val color = Color.rgb(220, 30, 40)
+
+    @Before fun recordInitialProcessHeap() = recordProcessHeap("before")
+    @After fun recordFinalProcessHeap() = recordProcessHeap("after")
+
+    private fun recordProcessHeap(phase: String) {
+        try {
+            writeProcessHeap(phase)
+        } catch (_: Throwable) {
+            // Diagnostic allocation or I/O must never replace the original test outcome.
+        }
+    }
+
+    private fun writeProcessHeap(phase: String) {
+        val runtime = Runtime.getRuntime()
+        val manager = context.getSystemService(android.app.ActivityManager::class.java)
+        val observation = JsonObject().apply {
+            addProperty("phase", phase); addProperty("method", testName.methodName)
+            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+            addProperty("pid", android.os.Process.myPid()); addProperty("parentPid", android.system.Os.getppid())
+            addProperty("is64Bit", android.os.Process.is64Bit())
+            addProperty("applicationFlags", context.applicationInfo.flags)
+            addProperty("maxBytes", runtime.maxMemory()); addProperty("totalBytes", runtime.totalMemory())
+            addProperty("freeBytes", runtime.freeMemory()); addProperty("memoryClassMiB", manager.memoryClass)
+            addProperty("largeMemoryClassMiB", manager.largeMemoryClass)
+        }
+        val file = File(context.cacheDir, "avatar-evidence/process-runtime.jsonl")
+        check(file.parentFile!!.isDirectory || file.parentFile!!.mkdirs())
+        file.appendText(observation.toString() + "\n")
+        InstrumentationRegistry.getInstrumentation().sendStatus(0, android.os.Bundle().apply {
+            putString("stream", "\nAvatar process observation: $observation\n")
+        })
+    }
 
     @Test fun anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry() {
         val retryArmed = AtomicBoolean(false)
