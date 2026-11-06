@@ -20,7 +20,8 @@ Final81production/native source1d3b6e0204bb141d9e6dedc6be2ad970b9b20110;
 reviewbase3b7bf5b04638ddced7b63add45c84b08b40db7b6. Bothsourceaxes0, bothnative0.
 Completefocused10 42139774934 /17 42139777989 SUCCESSsame1d, each21methods/11classes/
 30movies. Retainer checksallliteralidentities/passcodes/hostexits/exactsource/
-pinnedimages/actualcapacityand30movies. Packet docs/evidence/ticket81 README,
+pinnedimagesand30movies; copiescapacityreceipts. CIharness independentlychecks
+actualguestCPUallocation matchesdeclaredconfiguration. Packet docs/evidence/ticket81 README,
 reviews.json,source,android10,android17,failures,diagnostics,retain-native.py.
 Old1780android10packet moved toexternalraw1780folder/retained-packet, notmixedwith1d.
 SourceDebug42139780278 SUCCESS:119validcachedcore0fail/skip,gatewayFROM-CACHE

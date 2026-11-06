@@ -18,11 +18,12 @@
       "allRootFrames": 35,
       "allLoadedMediaFrames": 31,
       "representativeJourneySettingsFrames": 215,
-      "moviesRepresented": 30,
       "routeToFocusMillis": {
         "normal": 167,
         "zero": 287
-      }
+      },
+      "moviesRetained": 30,
+      "moviesVisuallyReviewed": 26
     },
     "android17": {
       "run": 42139777989,
