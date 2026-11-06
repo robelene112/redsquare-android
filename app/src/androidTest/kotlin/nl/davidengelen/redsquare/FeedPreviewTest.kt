@@ -70,7 +70,7 @@ class FeedPreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(intent(server.port)).use { activity ->
                 captureFailure {
-                    waitForText("Reference post 20")
+                    waitForText("Reference post 20", requireRefreshReady = true)
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
                     ui.onNodeWithText("Reference post 05").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToIndex(0)
@@ -78,11 +78,13 @@ class FeedPreviewTest {
                     peer.rows = fixture.get("refreshedRows").toString()
                     val before = peer.requests.get()
                     ui.pullToRefresh("feed-post-list")
-                    ui.waitUntil(15_000) { peer.requests.get() >= before + 2 }
+                    ui.waitUntil(15_000) {
+                        peer.requests.get() >= before + 2 && ui.onNodeWithText("Feed updated.").isDisplayed()
+                    }
                     ui.waitForIdle()
                     ui.onNodeWithText("Reference post 20").assertIsDisplayed()
                     activity.recreate()
-                    waitForText("Reference post 20")
+                    waitForText("Reference post 20", requireRefreshReady = true)
                     ui.onNodeWithText("Reference post 20").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToIndex(0)
                     waitForText("New reference post")
@@ -296,14 +298,25 @@ class FeedPreviewTest {
     private fun asset(name: String) = JsonParser.parseReader(instrumentation.context.assets.open(name).reader()).asJsonObject
     private fun intent(port: Int) = Intent(instrumentation.targetContext, MainActivity::class.java)
         .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
-    private fun waitForText(text: String) {
-        ui.waitUntil(15_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty() }
+    private fun waitForText(text: String, requireRefreshReady: Boolean = false) {
+        ui.waitUntil(15_000) {
+            ui.onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty() &&
+                (!requireRefreshReady || ui.refreshableContentReady())
+        }
         ui.onNodeWithText(text).assertIsDisplayed()
     }
     private fun captureFailure(check: () -> Unit) {
         try { check() } catch (failure: Throwable) {
-            captureFeedEvidence("feed-ui-failures/${testName.methodName}.png")
-            captureFeedEvidence("feed-ui-failure.png")
+            try {
+                captureFeedEvidence("feed-ui-failures/${testName.methodName}.png")
+                captureFeedEvidence("feed-ui-failure.png")
+            } catch (_: Throwable) { /* Diagnostic capture must preserve the original failure. */ }
+            try {
+                val folder = java.io.File(instrumentation.targetContext.cacheDir, "feed-ui-failures").apply { mkdirs() }
+                java.io.File(folder, "${testName.methodName}.semantics.txt").writeText(
+                    ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
+                captureNativeScreen(java.io.File(folder, "${testName.methodName}-native.png"))
+            } catch (_: Throwable) { /* Diagnostic capture must preserve the original failure. */ }
             throw failure
         }
     }
