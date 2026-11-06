@@ -8,6 +8,19 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
+## Active #94: integrated verification and signed beta
+
+Review base03636e7d2bd6b5c06ec1c1815c7c6e215ec2cb22. #83 is closed with
+completion comment6676669407. All remaining work is94 and authorized beta.
+The working delta adds immutable staging/promotion to review-publish, opt-in
+candidate-update scopes, a real ordinary-app local-work observer that retains
+the existing wallet update gate, and the literal complete catalog/collector at
+`docs/evidence/ticket94`. No full94 run or candidate acceptance is claimed yet.
+Read its README for the frozen counts and actual required gates. Source review
+caught/fixed CLI schema, immutable legacy inputs, exact archive paths, cleanup
+failure preservation and completed-observation timing. Final source review and
+runtime verification remain. Ordinary public beta is still83; counter83.
+
 ## #83 complete, continue #94 and publish beta
 
 Chat grouping is implemented and verified on exact source

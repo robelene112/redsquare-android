@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""Exercise an actual signed update and local recovery through public Android UI."""
+import argparse
+import json
+from pathlib import Path
+import re
+import shlex
+import subprocess
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--before", type=Path, required=True)
+parser.add_argument("--after", type=Path, required=True)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+repo = Path(__file__).resolve().parent.parent
+evidence = args.evidence
+evidence.mkdir(parents=True, exist_ok=True)
+main = "nl.davidengelen.redsquare"
+debug = main + ".dev"
+
+def adb(*arguments):
+    return subprocess.check_output(["adb", *arguments], text=True, timeout=90)
+
+if not adb("get-serialno").strip().startswith("emulator-"):
+    raise SystemExit("A disposable emulator is required")
+installed = adb("shell", "pm", "list", "packages").splitlines()
+if "package:" + main in installed or "package:" + debug not in installed:
+    raise SystemExit("Require a fresh ordinary-app slot and the isolated diagnostic app")
+wifi = adb("shell", "settings", "get", "global", "wifi_on").strip()
+mobile = adb("shell", "settings", "get", "global", "mobile_data").strip()
+if wifi not in ("0", "1") or mobile not in ("0", "1"):
+    raise SystemExit("Require observable original Wi-Fi and mobile-data states")
+
+def uid(package):
+    result = adb("shell", "pm", "list", "packages", "-U", package)
+    return int(re.search(r"^package:" + re.escape(package) + r" uid:(\d+)\s*$", result, re.M)[1])
+
+def instrument(test, label, parameters):
+    command = ["am", "instrument", "-w", "-r", "-e", "class", "nl.davidengelen.redsquare." + test]
+    for key, value in parameters.items():
+        command += ["-e", key, value]
+    command += [debug + ".test/androidx.test.runner.AndroidJUnitRunner"]
+    # adb shell otherwise rejoins arguments without quoting. Public post text
+    # can contain spaces and shell punctuation; keep it one literal argument.
+    result = subprocess.run(["adb", "shell", shlex.join(command)], capture_output=True, text=True, timeout=180)
+    (evidence / (label + ".log")).write_text(result.stdout + result.stderr)
+    assert result.returncode == 0 and re.search(r"^OK \(1 test\)", result.stdout, re.M), label
+    return result.stdout
+
+def debug_address(label):
+    adb("shell", "am", "force-stop", debug)
+    result = instrument("WalletDeviceUiObserver", label, {"walletApplication": debug})
+    return re.search(r"^INSTRUMENTATION_STATUS: walletPublicAddress=([1-9A-HJ-NP-Za-km-z]{44})\r?$", result, re.M)[1]
+
+def work(phase, label, body=None):
+    adb("shell", "am", "force-stop", main)
+    parameters = {"reviewUpdatePhase": phase}
+    if body is not None:
+        parameters["reviewCachedBody"] = body
+    output = instrument("ReviewUpdateUiObserver", label, parameters)
+    result = json.loads(re.search(r"^INSTRUMENTATION_STATUS: reviewWorkObservation=(.+)\r?$", output, re.M)[1])
+    assert result["phase"] == phase and result["appearance"] == "LIGHT"
+    assert result["draftRemainsUnsent"] is True
+    if phase == "verify":
+        assert result["offlineCacheRequired"] is True and result["cachedBody"] == body
+    return result
+
+primary = None
+try:
+    debug_before = debug_address("debug-before")
+    debug_uid = uid(debug)
+    adb("install", "-r", str(args.before))
+    main_uid = uid(main)
+    assert main_uid != debug_uid
+    prepared = work("prepare", "work-before")
+    adb("shell", "am", "force-stop", main)
+    adb("shell", "svc", "wifi", "disable")
+    adb("shell", "svc", "data", "disable")
+    # Preserve the established four native wallet observations and actual
+    # install-r update. The extra work observer never replaces that gate.
+    subprocess.run(["python3", str(repo / "scripts/wallet-device-check"),
+        "--before", str(args.before), "--after", str(args.after),
+        "--evidence", str(evidence / "wallet")], check=True)
+    verified = work("verify", "work-after", prepared["cachedBody"])
+    cold = work("verify", "work-after-cold", prepared["cachedBody"])
+    assert verified["draft"] == cold["draft"] == prepared["draft"]
+    assert uid(main) == main_uid and uid(debug) == debug_uid
+    debug_after = debug_address("debug-after")
+    ordinary_address = (evidence / "wallet/continuity.txt").read_text().splitlines()[-1]
+    assert debug_before == debug_after and ordinary_address != debug_after
+    receipt = {"ordinaryUid": main_uid, "debugUid": debug_uid,
+        "ordinaryPublicAddress": ordinary_address, "debugPublicAddress": debug_after,
+        "debugIdentityUnchanged": True, "differentPackageIdentities": True,
+        "sameDraftAfterUpdateAndColdLaunch": True, "sameOfflinePost": True,
+        "sameLightPreference": True, "prepared": prepared}
+    (evidence / "local-work-and-isolation.json").write_text(json.dumps(receipt, indent=2) + "\n")
+except BaseException as failure:
+    primary = failure
+    raise
+finally:
+    # Attempt every owned restoration independently, preserving the primary
+    # failure. Only the originally absent ordinary installation is removed.
+    failures = []
+    for label, command in [
+        ("native-evidence", ["adb", "exec-out", "run-as", debug, "tar", "-C", "cache", "-cf", "-", "review-update-observation"]),
+        ("wifi", ["adb", "shell", "svc", "wifi", "enable" if wifi == "1" else "disable"]),
+        ("mobile-data", ["adb", "shell", "svc", "data", "enable" if mobile == "1" else "disable"]),
+        ("ordinary-slot", ["adb", "uninstall", main]),
+    ]:
+        try:
+            if label == "native-evidence":
+                with (evidence / "native-local-work.tar").open("wb") as output:
+                    subprocess.run(command, stdout=output, check=True, timeout=30)
+            else:
+                subprocess.run(command, capture_output=True, check=True, timeout=90)
+        except Exception as failure:
+            failures.append(label + ":" + type(failure).__name__)
+    for label, observe, expected in [
+        ("wifi-observed", lambda: adb("shell", "settings", "get", "global", "wifi_on").strip(), wifi),
+        ("mobile-observed", lambda: adb("shell", "settings", "get", "global", "mobile_data").strip(), mobile),
+        ("ordinary-absence", lambda: "package:" + main not in adb("shell", "pm", "list", "packages").splitlines(), True),
+    ]:
+        try:
+            assert observe() == expected, label
+        except Exception as failure:
+            failures.append(label + ":" + type(failure).__name__)
+    try:
+        (evidence / "restoration.json").write_text(json.dumps({"failures": failures,
+            "originalWifi": wifi, "originalMobileData": mobile}, indent=2) + "\n")
+    except Exception as failure:
+        failures.append("restoration-receipt:" + type(failure).__name__)
+    if failures:
+        message = "Update-check restoration failed: " + ", ".join(failures)
+        if primary is not None:
+            primary.add_note(message)
+        else:
+            raise AssertionError(message)
+print("PASS: signed update retains wallet, unsent draft, offline post and preference with distinct debug identity")

@@ -12,6 +12,13 @@ directory under the existing website's static root; it changes no ingress,
 container configuration or Saito service. Existing release directories are
 immutable and the latest manifest changes atomically after its APK exists.
 
+For pre-publication installation checks, append `--stage-only` to publish just
+the immutable candidate. The stable page and latest manifest remain unchanged.
+After verifying that downloaded candidate, run the same command and notes with
+`--promote`. Promotion requires an exact match with the staged APK and manifest,
+including signature, package, version and notes. The ordinary command continues
+to create and promote a fresh version in one operation.
+
 The isolated timing app is built with `scripts/review-build --performance`.
 Artifacts go to `.scratch/performance-builds/<version>`, using the same signing
 identity and shared version counter. It has package

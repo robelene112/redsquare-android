@@ -94,6 +94,15 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "${TEST_SCOPE:-full}" == candidate-update* ]]; then
+    [[ "${TEST_CANDIDATE_VERSION:-}" =~ ^[0-9]+$ ]] && ((10#$TEST_CANDIDATE_VERSION > 83)) || {
+        echo 'Require an immutable signed candidate newer than beta83' >&2; exit 2;
+    }
+    python3 "$repo_dir/scripts/ci-review-update" 83 "$TEST_CANDIDATE_VERSION" \
+        --retain-local-work --evidence "$evidence/candidate-update"
+    printf '%s\n' 'Actual signed beta83-to-candidate update, retained local work and package isolation only; not full application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-identities* ]]; then
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     identity_exit=0
