@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.DestinationRevealMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.DestinationRevealMotionTest:
+INSTRUMENTATION_STATUS: test=searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.DestinationRevealMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Normal motion reveals the actual destination across distinct intermediate display frames
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate$lambda$7$lambda$6(DestinationRevealMotionTest.kt:84)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.$r8$lambda$dgXYlUnYmIz7wLG3eeP6kVALCx4(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate$lambda$7(DestinationRevealMotionTest.kt:25)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.$r8$lambda$I_LDIKXf9GJefgohnsJPU4Zf8uQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate(DestinationRevealMotionTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate(nl.davidengelen.redsquare.DestinationRevealMotionTest):
+java.lang.AssertionError: Normal motion reveals the actual destination across distinct intermediate display frames
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate$lambda$7$lambda$6(DestinationRevealMotionTest.kt:84)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.$r8$lambda$dgXYlUnYmIz7wLG3eeP6kVALCx4(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate$lambda$7(DestinationRevealMotionTest.kt:25)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.$r8$lambda$I_LDIKXf9GJefgohnsJPU4Zf8uQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate(DestinationRevealMotionTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.041
+There was 1 failure:
+1) searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate(nl.davidengelen.redsquare.DestinationRevealMotionTest)
+java.lang.AssertionError: Normal motion reveals the actual destination across distinct intermediate display frames
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate$lambda$7$lambda$6(DestinationRevealMotionTest.kt:84)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.$r8$lambda$dgXYlUnYmIz7wLG3eeP6kVALCx4(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate$lambda$7(DestinationRevealMotionTest.kt:25)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.$r8$lambda$I_LDIKXf9GJefgohnsJPU4Zf8uQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.DestinationRevealMotionTest.searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate(DestinationRevealMotionTest.kt:20)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

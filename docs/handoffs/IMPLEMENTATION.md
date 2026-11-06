@@ -8,53 +8,185 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Active #81, then #83, then #94 and beta
+## #81 verified and committed, continue #83 then #94 and beta
 
-#93 CLOSED in3b7bf5b04638ddced7b63add45c84b08b40db7b6; trackercomment6670692019.
-#81claimed@me, nativeblocked_byEMPTY. Reviewbase3b7bf5b04638ddced7b63add45c84b08b40db7b6.
-Primarydestination tracer a158 RED10 42118910510:0intermediateSearchTitleframes.
-56970a321 productionusesSingleOwnerReveal ontargetactualBrowseDestination or
-FeedOverlay typedQUEUE/AUTHOR_CHANGES/COMPOSER/PrimaryHOMECHAT; includesFABinside
-ownedbody, disposesoldcontentimmediately. NativeGREEN10 42119772748:normal2distinct
-inkalpha~.31/.90,zero0intermediate; actualsystem/window0/1. Originalframesexternal
-redesign81-reveal-red10-42118910510 andgreen10-42119772748. Mainrootlayout/reading
-andcontrollersremainoutsidefade. No81completionyet.
+The owner authorized allfive tickets90,93,81,83,94 and finalbeta sequentially.
+90 and93 alreadyCLOSED.81 featureverification/review COMPLETE, closeafterthis
+completioncommit/push, then claim83 WITHOUTaskingagain. No intermediatebeta.
+94owns completeconsistent-source fullapp gates, signedupdate/isolation andVPSbeta.
+Neverauto-close1/36/55/84; owner/provider/physical/Play inputs remainparked.
 
-NextverticalImageRetryOwnershipTest at41b050f6d2964fb67cdbaf61327035255523cb25
-realRED10 42121364036:expected2HTTPreads(initial500+oneintentionalretry),actual3.
-3actual35ms-separatedcoordinateclicks catcholdCrossfadeRetryhandlerstilllive.
-ExistingwithInterceptedPostLinks containsparentlinkactions, node/peerallcontrolled.
-LatestproductionnowaddsVisualResultReveal helper(Crossfade180,latestowner via
-rememberUpdatedState,oldsemanticscleared) andusesitforPostImage. Retryenabledonly
-current&&imageNull&&failed,callbackchecksactualcurrentstateandsetsfailed=false
-synchronouslybeforeincrementretry. OldrenderedRetrylosesfocus/inputevenwhilepaint
-fades;loaders/effectsoutsidevisualoverlap. Needcommit/pushandGREEN10imageretry.
-Newscopesimage-retry-motion(+17)anddestination-reveal(+17),bothSDKguards updated;
-bothnewclasses180andadditivefullChat. Noother81productionchangesyet.
+Final81production/native source1d3b6e0204bb141d9e6dedc6be2ad970b9b20110;
+reviewbase3b7bf5b04638ddced7b63add45c84b08b40db7b6. Bothsourceaxes0, bothnative0.
+Completefocused10 42139774934 /17 42139777989 SUCCESSsame1d, each21methods/11classes/
+30movies. Retainer checksallliteralidentities/passcodes/hostexits/exactsource/
+pinnedimages/actualcapacityand30movies. Packet docs/evidence/ticket81 README,
+reviews.json,source,android10,android17,failures,diagnostics,retain-native.py.
+Old1780android10packet moved toexternalraw1780folder/retained-packet, notmixedwith1d.
+SourceDebug42139780278 SUCCESS:119validcachedcore0fail/skip,gatewayFROM-CACHE
+(no fresh/countclaim),lint0errors55warnings1hint. No localbuildactive.
 
-AfterGREEN addProfileBanneractualHTTParrival tracer(native4secmovie,knownmagenta
-PNGheld250msbeyondparentdestination180toisolatelocalmediafade),thenimplement
-ProfileImageusingVisualResultReveal withkey(source,backend,author,kind),Retryonly
-currentandsynchronousfailedfalse. GiphyImage directDrawable/AndroidViewstillgap:
-useVisualResultReveal,keysource/config,lifecycleeffectsoutsideFadeaspossible,
-targetDrawableobject+failednotanimationframes,Retryguardcurrent. Dedicated
-AppFrameFixturegiphyFixtureUrl optionalfornativeowned/media PNGtestwouldreuse
-existingGiphyConfiguration debuglocalhostguard; no genericfixturehooksnecessary.
-ExistingGiphyPreviewTest validatesactualtwo-frameGIF/lifecycle/providerprivacy.
+Sharedsingle-ownerreveals keep onlycurrenttree/controllers and livecurrentinput.
+Normalchangedtargetdrawsat.01prep untilonecurrentdrawContent+nextframe, then180ms
+Linear; initialmountopaque,0bypasseswait. CPUdrawingreadiness NOT GPUcompletion.
+PuremediaResultreveals shareLinear180, effects/lifecycleoutsideoverlap; oldRetry
+losessemantics/input and synchronousfailedfalse preventsduplicateReads (HTTP2at1/0
+bothSDKs). FinalnormalSearch8/2intermediate10/17, banner6/8, provider9/9,zero0all.
+Finalfocusnormal/zero10=167/287ms,17=370/412ms; no physicalperformanceclaim.
 
-Otherremaining81scope:secondaryChat/groups currentlydirect. ChatScreen bool
-reviewingGroups earlyreturn at61; restprivatecontrollers+UIBoxWithConstraints320;
-publicfunctionends482. Canwrapgroup/privatebranchinSingleOwnerReveal with
-return@label, preservingoldlifetime; privateUIonlycounterpartykeyandfullsizeBoxes.
-GroupChatScreen UIBoxWithConstraints350ends~637beforedialogs, useentry?.group?.id
-keyforlist/detail loadedroute, notcounters/messages. DoNOTCrossfadestatefulscreens.
-NeedactualnativejourneysHome/Search/Chat,publicthread/back,private/groups/rapid
-input/focus. Settingscategoriesalready90sharedfade;existingAccountDesignMotionTest,
-FeedMediaMotionTest,SearchRecoveryPreviewTest,AppFrameReadingPreviewTest andnative
-ChatEntry/regressionclassesappropriatetopreserve, plusGiphyoriginalbounds.
-Final10/17focused+appropriateaffectedregressions/source/lint/twofreshsourceaxes,
-retainoriginalmovies/framesandfailureprovenance,completioncommit/close81,then83,
-then94samefinalsourcefull3partitions/OS+signedupdate/isolation+VPSbeta. No stop.
+Native10review: all35root+31mediaframes,215representativeframes all12journey/
+8Settingswalletmovies,0newactionable. FinalfreshSourcePNGpainted. Native17review:
+allroot+4mediasequences,orderedrepresentativeallremaining24movies+largefont/
+reading/recovery/GIFstills,0actionable. Fresh17SourcePNGalone doesn'tpaintSource,
+ordinaryPNGdoes; followingXML+assertion areseparate, non-atomicobservations.
+Do NOTcitethefreshPNGaloneasSourcepaintproof; no productdefect inferred.
+AllDEBUG-m81/clock/stacks probes removed; prepareToDraw experimentfailed/reverted;
+CPU4experimentfailed/restored2. Host/requested/actualCPU receipts retained.
+Originalfailedrunsremainfailed; seepacket/README+historicalnotesbelow.
+
+Next83 compactChatmetadata andconsecutiveverified-sender grouping, retainbodyfonts,
+48dp identity/menu/actions, provenance, reply/copy/reactions/media, filtering and
+older/newestanchors; choose/testconservative5minuteadjacentgap. Actualnative
+320/412dp light/dark100/130/200%+IME bothSDK. Existing empty-before-loading Chat
+observed at0 is relevant83polish, don'tfakehistoryavailability. Implementationnot
+started, canonicalChatcheckout unrelatedchanges untouched. Readcurrentissue83/
+comments/blockers andspec86, claim@me. Oneissueatatime, onlyread-onlyreviewagents.
+Planninginsight: ConversationMessageList indexesmessageKeys toactualLazyColumn
+items, quotespassindices. Separate lazygroupheaders requireexpandedrenderedkeys
+andquoteIDremap whilehistoryMessageKeys remain genuine records; thiscanavoid
+bodyoffsetchangeswhenolderhistoryreclassifiesgroupheads. Chooseafterpreview/code.
+Then94 fullsamefinalsource all3partitions/SDK, nativeoverallreview,signedupdate/
+isolation and scripts/review-build+review-publish viaownVPS. No ownerphonechecks.
+NativefocusedPASSnotwholeappPASS. Dataunder/mnt/storage artifacts;00:37Nov6free
+51GBstorage/root47GB, recheckbeforelargefull artifacts. usegit add --sparsefornew
+packetdirs. Final81native contact sheets externalredesign81-final-native-review
+{10,17}-1d3. No implementationagentsworkinginparallel.
+
+### Historical1780 checkpoint (superseded by CURRENT1d above)
+
+Previously reviewed clean SOURCE17804ccba14af86c23279e951b9d49417ca7db86. No DEBUG-m81,
+profileDraw/frameSampler/observedEasing/main-stacks inapp/scripts. Sourceprobe
+cleanup complete; prepareToDraw experiment REVERTED, PostImageLoader sameBee.
+Final source review bothaxes0 at1780. Native acceptance PENDING exactsource:
+10 destination-redesign42137394588,17 destination-redesign42137398653,
+source-debug42137402196. All RUNNING at00:37 Nov6: bothnative runtime, sourceLint.
+Each focusedSDK requires all21methods/11classes/30originalmovies. Newclasses remain
+additivefullChat; all original assertions/class180bounds retained.
+
+Production:56970a321 primary/public owned reveal; adfe05839 private/group UI-only
+reveals, controllers/persistence outside.27a3f4f0e sharedVisualResultReveal pure
+paintoverlap only, oldsemantics removed/current-only controls; actualRetry guards
+imageNull+failed andsetsfailed=false synchronouslybeforeincrement.707e341cf profile
+fallback/loading/bitmap/removal in stableauthor/backend/kind visualcontainer.
+bee1c89a2 GiphyImage samepureResult reveal, loader/animation lifecycleoutside,
+source/configkey; drawableidentity stableperGIFframe.1780 bothsharedowned/pure
+reveals use LinearEasing with original180ms, actualscale0/1; evenly distributed
+opacity, NOT a claim that RenderThread synchronization wasfixed. No inputwait.
+
+Native RED/GREEN history, originals retained externalredesign81-*:
+- Root titleRED42118910510 at a158,0intermediates. GREEN42119772748 at569,2normal/0zero.
+- RetryRED42121364036 at41b,3HTTPexpected2. GREEN42122303414 at27a,2at1/0.
+- ProfiledirectRED42123759570 at5bc,0intermediates. First attempts42124760168/
+  42125863789 failed observer count. d39 recognizes actual earlychroma20..230,
+  baseline still0. cc4 moves screenshotpolling AFTER original4secmovie whilekeeping
+  original10s deliverybudget fromrelease. GREEN42127116551 atcc4 normal2/zero0,
+  independent allframe/geometryreview0. Earliercauseonlyhypothesis, nofalsepass.
+- First journey42126226225/42126229898 fail after0scenes duefixture private-history
+  query missingfield1.97d strictsource-definedfield3conversation/limit50/createdbefore
+  handler; GREEN10 42127278022 /17 42127282060. No appprotocolchange/assertwaiver.
+- Providerfirst42128276774 fails missingdesc BEFORE observation.42129200341 also
+  fails staticendframe count; its localhost origin NOT realproviderproof (existing
+  guardonly127). a732 explicitorigin realproviderRED42130418971 normal0intermediate,
+  actualnativeImageView and2stablesamples confirmed. No priorrasterevidenceclaimed
+  asprovideracceptance.
+
+Combined Bee sourcebee1c89a26b63b5eb200db94bbbdc750c71c5826:
+10 42131087876 FAILED2of21;17 42131091662 FAILED3of21. All four10profile/provider
+scenesPASS (32frames),17 providerPASS6intermediate5delivered/zero0and1;17profile1
+FAIL0intermediates3delivered. BothGIFSourceownerPostfail onlyoffscreenSource.
+Root10actualtitle means.01977/.30650/.95112/.97622/.99151/.99375: existing.2..95
+criteria countsone. PIL/PyAV validate ROI/decoder. Root17physicaltapdidnotleaveHome,
+oldreadinesscheckthrowsinsiderecorder, so rawMP4notcopied; capturedfailureXMLHome.
+Otherclasses pass; bothfinalBeeprivate-entrymovies show distinct title/composer
+steps, resolving prior17 recordlimit (older97d near-fullbody notprovedfluent).
+No sourceownership/input/geometry defect found. Do NOT call failedcombinedsuccess.
+
+Testobserver repairs dfeda3fa1 +babfb9c65:
+- Move nativeSearchhierarchytraversal AFTER4sec record; originaltouch-started5s
+  readinessbudget retained, successfulobservationmustfinish bydeadline(bab).
+  Focused10 42132705937 SUCCESS same2distinctmidrange/.2..95/.04/variance goals;
+  normal2,zero0, independent36frame review0. Supports observerinterference but
+  onecomparisondoesnotproveallmissingframecauses.
+- ExplicitlyscrollSource beforeoriginaldisplayedassertion: oldcreator y525..545
+  atdock556 didn'tproveSourcevisibility. Creator/Source/provider/link/freshActivity
+  checks retained. Focusedgifs10 42132709266 SUCCESS original9methods.
+- Damage-driven screenrecord mayencode thefinalstaticimage once atEITHERscale.
+  Spec review approved >=1originaldecodedendpoint whilekeeping2actualstable
+  nativeendpoints withinoriginal10s, allgeometry/actualscales, normal>=2distinct
+  chroma20..230/range10 andzero<2. Thiscorrects NEWobserverencodedduplicatecount,
+  not a useracceptancewaiver. Earlier failures stayfailed; wouldnotmake1intermediate
+  runsPASS. Before/afterwindowScalereceipts nowalsoobservedbeforebytesrelease.
+
+17 profilediagnosis history (not acceptance): independentPyAV confirms earlier
+actualwholebannerjump5@383200us to240.5@398189us, stableROI/geometry. No visible
+other profile/historyloading; Refreshenabled, profilestatusabsent. No newdelay.
+49ba diagnostic42133425900 SUCCESS2intermediate6end, but logactual88.07ms callbackgap
+(.0218at62.76ms,.1104at150.83,.9097at159.14). FirstCPUbitmapdraw44.70ms BEFOREease0
+48.59ms; no lateCPUdrawstartproved. RecordstartElapsed precedesencoderlaunch,
+NOT exactabsolutePTSorigin. Do notinventabsolutealignment orprovenGPUuploadcause.
+d645 mainstacks42134536747 FAILED1intermediate6end,109.29ms easinggap, actualmain
+HardwareRenderer.nSyncAndDrawFrame +118/128/143ms. No sampledappbusinesswork;
+discretesamples don'tprovecontinuouswait. Background8ms sampler schedulingalso
+has43/59ms gaps; retrievalmostly.1ms,max4.7. Trace diagnostic overheadnotexcluded.
+prepareToDraw candidate dace6027 viaexistingIOdecodeworker (officialAndroidBitmap
+APIrecommendedearlyasynchronousupload) 42135337746 FAILED1intermediate1end;
+no benefit demonstrated, REVERTcd72ca37f. No prepareToDrawto ship.
+CPUexperiment e130/run42136327715 confirmedhost4/requested4/actualguest4 butFAILED
+same1intermediate1end. RESTORED established2guestcores; memory2GB/renderer/images
+unchanged. Retain host/requested/actualguestreceipts forprovenance; bounds unchanged.
+1780 removesalltemporarydiagnostics anduses coherent180ms linearopacity tospread
+visiblechanges ratherthanlengtheningmotion. Actualclean-source/nativequalitystill
+mustpass; don'tclaimunderlyingrenderstallfixed.
+
+Both sourceaxes0 atBee and1780; latestnative/sourcegatespending above. Earlier
+source-debug42131095505 atBee SUCCESS119cachedcore0fail/skip,gatewayFROM-CACHE(no
+methodcountuploaded),lint0errors55warnings1hint. Packet ticket81/source stillthat
+PRIORBee result, replace/bindtofinal1780source afternewcheckpasses. Original
+chat-entry10 42124318012 /17 42124321940 andconversation-viewport10 42124325841 /
+17 42124329867 allPASS atadfe, originalclassboundsunchanged.94ownsfinalfullsource.
+
+Uncommittedownpacket docs/evidence/ticket81:5originalRED/observerfailures +bothfailed
+Beecombinedselectedscenes/rawall21logs, priorBee sourcereports andretain-native.py.
+/tmp/redsquare81-retain-native.py plusrepocopy validates exact21methods/11classes/
+30movies/allSUCCESS/actualsource/pinnedimages; currentlySOURCEstillBee, UPDATE to
+real1780 clean source beforeuse. StrictSDKpaths29/default vs37.0/google_apis.
+Final focused downloads/extraction andnative30movie/OSreviews stillTODO. Existing
+agentsmotion81_{spec,standards}_review allowedread-only finalreview, no parallel
+implementation. Use git add --sparse fornewdocs/evidence. No localbuildactive.
+Localffd observerassembleDebug+assembleDebugAndroidTestPASS6m56s,logexternal.
+GitHub transient500/commit_refs_rules recovered.42129147489 old272 CANCELLED;
+42133369634 firstunstableEasingdelegateprobe CANCELLED beforeacceptedcomparison.
+Keep those cancellations explicit, not application passes or source evidence.
+
+Next: finish1780results/nativeinspection,fixanyrealremainingfinding,retainfinal
+originals/source/runs/reviews,completioncommit/close81. THEN83 compactmetadata+
+consecutive verified-sender visualgroups (conservative5minboundary selectable/tested),
+real48dp identity/menu,bodyfonts/provenance/actions/filtering/older-newestanchors,
+light/dark100/130/200%+realIME10/17. NativeobservedChatempty-before-loading initial
+loadingfalse is relevant83 polish; fixwithobservation ratherthanhidehistory.
+Planning-only83 note, no implementation yet: ConversationMessageList indexes its
+messageKeys against actualLazyColumnitems and quote callbacks passindices. If
+using separate lazygroupheaders, supply correspondingexpandedrenderedkeys and
+remapquote targetID tothatindex; keephistoryMessageKeys genuine recordsforunread/
+filtering. This cankeepmessagebodyoffsetsstablewhenolderhistorychangesgroupheads,
+insteadofadding/removinganameheaderinsideanexistingmessageitem. Inspectpreview/
+actualChatlayoutbeforechoosing; preserveallquoted/media/actioncapabilities.
+THEN94 consistent-final-source complete3partitions/OS, actualnativeoverallreview,
+signedinplaceupdate/isolation+maintainedVPSbetapublication. No intermediatebeta,
+no automaticclose1/36/55/84. Owner/provider/physical/Play gatesremainparked.
+Nov6 00:37 storage /dev/vdb1 /mnt/storage51GBfree, root47GBfree; recheckbeforelarge
+fullartifacts. Existing canonicalChatcheckout /home/david/projects/redsquare-android
+unrelatedwork untouched, continueisolatedredesign86 worktree/branch.
 
 ## Completed #93
 

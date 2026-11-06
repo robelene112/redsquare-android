@@ -1,0 +1,48 @@
+{
+  "base": "3b7bf5b04638ddced7b63add45c84b08b40db7b6",
+  "executingSource": "1d3b6e0204bb141d9e6dedc6be2ad970b9b20110",
+  "sourceReview": {
+    "standards": {
+      "actionable": 0,
+      "hardBreaches": 0,
+      "heuristicSmells": 0
+    },
+    "spec": {
+      "actionable": 0
+    }
+  },
+  "nativeReview": {
+    "android10": {
+      "run": 42139774934,
+      "actionable": 0,
+      "allRootFrames": 35,
+      "allLoadedMediaFrames": 31,
+      "representativeJourneySettingsFrames": 215,
+      "moviesRepresented": 30,
+      "routeToFocusMillis": {
+        "normal": 167,
+        "zero": 287
+      }
+    },
+    "android17": {
+      "run": 42139777989,
+      "actionable": 0,
+      "allRootMovies": 2,
+      "allLoadedMediaMovies": 4,
+      "remainingMoviesRepresentativelySampled": 24,
+      "moviesRepresented": 30,
+      "routeToFocusMillis": {
+        "normal": 370,
+        "zero": 412
+      },
+      "freshSourcePngAloneProvesSourcePaint": false
+    }
+  },
+  "limits": [
+    "Representative journey/Settings coverage is not inspection of every decoded frame.",
+    "First-draw preparation is not proof of GPU presentation completion.",
+    "Recorded/source opacity progression does not prove that the underlying render synchronization cause was repaired.",
+    "Screenshots and XML are not atomic observations.",
+    "Physical Pixel, whole-app/update/publication acceptance remains separate."
+  ]
+}

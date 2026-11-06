@@ -1,0 +1,106 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LoadedMediaMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.LoadedMediaMotionTest:
+INSTRUMENTATION_STATUS: test=profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LoadedMediaMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The original recording contains the actual delivered media
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.recordArrival$lambda$25(LoadedMediaMotionTest.kt:192)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$XWyrrnSdwTyeWkqQPhAnmJcE22E(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.recordArrival(LoadedMediaMotionTest.kt:165)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry$lambda$8$lambda$7$lambda$6(LoadedMediaMotionTest.kt:57)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$UnBCRMAka1Gl-TpkOb9shLJkU6s(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry$lambda$8(LoadedMediaMotionTest.kt:44)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$CPpRkwEBhNnc0Er-TLaXpGmgFxI(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry(LoadedMediaMotionTest.kt:28)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry(nl.davidengelen.redsquare.LoadedMediaMotionTest):
+java.lang.AssertionError: The original recording contains the actual delivered media
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.recordArrival$lambda$25(LoadedMediaMotionTest.kt:192)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$XWyrrnSdwTyeWkqQPhAnmJcE22E(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.recordArrival(LoadedMediaMotionTest.kt:165)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry$lambda$8$lambda$7$lambda$6(LoadedMediaMotionTest.kt:57)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$UnBCRMAka1Gl-TpkOb9shLJkU6s(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry$lambda$8(LoadedMediaMotionTest.kt:44)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$CPpRkwEBhNnc0Er-TLaXpGmgFxI(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry(LoadedMediaMotionTest.kt:28)
+
+INSTRUMENTATION_STATUS: test=profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LoadedMediaMotionTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=providerDrawableRevealsDeliveredPixelsInsideItsOriginalImageContainer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LoadedMediaMotionTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=providerDrawableRevealsDeliveredPixelsInsideItsOriginalImageContainer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 33.393
+There was 1 failure:
+1) profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry(nl.davidengelen.redsquare.LoadedMediaMotionTest)
+java.lang.AssertionError: The original recording contains the actual delivered media
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.recordArrival$lambda$25(LoadedMediaMotionTest.kt:192)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$XWyrrnSdwTyeWkqQPhAnmJcE22E(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.recordArrival(LoadedMediaMotionTest.kt:165)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry$lambda$8$lambda$7$lambda$6(LoadedMediaMotionTest.kt:57)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$UnBCRMAka1Gl-TpkOb9shLJkU6s(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$7$lambda$6$lambda$5(AvatarJourneyFixture.kt:71)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$DBuVzrMEk-OFeFjPNrAz16Dw-JE(AvatarJourneyFixture.kt:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:70)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry$lambda$8(LoadedMediaMotionTest.kt:44)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.$r8$lambda$CPpRkwEBhNnc0Er-TLaXpGmgFxI(LoadedMediaMotionTest.kt:0)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.LoadedMediaMotionTest.profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry(LoadedMediaMotionTest.kt:28)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

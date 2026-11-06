@@ -1,0 +1,42 @@
+[
+  {
+    "label": "primary-before",
+    "run": 42118910510,
+    "source": "a1581a4590dc07b2669f5812deed3959687eedcf",
+    "externalArtifact": "/mnt/storage/redsquare-android-artifacts/redesign81-reveal-red10-42118910510",
+    "archiveSha256": "e2d4d59286e8ca6e918c712f35702414828c129d9767ad19d44cb0d4e05c2484",
+    "originalConclusion": "failure"
+  },
+  {
+    "label": "retry-before",
+    "run": 42121364036,
+    "source": "41b050f6d2964fb67cdbaf61327035255523cb25",
+    "externalArtifact": "/mnt/storage/redsquare-android-artifacts/redesign81-retry-red10-42121364036",
+    "archiveSha256": "ad76a54750f44ea0eed0ef839cfe443443767e278bdad31c106c7647bf81bd68",
+    "originalConclusion": "failure"
+  },
+  {
+    "label": "profile-before",
+    "run": 42123759570,
+    "source": "5bc3ca97c0c06e81e5a9ffd4a81e9d77ce767259",
+    "externalArtifact": "/mnt/storage/redsquare-android-artifacts/redesign81-profile-media-red10-42123759570",
+    "archiveSha256": "b1b3d0e90b345a15a66f96615fac9e441f6e2eece962352d1e104e6ea527b78e",
+    "originalConclusion": "failure"
+  },
+  {
+    "label": "provider-before",
+    "run": 42130418971,
+    "source": "a73242c35889825e6859d2fcfcfe2fb0f308fe60",
+    "externalArtifact": "/mnt/storage/redsquare-android-artifacts/redesign81-provider-red10-42130418971",
+    "archiveSha256": "0764349303b51663def913954f0d20288b9dae84e487cdb8f9e6b5a0ad9fc9c1",
+    "originalConclusion": "failure"
+  },
+  {
+    "label": "zero-observer",
+    "run": 42129200341,
+    "source": "ffd05eb57027ff510be62dd9051269e934dd25c7",
+    "externalArtifact": "/mnt/storage/redsquare-android-artifacts/redesign81-provider-red10-42129200341",
+    "archiveSha256": "0466a698a496906c1ef455a9848f5c44c52e03ab32e20d68d6cbabc007456421",
+    "originalConclusion": "failure"
+  }
+]

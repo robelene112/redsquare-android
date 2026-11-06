@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageRetryOwnershipTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageRetryOwnershipTest:
+INSTRUMENTATION_STATUS: test=retryStartsOneReplacementReadAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageRetryOwnershipTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The exiting Retry must not start another read after the deliberate replacement starts expected:<2> but was:<3>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9$lambda$8$lambda$7$lambda$6(ImageRetryOwnershipTest.kt:67)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$BRc5RDzFte6d5n94We7ViGvDUH0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9$lambda$8$lambda$7(ImageRetryOwnershipTest.kt:44)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$b30Sa04I09vWeboFZke7zOnVNCA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedLinkFixtureKt.withInterceptedPostLinks(FeedLinkFixture.kt:53)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9(ImageRetryOwnershipTest.kt:43)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$qaTC0BOL3b1GWNYNhg0-tyUVQWg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion(ImageRetryOwnershipTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in retryStartsOneReplacementReadAtNormalAndZeroMotion(nl.davidengelen.redsquare.ImageRetryOwnershipTest):
+java.lang.AssertionError: The exiting Retry must not start another read after the deliberate replacement starts expected:<2> but was:<3>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9$lambda$8$lambda$7$lambda$6(ImageRetryOwnershipTest.kt:67)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$BRc5RDzFte6d5n94We7ViGvDUH0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9$lambda$8$lambda$7(ImageRetryOwnershipTest.kt:44)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$b30Sa04I09vWeboFZke7zOnVNCA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedLinkFixtureKt.withInterceptedPostLinks(FeedLinkFixture.kt:53)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9(ImageRetryOwnershipTest.kt:43)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$qaTC0BOL3b1GWNYNhg0-tyUVQWg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion(ImageRetryOwnershipTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=retryStartsOneReplacementReadAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.779
+There was 1 failure:
+1) retryStartsOneReplacementReadAtNormalAndZeroMotion(nl.davidengelen.redsquare.ImageRetryOwnershipTest)
+java.lang.AssertionError: The exiting Retry must not start another read after the deliberate replacement starts expected:<2> but was:<3>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9$lambda$8$lambda$7$lambda$6(ImageRetryOwnershipTest.kt:67)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$BRc5RDzFte6d5n94We7ViGvDUH0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$9$lambda$8$lambda$7(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$W1m1Te90j-LPGDW6PquinVHd_Dg(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:49)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9$lambda$8$lambda$7(ImageRetryOwnershipTest.kt:44)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$b30Sa04I09vWeboFZke7zOnVNCA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedLinkFixtureKt.withInterceptedPostLinks(FeedLinkFixture.kt:53)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion$lambda$9(ImageRetryOwnershipTest.kt:43)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.$r8$lambda$qaTC0BOL3b1GWNYNhg0-tyUVQWg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.ImageRetryOwnershipTest.retryStartsOneReplacementReadAtNormalAndZeroMotion(ImageRetryOwnershipTest.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

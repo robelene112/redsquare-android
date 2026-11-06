@@ -1,0 +1,205 @@
+{
+  "source": "1d3b6e0204bb141d9e6dedc6be2ad970b9b20110",
+  "sdk": "10",
+  "run": 42139774934,
+  "classes": [
+    {
+      "prefix": "destination-reveal",
+      "class": "DestinationRevealMotionTest",
+      "methods": [
+        "searchArrivesWithBriefMotionAndDisabledMotionRemainsImmediate"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "destination-journey",
+      "class": "DestinationJourneyMotionTest",
+      "methods": [
+        "primaryAndSecondaryJourneysRemainInterruptibleAtNormalAndZeroMotion"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "image-retry",
+      "class": "ImageRetryOwnershipTest",
+      "methods": [
+        "retryStartsOneReplacementReadAtNormalAndZeroMotion"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "loaded-media",
+      "class": "LoadedMediaMotionTest",
+      "methods": [
+        "profileBannerRevealsDeliveredPixelsWithoutChangingItsPlaceholderGeometry",
+        "providerDrawableRevealsDeliveredPixelsInsideItsOriginalImageContainer"
+      ],
+      "passed": 2,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "account-design-motion",
+      "class": "AccountDesignMotionTest",
+      "methods": [
+        "accountTasksAndCategoriesRemainInterruptibleAndRetainTheActiveIdentity"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "feed-media-motion",
+      "class": "FeedMediaMotionTest",
+      "methods": [
+        "deliveredPreviewPixelsReplaceLoadingAtNormalAndZeroSystemMotion"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "search-recovery",
+      "class": "SearchRecoveryPreviewTest",
+      "methods": [
+        "disposalPausesBeforeCancelledLookupFinishesUnwinding",
+        "retryingAUsernameFailureDoesNotRepeatCompletedPostStreams",
+        "leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation"
+      ],
+      "passed": 3,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "app-frame-reading",
+      "class": "AppFrameReadingPreviewTest",
+      "methods": [
+        "returningFromChatRetainsTheScrolledFeedThroughRecreation"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "navigation-keyboard",
+      "class": "NavigationKeyboardTest",
+      "methods": [
+        "largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames"
+      ],
+      "passed": 1,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "giphy",
+      "class": "GiphyPreviewTest",
+      "methods": [
+        "providerFailureCanRetryAndCloseWithoutLosingTheDraft",
+        "searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork",
+        "selectedAnimatedGifSurvivesSavedDraftAndFreshActivity"
+      ],
+      "passed": 3,
+      "hostDeadlineSeconds": 180
+    },
+    {
+      "prefix": "giphy-posting",
+      "class": "GiphyPostingTest",
+      "methods": [
+        "ownerGifPost",
+        "ownerGifReply",
+        "ownerGifQuote",
+        "officialGifPost",
+        "officialGifReply",
+        "officialGifQuote"
+      ],
+      "passed": 6,
+      "hostDeadlineSeconds": 180
+    }
+  ],
+  "archives": [
+    {
+      "file": "app-frame-reading-evidence.tar",
+      "sha256": "c02af5917766f4be3b6890fafa9ea494ac578e62558bd4f3778b26d4eb875851",
+      "bytes": 673280
+    },
+    {
+      "file": "navigation-keyboard-evidence.tar",
+      "sha256": "a25acb205a086d5066b319d9d021eda57ec45d73bfe91be322bcd5ae81f7204d",
+      "bytes": 2387456
+    },
+    {
+      "file": "giphy-posting-evidence.tar",
+      "sha256": "42a8796571060b13cff9298f61f42fa9f9e74b2cf885038406a6cad35d7d9feb",
+      "bytes": 1066496
+    },
+    {
+      "file": "search-recovery-evidence.tar",
+      "sha256": "6f5b9ea4fa756ade32390dff19025e8a8e0687e65716502a6d3c28103f8c70bb",
+      "bytes": 369664
+    },
+    {
+      "file": "account-design-motion-evidence.tar",
+      "sha256": "e06375946c91c969927b281408935cd4654592f0f6c6f0e4e693fa6b92f839e8",
+      "bytes": 11073536
+    },
+    {
+      "file": "destination-reveal-evidence.tar",
+      "sha256": "98824a9839e5d05fc0c7f7d47632f2fc806d86204043f5b4446a5c366cf1b3e0",
+      "bytes": 2273280
+    },
+    {
+      "file": "loaded-media-evidence.tar",
+      "sha256": "879f958af20a1d7545ea7723aef91d516d9ab6ebdea04e06fde502150f6ee104",
+      "bytes": 3068416
+    },
+    {
+      "file": "giphy-evidence.tar",
+      "sha256": "19f9902f8983a241f9236bbbacbbb2ecc0281a8a1a8f8ff27c2f7618577ee11e",
+      "bytes": 701440
+    },
+    {
+      "file": "image-retry-evidence.tar",
+      "sha256": "3f0b66f17da0dca2de23fe489712760201400a2b8f0c1051f988a5b022ed0e44",
+      "bytes": 4141568
+    },
+    {
+      "file": "destination-journey-evidence.tar",
+      "sha256": "89a96db53f6934ac8c29dad6f2967f81f5d9193ad14915c8d5799ac188648a36",
+      "bytes": 20613632
+    },
+    {
+      "file": "feed-media-motion-evidence.tar",
+      "sha256": "226310ffc6b9fdfad56260ad594c4e8f8b2d95bd092bd43aa81d8f42778a33ce",
+      "bytes": 815104
+    }
+  ],
+  "movies": [
+    "originals/destination-reveal-evidence/scale-0-search.mp4",
+    "originals/destination-reveal-evidence/scale-1-search.mp4",
+    "originals/loaded-media-evidence/scale-1-drawable.mp4",
+    "originals/loaded-media-evidence/scale-0-drawable.mp4",
+    "originals/loaded-media-evidence/scale-0-banner.mp4",
+    "originals/loaded-media-evidence/scale-1-banner.mp4",
+    "originals/image-retry-evidence/scale-0-retry.mp4",
+    "originals/image-retry-evidence/scale-1-retry.mp4",
+    "originals/feed-media-motion-evidence/scale-1-thumbnail.mp4",
+    "originals/feed-media-motion-evidence/scale-0-thumbnail.mp4",
+    "originals/destination-journey-evidence/scale-1-groups-and-back.mp4",
+    "originals/destination-journey-evidence/scale-0-search-and-back.mp4",
+    "originals/destination-journey-evidence/scale-0-thread-and-back.mp4",
+    "originals/destination-journey-evidence/scale-0-focus-during-entry.mp4",
+    "originals/destination-journey-evidence/scale-1-thread-and-back.mp4",
+    "originals/destination-journey-evidence/scale-0-groups-and-back.mp4",
+    "originals/destination-journey-evidence/scale-1-search-and-back.mp4",
+    "originals/destination-journey-evidence/scale-0-private-and-back.mp4",
+    "originals/destination-journey-evidence/scale-1-focus-during-entry.mp4",
+    "originals/destination-journey-evidence/scale-1-rapid-primary.mp4",
+    "originals/destination-journey-evidence/scale-0-rapid-primary.mp4",
+    "originals/destination-journey-evidence/scale-1-private-and-back.mp4",
+    "originals/account-design-motion-evidence/scale-1-settings-open.mp4",
+    "originals/account-design-motion-evidence/scale-1-categories.mp4",
+    "originals/account-design-motion-evidence/scale-1-wallet-return.mp4",
+    "originals/account-design-motion-evidence/scale-1-wallet-open.mp4",
+    "originals/account-design-motion-evidence/scale-0-settings-open.mp4",
+    "originals/account-design-motion-evidence/scale-0-categories.mp4",
+    "originals/account-design-motion-evidence/scale-0-wallet-return.mp4",
+    "originals/account-design-motion-evidence/scale-0-wallet-open.mp4"
+  ]
+}
