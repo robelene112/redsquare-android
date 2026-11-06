@@ -338,7 +338,7 @@ class MainActivity : ComponentActivity() {
                 // safeDrawing remains the sole IME/system-inset owner. Secondary
                 // chrome returns when typing ends without dismissing any reminders.
                 val nodeBlock = rememberNodeBlocks(backend, intent)
-                val keyboardVisible = WindowInsets.isImeVisible
+                val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
                 val featureUnobstructed = !settingsOpen && !connectionDetailsOpen && !policiesOpen &&
                     !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
                     !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&

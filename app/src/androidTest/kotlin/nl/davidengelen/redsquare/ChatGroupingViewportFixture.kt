@@ -18,7 +18,9 @@ internal fun ComposeTestRule.inspectGroupedChatViewports(group: Boolean, width: 
     val prefix = "chat-grouping-${if (group) "group" else "private"}-$width"
     val folder = File(context.cacheDir, "$prefix-evidence").apply { mkdirs() }
     val name = "NativeLongVerifiedDisplayNameForChat@saito"
-    withAvatarJourney("Dark", verifiedName = name) { activity, peer, _, _, sender ->
+    val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+    withAvatarJourney("Dark", verifiedName = name,
+        watchedGroup = if (group) groupKey.publicKey to "Grouped viewport room" else null) { activity, peer, _, _, sender ->
         val reader = AndroidWalletStore(context).loadExisting()
         val firstBody = "A multiline message.\nThe body remains readable at the system text size."
         val photoText = "Reply with photo"
@@ -29,7 +31,6 @@ internal fun ComposeTestRule.inspectGroupedChatViewports(group: Boolean, width: 
         val firstAt = 1_700_000_000_000L
         // One millisecond past the inclusive five-minute boundary starts a separate sender header.
         val reply = chatReplyPrefix(sender.publicKey, firstAt, firstBody)!! + photo
-        val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
         val creation = GroupChat.create(sender, groupKey.publicKey, "Grouped viewport room", listOf(reader.publicKey), firstAt - 1)
         val room = GroupChat.readCreation(creation.envelope())
         val originals = if (group) listOf(
@@ -52,7 +53,7 @@ internal fun ComposeTestRule.inspectGroupedChatViewports(group: Boolean, width: 
             waitUntil(15_000) { onNode(row, useUnmergedTree = true).isDisplayed() }
             onNode(row, useUnmergedTree = true).performClick()
             val list = onNodeWithContentDescription(if (group) "Group messages" else "Private messages")
-            waitUntil(15_000) { list.isDisplayed() }
+            waitUntil(15_000) { list.isDisplayed() && onNodeWithText(photoText).isDisplayed() }
             list.performScrollToIndex(0)
             val identity = "View identity details for $name"
             waitUntil(15_000) { onAllNodesWithContentDescription(identity).fetchSemanticsNodes().isNotEmpty() }
@@ -76,7 +77,7 @@ internal fun ComposeTestRule.inspectGroupedChatViewports(group: Boolean, width: 
                 else privateStore.load().entries.map { it.envelope })
             assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
             onNodeWithText("Back").performClick()
-            if (group) { waitUntil(15_000) { onNodeWithText("Grouped viewport room").isDisplayed() }; onNodeWithText("Back").performClick() }
+            if (group) { waitUntil(15_000) { onNode(hasText("Create group") and isEnabled()).isDisplayed() }; onNodeWithText("Back").performClick() }
             waitUntil(15_000) { onNodeWithText("New chat").isDisplayed() }
             onNodeWithText("Back").performClick()
             waitUntil(15_000) { onNode(hasText("Home") and isSelected()).isDisplayed() }

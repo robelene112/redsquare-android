@@ -12,12 +12,14 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
 /** All protocol data and signing keys are published disposable synthetic identities. */
-internal fun withAvatarJourney(theme: String, verifiedName: String? = null, block: (ActivityScenario<MainActivity>, ControlledFeedPeer,
+internal fun withAvatarJourney(theme: String, verifiedName: String? = null, watchedGroup: Pair<String, String>? = null, block: (ActivityScenario<MainActivity>, ControlledFeedPeer,
     AtomicReference<String>, AtomicInteger, SaitoWallet) -> Unit) {
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
     val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
-    val reader = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").withChatContact(author.publicKey)
+    val reader = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").withChatContact(author.publicKey).let { base ->
+        watchedGroup?.let { (id, name) -> base.withNamedChatGroup(id, name) } ?: base
+    }
     val wallets = AndroidWalletStore(context)
     val prior = wallets.loadOrCreate()
     val backend = AndroidBackendStore(context)

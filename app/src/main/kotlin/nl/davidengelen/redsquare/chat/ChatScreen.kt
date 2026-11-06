@@ -317,7 +317,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         finally { olderLoading = false }
     }
 
-    val keyboardVisible = WindowInsets.isImeVisible
+    val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
     var details by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
     SingleOwnerReveal(counterparty, Modifier.fillMaxSize()) {
     BoxWithConstraints(Modifier.fillMaxSize()) {

@@ -17,9 +17,9 @@ class GroupChatGroupingPreviewTest {
     @Test fun consecutiveGroupMessagesShareAHeaderAndAnotherVerifiedSenderStartsANewOne() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val folder = File(context.cacheDir, "group-chat-grouping-evidence").apply { mkdirs() }
-        withAvatarJourney("Dark") { activity, peer, _, _, sender ->
+        val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Published unsafe fixture only.
+        withAvatarJourney("Dark", watchedGroup = groupKey.publicKey to "Signed grouping room") { activity, peer, _, _, sender ->
             val reader = AndroidWalletStore(context).loadExisting()
-            val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Published unsafe fixture only.
             val creation = GroupChat.create(sender, groupKey.publicKey, "Signed grouping room",
                 listOf(reader.publicKey), 1_700_000_000_000L)
             val group = GroupChat.readCreation(creation.envelope())
@@ -56,7 +56,7 @@ class GroupChatGroupingPreviewTest {
                 assertEquals(3, requireNotNull(store.load(group.id)).messages.size)
                 assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                 ui.onNodeWithText("Back").performClick()
-                ui.waitUntil(15_000) { ui.onNode(groupRow, useUnmergedTree = true).isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNode(hasText("Create group") and isEnabled()).isDisplayed() }
                 ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("New chat").isDisplayed() }
                 ui.onNodeWithText("Back").performClick()

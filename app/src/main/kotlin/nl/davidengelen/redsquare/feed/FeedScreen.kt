@@ -160,7 +160,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val navigationNotice = remember { SnackbarHostState() }
     val navigationFailureMessage = stringResource(R.string.navigation_save_failed)
-    val keyboardVisible = WindowInsets.isImeVisible
+    val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
     LaunchedEffect(keyboardVisible) {
         if (keyboardVisible) navigationNotice.currentSnackbarData?.dismiss()
     }

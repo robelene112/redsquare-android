@@ -339,7 +339,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         catch(_:Exception){historyFailed=true}
         finally{olderLoading=false}
     }
-    val keyboardVisible = WindowInsets.isImeVisible
+    val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
     var details by remember(wallet.publicKey, backend, selected) { mutableStateOf(false) }
     val entry = entries.firstOrNull { it.group.id == selected }
     val staleAction = entry?.let(store::isStaleAdminAction) == true
