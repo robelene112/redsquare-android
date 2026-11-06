@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.OwnerLiveFeedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.OwnerLiveFeedTest:
+INSTRUMENTATION_STATUS: test=freshInstallationReadsTheSelectedApprovedPublicFeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.OwnerLiveFeedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed$lambda$10$lambda$9(OwnerLiveFeedTest.kt:136)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.$r8$lambda$7ZtMPVWMmbBDeNcImPUUL-e2AIs(OwnerLiveFeedTest.kt:0)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed(OwnerLiveFeedTest.kt:132)
+
+INSTRUMENTATION_STATUS: stream=
+Error in freshInstallationReadsTheSelectedApprovedPublicFeed(nl.davidengelen.redsquare.OwnerLiveFeedTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed$lambda$10$lambda$9(OwnerLiveFeedTest.kt:136)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.$r8$lambda$7ZtMPVWMmbBDeNcImPUUL-e2AIs(OwnerLiveFeedTest.kt:0)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed(OwnerLiveFeedTest.kt:132)
+
+INSTRUMENTATION_STATUS: test=freshInstallationReadsTheSelectedApprovedPublicFeed
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 26.199
+There was 1 failure:
+1) freshInstallationReadsTheSelectedApprovedPublicFeed(nl.davidengelen.redsquare.OwnerLiveFeedTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed$lambda$10$lambda$9(OwnerLiveFeedTest.kt:136)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.$r8$lambda$7ZtMPVWMmbBDeNcImPUUL-e2AIs(OwnerLiveFeedTest.kt:0)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed(OwnerLiveFeedTest.kt:132)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

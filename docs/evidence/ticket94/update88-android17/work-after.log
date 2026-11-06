@@ -1,0 +1,25 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReviewUpdateUiObserver:
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: reviewWorkObservation={"phase":"verify","appearance":"LIGHT","cachedPost":{"caption":"​the saito opcode periodic table","author":"bzu4bwD8h6zsgLsBDYwXPN2SZa2iiD1MpiC8g4UJjdt8","published":"Published 11\/5\/26 12:08 AM"},"draft":"Redesign update check. This is an unsent local draft.","draftRemainsUnsent":true,"offlineCacheRequired":true}
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.249
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1

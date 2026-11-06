@@ -1,6 +1,6 @@
 # Unified redesign release verification (#94)
 
-This packet is being prepared. No complete94 application pass, candidate update
+This packet is being prepared. Latest producer candidate is611a5faf3 (frame acknowledgement), with diagnostic-only614e5aff0; signed88 is now historical and must not be promoted. A fresh89 and complete final-source proof remain required. No complete94 application pass, candidate update
 or beta publication is claimed yet. Both independent source review axes report zero unresolved findings. Source
 review is separate from execution.
 
@@ -212,3 +212,34 @@ guard/payload/deadlines stay intact. Public-read progress records exact stream
 start/receipt/failure without retries or changing the12s peer/40s outer bounds.
 Best-effort diagnostics contain allocation/I/O failures so the original outcome
 cannot be replaced. Diagnostic host-command failures remain infrastructure failures.
+
+All six Group recovery viewports now pass on both SDKs, runs42179958207/
+42179961715 onf1460f91ac8ae46e34de20f27246d6846f05b89b. Both independent
+native review axes report0 findings. Standards inspected all72 PNG/XMLs; spec
+inspected28 representative pairs including all12 ready states. The Create/Join
+controls have equal138px widths, equal heights,8px gap and48dp minimum targets.
+At200%, viewport75dp fully contains the unchanged54dp invitation target. Original
+six-group/payload/visibility assertions remain. PNG/XML are separate observations.
+
+Avatar run42179964918 passes all12 original methods. Its ten Before/After
+observations record512MiB actual and declared heap in the same process4005/
+parent1662. No cause or fix of the earlier16MiB process anomaly is asserted.
+Controlled feed17 run42179968463 passes; it did not enable public_feed_read and
+therefore makes no public-node claim. Explicit public run42181154720 is pending.
+
+Signed88 built/staged onf146, SHA256
+5e1d73cc8e5e41b3110c615392709bd893e34f1e78d84de2d9595c058228d033.
+Artifact88 records actual signing/package/manifest/download verification. Stable
+latest83/page remained byte-identical. ReleaseLint passes5m22; signed build4m35.
+Actual83-to88 update runs42181453221/42181456326 and complete full10/17
+42180009480/42180012702 are pending. Old3f4 Android17 social was cancelled when
+its superseding full scope started; its wallet/chat were already failed. No old
+or focused assembly establishes a full pass. Native final review and actual
+public promotion remain required.
+
+Focused notification repair47fe passes original11methods and process tails on
+Android10/17, runs42189232818/42189236232. Original focused-chat-alert47fe10/17
+packets retain77PNG/77XML each. Standards inspected20 selected pairs, spec36,
+zero actionable findings:48dp Dismiss disjoint Node control, exact draft retained,
+actual category/preview/consent states correct.17 work-retained XML precedes its
+PNG dismissal result; observations are non-atomic. This is focused proof only.

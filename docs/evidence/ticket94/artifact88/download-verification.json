@@ -1,0 +1,13 @@
+{
+  "manifestUrl": "https://davidengelen.nl/redsquare/releases/88/manifest.json",
+  "downloadedSha256": "5e1d73cc8e5e41b3110c615392709bd893e34f1e78d84de2d9595c058228d033",
+  "actualBuildSource": "f1460f91ac8ae46e34de20f27246d6846f05b89b",
+  "applicationFullProofSource": "f1460f91ac8ae46e34de20f27246d6846f05b89b",
+  "actualReleaseVariant": "release",
+  "stableBeforeStaging": {
+    "latest.json": "55af2f8b3a0a49c14ce852eacd3f4779149ed37407f48b04eb3d1d1796f07cf8",
+    "index.html": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "stableUnchanged": true,
+  "limits": "Full application gates execute their declared debug/release/performance configurations. Native in-place update exercises the actual signed ordinary88 APK. No physical Pixel/provider/store claim."
+}

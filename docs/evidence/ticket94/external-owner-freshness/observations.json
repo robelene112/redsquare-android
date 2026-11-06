@@ -1,0 +1,31 @@
+{
+  "publicReadOnly": true,
+  "nativeFailureRun": "https://github.com/robelene112/redsquare-android/actions/runs/42182473604",
+  "publicAddressSource": "Disposable emulator public receiving address",
+  "responses": [
+    {
+      "backend": "owner",
+      "host": "saito.davidengelen.nl",
+      "httpDate": "2026-11-06T07:48:58+00:00",
+      "snapshotTimestamp": 1793845855081,
+      "snapshotAtUtc": "2026-11-05T02:30:55.081000+00:00",
+      "height": 1180213,
+      "ageMinutesAtObservation": 1758.04865,
+      "freshWithinOriginal15Minutes": false,
+      "bytes": 92
+    },
+    {
+      "backend": "official",
+      "host": "saito.io",
+      "httpDate": "2026-11-06T07:48:58+00:00",
+      "snapshotTimestamp": 1793951324771,
+      "snapshotAtUtc": "2026-11-06T07:48:44.771000+00:00",
+      "height": 1183682,
+      "ageMinutesAtObservation": 0.22048333333333334,
+      "freshWithinOriginal15Minutes": true,
+      "bytes": 92
+    }
+  ],
+  "laterMultiHostObservationAttempt": "Timed out before completion; not accepted as a current multi-host health observation. Earlier original HTTP responses retained.",
+  "limits": "The owner public snapshot was stale and the original freshness guard correctly returned unavailable. Service is active; upstream HTTP observations were recent during diagnosis. No root cause or successful recovery is claimed. No service/configuration/wallet/database changes were made."
+}

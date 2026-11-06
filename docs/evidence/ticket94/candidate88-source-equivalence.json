@@ -1,0 +1,22 @@
+{
+  "actualSignedBuildSource": "f1460f91ac8ae46e34de20f27246d6846f05b89b",
+  "newObserverSource": "0c9e8cb8207402f35144ecc96207316378d6c4ac",
+  "signedVersion": 88,
+  "signedSha256": "5e1d73cc8e5e41b3110c615392709bd893e34f1e78d84de2d9595c058228d033",
+  "method": "SHA256 over sorted Git-tracked path, mode, content length and raw content for every tracked blob outside docs/ and app/src/androidTest/. This is a conservative superset of consumer source/build inputs.",
+  "trees": {
+    "f1460f91ac8ae46e34de20f27246d6846f05b89b": {
+      "trackedInputCount": 525,
+      "sha256": "3585f73904717be21a62ee493b8bcf1566bdb2b12da1108d6606dde2b3f74133"
+    },
+    "0c9e8cb8207402f35144ecc96207316378d6c4ac": {
+      "trackedInputCount": 525,
+      "sha256": "3585f73904717be21a62ee493b8bcf1566bdb2b12da1108d6606dde2b3f74133"
+    }
+  },
+  "changedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FeedPreviewTest.kt"
+  ],
+  "equivalentConsumerInputs": true,
+  "limits": "Not the same complete Git revision, test harness, generated version/configuration or debug/release binary. Actual signed88 artifact identity and its83-to88 update observations remain separately recorded. Full gates must be named by their actual execution source; no failed or unrelated run is relabelled."
+}

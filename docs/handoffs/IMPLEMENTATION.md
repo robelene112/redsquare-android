@@ -8,54 +8,100 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## Active #94: validate integration repairs, fresh88, complete proof and publish
+## Active #94: finish independent repairs, then authorized node recovery and final beta
 
-CURRENT07:18UTC. Worktree/mnt/storage/redsquare-android-artifacts/redesign86,
-branchcodex/unified-redesign. CanonicalChatWIPuntouched. Ownerauthorizedallfive
-andbeta, noquestions/nointermediatestop. #90/#93/#81/#83closed, #94active.
-Latestpublic83. Signed87staged/hash618e1944abdfb1a43baae76c5739d50ae6717a0a74510db9e5e43b01d6f98d3d
-actualbuild3f4. Actual83→87update10/17 42176242111/42176245109PASS; bothnative
-reviewaxes0, all30PNG/28XML. Wallet/draft/cache/Light/UIDisolation/restoration
-pass. Artifact87/update87-*proof retained. ReleaseLint3f4passed5m43.
+Current committed HEAD: `614e5aff006b46ab7d58b6c37fd12dd34621f48e`, branch
+`codex/unified-redesign`, worktree `/mnt/storage/redsquare-android-artifacts/redesign86`.
+First four tickets are closed;94 remains active. Preserve canonical Chat WIP.
+Latest public beta is83. No89 build/publication and no accepted full94 pass yet.
 
-DO NOTPROMOTE87: newrealGroupChatScreenproductrepairrequiresfresh88. Full3f4
-runs42175546621/42175549525failed (10allthree,17wallet/chat;17socialstill
-running07:16). Preservefailedoutcomes, nofalsefullassembly. Failuresretained
-ticket94/failures/full3f4 andexternalrawredesign94-full10/17-3f4-RUN.
-1)10WalletFeedPreview unavailable-cachepull:138noRPC: per-methodPNGmidlist09/08.
-Testonlyfixexplicitindex0+observedaxis0beforeeachphysicalswipe, original15s
-request/content/warning/restorationretained, recoverystrengthenedfreshrequest+
-Feedupdated+warningabsentsame15s. Commit156efb46a. Focusedall6originalmethods
-180s 42178516118/42178519371BOTH PASS. Full11/600unchanged.
-2)10SocialAvatarRecoverylargeallocationguard:actualmax16MiBdeclared512, before
-payload. Historical59/82samenondeterministicfreshprocessanomaly, nocauseproved.
-NewBefore/Afterprocessheap/PID/PPID/64bit/flagsdiagnostics+boundedhostproperties/
-ps/AVD. Noheapraises/servicerestarts/skips/retrieswaived/guardremoval.
-3)17WalletOwnerLiveFeedTest12sRPCtimeoutafteractualfeedvisible. Newbest-effort
-streamstart/received/failedtime/typecapture, unchanged12s/40s/noautomaticretry.
-4)BothChatGroupInvitationRecovery:172,320font200light: groupviewport51dp versus
-54dpUseinvitationbuttonoscillatesclipping. GroupCreate/Joinnowequalwidth/height
-Row, naturaltextwrapsamefonts/actions. Retainoriginal6groupsemantics/15sfull
-visibility/payloadassertions. Sixinitialreadycapturesinsideexistingarchive.
+Owner public balance/options snapshot was stale since2026-11-05 02:30:55UTC,
+height1180213 at07:49 Nov6. Original15-minute freshness check correctly rejects
+it. Service active, block production disabled; no cause/recovery proved. No
+production service/configuration/wallet/database changed. OWNER_INPUTS.md retains
+needed explicit operational authorization. Do not restart the node from app
+publication authorization. Finish independent app work before asking for the
+concrete operational approval; no question asked yet. KVK/provider/Pixel/Play
+remain separately pending.
 
-Currentrepaircodeafter156 reviewedbothaxes0, includingfailurepathlazyinline
-diagnosticallocationcontainment. Localwritercompilecurrentlyactive (session52274),
-logredesign94-group-actions-compile.txt, main+instrumentationKotlin. Newchanges
-needcommit/push, thenfocusedgroup-invitation-recovery10/17, avatars10runtime
-diagnosis, feed17actualpublicstage. Waitlastold17socialresultfordiagnosis.
-Freshfinalfull10/17 musteachbeonecompleteall3successfulpartitionrun, samefrozen
-source. Fullcatalogunchanged626/627IDs,211classes,228/229normal,35interruptions,
-34continuities,177exactpartitionarchives. Original600foundationandallclass
-deadlinesremain. No@TestIDsadded. Collector/helper/catalogfrozenbeforeexecution.
+Historical signed88 is built/staged on f1460f91ac8ae46e34de20f27246d6846f05b89b,
+SHA2565e1d73cc8e5e41b3110c615392709bd893e34f1e78d84de2d9595c058228d033.
+83-to88 update10/17 runs42181453221/42181456326 pass, both native axes0 across
+30PNG/28XML. Producer changes invalidate88 for promotion. Fresh89 required.
 
-Afterallproductrepairsvalidated: build/stage88, sourceactualnewHEAD; actual83→88
-update10/17 needed (87proofhistorical). Full10/17 andnative/motionreview across
-modulesrequired. Preparedexternalnativeplansinredesign94-final-native-review-*;
-resolveactualfilenamesagainstfreshfullpackets. Fullcollectoronlyall-successsame
-source; neverassemblefocused/oldruns. Thenpromoteexact88withidenticalnotesfrom
-externalredesign94-beta-notes.txt, publicpage/latest/hashverify, completecommit/
-push/close94. #1/#36/#55/#84independentacceptance stayopen. ActualStack,physical
-Pixel/provider/KVK/Playpending. NoVPSnodechanges/publictransactions.
+47fe producer repair places notification failure guidance in the actual Column
+below ReadingHeader, above weighted content; it previously overlapped chrome so
+Dismiss hit Node info. Fade180 reserves full geometry, exiting controls disabled,
+mounted conversation/draft/routes retained. Settings helpers enter Notifications
+and privacy and close via actual Done. Focused original11methods+process tails
+PASS both SDKs42189232818/42189236232. Packets focused-chat-alert47fe10/17 retain
+77PNG/77XML each plus originals/provenance. Native standards reviewed20pairs and
+spec36pairs, zero findings. Dismiss176x48 disjointNode, exactdraft retained,
+preview/consent states correct.17 work-retained XML precedes dismissal while PNG
+shows it completed, non-atomic qualification retained. Not full acceptance.
+
+Reveal remained one-intermediate-frame failure on17 through b16. Actual alpha
+trace agrees with native movie; no decoder/scale/readiness defect proved. b16
+frame callback probe10PASS42191277835/17FAIL42191281725 shows late acknowledgement
+while the animation already runs. Callback is posted to main, so timestamp is an
+upper bound on submission, not exact GPU time or proof of44% pre-submission loss.
+611 producer candidate awaits owned actual first-frame acknowledgement then the
+unchanged frame wait/180ms tween. It registers from first content draw, requests
+one real invalidate because ViewRoot may already have collected callbacks, and
+unregisters/cancels on disposal. Initial/zero/nonhardware paths retained, input
+never blocked. Both source axes0 after forward-progress repair. It remains an
+experiment until unchanged native movie criteria pass both SDKs.
+
+Username0d34 corrects offscreen preview captures and records method times.
+10PASS16methods42190165141 Time120.325;17run42190168672 times out180 after15passes,
+16started, no JUnit failure. First3 add37.832s, captures only3.116s of that delta.
+611 adds optional phase observations (launch/recreation/profile identity/waits/
+username/picker/Cancel), no actions/assertions/bounds changed.614 moves all phase
+string construction inside protected diagnostic catch, preserves original failures.
+Local compile611 SUCCESS4m35; final diagnostic614 will compile in subsequent CI.
+
+RUNNING exact611, do not duplicate:
+- destination-reveal10/17:42193295646/42193299285.
+- usernames10/17:42193304556/42193308497.
+These are diagnosis/focused runs, not full acceptance. Source611 differs from614
+only by protected diagnostic construction. Do not claim614 itself executed.
+
+Previous readiness repairs:
+- FeedPreview cache pulls now explicitly index0/axis0 before physical swipe.
+  New refresh/recreate observation also requires actual ready Refresh with body,
+  and Feed updated plus original request count before recreation; same15s waits.
+  Commit0c9e8cb8207402f35144ecc96207316378d6c4ac. All six methods pass both SDKs
+  42182466792/42182470070. Public attempt42182473604 reaches owner requests
+  successfully, then correctly fails balance freshness. Prior42181154720 failed
+  local refresh readiness before public reads. No public pass is claimed.
+- AccountMenuFixture now reveals once, waits fully unclipped48dp stable Account
+  plus reveal-action removal, taps once and observes Settings in one5s budget.
+  Post presentation10/17 pass42186788857/42186792220 on da7db40dd. Both source axes0.
+- Group recovery f146 passes42179958207/42179961715, native axes0: viewport75dp
+  contains54dp target at200%, original six-group/payload assertions retained.
+- Avatar10f14642179964918 all12 pass; ten method observations actual/declared512MiB
+  samePID4005,parent1662. No cause/fix of historical16MiB anomaly is asserted.
+
+No accepted complete full yet. Old3f4 full10 failed all3;17 wallet/chat failed,
+social cancelled. f146 full10 cancelled after wallet failed; full17 all3 failed
+(wallet stale owner, chat reveal, social old Done).0c9 full10 run42183002428 all3
+failed (wallet stale owner, social Account helper, chat consent helpers/banner).
+All raw directories named redesign94-fullSDK-SOURCE-RUN under artifact root.
+Retain failed originals; never assemble focused/tails into a false full pass.
+Frozen94 catalog still626/627 IDs,211classes,228/229normal,35interruptions,
+34continuities,177 exact partition archives. No new @Test IDs. Collector hashes
+and literal inputs were committed before execution. Original bounds stay.
+
+Next: finish independent code/diagnosis and focused native proofs, retain failures,
+then concrete node recovery approval is needed before live owner gate can pass.
+After authorized recovery/final producer source, build/stage89, actual83-to89
+updates both SDKs, complete all3-partition full10/17 on one actual source, frozen
+collector and both final native/motion reviews. Prepared external native helpers
+are redesign94-final-native-review-plan and redesign94-final-native-review-standards;
+update their source and resolve actual paths. Only then promote exact candidate
+with identical notes externalredesign94-beta-notes.txt, verify public latest/page/
+download hash, completion commit/push/close94. #1/#36/#55/#84 stay separate.
+Storage last46GB additional/47GB root free. Root has not asked owner to test phones.
 
 ## #83 complete, continue #94 and publish beta
 

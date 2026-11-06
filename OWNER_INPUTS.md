@@ -1,6 +1,6 @@
 # Nog nodig van David
 
-Bijgewerkt: 20 oktober 2026. Dit is het centrale overzicht voor jouw bijdragen
+Bijgewerkt: 6 november 2026. Dit is het centrale overzicht voor jouw bijdragen
 aan de eerste release. Werk dit document bij zodra iets geregeld is. De agent
 houdt de status bij en gaat ondertussen verder met herkenbare placeholders en
 concepten. Een placeholder geldt nooit als een afgeronde integratie, geldende
@@ -115,3 +115,23 @@ beheeractie die buiten bestaande toestemming valt komt terug in dit overzicht.
 Play-inzending en wijzigingen aan live nodes/cloud volgen hun eigen concrete
 publicatie- of beheerprocedure. Ontbrekende bewijsstukken worden niet vervangen
 door placeholders om een issue te kunnen sluiten.
+
+## Beheeractie voor de achterlopende node (#94)
+
+- [ ] Toestemming voor een concrete herstelactie aan de productie-node. Een
+  mogelijke eerste stap is één gecontroleerde herstart van `saito.service`,
+  gevolgd door begrensde controle op synchronisatie en actuele saldosnapshots.
+  De agent doet de technische uitvoering en vraagt de concrete actie ter
+  goedkeuring zodra het zelfstandige appwerk gereed is. De oorzaak en het
+  resultaat van een herstart staan nog niet vast.
+
+Alleen-lezen vastgesteld op 6 november rond 07:49 UTC: jouw node leverde
+block1180213 met tijdstip 5 november 02:30:55 UTC, ruim29 uur oud. De actuele
+snapshot van Saito.io en beide ingestelde upstreams waren recent. De service
+draait en blockproductie blijft uitgeschakeld. Er zijn geen nodeconfiguraties,
+wallets, databases of services gewijzigd.
+
+De app weigert dit oude saldo terecht als actueel te tonen. De bestaande
+vijftienminutengrens wordt behouden. Daardoor kan de verplichte openbare
+saldo-acceptatie op jouw node nog niet slagen. Dit is een echte beheerafhankelijkheid,
+geen ontbrekende KVK-invoer, en wordt niet met een placeholder afgetekend.
