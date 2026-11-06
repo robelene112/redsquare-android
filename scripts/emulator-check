@@ -29,12 +29,17 @@ acceleration=off
 [[ ! -r /dev/kvm ]] || acceleration=on
 test_memory=1536
 test_cores=1
+host_cores=$(getconf _NPROCESSORS_ONLN)
+[[ "$host_cores" =~ ^[1-9][0-9]*$ ]] || { echo 'Unknown host CPU capacity' >&2; exit 1; }
 if [[ "$acceleration" == on ]]; then
-    # Android 17 System UI has hung under the single-core boot allocation.
-    # Hosted KVM runners can give the test image two cores and 2 GiB.
+    # Share the standard public runner's available capacity with the software
+    # renderer and recorder instead of constraining all guest work to two CPUs.
     test_memory=2048
     test_cores=2
+    if ((host_cores >= 4)); then test_cores=4; fi
 fi
+printf 'host_cores=%s\nguest_cores=%s\nguest_memory_mb=%s\nacceleration=%s\n' \
+    "$host_cores" "$test_cores" "$test_memory" "$acceleration" > "$evidence/emulator-capacity.txt"
 emulator -avd redsquare-proof -accel "$acceleration" -no-window -no-audio -no-snapshot \
     -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores "$test_cores" -memory "$test_memory" \
     > "$evidence/emulator.log" 2>&1 &
@@ -47,6 +52,8 @@ for ((attempt=0; attempt<120; attempt++)); do
     sleep 5
 done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
+timeout 15 adb shell getconf _NPROCESSORS_ONLN > "$evidence/emulator-online-cpus.txt"
+[[ "$(tr -d '\r\n' < "$evidence/emulator-online-cpus.txt")" == "$test_cores" ]] || { echo 'Actual guest CPU count differs from its declared allocation' >&2; exit 1; }
 printf '%s\n' "$TEST_SYSTEM_IMAGE" > "$evidence/system-image.txt"
 cp "$ANDROID_HOME/${TEST_SYSTEM_IMAGE//;/\/}/source.properties" "$evidence/system-image.properties"
 printf '%s\n' "${TEST_PAGE_SIZE:-default}" > "$evidence/requested-page-size.txt"
