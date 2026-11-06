@@ -1,6 +1,50 @@
 # Unified redesign release verification (#94)
 
-## ACTIVE: all final S verification/reviews accepted, exact89 promotion now authorized
+## Completed: unified redesign beta89 delivered on November6,2026
+
+The five authorized tickets90/93/81/83/94 are implemented, verified and delivered.
+Review page: https://davidengelen.nl/redsquare/
+Signed ordinary update: https://davidengelen.nl/redsquare/releases/89/redsquare.apk
+Public latest is89, previously83. Promotionexit0, publicpage/latest HTTP200 and
+actual38918691-byte APK download SHA256
+`6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5` match.
+Actual publication receipts and unchangednotes are in `publication89`.
+
+Final native consumer source `ed819bc1cc121920e3aae6b12e335363ad8d0f3a` (S),
+immutable tag `proof-redesign94-ed819bc`. Complete Android10run42280027569 and
+Android17run42280031596 both allthree partitions SUCCESS withpublicreads. Frozen
+collectors pass625+1 inherited Profile assumption and627+0, exact626/627IDs,
+211classes/177archives each, original runtime/process/tool/validator requirements.
+Original Q frozen-verifier and R17 setup failures remain explicitly historical;
+no focused/tail assembly or retroactive freeze acceptance.
+
+Final native review axes have zero unresolved actionable findings using only
+fresh S10/S17 originals. Standards134PNG/133XML perSDK,42movies each and416/516
+uniqueoriginalframes. Spec121stills/28movies perSDK,284/286inspectedframes from
+602/878decoded. Exact reviewed paths/hash/frameindices in `final-native-reviews`.
+Meaningful320/412,100/130/200%,light/dark/IME/recovery andactualnormal/zero motion
+are covered acrossnavigation/feed/writing/thread/profile/Activity/Chat/wallet/
+Settings. Non-atomiccapture and boundedselection limits remain explicit.
+
+Signed89 actual producer is `95725b005d086c970118054e78046db10563a76c` (B).
+439 audited APK-input paths/modes/types/blobs equal B→S; original440superset
+retains exactlyone non-APK CI workflow difference. Artifact,releaseconfiguration,
+certificate and original actual83→89 updateB proofs42195571040/42195575094 remain
+separate. No new APK/fullrevision/debug-release binary equality claim.
+
+Owner UI acceptance55, physical Pixel/provider/KVK/Play36, audit84/spec86 and
+first-release1 retain their own criteria. Stack is explicitly a designpreview;
+real protocol/publishing/subscription/payment integration remains first-release
+work under1. Do not auto-close these parents. The owner's five-ticket cohort is
+complete; do not start further issues without the next owner request.
+
+Root worktree /mnt/storage/redsquare-android-artifacts/redesign86, branch
+codex/unified-redesign. Canonical checkout's unrelated Chat WIP is untouched.
+No local builder, CI or review implementation work remains running. One approved
+node restart completed11:08:07UTC; no additional production mutation performed.
+Historical checkpoints below preserve actual earlier outcomes, not active tasks.
+
+## Historical checkpoint: all final S verification/reviews accepted, exact89 promotion now authorized
 
 Both complete S workflows/frozen collectors pass on exacted819bc1c:10run
 42280027569 (625+1 inherited Profile assumption),17run42280031596 (627+0).

@@ -1,5 +1,18 @@
 # Project context
 
+## Delivery checkpoint, November6,2026
+
+The owner-authorized five-ticket redesign cohort90/93/81/83/94 is delivered as
+signed ordinary beta89 at https://davidengelen.nl/redsquare/. Complete same-source
+Android10/17 gates, frozen collectors, both actual native/motion review axes,
+original signed83→89 continuity and actual public checksum verification pass.
+See `docs/evidence/ticket94/README.md` for exact producer/consumer provenance,
+retained failures and bounded review limits. Normal updates retain package and
+certificate. Stack remains explicitly a designpreview; real Stack integration
+is still first-release work under1. Owner visual55, audit84/spec86 and physical/
+provider/KVK/Play36 acceptance remain independent. This delivery does not close
+those parents or authorize starting another ticket automatically.
+
 ## Desired outcome
 
 Build a professional, fast Android app for Saito's Red Square. Preserve familiar
