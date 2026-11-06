@@ -48,8 +48,8 @@ fun captureNativeScreen(file: File, expectedText: String? = null) {
     }
 }
 
-/** Keep exact matching for every native string that UiAutomator can export without substitution. */
-private fun nativeXmlPreserves(value: String): Boolean = value.isNotEmpty() && value.codePoints().noneMatch { point ->
+/** A dot can be an exported control character, so these strings retain raw native exact lookup. */
+private fun nativeXmlPreserves(value: String): Boolean = value.isNotEmpty() && '.' !in value && value.codePoints().noneMatch { point ->
     (point < 0x20 && point != 9 && point != 10 && point != 13) ||
         (point in 0x7f..0x9f && point != 0x85) || point in 0xd800..0xdfff ||
         point in 0xfdd0..0xfdef || (point and 0xffff) in 0xfffe..0xffff
