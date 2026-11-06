@@ -18,6 +18,7 @@ internal fun ComposeTestRule.revealAppNavigation() {
         onNode(navigation).performCustomAccessibilityActionWithLabel("Show app navigation")
 }
 
+@OptIn(ExperimentalTestApi::class)
 internal fun ComposeTestRule.openAccountMenu() {
     val menu = (hasText("Wallet") or hasText("Settings")) and hasClickAction() and hasAnyAncestor(isPopup())
     val settings = hasText("Settings") and menu
@@ -43,11 +44,21 @@ internal fun ComposeTestRule.openAccountMenu() {
             check(android.os.SystemClock.elapsedRealtime() <= deadline)
             return
         }
-        revealAppNavigation()
+        val requestedReveals = mutableSetOf<Int>()
         val account = onNode(hasContentDescription("Account") and hasClickAction() and isEnabled())
         var previous: androidx.compose.ui.unit.DpRect? = null
         waitUntil(remaining()) {
-            val settled = onAllNodes(appNavigationRevealAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+            val navigation = appNavigationRevealAction()
+            val available = onAllNodes(navigation).fetchSemanticsNodes(atLeastOneRootRequired = false)
+            // Configuration replacement can expose the reveal action after this
+            // helper starts. Request it once per actual semantic host, without
+            // repeatedly restarting that host's running reveal animation.
+            val host = available.singleOrNull()
+            if (host != null && requestedReveals.add(host.id)) {
+                onNode(navigation).performCustomAccessibilityActionWithLabel("Show app navigation")
+                retain("requested", false, false, "semanticHost=${host.id}")
+            }
+            val settled = onAllNodes(navigation).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
             val visible = account.isDisplayed()
             if (!settled || !visible) {
                 previous = null; retain("revealing", visible, settled, null); false
@@ -57,6 +68,7 @@ internal fun ComposeTestRule.openAccountMenu() {
                 val clipped = node.boundsInRoot
                 val complete = clipped.width == node.size.width.toFloat() &&
                     clipped.height == node.size.height.toFloat() &&
+                    bounds.left >= 0.dp && bounds.top >= 0.dp &&
                     bounds.right - bounds.left >= 48.dp && bounds.bottom - bounds.top >= 48.dp
                 val stable = complete && previous == bounds
                 previous = if (complete) bounds else null
