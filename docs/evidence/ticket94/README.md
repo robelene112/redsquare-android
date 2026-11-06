@@ -1,15 +1,18 @@
 # Unified redesign release verification (#94)
 
-Current final verification source is `ecc8b8c5df82a2c999d54b41963a174b72c81670`
-(N). Complete Android10/17 runs42237989132/42237993076 execute all three partitions
-and public reads through immutable tag proof-redesign94-ecc8b8c. Both focused N
-post-presentation scopes pass the original17methods/seven classes. Native review
-finds zero product issues, with substantially delayed17XML phases explicitly
-limited. All earlier known repairs have passing focused/source/native checks.
+Current repair source is `7a0a85ed3ada21c6300b099c4b2702a7daaff2f5`
+(P). O group readiness runs42243842996/42243848456; P Like process scopes run
+42244625799/42244629662. Actual decoded callback readiness remains inside20s;
+group displayed/enabled assertions remain inside15s. Split full jobs now have a
+120-minute aggregate CI resource ceiling after an actual75-minute cancellation;
+all actual feature/class/process deadlines and frozen acceptance remain unchanged.
+Original440-path equality is explicitly false for one CI-only workflow change;
+439 independently audited APK-input-superset paths remain equal B→P. Candidate89
+keeps its actual B build, signature, release configuration and update provenance.
 No complete application pass or beta promotion is claimed. Signed candidate 89
-was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
-producer input paths, modes, types and blobs are equal from B to N. The later
-changes correct instrumentation only. See `candidate89-producer-equivalence.json`.
+was built on `95725b005d086c970118054e78046db10563a76c` (B). Current receipt
+discloses the CI-only workflow difference separately from the equal439-path
+APK-input superset; historical440-path equality below applies only through O. See `candidate89-producer-equivalence.json`.
 The actual artifact, release configuration and original update observations retain
 their separate provenance. Stable latest remains 83.
 
@@ -474,3 +477,23 @@ XML exposes its actions. PNGs and unchanged Compose/pixel assertions are distinc
 evidence. No Account popup capture exists. The frozen collector's content checks
 retain files without inventing XML phase agreement; collector remains unchanged.
 No complete N acceptance is claimed from these focused samples.
+
+
+O retains original displayed/enabled Create assertions inside their15s readiness
+window during imported group metadata reload. P waits for both actual frame
+receipt and signed decoded Like row within the original20s before genuine process
+termination. Both source axes report zero findings; focused runtime pending.
+
+The M10 Chat job exceeded its aggregate1h15m ceiling at the final private-Chat
+recovery. It remains incomplete. P increases split full CI provisioning/execution
+capacity to120minutes, matching existing unsplitfull, while retaining all original
+UI/request/assertion/class/process deadlines and frozen catalog/collector. The
+maintained workflow explicitly distinguishes resource ceilings from application
+acceptance. Both axes approve this distinction; no actual test requirement is
+waived. Original job/annotations are retained in fullM-chat10-ceiling.
+
+Original440-path superset equality is nowFALSE because the CI workflow differs.
+The independently audited439-path APK-input superset remains equal, with exact
+canonical hashes and the non-APK workflow exception in the current receipt. Both
+review axes independently recomputed it and confirmed the build boundary. No new
+APK or complete revision/debug-release binary equality is claimed.

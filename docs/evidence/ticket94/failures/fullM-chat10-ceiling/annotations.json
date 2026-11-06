@@ -1,0 +1,38 @@
+[
+  {
+    "path": ".github",
+    "blob_href": "https://github.com/robelene112/redsquare-android/blob/e604077c0de054617e82c1eaaca62b70e6b2fa39/.github",
+    "start_line": 1,
+    "start_column": null,
+    "end_line": 1,
+    "end_column": null,
+    "annotation_level": "failure",
+    "title": "",
+    "message": "The job has exceeded the maximum execution time of 1h15m0s",
+    "raw_details": ""
+  },
+  {
+    "path": ".github",
+    "blob_href": "https://github.com/robelene112/redsquare-android/blob/e604077c0de054617e82c1eaaca62b70e6b2fa39/.github",
+    "start_line": 119,
+    "start_column": null,
+    "end_line": 119,
+    "end_column": null,
+    "annotation_level": "failure",
+    "title": "",
+    "message": "The operation was canceled.",
+    "raw_details": ""
+  },
+  {
+    "path": ".scratch/talkback-tool/source/talkback/src/main/java/com/google/android/accessibility/talkback/Feedback.java",
+    "blob_href": "https://github.com/robelene112/redsquare-android/blob/e604077c0de054617e82c1eaaca62b70e6b2fa39/.scratch/talkback-tool/source/talkback/src/main/java/com/google/android/accessibility/talkback/Feedback.java",
+    "start_line": 2459,
+    "start_column": null,
+    "end_line": 2459,
+    "end_column": null,
+    "annotation_level": "warning",
+    "title": "",
+    "message": "[AutoValueMutable] An @AutoValue property that is a primitive array returns the original array, which can therefore be modified by the caller. If this is OK, you can suppress this warning with @SuppressWarnings(\"mutable\"). Otherwise, you should replace the property with an immutable type, perhaps a simple wrapper around the original array.",
+    "raw_details": ""
+  }
+]

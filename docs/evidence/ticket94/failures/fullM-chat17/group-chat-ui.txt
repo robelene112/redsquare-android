@@ -1,0 +1,389 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatPreviewTest:
+INSTRUMENTATION_STATUS: test=importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #363 at (l=18.0, t=276.0, r=156.0, b=324.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Create group]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (Text + InputText + EditableText contains 'Create group' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi$lambda$151$lambda$150$lambda$149(GroupChatPreviewTest.kt:694)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$mPkQvnM8FsLqBlDs5vbG8t7HthM(GroupChatPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda87.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi(GroupChatPreviewTest.kt:687)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi$default(GroupChatPreviewTest.kt:610)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership(GroupChatPreviewTest.kt:605)
+
+INSTRUMENTATION_STATUS: stream=
+Error in importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership(nl.davidengelen.redsquare.GroupChatPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #363 at (l=18.0, t=276.0, r=156.0, b=324.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Create group]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (Text + InputText + EditableText contains 'Create group' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi$lambda$151$lambda$150$lambda$149(GroupChatPreviewTest.kt:694)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$mPkQvnM8FsLqBlDs5vbG8t7HthM(GroupChatPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda87.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi(GroupChatPreviewTest.kt:687)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi$default(GroupChatPreviewTest.kt:610)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership(GroupChatPreviewTest.kt:605)
+
+INSTRUMENTATION_STATUS: test=importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=removedAuthorsCannotHideAvailableEarlierGroupHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=removedAuthorsCannotHideAvailableEarlierGroupHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingANamedGroupRetainsTheSignedDepartureAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=22
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 132.391
+There was 1 failure:
+1) importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership(nl.davidengelen.redsquare.GroupChatPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #363 at (l=18.0, t=276.0, r=156.0, b=324.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Create group]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (Text + InputText + EditableText contains 'Create group' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi$lambda$151$lambda$150$lambda$149(GroupChatPreviewTest.kt:694)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.$r8$lambda$mPkQvnM8FsLqBlDs5vbG8t7HthM(GroupChatPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest$$ExternalSyntheticLambda87.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi(GroupChatPreviewTest.kt:687)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.exerciseIncomingGroupUi$default(GroupChatPreviewTest.kt:610)
+	at nl.davidengelen.redsquare.GroupChatPreviewTest.importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership(GroupChatPreviewTest.kt:605)
+
+FAILURES!!!
+Tests run: 22,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
