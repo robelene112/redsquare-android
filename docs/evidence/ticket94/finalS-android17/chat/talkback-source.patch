@@ -1,0 +1,69 @@
+--- a/shared.gradle
++++ b/shared.gradle
+@@ -9,6 +9,7 @@
+ android {
+     compileSdkVersion 36
+     compileOptions {
++        coreLibraryDesugaringEnabled true
+         sourceCompatibility JavaVersion.VERSION_17
+         targetCompatibility JavaVersion.VERSION_17
+     }
+@@ -17,7 +18,7 @@
+         multiDexEnabled true
+         minSdkVersion 26
+         ndk {
+-            abiFilters "armeabi-v7a", "arm64-v8a"
++            abiFilters "x86_64"
+         }
+         // We generate a build config field holding the application ID so that
+         // Java code can reference it.
+@@ -44,6 +45,7 @@
+ }
+ 
+ dependencies {
++    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+ 
+     // Google common
+     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.1'
+--- a/FailoverTextToSpeech.java
++++ b/FailoverTextToSpeech.java
+@@ -1558,6 +1558,7 @@
+ 
+     @Override
+     public void onStart(String utteranceId) {
++      LogUtils.i(TAG, "REDSQUARE_ENGINE_START utteranceId=" + utteranceId);
+       if (utteranceId.startsWith(CACHE_UTTERANCE_ID_PREFIX)) {
+         return;
+       }
+@@ -1571,6 +1572,7 @@
+ 
+     @Override
+     public void onAudioAvailable(String utteranceId, byte[] audio) {
++      LogUtils.i(TAG, "REDSQUARE_ENGINE_AUDIO utteranceId=" + utteranceId + " bytes=" + audio.length);
+       // onAudioAvailable() is usually called many times per utterance,
+       // once for each audio chunk.
+       updatePerformanceMetrics(utteranceId, /* localCache= */ false);
+@@ -1594,6 +1596,7 @@
+ 
+     @Override
+     public void onStop(String utteranceId, boolean interrupted) {
++      LogUtils.i(TAG, "REDSQUARE_ENGINE_STOP utteranceId=" + utteranceId + " interrupted=" + interrupted);
+       if (speechCacheManager != null && speechCacheManager.handleOnStop(utteranceId, interrupted)) {
+         return;
+       }
+@@ -1602,6 +1605,7 @@
+ 
+     @Override
+     public void onError(String utteranceId) {
++      LogUtils.i(TAG, "REDSQUARE_ENGINE_ERROR utteranceId=" + utteranceId);
+       if (speechCacheManager != null && speechCacheManager.handleOnError(utteranceId)) {
+         return;
+       }
+@@ -1610,6 +1614,7 @@
+ 
+     @Override
+     public void onDone(String utteranceId) {
++      LogUtils.i(TAG, "REDSQUARE_ENGINE_DONE utteranceId=" + utteranceId);
+       if (speechCacheManager != null && speechCacheManager.handleOnDone(utteranceId)) {
+         return;
+       }

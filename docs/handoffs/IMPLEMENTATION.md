@@ -1,6 +1,32 @@
 # Implementation handoff
 
-## ACTIVE: source S, precise TalkBack setup activation, focused and full gates running
+## ACTIVE: both complete S gates and frozen collectors pass, final native review pending
+
+Source `ed819bc1cc121920e3aae6b12e335363ad8d0f3a`, immutable tag
+`proof-redesign94-ed819bc`. Android10run42280027569 and17run42280031596 both
+COMPLETE SUCCESS, allthree partitions/publicreads. Frozen collectors pass625+1
+inherited Profile assumption and627+0 respectively. Exact626/627 identities,
+211classes,177archives perSDK and all original normal/process/recovery/deadline/
+tool/validator goals are retained. No focused/tail assembly. Packets
+`finalS-android10` and `finalS-android17` include actual originalsha inventories.
+
+S10 actual finalnative reviews both zero: Standards134PNG/133XML/384unique
+frames from38movies; Spec121stills/28movies/284inspectedframes of602decoded.
+S17 finalnative reviews are NOW running on actualnewS17 originals. Wait for both
+axes FINALtwoSDKreports/actual reviewed receipts before publication. Do not use
+priorR10 partial reviews as finalS. Reviewer tasksfinal94_native_standards/spec
+are read-only, rootsolewriter. No further implementation/codechange warranted.
+
+Signed89 remains actualproducerB with439audited equal APK-input paths B→S and
+explicit440-path CI-only workflow exception. Original signed83→89 updateB
+passes42195571040/42195575094 remain separate. 89staged/latest83. After native
+reviews zero: promote exact89 unchanged notes, verifypublic latest/page/APKhash,
+retain actualpublicationproof, completioncommit/push/comment and close94only.
+Keep1/36/55/84/86 and independentStack/Pixel/provider/KVK/Play criteria open.
+One authorized node restartfulfilled11:08:07UTC; no newnodemutation. Owner's
+five-ticket/beta authorization remains active until delivery is complete.
+
+## Previous: source S, precise TalkBack setup activation, focused and full gates running
 
 CODE S `ed819bc1cc121920e3aae6b12e335363ad8d0f3a`, immutable tag
 `proof-redesign94-ed819bc`. Root solewriter. #90/#93/#81/#83closed, #94open.

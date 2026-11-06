@@ -1,0 +1,153 @@
+--------- beginning of main
+V/talkback: A11yEventProcessor( 2080): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+W/talkback: DirectionNavigationInterpreter( 2080): Accessibility focus is not assigned by TalkBack. Unable to find source action info for event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=3614292  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 2080):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 3614292; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=HintableEvent{  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints( 2080):    toFeedback()()
+V/talkback: Mappers( 2080):      eventType=32768
+V/talkback: Mappers( 2080):      forceFeedbackEvenIfAudioPlaybackActive=false
+V/talkback: Mappers( 2080):      forceFeedbackEvenIfMicrophoneActive=false
+V/talkback: SpannableUtils( 2080): text(Amount: 6.25 SAITO) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+D/talkback: AccessibilityFocusMonitor( 2080): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor( 2080): Failed to get the editing node.
+V/talkback: SpannableUtils( 2080): text(Amount: 6.25 SAITO) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: AccessibilityFocusHint( 2080):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint( 2080):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint( 2080):     nodeRoleHint={}
+V/talkback: AccessibilityFocusHint( 2080):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint( 2080):     isLongClickable: false
+V/talkback: HintFeedbackRule( 2080):   speakHintText: (74518) , hint={}, hintType=1,
+V/talkback: TalkBackFeedbackProvider( 2080):  EVENT_SPEAK_HINT:  ttsOutput=     queueMode=0  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline( 2080): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292, failovers=[Part= interruptGroup=0  interruptLevel=2  ]}
+D/talkback: Actors( 2080): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Pipeline( 2080): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Mappers( 2080):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 3614292; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers( 2080):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline( 2080): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors( 2080): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline( 2080): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline( 2080): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 2080): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 2080): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: ProcessorEventQueue( 2080): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=3614292  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+W/talkback: SelectorController( 2080): newItemFocused Return. FocusActionInfo is null
+D/talkback: TouchInteractionMonitor( 2080): setSupportLiftToType/focused on Lift-to-type node:FALSE
+V/talkback: Mappers( 2080):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 3614292; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=AccessibilityFocused{  }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@12316; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(34, 222 - 167, 243); boundsInWindow: Rect(0, 0 - 0, 0); packageName: nl.davidengelen.redsquare.dev; className: android.widget.TextView; text: Amount: 6.25 SAITO; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_NEXT_AT_MOVEMENT_GRANULARITY, ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, ACTION_CLEAR_ACCESSIBILITY_FOCUS, ACTION_SET_SELECTION]
+V/talkback: Mappers( 2080):    needsCaption=false
+V/talkback: Compositor( 2080): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+W/talkback: AccessibilityInterpretationUtils( 2080): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: AccessibilityNodeFeedbackUtils( 2080):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription( 2080):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils( 2080):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription( 2080):       treeNodesDescription:   (74518), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription( 2080):     getAppendedTreeDescription: (74518)    accessibilityNodeError=""  , treeDescription={Amount: 6.25 SAITO} ,  tooltip=""  
+V/talkback: TreeNodesDescription( 2080):   treeDescriptionWithLabel: , appendedTreeDescription={Amount: 6.25 SAITO}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription( 2080): aggregateNodeTreeDescription:  (74518), treeDescriptionWithLabel={Amount: 6.25 SAITO}, disabledStateOrReadOnlyState=, selectedState=, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 2080): windowTransitionState: isWindowIdChanged=false, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 2080): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 2080):     nodeTreeDescription={Amount: 6.25 SAITO}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 2080):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 2080):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 2080):  viewAccessibilityFocused: (74518) , ttsOutput={Amount: 6.25 SAITO}, isInitialFocus=false, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider( 2080):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= Amount: 6.25 SAITO    queueMode=9  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903108  earcon=2131820556  
+D/talkback: Pipeline( 2080): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292, failovers=[Part= speech= action=SPEAK  text="Amount: 6.25 SAITO"  options= earcons=[2131820556]  haptics=[2130903108]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors( 2080): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292 part=Part= speech= action=SPEAK  text="Amount: 6.25 SAITO"  options= earcons=[2131820556]  haptics=[2130903108]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo( 2080): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo( 2080): TextFormattingInfo from current chunk= sourceTextBegin=0  sourceTextEnd=18  diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl( 2080): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator( 2080): next --currentFeedbackFragment text = Amount: 6.25 SAITO.
+V/talkback: FeedbackController( 2080): playAuditory() resId=2131820556 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292
+V/talkback: FeedbackController( 2080): playHaptic() resId=2130903108 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292
+V/talkback: SpeechControllerImpl( 2080): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl( 2080): Speaking fragment text="Amount: 6.25 SAITO", utteranceId=talkback_93, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:3614292
+D/talkback: AudioTrackSpeechCachePlayer( 2080): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer( 2080): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer( 2080): stopSpeech done
+D/talkback: SpeechCacheManager( 2080): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_93, text=Amount: 6.25 SAITO, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech( 2080): tts.speak, utteranceId =talkback_93
+D/talkback: FailoverTextToSpeech( 2080): Speak call for talkback_93 returned 0
+V/talkback: Pipeline( 2080): execute() success=true for part=Part= speech= action=SPEAK  text="Amount: 6.25 SAITO"  options= earcons=[2131820556]  haptics=[2130903108]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_START utteranceId=talkback_93
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=4394
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+D/MediaCodecList( 2080): codecHandlesFormat: no format, so no extra checks
+I/MediaCodec( 2080): Retry enabled for HDCP failure
+W/ndroid.talkback( 2080): Failed to query component store for system resources: 6
+D/CCodec  ( 2080): allocate(c2.android.vorbis.decoder)
+I/CCodec  ( 2080): setting up 'default' as default (vendor) store
+D/AidlBufferPool( 2080): bufferpool2 0x7d132aab5558 : 0(0 size) total buffers - 0(0 size) used buffers - 1/7 (recycle/alloc) - 6/82 (fetch/transfer)
+D/AidlBufferPool( 2080): Destruction - bufferpool2 0x7d132aab5558 cached: 0/0M, 0/0% in use; allocs: 7, 14% recycled; transfers: 82, 93% unfetched
+W/ndroid.talkback( 2080): AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. Use AIBinder_DeathRecipient_setOnUnlinked to manage the lifetime of the cookie. This will become an abort.
+I/CCodec  ( 2080): Created component [c2.android.vorbis.decoder] for [c2.android.vorbis.decoder]
+D/CCodecConfig( 2080): read media type: audio/vorbis
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: algo.buffers.max-count.values
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: output.subscribed-indices.values
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: input.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: output.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: algo.buffers.allocator-ids.values
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: output.buffers.pool-ids.values
+D/ReflectedParamUpdater( 2080): extent() != 1 for single value type: algo.buffers.pool-ids.values
+I/CCodecConfig( 2080): query failed after returning 8 values (BAD_INDEX)
+D/CCodecConfig( 2080): c2 config diff is Dict {
+D/CCodecConfig( 2080):   c2::u32 coded.bitrate.value = 64000
+D/CCodecConfig( 2080):   c2::u32 input.buffers.max-size.value = 32768
+D/CCodecConfig( 2080):   c2::u32 input.delay.value = 0
+D/CCodecConfig( 2080):   string input.media-type.value = "audio/vorbis"
+D/CCodecConfig( 2080):   c2::u32 output.large-frame.max-size = 0
+D/CCodecConfig( 2080):   c2::u32 output.large-frame.threshold-size = 0
+D/CCodecConfig( 2080):   string output.media-type.value = "audio/raw"
+D/CCodecConfig( 2080):   c2::u32 raw.channel-count.value = 1
+D/CCodecConfig( 2080):   c2::u32 raw.sample-rate.value = 48000
+D/CCodecConfig( 2080): }
+I/MediaCodec( 2080): media_quality service unavailable, skipping updatePictureProfile
+D/CCodec  ( 2080): [c2.android.vorbis.decoder] buffers are bound to CCodec for this session
+D/CCodecConfig( 2080): no c2 equivalents for durationUs
+D/CCodecConfig( 2080): no c2 equivalents for track-id
+D/CCodecConfig( 2080): no c2 equivalents for csd-1
+D/CCodecConfig( 2080): no c2 equivalents for flags
+D/CCodecConfig( 2080): c2 config diff is   c2::u32 coded.bitrate.value = 160000
+D/CCodecConfig( 2080):   c2::u32 raw.channel-count.value = 2
+D/CCodecConfig( 2080):   c2::u32 raw.sample-rate.value = 44100
+D/CCodec  ( 2080): encoding statistics level = 0
+D/CCodec  ( 2080): setup formats input: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2080):   int32_t bitrate = 160000
+D/CCodec  ( 2080):   int32_t channel-count = 2
+D/CCodec  ( 2080):   int32_t max-input-size = 32768
+D/CCodec  ( 2080):   string mime = "audio/vorbis"
+D/CCodec  ( 2080):   int32_t sample-rate = 44100
+D/CCodec  ( 2080): }
+D/CCodec  ( 2080): setup formats output: AMessage(what = 0x00000000) = {
+D/CCodec  ( 2080):   int32_t buffer-batch-max-output-size = 0
+D/CCodec  ( 2080):   int32_t buffer-batch-threshold-output-size = 0
+D/CCodec  ( 2080):   int32_t channel-count = 2
+D/CCodec  ( 2080):   string mime = "audio/raw"
+D/CCodec  ( 2080):   int32_t sample-rate = 44100
+D/CCodec  ( 2080):   int32_t channel-mask = 3
+D/CCodec  ( 2080):   int32_t android._config-pcm-encoding = 2
+D/CCodec  ( 2080): }
+I/CCodecConfig( 2080): query failed after returning 8 values (BAD_INDEX)
+E/ndroid.talkback( 2080): Failed to query component interface for required system resources: 6
+I/libbinder.BpBinder( 2080): onLastStrongRef automatically unlinking death recipients for binder (0x7d139aa34410) with descriptor: 'android.hardware.media.bufferpool2.IAccessor'
+D/CCodecBufferChannel( 2080): [c2.android.vorbis.decoder#922] Created input block pool with allocatorID 16 => poolID 23 - OK (0)
+I/CCodecBufferChannel( 2080): [c2.android.vorbis.decoder#922] Created output block pool with allocatorID 16 => poolID 173 - OK
+D/CCodecBufferChannel( 2080): [c2.android.vorbis.decoder#922] Configured output block pool ids 173 => OK
+W/ndroid.talkback( 2080): AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. Use AIBinder_DeathRecipient_setOnUnlinked to manage the lifetime of the cookie. This will become an abort.
+W/ndroid.talkback( 2080): AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. Use AIBinder_DeathRecipient_setOnUnlinked to manage the lifetime of the cookie. This will become an abort.
+D/CCodecBufferChannel( 2080): [c2.android.vorbis.decoder#922] MediaCodec discarded an unknown buffer
+D/CCodecBufferChannel( 2080): [c2.android.vorbis.decoder#922] MediaCodec discarded an unknown buffer
+D/CCodec  ( 2080): hold CodecLooper(1) until release
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=8192
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=5040
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_93 bytes=4742
+I/talkback: FailoverTextToSpeech( 2080): REDSQUARE_ENGINE_DONE utteranceId=talkback_93
+V/talkback: SpeechControllerImpl( 2080): No next item, stopping speech queue

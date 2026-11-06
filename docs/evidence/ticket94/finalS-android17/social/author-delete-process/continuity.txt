@@ -1,0 +1,2 @@
+PASS: process death after uncertain delete; cold startup preserves the original candidate and wallet, requires explicit recovery and verifies availability without rebroadcast.
+b2dee44d9da32a249b853c4cc5ddf8508468a2ca97d02514742b303ed440eb232bf38467eb806df82f97ad94c1a85c3a945ef1600a6fc47a095b1a11b37a52e8
