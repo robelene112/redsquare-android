@@ -236,7 +236,7 @@ class PersonalControlsPreviewTest {
                 showPost("Another account reference post")
                 assertPostAbsent("Native Red Square reference post", "Another account reference post")
                 ui.openSettings()
-                ui.onNodeWithText("Node").performScrollTo().performClick()
+                ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                 ui.onNodeWithText("Muted and blocked accounts").performClick()
                 waitFor(author)
                 waitFor("Unblock account")
@@ -847,7 +847,9 @@ class PersonalControlsPreviewTest {
         // Profile actions shows a descriptive title plus a short action; the saved
         // choices list uses the full label. Select a real button in either surface.
         val entry = (hasText(label) or hasText(action)) and hasClickAction() and isEnabled()
-        ui.waitUntil(15_000) { ui.onNode(entry).isDisplayed() }
+        ui.waitUntil(15_000) {
+            ui.onAllNodes(entry).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        }
         ui.onNode(entry).performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
         // The explanation is also inline in Profile actions. A genuine confirmation
         // additionally owns Cancel; its action must not resolve to the button behind it.
