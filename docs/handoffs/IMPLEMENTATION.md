@@ -1,5 +1,32 @@
 # Implementation handoff
 
+## Current checkpoint: Q runtime passes, frozen verifier repair before R
+
+Both complete Q workflows42252100677/42252105477 SUCCESS, all three partitions.
+The unchanged frozen Q17 collector FAILS viewer-check.py:62. Its direct-label
+assumption excludes the actual focused parent's descendant-owned description.
+Actual same-PID keyboard focus, parent identity, aggregate exact description,
+focus event and completed utterance are retained. Do not call Q a frozen full
+acceptance. Original log, checker/catalog snapshots, both successful run metadata
+and actual native/speech originals are in `failures/fullQ17-viewer-verifier`.
+The full unchanged failed collector packet remains outside Git at
+`/mnt/storage/redsquare-android-artifacts/redesign94-fullQ17-frozen-collector-failure`.
+
+The corrected viewer validator preserves the direct-label branch and adds a
+strictly correlated descendant branch: exact native clickable-ancestor bounds,
+real keyboard logical-navigation PID/node/event, same-parent aggregate label,
+exact speech event and exact quoted label, matching utterance START/AUDIO/DONE
+without ERROR/STOP. Two real SDK positives and seventeen negative mutations each
+pass,36subcases in one method. Prefix timestamp/image-total counterexamples
+found during review are fixed. All runtime/tool/identity/archive/other-validator
+requirements remain. Catalog changes only this helper pin plus explicit revision
+provenance. The corrected checker/catalog MUST be committed before new complete
+R runs. No retroactive editing of Q's frozen acceptance.
+
+Signed89 remains staged, latest83. This checker-only repair does not change any
+APK producer input. Fresh complete R acceptance, final native/motion reviews,
+exact89 promotion and closing94 remain. Root solewriter, no new node mutation.
+
 ## Active authorization: five redesign tickets and beta publication
 
 The owner explicitly authorized completing #90, #93, #81, #83 and #94 sequentially,

@@ -59,8 +59,7 @@ def validate_viewer_evidence(target, validate_png):
     assert pid.isdigit() and int(pid) > 0
     navigation = (folder / 'origin-navigation-speech.txt').read_text()
     assert completed(navigation, 'Image 1 of 2', pid)
-    assert any('content="Image 1 of 2"' in line and 'sourceAction=LOGICAL_NAVIGATION' in line
-               and 'inputMode=INPUT_MODE_KEYBOARD' in line for line in navigation.splitlines())
+    assert keyboard_reached_image(navigation, (folder / 'origin.xml').read_bytes(), pid)
     keyboard_steps = list(folder.glob('keyboard-step-*.txt'))
     assert 1 <= len(keyboard_steps) <= 16
     assert all(step.read_text().strip() == 'sent' for step in keyboard_steps)
@@ -75,6 +74,68 @@ def validate_viewer_evidence(target, validate_png):
             assert completed(log, 'Zoom 150 percent', pid)
         if label == 'second-image':
             assert completed(log, 'Zoom 100 percent', pid)
+
+
+def keyboard_reached_image(log, hierarchy, pid):
+    """Bind real keyboard focus to the label owned by that exact focused subtree."""
+    lines = log.splitlines()
+    # Preserve the original direct-description observation.
+    if any('content="Image 1 of 2"' in line and 'sourceAction=LOGICAL_NAVIGATION' in line
+           and 'inputMode=INPUT_MODE_KEYBOARD' in line for line in lines):
+        return True
+    root = ET.fromstring(hierarchy)
+    parents = {child: parent for parent in root.iter() for child in parent}
+    bounds = set()
+    for node in root.iter('node'):
+        if node.get('content-desc') != 'Image 1 of 2':
+            continue
+        while node.get('clickable') != 'true' and node in parents:
+            node = parents[node]
+        if (node.get('clickable') == 'true' and node.get('enabled') == 'true'
+                and node.get('visible-to-user') == 'true'
+                and node.get('package') == 'nl.davidengelen.redsquare.dev'):
+            rectangle = re.fullmatch(r'\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]', node.get('bounds', ''))
+            if rectangle:
+                left, top, right, bottom = rectangle.groups()
+                bounds.add(f'Rect({left}, {top} - {right}, {bottom})')
+    service = re.compile(r'\(\s*' + re.escape(pid) + r'\)')
+    focus_event = re.compile(r'eventId=(type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:\d+ time:\d+)')
+    for index, line in enumerate(lines):
+        if not (service.search(line) and 'interpretation=AccessibilityFocused{' in line
+                and 'sourceAction=LOGICAL_NAVIGATION' in line and 'inputMode=INPUT_MODE_KEYBOARD' in line):
+            continue
+        event = focus_event.search(line)
+        parent = re.search(r'eventSourceNode=\S+@([0-9a-f]+);', line)
+        rectangle = re.search(r'boundsInScreen: (Rect\([^)]+\))', line)
+        if not (event and parent and rectangle and rectangle[1] in bounds
+                and 'packageName: nl.davidengelen.redsquare.dev;' in line
+                and 'clickable: true;' in line and 'visible: true;' in line):
+            continue
+        parent_id = str(int(parent[1], 16))
+        described = False
+        for following in lines[index + 1:]:
+            if not service.search(following):
+                continue
+            next_event = focus_event.search(following)
+            if next_event and next_event[1] != event[1]:
+                break
+            if (f'getAppendedTreeDescription: ({parent_id})' in following
+                    and 'treeDescription={Image 1 of 2}' in following):
+                described = True
+            speech = re.search(r'Speaking fragment text="([^"]*)"', following)
+            speech_event = re.search(r'\bevent=(type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:\d+ time:\d+)(?=\s|,|$)', following)
+            if not (described and speech and speech[1] == 'Image 1 of 2'
+                    and speech_event and speech_event[1] == event[1]):
+                continue
+            utterance = re.search(r'utteranceId=([^,\s]+)', following)
+            if not utterance:
+                continue
+            callbacks = [candidate for candidate in lines if service.search(candidate)
+                         and re.search(r'REDSQUARE_ENGINE_(?:START|AUDIO|DONE|ERROR|STOP) utteranceId='
+                                       + re.escape(utterance[1]) + r'(?:\s|$)', candidate)]
+            if completed('\n'.join([following] + callbacks), 'Image 1 of 2', pid):
+                return True
+    return False
 
 
 def completed(log, text, pid):

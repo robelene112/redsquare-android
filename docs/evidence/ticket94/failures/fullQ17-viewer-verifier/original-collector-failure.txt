@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/full-collector.py", line 646, in <module>
+    viewer.validate_viewer_evidence(target,png)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/viewer-check.py", line 62, in validate_viewer_evidence
+    assert any('content="Image 1 of 2"' in line and 'sourceAction=LOGICAL_NAVIGATION' in line
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               and 'inputMode=INPUT_MODE_KEYBOARD' in line for line in navigation.splitlines())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

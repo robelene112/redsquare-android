@@ -1530,7 +1530,7 @@
     "wallet/conversation-typography-evidence.tar"
   ],
   "identityCheckSha256": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577",
-  "viewerCheckSha256": "d2db848e79545442a518758d76199443cfac1f14ac92bfc5aaa081b885bab48e",
+  "viewerCheckSha256": "d100f1333ca2475cc5c9617f2f5531794294be6ac6bff2ae2b021ac832015cc5",
   "navigationCheckSha256": "37e4ff9d7c07f4c7675057075074f334dd3ed597240cca1ded847738c5da972a",
   "collectorSha256": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683",
   "requiredArchivePaths": [
@@ -1718,5 +1718,15 @@
     "legacy-profile-assumption.txt": "7c3ed443a2a27b11f57f0c79c3f64a391adebdd9eb636cb2e83a83c1b5b3846e",
     "expected10-identities.json": "687357aa6e40ab2b853fe655dd7933aa526ba20c3acb6b33379bb4dc7b8f30a5",
     "expected17-identities.json": "948893af08174875b37f20505f00aa78f8f93380001e70f613aab0647f72613e"
+  },
+  "viewerNavigationValidationRevision": {
+    "previousSource": "4f2bd89f49a4fc2b01c989b452b9ff675f82620b",
+    "previousViewerCheckSha256": "d2db848e79545442a518758d76199443cfac1f14ac92bfc5aaa081b885bab48e",
+    "reason": "The focused clickable parent may own its exact image description through a descendant. Preserve direct-label validation and alternatively correlate real keyboard logical-navigation service PID, focused parent identity/native bounds, same-parent aggregate description, exact focus event, exact spoken label and completed same-utterance engine callbacks.",
+    "unchangedGoals": "All test identities, archive sets, class/process/UI/request/focus/speech deadlines, tool pins and other validators remain unchanged.",
+    "previousCompleteWorkflows": "Both Q Android10/17 workflows succeeded. The original frozen Q17 collector failed and is not retroactively accepted.",
+    "failureRecord": "failures/fullQ17-viewer-verifier",
+    "regressionCheck": "viewer-navigation-test.py: both real SDK traces plus seventeen independent negative mutations per SDK.",
+    "executionPolicy": "Commit this corrected checker/hash before fresh complete R execution; do not claim post-run Q diagnostic revalidation is a frozen full pass."
   }
 }
