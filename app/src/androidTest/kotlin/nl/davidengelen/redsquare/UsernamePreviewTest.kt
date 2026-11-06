@@ -44,11 +44,12 @@ class UsernamePreviewTest {
 
     @After fun observeMethodFinished() = observeMethodBoundary("after-test-method")
 
-    private fun observeMethodBoundary(phase: String) {
+    private fun observeMethodBoundary(phase: String, edge: String? = null) {
         try {
             val folder = File(context.cacheDir, "username-evidence").apply { mkdirs() }
             File(folder, "method-times.jsonl").appendText(JsonObject().apply {
-                addProperty("method", testName.methodName); addProperty("phase", phase)
+                addProperty("method", testName.methodName)
+                addProperty("phase", if (edge == null) phase else "$phase-$edge")
                 addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
                 addProperty("pid", android.os.Process.myPid())
             }.toString() + "\n")
@@ -56,9 +57,9 @@ class UsernamePreviewTest {
     }
 
     private inline fun <T> observePhase(phase: String, block: () -> T): T {
-        observeMethodBoundary("$phase-start")
+        observeMethodBoundary(phase, "start")
         try { return block() }
-        finally { observeMethodBoundary("$phase-end") }
+        finally { observeMethodBoundary(phase, "end") }
     }
 
     @Test fun aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply() = withRegistryWallet(
