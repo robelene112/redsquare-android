@@ -18,8 +18,27 @@ the existing wallet update gate, and the literal complete catalog/collector at
 `docs/evidence/ticket94`. No full94 run or candidate acceptance is claimed yet.
 Read its README for the frozen counts and actual required gates. Source review
 caught/fixed CLI schema, immutable legacy inputs, exact archive paths, cleanup
-failure preservation and completed-observation timing. Final source review and
-runtime verification remain. Ordinary public beta is still83; counter83.
+failure preservation and completed-observation timing. Both source review axes now report zero unresolved findings. Source71f66dd25
+built/staged signed candidate84, but real83-to84 observations42163060906/42163063495
+failed only exact old body layout comparison: old caption+URL becomes caption+
+link card. Native failure captures show the exact caption cached offline.
+Original wallet gate and Light passed; restoration passed on both SDKs. These
+failed runs are not acceptance. The revised observer compares actual caption
+line, public key and Published time, and uses actual full text for screenshot
+readiness. Both incremental reviews are zero. Build/stage candidate85 on this
+new source, run both candidate-update scopes, then complete full-android10/17
+on that same exact source. No full94 run has started yet. Ordinary public beta
+is still83; counter84. Staged84 is immutable and must not be promoted.
+
+Candidate84 SHA256801ad531fb9e3546e47bf68ce93dff2e2b50d55eb0e1e798337b41895bf26da1.
+Exact beta notes live externally at
+`/mnt/storage/redsquare-android-artifacts/redesign94-beta-notes.txt`; reuse them
+for stage/promote. Latest-before-stage bytes are retained beside that file.
+Raw failed84 downloads are `redesign94-candidate84-update10-42163060906` and
+`redesign94-candidate84-update17-42163063495` under that artifact root; selected
+failure native/log/download/restoration receipts are committed under ticket94.
+No build is active before the next candidate85 build. Both review agents idle.
+Root47GB/storage49GB free last observed; use the additional disk for artifacts.
 
 ## #83 complete, continue #94 and publish beta
 

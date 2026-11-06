@@ -52,17 +52,17 @@ def debug_address(label):
     result = instrument("WalletDeviceUiObserver", label, {"walletApplication": debug})
     return re.search(r"^INSTRUMENTATION_STATUS: walletPublicAddress=([1-9A-HJ-NP-Za-km-z]{44})\r?$", result, re.M)[1]
 
-def work(phase, label, body=None):
+def work(phase, label, post=None):
     adb("shell", "am", "force-stop", main)
     parameters = {"reviewUpdatePhase": phase}
-    if body is not None:
-        parameters["reviewCachedBody"] = body
+    if post is not None:
+        parameters["reviewCachedPost"] = json.dumps(post, ensure_ascii=False)
     output = instrument("ReviewUpdateUiObserver", label, parameters)
     result = json.loads(re.search(r"^INSTRUMENTATION_STATUS: reviewWorkObservation=(.+)\r?$", output, re.M)[1])
     assert result["phase"] == phase and result["appearance"] == "LIGHT"
     assert result["draftRemainsUnsent"] is True
     if phase == "verify":
-        assert result["offlineCacheRequired"] is True and result["cachedBody"] == body
+        assert result["offlineCacheRequired"] is True and result["cachedPost"] == post
     return result
 
 primary = None
@@ -81,8 +81,8 @@ try:
     subprocess.run(["python3", str(repo / "scripts/wallet-device-check"),
         "--before", str(args.before), "--after", str(args.after),
         "--evidence", str(evidence / "wallet")], check=True)
-    verified = work("verify", "work-after", prepared["cachedBody"])
-    cold = work("verify", "work-after-cold", prepared["cachedBody"])
+    verified = work("verify", "work-after", prepared["cachedPost"])
+    cold = work("verify", "work-after-cold", prepared["cachedPost"])
     assert verified["draft"] == cold["draft"] == prepared["draft"]
     assert uid(main) == main_uid and uid(debug) == debug_uid
     debug_after = debug_address("debug-after")

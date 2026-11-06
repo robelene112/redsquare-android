@@ -39,3 +39,21 @@ with `--promote` after the complete app gates and native review succeed. Owner
 visual acceptance55, parent84/spec1 and release36 retain their own criteria.
 Stack functionality, physical Pixel performance/gesture feel, provider lifecycle,
 KVK and Play acceptance remain pending unless separately established.
+
+## Initial candidate update observation
+
+Source71f66dd25aafbed3fc214858213d4afd42061674 built/staged candidate84,
+SHA256801ad531fb9e3546e47bf68ce93dff2e2b50d55eb0e1e798337b41895bf26da1.
+Staging left the stable latest manifest byte-identical at83. The real83-to84
+update observations42163060906/42163063495 failed on both SDKs, and remain failed.
+The original wallet continuity gate and Light selection passed; all owned
+restoration observations passed. The old full body node includes a trailing
+Stack URL, while the new UI displays the same exact authored caption separately.
+The failure XML shows that caption in the offline cached feed. This establishes
+an observer presentation mismatch, not completed cache/draft acceptance.
+
+The revised observer reads the actual first authored line and requires exact
+caption equality, plus the actual post's public key and Published timestamp.
+It retains the full observed native text for capture readiness, allowing the
+approved URL-to-link-card layout change without inventing observed values.
+Revised runtime verification and the final signed candidate remain required.
