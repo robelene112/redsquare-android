@@ -130,3 +130,12 @@ is retained, plus native48dp disjoint/equal navigation target observations.
 Because production inputs change, candidate86 and its old equivalence receipt
 are not final87 proof. Fresh focused validation, new signed87 update observations,
 complete final-source gates and native review remain required before publication.
+
+Focused c055 validation: Android10 image-viewer42174269632, navigation42174275768
+and destination-journey42174264347 passed; both feed-refresh methods42174253142/
+42174256168 passed. Android17 seeded binding42174261677 passed. The Android10
+seeded scope42174258881 stopped before fixture creation because Android29 does
+not expose test as an executable for run-as. The guard now uses the platform
+shell builtin with the same bounded owned-path predicate. This is test setup,
+not an app or gateway failure. Both seeded scopes will be repeated. Other focused
+results remain pending; none of these replaces complete final-source proof.
