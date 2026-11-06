@@ -8,7 +8,12 @@ Local instrumentation compile PASS4m53. Both source axes zero unresolved finding
 for the real Later ACTION_CLICK and positive foreground/dismissal within original
 shared15s. Source change only WalletTalkBackPreviewTest; no APK producer change.
 
-Focused wallet-talkback runs10/17:42279962652/42279967466.
+Focused wallet-talkback runs10/17:42279962652/42279967466 BOTH PASS.
+Originalclass42.710s/42.474s; packetsfocused-walletTalkBackS-10/-17. Bothactual
+native review axes zero: eachinspected12PNG/14XML, tencontextualspeechrecords,
+actualACTION_CLICKtrue/appforeground and12929/11077msremaining original15s.
+Allreviewedvalues/contextTTS/wallet/no-send/cancellationchecksremain. No live
+funds/physicalaudibility/previous-exclusive-cause/fullS claim.
 Complete all3/public-read runs10/17:42280027569/42280031596.
 All use exactS source/workflow/tag; no cancel/duplicate. The focused and complete
 runs use independent runners, dispatched together after typecheck/source review.
@@ -2136,3 +2141,15 @@ attachment-focus observer. Original P10Chat evidence is in failures/fullP-chat10
 Q corrects both known observations; both focused scopes pass on both SDKs and
 both complete Q Wallet partitions pass. Q Social/Chat remain active. No other
 identified assertion failure in these inspected P packets. No full acceptance.
+
+
+S targeted WalletTalkBack native review, both axes: zero actionable findings.
+Each inspected all12PNG/14XML, both true setup/payment receipts and ten actual
+contextual service/engine records. Remindergone/Accountavailable/appforeground
+is observed within original15s (remaining12929/11077ms). Recipient,6.25SAITO,
+0.1SAITO fee and ownernode remain correctlyfocused/spoken. SamePID actual
+START/AUDIO/DONE/nonzeroaudio/noSTOP-ERROR corroborate speech; originalfixture
+assertions corroborate wallet/backend retention and zerooutgoing. Originalclass
+42.710s/42.474s passes; auth/send notactivated. Non-atomic images/XML and readiness
+vs capturelatency distinction remain; no publicpayment/physicalaudibility/fullS
+or exclusivehistoricalcause claim. FullS runs stillactive.
