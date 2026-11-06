@@ -94,7 +94,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
     }
     var entries by remember(wallet.publicKey, backend, counterparty) { mutableStateOf<List<ChatHistoryStore.Entry>>(emptyList()) }
-    var loading by remember(counterparty) { mutableStateOf(false) }
+    var loading by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(counterparty != null) }
     var failed by remember(counterparty) { mutableStateOf(false) }
     var incomplete by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var cacheFailed by remember(counterparty) { mutableStateOf(false) }

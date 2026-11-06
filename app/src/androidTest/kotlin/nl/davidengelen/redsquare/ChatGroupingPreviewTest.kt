@@ -59,4 +59,34 @@ class ChatGroupingPreviewTest {
             }
         }
     }
+    @Test fun theSameSenderAfterMoreThanFiveMinutesStartsAnotherHeader() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val folder = File(context.cacheDir, "chat-grouping-evidence").apply { mkdirs() }
+        withAvatarJourney("Dark") { activity, _, _, _, sender ->
+            val reader = AndroidWalletStore(context).loadExisting()
+            val originals = listOf(
+                PrivateChat.create(sender, reader.publicKey, "Before the longer gap", 1_700_000_000_000L).envelope(),
+                PrivateChat.create(sender, reader.publicKey, "After the longer gap", 1_700_000_300_001L).envelope())
+            val history = ChatHistoryStore(context, reader, SaitoBackend.OWNER, sender.publicKey)
+            history.save(originals)
+            ui.withPostViewports(activity, folder, "private-separated", scales = listOf(1f), widthDp = 412) { label, _ ->
+                if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                ui.onNode(hasText("Chat") and hasClickAction() and isEnabled()).performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText(sender.publicKey).isDisplayed() }
+                ui.onNodeWithText(sender.publicKey).performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Before the longer gap").isDisplayed() &&
+                    ui.onNodeWithText("After the longer gap").isDisplayed() }
+                assertEquals(2, ui.onAllNodesWithContentDescription("View identity details for Anon-${sender.publicKey.take(6)}")
+                    .fetchSemanticsNodes().size)
+                assertEquals(2, ui.onAllNodesWithContentDescription("Message actions").fetchSemanticsNodes().size)
+                captureNativeScreen(File(folder, "$label.png"))
+                assertEquals(originals, history.load().entries.map { it.envelope })
+                ui.onNodeWithText("Back").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("New chat").isDisplayed() }
+                ui.onNodeWithText("Back").performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+            }
+        }
+    }
+
 }
