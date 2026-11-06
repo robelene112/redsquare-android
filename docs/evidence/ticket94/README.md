@@ -1,14 +1,15 @@
 # Unified redesign release verification (#94)
 
-Current final verification source is `e604077c0de054617e82c1eaaca62b70e6b2fa39`
-(M). Complete Android10/17 runs `42232393578` / `42232677166` are running on
-immutable tag proof-redesign94-e604077 with all three partitions and public reads.
-All known targeted repairs pass. Actual Members scroll0/max3→3/max3 restores its
-full48dp target; both native axes find zero issues in all48PNG/XML pairs. L push
-also passes both SDKs; spec reviewed all8Stack-tap pairs with zero findings.
+Current repair source is `ecc8b8c5df82a2c999d54b41963a174b72c81670`
+(N). M10 full Social failed late navigation-action observation during a font
+configuration change; original five-second Account helper missed the action that
+appeared after its initial reveal attempt. N follows that actual action once per
+semantic host within the same budget, retaining full stable48dp targets.
+Post-presentation10/17 runs42236680587/42236685108 are pending. Other M full jobs
+continue. All earlier targeted repairs pass, but complete final proof is pending.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
-producer input paths, modes, types and blobs are equal from B to M. The later
+producer input paths, modes, types and blobs are equal from B to N. The later
 changes correct instrumentation only. See `candidate89-producer-equivalence.json`.
 The actual artifact, release configuration and original update observations retain
 their separate provenance. Stable latest remains 83.
@@ -453,3 +454,12 @@ Earlier I17 Chat42225947593 completed with the original two group-queue failures
 (index-before-Node wait and45px Members target); its actual log is retained in
 failures/fullI-chat17. These are corrected and focused-pass on M. Wallet passed;
 I17 Social remains pending at14:35. Current M full gates remain separate.
+
+
+M10 full Social fails PostContentViewport at the font130 transition. Original
+5s Account activation observes an offscreen negative-top rectangle, then an
+available navigation reveal action after the helper's one reveal call. N waits
+for that actual action, requests it once per semantic host and rejects negative
+bounds before the unchanged stable complete48dp Account action/popup. Both source
+review axes zero. Original5s/class bounds/identities remain. FullM-social10 retains
+original native/log evidence; focusedN and fresh complete final proof are required.

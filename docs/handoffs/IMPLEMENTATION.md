@@ -8,7 +8,34 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: complete final verification on source M
+## ACTIVE: late navigation-action observation repair N
+
+CODE N: ecc8b8c5df82a2c999d54b41963a174b72c81670 (test-only).
+M full10 Social42232393578 FAILED PostContentViewport at font130 transition.
+Class16.54s; original Account helper5s/4950remaining timeout. First recorded
+Account rectangle top-74/bottom-26 was offscreen; then Show app navigation
+appeared while the helper only waited because its one reveal call was earlier.
+Nativecollapsedheader confirms observation. FullM-social10 retains originals;
+externalraw redesign94-fullM10-42232393578/android-native-proof-social.
+N observes actual reveal availability within originalshared5s and requests it
+once per real SemanticsNode.id, avoiding repeated restarts for a running host.
+Rejects negativeleft/top beforeoriginal complete48/stable Accounttap/popup.
+Bothsource reviewaxes0; no producer, classIDs, catalog or timeout changes.
+Focused post-presentation10:42236680587,17:42236685108 RUNNING on exactN.
+Producer receipt nowB→N all440equal; finalnativeplans updatedN/artifactB.
+
+M full10 WalletPASS, SocialFAIL, Chatstillrunning. M17allstillrunning at14:45.
+Do not duplicate/cancel these; inspectactualremainingoutcomes before next full.
+Earlier I17fullnowcompleteFAILED(SocialPASS/WalletPASS/ChatFAILknown2queuecases).
+CurrentNnotyetfullverified. AfterfocusedNandallknownrepairs pass, freshfullN
+must execute; do not assemblefailedM/focusedNinto fullacceptance. Retain signed89
+producerB, latest83. Mnativequeue andLpushrepairs all focusedpass/reviewedzero,
+so no producer fix needed there. Details and finalcollection/promotioncommands
+in previous overview below apply with the eventual exactfinalsource/runIDs.
+Rootcontinues94 underfullauthorization; oneproductionrestartalreadyfulfilled,
+no additionalproductionmutations. No localbuilder or implementationagent.
+
+## Previous complete verification on source M
 
 The owner authorized five sequential redesign tickets and beta publication.
 #90, #93, #81 and #83 are closed. #94 remains open. Continue to completion.

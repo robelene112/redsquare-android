@@ -1,0 +1,96 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostContentViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostContentViewportTest:
+INSTRUMENTATION_STATUS: test=multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Account activation observations: [{"stage":"ready","elapsedMillis":731713,"visible":true,"navigationSettled":true,"bounds":"DpRect(left=254.0.dp, top=-74.0.dp, right=302.0.dp, bottom=-26.0.dp)"},{"stage":"revealing","elapsedMillis":731859,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":731892,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":731945,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732010,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732076,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732109,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732142,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732176,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732242,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732276,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732309,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732342,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732376,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732409,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732442,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732480,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732525,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732559,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732592,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732625,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732659,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732692,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732725,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732759,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732792,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732825,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732859,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732892,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732926,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732959,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":732992,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733025,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733059,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733092,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733125,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733159,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733192,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733226,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733259,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733292,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733325,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733359,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733392,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733430,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733476,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733509,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733542,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733576,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733609,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733642,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733675,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733709,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733742,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733775,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733809,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733843,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733876,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733909,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733942,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":733975,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":734009,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":734042,"visible":false,"navigationSettled":false,"bounds":null},{"stage":"revealing","elapsedMillis":734075,"visible":false,"navigationSettled":false,"bounds":null}]
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostContentViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 4950 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openAccountMenu(AccountMenuFixture.kt:49)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openSettings(AccountMenuFixture.kt:88)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:64)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentViewportTest.multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes$lambda$9(PostContentViewportTest.kt:32)
+	at nl.davidengelen.redsquare.PostContentViewportTest.$r8$lambda$cejYvaYhUA5K0I3qdearxI-g1hU(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentViewportTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentViewportTest.multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes(PostContentViewportTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostContentViewportTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 4950 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openAccountMenu(AccountMenuFixture.kt:49)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openSettings(AccountMenuFixture.kt:88)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:64)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentViewportTest.multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes$lambda$9(PostContentViewportTest.kt:32)
+	at nl.davidengelen.redsquare.PostContentViewportTest.$r8$lambda$cejYvaYhUA5K0I3qdearxI-g1hU(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentViewportTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentViewportTest.multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes(PostContentViewportTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.54
+There was 1 failure:
+1) multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostContentViewportTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 4950 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openAccountMenu(AccountMenuFixture.kt:49)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openSettings(AccountMenuFixture.kt:88)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:64)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentViewportTest.multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes$lambda$9(PostContentViewportTest.kt:32)
+	at nl.davidengelen.redsquare.PostContentViewportTest.$r8$lambda$cejYvaYhUA5K0I3qdearxI-g1hU(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentViewportTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentViewportTest.multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes(PostContentViewportTest.kt:27)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
