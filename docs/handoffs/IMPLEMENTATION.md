@@ -8,55 +8,76 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: physical Members discriminator M, push-return observation L
+## ACTIVE: complete final verification on source M
 
-CODE M: e604077c0de054617e82c1eaaca62b70e6b2fa39, branchcodex/unified-redesign,
-worktree/mnt/storage/redsquare-android-artifacts/redesign86. Root soleimplementer.
-#90/#93/#81/#83CLOSED, #94stillOPEN. Continueauthorizedfive-ticket+beta sequence.
+The owner authorized five sequential redesign tickets and beta publication.
+#90, #93, #81 and #83 are closed. #94 remains open. Continue to completion.
+Current CODE: e604077c0de054617e82c1eaaca62b70e6b2fa39 (M).
+Branch codex/unified-redesign; worktree /mnt/storage/redsquare-android-artifacts/redesign86.
+Root is sole implementer. No local builder or implementation agent is active.
 
-K FeedRedesign10/17 PASS42228894833/42228899217. EarlierJreadinessbothPASS
-42228449300/42228452911. Readinginitial15s shareddeadlineandWritingexisting15s
-contentpresence/Refresh guard retained. Actualpost10/pixel/draft/IME remains.
-Packetsfocused-feedK-10/-17 (206/205PNG,185XML). Standardsagentreviewing targeted
-48writingpairs+2anchors now; nofullfinalnativeclaim.
-K ChatQueue10/17 FAILED42228886016/42228890462,12/13eachPASS. Nodecategory
-correctionnowpasses; onlyMembers visible45px aftersemantic .performScrollTo
-stillfailsoriginal48minimum. Actualclickparent[24,499][108,547]48px intersects
-scrollviewportbottom544. No current/maxscrollrecordyet, so cannotclassify solely
-asobserverorprodbug. Bothsource/nativeaxesconfirmthatuncertainty.
-M performs genuineupwardswipeINSIDE ownedConversationinformationandcontrols,
-records actualbefore/max/after/max in group-cancel-members-scroll.json, then
-UNCHANGEDphysical48check/realMemberstap/queue/noTx/isolation/cleanup. Bothsource
-reviews0. Focused six originalgroupmethodsRUNNING10:42231372442,17:42231376659.
-If finiteENDstillclips45, fixactualproducerlayout; do NOTlower48 ordeclarepass.
-If realtravelrestores48 andallassertspass, fixture revealwasincomplete.
+RUNNING complete M, do not duplicate or cancel:
+- Android 10:42232393578 (Wallet127941279677, Chat127941280085, Social127941280122).
+- Android 17:42232677166 (Social127942252588, Chat127942253074, Wallet127942253086).
+Both use immutable tag proof-redesign94-e604077, public reads true, all three
+partitions. Metadata/source/workflow must all equal M. Frozen catalog remains
+626/627 identities,211classes,228/229 normal completions,35 deliberate process
+interruptions,34 continuity records,177 partition-qualified archives per SDK.
+No complete final pass is claimed. Previous failed/focused runs cannot be mixed.
 
-L e7541a38a root-safe notificationreturn: I10Chatfull42225564555 fails1/12
-SocialPushTap at340, immediateConnectiondetails assert hasnoComposeroot during
-Androidreturn; laternativecorrectdialogandDone, emptycrashlog(noabsoluteclaim).
-L waitsactualtitle usingexistingroot-safehelperand shares originalConversation
-15s budget via monotonicdeadline, preservesrealDone/noConversationuntilclose/
-body/drafts/intentchecks. Bothsourceaxes0. LSocialPushfocusRUNNING10:42230449212,
-17:42230453611. ThinoriginalfullI-chat10; externalrawpushI10failure.
+All known repairs have passing focused checks and source review axes zero:
+- I import10/17:42224555629/42224560097, seven original methods plus risk/storage/
+  actual process recovery. Both native axes all48PNG/4XML, zero findings.
+- K feed10/17:42228894833/42228899217. Initial reading waits for actual content
+  within shared15s budget; Writing strengthens existing15s readiness. Native
+  standards reviewed48writingpairs+2anchors+24geometry receipts, zero findings.
+  All drafts restored, realIME/complete80dp editors/48dp Send retained. Three17
+  IME XMLs precede PNGs; retain non-atomic limits. EarlierJalso passes both SDKs.
+- L SocialPush10/17:42230449212/42230453611. All12 notification methods plus3
+  scheduled-work and1binding method pass. Root-safe return shares original15s
+  Conversation arrival budget. Spec native all8Stack-tap pairs, zero findings.
+  No post-tap/pre-Done capture exists; those semantics rely on original assertions.
+- M group queue10/17:42231372442/42231376659. All six original group methods pass,
+  137.411s/152.614s. Both native axes all48PNG/48XML, zero findings. Actual scroll
+  receipts BOTH0/max3→3/max3, Members parent[24,496][108,544], full84×48px, then
+  actual physical tap opens Members. This proves remaining travel in the observed
+  case; no producer change or geometry waiver. Original cancellation/envelope/
+  wallet/backend/noTx/noRelay assertions remain. K's12/13 runs stay failed.
 
-AllHfullscompleteFAILED:10SocialPASS/WalletFAIL/ChatFAIL;17SocialPASS/WalletPASS/
-ChatFAIL. I10fullcompleteFAILED(Socialempty-feed,Chatrootless;WalletPASS).
-I17full42225947593stillSocial/Chatrunning,WalletPASS. Keepalloutcomesseparate.
-RawH10/H17all3partitionsdownloadedexternally. RawI10Social/Chatdownloaded, no
-I10Walletdownloadneeded. OriginalHChat2/13bothretainedfullH-chat10/-17.
-Kqueuefailedoriginals retainedfailures/focusedK-queue10/-17.
+Signed candidate89 remains producer95725b005d086c970118054e78046db10563a76c (B),
+SHA2566d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5.
+All440producer paths/modes/types/blobs equal B→M; receipt committed. Actual
+artifact/release configuration and original signed-update proof B are distinct
+from instrumentation M. Both real83→89 update checks passed and native reviewed.
+Stable latest83;89 staged, NOT promoted. No new APK needed for test-only changes.
 
-440producer paths/modes/types/blobs remain B→M equal; receiptupdatedM. Signed89
-producer95725b005d086c970118054e78046db10563a76c, hash6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5,
-stablelatest83,89stagedNOTpromoted. IfMprovesproducerdefectandproducerchanges,
-89cannotbefinal: newcandidate/updateproofsneeded. No silentartifactreuse then.
-AfterALLknownrepairs/focuspass, freshcompleteFINAL10/17 on exactimmutabletag,
-publicreadstrue, frozencatalog/collector unchanged. All3jobs/SDKmustsucceed;
-thenfrozencollector exactsource, actualtwo-axis finalcross-modulenative/motion,
-exactcandidatepromotion/verify/commitclose94only. Keep1/36/55/84 independent.
-Finalnativeexternalplans nowM/artifactB, notyetreviewed. Ownerapprovedonerestart
-alreadyfulfilled, synchronizednode, nofurtherproductionmutation. Nolocalbuilder.
-Currentuncommittedproofs/docsneedretaining; donotredownloadexistingrawpaths.
+After all three M jobs succeed per SDK, download fresh full raw folders under
+/mnt/storage/redsquare-android-artifacts/redesign94-fullM10-42232393578 and
+redesign94-fullM17-42232677166. Preserve android-native-proof-{chat,social,wallet}
+subdirectories. Run frozen full-collector.py SDK RAW FRESH_LABEL RUN EXACT_M
+with fresh labels finalM-android10 /finalM-android17. Then both actual native/
+motion review axes on collected M packets; external plans point toM/artifactB.
+Plans include five explicit Members/group-scope/Stack-tap repair observations.
+Plans/indexes are not reviews. Do not claim complete-M acceptance prematurely.
+
+When complete gates and final native reviews succeed, promote exact staged89
+using scripts/review-publish --promote and unchanged external notes file
+/mnt/storage/redsquare-android-artifacts/redesign94-beta-notes.txt read with strip.
+Reverify public latest/page/download hash, retain evidence, completion commit,
+GitHub update and close94 only. Keep1/36/55/84 and external Stack/Pixel/provider/
+KVK/Play acceptance independent. No owner input required for routine tests.
+
+Earlier H fulls both FAILED:10SocialPASS/WalletFAIL/ChatFAIL;17SocialPASS/WalletPASS/
+ChatFAIL. I10full FAILED(Social empty initial feed; Chat rootless tap; WalletPASS).
+I17full42225947593 still Social/Chat running at14:18, WalletPASS. Inspect eventual
+actual outcome; do not assume its failures match earlier ones. RawH10/H17 all
+partitions and I10Social/Chat already downloaded. Do not redownload into existing
+folders. Thin failures and focused packets are retained under ticket94.
+
+Owner-approved one production restart was fulfilled at11:08:07UTC; node caught
+up and public routes recovered. No further production mutations authorized.
+Current uncommitted docs/focused proof retention should be committed after updates.
+Historical sections below are superseded by this active overview.
 
 ## Previous full H verification
 

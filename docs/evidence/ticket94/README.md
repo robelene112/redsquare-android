@@ -1,11 +1,11 @@
 # Unified redesign release verification (#94)
 
-Current diagnostic source is `e604077c0de054617e82c1eaaca62b70e6b2fa39`
-(M). K feed scopes passed both SDKs; K ChatQueue passed12/13, retaining a
-45px visible Members target against the original48dp minimum. A genuine owned
-scroll plus actual offset/max observation now distinguishes incomplete reveal
-from end-of-content clipping, runs42231372442/42231376659. L notification-return
-root-safe checks run42230449212/42230453611. Final complete proof remains pending.
+Current final verification source is `e604077c0de054617e82c1eaaca62b70e6b2fa39`
+(M). Complete Android10/17 runs `42232393578` / `42232677166` are running on
+immutable tag proof-redesign94-e604077 with all three partitions and public reads.
+All known targeted repairs pass. Actual Members scroll0/max3→3/max3 restores its
+full48dp target; both native axes find zero issues in all48PNG/XML pairs. L push
+also passes both SDKs; spec reviewed all8Stack-tap pairs with zero findings.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B); all 440 tracked
 producer input paths, modes, types and blobs are equal from B to M. The later
@@ -416,3 +416,34 @@ crash logs are limited evidence. L reuses root-safe observation and shares the
 original15s Conversation arrival budget across dialog wait/Done/Conversation.
 Both source axes0; focused execution and final full proof remain pending.
 Both I full Wallet jobs pass. All earlier failed full runs remain failed.
+
+
+Targeted K feed native standards review found zero actionable findings in48
+writing PNG/XML pairs, two retained-anchor pairs and24 geometry receipts. Both
+widths, all fonts/themes retain real IME, complete80dp-minimum editors, exact
+restored drafts and48dp Send targets. All48 observed Send targets measure at
+least80×48px. Minimum complete editor height135px/146px; ink871/902pixels.
+Three Android17 IME XMLs precede their PNG/editor state; do not claim atomic
+agreement. Restored XML drafts all match. Anchorpost10/pixel return also relies
+on unchanged passing assertions. No final-full, motion or physical-device claim.
+
+L SocialPush focused10/17 now pass42230449212/42230453611. Native review and
+complete final-source verification remain pending. M Members probe still running.
+
+
+M group queue passes all six original methods on both SDKs,137.411s/152.614s.
+Both native review axes inspected all48PNG/48XML and actual scroll receipts:
+0/max3→3/max3, then complete84×48px Members target[24,496][108,544] and real tap.
+Original exact envelopes, cancellation, draft, owner/backend and no-send/relay
+checks pass. This establishes incomplete semantic reveal in the recorded case,
+not an unreachable production target. Captures are non-atomic; immediate cancel
+frames precede completion, which later captures/assertions establish.
+
+L native spec review inspected all8Stack-tap PNG/XML pairs, zero findings. Both
+SDKs retain the owner details, actual alert, exact routed post and restored
+2-line draft/image. Post-tap/pre-Done preservation is established by unchanged
+passing assertions because no separate frame covers that interval. No FCM,
+closed-app public-provider, physical-device or complete-M claim follows.
+
+Complete M runs42232393578/42232677166 now execute the frozen catalog. Final
+collector, full-source native/motion reviews and exact89 promotion remain pending.
