@@ -340,6 +340,7 @@ class ChatMutePreviewTest {
                         device.pressBack()
                         ui.waitForAccountMenu(20_000)
                         ui.openSettings()
+                        ui.onNodeWithText("Node").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                         ui.onNodeWithText("saito.io").performScrollTo()
                         click(hasText("saito.io"))
                         ui.waitUntil(20_000) { displayed(hasText("Node: saito.io")) }
