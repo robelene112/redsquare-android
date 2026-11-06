@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.ui
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -22,7 +23,7 @@ internal fun SingleOwnerReveal(target: Any?, modifier: Modifier = Modifier, cont
         } else if (previous != target) {
             opacity.snapTo(0f)
             previous = target
-            opacity.animateTo(1f, tween(AppSpacing.transitionMillis))
+            opacity.animateTo(1f, tween(AppSpacing.transitionMillis, easing = LinearEasing))
         }
     }
     Box(modifier.graphicsLayer { alpha = if (!motionEnabled) 1f else if (previous == target) opacity.value else 0f }) { content() }

@@ -9,8 +9,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.drawWithContent
-import nl.davidengelen.redsquare.BuildConfig
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ImageBitmap
@@ -47,16 +45,7 @@ internal fun ProfileImage(source: String?, kind: ProfileImageKind, author: Strin
         VisualResultReveal(Triple(source, image, failed), modifier) { (renderedSource, ready, unavailable), current ->
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 val retryEnabled = current && image == null && failed
-                if (ready != null) {
-                    val firstDraw = remember(ready) { booleanArrayOf(false) }
-                    Image(ready, stringResource(kind.label), Modifier.fillMaxSize().drawWithContent {
-                        if (BuildConfig.DEBUG && !firstDraw[0]) {
-                            firstDraw[0] = true
-                            android.util.Log.d("DEBUG-m81", "profileDraw:${android.os.SystemClock.elapsedRealtimeNanos()}:$kind")
-                        }
-                        drawContent()
-                    }, contentScale = ContentScale.Crop)
-                }
+                if (ready != null) Image(ready, stringResource(kind.label), Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                 else if (kind == ProfileImageKind.PICTURE) GeneratedProfilePicture(author, Modifier.fillMaxSize())
                 else if (renderedSource != null) Row(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant)
                     .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
