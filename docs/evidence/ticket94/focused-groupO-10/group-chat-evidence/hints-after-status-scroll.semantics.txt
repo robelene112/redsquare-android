@@ -1,0 +1,360 @@
+Printing with useUnmergedTree = 'true'
+1) Node #1360 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+ |-Node #1361 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+   IsContainer = 'true'
+   Shape = 'RectangleShape'
+    |-Node #1377 at (l=0.0, t=28.0, r=320.0, b=636.0)px
+       |-Node #1496 at (l=0.0, t=28.0, r=320.0, b=136.0)px
+       | Shape = 'RectangleShape'
+       |  |-Node #1501 at (l=18.0, t=34.0, r=170.0, b=82.0)px
+       |  | ContentDescription = '[Switch app: Red Square]'
+       |  | Focused = 'false'
+       |  | Role = 'Button'
+       |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 14.0.dp), topEnd = CornerSize(size = 14.0.dp), bottomEnd = CornerSize(size = 14.0.dp), bottomStart = CornerSize(size = 14.0.dp))'
+       |  | Actions = [OnClick, RequestFocus]
+       |  | MergeDescendants = 'true'
+       |  |  |-Node #1503 at (l=30.0, t=46.0, r=132.0, b=70.0)px
+       |  |    ClearAndSetSemantics = 'true'
+       |  |-Node #1508 at (l=254.0, t=34.0, r=302.0, b=82.0)px
+       |  | ContentDescription = '[Account]'
+       |  | Focused = 'false'
+       |  | Role = 'Button'
+       |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |  | Actions = [OnClick, RequestFocus]
+       |  | MergeDescendants = 'true'
+       |  |  |-Node #1509 at (l=260.0, t=40.0, r=296.0, b=76.0)px
+       |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |  |    ClearAndSetSemantics = 'true'
+       |  |     |-Node #1510 at (l=260.0, t=40.0, r=296.0, b=76.0)px
+       |  |       ClearAndSetSemantics = 'true'
+       |  |        |-Node #1511 at (l=260.0, t=40.0, r=296.0, b=76.0)px
+       |  |           |-Node #1512 at (l=260.0, t=40.0, r=296.0, b=76.0)px
+       |  |             ContentDescription = '[Generated profile picture]'
+       |  |-Node #1514 at (l=18.0, t=88.0, r=302.0, b=136.0)px
+       |    Focused = 'false'
+       |    Role = 'Button'
+       |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |    Actions = [OnClick, RequestFocus]
+       |    MergeDescendants = 'true'
+       |     |-Node #1517 at (l=22.0, t=98.0, r=159.0, b=111.0)px
+       |     | Text = '[Node: saito.davidengelen.nl]'
+       |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |     |-Node #1518 at (l=22.0, t=113.0, r=109.0, b=126.0)px
+       |     |  |-Node #1519 at (l=22.0, t=113.0, r=109.0, b=126.0)px
+       |     |    Text = '[Block unavailable]'
+       |     |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |     |-Node #1520 at (l=280.0, t=103.0, r=298.0, b=121.0)px
+       |       ContentDescription = '[Connection details]'
+       |       Role = 'Image'
+       |-Node #1522 at (l=18.0, t=136.0, r=302.0, b=555.0)px
+       |  |-Node #1632 at (l=18.0, t=136.0, r=302.0, b=555.0)px
+       |     |-Node #1676 at (l=18.0, t=136.0, r=302.0, b=555.0)px
+       |        |-Node #1681 at (l=22.0, t=140.0, r=62.0, b=180.0)px
+       |        | Focused = 'false'
+       |        | Role = 'Button'
+       |        | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |        | Text = '[Back]'
+       |        | Actions = [OnClick, RequestFocus]
+       |        | MergeDescendants = 'true'
+       |        |-Node #1684 at (l=66.0, t=144.0, r=206.0, b=163.0)px
+       |        | Text = '[Incoming beta group]'
+       |        | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |        |-Node #1727 at (l=66.0, t=163.0, r=128.0, b=176.0)px
+       |        | Text = '[Unencrypted]'
+       |        | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |        |-Node #1728 at (l=210.0, t=140.0, r=250.0, b=180.0)px
+       |        | Focused = 'false'
+       |        | Role = 'Button'
+       |        | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |        | Actions = [OnClick, RequestFocus]
+       |        | MergeDescendants = 'true'
+       |        |  |-Node #1729 at (l=218.0, t=148.0, r=242.0, b=172.0)px
+       |        |    ContentDescription = '[Mute conversation]'
+       |        |    Role = 'Image'
+       |        |-Node #1730 at (l=258.0, t=140.0, r=298.0, b=180.0)px
+       |        | ContentDescription = '[Conversation details]'
+       |        | Focused = 'false'
+       |        | Role = 'Button'
+       |        | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |        | Actions = [OnClick, RequestFocus]
+       |        | MergeDescendants = 'true'
+       |        |-Node #1689 at (l=18.0, t=192.0, r=302.0, b=241.0)px
+       |        | ContentDescription = '[Group status and actions]'
+       |        | IsTraversalGroup = 'true'
+       |        | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@76c13e5'
+       |        | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+       |        | Actions = [ScrollBy, ScrollByOffset]
+       |        |  |-Node #1708 at (l=18.0, t=192.0, r=302.0, b=241.0)px
+       |        |     |-Node #1709 at (l=18.0, t=195.0, r=302.0, b=238.0)px
+       |        |       IsContainer = 'true'
+       |        |       Shape = 'RectangleShape'
+       |        |        |-Node #1712 at (l=26.0, t=213.0, r=34.0, b=221.0)px
+       |        |        | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |        |        |-Node #1713 at (l=42.0, t=201.0, r=290.0, b=232.0)px
+       |        |          LiveRegion = 'Polite'
+       |        |          Text = '[Some saved group information could not be read. Your wallet and cached groups are kept.]'
+       |        |          Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |        |-Node #1735 at (l=18.0, t=249.0, r=302.0, b=490.0)px
+       |        | Shape = 'RectangleShape'
+       |        |  |-Node #1736 at (l=18.0, t=249.0, r=302.0, b=490.0)px
+       |        |    CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+       |        |    ContentDescription = '[Group messages]'
+       |        |    IsTraversalGroup = 'true'
+       |        |    Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@76c13e5'
+       |        |    VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+       |        |    Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+       |        |-Node #1740 at (l=18.0, t=490.0, r=18.0, b=490.0)px
+       |        | ContentDescription = '[Chat composition preview]'
+       |        | IsTraversalGroup = 'true'
+       |        | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@76c13e5'
+       |        | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+       |        | Actions = [ScrollBy, ScrollByOffset]
+       |        |-Node #1744 at (l=22.0, t=503.0, r=62.0, b=543.0)px
+       |        | Focused = 'false'
+       |        | Role = 'Button'
+       |        | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |        | Actions = [OnClick, RequestFocus]
+       |        | MergeDescendants = 'true'
+       |        |  |-Node #1745 at (l=30.0, t=511.0, r=54.0, b=535.0)px
+       |        |    ContentDescription = '[Add media]'
+       |        |    Role = 'Image'
+       |        |-Node #1746 at (l=66.0, t=490.0, r=222.0, b=555.0)px
+       |        | ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+       |        | EditableText = ''
+       |        | FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@526443b'
+       |        | Focused = 'false'
+       |        | ImeAction = 'Default'
+       |        | InputText = ''
+       |        | IsEditable = 'true'
+       |        | TextSelectionRange = 'TextRange(0, 0)'
+       |        | Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+       |        | MergeDescendants = 'true'
+       |        |  |-Node #1750 at (l=66.0, t=499.0, r=222.0, b=555.0)px
+       |        |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 4.0.dp), topEnd = CornerSize(size = 4.0.dp), bottomEnd = CornerSize(size = 4.0.dp), bottomStart = CornerSize(size = 4.0.dp))'
+       |        |  |-Node #1755 at (l=82.0, t=515.0, r=146.0, b=539.0)px
+       |        |  | Text = '[Message]'
+       |        |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |        |  |-Node #1752 at (l=82.0, t=515.0, r=206.0, b=539.0)px
+       |        |    Shape = 'RectangleShape'
+       |        |-Node #1756 at (l=222.0, t=503.0, r=302.0, b=543.0)px
+       |          Role = 'Button'
+       |          Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |          [Disabled]
+       |          Actions = [OnClick]
+       |          MergeDescendants = 'true'
+       |           |-Node #1758 at (l=246.0, t=513.0, r=278.0, b=533.0)px
+       |             Text = '[Send]'
+       |             Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #1546 at (l=0.0, t=556.0, r=320.0, b=636.0)px
+         IsContainer = 'true'
+         Shape = 'RectangleShape'
+          |-Node #1547 at (l=0.0, t=556.0, r=320.0, b=636.0)px
+            [SelectableGroup]
+             |-Node #1550 at (l=0.0, t=556.0, r=57.0, b=636.0)px
+             | Actions = [OnLongClick]
+             | MergeDescendants = 'true'
+             |  |-Node #1553 at (l=0.0, t=556.0, r=57.0, b=636.0)px
+             |    Focused = 'false'
+             |    Role = 'Tab'
+             |    Selected = 'false'
+             |    Text = '[Home]'
+             |    Actions = [OnClick, RequestFocus]
+             |    MergeDescendants = 'true'
+             |     |-Node #1556 at (l=28.0, t=570.0, r=28.0, b=602.0)px
+             |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |     |-Node #1560 at (l=13.0, t=606.0, r=43.0, b=619.0)px
+             |     |  |-Node #1561 at (l=13.0, t=606.0, r=43.0, b=619.0)px
+             |     |    ClearAndSetSemantics = 'true'
+             |     |-Node #1558 at (l=16.0, t=574.0, r=40.0, b=598.0)px
+             |     | ClearAndSetSemantics = 'true'
+             |     |-Node #1555 at (l=0.0, t=570.0, r=56.0, b=602.0)px
+             |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |-Node #1564 at (l=65.0, t=556.0, r=122.0, b=636.0)px
+             | Actions = [OnLongClick]
+             | MergeDescendants = 'true'
+             |  |-Node #1567 at (l=65.0, t=556.0, r=122.0, b=636.0)px
+             |    Focused = 'false'
+             |    Role = 'Tab'
+             |    Selected = 'false'
+             |    Text = '[Search]'
+             |    Actions = [OnClick, RequestFocus]
+             |    MergeDescendants = 'true'
+             |     |-Node #1570 at (l=93.0, t=570.0, r=93.0, b=602.0)px
+             |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |     |-Node #1574 at (l=76.0, t=606.0, r=111.0, b=619.0)px
+             |     |  |-Node #1575 at (l=76.0, t=606.0, r=111.0, b=619.0)px
+             |     |    ClearAndSetSemantics = 'true'
+             |     |-Node #1572 at (l=81.0, t=574.0, r=105.0, b=598.0)px
+             |     | ClearAndSetSemantics = 'true'
+             |     |-Node #1569 at (l=65.0, t=570.0, r=121.0, b=602.0)px
+             |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |-Node #1578 at (l=130.0, t=556.0, r=188.0, b=636.0)px
+             | Actions = [OnLongClick]
+             | MergeDescendants = 'true'
+             |  |-Node #1581 at (l=130.0, t=556.0, r=188.0, b=636.0)px
+             |    Focused = 'false'
+             |    Role = 'Tab'
+             |    Selected = 'false'
+             |    Text = '[Notifications]'
+             |    Actions = [OnClick, RequestFocus]
+             |    MergeDescendants = 'true'
+             |     |-Node #1584 at (l=159.0, t=570.0, r=159.0, b=602.0)px
+             |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |     |-Node #1588 at (l=140.0, t=606.0, r=177.0, b=619.0)px
+             |     |  |-Node #1589 at (l=140.0, t=606.0, r=177.0, b=619.0)px
+             |     |    ClearAndSetSemantics = 'true'
+             |     |-Node #1586 at (l=147.0, t=574.0, r=171.0, b=598.0)px
+             |     | ClearAndSetSemantics = 'true'
+             |     |-Node #1583 at (l=131.0, t=570.0, r=187.0, b=602.0)px
+             |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |-Node #1592 at (l=196.0, t=556.0, r=254.0, b=636.0)px
+             | Actions = [OnLongClick]
+             | MergeDescendants = 'true'
+             |  |-Node #1595 at (l=196.0, t=556.0, r=254.0, b=636.0)px
+             |    Focused = 'false'
+             |    Role = 'Tab'
+             |    Selected = 'true'
+             |    Text = '[Chat]'
+             |    Actions = [OnClick, RequestFocus]
+             |    MergeDescendants = 'true'
+             |     |-Node #1598 at (l=197.0, t=570.0, r=253.0, b=602.0)px
+             |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |     |-Node #1602 at (l=213.0, t=606.0, r=236.0, b=619.0)px
+             |     |  |-Node #1603 at (l=213.0, t=606.0, r=236.0, b=619.0)px
+             |     |    ClearAndSetSemantics = 'true'
+             |     |-Node #1600 at (l=213.0, t=574.0, r=237.0, b=598.0)px
+             |     | ClearAndSetSemantics = 'true'
+             |     |-Node #1597 at (l=197.0, t=570.0, r=253.0, b=602.0)px
+             |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+             |-Node #1606 at (l=262.0, t=556.0, r=320.0, b=636.0)px
+               Actions = [OnLongClick]
+               MergeDescendants = 'true'
+                |-Node #1609 at (l=262.0, t=556.0, r=320.0, b=636.0)px
+                  Focused = 'false'
+                  Role = 'Tab'
+                  Selected = 'false'
+                  Text = '[Your profile]'
+                  Actions = [OnClick, RequestFocus]
+                  MergeDescendants = 'true'
+                   |-Node #1612 at (l=291.0, t=570.0, r=291.0, b=602.0)px
+                   | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+                   |-Node #1616 at (l=275.0, t=606.0, r=307.0, b=619.0)px
+                   |  |-Node #1617 at (l=275.0, t=606.0, r=307.0, b=619.0)px
+                   |    ClearAndSetSemantics = 'true'
+                   |-Node #1614 at (l=279.0, t=574.0, r=303.0, b=598.0)px
+                   | ClearAndSetSemantics = 'true'
+                   |-Node #1611 at (l=263.0, t=570.0, r=319.0, b=602.0)px
+                     Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+2) Node #1759 at (l=0.0, t=0.0, r=320.0, b=555.0)px
+ |-Node #1760 at (l=0.0, t=0.0, r=320.0, b=555.0)px
+   [IsDialog]
+    |-Node #1761 at (l=0.0, t=0.0, r=320.0, b=555.0)px
+      PaneTitle = 'Dialog'
+       |-Node #1762 at (l=0.0, t=0.0, r=320.0, b=555.0)px
+         IsContainer = 'true'
+         Shape = 'RoundedCornerShape(topStart = CornerSize(size = 28.0.dp), topEnd = CornerSize(size = 28.0.dp), bottomEnd = CornerSize(size = 28.0.dp), bottomStart = CornerSize(size = 28.0.dp))'
+          |-Node #1765 at (l=24.0, t=24.0, r=226.0, b=52.0)px
+          | Text = '[Conversation details]'
+          | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |-Node #1767 at (l=24.0, t=68.0, r=296.0, b=459.0)px
+          | ContentDescription = '[Conversation information and controls]'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@76c13e5'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #1768 at (l=24.0, t=68.0, r=173.0, b=87.0)px
+          |  | Text = '[Incoming beta group]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1769 at (l=24.0, t=99.0, r=237.0, b=115.0)px
+          |  | Text = '[Group messages are unencrypted.]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1770 at (l=24.0, t=127.0, r=296.0, b=169.0)px
+          |  | Focused = 'false'
+          |  | Actions = [RequestFocus]
+          |  |  |-Node #1772 at (l=24.0, t=127.0, r=296.0, b=169.0)px
+          |  |    Text = '[26KcBxJimXuk5HYaRrUVGPfDofb4qhLVwQiXDua8GMvjP]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1774 at (l=24.0, t=185.0, r=98.0, b=225.0)px
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |  |-Node #1776 at (l=36.0, t=195.0, r=86.0, b=215.0)px
+          |  |    Text = '[Refresh]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1778 at (l=24.0, t=241.0, r=296.0, b=307.0)px
+          |  |  |-Node #1779 at (l=24.0, t=244.0, r=296.0, b=304.0)px
+          |  |    IsContainer = 'true'
+          |  |    Shape = 'RectangleShape'
+          |  |     |-Node #1782 at (l=32.0, t=270.0, r=40.0, b=278.0)px
+          |  |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |  |     |-Node #1783 at (l=48.0, t=250.0, r=284.0, b=298.0)px
+          |  |       LiveRegion = 'Polite'
+          |  |       Text = '[Some saved group information could not be read. Your wallet and cached groups are kept.]'
+          |  |       Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1784 at (l=24.0, t=311.0, r=296.0, b=349.0)px
+          |  |  |-Node #1785 at (l=24.0, t=314.0, r=296.0, b=346.0)px
+          |  |    IsContainer = 'true'
+          |  |    Shape = 'RectangleShape'
+          |  |     |-Node #1788 at (l=32.0, t=326.0, r=40.0, b=334.0)px
+          |  |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |  |     |-Node #1789 at (l=48.0, t=323.0, r=284.0, b=337.0)px
+          |  |       LiveRegion = 'Polite'
+          |  |       Text = '[Received a signed group invitation.]'
+          |  |       Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1792 at (l=24.0, t=357.0, r=108.0, b=397.0)px
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |  |-Node #1794 at (l=36.0, t=367.0, r=96.0, b=387.0)px
+          |  |    Text = '[Members]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1795 at (l=108.0, t=357.0, r=168.0, b=397.0)px
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |  |-Node #1797 at (l=120.0, t=367.0, r=156.0, b=387.0)px
+          |  |    Text = '[Invite]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1798 at (l=168.0, t=357.0, r=271.0, b=397.0)px
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |  |-Node #1800 at (l=180.0, t=367.0, r=259.0, b=387.0)px
+          |  |    Text = '[Leave group]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #1801 at (l=24.0, t=405.0, r=296.0, b=459.0)px
+          |     |-Node #1802 at (l=24.0, t=408.0, r=296.0, b=456.0)px
+          |       IsContainer = 'true'
+          |       Shape = 'RectangleShape'
+          |        |-Node #1805 at (l=32.0, t=428.0, r=40.0, b=436.0)px
+          |        | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |        |-Node #1806 at (l=48.0, t=425.0, r=223.0, b=439.0)px
+          |        | Text = '[Available history]'
+          |        | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |        |-Node #1807 at (l=231.0, t=408.0, r=292.0, b=456.0)px
+          |          ContentDescription = '[Details: Available history]'
+          |          Focused = 'false'
+          |          Role = 'Button'
+          |          Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+          |          Actions = [OnClick, RequestFocus]
+          |          MergeDescendants = 'true'
+          |           |-Node #1809 at (l=243.0, t=425.0, r=280.0, b=439.0)px
+          |             Text = '[Details]'
+          |             Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |-Node #1812 at (l=238.0, t=487.0, r=296.0, b=527.0)px
+            Focused = 'false'
+            Role = 'Button'
+            Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+            Actions = [OnClick, RequestFocus]
+            MergeDescendants = 'true'
+             |-Node #1814 at (l=251.0, t=497.0, r=284.0, b=517.0)px
+               Text = '[Done]'
+               Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]

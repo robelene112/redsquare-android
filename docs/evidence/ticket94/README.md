@@ -1,14 +1,13 @@
 # Unified redesign release verification (#94)
 
-Current repair source is `7a0a85ed3ada21c6300b099c4b2702a7daaff2f5`
-(P). O group readiness runs42243842996/42243848456; P Like process scopes run
-42244625799/42244629662. Actual decoded callback readiness remains inside20s;
-group displayed/enabled assertions remain inside15s. Split full jobs now have a
-120-minute aggregate CI resource ceiling after an actual75-minute cancellation;
-all actual feature/class/process deadlines and frozen acceptance remain unchanged.
-Original440-path equality is explicitly false for one CI-only workflow change;
-439 independently audited APK-input-superset paths remain equal B→P. Candidate89
-keeps its actual B build, signature, release configuration and update provenance.
+Current final verification source is `7a0a85ed3ada21c6300b099c4b2702a7daaff2f5`
+(P). Complete Android10/17 runs42245609199/42246000706 execute all three partitions
+and public reads through immutable tag proof-redesign94-7a0a85e. All currently
+known repairs have passing focused/source/native checks. Aggregate full-job
+capacity is120minutes; original feature/class/process deadlines and frozen
+acceptance remain unchanged. Original440-path equality is false for one CI-only
+workflow change;439 independently audited APK-input-superset paths equal B→P.
+Signed89 retains its actual B build/configuration/signature/update provenance.
 No complete application pass or beta promotion is claimed. Signed candidate 89
 was built on `95725b005d086c970118054e78046db10563a76c` (B). Current receipt
 discloses the CI-only workflow difference separately from the equal439-path
@@ -497,3 +496,19 @@ The independently audited439-path APK-input superset remains equal, with exact
 canonical hashes and the non-APK workflow exception in the current receipt. Both
 review axes independently recomputed it and confirmed the build boundary. No new
 APK or complete revision/debug-release binary equality is claimed.
+
+
+O group-ui scopes pass24methods/3classes and actual recovery on both SDKs,
+22-method class135.335s/165.996s inside180. NativeStandards inspected56selected
+pairs incl8process pairs, zero findings.15checkpointfields and actualchangedPIDs
+are retained. Positive Create readiness is not continuous enablement.
+
+P social scopes pass on both SDKs, including actual single/repeat process deaths
+and cold recovery. Spec inspected42PNG files (including6nested originals, some
+duplicated) and8XML, zero findings. RepeatPID4743→4866/5142→5214 and3distinctsigned
+IDs each are in receipts. The decoded Like checkpoint is reached inside original
+20s before genuine termination. No publicdelivery or motion quality is inferred.
+
+Full P runs42245609199/42246000706 are now active. Three successful jobs perSDK,
+frozen full collector, actual final cross-module native/motion reviews and exact
+89 promotion remain required. No failed/focused source assembly establishes this.

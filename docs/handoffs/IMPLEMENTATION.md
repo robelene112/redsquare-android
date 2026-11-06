@@ -8,75 +8,83 @@ Use one ticket at a time, with tests, both reviews and a completion commit per
 ticket. This supersedes the earlier two-ticket stop boundary below. #94 owns the
 consistent-source complete app gates, signed in-place update and publication.
 
-## ACTIVE: original group readiness O and callback/resource repair P
+## ACTIVE: complete final verification on P, aggregate resource ceiling corrected
 
-CODE P: 7a0a85ed3ada21c6300b099c4b2702a7daaff2f5.
-O: a3d846a4ab8b403f2ee75931d1b8ed9304e5fac2 (group readiness).
-Worktree /mnt/storage/redsquare-android-artifacts/redesign86, branchcodex/unified-redesign.
-Root sole implementer. Four tickets closed;94open. Owner authorizes finishing
-five tickets and beta; continue without unnecessary questions. No local builder.
+CODE P: 7a0a85ed3ada21c6300b099c4b2702a7daaff2f5. Worktree
+/mnt/storage/redsquare-android-artifacts/redesign86; branchcodex/unified-redesign.
+Root sole implementer. #90/#93/#81/#83closed, #94open. Continue full owner-
+authorized five-ticket/beta task. No local builder or implementation agent.
 
-O group-ui focus RUNNING10:42243842996,17:42243848456. M17fullChat42232677166
-failed1/22GroupChatPreview methods at694 after positive Create-enabled lookup,
-then separate actualassert sawdisabled during imported watch metadata reload.
-O retains actual displayed+enabled assertions INSIDE original15s readiness poll,
-no secondracingassert, no actionretries/featureguardchange. All22IDs/class180/
-authority/name/wallet/backend/noTx/cleanup remain. Bothsourceaxes0.
-Originals failures/fullM-chat17 and externalraw fullM17/android-native-proof-chat.
+RUNNING complete P, do not duplicate/cancel:
+- Android10:42245609199. Wallet127986919099, Social127986919479, Chat127986919571.
+- Android17:42246000706. Chat127988263050, Social127988263430, Wallet127988263543.
+Exact immutable tag proof-redesign94-7a0a85e, metadata/source/workflow allP,
+public reads true, all3partitions. Aggregate CI watchdog120minutes. Frozen
+626/627IDs,211classes,228/229normalcompletions,35deliberateinterruptions,
+34continuityrecords,177partition-qualifiedarchives/SDK unchanged. All actual
+UI/request/assertion/class/process bounds unchanged. No final full pass yet.
 
-P social focus RUNNING10:42244625799,17:42244629662. N10fullSocial42237989132
-failsactualSocialProcessRecoveryTest preparation at85: transactioncount1 was
-visible before signeddecode callback setAtomicReference. Failurecounts later
-showbroadcasts1/observedLikeTRUE. ControlledFeedPeer151 recordsframe then152
-invokescallback. P requiresactualdecodedrow plus1frame in SAME original20s wait,
-then unchangedfd-syncedcheckpoint/actualkill/coldproof. Bothsourceaxes0.
-Original failure/fullN-social10 includes interrupted log/images.tar; noactual
-process-death acceptance claimed from failed preparation.
+All known repairs now have focused/source/native passes:
+- O group-ui10/17:42243842996/42243848456 PASS24methods/3classes+actualprocess.
+  Actual displayed+enabled Create assertions remain inside original15s readiness
+  during imported watch metadata reload, no separate TOCTOUassertion.22-method
+  class135.335s/165.996s inside180s. NativeStandards56selectedpairs incl8actual
+  process pairs,0findings;15checkpointfields retained, PIDs14335→14712/5169→5254.
+  Readiness means enabled at observed point, not continuously enabled. Packets
+  focused-groupO-10/-17 (48PNG/48XML each), Group sourceblob same in P.
+- P social10/17:42244625799/42244629662 PASS original social/repeat/isolation/
+  wallet/import plusbothrealprocesschecks. Peer recordsreceipt before signed
+  callback; original20s wait nowalso requiresdecodedrow beforefd-syncedcheckpoint
+  andactualkill. N failurecounts later1receipt/observedtrue. Specnative42PNG
+  (6nested originals, some duplicates)/8XML,0findings; repeatPID4743→4866 and
+  5142→5214,3distinctactualLikeIDs. No publicdelivery/motion claim fromstills.
+- Earlier importI, feedK, pushL, queueM, AccountN allfocused/source/nativepass.
+  N17XMLphase lag and non-atomic captures remain explicit, nofalsegeometryclaim.
+  Mgroup real scroll0/max3→3/max3 restoresfull84×48Members, originalphysicaltap.
+Both source axes zero unresolved findings after WORKFLOW andreceipt corrections.
 
-M10Chat42232393578 was cancelled by GitHub's aggregate75min watchdog (exact
-annotation retained), not an application assertion failure. Allretained UIclasses
-pass; private-chat-process onlyinterrupted.txt, finalrecovery incomplete. P raises
-ONLYsplit-full aggregateCIresourceceil75→120 (combinedfull already120, focused60).
-Allapp/request/assertion/class/process deadlines unchanged; frozen626/627catalog,
-collector and perclass180/480/process120/UI5/15/20 budgets unchanged. WORKFLOW442
-explicitly distinguishes aggregateceiling fromruntimeacceptance andisupdated.
-Bothreviewaxes0remaining; this is NOTan app-deadlinewaiver. HistoricalMtimeout
-remainsincomplete. Original failure/fullM-chat10-ceiling hasactualjob/annotations.
+M10 Chat42232393578 hit actual aggregate75minute timeout while final private-
+Chat recovery was incomplete; it remains cancelled/incomplete, not acceptance.
+P increases ONLYsplit-full aggregate ceiling75→120 (combined already120, focused
+60). WORKFLOW442 explicitly says ceiling isnotruntimeacceptance. Both reviewers
+confirm no app/testdeadline waiver; all perclass180/480/process120/UI5/15/20
+remain. Frozen collector/catalog untouched. Exact oldjob/annotation retained.
 
-IMPORTANTprovenancechange: original440pathsuperset is NOWFALSE dueexactlyone
-CI-only .github/workflows/android-proof.yml change. ActualAPK-inputsuperset439
-paths/modes/types/blobs remain B→P equal. candidate89-producer-equivalence.json
-explicitly retains false440comparison andindependentlyaudited439comparison with
-bothhashes/exactCIentries/reason. Bothreviewaxes independentlyverified allfields.
-Do NOTcontinueclaimingall440equal. WorkflowfileisnotGradle/android-build/review-
-buildAPKinput. Gitrevision remains externalartifactmanifest. Signed89 stillactual
-producerB95725b005d086c970118054e78046db10563a76c, release config/hash/signature/
-original83→89updateB proofs unchanged. Stablelatest83,89staged/notpromoted.
+IMPORTANT APK provenance: original440-path superset NOWFALSE dueexactlyone
+non-APK .github/workflows/android-proof.yml difference. Independently audited439
+remaining paths/modes/types/blobs B→P EQUAL. Receipt retains both comparisons,
+canonicalhashes andCIbefore/afterentries/exclusionreason. Both reviewers recompute
+andconfirm buildboundary; workflownotGradle/android-build/review-buildAPKinput.
+Git SHA onlyexternalmanifest. Do NOTclaim440unchanged. Signed89 actualproducer
+B95725b005d086c970118054e78046db10563a76c, release variant/version89/hash
+6d2bde466efcadf4a82cbfc27b1f44d528399eb7facdad845f9e1ffc972de1d5/signature and
+original83→89 updateB evidence remain distinct. Stablelatest83,89stagedNOTpromoted.
+No new APK required for these test/CI-only changes.
 
-Otherknownrepairs allfocused/source/nativepass: importI; feedK; pushL; groupqueueM;
-AccountnavigationN. N post-presentation17methods/7classes bothpass42236680587/
-42236685108; nativeStandards60PNG/60XML0productfindings,17XMLphasecachelimit clear.
-Finalnativeplans externalnowP/artifactB, mandatory5newrepair observations retained.
+After all3Pjobs succeed/SDK download fresh raw folders:
+/mnt/storage/redsquare-android-artifacts/redesign94-fullP10-42245609199 and
+redesign94-fullP17-42246000706; preserve android-native-proof-{chat,social,wallet}
+subdirs. Run frozen full-collector.py SDK RAW FRESH_LABEL RUN EXACT_P with
+finalP-android10 /finalP-android17 labels. Then both ACTUAL finalnative/motion
+review axes on collected P; externalplans nowP/artifactB, fiveexplicit repaired
+Members/scope/Stack observations included. Plans/indexes are not reviews.
+Review agents wallet_import_standards/spec are available, read-only.
 
-OlderNfull10:42237989132 WalletPASS, SocialFAILcallback, Chatstillrunning.
-Nfull17:42237993076 WalletPASS, Social/Chatstillrunning at15:36. Keepinspecting
-actualoutcomes, do notcancelorassumematchingfailures. Their75minceilunchanged;
-no finalPfullhasstarted. OlderMfullbothcompleteFAILED:10SocialAccountFAIL,
-Chatwatchdogcancel/WalletPASS;17SocialPASS/WalletPASS/ChatGroupCreateFAIL.
-RawM10Chat, M17Chat, N10Social, N17Wallet downloadedexternally. CurrentN17Wallet
-pathredesign94-fullN17-42237993076/android-native-proof-wallet. Avoidredownloads.
+Only after complete acceptance: promote exactstaged89 via scripts/review-publish
+with unchanged /mnt/storage/redsquare-android-artifacts/redesign94-beta-notes.txt
+read.strip(); verifypublic latest/page/downloadhash, retain proof, completion
+commit/push/commentclose94only. Do notauto-close1/36/55/84/86; externalStack/
+Pixel/provider/KVK/Play acceptance remains independent. See older overview for
+publisher command details, adaptactualfinalsource/runIDs.
 
-AfterOgroup/Psocialfocuspass andknownfindingsresolved, createexactimmutabletagP
-anddispatchfreshFULL10/17 withpublicreadstrue, new120aggregateceiling, samefrozen
-catalog. Require3successfuljobs/SDK, full-collector exactP withfreshlabels/dirs,
-then twoactual finalnative/motionreviewaxes. No mixingfailed/focusedsources.
-Finalreviewagentswallet_import_standards/spec available read-only.
-PromoteEXACTsigned89 with unchangedexternalnotes onlyafterfullacceptance; verify
-publiclatest/page/downloadhash, commit/push/commentclose94only. Seeolderoverview
-forcollector/publishercommands, adaptactualfinalsource/runIDs. Keep1/36/55/84/
-Stackfunctional/Pixel/provider/KVK/Playcriteria independent. Oneapprovedproduction
-restartfulfilled11:08:07UTC; nofurtherproductionmutation. Currentproof/docsWIP
-needsretentioncommit. No implementation agent or localbuilder active.
+Older N10full42237989132 WalletPASS, SocialFAILcallback, Chatpending. N17full
+42237993076 WalletPASS, Social/Chatpending at15:49; keep inspecting actualoutcomes,
+no assumptions. Their75minceiling unchanged. Both MfullscompleteFAILED:
+10WalletPASS/SocialAccountFAIL/Chatwatchdogcancel;17Wallet+SocialPASS/ChatGroup
+readyFAIL. RawM10Chat,M17Chat,N10Social,N17Wallet downloaded; don'tredownload.
+NativeO/P packets/doc updates are uncommitted and needretentioncommit. Oneapproved
+productionrestart fulfilled11:08:07UTC withnodecatchup; noadditionalproduction
+mutation authorized. Historical sections below are superseded by this overview.
 
 ## Previous complete verification on source M
 
