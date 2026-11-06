@@ -23,8 +23,33 @@ class WalletTalkBackPreviewTest {
                 balanceServer.start(InetAddress.getByName("127.0.0.1"), 0)
                 withAppFrameFixture("wallet-talkback", "wallet-talkback-evidence",
                     balanceApiUrl = "http://127.0.0.1:${balanceServer.port}/balance/") { activity ->
-                    ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
-                    ui.onNodeWithText("Later").performClick()
+                    val reminderDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+                    fun reminderRemaining(): Long = (reminderDeadline - android.os.SystemClock.elapsedRealtime()).also {
+                        check(it > 0) { "Dismiss the real backup reminder within its original fifteen seconds" }
+                    }
+                    ui.waitUntil(reminderRemaining()) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
+                    // Activate the named TalkBack control, without a coordinate tap
+                    // racing the first-use banner's expanding layout.
+                    val dismissed = actionNode("Later", textLabel = true)
+                        .performAction(AccessibilityNodeInfo.ACTION_CLICK)
+                    assertTrue("Activate the actual Later control", dismissed)
+                    ui.waitUntil(reminderRemaining()) {
+                        ui.onAllNodes(hasText("Later") and hasClickAction())
+                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() &&
+                            ui.onAllNodes(hasContentDescription("Account") and hasClickAction())
+                                .fetchSemanticsNodes(atLeastOneRootRequired = false).size == 1 &&
+                            device.currentPackageName == context.packageName
+                    }
+                    val reminderReadyAt = android.os.SystemClock.elapsedRealtime()
+                    check(reminderReadyAt <= reminderDeadline)
+                    capture(automation, File(folder, "reminder-dismissed.png"))
+                    device.dumpWindowHierarchy(File(folder, "reminder-dismissed.xml"))
+                    File(folder, "reminder-dismissed.json").writeText(JsonObject().apply {
+                        addProperty("activation", "ACTION_CLICK")
+                        addProperty("nativeActionResult", dismissed)
+                        addProperty("foregroundPackage", device.currentPackageName)
+                        addProperty("remainingMillis", reminderDeadline - reminderReadyAt)
+                    }.toString())
                     ui.openWallet()
                     val address = displayedWalletAddress(ui)
                     ui.onNodeWithText("Send SAITO").performScrollTo()

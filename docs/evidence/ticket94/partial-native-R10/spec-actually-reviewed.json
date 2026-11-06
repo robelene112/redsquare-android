@@ -1,0 +1,3738 @@
+{
+  "source": "c24a705207795db7e137a3664f3d9a710a86b9a9",
+  "sdk": "10",
+  "reviewAxis": "Spec native rendering and motion",
+  "status": "complete bounded SDK review only; both SDKs required for final conclusion",
+  "actualInspectedStillCount": 117,
+  "actualInspectedMovieCount": 28,
+  "actualInspectedFrameCount": 281,
+  "totalDecodedFramesInSelectedMovies": 618,
+  "selectionStills": [
+    {
+      "request": "chat/status-originals/module-shell-evidence/account-return.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-shell-evidence/account-return.png",
+      "sha256": "1bb5e0977183a5cea365729db1b1b0a936d52816679b94c8e4e75dba684bdb7c",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/module-shell-evidence/stack-discover.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-shell-evidence/stack-discover.png",
+      "sha256": "c6961ba4a739f53ebbe3d4b8d51ab94aaca4fdcebcea8eb2a11cdd86e0399183",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/module-shell-evidence/stack-article.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-shell-evidence/stack-article.png",
+      "sha256": "c1f4e92df42dda931b83747fd95d49ec07be1198eb4f6bb6dce628c9400e8f20",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/navigation-evidence/navigation-320-font100-light.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/navigation-evidence/navigation-320-font100-light.png",
+      "sha256": "332f54817530211d79235b6d1d1bee8b8ee9fe74a50b9793fc2a89ed1d96f47e",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/feed-writing-evidence/writing-320-font100-light-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/feed-writing-evidence/writing-320-font100-light-ime.png",
+      "sha256": "59364555993c1c2e60d7b909c089bed09568f947b27316411023c22db4264fdc",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-320-font100-light-cached-outage.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-320-font100-light-cached-outage.png",
+      "sha256": "f15012651f2036cc0a2d6be3412d833e0a4b3b251bc3b4aff396c16a3c25c647",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-320-font100-light-reply-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-320-font100-light-reply-ime.png",
+      "sha256": "c6f218cb975c23bcf80c4dcbca96a0241636041a09c05700699cd8be71de5f59",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/public-public-profile-section-320-font100-light-history-boundary.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/public-public-profile-section-320-font100-light-history-boundary.png",
+      "sha256": "013636d45f25e06ad859055872b603eea05d943c6f310a6a730a7f53a7e6a869",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-320-font100-light-group.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-320-font100-light-group.png",
+      "sha256": "b87c9b48b138c272d3a768654c8ddaad2199bd893850608b3290dab73e6e5c53",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-320-font100-light-people-dialog.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-320-font100-light-people-dialog.png",
+      "sha256": "06d1aa55e9c693a245be35d4778c791f7dad7351c7a25d6ad75311ad2fccd83a",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font100-light-wallet-identity.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font100-light-wallet-identity.png",
+      "sha256": "cbc069774d1284a28656adeb96824814dc0102f6af55270f2fc30b1ee2624808",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font100-light-recovery.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font100-light-recovery.png",
+      "sha256": "0e2c18dab3a3a3149e87782f6e46ec203f4775b2db180e0d48662ef5f6b5b3e6",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font100-light-settings.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font100-light-settings.png",
+      "sha256": "84e16d5abe00b99908fafa724e0c385bfc9c2f901fcfac3a0e5dccf1dcda1225",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font100-light-node-choices.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font100-light-node-choices.png",
+      "sha256": "a04b557410d437e8e2cb23b0dc5d540ba2232fbcbdb14f84183b51311b78ac12",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font100-light-appearance.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font100-light-appearance.png",
+      "sha256": "4f249f0cc3313d4a8d311b1141fc079d87fcdad879224c828b1562be83a5ee63",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/node-viewport-evidence/node-320-font100-light-times-and-actions.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-viewport-evidence/node-320-font100-light-times-and-actions.png",
+      "sha256": "4aa094f7e3745d1695b8523da9c6ce4d17ce3d18338f111dc0dfe6d43c2af63b",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-photo-reply.png",
+      "sha256": "83343de74db9180bd515ae648ad2c28dd4a14a6409694fed6c436fb32165f8d2",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font100-light-history-with-ime.png",
+      "sha256": "06821665bd7bdc5dcbe7bb732f8200fd4f8e8b675214738796982af99adb6a9e",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-photo-reply.png",
+      "sha256": "17c719f4a4fe53e321563d6e327b64e7546bb08e87a293237820642eae525ada",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-history-with-ime.png",
+      "sha256": "f9c095c0fa43a5cc1579dcc73f4535ac1c41f3d4b708dc31de5d834746bfcd3a",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/navigation-evidence/navigation-320-font130-dark.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/navigation-evidence/navigation-320-font130-dark.png",
+      "sha256": "d6cce8a106f7cc2075f65641d937484b1f1e0a34c794080fe1d25a787f36f7dd",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/feed-writing-evidence/writing-320-font130-dark-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/feed-writing-evidence/writing-320-font130-dark-ime.png",
+      "sha256": "2d1b2f5ecadd3478d3bd918b50bce9b6c70dc992eee673146a05f1e1f2cc7797",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-320-font130-dark-cached-outage.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-320-font130-dark-cached-outage.png",
+      "sha256": "94ae1e4313fdcfbb77d74df84d43c48599d4d8b72c636945d22bc5c185dd1753",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-320-font130-dark-reply-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-320-font130-dark-reply-ime.png",
+      "sha256": "50461ae6f45a9b1a434c9b6588cc725475e63439efa6e1bbe85c99b3f4e475fe",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/public-public-profile-section-320-font130-dark-history-boundary.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/public-public-profile-section-320-font130-dark-history-boundary.png",
+      "sha256": "279547b13f2781bbdec438034046f96246063126b1871644f14634938edcb4e3",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-320-font130-dark-group.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-320-font130-dark-group.png",
+      "sha256": "4f3e4e0a6e1b19cbda515e85caf9eb413e16c33cbb162fada80628dcd70d764e",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-320-font130-dark-people-dialog.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-320-font130-dark-people-dialog.png",
+      "sha256": "ef3e416a0fa0b0a7225cc86228df51bd6376774d7ae69497d97743d76291b582",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font130-dark-wallet-identity.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font130-dark-wallet-identity.png",
+      "sha256": "c782d9aa28971d7e46740cb39806cd177e3cf697ca1c67608ae85472a72268da",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font130-dark-recovery.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font130-dark-recovery.png",
+      "sha256": "461b5303bb07292bee55ae6330edc95b8c4cbb2f66c0426a08b0b107ed07925a",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font130-dark-settings.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font130-dark-settings.png",
+      "sha256": "98572baa7f5ed850b0577961427d0c0cc00862a4f6951b9a39a2adaabc81fb3e",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font130-dark-node-choices.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font130-dark-node-choices.png",
+      "sha256": "632a205da6e9088f325e41322c68d87fb05162a69bf0b61ca297790a7202d981",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font130-dark-appearance.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font130-dark-appearance.png",
+      "sha256": "fe62adec488727b2785913570e45616aadf9c4becab1ec94ca576ec716f1bc78",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/node-viewport-evidence/node-320-font130-dark-times-and-actions.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-viewport-evidence/node-320-font130-dark-times-and-actions.png",
+      "sha256": "4969a6b214a2c07384470e1bc1f44d50b54329bc556299722d87af9d3c9e2e85",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-photo-reply.png",
+      "sha256": "35fac1dbc60bd23fa81b68034683a28ec7919abbb1cbe2cec7ed5ca5ddea5528",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font130-dark-history-with-ime.png",
+      "sha256": "7cd27993e86b4a8537292c16545fcc319eb00449e6b50b15f4937c4f6034c0a7",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-photo-reply.png",
+      "sha256": "1b43347ff5803aed095d2009bf442ed77748239e8e1b280d11289b1838c61b6b",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font130-dark-history-with-ime.png",
+      "sha256": "3f479e5f8881ccad0f2f8b5ed2c3adaba63212596e00d5ba06f046012526a5d5",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/navigation-evidence/navigation-320-font200-dark.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/navigation-evidence/navigation-320-font200-dark.png",
+      "sha256": "3f2edc7b86edab02c7a250f56ed5bc1b760e0ee0afc26856ab7694d689e01f61",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/feed-writing-evidence/writing-320-font200-dark-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/feed-writing-evidence/writing-320-font200-dark-ime.png",
+      "sha256": "7a27c73477f3c83002d594bf246b605505e2a9057e150fc286804314cc740033",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-320-font200-dark-cached-outage.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-320-font200-dark-cached-outage.png",
+      "sha256": "c4f09e7f02644c32e6fdb217657ba79ea8d50549bdc5c247ab7a48c5bfd25b71",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-320-font200-dark-reply-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-320-font200-dark-reply-ime.png",
+      "sha256": "6162d447415418d636c89f0d7a80081aca8e609085353e24eb0b0c06e324e109",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/public-public-profile-section-320-font200-dark-history-boundary.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/public-public-profile-section-320-font200-dark-history-boundary.png",
+      "sha256": "929693d9824479bd9185b425247d3647ba7d7f1b1972e7f31bb36f22c67949b8",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-320-font200-dark-group.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-320-font200-dark-group.png",
+      "sha256": "03bab3b1e37d4f8047cf82e2f721e3f12eeae8860d6084caeecb3f61b6b83585",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-320-font200-dark-people-dialog.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-320-font200-dark-people-dialog.png",
+      "sha256": "7927b9d240e58d3eca813b4f6f9c3f4faea5e7ec7ae5bcd012c968bd00967cbb",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font200-dark-wallet-identity.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font200-dark-wallet-identity.png",
+      "sha256": "eb2d922e929306cfb92d0d0504301a15c4cbbef24e92b1dfd5b457ca6d201cf4",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font200-dark-recovery.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font200-dark-recovery.png",
+      "sha256": "bb6622a8d3ac428490c28fea65ddb61ad1cacaf3538bc10db8e455a9ef11bf93",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font200-dark-settings.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font200-dark-settings.png",
+      "sha256": "61087528b6817715c194f818fd63fc6049ec872e9c6f55c21e3312f9c497bc5f",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font200-dark-node-choices.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font200-dark-node-choices.png",
+      "sha256": "55272c50b61dafa261507c44c1859f2e954de022e279e0182c85fe3fb85ad273",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-320-font200-dark-appearance.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-320-font200-dark-appearance.png",
+      "sha256": "f1235997525350bb663f4423e80bce693db211f70855ee6907b88fc2804c9228",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/node-viewport-evidence/node-320-font200-dark-times-and-actions.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-viewport-evidence/node-320-font200-dark-times-and-actions.png",
+      "sha256": "d4a097c16aff6fcf981d42ff1221e737a70cbef06acf1ba8704cba65ff583f2e",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-photo-reply.png",
+      "sha256": "531691e5a6298e39e1b7bdb55e8e1e649be49c606ee1ee0d1cfa68e9d4623408",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.png",
+      "sha256": "a6fe70e84bda72b8e88a90e2220b8f06e39b4604c955341eda65e0d4276452ed",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-photo-reply.png",
+      "sha256": "eee2cf917189f413bb11e248baf202b1ab518f967f499db131229a24882544a6",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font200-dark-history-with-ime.png",
+      "sha256": "6f9a1372d16e370db8a5ed5db3109c70514c6d3fb0f8b448961e2b94ea5d19bd",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/navigation-evidence/navigation-412-font100-dark.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/navigation-evidence/navigation-412-font100-dark.png",
+      "sha256": "f2d60db4e72ae9f0de3cbd5ec1759160e05a5c9dcb7071a10d28e1521d2b0923",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/feed-writing-evidence/writing-412-font100-dark-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/feed-writing-evidence/writing-412-font100-dark-ime.png",
+      "sha256": "f30ac26cb9adf092f85b287cc58f43d3011f1a01126d54f72c7dcf8abbc8ec1d",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-412-font100-dark-cached-outage.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-412-font100-dark-cached-outage.png",
+      "sha256": "3985c6d5698a72dfbd7a0a3eab6d1b114255c7fc27e93a2d11dc1cd044d705ad",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-412-font100-dark-reply-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-412-font100-dark-reply-ime.png",
+      "sha256": "9845333c9299a78b4a30b371b669ce18526c45a18401c59edacbfc34108e11d1",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/public-public-profile-section-412-font100-dark-history-boundary.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/public-public-profile-section-412-font100-dark-history-boundary.png",
+      "sha256": "a5ac1f2260153e868da1ef921bd4a436a14ac0c34d9cfa26b53d90df11215496",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-412-font100-dark-group.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-412-font100-dark-group.png",
+      "sha256": "bcd31ae4d26ca639d0ec4bb8b8412f6da3ad437603d98585d5d5028ff50ea438",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-412-font100-dark-people-dialog.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-412-font100-dark-people-dialog.png",
+      "sha256": "169e176987646f9f26ce969d4cea217eef4af04d9a02eb89dea3ecf463963235",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font100-dark-wallet-identity.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font100-dark-wallet-identity.png",
+      "sha256": "5f24d475265a688bed06110e49cf5dc936aa069c158c49720ed55f5a882ed527",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font100-dark-recovery.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font100-dark-recovery.png",
+      "sha256": "0fde46cabcb4edcebea177ba0fe45b2279497b196a696636e6a905bbeea2ee6f",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font100-dark-settings.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font100-dark-settings.png",
+      "sha256": "93f2606385be479720da903afad7f0d41a48cbde05c242b842ebaf11d9cc7fa5",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font100-dark-node-choices.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font100-dark-node-choices.png",
+      "sha256": "6e186f0d09dc0289a309119f29397f395d84e6fce7ecece6669c54ec762ec5de",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font100-dark-appearance.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font100-dark-appearance.png",
+      "sha256": "d1ddac5909fd3fea197541ba3c6b81dda23ac3d18958697d4c7307a400dbb409",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/node-viewport-evidence/node-412-font100-dark-times-and-actions.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-viewport-evidence/node-412-font100-dark-times-and-actions.png",
+      "sha256": "381e638d0a10ad113fa2f880f2b73f500dc914acc8bddb97430c1af016af2c6f",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-photo-reply.png",
+      "sha256": "98ea132783dc68a9b037df66812ed0b3cd6433706441c575d81d2ebc893dedc8",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font100-dark-history-with-ime.png",
+      "sha256": "bd3c6dc2c6f38435e7a7ca091cdb4c1ca801aa0552c7e4b6e2660484bba05416",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-photo-reply.png",
+      "sha256": "8955c80d1ac9b6c18c7bda3ad7af6657618694bb6d538bbcca52626cac15def8",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font100-dark-history-with-ime.png",
+      "sha256": "69d4353c8cb61522efc66a006f8bbe93d4145b753d805a369d313ef6819aa807",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/navigation-evidence/navigation-412-font200-light.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/navigation-evidence/navigation-412-font200-light.png",
+      "sha256": "ab1d64a72b22ad8d9fe87e8977697b55a15dfffe028ed76e99e97616e0c1f453",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/feed-writing-evidence/writing-412-font200-light-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/feed-writing-evidence/writing-412-font200-light-ime.png",
+      "sha256": "84ed31a933b2878f0fee917691fb0bd775fa65bcca46712db1ccc070650689c1",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-412-font200-light-cached-outage.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-412-font200-light-cached-outage.png",
+      "sha256": "9448215b48b10fc0001533fd5b78c46d84538e59ebcd9ea09803fd4fb0a0b359",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/conversation-viewport-evidence/thread-412-font200-light-reply-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/conversation-viewport-evidence/thread-412-font200-light-reply-ime.png",
+      "sha256": "b3746da191b1fe5bfa947b36f6c2fc08644cbaae0f71762677f063a1a32483d3",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/public-public-profile-section-412-font200-light-history-boundary.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/public-public-profile-section-412-font200-light-history-boundary.png",
+      "sha256": "8c0005156e55ace90d2dcad27739e08c7466677c4643db737c53f491d75d9e9b",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-412-font200-light-group.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-412-font200-light-group.png",
+      "sha256": "ff9676e657afbd1cf45dca7afe0ca2d0ccab6e4f830a1f645c8e62c82ed029a2",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/activity-group-viewport-evidence/groups-412-font200-light-people-dialog.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-viewport-evidence/groups-412-font200-light-people-dialog.png",
+      "sha256": "cc3c3d1d097d205e9516e5bd038589a0da3a8c932d1734b8714583bd64707638",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font200-light-wallet-identity.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font200-light-wallet-identity.png",
+      "sha256": "9e557f8f6b4ec19a83532bdc5a3176d07d6e76c21ea7ca548ceec0fef6bce15c",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font200-light-recovery.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font200-light-recovery.png",
+      "sha256": "c432c3f430efd45c3df35fd3fcfa91630a546e6a2c2c87c0ee556cef39ac9648",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font200-light-settings.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font200-light-settings.png",
+      "sha256": "a432c95e91ca29115efadf1f03f37e752ae612ab1293eb0858a0f9583385e3d7",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font200-light-node-choices.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font200-light-node-choices.png",
+      "sha256": "39b81ee102a2b1422119f5917f41bec06a7ffef3359e6c9852d205c64d7f0def",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/account-design-viewport-evidence/account-412-font200-light-appearance.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-412-font200-light-appearance.png",
+      "sha256": "b33e3e32b137833c534f6e72ec56eb8a46dcb98c971c95772990c3e0760aca10",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/node-viewport-evidence/node-412-font200-light-times-and-actions.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-viewport-evidence/node-412-font200-light-times-and-actions.png",
+      "sha256": "ac7220e97533e43c85325dd89fda41a6034453e086f2781d0726b5b1de5d6129",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.png",
+      "sha256": "80ccab4d27e9dae0af444fb6b03a34e06f72475dc29a50030305a48c46997ea9",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-history-with-ime.png",
+      "sha256": "f00b77b7c6ebf0debb4bd8c476ba0e4347b6997fdbabee4050b3fb490d7618f7",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-photo-reply.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-photo-reply.png",
+      "sha256": "6d4595646a768c0580b370cdd913d4627c25fea6534c594a41ac2dec5d2afc48",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-history-with-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-light-history-with-ime.png",
+      "sha256": "50679e05ee7de654920b6cc0d2089b003cbc21e02e0befd597052e7286eb6dd1",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-evidence/private-boundary-412-font100-dark-grouped.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-evidence/private-boundary-412-font100-dark-grouped.png",
+      "sha256": "3d57f92b14c67442feebef1a164b37b38646c077a68060458f312a5ba2e414b0",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-grouping-evidence/private-separated-412-font100-light.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/chat-grouping-evidence/private-separated-412-font100-light.png",
+      "sha256": "02946cb3f07dd33cdf5e2a81c8f64ff693e04fde73ac32661859b172cb71c8f1",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/group-chat-grouping-evidence/group-senders-412-font100-dark-grouped.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/group-chat-grouping-evidence/group-senders-412-font100-dark-grouped.png",
+      "sha256": "37ae80ffc9ba86518c8f6fbbb1f1c761ead44ca768aa1e1b550f1655de2620c9",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/private-chat-evidence/native-reply-draft-reopened.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/private-chat-evidence/native-reply-draft-reopened.png",
+      "sha256": "96b36bc1a2fc91e8232e7eccb99c141cf7949ac5275b104be238294edec8db99",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/private-chat-evidence/native-reply-quote-before-tap.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/private-chat-evidence/native-reply-quote-before-tap.png",
+      "sha256": "f64e50bebf0c70511a5dd4be80f1cf2761948c464561f25c408cc916ba063f5c",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/private-chat-evidence/native-reply-quote-original.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/private-chat-evidence/native-reply-quote-original.png",
+      "sha256": "9a9abd7326c8681752747765450e2b02559c01fa9c1098276459af9ebe3d6955",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/wallet-design-evidence/actual-payment-review.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/wallet-design-evidence/actual-payment-review.png",
+      "sha256": "dbf94472cde38a2eb1aae964cf289f3f2ac1bf4ffe96cff165b70228e63a596b",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/wallet-design-evidence/settings-overview.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/wallet-design-evidence/settings-overview.png",
+      "sha256": "50a3f4cc51ac7160ce54795925f10c2115e5b68fb0cd0de9609f5f7a4e3c5872",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/wallet-design-evidence/receive-before-header-assertion.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/wallet-design-evidence/receive-before-header-assertion.png",
+      "sha256": "24b9c4ef18c969415b3f41739359cbacf6f23470b8c8cdb0081bc3b26d3f1ecf",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/feed-reading-evidence/retained-feed-anchor.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/feed-reading-evidence/retained-feed-anchor.png",
+      "sha256": "c2be55e98cc9e2a320ceda68e1fbe07c770540d5e51211b455ee917135709ae5",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-queue-evidence/group-cancel-viewport-members-action.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/chat-queue-evidence/group-cancel-viewport-members-action.png",
+      "sha256": "9e229dfca9cd571c424ccf1d29568b86cccc3172f1724c1c304a2f701c7c04c9",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-queue-evidence/group-cancel-members-open.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/chat-queue-evidence/group-cancel-members-open.png",
+      "sha256": "ca57f8a9078e5576a77a61d8e184779286c50289cacc93b4186b54b36a8fbbfe",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/chat-queue-evidence/group-scope-backend-paused.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/chat-queue-evidence/group-scope-backend-paused.png",
+      "sha256": "ac7b5c4a8fc40a3215e9f0e9a766c203d447629ee145415c3636519f72af93ac",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/social-push-evidence/tap-stack-conversation.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/social-push-evidence/tap-stack-conversation.png",
+      "sha256": "797fd48bcf6b4d132866a0763daafc7f1fc32b9cdf9384f09aae7f5273bf0611",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/social-push-evidence/tap-stack-draft-restored.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/social-push-evidence/tap-stack-draft-restored.png",
+      "sha256": "f13f5611d0052bca0cb27a644b1bee41df56523cdf4c449996c323b63e02995d",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-groups-ready.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-groups-ready.png",
+      "sha256": "bbd62c96f82e617ad6b1406542919dac8dbe7a3cbb5e67915429c8a0ccc253cc",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/image-viewer-viewport-evidence/viewer-320-font200-light-landscape-closed.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/image-viewer-viewport-evidence/viewer-320-font200-light-landscape-closed.png",
+      "sha256": "e8c7dc59c3831f03a67ec2f0f03b8102dfd652e2469b6f634c1fac7090740494",
+      "reviewed": true
+    },
+    {
+      "request": "chat/status-originals/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-groups-ready.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-groups-ready.png",
+      "sha256": "af3a1aa6ccbfca6c3d8d2dd031ade44fbe254cc80674ff9d4a0251bd5baf36f9",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/image-viewer-viewport-evidence/viewer-320-font200-dark-landscape-closed.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/image-viewer-viewport-evidence/viewer-320-font200-dark-landscape-closed.png",
+      "sha256": "c2c4474d6158a6d79d5323995139a52f86a27df6cb307fb1d0951f92e838540e",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/own-own-profile-section-320-font200-light-editing-ime.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/own-own-profile-section-320-font200-light-editing-ime.png",
+      "sha256": "61c19624dd0e4fcfd37b7328b9bead7140a6d1800d9e493c9731dc4541ddc1e8",
+      "reviewed": true
+    },
+    {
+      "request": "social/status-originals/profile-redesign-evidence/own-editor-restored.png",
+      "actual": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/profile-redesign-evidence/own-editor-restored.png",
+      "sha256": "06f586b7ebe6c6bd1b2fe11b629827fbff20f8dd4b65b3cf24020ed5a8c17385",
+      "reviewed": true
+    }
+  ],
+  "extraStills": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/wallet/policy-evidence/light-overview.png",
+      "sha256": "1d373e0a746d6e05d4b339c06ef02c497b06ee8a84f781913f9e5813c1057b3a",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/wallet/policy-evidence/settings-talkback/node-keyboard-focus.png",
+      "sha256": "c87da2f8f47ee4e509c5fede1fe19bcac923c645396bc26d794fd4057bb416f7",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/wallet/policy-evidence/settings-talkback/owner-node.png",
+      "sha256": "f4f1485c3f7d639b9c95e1e092be978c7b99fae2e50081a442a6c11325453afc",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/wallet/policy-evidence/settings-talkback/official-node.png",
+      "sha256": "b2ecb737c25bca3b58bb893d12f27b3a50785dd9191eb92a24008032e82bc8e1",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/origin.png",
+      "sha256": "344eafd1fc91c4fe09ba54a910cd7d079183caa25c7ce38b7a4f054288febf0a",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/close.png",
+      "sha256": "3004ee474097e625483efef774d349734c6f7c103961109450024dad3d26a89a",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/returned-focus.png",
+      "sha256": "97bf0bc27c174c693f06594bb362e58096673115039932fa913dbc6c5c4efcd1",
+      "reviewed": true
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign94-fullR10-42265166557/android-native-proof-social/.scratch/device-evidence/api-29/repeat-social-process/new-like-after-restart.png",
+      "sha256": "ec74c7763cf620aab50c452aee4e4106d83fd65f6d9ef569908e7cce11b9718c",
+      "reviewed": true
+    }
+  ],
+  "movies": [
+    {
+      "path": "chat/status-originals/module-header-motion-evidence/scale-1-collapse.mp4",
+      "sha256": "0599298dcd578898b169f1bc2b3b8794027425eece48b472498f004b0b07bfad",
+      "decoded": 41,
+      "viewed": 12,
+      "indices": [
+        0,
+        4,
+        7,
+        11,
+        15,
+        18,
+        22,
+        25,
+        29,
+        33,
+        36,
+        40
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-collapse.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-collapse-frame-0.png",
+          "sha256": "30d03ee7031ca4b1a2bee492c557c0eb229b21b5edca08fae1effad6f278f09d"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 298377,
+          "file": "scale-1-collapse-frame-4.png",
+          "sha256": "e78de26b9ac04b73614fde774724cc2bf8c6cd049044739300eefd7b21135bdb"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 365222,
+          "file": "scale-1-collapse-frame-7.png",
+          "sha256": "3dc423d8282fbc5c8a55c6a0bdb88ca7af8661dc663cdf8a8dc1cc697af386c2"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 430644,
+          "file": "scale-1-collapse-frame-11.png",
+          "sha256": "558574ad2a3797b60fb43df93746e142467e0e30769fcbdee48750e3a3008d20"
+        },
+        {
+          "index": 15,
+          "presentationTimeUs": 531366,
+          "file": "scale-1-collapse-frame-15.png",
+          "sha256": "a0eb79839df7182fd8c9e00ce478357d9b3d025b502e69032f53a0df88d51119"
+        },
+        {
+          "index": 18,
+          "presentationTimeUs": 581244,
+          "file": "scale-1-collapse-frame-18.png",
+          "sha256": "cdc7e81e52e3574eb00146bc63df9cd96aec07bfe91736c3247724e897ee89b5"
+        },
+        {
+          "index": 22,
+          "presentationTimeUs": 664333,
+          "file": "scale-1-collapse-frame-22.png",
+          "sha256": "2d09ef4287f9bccf247a0c1691cd910caec6390ccd063eb713a36847972f4569"
+        },
+        {
+          "index": 25,
+          "presentationTimeUs": 731688,
+          "file": "scale-1-collapse-frame-25.png",
+          "sha256": "7515ad0da14a93cdcc1ed94388ffc39705917fcb6f951189a61ee37a5254ee6f"
+        },
+        {
+          "index": 29,
+          "presentationTimeUs": 816611,
+          "file": "scale-1-collapse-frame-29.png",
+          "sha256": "b83834bffbdde1c9628836d9610f4e0b55a58ea0842d41e7bbde9d73a763197e"
+        },
+        {
+          "index": 33,
+          "presentationTimeUs": 897677,
+          "file": "scale-1-collapse-frame-33.png",
+          "sha256": "4e525c52c14e139d0a17fbcd12d89362f898c45ecb4737a1c39181cc82ff17a9"
+        },
+        {
+          "index": 36,
+          "presentationTimeUs": 948366,
+          "file": "scale-1-collapse-frame-36.png",
+          "sha256": "7ff26d8c577a47092debe0f55397bf8743d7569f46623e594dd7500d803c2c7c"
+        },
+        {
+          "index": 40,
+          "presentationTimeUs": 1065722,
+          "file": "scale-1-collapse-frame-40.png",
+          "sha256": "036cf9002245819100abf5178e09e821a28a4a48dd90017942f1aa1d02a57471"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/module-header-motion-evidence/scale-0-collapse.mp4",
+      "sha256": "156c9cb0abeb5117d00d258b4bb123aab6e48db5a44acac808be1c192a359bc5",
+      "decoded": 40,
+      "viewed": 12,
+      "indices": [
+        0,
+        4,
+        7,
+        11,
+        14,
+        18,
+        21,
+        25,
+        28,
+        32,
+        35,
+        39
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-collapse.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-collapse-frame-0.png",
+          "sha256": "d596f09de837c4fbf99ace82a96edaa248e709b3d2e2f8134ecb985efb67ecbb"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 349255,
+          "file": "scale-0-collapse-frame-4.png",
+          "sha256": "2f4a2b5fb11914cddd3aaf62188ee89462a72789d557c09cc0170281fba1963c"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 481422,
+          "file": "scale-0-collapse-frame-7.png",
+          "sha256": "fc4378f01ba5825e1a1a98f2f26c3789adb7d548b7c8fd39bac8fca74b45a23f"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 549688,
+          "file": "scale-0-collapse-frame-11.png",
+          "sha256": "96b4afb0de3bb9a3f42ca0f6d00736f680de6651eb141c59999989dcdda219b2"
+        },
+        {
+          "index": 14,
+          "presentationTimeUs": 614555,
+          "file": "scale-0-collapse-frame-14.png",
+          "sha256": "e0bf99ab06877b433a0451cabc0306149b4a44fbae6f5ca5852277c0aab6768e"
+        },
+        {
+          "index": 18,
+          "presentationTimeUs": 698244,
+          "file": "scale-0-collapse-frame-18.png",
+          "sha256": "45e251e12b1d8bb8db5519f928d153b84b1446b643b43b7b73c37269d73bb44e"
+        },
+        {
+          "index": 21,
+          "presentationTimeUs": 748844,
+          "file": "scale-0-collapse-frame-21.png",
+          "sha256": "97170f06116d0fba455e7e8bea898cb9592a5606ce5502f35e8031e49d095e93"
+        },
+        {
+          "index": 25,
+          "presentationTimeUs": 815544,
+          "file": "scale-0-collapse-frame-25.png",
+          "sha256": "bea6044e10646ec1b688065766cb5de52023ed10e11119eae2c078eccf01e1f2"
+        },
+        {
+          "index": 28,
+          "presentationTimeUs": 915733,
+          "file": "scale-0-collapse-frame-28.png",
+          "sha256": "2fa548c585c6ca27f9340afec3b54659d89aa5190f4857b3e282c8c184efe236"
+        },
+        {
+          "index": 32,
+          "presentationTimeUs": 982322,
+          "file": "scale-0-collapse-frame-32.png",
+          "sha256": "62ed9470014abef30c386ff38e33cfe666ec74a714b90a00abf078601be68028"
+        },
+        {
+          "index": 35,
+          "presentationTimeUs": 1031577,
+          "file": "scale-0-collapse-frame-35.png",
+          "sha256": "23591db822e6cc9fd113bb1d14793821d1dc0b455aa0e52909be3151d203abdd"
+        },
+        {
+          "index": 39,
+          "presentationTimeUs": 1148522,
+          "file": "scale-0-collapse-frame-39.png",
+          "sha256": "f6385a7330a3e126e77aaf4a156849ca171db94eb0ecd4be9fa68583a55490dd"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-journey-evidence/scale-1-rapid-primary.mp4",
+      "sha256": "28e45a445f109724347fceaf6af58fa1cc2829baf636a857f06024452528f21e",
+      "decoded": 33,
+      "viewed": 12,
+      "indices": [
+        0,
+        3,
+        6,
+        9,
+        12,
+        15,
+        17,
+        20,
+        23,
+        26,
+        29,
+        32
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-rapid-primary.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-rapid-primary-frame-0.png",
+          "sha256": "b0d8272dc2d2244a115670670cb330f3667311580d563eb00c5e52239b35164c"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 281733,
+          "file": "scale-1-rapid-primary-frame-3.png",
+          "sha256": "2de5a7e260c3be6ffb9e7b0a60af21763ca8fe58550b075a1c7c8c8a364f724d"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 331411,
+          "file": "scale-1-rapid-primary-frame-6.png",
+          "sha256": "290746e2ba98eeb85a286d0adbf96a450149ad54468f9d54e3151e6f4364f56c"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 381144,
+          "file": "scale-1-rapid-primary-frame-9.png",
+          "sha256": "1c13a0cba22b61d210a38f2dcc4987ba5f2d234c7291bd20b7eda35be35c39e0"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 430944,
+          "file": "scale-1-rapid-primary-frame-12.png",
+          "sha256": "04032da3677a7af460a7f0d7d12121b9ceb3124b881bcb88445af6dbb0e55f69"
+        },
+        {
+          "index": 15,
+          "presentationTimeUs": 480155,
+          "file": "scale-1-rapid-primary-frame-15.png",
+          "sha256": "e5cd7f047d08bed3d40fef4a35685b2396948406c88b5292e85c0e26585ab05e"
+        },
+        {
+          "index": 17,
+          "presentationTimeUs": 515244,
+          "file": "scale-1-rapid-primary-frame-17.png",
+          "sha256": "17f6d919b0e61b675502d9fe758224d0a393a8583096088868a9da75fa99e89a"
+        },
+        {
+          "index": 20,
+          "presentationTimeUs": 564866,
+          "file": "scale-1-rapid-primary-frame-20.png",
+          "sha256": "0ca3774e96b54a2692e08e1b7fe55e65e6af58c1c34581b39aaa2d2c188c5df4"
+        },
+        {
+          "index": 23,
+          "presentationTimeUs": 614488,
+          "file": "scale-1-rapid-primary-frame-23.png",
+          "sha256": "6cbd28a261a4399d81e5f7ac33528f36a9e30921bfe5f813c8df69cebf14dcdf"
+        },
+        {
+          "index": 26,
+          "presentationTimeUs": 664855,
+          "file": "scale-1-rapid-primary-frame-26.png",
+          "sha256": "3fc6fd7b7c1f5efffe4b3ba148c7929b36edba484bfeeaf1228e727e3de1565f"
+        },
+        {
+          "index": 29,
+          "presentationTimeUs": 714011,
+          "file": "scale-1-rapid-primary-frame-29.png",
+          "sha256": "6b198bd803b5053dcc9fc3df16313938ff4bc75dac8a693950fea7320162f51c"
+        },
+        {
+          "index": 32,
+          "presentationTimeUs": 763755,
+          "file": "scale-1-rapid-primary-frame-32.png",
+          "sha256": "18718f76c825b07ada48cfd700e7b9d776597c6acacbfdf93806e0daaed11971"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-journey-evidence/scale-0-rapid-primary.mp4",
+      "sha256": "82971fd06c9831701cce84424fa460f5c46464ba4afd69dfef269e5d90a222b9",
+      "decoded": 8,
+      "viewed": 8,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-rapid-primary.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-rapid-primary-frame-0.png",
+          "sha256": "fd541bb276423d63747490cae075bc0953385dddb28bd89665331b4853ad02bc"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 264922,
+          "file": "scale-0-rapid-primary-frame-1.png",
+          "sha256": "792b061ee33b3ef3d1c16d01d1e89e058ec61cdb04198ea1912e08d5431dc421"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 297966,
+          "file": "scale-0-rapid-primary-frame-2.png",
+          "sha256": "6af07b6065752312396ddeb9665c1ff2195ebb7a06eb2a2e03178daacf77c885"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 348355,
+          "file": "scale-0-rapid-primary-frame-3.png",
+          "sha256": "3d9a21a7680586612ee1f66c83dd700a565ccca877b1f91919e9120173213ec0"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 432311,
+          "file": "scale-0-rapid-primary-frame-4.png",
+          "sha256": "45eeaa54e048bbe840077a65ab50c6b08ccaec9819d16f6ea6e2383ac207049d"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 449022,
+          "file": "scale-0-rapid-primary-frame-5.png",
+          "sha256": "43ff3cff095cac450bb60c3dcdf75ca18dee96611b5efb06d3f1fc4f07e19a1f"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 481477,
+          "file": "scale-0-rapid-primary-frame-6.png",
+          "sha256": "0334435e15bbc69a4601148b2a51cf887022d172656b74114cbb2c4a9370fd91"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 497344,
+          "file": "scale-0-rapid-primary-frame-7.png",
+          "sha256": "9eaba3fc6dbfaab730c0f753acaeed91288fd7bcc66b3b323b43d3287f616a4a"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-journey-evidence/scale-1-focus-during-entry.mp4",
+      "sha256": "dbe025837afe944a31cf5ebdc3e745f30c24af2a83da089c906473a719de0541",
+      "decoded": 52,
+      "viewed": 12,
+      "indices": [
+        0,
+        5,
+        9,
+        14,
+        19,
+        23,
+        28,
+        32,
+        37,
+        42,
+        46,
+        51
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-focus-during-entry.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-focus-during-entry-frame-0.png",
+          "sha256": "b0d8272dc2d2244a115670670cb330f3667311580d563eb00c5e52239b35164c"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 347833,
+          "file": "scale-1-focus-during-entry-frame-5.png",
+          "sha256": "148821c56aa68a84910390bd791b662dd5709fc9a6b15467f99b3650cd4a313e"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 414344,
+          "file": "scale-1-focus-during-entry-frame-9.png",
+          "sha256": "d0ea19c684bfa07c608d96b5fc289981b69b7cba412b72aba69044bf7110e142"
+        },
+        {
+          "index": 14,
+          "presentationTimeUs": 498055,
+          "file": "scale-1-focus-during-entry-frame-14.png",
+          "sha256": "34b08e8afb7fea5560406619e469015f7af900467995e5942ea52db917dd92f7"
+        },
+        {
+          "index": 19,
+          "presentationTimeUs": 588755,
+          "file": "scale-1-focus-during-entry-frame-19.png",
+          "sha256": "8396f1ab687b30d8f1b9b038baccced925cd10b59f296e36d674020a90bacaf3"
+        },
+        {
+          "index": 23,
+          "presentationTimeUs": 650166,
+          "file": "scale-1-focus-during-entry-frame-23.png",
+          "sha256": "dbf4c05bec9c65104b38e5d9d744b0d6fe52c67078203094d2f05db051132caa"
+        },
+        {
+          "index": 28,
+          "presentationTimeUs": 734400,
+          "file": "scale-1-focus-during-entry-frame-28.png",
+          "sha256": "f506a944a95071fcecbafb407aa14e53bb413efe521af6802dc23c10372a0665"
+        },
+        {
+          "index": 32,
+          "presentationTimeUs": 882855,
+          "file": "scale-1-focus-during-entry-frame-32.png",
+          "sha256": "052f238fe4820644f6d6829582a7ed49ddeb5e09cf78e8bb1c994cc3b9913ab9"
+        },
+        {
+          "index": 37,
+          "presentationTimeUs": 965944,
+          "file": "scale-1-focus-during-entry-frame-37.png",
+          "sha256": "a0e8068ab1a6aed1f114df8c01de4b9929bd12625170b58875dcf27f21f6dc16"
+        },
+        {
+          "index": 42,
+          "presentationTimeUs": 1049822,
+          "file": "scale-1-focus-during-entry-frame-42.png",
+          "sha256": "2237547be0a48ab452071b806e9bae601777b8d20d8cabd1d79068a7d6e35804"
+        },
+        {
+          "index": 46,
+          "presentationTimeUs": 2398766,
+          "file": "scale-1-focus-during-entry-frame-46.png",
+          "sha256": "faf2f52e10c71a9adaba6e533ea658e328bc37557c89f4bb1b05948385935476"
+        },
+        {
+          "index": 51,
+          "presentationTimeUs": 4915811,
+          "file": "scale-1-focus-during-entry-frame-51.png",
+          "sha256": "4561f8e843d65595e2352ea39c09da63a26bd26146707cb3d614115d99e3c246"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-journey-evidence/scale-0-focus-during-entry.mp4",
+      "sha256": "2e80f131c4094da27019495c697de0f31dadb8dd4bb90cabfafe73b2fa87fc45",
+      "decoded": 27,
+      "viewed": 12,
+      "indices": [
+        0,
+        2,
+        5,
+        7,
+        9,
+        12,
+        14,
+        17,
+        19,
+        21,
+        24,
+        26
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-focus-during-entry.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-focus-during-entry-frame-0.png",
+          "sha256": "fd541bb276423d63747490cae075bc0953385dddb28bd89665331b4853ad02bc"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 298111,
+          "file": "scale-0-focus-during-entry-frame-2.png",
+          "sha256": "344047145d2ff8317ad4a2224cfdb74bd5cc7cb64b68b7feb6bb8d8231a1ab14"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 414044,
+          "file": "scale-0-focus-during-entry-frame-5.png",
+          "sha256": "3db3a135d016e37e3744c00154093bc040068a12116c9e234953ee3f9e0aca31"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 465411,
+          "file": "scale-0-focus-during-entry-frame-7.png",
+          "sha256": "afde8e37f2bc160772b5f4e54c9c97c1e2e954775b15be296ec4306b236685ef"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 499333,
+          "file": "scale-0-focus-during-entry-frame-9.png",
+          "sha256": "241e087ae428afd1cce2fece8b146fbc290d57799dc24006616d4e0a60b539da"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 550377,
+          "file": "scale-0-focus-during-entry-frame-12.png",
+          "sha256": "c99201e6cdc9fe526ff492175d37114e5c37b301f379abe4e99775bbc335ee1e"
+        },
+        {
+          "index": 14,
+          "presentationTimeUs": 615833,
+          "file": "scale-0-focus-during-entry-frame-14.png",
+          "sha256": "cd02b0a5f769dbc7df19a54c9eafe9274bef6b73fbeff050d68f5e40c74b6d6d"
+        },
+        {
+          "index": 17,
+          "presentationTimeUs": 682133,
+          "file": "scale-0-focus-during-entry-frame-17.png",
+          "sha256": "b6be485a9340db68c543c97ce77ba80af099a2b700acce4415b9297f5632a974"
+        },
+        {
+          "index": 19,
+          "presentationTimeUs": 1366022,
+          "file": "scale-0-focus-during-entry-frame-19.png",
+          "sha256": "0e6ff23f473ff6ce03f0572183880b88946b6b9bdf1cb8eddba90300e5523bde"
+        },
+        {
+          "index": 21,
+          "presentationTimeUs": 2382811,
+          "file": "scale-0-focus-during-entry-frame-21.png",
+          "sha256": "0e6ff23f473ff6ce03f0572183880b88946b6b9bdf1cb8eddba90300e5523bde"
+        },
+        {
+          "index": 24,
+          "presentationTimeUs": 3882622,
+          "file": "scale-0-focus-during-entry-frame-24.png",
+          "sha256": "6c74d8e0b5634f0cf6761cf786f8dfd8b4ffa2b11de1d1801ab60b845f3d14fe"
+        },
+        {
+          "index": 26,
+          "presentationTimeUs": 4882166,
+          "file": "scale-0-focus-during-entry-frame-26.png",
+          "sha256": "6c74d8e0b5634f0cf6761cf786f8dfd8b4ffa2b11de1d1801ab60b845f3d14fe"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-journey-evidence/scale-1-private-and-back.mp4",
+      "sha256": "3a2d7d245e1640e59a6fac7ac8ee81b096661977507d57056db95124ad420f1f",
+      "decoded": 56,
+      "viewed": 12,
+      "indices": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-private-and-back.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-private-and-back-frame-0.png",
+          "sha256": "b0d8272dc2d2244a115670670cb330f3667311580d563eb00c5e52239b35164c"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 333233,
+          "file": "scale-1-private-and-back-frame-5.png",
+          "sha256": "88738f816244b4edefe5ef952865281e4f419e890194be3f314e9cbd17551a69"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 415511,
+          "file": "scale-1-private-and-back-frame-10.png",
+          "sha256": "1a568b6fa9a3c2c40155b56c6ee8b57b216600b2c3f1544cd3735a7a01c0e23e"
+        },
+        {
+          "index": 15,
+          "presentationTimeUs": 499811,
+          "file": "scale-1-private-and-back-frame-15.png",
+          "sha256": "cd97e5ccf41bb5c92acfe4ae51aa8007804f3e385206a373e3a42c9d79f4d36e"
+        },
+        {
+          "index": 20,
+          "presentationTimeUs": 598677,
+          "file": "scale-1-private-and-back-frame-20.png",
+          "sha256": "96c2a183701a059e759a3716a5e3d51ecdbcb46f6046f394857ddd2fa7fcdca9"
+        },
+        {
+          "index": 25,
+          "presentationTimeUs": 682844,
+          "file": "scale-1-private-and-back-frame-25.png",
+          "sha256": "004f0c91f5b74769412c8d5e0fe67763e481afd411d3841c914875fa881bda36"
+        },
+        {
+          "index": 30,
+          "presentationTimeUs": 766100,
+          "file": "scale-1-private-and-back-frame-30.png",
+          "sha256": "7606429c339ce335b98cb3910913b5a90686b4b2b75398ad5b1b5b92b949ab35"
+        },
+        {
+          "index": 35,
+          "presentationTimeUs": 915400,
+          "file": "scale-1-private-and-back-frame-35.png",
+          "sha256": "a1c8127f08960c01d7ad4c6d20cda9de4e71e66d901c94b71e21880817ae45b0"
+        },
+        {
+          "index": 40,
+          "presentationTimeUs": 1065366,
+          "file": "scale-1-private-and-back-frame-40.png",
+          "sha256": "8f829ff060c9514e98ca4bc40550be219c6374e4d34e7ebe4229cc43f83c308f"
+        },
+        {
+          "index": 45,
+          "presentationTimeUs": 1149255,
+          "file": "scale-1-private-and-back-frame-45.png",
+          "sha256": "9eb1ec482bd9980e8e831be01001854565a3dbdb510d8bf82e00c2776138a231"
+        },
+        {
+          "index": 50,
+          "presentationTimeUs": 1232155,
+          "file": "scale-1-private-and-back-frame-50.png",
+          "sha256": "ccc2254c37daf14a443071837da8c2f7e97f9a28056c283c90c5e682f0592837"
+        },
+        {
+          "index": 55,
+          "presentationTimeUs": 1314866,
+          "file": "scale-1-private-and-back-frame-55.png",
+          "sha256": "a42943fbc9d1c8ce21d8989764420d85e4d791261908aa3dd865a01bb8b12afc"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-journey-evidence/scale-0-private-and-back.mp4",
+      "sha256": "0f863a68a30e52de4e8ee2f55b14bdb7605eab8ad6ee68975b9085a319dd3064",
+      "decoded": 16,
+      "viewed": 12,
+      "indices": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        10,
+        11,
+        12,
+        14,
+        15
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-private-and-back.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-private-and-back-frame-0.png",
+          "sha256": "b0d8272dc2d2244a115670670cb330f3667311580d563eb00c5e52239b35164c"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 265500,
+          "file": "scale-0-private-and-back-frame-1.png",
+          "sha256": "cd238f100a82af45c286f097c48aa8be90ac21cd686101e7af70986878c812d5"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 331511,
+          "file": "scale-0-private-and-back-frame-3.png",
+          "sha256": "960d61a27c8032485900b36cb0d85511532071207e41d7c4a6ecc1dc7cfee30b"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 348977,
+          "file": "scale-0-private-and-back-frame-4.png",
+          "sha256": "d346a5f38d00e859ee95c01bc692c4079a341fca2edd91ecafc2e4a6e2747df9"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 415322,
+          "file": "scale-0-private-and-back-frame-5.png",
+          "sha256": "cafc83d68018859304976f577339c92231e017ac9cf80fc464b87a6b8c9a4289"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 481455,
+          "file": "scale-0-private-and-back-frame-7.png",
+          "sha256": "03c9ba6e8c5c35a0d45732e7c5cfdcbd868c1a109e9c0ee1ae14503868fcf16c"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 498788,
+          "file": "scale-0-private-and-back-frame-8.png",
+          "sha256": "e85984416e9e11d40b1befe20e1a1b6d56e6ed91e7395603574c4bded1926d46"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 564466,
+          "file": "scale-0-private-and-back-frame-10.png",
+          "sha256": "c2635d93d024502860917ce9f066ca7f1879c8d318bfbedbed774573ef0b8051"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 798666,
+          "file": "scale-0-private-and-back-frame-11.png",
+          "sha256": "3b4ab12e73fe2eb151ff4466c925ee541e0116f1048b10f350a9f66ca7884d42"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 881677,
+          "file": "scale-0-private-and-back-frame-12.png",
+          "sha256": "e5f51ca8916a9260d54fabd6c7b840e2893bd2664ac42de41924f626d5705e3e"
+        },
+        {
+          "index": 14,
+          "presentationTimeUs": 931577,
+          "file": "scale-0-private-and-back-frame-14.png",
+          "sha256": "ee6f77cee362d6fafaf0bb90b87e05db958e1300b5f8c4306e57f13e04f2dea4"
+        },
+        {
+          "index": 15,
+          "presentationTimeUs": 2664622,
+          "file": "scale-0-private-and-back-frame-15.png",
+          "sha256": "ee6f77cee362d6fafaf0bb90b87e05db958e1300b5f8c4306e57f13e04f2dea4"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/loaded-media-evidence/scale-1-banner.mp4",
+      "sha256": "4da4f7c9bb570bafa30e53c69548236843a294acfa56d9c0e0ceb7db39dc6a07",
+      "decoded": 12,
+      "viewed": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-banner.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-banner-frame-0.png",
+          "sha256": "cc3023744421586aa9662a5d8d11300d45c5bdc84bf59cf9818142766922254c"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 215044,
+          "file": "scale-1-banner-frame-1.png",
+          "sha256": "cb66acb634484541f2b732e23c5e47508bbf9f081c3d4d219cbeadf3cc6fde65"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 230844,
+          "file": "scale-1-banner-frame-2.png",
+          "sha256": "bfc00728709245fceee553c3f402f86c48ea281e2e82b3aead0f7a96620e4dae"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 314311,
+          "file": "scale-1-banner-frame-3.png",
+          "sha256": "f2b4bf3415e69777d38a065897942e4f15a9a91e168f43fcc0a8f6c6550eeb64"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 330877,
+          "file": "scale-1-banner-frame-4.png",
+          "sha256": "cc464a5c34f5835b450aba86a87f709cbb702fda69a8b3f04a7ec7e3dc8ce347"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 348744,
+          "file": "scale-1-banner-frame-5.png",
+          "sha256": "4f17672323f0dadf311a80880a715c28a37b682c72e755b5550bd9118df50a32"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 363377,
+          "file": "scale-1-banner-frame-6.png",
+          "sha256": "0e986e4dc15690fa13beee5636e138f0a5914e2f012dcfa06ad34fdd282ee4f5"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 380755,
+          "file": "scale-1-banner-frame-7.png",
+          "sha256": "8a69e07bc0f1ba8a13a4a5ebe87434beb8ddb4627b9103fc148cc611eac85e7a"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 398922,
+          "file": "scale-1-banner-frame-8.png",
+          "sha256": "8797fc30fafaf399224d0b2acf86b3430e12a3f5d0a948c34e944b25aa23e0ba"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 414200,
+          "file": "scale-1-banner-frame-9.png",
+          "sha256": "32f5d9dc5d64bcc436e97aaf2e27ae0cc2ea1daca385def4ec12c17c84c26407"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 513555,
+          "file": "scale-1-banner-frame-10.png",
+          "sha256": "f14603adec40b6a0a474378fca6a88bff383c5339e078532947046feb4169ba7"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 530211,
+          "file": "scale-1-banner-frame-11.png",
+          "sha256": "5fbec5dc661e849246d1adc1964f4f59f080ee71321b95d3010cc848ea1b6051"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/loaded-media-evidence/scale-0-banner.mp4",
+      "sha256": "9c1fd3d6b4ef6cf5e37632036bc5bc08fe8932f57470f562c4acae2ec048a70f",
+      "decoded": 3,
+      "viewed": 3,
+      "indices": [
+        0,
+        1,
+        2
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-banner.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-banner-frame-0.png",
+          "sha256": "cc3023744421586aa9662a5d8d11300d45c5bdc84bf59cf9818142766922254c"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 215844,
+          "file": "scale-0-banner-frame-1.png",
+          "sha256": "cb66acb634484541f2b732e23c5e47508bbf9f081c3d4d219cbeadf3cc6fde65"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 231400,
+          "file": "scale-0-banner-frame-2.png",
+          "sha256": "f57838e94e908d1ca143c065866c065a1d3c990b7466dafa58cfa5954f9aab23"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/loaded-media-evidence/scale-1-drawable.mp4",
+      "sha256": "39008dc66965a11ee11435680aec6e1818859ab810b05e9f6fb73f64697fcdbb",
+      "decoded": 14,
+      "viewed": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-drawable.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-drawable-frame-0.png",
+          "sha256": "19655220d38ca389f21fea3e6ced747bb556f916cc5fb905e390de9df4034034"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 215600,
+          "file": "scale-1-drawable-frame-1.png",
+          "sha256": "b2e6d9f8033334e813cfcb98f6b13b860f0ea778fcbc6cbf0e21617718a04041"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 231766,
+          "file": "scale-1-drawable-frame-2.png",
+          "sha256": "1dc71c3518ca1d01700998c3311dd7a975e25e359e840e644e7c6edf40ad55c2"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 265322,
+          "file": "scale-1-drawable-frame-4.png",
+          "sha256": "5c9e421198f9ed2f4bc4c06d1ceb61a6f97fc1ba9825c25ebfd25b82ef8d47a5"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 282400,
+          "file": "scale-1-drawable-frame-5.png",
+          "sha256": "1c1e2173db1b1e88d763a2ae7b4cf0de3263f5cca1f662e97546627297f9152e"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 298800,
+          "file": "scale-1-drawable-frame-6.png",
+          "sha256": "1f1825029ff1c231e6a8ad61f7f73fa958c699df36bf1c0977b82de65d9c8910"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 316377,
+          "file": "scale-1-drawable-frame-7.png",
+          "sha256": "a91c3e651f95846f7e1e7ce09e5ae61ef7a94707257760cddb45649622448a2f"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 331822,
+          "file": "scale-1-drawable-frame-8.png",
+          "sha256": "47b1d99adc34fdbd65b4b578e8a80125f321428e816ee37c9e32d3d8d3da6a47"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 348877,
+          "file": "scale-1-drawable-frame-9.png",
+          "sha256": "a81f116b0d08fc4f841653253d6edca978866b0880b193be712986f54c8ed552"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 382155,
+          "file": "scale-1-drawable-frame-11.png",
+          "sha256": "6308f4d1b27919ef69902e17ed21f2efcbc0232fb5f502d5ab058500b0676722"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 398655,
+          "file": "scale-1-drawable-frame-12.png",
+          "sha256": "9c6afc1db1ea04d1c1fcfe4e5bbb0f2976966fefd806d3bf752f200ed0c6c361"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 415433,
+          "file": "scale-1-drawable-frame-13.png",
+          "sha256": "04cd51c255f61eea3c32f6401b4541543cbcbe58d635427f9568478a82da830d"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/loaded-media-evidence/scale-0-drawable.mp4",
+      "sha256": "55fe5c13b298b3ad7785db63e9d53dc3f6626cf6002f81e346732a85deb17443",
+      "decoded": 3,
+      "viewed": 3,
+      "indices": [
+        0,
+        1,
+        2
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-drawable.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-drawable-frame-0.png",
+          "sha256": "19655220d38ca389f21fea3e6ced747bb556f916cc5fb905e390de9df4034034"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 215522,
+          "file": "scale-0-drawable-frame-1.png",
+          "sha256": "b2e6d9f8033334e813cfcb98f6b13b860f0ea778fcbc6cbf0e21617718a04041"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 231377,
+          "file": "scale-0-drawable-frame-2.png",
+          "sha256": "2258b34678f7e815120e4157d5a5047d1ce267db411088d79c72a107b44dcc0c"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/node-motion-evidence/scale-1-disconnected.mp4",
+      "sha256": "1f6eb9d97c2654147240f74e9318b4d0f3344ab13ae79d5433983a9fecced64d",
+      "decoded": 24,
+      "viewed": 12,
+      "indices": [
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-1-disconnected.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-disconnected-frame-0.png",
+          "sha256": "6e8075331d4b4587983b2469ccb67738c768b538472a5745bdaaf4938fae8071"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 266733,
+          "file": "scale-1-disconnected-frame-2.png",
+          "sha256": "ca4400e57090cd8971f0c6bcb2d9dbb98306492416fedd4a6755ab23ee6f7b95"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 300444,
+          "file": "scale-1-disconnected-frame-4.png",
+          "sha256": "d8aa0e9cbafc8c7546f6fe3d0289b585df3568468884c024d8ae446e6c612131"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 331622,
+          "file": "scale-1-disconnected-frame-6.png",
+          "sha256": "20d08f2bce25c69a9a06209c347c126ca4c5b52f3e8b823d4c90d7280b12e0e7"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 365044,
+          "file": "scale-1-disconnected-frame-8.png",
+          "sha256": "23f414faf563afb50927bfb0c7aa6f9d5e457fa29ac406440df69d382264414e"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 398188,
+          "file": "scale-1-disconnected-frame-10.png",
+          "sha256": "91749338ec23da37ed4c3f8b1ed3c7465e00c9db9eb3cc7917db6669866cd2dc"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 447988,
+          "file": "scale-1-disconnected-frame-13.png",
+          "sha256": "91749338ec23da37ed4c3f8b1ed3c7465e00c9db9eb3cc7917db6669866cd2dc"
+        },
+        {
+          "index": 15,
+          "presentationTimeUs": 484133,
+          "file": "scale-1-disconnected-frame-15.png",
+          "sha256": "fb55c0f85d16c4dcd98556226446bb36d8de120a516746517dc4b93cca63acf7"
+        },
+        {
+          "index": 17,
+          "presentationTimeUs": 516188,
+          "file": "scale-1-disconnected-frame-17.png",
+          "sha256": "82d676d2dd69783f4141a079abd0ca013d8f829bf6431520caef24c55420d7ac"
+        },
+        {
+          "index": 19,
+          "presentationTimeUs": 549244,
+          "file": "scale-1-disconnected-frame-19.png",
+          "sha256": "83f5f8f05a12899c5f0e49a40f3b2170370c1f48c04a9720bf8c6b7f57e5add8"
+        },
+        {
+          "index": 21,
+          "presentationTimeUs": 581088,
+          "file": "scale-1-disconnected-frame-21.png",
+          "sha256": "7705796051afe7e4038623ccb38434f0d6ca91900711c97d75f6a5b1d843d937"
+        },
+        {
+          "index": 23,
+          "presentationTimeUs": 614133,
+          "file": "scale-1-disconnected-frame-23.png",
+          "sha256": "64306734aa22233c3604f7167dbe311710ac8ab581bc23006197941949db6d41"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/node-motion-evidence/scale-0-disconnected.mp4",
+      "sha256": "299a44cf889074e80d5624d58f4b27bebb61c9f76d6b2e512e124e15002917bb",
+      "decoded": 7,
+      "viewed": 7,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-0-disconnected.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-disconnected-frame-0.png",
+          "sha256": "ac614717effa8bbc028e729b296bda8ef3279177778be5e3c11b4cd6f28c7ca7"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 300477,
+          "file": "scale-0-disconnected-frame-1.png",
+          "sha256": "b3422e7560e5869e8209d79311386ab42619417462498bbc9e27cc5a66617c75"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 317222,
+          "file": "scale-0-disconnected-frame-2.png",
+          "sha256": "e27f83bf1763d86bca7ebe21e4c51d80b6fb71d8750c036b73e6ed8d247acda7"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 332800,
+          "file": "scale-0-disconnected-frame-3.png",
+          "sha256": "e3029180ef8e38662838d9bb67454e845d35983f19619d70cfd967f9e2d0914f"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 351866,
+          "file": "scale-0-disconnected-frame-4.png",
+          "sha256": "d36a39d4fce829df6ca78c18ff5a7621ecf590d07c9bc2978c1d5253ac4d6785"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 366322,
+          "file": "scale-0-disconnected-frame-5.png",
+          "sha256": "a5cabe1196e725c41a4e3cddd926276eca361108a555d3f4f84c93179e3db96a"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 382744,
+          "file": "scale-0-disconnected-frame-6.png",
+          "sha256": "4ab1ae7ab6fc21f72881a2cabcea7a6ffd1c7f0c124da6cf8c9624456fd64d87"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/activity-group-motion-evidence/scale-1-resurface.mp4",
+      "sha256": "37fb573b92c7b7285b4f3697290898d1828c89727956428aefb1fde356cbd7d8",
+      "decoded": 10,
+      "viewed": 10,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-resurface.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-resurface-frame-0.png",
+          "sha256": "40680f4a5c1c80f71ff166ed2b90e857677ad33b3e2e2c2f1cd1d8aa0b17524a"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 297600,
+          "file": "scale-1-resurface-frame-1.png",
+          "sha256": "638cbd6027e969dc8e6244b291cb22d4cd4f2166063a4b3f84ad562c8a3b517c"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 330700,
+          "file": "scale-1-resurface-frame-2.png",
+          "sha256": "97ca4371037192fee42d54c266b6426c3d7436ffa283699ab4f9cab312bb04e6"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 352322,
+          "file": "scale-1-resurface-frame-3.png",
+          "sha256": "af93b07e124f67bcf62223033b3276b348f26ac799b78473f46f95a67dd83e83"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 364055,
+          "file": "scale-1-resurface-frame-4.png",
+          "sha256": "96ed98594340fcd4d92c6b8fe70b4d29ed640b4c9baaf49ce0ba216d64abcb80"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 399811,
+          "file": "scale-1-resurface-frame-5.png",
+          "sha256": "fb0426bfa4a4d7fff4f61d47a29b7fefa9b86499124d51df1b4bc9f9acdc96d0"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 448411,
+          "file": "scale-1-resurface-frame-6.png",
+          "sha256": "374b3abe16814fa7b4b3005af8537340ba532d79d50c94d58ad4cfe43f66a581"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 463744,
+          "file": "scale-1-resurface-frame-7.png",
+          "sha256": "99303388e6d0be4c92f40f00e16079f334af10985816ac83eca08e61065cceae"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 496444,
+          "file": "scale-1-resurface-frame-8.png",
+          "sha256": "7f61d7601a513f15ada2fb72f5345a7d5feac4c47ddf877b907324a717a1e1d7"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 513122,
+          "file": "scale-1-resurface-frame-9.png",
+          "sha256": "8fe75f98d3c4a0468f7780290c8e0bf4813246923300d29feb98cb4e5387fa38"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/activity-group-motion-evidence/scale-0-resurface.mp4",
+      "sha256": "46a9d357a2a68183455e91fc83791c8dbcaa47ed13ec6e37169ccc0dfbe43cda",
+      "decoded": 6,
+      "viewed": 6,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-resurface.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-resurface-frame-0.png",
+          "sha256": "40680f4a5c1c80f71ff166ed2b90e857677ad33b3e2e2c2f1cd1d8aa0b17524a"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 164244,
+          "file": "scale-0-resurface-frame-1.png",
+          "sha256": "096c285b418e350902aac197ef852f5ff9ef49168d54c6573f366219fc1738f9"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 180400,
+          "file": "scale-0-resurface-frame-2.png",
+          "sha256": "145194ff109e6dbea8932bada19d0ed99a991c731982c03963b4c6163abca6f9"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 248033,
+          "file": "scale-0-resurface-frame-3.png",
+          "sha256": "0b5037e4369003c0108aaabb35a4acf9233347eee5ca50f939d8e033804663e9"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 264344,
+          "file": "scale-0-resurface-frame-4.png",
+          "sha256": "ed366b05aeebbeca2a280a71008a10a1bf59553ce2a910df0d681961063c63ce"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 281888,
+          "file": "scale-0-resurface-frame-5.png",
+          "sha256": "f6777f91c357807841047cdacb5278962355a8e9f7915ac7af2e1148c0e0dc84"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/activity-group-motion-evidence/scale-1-people.mp4",
+      "sha256": "8669e61c32a604afecd22467c095cd6e9139cf4ed96f8d91c2ebd5534669c2f6",
+      "decoded": 46,
+      "viewed": 12,
+      "indices": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        25,
+        29,
+        33,
+        37,
+        41,
+        45
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-people.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-people-frame-0.png",
+          "sha256": "7e0ce211b10c15a67c7a09a3ba7cd3287f506c2919fead38ff794a3916539d99"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 298122,
+          "file": "scale-1-people-frame-4.png",
+          "sha256": "ff36a9c817cc48ecf0815ffff8a96ec6d84760ac415366e6c421e6b5c86069e6"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 364511,
+          "file": "scale-1-people-frame-8.png",
+          "sha256": "575c258974e8d9b86b6e7e6a0d7b144ff6b9e28cea4011fdcf7ebc393f294e32"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 580166,
+          "file": "scale-1-people-frame-12.png",
+          "sha256": "f407133d518f73e6ced623ab12d19367a5f9e5d336fbabdd86bb8af81cb3bb8d"
+        },
+        {
+          "index": 16,
+          "presentationTimeUs": 881033,
+          "file": "scale-1-people-frame-16.png",
+          "sha256": "7442a6c2a67d2fd4ff4a6b6052139cdcd58ff3e927cb5c3cea249ece50d02780"
+        },
+        {
+          "index": 20,
+          "presentationTimeUs": 1583077,
+          "file": "scale-1-people-frame-20.png",
+          "sha256": "128f7c91a41d927144c8588a2915ee29d4c245af592da42b41c5f91d6385bc0c"
+        },
+        {
+          "index": 25,
+          "presentationTimeUs": 1733422,
+          "file": "scale-1-people-frame-25.png",
+          "sha256": "4da74095eab061507c36d9df1e1f871e0ae8efd55e4362d3f12e9123f4cbe8b7"
+        },
+        {
+          "index": 29,
+          "presentationTimeUs": 1818844,
+          "file": "scale-1-people-frame-29.png",
+          "sha256": "7b6d1241a3428c51e8268031da01cdfead86f6248de6d8ee7470a282d0878c3c"
+        },
+        {
+          "index": 33,
+          "presentationTimeUs": 3016066,
+          "file": "scale-1-people-frame-33.png",
+          "sha256": "7fac6bbb7506d2c0c7b5d330885b5553ca1827394f4900d112199b83cecc68e9"
+        },
+        {
+          "index": 37,
+          "presentationTimeUs": 3084211,
+          "file": "scale-1-people-frame-37.png",
+          "sha256": "9b6e73a25d5878957f4837b239649fd2eafbc84886ea4041cbc4e9fdb351e8df"
+        },
+        {
+          "index": 41,
+          "presentationTimeUs": 3148811,
+          "file": "scale-1-people-frame-41.png",
+          "sha256": "61a555c32deac9ba043095b165a3c299cd0d578bb44803d59ee4c7bcd834f249"
+        },
+        {
+          "index": 45,
+          "presentationTimeUs": 4514211,
+          "file": "scale-1-people-frame-45.png",
+          "sha256": "689c3ff1a9a307d9103847adc3116e4024a33bfaf8e9cc515dd1ff51d599f2cb"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/activity-group-motion-evidence/scale-0-people.mp4",
+      "sha256": "af91f94cb79d2ead8f6d0d45a4438b364e074933e0e68943bb87637e2a17c1d3",
+      "decoded": 26,
+      "viewed": 12,
+      "indices": [
+        0,
+        2,
+        5,
+        7,
+        9,
+        11,
+        14,
+        16,
+        18,
+        20,
+        23,
+        25
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-people.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-people-frame-0.png",
+          "sha256": "d6586755d2769560378b1be95592f3ad2d0cc5a48ab44ede844e5a96ea4a11fd"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 264855,
+          "file": "scale-0-people-frame-2.png",
+          "sha256": "13ab4ede5f72605500c04ad0530ea4a36921db3e9f99546086d6c9d9d2329c90"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 331555,
+          "file": "scale-0-people-frame-5.png",
+          "sha256": "21afa5d12e3824b0accc952eb4ba05432dda215427cfaa0cb9b015f8eb41fca3"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 932144,
+          "file": "scale-0-people-frame-7.png",
+          "sha256": "07049f31d8a35439dfc3f4a91b7b0d16e4635d467f0c98919f55458577995062"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 1582400,
+          "file": "scale-0-people-frame-9.png",
+          "sha256": "8646e545fb27af382cd8cb344c4781044a805d91948469ddb2717cb8cff7b38b"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 1632944,
+          "file": "scale-0-people-frame-11.png",
+          "sha256": "d3a130b392a5e27be67de4efd01e1d9c56a4461ca329e00fa4ae7a931893544d"
+        },
+        {
+          "index": 14,
+          "presentationTimeUs": 1696733,
+          "file": "scale-0-people-frame-14.png",
+          "sha256": "a9526cf18445e5d415516834598305420fcf50b1a451fd426c62b614ad2abb4a"
+        },
+        {
+          "index": 16,
+          "presentationTimeUs": 1718477,
+          "file": "scale-0-people-frame-16.png",
+          "sha256": "9e8bede25803ec67fd85f9110d8dc922320caca8733a23916ae7b9b6efbe68cf"
+        },
+        {
+          "index": 18,
+          "presentationTimeUs": 1766655,
+          "file": "scale-0-people-frame-18.png",
+          "sha256": "9e8bede25803ec67fd85f9110d8dc922320caca8733a23916ae7b9b6efbe68cf"
+        },
+        {
+          "index": 20,
+          "presentationTimeUs": 3032111,
+          "file": "scale-0-people-frame-20.png",
+          "sha256": "ffafce6d780141cded861515c81c2e72d628759d8a1dcbb97a1b0d7cf7d7bd54"
+        },
+        {
+          "index": 23,
+          "presentationTimeUs": 4665100,
+          "file": "scale-0-people-frame-23.png",
+          "sha256": "32a6b066dd7bb98760f68bcce5e28947de0e1b3c3b62db123de2917c359619c9"
+        },
+        {
+          "index": 25,
+          "presentationTimeUs": 4914933,
+          "file": "scale-0-people-frame-25.png",
+          "sha256": "7222f4210abfd5e7f6a2cf8505aa872f3ea3fb5a0c68391cb7c304501881a33d"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/account-design-motion-evidence/scale-1-categories.mp4",
+      "sha256": "3a065636101d73526d31f1af2412fbf6c92c65669a52fcb72c513076eebdaaf4",
+      "decoded": 37,
+      "viewed": 12,
+      "indices": [
+        0,
+        3,
+        7,
+        10,
+        13,
+        16,
+        20,
+        23,
+        26,
+        29,
+        33,
+        36
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-categories.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-categories-frame-0.png",
+          "sha256": "7cba92a5c86f9a81425756cb7122b7d795cd239882b8753eb687cfd096de52fb"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 331122,
+          "file": "scale-1-categories-frame-3.png",
+          "sha256": "dcaf4d270f11b2ca2af889cb11249db3a0f0a5b578a64c5cc75cd222ccf84545"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 397300,
+          "file": "scale-1-categories-frame-7.png",
+          "sha256": "ef7c0c40f3059598828762edef9d51d722807b9958b4f3cac0e1be62b2353917"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 447666,
+          "file": "scale-1-categories-frame-10.png",
+          "sha256": "be308f330beb53168e567f4dfcb61e0652087e878c678b90ab01cf9696ba6ea4"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 497111,
+          "file": "scale-1-categories-frame-13.png",
+          "sha256": "e9a4691aca5c62c5923ce997e1258b322cf595017e8073f7da63dcd07ed0a6d5"
+        },
+        {
+          "index": 16,
+          "presentationTimeUs": 947755,
+          "file": "scale-1-categories-frame-16.png",
+          "sha256": "2606a418e3d838c03db59c33e1b761bd3b34b46216ac2dbbb7227172ceae5794"
+        },
+        {
+          "index": 20,
+          "presentationTimeUs": 1021555,
+          "file": "scale-1-categories-frame-20.png",
+          "sha256": "86a7a6bba6e8ea39a5cb4028874353e80a516695812f95d4a0758e11b3261604"
+        },
+        {
+          "index": 23,
+          "presentationTimeUs": 1081188,
+          "file": "scale-1-categories-frame-23.png",
+          "sha256": "8a6da4f1f49c6f5cb53a6ee61b44554744f32a5608e5c007c7508ae5a2b9dae4"
+        },
+        {
+          "index": 26,
+          "presentationTimeUs": 1131111,
+          "file": "scale-1-categories-frame-26.png",
+          "sha256": "ef941d57e340888b40813d6f563dc478ce09bd173d53b441f863c858ea3b6b91"
+        },
+        {
+          "index": 29,
+          "presentationTimeUs": 1181422,
+          "file": "scale-1-categories-frame-29.png",
+          "sha256": "64f2b1d9a2cf7091d7872c862af338f2765d698f987c74516f1016416fa9fc20"
+        },
+        {
+          "index": 33,
+          "presentationTimeUs": 1247955,
+          "file": "scale-1-categories-frame-33.png",
+          "sha256": "161af00597df9af155042b4a7dbce0880cc99ed05de5cb3734a9480e13615d3a"
+        },
+        {
+          "index": 36,
+          "presentationTimeUs": 1298344,
+          "file": "scale-1-categories-frame-36.png",
+          "sha256": "9fd4c7e57010edb18793727f6c2cdb87c0e67d80b5a99a46a34f76f219cea4f7"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/account-design-motion-evidence/scale-0-categories.mp4",
+      "sha256": "eb0b0868b30fda7ec4a5888b90278072589cced6c740305abd497e69f9388857",
+      "decoded": 8,
+      "viewed": 8,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-categories.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-categories-frame-0.png",
+          "sha256": "d99c46343cdd098683f03ef9c1e030be3f0909c9be57b7a5daee419e9ff0c9f4"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 251333,
+          "file": "scale-0-categories-frame-1.png",
+          "sha256": "b4c5168433e1a42eddbfb56b9a4c14a221f1d0e8b432930c969c94bf5d7b0848"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 301077,
+          "file": "scale-0-categories-frame-2.png",
+          "sha256": "01d7dff940bb1a476fe93071202fd4b37c91b82010ce74c075c5c7992a28f85b"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 316355,
+          "file": "scale-0-categories-frame-3.png",
+          "sha256": "e720bb45f7147101dd3cdd138f8d52b5e26ade3b7609bad4f4e3d537e3fe894f"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 948988,
+          "file": "scale-0-categories-frame-4.png",
+          "sha256": "d3505714c5df6414e2de79195578892f94025f8aa372816a9a52dde242d22b5a"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 966644,
+          "file": "scale-0-categories-frame-5.png",
+          "sha256": "062e45e37f10e772473be01d3623e3fde0f9475b8ad1796189957a92423b63b1"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 1033388,
+          "file": "scale-0-categories-frame-6.png",
+          "sha256": "d37df760e39d13188beef1f84b8a56e99d172f28281ae8bc61a8c1fd86b5f3b9"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 1049244,
+          "file": "scale-0-categories-frame-7.png",
+          "sha256": "e38cec6a9191f02c180cdc73fe5615da22b52d2d8bdb87d4e1a26983dc054a6c"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/account-design-motion-evidence/scale-1-wallet-open.mp4",
+      "sha256": "dff987a44f1125cc3d52a997dfdec0a45bc58e3974c84c34e5f8dd7b1aab798a",
+      "decoded": 34,
+      "viewed": 12,
+      "indices": [
+        0,
+        3,
+        6,
+        9,
+        12,
+        15,
+        18,
+        21,
+        24,
+        27,
+        30,
+        33
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-wallet-open.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-wallet-open-frame-0.png",
+          "sha256": "26fa8522c5a203ba45b014b2c1b4a52ac784220bd0d514eaf98222fd5840b383"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 45122,
+          "file": "scale-1-wallet-open-frame-3.png",
+          "sha256": "0a30fb7fffa8776888035ab009a4f85dc8e530908d8b98b7f37132337d72faaf"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 94900,
+          "file": "scale-1-wallet-open-frame-6.png",
+          "sha256": "d047ea42dcd5f3bc719c3ded517096a83b03459f31cca6c3e1dbddd97c00af49"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 145333,
+          "file": "scale-1-wallet-open-frame-9.png",
+          "sha256": "05b9824d58c015d12e28c64801267cba3992dd6762d0a0831df4b260ceb7e411"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 194755,
+          "file": "scale-1-wallet-open-frame-12.png",
+          "sha256": "4266616dc1c84a1f98f0181b9c4cf141ca0b70cb9397fb78127757700e1905d9"
+        },
+        {
+          "index": 15,
+          "presentationTimeUs": 445500,
+          "file": "scale-1-wallet-open-frame-15.png",
+          "sha256": "95d66d6ea2ff2ae01957395da3d8651690b659d43f0d9b652f6c3d9b98504572"
+        },
+        {
+          "index": 18,
+          "presentationTimeUs": 1129055,
+          "file": "scale-1-wallet-open-frame-18.png",
+          "sha256": "95d66d6ea2ff2ae01957395da3d8651690b659d43f0d9b652f6c3d9b98504572"
+        },
+        {
+          "index": 21,
+          "presentationTimeUs": 1178955,
+          "file": "scale-1-wallet-open-frame-21.png",
+          "sha256": "05b9d8a500af5794d4c0a68a8807581a0e421a36d9ad6911ed490491c74f4d04"
+        },
+        {
+          "index": 24,
+          "presentationTimeUs": 1232322,
+          "file": "scale-1-wallet-open-frame-24.png",
+          "sha256": "13940dfc39aa40edf0929adae4de8420ad14ef547e9c1b18c9e25292e479e2f5"
+        },
+        {
+          "index": 27,
+          "presentationTimeUs": 1282344,
+          "file": "scale-1-wallet-open-frame-27.png",
+          "sha256": "39fbea3707723a8a3d8b294e8278b4b9b5e91f36204b737faa4be47c0a33527e"
+        },
+        {
+          "index": 30,
+          "presentationTimeUs": 1331977,
+          "file": "scale-1-wallet-open-frame-30.png",
+          "sha256": "80184a75a4b38855f3187e1d18ca841e1aaf1c89f7980286da441b149d24ae7a"
+        },
+        {
+          "index": 33,
+          "presentationTimeUs": 1781944,
+          "file": "scale-1-wallet-open-frame-33.png",
+          "sha256": "b177b5c8ee38b0f271143b7d7e13a9b3f42e3cd2eb583376fa30ac8e661f3dce"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/account-design-motion-evidence/scale-0-wallet-open.mp4",
+      "sha256": "bdd025712c49fda317f1d467a114ba92fef473cc16ee74ef1bfa4b5b171c751e",
+      "decoded": 12,
+      "viewed": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-wallet-open.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-wallet-open-frame-0.png",
+          "sha256": "82105eedeccb7ca99332430e793cdc336961083e9f1f2cc9b31d11633f9aabf8"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 480566,
+          "file": "scale-0-wallet-open-frame-1.png",
+          "sha256": "1ca4c883be2ac6e7683d57d8cd5fe7980a3011fb459ee4b105382a9692d22274"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 1115211,
+          "file": "scale-0-wallet-open-frame-2.png",
+          "sha256": "91b7f566afc2132bac544c69799d2e8ae404ee6927c7f92d4b3b4f7f2b57f6d2"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 1130500,
+          "file": "scale-0-wallet-open-frame-3.png",
+          "sha256": "6d760ac769841cddcff3539cb6bb010c31dd9366a8a9bb5346998f09e64641b8"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 1164300,
+          "file": "scale-0-wallet-open-frame-4.png",
+          "sha256": "0bef3c1de81cc58b76b6ccf2db3e2bb64954a4dcd4433aff17def2d7bd0936e1"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 1180788,
+          "file": "scale-0-wallet-open-frame-5.png",
+          "sha256": "e6a12419c43c38e26cf92a83e541be2cdc18dd1eb82792eb8cca1a99cf09dbb4"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 1197744,
+          "file": "scale-0-wallet-open-frame-6.png",
+          "sha256": "16afaf1a3f07a7c68e2f068727552eb2f2a9a933f50a5feb059dd6a1cd42118c"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 1217366,
+          "file": "scale-0-wallet-open-frame-7.png",
+          "sha256": "5e5316f35beea729879a6ebac4af750c4a749fa20ab6b3915a2b432b5c670d7f"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 1232633,
+          "file": "scale-0-wallet-open-frame-8.png",
+          "sha256": "dd39c95383ad22cf60a3e4db75745b8bc65f8783044b24bb87a544bc92a9a5e2"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 1248777,
+          "file": "scale-0-wallet-open-frame-9.png",
+          "sha256": "9b0d40ed053cdac94a9cd0dc2e72205aec12c5791b3bf81189723ae6e61de24b"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 1265522,
+          "file": "scale-0-wallet-open-frame-10.png",
+          "sha256": "d44ec3bc58668dcd8f77f5de1045f693b243d0d304905ee2178120d844e46a9c"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 1697155,
+          "file": "scale-0-wallet-open-frame-11.png",
+          "sha256": "d44ec3bc58668dcd8f77f5de1045f693b243d0d304905ee2178120d844e46a9c"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-reveal-evidence/scale-1-search.mp4",
+      "sha256": "5f8d4b84818c66204c5469925e6f62b8c2ed996399c2bfb5a2e0a4a220e9f34a",
+      "decoded": 30,
+      "viewed": 12,
+      "indices": [
+        0,
+        3,
+        5,
+        8,
+        11,
+        13,
+        16,
+        18,
+        21,
+        24,
+        26,
+        29
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-1-search.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-search-frame-0.png",
+          "sha256": "44828fba84b2ce53830ea80c2c56083d87c007137b271f47b872ca3e09a7f697"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 264455,
+          "file": "scale-1-search-frame-3.png",
+          "sha256": "0e7e6d1253d1d1516dc7daed2370843d428b170b865d0c71d522974ba6951eb8"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 298122,
+          "file": "scale-1-search-frame-5.png",
+          "sha256": "4a8b5095ee3cfa9f4f7f3064e8c1a72c597d1c5fa61eff376743a2566c8a7237"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 349011,
+          "file": "scale-1-search-frame-8.png",
+          "sha256": "e61b9b1f2309e09f7a04ad0ad23e6f9ccc0270d84dafab9df018c6b8b721f354"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 414822,
+          "file": "scale-1-search-frame-11.png",
+          "sha256": "f8b0cf303e1c55505d9d76c82a7eeb3e67fef07f77524b1e609c56b83a01ce73"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 448333,
+          "file": "scale-1-search-frame-13.png",
+          "sha256": "f8b0cf303e1c55505d9d76c82a7eeb3e67fef07f77524b1e609c56b83a01ce73"
+        },
+        {
+          "index": 16,
+          "presentationTimeUs": 567466,
+          "file": "scale-1-search-frame-16.png",
+          "sha256": "2e6ae94f3260b5bad02bde3837b3bdfda6c5fc249fd6e6c88205f1b900e73e1e"
+        },
+        {
+          "index": 18,
+          "presentationTimeUs": 598111,
+          "file": "scale-1-search-frame-18.png",
+          "sha256": "39a8c1b6b7c92b3ae1fd78655ea5c3eb2ec7046c257c04ac82ef195d2e1617f7"
+        },
+        {
+          "index": 21,
+          "presentationTimeUs": 648355,
+          "file": "scale-1-search-frame-21.png",
+          "sha256": "5f0ee26397505351af9bf2fe859d4bb917a8215bedb1c3425ae495c32f3c5598"
+        },
+        {
+          "index": 24,
+          "presentationTimeUs": 698111,
+          "file": "scale-1-search-frame-24.png",
+          "sha256": "3b4da48daf7e90cfae3cf6c0d32fba4b039465f881abd9490b5ad959154b289d"
+        },
+        {
+          "index": 26,
+          "presentationTimeUs": 731900,
+          "file": "scale-1-search-frame-26.png",
+          "sha256": "b918f0562bcf712c6c654d282394cf8d701fc0a0249b668f6eba37d27855bbe7"
+        },
+        {
+          "index": 29,
+          "presentationTimeUs": 780400,
+          "file": "scale-1-search-frame-29.png",
+          "sha256": "07ce55fb6d48bf0449e0a8687ea80d01eb396648ec974e13e4342d74452fc6d4"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/destination-reveal-evidence/scale-0-search.mp4",
+      "sha256": "7d7c70f79dce0723010cee159e67d492983437ef431c3880a96826f6c3f7913b",
+      "decoded": 5,
+      "viewed": 5,
+      "indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-0-search.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-search-frame-0.png",
+          "sha256": "44828fba84b2ce53830ea80c2c56083d87c007137b271f47b872ca3e09a7f697"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 231200,
+          "file": "scale-0-search-frame-1.png",
+          "sha256": "410f464a78abef92c44eb06d2715bb0f194377fe434de0f3963d935484d6fffe"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 364277,
+          "file": "scale-0-search-frame-2.png",
+          "sha256": "aa193a3fc8bd019381f35de481543e7a0136c97f0e749bf45cf6bae3fcc1e960"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 379933,
+          "file": "scale-0-search-frame-3.png",
+          "sha256": "faad4a88d1d706bdd66c69e23b68910e98f44fa8a24fff805ea2a9dbdd037a1f"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 396700,
+          "file": "scale-0-search-frame-4.png",
+          "sha256": "4796a026209fe06841818adb37cc394694281fa48d54e287831615010bbc2a6f"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/like-pulse-evidence/scale-1-feed.mp4",
+      "sha256": "bba8cf51719d450b77972179c069f0f05cc5d902b345a2c2966fd21c2c41f42a",
+      "decoded": 37,
+      "viewed": 12,
+      "indices": [
+        0,
+        3,
+        7,
+        10,
+        13,
+        16,
+        20,
+        23,
+        26,
+        29,
+        33,
+        36
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-1-feed.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-feed-frame-0.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "6c13fcee421d500d1f51f5c823e9964a5c073da11940e426e5f9101e93948d2f"
+        },
+        {
+          "index": 3,
+          "presentationTimeUs": 314277,
+          "file": "scale-1-feed-frame-3.png",
+          "heartPinkPixels": 213,
+          "heartPinkWidthPixels": 19,
+          "sha256": "fd82d9a89312d108b8c2b193cd4b72f93b88cb59e0136c37b1a9d5028f216d1d"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 449411,
+          "file": "scale-1-feed-frame-7.png",
+          "heartPinkPixels": 158,
+          "heartPinkWidthPixels": 17,
+          "sha256": "a353656d68f015276b8f5f6ca1f5f3a2e5fc4c01a7e43c4889d6504764c18d5b"
+        },
+        {
+          "index": 10,
+          "presentationTimeUs": 714433,
+          "file": "scale-1-feed-frame-10.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "ebfd37a3e7febb3af6799179b5faeeeffeafcd8da9f128d1a5baf81fd6adc029"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 814655,
+          "file": "scale-1-feed-frame-13.png",
+          "heartPinkPixels": 215,
+          "heartPinkWidthPixels": 19,
+          "sha256": "9f902282bf361ca702966f73327b12f61a5217ba362453a84b09ec6d579a8ce8"
+        },
+        {
+          "index": 16,
+          "presentationTimeUs": 898355,
+          "file": "scale-1-feed-frame-16.png",
+          "heartPinkPixels": 178,
+          "heartPinkWidthPixels": 18,
+          "sha256": "5d9a7649d4a3556b0ec561058505f1ab4c1598eab987e9d414614954717466ff"
+        },
+        {
+          "index": 20,
+          "presentationTimeUs": 1014522,
+          "file": "scale-1-feed-frame-20.png",
+          "heartPinkPixels": 214,
+          "heartPinkWidthPixels": 19,
+          "sha256": "e8da78715741b42626360a145127ba72cd531cab4e557592ec1fc144dd1d5021"
+        },
+        {
+          "index": 23,
+          "presentationTimeUs": 1097077,
+          "file": "scale-1-feed-frame-23.png",
+          "heartPinkPixels": 216,
+          "heartPinkWidthPixels": 19,
+          "sha256": "61899539eeff27027cb7664e7093adcab62c6b171cd9f248ba2adc82940916d3"
+        },
+        {
+          "index": 26,
+          "presentationTimeUs": 1197655,
+          "file": "scale-1-feed-frame-26.png",
+          "heartPinkPixels": 216,
+          "heartPinkWidthPixels": 19,
+          "sha256": "62c0002900528d3e39f8141d12d0825b51330e6a5cd61eec951f386ec023d756"
+        },
+        {
+          "index": 29,
+          "presentationTimeUs": 1298455,
+          "file": "scale-1-feed-frame-29.png",
+          "heartPinkPixels": 204,
+          "heartPinkWidthPixels": 20,
+          "sha256": "610ebd082cb8fdd01c095dee689061b1adf85d2628be8b3e959539555938f703"
+        },
+        {
+          "index": 33,
+          "presentationTimeUs": 1397466,
+          "file": "scale-1-feed-frame-33.png",
+          "heartPinkPixels": 184,
+          "heartPinkWidthPixels": 18,
+          "sha256": "ca85fd43762b68ce41049e640dbed2e4594088d7dc8228a66a807a1d57f1ea9e"
+        },
+        {
+          "index": 36,
+          "presentationTimeUs": 1498300,
+          "file": "scale-1-feed-frame-36.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "3c9e0d572370d1e3044d535c3cc3cc52f21dc237029cbef3cc362aa5f7498cf6"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "social/status-originals/like-pulse-evidence/scale-0-feed.mp4",
+      "sha256": "af9bdbf49200e94f9c4b0aa0bf37e6f0e386d255b5a12514d998e4dc80dd04bc",
+      "decoded": 14,
+      "viewed": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-0-feed.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-feed-frame-0.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "6c13fcee421d500d1f51f5c823e9964a5c073da11940e426e5f9101e93948d2f"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 263300,
+          "file": "scale-0-feed-frame-1.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "652459ca9f69758f7f63195add016ab9b0f04e94784e824c6f35ebeb3ef84692"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 280188,
+          "file": "scale-0-feed-frame-2.png",
+          "heartPinkPixels": 154,
+          "heartPinkWidthPixels": 16,
+          "sha256": "14560da8ec031fea0a12f2a2195baab08fa25c30c0cd13e6e81a68071a5fbc99"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 746022,
+          "file": "scale-0-feed-frame-4.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "9cc61cdf687d1079697d5a72dacc552377c055aace694b9278f605022db3893f"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 762444,
+          "file": "scale-0-feed-frame-5.png",
+          "heartPinkPixels": 157,
+          "heartPinkWidthPixels": 18,
+          "sha256": "da679ad5dede1de2e526dc32d4f187cbf317a4c7c692a0e39c4c9c53d357d689"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 830188,
+          "file": "scale-0-feed-frame-6.png",
+          "heartPinkPixels": 155,
+          "heartPinkWidthPixels": 16,
+          "sha256": "35db4ceedd487aa113a64a253c61ade82dff071185e9207d174403814c9f7e47"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 912533,
+          "file": "scale-0-feed-frame-7.png",
+          "heartPinkPixels": 155,
+          "heartPinkWidthPixels": 16,
+          "sha256": "b4ad1cec8147a7f123a4498d7e00692254b6adbf61fd3d3d39a443aa5d9df85b"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 1029866,
+          "file": "scale-0-feed-frame-8.png",
+          "heartPinkPixels": 155,
+          "heartPinkWidthPixels": 16,
+          "sha256": "844c5951e4b9706ad90c14ccb92855d49468541f981ad29bfbb012f4b187c744"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 1162800,
+          "file": "scale-0-feed-frame-9.png",
+          "heartPinkPixels": 158,
+          "heartPinkWidthPixels": 16,
+          "sha256": "37d859146c0e5780d31206d70e217fc53b1fbf1aac74e165443d6c269088d3e4"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 1295844,
+          "file": "scale-0-feed-frame-11.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "1fdcf03e0b74ef2c3232bf8cfb05a3d9d2382e696a3526272c2c8178247fe5cb"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 3780600,
+          "file": "scale-0-feed-frame-12.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "ee8e30d8d4bcb2d55ca994e896f8639e7743e30d3a39274bbb50ad36a88fd904"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 3795855,
+          "file": "scale-0-feed-frame-13.png",
+          "heartPinkPixels": 0,
+          "heartPinkWidthPixels": 0,
+          "sha256": "ee8e30d8d4bcb2d55ca994e896f8639e7743e30d3a39274bbb50ad36a88fd904"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/module-header-motion-evidence/scale-1-article.mp4",
+      "sha256": "c1bfbf06d0c76eb85d0b61013aa86232aa44e3150e0c6193d95c8e05176267ed",
+      "decoded": 14,
+      "viewed": 12,
+      "indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-article.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-1-article-frame-0.png",
+          "sha256": "347d19bd9de2a4d3a781b536dcbeee6473cded321d0b65464f9e464e878c66a6"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 247933,
+          "file": "scale-1-article-frame-1.png",
+          "sha256": "9ee66d3bbcd1592fba5027e02dfb416751ec98c40392571b9e1cdb6d736ea2e9"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 264188,
+          "file": "scale-1-article-frame-2.png",
+          "sha256": "239b4d9be5c8f7d1f0c2b2459b0da6893bf189c8f4780123d9aff9b7da4ea4ed"
+        },
+        {
+          "index": 4,
+          "presentationTimeUs": 331300,
+          "file": "scale-1-article-frame-4.png",
+          "sha256": "75fb0228c8b698e402fc4934215b1af0bc3358a128261db759a75b3d1f7b4b96"
+        },
+        {
+          "index": 5,
+          "presentationTimeUs": 347122,
+          "file": "scale-1-article-frame-5.png",
+          "sha256": "425c7d9adbd49eeade2304deb4c56e53db4f23113394be276543a125422571ea"
+        },
+        {
+          "index": 6,
+          "presentationTimeUs": 364555,
+          "file": "scale-1-article-frame-6.png",
+          "sha256": "9d105ff8a8b3784aa486dcbfc1d789de48d449747d1669dbbbda9fe86f1a187b"
+        },
+        {
+          "index": 7,
+          "presentationTimeUs": 380555,
+          "file": "scale-1-article-frame-7.png",
+          "sha256": "9b59bb814fa49761f8b96f4ed5612e4225735e933f6aa7277c8ab9ad5bf59f71"
+        },
+        {
+          "index": 8,
+          "presentationTimeUs": 398411,
+          "file": "scale-1-article-frame-8.png",
+          "sha256": "428f7bc6f87dded455377875b0b09ea1722c20d11e38f4747b576fd2263973f1"
+        },
+        {
+          "index": 9,
+          "presentationTimeUs": 414066,
+          "file": "scale-1-article-frame-9.png",
+          "sha256": "f723e5e952aa143b17480038b0bfdf4d11d0c6854299bd22b16085d062ad3fb7"
+        },
+        {
+          "index": 11,
+          "presentationTimeUs": 447177,
+          "file": "scale-1-article-frame-11.png",
+          "sha256": "b169e85dede73af06da91dae17470edf85f65a480757f968741acc725baf0def"
+        },
+        {
+          "index": 12,
+          "presentationTimeUs": 464477,
+          "file": "scale-1-article-frame-12.png",
+          "sha256": "0bb39ca030fe7b4741bbf5a7b2132be4247346b54b56a172b41cc2d954090d28"
+        },
+        {
+          "index": 13,
+          "presentationTimeUs": 481488,
+          "file": "scale-1-article-frame-13.png",
+          "sha256": "8048057dc11972af9e40d76c883c9c98fcc3a039f2842622179834776245cfc2"
+        }
+      ],
+      "recorderSuccess": true
+    },
+    {
+      "path": "chat/status-originals/module-header-motion-evidence/scale-0-article.mp4",
+      "sha256": "81d0eddc599396013344bffe5a00177a4f0aff85212abd2fde213ee09c40d852",
+      "decoded": 3,
+      "viewed": 3,
+      "indices": [
+        0,
+        1,
+        2
+      ],
+      "ptsMonotonic": true,
+      "json": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-article.json",
+      "reviewedVia": "Viewed contact sheet of selected original decoded frames in chronological order, not continuous video playback",
+      "inspectedFrames": [
+        {
+          "index": 0,
+          "presentationTimeUs": 0,
+          "file": "scale-0-article-frame-0.png",
+          "sha256": "bd8751263daed6f6bd88bae1c51fd7d337fbf252e6c32b2cc4df3ac754ac4f7c"
+        },
+        {
+          "index": 1,
+          "presentationTimeUs": 298666,
+          "file": "scale-0-article-frame-1.png",
+          "sha256": "771976fe0e85c2ffa7622d20af5173b52ddecba136014a87c0da8390b7d7a3b6"
+        },
+        {
+          "index": 2,
+          "presentationTimeUs": 314033,
+          "file": "scale-0-article-frame-2.png",
+          "sha256": "ee0431a600cf7407acf6a6b3ab16a71a7b5c79f01a32c5b75f7e36c850514532"
+        }
+      ],
+      "recorderSuccess": true
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-collapse.json",
+      "kind": "decoded-frame index",
+      "sha256": "69c4b6da6d0430c9d651a1497e9097ff8c1968c53e7d2a04466c0130845a4dad"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-collapse-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "76b15771d46cb3536951ff6fa330a48d4b0efd2bbdd1a715f43b7e98b417a26e"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-collapse.json",
+      "kind": "decoded-frame index",
+      "sha256": "f8a822911ea84bce640d675f70812b57d76af06496d8d28a2e2bdf2650ba536e"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-collapse-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "73af8df185d354afd4c40c1fb56d44a745d26ca80c83d4036c7a845523151bf0"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-rapid-primary.json",
+      "kind": "decoded-frame index",
+      "sha256": "12b95a6cdf82cb211d502d9a3033113c1289c912e6e498c1b897039331ee419f"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-rapid-primary-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "542de99acc0599d5817597b4e421b7acfa2f89164c5acedbd3812a502d880e4f"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-rapid-primary.json",
+      "kind": "decoded-frame index",
+      "sha256": "9de5d1e2fc489cadc83807938b2285619397dbd83bb76c65718a9aa3381e50b0"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-rapid-primary-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "d4ec3d278686d70e56bcf03895a51e8daee486fc9b183ae3f2cbb26b555fa8e6"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-focus-during-entry.json",
+      "kind": "decoded-frame index",
+      "sha256": "5cff875da795ea4a2c2aa22c81326f61281b10ec0c50b777cd794348a378a475"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-focus-during-entry-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "176d31054122cab9e1be85141635ac246e8de2f7b5ced16c8e59c62b387bb1e2"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-focus-during-entry.json",
+      "kind": "decoded-frame index",
+      "sha256": "1d8396084e5da0d3d0030168f557f9c11a66391983075ee537dcada88e69aa40"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-focus-during-entry-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "5cad24a69361c6d5c867f658c035d17b0f92806e8529c547f0e5831acca3b23e"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-private-and-back.json",
+      "kind": "decoded-frame index",
+      "sha256": "33065526f0dbeab60da2076a834fd36df94daba3bc7c2773bf4e514151db802b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-private-and-back-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "272bebf8df286a3f6a6e319160c98eea824d877a4de7d26d794eb0978a5b6ca2"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-private-and-back.json",
+      "kind": "decoded-frame index",
+      "sha256": "69142b83dae37c06c72228b72fccc215c48f9776bcdb955ee999aa6818ef14eb"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-private-and-back-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "f8f55bc262cf28b522cf4f3154de75fd7fd3f0c02d1519daa61ecde2b566fdda"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-journey-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-banner.json",
+      "kind": "decoded-frame index",
+      "sha256": "1a66773189f5c294d519bf83dc487a20cb986d104340c6ff422fe993269232bf"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-banner-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "2ba9a244858673f3863db5766139e9dd9d5acb483cdc506e46adc35ebc1b2287"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-banner.json",
+      "kind": "decoded-frame index",
+      "sha256": "ec6b7053a46d995225b2c7fa7de21f214ad96daedfb08fba0da5652ed7a6b2e6"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-banner-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "90c6c274d6dcabdda56d831c1ebb3d325f530dde5ac4643b4f09ce8c884edde5"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-drawable.json",
+      "kind": "decoded-frame index",
+      "sha256": "512d0d0be4028688b40583f8696b78655903f9aeb7bb367c9de659bf1c6c564b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-drawable-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "5c904bbbf07fd1e093d69b9eb5fba3c1c45362fb7ce0efa8f14169050975a8f1"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-drawable.json",
+      "kind": "decoded-frame index",
+      "sha256": "c8058e6c187f04bf0e1647f1136a25cbba852ddf764ad6c2a5ff45bf5d61055a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-drawable-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "f94bd1cefda34862e443a60fccd8b18dd96599ed6620887b4f9e39fbba1e77a1"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/loaded-media-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-1-disconnected.json",
+      "kind": "decoded-frame index",
+      "sha256": "4207f35e6a0659c45e4ab4366518ee6b8e45de59e79da85ebc216d6ea9a177e4"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-1-disconnected-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "6af202eff494229b8fb451b63a293e17a93b8e35c4480d7695af6dc9374a8ed7"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-0-disconnected.json",
+      "kind": "decoded-frame index",
+      "sha256": "fd04896eef325bd8b19353e4c1dc14e4056b9071af831a589d01e3cd3518f2c4"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-0-disconnected-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "a72108fcd39997a71e9f4e8ff88f9d61078369c0d4f283f2c65727ee045f5af8"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/node-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-resurface.json",
+      "kind": "decoded-frame index",
+      "sha256": "8abb51ece920f701cdfdff4a814ca96678bf6952901ace5945ec43358ad88b16"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-resurface-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "bf5bdd5e6db2bcf4740a54d3f0e1fa21ec4784d6828e922fbb1288b0cd269e5a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-resurface.json",
+      "kind": "decoded-frame index",
+      "sha256": "eda267325979baa8634e101a54eb11fde823f05e38ba544c420199ab6dbc7d59"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-resurface-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "85d7813bd5dc7229a5d5fc6ab41955b4299e58f65e0e674f8d3f4e08b59a87b4"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-people.json",
+      "kind": "decoded-frame index",
+      "sha256": "0d3ac5c2c99a24e783ba4d8c44e581cf09c8eec309297521985c71ee1c1f376b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-people-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "075040da92ff63b9a18f9b2a1c23b87018c8a504a6095c5966e2fbed9e12c026"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-people.json",
+      "kind": "decoded-frame index",
+      "sha256": "b43e3a0b30e5155da8fe8c0f88bba569fd3ac63649fb869a700eb20783c93c49"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-people-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "056d0af9172d65dd02e2c8dd07740c35f00352d8d79fc3d3cc914d68508efa91"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/activity-group-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-categories.json",
+      "kind": "decoded-frame index",
+      "sha256": "6dc5b68b838dfdf7d92c9ad9e56f267bdf3d6ceb4abe884b03a790d565f4c395"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-categories-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "9bd7156565684373355ee3dd74c3dc70526683c2af707773efc21100bc448555"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-categories.json",
+      "kind": "decoded-frame index",
+      "sha256": "3bac1e85af108530863b6d86d7d5e8384b7fb84fa1e9214878a6a2e084eb36f7"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-categories-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "35de7cf2613ff444700f23a5386b1102c71b68e4fa8b9f34a615e029d6a350d5"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-wallet-open.json",
+      "kind": "decoded-frame index",
+      "sha256": "7b89eab32728ce9b896b749f75befeba42371ee1e77bb01c625143166d0c4a6b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-wallet-open-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "ba7be41e6db1624add5850ba63d504f680de19b41814ceaaa0b5fbec85e05c55"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-wallet-open.json",
+      "kind": "decoded-frame index",
+      "sha256": "e52bc711801b98b0a755a7c8d8553ca9dea53720f27221032a0e3b207ce84b0d"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-wallet-open-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "f378fec4d96af3fe7cc82d9c556bbeec58ffe30ef2aa920e4f785f8c94a53577"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-1-search.json",
+      "kind": "decoded-frame index",
+      "sha256": "143f1e1974e2827de8fa38f6eeeffff626b4cb4ff9ea55b1b46cde27bcf9c75b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-1-search-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "036cde90221c49263b0b1da9b3e4669e1c40560fd488c1505a610098b146fbb3"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-0-search.json",
+      "kind": "decoded-frame index",
+      "sha256": "0d99dbb8d9edfc8ff1dd0abf82acbcf5b8a0f1957f979e7812496c0a2a8758d3"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-0-search-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "a3666226001d59f77fc313f69ff53fe43af080864468852cef3ea69df140de6a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/destination-reveal-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-1-feed.json",
+      "kind": "decoded-frame index",
+      "sha256": "c513cc8c5e1d9fa15b3c00a498afb83ba77a58455ff38683ea2ba89cb0a4ec03"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-1-feed-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "02091bf7372bf3fab6195e4bfa7edda41f57be8982f8c3824cbd0b84cb40ba0c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-0-feed.json",
+      "kind": "decoded-frame index",
+      "sha256": "222845424085dc99148909a7fa8bf87614161c45d4188263fe29d2593e253865"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-0-feed-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "192377a7fe4c2b400229a078e7e845456091db3b97f3512ffdb9ad595c4124c6"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/like-pulse-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-article.json",
+      "kind": "decoded-frame index",
+      "sha256": "68d750e5d6c61ffa744454e7e1c18993a3eb3603c89aa79c9c036fdddadd508b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-article-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "c58ba1ad36fba9d5a82e774ed33f772f2fc4190e1c63cb18ef7132fc57142864"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-1-window.json",
+      "kind": "motion scales",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-article.json",
+      "kind": "decoded-frame index",
+      "sha256": "16c1f07142dc4744817895455d5ecd6cfb1cc1697463c3861d5cc6a2a05327bf"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-article-recorder.txt",
+      "kind": "recorder exit",
+      "sha256": "25342a9cfe0ecf00a4a87ec70ec4547501eee35945e2425418eb15a1a9182a24"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/chat/status-originals/module-header-motion-evidence/scale-0-window.json",
+      "kind": "motion scales",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "values": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-font-scale.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-font-restored.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/finalR-android10/social/status-originals/account-design-viewport-evidence/account-activity-lifecycle.jsonl",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "f20d5f16ec85fd9f6f4c57929ca1c98256f22c0e49113fd7311d4e46b8161166"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/chat-queue-evidence/group-cancel-members-scroll.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "1f497cb1a59eb6ce36d47fcae572310d3412a38b1df965f5cc896320a93f26fa"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/result.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "bc4711f8835ca1ed0b01df9e393395e53fb5c6ea1db53cf7e5d6fa84e6d494b4"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/origin-result.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "99e76e18f53d1ecc6f0c750b8c2042becff6de0bf88f5acc282cc181a098ae11"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/close-result.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "306823b878064aebb16728e54577367aba6106394e0af4b99d286bf81018b8cb"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/chat/image-viewer-talkback-evidence/returned-focus.xml",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "fc8d23aa9cebf0ffea4cc8655d53c1d9d2d4c09dabc6b08fb97bb923fb81f285"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/wallet/policy-evidence/settings-talkback/settings-result.json",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "d6e31d638ff12eaacd285b202da9e4357dda0ed76e3dcdf2b6adf228067d9c4b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/final94-spec-review/10/extracted/wallet/policy-evidence/settings-talkback/node-keyboard-focus.xml",
+      "kind": "supplemental repair evidence inspected",
+      "sha256": "e855be8a38c2e47ed9a358211c8a74591af2dcfd06ca738a2c43a491c3a56d4b"
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "Representative bounded review, not every PNG or decoded frame in the full collector",
+    "Screenshots, XML, Compose assertions and paint timings are separate non-atomic observations",
+    "Fixture magenta/red pictures are controlled evidence, not production picture defaults",
+    "Actual signed83-to89 continuity separately reviewed by root; no debug/release binary equality claim",
+    "No physical Pixel gesture/performance, configured-provider lifecycle, actual Stack protocol, KVK, legal or Play acceptance",
+    "Independent #1/#36/#55/#84/#86 acceptance remains"
+  ]
+}

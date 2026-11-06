@@ -1,6 +1,33 @@
 # Unified redesign release verification (#94)
 
-## ACTIVE: final R runs with pre-execution corrected verifier freeze
+## ACTIVE: R10 passes, R17 WalletTalkBack setup repair awaiting focused runtime
+
+R10 complete42265166557 and frozen collector PASS625+1 inherited Profile
+assumption,626identities,177archives, exactR. Original packet `finalR-android10`.
+R17 complete42265171360 FAILS Chat; Wallet/SocialPASS. Original
+WalletTalkBackPreviewTest fails12.111s before payment, openWallet→AccountMenu43
+NoComposeRoots. Actual native failure is DocumentsUI test-backup provider, NOT
+proof of a transient app-root replacement. Originals under `failures/fullR-chat17`.
+
+Only WalletTalkBackPreviewTest changes: activate actual named Later with native
+ACTION_CLICK, require Later absent plus actual Account present and app foreground,
+all inside shared original15s setup. Capture true result/PNG/XML before unchanged
+Account5s/payment/TTS/wallet/backend/no-send checks. No root-exception masking,
+retry, class/tool/deadline/ID change. A coordinate tap racing expanding layout is
+a supported hypothesis, not exclusive proven cause. Both source axes report zero unresolved findings in this
+bounded repair; focused wallet-talkback10/17 and fresh complete final gates remain.
+
+R10-only actual native partial reviews both zero findings: Standards128PNGs/
+127XMLs/386uniqueframes from38movies; Spec117stills/28movies/281selectedframes of
+618decoded. Exact receipts in `partial-native-R10`. These are R10 partial evidence,
+NOT two-SDK/final acceptance. Reviewers stopped awaiting successful final packets;
+root may followup final94_native_standards/spec after gates pass.
+
+89stillstaged/latest83. Root continues authorized five-ticket/beta task; no node
+mutation. Keep helper/catalog R freeze and439APK-input equality with explicit440
+CI-only exception. No producer change or new APK. Do not close94 or parent gates.
+
+## Historical: final R runs with pre-execution corrected verifier freeze
 
 Current final source is `c24a705207795db7e137a3664f3d9a710a86b9a9` (R), immutable
 tag `proof-redesign94-c24a705`. Complete all-partition/public-read runs:
@@ -24,7 +51,7 @@ both actual R cross-module native/motion reviews, promote exact89 with unchanged
 notes, verify public version/hash and close94only. Root solewriter. Other parent/
 owner/external criteria remain independent. No new production node mutation.
 
-## Current checkpoint: Q runtime passes, frozen verifier repair before R
+## Historical checkpoint: Q runtime passes, frozen verifier repair before R
 
 Both complete Q workflows42252100677/42252105477 SUCCESS, all three partitions.
 The unchanged frozen Q17 collector FAILS viewer-check.py:62. Its direct-label

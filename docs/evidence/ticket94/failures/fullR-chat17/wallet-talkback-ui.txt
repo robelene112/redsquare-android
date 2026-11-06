@@ -1,0 +1,95 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTalkBackPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletTalkBackPreviewTest:
+INSTRUMENTATION_STATUS: test=reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletTalkBackPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openAccountMenu(AccountMenuFixture.kt:43)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openWallet(AccountMenuFixture.kt:95)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending$lambda$7$lambda$6$lambda$5(WalletTalkBackPreviewTest.kt:28)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.$r8$lambda$TJq3jQDtGjXcYU6uxqGaLOM5zk0(WalletTalkBackPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending$lambda$7(WalletTalkBackPreviewTest.kt:24)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.$r8$lambda$6qm0RH39wDIOIVncEKQbKBtvfMU(WalletTalkBackPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending(WalletTalkBackPreviewTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending(nl.davidengelen.redsquare.WalletTalkBackPreviewTest):
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openAccountMenu(AccountMenuFixture.kt:43)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openWallet(AccountMenuFixture.kt:95)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending$lambda$7$lambda$6$lambda$5(WalletTalkBackPreviewTest.kt:28)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.$r8$lambda$TJq3jQDtGjXcYU6uxqGaLOM5zk0(WalletTalkBackPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending$lambda$7(WalletTalkBackPreviewTest.kt:24)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.$r8$lambda$6qm0RH39wDIOIVncEKQbKBtvfMU(WalletTalkBackPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending(WalletTalkBackPreviewTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.111
+There was 1 failure:
+1) reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending(nl.davidengelen.redsquare.WalletTalkBackPreviewTest)
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openAccountMenu(AccountMenuFixture.kt:43)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openWallet(AccountMenuFixture.kt:95)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending$lambda$7$lambda$6$lambda$5(WalletTalkBackPreviewTest.kt:28)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.$r8$lambda$TJq3jQDtGjXcYU6uxqGaLOM5zk0(WalletTalkBackPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending$lambda$7(WalletTalkBackPreviewTest.kt:24)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.$r8$lambda$6qm0RH39wDIOIVncEKQbKBtvfMU(WalletTalkBackPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.WalletTalkBackPreviewTest.reviewedPaymentValuesAndSelectedNodeAreSpokenWithoutSending(WalletTalkBackPreviewTest.kt:21)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
