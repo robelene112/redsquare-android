@@ -76,7 +76,9 @@ class SocialProcessRecoveryTest {
                 ui.onNode(hasScrollAction()).performScrollToNode(likePostAction())
                 ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(likePostAction()).assertIsDisplayed().performClick()
-                ui.waitUntil(20_000) { peer.transactions.size == 1 }
+                // The peer records receipt before its signed-Like callback finishes.
+                // The real decoded checkpoint must exist before deliberate termination.
+                ui.waitUntil(20_000) { peer.transactions.size == 1 && observed.get() != null }
                 ui.onNode(likePostAction()).assertIsEnabled()
                 ui.onNodeWithText("Liked").assertDoesNotExist()
                 assertEquals(1, peer.transactions.size)

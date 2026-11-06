@@ -439,11 +439,13 @@ complete first-release scope and the established production boundaries.
    partitioned verification plus separately executed public-read gates, never as
    those gates having run in the initial dispatch. This bounded assembly is not
    the failed-observer tail exception and cannot waive any application failure.
-   Full-suite job ceilings are75minutes per SDK job or120minutes for the combined
-   `full` scope; source/focused jobs retain60minutes. The previous complete
-   Android17 job took over57minutes, leaving little room below60 for runner
-   variation and artifact retention. Application, request, assertion and class
-   deadlines remain unchanged. This ceiling is not a runtime acceptance claim.
+   Full-suite jobs use a120-minute aggregate resource ceiling for split SDK
+   partitions and the combined `full` scope; source/focused jobs retain60minutes.
+   The expanded211-class catalog plus SDK/tool provisioning exhausted the old
+   75-minute ceiling in M Android10 Chat run42232393578. GitHub cancelled that
+   job before final private-Chat recovery; it remains incomplete, not a pass.
+   Application, request, assertion, class and process-test deadlines remain
+   unchanged. This aggregate ceiling is not a runtime acceptance claim.
 4. Ensure `code-review` sees the actual changes. Its upstream default compares
    committed `HEAD` against a fixed base, so make an interim implementation
    commit before that review if needed. An empty committed diff is not a review

@@ -56,7 +56,9 @@ jobs:
       matrix:
         partition: ${{ fromJSON((inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ${{ inputs.runner_os || 'ubuntu-24.04' }}
-    timeout-minutes: ${{ inputs.scope == 'full' && 120 || startsWith(inputs.scope, 'full-') && 75 || 60 }}
+    # Allow the expanded complete catalog plus SDK/tool provisioning to finish.
+    # Individual native, host-process and UI deadlines remain in emulator-check.
+    timeout-minutes: ${{ (inputs.scope == 'full' || startsWith(inputs.scope, 'full-')) && 120 || 60 }}
     steps:
       - name: Validate optional 16 KB environment
         if: inputs.android17_16kb
