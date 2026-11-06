@@ -61,9 +61,10 @@ internal fun withAvatarJourney(theme: String, verifiedName: String? = null, watc
         if (query.get("field2").asString == author.publicKey) { requests.incrementAndGet(); response.get() } else "[]"
     }, archiveResponse = { query -> when (query.get("field1")?.asString) {
         null -> {
-            // Private history uses its authenticated conversation field, not a module field.
+            // Private and group history both identify their exact conversation without a module field.
             check(query.get("request")?.asString == "load" &&
-                query.get("field3")?.asString == PrivateChat.conversationId(reader.publicKey, author.publicKey) &&
+                query.get("field3")?.asString in listOfNotNull(
+                    PrivateChat.conversationId(reader.publicKey, author.publicKey), watchedGroup?.first) &&
                 query.get("limit")?.asInt == 50 && (query.get("created_earlier_than")?.asLong ?: 0) > 0)
             "[]"
         }

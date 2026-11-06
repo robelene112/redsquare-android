@@ -447,6 +447,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     ConversationMessageList(renderedKeys, "${wallet.publicKey}:${backend.id}:private:$contact",
                         stringResource(R.string.chat_messages), historyModifier,
                         requestMessage = outgoingRequest, historyMessageKeys = entries.map { it.message.id },
+                        messageRowKeys = visible.map { it.id },
                         historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty(),
                         verticalArrangement = Arrangement.spacedBy(2.dp)) { showMessage ->
                         groups.forEach { group ->
@@ -458,7 +459,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         }
                         items(group.messages, key = { it.id }) { message ->
                             val outgoing = message.author == wallet.publicKey
-                            Column(Modifier.fillMaxWidth().padding(vertical = 1.dp),
+                            Column(Modifier.fillMaxWidth().conversationMessageRow(visible.indexOf(message)).padding(vertical = 1.dp),
                                 horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
                                 var copyFailed by remember(message.id) { mutableStateOf(false) }
                                 val replyPrefix = remember(message) { privateReplyPrefix(message) }

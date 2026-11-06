@@ -533,6 +533,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         messagesLabel, historyModifier,
                         historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && visible.isEmpty(),
                         requestLatest = latestRequest, historyMessageKeys = entry.messages.map { it.id }, requestMessage = outgoingRequest,
+                        messageRowKeys = visible.map { it.id } + entry.queuedMessage?.let { listOf("queued:${it.candidate.id}") }.orEmpty(),
                         verticalArrangement = Arrangement.spacedBy(2.dp)) { showMessage ->
                         groups.forEach { group ->
                         item(key = group.headerKey) {
@@ -543,7 +544,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         }
                         items(group.messages,key={it.id}){item->
                             val outgoing=item.author==wallet.publicKey
-                            Column(Modifier.fillMaxWidth().padding(vertical=1.dp),
+                            Column(Modifier.fillMaxWidth().conversationMessageRow(visible.indexOf(item)).padding(vertical=1.dp),
                                 horizontalAlignment=if(outgoing)Alignment.End else Alignment.Start){
                                 var copyFailed by remember(item.id){mutableStateOf(false)}
                                 val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
@@ -573,7 +574,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         }
                         entry.queuedMessage?.let { queued -> item(key="queued:${queued.candidate.id}") {
                             val pending=queued.message
-                            ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,backend=backend,onQuote={})
+                            Box(Modifier.fillMaxWidth().conversationMessageRow(visible.size)) {
+                                ChatMessageBubble(pending.author,pending.text,pending.createdAt,true,backend=backend,onQuote={})
+                            }
                         } }
                     }
                 }, composer = { composerModifier ->

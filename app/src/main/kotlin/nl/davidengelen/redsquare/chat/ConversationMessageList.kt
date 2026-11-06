@@ -13,10 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.liveRegion
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.*
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.R
@@ -30,6 +27,7 @@ internal data class ConversationMessageRequest(val messageKey: String, val attem
 internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: String, messagesLabel: String,
     modifier: Modifier = Modifier, historyHidden: Boolean = false, requestLatest: Int = 0,
     historyMessageKeys: List<String> = messageKeys,
+    messageRowKeys: List<String> = messageKeys,
     requestMessage: ConversationMessageRequest? = null,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     content: LazyListScope.(showMessage: (Int) -> Unit) -> Unit) = key(viewportKey) {
@@ -151,7 +149,20 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
     }
     Box(modifier.onSizeChanged { viewportHeight = it.height }
         .preserveReadingAnchor(messageList, enabled = !following, relativeToRoot = true)) {
-        LazyColumn(Modifier.fillMaxSize().semantics { contentDescription = messagesLabel },
+        LazyColumn(Modifier.fillMaxSize().semantics {
+            contentDescription = messagesLabel
+            // Decorative sender headers remain reachable, but do not become message ordinals.
+            collectionInfo = CollectionInfo(messageRowKeys.size, 1)
+            indexForKey { key -> messageRowKeys.indexOf(key) }
+            scrollToIndex { row ->
+                val physical = messageRowKeys.getOrNull(row)?.let { messageKeys.indexOf(it) } ?: -1
+                if (physical < 0) false else {
+                    val target = if (physical > 0 && messageKeys[physical - 1] !in messageRowKeys) physical - 1 else physical
+                    scope.launch { messageList.scrollToItem(target) }
+                    true
+                }
+            }
+        },
             state = messageList, verticalArrangement = verticalArrangement) {
             content(showMessage)
         }
@@ -161,4 +172,9 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
             Text(stringResource(R.string.chat_new_messages))
         }
     }
+}
+
+/** Screen readers count individual messages, independently of decorative lazy sender headers. */
+internal fun Modifier.conversationMessageRow(index: Int): Modifier = semantics {
+    collectionItemInfo = CollectionItemInfo(index, 1, 0, 1)
 }
