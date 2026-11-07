@@ -2,30 +2,40 @@
 
 ## Current owner feedback, November 7, 2026: prototype fidelity rejected
 
-Owner subsequently authorized fixing the mismatch. Active issue94, worktree
-`/mnt/storage/redsquare-android-artifacts/redesign86`. Production through
-`a840ed5e1` reproduces reference composition, menu sheets/cards, compact post
-controls, Chat composers and balance-first wallet. Native control geometry is
-still under verification. Do not claim delivery. Beta89 remains latest.
+Owner authorized completing issue94's fidelity repair. The active worktree is
+`/mnt/storage/redsquare-android-artifacts/redesign86`; preserve the canonical
+checkout's unrelated Chat work. The final candidate source is
+`e697e0139b3a7a27751e3fac1801f6478fdd0174`, tagged `proof-prototype94-layout5`.
+Beta89 is still latest. Do not claim delivery or start another issue.
 
-Signed90 (producerf90f9a2f4, SHA256f100f21a40572745391721fb0b65560e64ecc27e102f069f4a6524237ea66d88)
-is staged only, not accepted or promoted. Its public download hash matches. New
-production control changes require another APK/version; never overwrite90.
+Signed beta92 is staged only. Its producer is the exact candidate source above;
+package and certificate are unchanged. The downloaded public APK matches SHA256
+`426fbad83c1a1510398d308c34274e9ace95ebe2286ad928a67e47f1ea59bd1c`.
+Stages90/91 are historical candidates and must never be overwritten or promoted.
 
-Native layout2 source9f40f70e9: module run42377894534 SUCCESS; wallet-design
-run42377896533 has both normal journeys PASS, then compact viewport FAIL on40dp
-clickable height against retained48dp assertion. Profile42377892771 fails before
-entering profile: horizontal tabs create a second ScrollBy for existing helpers.
-Chat-grouping42377898383 is still running. a840ed5e1 separates40dp/32dp paint from
-explicit48dp single interaction targets and wraps tabs, removing the unnecessary
-horizontal scroll container. Local compile is running; retest and inspect images
-before final complete Android10/17 gates, signed update proof and publication.
+Current complete checks: Android10 run42381324445, Android17 run42381326370;
+both require all three partitions, the frozen collector and actual native review.
+Focused thread17 run42381322578 and actual signed92 update runs42381732133
+(Android10)/42381734178 (Android17) are pending. No local builder remains active.
+Both source-review axes have zero unresolved findings through the candidate.
 
-Historical: red profile42375955818 proves old95dp cover versus independent128dp
-reference. First focused42377250251/52540/54877 failed short-SHA checkout; layout1
-42377419383/21502/23543 were cancelled after a local observer bounds-access compile
-error. That accessor was fixed ine3e92b29d. Compile5 PASSED3m46 before layout2;
-no native/full pass is inferred from a compile or an interrupted run.
+Focused evidence: profile17 run42380125900 passes all7 tests, including128dp cover,
+64dp separate avatar and32dp tab paint inside48dp targets. Wallet10 run42379257881
+passes ordinary journeys and both viewport matrices; module17 run42377894534 and
+Chat-grouping17 run42377898383 pass. These are not substitutes for full acceptance.
+Profile source25551694a differs from the final candidate only in the post Reply
+accessible label, which does not change profile painting.
+
+Retain failed native runs. Red42375955818 proves old95dp cover. Layout2 profile
+42377892771 hit an extra horizontal scroll host; wallet42377896533 found40dp
+click bounds. Explicit input wrappers now retain40/32dp paint and48dp targets;
+wrapping tabs remove the extra scroll host. Profile42379255850 then exposed a
+partially clipped pixel capture, fixed by scrolling the actual tab into view.
+Stopped full255 runs42380165179/42380167414 failed Social on duplicate generic
+Reply semantics. The final source names body actions specifically while retaining
+the existing header and assertions. Signed91 update proofs passed both SDKs, but
+92 needs its own proofs. Final complete checks, native comparison, publication
+and owner review55 remain outstanding. Do not count interrupted runs as passing.
 
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be
