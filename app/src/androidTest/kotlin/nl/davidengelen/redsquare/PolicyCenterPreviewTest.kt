@@ -139,6 +139,15 @@ class PolicyCenterPreviewTest {
                     ui.onNode(ownerChoice).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
                     ui.onNode(ownerChoice).assertIsFocused().assertIsDisplayed()
                     captureNativeScreen(File(talkBackFolder, "node-keyboard-focus.png"))
+                    // End the keyboard journey through its actual foreground window.
+                    // The underlying Account control can remain in the semantics tree
+                    // while this full-screen dialog is still open.
+                    ui.onNodeWithText("Done").assertIsDisplayed().assertIsEnabled().performClick()
+                    ui.waitUntil(20_000) {
+                        ui.onAllNodes(hasText("Back to Settings") and hasAnyAncestor(isDialog()))
+                            .fetchSemanticsNodes().isEmpty() &&
+                            ui.onNode(hasContentDescription("Account") and hasClickAction() and isEnabled()).isDisplayed()
+                    }
                     NativeTalkBackObservation(talkBackFolder).observe {
                         device.waitForIdle(5_000)
                         ui.waitForAccountMenu(20_000)
