@@ -11,6 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -32,6 +33,7 @@ internal enum class WalletDestination { RECEIVE, SEND, RECOVERY }
 
 /** Wallet presentation delegates all signing, authentication, import and export to existing owners. */
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 internal fun WalletDialog(address: String?, failed: Boolean, walletExport: WalletExport,
     walletImport: WalletImport, scrollState: ScrollState, backend: SaitoBackend?, balances: WalletBalances,
     overviewHeader: @Composable () -> Unit,
@@ -71,7 +73,9 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                                 val receiveLabel = stringResource(R.string.wallet_balance_receive)
                                 val sendLabel = stringResource(R.string.transfer_send)
-                                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                                    maxItemsInEachRow = if (LocalDensity.current.fontScale > 1.3f) 1 else 2) {
                                     DesignButton(modifier = Modifier.weight(1f),
                                         enabled = address != null && !walletExport.busy && !walletImport.busy,
                                         onClick = { onOpen(WalletDestination.RECEIVE) }) {

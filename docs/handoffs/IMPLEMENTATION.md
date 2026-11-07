@@ -6,6 +6,25 @@ Issue94 remains active. Root is the sole implementation writer in
 `/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
 Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
+CURRENT UI POLISH AFTER F686 (not yet a new signed artifact):
+Both native wallet subset reviews found no blocking fidelity defect in their sampled
+f686 views/movies, but Spec observed Receive wrapping midword at320dp/200% on both
+SDKs. The prototype permits it; owner UX preferences justify fixing it rather than
+shipping that limitation. WalletDialog alone now uses a weighted FlowRow:100/130%
+remain two equal actions, above130% each action gets a full-width row. Same12dp gap,
+semantics,48dp targets, callback and activation/authentication guards. Both source
+axes clear this one-file delta. Reuse existing native wallet-design/input matrices
+and inspect actual after-pictures; no mirrored layout test or deadline change.
+
+IMPORTANT: signed96 is now OBSOLETE, alongside93/94/95. Never promote them. Beta89
+remains latest. Fresh97+ source/build, actual signed continuity, same-source complete
+10/17 gates/frozen collectors and final native reviews are required. Running f686
+complete42405076092/42405078203 and wallet subset receipts are historical/diagnostic
+for the previous source, not acceptance for this change. The96 continuity/provenance
+review is independently clear within its historical scope. No production node or
+canonical-worktree changes; root remains sole writer.
+
+Earlier f686 checkpoint, preserved within its historical scope:
 CURRENT FROZEN IMPLEMENTATION / SIGNED PRODUCER:
 `f68613a41e3889de841611bf93ba93011ec6957f`, tag `proof-prototype96-f68613a`.
 Beta96 built successfully in3m36 and is staged, NOT promoted. Actual public download

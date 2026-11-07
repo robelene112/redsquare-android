@@ -2,6 +2,12 @@
 
 ## Reopened prototype repair: beta95 staged, acceptance pending
 
+Signed96 is now OBSOLETE after the recorded320dp/200% Receive midword-wrap polish.
+Wallet actions now stack at large text while preserving100/130% two-button layout.
+Fresh97+ artifact, current-source full gates and native acceptance are required;
+f686 receipts/runs remain historical/diagnostic. Do not promote93/94/95/96.
+
+Earlier96 checkpoint:
 Current candidate96 is staged from source/producerf68613a41, SHA256
 `3e9a7412a548e5461dd3d57ce52c5f12ba7829007945d4cca222137f25592081`.
 Build3m36, actual public download matches38,992,531 bytes. Actual update/isolation
