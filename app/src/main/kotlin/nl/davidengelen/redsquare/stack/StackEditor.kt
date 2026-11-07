@@ -43,9 +43,15 @@ internal class StackVisualBuffer {
     var rich: RichTextState? = null
     var baseline: String = ""
     fun snapshot(draft: StackDraft): StackDraft {
-        if (draft.sourceMode || sourceOnly(draft.body)) return draft
+        if (draft.sourceMode) return draft
+        if (sourceOnly(draft.body)) return draft.copy(sourceMode = true)
         val markdown = rich?.toMarkdown() ?: return draft
-        return if (markdown != baseline) draft.copy(body = markdown) else draft
+        return if (markdown != baseline) draft.copy(body = markdown, sourceMode = sourceOnly(markdown)) else draft
+    }
+    fun applyVisual(draft: StackDraft, markdown: String): StackDraft {
+        if (draft.sourceMode || sourceOnly(draft.body) || markdown == baseline) return draft
+        baseline = markdown
+        return draft.copy(body = markdown, sourceMode = sourceOnly(markdown))
     }
     val saver = Saver<StackDraft, StackDraft>(save = { snapshot(it) }, restore = { it })
 }
@@ -53,13 +59,13 @@ internal class StackVisualBuffer {
 private fun sourceOnly(source: String): Boolean = source.contains(Regex(
     "(?m)^\\s*\\|.*\\|\\s*$|<[/a-zA-Z][^>]*>|^\\[\\^[^]]+]:|^ {0,3}\\|? *:?-+:? *(?:\\| *:?-+:? *)+\\|? *$"))
 
-internal fun LazyListScope.editorContent(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onReview: () -> Unit) {
+internal fun LazyListScope.editorContent(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onVisualBody: (String) -> Unit, onReview: () -> Unit) {
     item { OutlinedTextField(draft.title, { onChange(draft.copy(title = it)) }, Modifier.fillMaxWidth(),
         label = { Text(stringResource(R.string.stack_title_field)) }, singleLine = true) }
     item { OutlinedTextField(draft.subtitle, { onChange(draft.copy(subtitle = it)) }, Modifier.fillMaxWidth(),
         label = { Text(stringResource(R.string.stack_subtitle_field)) }, singleLine = true) }
     item { CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) } }
-    item { StackArticleEditor(draft, visual, onChange) }
+    item { StackArticleEditor(draft, visual, onChange, onVisualBody) }
     item { DesignButton(onReview, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_review_article)) } }
 }
 
@@ -78,19 +84,18 @@ private fun CoverPicker(selected: Boolean, onSelect: (Boolean) -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit) {
+private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onVisualBody: (String) -> Unit) {
     // Lazy reading may dispose the editor item. Keep its last input/undo state in
     // the screen-owned buffer until navigation/save synchronises canonical source.
     val rich = remember { visual.rich ?: RichTextState().setMarkdown(draft.body).also {
         visual.rich = it; visual.baseline = it.toMarkdown()
     } }
-    var baseline by remember { mutableStateOf(visual.baseline) }
     // Source remains canonical. A library round-trip must not normalise an untouched draft.
-    val currentChange by rememberUpdatedState(onChange)
-    val currentDraft by rememberUpdatedState(draft)
+    val currentBodyChange by rememberUpdatedState(onVisualBody)
     LaunchedEffect(rich) {
         snapshotFlow { rich.toMarkdown() }.collect { markdown ->
-            if (markdown != baseline) { baseline = markdown; currentChange(currentDraft.copy(body = markdown)) }
+            // The owner checks its latest mode/source, not a captured editor snapshot.
+            currentBodyChange(markdown)
         }
     }
     val unsupported = sourceOnly(draft.body)
@@ -102,13 +107,13 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         val tabs: @Composable () -> Unit = {
             FilterChip(selected = !sourceMode, enabled = !unsupported, onClick = {
-                rich.setMarkdown(draft.body); baseline = rich.toMarkdown(); visual.baseline = baseline
+                rich.setMarkdown(draft.body); visual.baseline = rich.toMarkdown()
                 onChange(draft.copy(sourceMode = false))
             }, label = { Text(stringResource(R.string.stack_visual)) })
             FilterChip(selected = sourceMode, onClick = {
                 val markdown = rich.toMarkdown()
-                onChange(draft.copy(sourceMode = true, body = if (!sourceMode && markdown != baseline) markdown else draft.body))
-                baseline = markdown
+                onChange(draft.copy(sourceMode = true, body = if (!sourceMode && markdown != visual.baseline) markdown else draft.body))
+                visual.baseline = markdown
             }, label = { Text(stringResource(R.string.stack_markdown)) })
         }
         val copy: @Composable () -> Unit = {

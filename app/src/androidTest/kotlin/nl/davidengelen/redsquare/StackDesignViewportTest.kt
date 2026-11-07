@@ -36,8 +36,8 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             waitUntil(5_000) { onNodeWithContentDescription("Switch app: $next").isDisplayed() }
         }
         fun reveal(text: String) {
-            onNodeWithTag("stack-content").performScrollToNode(hasText(text, substring = text == "visual finish"))
-            onNodeWithText(text, substring = text == "visual finish").assertIsDisplayed()
+            onNodeWithTag("stack-content").performScrollToNode(hasText(text, substring = text in listOf("visual finish", "A newer Markdown revision.")))
+            onNodeWithText(text, substring = text in listOf("visual finish", "A newer Markdown revision.")).assertIsDisplayed()
         }
         fun click(text: String) { reveal(text); onNodeWithText(text).performClick() }
         fun capture(label: String) { waitForIdle(); captureNativeScreen(File(folder, "$label.png")) }
@@ -92,6 +92,18 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 reveal("Markdown source")
                 onNode(hasSetTextAction() and hasText("Markdown source"))
                     .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(source)))
+                click("Visual")
+                onNode(hasSetTextAction() and hasContentDescription("Article body")).performScrollTo().performTextInput(" older visual buffer")
+                click("Markdown")
+                val canonical = "## Canonical source\n\nA newer Markdown revision."
+                onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo().performTextReplacement(canonical)
+                onNodeWithText("Review", substring = false).performClick()
+                reveal("A newer Markdown revision.")
+                onNodeWithContentDescription("Back").performClick()
+                reveal("Markdown source")
+                onNode(hasSetTextAction() and hasText("Markdown source"))
+                    .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(canonical)))
+                capture("$label-canonical-source-return")
                 click("Visual")
                 onNode(hasSetTextAction() and hasContentDescription("Article body")).performScrollTo().performTextInput(" visual finish")
                 onNodeWithText("Review", substring = false).performClick()

@@ -148,7 +148,7 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
                                         item { StackArticleCard(2, access) { openArticle(2) } }
                                     }
                                 }
-                                StackPage.EDITOR -> editorContent(draft, visual, { draft = it }, { navigate(StackPage.REVIEW) })
+                                StackPage.EDITOR -> editorContent(draft, visual, { draft = it }, { draft = visual.applyVisual(draft, it) }, { navigate(StackPage.REVIEW) })
                                 StackPage.REVIEW -> publicationContent(draft, { draft = it }) { confirmation = StackPage.REVIEW }
                                 StackPage.PUBLISHED -> {
                                     item { StackIntro(stringResource(R.string.stack_publication_hero), stringResource(R.string.stack_no_publication),
