@@ -10,6 +10,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
 import org.json.JSONObject
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Test
 import java.io.File
 
@@ -156,7 +157,8 @@ class ReviewUpdateUiObserver {
             // authored caption AND public identity/time, not old text layout.
             requireNotNull(card.findObject(By.descStartsWith("Post actions for "))).click()
             find(text("Public identity")).click()
-            val author = find(By.text(java.util.regex.Pattern.compile("[1-9A-HJ-NP-Za-km-z]{44}"))).text
+            val author = requireNotNull(find(By.text(java.util.regex.Pattern.compile("[1-9A-HJ-NP-Za-km-z]{44,45}"))).text)
+            check(SaitoWallet.isPublicKey(author)) { "The displayed author must be a canonical Saito public key" }
             val published = find(By.textStartsWith("Published ")).text
             val cachedPost = JSONObject().put("caption", observedCaption).put("author", author).put("published", published)
             if (expectedPost != null) {
