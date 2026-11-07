@@ -150,7 +150,12 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 val table = "A | B\n- | -\nx | y"
                 click("Markdown")
                 onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo().performTextReplacement(table)
-                onNode(hasText("Visual") and hasClickAction()).assertIsNotEnabled()
+                if (keyboardVisible()) {
+                    UiDevice.getInstance(instrumentation).pressBack()
+                    waitUntil(10_000) { !keyboardVisible() }
+                }
+                reveal("Visual")
+                onNode(hasText("Visual") and hasClickAction()).assertIsDisplayed().assertIsNotEnabled()
                 capture("$label-protected-markdown")
             }
             switch("Stack", "Red Square")
