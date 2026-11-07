@@ -14,6 +14,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.semantics.heading
@@ -158,7 +159,9 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             } },
         confirmButton = { TextButton(onClick = { historyInformation = false }) { Text(stringResource(R.string.done)) } })
     Column(modifier) {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        // Scrolled post touch regions can extend above their clipped viewport.
+        // The fixed header owns this area for touch exploration as well as paint.
+        Row(Modifier.fillMaxWidth().zIndex(1f), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).semantics { heading() },
                 style = MaterialTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
