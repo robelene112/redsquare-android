@@ -65,6 +65,9 @@ class ModuleShellPreviewTest {
             val before = ui.onNodeWithText("Reference post 05").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             switchApp("Red Square", "Stack")
             ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+            ui.onNodeWithText("Good ideas deserve\na little more room.").assertIsDisplayed()
+            ui.onNode(hasText("For you") and isSelected()).assertIsDisplayed()
+            ui.onNodeWithContentDescription("Write an article").assertIsDisplayed()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir,
                 "module-shell-evidence/stack-discover.png"))
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed().performClick()

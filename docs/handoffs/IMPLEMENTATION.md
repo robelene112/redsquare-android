@@ -1,5 +1,22 @@
 # Implementation handoff
 
+## Current correction: Stack fidelity is incomplete
+
+Candidate97 is obsolete and MUST NOT be promoted. Beta89 remains latest.
+Independent native/prototype comparison found missing approved Stack discovery,
+reader hierarchy, visual/Markdown writing, publication review and access screens.
+Restore these clearly labelled presentation-only routes under #94/#86 before a
+new signed98+ build. Real Stack protocol, publication, subscriptions and payments
+remain pending under #1. Do not simulate completion in the real installation.
+
+The71ea complete runs and97 update proofs below are historical diagnostics for the
+pre-Stack source. They cannot accept the upcoming production change. Require new
+same-source complete Android10/17 gates, authentic signed update proofs and final
+native/prototype reviews for the replacement candidate. Preserve original failures.
+Root remains sole writer; canonical Chat WIP and production nodes stay untouched.
+
+## Earlier checkpoints, historical scope only
+
 ## Current owner feedback, November 7, 2026: prototype fidelity repair
 
 Issue94 remains active. Root is the sole implementation writer in
