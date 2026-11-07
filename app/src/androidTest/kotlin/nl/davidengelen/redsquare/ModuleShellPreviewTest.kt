@@ -70,6 +70,7 @@ class ModuleShellPreviewTest {
             ui.onNodeWithContentDescription("Write an article").assertIsDisplayed()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir,
                 "module-shell-evidence/stack-discover.png"))
+            ui.onNodeWithTag("stack-content").performScrollToNode(hasText("A Node in a Browser Tab"))
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed().performClick()
             ui.onNodeWithText("Article preview").assertIsDisplayed()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir,

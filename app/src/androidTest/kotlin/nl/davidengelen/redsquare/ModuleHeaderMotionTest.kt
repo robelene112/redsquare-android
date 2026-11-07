@@ -98,6 +98,9 @@ class ModuleHeaderMotionTest {
                     !device.hasObject(By.text("Wallet")) && device.hasObject(By.text("Stack design preview"))
                 }
             }
+            val articleDeadline = SystemClock.elapsedRealtime() + 5_000
+            while (!device.hasObject(By.textContains("A Node in a Browser Tab")) && SystemClock.elapsedRealtime() < articleDeadline) swipe(up = true)
+            check(device.hasObject(By.textContains("A Node in a Browser Tab")))
             movie("article") {
                 requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()
                 check(device.wait(Until.hasObject(By.text("Article preview")), 5_000))

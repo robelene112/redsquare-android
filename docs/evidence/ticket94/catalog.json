@@ -21,7 +21,7 @@
     "classSeconds": 180
   },
   "recordedBeforeFullExecution": true,
-  "basis": "Accepted complete70 literal identities, plus independently audited71-93/83 additions and explicit owner-approved Like replacements. Observer-only candidate update classes are not application full-scope identities.",
+  "basis": "Accepted complete70 literal identities, plus independently audited71-93/83 additions and explicit owner-approved Like replacements. Observer-only candidate update classes are not application full-scope identities. Additive Stack prototype-fidelity UI journeys: two classes/methods and two original archives, with existing identities, goals, bounds, checker and collector unchanged.",
   "references": [
     {
       "sdk": "10",
@@ -640,6 +640,18 @@
           "testClass": "nl.davidengelen.redsquare.RepeatLikeProcessRecoveryTest",
           "test": "coldStartupAllowsAnotherLikeWithoutWaitingForTheEarlierConfirmation",
           "occurrences": 1
+        },
+        {
+          "path": "stack-design-320-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.StackDesignViewportTest",
+          "test": "compactDiscoveryReadingAndCanonicalDraft",
+          "occurrences": 1
+        },
+        {
+          "path": "stack-design-412-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.StackDesignPixelViewportTest",
+          "test": "pixelWritingPublicationAndAccessPreview",
+          "occurrences": 1
         }
       ],
       "removedOwnerApprovedLikes": [
@@ -746,12 +758,12 @@
           "occurrences": 1
         }
       ],
-      "expectedIdentities": 626,
-      "expectedClasses": 211,
-      "expectedNormalCompletions": 228,
+      "expectedIdentities": 628,
+      "expectedClasses": 213,
+      "expectedNormalCompletions": 230,
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34,
-      "expectedArchives": 177
+      "expectedArchives": 179
     },
     {
       "sdk": "17",
@@ -1370,6 +1382,18 @@
           "testClass": "nl.davidengelen.redsquare.RepeatLikeProcessRecoveryTest",
           "test": "coldStartupAllowsAnotherLikeWithoutWaitingForTheEarlierConfirmation",
           "occurrences": 1
+        },
+        {
+          "path": "stack-design-320-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.StackDesignViewportTest",
+          "test": "compactDiscoveryReadingAndCanonicalDraft",
+          "occurrences": 1
+        },
+        {
+          "path": "stack-design-412-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.StackDesignPixelViewportTest",
+          "test": "pixelWritingPublicationAndAccessPreview",
+          "occurrences": 1
         }
       ],
       "removedOwnerApprovedLikes": [
@@ -1476,12 +1500,12 @@
           "occurrences": 1
         }
       ],
-      "expectedIdentities": 627,
-      "expectedClasses": 211,
-      "expectedNormalCompletions": 229,
+      "expectedIdentities": 629,
+      "expectedClasses": 213,
+      "expectedNormalCompletions": 231,
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34,
-      "expectedArchives": 177
+      "expectedArchives": 179
     }
   ],
   "newArchives": [
@@ -1504,6 +1528,8 @@
     "chat/node-boundary-evidence.tar",
     "chat/node-motion-evidence.tar",
     "chat/node-viewport-evidence.tar",
+    "chat/stack-design-320-evidence.tar",
+    "chat/stack-design-412-evidence.tar",
     "chat/wallet-talkback-evidence.tar",
     "social/account-design-motion-evidence.tar",
     "social/account-design-viewport-evidence.tar",
@@ -1603,6 +1629,8 @@
     "chat/social-push-process/images.tar",
     "chat/social-push-scheduled-process/images.tar",
     "chat/social-push-work-evidence.tar",
+    "chat/stack-design-320-evidence.tar",
+    "chat/stack-design-412-evidence.tar",
     "chat/status-motion-evidence.tar",
     "chat/status-recovery-evidence.tar",
     "chat/status-talkback-evidence.tar",
@@ -1716,8 +1744,8 @@
     "legacy-visual-errors10.json": "2dfd0e1477f247da6bfb9595acb3ef39cc44dfba8ac5cacd4b4f42b1be65c0d2",
     "legacy-visual-errors17.json": "289e44a0d4d8a367def390d1b9dee41cbb734b636300d181ab01801faa17ea7b",
     "legacy-profile-assumption.txt": "7c3ed443a2a27b11f57f0c79c3f64a391adebdd9eb636cb2e83a83c1b5b3846e",
-    "expected10-identities.json": "687357aa6e40ab2b853fe655dd7933aa526ba20c3acb6b33379bb4dc7b8f30a5",
-    "expected17-identities.json": "948893af08174875b37f20505f00aa78f8f93380001e70f613aab0647f72613e"
+    "expected10-identities.json": "30159398327db6598b49d926abf89d7a7b2c6bb9e1f0051dd2e67f9ce24cadc0",
+    "expected17-identities.json": "c7fef5fcf0e316b76697b4c3585e5878aa9f33f663d202c80178d31ea02c4dea"
   },
   "viewerNavigationValidationRevision": {
     "previousSource": "4f2bd89f49a4fc2b01c989b452b9ff675f82620b",

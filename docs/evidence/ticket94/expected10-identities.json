@@ -3372,6 +3372,18 @@
     "occurrences": 1
   },
   {
+    "path": "stack-design-320-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackDesignViewportTest",
+    "test": "compactDiscoveryReadingAndCanonicalDraft",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-design-412-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackDesignPixelViewportTest",
+    "test": "pixelWritingPublicationAndAccessPreview",
+    "occurrences": 1
+  },
+  {
     "path": "status-motion.txt",
     "testClass": "nl.davidengelen.redsquare.StatusMotionPreviewTest",
     "test": "normalMotionAndLargeDarkTextKeepStatusRecoveryUsable",
