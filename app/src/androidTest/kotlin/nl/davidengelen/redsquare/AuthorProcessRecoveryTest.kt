@@ -144,7 +144,7 @@ class AuthorProcessRecoveryTest {
                 enabled("New post")
                 ui.openWallet()
                 assertEquals(original.get("field2").asString, displayedWalletAddress(ui))
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 enabled("More feed actions")
                 ui.onNodeWithText("More feed actions").performClick()
                 ui.onNodeWithText("Saved post changes").performClick()

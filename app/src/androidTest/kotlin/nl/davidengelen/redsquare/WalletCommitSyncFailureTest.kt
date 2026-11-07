@@ -29,7 +29,7 @@ class WalletCommitSyncFailureTest {
             ui.openWallet()
             val address = displayedWalletAddress(ui)
             assertEquals(44, address.length)
-            ui.onNodeWithText("Done").performClick()
+            ui.closeWalletOverview()
             activity.recreate()
             ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))
@@ -41,6 +41,6 @@ class WalletCommitSyncFailureTest {
         ui.openWallet()
         ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
         ui.onNodeWithText("Wallet unavailable. Close this window and try again.").assertExists()
-        ui.onNodeWithText("Done").performClick()
+        ui.closeWalletOverview()
     }
 }

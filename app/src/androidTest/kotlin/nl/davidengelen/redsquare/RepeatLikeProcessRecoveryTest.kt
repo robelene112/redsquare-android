@@ -90,7 +90,7 @@ class RepeatLikeProcessRecoveryTest {
                         .fetchSemanticsNodes().isNotEmpty() }
                     ui.openWallet()
                     assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled())
                         .fetchSemanticsNodes().isNotEmpty() }
                     assertTrue(peer.transactions.isEmpty())

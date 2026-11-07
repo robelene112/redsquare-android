@@ -6,7 +6,29 @@ Issue94 remains active. Root is the sole implementation writer in
 `/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
 Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
-Current implementation is `b614648bda686aaee5f9b389876f460b39fd59ad`.
+Current integration replaces the remaining Wallet/Settings overview composition gap:
+the actual shared AppHeader renders inside each overview window, with the local
+Wallet/Settings Back hierarchy and no duplicate Done footer. Real module/account/node
+callbacks remain attached; navigation is disabled during busy work and module changes
+close overviews only after the existing draft-save path succeeds. Focused import,
+payment and category tasks retain their own headers/actions. Both source axes have
+zero unresolved findings. Main compile passed1m53 and instrumentation compile2m;
+the last small import-preview helper delta still needs native verification.
+
+The actual dialog-scoped header regression is RED on old source2abac437f:
+run42401608093, missing Switch-app control inside the foreground Wallet dialog.
+New tests cannot pass on the Activity header behind it.96 explicit overview exits
+(93Wallet+3Settings) now use their named Back action; focused child Done is retained.
+Wallet title expectations now match the prototype's Wallet. The module journey also
+switches to Stack from the actual overview header, returns and reopens the wallet.
+
+IMPORTANT: signed95 is now OBSOLETE because production UI changed. Beta89 remains
+latest. Never promote93/94/95. A fresh96+ build, signed continuity/isolation, complete
+same-source10/17 gates/frozen collectors and actual final native reviews remain needed.
+No local signed builder is running. Root is the sole writer; canonical Chat WIP and
+production node remain untouched. Earlier source-specific results below are historical.
+
+Earlier implementation checkpoint: `b614648bda686aaee5f9b389876f460b39fd59ad`.
 The prototype repair includes profile composition/chips, actual native action sheets,
 compact post controls and Chat composers, balance-first wallet with visible operation
 feedback, accessible numeric counts and keyboard navigation in the actual sheet window.
@@ -36,7 +58,7 @@ Native results and limits:
   and status offscreen. b614648 adds one actual-status reveal/display assertion before
   that capture. Original two deaths, signatures, no resend, pixels, identity/backend
   and deadlines remain. Both source axes clear this delta. Focused video-precondition
-  and complete profile/recovery reruns42400032887 / 42400035744:10PASS,17pending.
+  and complete profile/recovery reruns42400032887 / 42400035744 both PASS.
   Raw022 failure originals: `prototype94-ui-final{10,17}` under the artifact mount.
 - Complete ca93566de runs42397470230 / 42397469795 were superseded and cancelled
   by workflow concurrency after both final fixture corrections. No acceptance claim.
@@ -60,7 +82,7 @@ Additional bounded fixture checks before another full dispatch:
   pinned-status targets. No production change is indicated by the obsolete heading.
 - ProfileHierarchyPreviewTest moves to a long action sheet, so check real control
   reachability under large text before the long full run. Native b614 scopes
-  42400534784 / 42400537045 pending. No speculative assertion removal or deadline change.
+  42400534784 / 42400537045 both PASS (no menu reachability defect found). No speculative assertion removal or deadline change.
 
 Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable tag
 `proof-prototype95-d2afd32`. Build succeeded in3m34. APK SHA256 is

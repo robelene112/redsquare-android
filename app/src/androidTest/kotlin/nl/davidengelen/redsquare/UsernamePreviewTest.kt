@@ -205,7 +205,7 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
                         waitForText("Wallet imported")
                         assertEquals(incoming, displayedWalletAddress(ui))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         fun discoverInSettings() {
                             ui.waitForAccountMenu(20_000)
                             ui.openSettings()
@@ -960,7 +960,7 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
                         waitForText("Wallet imported")
                         assertEquals(incoming.publicKey, displayedWalletAddress(ui))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         waitForEnabled("Your profile")
                         ui.onNodeWithText("Your profile").performClick()
                         waitForText("Profile")
@@ -1114,7 +1114,7 @@ class UsernamePreviewTest {
                             ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
                             waitForText("Wallet imported")
                             assertEquals(incoming, displayedWalletAddress(ui))
-                            ui.onNodeWithText("Done").performClick()
+                            ui.closeWalletOverview()
                             // Username navigation remains open across wallet replacement.
                             waitForEnabled("Check name")
                             ui.onAllNodesWithText("Retry registration").assertCountEquals(0)

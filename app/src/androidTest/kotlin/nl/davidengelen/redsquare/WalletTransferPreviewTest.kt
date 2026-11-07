@@ -61,7 +61,7 @@ class WalletTransferPreviewTest {
             ui.onNodeWithContentDescription("Recipient address").assertIsDisplayed()
             ui.onNodeWithContentDescription("Amount in SAITO").assertIsDisplayed()
             ui.onNodeWithContentDescription("Fee in SAITO").assertIsDisplayed()
-            ui.onNodeWithText("Your wallet").assertDoesNotExist()
+            ui.onNodeWithText("Wallet").assertDoesNotExist()
             ui.onNodeWithText("Done").assertDoesNotExist()
             ui.onNodeWithText("Cancel").assertIsDisplayed()
             ui.onNodeWithContentDescription("Amount in SAITO").performClick().performTextInput("1,25")
@@ -201,7 +201,7 @@ class WalletTransferPreviewTest {
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-cancelled.png"),
                             "Transfer cancelled before sending.")
                         device.pressBack() // Close the reviewed transfer and return to the Wallet.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                         ui.onNodeWithText("Send SAITO").performScrollTo().assertIsDisplayed()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(address)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -253,7 +253,7 @@ class WalletTransferPreviewTest {
                         assertEquals(context.packageName, device.currentPackageName)
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-setup.png"), setup)
                         device.pressBack() // Dismiss the positively observed app dialog, with no system credential screen.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                         ui.onNodeWithText("Send SAITO").performScrollTo().assertIsDisplayed()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -327,7 +327,7 @@ class WalletTransferPreviewTest {
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/funding-lost.png"), failure)
                         assertEquals(context.packageName, device.currentPackageName)
                         device.pressBack() // The observed failure is in the app, after the credential prompt finished.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                         ui.onNodeWithText("Send SAITO").performScrollTo().assertIsDisplayed()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                         lostFunding.set(false)

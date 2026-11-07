@@ -23,10 +23,10 @@ class BackupRecoveryPreviewTest {
                 }
                 ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
                 ui.openSettings()
-                ui.onNodeWithText("Done").performClick()
+                ui.closeSettingsOverview()
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("Later").performClick()
                 ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
                 scenario.recreate()
@@ -44,7 +44,7 @@ class BackupRecoveryPreviewTest {
                 captureFeedEvidence("wallet-backup-evidence/recovery-guide.png")
                 ui.onNodeWithText("Close guide").performClick()
                 assertEquals(address, displayedWalletAddress(ui))
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
                 captureFeedEvidence("wallet-backup-evidence/dismissed.png")
             } finally { captureFeedEvidence("wallet-backup-evidence/screen.png") }

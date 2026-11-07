@@ -147,7 +147,7 @@ class OwnerLiveFeedTest {
                     captureNativeScreen(File(directory, "funding.png"), "Available to send: 0 SAITO")
                     ui.onNode(hasText("Close transfer") and hasClickAction())
                         .assertIsDisplayed().assertIsEnabled().performClick()
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
                     File(directory, "public-wallet.txt").writeText(
                         "PASS backend=${backend.id} observedAt=${System.currentTimeMillis()} publicKey=${wallet.publicKey}\n" +

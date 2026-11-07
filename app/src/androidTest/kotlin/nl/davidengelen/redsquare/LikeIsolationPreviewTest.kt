@@ -79,7 +79,7 @@ class LikeIsolationPreviewTest {
                         rootSignature(), rootSignature()), actions.map { it.body.getAsJsonObject("data").get("signature").asString })
                     ui.openWallet()
                     assertEquals(original.publicKey, displayedWalletAddress(ui))
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     node.peer.assertHealthy()
                     captureFeedEvidence("like-isolation-evidence/original-wallet-remains-unlimited.png")
                     retainFrames(node.peer, "repeated-wallet-posts")

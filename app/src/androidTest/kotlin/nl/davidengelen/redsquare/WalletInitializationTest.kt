@@ -32,7 +32,7 @@ class WalletInitializationTest {
                 waitForWalletRecovery(ui)
                 ui.openWallet()
                 ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 assertTrue(directory.setWritable(true, true))
                 ui.onNodeWithText("Retry").performClick()
                 ui.openWallet()

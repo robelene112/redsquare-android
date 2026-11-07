@@ -29,11 +29,22 @@ class ModuleShellPreviewTest {
                 "module-shell-evidence/account-sheet.png"))
             ui.onNode(hasText("Wallet") and hasClickAction()).performClick()
             ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed()
-            ui.onNodeWithText("Done").performClick()
+            // Account overviews use the actual shared module selector in their own window.
+            ui.onNode(hasContentDescription("Switch app: Red Square") and hasAnyAncestor(isDialog()))
+                .assertIsDisplayed().performClick()
+            ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isDialog()))
+                .assertIsDisplayed().assertIsEnabled().performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Stack design preview").isDisplayed() }
+            ui.onNode(hasText("Wallet") and hasAnyAncestor(isDialog()) and
+                SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading)).assertDoesNotExist()
+            switchApp("Stack", "Red Square")
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.openWallet()
+            ui.closeWalletOverview()
             ui.onNodeWithContentDescription("Account").performClick()
             ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()
             ui.onNodeWithText("Appearance").assertExists()
-            ui.onNodeWithText("Done").performClick()
+            ui.closeSettingsOverview()
             activity.recreate()
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.onNodeWithContentDescription("Switch app: Red Square").assertIsDisplayed()

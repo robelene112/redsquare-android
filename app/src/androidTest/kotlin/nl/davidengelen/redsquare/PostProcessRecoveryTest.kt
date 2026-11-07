@@ -101,7 +101,7 @@ class PostProcessRecoveryTest {
                 waitFor("New post")
                 ui.openWallet()
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 waitFor("New post")
                 openComposer()
                 waitFor("Send requested. Availability on this node is not confirmed.")

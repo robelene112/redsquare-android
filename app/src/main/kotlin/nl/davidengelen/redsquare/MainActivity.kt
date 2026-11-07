@@ -175,9 +175,10 @@ class MainActivity : ComponentActivity() {
                 settingsCategory = null
             }
             val postNavigation = remember { PostNavigation() }
-            fun selectModule(selected: AppModule) {
-                if (selected != module) scope.launch {
-                    val moved = postNavigation.navigate { module = selected; true }
+            fun selectModule(selected: AppModule, onSelected: () -> Unit = {}) {
+                if (selected == module) onSelected()
+                else scope.launch {
+                    val moved = postNavigation.navigate { module = selected; onSelected(); true }
                     moduleSwitchFailed = !moved
                 }
             }
@@ -359,19 +360,35 @@ class MainActivity : ComponentActivity() {
                     moduleSwitchFailed = !moved
                 }
                 Surface(Modifier.fillMaxSize()) {
-                    val chrome: @Composable (Boolean) -> Unit = { isHome ->
-                        if (!keyboardVisible) AppHeader(backend?.domain, address, module,
-                            walletEnabled = !postNavigation.transitioning,
-                            settingsEnabled = backendReady && !savingBackend && !postNavigation.transitioning,
-                            onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
-                            onSettings = { settingsOpen = true },
-                            onModule = ::selectModule,
+                    fun closeWallet() {
+                        walletExport.cancel(); walletImport.cancel(); walletOpen = false
+                    }
+                    val appHeader: @Composable () -> Unit = {
+                        val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
+                            !walletImport.busy && !walletExport.busy
+                        if (!nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()) AppHeader(backend?.domain, address, module,
+                            walletEnabled = navigationEnabled,
+                            settingsEnabled = backendReady && navigationEnabled,
+                            onWallet = {
+                                settingsOpen = false; settingsCategory = null
+                                if (!walletOpen) {
+                                    walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true
+                                }
+                            },
+                            onSettings = { if (walletOpen) closeWallet(); settingsOpen = true },
+                            onModule = { selected -> selectModule(selected) {
+                                if (walletOpen) closeWallet()
+                                settingsOpen = false; settingsCategory = null
+                            } },
                             onConnectionDetails = { connectionDetailsOpen = true }, blocks = nodeBlock,
                             registryAuthority = backend?.let { RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, it)) }
                                 ?: nl.davidengelen.redsquare.saito.SaitoRegistry.REGISTRAR)
                         nl.davidengelen.redsquare.ui.InlineStatus(
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
+                    }
+                    val chrome: @Composable (Boolean) -> Unit = { isHome ->
+                        appHeader()
                         if (updateAvailable && !keyboardVisible) {
                             Text(stringResource(R.string.preview_update_available))
                             TextButton(onClick = {
@@ -470,7 +487,8 @@ class MainActivity : ComponentActivity() {
                             else -> R.string.settings
                         }),
                         closeLabel = stringResource(R.string.settings_close_task),
-                        backLabel = if (settingsCategory != null) stringResource(R.string.settings_back) else null,
+                        backLabel = stringResource(if (settingsCategory != null) R.string.settings_back else R.string.settings_close_task),
+                        header = if (settingsCategory == null) appHeader else null,
                         dismissEnabled = !savingBackend,
                         text = {
                             SingleOwnerReveal(settingsCategory, Modifier.fillMaxSize()) {
@@ -596,18 +614,18 @@ class MainActivity : ComponentActivity() {
                             }
                             }
                         },
-                        confirmButton = {
+                        confirmButton = if (settingsCategory == null) null else ({
                                 TextButton(enabled = !savingBackend, onClick = { settingsOpen = false; settingsCategory = null }) {
                                 Text(stringResource(R.string.done))
                             }
-                        }
+                        })
                     )
                     PublishingAgreementDialog(publishingAgreement)
                     if (policiesOpen) nl.davidengelen.redsquare.policy.PolicyCenter { policiesOpen = false }
                     if (personalControlsOpen) PersonalControlsDialog { personalControlsOpen = false }
                     if (walletOpen) WalletDialog(address, failed, walletExport, walletImport,
-                        walletScrollState, backend, balances,
-                        onClose = { walletExport.cancel(); walletImport.cancel(); walletOpen = false },
+                        walletScrollState, backend, balances, overviewHeader = appHeader,
+                        onClose = ::closeWallet,
                         onOpen = { destination ->
                             walletOpen = false
                             when (destination) {

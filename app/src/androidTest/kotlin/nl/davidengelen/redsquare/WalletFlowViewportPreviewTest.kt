@@ -41,7 +41,7 @@ class WalletFlowViewportPreviewTest {
                     ui.onNode(hasText(action) and hasClickAction()).performScrollTo()
                         .assertIsDisplayed().assertIsEnabled()
                 }
-                captureNativeScreen(File(folder, "$label-wallet-overview.png"), "Your wallet")
+                captureNativeScreen(File(folder, "$label-wallet-overview.png"), "Wallet")
 
                 val activeAddress = displayedWalletAddress(ui)
                 val firstImportAddress = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
@@ -62,11 +62,12 @@ class WalletFlowViewportPreviewTest {
                     ui.onNode(hasText(action) and hasClickAction()).assertDoesNotExist()
                 }
                 ui.onNodeWithText("Back").performClick()
-                ui.onNodeWithText("Your wallet").assertIsDisplayed()
-                ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
+                ui.onNodeWithText("Wallet").assertIsDisplayed()
+                ui.onNodeWithContentDescription("Wallet address").performScrollTo().assertIsDisplayed()
+                    .assertTextEquals(activeAddress)
                 ui.onNodeWithText("Back up or restore").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Confirm replacement").assertDoesNotExist()
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
                 ui.openWallet()
                 displayedWalletAddress(ui)
@@ -75,11 +76,11 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Receiving address").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithContentDescription("Receiving address QR code").performScrollTo().assertIsDisplayed()
-                ui.onNodeWithText("Your wallet").assertDoesNotExist()
+                ui.onNodeWithText("Wallet").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-receive-address.png"))
                 ui.onNodeWithText("Done").performClick()
-                ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
-                ui.onNodeWithText("Done").performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                ui.closeWalletOverview()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 ui.openWallet()
                 displayedWalletAddress(ui)
@@ -116,8 +117,8 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Review transfer").assertIsDisplayed()
                 ui.onNodeWithText("Authenticate and send").assertDoesNotExist()
                 ui.onNodeWithText("Cancel").assertIsDisplayed().performClick()
-                ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
-                ui.onNodeWithText("Done").performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
+                ui.closeWalletOverview()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 assertTrue("Every viewport run must finish on the Home destination", ui.onNode(hasText("Home") and isSelected()).isDisplayed())
             }

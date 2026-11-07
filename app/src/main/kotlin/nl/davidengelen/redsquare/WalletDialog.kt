@@ -34,6 +34,7 @@ internal enum class WalletDestination { RECEIVE, SEND, RECOVERY }
 @Composable
 internal fun WalletDialog(address: String?, failed: Boolean, walletExport: WalletExport,
     walletImport: WalletImport, scrollState: ScrollState, backend: SaitoBackend?, balances: WalletBalances,
+    overviewHeader: @Composable () -> Unit,
     onClose: () -> Unit, onOpen: (WalletDestination) -> Unit) {
     var balance by remember(address, backend) { mutableStateOf<SaitoBalanceSnapshot?>(null) }
     var checkingBalance by remember(address, backend) { mutableStateOf(true) }
@@ -45,8 +46,10 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
         onDismissRequest = { if (!walletImport.activating) {
             onClose()
         } },
-        title = stringResource(if (walletImport.preview != null) R.string.wallet_import_review_title else R.string.your_wallet),
+        title = stringResource(if (walletImport.preview != null) R.string.wallet_import_review_title else R.string.wallet),
         closeLabel = stringResource(R.string.wallet_close_task),
+        backLabel = if (walletImport.preview == null) stringResource(R.string.wallet_close_task) else null,
+        header = if (walletImport.preview == null) overviewHeader else null,
         dismissEnabled = !walletImport.activating,
         text = {
             val addressLabel = stringResource(R.string.wallet_address)
@@ -188,22 +191,18 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                 WalletResultStatus(walletImport.message, R.string.wallet_import_saved, R.string.wallet_import_cancelled)
             }
         },
-        confirmButton = {
-            if (walletImport.preview != null) TextButton(
+        confirmButton = if (walletImport.preview != null) ({
+            TextButton(
                 enabled = !walletImport.activating,
                 onClick = walletImport::cancel,
             ) { Text(stringResource(R.string.wallet_import_back)) }
-            else TextButton(enabled = !walletImport.activating,
-                onClick = { onClose() }) {
-                Text(stringResource(R.string.done))
-            }
-        },
-        dismissButton = {
-            if (walletImport.preview != null) TextButton(
+        }) else null,
+        dismissButton = if (walletImport.preview != null) ({
+            TextButton(
                 enabled = !walletImport.activating,
                 onClick = { onClose() },
             ) { Text(stringResource(R.string.wallet_import_cancel)) }
-        },
+        }) else null,
     )
 }
 

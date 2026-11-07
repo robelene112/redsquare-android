@@ -153,7 +153,7 @@ class WalletTransferStatusTest {
         } else {
             ui.onNode(hasText("Cancel") and scopedToTransfer).performClick()
         }
-        ui.onNodeWithText("Done").performClick()
+        ui.closeWalletOverview()
     }
 
     private fun replaceWalletThroughPicker(incoming: SaitoWallet, filename: String, expectPendingWork: Boolean) {

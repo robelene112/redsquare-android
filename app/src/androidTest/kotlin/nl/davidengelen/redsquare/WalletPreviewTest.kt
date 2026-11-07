@@ -37,7 +37,7 @@ class WalletPreviewTest {
         ui.openWallet()
         val address = displayedAddress()
         assertTrue(address.length == 44)
-        ui.onNodeWithText("Done").performClick()
+        ui.closeWalletOverview()
         scenario.recreate()
         scenario.onActivity { activity = it }
         ui.openWallet()
@@ -62,7 +62,7 @@ class WalletPreviewTest {
     private fun checkStorageRecovery(damage: (File) -> Unit) {
         ui.openWallet()
         val address = displayedAddress()
-        ui.onNodeWithText("Done").performClick()
+        ui.closeWalletOverview()
         val file = File(activity.noBackupFilesDir, "wallet.v1")
         val retained = File(activity.noBackupFilesDir, "wallet.v1.test-retained")
         assertTrue(file.renameTo(retained))
@@ -76,7 +76,7 @@ class WalletPreviewTest {
             ui.openWallet()
             ui.onNodeWithContentDescription("Wallet address").assertDoesNotExist()
             ui.onNodeWithText("Wallet unavailable. Close this window and try again.").assertIsDisplayed()
-            ui.onNodeWithText("Done").performClick()
+            ui.closeWalletOverview()
             if (file.exists()) assertTrue(file.delete())
             assertTrue(retained.renameTo(file))
             ui.onNodeWithText("Retry").performClick()

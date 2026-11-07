@@ -44,7 +44,7 @@ class LikeWalletImportPreviewTest {
             ui.waitForAccountMenu(20_000)
             ui.openWallet()
             displayedWalletAddress(ui)
-            ui.onNodeWithText("Done").performClick()
+            ui.closeWalletOverview()
         }
         val store = AndroidWalletStore(context)
         val original = store.loadExisting()

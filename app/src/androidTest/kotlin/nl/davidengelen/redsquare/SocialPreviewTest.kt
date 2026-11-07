@@ -303,7 +303,7 @@ class SocialPreviewTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
                 val author = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 val blocked = java.io.File(context.noBackupFilesDir, "social.owner.$author.${root.get("sig").asString}.like.v1")
                 check(blocked.mkdir())
                 val obstacle = java.io.File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }

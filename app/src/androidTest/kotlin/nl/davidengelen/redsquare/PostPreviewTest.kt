@@ -261,7 +261,7 @@ class PostPreviewTest {
                 waitForReferencePost()
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retain work when saving fails")
@@ -321,7 +321,7 @@ class PostPreviewTest {
                         ui.openSettings()
                         ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
                         ui.onNodeWithText("Appearance").assertIsDisplayed()
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeSettingsOverview()
                     } catch (failure: Throwable) {
                         captureFeedEvidence("posting-evidence/failed-save-navigation-failure.png")
                         throw failure
@@ -359,7 +359,7 @@ class PostPreviewTest {
                 waitForReferencePost()
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Recover the encrypted draft")
@@ -644,7 +644,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
                 waitFor("Wallet imported")
                 org.junit.Assert.assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).assert(hasText(""))
@@ -717,7 +717,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
                 waitFor("Wallet imported")
                 org.junit.Assert.assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("More feed actions").performClick()
                 ui.onNodeWithText("Queued posts").performClick()
                 waitFor("No queued posts")
@@ -737,7 +737,7 @@ class PostPreviewTest {
                         org.junit.Assert.assertEquals("Queued work belongs to the outgoing wallet", post.text)
                         ui.openWallet()
                         org.junit.Assert.assertEquals(requireNotNull(original).publicKey, displayedWalletAddress(ui))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         peer.assertHealthy()
                         captureFeedEvidence("post-queue-evidence/restored-wallet-resumes-original-queue.png")
             }
@@ -943,7 +943,7 @@ class PostPreviewTest {
                     waitForReferencePost()
                     ui.openWallet()
                     val author = displayedWalletAddress(ui)
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Explicit unfunded native post")

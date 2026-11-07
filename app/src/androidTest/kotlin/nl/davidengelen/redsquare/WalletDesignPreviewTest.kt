@@ -25,7 +25,7 @@ class WalletDesignPreviewTest {
             ui.onNode(hasContentDescription("Switch app: Red Square") and overviewWindow).assertIsDisplayed()
             ui.onNode(hasContentDescription("Account") and overviewWindow).assertIsDisplayed()
             ui.onNode(hasText("Done") and overviewWindow).assertDoesNotExist()
-            ui.onNodeWithText("Your wallet").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+            ui.onNodeWithText("Wallet").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
             ui.onNode(hasText("Close wallet") and hasClickAction()).assertIsDisplayed()
                 .assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp).performClick()
             ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
@@ -61,7 +61,7 @@ class WalletDesignPreviewTest {
                 captureNativeScreen(File(folder, "receive-before-header-assertion.png"))
                 ui.onNodeWithText("Balance and receive").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
                 ui.onNode(hasText("Close balance and receive") and hasClickAction()).assertIsDisplayed().performClick()
-                ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                 ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
                 ui.onNodeWithText("Send SAITO").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
@@ -74,9 +74,9 @@ class WalletDesignPreviewTest {
                 ui.onNodeWithText(context.getString(R.string.transfer_recipient_review, recipient)).assertIsDisplayed()
                 captureNativeScreen(File(folder, "actual-payment-review.png"))
                 ui.onNode(hasText("Close transfer") and hasClickAction()).assertIsDisplayed().performClick()
-                ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                 ui.onNodeWithContentDescription("Wallet address").assertTextEquals(address)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
             }
         }

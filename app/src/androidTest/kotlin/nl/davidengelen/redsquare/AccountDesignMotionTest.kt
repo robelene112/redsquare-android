@@ -40,13 +40,13 @@ class AccountDesignMotionTest {
                 click("Back to Settings")
                 click("Close settings")
                 requireNotNull(device.wait(Until.findObject(By.desc("Account")), 5_000)).click()
-                movie("wallet-open") { click("Wallet"); check(device.wait(Until.hasObject(By.text("Your wallet")), 5_000)) }
+                movie("wallet-open") { click("Wallet"); check(device.wait(Until.hasObject(By.text("Wallet")), 5_000)) }
                 captureNativeScreen(File(folder, "scale-$scale-wallet.png"))
                 movie("wallet-return") {
                     click("Close wallet")
                     check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 5_000))
                 }
-                assertFalse(device.hasObject(By.text("Your wallet")))
+                assertFalse(device.hasObject(By.text("Wallet")))
                 observeModuleWindowMotionScale(activity, scale, folder)
             }
         }

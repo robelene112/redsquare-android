@@ -102,7 +102,7 @@ class WalletTalkBackPreviewTest {
                         addProperty("serviceProcess", serviceProcess)
                     }.toString())
                     ui.onNodeWithText("Cancel").performClick()
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     check(AndroidWalletStore(context).loadExisting().publicKey == address)
                 }
             }

@@ -436,7 +436,7 @@ class ProfileEditPreviewTest {
                     ui.onAllNodesWithContentDescription(context.getString(R.string.wallet_import_address)).assertCountEquals(0)
                     assertEquals(owner, displayedWalletAddress(ui))
                     capture("failed-bio-save-import-blocked.png")
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     ui.onNode(hasSetTextAction()).assert(
                         SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(edited)))
                     check(draft.delete() && preserved.renameTo(draft))

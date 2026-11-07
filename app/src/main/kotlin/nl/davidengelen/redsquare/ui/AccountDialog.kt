@@ -21,7 +21,8 @@ import nl.davidengelen.redsquare.R
 @Composable
 internal fun AccountDialog(title: String, closeLabel: String, onDismissRequest: () -> Unit,
     dismissEnabled: Boolean = true, backLabel: String? = null,
-    text: @Composable () -> Unit, confirmButton: @Composable () -> Unit,
+    header: (@Composable () -> Unit)? = null,
+    text: @Composable () -> Unit, confirmButton: (@Composable () -> Unit)? = null,
     dismissButton: (@Composable () -> Unit)? = null) {
     Dialog(onDismissRequest = { if (dismissEnabled) onDismissRequest() },
         properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false,
@@ -31,6 +32,7 @@ internal fun AccountDialog(title: String, closeLabel: String, onDismissRequest: 
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
                 Column(Modifier.fillMaxHeight().widthIn(max = 600.dp).fillMaxWidth()
                     .windowInsetsPadding(WindowInsets.safeDrawing)) {
+                    header?.invoke()
                     Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically) {
                         IconButton(onClick = onDismissRequest, enabled = dismissEnabled,
@@ -44,11 +46,13 @@ internal fun AccountDialog(title: String, closeLabel: String, onDismissRequest: 
                         vertical = AppSpacing.gap)) {
                         ProvideTextStyle(MaterialTheme.typography.bodyMedium) { text() }
                     }
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                    FlowRow(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 4.dp),
-                        horizontalArrangement = Arrangement.End, verticalArrangement = Arrangement.Center) {
-                        if (dismissButton != null) dismissButton()
-                        confirmButton()
+                    if (confirmButton != null || dismissButton != null) {
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                        FlowRow(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 4.dp),
+                            horizontalArrangement = Arrangement.End, verticalArrangement = Arrangement.Center) {
+                            dismissButton?.invoke()
+                            confirmButton?.invoke()
+                        }
                     }
                 }
             }

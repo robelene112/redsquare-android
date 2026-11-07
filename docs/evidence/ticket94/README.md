@@ -2,6 +2,15 @@
 
 ## Reopened prototype repair: beta95 staged, acceptance pending
 
+Beta89 remains latest. Signed95 is now OBSOLETE and must not be promoted: subsequent
+production work restores actual shared header/Back hierarchy in Wallet/Settings
+overviews. Source reviews are clear; old-source dialog-scoped regression42401608093
+correctly fails the missing actual foreground header. Fresh96+ artifact, signed update,
+full same-source gates and final native/prototype reviews are still required.
+
+Historical95 provenance and earlier bounded results follow. They do not cover the new
+production integration. Current context/handoff contain its exact remaining checks.
+
 Beta89 remains latest. Signed95 is staged from producerd2afd32, SHA256
 `f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b`.
 Actual public candidate download matches. Update/isolation10/17 runs42398721945 /

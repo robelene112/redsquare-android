@@ -61,7 +61,18 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
             // The Compose clock can synchronize only after the external picker returns.
             if (device.currentPackageName == context.packageName) {
                 ui.waitForIdle()
-                if (device.hasObject(selected)) return
+                if (!device.hasObject(selected)) {
+                    // The picker can have returned successfully while large-text
+                    // review guidance leaves its actual address above the viewport.
+                    val preview = hasContentDescription(context.getString(R.string.wallet_import_address)) and hasText(incoming)
+                    if (ui.onAllNodes(preview).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
+                        ui.onNode(preview).performScrollTo().assertIsDisplayed()
+                    }
+                }
+                if (device.hasObject(selected)) {
+                    check(SystemClock.uptimeMillis() <= deadline) { "Wallet import preview exceeded its thirty-second deadline" }
+                    return
+                }
             }
             val opened = device.findObject(drawer)
             if (opened != null) {
@@ -87,5 +98,5 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
         } catch (_: StaleObjectException) { /* Reobserve the actual picker. */ }
         SystemClock.sleep(100)
     }
-    error("Wallet reference import document was not displayed")
+    error("Wallet reference import preview address was not displayed")
 }

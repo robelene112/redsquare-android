@@ -40,7 +40,7 @@ private fun ComposeTestRule.verifyAccountViewports(width: Int) {
             waitUntil(10_000) { onNode(hasText("Close recovery guidance") and hasClickAction()).isDisplayed() }
             captureNativeScreen(File(folder, "$label-recovery.png"))
             onNode(hasText("Close recovery guidance") and hasClickAction()).performClick()
-            waitUntil(10_000) { onNodeWithText("Your wallet").isDisplayed() }
+            waitUntil(10_000) { onNodeWithText("Wallet").isDisplayed() }
             onNodeWithContentDescription("Wallet address").performScrollTo().assertTextEquals(address)
             onNode(hasText("Close wallet") and hasClickAction()).assertHeightIsAtLeast(48.dp).performClick()
             waitUntil(10_000) { onNode(hasText("Home") and isSelected()).isDisplayed() }

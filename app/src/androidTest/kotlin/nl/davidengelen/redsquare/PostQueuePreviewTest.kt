@@ -91,7 +91,7 @@ class PostQueuePreviewTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(body)
@@ -155,7 +155,7 @@ class PostQueuePreviewTest {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.openWallet()
             val address = displayedWalletAddress(ui)
-            ui.onNodeWithText("Done").performClick()
+            ui.closeWalletOverview()
             ui.onNodeWithText("New post").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNode(hasSetTextAction()).performTextReplacement("Resume while I am away")
@@ -193,7 +193,7 @@ class PostQueuePreviewTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retain work until it can be saved")

@@ -42,7 +42,7 @@ class PostQueueProcessRecoveryTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 val started = System.currentTimeMillis()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -87,7 +87,7 @@ class PostQueueProcessRecoveryTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.openWallet()
                     assertEquals(expected.get("owner").asString, displayedWalletAddress(ui))
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     ui.waitUntil(10_000) { ui.refreshableContentReady() }
                     ui.refreshVisibleView()
                     ui.waitUntil(20_000) {

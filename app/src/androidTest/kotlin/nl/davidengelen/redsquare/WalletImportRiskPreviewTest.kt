@@ -70,7 +70,7 @@ class WalletImportRiskPreviewTest {
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
                 // The earlier export protected the outgoing wallet, not this incoming identity.
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 scenario.recreate()
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Back up your wallet")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

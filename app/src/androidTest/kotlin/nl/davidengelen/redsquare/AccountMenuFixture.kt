@@ -101,6 +101,19 @@ internal fun ComposeTestRule.openSettings() {
     onNode(hasText("Settings") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
 }
 
+/** Overview Back actions are distinct from Done in focused payment/import/category tasks. */
+internal fun ComposeTestRule.closeWalletOverview() {
+    onNode(hasText("Wallet") and hasAnyAncestor(isDialog()) and
+        SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Heading)).assertIsDisplayed()
+    onNode(hasText("Close wallet") and hasClickAction()).assertIsDisplayed().assertIsEnabled().performClick()
+}
+
+internal fun ComposeTestRule.closeSettingsOverview() {
+    onNode(hasText("Settings") and hasAnyAncestor(isDialog()) and
+        SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Heading)).assertIsDisplayed()
+    onNode(hasText("Close settings") and hasClickAction()).assertIsDisplayed().assertIsEnabled().performClick()
+}
+
 /** Retain the caller's original first-use/keyboard readiness deadline. */
 internal fun ComposeTestRule.waitForAccountMenu(timeoutMillis: Long) {
     waitUntil(timeoutMillis) { onNode(hasContentDescription("Account") and hasClickAction() and isEnabled()).isDisplayed() }

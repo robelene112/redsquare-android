@@ -43,7 +43,7 @@ class WalletImportStorageRecoveryTest {
             assertEquals(address, recovered.publicKey)
             assertTrue("Recovered options must equal the outgoing options",
                 previous.exportJson() == recovered.exportJson())
-            ui.onNodeWithText("Done").performClick()
+            ui.closeWalletOverview()
             scenario.recreate()
             ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))

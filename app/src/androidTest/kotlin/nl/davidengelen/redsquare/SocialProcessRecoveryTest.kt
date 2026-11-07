@@ -106,7 +106,7 @@ class SocialProcessRecoveryTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 waitFor("Native Red Square reference post")
                 ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 assertTrue(peer.transactions.isEmpty())

@@ -166,7 +166,7 @@ class ReportPreviewTest {
                     ui.onNodeWithText("Cancel").performClick()
                     ui.openWallet()
                     val author = displayedWalletAddress(ui)
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     val blocked = File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1")
                     check(blocked.mkdir())
                     val obstacle = File(blocked, "retain-public-save-fault")
@@ -258,7 +258,7 @@ class ReportPreviewTest {
                         ui.onNodeWithText("Cancel").performClick()
                         ui.openWallet()
                         val author = displayedWalletAddress(ui)
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         savePath.set(File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1"))
                         ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Send report").performClick()
@@ -487,7 +487,7 @@ class ReportPreviewTest {
                 ui.waitForAccountMenu(20_000)
                 ui.openWallet()
                 displayedWalletAddress(ui)
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
             }
         }
         val walletStore = AndroidWalletStore(context)
@@ -567,7 +567,7 @@ class ReportPreviewTest {
                         assertEquals(incoming.publicKey, displayedWalletAddress(ui))
                         assertEquals("retain-this-opaque-option", JsonParser.parseString(walletStore.loadExisting().exportJson())
                             .asJsonObject.getAsJsonObject("reportFixtureExtension").get("opaque").asString)
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                         ui.onNodeWithText(unknown).assertDoesNotExist()
@@ -594,7 +594,7 @@ class ReportPreviewTest {
                         assertEquals(originalWallet.publicKey, displayedWalletAddress(ui))
                         assertTrue("Restoration must retain all original options",
                             JsonParser.parseString(originalWallet.exportJson()) == JsonParser.parseString(walletStore.loadExisting().exportJson()))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                         waitFor(unknown)

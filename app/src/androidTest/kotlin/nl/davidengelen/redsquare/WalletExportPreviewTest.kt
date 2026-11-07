@@ -38,7 +38,7 @@ class WalletExportPreviewTest {
                 ui.onNodeWithText(guidance).assertIsDisplayed()
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-export-evidence/no-lock.png")
-                ui.onNodeWithText("Done").performClick()
+                ui.closeWalletOverview()
                 ui.openWallet()
                 assertEquals(address, displayedWalletAddress(ui))
             } finally { captureFeedEvidence("wallet-export-evidence/screen.png") }

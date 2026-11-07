@@ -835,7 +835,7 @@ class NotificationsPreviewTest {
         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
         waitFor("Wallet imported")
         assertEquals(incoming, displayedWalletAddress(ui))
-        ui.onNodeWithText("Done").performClick()
+        ui.closeWalletOverview()
     }
 
     private fun missingReferenceJourney(evidenceName: String, mode: Mode, caption: String, ownCaption: String, actorRows: Int, recoveryText: String = "Original recovered after retry") {
