@@ -1,0 +1,11 @@
+{
+  "versionCode": 97,
+  "versionName": "0.1.97",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5",
+  "commit": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/97/redsquare.apk",
+  "notes": "Redesigned profiles, compact post actions, shared app navigation in Wallet and Settings, and updated Chat composers. Wallet import review starts at the top and preserves reading during balance updates. Large-text wallet actions remain readable. Existing identities, drafts and recovery flows are retained. Stack remains a design preview."
+}

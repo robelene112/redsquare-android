@@ -1,0 +1,100 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfilePublishingPreviewTest:
+INSTRUMENTATION_STATUS: test=newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Native exact-text observation timed out
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:21)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.capture(ProfilePublishingPreviewTest.kt:353)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.publishAndReopen(ProfilePublishingPreviewTest.kt:208)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable(ProfilePublishingPreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable(nl.davidengelen.redsquare.ProfilePublishingPreviewTest):
+java.lang.IllegalStateException: Native exact-text observation timed out
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:21)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.capture(ProfilePublishingPreviewTest.kt:353)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.publishAndReopen(ProfilePublishingPreviewTest.kt:208)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable(ProfilePublishingPreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: test=cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfilePublishingPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.768
+There was 1 failure:
+1) cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable(nl.davidengelen.redsquare.ProfilePublishingPreviewTest)
+java.lang.IllegalStateException: Native exact-text observation timed out
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:21)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.capture(ProfilePublishingPreviewTest.kt:353)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.publishAndReopen(ProfilePublishingPreviewTest.kt:208)
+	at nl.davidengelen.redsquare.ProfilePublishingPreviewTest.cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable(ProfilePublishingPreviewTest.kt:46)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

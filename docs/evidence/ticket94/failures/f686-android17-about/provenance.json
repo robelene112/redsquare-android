@@ -1,0 +1,26 @@
+{
+  "source": "f68613a41e3889de841611bf93ba93011ec6957f",
+  "run": "42405078203",
+  "conclusion": "failure",
+  "note": "About was below the visible Settings index; source fixture now reveals it.",
+  "files": [
+    {
+      "file": "appearance-first-failure.png",
+      "sha256": "0bdd2de04993a9198ac27709e8335e9a111067b7711183cfded583c81a341c12",
+      "bytes": 41279,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/chat-native/appearance-evidence/appearance-first-failure.png"
+    },
+    {
+      "file": "appearance-first-failure.xml",
+      "sha256": "01de35c508ba8a77347458c60977253f4a79a1d57d95830537ed024e5abb2fb9",
+      "bytes": 26060,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/chat-native/appearance-evidence/appearance-first-failure.xml"
+    },
+    {
+      "file": "appearance-ui.txt",
+      "sha256": "c3d902dad9bc650cc320a40bf3d18e2d1c5716f9c1770ba98aee3a5b44c92294",
+      "bytes": 5719,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-ui.txt"
+    }
+  ]
+}

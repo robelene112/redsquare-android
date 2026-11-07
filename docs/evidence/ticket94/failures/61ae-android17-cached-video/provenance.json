@@ -1,0 +1,26 @@
+{
+  "source": "61aed5d09ee2b068dffdf6ce4c3b2fbe9af23851",
+  "run": "42408358124",
+  "conclusion": "failure",
+  "note": "The profiles scope stopped in a preceding video test before the profile classes. Actual capture contains the prior test cached caption, not its requested controlled caption.",
+  "files": [
+    {
+      "file": "size-failure.png",
+      "sha256": "000b336207481af407e136c720dae2ea220ef852d1363d75527bad5e6a59b1b5",
+      "bytes": 35345,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-profiles61ae-17/native/video-evidence/size-failure.png"
+    },
+    {
+      "file": "size-failure.xml",
+      "sha256": "565f23f0829a1de7e20cb9c520e336475909a177644d6bf3765920d882e67fbc",
+      "bytes": 60454,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-profiles61ae-17/native/video-evidence/size-failure.xml"
+    },
+    {
+      "file": "video-ui.txt",
+      "sha256": "9a836bf881205f1996e0fe292b7d5ec26783f5c135015de815d816d1bad41142",
+      "bytes": 7320,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-profiles61ae-17/android-native-proof/.scratch/device-evidence/api-37.0/video-ui.txt"
+    }
+  ]
+}

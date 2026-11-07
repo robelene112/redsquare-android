@@ -1,0 +1,1238 @@
+{
+  "schema": "prototype94-native-spec-subset-review-v1",
+  "created_utc": "2026-11-07T19:45:44.211083+00:00",
+  "reviewer": "prototype94_spec_review",
+  "scope": "Supplemental Android17 wallet-input still delta at320dp,130/200%,Light/Dark. All sixteen actual overview/receive/payment-IME/import-risk PNGs inspected.",
+  "source": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9",
+  "workflow": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9",
+  "run_id": "42406846234",
+  "source_proof": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/android-native-proof/.scratch/proof-source.txt",
+    "sha256": "55355df6dfa1afc775aad5f5341f13770c4d793ffb81dc2c54312d2ba30a5dd3",
+    "bytes": 41
+  },
+  "workflow_proof": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/android-native-proof/.scratch/proof-workflow.txt",
+    "sha256": "55355df6dfa1afc775aad5f5341f13770c4d793ffb81dc2c54312d2ba30a5dd3",
+    "bytes": 41
+  },
+  "raw_original_archive": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/android-native-proof/.scratch/device-evidence/api-37.0/wallet-flow-viewport-evidence.tar",
+    "sha256": "ebf32d578ebf046402955a177639e6af84fab6629236659b546486a440d56c0f",
+    "bytes": 1248256
+  },
+  "native_test_output": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/android-native-proof/.scratch/device-evidence/api-37.0/wallet-flow-viewport-ui.txt",
+    "sha256": "096e51b9c637a6275d02d0eebdd865d6a7e53fd8d722052bf1508080e308f183",
+    "bytes": 868
+  },
+  "native_result": "OK (1 test), INSTRUMENTATION_CODE -1 verified in raw original output",
+  "counts": {
+    "native_still_xml_pairs_visually_reviewed": 16,
+    "configurations": 4,
+    "movie_frames": 0
+  },
+  "stills": [
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-import-risk.png",
+        "sha256": "247a00fd910e4169393f9201400de3eb965767172b20b3adbc1b6602fc4d1a85",
+        "bytes": 41173,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-import-risk.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-import-risk.xml",
+        "sha256": "a48f7f2958605c8df25ed538f5adda953af367767bb133793db0cce718a8d330",
+        "bytes": 24158,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-import-risk.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-configuration.json",
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[8,28][56,76]",
+          "clickable_ancestor": {
+            "bounds": "[8,28][56,76]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[181,599][237,626]",
+          "clickable_ancestor": {
+            "bounds": "[169,589][249,637]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Back",
+          "label_bounds": "[261,599][300,626]",
+          "clickable_ancestor": {
+            "bounds": "[249,589][312,637]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-payment-details-ime.png",
+        "sha256": "818dbfaffb295c31719a73fd7f4185be8c5c2d0e34206344c3dd86d619bb5865",
+        "bytes": 38021,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-payment-details-ime.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-payment-details-ime.xml",
+        "sha256": "20bcd9ae056fefe82c46c95fa81477433d276faf48d5777dad26a3f549bb912d",
+        "bytes": 71468,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-payment-details-ime.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-configuration.json",
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[64,38][304,67]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[18,222][302,294]",
+          "clickable_ancestor": {
+            "bounds": "[18,222][302,294]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[34,221][149,245]",
+          "clickable_ancestor": {
+            "bounds": "[18,222][302,294]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[95,364][151,391]",
+          "clickable_ancestor": {
+            "bounds": "[83,354][163,402]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Review transfer",
+          "label_bounds": "[175,364][300,391]",
+          "clickable_ancestor": {
+            "bounds": "[163,354][312,402]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ],
+      "field_geometry": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-payment-field-geometry.json",
+        "sha256": "6c5ad7a4ecdbf4084d7a701ef385501a9af33002e05d0b18e2d71da631a305bd",
+        "bytes": 121,
+        "value": {
+          "keyboardEducationAcknowledged": false,
+          "wholeHeightPixels": 72.0,
+          "visibleHeightPixels": 72.0,
+          "fontScale": 1.3,
+          "widthDp": 320
+        }
+      }
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-receive-address.png",
+        "sha256": "bf859f889d5322600793b5d0bf686220aece24f5b2a12bacb5e7b023075f5aa2",
+        "bytes": 27702,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-receive-address.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-receive-address.xml",
+        "sha256": "c5649218cdfd8df826e3d1c0e834a99d3d3c5e2d57da3438eb448b276704cbac",
+        "bytes": 24270,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-receive-address.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-configuration.json",
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close balance and receive",
+          "label_bounds": "[8,28][56,76]",
+          "clickable_ancestor": {
+            "bounds": "[8,28][56,76]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[64,38][304,67]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Receiving address",
+          "label_bounds": "[34,203][181,225]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Copy address",
+          "label_bounds": "[46,310][155,337]",
+          "clickable_ancestor": {
+            "bounds": "[34,300][167,348]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Done",
+          "label_bounds": "[258,599][300,626]",
+          "clickable_ancestor": {
+            "bounds": "[246,589][312,637]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-wallet-overview.png",
+        "sha256": "cf3bef3e74a551a789f006c613888ccd174bfe76e651af773bbb4c97a81571fd",
+        "bytes": 44143,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-wallet-overview.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-wallet-overview.xml",
+        "sha256": "5bd825fa669184ec9a578a30c47b9124ee320cd3972a150765f9ec75be3347c0",
+        "bytes": 31989,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-dark-wallet-overview.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-dark-configuration.json",
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[18,136][66,184]",
+          "clickable_ancestor": {
+            "bounds": "[18,136][66,184]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[65,334][129,361]",
+          "clickable_ancestor": {
+            "bounds": "[40,324][154,372]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[203,334][244,361]",
+          "clickable_ancestor": {
+            "bounds": "[166,324][280,372]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-import-risk.png",
+        "sha256": "dcaee7d5a2ee05c485d2de5a46e921456200fe4c3a0bed161d7eb89acc09dcc4",
+        "bytes": 39493,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-import-risk.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-import-risk.xml",
+        "sha256": "e536711ee186abfd4256bf2094368543ea414e6a01b0762f79fd1df515b6140f",
+        "bytes": 24061,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-import-risk.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-configuration.json",
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[8,28][56,76]",
+          "clickable_ancestor": {
+            "bounds": "[8,28][56,76]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[181,599][237,626]",
+          "clickable_ancestor": {
+            "bounds": "[169,589][249,637]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Back",
+          "label_bounds": "[261,599][300,626]",
+          "clickable_ancestor": {
+            "bounds": "[249,589][312,637]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-payment-details-ime.png",
+        "sha256": "9b4db62b2393d77d2067e501617f20de584bfd6a9854085e11fe4af29e52fa7c",
+        "bytes": 37235,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-payment-details-ime.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-payment-details-ime.xml",
+        "sha256": "dbf1cdc6b8e18e84c81ce30d159f2ba36500ad1777048a29759c5b9014b827be",
+        "bytes": 71468,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-payment-details-ime.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-configuration.json",
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[64,38][304,67]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[18,216][302,288]",
+          "clickable_ancestor": {
+            "bounds": "[18,216][302,288]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[34,215][149,239]",
+          "clickable_ancestor": {
+            "bounds": "[18,216][302,288]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[95,364][151,391]",
+          "clickable_ancestor": {
+            "bounds": "[83,354][163,402]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Review transfer",
+          "label_bounds": "[175,364][300,391]",
+          "clickable_ancestor": {
+            "bounds": "[163,354][312,402]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ],
+      "field_geometry": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-payment-field-geometry.json",
+        "sha256": "1086e8495b396f90d749f9caac3372d9e3e2abb3cce798166c922cda1b1dca67",
+        "bytes": 120,
+        "value": {
+          "keyboardEducationAcknowledged": true,
+          "wholeHeightPixels": 72.0,
+          "visibleHeightPixels": 72.0,
+          "fontScale": 1.3,
+          "widthDp": 320
+        }
+      }
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-receive-address.png",
+        "sha256": "5a663f9c7571dfef035af1c31ca287fec21bcfa23acf9590313fae53fd736a23",
+        "bytes": 27410,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-receive-address.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-receive-address.xml",
+        "sha256": "833f1493bd1b3e82e67cd307401267d144e025504e9070e5023ceaf860c1ff41",
+        "bytes": 24271,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-receive-address.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-configuration.json",
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close balance and receive",
+          "label_bounds": "[8,28][56,76]",
+          "clickable_ancestor": {
+            "bounds": "[8,28][56,76]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[64,38][304,67]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Receiving address",
+          "label_bounds": "[34,203][181,225]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Copy address",
+          "label_bounds": "[46,310][155,337]",
+          "clickable_ancestor": {
+            "bounds": "[34,300][167,348]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Done",
+          "label_bounds": "[258,599][300,626]",
+          "clickable_ancestor": {
+            "bounds": "[246,589][312,637]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-wallet-overview.png",
+        "sha256": "b2e84b4838a58d087575d89b8cf51345640b0e6f965d725af16e336c3ac43b00",
+        "bytes": 42879,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-wallet-overview.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-wallet-overview.xml",
+        "sha256": "04476dcbf3adda0ebc8709c5b03db157383eba9aa9ba039e04a788481c6e039e",
+        "bytes": 31992,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font130-light-wallet-overview.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font130-light-configuration.json",
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 1.3,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[18,136][66,184]",
+          "clickable_ancestor": {
+            "bounds": "[18,136][66,184]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[65,334][129,361]",
+          "clickable_ancestor": {
+            "bounds": "[40,324][154,372]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[203,334][244,361]",
+          "clickable_ancestor": {
+            "bounds": "[166,324][280,372]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-import-risk.png",
+        "sha256": "fe47f70fe4e007ba6ec33fcb3cf13bfc954d351fd77cbddd3be1b053fb59bc5c",
+        "bytes": 45920,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-import-risk.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-import-risk.xml",
+        "sha256": "e409f0ec72291a75a4e6ec6a044246926a6b27174107adaa2f4b3a239bcc280f",
+        "bytes": 20151,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-import-risk.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-configuration.json",
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[8,47][56,95]",
+          "clickable_ancestor": {
+            "bounds": "[8,47][56,95]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[138,590][218,628]",
+          "clickable_ancestor": {
+            "bounds": "[126,582][230,636]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Back",
+          "label_bounds": "[242,590][300,628]",
+          "clickable_ancestor": {
+            "bounds": "[230,582][312,636]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-details-ime.png",
+        "sha256": "24877128ca297e87b3044f68df414adb2ad7d6615a817bd1b1e60d8c868b7b42",
+        "bytes": 42434,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-details-ime.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-details-ime.xml",
+        "sha256": "2bbcd9704634b6180e614794e9aa25916095ce459a109623286181807b0dcd21",
+        "bytes": 63924,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-details-ime.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-configuration.json",
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[64,32][304,73]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[18,96][302,146]",
+          "clickable_ancestor": {
+            "bounds": "[18,81][302,146]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[34,96][218,114]",
+          "clickable_ancestor": {
+            "bounds": "[18,81][302,146]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[220,301][300,339]",
+          "clickable_ancestor": {
+            "bounds": "[208,293][312,347]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Review transfer",
+          "label_bounds": "[120,355][300,393]",
+          "clickable_ancestor": {
+            "bounds": "[108,347][312,401]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ],
+      "field_geometry": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-field-geometry.json",
+        "sha256": "a30526d81ec52079946dfd0c64bc19b7c75045a065bb2715e958cfecdc5826f8",
+        "bytes": 120,
+        "value": {
+          "keyboardEducationAcknowledged": true,
+          "wholeHeightPixels": 88.0,
+          "visibleHeightPixels": 88.0,
+          "fontScale": 2.0,
+          "widthDp": 320
+        }
+      }
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-receive-address.png",
+        "sha256": "2301c5932c90260ea0abf7775e9b49dd749946d33df9dda51d2bd5f9171a4470",
+        "bytes": 32150,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-receive-address.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-receive-address.xml",
+        "sha256": "7a2733553f5905b3b2628982532ee1857b0a2a23aa4c9000c5114b698a776b9b",
+        "bytes": 20098,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-receive-address.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-configuration.json",
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close balance and receive",
+          "label_bounds": "[8,47][56,95]",
+          "clickable_ancestor": {
+            "bounds": "[8,47][56,95]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[64,28][304,114]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Receiving address",
+          "label_bounds": "[34,134][247,154]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Copy address",
+          "label_bounds": "[46,295][205,333]",
+          "clickable_ancestor": {
+            "bounds": "[34,287][217,341]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Done",
+          "label_bounds": "[240,590][300,628]",
+          "clickable_ancestor": {
+            "bounds": "[228,582][312,636]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-wallet-overview.png",
+        "sha256": "2c28f74f977cc4f50f05f2a8602284b495e60f3ecb14e6fcd7084064c8ef01bc",
+        "bytes": 46086,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-wallet-overview.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-wallet-overview.xml",
+        "sha256": "ec2e5ba7ddd01df789244dfae9584202b7ecc717c406b2e7612db0b5d528f9d7",
+        "bytes": 26915,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-dark-wallet-overview.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-configuration.json",
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "bytes": 77,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Dark"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[18,140][66,188]",
+          "clickable_ancestor": {
+            "bounds": "[18,140][66,188]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[114,376][206,414]",
+          "clickable_ancestor": {
+            "bounds": "[40,368][280,422]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[131,442][190,480]",
+          "clickable_ancestor": {
+            "bounds": "[40,434][280,488]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-import-risk.png",
+        "sha256": "e550c43c2483f6f6e536dac84d44983c1a89e8aa8015062c5725e58aba47732b",
+        "bytes": 45156,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-import-risk.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-import-risk.xml",
+        "sha256": "85943a951caab3079ce112ca8855f007fb3ca3f4bfb2f32de4142a6d14ee0434",
+        "bytes": 20981,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-import-risk.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-configuration.json",
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[8,47][56,95]",
+          "clickable_ancestor": {
+            "bounds": "[8,47][56,95]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[138,590][218,628]",
+          "clickable_ancestor": {
+            "bounds": "[126,582][230,636]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Back",
+          "label_bounds": "[242,590][300,628]",
+          "clickable_ancestor": {
+            "bounds": "[230,582][312,636]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-payment-details-ime.png",
+        "sha256": "aab35ce2ef0f2be347338827f0ef69508322c589b7a06a0161487b4d2fc0c0d4",
+        "bytes": 43474,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-payment-details-ime.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-payment-details-ime.xml",
+        "sha256": "c98de1ca5ce5e4622d68cc296e82df2a887930d97be1e3e118cf2c7867fbd5aa",
+        "bytes": 66060,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-payment-details-ime.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-configuration.json",
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[64,32][304,73]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[18,184][302,272]",
+          "clickable_ancestor": {
+            "bounds": "[18,184][302,272]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Amount in SAITO",
+          "label_bounds": "[34,181][218,217]",
+          "clickable_ancestor": {
+            "bounds": "[18,184][302,272]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.EditText"
+          }
+        },
+        {
+          "label": "Cancel",
+          "label_bounds": "[220,301][300,339]",
+          "clickable_ancestor": {
+            "bounds": "[208,293][312,347]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Review transfer",
+          "label_bounds": "[120,355][300,393]",
+          "clickable_ancestor": {
+            "bounds": "[108,347][312,401]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ],
+      "field_geometry": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-payment-field-geometry.json",
+        "sha256": "a8bade6d8d62cd46fdf5535cd620560f1fe7857556fb23129bac5b75e810b915",
+        "bytes": 121,
+        "value": {
+          "keyboardEducationAcknowledged": false,
+          "wholeHeightPixels": 88.0,
+          "visibleHeightPixels": 88.0,
+          "fontScale": 2.0,
+          "widthDp": 320
+        }
+      }
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-receive-address.png",
+        "sha256": "66a89d37e11ae29f37737ae404fc000220233cd016b58b986adc61a8e74c39e4",
+        "bytes": 31868,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-receive-address.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-receive-address.xml",
+        "sha256": "7a2733553f5905b3b2628982532ee1857b0a2a23aa4c9000c5114b698a776b9b",
+        "bytes": 20098,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-receive-address.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-configuration.json",
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close balance and receive",
+          "label_bounds": "[8,47][56,95]",
+          "clickable_ancestor": {
+            "bounds": "[8,47][56,95]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[64,28][304,114]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Receiving address",
+          "label_bounds": "[34,134][247,154]",
+          "clickable_ancestor": {
+            "bounds": null,
+            "clickable": null,
+            "enabled": null,
+            "class": null
+          }
+        },
+        {
+          "label": "Copy address",
+          "label_bounds": "[46,295][205,333]",
+          "clickable_ancestor": {
+            "bounds": "[34,287][217,341]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Done",
+          "label_bounds": "[240,590][300,628]",
+          "clickable_ancestor": {
+            "bounds": "[228,582][312,636]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    },
+    {
+      "png": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-wallet-overview.png",
+        "sha256": "9c5e5ab5770d2a511e91a82e170d56d4f07f7e7894104251d0302e234ed39304",
+        "bytes": 45461,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-wallet-overview.png",
+        "matches_original_archive": true
+      },
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-wallet-overview.xml",
+        "sha256": "ec2e5ba7ddd01df789244dfae9584202b7ecc717c406b2e7612db0b5d528f9d7",
+        "bytes": 26915,
+        "archive_member": "wallet-flow-viewport-evidence/wallet-320-font200-light-wallet-overview.xml",
+        "matches_original_archive": true
+      },
+      "configuration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-light-configuration.json",
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "bytes": 78,
+        "value": {
+          "widthPixels": 320,
+          "widthDp": 320,
+          "fontScale": 2.0,
+          "selectedAppearance": "Light"
+        }
+      },
+      "inspection": "Actual PNG viewed with view_image; companion XML and actual clickable ancestor bounds inspected",
+      "selected_native_nodes": [
+        {
+          "label": "Close wallet",
+          "label_bounds": "[18,140][66,188]",
+          "clickable_ancestor": {
+            "bounds": "[18,140][66,188]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.widget.Button"
+          }
+        },
+        {
+          "label": "Balance and receive",
+          "label_bounds": "[114,376][206,414]",
+          "clickable_ancestor": {
+            "bounds": "[40,368][280,422]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        },
+        {
+          "label": "Send SAITO",
+          "label_bounds": "[131,442][190,480]",
+          "clickable_ancestor": {
+            "bounds": "[40,434][280,488]",
+            "clickable": "true",
+            "enabled": "true",
+            "class": "android.view.View"
+          }
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "observations": [
+    {
+      "status": "Earlier Receive midword limitation resolved in this Android17 subset",
+      "detail": "Both200% themes show full-width stacked Receive and Send, each single-line, filled/outlined respectively. Actual clickable targets [40,368][280,422] and [40,434][280,488], each240x54px with12px gap at native density160. Earlier Recei/ve split absent."
+    },
+    {
+      "status": "130% preserved",
+      "detail": "Both130% themes retain equal-width side-by-side actions with single-line labels, targets [40,324][154,372] and [166,324][280,372], each114x48px and12px gap."
+    },
+    {
+      "status": "No additional actionable visual fidelity or access defect established",
+      "detail": "Shared overview header/local Back remain intact. Actual address/copy/QR and fixed Done remain readable. Payment stills show the numeric IME, amount value and Cancel/Review transfer without persistent fixed-control overlap. Import-risk paragraphs and Cancel/Back remain legible, with intended scroll-boundary cropping."
+    },
+    {
+      "status": "Non-atomic payment observation, not continuous-fit proof",
+      "detail": "200%-dark payment PNG visibly shows the focused amount input and value above footer, but later XML has shifted the field upward: clickable ancestor [18,81][302,146], label clipped at body top96. Earlier measured geometry receipt records whole88/visible88 and keyboardEducationAcknowledged=true. These sequential observations cannot establish continuous full fit or stable simultaneous geometry. No evidence here that the field is unrevealable.",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-details-ime.png",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-details-ime.xml",
+      "geometry": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-input348-17/native/wallet-flow-viewport-evidence/wallet-320-font200-dark-payment-field-geometry.json"
+    },
+    {
+      "status": "Scroll boundary limitation retained",
+      "detail": "Overview200% top card/label, receive200% Receiving address heading, import-risk backup control and other paragraphs are clipped at intentional scroll-body edges. Still captures do not independently prove every control simultaneously visible or revealable."
+    }
+  ],
+  "limits": [
+    "Android17 source34832f8c wallet-input still subset only; no movies or new full acceptance claim.",
+    "Android10 sibling receipt is separate; no merging different source revisions into acceptance. Both input receipts independently bind34832f8c.",
+    "No claim of dynamic TalkBack/focus acceptance or continuously fully visible fields from these stills.",
+    "All sixteen inspected PNGs and companion XMLs verified byte-identical to members of supplied raw original archive.",
+    "PNG/XML are sequential captures, with actual200%-dark payment movement specifically recorded. No repo edits, CI dispatch or movie decoding performed."
+  ]
+}

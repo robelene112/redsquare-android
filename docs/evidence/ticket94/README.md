@@ -1,11 +1,58 @@
 # Unified redesign release verification (#94)
 
-## Reopened prototype repair: beta95 staged, acceptance pending
+## Reopened prototype repair: candidate97 staged, acceptance pending
 
-Signed96 is now OBSOLETE after the recorded320dp/200% Receive midword-wrap polish.
-Wallet actions now stack at large text while preserving100/130% two-button layout.
-Fresh97+ artifact, current-source full gates and native acceptance are required;
-f686 receipts/runs remain historical/diagnostic. Do not promote93/94/95/96.
+Current frozen complete-source checkpoint:
+Actual complete consumer `3135a58c321c875904f2bcdae928267ddbedda26`, immutable tag
+`proof-prototype97-full3135a58`. Fresh full10/17 runs42409844018 / 42409846568
+were dispatched with matching actual head/source/workflow3135, all3partitions and
+public-read gates. Their results, frozen collectors and final native/prototype
+reviews are PENDING. No full-source acceptance or final publication is claimed.
+Do not change implementation while they run without recording a new relationship.
+
+Candidate97 is staged, NOT promoted; beta89 remains latest. Actual signed producer
+`7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39`, tag `proof-prototype97-7e5bec5`.
+Built/public APK SHA256 `66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5`,
+38,992,531bytes, established certificate unchanged; build3m21. Actual package,
+signature/stage/download and independent provenance receipts are in artifact97.
+No production changes since348's responsive wallet actions. Never promote93–96.
+
+Both348 wallet-design42406839667/42406842007 and wallet-input42406844420/42406846234
+PASS. Both native axes confirm whole stacked labels at200%, original100/130%
+columns and native controls; motion review includes24independently decoded frames
+from8original1/0movies. fd4 post-presentation42407399421/42407402378, frame viewport
+42407404435/42407406448, appearance17 42407408561 and7e report42407623747/
+42407625926 PASS. Profiles61ae10 42408356014 and9fe17 42409020221 PASS; actual after
+PNG/XML on both show the whole enabled Bio above real IME and reachable48dp Save.
+These remain focused packets and do not replace final whole-app/native gates.
+
+Historical full f68610 42405076092 failed readiness and a missed Wallet Done exit;
+f68617 42405078203 failed offscreen About and unrevealed Bio. Both Wallet partitions
+pass; neither complete run is accepted. The old recreation PNG is after cleanup, so
+no cause was proved. Its new in-scope diagnostic retains all15s predicates. Reviewed
+fixture repairs preserve goals/deadlines: actual About/Bio reveal, named Wallet Back
+for two missed exits, and positive expected video caption within the original20s.
+61ae17 42408358124 failed a preceding cached-video readiness race BEFORE profiles;
+the corrected9fe17 profile scope passes. Failed native packets remain under failures/.
+Wrong-source42407609367/42407611488 were cancelled, never acceptance evidence.
+
+Authentic signed83-to97 update checks3135 42409848816 / 42409851190 are PENDING.
+Earlier7e10 42408005837 and a5ef10/17 42408818879/42408820926 pass their executed
+checks, but their cache picker accepted a nested 'Watch on YouTube' media label.
+They do NOT prove the authored-caption cache goal.7e17 42408007929 failed Light
+selection on immutable83 BEFORE97 installation. The new source-reviewed observer
+keeps native idle/tap within5s, selects only actual first-line body content below
+its author header, and physically reveals later eligible posts within its original
+30s prepare/20s verify bounds. Exact caption/author/time, offline cache, draft, wallet,
+LIGHT, UID isolation and cleanup requirements remain. Fresh runtime proof is required.
+
+Producer7e-to-consumer3135 differs only in3reviewed instrumentation fixtures.
+Independent review verifies445identical producer-input entries, canonical SHA256
+`874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2`, plus unchanged
+frozen acceptance/tool inputs. `artifact97/producer-equivalence313.json` is the
+current receipt; prior61ae/9fe receipts retain their explicit scopes. Complete full outcomes/collectors, final actual native reviews,
+actual signed97 continuity and exact staged97 promotion remain required. Root is sole
+writer; canonical Chat WIP, nodes, other tickets and #55 owner acceptance stay separate.
 
 Earlier96 checkpoint:
 Current candidate96 is staged from source/producerf68613a41, SHA256

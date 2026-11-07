@@ -1,0 +1,780 @@
+{
+  "reviewedAtUtc": "2026-11-07T19:46:07.054476+00:00",
+  "source": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9",
+  "workflow": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9",
+  "scope": "Changed large-text wallet action surface on Android10 and17 only; not whole app acceptance",
+  "findingCount": 0,
+  "counts": {
+    "selectedStillXmlPairs": 16,
+    "originalMoviesIndependentlyDecoded": 8,
+    "independentFramesVisuallyInspected": 24
+  },
+  "stills": [
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font100-light-wallet-identity.png",
+      "pngSha256": "f33481118f3b7c4863646ba742848ac7d2293b3b08059bf33e07d2cd8eeead90",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font100-light-wallet-identity.xml",
+      "xmlSha256": "45155a91f1f1e45ca0a43dbcc62853fc378c3ec568af04044de3f89b7923b8b3",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            308,
+            154,
+            356
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            166,
+            308,
+            280,
+            356
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        }
+      ],
+      "actionGeometryEqualToF686": true
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font130-dark-wallet-identity.png",
+      "pngSha256": "28be547cfec7a50e232216836d779df63698316fd80dc64d09a47a8309d91c3f",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font130-dark-wallet-identity.xml",
+      "xmlSha256": "e59b0dc303afae812b6a79aeee0cc404add3660c5d181f556831980a2306330f",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            324,
+            154,
+            372
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            166,
+            324,
+            280,
+            372
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        }
+      ],
+      "actionGeometryEqualToF686": true
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font200-light-wallet-identity.png",
+      "pngSha256": "af0bda2d5e3b2c46e423557154f79dbbbc782241f8b3098e7e7f88d154d350e9",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font200-light-wallet-identity.xml",
+      "xmlSha256": "93c9a0fdb10784e5b0bf7855083c5a6d7674053e8d6f04193031e1fb18246f87",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            198,
+            280,
+            252
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            264,
+            280,
+            318
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        }
+      ],
+      "actionGeometryEqualToF686": null
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font200-dark-wallet-identity.png",
+      "pngSha256": "d96802734d6d05a29eb13a2251b3dd610dd894aea7bff7e7c1ffa6cba6424772",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font200-dark-wallet-identity.xml",
+      "xmlSha256": "310d5c32fdb118720caabefdd654c06c1ee89bef9eb97aa9f18da2a8f0d8106f",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            198,
+            280,
+            252
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            264,
+            280,
+            318
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        }
+      ],
+      "actionGeometryEqualToF686": null
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-412-font200-light-wallet-identity.png",
+      "pngSha256": "a3bd3dfdb042c7d5649921e1dd2abc20d4b2b468077f901030fd3b1115fb3a44",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-412-font200-light-wallet-identity.xml",
+      "xmlSha256": "bef20c30a828fe734d1d9bfa5ce0f1632eddb1ca106a1da59f3f21a5510d5768",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            390,
+            372,
+            444
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            456,
+            372,
+            510
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        }
+      ],
+      "actionGeometryEqualToF686": null
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-412-font130-dark-wallet-identity.png",
+      "pngSha256": "0782fc4fb6d460a9b01763db2930aaac56e28f5a88647c2a3830a09b7910bc14",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-412-font130-dark-wallet-identity.xml",
+      "xmlSha256": "d1a7ddef1cd7433c9b6deaa1be87e2ee159e0806112c5596b3e010548e842e50",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            324,
+            200,
+            372
+          ],
+          "widthPixels": 160,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            212,
+            324,
+            372,
+            372
+          ],
+          "widthPixels": 160,
+          "heightPixels": 48
+        }
+      ],
+      "actionGeometryEqualToF686": true
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font100-dark-wallet-identity.png",
+      "pngSha256": "670c8549a8fe34865d9bd7d25272437d72cdef7b0611e63cf16dc77a1ab0b133",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font100-dark-wallet-identity.xml",
+      "xmlSha256": "45155a91f1f1e45ca0a43dbcc62853fc378c3ec568af04044de3f89b7923b8b3",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            308,
+            154,
+            356
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            166,
+            308,
+            280,
+            356
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        }
+      ],
+      "actionGeometryEqualToF686": true
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font130-light-wallet-identity.png",
+      "pngSha256": "573f7f4c5ef77ebd7f515d71af5960637644f392539236bafbeee103c8ad4003",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font130-light-wallet-identity.xml",
+      "xmlSha256": "e59b0dc303afae812b6a79aeee0cc404add3660c5d181f556831980a2306330f",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            324,
+            154,
+            372
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            166,
+            324,
+            280,
+            372
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        }
+      ],
+      "actionGeometryEqualToF686": true
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-412-font200-dark-wallet-identity.png",
+      "pngSha256": "8f7d6620aa3b58b6f56950cfa41c71c0c06f5ddb7393af0575d1f8b11bad8a7c",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-412-font200-dark-wallet-identity.xml",
+      "xmlSha256": "bef20c30a828fe734d1d9bfa5ce0f1632eddb1ca106a1da59f3f21a5510d5768",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            390,
+            372,
+            444
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            456,
+            372,
+            510
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        }
+      ],
+      "actionGeometryEqualToF686": null
+    },
+    {
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font200-dark-wallet-actions.png",
+      "pngSha256": "827e74d44bb2c759f2778115d5a69a612e7305988e803a07fb0255d2b375895b",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-viewport-evidence/account-320-font200-dark-wallet-actions.xml",
+      "xmlSha256": "31b31ad3126fbc90fe4939c3e08b18044169005634431aea541316f14654f134",
+      "actionTargets": [],
+      "actionGeometryEqualToF686": null
+    },
+    {
+      "sdk": "17",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font100-light-wallet-identity.png",
+      "pngSha256": "a3e9436bc197e81f0c80610569067a05e8fdd8208ee70b373d41c81aa548b785",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font100-light-wallet-identity.xml",
+      "xmlSha256": "7b6dc089d3428b20e5597c5d7060875ad91397c52c00d75a6cab59d668ebc503",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            308,
+            154,
+            356
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            166,
+            308,
+            280,
+            356
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font130-dark-wallet-identity.png",
+      "pngSha256": "b8bb3558540bbd166b2cd4c42dad07ef3ac2d90fcd8de2659bf2c7ea11c20095",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font130-dark-wallet-identity.xml",
+      "xmlSha256": "feae2f5c86d8de667946182e0b71e4a002b2ef1baa2e7b245098bc4cdf53a889",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            324,
+            154,
+            372
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            166,
+            324,
+            280,
+            372
+          ],
+          "widthPixels": 114,
+          "heightPixels": 48
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font200-light-wallet-identity.png",
+      "pngSha256": "0449c238f42aa9a9826f1f851ae82d760e78101698f94b5120714b8bf1a6a81e",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font200-light-wallet-identity.xml",
+      "xmlSha256": "d6689a28241c7227820a403f61953e5c59c3c49224c4b9a901ab3e4edcd4afe7",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            198,
+            280,
+            252
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            264,
+            280,
+            318
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font200-dark-wallet-identity.png",
+      "pngSha256": "707ce2cacbbfb776d7227dead89e214fdb02579068ba3a07156712aebb2cd5ad",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-320-font200-dark-wallet-identity.xml",
+      "xmlSha256": "d6689a28241c7227820a403f61953e5c59c3c49224c4b9a901ab3e4edcd4afe7",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            198,
+            280,
+            252
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            264,
+            280,
+            318
+          ],
+          "widthPixels": 240,
+          "heightPixels": 54
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-412-font200-light-wallet-identity.png",
+      "pngSha256": "75032771be4f6b53ea9b72dae1d6f2359ff87d733ad12bfbb11cd4dc95e7023f",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-412-font200-light-wallet-identity.xml",
+      "xmlSha256": "9da90de85e2e2dff22e61568bcf17534ed6f3469c4a1d67ef41757087a865b9b",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            390,
+            372,
+            444
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            456,
+            372,
+            510
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-412-font200-dark-wallet-identity.png",
+      "pngSha256": "cf7d1df09cb8fa9e915f1a566e88d4e21f0f5c9e029f2081b7d55a83fe70d3da",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-viewport-evidence/account-412-font200-dark-wallet-identity.xml",
+      "xmlSha256": "9da90de85e2e2dff22e61568bcf17534ed6f3469c4a1d67ef41757087a865b9b",
+      "actionTargets": [
+        {
+          "labels": [
+            "Balance and receive"
+          ],
+          "bounds": [
+            40,
+            390,
+            372,
+            444
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        },
+        {
+          "labels": [
+            "Send SAITO"
+          ],
+          "bounds": [
+            40,
+            456,
+            372,
+            510
+          ],
+          "widthPixels": 332,
+          "heightPixels": 54
+        }
+      ]
+    }
+  ],
+  "movies": [
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-motion-evidence/scale-1-wallet-open.mp4",
+      "sha256": "a59708db2ed7df9b4f7ec551df4ee6b0a314a33189a9693232d945b5cdf3ddbb",
+      "totalOriginalFrames": 54,
+      "independentFrames": [
+        {
+          "originalIndex": 40,
+          "presentationTimeSeconds": 1.317056,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-1-wallet-open-0.png",
+          "sha256": "e1abbd38ec43358c70a2053dae7ae327c2965f9848fb5e790398e2a690a6a14a"
+        },
+        {
+          "originalIndex": 50,
+          "presentationTimeSeconds": 1.481511,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-1-wallet-open-1.png",
+          "sha256": "b9e497d0d20e20c04de4ae4d53e4c9563bf8c0c391174f764398aad2b2f896db"
+        },
+        {
+          "originalIndex": 53,
+          "presentationTimeSeconds": 1.881067,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-1-wallet-open-2.png",
+          "sha256": "b9e497d0d20e20c04de4ae4d53e4c9563bf8c0c391174f764398aad2b2f896db"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-motion-evidence/scale-0-wallet-open.mp4",
+      "sha256": "ad35081ed10345865cedb83a2f9090276f4df724948ff4546bda0afe3c039163",
+      "totalOriginalFrames": 15,
+      "independentFrames": [
+        {
+          "originalIndex": 6,
+          "presentationTimeSeconds": 1.280233,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-0-wallet-open-0.png",
+          "sha256": "89b2c3f6b678cb143eecd13113c812402a5fabc87467139bf1e6d3ef656f3b43"
+        },
+        {
+          "originalIndex": 12,
+          "presentationTimeSeconds": 1.416011,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-0-wallet-open-1.png",
+          "sha256": "b902871ef78e7791ef0132e3c0a6fd150bddc44f331eb854c6b026bcd351e594"
+        },
+        {
+          "originalIndex": 14,
+          "presentationTimeSeconds": 1.864744,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-0-wallet-open-2.png",
+          "sha256": "c69d2e45ad849a2c4d0dff1bf92e26b8e6142cacb28caaf0b6c1a48d776dd68a"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-motion-evidence/scale-1-wallet-return.mp4",
+      "sha256": "a27cf1409a9b13bce938f7608055cd779473f5ed247c38fd31f873c5e06a978e",
+      "totalOriginalFrames": 12,
+      "independentFrames": [
+        {
+          "originalIndex": 1,
+          "presentationTimeSeconds": 0.251389,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-1-wallet-return-0.png",
+          "sha256": "a6453bbfd553d3d42a002a2030e0a6ccc57055ae9e88477f2666170220e567fe"
+        },
+        {
+          "originalIndex": 6,
+          "presentationTimeSeconds": 0.332633,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-1-wallet-return-1.png",
+          "sha256": "a025050b2f1d521da30bb81f6897418de7163e5f1d58053ce40b959011316633"
+        },
+        {
+          "originalIndex": 11,
+          "presentationTimeSeconds": 0.413644,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-1-wallet-return-2.png",
+          "sha256": "10ba4465b3f22f07db5c64f1e53cea3db89caee1698d9a63508fc34332043b78"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-10/native/account-design-motion-evidence/scale-0-wallet-return.mp4",
+      "sha256": "b381bc3118970ab9ce40a0d01e23da0b04ba71d63a7025b594618f4ce7efe36b",
+      "totalOriginalFrames": 4,
+      "independentFrames": [
+        {
+          "originalIndex": 0,
+          "presentationTimeSeconds": 0.0,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-0-wallet-return-0.png",
+          "sha256": "8027a6dac5c631e6af19f3f2d4569f0b92623dfb4d0985fa4c7729adf7dbc6fa"
+        },
+        {
+          "originalIndex": 1,
+          "presentationTimeSeconds": 0.230378,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-0-wallet-return-1.png",
+          "sha256": "9d6d5d233f5d98e5591302d3bb6651ad592848e0ca166bbe5d41b47aea062093"
+        },
+        {
+          "originalIndex": 3,
+          "presentationTimeSeconds": 0.262833,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/scale-0-wallet-return-2.png",
+          "sha256": "3260b8c31a73a6d9f22ab95997082178cc740d9dd1986b90524433b662b48582"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-motion-evidence/scale-1-wallet-open.mp4",
+      "sha256": "056bd938f80dc7baf628b83bba7fbd921c8463e9f65dbba2d2683e092ce8aa53",
+      "totalOriginalFrames": 86,
+      "independentFrames": [
+        {
+          "originalIndex": 60,
+          "presentationTimeSeconds": 1.572222,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-1-wallet-open-0.png",
+          "sha256": "789c879617b48d01cf3385e20b812f868e2e87a681c81b4bb8cc4dca1f807e7d"
+        },
+        {
+          "originalIndex": 75,
+          "presentationTimeSeconds": 1.823233,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-1-wallet-open-1.png",
+          "sha256": "d250d8e5939edbc99d85465de6fd33fa5c6c610c398c396ae9d2c5729475c795"
+        },
+        {
+          "originalIndex": 85,
+          "presentationTimeSeconds": 2.439156,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-1-wallet-open-2.png",
+          "sha256": "7de43dba71fc0772f67c812bbae54dbe462db331157e4f5201786753c191abc7"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-motion-evidence/scale-0-wallet-open.mp4",
+      "sha256": "3b6ff270f45ebba0d8c8d615fd012354671a9d5ffd99091f100a271e699e946b",
+      "totalOriginalFrames": 23,
+      "independentFrames": [
+        {
+          "originalIndex": 12,
+          "presentationTimeSeconds": 1.3388,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-0-wallet-open-0.png",
+          "sha256": "d1dc50e06b906849a0938d0fdd0ec3b5000729eb57bf23ffab4d2c130461cf84"
+        },
+        {
+          "originalIndex": 16,
+          "presentationTimeSeconds": 1.425867,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-0-wallet-open-1.png",
+          "sha256": "a12e1d3e90458a770f890c45b449f4ff441d29ceddba55dc1c8f264ae5054a7b"
+        },
+        {
+          "originalIndex": 22,
+          "presentationTimeSeconds": 1.987311,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-0-wallet-open-2.png",
+          "sha256": "73ef79770251e5fd41e38c1631b84ea4eff96a3d880f977b668a68cadf7a6ea2"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-motion-evidence/scale-1-wallet-return.mp4",
+      "sha256": "0e23b549a67661a9f30d34a80cbe2527daa80cc823594095f434733753269286",
+      "totalOriginalFrames": 14,
+      "independentFrames": [
+        {
+          "originalIndex": 1,
+          "presentationTimeSeconds": 0.2305,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-1-wallet-return-0.png",
+          "sha256": "efdb4bdf6beae98880a4c063238928473ea2570e199fbc0113bb4c4be54c9588"
+        },
+        {
+          "originalIndex": 7,
+          "presentationTimeSeconds": 0.330544,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-1-wallet-return-1.png",
+          "sha256": "0b7df6d6de341b4b9ad1e2dacef044f1bf67c8597d4f6753189fc10b9aadd664"
+        },
+        {
+          "originalIndex": 13,
+          "presentationTimeSeconds": 0.4243,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-1-wallet-return-2.png",
+          "sha256": "7da3a6ccf7f7e7ca11c81a3525a9aa3b3d068a893366a25ee52f6625e6c9bcb8"
+        }
+      ]
+    },
+    {
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-wallet-design348-17/native/account-design-motion-evidence/scale-0-wallet-return.mp4",
+      "sha256": "2cf8403bf062de31bc191f436a91a3d75f7ce8f522914cd2323b3d321189060b",
+      "totalOriginalFrames": 6,
+      "independentFrames": [
+        {
+          "originalIndex": 0,
+          "presentationTimeSeconds": 0.0,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-0-wallet-return-0.png",
+          "sha256": "95a973fc32110a087ac877b8e77598e7df900f35f9bf415bcb968e6e14d39711"
+        },
+        {
+          "originalIndex": 1,
+          "presentationTimeSeconds": 0.2228,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-0-wallet-return-1.png",
+          "sha256": "053a854da15540b3e91bfe786a0cbd6578fbeac479ee30e412e53fdd7ae7500b"
+        },
+        {
+          "originalIndex": 5,
+          "presentationTimeSeconds": 0.291422,
+          "file": "/mnt/storage/redsquare-android-artifacts/.scratch/prototype94-standards-wallet348-review/sdk17-scale-0-wallet-return-2.png",
+          "sha256": "50c9040be0aa35a9a45a19c359e440b88496640f55378e6629fb60583afe5642"
+        }
+      ]
+    }
+  ],
+  "decoder": {
+    "image": "x-downloader:442d3c1",
+    "imageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+    "version": "ffmpeg7.1.5-0+deb13u1",
+    "timing": "independent ffprobe best_effort_timestamp_time, zero-based original indices",
+    "execution": "Ephemeral --rm --network none --read-only with only native input read-only and external output writable; no running service exec"
+  },
+  "observations": [
+    "200% controls stack with full-width single-line Receive/Send in both themes; 320/412 sampled.",
+    "100/130% action geometry matches f686 in sampled stills; semantic labels remain Balance and receive / Send SAITO.",
+    "200% native targets are54px high at density1;100/130% are48px. Selected320 identity screenshot scroll crops top of balance card and first control at viewport edge; this is not persistent header overlap.",
+    "Normal wallet open/return selected actual intermediate frames contain expected transient window/sheet fades; zero selected frames show discrete replacement without persistent overlap.",
+    "Shared header/Back/title, active identity and backup/recovery content remain distinct in selected views."
+  ],
+  "limits": [
+    "Not every PNG/XML/MP4 was inspected; exact selections/hashes are above (Android10 packet281PNG/80XML/8MP4, Android17 packet391PNG/80XML/8MP4).",
+    "No whole-app, fresh full-gate, physical device, TalkBack, external provider or signed-new-artifact acceptance claim.",
+    "Motion recordings are at normal font size; large-text changed surface verified by selected still/XML pairs."
+  ],
+  "proofSources": [
+    {
+      "sdk": "10",
+      "source": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9",
+      "workflow": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9"
+    },
+    {
+      "sdk": "17",
+      "source": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9",
+      "workflow": "34832f8c707e80e7fc448928bbfa98c55eaaf9a9"
+    }
+  ]
+}

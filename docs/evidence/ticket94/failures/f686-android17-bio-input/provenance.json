@@ -1,0 +1,32 @@
+{
+  "source": "f68613a41e3889de841611bf93ba93011ec6957f",
+  "run": "42405078203",
+  "conclusion": "failure",
+  "note": "Cancelled import returned to an editor whose Bio field had not been revealed before text replacement. Sequential captures are not atomic.",
+  "files": [
+    {
+      "file": "profile-import-cancel-new-edit.xml",
+      "sha256": "63ec97e0099a8ba3f70b0e79f5a4ff738753783e0414b64febd6285b115693f4",
+      "bytes": 118421,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/social-native/profile-edit-evidence/profile-import-cancel-new-edit.xml"
+    },
+    {
+      "file": "bio-snapshot-first-failure.png",
+      "sha256": "814868fa96c8e1f20dd88853c70abc508e4c183c4079d730a2e994d2e5efb839",
+      "bytes": 41260,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/social-native/profile-edit-evidence/bio-snapshot-first-failure.png"
+    },
+    {
+      "file": "bio-snapshot-first-failure.xml",
+      "sha256": "48b975e432624d2c69d8bd1a9ff2d948ea05a183cbc227a965a853ca9c8741ef",
+      "bytes": 98697,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/social-native/profile-edit-evidence/bio-snapshot-first-failure.xml"
+    },
+    {
+      "file": "ProfilePublishingPreviewTest-ui.txt",
+      "sha256": "54ecb2011663d47cf4a99ed8fd4b6770370a87aabf5cfda2818db3acefcf72d7",
+      "bytes": 5938,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-full96-17-42405078203/android-native-proof-social/.scratch/device-evidence/api-37.0/ProfilePublishingPreviewTest-ui.txt"
+    }
+  ]
+}

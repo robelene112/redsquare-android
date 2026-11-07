@@ -1,0 +1,123 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.VideoPreviewTest:
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=videoContactsProviderOnlyAfterTapAndClosingPreservesThePost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Watch on YouTube' (ignoreCase: false)) && (hasAnyAncestorThat((Text + InputText + EditableText contains 'Explicit signed YouTube link' (ignoreCase: false)) && (OnClick is defined))) in scrollable container
+Semantics of the node:
+Node #612 at (l=18.0, t=184.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ca3eeed'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 3 siblings
+Selector used: ((ScrollBy is defined) && (VerticalScrollAxisRange is defined))
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.VideoPreviewTest.watch(VideoPreviewTest.kt:353)
+	at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:103)
+	Suppressed: java.lang.AssertionError: Controlled provider requests: 0
+		at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:139)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(nl.davidengelen.redsquare.VideoPreviewTest):
+java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Watch on YouTube' (ignoreCase: false)) && (hasAnyAncestorThat((Text + InputText + EditableText contains 'Explicit signed YouTube link' (ignoreCase: false)) && (OnClick is defined))) in scrollable container
+Semantics of the node:
+Node #612 at (l=18.0, t=184.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ca3eeed'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 3 siblings
+Selector used: ((ScrollBy is defined) && (VerticalScrollAxisRange is defined))
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.VideoPreviewTest.watch(VideoPreviewTest.kt:353)
+	at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:103)
+	Suppressed: java.lang.AssertionError: Controlled provider requests: 0
+		at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:139)
+
+INSTRUMENTATION_STATUS: test=selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VideoPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 49.367
+There was 1 failure:
+1) selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(nl.davidengelen.redsquare.VideoPreviewTest)
+java.lang.AssertionError: No node found that matches (Text + InputText + EditableText contains 'Watch on YouTube' (ignoreCase: false)) && (hasAnyAncestorThat((Text + InputText + EditableText contains 'Explicit signed YouTube link' (ignoreCase: false)) && (OnClick is defined))) in scrollable container
+Semantics of the node:
+Node #612 at (l=18.0, t=184.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ca3eeed'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 3 siblings
+Selector used: ((ScrollBy is defined) && (VerticalScrollAxisRange is defined))
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.VideoPreviewTest.watch(VideoPreviewTest.kt:353)
+	at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:103)
+	Suppressed: java.lang.AssertionError: Controlled provider requests: 0
+		at nl.davidengelen.redsquare.VideoPreviewTest.selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows(VideoPreviewTest.kt:139)
+		... 65 more
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,73 @@
+{
+  "reviewedAtUtc": "2026-11-07T19:50:20.548367+00:00",
+  "findingCount": 0,
+  "source": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "tag": "proof-prototype97-7e5bec5",
+  "variant": "release",
+  "versionCode": 97,
+  "versionName": "0.1.97",
+  "applicationId": "nl.davidengelen.redsquare",
+  "actualDownloadedApk": "/mnt/storage/redsquare-android-artifacts/prototype94-beta97-public.apk",
+  "builtApk": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/97/redsquare.apk",
+  "sha256": "66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5",
+  "size": 38992531,
+  "signatureIndependentlyVerified": true,
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "actualApkManifest": {
+    "package": "nl.davidengelen.redsquare",
+    "versionCode": "97",
+    "versionName": "0.1.97",
+    "minSdk": "29",
+    "targetSdk": "36",
+    "debuggable": false,
+    "profileable": false,
+    "decodedXmlSha256": "eba404f0bde4e17600fbe7a08cdb2c3589e8444c8fadfbca87b881f3ab158b0b"
+  },
+  "generatedReleaseBooleans": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "buildElapsed": "3m21s",
+  "stagedUrl": "https://davidengelen.nl/redsquare/releases/97/redsquare.apk",
+  "promoted": false,
+  "receipts": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/97/manifest.json",
+      "sha256": "cbf641b149bf5e3b1e98269ca7675c5b47134c43ad5b38217b1899fdb669f087"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/97/signature.txt",
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/97/package.txt",
+      "sha256": "5fae6b4ecd3611c27383d1367733e4e7d9fe4085c00665f3f2f0c3f6f3b859db"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/97/android-manifest.xml",
+      "sha256": "eba404f0bde4e17600fbe7a08cdb2c3589e8444c8fadfbca87b881f3ab158b0b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta97-build.log",
+      "sha256": "465f3ab555c9d75d2537c574190bf63586f5ac55f70371181cd8fc058386af0c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta97-stage.txt",
+      "sha256": "c0e6de8ad01e07817dd8230476f8f6b5096c4d0ceef54c6f1d1f104632646579"
+    }
+  ],
+  "verificationTools": [
+    "apksigner verify --print-certs against public-downloaded APK",
+    "aapt dump badging against public-downloaded APK",
+    "apkanalyzer manifest print against public-downloaded APK",
+    "sha256sum built and public-downloaded APK",
+    "git rev-parse immutable tag"
+  ],
+  "limits": [
+    "Staging/artifact provenance only; no final/native acceptance.",
+    "Signed83-to97 continuity runs pending at assignment and not counted as pass.",
+    "Generated configuration is recorded separately from any full-gate debug/release/performance/default-version build; no binary equality claim.",
+    "No signing secrets read or emitted."
+  ]
+}

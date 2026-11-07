@@ -1,0 +1,32 @@
+{
+  "actualProducer": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "signedOrdinaryVersion": 97,
+  "variant": "release",
+  "generatedReleaseFlags": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "fullGateVariants": [
+    "debug",
+    "release",
+    "performance"
+  ],
+  "fullGateDefaultVersionCode": 1,
+  "note": "Complete and authentic signed update gates are running, not accepted. Three reviewed instrumentation fixtures differ from actual producer;445producer-input entries and frozen acceptance pins are independently verified unchanged. No debug/release binary equality, physical Pixel or provider acceptance is claimed.",
+  "producerInputs": {
+    "trackedEntries": 445,
+    "canonicalSha256": "874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2",
+    "independentlyReviewed": true,
+    "receipt": "producer-equivalence313.json"
+  },
+  "fullExecutionSource": "3135a58c321c875904f2bcdae928267ddbedda26",
+  "fullRuns": {
+    "10": 42409844018,
+    "17": 42409846568
+  },
+  "signedUpdateRuns": {
+    "10": 42409848816,
+    "17": 42409851190
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "source": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "run": "42408007929",
+  "conclusion": "failure",
+  "note": "The five-second Light selection failed on immutable83 before installing97. Native System default remains checked. The input-race hypothesis needs a fresh run.",
+  "files": [
+    {
+      "file": "prepare-failure.png",
+      "sha256": "1c5bbf8514cd3ccbd2de1394dd0efda2db89af22b45c564a4c580487457dd98f",
+      "bytes": 27532,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-17/native/review-update-observation/prepare-failure.png"
+    },
+    {
+      "file": "prepare-failure.xml",
+      "sha256": "acc13a111c6e6a611b37839fbf502720eeb7b630d057d0fd6c5f3538fb8ad832",
+      "bytes": 24523,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-17/native/review-update-observation/prepare-failure.xml"
+    },
+    {
+      "file": "work-before.log",
+      "sha256": "3b48532da1a015cde2ace7844779d93bc018df0359febc97809cf64d668e2179",
+      "bytes": 3112,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/work-before.log"
+    },
+    {
+      "file": "restoration.json",
+      "sha256": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1",
+      "bytes": 73,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/restoration.json"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "reviewedAtUtc": "2026-11-07T19:56:03.914580+00:00",
+  "findingCount": 0,
+  "artifactVersion": 97,
+  "artifactSha256": "66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5",
+  "actualProducer": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "intendedCompleteConsumer": "61aed5d09ee2b068dffdf6ce4c3b2fbe9af23851",
+  "trackedProducerSupersetEqual": true,
+  "trackedProducerSupersetCount": 445,
+  "canonicalEncoding": "UTF-8 git ls-tree -r lines in Git order joined by LF with one trailing LF; compares path/mode/type/blob",
+  "canonicalInputSha256": "874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2",
+  "excludedAsNonProducer": {
+    "rootDocuments": [
+      "AGENTS.md",
+      "CODING_STANDARDS.md",
+      "GLOSSARY.md",
+      "OWNER_INPUTS.md",
+      "README.md"
+    ],
+    "prefixes": [
+      "docs/",
+      ".agents/",
+      "app/src/androidTest/"
+    ]
+  },
+  "categories": {
+    "mainSourcesResources": {
+      "count": 232,
+      "canonicalSha256": "8947ebd43fec7ee69cba4c74ebadc836cd502e4fa4e83385683622800a239919"
+    },
+    "core": {
+      "count": 81,
+      "canonicalSha256": "dfe1430683afd152539884d1bb17542271cb86f15d02a5eba3a4d9a2ba046e46"
+    },
+    "buildDependencyConfig": {
+      "count": 61,
+      "canonicalSha256": "7fa0eadb6b2d7ef9b6006b7733976a6ff6ab5b9dc44c29305b255849de6b463f"
+    },
+    "scripts": {
+      "count": 41,
+      "canonicalSha256": "133a5a1d94d59ee71c5de8d6e247c180764a2cffcbc7fa62feea383a6f945770"
+    },
+    "controlledFixtures": {
+      "count": 1,
+      "canonicalSha256": "266de671d5f697be90d23c5b9c3c7c5ba9ae7e45c5c8cacbaf3afae3899ac8d1"
+    }
+  },
+  "changedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfilePublishingPreviewTest.kt"
+  ],
+  "allFrozenAcceptanceInputsValidateAgainstCatalog": true,
+  "separatelyVerifiedUnchangedInputs": [
+    {
+      "path": "docs/evidence/ticket94/catalog.json",
+      "sha256": "20be403b92cd7b3f36a557090ff17ec76d33a696c2dc284c4dfb84890f68c9e5"
+    },
+    {
+      "path": "docs/evidence/ticket94/full-collector.py",
+      "sha256": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683"
+    },
+    {
+      "path": "docs/evidence/ticket94/test-identities.py",
+      "sha256": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577"
+    },
+    {
+      "path": "docs/evidence/ticket94/legacy-visual-errors10.json",
+      "sha256": "2dfd0e1477f247da6bfb9595acb3ef39cc44dfba8ac5cacd4b4f42b1be65c0d2"
+    },
+    {
+      "path": "docs/evidence/ticket94/legacy-visual-errors17.json",
+      "sha256": "289e44a0d4d8a367def390d1b9dee41cbb734b636300d181ab01801faa17ea7b"
+    },
+    {
+      "path": "docs/evidence/ticket94/legacy-profile-assumption.txt",
+      "sha256": "7c3ed443a2a27b11f57f0c79c3f64a391adebdd9eb636cb2e83a83c1b5b3846e"
+    },
+    {
+      "path": "docs/evidence/ticket94/expected10-identities.json",
+      "sha256": "687357aa6e40ab2b853fe655dd7933aa526ba20c3acb6b33379bb4dc7b8f30a5"
+    },
+    {
+      "path": "docs/evidence/ticket94/expected17-identities.json",
+      "sha256": "948893af08174875b37f20505f00aa78f8f93380001e70f613aab0647f72613e"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ReviewUpdateUiObserver.kt",
+      "sha256": "6bbd9c8943fbbd1cf7ef01a4e5fb667590322d6b88c851f321d2e6ed3d5abc8d"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletDeviceUiObserver.kt",
+      "sha256": "53b2b429ba12582e795e4d88896313026a046e8e8def5d45cd4d9550465b7dbd"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NativeTalkBackObservation.kt",
+      "sha256": "ed2a0d29e40255aa4a2a8c38b7ddf3a4f14b86e9fa88ffce82ff2586a5364a70"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NativeScreenEvidence.kt",
+      "sha256": "f3077b1cdb39b85ada7fea30ad3d0d04e91140959c27d423ba6cdba075a80ecb"
+    },
+    {
+      "path": "scripts/ci-talkback-setup",
+      "sha256": "edd6531d49f5267147bae1bfcab496864ed6202871e635e4f4215b582dac7d5d"
+    },
+    {
+      "path": ".github/workflows/android-proof.yml",
+      "sha256": "9f019a409cebbc7a1a30c0e8a9c2264924d7758c25430a5ab05d9814a5169114"
+    },
+    {
+      "path": "scripts/ci-android-device",
+      "sha256": "425ecb64b8960560eee7c34db93e0e39eab51ebc5d0a4228036f652fb991c11b"
+    },
+    {
+      "path": "scripts/ci-android-setup",
+      "sha256": "68c8d70d1391e3ba9060ef7b548aa2c64d663f5ca6a2f4c985dfd1d1d9ecaaf0"
+    }
+  ],
+  "toolSourcePins": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "limits": [
+    "Tracked producer-input superset equality only; actual APK signing/configuration is separate in prototype94-artifact97-standards-review.json.",
+    "Production/resources/core/build/dependency/scripts/configuration inputs compared directly, not inferred from package hash.",
+    "Final consumer changes only editor reveal in one instrumentation fixture.",
+    "Uncommitted documentation/evidence are excluded nonproducer inputs.",
+    "Pending focused/signed-update and undispatched complete runs are not acceptance evidence.",
+    "No debug/release/performance/default-version binary equality claim."
+  ]
+}

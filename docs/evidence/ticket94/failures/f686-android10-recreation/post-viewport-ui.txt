@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationViewportTest:
+INSTRUMENTATION_STATUS: test=longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.recreateHomeViewport(PostViewportFixture.kt:106)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:59)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$19(PostPresentationViewportTest.kt:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$6KuE6A8WwMX_vjKgVg-L7uocbi0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+INSTRUMENTATION_STATUS: stream=
+Error in longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostPresentationViewportTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.recreateHomeViewport(PostViewportFixture.kt:106)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:59)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$19(PostPresentationViewportTest.kt:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$6KuE6A8WwMX_vjKgVg-L7uocbi0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+INSTRUMENTATION_STATUS: test=longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.129
+There was 1 failure:
+1) longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostPresentationViewportTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.recreateHomeViewport(PostViewportFixture.kt:106)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:59)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$19(PostPresentationViewportTest.kt:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$6KuE6A8WwMX_vjKgVg-L7uocbi0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
