@@ -33,9 +33,36 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
         }
     })
     configurePeer(peer)
+    fun cacheObservation(stage: String) {
+        val output = com.google.gson.JsonObject().apply {
+            addProperty("stage", stage)
+            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+            addProperty("peerRequests", peer.requests.get())
+            addProperty("peerConnections", peer.connectionAttempts.get())
+            addProperty("incomingRows", runCatching { JsonParser.parseString(peer.rows).asJsonArray.size() }.getOrNull())
+            add("publicFeedCaches", com.google.gson.JsonArray().apply {
+                synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
+                    context.noBackupFilesDir.listFiles().orEmpty().filter { it.isFile && it.name.startsWith("feed.") }
+                        .sortedBy { it.name }.forEach { file ->
+                            val bytes = file.readBytes()
+                            add(com.google.gson.JsonObject().apply {
+                                addProperty("name", file.name)
+                                addProperty("bytes", bytes.size)
+                                addProperty("sha256", java.security.MessageDigest.getInstance("SHA-256").digest(bytes)
+                                    .joinToString("") { "%02x".format(it.toInt() and 255) })
+                                addProperty("entries", runCatching { JsonParser.parseString(bytes.toString(Charsets.UTF_8)).asJsonArray.size() }.getOrNull())
+                            })
+                        }
+                }
+            })
+        }
+        File(context.cacheDir, evidenceFolder).apply { mkdirs() }.resolve("$name-$stage-cache.json").writeText(output.toString())
+    }
     var primary: Throwable? = null
     try {
+        cacheObservation("before-prepare")
         retained.prepare()
+        cacheObservation("after-prepare")
         check(reminder.edit().putBoolean("hidden:${wallet.publicKey}", false).commit())
         backends.save(SaitoBackend.OWNER)
         peer.start().use { server ->
@@ -47,7 +74,10 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
             nodeBlockApiUrl?.let { launchIntent.putExtra("nodeBlockApiUrl", it) }
             nodeBlockOfficialApiUrl?.let { launchIntent.putExtra("nodeBlockOfficialApiUrl", it) }
             ActivityScenario.launch<MainActivity>(launchIntent).use { activity ->
-                withFailureCapture({ captureNativeScreen(File(context.cacheDir, "$evidenceFolder/$name-failure.png")) }) {
+                withFailureCapture({
+                    cacheObservation("failure")
+                    captureNativeScreen(File(context.cacheDir, "$evidenceFolder/$name-failure.png"))
+                }) {
                     block(activity)
                     assertTrue("Navigation must retain the complete wallet and portable options",
                         wallet.exportJson() == wallets.loadExisting().exportJson())

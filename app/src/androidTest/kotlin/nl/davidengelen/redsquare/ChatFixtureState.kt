@@ -2,12 +2,13 @@ package nl.davidengelen.redsquare
 
 import java.io.File
 import nl.davidengelen.redsquare.saito.SaitoLocalState
+import nl.davidengelen.redsquare.feed.PublicStringStore
 
 /** Preserve declared files and this wallet's Chat alert state; restoration remains independent of identity. */
 internal class ChatFixtureState(private val context: android.content.Context,
     declaredPrefixes: List<String>, owner: String) {
     private val prefixes = (declaredPrefixes + listOf("chatpush.$owner.", "groupchatpush.$owner.", "avatarprofiles.")).distinct()
-    private val files = synchronized(SaitoLocalState.lock) {
+    private val files = withStoreLocks {
         context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
             .associate { check(it.isFile); it.name to it.readBytes() }
     }
@@ -16,9 +17,8 @@ internal class ChatFixtureState(private val context: android.content.Context,
         .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
             Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }
     fun prepare() {
-        synchronized(SaitoLocalState.lock) {
-            files.keys.forEach { name ->
-                val file = File(context.noBackupFilesDir, name)
+        withStoreLocks {
+            context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }.forEach { file ->
                 // Two captured wallet scopes may share the same public avatar cache.
                 // An absent file is already prepared; a present file must still clear successfully.
                 check(!file.exists() || (file.isFile && file.delete()))
@@ -29,11 +29,16 @@ internal class ChatFixtureState(private val context: android.content.Context,
         }.commit()) }
     }
     fun restoreFiles() {
-        synchronized(SaitoLocalState.lock) {
+        withStoreLocks {
             context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
                 .forEach { check(it.isFile && it.delete()) }
             files.forEach { (name, bytes) -> File(context.noBackupFilesDir, name).writeBytes(bytes) }
         }
+    }
+    // Wallet/Chat and public caches use distinct monitors. Keep fixture capture,
+    // preparation and restoration atomic with their actual storage operations.
+    private fun <T> withStoreLocks(block: () -> T): T = synchronized(SaitoLocalState.lock) {
+        synchronized(PublicStringStore.lock) { block() }
     }
     fun restorePreferences() {
         preferences.forEach { (prefs, key, value) -> check(prefs.edit().apply {
