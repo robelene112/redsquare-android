@@ -70,14 +70,15 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                     Spacer(Modifier.width(8.dp))
                     Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
                 }
-                DesignSheet(appsOpen, stringResource(R.string.apps_title), { appsOpen = false }) {
+                DesignSheet(appsOpen, stringResource(R.string.apps_title), { appsOpen = false }) { firstAction ->
                     Text(stringResource(R.string.apps_summary), style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                     AppModule.entries.forEach { target ->
                         Surface(onClick = { if (appsOpen) { appsOpen = false; onModule(target) } },
                             enabled = walletEnabled && appsOpen, shape = RoundedCornerShape(AppSpacing.cardRadius),
                             color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            modifier = Modifier.semantics { selected = module == target }) {
+                            modifier = (if (target == AppModule.entries.first()) firstAction else Modifier)
+                                .semantics { selected = module == target }) {
                             Row(Modifier.fillMaxWidth().padding(18.dp), verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                                 Surface(shape = RoundedCornerShape(12.dp), color = if (target == AppModule.RED_SQUARE)
@@ -107,7 +108,7 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                         Modifier.size(36.dp).clip(CircleShape).clearAndSetSemantics { }, cachedOnly = true)
                     else Icon(painterResource(R.drawable.ic_profile), null)
                 }
-                DesignSheet(accountOpen, accountLabel, { accountOpen = false }) {
+                DesignSheet(accountOpen, accountLabel, { accountOpen = false }) { firstAction ->
                     if (owner != null) {
                         val context = LocalContext.current.applicationContext
                         val backend = SaitoBackend.entries.firstOrNull { it.domain == node }
@@ -133,9 +134,11 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                     HorizontalDivider()
                     AccountActionRow(stringResource(R.string.wallet), R.drawable.ic_wallet,
                         summary = stringResource(R.string.account_wallet_summary), enabled = walletEnabled && accountOpen,
+                        modifier = if (walletEnabled) firstAction else Modifier,
                         onClick = { if (accountOpen) { accountOpen = false; onWallet() } })
                     AccountActionRow(stringResource(R.string.settings), R.drawable.ic_settings,
                         summary = stringResource(R.string.settings_preferences_summary), enabled = settingsEnabled && accountOpen,
+                        modifier = if (!walletEnabled) firstAction else Modifier,
                         onClick = { if (accountOpen) { accountOpen = false; onSettings() } })
                 }
             }

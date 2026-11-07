@@ -32,18 +32,34 @@ internal fun AppDialogWindow(styleSystemBars: Boolean = false) {
     }
 }
 
-/** A sheet must accept Escape even before one of its Compose controls gains input focus. */
+/** Route initial keyboard entry and Escape in the actual sheet window, independently of touch focus. */
 @Composable
-internal fun DismissDialogOnEscape(onDismiss: () -> Unit) {
+internal fun SheetKeyboardWindow(onDismiss: () -> Unit, onKeyboardEntry: () -> Boolean) {
     val view = LocalView.current
     val window = (view.parent as DialogWindowProvider).window
     val dismiss by rememberUpdatedState(onDismiss)
+    val enterContent by rememberUpdatedState(onKeyboardEntry)
     DisposableEffect(window) {
         val previous = requireNotNull(window.callback)
         var tracking = false
+        var enteredContent = false
+        var entryKey: Int? = null
         val callback = object : Window.Callback by previous {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-                if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) return previous.dispatchKeyEvent(event)
+                if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) {
+                    if (event.keyCode == entryKey) {
+                        if (event.action == KeyEvent.ACTION_UP) entryKey = null
+                        return true
+                    }
+                    val entering = !enteredContent && event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0 &&
+                        event.hasNoModifiers() && event.keyCode in setOf(KeyEvent.KEYCODE_TAB, KeyEvent.KEYCODE_DPAD_DOWN)
+                    if (entering && enterContent()) {
+                        enteredContent = true
+                        entryKey = event.keyCode
+                        return true
+                    }
+                    return previous.dispatchKeyEvent(event)
+                }
                 when (event.action) {
                     KeyEvent.ACTION_DOWN -> if (event.repeatCount == 0) tracking = true
                     KeyEvent.ACTION_UP -> {
@@ -55,7 +71,7 @@ internal fun DismissDialogOnEscape(onDismiss: () -> Unit) {
                 return true
             }
             override fun onWindowFocusChanged(hasFocus: Boolean) {
-                if (!hasFocus) tracking = false
+                if (!hasFocus) { tracking = false; entryKey = null }
                 previous.onWindowFocusChanged(hasFocus)
             }
         }

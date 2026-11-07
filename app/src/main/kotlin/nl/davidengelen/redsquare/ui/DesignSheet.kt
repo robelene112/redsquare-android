@@ -1,6 +1,10 @@
 package nl.davidengelen.redsquare.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.focusGroup
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -14,7 +18,8 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit,
-    content: @Composable ColumnScope.() -> Unit) {
+    content: @Composable ColumnScope.(Modifier) -> Unit) {
+    val firstAction = remember { FocusRequester() }
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var mounted by remember { mutableStateOf(false) }
     LaunchedEffect(expanded) {
@@ -26,12 +31,12 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
     }
     if (mounted) ModalBottomSheet(onDismissRequest = onDismiss, sheetState = state,
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
-        DismissDialogOnEscape(onDismiss)
-        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
+        SheetKeyboardWindow(onDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
+        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).focusGroup()
             .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(title, Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
-            content()
+            content(Modifier.focusRequester(firstAction))
         }
     }
 }

@@ -88,9 +88,10 @@ private fun PostMoreActions(post: FeedPost, author: String, timestamp: String, r
                 .semantics { contentDescription = menuLabel }) {
                 Icon(painterResource(R.drawable.ic_more), contentDescription = null)
             }
-            DesignSheet(expanded, menuLabel, { expanded = false }) {
+            DesignSheet(expanded, menuLabel, { expanded = false }) { firstAction ->
                 AccountActionRow(stringResource(R.string.post_public_identity), R.drawable.ic_profile,
-                    enabled = expanded, onClick = { if (expanded) { expanded = false; identity = true } })
+                    enabled = expanded, modifier = firstAction,
+                    onClick = { if (expanded) { expanded = false; identity = true } })
                 if (authorActions?.owner == post.author) {
                     val editLabel = stringResource(R.string.post_edit_for, author)
                     val deleteLabel = stringResource(R.string.post_delete_for, author)

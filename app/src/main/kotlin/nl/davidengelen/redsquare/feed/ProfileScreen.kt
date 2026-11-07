@@ -284,11 +284,11 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     }
     // This dialog stays composed while a mute/block confirmation is open.
     // Selecting a confirmation must never dispose the state that owns it.
-    DesignSheet(actionsOpen, stringResource(R.string.profile_actions), { actionsOpen = false }) {
+    DesignSheet(actionsOpen, stringResource(R.string.profile_actions), { actionsOpen = false }) { firstAction ->
         Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
             ProfileActionSection(stringResource(R.string.profile_actions_identity_section)) {
                 TextButton(enabled = actionsOpen, onClick = { if (actionsOpen) { actionsOpen = false; identityOpen = true } },
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
+                    modifier = firstAction.fillMaxWidth().heightIn(min = 56.dp)) {
                     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(stringResource(R.string.post_public_identity), style = MaterialTheme.typography.bodyLarge)
                         Text(stringResource(R.string.profile_actions_identity_detail),
