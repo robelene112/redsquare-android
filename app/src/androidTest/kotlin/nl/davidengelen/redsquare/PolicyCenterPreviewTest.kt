@@ -143,11 +143,9 @@ class PolicyCenterPreviewTest {
                     // The underlying Account control can remain in the semantics tree
                     // while this full-screen dialog is still open.
                     ui.onNodeWithText("Done").assertIsDisplayed().assertIsEnabled().performClick()
-                    ui.waitUntil(20_000) {
-                        ui.onAllNodes(hasText("Back to Settings") and hasAnyAncestor(isDialog()))
-                            .fetchSemanticsNodes().isEmpty() &&
-                            ui.onNode(hasContentDescription("Account") and hasClickAction() and isEnabled()).isDisplayed()
-                    }
+                    ui.onNode(hasText("Back to Settings") and hasAnyAncestor(isDialog())).assertDoesNotExist()
+                    ui.onNode(hasContentDescription("Account") and hasClickAction())
+                        .assertIsDisplayed().assertIsEnabled()
                     NativeTalkBackObservation(talkBackFolder).observe {
                         device.waitForIdle(5_000)
                         ui.waitForAccountMenu(20_000)
