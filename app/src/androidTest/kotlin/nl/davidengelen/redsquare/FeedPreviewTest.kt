@@ -126,7 +126,8 @@ class FeedPreviewTest {
                 captureFailure {
                     ui.waitUntil(15_000) {
                         peer.requests.get() > 0 &&
-                            ui.onNode(hasTestTag("feed-post-list")).isDisplayed()
+                            ui.onNode(hasTestTag("feed-post-list")).isDisplayed() &&
+                            ui.onAllNodesWithText("Native Red Square reference post").fetchSemanticsNodes().isNotEmpty()
                     }
                     peer.assertHealthy()
                     ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
