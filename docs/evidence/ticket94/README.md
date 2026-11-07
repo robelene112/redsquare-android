@@ -1,20 +1,19 @@
 # Unified redesign release verification (#94)
 
-## Reopened prototype repair: fresh candidate required, acceptance pending
+## Reopened prototype repair: beta95 staged, acceptance pending
 
-Beta89 remains latest. Historical signed93 update/isolation and445-path4eae→4cc
-producer equivalence are preserved in [artifact93](artifact93) and the
-[original receipt](candidate93-producer-equivalence.json). They do not cover the
-subsequent wallet-feedback and native Escape corrections. Do not promote93/94.
-A fresh95+ candidate and actual signed continuity proofs remain required.
+Beta89 remains latest. Signed95 is staged from producerd2afd32, SHA256
+`f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b`.
+Actual public candidate download matches. Update/isolation10/17 runs42398721945 /
+42398723901 are pending. Do not promote obsolete93/94 or reuse their acceptance.
 
-Complete7d workflows42393108712/42393108364 FAIL and remain historical. Current
-repair includes subsequent first-Tab routing and truthful numeric-layout semantics.
-Temporary bounded diagnostics are active; no final source or candidate is accepted.
-Current handoff records exact sources, native failures, targeted passes and remaining
-work. Frozen catalog/checker/tool pins are unchanged. Fresh complete collectors,
-probe-free whole-app native review and exact-candidate publication are still pending.
-No focused or mixed-source collection is counted as a complete gate.
+Implementation aab35b7 includes probe-free keyboard handling, visible wallet feedback,
+genuine count layouts and bounded native fixture observation corrections. Both source
+review axes report no unresolved findings. Current context/handoff record actual
+passes, original failures and pending runs. Fresh complete same-source gates, frozen
+collectors, native visual/motion reviews and exact95 publication remain required.
+Focused or mixed-source results do not replace a complete final-source pass.
+Historical93 producer/update receipts remain valid only within their stated scope.
 
 ## Historical delivery: beta89 on November6,2026
 

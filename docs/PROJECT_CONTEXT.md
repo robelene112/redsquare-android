@@ -1,94 +1,53 @@
 # Project context
 
-## Current owner feedback, November 7, 2026: prototype fidelity rejected
+## Current owner feedback, November 7, 2026: prototype fidelity repair
 
-Owner authorized completing issue94's prototype-fidelity repair. Root is sole
-implementation writer in `/mnt/storage/redsquare-android-artifacts/redesign86`;
-preserve canonical Chat WIP. Beta89 remains latest. Do not claim delivery,
-promote obsolete93/94 or start another issue. No production-node mutations.
+Issue94 remains active. Root is the sole implementation writer in
+`/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
+Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
-CurrentHEAD before this documentation:63c126639. Current normal UI includes
-wallet feedbackb1, native Escape7d, first-keyboard-action routing3e029 and genuine
-count-layout semanticsb88. TWO TEMPORARY PROBES MUST BE REMOVED before final build:
-`DEBUG-94-policy-focus` in PolicyCenterPreviewTest (timing JSON only), and
-`DEBUG-94-sheet-entry` in DesignSheet + failure-log read in ModuleMenuKeyboardMotionTest.
-The latter logs only menu-entry input mode/granted boolean in DEBUG, never typed
-input. No current final-source/full acceptance. No local builder active.
+Current implementation is `aab35b7f9b8311d69f105d29379bd60da8bea473`.
+The prototype repair includes profile composition/chips, actual native action sheets,
+compact post controls and Chat composers, balance-first wallet with visible operation
+feedback, accessible numeric counts and keyboard navigation in the actual sheet window.
+All temporary policy/sheet probes have been removed. Both source-review axes have
+zero unresolved actionable findings through this implementation revision.
 
-Actual new failures, repairs and pending targeted runs:
-- Full7d10/17 runs42393108712/42393108364 all FAIL. Exact raw roots
-  `/mnt/storage/redsquare-android-artifacts/prototype94-full7d-{10,17}` (some failed
-  Chat17/Social17 originals may still need downloading). Do not combine partitions.
-- First Tab in Material sheet focuses its48dp drag handle, not an action. Native
-  XML proves that. Escape now works on bothSDKs (ModuleHeaderMotionTestPASS1 each),
-  but ModuleMenuKeyboardMotionTest failsfirstTab. Production3e029 attaches a
-  remembered requester to actual first eligible rows in all4sheets; contentfocusGroup
-  retains the native handle and no opening/touch/TalkBack focus is requested. The
-  sheet-window callback handles only first unmodifiedTab/DpadDowninitialDown,
-  consumes matchingUp/repeats only on success; later/modifiedkeys delegate.
-  Actual3c1 runs42394690200/42394690800 still failfirstTab. Need probe result:
-  source153 module10/17 runs42395939405/42395939556 pending, logs in failure text
-  show `DEBUG94SheetEntry mode=...;granted=...`. Likely inputmode/initial focus
-  ordering remains, do not guess or weaken first-row/directional assertions.
-- AppFrame reading comparison was confounded by collapsed vs expanded chrome.
-  Correction:176→252 was mergedCARD vs unmergedBODY offset76, NOT proof of timing
-  drift. Nativepost04 stays424 in both captures, body05stays252 but is clipped by
-  expanded viewport264. Test now uses unmergedBODY consistently before/after,
-  initializes expandedChrome+Backup and centers body via actual UI before departure,
-  then refreshednative/Compose geometry must agree and fullnode dimensions fit.
-  Shared15s setup/200ms stability, original1pxreturn/recreation/outage/pull checks
-  remain. NO reposition afterdeparture.10PASS42394940682;17failedONLYdiagnostic
-  remainingSetup() call atJSONwrite afterbaseline hadpassed. Source153 records
-  diagnostic time without a new readiness assertion. Current10PASS42395939372,
-  17run42395939348 pending. Need both native outcomes and remove no real assertion.
-- Wallet operation statuses pinned outside scroll abovefooter, with tone retained
-  through exit. Actualerror-visible red full4cc10 now export10/17 green42392627216/
-  42392627041, raw `prototype94-wallet-feedback{10,17}`. Two remaining fixtures
-  tried scrolling pinned feedback: WalletImportPreviewTest85 andProfileEdit433.
-  Source05 removes ONLYthose scroll calls, keeps display/identity/save assertions.
-  Focusedimport10/17 runs42395509902/42395509978 (17PASS, check10status).
-- Avatar three-source cache test sampled only7px of thirdpicture. One real drag
-  collapsesheader at rest; allTHREE fulltargets must fit sameviewport beforeoriginal
-  pixels/rechecks/3signed>720KB/heap/timeouts. BothSDKPASS42392627246/42392627264,
-  originals `prototype94-avatars-reading{10,17}`. No individual row scrolling.
-- Full7dSocial reached genuine count-layout assertion. clearAndSetSemantics full
-  plural label hid GetTextLayoutResult. Sourceb88 exports the actual onTextLayout
-  result only for matching current numeric paint, retains exact fullpluralA11y.
-  Test verifies actual rendered digits+all glyphs independently of full label,
-  preserving hugecounts/overflow/ellipsis/fonts/targets/identity; receipt has both.
- 10PASS42395629907,17run42395629772 pending. Android pinnedCompose1.11.4 official
-  source checks actual layout length before character boxes (null for nonvisible
-  semantic suffix); independentSpec review found no out-of-range risk/rearchitecture.
-- Full7d10Policy shared5s sometimes exhausts after actual initialBackfocus/speech.
-  Stageprobe10PASS42395509981: handoff4097ms, collection4100, logclear4107,
-  focusrequest4108. Traversal/logclear NOT the bottleneck now.17probePASS42395509939.
-  NativeTalkBackObservation.completedFragments was reading TWOdifferent PID logs:
-  callbacks from older snapshot and fragments from newer. Source63 now parses
-  BOTH from ONE snapshot, all originalSTART/AUDIO/DONE/positivebytes/noERROR/STOP/
-  PID/focus5s assertions unchanged. Current policy10/17 runs42396275067/42396275092
-  pending. Probes retained until this diagnosis is verified, then REMOVE them.
+Native results and limits:
+- AppFrame reading/return/recreation/outage checks pass on both SDKs:
+  42395939372 / 42395939348. The fixture consistently compares unmerged body geometry;
+  no positioning is performed after departure from the initial reading baseline.
+- Genuine numeric layout, full accessibility labels and large-count rendering pass:
+  42395629907 / 42395629772. Import checks pass42395509902 / 42395509978.
+- Probe-free Settings/TalkBack checks pass42397470220 / 42397470081, retaining the
+  original five-second focus/speech boundary and actual engine completions. Fragment
+  IDs and engine callbacks now come from one PID-filtered log snapshot.
+- Module-menu runs42397182544 / 42397182718 fail at immediate foreground lookup
+  after Escape. The17 zero-motion cycle already passed Tab, directional movement
+  and Escape. Source d2afd32 waits for actual foreground ownership within the same
+  five-second bounds; new focused runs42398298060 / 42398307515 are pending.
+- Broad UI runs42397182668 / 42397183073 fail at profile status capture after the
+  fixture scrolls to the generated avatar. Native PNG/XML confirms status is offscreen.
+  Source aab35b7 reveals each actual status before its native capture, retaining all
+  signed-default, transaction, retry, identity and backend assertions. Native rerun pending.
+- Complete ca93566de runs42397470230 / 42397469795 are still running. They predate
+  the two final fixture corrections and cannot establish final-source acceptance.
+  Earlier failed full runs and bounded source-specific passes remain historical.
 
-Signed93 is historical STAGED, producer4eae, hash931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72.
-Its actual83→93 update/isolation PASS42388351996/42388351928 and original445-path
-4eae→4cc equivalence remain valid ONLYin their historical scope, retainedunder94.
-Signed94 built b1 (Gradle3m28/manifestready, outerexec143) is OBSOLETE, NOTSTAGED.
-Do not overwrite versions. Fresh95+ needs probe-free actual producer, all complete
-same-source10/17/frozen collectors, current native/motion reviews, actual signed
-update/isolation onbothSDKs, then exact promotion with immutable notes. Existing
-notes are in `docs/evidence/ticket94/artifact93/staged-manifest.json`; choose95notes
-oncebeforestaging and reuse exactlyforpromotion. Do not reuse93's acceptance.
+Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable tag
+`proof-prototype95-d2afd32`. Build succeeded in3m34. APK SHA256 is
+`f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b`;
+certificate remains `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
+It is staged, not promoted, and the actual public candidate download hash matches.
+Actual signed83-to95 update/isolation runs42398721945 / 42398723901 are pending.
+Exact staged notes must be reused for promotion. Obsolete93/94 must not be promoted.
 
-Earlier bounded passes: profile4cc7methods/SDK42390800414/42390800513 and focused
-profile-only20PNG/XMLvisualreview zero; firstuse200%123→223px42384551466; header
-post-scroll48dp42384549365; refresh applied-results/reading42387892609; node
-at-restexactanchorandbyte-identicalpre/postframes42388559625; media128dp/realpixels/
-normal-zero42390665139. All are historical source-specific evidence, not fresh
-whole-app acceptance. Current source review axes have cleared every reviewed delta
-through ebd and accepted single-snapshot protocol proposal; b88 UI source concern
-was separately cleared. Final current-source review still required.
-
-Parents1/36/55/84/86, physicalPixel/provider/KVK/Play and actualStackintegration
-remain independent. Frozen catalog/checker/tool pins unchanged. Retain failures.
+Remaining: native fixture reruns, complete same-source Android10/17 gates and frozen
+collectors, actual current native screenshot/prototype and normal/zero-motion review
+on both axes, producer-input equivalence, signed95 continuity and exact promotion.
+No focused/mixed-source assembly counts as a full pass. Keep catalog/checker/tool
+pins unchanged and failures inspectable. Parents1/36/55/84/86, physical Pixel,
+provider/KVK/Play acceptance and actual Stack integration remain independent.
 
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be
