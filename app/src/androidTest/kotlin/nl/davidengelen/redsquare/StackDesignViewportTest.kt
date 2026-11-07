@@ -36,8 +36,12 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             waitUntil(5_000) { onNodeWithContentDescription("Switch app: $next").isDisplayed() }
         }
         fun reveal(text: String) {
-            onNodeWithTag("stack-content").performScrollToNode(hasText(text, substring = text in listOf("visual finish", "A newer Markdown revision.")))
-            onNodeWithText(text, substring = text in listOf("visual finish", "A newer Markdown revision.")).assertIsDisplayed()
+            val target = hasText(text, substring = text in listOf("visual finish", "A newer Markdown revision."))
+            // Persistent forms already expose their descendants; virtualised reading
+            // lists first need to reveal the requested item through their public scroll action.
+            if (onAllNodes(target).fetchSemanticsNodes().isEmpty())
+                onNodeWithTag("stack-content").performScrollToNode(target)
+            onNode(target).performScrollTo().assertIsDisplayed()
         }
         fun click(text: String) { reveal(text); onNodeWithText(text).performClick() }
         fun capture(label: String) { waitForIdle(); captureNativeScreen(File(folder, "$label.png")) }
