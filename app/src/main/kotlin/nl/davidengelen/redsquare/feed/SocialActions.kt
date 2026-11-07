@@ -65,7 +65,7 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, 
             if (onReply != null) {
                 val replies = remember(post.envelope) { servedCount(post, "num_replies") }
                 val replyCount = replies?.let { pluralStringResource(R.plurals.social_reply_count, if (it == 1L) 1 else 2, it) }
-                SocialControl(stringResource(R.string.post_reply), R.drawable.ic_chat, stringResource(R.string.post_reply_to, author),
+                SocialControl("", R.drawable.ic_chat, stringResource(R.string.post_reply_for, author),
                     replyCount, enabled = true, displayCount = replies?.toString(), onClick = onReply)
             }
             SocialAction(post, state, RedSquareActionKind.REPOST, author)
