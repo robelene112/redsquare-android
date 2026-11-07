@@ -37,7 +37,7 @@ class ModuleHeaderMotionTest {
             check(condition()) { message }
         }
         fun swipe(up: Boolean) {
-            val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
+            val list = nativeVerticalScrollBounds()
             check(list.height() >= 100)
             val upper = list.top + list.height() / 5
             val lower = list.bottom - list.height() / 5

@@ -101,7 +101,7 @@ class NodeBlockMotionTest {
                             "{\"left\":${doneBounds.left},\"top\":${doneBounds.top},\"right\":${doneBounds.right},\"bottom\":${doneBounds.bottom}}")
                         tap(doneBounds)
                         check(device.wait(Until.gone(By.text("Connection details")), 3_000))
-                        val list = requireNotNull(device.findObject(By.scrollable(true))).visibleBounds
+                        val list = nativeVerticalScrollBounds()
                         check(device.swipe(list.centerX(), list.bottom - list.height() / 5,
                             list.centerX(), list.top + list.height() / 5, 16))
                         val hiddenDeadline = SystemClock.elapsedRealtime() + 3_000
@@ -129,7 +129,39 @@ class NodeBlockMotionTest {
                             addProperty("settledAfterMillis", SystemClock.elapsedRealtime() - advanceStarted.get())
                         }.toString())
                         // Observe the real delayed response interval, with no new input or test clock.
-                        SystemClock.sleep(4_500)
+                        val observationEnd = SystemClock.elapsedRealtime() + 4_500
+                        val observations = com.google.gson.JsonArray()
+                        var previousObservation: String? = null
+                        try {
+                            while (SystemClock.elapsedRealtime() < observationEnd) {
+                                val current = readingAnchor()
+                                val observation = com.google.gson.JsonObject().apply {
+                                    addProperty("anchor", current.first)
+                                    addProperty("anchorBounds", current.second.toShortString())
+                                    addProperty("viewportBounds", runCatching { nativeVerticalScrollBounds().toShortString() }.getOrNull())
+                                    val visible = com.google.gson.JsonArray()
+                                    nativeWindowNodes().forEach { item ->
+                                        val text = item.text?.toString().orEmpty()
+                                        if (item.isVisibleToUser && text.startsWith("Reference post ")) visible.add(com.google.gson.JsonObject().apply {
+                                            addProperty("text", text)
+                                            addProperty("bounds", Rect().apply { item.getBoundsInScreen(this) }.toShortString())
+                                        })
+                                    }
+                                    add("visibleRows", visible)
+                                }
+                                val signature = observation.toString()
+                                if (signature != previousObservation && observations.size() < 120) {
+                                    observation.addProperty("sinceAdvanceMillis", SystemClock.elapsedRealtime() - advanceStarted.get())
+                                    observations.add(observation); previousObservation = signature
+                                }
+                                SystemClock.sleep(minOf(50L, (observationEnd - SystemClock.elapsedRealtime()).coerceAtLeast(0)))
+                            }
+                        } finally {
+                            File(folder, "scale-$scale-arrival-observations.json").writeText(com.google.gson.JsonObject().apply {
+                                addProperty("nonAtomicObservations", true)
+                                add("observations", observations)
+                            }.toString())
+                        }
                         assertFalse("A new block must not reveal a collapsed header", headerVisible())
                         assertEquals("Block arrival preserves the exact visible reading anchor", anchor, readingAnchor())
                         captureNativeScreen(File(folder, "scale-$scale-block-arrived-collapsed.png"))
