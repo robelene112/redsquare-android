@@ -5,7 +5,9 @@
 Beta89 remains latest. Signed95 is staged from producerd2afd32, SHA256
 `f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b`.
 Actual public candidate download matches. Update/isolation10/17 runs42398721945 /
-42398723901 are pending. Do not promote obsolete93/94 or reuse their acceptance.
+42398723901 both PASS, with independently verified original captures, retained local
+work/identity and package isolation. Receipts in `update95-android10` / `update95-android17`.
+Do not promote obsolete93/94 or reuse their acceptance.
 
 Implementation aab35b7 includes probe-free keyboard handling, visible wallet feedback,
 genuine count layouts and bounded native fixture observation corrections. Both source

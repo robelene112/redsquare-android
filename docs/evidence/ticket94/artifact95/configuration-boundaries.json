@@ -1,0 +1,18 @@
+{
+  "actualProducer": "d2afd32d27b9738ba0be7d05e3381c6ad4328116",
+  "signedOrdinaryVersion": 95,
+  "variant": "release",
+  "generatedReleaseFlags": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "fullExecutionSource": "022e34b50d59b9e3234f428dc687863c25cb1b60",
+  "fullGateVariants": [
+    "debug",
+    "release",
+    "performance"
+  ],
+  "fullGateDefaultVersionCode": 1,
+  "note": "Actual signed83-to95 update/isolation proofs pass separately on both SDKs. Full gates use their declared default build configuration and remain pending. No physical Pixel/provider acceptance is claimed."
+}

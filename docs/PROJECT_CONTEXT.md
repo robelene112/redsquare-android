@@ -43,12 +43,15 @@ Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable 
 `f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b`;
 certificate remains `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
 It is staged, not promoted, and the actual public candidate download hash matches.
-Actual signed83-to95 update/isolation runs42398721945 / 42398723901 are pending.
+Actual signed83-to95 update/isolation runs42398721945 / 42398723901 both PASS.
+Independent review verifies retained wallet/drafts/cache/preferences, package isolation,
+actual original captures and successful cleanup. Receipts: `docs/evidence/ticket94/update95-android{10,17}`.
 Exact staged notes must be reused for promotion. Obsolete93/94 must not be promoted.
 
 Remaining: native fixture reruns, complete same-source Android10/17 gates and frozen
 collectors, actual current native screenshot/prototype and normal/zero-motion review
-on both axes, producer-input equivalence, signed95 continuity and exact promotion.
+on both axes and exact promotion. Producer-input equivalence and actual signed95
+continuity are independently verified; they do not replace final native acceptance.
 All445 audited producer-superset inputs equal d2afd32→022e34b50, canonicalSHA256
 `a0cb4e5c9e8bacb6e9ba11733cc6b226c4307c0e784186c22268c0f5ff870670`.
 This is tracked-input equality only, independent of actual artifact/update checks.
