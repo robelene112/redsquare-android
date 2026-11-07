@@ -192,7 +192,7 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 Icon(painterResource(icon), contentDescription = null,
                     tint = if (feedbackActive) MaterialTheme.colorScheme.primary else color,
-                    modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
+                    modifier = Modifier.size(22.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
                 if (count != null) Text(displayCount ?: count, style = countStyle,
                     modifier = Modifier.clearAndSetSemantics { text = AnnotatedString(count) })
             }

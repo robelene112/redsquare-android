@@ -331,7 +331,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
             Text(stringResource(R.string.navigation_activity), Modifier.weight(1f).semantics { heading() },
-                style = MaterialTheme.typography.titleLarge)
+                style = MaterialTheme.typography.headlineSmall)
             FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.feed_refresh),
                 enabled = wallet != null && !loading && !markingRead) {
                 if (!loading && !markingRead) { backgroundRead = false; pending = emptyMap(); pagingWarning = false; refresh++ }

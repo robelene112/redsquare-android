@@ -25,6 +25,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.text
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextOverflow
@@ -356,7 +357,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back),
                 enabled = !busy && !savingForNavigation && !navigation.transitioning, onClick = { back() })
             Column(Modifier.weight(1f)) {
-                Text(entry?.group?.name ?: stringResource(R.string.group_title), style=MaterialTheme.typography.titleMedium,
+                Text(entry?.group?.name ?: stringResource(R.string.group_title), style=MaterialTheme.typography.headlineSmall,
                     maxLines=1,overflow=TextOverflow.Ellipsis)
                 if (entry != null) Text(stringResource(R.string.chat_unencrypted),style=MaterialTheme.typography.labelSmall,
                     maxLines=1,color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -625,8 +626,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                     Row(verticalAlignment=Alignment.CenterVertically){
                                         attachments()
                                         OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f).then(editorModifier),
-                                            label={Text(stringResource(R.string.chat_message),maxLines=1,overflow=TextOverflow.Ellipsis)},enabled=editable,maxLines=4)
-                                        Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
+                                            label={Text(stringResource(R.string.chat_message),maxLines=1,overflow=TextOverflow.Ellipsis)},enabled=editable,maxLines=4,
+                                            shape=androidx.compose.foundation.shape.RoundedCornerShape(24.dp))
+                                        val sendLabel=stringResource(R.string.chat_send)
+                                        IconButton(modifier=Modifier.semantics { this.text=androidx.compose.ui.text.AnnotatedString(sendLabel) },
+                                            enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
                                             focus.clearFocus()
                                             keyboard?.hide()
                                             act {
@@ -649,7 +653,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                                 withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
                                                 publish{store.entries()}
                                             }
-                                        }){Text(stringResource(R.string.chat_send))}
+                                        }){Icon(painterResource(R.drawable.ic_send),null)}
                                     }
                                 })
                         }

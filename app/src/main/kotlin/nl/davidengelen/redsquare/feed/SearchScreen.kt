@@ -340,7 +340,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 Icon(painterResource(R.drawable.ic_back), stringResource(R.string.browse_back))
             }
             Column(Modifier.weight(1f)) {
-                Text(stringResource(R.string.search_title), style = MaterialTheme.typography.titleLarge,
+                Text(stringResource(R.string.search_title), style = MaterialTheme.typography.headlineSmall,
                     maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Text(stringResource(R.string.search_available_history), style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)

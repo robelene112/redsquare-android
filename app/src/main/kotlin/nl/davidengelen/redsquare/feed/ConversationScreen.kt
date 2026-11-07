@@ -161,7 +161,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).semantics { heading() },
-                style = MaterialTheme.typography.titleLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                style = MaterialTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
             FrameIconButton(R.drawable.ic_chat, stringResource(R.string.post_reply),
                 enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true })
             FrameIconButton(R.drawable.ic_info, stringResource(R.string.conversation_information),

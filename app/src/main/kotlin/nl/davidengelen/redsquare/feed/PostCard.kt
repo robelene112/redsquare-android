@@ -52,7 +52,7 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
     val threadLabel = stringResource(R.string.post_thread_for, author)
     Column(Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = threadLabel) { onPost(post) }
         .testTag(cardTag)
-        .padding(vertical = AppSpacing.gap)) {
+        .padding(vertical = AppSpacing.gap), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Row(Modifier.weight(1f).heightIn(min = 48.dp)
                 .clickable(role = Role.Button, onClickLabel = profileLabel) { onIdentity(post.author) }
@@ -68,7 +68,7 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
             PostMoreActions(post, author, timestamp, social?.reports, authorActions)
         }
         PostContent(post, backend, bodyTextStyle ?: MaterialTheme.typography.bodyLarge,
-            bodyVerticalPadding ?: AppSpacing.small)
+            bodyVerticalPadding ?: 0.dp)
         QuoteContent(post, quotes, backend)
         SocialActions(post, social, author, onQuote, onReply = { onPost(post) })
     }

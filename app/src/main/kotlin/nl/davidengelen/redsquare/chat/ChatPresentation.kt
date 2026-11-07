@@ -78,7 +78,7 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
                     actions?.invoke()
                 }
                 messageContent()
-                time(Modifier)
+                time(Modifier.align(Alignment.End))
             } else if (media) {
                 // Keep images and their attribution at the complete bubble width.
                 messageContent()
@@ -90,7 +90,7 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
                 Row(verticalAlignment = Alignment.Top) {
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         messageContent()
-                        time(Modifier)
+                        time(Modifier.align(Alignment.End))
                     }
                     actions?.invoke()
                 }
