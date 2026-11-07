@@ -19,6 +19,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.saito.ImportBalance
+import nl.davidengelen.redsquare.ui.DesignButton
 import nl.davidengelen.redsquare.ui.AccountCard
 import nl.davidengelen.redsquare.ui.AccountActionRow
 import nl.davidengelen.redsquare.ui.InlineStatus
@@ -67,13 +68,13 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                             val receiveLabel = stringResource(R.string.wallet_balance_receive)
                             val sendLabel = stringResource(R.string.transfer_send)
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                Button(modifier = Modifier.weight(1f),
+                                DesignButton(modifier = Modifier.weight(1f),
                                     enabled = address != null && !walletExport.busy && !walletImport.busy,
                                     onClick = { onOpen(WalletDestination.RECEIVE) }) {
                                     Text(stringResource(R.string.wallet_receive_action),
                                         Modifier.clearAndSetSemantics { text = AnnotatedString(receiveLabel) })
                                 }
-                                OutlinedButton(modifier = Modifier.weight(1f),
+                                DesignButton(outlined = true, modifier = Modifier.weight(1f),
                                     enabled = address != null && backend != null && !walletExport.busy && !walletImport.busy,
                                     onClick = { onOpen(WalletDestination.SEND) }) {
                                     Text(stringResource(R.string.wallet_send_action),

@@ -35,6 +35,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
+import nl.davidengelen.redsquare.ui.DesignButton
 import nl.davidengelen.redsquare.ui.DesignSheet
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
@@ -217,7 +218,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     var identityOpen by rememberSaveable(author) { mutableStateOf(false) }
     val own = wallet?.publicKey == author
     val follow: @Composable (Boolean) -> Unit = { interactive ->
-        OutlinedButton(enabled = interactive && following?.ready == true && !following.saving,
+        DesignButton(outlined = true, enabled = interactive && following?.ready == true && !following.saving,
             onClick = { following?.toggle(author) }) {
             Text(stringResource(if (author in following?.accounts.orEmpty()) R.string.unfollow_account else R.string.follow_account))
         }
@@ -236,7 +237,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty(), profile),
                         onDetails = { identityOpen = true }) {
-                        if (own) OutlinedButton(onClick = { view.editing = true }) {
+                        if (own) DesignButton(outlined = true, onClick = { view.editing = true }) {
                             Text(stringResource(R.string.profile_edit))
                         } else follow(true)
                     }
