@@ -1,5 +1,23 @@
 # Implementation handoff
 
+## Current owner feedback, November 7, 2026: prototype fidelity rejected
+
+The owner reports that published beta89 does not resemble the approved native
+prototype. Issue94 is reopened for design integration; the redesign must not be
+called visually complete. Existing functional/update/publication evidence remains
+valid within its recorded scope, but the prior zero-finding native reviews did
+not adequately establish prototype-to-beta visual correspondence.
+
+Read the reference on `prototype/native-shell-live-design`, particularly
+`shell-ui/.../Blocks.kt` and `prototype/native-shell/design.json`. Compare actual
+screens directly at matching viewport, theme, font scale and equivalent content.
+Confirmed profile differences include the cover/avatar composition, an additional
+public-key/Identity details row and underlined full-width tabs instead of rounded
+prototype chips. Preserve later agreed module-selector changes and real identity,
+available data and wallet safeguards. Sample names, artwork and follower totals
+must not be copied as live data. Beta89 remains published; this feedback update
+changes no app code, tests, APK, node or deployment. Issue55 remains open.
+
 ## Completed: unified redesign beta89 delivered on November6,2026
 
 The five authorized tickets90/93/81/83/94 are implemented, verified and delivered.
