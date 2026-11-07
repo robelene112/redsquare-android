@@ -251,6 +251,7 @@ class ProfileNewEditPreviewTest {
                         assertGeneratedDefaults()
                         ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsNotEnabled()
                         assertEquals(1, peer.transactions.size); peer.assertHealthy()
+                        ui.onNodeWithText(status).performScrollTo().assertIsDisplayed()
                         capture("profile-pending-preview-mounted.png", status)
                     }
                 }
@@ -264,12 +265,14 @@ class ProfileNewEditPreviewTest {
                             SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsNotEnabled()
                         assertEquals(1, peer.transactions.size)
                         assertGeneratedDefaults()
+                        ui.onNodeWithText(status).performScrollTo().assertIsDisplayed()
                         capture("profile-pending-preview-cold.png", status)
                         confirm.set(true)
                         ui.onNodeWithText("Retry profile").performClick()
                         waitFor("Profile available on this node.")
                         assertGeneratedDefaults()
                         assertEquals(1, peer.transactions.size); peer.assertHealthy()
+                        ui.onNodeWithText("Profile available on this node.").performScrollTo().assertIsDisplayed()
                         capture("profile-pending-preview-available.png", "Profile available on this node.")
                         assertEquals(owner, walletStore.loadExisting().publicKey)
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
