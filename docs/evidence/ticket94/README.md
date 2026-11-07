@@ -2,6 +2,16 @@
 
 ## Reopened prototype repair: beta95 staged, acceptance pending
 
+Current candidate96 is staged from source/producerf68613a41, SHA256
+`3e9a7412a548e5461dd3d57ce52c5f12ba7829007945d4cca222137f25592081`.
+Build3m36, actual public download matches38,992,531 bytes. Actual update/isolation
+42404612618/42404614774 BOTH PASS. Native wallet-design passes on both SDKs;
+wallet-inputBOTH PASS42404073848/42404076838 and wallet-designBOTH PASS
+42404068519/42404071172. Full actualsource/producerf68613a runs42405076092 /
+42405078203 are now running with all partitions/public reads. Final outcomes, collectors,
+actual native/prototype/motion reviews and promotion remain pending. Keep implementation
+HEADf68613a frozen until final same-source dispatch; do not count older partial runs.
+
 Beta89 remains latest. Signed95 is now OBSOLETE and must not be promoted: subsequent
 production work restores actual shared header/Back hierarchy in Wallet/Settings
 overviews. Source reviews are clear; old-source dialog-scoped regression42401608093

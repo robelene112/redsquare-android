@@ -6,6 +6,41 @@ Issue94 remains active. Root is the sole implementation writer in
 `/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
 Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
+CURRENT FROZEN IMPLEMENTATION / SIGNED PRODUCER:
+`f68613a41e3889de841611bf93ba93011ec6957f`, tag `proof-prototype96-f68613a`.
+Beta96 built successfully in3m36 and is staged, NOT promoted. Actual public download
+matches SHA256 `3e9a7412a548e5461dd3d57ce52c5f12ba7829007945d4cca222137f25592081`
+and38,992,531 bytes; the established certificate is unchanged. Actual signed83-to96
+update/isolation runs42404612618 / 42404614774 BOTH PASS on its immutable tag.
+Actual original receipts/captures are retained in `update96-android10` / `update96-android17`;
+independent continuity review is pending, separate from source/configuration provenance.
+Build/stage/download receipts are under `docs/evidence/ticket94/artifact96`.
+Independent Standards provenance review verifies actual downloaded package/signature/
+version/flags and exact receipt copies; no acceptance claim. Source and tracker delivery
+are NOT complete.
+
+Final targeted native wave on this exact source:
+- wallet-design10/17:42404068519 / 42404071172 BOTH PASS;
+- wallet-input10/17:42404073848 / 42404076838 BOTH PASS.
+The actual import-entry regression efd1575 run42403107435 fails Active wallet visibility
+BEFORE helper scrolling. Its one-time entry guard, correct review-stage reset,
+Settings row reveal within original10s and unique native Wallet readiness marker
+are source-cleared on both axes. No new class/method IDs, catalog or tool pins changed.
+
+All final targeted gates passed before complete dispatch. Full-source96 runs
+42405076092 / 42405078203 are NOW RUNNING, all three partitions/public reads,
+actual source/workflow/metadata HEADf68613a. Actual signed96 producer == intended
+complete consumer: no tracked-input equivalence exception is needed. New evidence/
+doc-only commits may now follow; do not change implementation or count these runs
+as passed before their actual outcomes and frozen collectors. Old022 complete runs
+42398900323 / 42398902216 finished Chat+WalletPASS, SocialFAIL at obsolete Quote
+descendant selector; historical diagnostic results only, never final acceptance. If code changes become necessary, fix
+properly and record the new source/artifact relationship rather than hiding failures.
+Then require fresh frozen collectors, both actual final native/prototype/motion review
+axes, signed96 continuity and exact staged96 promotion. Reuse EXACT artifact96 staged
+notes. No current final-source/full acceptance; latest89 and obsolete93/94/95 unchanged.
+Local signed builder has finished. No production-node change or canonical-WIP mutation.
+
 Current integration49f6330e0 is source-reviewed, with native module-shell and
 policies BOTH SDK PASS42402732693/42402734699 and42402736958/42402738809.
 Wallet-input49 BOTH PASS42402728586/42402730695. Wallet-design49 BOTH fail the

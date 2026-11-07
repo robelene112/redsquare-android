@@ -1,0 +1,18 @@
+{
+  "actualProducer": "f68613a41e3889de841611bf93ba93011ec6957f",
+  "signedOrdinaryVersion": 96,
+  "variant": "release",
+  "generatedReleaseFlags": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "fullExecutionSource": "f68613a41e3889de841611bf93ba93011ec6957f",
+  "fullGateVariants": [
+    "debug",
+    "release",
+    "performance"
+  ],
+  "fullGateDefaultVersionCode": 1,
+  "note": "Actual signed83-to96 update/isolation proofs pass separately on both SDKs. Complete gates use the exact same source with their declared default build configuration; their outcomes remain pending. No debug/release binary equality, physical Pixel or provider acceptance is claimed."
+}
