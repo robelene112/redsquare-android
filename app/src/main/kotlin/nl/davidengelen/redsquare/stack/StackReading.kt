@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -127,9 +127,27 @@ internal fun LazyListScope.articleContent(index: Int, access: Boolean, followed:
                 DesignButton(onAccess, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_access_options)) }
             }
         }
-    } else item {
+    } else item { StackArticleActions() }
+}
+
+@Composable
+private fun StackArticleActions() {
+    var discussion by remember { mutableStateOf<Boolean?>(null) }
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        StackSection(stringResource(R.string.stack_continue_conversation))
+        DesignButton({ discussion = true }, Modifier.fillMaxWidth(), outlined = true) {
+            Text(stringResource(R.string.stack_discuss))
+        }
+        StackMenuRow(stringResource(R.string.stack_share_article), stringResource(R.string.stack_share_article_detail),
+            R.drawable.ic_share) { discussion = false }
         Text(stringResource(R.string.stack_reading_sample_note), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+    discussion?.let { discussing ->
+        AlertDialog(onDismissRequest = { discussion = null },
+            title = { Text(stringResource(if (discussing) R.string.stack_discuss else R.string.stack_share_article)) },
+            text = { Text(stringResource(R.string.stack_article_actions_preview)) },
+            confirmButton = { TextButton(onClick = { discussion = null }) { Text(stringResource(R.string.done)) } })
     }
 }
 
