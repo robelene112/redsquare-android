@@ -39,7 +39,7 @@ class AppFrameReadingPreviewTest {
                 ui.onAllNodes(appNavigationRevealAction()).fetchSemanticsNodes().isEmpty() &&
                     ui.onNodeWithText("Back up your wallet").isDisplayed()
             }
-            val target = ui.onNodeWithText("Reference post 05")
+            val target = ui.onNodeWithText("Reference post 05", useUnmergedTree = true)
             val viewport = list.getUnclippedBoundsInRoot()
             val targetTop = target.getUnclippedBoundsInRoot().top
             val readingTop = viewport.top + (viewport.bottom - viewport.top) / 2
@@ -50,13 +50,16 @@ class AppFrameReadingPreviewTest {
             var previous: Pair<androidx.compose.ui.geometry.Rect, androidx.compose.ui.geometry.Rect>? = null
             var stableSince = SystemClock.elapsedRealtime()
             ui.waitUntil(remainingSetup()) {
-                val frame = list.fetchSemanticsNode().boundsInRoot to target.fetchSemanticsNode().boundsInRoot
+                val targetNode = target.fetchSemanticsNode()
+                val frame = list.fetchSemanticsNode().boundsInRoot to targetNode.boundsInRoot
                 val now = SystemClock.elapsedRealtime()
                 if (frame != previous) { previous = frame; stableSince = now }
                 val native = nativeWindowNodes().firstOrNull { it.text?.toString() == "Reference post 05" }
                     ?.takeIf { it.refresh() && it.isVisibleToUser }
                     ?.let { Rect().apply { it.getBoundsInScreen(this) } }
-                frame.second.top >= frame.first.top && frame.second.bottom <= frame.first.bottom &&
+                frame.second.width == targetNode.size.width.toFloat() &&
+                    frame.second.height == targetNode.size.height.toFloat() &&
+                    frame.second.top >= frame.first.top && frame.second.bottom <= frame.first.bottom &&
                     native != null && kotlin.math.abs(native.top - frame.second.top) <= 1 &&
                     now - stableSince >= 200 &&
                     ui.onAllNodes(appNavigationRevealAction()).fetchSemanticsNodes().isEmpty()
@@ -124,10 +127,10 @@ class AppFrameReadingPreviewTest {
         // Reading now retains collapsed chrome. Use the actual accessible reveal
         // before observing backup guidance, keeping the original exact reader anchor.
         ui.revealAppNavigation()
-        ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 05").isDisplayed() &&
+        ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 05", useUnmergedTree = true).isDisplayed() &&
             ui.onNodeWithText("Back up your wallet").isDisplayed() && ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
         assertEquals("Return to the same visible reading position", expected,
-            ui.onNodeWithText("Reference post 05").fetchSemanticsNode().boundsInRoot.top, 1f)
+            ui.onNodeWithText("Reference post 05", useUnmergedTree = true).fetchSemanticsNode().boundsInRoot.top, 1f)
     }
 
     private fun capture(name: String) = captureNativeScreen(File(
