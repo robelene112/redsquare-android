@@ -52,9 +52,9 @@ class LoadedMediaMotionTest {
                         check(requested.await(5, TimeUnit.SECONDS))
                         val loadingLabel = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000))
                         val loading = loadingLabel.visibleBounds
-                        val loadingContainer = requireNotNull(loadingLabel.parent).visibleBounds
                         // The existing180ms destination reveal must finish before testing this independent media result.
                         SystemClock.sleep(250)
+                        val loadingContainer = requireNotNull(loadingLabel.parent).visibleBounds
                         captureNativeScreen(File(folder, "scale-$scale-banner-loading.png"))
                         recordArrival("banner", scale, folder, loading, activity) { release.countDown() }
                         val banner = requireNotNull(device.wait(Until.findObject(By.desc("Profile banner")), 5_000)).visibleBounds
