@@ -79,10 +79,12 @@ private fun CoverPicker(selected: Boolean, onSelect: (Boolean) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit) {
-    val rich = remember { RichTextState().setMarkdown(draft.body).also {
+    // Lazy reading may dispose the editor item. Keep its last input/undo state in
+    // the screen-owned buffer until navigation/save synchronises canonical source.
+    val rich = remember { visual.rich ?: RichTextState().setMarkdown(draft.body).also {
         visual.rich = it; visual.baseline = it.toMarkdown()
     } }
-    var baseline by remember { mutableStateOf(rich.toMarkdown()) }
+    var baseline by remember { mutableStateOf(visual.baseline) }
     // Source remains canonical. A library round-trip must not normalise an untouched draft.
     val currentChange by rememberUpdatedState(onChange)
     val currentDraft by rememberUpdatedState(draft)
