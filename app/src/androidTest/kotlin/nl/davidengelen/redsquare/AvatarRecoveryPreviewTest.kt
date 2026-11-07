@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Base64
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -193,6 +194,21 @@ class AvatarRecoveryPreviewTest {
             profileArchiveResponse = { query -> sources[query.get("field2").asString] ?: "[]" }) {
             ui.waitUntil(15_000) { ui.onNodeWithText("Large avatar 3").isDisplayed() }
             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+            // Enter the ordinary collapsed-header reading view with one physical drag.
+            // Keep all three targets visible together; never scroll each picture into view separately.
+            val headerHeight = (ui.onNodeWithContentDescription("Connection details").getUnclippedBoundsInRoot().bottom -
+                ui.onNodeWithContentDescription("Account").getUnclippedBoundsInRoot().top).value
+            val distance = (headerHeight + 4) * context.resources.displayMetrics.density
+            ui.onNodeWithTag("feed-post-list").performTouchInput {
+                swipeWithVelocity(Offset(centerX, centerY + distance / 2),
+                    Offset(centerX, centerY - distance / 2), endVelocity = 0f)
+            }
+            val viewport = ui.onNodeWithTag("feed-post-list").getUnclippedBoundsInRoot()
+            for (key in sources.keys) {
+                val bounds = row(key).assertIsDisplayed().getUnclippedBoundsInRoot()
+                assertTrue("All three signed picture targets fit the same current viewport",
+                    bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
+            }
             for (key in sources.keys) hasColor(row(key))
             // Recheck first after all three loads, not just each picture's transient appearance.
             for (key in sources.keys) assertTrue(containsColor(row(key)))

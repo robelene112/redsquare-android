@@ -184,18 +184,8 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                 // position. Keep the operation result visible above the task footer.
                 InlineStatus(if (walletExport.busy) stringResource(R.string.wallet_export_in_progress) else null, StatusTone.WORKING)
                 InlineStatus(if (walletImport.busy) stringResource(R.string.wallet_import_in_progress) else null, StatusTone.WORKING)
-                val exportMessage = walletExport.message
-                InlineStatus(exportMessage?.let { stringResource(it) }, when (exportMessage) {
-                    R.string.wallet_export_saved -> StatusTone.SUCCESS
-                    R.string.wallet_export_cancelled -> StatusTone.INFO
-                    else -> StatusTone.ERROR
-                })
-                val importMessage = walletImport.message
-                InlineStatus(importMessage?.let { stringResource(it) }, when (importMessage) {
-                    R.string.wallet_import_saved -> StatusTone.SUCCESS
-                    R.string.wallet_import_cancelled -> StatusTone.INFO
-                    else -> StatusTone.ERROR
-                })
+                WalletResultStatus(walletExport.message, R.string.wallet_export_saved, R.string.wallet_export_cancelled)
+                WalletResultStatus(walletImport.message, R.string.wallet_import_saved, R.string.wallet_import_cancelled)
             }
         },
         confirmButton = {
@@ -215,4 +205,17 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
             ) { Text(stringResource(R.string.wallet_import_cancel)) }
         },
     )
+}
+
+/** Retain the result's tone while its shared status host animates out. */
+@Composable
+private fun WalletResultStatus(message: Int?, saved: Int, cancelled: Int) {
+    var previous by remember { mutableStateOf(message ?: cancelled) }
+    SideEffect { if (message != null) previous = message }
+    val tone = when (message ?: previous) {
+        saved -> StatusTone.SUCCESS
+        cancelled -> StatusTone.INFO
+        else -> StatusTone.ERROR
+    }
+    InlineStatus(message?.let { stringResource(it) }, tone)
 }
