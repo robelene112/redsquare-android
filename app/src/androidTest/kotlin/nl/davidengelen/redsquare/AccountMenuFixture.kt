@@ -5,7 +5,7 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.unit.dp
 
-private fun appNavigationRevealAction() = SemanticsMatcher("Available app navigation action") { node ->
+internal fun appNavigationRevealAction() = SemanticsMatcher("Available app navigation action") { node ->
     node.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.CustomActions)
         ?.any { it.label == "Show app navigation" } == true
 }
