@@ -102,10 +102,9 @@ class NodeBlockMotionTest {
                         tap(doneBounds)
                         check(device.wait(Until.gone(By.text("Connection details")), 3_000))
                         val list = nativeVerticalScrollBounds()
-                        // Enter a reading position with a controlled drag, not an injected fling.
-                        // Accessibility bounds can lag display frames during kinetic scrolling.
-                        check(device.swipe(list.centerX(), list.bottom - list.height() / 5,
-                            list.centerX(), list.top + list.height() / 5, 64))
+                        // Stop the physical drag before releasing it into the reading interval.
+                        // An ordinary swipe injects a fling, whose native bounds can lag the display.
+                        dragToReadingPosition(list)
                         val hiddenDeadline = SystemClock.elapsedRealtime() + 3_000
                         while (headerVisible() && SystemClock.elapsedRealtime() < hiddenDeadline) SystemClock.sleep(32)
                         assertFalse("Reading must collapse the actual block-status header", headerVisible())
@@ -168,6 +167,31 @@ class NodeBlockMotionTest {
             SystemClock.sleep(16)
         }
         error("The actual working dialog must expose its stable enabled $label target inside1s")
+    }
+
+    private fun dragToReadingPosition(list: Rect) {
+        val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val started = SystemClock.uptimeMillis()
+        val x = list.exactCenterX()
+        val from = (list.bottom - list.height() / 5).toFloat()
+        val to = (list.top + list.height() / 5).toFloat()
+        fun send(action: Int, y: Float) {
+            val event = MotionEvent.obtain(started, SystemClock.uptimeMillis(), action, x, y, 0)
+            try { event.source = InputDevice.SOURCE_TOUCHSCREEN; assertTrue(automation.injectInputEvent(event, true)) }
+            finally { event.recycle() }
+        }
+        send(MotionEvent.ACTION_DOWN, from)
+        var y = from
+        try {
+            for (step in 1..16) {
+                SystemClock.sleep(8)
+                y = from + (to - from) * step / 16
+                send(MotionEvent.ACTION_MOVE, y)
+            }
+            // Release at rest. This models stopping to read, not continuing a kinetic scroll.
+            SystemClock.sleep(120)
+            send(MotionEvent.ACTION_MOVE, y)
+        } finally { send(MotionEvent.ACTION_UP, y) }
     }
 
     private fun tap(bounds: Rect) {
