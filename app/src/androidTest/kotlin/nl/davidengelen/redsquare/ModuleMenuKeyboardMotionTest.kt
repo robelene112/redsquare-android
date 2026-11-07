@@ -29,6 +29,12 @@ class ModuleMenuKeyboardMotionTest {
             while (!condition() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
             check(condition()) { message }
         }
+        fun foregroundHas(text: String? = null, description: String? = null): Boolean =
+            nativeWindowNodes().any { node ->
+                node.refresh() && node.packageName?.toString() == context.packageName && node.isVisibleToUser &&
+                    node.isEnabled && (text == null || node.text?.toString() == text) &&
+                    (description == null || node.contentDescription?.toString() == description)
+            }
         fun focusedMenuText(): String? {
             // The active native hierarchy exports focus on the clickable row,
             // with its text on a child. Observe that explicit input-focus flag.
@@ -65,7 +71,9 @@ class ModuleMenuKeyboardMotionTest {
                 // Preserve the original Escape-first regression without a prior
                 // Tab supplying focus on the host's behalf.
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
-                check(device.wait(Until.gone(By.text("Stack")), 5_000))
+                await(5_000, "Escape returns ownership to the actual app switcher") {
+                    !device.hasObject(By.text("Stack")) && foregroundHas(description = "Switch app: Red Square")
+                }
                 requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
                 check(device.wait(Until.hasObject(By.text("Stack")), 5_000))
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_TAB))
@@ -85,11 +93,15 @@ class ModuleMenuKeyboardMotionTest {
                 assertFalse(device.hasObject(By.text("Stack design preview")))
                 File(folder, "scale-$scale-menu-focus.txt").writeText("$first -> $next\n")
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
-                check(device.wait(Until.gone(By.text("Stack")), 5_000))
+                await(5_000, "Escape returns ownership to the actual Account control") {
+                    !device.hasObject(By.text("Stack")) && foregroundHas(description = "Account")
+                }
                 requireNotNull(device.findObject(By.desc("Account"))).click()
                 check(device.wait(Until.hasObject(By.text("Wallet")), 5_000))
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
-                check(device.wait(Until.gone(By.text("Wallet")), 5_000))
+                await(5_000, "Escape returns ownership to the same module navigation") {
+                    !device.hasObject(By.text("Wallet")) && foregroundHas(text = "Home")
+                }
                 assertEquals(navigation, requireNotNull(device.findObject(By.text("Home"))).visibleBounds)
             }
             observeModuleWindowMotionScale(activity, scale, folder)
