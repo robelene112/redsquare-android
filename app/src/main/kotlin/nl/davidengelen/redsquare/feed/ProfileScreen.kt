@@ -224,7 +224,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     Column(modifier) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
-            Text(stringResource(R.string.profile_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+            Text(stringResource(R.string.profile_title), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.feed_refresh), wallet != null && !loading) {
                 requestedBefore = System.currentTimeMillis() + 1; refresh++
             }

@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.FeedMoreActions
+import nl.davidengelen.redsquare.ui.DesignTabs
 
 /** Give feed modes their own row when text and actions cannot share the available width. */
 @Composable
@@ -19,11 +20,8 @@ internal fun FeedToolbar(followingView: Boolean, onFollowing: (Boolean) -> Unit,
     maintenanceEnabled: Boolean,
     onQueue: () -> Unit, onChanges: () -> Unit) {
     val modes = listOf(stringResource(R.string.feed_title), stringResource(R.string.following_title))
-    Row(Modifier.fillMaxWidth().selectableGroup(), verticalAlignment = Alignment.CenterVertically) {
-        FeedTab(modes[0], !followingView) { onFollowing(false) }
-        FeedTab(modes[1], followingView) { onFollowing(true) }
-        FeedActions(maintenanceEnabled, onQueue, onChanges)
-    }
+    DesignTabs(modes, if (followingView) 1 else 0, onSelect = { onFollowing(it == 1) },
+        trailing = { FeedActions(maintenanceEnabled, onQueue, onChanges) })
 }
 
 @Composable
@@ -31,14 +29,3 @@ private fun FeedActions(maintenanceEnabled: Boolean, onQueue: () -> Unit, onChan
     FeedMoreActions(maintenanceEnabled, onQueue, onChanges)
 }
 
-@Composable
-private fun RowScope.FeedTab(label: String, selected: Boolean, onClick: () -> Unit) {
-    Column(Modifier.weight(1f)) {
-        Tab(selected = selected, onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) {
-            Text(label, Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
-                style = MaterialTheme.typography.labelMedium, maxLines = 1)
-        }
-        Box(Modifier.fillMaxWidth().height(2.dp).background(
-            if (selected) MaterialTheme.colorScheme.primary else Color.Transparent))
-    }
-}
