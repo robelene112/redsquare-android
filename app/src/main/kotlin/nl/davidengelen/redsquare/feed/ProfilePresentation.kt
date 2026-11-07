@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -42,11 +43,11 @@ internal fun ProfileIdentityHeader(author: String, backend: SaitoBackend, appear
     val identity = registeredIdentity(author)
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
         BoxWithConstraints(Modifier.fillMaxWidth()) {
-            val banner = Modifier.fillMaxWidth().aspectRatio(3f).clip(RoundedCornerShape(16.dp))
+            val banner = Modifier.fillMaxWidth().aspectRatio(3f).clip(RoundedCornerShape(16.dp)).testTag("profile-cover")
             ProfileImage(appearance.banner, ProfileImageKind.BANNER, author, backend, banner)
             Row(Modifier.fillMaxWidth().padding(top = maxWidth / 3 - 24.dp),
                 verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
-                val picture = Modifier.size(80.dp).border(4.dp, MaterialTheme.colorScheme.surface, CircleShape)
+                val picture = Modifier.size(80.dp).testTag("profile-avatar").border(4.dp, MaterialTheme.colorScheme.surface, CircleShape)
                     .padding(4.dp).clip(CircleShape)
                 if (appearance.verified != null) ProfileAvatar(author, picture, appearance.verified, showRetry = true)
                 else ProfileImage(appearance.picture, ProfileImageKind.PICTURE, author, backend, picture)

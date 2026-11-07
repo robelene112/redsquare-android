@@ -27,6 +27,13 @@ class ProfileRedesignPreviewTest {
             ui.onNodeWithText("Later").performClick()
             ui.clickVisiblePostProfile("Anon-${author.take(6)}")
             ui.waitUntil(15_000) { ui.onNodeWithText("Signed bio 🌱\nSecond line").isDisplayed() }
+            // Independent reference: #85 ProfileBlock, pinned c95ecaa01,
+            // cover128, separate avatar64 row, fourteen dp between sections.
+            val cover = ui.onNodeWithTag("profile-cover").assertIsDisplayed().getUnclippedBoundsInRoot()
+            val avatar = ui.onNodeWithTag("profile-avatar").assertIsDisplayed().getUnclippedBoundsInRoot()
+            assertEquals("Use the approved prototype cover height", 128f, (cover.bottom - cover.top).value, 0.5f)
+            assertEquals("Use the approved prototype avatar size", 64f, (avatar.right - avatar.left).value, 0.5f)
+            assertTrue("The avatar belongs below the cover, without overlap", (avatar.top - cover.bottom).value >= 13.5f)
             ui.waitUntil(10_000) { ui.onAllNodesWithTag("profile-history-divider").fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithTag("profile-history-divider").performScrollTo().assertIsDisplayed()
             val line = ui.onNodeWithTag("profile-history-divider")
@@ -34,6 +41,10 @@ class ProfileRedesignPreviewTest {
             assertTrue("A real visual divider spans the profile", (bounds.right - bounds.left).value >= 240)
             val pixels = line.captureToImage().asAndroidBitmap()
             assertTrue(pixels.height >= 1)
+            val selected = ui.onNode(hasText("Posts") and isSelected()).captureToImage().asAndroidBitmap()
+            val fill = selected.getPixel(8.coerceAtMost(selected.width - 1), selected.height / 2)
+            assertTrue("Selected history uses the prototype's filled rounded chip, not an underline",
+                fill == android.graphics.Color.rgb(42, 48, 61) || fill == android.graphics.Color.rgb(232, 237, 247))
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "profile-redesign-evidence/biography-history-boundary.png"))
         }
     }
