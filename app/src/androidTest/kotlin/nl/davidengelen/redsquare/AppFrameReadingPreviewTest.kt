@@ -43,8 +43,9 @@ class AppFrameReadingPreviewTest {
             val viewport = list.getUnclippedBoundsInRoot()
             val targetTop = target.getUnclippedBoundsInRoot().top
             val readingTop = viewport.top + (viewport.bottom - viewport.top) / 2
-            list.performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
-                check(scroll(0f, (targetTop - readingTop).value * instrumentation.targetContext.resources.displayMetrics.density))
+            val toReadingPosition = (targetTop - readingTop).value * instrumentation.targetContext.resources.displayMetrics.density
+            if (toReadingPosition != 0f) list.performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                check(scroll(0f, toReadingPosition))
             }
             var previous: Pair<androidx.compose.ui.geometry.Rect, androidx.compose.ui.geometry.Rect>? = null
             var stableSince = SystemClock.elapsedRealtime()
