@@ -97,7 +97,12 @@ class VideoPreviewTest {
                         .putExtra("youtubeFixtureUrl", "http://127.0.0.1:${api.port}/iframe_api")).use {
                         try {
                             stage("size: launched")
-                            ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                            ui.waitUntil(20_000) {
+                                peer.requests.get() >= 2 &&
+                                    ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() &&
+                                    ui.onAllNodes(hasText("Explicit signed YouTube link") and hasClickAction())
+                                        .fetchSemanticsNodes().isNotEmpty()
+                            }
                             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                             assertEquals(0, api.requestCount)
                             watch("Explicit signed YouTube link")
