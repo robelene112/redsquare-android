@@ -6,12 +6,17 @@ Owner authorized completing issue94's prototype-fidelity repair. Root is the
 only implementation writer in `/mnt/storage/redsquare-android-artifacts/redesign86`;
 preserve the canonical checkout's unrelated Chat work. Beta89 remains latest.
 Do not claim delivery or start another issue. Stages90/91/92 are historical,
-immutable candidates. A fresh signed93 is building on exact source
-`4eae1901bf01cf560f90fccf037f014d70517986`.
+immutable candidates. Signed93 is staged on actual producer
+`4eae1901bf01cf560f90fccf037f014d70517986`, SHA256
+`931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72`.
+Actual signed updates42388351996/42388351928 PASS on Android10/17. Public
+staged download hash matches; latest remains89.
 
-Complete Android10run42388055407 and Android17run42388055378 are running on
-that same source. Frozen catalog/checker remains unchanged. Focused pending:
-refresh17run42387892609, wallet-export17run42387892714 and node10run42387960697.
+Complete final-source Android10run42388798650 and17run42388799151 are running
+on `45d734f501ed5dd928f458c7bddd5e7be9316611`. The earlier4eae fullruns were
+superseded/cancelled after the physical-input fixture correction, never counted
+as full passes. Frozen catalog/checker remains unchanged. Focused refresh17
+42387892609, wallet-export17 42387892714 and node10 42388559625 all PASS.
 These are not complete acceptance. No additional production node changes.
 
 Repairs and actual evidence, with original assertions/deadlines retained:
@@ -28,10 +33,15 @@ Repairs and actual evidence, with original assertions/deadlines retained:
   feedback, preserving applied-result ordering,2500ms and navigation-error owner.
   Temporary tracing removed; original simultaneous-success/target assertion stays.
 - Node10unprobed42386483271 failed205→188. Original movie frames show movement
-  before response and stable image2.015–4.898s across arrival. Native bounds
-  falsely declared200ms idle while original frames still moved. Initial drag now64
-  steps; path, exact equality and original3.5s/4s/4500ms bounds remain. New unprobed
-  run must verify settling; this is not fast-fling acceptance. Temporary probe removed.
+  before response and stable image2.015–4.898s across arrival, while native bounds
+  falsely declared200ms idle. Slowing the swipe64steps failed the original3.5s
+  settling precondition in42387960697. Source45d734f50 instead performs the
+  original physical drag path and holds120ms at rest before finger release.
+  Green42388559625 preserves exactpost19y226 at scales0/1, settled1664/1717ms
+  before4s response. All original200ms/3.5s/4s/4500ms/anchor/header requirements
+  remain. Actual movie review pending; this is not fast-fling acceptance.
+  Temporary tracing removed. Production93 inputs unchanged:445tracked producer
+  superset paths/modes/types/blobs match4eae→45, with docs/test-only differences.
 
 Signed92 historical producer `e697e0139b3a7a27751e3fac1801f6478fdd0174`, SHA256
 `426fbad83c1a1510398d308c34274e9ace95ebe2286ad928a67e47f1ea59bd1c`, actual update
