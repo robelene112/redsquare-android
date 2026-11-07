@@ -172,12 +172,20 @@ class PolicyCenterPreviewTest {
                             if (node.isVisibleToUser && node.isFocusable && node.isCheckable) rows += node
                             for (index in 0 until node.childCount) node.getChild(index)?.let { collectRadioRows(it, rows) }
                         }
-                        val radioRows = appRoots(automation).flatMap { root ->
-                            mutableListOf<android.view.accessibility.AccessibilityNodeInfo>().also { collectRadioRows(root, it) }
-                        }
+                        // Resolve the choices in the actual foreground Settings window.
+                        // Repeatedly traversing covered feed windows consumes the same5s focus budget.
+                        val radioRows = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
+                        collectRadioRows(requireNotNull(automation.rootInActiveWindow), radioRows)
                         assertEquals("The node settings expose exactly two focusable radio choices", 2, radioRows.size)
+                        fun labelIn(row: android.view.accessibility.AccessibilityNodeInfo, domain: String): android.view.accessibility.AccessibilityNodeInfo? {
+                            if (row.isVisibleToUser && row.text?.toString() == domain) return row
+                            for (index in 0 until row.childCount) row.getChild(index)?.let { child ->
+                                labelIn(child, domain)?.let { return it }
+                            }
+                            return null
+                        }
                         fun rowFor(domain: String) = radioRows.singleOrNull { row ->
-                            val label = node(automation, domain)
+                            val label = labelIn(row, domain) ?: return@singleOrNull false
                             val labelBounds = Rect().also(label::getBoundsInScreen)
                             val rowBounds = Rect().also(row::getBoundsInScreen)
                             rowBounds.contains(labelBounds.centerX(), labelBounds.centerY())
@@ -195,6 +203,7 @@ class PolicyCenterPreviewTest {
                             selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
                         captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow,
                             focusTimeoutMillis = ownerFocusRemaining())
+                        val ownerFocusElapsed = android.os.SystemClock.elapsedRealtime() - (ownerFocusBy - 5_000)
                         waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
                         assertTrue("TalkBack announces the selected radio state",
                             Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
@@ -207,6 +216,8 @@ class PolicyCenterPreviewTest {
                         assertTrue("TalkBack identifies the official node as a radio choice",
                             Regex("\\bradio button\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
                         File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
+                            addProperty("ownerFocusElapsedMillis", ownerFocusElapsed)
+                            addProperty("ownerFocusBudgetMillis", 5_000)
                             addProperty("selectedNode", SaitoBackend.OWNER.domain)
                             addProperty("selected", selectedOwnerRow.isChecked)
                             addProperty("completedNodeUtterances", ownerNodeUtterances)
