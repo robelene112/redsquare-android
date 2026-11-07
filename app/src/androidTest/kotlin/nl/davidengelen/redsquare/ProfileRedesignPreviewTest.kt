@@ -43,7 +43,8 @@ class ProfileRedesignPreviewTest {
             assertTrue("A real visual divider spans the profile", (bounds.right - bounds.left).value >= 240)
             val pixels = line.captureToImage().asAndroidBitmap()
             assertTrue(pixels.height >= 1)
-            val selectedTab = ui.onNode(hasText("Posts") and isSelected()).assertHeightIsAtLeast(48.dp)
+            val selectedTab = ui.onNode(hasText("Posts") and isSelected()).performScrollTo()
+                .assertIsDisplayed().assertHeightIsAtLeast(48.dp)
             val selected = selectedTab.captureToImage().asAndroidBitmap()
             val fill = selected.getPixel(8.coerceAtMost(selected.width - 1), selected.height / 2)
             assertTrue("Selected history uses the prototype's filled rounded chip, not an underline",
