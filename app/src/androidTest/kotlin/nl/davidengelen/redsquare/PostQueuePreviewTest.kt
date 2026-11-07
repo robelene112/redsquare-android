@@ -31,7 +31,7 @@ class PostQueuePreviewTest {
     private fun offlineCancellation(withImage: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
         ActivityScenario.launch<MainActivity>(intent).use {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -85,7 +85,7 @@ class PostQueuePreviewTest {
         })
         val official = ControlledFeedPeer("[]")
         official.start().use { officialServer ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -150,7 +150,7 @@ class PostQueuePreviewTest {
             if (criteria.has("sig") && criteria.get("sig").asString != row?.get("sig")?.asString) "[]"
             else row?.let { "[$it]" } ?: "[]"
         })
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { scenario ->
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.openWallet()
@@ -188,7 +188,7 @@ class PostQueuePreviewTest {
                 else row?.let { "[$it]" } ?: "[]"
             })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
@@ -246,7 +246,7 @@ class PostQueuePreviewTest {
                     if (criteria.get("sig").asString == row?.get("sig")?.asString) "[$row]" else "[]"
                 } else row?.let { "[$it]" } ?: "[]"
             }).apply { disconnectAfterTransaction = true }
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("New post").performClick()
@@ -269,7 +269,7 @@ class PostQueuePreviewTest {
     @Test fun queuedWorkCanBeReviewedAndCancelledFromTheFeed() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use {
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("New post").performClick()

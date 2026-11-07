@@ -23,7 +23,7 @@ class WalletImportStorageRecoveryTest {
     @Test fun failedDirectorySyncAfterReplacementWriteRestoresPublishedWalletOptions() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use { scenario ->
             ui.openWallet()
             val address = displayedWalletAddress(ui)

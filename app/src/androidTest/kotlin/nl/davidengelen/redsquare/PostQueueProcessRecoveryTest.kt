@@ -36,7 +36,7 @@ class PostQueueProcessRecoveryTest {
         prepare()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }?.forEach { check(it.delete()) }
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use {
             try {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -72,7 +72,7 @@ class PostQueueProcessRecoveryTest {
                 else row?.let { "[$it]" } ?: "[]"
             })
         peer.start(expected.get("port").asInt).use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(60_000) { peer.transactions.isNotEmpty() }

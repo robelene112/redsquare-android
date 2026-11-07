@@ -41,7 +41,7 @@ class PersonalControlsProcessRecoveryTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         val peer = peer()
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var owner = ""
             launch(intent) {
@@ -100,7 +100,7 @@ class PersonalControlsProcessRecoveryTest {
         val owner = row.get("owner").asString
         val peer = peer()
         peer.start().use { server ->
-            launch(Intent(context, MainActivity::class.java)
+            launch(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")) {
                 ui.waitForRefreshableContent(15_000)
                 ui.openWallet()

@@ -58,14 +58,14 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
             color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     val media = remember(text) { chatPhoto(privateMessageBody(text)) != null }
-    Surface(Modifier.fillMaxWidth(0.94f).then(if (showIdentity) Modifier else
+    Surface(Modifier.widthIn(max = 290.dp).fillMaxWidth().then(if (showIdentity) Modifier else
         Modifier.semantics { contentDescription = senderDescription }), shape = RoundedCornerShape(
-        topStart = 16.dp, topEnd = 16.dp,
-        bottomStart = if (outgoing) 16.dp else 4.dp,
-        bottomEnd = if (outgoing) 4.dp else 16.dp),
-        color = if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
-        contentColor = if (outgoing) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
-        Column(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        topStart = 18.dp, topEnd = 18.dp,
+        bottomStart = if (outgoing) 18.dp else 5.dp,
+        bottomEnd = if (outgoing) 5.dp else 18.dp),
+        color = if (outgoing) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainerLow,
+        contentColor = if (outgoing) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurface) {
+        Column(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
             if (showIdentity) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     val label = stringResource(R.string.chat_message_identity_for, identity)

@@ -38,9 +38,8 @@ internal fun AccountDialog(title: String, closeLabel: String, onDismissRequest: 
                             Icon(painterResource(if (backLabel == null) R.drawable.ic_close else R.drawable.ic_back), null)
                         }
                         Text(title, Modifier.weight(1f).padding(horizontal = AppSpacing.small).semantics { heading() },
-                            style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            style = MaterialTheme.typography.headlineSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                     }
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                     Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen,
                         vertical = AppSpacing.gap)) {
                         ProvideTextStyle(MaterialTheme.typography.bodyMedium) { text() }

@@ -147,11 +147,11 @@ internal fun PersonalControlsStatus(controls: PersonalControls?) {
 }
 
 @Composable
-internal fun AccountControls(author: String) {
+internal fun AccountControls(author: String, enabled: Boolean = true) {
     val controls = LocalPersonalControls.current ?: return
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
         PersonalControlsStatus(controls)
-        AccountControlButtons(controls, author, showEffects = true)
+        AccountControlButtons(controls, author, showEffects = true, enabled = enabled)
     }
 }
 
@@ -165,7 +165,7 @@ private enum class Control(val activeLabel: Int, val inactiveLabel: Int, val det
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun AccountControlButtons(controls: PersonalControls, author: String, showEffects: Boolean = false) {
+private fun AccountControlButtons(controls: PersonalControls, author: String, showEffects: Boolean = false, enabled: Boolean = true) {
     var confirming by remember(author) { mutableStateOf<Control?>(null) }
     fun change(control: Control, enabled: Boolean) {
         when (control) {
@@ -187,8 +187,8 @@ private fun AccountControlButtons(controls: PersonalControls, author: String, sh
                             color = MaterialTheme.colorScheme.primary)
                     }
                     TextButton(modifier = Modifier.heightIn(min = 48.dp),
-                        enabled = controls.ownerAvailable && controls.ready && !controls.saving,
-                        onClick = { if (selected) change(control, false) else confirming = control }) {
+                        enabled = enabled && controls.ownerAvailable && controls.ready && !controls.saving,
+                        onClick = { if (!enabled) return@TextButton; if (selected) change(control, false) else confirming = control }) {
                         Text(stringResource(if (selected) control.activeLabel else control.confirmation))
                     }
                 }
@@ -200,7 +200,8 @@ private fun AccountControlButtons(controls: PersonalControls, author: String, sh
             Control.entries.forEach { control ->
                 val selected = author in if (control == Control.MUTE) controls.muted else controls.blocked
                 TextButton(modifier = Modifier.heightIn(min = 48.dp),
-                    enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
+                    enabled = enabled && controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
+                        if (!enabled) return@TextButton
                         if (selected) change(control, false) else confirming = control
                     }) { Text(stringResource(if (selected) control.activeLabel else control.inactiveLabel)) }
             }
@@ -211,7 +212,8 @@ private fun AccountControlButtons(controls: PersonalControls, author: String, sh
         title = { Text(stringResource(control.inactiveLabel)) },
         text = { Text(stringResource(control.detail)) },
         confirmButton = {
-            TextButton(enabled = controls.ready && !controls.saving, onClick = {
+            TextButton(enabled = enabled && controls.ready && !controls.saving, onClick = {
+                if (!enabled) return@TextButton
                 confirming = null
                 change(control, true)
             }) { Text(stringResource(control.confirmation)) }

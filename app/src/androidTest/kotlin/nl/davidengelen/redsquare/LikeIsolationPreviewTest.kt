@@ -33,7 +33,7 @@ class LikeIsolationPreviewTest {
         val extraText = RedSquareFeed.readTarget("[$extra]", extra.get("sig").asString).posts.single().text
         val node = PostLikePeer(additionalPost = extra)
         node.peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             withActivity(intent, "repeat-posts-and-wallets") {
                 ui.clickVisiblePostContent("Native Red Square reference post")
@@ -100,7 +100,7 @@ class LikeIsolationPreviewTest {
     @Test fun aNewTapSendsAnotherDistinctLikeWithoutWaitingForTheFirstReceipt() {
         val node = PostLikePeer()
         node.peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             withActivity(intent, "repeat-with-unavailable-confirmation") {
                 waitFor("4 likes")

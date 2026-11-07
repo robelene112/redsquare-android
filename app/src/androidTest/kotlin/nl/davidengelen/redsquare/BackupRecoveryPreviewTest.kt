@@ -15,7 +15,7 @@ class BackupRecoveryPreviewTest {
 
     @Test fun reminderCanBeDismissedWhileRecoveryGuidanceRemainsAvailable() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use { scenario ->
             try {
                 ui.waitUntil(10_000) {

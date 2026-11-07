@@ -20,7 +20,7 @@ internal fun ComposeTestRule.revealAppNavigation() {
 
 @OptIn(ExperimentalTestApi::class)
 internal fun ComposeTestRule.openAccountMenu() {
-    val menu = (hasText("Wallet") or hasText("Settings")) and hasClickAction() and hasAnyAncestor(isPopup())
+    val menu = (hasText("Wallet") or hasText("Settings")) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())
     val settings = hasText("Settings") and menu
     val deadline = android.os.SystemClock.elapsedRealtime() + 5_000
     fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
@@ -93,12 +93,12 @@ internal fun ComposeTestRule.openAccountMenu() {
 
 internal fun ComposeTestRule.openWallet() {
     openAccountMenu()
-    onNode(hasText("Wallet") and hasClickAction() and hasAnyAncestor(isPopup())).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(hasText("Wallet") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 internal fun ComposeTestRule.openSettings() {
     openAccountMenu()
-    onNode(hasText("Settings") and hasClickAction() and hasAnyAncestor(isPopup())).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(hasText("Settings") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 /** Retain the caller's original first-use/keyboard readiness deadline. */

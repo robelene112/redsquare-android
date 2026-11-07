@@ -59,7 +59,7 @@ class PostPreviewTest {
         }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 try {
@@ -131,7 +131,7 @@ class PostPreviewTest {
             indexed.set(postingArchiveRow(transaction))
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitForReferencePost()
@@ -165,7 +165,7 @@ class PostPreviewTest {
         val official = ControlledFeedPeer("[$root]")
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
                     waitForReferencePost()
@@ -223,7 +223,7 @@ class PostPreviewTest {
         }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
@@ -255,7 +255,7 @@ class PostPreviewTest {
         val owner = ControlledFeedPeer("[$root]")
         val official = ControlledFeedPeer("[$root]")
         owner.start().use { ownerServer -> official.start().use { officialServer ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
                 waitForReferencePost()
@@ -354,7 +354,7 @@ class PostPreviewTest {
         }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitForReferencePost()
                 ui.openWallet()
@@ -411,7 +411,7 @@ class PostPreviewTest {
             }
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
@@ -472,7 +472,7 @@ class PostPreviewTest {
             indexed.set(postingArchiveRow(transaction))
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 try {
                     waitForReferencePost()
@@ -510,7 +510,7 @@ class PostPreviewTest {
         }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitForReferencePost()
@@ -568,7 +568,7 @@ class PostPreviewTest {
             }
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
@@ -620,7 +620,7 @@ class PostPreviewTest {
         var previous: nl.davidengelen.redsquare.saito.SaitoWallet? = null
         val peer = ControlledFeedPeer("[$root]")
         try { peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${balances.port}/balance/")
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -695,7 +695,7 @@ class PostPreviewTest {
         var original: nl.davidengelen.redsquare.saito.SaitoWallet? = null
         var serving: mockwebserver3.MockWebServer? = null
         try {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${balances.port}/balance/")
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -790,7 +790,7 @@ class PostPreviewTest {
         val owner = peerFor(SaitoBackend.OWNER)
         val official = peerFor(SaitoBackend.OFFICIAL)
         owner.start().use { ownerServer -> official.start().use { officialServer ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                 for (backend in SaitoBackend.entries) {
@@ -836,7 +836,7 @@ class PostPreviewTest {
             indexed.set(postingArchiveRow(transaction))
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitForReferencePost()
@@ -870,7 +870,7 @@ class PostPreviewTest {
         }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 try {
                     waitForReferencePost()
@@ -937,7 +937,7 @@ class PostPreviewTest {
             if (criteria.has("sig")) "[]" else "[$root]"
         }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitForReferencePost()

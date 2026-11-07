@@ -163,7 +163,7 @@ class TransferProcessRecoveryTest {
         fundedTransferServer().use { server ->
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {

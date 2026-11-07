@@ -66,7 +66,7 @@ class SocialPreviewTest {
             } else "[${countedRoot(4 + indexedLikes.size)}]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ captureNativeScreen(java.io.File(context.cacheDir,
                     "social-evidence/like-first-failure.png")) }) {
@@ -131,7 +131,7 @@ class SocialPreviewTest {
             } else "[$root]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor("Native Red Square reference post")
@@ -175,7 +175,7 @@ class SocialPreviewTest {
             if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             val store = AndroidWalletStore(context)
             var firstAction: SaitoTransaction? = null
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -241,7 +241,7 @@ class SocialPreviewTest {
             } else "[$root]"
         }).apply { disconnectAfterTransaction = true }
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 try {
                     waitFor("Native Red Square reference post")
@@ -297,7 +297,7 @@ class SocialPreviewTest {
             if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("Native Red Square reference post")
                 ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -350,7 +350,7 @@ class SocialPreviewTest {
         val firstOwner = owner.start(originalPort)
         try {
             official.start().use { officialServer ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:$originalPort/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                     waitFor("Native Red Square reference post")

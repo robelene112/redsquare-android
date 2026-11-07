@@ -50,7 +50,7 @@ class WalletTransferPreviewTest {
     }
 
     @Test fun openingSendUsesOneFocusedTaskWithoutTheWalletDoneAction() {
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use {
             ui.openWallet()
             ui.waitUntil(10_000) { ui.onAllNodes(hasContentDescription("Wallet address"))
@@ -78,7 +78,7 @@ class WalletTransferPreviewTest {
         server.use {
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
@@ -173,7 +173,7 @@ class WalletTransferPreviewTest {
         fundedTransferServer().use { server ->
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
@@ -225,7 +225,7 @@ class WalletTransferPreviewTest {
         fundedTransferServer().use { server ->
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
@@ -294,7 +294,7 @@ class WalletTransferPreviewTest {
             }
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             peer.start().use { transport ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedDisabled", true)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
@@ -351,7 +351,7 @@ class WalletTransferPreviewTest {
             fundedTransferServer().use { server ->
                 server.start(InetAddress.getByName("127.0.0.1"), 0)
                 peer.start().use { transport ->
-                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                         .putExtra("feedDisabled", true)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
@@ -483,7 +483,7 @@ class WalletTransferPreviewTest {
         }
         server.use {
             server.start(InetAddress.getByName("127.0.0.1"), 0)
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 ui.openWallet()
@@ -527,7 +527,7 @@ class WalletTransferPreviewTest {
                     }
                 }
                 server.start(InetAddress.getByName("127.0.0.1"), 0)
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedDisabled", true)
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir,

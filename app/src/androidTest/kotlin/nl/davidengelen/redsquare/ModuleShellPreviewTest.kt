@@ -20,9 +20,14 @@ class ModuleShellPreviewTest {
             ui.onNodeWithContentDescription("Switch app: Red Square").assertIsDisplayed().assertHasClickAction().performClick()
             ui.onNode(hasText("Red Square") and isSelected()).assertIsDisplayed()
             ui.onNodeWithText("Stack").assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "module-shell-evidence/module-picker.png"))
             androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
             ui.onNodeWithContentDescription("Account").assertIsDisplayed().performClick()
-            ui.onNode(hasText("Wallet") and hasClickAction()).assertIsDisplayed().performClick()
+            ui.onNode(hasText("Wallet") and hasClickAction()).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "module-shell-evidence/account-sheet.png"))
+            ui.onNode(hasText("Wallet") and hasClickAction()).performClick()
             ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Done").performClick()
             ui.onNodeWithContentDescription("Account").performClick()
@@ -98,7 +103,7 @@ class ModuleShellPreviewTest {
     private fun switchApp(current: String, next: String) {
         ui.revealAppNavigation()
         ui.onNodeWithContentDescription("Switch app: $current").assertIsDisplayed().performClick()
-        ui.onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup()))
+        ui.onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog()))
             .assertIsDisplayed().assertIsEnabled().performClick()
         // Guarded navigation saves local work before committing the selected module.
         // Observe the actual destination rather than assuming IO completes with the tap.

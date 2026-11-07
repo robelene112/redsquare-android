@@ -47,7 +47,7 @@ class FollowingPreviewTest {
         val official = controlledPeer(newer)
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { scenario ->
                     try {
@@ -115,7 +115,7 @@ class FollowingPreviewTest {
             "[$root]"
         }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("Native Red Square reference post")
                 ui.openWallet()
@@ -174,7 +174,7 @@ class FollowingPreviewTest {
             }
         }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor("Native Red Square reference post")
@@ -215,7 +215,7 @@ class FollowingPreviewTest {
         }
         peer.start().use { server ->
             fun withApp(action: () -> Unit) {
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                     try { action() }
                     catch (failure: Throwable) {
@@ -283,7 +283,7 @@ class FollowingPreviewTest {
             "[$root]"
         }
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor("Native Red Square reference post")
@@ -328,7 +328,7 @@ class FollowingPreviewTest {
             "[$root]"
         }
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             lateinit var choices: java.io.File
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -394,7 +394,7 @@ class FollowingPreviewTest {
             }
         }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 try {
                     waitFor("Native Red Square reference post")
@@ -439,7 +439,7 @@ class FollowingPreviewTest {
             } else "[$root,$other]"
         }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor("Native Red Square reference post")

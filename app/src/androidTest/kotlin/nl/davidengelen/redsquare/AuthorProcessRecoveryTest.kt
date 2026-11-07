@@ -76,7 +76,7 @@ class AuthorProcessRecoveryTest {
             }.joinToString(prefix = "[", postfix = "]")
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 enabled("New post")
                 ui.onNodeWithText("New post").performClick()
@@ -139,7 +139,7 @@ class AuthorProcessRecoveryTest {
             }
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 enabled("New post")
                 ui.openWallet()

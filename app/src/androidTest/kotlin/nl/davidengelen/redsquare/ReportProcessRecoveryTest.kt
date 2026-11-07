@@ -50,7 +50,7 @@ class ReportProcessRecoveryTest {
             "{}"
         }).apply { withholdReportReply = true }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("interruption-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
@@ -81,7 +81,7 @@ class ReportProcessRecoveryTest {
         assertEquals(row.get("owner").asString, AndroidWalletStore(context).loadExisting().publicKey)
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("cold-recovery-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")

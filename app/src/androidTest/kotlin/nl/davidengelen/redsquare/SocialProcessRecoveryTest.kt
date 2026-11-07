@@ -62,7 +62,7 @@ class SocialProcessRecoveryTest {
             if (criteria.get("field1").asString == "RedSquareLike") "[]" else "[${root()}]"
         }).apply { disconnectAfterTransaction = true }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({
                     captureNativeScreen(File(context.cacheDir, "social-process-evidence/prepare-first-failure.png"))
@@ -101,7 +101,7 @@ class SocialProcessRecoveryTest {
         val node = PostLikePeer()
         val peer = node.peer
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()

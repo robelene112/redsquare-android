@@ -121,7 +121,7 @@ class ProfilePublishingPreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 ActivityScenario.launch<MainActivity>(intent).use {
                     try {

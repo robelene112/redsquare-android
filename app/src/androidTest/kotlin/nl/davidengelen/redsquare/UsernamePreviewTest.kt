@@ -76,7 +76,7 @@ class UsernamePreviewTest {
         val text = post.getAsJsonObject("body").getAsJsonObject("data").get("text").asString
         val peer = discoveryPeer(author, "[$row]") { registry.getAsJsonArray("rows").toString() }
         peer.start().use { server ->
-            launchActivity(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-shared-name-failure.png") }) {
@@ -130,7 +130,7 @@ class UsernamePreviewTest {
         peer.registryFallbackBeforeNamecheck = fallbackFirst
         val capturePrefix = if (fallbackFirst) "username-settings-late" else "username-settings"
         peer.start().use { server ->
-            launchActivity(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 // Isolate Settings discovery from names already looked up by cached feed rows.
                 .putExtra("feedDisabled", true)
@@ -187,7 +187,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                launchActivity(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true)
                     .putExtra("usernameFixtureRegistrar", true)
@@ -273,7 +273,7 @@ class UsernamePreviewTest {
                 }
             })
         peer.start().use { server ->
-            launchActivity(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-quoted-name-failure.png") }) {
@@ -309,7 +309,7 @@ class UsernamePreviewTest {
             .use { JsonParser.parseReader(it).asJsonObject }
         val peer = discoveryPeer(fixture.publicKey) { reference.getAsJsonArray("rows").toString() }
         peer.start().use { server ->
-            launchActivity(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-discovery-failure.png") }) {
@@ -353,7 +353,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                launchActivity(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
                     withFailureCapture({ capture("username-name-save-failure.png") }) {
@@ -419,7 +419,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                launchActivity(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true)
                     .putExtra("usernameFixtureRegistrar", true)).use {
@@ -472,7 +472,7 @@ class UsernamePreviewTest {
             "{\"err\":\"no response\"}"
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             launchActivity(intent).use {
                 withFailureCapture({ capture("username-unavailable-failure.png") }) {
@@ -521,7 +521,7 @@ class UsernamePreviewTest {
         })
         val pending = "Registration requested. Confirmation is still pending."
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             launchActivity(intent).use { scenario ->
                 withFailureCapture({ capture("username-pending-failure.png") }) {
@@ -582,7 +582,7 @@ class UsernamePreviewTest {
             if (unavailable.get()) "{\"err\":\"no response\"}" else proof
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 // Explicit scalar2 authority applies only to this isolated emulator fixture.
                 .putExtra("usernameFixtureRegistrar", true)
@@ -637,7 +637,7 @@ class UsernamePreviewTest {
                 reference.getAsJsonArray("rows").toString() else "[]"
         }, archiveResponse = { "[]" })
         peer.start().use { server ->
-            launchActivity(Intent(context, MainActivity::class.java)
+            launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
                 withFailureCapture({ capture("username-race-failure.png") }) {
@@ -758,7 +758,7 @@ class UsernamePreviewTest {
         }
         try {
             peer.start().use { server ->
-                launchActivity(Intent(context, MainActivity::class.java)
+                launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedDisabled", true)).use { scenario ->
                     withFailureCapture({ capture("username-request-storage-failure.png") }) {
@@ -842,7 +842,7 @@ class UsernamePreviewTest {
             if (registered.get() && !missing.get()) proof else "[]"
         }, archiveResponse = { "[]" })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)
             launchActivity(intent).use { scenario ->
@@ -911,7 +911,7 @@ class UsernamePreviewTest {
         var primary: Throwable? = null
         try {
             peer.start().use { server ->
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", true)
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
@@ -1033,7 +1033,7 @@ class UsernamePreviewTest {
         try {
             ownerPeer.start().use { ownerServer ->
                 officialPeer.start().use { officialServer ->
-                    launchActivity(Intent(context, MainActivity::class.java)
+                    launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")).use { scenario ->

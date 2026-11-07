@@ -59,7 +59,7 @@ class WalletImportPreviewTest {
         server.start(InetAddress.getByName("127.0.0.1"), 0)
 
         try {
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 openWallet("initial")
@@ -104,7 +104,7 @@ class WalletImportPreviewTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         val device = UiDevice.getInstance(instrumentation)
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { scenario ->
             openWallet("invalid-backup-entry")
             val address = displayedWalletAddress(ui)
@@ -141,7 +141,7 @@ class WalletImportPreviewTest {
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
                 openWallet("valid-backup-entry")
                 val address = displayedWalletAddress(ui)
@@ -191,7 +191,7 @@ class WalletImportPreviewTest {
         val freshBackup = "guarded-import-${UUID.randomUUID()}.json"
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
                 openWallet("replacement-backup")
                 val address = displayedWalletAddress(ui)
@@ -259,7 +259,7 @@ class WalletImportPreviewTest {
         }
         server.start(InetAddress.getByName("127.0.0.1"), 0)
         try {
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
                 openWallet("balance-cases-entry")
@@ -300,7 +300,7 @@ class WalletImportPreviewTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         val device = UiDevice.getInstance(instrumentation)
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
             openWallet("stalled-provider")
             val address = displayedWalletAddress(ui)
@@ -352,7 +352,7 @@ class WalletImportPreviewTest {
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 withFailureCapture({

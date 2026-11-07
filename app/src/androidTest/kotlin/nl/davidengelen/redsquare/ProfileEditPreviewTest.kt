@@ -72,7 +72,7 @@ class ProfileEditPreviewTest {
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
         }
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 captureFailure("profile-late-save-retry-failure.png") {
@@ -150,7 +150,7 @@ class ProfileEditPreviewTest {
             "[$feed]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
@@ -186,7 +186,7 @@ class ProfileEditPreviewTest {
             "[$feed]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
@@ -230,7 +230,7 @@ class ProfileEditPreviewTest {
             "[$feed]"
         })
         val server = peer.start()
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
         server.use {
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -276,7 +276,7 @@ class ProfileEditPreviewTest {
         val bio = "A private draft 🌱\nNot published yet"
         val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             ActivityScenario.launch<MainActivity>(intent).use {
                 try {
@@ -337,7 +337,7 @@ class ProfileEditPreviewTest {
             assertNotEquals(outgoing.publicKey, incoming)
             val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { scenario ->
                     try {
@@ -400,7 +400,7 @@ class ProfileEditPreviewTest {
         check(!preserved.exists()) { "Previous storage fixture was not restored" }
         val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             ActivityScenario.launch<MainActivity>(intent).use { scenario ->

@@ -265,7 +265,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
             if (policy != null) nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey)
                 .save(nl.davidengelen.redsquare.moderation.PersonalPolicy(), policy)
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen").apply {
                         if (pendingImport) putExtra("balanceApiUrl", "http://127.0.0.1:9/balance/")
                         if (reactionBackends) putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")

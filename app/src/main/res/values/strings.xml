@@ -729,4 +729,14 @@
     <string name="image_move_up">View top</string>
     <string name="image_move_down">View bottom</string>
     <string name="profile_following_count">%1$d following</string>
+    <string name="apps_title">Your Saito apps</string>
+    <string name="apps_summary">One identity. A place for everything.</string>
+    <string name="app_redsquare_summary">Posts, conversations and your community</string>
+    <string name="app_stack_summary">Read and write on Saito</string>
+    <string name="account_wallet_summary">Balance, payments and wallet backup</string>
+    <string name="settings_account_section">Account</string>
+    <string name="settings_app_section">App</string>
+    <plurals name="social_reply_count"><item quantity="one">%d reply</item><item quantity="other">%d replies</item></plurals>
+    <string name="chat_search">Search conversations</string>
+    <string name="chat_search_empty">No matching conversations</string>
 </resources>

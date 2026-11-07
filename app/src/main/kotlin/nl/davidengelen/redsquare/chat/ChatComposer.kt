@@ -20,8 +20,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -245,8 +248,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                             if (!navigation.transitioning)
                                 changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
                         }, label = { Text(stringResource(R.string.chat_message), maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                            modifier = Modifier.weight(1f).then(editorModifier), enabled = editable, maxLines = 4)
-                        Button(enabled = permitted && ready && !sending && !preparingPhoto && !navigation.transitioning && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
+                            modifier = Modifier.weight(1f).then(editorModifier), enabled = editable, maxLines = 4,
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp))
+                        val sendLabel = stringResource(if (retrying) R.string.retry else R.string.chat_send)
+                        IconButton(modifier = Modifier.semantics { this.text = AnnotatedString(sendLabel) },
+                            enabled = permitted && ready && !sending && !preparingPhoto && !navigation.transitioning && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
                             onClick = send@ {
                                 if (navigation.transitioning || sending || preparingPhoto || !ready) return@send
                                 focus.clearFocus()
@@ -300,7 +306,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                     }
                                     finally { sending = false }
                                 }
-                            }) { Text(stringResource(if (retrying) R.string.retry else R.string.chat_send)) }
+                            }) { Icon(painterResource(R.drawable.ic_send),
+                                contentDescription = null) }
                     }
                 })
         }

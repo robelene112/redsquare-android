@@ -39,7 +39,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
         check(reminder.edit().putBoolean("hidden:${wallet.publicKey}", false).commit())
         backends.save(SaitoBackend.OWNER)
         peer.start().use { server ->
-            val launchIntent = Intent(context, MainActivity::class.java)
+            val launchIntent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", registryResponse != null)
             giphyFixtureUrl?.let { launchIntent.putExtra("giphyFixtureUrl", it) }

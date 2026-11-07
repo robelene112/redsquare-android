@@ -18,6 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
+import nl.davidengelen.redsquare.registry.RegisteredNameStore
+import nl.davidengelen.redsquare.registry.registeredNameIsCurrent
+import nl.davidengelen.redsquare.saito.SaitoRegistry
+import nl.davidengelen.redsquare.saito.SaitoBackend
+import androidx.compose.foundation.background
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -37,7 +46,7 @@ internal enum class AppModule(val title: Int) {
 @Composable
 internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletEnabled: Boolean, settingsEnabled: Boolean,
     onWallet: () -> Unit, onSettings: () -> Unit, onModule: (AppModule) -> Unit, onConnectionDetails: () -> Unit,
-    blocks: NodeBlockState? = null) {
+    blocks: NodeBlockState? = null, registryAuthority: String = SaitoRegistry.REGISTRAR) {
     val switchLabel = stringResource(R.string.switch_app, stringResource(module.title))
     val accountLabel = stringResource(R.string.account)
     var appsOpen by remember { mutableStateOf(false) }
@@ -60,12 +69,32 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                     Spacer(Modifier.width(8.dp))
                     Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
                 }
-                AppMenu(appsOpen, onDismissRequest = { appsOpen = false }) {
+                DesignSheet(appsOpen, stringResource(R.string.apps_title), { appsOpen = false }) {
+                    Text(stringResource(R.string.apps_summary), style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                     AppModule.entries.forEach { target ->
-                        DropdownMenuItem(text = { Text(stringResource(target.title)) },
-                            modifier = Modifier.semantics { selected = module == target },
-                            enabled = walletEnabled,
-                            onClick = { if (appsOpen) { appsOpen = false; onModule(target) } })
+                        Surface(onClick = { if (appsOpen) { appsOpen = false; onModule(target) } },
+                            enabled = walletEnabled && appsOpen, shape = RoundedCornerShape(AppSpacing.cardRadius),
+                            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            modifier = Modifier.semantics { selected = module == target }) {
+                            Row(Modifier.fillMaxWidth().padding(18.dp), verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                                Surface(shape = RoundedCornerShape(12.dp), color = if (target == AppModule.RED_SQUARE)
+                                    MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary) {
+                                    Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
+                                        Icon(painterResource(if (target == AppModule.RED_SQUARE) R.drawable.ic_home else R.drawable.ic_article),
+                                            null, Modifier.size(22.dp), tint = if (target == AppModule.RED_SQUARE)
+                                                MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondary)
+                                    }
+                                }
+                                Column(Modifier.weight(1f)) {
+                                    Text(stringResource(target.title), style = MaterialTheme.typography.titleMedium)
+                                    Text(stringResource(if (target == AppModule.RED_SQUARE) R.string.app_redsquare_summary else R.string.app_stack_summary),
+                                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                }
+                                Icon(painterResource(if (module == target) R.drawable.ic_check else R.drawable.ic_forward), null, Modifier.size(22.dp))
+                            }
+                        }
                     }
                 }
             }
@@ -77,12 +106,35 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                         Modifier.size(36.dp).clip(CircleShape).clearAndSetSemantics { }, cachedOnly = true)
                     else Icon(painterResource(R.drawable.ic_profile), null)
                 }
-                AppMenu(accountOpen, onDismissRequest = { accountOpen = false }) {
-                    DropdownMenuItem(text = { Text(stringResource(R.string.wallet)) }, enabled = walletEnabled,
-                        leadingIcon = { Icon(painterResource(R.drawable.ic_wallet), null) },
+                DesignSheet(accountOpen, accountLabel, { accountOpen = false }) {
+                    if (owner != null) {
+                        val context = LocalContext.current.applicationContext
+                        val backend = SaitoBackend.entries.firstOrNull { it.domain == node }
+                        val name by produceState<String?>(null, owner, backend, registryAuthority, accountOpen) {
+                            value = if (!accountOpen || backend == null) null else try {
+                                withContext(Dispatchers.IO) {
+                                    RegisteredNameStore(context, owner, registryAuthority).load()
+                                        ?.takeIf { registeredNameIsCurrent(it, backend, System.currentTimeMillis()) }?.name?.identifier
+                                }
+                            } catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { null }
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            ProfileAvatar(owner, Modifier.size(50.dp).clip(CircleShape), cachedOnly = true)
+                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                Text(name ?: "Anon-${owner.take(6)}", style = MaterialTheme.typography.titleLarge)
+                                Text(owner, style = MaterialTheme.typography.bodySmall,
+                                    maxLines = 2, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
+                    }
+                    HorizontalDivider()
+                    AccountActionRow(stringResource(R.string.wallet), R.drawable.ic_wallet,
+                        summary = stringResource(R.string.account_wallet_summary), enabled = walletEnabled && accountOpen,
                         onClick = { if (accountOpen) { accountOpen = false; onWallet() } })
-                    DropdownMenuItem(text = { Text(stringResource(R.string.settings)) }, enabled = settingsEnabled,
-                        leadingIcon = { Icon(painterResource(R.drawable.ic_settings), null) },
+                    AccountActionRow(stringResource(R.string.settings), R.drawable.ic_settings,
+                        summary = stringResource(R.string.settings_preferences_summary), enabled = settingsEnabled && accountOpen,
                         onClick = { if (accountOpen) { accountOpen = false; onSettings() } })
                 }
             }
@@ -92,15 +144,28 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
             contentPadding = PaddingValues(horizontal = 4.dp)) {
             val report = blocks?.takeIf { it.backend?.domain == node }
             val label = nodeBlockHeaderLabel(report)
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(stringResource(R.string.selected_server, node),
+            val responsive = LocalDensity.current.fontScale > 1.3f
+            Box(Modifier.size(6.dp).background(when {
+                report?.failure != null -> MaterialTheme.colorScheme.error
+                report?.observation != null && !report.lastSeen && !report.olderBlock -> MaterialTheme.colorScheme.tertiary
+                else -> MaterialTheme.colorScheme.onSurfaceVariant
+            }, CircleShape))
+            Spacer(Modifier.width(7.dp))
+            if (responsive) Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(stringResource(R.string.selected_server, node), style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            } else Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(R.string.selected_server, node), Modifier.weight(1f),
                     style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                 SingleOwnerReveal(label) {
-                    Text(label,
-                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(label, style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
+            Spacer(Modifier.width(8.dp))
             Icon(painterResource(R.drawable.ic_info), stringResource(R.string.connection_details), Modifier.size(18.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }

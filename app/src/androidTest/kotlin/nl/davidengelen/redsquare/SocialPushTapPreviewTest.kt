@@ -289,7 +289,7 @@ class SocialPushTapPreviewTest {
                             hideKeyboard()
                             ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
                             ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
-                            ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup())).performClick()
+                            ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performClick()
                             ui.waitUntil(5_000) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
                             ui.onNodeWithText("Stack design preview").assertIsDisplayed()
                             // Real incoming references for a different identity or node must not

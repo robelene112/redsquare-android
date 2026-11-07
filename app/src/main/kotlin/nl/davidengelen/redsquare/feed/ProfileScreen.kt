@@ -35,6 +35,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
+import nl.davidengelen.redsquare.ui.DesignSheet
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.saito.*
@@ -215,8 +216,8 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     var actionsOpen by remember(author) { mutableStateOf(false) }
     var identityOpen by rememberSaveable(author) { mutableStateOf(false) }
     val own = wallet?.publicKey == author
-    val follow: @Composable () -> Unit = {
-        OutlinedButton(enabled = following?.ready == true && !following.saving,
+    val follow: @Composable (Boolean) -> Unit = { interactive ->
+        OutlinedButton(enabled = interactive && following?.ready == true && !following.saving,
             onClick = { following?.toggle(author) }, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(if (author in following?.accounts.orEmpty()) R.string.unfollow_account else R.string.follow_account))
         }
@@ -237,7 +238,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         onDetails = { identityOpen = true }) {
                         if (own) OutlinedButton(onClick = { view.editing = true }, modifier = Modifier.heightIn(min = 48.dp)) {
                             Text(stringResource(R.string.profile_edit))
-                        } else follow()
+                        } else follow(true)
                     }
                     if (own && following?.ready == true) Text(
                         stringResource(R.string.profile_following_count, following.accounts.size),
@@ -282,12 +283,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     }
     // This dialog stays composed while a mute/block confirmation is open.
     // Selecting a confirmation must never dispose the state that owns it.
-    if (actionsOpen) AlertDialog(onDismissRequest = { actionsOpen = false },
-        title = { Text(stringResource(R.string.profile_actions)) },
-        text = { Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
+    DesignSheet(actionsOpen, stringResource(R.string.profile_actions), { actionsOpen = false }) {
+        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
             ProfileActionSection(stringResource(R.string.profile_actions_identity_section)) {
-                TextButton(onClick = { actionsOpen = false; identityOpen = true },
+                TextButton(enabled = actionsOpen, onClick = { if (actionsOpen) { actionsOpen = false; identityOpen = true } },
                     modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
                     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(stringResource(R.string.post_public_identity), style = MaterialTheme.typography.bodyLarge)
@@ -310,15 +309,16 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         Text(followStatus, style = MaterialTheme.typography.titleSmall)
                         Text(stringResource(R.string.profile_actions_follow_detail),
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { follow() }
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { follow(actionsOpen) }
                         FollowingStatus(following)
                     }
                 }
                 ProfileActionSection(stringResource(R.string.profile_actions_safety_section)) {
-                    AccountControls(author)
+                    AccountControls(author, enabled = actionsOpen)
                     if (wallet != null) {
                         HorizontalDivider()
-                        TextButton(onClick = {
+                        TextButton(enabled = actionsOpen, onClick = {
+                            if (!actionsOpen) return@TextButton
                             actionsOpen = false
                             view.publisherReport = PublisherUserReport(author, backend)
                         }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
@@ -332,10 +332,11 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                 }
             }
-        } },
-        confirmButton = { TextButton(onClick = { actionsOpen = false }, modifier = Modifier.heightIn(min = 48.dp)) {
+        }
+        TextButton(enabled = actionsOpen, onClick = { actionsOpen = false }, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.done))
-        } })
+        }
+    }
     if (identityOpen) IdentityDetailsDialog(author) { identityOpen = false }
     view.publisherReport?.let { report ->
         PublisherEmailDialog(PublisherContactPurpose.SAFETY, report) { view.publisherReport = null }
@@ -347,7 +348,7 @@ private fun ProfileActionSection(title: String, content: @Composable ColumnScope
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(title, Modifier.padding(horizontal = 12.dp), style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary)
-        Surface(shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+        Surface(color = androidx.compose.ui.graphics.Color.Transparent) {
             Column(Modifier.fillMaxWidth().padding(4.dp),
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.small), content = content)
         }

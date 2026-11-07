@@ -27,7 +27,7 @@ class WalletExportPreviewTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         assertFalse(context.getSystemService(KeyguardManager::class.java).isDeviceSecure)
-        val intent = Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)
+        val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedDisabled", true)
         ActivityScenario.launch<MainActivity>(intent).use {
             try {
                 ui.openWallet()
@@ -58,7 +58,7 @@ class WalletExportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             check(device.executeShellCommand("locksettings verify --old $EXPORT_TEST_PIN --user 0")
                 .contains("Lock credential verified successfully"))
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)).use {
                 try {
                 ui.openWallet()
@@ -100,7 +100,7 @@ class WalletExportPreviewTest {
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)).use {
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
@@ -132,7 +132,7 @@ class WalletExportPreviewTest {
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)).use {
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                     "wallet-export-evidence/stalled-provider-failure.png")) }) {
@@ -162,7 +162,7 @@ class WalletExportPreviewTest {
         device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)).use {
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)

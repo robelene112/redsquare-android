@@ -23,7 +23,7 @@ class WalletImportInterruptionTest {
     @Test fun terminateAfterReplacementWriteBeforeRecoveryCommit() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true))
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedDisabled", true))
         ui.openWallet()
         val address = displayedWalletAddress(ui)
         val previous = AndroidWalletStore(context).loadExisting()
@@ -51,7 +51,7 @@ class WalletImportInterruptionTest {
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
         val address = File(context.cacheDir, "wallet-import-interruption-state.txt").readText().trim()
         check(address.matches(Regex("[1-9A-HJ-NP-Za-km-z]{44}")))
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use {
             ui.openWallet()
             assertEquals(address, displayedWalletAddress(ui))

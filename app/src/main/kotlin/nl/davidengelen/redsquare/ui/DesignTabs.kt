@@ -29,7 +29,7 @@ internal fun DesignTabs(labels: List<String>, selected: Int, onSelect: (Int) -> 
                     var focused by remember(label) { mutableStateOf(false) }
                     FilterChip(selected = selected == index, onClick = { onSelect(index) },
                         label = { Text(label) },
-                        modifier = Modifier.heightIn(min = 48.dp).semantics { role = Role.Tab }
+                        modifier = Modifier.semantics { role = Role.Tab }
                             .onFocusChanged { focused = it.isFocused }
                             .border(if (focused) 2.dp else 0.dp,
                                 if (focused) MaterialTheme.colorScheme.primary else Color.Transparent,

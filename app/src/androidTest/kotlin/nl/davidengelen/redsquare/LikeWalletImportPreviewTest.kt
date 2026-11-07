@@ -39,7 +39,7 @@ class LikeWalletImportPreviewTest {
     }
 
     private fun previewLike(pending: Boolean) {
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use {
             ui.waitForAccountMenu(20_000)
             ui.openWallet()
@@ -66,7 +66,7 @@ class LikeWalletImportPreviewTest {
                 }
                 balances.start(InetAddress.getByName("127.0.0.1"), 0)
                 peer.start().use { server ->
-                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${balances.port}/balance/")).use {
                         withFailureCapture({ captureFeedEvidence("like-wallet-evidence/${if (pending) "pending" else "settled"}-failure.png") }) {

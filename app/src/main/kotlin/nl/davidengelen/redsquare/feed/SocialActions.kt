@@ -15,9 +15,11 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withTimeoutOrNull
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
@@ -55,11 +57,18 @@ internal fun servedCount(post: FeedPost, field: String): Long? = try {
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class)
-internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, onQuote: ((FeedPost) -> Unit)? = null) {
+internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, onQuote: ((FeedPost) -> Unit)? = null, onReply: (() -> Unit)? = null) {
     Column(Modifier.fillMaxWidth()) {
         FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            RedSquareActionKind.entries.forEach { kind -> SocialAction(post, state, kind, author) }
+            SocialAction(post, state, RedSquareActionKind.LIKE, author)
+            if (onReply != null) {
+                val replies = remember(post.envelope) { servedCount(post, "num_replies") }
+                val replyCount = replies?.let { pluralStringResource(R.plurals.social_reply_count, if (it == 1L) 1 else 2, it) }
+                SocialControl(stringResource(R.string.post_reply), R.drawable.ic_chat, stringResource(R.string.post_reply_to, author),
+                    replyCount, enabled = true, displayCount = replies?.toString(), onClick = onReply)
+            }
+            SocialAction(post, state, RedSquareActionKind.REPOST, author)
             if (onQuote != null) SocialControl(stringResource(R.string.social_quote), R.drawable.ic_quote,
                 stringResource(R.string.post_quote_for, author), enabled = state != null, onClick = { onQuote(post) })
         }
@@ -125,7 +134,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
         countLabel, enabled, available = !like && status?.available == true,
         stateHint = if (like) null else status?.let { if (it.available) label else null },
         iconScale = heartScale.value,
-        feedbackActive = like && heartFilled, suppressRipple = like) {
+        feedbackActive = like && heartFilled, suppressRipple = like, displayCount = count?.toString()) {
         if (kind == RedSquareActionKind.LIKE) {
             feedbackStartedAt = SystemClock.uptimeMillis()
             feedback++
@@ -167,28 +176,25 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 @OptIn(ExperimentalMaterial3Api::class)
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
     enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
-    feedbackActive: Boolean = false, suppressRipple: Boolean = false,
+    feedbackActive: Boolean = false, suppressRipple: Boolean = false, displayCount: String? = null,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
-    val countHeight = with(LocalDensity.current) { countStyle.lineHeight.toDp() }
     val color = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     val button: @Composable () -> Unit = {
         TextButton(onClick = onClick, enabled = enabled,
             modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics {
                 contentDescription = description
+                if (label.isNotEmpty()) text = AnnotatedString(label)
                 listOfNotNull(stateHint, count).joinToString(". ").takeIf { it.isNotEmpty() }?.let { stateDescription = it }
             }, contentPadding = PaddingValues(horizontal = AppSpacing.small, vertical = 4.dp),
             colors = ButtonDefaults.textButtonColors(contentColor = color,
                 disabledContentColor = if (available) color else color.copy(alpha = 0.38f))) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Icon(painterResource(icon), contentDescription = null, tint = if (feedbackActive) MaterialTheme.colorScheme.primary else color,
-                        modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
-                    if (label.isNotEmpty()) Text(label, style = MaterialTheme.typography.labelMedium)
-                }
-                Box(Modifier.heightIn(min = countHeight)) {
-                    if (count != null) Text(count, style = countStyle)
-                }
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                Icon(painterResource(icon), contentDescription = null,
+                    tint = if (feedbackActive) MaterialTheme.colorScheme.primary else color,
+                    modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
+                if (count != null) Text(displayCount ?: count, style = countStyle,
+                    modifier = Modifier.clearAndSetSemantics { text = AnnotatedString(count) })
             }
         }
     }

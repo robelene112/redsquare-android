@@ -68,7 +68,7 @@ class WalletTransferStatusTest {
                 }
                 server.start(InetAddress.getByName("127.0.0.1"), 0)
                 owner.start().use { ownerTransport -> official.start().use { officialTransport ->
-                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                         .putExtra("feedDisabled", true)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerTransport.port}/wsopen")
                         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialTransport.port}/wsopen")
@@ -251,7 +251,7 @@ class WalletTransferStatusTest {
                 }
                 server.start(InetAddress.getByName("127.0.0.1"), 0)
                 peer.start().use { transport ->
-                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                         .putExtra("feedDisabled", true)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${transport.port}/wsopen")
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->

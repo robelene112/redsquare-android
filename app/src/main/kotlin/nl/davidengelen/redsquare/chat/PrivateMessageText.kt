@@ -66,6 +66,6 @@ internal fun PrivateMessageText(original: String, backend: SaitoBackend, onQuote
         }
         if (photo != null) PostImages(listOf(photo.source), backend)
         val text = photo?.text ?: body
-        if (text.isNotEmpty()) Text(text, style = MaterialTheme.typography.bodyLarge)
+        if (text.isNotEmpty()) Text(text, style = MaterialTheme.typography.bodyMedium)
     }
 }

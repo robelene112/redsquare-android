@@ -18,7 +18,7 @@ class WalletCommitSyncFailureTest {
     @Test fun retryCannotExposeIdentityUntilThePublicationBarrierIsDurable() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("nl.davidengelen.redsquare.dev", context.packageName)
-        val intent = Intent(context, MainActivity::class.java).putExtra("feedDisabled", true)
+        val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedDisabled", true)
             .putExtra("walletCommitSyncUnavailable", true)
         ActivityScenario.launch<MainActivity>(intent).use { activity ->
             assertRecovery()

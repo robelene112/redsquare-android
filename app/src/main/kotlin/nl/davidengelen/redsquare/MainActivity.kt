@@ -366,7 +366,9 @@ class MainActivity : ComponentActivity() {
                             onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
                             onSettings = { settingsOpen = true },
                             onModule = ::selectModule,
-                            onConnectionDetails = { connectionDetailsOpen = true }, blocks = nodeBlock)
+                            onConnectionDetails = { connectionDetailsOpen = true }, blocks = nodeBlock,
+                            registryAuthority = backend?.let { RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, it)) }
+                                ?: nl.davidengelen.redsquare.saito.SaitoRegistry.REGISTRAR)
                         nl.davidengelen.redsquare.ui.InlineStatus(
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
                             nl.davidengelen.redsquare.ui.StatusTone.ERROR)
@@ -476,13 +478,14 @@ class MainActivity : ComponentActivity() {
                             Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
                                 verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                                 if (settingsCategory == null) {
-                                    Text(stringResource(R.string.settings_preferences_summary), style = MaterialTheme.typography.bodySmall)
+                                    Text(stringResource(R.string.settings_account_section), style = MaterialTheme.typography.titleSmall)
                                     AccountActionRow(stringResource(R.string.settings_privacy_safety), R.drawable.ic_profile, summary =
                                         stringResource(R.string.settings_personal_summary)) { settingsCategory = "privacy" }
                                     AccountActionRow(stringResource(R.string.settings_notifications_privacy), R.drawable.ic_notifications, summary =
                                         stringResource(if (androidx.core.app.NotificationManagerCompat.from(applicationContext)
                                             .areNotificationsEnabled()) R.string.settings_notifications_allowed
                                             else R.string.settings_notifications_blocked)) { settingsCategory = "notifications" }
+                                    Text(stringResource(R.string.settings_app_section), style = MaterialTheme.typography.titleSmall)
                                     AccountActionRow(stringResource(R.string.server_choice), R.drawable.ic_globe, summary =
                                         backend?.domain ?: stringResource(R.string.feed_loading)) { settingsCategory = "node" }
                                     AccountActionRow(stringResource(R.string.appearance), R.drawable.ic_appearance, summary =
@@ -603,7 +606,7 @@ class MainActivity : ComponentActivity() {
                     if (policiesOpen) nl.davidengelen.redsquare.policy.PolicyCenter { policiesOpen = false }
                     if (personalControlsOpen) PersonalControlsDialog { personalControlsOpen = false }
                     if (walletOpen) WalletDialog(address, failed, walletExport, walletImport,
-                        walletScrollState, backend != null,
+                        walletScrollState, backend, balances,
                         onClose = { walletExport.cancel(); walletImport.cancel(); walletOpen = false },
                         onOpen = { destination ->
                             walletOpen = false

@@ -4,7 +4,11 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,8 +29,14 @@ internal enum class WalletDestination { RECEIVE, SEND, RECOVERY }
 /** Wallet presentation delegates all signing, authentication, import and export to existing owners. */
 @Composable
 internal fun WalletDialog(address: String?, failed: Boolean, walletExport: WalletExport,
-    walletImport: WalletImport, scrollState: ScrollState, transfersAvailable: Boolean,
+    walletImport: WalletImport, scrollState: ScrollState, backend: SaitoBackend?, balances: WalletBalances,
     onClose: () -> Unit, onOpen: (WalletDestination) -> Unit) {
+    var balance by remember(address, backend) { mutableStateOf<SaitoBalanceSnapshot?>(null) }
+    var checkingBalance by remember(address, backend) { mutableStateOf(true) }
+    LaunchedEffect(address, backend) {
+        balance = if (address != null && backend != null) withContext(Dispatchers.IO) { balances.read(backend, address) } else null
+        checkingBalance = false
+    }
     AccountDialog(
         onDismissRequest = { if (!walletImport.activating) {
             onClose()
@@ -40,6 +50,34 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                 Modifier.fillMaxWidth().verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
+                if (walletImport.preview == null) {
+                    AccountCard {
+                        Column(Modifier.padding(22.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Text(stringResource(R.string.wallet_balance_reported), style = MaterialTheme.typography.labelLarge)
+                            Text(when {
+                                checkingBalance -> stringResource(R.string.wallet_balance_loading)
+                                balance != null -> stringResource(R.string.wallet_balance_amount, balance!!.saito)
+                                else -> stringResource(R.string.wallet_balance_unavailable)
+                            }, style = if (balance != null) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.bodyMedium)
+                            backend?.let { Text(stringResource(R.string.wallet_balance_source, it.domain),
+                                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Button(modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                                    enabled = address != null && !walletExport.busy && !walletImport.busy,
+                                    onClick = { onOpen(WalletDestination.RECEIVE) }) {
+                                    Text(stringResource(R.string.wallet_balance_receive))
+                                }
+                                OutlinedButton(modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                                    enabled = address != null && backend != null && !walletExport.busy && !walletImport.busy,
+                                    onClick = { onOpen(WalletDestination.SEND) }) {
+                                    Text(stringResource(R.string.transfer_send))
+                                }
+                            }
+                        }
+                    }
+                    Text(stringResource(R.string.wallet_balance_observation), style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
                 AccountCard {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(stringResource(R.string.wallet_identity_heading), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
@@ -134,16 +172,6 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                         AccountActionRow(stringResource(R.string.wallet_import), R.drawable.ic_wallet,
                             enabled = address != null && !walletExport.busy && !walletImport.busy, onClick = { walletExport.clearMessage(); walletImport.start() })
                         Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
-                    }
-                }
-                if (walletImport.preview == null) AccountCard {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(stringResource(R.string.wallet_payments_section), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleSmall)
-                        Text(stringResource(R.string.wallet_payments_section_detail), style = MaterialTheme.typography.bodySmall)
-                        AccountActionRow(stringResource(R.string.wallet_balance_receive), R.drawable.ic_wallet,
-                            enabled = address != null && !walletExport.busy && !walletImport.busy, onClick = { onOpen(WalletDestination.RECEIVE) })
-                        AccountActionRow(stringResource(R.string.transfer_send), R.drawable.ic_forward,
-                            enabled = address != null && transfersAvailable && !walletExport.busy && !walletImport.busy, onClick = { onOpen(WalletDestination.SEND) })
                     }
                 }
                 if (walletImport.preview == null) AccountCard {

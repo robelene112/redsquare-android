@@ -41,7 +41,7 @@ class WalletImportRiskPreviewTest {
         server.start(InetAddress.getByName("127.0.0.1"), 0)
         try {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 ui.openWallet()

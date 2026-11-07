@@ -29,6 +29,8 @@ import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.AuthorActionKind
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.DesignSheet
+import nl.davidengelen.redsquare.ui.AccountActionRow
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -68,7 +70,7 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
         PostContent(post, backend, bodyTextStyle ?: MaterialTheme.typography.bodyLarge,
             bodyVerticalPadding ?: AppSpacing.small)
         QuoteContent(post, quotes, backend)
-        SocialActions(post, social, author, onQuote)
+        SocialActions(post, social, author, onQuote, onReply = { onPost(post) })
     }
 }
 
@@ -86,24 +88,24 @@ private fun PostMoreActions(post: FeedPost, author: String, timestamp: String, r
                 .semantics { contentDescription = menuLabel }) {
                 Icon(painterResource(R.drawable.ic_more), contentDescription = null)
             }
-            DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                DropdownMenuItem(text = { Text(stringResource(R.string.post_public_identity)) },
-                    onClick = { expanded = false; identity = true })
+            DesignSheet(expanded, menuLabel, { expanded = false }) {
+                AccountActionRow(stringResource(R.string.post_public_identity), R.drawable.ic_profile,
+                    enabled = expanded, onClick = { if (expanded) { expanded = false; identity = true } })
                 if (authorActions?.owner == post.author) {
                     val editLabel = stringResource(R.string.post_edit_for, author)
                     val deleteLabel = stringResource(R.string.post_delete_for, author)
-                    DropdownMenuItem(text = { Text(stringResource(R.string.author_edit)) },
-                        modifier = Modifier.semantics { contentDescription = editLabel },
-                        onClick = { expanded = false; authorActions.open(post, AuthorActionKind.EDIT) })
-                    DropdownMenuItem(text = { Text(stringResource(R.string.author_delete)) },
-                        modifier = Modifier.semantics { contentDescription = deleteLabel },
-                        onClick = { expanded = false; authorActions.open(post, AuthorActionKind.DELETE) })
+                    AccountActionRow(stringResource(R.string.author_edit), R.drawable.ic_compose,
+                        enabled = expanded, modifier = Modifier.semantics { contentDescription = editLabel },
+                        onClick = { if (expanded) { expanded = false; authorActions.open(post, AuthorActionKind.EDIT) } })
+                    AccountActionRow(stringResource(R.string.author_delete), R.drawable.ic_close,
+                        enabled = expanded, modifier = Modifier.semantics { contentDescription = deleteLabel },
+                        onClick = { if (expanded) { expanded = false; authorActions.open(post, AuthorActionKind.DELETE) } })
                 }
                 if (reportLabel != null) {
                     val reportDescription = stringResource(R.string.post_report_for, author)
-                    DropdownMenuItem(text = { Text(reportLabel) }, enabled = reportEnabled,
+                    AccountActionRow(reportLabel, R.drawable.ic_info, enabled = expanded && reportEnabled,
                         modifier = Modifier.semantics { contentDescription = reportDescription },
-                        onClick = { expanded = false; report() })
+                        onClick = { if (expanded) { expanded = false; report() } })
                 }
             }
         }

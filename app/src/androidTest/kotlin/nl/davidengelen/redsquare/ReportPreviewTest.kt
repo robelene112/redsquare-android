@@ -40,7 +40,7 @@ class ReportPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("confirmation-failure.png") }) {
                     ui.waitUntil(20_000) { ui.refreshableContentReady() }
@@ -86,7 +86,7 @@ class ReportPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val peer = ControlledFeedPeer("[$root]").apply { disconnectAfterReport = true }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("reopening-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
@@ -125,7 +125,7 @@ class ReportPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val peer = ControlledFeedPeer("[$root]").apply { withholdReportReply = true }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("deadline-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
@@ -159,7 +159,7 @@ class ReportPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val peer = ControlledFeedPeer("[$root]")
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("saving-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
@@ -249,7 +249,7 @@ class ReportPreviewTest {
             "{}"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("receipt-save-failure.png") }) {
                     var failure: Throwable? = null
@@ -301,7 +301,7 @@ class ReportPreviewTest {
         // Explicit port enables reuse for both listener lifetimes.
         val port = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1")).use { it.localPort }
         peer.start(port).use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { activity ->
                 withFailureCapture({ capture("unavailable-before-send-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
@@ -339,7 +339,7 @@ class ReportPreviewTest {
         val official = ControlledFeedPeer("[$root]")
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { activity ->
                     withFailureCapture({ capture("backend-isolation-failure.png") }) {
@@ -414,7 +414,7 @@ class ReportPreviewTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val peer = ControlledFeedPeer("[$root]").apply { disconnectAfterReport = true }
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("unreadable-details-failure.png") }) {
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
@@ -481,7 +481,7 @@ class ReportPreviewTest {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         // Bootstrap through the real app if this case is first on a focused installation.
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use {
             withFailureCapture({ capture("identity-bootstrap-failure.png") }) {
                 ui.waitForAccountMenu(20_000)
@@ -514,7 +514,7 @@ class ReportPreviewTest {
             device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             peer.start().use { server ->
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
                 ActivityScenario.launch<MainActivity>(intent).use {
@@ -654,7 +654,7 @@ class ReportPreviewTest {
         val reply = AtomicReference("{}")
         val peer = ControlledFeedPeer("[$root]", reportResponse = { reply.get() })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("invalid-acknowledgement-failure.png") }) {
                     var original: ByteArray? = null
@@ -719,7 +719,7 @@ class ReportPreviewTest {
             "{}"
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
             val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."

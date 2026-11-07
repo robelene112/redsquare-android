@@ -111,7 +111,7 @@ class RepeatLikeProcessRecoveryTest {
         }
     }
 
-    private fun intent(port: Int) = Intent(context, MainActivity::class.java)
+    private fun intent(port: Int) = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
         .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) {

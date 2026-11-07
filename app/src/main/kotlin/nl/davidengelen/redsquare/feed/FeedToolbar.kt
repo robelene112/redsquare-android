@@ -1,15 +1,10 @@
 package nl.davidengelen.redsquare.feed
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.FeedMoreActions
 import nl.davidengelen.redsquare.ui.DesignTabs
@@ -28,4 +23,3 @@ internal fun FeedToolbar(followingView: Boolean, onFollowing: (Boolean) -> Unit,
 private fun FeedActions(maintenanceEnabled: Boolean, onQueue: () -> Unit, onChanges: () -> Unit) {
     FeedMoreActions(maintenanceEnabled, onQueue, onChanges)
 }
-

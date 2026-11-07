@@ -22,6 +22,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -328,7 +330,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 enabled = !closing && !navigation.transitioning, onClick = { close() })
             Column(Modifier.weight(1f)) {
                 Text(counterparty?.let { registeredIdentity(it).name } ?: stringResource(R.string.chat_title),
-                    style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    style = MaterialTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 if (counterparty != null) Text(stringResource(R.string.chat_encrypted), style = MaterialTheme.typography.labelSmall,
                     maxLines = 1, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
@@ -379,18 +381,22 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             statusContent(true)
         }
         if (contact == null) {
-            FlowRow(Modifier.fillMaxWidth().padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilledTonalButton(enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
-                    onClick = { contactFailed = false; addingContact = true }) {
-                    Icon(painterResource(R.drawable.ic_compose), contentDescription = null, modifier = Modifier.size(20.dp))
-                    Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.chat_new))
-                }
-                OutlinedButton(enabled = !savingContact && !navigation.transitioning, onClick = { reviewingGroups = true }) {
+            var search by rememberSaveable { mutableStateOf("") }
+            val availableContacts = contacts.map { it to registeredIdentity(it).name }
+                .filter { (key, name) -> search.isBlank() || key.contains(search, ignoreCase = true) || name.contains(search, ignoreCase = true) }
+            OutlinedTextField(search, onValueChange = { search = it.take(256) },
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), singleLine = true,
+                shape = RoundedCornerShape(24.dp),
+                leadingIcon = { Icon(painterResource(R.drawable.ic_search), null) },
+                placeholder = { Text(stringResource(R.string.chat_search)) })
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                Text(stringResource(R.string.chat_messages), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                TextButton(enabled = !savingContact && !navigation.transitioning, onClick = { reviewingGroups = true }) {
                     Text(stringResource(R.string.group_title))
                 }
             }
+            Box(Modifier.weight(1f).fillMaxWidth()) {
+            Column(Modifier.fillMaxSize()) {
             if (!addingContact) InlineStatus(if (contactFailed) stringResource(R.string.chat_contact_save_error) else null, StatusTone.ERROR)
             val availableHistory: @Composable () -> Unit = {
                 InlineStatus(stringResource(R.string.status_available_history),
@@ -408,17 +414,31 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 // item cannot become a retained scroll anchor above newly loaded identities.
                 val contactsLabel = stringResource(R.string.chat_known_contacts)
                 LazyColumn(Modifier.weight(1f).semantics { contentDescription = contactsLabel },
+                    contentPadding = PaddingValues(bottom = 80.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(contacts, key = { it }) { key ->
+                    if (availableContacts.isEmpty()) item(key = "no-search-results") {
+                        Text(stringResource(R.string.chat_search_empty), Modifier.padding(vertical = 16.dp),
+                            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    items(availableContacts, key = { it.first }) { (key, name) ->
                         Surface(onClick = { openContact(key) }, modifier = Modifier.fillMaxWidth(),
                             enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
-                            shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                            Box(Modifier.padding(12.dp)) {
-                                ChatIdentityRow(key, registeredIdentity(key).name, key)
+                            color = MaterialTheme.colorScheme.surface) {
+                            Box(Modifier.padding(vertical = 13.dp)) {
+                                ChatIdentityRow(key, name, key)
                             }
                         }
                     }
                     if (!keyboardVisible) item(key = "available-history-guidance") { availableHistory() }
+                }
+            }
+            }
+            val newLabel = stringResource(R.string.chat_new)
+            if (!savingContact && personal?.ready == true && !navigation.transitioning)
+                FloatingActionButton(onClick = { contactFailed = false; addingContact = true },
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp).semantics { text = AnnotatedString(newLabel) },
+                    containerColor = MaterialTheme.colorScheme.primary) {
+                    Icon(painterResource(R.drawable.ic_compose), newLabel)
                 }
             }
         } else {

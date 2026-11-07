@@ -27,7 +27,7 @@ class WalletPreviewTest {
 
     @Before fun openWalletTestApp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        scenario = ActivityScenario.launch(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true))
+        scenario = ActivityScenario.launch(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedDisabled", true))
         scenario.onActivity { activity = it }
     }
 

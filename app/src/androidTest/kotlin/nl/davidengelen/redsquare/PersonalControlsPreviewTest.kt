@@ -63,7 +63,7 @@ class PersonalControlsPreviewTest {
         val official = peer(newer)
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                 var address = ""
@@ -139,7 +139,7 @@ class PersonalControlsPreviewTest {
             }
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "anonymous-seed-failure") {
@@ -212,7 +212,7 @@ class PersonalControlsPreviewTest {
         peer.start().use { server ->
             // Both approved backend sessions use a controlled binary transport here.
             // The earlier Mute journey independently verifies different server histories.
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
@@ -319,7 +319,7 @@ class PersonalControlsPreviewTest {
             }.joinToString(prefix = "[", postfix = "]")
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "mounted-views-failure") {
@@ -436,7 +436,7 @@ class PersonalControlsPreviewTest {
             }
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "failed-save-seed-failure") {
@@ -508,7 +508,7 @@ class PersonalControlsPreviewTest {
             }
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             var primary: Throwable? = null
@@ -585,7 +585,7 @@ class PersonalControlsPreviewTest {
             if (criteria.get("field2")?.asString == author) "[$root]" else "[$root,$other]"
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "corrupt-policy-preparation-failure") {
@@ -662,7 +662,7 @@ class PersonalControlsPreviewTest {
         var originalAddress = ""
         // This may be the first test on a fresh focused installation. Let the
         // actual first-launch UI create its wallet before inspecting saved options.
-        withOpenApp(Intent(context, MainActivity::class.java).putExtra("feedDisabled", true),
+        withOpenApp(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/").putExtra("feedDisabled", true),
             "personal-identity-bootstrap-failure") {
             ui.waitForAccountMenu(15_000)
             ui.openWallet()
@@ -700,7 +700,7 @@ class PersonalControlsPreviewTest {
             device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             peer.start().use { server ->
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
                 withOpenApp(intent, "personal-identity-replacement-failure") {

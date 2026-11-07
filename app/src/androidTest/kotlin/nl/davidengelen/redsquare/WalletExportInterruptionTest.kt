@@ -25,7 +25,7 @@ class WalletExportInterruptionTest {
         val context = instrumentation.targetContext
         assertTrue(context.getSystemService(KeyguardManager::class.java).isDeviceSecure)
         val device = UiDevice.getInstance(instrumentation)
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true))
         ui.openWallet()
         val address = displayedWalletAddress(ui)
@@ -50,7 +50,7 @@ class WalletExportInterruptionTest {
         val device = UiDevice.getInstance(instrumentation)
         val state = File(context.cacheDir, "wallet-export-interruption-state.txt").readLines()
         check(state.size == 2)
-        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
             .putExtra("feedDisabled", true)).use {
             ui.openWallet()
             assertEquals(state[0], displayedWalletAddress(ui))

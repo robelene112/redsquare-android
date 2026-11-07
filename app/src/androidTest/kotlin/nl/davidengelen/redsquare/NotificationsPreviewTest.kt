@@ -1169,7 +1169,7 @@ class NotificationsPreviewTest {
             check(permission.edit().remove("offered").commit())
             official?.start().use { officialServer ->
               peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("usernameFixtureRegistrar", mode == Mode.USERNAME).apply {
                         officialServer?.let { putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${it.port}/wsopen") }

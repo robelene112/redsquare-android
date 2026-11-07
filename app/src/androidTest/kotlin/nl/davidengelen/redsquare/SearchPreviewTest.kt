@@ -51,7 +51,7 @@ class SearchPreviewTest {
             }
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var owner = ""
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -144,7 +144,7 @@ class SearchPreviewTest {
             }
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var owner = ""
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -259,7 +259,7 @@ class SearchPreviewTest {
             }.toString()
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-cached-check-failure.png")) }) {
@@ -362,7 +362,7 @@ class SearchPreviewTest {
             }.toString()
         })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)
             var owner = ""
@@ -452,7 +452,7 @@ class SearchPreviewTest {
             "[]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-key-failure.png")) }) {
                     waitForEnabled("New post")
@@ -526,7 +526,7 @@ class SearchPreviewTest {
             } else "{}" // Unsigned hints cannot supply the result.
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/people-name-failure.png")) }) {
@@ -593,7 +593,7 @@ class SearchPreviewTest {
         })
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                 var address = ""
@@ -693,7 +693,7 @@ class SearchPreviewTest {
             }
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/partial-history-failure.png")) }) {
                     waitForEnabled("New post")
@@ -790,7 +790,7 @@ class SearchPreviewTest {
             }
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir, "search-evidence/reply-first-failure.png")) }) {
                     waitForEnabled("New post")
