@@ -52,6 +52,7 @@ class FeedRefreshRedesignTest {
                 val target = ui.onNodeWithText("Reference post 10", useUnmergedTree = true).assertIsDisplayed()
                 val before = target.fetchSemanticsNode().boundsInRoot.top
                 release.countDown()
+                File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence").mkdirs()
                 val observations = com.google.gson.JsonArray()
                 val observedFrom = android.os.SystemClock.elapsedRealtime()
                 var lastObservation: String? = null
