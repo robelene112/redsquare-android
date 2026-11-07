@@ -102,8 +102,10 @@ class NodeBlockMotionTest {
                         tap(doneBounds)
                         check(device.wait(Until.gone(By.text("Connection details")), 3_000))
                         val list = nativeVerticalScrollBounds()
+                        // Enter a reading position with a controlled drag, not an injected fling.
+                        // Accessibility bounds can lag display frames during kinetic scrolling.
                         check(device.swipe(list.centerX(), list.bottom - list.height() / 5,
-                            list.centerX(), list.top + list.height() / 5, 16))
+                            list.centerX(), list.top + list.height() / 5, 64))
                         val hiddenDeadline = SystemClock.elapsedRealtime() + 3_000
                         while (headerVisible() && SystemClock.elapsedRealtime() < hiddenDeadline) SystemClock.sleep(32)
                         assertFalse("Reading must collapse the actual block-status header", headerVisible())
