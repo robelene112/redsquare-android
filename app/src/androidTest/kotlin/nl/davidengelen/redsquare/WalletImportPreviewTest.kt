@@ -146,7 +146,7 @@ class WalletImportPreviewTest {
                 openWallet("valid-backup-entry")
                 val address = displayedWalletAddress(ui)
                 val original = "same-import-${UUID.randomUUID()}.json"
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, original)
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -195,7 +195,7 @@ class WalletImportPreviewTest {
                 .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
                 openWallet("replacement-backup")
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, oldBackup)
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -368,7 +368,7 @@ class WalletImportPreviewTest {
                     openWallet("activation-entry")
                     val originalAddress = displayedWalletAddress(ui)
                     originalWallet = wallets.loadExisting()
-                    ui.onNodeWithText("Export wallet").performClick()
+                    ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                     chooseTestBackup(device, originalFile)
                     enterRealSystemPin(device)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

@@ -93,12 +93,12 @@ internal fun ComposeTestRule.openAccountMenu() {
 
 internal fun ComposeTestRule.openWallet() {
     openAccountMenu()
-    onNode(hasText("Wallet") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(hasText("Wallet") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 internal fun ComposeTestRule.openSettings() {
     openAccountMenu()
-    onNode(hasText("Settings") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(hasText("Settings") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 /** Retain the caller's original first-use/keyboard readiness deadline. */

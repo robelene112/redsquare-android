@@ -46,7 +46,7 @@ class WalletImportRiskPreviewTest {
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 ui.openWallet()
                 val originalAddress = displayedWalletAddress(ui)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, originalFile)
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

@@ -30,7 +30,7 @@ class WalletExportInterruptionTest {
         ui.openWallet()
         val address = displayedWalletAddress(ui)
         val name = "interrupted-${UUID.randomUUID()}.json"
-        ui.onNodeWithText("Export wallet").performClick()
+        ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
         chooseTestBackup(device, name)
         waitForSystemPin(device)
         val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
@@ -59,7 +59,7 @@ class WalletExportInterruptionTest {
             captureFeedEvidence("wallet-export-evidence/process-recovery.png")
             val name = "after-interruption-${UUID.randomUUID()}.json"
             val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
-            ui.onNodeWithText("Export wallet").performClick()
+            ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
             chooseTestBackup(device, name)
             waitForSystemPin(device)
             assertEquals(-1, requireNotNull(context.contentResolver.openInputStream(uri)).use { it.read() })

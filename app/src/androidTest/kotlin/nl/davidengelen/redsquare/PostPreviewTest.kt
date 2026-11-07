@@ -634,7 +634,7 @@ class PostPreviewTest {
                 ui.openWallet()
                 previous = store.loadExisting()
                 org.junit.Assert.assertNotEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
-                ui.onNodeWithText("Import wallet").performClick()
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseReferenceImport()
                 waitFor("Node reports zero SAITO")
                 ui.onNodeWithText("Local drafts and posting records stay on this device with your current wallet. They are unavailable while another wallet is active and are not included in wallet exports. A post may already have reached its node even if availability is unconfirmed.")
@@ -709,7 +709,7 @@ class PostPreviewTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Back").performClick()
                 ui.openWallet()
-                ui.onNodeWithText("Import wallet").performClick()
+                ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseReferenceImport()
                 waitFor("Node reports zero SAITO")
                 ui.onNodeWithText("Skip backup").performScrollTo().performClick()

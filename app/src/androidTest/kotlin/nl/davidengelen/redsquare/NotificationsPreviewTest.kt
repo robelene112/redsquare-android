@@ -827,7 +827,7 @@ class NotificationsPreviewTest {
 
     private fun importNotificationWallet(filename: String, incoming: String) {
         ui.openWallet()
-        ui.onNodeWithText("Import wallet").performClick()
+        ui.onNodeWithText("Import wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
         chooseWalletImport(ui, filename, incoming)
         waitFor("Node reports zero SAITO")
         ui.onNodeWithText("Skip backup").performScrollTo().performClick()
