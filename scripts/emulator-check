@@ -418,6 +418,13 @@ if [[ "${TEST_SCOPE:-full}" == destination-reveal* ]]; then
     verify_group_chat_native DestinationRevealMotionTest 180 destination-reveal destination-reveal-evidence
     exit 0
 fi
+verify_stack_design() {
+    local stack_failed=0
+    verify_group_chat_native StackDesignViewportTest 180 stack-design-320 stack-design-320-evidence || stack_failed=1
+    verify_group_chat_native StackDesignPixelViewportTest 180 stack-design-412 stack-design-412-evidence || stack_failed=1
+    verify_group_chat_native StackDesignMotionTest 180 stack-design-motion stack-design-motion-evidence || stack_failed=1
+    return "$stack_failed"
+}
 verify_node_blocks() {
     local node_failed=0
     verify_group_chat_native NodeBlockPreviewTest 180 node-blocks node-block-evidence || node_failed=1
@@ -433,9 +440,7 @@ if [[ "${TEST_SCOPE:-full}" == node-motion* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == node-regression* ]]; then
     verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
-    verify_group_chat_native StackDesignViewportTest 180 stack-design-320 stack-design-320-evidence
-    verify_group_chat_native StackDesignPixelViewportTest 180 stack-design-412 stack-design-412-evidence
-    verify_group_chat_native StackDesignMotionTest 180 stack-design-motion stack-design-motion-evidence
+    verify_stack_design
     verify_group_chat_native ModuleHeaderMotionTest 180 module-header module-header-motion-evidence
     verify_group_chat_native ModuleMenuKeyboardMotionTest 180 module-menu module-menu-motion-evidence
     verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence
@@ -726,9 +731,7 @@ if [[ "${TEST_SCOPE:-full}" == module-header* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
     verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
-    verify_group_chat_native StackDesignViewportTest 180 stack-design-320 stack-design-320-evidence
-    verify_group_chat_native StackDesignPixelViewportTest 180 stack-design-412 stack-design-412-evidence
-    verify_group_chat_native StackDesignMotionTest 180 stack-design-motion stack-design-motion-evidence
+    verify_stack_design
     printf '%s\n' 'Shared module shell only; full application acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -746,9 +749,7 @@ if [[ "$full_chat" == true ]]; then
     verify_group_chat_native ModuleHeaderMotionTest 180 module-header module-header-motion-evidence
     verify_group_chat_native ModuleMenuKeyboardMotionTest 180 module-menu module-menu-motion-evidence
     verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
-    verify_group_chat_native StackDesignViewportTest 180 stack-design-320 stack-design-320-evidence
-    verify_group_chat_native StackDesignPixelViewportTest 180 stack-design-412 stack-design-412-evidence
-    verify_group_chat_native StackDesignMotionTest 180 stack-design-motion stack-design-motion-evidence
+    verify_stack_design
 fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
     if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
