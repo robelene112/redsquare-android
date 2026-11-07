@@ -50,13 +50,19 @@ class LoadedMediaMotionTest {
                         response.set(JsonObject().apply { addProperty("tx", tx.envelope()) }.let { "[$it]" })
                         requireNotNull(device.wait(Until.findObject(By.desc("View profile for Anon-${author.publicKey.take(6)}")), 5_000)).click()
                         check(requested.await(5, TimeUnit.SECONDS))
-                        val loading = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000)).visibleBounds
+                        val loadingLabel = requireNotNull(device.wait(Until.findObject(By.text("Loading image")), 5_000))
+                        val loading = loadingLabel.visibleBounds
+                        val loadingContainer = requireNotNull(loadingLabel.parent).visibleBounds
                         // The existing180ms destination reveal must finish before testing this independent media result.
                         SystemClock.sleep(250)
                         captureNativeScreen(File(folder, "scale-$scale-banner-loading.png"))
                         recordArrival("banner", scale, folder, loading, activity) { release.countDown() }
                         val banner = requireNotNull(device.wait(Until.findObject(By.desc("Profile banner")), 5_000)).visibleBounds
-                        assertTrue("The raster retains the profile's3:1 banner container", kotlin.math.abs(banner.width() - banner.height() * 3) <= 3)
+                        // Independent approved reference: c95ecaa01 ProfileBlock paints128dp.
+                        val expectedHeight = kotlin.math.round(128 * instrumentation.targetContext.resources.displayMetrics.density).toInt()
+                        assertEquals("The delivered banner retains the prototype's128dp cover", expectedHeight, banner.height())
+                        assertEquals("Media delivery retains the loading container's top", loadingContainer.top, banner.top)
+                        assertEquals("Media delivery retains the loading container's bottom", loadingContainer.bottom, banner.bottom)
                         assertTrue("The actual loading placeholder stays inside the eventual banner", banner.contains(loading.centerX(), loading.centerY()))
                         captureNativeScreen(File(folder, "scale-$scale-banner-loaded.png"))
                     }

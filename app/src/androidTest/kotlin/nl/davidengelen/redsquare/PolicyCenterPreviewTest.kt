@@ -201,9 +201,9 @@ class PolicyCenterPreviewTest {
                         device.executeShellCommand("logcat -c")
                         assertTrue("TalkBack can focus the selected node radio",
                             selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                        val ownerFocusRequestedAfter = android.os.SystemClock.elapsedRealtime() - (ownerFocusBy - 5_000)
                         captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow,
                             focusTimeoutMillis = ownerFocusRemaining())
-                        val ownerFocusElapsed = android.os.SystemClock.elapsedRealtime() - (ownerFocusBy - 5_000)
                         waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
                         assertTrue("TalkBack announces the selected radio state",
                             Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
@@ -216,7 +216,7 @@ class PolicyCenterPreviewTest {
                         assertTrue("TalkBack identifies the official node as a radio choice",
                             Regex("\\bradio button\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
                         File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
-                            addProperty("ownerFocusElapsedMillis", ownerFocusElapsed)
+                            addProperty("ownerFocusRequestedAfterMillis", ownerFocusRequestedAfter)
                             addProperty("ownerFocusBudgetMillis", 5_000)
                             addProperty("selectedNode", SaitoBackend.OWNER.domain)
                             addProperty("selected", selectedOwnerRow.isChecked)
