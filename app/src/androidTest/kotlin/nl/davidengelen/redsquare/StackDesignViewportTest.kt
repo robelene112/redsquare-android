@@ -43,6 +43,12 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
         fun capture(label: String) { waitForIdle(); captureNativeScreen(File(folder, "$label.png")) }
         withPostViewports(activity, folder, "stack", scales, width) { label, theme ->
             switch("Red Square", "Stack")
+            // The previous matrix cell deliberately left its real draft in Write.
+            // Return through its local Back without discarding that retained work.
+            if (!onNode(hasText("Discover") and hasClickAction()).isDisplayed()) {
+                onNodeWithContentDescription("Back").assertIsDisplayed().performClick()
+                waitUntil(5_000) { onNode(hasText("Discover") and hasClickAction()).isDisplayed() }
+            }
             onNode(hasText("Discover") and hasClickAction()).performClick()
             onNodeWithContentDescription("Write an article").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
             reveal("Good ideas deserve\na little more room.")
