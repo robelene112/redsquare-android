@@ -103,7 +103,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             waitUntil(10_000) { keyboardVisible() }
             capture("$label-markdown-keyboard")
             UiDevice.getInstance(instrumentation).pressBack()
-            waitUntil(10_000) { !keyboardVisible() }
+            waitUntil(10_000) { !keyboardVisible() && onNodeWithContentDescription("Switch app: Stack").isDisplayed() }
             reveal("Markdown source")
             capture("$label-markdown")
             switch("Stack", "Red Square")
@@ -184,7 +184,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 onNode(hasSetTextAction() and hasText("Markdown source")).performClick()
                 waitUntil(10_000) { keyboardVisible() }
                 UiDevice.getInstance(instrumentation).pressBack()
-                waitUntil(10_000) { !keyboardVisible() }
+                waitUntil(10_000) { !keyboardVisible() && onNodeWithContentDescription("Switch app: Stack").isDisplayed() }
                 reveal("Visual")
                 onNode(hasText("Visual") and hasClickAction()).assertIsDisplayed().assertIsNotEnabled()
                 capture("$label-protected-markdown")
