@@ -93,8 +93,11 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             onNode(hasSetTextAction() and hasText("Markdown source")).performClick()
             fun keyboardVisible(): Boolean {
                 var visible = false
-                activity.onActivity { visible = androidx.core.view.ViewCompat.getRootWindowInsets(it.window.decorView)
-                    ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true }
+                activity.onActivity {
+                    val insets = androidx.core.view.ViewCompat.getRootWindowInsets(it.window.decorView)
+                    visible = insets?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true ||
+                        (insets?.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime())?.bottom ?: 0) > 0
+                }
                 return visible
             }
             waitUntil(10_000) { keyboardVisible() }
@@ -176,10 +179,12 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 val table = "A | B\n- | -\nx | y"
                 click("Markdown")
                 onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo().performTextReplacement(table)
-                if (keyboardVisible()) {
-                    UiDevice.getInstance(instrumentation).pressBack()
-                    waitUntil(10_000) { !keyboardVisible() }
-                }
+                // A semantic replacement can queue an IME show after returning.
+                // Observe that real window before Back, as in the initial edit above.
+                onNode(hasSetTextAction() and hasText("Markdown source")).performClick()
+                waitUntil(10_000) { keyboardVisible() }
+                UiDevice.getInstance(instrumentation).pressBack()
+                waitUntil(10_000) { !keyboardVisible() }
                 reveal("Visual")
                 onNode(hasText("Visual") and hasClickAction()).assertIsDisplayed().assertIsNotEnabled()
                 capture("$label-protected-markdown")
