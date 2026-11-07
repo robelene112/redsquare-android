@@ -1,57 +1,62 @@
 # Project context
 
-## Current correction: Stack fidelity is incomplete
+## Current correction: signed beta99 staged, final acceptance pending
 
-Candidate97 is obsolete and MUST NOT be promoted. Beta89 remains latest.
-Independent native/prototype comparison found missing approved Stack discovery,
-reader hierarchy, visual/Markdown writing, publication review and access screens.
-Restore these clearly labelled presentation-only routes under #94/#86 before a
-new signed98+ build. Real Stack protocol, publication, subscriptions and payments
-remain pending under #1. Do not simulate completion in the real installation.
+Issue94 remains active. The approved native prototype is c95ecaa01, live design
+`design-3d989e9e8406`. Frozen implementation and signed producer are
+`0263ab513517f5bf3c5b642b2c7dd9e8f42ab3b8`, immutable tag
+`proof-prototype98-0263ab5`. Root remains sole writer in the redesign86 worktree.
+Canonical Chat WIP, production nodes and other tickets remain untouched.
 
-The71ea complete runs and97 update proofs below are historical diagnostics for the
-pre-Stack source. They cannot accept the upcoming production change. Require new
-same-source complete Android10/17 gates, authentic signed update proofs and final
-native/prototype reviews for the replacement candidate. Preserve original failures.
-Root remains sole writer; canonical Chat WIP and production nodes stay untouched.
+Stack now restores the approved discovery, Latest/Drafts, article/author reading,
+Visual/Markdown editor, publication review, success and access/subscription
+presentation. All are explicitly local design previews. Real Stack publication,
+NFTs, payments, subscriptions and protocol remain pending under #1.
 
-Current implementation is7263a90df plus fixture4c2650c24. Signed98 has NOT been
-built; beta89 remains latest and93–97 are obsolete. Root is sole writer.
+Whole-Stack focused native runs42424088512 (Android10) and42424090652 (Android17)
+PASS all five tests. Independent Standards and Spec preflight reviews have no
+unresolved actionable findings. Fresh026 evidence covers both themes,320/412dp,
+100/130/200%, editor keyboard, protected Markdown, retained route/draft identity,
+and actual normal/zero-motion recordings. These are scoped Stack preflight,
+not full-app, physical-device or signed-candidate acceptance.
 
-Stack native a92210 passed all5tests, but independent native preflight found two
-source fidelity gaps (shared-header fade and block geometry) and two actual target
-issues (39dp dialog buttons and an occluded preview badge).7001 addresses these
-with a retained body-only reveal controller, fixed-header stacking, explicit48dp
-actions and scoped14dp block controls. Both7001 destination-reveal scopes pass
-42421257606 /42421259460. Updated native captures include Latest/Drafts/author and
-publication-success/reader, plus actual sole-clickable48dp checks.
+The actual editor crash (OffsetMapping45 versus original44) remains preserved in
+`failures/stack-editor-offset-android17`. The compatible Android-only rc13 snapshot
+pins62 Kotlin files to8342c9e, keeps the original license/consumer/parser versions,
+and captures immutable transformed text at the two existing transformation sites.
+Independent reviews replayed the exact five-file patch and all64 inventory records.
+There is no mapping clamp, suppressed validation or broader toolchain upgrade.
 
-A92217 failed the actual Pixel editor at OffsetMapping45 versus original44.
-The original failed goal/captures remain in failures/stack-editor-offset-android17.
-Persistent-form experiment183 passed42420555595 but is NOT accepted as the causal
-library fix.7263 replaces the Maven editor with an Android-only rc13 snapshot:
-62Kotlin files pinned to8342c9e, two immutable transformed-text captures from746,
-four mechanical platform bindings, original license/consumer rules/parser versions.
-All64 original/local inventory records, notices and exact5-file patch replay are
-independently verified. No mapping clamp, validation suppression or toolchain upgrade.
-Local app+instrumentation compilation passes with separate compiler lifetimes under
-the unchanged2.5GB local container cap; the combined cold daemon failure has no
-proven OOM cause. Hosted CI’s task graph and Android VM heap remain unchanged.
+The profile Done reveal and declared-cache monitor corrections retain their
+original assertions/deadlines/restoration. Original failure packets remain under
+`failures/`. Cache late-writer timing remains a hypothesis. Earlier Android10
+39/40px target concerns based only on UiAutomator XML are qualified: that dump
+clips the complete dialog window32px short of the actual native PNG/bounds.
+It does not prove reduced button size. Direct native48dp assertions now pass.
 
-700110 failed ModuleShell’s original15s initial-caption goal after prior20-row
-fixture history reappeared. Original packet: failures/module-cache-7001-android10.
-Actual public caches use PublicStringStore.lock, while the fixture had used only
-SaitoLocalState.lock.4c265 aligns both monitors, clears currently declared scope files
-and records read-only before/after/failure counts/hashes/current-peer counters. It
-retains the actual displayed-caption goal, identity checks, restoration and bounds.
-The specific late-writer timing remains a hypothesis, not a proven product defect.
+Signed99 is built and staged, NOT promoted. Candidate98 reserved a version code
+but failed before any APK; Docker recorded a local OOM event. Separate normal
+Gradle compiler/lint lifetimes then produced99 with the unchanged2500MiB container,
+1792MiB JVM heap and source. No checks were skipped. Build/signature/public-download
+receipts are in `docs/evidence/ticket94/candidate99/`.
+Actual APK42318890bytes, SHA256
+`83ce502568af22e0a95ea28e2cdadac8431b1c21b467b9d4adf3f68566000fba`,
+established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+package `nl.davidengelen.redsquare`, version0.1.99, min29/target36,
+nondebuggable/nonprofileable, REVIEW_BUILD=true/PUSH_CONFIGURED=false.
+The packaged source-library Apache2 license and actual public APK bytes are verified.
 
-Current4c265 native scopes42422980094 /42422981832 are PENDING. Both source-review
-axes are clear. Require their real outcomes and fresh whole-Stack native/prototype/
-motion review before a signed98+ build. Then actual signed-update proofs, complete
-same-source10/17 gates and final whole-app reviews remain mandatory. Frozen catalog
-remains214classes,629/630identities,180archives; collector/checker unchanged. Other
-tickets, canonical Chat WIP, production nodes and owner55 acceptance remain untouched.
+Complete same-source Android10 run42425233337 and Android17 run42425235024 are
+PENDING, all three partitions each. Actual signed83-to99 update/isolation runs
+42426257539 /42426259270 are PENDING. Require their real outcomes, unchanged frozen
+collectors and final whole-app native/prototype/motion reviews before promotion.
+Catalog remains214 classes,629/630 identities and180 original archives; no old or
+focused partial runs substitute for complete acceptance. Do not raise emulator
+heap or restart services to address the known, unproven API29 heap anomaly.
+
+Beta89 remains latest;93 through97 are obsolete and98 has no artifact. Keep
+#1/#36/#55/#84/#86 open. Owner visual acceptance, physical Pixel performance,
+actual provider lifecycle, KVK and Play acceptance remain explicitly pending.
 
 ## Earlier checkpoints, historical scope only
 

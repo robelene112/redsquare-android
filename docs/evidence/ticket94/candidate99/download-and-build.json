@@ -1,0 +1,16 @@
+{
+  "scope": "Built and staged candidate only; full app gates, signed update, final native reviews and promotion remain pending.",
+  "source": "0263ab513517f5bf3c5b642b2c7dd9e8f42ab3b8",
+  "tag": "proof-prototype98-0263ab5",
+  "bytes": 42318890,
+  "publicDownloadSha256": "83ce502568af22e0a95ea28e2cdadac8431b1c21b467b9d4adf3f68566000fba",
+  "publicDownloadUrl": "https://davidengelen.nl/redsquare/releases/99/redsquare.apk",
+  "localAndPublicApkEqual": true,
+  "reviewBuild": true,
+  "pushConfigured": false,
+  "localContainerMemoryMiB": 2500,
+  "localJvmXmxMiB": 1792,
+  "warmBuildScheduling": "Release compilation and lint warmed in separate normal Gradle processes with max-workers=1, followed by unchanged ordinary review-build. No checks skipped or source changes.",
+  "failedVersion98": "Reserved code98 failed before artifact; Docker oom event confirms local container kill. Not built, staged or accepted.",
+  "sourceBuildHead": "0263ab513517f5bf3c5b642b2c7dd9e8f42ab3b8"
+}

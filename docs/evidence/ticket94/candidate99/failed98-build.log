@@ -1,0 +1,166 @@
+Existing app signing identity retained
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+> Task :rich-editor-compat:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :rich-editor-compat:preBuild UP-TO-DATE
+> Task :rich-editor-compat:preReleaseBuild UP-TO-DATE
+> Task :rich-editor-compat:generateReleaseResValues FROM-CACHE
+> Task :rich-editor-compat:generateReleaseResources
+> Task :rich-editor-compat:packageReleaseResources
+> Task :rich-editor-compat:parseReleaseLocalResources FROM-CACHE
+> Task :rich-editor-compat:generateReleaseRFile FROM-CACHE
+> Task :rich-editor-compat:compileReleaseKotlin
+w: file:///workspace/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt:200:28 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///workspace/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt:233:30 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///workspace/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt:3:8 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+w: file:///workspace/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt:25:35 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+w: file:///workspace/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt:26:4 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+
+BUILD SUCCESSFUL in 56s
+6 actionable tasks: 3 executed, 3 from cache
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :rich-editor-compat:preBuild UP-TO-DATE
+> Task :rich-editor-compat:preReleaseBuild UP-TO-DATE
+> Task :rich-editor-compat:mergeReleaseJniLibFolders
+> Task :rich-editor-compat:mergeReleaseNativeLibs NO-SOURCE
+> Task :rich-editor-compat:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :rich-editor-compat:copyReleaseJniLibsProjectOnly
+> Task :rich-editor-compat:generateReleaseResValues UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs UP-TO-DATE
+> Task :app:stripReleaseDebugSymbols UP-TO-DATE
+> Task :app:extractReleaseNativeSymbolTables UP-TO-DATE
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :rich-editor-compat:generateReleaseResources UP-TO-DATE
+> Task :rich-editor-compat:packageReleaseResources UP-TO-DATE
+> Task :rich-editor-compat:parseReleaseLocalResources UP-TO-DATE
+> Task :rich-editor-compat:generateReleaseRFile UP-TO-DATE
+> Task :rich-editor-compat:compileReleaseKotlin UP-TO-DATE
+> Task :rich-editor-compat:javaPreCompileRelease FROM-CACHE
+> Task :rich-editor-compat:compileReleaseJavaWithJavac NO-SOURCE
+> Task :rich-editor-compat:bundleLibRuntimeToDirRelease
+> Task :app:checkReleaseDuplicateClasses
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateReleaseBuildConfig
+> Task :rich-editor-compat:writeReleaseAarMetadata
+> Task :app:checkReleaseAarMetadata
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:generateReleaseResources
+> Task :app:mergeReleaseResources
+> Task :app:packageReleaseResources
+> Task :app:parseReleaseLocalResources
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :rich-editor-compat:extractDeepLinksRelease FROM-CACHE
+> Task :rich-editor-compat:processReleaseManifest FROM-CACHE
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:processReleaseManifestForPackage
+> Task :rich-editor-compat:compileReleaseLibraryResources
+> Task :app:processReleaseResources
+> Task :rich-editor-compat:bundleLibCompileToJarRelease
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :app:desugarReleaseFileDependencies UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :app:compileReleaseKotlin
+> Task :app:mergeExtDexRelease
+> Task :rich-editor-compat:prepareReleaseArtProfile
+> Task :app:mergeReleaseArtProfile
+> Task :rich-editor-compat:bundleLibRuntimeToJarRelease
+> Task :app:mergeReleaseShaders UP-TO-DATE
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :rich-editor-compat:mergeReleaseShaders
+> Task :rich-editor-compat:compileReleaseShaders NO-SOURCE
+> Task :rich-editor-compat:generateReleaseAssets UP-TO-DATE
+> Task :rich-editor-compat:mergeReleaseAssets
+> Task :app:mergeReleaseAssets UP-TO-DATE
+> Task :app:compressReleaseAssets UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :rich-editor-compat:processReleaseJavaRes
+> Task :rich-editor-compat:createFullJarRelease
+> Task :rich-editor-compat:extractProguardFiles
+> Task :rich-editor-compat:generateReleaseLintModel
+> Task :rich-editor-compat:prepareLintJarForPublish
+> Task :rich-editor-compat:stripReleaseDebugSymbols NO-SOURCE
+> Task :rich-editor-compat:copyReleaseJniLibsProjectAndLocalJars
+> Task :rich-editor-compat:extractDeepLinksForAarRelease
+> Task :rich-editor-compat:extractReleaseAnnotations
+> Task :rich-editor-compat:mergeReleaseGeneratedProguardFiles
+> Task :rich-editor-compat:mergeReleaseConsumerProguardFiles
+> Task :rich-editor-compat:mergeReleaseJavaResource
+> Task :rich-editor-compat:syncReleaseLibJars
+> Task :rich-editor-compat:bundleReleaseLocalLintAar
+> Task :rich-editor-compat:lintVitalAnalyzeRelease
+> Task :rich-editor-compat:writeReleaseLintModelMetadata
+> Task :rich-editor-compat:generateReleaseLintVitalModel
+> Task :app:optimizeReleaseResources
+> Task :app:collectReleaseDependencies
+> Task :app:sdkReleaseDependencyData
+> Task :app:writeReleaseAppMetadata UP-TO-DATE
+> Task :app:writeReleaseSigningConfigVersions UP-TO-DATE
+
+> Task :app:compileReleaseKotlin
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:75:41 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:157:51 'fun rememberTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API that takes a preferred positioning. Please use rememberTooltipPositionProvider with TooltipAnchorPosition.Above if this same behavior is desired.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackEditor.kt:106:21 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppFrame.kt:161:71 'fun rememberPlainTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API.
+
+> Task :app:compileReleaseJavaWithJavac
+> Task :app:dexBuilderRelease
+> Task :app:mergeReleaseGlobalSynthetics UP-TO-DATE
+> Task :app:generateReleaseLintVitalReportModel
+The message received from the daemon indicates that the daemon has disappeared.
+Build request sent: Build{id=5dad8b54-6a14-4624-89b1-9a85e3101977, currentDir=/workspace}
+Attempting to read last messages from the daemon log...
+Daemon pid: 40
+  log file: /gradle-cache/daemon/8.11.1/daemon-40.out.log
+----- Last 20 lines from daemon log file - daemon-40.out.log -----
+2026-11-07T23:27:12.797+0000 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired on daemon addresses registry.
+2026-11-07T23:27:12.800+0000 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+2026-11-07T23:27:12.800+0000 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] resetting idle timer
+2026-11-07T23:27:12.801+0000 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] daemon is running. Sleeping until state changes.
+2026-11-07T23:27:12.802+0000 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=5dad8b54-6a14-4624-89b1-9a85e3101977, currentDir=/workspace}. Dispatching build started information...
+2026-11-07T23:27:12.802+0000 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 21: dispatching org.gradle.launcher.daemon.protocol.BuildStarted@4382b784
+2026-11-07T23:27:12.804+0000 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: [PATH, LANGUAGE, GRADLE_VERSION, JAVA_HOME, ANDROID_USER_HOME, LANG, ANDROID_HOME, GRADLE_HOME, JRE_CACERTS_PATH, GRADLE_USER_HOME, HOSTNAME, LC_ALL, PWD, JAVA_VERSION, HOME, SHLVL]
+2026-11-07T23:27:12.807+0000 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+2026-11-07T23:27:12.808+0000 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 40). The daemon log file: /gradle-cache/daemon/8.11.1/daemon-40.out.log
+2026-11-07T23:27:12.810+0000 [DEBUG] [org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon] Requesting daemon stop after processing Build{id=5dad8b54-6a14-4624-89b1-9a85e3101977, currentDir=/workspace}
+2026-11-07T23:27:12.811+0000 [LIFECYCLE] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon will be stopped at the end of the build 
+2026-11-07T23:27:12.811+0000 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Stop as soon as idle requested. The daemon is busy
+2026-11-07T23:27:12.811+0000 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] daemon stop has been requested. Sleeping until state changes.
+2026-11-07T23:27:12.812+0000 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+2026-11-07T23:27:12.813+0000 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=c66f9d86-5c27-441b-a400-35f19a22a340,javaHome=/opt/java/openjdk,javaVersion=17,javaVendor=Eclipse Adoptium,daemonRegistryDir=/gradle-cache/daemon,pid=40,idleTimeout=120000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx1792m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:75:41 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:157:51 'fun rememberTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API that takes a preferred positioning. Please use rememberTooltipPositionProvider with TooltipAnchorPosition.Above if this same behavior is desired.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackEditor.kt:106:21 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppFrame.kt:161:71 'fun rememberPlainTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API.----- End of the daemon log -----
+
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Gradle build daemon disappeared unexpectedly (it may have been killed or may have crashed)
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+> Task :app:mergeDexRelease
+> Task :app:lintVitalAnalyzeRelease
