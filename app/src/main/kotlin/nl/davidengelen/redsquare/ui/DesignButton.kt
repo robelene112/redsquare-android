@@ -7,6 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,11 +23,10 @@ internal fun DesignButton(onClick: () -> Unit, modifier: Modifier = Modifier, en
     var focused by remember { mutableStateOf(false) }
     val shape = ButtonDefaults.shape
     val colors = if (outlined) ButtonDefaults.outlinedButtonColors() else ButtonDefaults.buttonColors()
-    Box(modifier.defaultMinSize(minWidth = ButtonDefaults.MinWidth, minHeight = 48.dp)
+    Layout(modifier = modifier.defaultMinSize(minWidth = ButtonDefaults.MinWidth, minHeight = 48.dp)
         .onFocusChanged { focused = it.isFocused }
         .clickable(interactionSource = interaction, indication = null, enabled = enabled,
-            role = Role.Button, onClick = onClick).padding(vertical = 4.dp),
-        contentAlignment = Alignment.Center, propagateMinConstraints = true) {
+            role = Role.Button, onClick = onClick), content = {
         Surface(modifier = Modifier.clip(shape).indication(interaction, ripple()), shape = shape,
             color = if (enabled) colors.containerColor else colors.disabledContainerColor,
             contentColor = if (enabled) colors.contentColor else colors.disabledContentColor,
@@ -37,5 +37,11 @@ internal fun DesignButton(onClick: () -> Unit, modifier: Modifier = Modifier, en
                 ProvideTextStyle(MaterialTheme.typography.labelLarge) { content() }
             }
         }
+    }) { children, constraints ->
+        // Preserve a weighted button's width, but do not force its painted height
+        // to equal the touch target or add spare padding when large text grows.
+        val paint = children.single().measure(constraints.copy(minHeight = 0))
+        val height = maxOf(constraints.minHeight, paint.height)
+        layout(paint.width, height) { paint.placeRelative(0, (height - paint.height) / 2) }
     }
 }

@@ -401,7 +401,7 @@ class SocialPreviewTest {
 
     private fun assertActionDetails(summary: String, explanation: String) {
         val details = hasContentDescription("Details: $summary") and hasClickAction()
-        ui.onNode(hasScrollAction()).performScrollToNode(details)
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(details)
         ui.onNode(details).assertIsDisplayed().assertIsEnabled().performClick()
         ui.onNodeWithText(explanation).assertIsDisplayed()
         ui.onNodeWithText("Done").performClick()

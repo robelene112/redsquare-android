@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare.ui
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -18,14 +20,13 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
-/** Reference32dp chips inside complete48dp targets, wrapping rather than hiding large-text tabs. */
-@OptIn(ExperimentalLayoutApi::class)
+/** Reference chips in full48dp targets; the strip scrolls without crowding out reading content. */
 @Composable
 internal fun DesignTabs(labels: List<String>, selected: Int, onSelect: (Int) -> Unit,
     trailing: (@Composable () -> Unit)? = null) {
     Surface(color = MaterialTheme.colorScheme.surface) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            FlowRow(Modifier.weight(1f).selectableGroup(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(Modifier.weight(1f).horizontalScroll(rememberScrollState()).selectableGroup(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 labels.forEachIndexed { index, label ->
                     var focused by remember(label) { mutableStateOf(false) }
                     val interaction = remember(label) { MutableInteractionSource() }
@@ -35,13 +36,13 @@ internal fun DesignTabs(labels: List<String>, selected: Int, onSelect: (Int) -> 
                     val shape = RoundedCornerShape(8.dp)
                     Box(Modifier.heightIn(min = 48.dp).onFocusChanged { focused = it.isFocused }
                         .selectable(chosen, interactionSource = interaction, indication = null, role = Role.Tab,
-                            onClick = { onSelect(index) }).padding(vertical = 8.dp),
-                        contentAlignment = Alignment.Center, propagateMinConstraints = true) {
+                            onClick = { onSelect(index) }),
+                        contentAlignment = Alignment.Center) {
                         Surface(Modifier.clip(shape).indication(interaction, ripple()), shape = shape, color = color,
                             contentColor = if (chosen) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
                             border = if (focused) BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
                                 else if (!chosen) BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant) else null) {
-                            Box(Modifier.heightIn(min = 32.dp).padding(horizontal = 16.dp, vertical = 6.dp),
+                            Box(Modifier.heightIn(min = 32.dp).padding(horizontal = 16.dp),
                                 contentAlignment = Alignment.Center) { Text(label, style = MaterialTheme.typography.labelLarge) }
                         }
                     }

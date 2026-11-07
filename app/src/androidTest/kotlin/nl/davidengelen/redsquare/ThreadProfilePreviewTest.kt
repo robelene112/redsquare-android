@@ -100,7 +100,7 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openConversationFromList("Native Red Square reference post")
                     waitForProfileHistory()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Anon-${replyAuthor.take(6)}").performClick()
                     ui.inspectProfileIdentity(replyAuthor)
@@ -200,7 +200,7 @@ class ThreadProfilePreviewTest {
                     ui.revealProfileHistoryItem("Load older")
                     ui.onNodeWithText("Load older").assertIsEnabled().performClick()
                     ui.waitUntil(15_000) {
-                        runCatching { ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply")) }.isSuccess
+                        runCatching { ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Independent Saito reply")) }.isSuccess
                     }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     peer.assertHealthy()
@@ -236,7 +236,7 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Malformed reference thread").assertDoesNotExist()
                     openConversationFromList("Native Red Square reference post")
                     waitForProfileHistory()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     peer.assertHealthy()
                     captureFeedEvidence("browse-evidence/malformed-thread-rejected.png")
@@ -442,7 +442,7 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.refreshableContentReady() }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(10_000) { ui.refreshableContentReady() }
                     peer.assertHealthy()
@@ -453,15 +453,15 @@ class ThreadProfilePreviewTest {
                     try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.refreshableContentReady() }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Conversation information").performClick()
                     ui.onNodeWithText("Only available history is shown. Older replies may be missing.").assertIsDisplayed()
@@ -511,10 +511,10 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openConversationFromList("Native Red Square reference post")
                     ui.waitUntil(15_000) { ui.refreshableContentReady() }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Nested Saito reply"))
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Forged reply").assertDoesNotExist()
                     ui.onNodeWithText("Back").assertIsDisplayed()
@@ -547,7 +547,7 @@ class ThreadProfilePreviewTest {
 
     private fun scrollProfileTo(text: String) {
         // Search the lazy list itself: an offscreen row need not have a composed node yet.
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
         ui.onNodeWithText(text).assertIsDisplayed()
     }
 

@@ -46,8 +46,8 @@ class PostStatusViewportTest {
                     val details = hasContentDescription("Details: Repost unavailable") and hasClickAction()
                     val retry = hasText("Retry") and hasClickAction()
                     ui.waitUntil(15_000) { ui.onAllNodes(details).fetchSemanticsNodes().size == 1 }
-                    ui.onNode(hasScrollAction()).performScrollToNode(retry)
-                    ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(retry)
+                    ui.onNode(hasVerticalScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
                         scroll(0f, 88 * context.resources.displayMetrics.density)
                     }
                     ui.waitForIdle()
@@ -78,7 +78,7 @@ class PostStatusViewportTest {
                     ui.onNodeWithText("Like unavailable").assertDoesNotExist()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Repost unavailable", useUnmergedTree = true).assertIsDisplayed()
-                    val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
+                    val viewport = ui.onNode(hasVerticalScrollAction()).fetchSemanticsNode().boundsInRoot
                     val composer = ui.onNode(hasText("New post") and hasClickAction())
                         .fetchSemanticsNode().touchBoundsInRoot
                     val minimum = 48 * context.resources.displayMetrics.density - 1

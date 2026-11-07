@@ -135,7 +135,7 @@ class ImagePostingTest {
                                     ui.onNodeWithText("Reply").performClick()
                                 }
                                 "quote" -> {
-                                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote"))
+                                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Quote"))
                                     val target = ui.onNodeWithText("Quote").fetchSemanticsNode().touchBoundsInRoot
                                     val composer = ui.onNode(hasText("New post") and hasClickAction())
                                         .fetchSemanticsNode().touchBoundsInRoot
@@ -173,7 +173,7 @@ class ImagePostingTest {
                             if (kind == "reply") {
                                 waitFor("Conversation")
                                 ui.waitUntil(20_000) { ui.refreshableContentReady() }
-                                ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
                                 ui.onNodeWithText(text).assertIsDisplayed()
                             } else {
                                 ui.waitUntil(20_000) { ui.refreshableContentReady() }
@@ -182,7 +182,7 @@ class ImagePostingTest {
                                 ui.waitUntil(20_000) { peer.requests.get() > previousRequests &&
                                     ui.refreshableContentReady() }
                                 if (text.isNotEmpty()) {
-                                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
                                     ui.onNodeWithText(text).assertIsDisplayed()
                                 }
                             }

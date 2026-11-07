@@ -30,7 +30,7 @@ class PostContentViewportTest {
             ui.waitUntil(20_000) { ui.onNode(profile).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(activity, folder, "content") { label, _ ->
-                ui.onNode(hasScrollAction()).performScrollToNode(profile)
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(profile)
                 ui.onNode(profile).assertIsDisplayed()
                 ui.onNodeWithText("Media and quote viewport preview", useUnmergedTree = true).assertExists()
                 capture("$label-identity-body.png")
@@ -38,8 +38,8 @@ class PostContentViewportTest {
                 val actions = listOf("Like", "Repost", "Quote").map {
                     hasContentDescription("$it post by $authorName") and hasClickAction()
                 }
-                ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
-                ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(actions.last())
+                ui.onNode(hasVerticalScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
                     check(scroll(0f, 88 * context.resources.displayMetrics.density))
                 }
                 ui.waitForIdle()

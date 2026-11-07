@@ -32,7 +32,7 @@ class WalletExportPreviewTest {
             try {
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 val guidance = "Set a screen lock in Android settings to export your wallet."
                 ui.waitUntil(10_000) { ui.onAllNodes(hasText(guidance)).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText(guidance).assertIsDisplayed()
@@ -63,7 +63,7 @@ class WalletExportPreviewTest {
                 try {
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, name)
                 enterRealSystemPin(device)
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes().isNotEmpty() }
@@ -106,7 +106,7 @@ class WalletExportPreviewTest {
                 val address = displayedWalletAddress(ui)
                 val name = "wallet-cancel-${UUID.randomUUID()}.json"
                 val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, name)
                 enterRealSystemPin(device, "135790")
                 check(device.wait(Until.hasObject(By.textContains("Wrong PIN")), 10_000))
@@ -138,7 +138,7 @@ class WalletExportPreviewTest {
                     "wallet-export-evidence/stalled-provider-failure.png")) }) {
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, "stalled-read-${UUID.randomUUID()}.json")
                 enterRealSystemPin(device)
                 val failed = "Your wallet backup could not be saved and verified. Try again with another save location."
@@ -167,7 +167,7 @@ class WalletExportPreviewTest {
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
                 for (fault in listOf("write-fails", "read-fails", "truncated-read")) {
-                    ui.onNodeWithText("Export wallet").performClick()
+                    ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                     chooseTestBackup(device, "$fault-${UUID.randomUUID()}.json")
                     enterRealSystemPin(device)
                     val failed = "Your wallet backup could not be saved and verified. Try again with another save location."
@@ -180,7 +180,7 @@ class WalletExportPreviewTest {
                 }
                 val name = "retry-${UUID.randomUUID()}.json"
                 val uri = DocumentsContract.buildDocumentUri(ExportTestDocumentsProvider.AUTHORITY, name)
-                ui.onNodeWithText("Export wallet").performClick()
+                ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                 chooseTestBackup(device, name)
                 // Previous successful credentials must not authorize this attempt.
                 waitForSystemPin(device)

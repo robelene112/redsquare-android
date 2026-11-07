@@ -84,7 +84,7 @@ class UsernamePreviewTest {
                     peer.assertRequestObserved()
                     ui.waitForRefreshableContent(20_000) // Archive observation precedes signed post parsing and publication.
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
                     val targetAuthor = hasText("NativeCase7@saito") and hasContentDescription("View profile for NativeCase7@saito") and
                         hasClickAction() and hasAnyAncestor(hasText(text) and hasClickAction())
                     ui.waitUntil(20_000) { ui.onAllNodes(targetAuthor).fetchSemanticsNodes().isNotEmpty() }
@@ -279,19 +279,19 @@ class UsernamePreviewTest {
                 withFailureCapture({ capture("username-quoted-name-failure.png") }) {
                     ui.waitForRefreshableContent(20_000)
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    ui.onNode(hasScrollAction(), useUnmergedTree = true)
+                    ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true)
                         .performScrollToNode(hasText("Current commentary retweet"))
                     val targetQuote = hasAnyAncestor(hasAnyChild(hasText("Current commentary retweet")))
                     val quotedName = hasText("NativeCase7@saito") and hasAnyAncestor(hasContentDescription("Quoted original")) and targetQuote
                     ui.waitUntil(20_000) { ui.onAllNodes(quotedName, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
+                    ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
                     ui.onNode(quotedName, useUnmergedTree = true).assertIsDisplayed()
                     val quotedText = hasText("Native Red Square reference post") and hasAnyAncestor(hasContentDescription("Quoted original")) and targetQuote
-                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedText)
+                    ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(quotedText)
                     ui.onNode(quotedText, useUnmergedTree = true).assertIsDisplayed()
                     ui.onNode(hasText("Anon-${reader.publicKey.take(6)}") and
                         hasContentDescription("View profile for Anon-${reader.publicKey.take(6)}") and hasAnyAncestor(hasText("Current commentary retweet") and hasClickAction())).assertExists()
-                    ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
+                    ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
                     ui.onNode(quotedName, useUnmergedTree = true).assertIsDisplayed()
                     capture("username-quoted-name.png", "NativeCase7@saito")
                     assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" &&

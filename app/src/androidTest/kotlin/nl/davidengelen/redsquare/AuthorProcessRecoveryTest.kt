@@ -87,8 +87,8 @@ class AuthorProcessRecoveryTest {
                 enabled("Back")
                 ui.onNodeWithText("Back").performClick()
                 ui.waitForRefreshableContent(20_000)
-                ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText(originalText))
+                ui.waitUntil(20_000) { ui.onAllNodes(hasVerticalScrollAction()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(originalText))
                 ui.onNodeWithText(originalText).performClick()
                 ui.clickVisiblePostMenuAction("Anon-${original.get()!!.get("field2").asString.take(6)}",
                     if (delete) "Delete" else "Edit")

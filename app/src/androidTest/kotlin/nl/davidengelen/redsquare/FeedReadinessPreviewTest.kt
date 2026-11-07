@@ -70,7 +70,7 @@ class FeedReadinessPreviewTest {
                         waitFor("Native Red Square reference post")
                         ui.onNodeWithText("Refresh").assertDoesNotExist()
                         ui.onNode(hasTestTag("feed-post-list")).assertIsDisplayed()
-                        ui.onNode(hasScrollAction()).assertIsDisplayed().performScrollToIndex(0)
+                        ui.onNode(hasVerticalScrollAction()).assertIsDisplayed().performScrollToIndex(0)
                         ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                         ui.waitUntil(5_000) {
                             var reported = false

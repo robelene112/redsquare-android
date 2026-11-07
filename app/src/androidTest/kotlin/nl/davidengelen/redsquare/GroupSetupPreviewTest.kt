@@ -116,7 +116,7 @@ class GroupSetupPreviewTest {
                             check(cached.publicKey !in group.memberRoles &&
                                 peer.relayRecipients.last().toSet() == setOf(wallet.publicKey, known.publicKey, pasted))
                             ui.withConversationControl("Members") { assertIsDisplayed().performClick() }
-                            val memberList = ui.onNode(hasScrollAction() and hasAnyAncestor(isDialog()))
+                            val memberList = ui.onNode(hasVerticalScrollAction() and hasAnyAncestor(isDialog()))
                             memberList.performScrollToNode(hasText(known.publicKey))
                             ui.onNodeWithText(known.publicKey).assertIsDisplayed()
                             memberList.performScrollToNode(hasText(pasted))

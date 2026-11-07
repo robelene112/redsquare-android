@@ -23,7 +23,7 @@ class StatusRecoveryPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 20").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.waitUntil(5_000) { !ui.onNodeWithText("Back up your wallet").isDisplayed() }
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Reference post 05"))
             val before = ui.onNodeWithText("Reference post 05").fetchSemanticsNode().boundsInRoot.top
             capture("reading-before-outage.png")
             ui.waitUntil(5_000) { ui.refreshableContentReady() }

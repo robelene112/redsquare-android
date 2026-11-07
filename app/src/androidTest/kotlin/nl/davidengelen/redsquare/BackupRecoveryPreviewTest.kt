@@ -36,7 +36,7 @@ class BackupRecoveryPreviewTest {
                 ui.onNodeWithText("Close guide").assertIsDisplayed()
                 captureFeedEvidence("wallet-backup-evidence/recovery-guide-before-scroll.png")
                 val privateBackupWarning = hasText("The saved JSON file is not encrypted.", substring = true)
-                ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(privateBackupWarning)
+                ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(privateBackupWarning)
                 ui.onNodeWithText("The saved JSON file is not encrypted.", substring = true).assertIsDisplayed()
                 captureFeedEvidence("wallet-backup-evidence/private-backup-guidance.png")
                 ui.onNodeWithText("does not include all cached Chat history", substring = true)

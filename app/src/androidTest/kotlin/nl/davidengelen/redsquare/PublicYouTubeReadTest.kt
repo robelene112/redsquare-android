@@ -60,7 +60,7 @@ class PublicYouTubeReadTest {
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                         val button = hasText("Watch on YouTube") and hasAnyAncestor(
                             hasAnyChild(hasText(postText) and hasClickAction()))
-                        ui.onNode(hasScrollAction()).performScrollToNode(button)
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(button)
                         ui.onNode(button).assertIsDisplayed().performClick()
                         ui.waitUntil(30_000) {
                             ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() ||

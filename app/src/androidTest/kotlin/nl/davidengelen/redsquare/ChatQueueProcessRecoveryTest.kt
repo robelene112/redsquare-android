@@ -209,7 +209,7 @@ class ChatQueueProcessRecoveryTest {
         val image=hasContentDescription("Image 1 of 1")
         if(inHistory) {
             val label=if(kind=="group")R.string.group_messages else R.string.chat_messages
-            val list=hasContentDescription(context.getString(label)) and hasScrollAction()
+            val list=hasContentDescription(context.getString(label)) and hasVerticalScrollAction()
             ui.waitUntil(20_000){displayed(list)}
             // The fixture has one cached text followed by this queued/sent photo. Avoid unbounded search scrolling.
             captureLayout("$kind-history-before-photo-scroll")

@@ -500,7 +500,7 @@ class ProfileEditPreviewTest {
             hasAnyAncestor(post and hasClickAction())
         ui.waitUntil(15_000) {
             try {
-                if (!ui.onNode(identity).isDisplayed()) ui.onNode(hasScrollAction()).performScrollToNode(identity)
+                if (!ui.onNode(identity).isDisplayed()) ui.onNode(hasVerticalScrollAction()).performScrollToNode(identity)
                 ui.onNode(identity).assertIsDisplayed()
                 true
             } catch (_: AssertionError) { false }
@@ -511,7 +511,7 @@ class ProfileEditPreviewTest {
     private fun scrollUntilDisplayed(text: String) {
         repeat(10) {
             if (ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() && ui.onNodeWithText(text).isDisplayed()) return
-            ui.onNode(hasScrollAction()).performTouchInput { swipeUp() }
+            ui.onNode(hasVerticalScrollAction()).performTouchInput { swipeUp() }
         }
         ui.onNodeWithText(text).assertIsDisplayed()
     }

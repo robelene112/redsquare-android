@@ -143,7 +143,7 @@ class GiphyPostingTest {
                         val requests = peer.requests.get()
                         ui.refreshVisibleView()
                         ui.waitUntil(20_000) { peer.requests.get() > requests && ui.refreshableContentReady() }
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
                         ui.onNodeWithText(text).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
                         peer.assertHealthy()
@@ -161,7 +161,7 @@ class GiphyPostingTest {
                             ActivityScenario.launch<MainActivity>(launchIntent).use {
                                 try {
                                     ui.waitUntil(20_000) { ui.refreshableContentReady() }
-                                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
                                     ui.onNodeWithText(text).assertIsDisplayed()
                                     assertPublishedCredits("$label-fresh-published-credits")
                                     assertEquals(1, peer.transactions.size)
@@ -183,9 +183,9 @@ class GiphyPostingTest {
 
     private fun assertPublishedCredits(name: String) {
         ui.waitUntil(10_000) { ui.onAllNodesWithText("By Owned publisher").fetchSemanticsNodes().isNotEmpty() }
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText("By Owned publisher"))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("By Owned publisher"))
         ui.onNodeWithText("By Owned publisher").assertIsDisplayed()
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Source"))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Source"))
         ui.onNodeWithText("Source").assertIsDisplayed()
         capture(name)
     }

@@ -65,7 +65,7 @@ class ImageLoadingTest {
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.refreshableContentReady() }
                         ui.waitUntil(15_000) { ui.onAllNodesWithText("Image unavailable").fetchSemanticsNodes().size == 3 }
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Remote image failures keep this post readable"))
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Remote image failures keep this post readable"))
                         ui.onNodeWithText("Remote image failures keep this post readable").assertIsDisplayed()
                         ui.onAllNodesWithText("Retry")[0].performScrollTo().assertIsDisplayed().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 3").fetchSemanticsNodes().isNotEmpty() }
@@ -103,7 +103,7 @@ class ImageLoadingTest {
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                     try {
                         ui.waitUntil(10_000) { requests.get() == 2 }
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Slow images keep navigation usable"))
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Slow images keep navigation usable"))
                         ui.onNodeWithText("Slow images keep navigation usable").assertIsDisplayed()
                         ui.openSettings()
                         ui.onNodeWithText("Node").performScrollTo().performClick()
@@ -123,7 +123,7 @@ class ImageLoadingTest {
     }
 
     private fun assertColor(label: String, expected: IntArray) {
-        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(label))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription(label))
         val bitmap = ui.onNodeWithContentDescription(label).assertIsDisplayed().captureToImage().asAndroidBitmap()
         val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
         listOf(Color.red(pixel), Color.green(pixel), Color.blue(pixel)).forEachIndexed { index, value ->

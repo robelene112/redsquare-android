@@ -7,20 +7,24 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.test.platform.app.InstrumentationRegistry
 
+/** Public vertical reading/form capability, separate from the horizontally scrolling mode tabs. */
+internal fun hasVerticalScrollAction() = hasScrollAction() and
+    SemanticsMatcher.keyIsDefined(SemanticsProperties.VerticalScrollAxisRange)
+
 /** Tap the uniquely named post control itself, rather than an offscreen semantic node. */
 internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
     val targetSelector = if (text == "Like") likePostAction() else hasText(text)
     waitUntil(20_000) {
         onAllNodes(targetSelector and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
-    onNode(hasScrollAction()).performScrollToNode(targetSelector)
+    onNode(hasVerticalScrollAction()).performScrollToNode(targetSelector)
     val composer = onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes()
         .singleOrNull()?.touchBoundsInRoot
     if (composer != null) {
         val target = onNode(targetSelector).fetchSemanticsNode().touchBoundsInRoot
         if (target.overlaps(composer)) {
             val clearance = 8 * InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
-            onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+            onNode(hasVerticalScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
                 check(scroll(0f, target.bottom - composer.top + clearance))
             }
             waitForIdle()
@@ -42,7 +46,7 @@ internal fun ComposeTestRule.clickVisiblePostBody(text: String) {
         onAllNodes(hasText(text), useUnmergedTree = true)
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
-    onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(hasText(text))
+    onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(hasText(text))
     onNodeWithText(text, useUnmergedTree = true).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
@@ -52,7 +56,7 @@ internal fun ComposeTestRule.clickVisiblePostMenuAction(authorName: String, acti
     waitUntil(20_000) {
         onAllNodes(more).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
-    onNode(hasScrollAction()).performScrollToNode(more)
+    onNode(hasVerticalScrollAction()).performScrollToNode(more)
     onNode(more).assertIsDisplayed().assertIsEnabled().performClick()
     waitUntil(20_000) { onNode(hasText(action) and isEnabled()).isDisplayed() }
     onNode(hasText(action) and isEnabled()).assertIsDisplayed().performClick()
@@ -64,6 +68,6 @@ internal fun ComposeTestRule.clickVisiblePostProfile(authorName: String) {
     waitUntil(20_000) {
         onAllNodes(profile).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
-    onNode(hasScrollAction()).performScrollToNode(profile)
+    onNode(hasVerticalScrollAction()).performScrollToNode(profile)
     onNode(profile).assertIsDisplayed().assertIsEnabled().performClick()
 }

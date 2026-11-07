@@ -136,14 +136,14 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                         else {
                             // Earlier theme publications may quote the same text. Open only the actual root body.
                             val body = hasText(referenceText) and !hasAnyAncestor(hasContentDescription("Quoted original"))
-                            ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(body)
+                            ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(body)
                             ui.onNode(body, useUnmergedTree = true).assertIsDisplayed().performClick()
                             ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
                             if (kind == ComposerJourneyKind.REPLY) ui.onNodeWithText("Reply").performClick()
                             else {
                                 val referenceCard = hasClickAction() and hasAnyChild(hasText(referenceText))
                                 val quote = hasClickAction() and hasAnyDescendant(hasText("Quote")) and hasAnyAncestor(referenceCard)
-                                ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quote)
+                                ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(quote)
                                 ui.onNode(quote, useUnmergedTree = true).assertIsDisplayed().assertIsEnabled().performClick()
                             }
                         }

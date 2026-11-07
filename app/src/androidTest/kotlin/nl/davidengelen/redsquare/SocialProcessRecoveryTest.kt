@@ -73,7 +73,7 @@ class SocialProcessRecoveryTest {
                     }.toString())
                 }) {
                 waitFor("Native Red Square reference post")
-                ui.onNode(hasScrollAction()).performScrollToNode(likePostAction())
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(likePostAction())
                 ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(likePostAction()).assertIsDisplayed().performClick()
                 // The peer records receipt before its signed-Like callback finishes.

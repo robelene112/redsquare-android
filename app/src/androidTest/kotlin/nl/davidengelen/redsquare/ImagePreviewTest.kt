@@ -103,16 +103,16 @@ class ImagePreviewTest {
                 try {
                     ui.waitUntil(20_000) { peer.requests.get() > 0 &&
                         ui.refreshableContentReady() }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Signed image reference"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Signed image reference"))
                     ui.onNodeWithText("Signed image reference").assertIsDisplayed()
                     for ((index, expected) in listOf(0xffdc1e28.toInt(), 0xff143cdc.toInt()).withIndex()) {
                         val label = "Image ${index + 1} of 2"
                         ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription(label)).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(label))
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription(label))
                         val bitmap = ui.onNodeWithContentDescription(label).assertIsDisplayed().captureToImage().asAndroidBitmap()
                         assertEquals(expected, bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
                     }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 2"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 2"))
                     ui.onNodeWithContentDescription("Image 1 of 2").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodesWithText("Close image").fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Image 1 of 2").assertIsDisplayed()

@@ -109,7 +109,7 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     waitForList()
                     waitForRefresh()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's original post"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native author's original post"))
                     ui.clickVisiblePostBody("Native author's original post")
                     waitFor("Conversation")
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
@@ -128,7 +128,7 @@ class AuthorPostPreviewTest {
                     waitForList()
                     waitFor("New post")
                     waitForRefresh()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's edited post"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native author's edited post"))
                     ui.clickVisiblePostProfile("Anon-${own.get()!!.get("field2").asString.take(6)}")
                     waitFor("Profile")
                     ui.revealProfileHistoryItem("Native author's edited post", timeoutMillis = 20_000)
@@ -267,7 +267,7 @@ class AuthorPostPreviewTest {
                     waitFor("Available on this node.")
                     ui.onNodeWithText("Back").performClick()
                     waitForList(); waitForRefresh()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original before competing edits"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Original before competing edits"))
                     ui.onNodeWithText("Original before competing edits").performClick()
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -415,12 +415,12 @@ class AuthorPostPreviewTest {
                     if (withImages) assertQuotedRedImage()
                     revisions.confirmDeletion(original, RedSquareAuthorActions.decode(actions.getAsJsonObject("deleted").get("tx").asString))
                     waitFor("Original unavailable. Commentary is still available.")
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(commentary))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(commentary))
                     ui.onNodeWithText(commentary).assertIsDisplayed()
                     if (withImages) {
                         ui.onAllNodesWithContentDescription("Image 1 of 2").assertCountEquals(0)
                         ui.onAllNodesWithContentDescription("Image 2 of 2").assertCountEquals(0)
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 1"))
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 1"))
                         val bitmap = ui.onNodeWithContentDescription("Image 1 of 1").assertIsDisplayed().captureToImage()
                             .asAndroidBitmap()
                         val color = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
@@ -446,7 +446,7 @@ class AuthorPostPreviewTest {
     }
     private fun assertQuotedRedImage() {
         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription("Image 1 of 2").fetchSemanticsNodes().isNotEmpty() }
-        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 2"))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription("Image 1 of 2"))
         val bitmap = ui.onNodeWithContentDescription("Image 1 of 2").assertIsDisplayed().captureToImage().asAndroidBitmap()
         val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
         assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 220) <= 5)
@@ -454,7 +454,7 @@ class AuthorPostPreviewTest {
         assertTrue(kotlin.math.abs(android.graphics.Color.blue(pixel) - 40) <= 5)
     }
     private fun waitForList() {
-        ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.waitUntil(20_000) { ui.onAllNodes(hasVerticalScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
     private fun waitForRefresh() {
         ui.waitUntil(20_000) { ui.refreshableContentReady() }

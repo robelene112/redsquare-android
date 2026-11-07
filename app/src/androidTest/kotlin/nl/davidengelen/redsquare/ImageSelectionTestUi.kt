@@ -74,7 +74,7 @@ internal fun ComposeTestRule.assertSyntheticRedImage(postText: String? = null) {
         else label and hasAnyAncestor(hasText(postText) and hasClickAction())
     }
     waitUntil(15_000) { onAllNodes(image).fetchSemanticsNodes().isNotEmpty() }
-    if (postText != null) onNode(hasScrollAction()).performScrollToNode(image)
+    if (postText != null) onNode(hasVerticalScrollAction()).performScrollToNode(image)
     else onNode(image).performScrollTo()
     val bitmap = onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
     val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)

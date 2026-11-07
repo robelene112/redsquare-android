@@ -163,13 +163,13 @@ class ImageProcessRecoveryTest {
     }
 
     private fun assertCachedOriginalImages() {
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Signed image reference"))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Signed image reference"))
         ui.onNodeWithText("Signed image reference").assertIsDisplayed()
         for ((index, expected) in listOf(intArrayOf(220, 30, 40), intArrayOf(20, 60, 220)).withIndex()) {
             val label = "Image ${index + 1} of 2"
             ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(label).fetchSemanticsNodes().isNotEmpty() }
             ui.onAllNodesWithContentDescription(label).assertCountEquals(1)
-            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(label))
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription(label))
             val bitmap = ui.onNodeWithContentDescription(label).assertIsDisplayed().captureToImage().asAndroidBitmap()
             val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
             listOf(Color.red(pixel), Color.green(pixel), Color.blue(pixel)).forEachIndexed { channel, value ->

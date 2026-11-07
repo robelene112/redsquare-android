@@ -63,19 +63,19 @@ class PostPresentationViewportTest {
             ui.waitUntil(20_000) { ui.onNode(profile).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(activity, folder, "post") { label, theme ->
-                ui.onNode(hasScrollAction()).performScrollToNode(profile)
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(profile)
                 ui.onNode(profile).assertIsDisplayed()
                 capture("$label-identity-body.png")
                 val actions = listOf("Like", "Repost", "Quote").map { action ->
                     hasContentDescription("$action post by $name") and hasClickAction()
                 }
-                ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(actions.last())
                 // Use the existing trailing space to bring the entire footer above the floating composer.
-                ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                ui.onNode(hasVerticalScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
                     check(scroll(0f, 88 * context.resources.displayMetrics.density))
                 }
                 ui.waitForIdle()
-                val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
+                val viewport = ui.onNode(hasVerticalScrollAction()).fetchSemanticsNode().boundsInRoot
                 val composer = ui.onNode(hasText("New post") and hasClickAction())
                     .assertIsDisplayed().fetchSemanticsNode().touchBoundsInRoot
                 val minimum = 48 * context.resources.displayMetrics.density - 1
@@ -136,7 +136,7 @@ class PostPresentationViewportTest {
                     addProperty("floatingComposer", composer.toString())
                 }.toString())
                 capture("$label-actions-counts.png")
-                ui.onNode(hasScrollAction()).performScrollToNode(more)
+                ui.onNode(hasVerticalScrollAction()).performScrollToNode(more)
                 ui.onNode(more).assertIsDisplayed().performClick()
                 ui.onNodeWithText("Public identity").performClick()
                 ui.onNode(hasText(name) and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()

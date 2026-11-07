@@ -59,7 +59,7 @@ class PostPresentationPreviewTest {
             ui.onNodeWithContentDescription("View profile for Anon-jesTu2").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
                 ui.refreshableContentReady() }
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
             assertPostPresentation("profile")
             ui.onNode(hasText("Home") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
@@ -130,7 +130,7 @@ class PostPresentationPreviewTest {
             ui.onNodeWithContentDescription("View profile for $author").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
                 ui.refreshableContentReady() }
-            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
             assertOwnPostActions(author, "profile")
             ui.onNode(hasText("Home") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }

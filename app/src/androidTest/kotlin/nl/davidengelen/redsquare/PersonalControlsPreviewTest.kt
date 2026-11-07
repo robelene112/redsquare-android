@@ -178,7 +178,7 @@ class PersonalControlsPreviewTest {
                     waitFor("Recover your wallet to apply saved personal controls. Cached posts stay hidden until your identity is available.")
                     ui.onAllNodesWithText("Native Red Square reference post").assertCountEquals(0)
                     ui.onAllNodesWithText("Another account reference post").assertCountEquals(0)
-                    ui.onAllNodes(hasScrollAction()).assertCountEquals(0)
+                    ui.onAllNodes(hasVerticalScrollAction()).assertCountEquals(0)
                     captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/unknown-owner-policy-gate.png"))
                     activity.onActivity { it.intent.removeExtra("walletCommitSyncUnavailable") }
                     ui.onNodeWithText("Retry").performClick()
@@ -333,7 +333,7 @@ class PersonalControlsPreviewTest {
                 ui.waitUntil(15_000) {
                     ui.onAllNodes(original, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
                 }
-                ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(original)
+                ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(original)
                 ui.onNode(original, useUnmergedTree = true).assertIsDisplayed()
                 captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/quote-original-before-mute.png"), "Native Red Square reference post")
                 showStandalonePost("Native Red Square reference post").performClick()
@@ -387,7 +387,7 @@ class PersonalControlsPreviewTest {
                 waitForEnabled("Search history")
                 // A matching editable query alone is not a discovered person.
                 val person = searchPersonResult(author)
-                ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(person)
+                ui.onNode(hasVerticalScrollAction() and !hasSetTextAction()).performScrollToNode(person)
                 ui.onNode(person).assertIsDisplayed().performClick()
                 waitFor("Profile")
                 ui.openProfileActions()
@@ -541,7 +541,7 @@ class PersonalControlsPreviewTest {
                     captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/removal-uncertain-policy.png"), "Retry")
                     ui.onNodeWithText("Done").performClick()
                     waitFor("Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.")
-                    ui.onAllNodes(hasScrollAction()).assertCountEquals(0)
+                    ui.onAllNodes(hasVerticalScrollAction()).assertCountEquals(0)
                     ui.onAllNodesWithText("Native Red Square reference post").assertCountEquals(0)
                 }
                 // Repair only the controlled recovery-path obstruction, never active policy or wallet bytes.
@@ -616,7 +616,7 @@ class PersonalControlsPreviewTest {
                 finally { damaged.fill(0) }
                 withOpenApp(intent, "corrupt-policy-recovery-failure") {
                     waitFor("Personal controls could not be opened. Hidden content stays hidden. Retry to recover your saved choices.")
-                    ui.onAllNodes(hasScrollAction()).assertCountEquals(0)
+                    ui.onAllNodes(hasVerticalScrollAction()).assertCountEquals(0)
                     ui.onAllNodesWithText("Native Red Square reference post").assertCountEquals(0)
                     ui.onAllNodesWithText("Another account reference post").assertCountEquals(0)
                     captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/corrupt-policy-withheld.png"),
@@ -845,7 +845,7 @@ class PersonalControlsPreviewTest {
 
     private fun showStandalonePost(text: String): SemanticsNodeInteraction {
         val standalone = hasText(text) and !hasAnyAncestor(hasContentDescription("Quoted original"))
-        ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(standalone)
+        ui.onNode(hasVerticalScrollAction(), useUnmergedTree = true).performScrollToNode(standalone)
         return ui.onNode(standalone, useUnmergedTree = true).assertIsDisplayed()
     }
 
@@ -873,13 +873,13 @@ class PersonalControlsPreviewTest {
     }
 
     private fun showPost(text: String) {
-        ui.waitUntil(15_000) { ui.onAllNodes(hasScrollAction() and !hasSetTextAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-        ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(hasText(text))
+        ui.waitUntil(15_000) { ui.onAllNodes(hasVerticalScrollAction() and !hasSetTextAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNode(hasVerticalScrollAction() and !hasSetTextAction()).performScrollToNode(hasText(text))
         ui.onNodeWithText(text).assertIsDisplayed()
     }
 
     private fun assertPostAbsent(text: String, returnTo: String) {
-        val list = ui.onNode(hasScrollAction() and !hasSetTextAction())
+        val list = ui.onNode(hasVerticalScrollAction() and !hasSetTextAction())
         val failure = assertThrows(AssertionError::class.java) { list.performScrollToNode(hasText(text)) }
         assertTrue("The complete list must be searched", failure.message?.contains("No node found that matches") == true)
         list.performScrollToNode(hasText(returnTo))

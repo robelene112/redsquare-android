@@ -443,7 +443,7 @@ class FollowingPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
                     waitFor("Native Red Square reference post")
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Another account reference post"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Another account reference post"))
                     ui.onNodeWithText("Another account reference post").assertIsDisplayed()
                     openFeedProfile(author)
                     waitFor("Profile")
@@ -473,7 +473,7 @@ class FollowingPreviewTest {
     private fun openFeedProfile(author: String) {
         progress("Scrolling to public fixture author")
         // A visible post body does not guarantee its author link is in the viewport.
-        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("View profile for Anon-${author.take(6)}"))
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasContentDescription("View profile for Anon-${author.take(6)}"))
         progress("Opening public fixture profile")
         ui.onNodeWithContentDescription("View profile for Anon-${author.take(6)}").assertIsDisplayed().performClick()
         waitFor("Profile")
@@ -485,7 +485,7 @@ class FollowingPreviewTest {
         }
 
     private fun assertPostAbsent(text: String, returnTo: String? = null) {
-        val list = ui.onNode(hasScrollAction())
+        val list = ui.onNode(hasVerticalScrollAction())
         val failure = org.junit.Assert.assertThrows(AssertionError::class.java) {
             list.performScrollToNode(hasText(text))
         }
@@ -505,7 +505,7 @@ class FollowingPreviewTest {
         if (text in setOf("Native Red Square reference post", "Profile newer post 20")) {
             ui.waitUntil(20_000) { ui.refreshableContentReady() }
             progress("Scrolling to public fixture post: $text")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
         }
         progress("Checking public fixture text: $text")
         ui.waitUntil(15_000) {

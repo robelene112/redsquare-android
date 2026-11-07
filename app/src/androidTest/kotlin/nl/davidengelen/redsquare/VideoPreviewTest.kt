@@ -116,7 +116,7 @@ class VideoPreviewTest {
                             ui.onNodeWithText("Close video").performClick()
                             stage("size: closed fallback, returning to portrait")
                             device.setOrientationNatural()
-                            ui.waitUntil(10_000) { device.displayHeight > device.displayWidth && ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.waitUntil(10_000) { device.displayHeight > device.displayWidth && ui.onAllNodes(hasVerticalScrollAction()).fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(1, api.requestCount)
                             watch("Explicit signed YouTube link")
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
@@ -211,7 +211,7 @@ class VideoPreviewTest {
                         try {
                             ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
                             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText(postText))
+                            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(postText))
                             ui.onNodeWithText(postText).performClick()
                             ui.waitUntil(20_000) { threadReads.get() > 0 && ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(0, api.requestCount)
@@ -350,7 +350,7 @@ class VideoPreviewTest {
 
     private fun watch(postText: String) {
         val button = hasText("Watch on YouTube") and hasAnyAncestor(hasText(postText) and hasClickAction())
-        ui.onNode(hasScrollAction()).performScrollToNode(button)
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(button)
         ui.onNode(button).assertIsDisplayed().performClick()
     }
 

@@ -22,7 +22,7 @@ class AppFrameReadingPreviewTest {
         lateinit var peer: ControlledFeedPeer
         withAppFrameFixture("reading-position", "app-frame-reading-evidence", rows, configurePeer = { peer = it }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 20").isDisplayed() }
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
+            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Reference post 05"))
             val before = ui.onNodeWithText("Reference post 05").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             capture("scrolled-feed-before-chat.png")
             ui.onNode(hasText("Chat") and hasClickAction()).performClick()

@@ -118,7 +118,7 @@ class PersonalControlsProcessRecoveryTest {
                 ui.onNodeWithText("Done").performClick()
                 showPost(otherText)
                 val failure = assertThrows(AssertionError::class.java) {
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(rootText))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(rootText))
                 }
                 assertTrue(failure.message?.contains("No node found that matches") == true)
                 showPost(otherText)
@@ -173,8 +173,8 @@ class PersonalControlsProcessRecoveryTest {
         ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     private fun showPost(text: String) {
-        ui.waitUntil(15_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+        ui.waitUntil(15_000) { ui.onAllNodes(hasVerticalScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
         ui.onNodeWithText(text).assertIsDisplayed()
     }
     private fun writeCheckpoint(row: JsonObject) {

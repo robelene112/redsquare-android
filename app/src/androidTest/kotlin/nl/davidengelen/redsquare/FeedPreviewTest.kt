@@ -71,9 +71,9 @@ class FeedPreviewTest {
             ActivityScenario.launch<MainActivity>(intent(server.port)).use { activity ->
                 captureFailure {
                     waitForText("Reference post 20", requireRefreshReady = true)
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Reference post 05"))
                     ui.onNodeWithText("Reference post 05").assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToIndex(0)
+                    ui.onNode(hasVerticalScrollAction()).performScrollToIndex(0)
                     ui.onNodeWithText("Reference post 20").assertIsDisplayed()
                     peer.rows = fixture.get("refreshedRows").toString()
                     val before = peer.requests.get()
@@ -86,7 +86,7 @@ class FeedPreviewTest {
                     activity.recreate()
                     waitForText("Reference post 20", requireRefreshReady = true)
                     ui.onNodeWithText("Reference post 20").assertIsDisplayed()
-                    ui.onNode(hasScrollAction()).performScrollToIndex(0)
+                    ui.onNode(hasVerticalScrollAction()).performScrollToIndex(0)
                     waitForText("New reference post")
                     peer.assertHealthy()
                 }
@@ -129,7 +129,7 @@ class FeedPreviewTest {
                             ui.onNode(hasTestTag("feed-post-list")).isDisplayed()
                     }
                     peer.assertHealthy()
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
                     waitForText("Native Red Square reference post")
                     check(blocked.renameTo(preserved))
                     check(blocked.mkdir())
@@ -142,7 +142,7 @@ class FeedPreviewTest {
                         ui.waitUntil(15_000) { peer.requests.get() > beforeRefresh }
                         ui.waitUntil(15_000) {
                             try {
-                                ui.onNode(hasScrollAction()).performScrollToNode(hasText("New reference post"))
+                                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("New reference post"))
                                 true
                             } catch (_: AssertionError) { false }
                         }
