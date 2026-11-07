@@ -1,0 +1,523 @@
+{
+  "repository": "https://github.com/MohamedRejeb/compose-rich-editor",
+  "tag": "v1.0.0-rc13",
+  "commit": "8342c9eb5b602232fe1b78187a891ae64b61eb2f",
+  "fix": "https://github.com/MohamedRejeb/compose-rich-editor/pull/746",
+  "fixSubset": "Capture immutable transformed text at both VisualTransformation constructors. No mapping clamp or validator suppression.",
+  "platformBinding": "Compile only Android: remove the two common expect declarations and the matching actual modifiers; implementations unchanged.",
+  "files": [
+    {
+      "path": "proguard-rules.pro",
+      "upstreamPath": "richeditor-compose/proguard-rules.pro",
+      "gitBlobSha1": "3c2fcf37d08a58869441c28924c0706c51743f6a",
+      "upstreamSha256": "57e3502d9da20777452f7bd47da9d4faae4149ad70e826670a112e387c263187",
+      "localSha256": "57e3502d9da20777452f7bd47da9d4faae4149ad70e826670a112e387c263187",
+      "modified": false
+    },
+    {
+      "path": "src/androidMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.android.kt",
+      "upstreamPath": "richeditor-compose/src/androidMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.android.kt",
+      "gitBlobSha1": "02897b343740bd4e673d335664dee552766f7aed",
+      "upstreamSha256": "c451db9616961f893721c2240630f554226934bcc2d7d4dbe4652dcd5b9944dd",
+      "localSha256": "1792528ad86dec761ef155bb4fbe5f625a35ab5e5021d6a3a095f7ee61a700aa",
+      "modified": true
+    },
+    {
+      "path": "src/androidMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.android.kt",
+      "upstreamPath": "richeditor-compose/src/androidMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.android.kt",
+      "gitBlobSha1": "e8faffb70e298352afb030449874e59b2be8f526",
+      "upstreamSha256": "f2b8462c1bc88decb4d66f64a3e7455cee3d4cf053484d76893ab63427410233",
+      "localSha256": "f49df0ecf0774815d05b54454d49303a639abd37086517dc3aa6ba596cab0344",
+      "modified": true
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/annotation/ExperimentalRichTextApi.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/annotation/ExperimentalRichTextApi.kt",
+      "gitBlobSha1": "a3937d9a9e976603022a2de6530330e5a42d3844",
+      "upstreamSha256": "4c5392b6605d79bb817041cca416cc0deaa40359f785383f004c0c595fc5f260",
+      "localSha256": "4c5392b6605d79bb817041cca416cc0deaa40359f785383f004c0c595fc5f260",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/annotation/InternalRichTextApi.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/annotation/InternalRichTextApi.kt",
+      "gitBlobSha1": "ec2c2ae9993d3ec1fb7a2b325703b5b75dc7665f",
+      "upstreamSha256": "984113ff441a6d2b54ffea9c4f68fbc4c18a2095b9ba8e44cd7189c9f3f1e754",
+      "localSha256": "984113ff441a6d2b54ffea9c4f68fbc4c18a2095b9ba8e44cd7189c9f3f1e754",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/gesture/TapGestureDetector.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/gesture/TapGestureDetector.kt",
+      "gitBlobSha1": "ba9023959327c2c6c756336a6bafb2651980ed78",
+      "upstreamSha256": "7ec4f1f952a0e07f0797c9d83e7d9878897a053fb218b431535e7dbc60a8149c",
+      "localSha256": "7ec4f1f952a0e07f0797c9d83e7d9878897a053fb218b431535e7dbc60a8149c",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/DefaultImageLoader.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/DefaultImageLoader.kt",
+      "gitBlobSha1": "ee284ba0110fdbf28327f9b040fb9e882343efc9",
+      "upstreamSha256": "e186bca8250d568a6b57b7852f7d9ffdb3612c7b4e18d928d88905b2e9ee545b",
+      "localSha256": "e186bca8250d568a6b57b7852f7d9ffdb3612c7b4e18d928d88905b2e9ee545b",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/ImageLoader.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/ImageLoader.kt",
+      "gitBlobSha1": "6e97b0a3802c528c480ee083e72ad457bdc609cb",
+      "upstreamSha256": "f9d8f41581a26b8ff168ecae61e3e9fa39deec2ddfe55430338cb0688f1bfac3",
+      "localSha256": "f9d8f41581a26b8ff168ecae61e3e9fa39deec2ddfe55430338cb0688f1bfac3",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt",
+      "gitBlobSha1": "d4da37320f99e147d6d3a2d704c68dd6a94c56a8",
+      "upstreamSha256": "ffcac48fce732b00fb0c7cdda1f66cfc06967a432e4c9afd493eef582b9c7af7",
+      "localSha256": "ffcac48fce732b00fb0c7cdda1f66cfc06967a432e4c9afd493eef582b9c7af7",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpanStyle.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpanStyle.kt",
+      "gitBlobSha1": "1d06049fd4d71e9f52ce10be105ee5ef54b73eed",
+      "upstreamSha256": "12d99f064b5107f2638a6660ccdb25dc7e8e88aa4175fba7885c816dfee5c0be",
+      "localSha256": "12d99f064b5107f2638a6660ccdb25dc7e8e88aa4175fba7885c816dfee5c0be",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextConfig.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextConfig.kt",
+      "gitBlobSha1": "e3503ff26490dbb8cacb81d473ee7a7673c65475",
+      "upstreamSha256": "760ba34c2dacd86a9509a69837991c32e659f22c12a2669eded828bc644ed890",
+      "localSha256": "760ba34c2dacd86a9509a69837991c32e659f22c12a2669eded828bc644ed890",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt",
+      "gitBlobSha1": "405cefde536a5382f9467711005c2d972d81d671",
+      "upstreamSha256": "333024fef3494c6c747d0f765e24e54295ae66d292d12077bd63fe203f8966c9",
+      "localSha256": "08253c9a2d6f2f36bfb3cf5f65cfb159b0f906149a4cd29b9a89a6bab57e6570",
+      "modified": true
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/TextPaddingValues.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/TextPaddingValues.kt",
+      "gitBlobSha1": "a4751b883bcde4ca2c246ca1aee186b5a9f600d1",
+      "upstreamSha256": "82c8561f468ea4bdb3b59712564e399bec4c246f16b55d844ad1735e04ad0f73",
+      "localSha256": "82c8561f468ea4bdb3b59712564e399bec4c246f16b55d844ad1735e04ad0f73",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/RichParagraph.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/RichParagraph.kt",
+      "gitBlobSha1": "b20883ebd8267392a60b3aedfd26d3ae9b18e95d",
+      "upstreamSha256": "c8aae70d9fbba51371b5ecea9fc74b816a36b49b5d5401b1310709c916c12994",
+      "localSha256": "c8aae70d9fbba51371b5ecea9fc74b816a36b49b5d5401b1310709c916c12994",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/ConfigurableListLevel.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/ConfigurableListLevel.kt",
+      "gitBlobSha1": "f4da292c478f7a1ecd312695809e414564c3dd44",
+      "upstreamSha256": "22854e7a826857150ec9662006fb1225facbe48ea451a2fb53a8d84802ad4831",
+      "localSha256": "22854e7a826857150ec9662006fb1225facbe48ea451a2fb53a8d84802ad4831",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/ConfigurableStartTextWidth.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/ConfigurableStartTextWidth.kt",
+      "gitBlobSha1": "c95318a9ad23f2c6c0de772874cc74de0c9ca94d",
+      "upstreamSha256": "cc584f0e735f44800f68e8b1497da9e806cd0c6fed6d129ce664abb283b0de79",
+      "localSha256": "cc584f0e735f44800f68e8b1497da9e806cd0c6fed6d129ce664abb283b0de79",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/DefaultParagraph.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/DefaultParagraph.kt",
+      "gitBlobSha1": "182cb84272c123f2aee7bca44bc12f50ebd3d276",
+      "upstreamSha256": "1ab5e74f7b4911e826ed410225622c46d0d7a7788b6cca87163bd655e8e60774",
+      "localSha256": "1ab5e74f7b4911e826ed410225622c46d0d7a7788b6cca87163bd655e8e60774",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/OrderedList.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/OrderedList.kt",
+      "gitBlobSha1": "9d1a48e6d383c22bdb8dcf938bc2e5af2f761729",
+      "upstreamSha256": "f4681831615c0e47b88325053197b08d47f73a6c09773d3c4be034e8a1974892",
+      "localSha256": "f4681831615c0e47b88325053197b08d47f73a6c09773d3c4be034e8a1974892",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/OrderedListStyleType.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/OrderedListStyleType.kt",
+      "gitBlobSha1": "b1390de63a0675c3fc1c291d886e3b962f2d649a",
+      "upstreamSha256": "63a9331adc9e9809dd0d8c8623ce8223d6fbe3b6c159ee0dedcd626c3661933e",
+      "localSha256": "63a9331adc9e9809dd0d8c8623ce8223d6fbe3b6c159ee0dedcd626c3661933e",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/ParagraphType.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/ParagraphType.kt",
+      "gitBlobSha1": "7e40deba0cd2d673c989a76437bf9f1549af77cf",
+      "upstreamSha256": "a5ffceef9deabe56671651b4447e870f7169e0c5b4eb2f600208873daae0d167",
+      "localSha256": "a5ffceef9deabe56671651b4447e870f7169e0c5b4eb2f600208873daae0d167",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/UnorderedList.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/UnorderedList.kt",
+      "gitBlobSha1": "130f3a10d387bffe7a44af3af22b432387514590",
+      "upstreamSha256": "e6d7f815ab1e1f4b712d2c679eca96cc86c9a7acb5d50396e15a8872b35fdaa2",
+      "localSha256": "e6d7f815ab1e1f4b712d2c679eca96cc86c9a7acb5d50396e15a8872b35fdaa2",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/UnorderedListStyleType.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/paragraph/type/UnorderedListStyleType.kt",
+      "gitBlobSha1": "a60ed1e4d4ccdf20227c70c50083e19388a8850e",
+      "upstreamSha256": "285220db39a9d784da1fa0baca9ebd56da1a000ac0f43c94f2a924130a950c2a",
+      "localSha256": "285220db39a9d784da1fa0baca9ebd56da1a000ac0f43c94f2a924130a950c2a",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/RichTextStateParser.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/RichTextStateParser.kt",
+      "gitBlobSha1": "49065fbc4637d05d0f670c17941651b80b545ffc",
+      "upstreamSha256": "13ef27c0a861c0247f8d8fd860fad989172bb413ecab63a635b46466126a3123",
+      "localSha256": "13ef27c0a861c0247f8d8fd860fad989172bb413ecab63a635b46466126a3123",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/CssDecoder.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/CssDecoder.kt",
+      "gitBlobSha1": "84993ed3b61584338fc3505792a7694998268f6f",
+      "upstreamSha256": "c35f806ca56eebdb6cc8399e42b4cdefcac516e7cbd11df24fd23465cb342e98",
+      "localSha256": "c35f806ca56eebdb6cc8399e42b4cdefcac516e7cbd11df24fd23465cb342e98",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/CssEncoder.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/CssEncoder.kt",
+      "gitBlobSha1": "db31a7163b601d3c082babad4fd32c6531578aa5",
+      "upstreamSha256": "3e7d4a4a7a57bf24fecbedaa89e2564e061c011a725d73d119c3c87b32de1501",
+      "localSha256": "3e7d4a4a7a57bf24fecbedaa89e2564e061c011a725d73d119c3c87b32de1501",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/HtmlParserHelpers.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/HtmlParserHelpers.kt",
+      "gitBlobSha1": "2ae95653b7b69672fea3ad0b9f687d310a59c4fe",
+      "upstreamSha256": "57b14ba5903bd46206e51f56062ce4477cc939045686637512fc484dd2f1cd48",
+      "localSha256": "57b14ba5903bd46206e51f56062ce4477cc939045686637512fc484dd2f1cd48",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/RichTextStateHtmlParser.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/html/RichTextStateHtmlParser.kt",
+      "gitBlobSha1": "f3473fd2f12611b85d9b52b03b245d61cd4cd7e9",
+      "upstreamSha256": "ac216038c168c92d15ab44680a66069fcb3716d338849c95e5e7a3dd30b55724",
+      "localSha256": "ac216038c168c92d15ab44680a66069fcb3716d338849c95e5e7a3dd30b55724",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt",
+      "gitBlobSha1": "61c0dc27e69e675b58aa763132ca8f59a83be9ac",
+      "upstreamSha256": "61899ed07b20616d4ad9feee9d2e51adf5fc3f6c11fd6f692af04dba17c5c40a",
+      "localSha256": "61899ed07b20616d4ad9feee9d2e51adf5fc3f6c11fd6f692af04dba17c5c40a",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt",
+      "gitBlobSha1": "8371d1e996f6e8ff4276125513cc74443363cc12",
+      "upstreamSha256": "08483390e00348358913b09e1f35484b81829793e1a42024db7f63d2aa9db9e3",
+      "localSha256": "08483390e00348358913b09e1f35484b81829793e1a42024db7f63d2aa9db9e3",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/utils/ElementsSpanStyle.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/utils/ElementsSpanStyle.kt",
+      "gitBlobSha1": "33426897ad3b8373808016f64cb024061dd93633",
+      "upstreamSha256": "e6ca53dc1b96408ae8ea78a4f821b6e5e66076f5b3db00cdf790f15d4670760d",
+      "localSha256": "e6ca53dc1b96408ae8ea78a4f821b6e5e66076f5b3db00cdf790f15d4670760d",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.kt",
+      "gitBlobSha1": "c6333d045d8e23641efb83b328f791c4d4dcd4b0",
+      "upstreamSha256": "881b6e2f512fcb0a7a38d4ea18c213bbc83dbd50cfbf0e7f1bcdacde4e637c47",
+      "localSha256": "932f2794db60576babe613424e855b19a6be2a9fc1f6313a48e2f81daa8fee37",
+      "modified": true
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichText.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichText.kt",
+      "gitBlobSha1": "6c256393e113509527b5bd69351d33959c34d52e",
+      "upstreamSha256": "62ad14d5d858a706372e5b25bdce284c5dafd3560e419f5b0cc3a845eb89a623",
+      "localSha256": "62ad14d5d858a706372e5b25bdce284c5dafd3560e419f5b0cc3a845eb89a623",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt",
+      "gitBlobSha1": "9aac4a8c76d61fb4b7c53a8c689487840e5b4811",
+      "upstreamSha256": "c78a883ab69a5ebc0746d9f95a3a1f015c96320852159f85878582ac4f8e0d17",
+      "localSha256": "0881bfc282ce48a14afce1d34477f083783eeed46d4d9fd699ba1b75428b56b5",
+      "modified": true
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/ModifierExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/ModifierExt.kt",
+      "gitBlobSha1": "bae8500927811c2cee0ad6d03fc1d53a71ded4a3",
+      "upstreamSha256": "af543b8d58e7e2f2f1a20260b94bd9de97281e6741e0c42333417d0d0e811044",
+      "localSha256": "af543b8d58e7e2f2f1a20260b94bd9de97281e6741e0c42333417d0d0e811044",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt",
+      "gitBlobSha1": "8d7be579cba2006132b06a3e38f30e18c507bc5b",
+      "upstreamSha256": "e649f77ba414ed5ce95f90dc26515d6268561574bd96ac193e3563c0bca293cc",
+      "localSha256": "e649f77ba414ed5ce95f90dc26515d6268561574bd96ac193e3563c0bca293cc",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material/OutlinedRichTextEditor.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material/OutlinedRichTextEditor.kt",
+      "gitBlobSha1": "917ae07feb57dc98f463851e488f7a5cf4bfc4aa",
+      "upstreamSha256": "06d99a9742eaaa2155a572386bc4e8cee0e20ecc633875e381dde165c979dbb8",
+      "localSha256": "06d99a9742eaaa2155a572386bc4e8cee0e20ecc633875e381dde165c979dbb8",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material/RichText.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material/RichText.kt",
+      "gitBlobSha1": "fe3e40064b11d9aecd287ba6bed0c7bcd0ccc246",
+      "upstreamSha256": "9c283afd085baeaf242c62288c9503ca585a90025ffc1fb841bd9aca501791f5",
+      "localSha256": "9c283afd085baeaf242c62288c9503ca585a90025ffc1fb841bd9aca501791f5",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material/RichTextEditor.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material/RichTextEditor.kt",
+      "gitBlobSha1": "2da5bc3fc327ba2d8f0ebb1f025571c608cac22d",
+      "upstreamSha256": "94b8ef2607d74dd412b27d1671ee68a851ceab235f7166536524b5a0bb5aeca9",
+      "localSha256": "94b8ef2607d74dd412b27d1671ee68a851ceab235f7166536524b5a0bb5aeca9",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/ColorSchemeExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/ColorSchemeExt.kt",
+      "gitBlobSha1": "9036a85427a8b2f079ef9e8c586927772c4a7036",
+      "upstreamSha256": "d6b96abbbe8e0b530b00e6c0279348ab92bce557cb5356f5840942df4e577e5f",
+      "localSha256": "d6b96abbbe8e0b530b00e6c0279348ab92bce557cb5356f5840942df4e577e5f",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/OutlinedRichTextEditor.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/OutlinedRichTextEditor.kt",
+      "gitBlobSha1": "fa65c8bd5b570ecb4fc2199aa48c17122ba4c6ba",
+      "upstreamSha256": "8d0f1b22e7134a23d39d9099bc1623fdf4c395806f2875c4362881126bb048e1",
+      "localSha256": "8d0f1b22e7134a23d39d9099bc1623fdf4c395806f2875c4362881126bb048e1",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichText.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichText.kt",
+      "gitBlobSha1": "9b9702da44d96ec5d1c5be9a527143cf7d2ba6ac",
+      "upstreamSha256": "5cb4b42e235a2861689099e73c2c549623925f92de28689a23a98a189c4cd539",
+      "localSha256": "5cb4b42e235a2861689099e73c2c549623925f92de28689a23a98a189c4cd539",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichTextEditor.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichTextEditor.kt",
+      "gitBlobSha1": "7941962390b4d50502f9029d91ccd924d30a412b",
+      "upstreamSha256": "b829b34b670cb217c6c022f5dafeb7634ec057d5f322b69b2c8ab9d5e8e7335c",
+      "localSha256": "b829b34b670cb217c6c022f5dafeb7634ec057d5f322b69b2c8ab9d5e8e7335c",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichTextEditorDefaults.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichTextEditorDefaults.kt",
+      "gitBlobSha1": "0a927afecb1f9456fcf8c81b86f11cc16dbe5322",
+      "upstreamSha256": "fe166818dcbd650f34dc6d04d6f8a78a3a416e5d6e99d2d6bd62fde8777af318",
+      "localSha256": "fe166818dcbd650f34dc6d04d6f8a78a3a416e5d6e99d2d6bd62fde8777af318",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichTextEditorImpl.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/RichTextEditorImpl.kt",
+      "gitBlobSha1": "d6244996fc34e267250bc47d950305d3bc715990",
+      "upstreamSha256": "17dd4133d5bb72aa9d593cb1faa1cf414c0642b1ba07502cd42ec06b7566862c",
+      "localSha256": "17dd4133d5bb72aa9d593cb1faa1cf414c0642b1ba07502cd42ec06b7566862c",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/ShapesExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/ShapesExt.kt",
+      "gitBlobSha1": "6246d17efe44b5afb3dee96264ce9a7839a6ef62",
+      "upstreamSha256": "b0336b9cf8c448f30c4e01a7dc4e4e2e35192bbe1734d65cdcc744027116e250",
+      "localSha256": "b0336b9cf8c448f30c4e01a7dc4e4e2e35192bbe1734d65cdcc744027116e250",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/Strings.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/Strings.kt",
+      "gitBlobSha1": "119fb5e2e2c4e875638d30b6630b86f2ae7eff60",
+      "upstreamSha256": "fdf6596115b0c1f09ba6f6dd6b937873743a6ba24a287d6d380813c36374c04c",
+      "localSha256": "fdf6596115b0c1f09ba6f6dd6b937873743a6ba24a287d6d380813c36374c04c",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/ColorSchemeKeyTokens.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/ColorSchemeKeyTokens.kt",
+      "gitBlobSha1": "7754522b6083e6e1772856117ff027eaf9c1c2a5",
+      "upstreamSha256": "4aad17181b5f36b6abea5ffd1e630c7959bb9b7f6def30bfcea9fb4e94c20290",
+      "localSha256": "4aad17181b5f36b6abea5ffd1e630c7959bb9b7f6def30bfcea9fb4e94c20290",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/FiledRichTextEditorTokens.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/FiledRichTextEditorTokens.kt",
+      "gitBlobSha1": "dc00572f627d485f24c8e90b5a73cb47aae85bf6",
+      "upstreamSha256": "b53197383e6f9cff9c475e08f72361e61f0b45fe75704803aae1c0b1ce8a57f8",
+      "localSha256": "b53197383e6f9cff9c475e08f72361e61f0b45fe75704803aae1c0b1ce8a57f8",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/OutlinedRichTextEditorTokens.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/OutlinedRichTextEditorTokens.kt",
+      "gitBlobSha1": "3c8e69555aeafce8aa6d8b3b3e0e77d05197dbf1",
+      "upstreamSha256": "7c758cd4ecc1c3b8ac3288272c2bada6369967514781d78a7c324d7b001adc3f",
+      "localSha256": "7c758cd4ecc1c3b8ac3288272c2bada6369967514781d78a7c324d7b001adc3f",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/ShapeKeyTokens.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/ShapeKeyTokens.kt",
+      "gitBlobSha1": "571204f29d3aa6ad642287802258cdbb0902545d",
+      "upstreamSha256": "afe33b6af744f396e325c5b27b1c70147002c889cedc85b3c0d970a637fbafa7",
+      "localSha256": "afe33b6af744f396e325c5b27b1c70147002c889cedc85b3c0d970a637fbafa7",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/TypographyKeyTokens.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/material3/tokens/TypographyKeyTokens.kt",
+      "gitBlobSha1": "fdc8d5d7015398404af2c9a2fa21e07128b81798",
+      "upstreamSha256": "8857eb1f35ed3119749f9633b7507c60f0189df8d546117d72c8dafe6f194fea",
+      "localSha256": "8857eb1f35ed3119749f9633b7507c60f0189df8d546117d72c8dafe6f194fea",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/test/DebugRichTextEditor.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/test/DebugRichTextEditor.kt",
+      "gitBlobSha1": "f99942ed4c323ffbeeaec8c7b784490a3106f8ee",
+      "upstreamSha256": "d725c80ed93bd46b4548e87197ebb9ecbcd2b7dfce3fff123e3e285020121308",
+      "localSha256": "d725c80ed93bd46b4548e87197ebb9ecbcd2b7dfce3fff123e3e285020121308",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/AnnotatedStringExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/AnnotatedStringExt.kt",
+      "gitBlobSha1": "babd03368988868b779941674163b3cb5038d24f",
+      "upstreamSha256": "37e1d7849a53ef398f0f994b07ebf7039202dd75ed580f70785e1e675299f006",
+      "localSha256": "37e1d7849a53ef398f0f994b07ebf7039202dd75ed580f70785e1e675299f006",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/FloatUtils.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/FloatUtils.kt",
+      "gitBlobSha1": "04a1bcc494af30a32ba53a2b9820f97f18321276",
+      "upstreamSha256": "ff443f3c306b1b69208221be6e1f8f2c273267e6f8ed487bdf6d92a1f2f0eba3",
+      "localSha256": "ff443f3c306b1b69208221be6e1f8f2c273267e6f8ed487bdf6d92a1f2f0eba3",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/ListExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/ListExt.kt",
+      "gitBlobSha1": "3fc28bd4aa464934d0c727a20973394c82039db2",
+      "upstreamSha256": "c571cefb8bd83889040b60098717a57f6706658f76fe394dce9afe236d9d0b2b",
+      "localSha256": "c571cefb8bd83889040b60098717a57f6706658f76fe394dce9afe236d9d0b2b",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/MutableListExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/MutableListExt.kt",
+      "gitBlobSha1": "587725db84873cc060e714d92251279727e4010b",
+      "upstreamSha256": "4fc343cfd9580ab7130b90dd8cb69c12c6caefa6ee24c78ae5901a1fb730f787",
+      "localSha256": "4fc343cfd9580ab7130b90dd8cb69c12c6caefa6ee24c78ae5901a1fb730f787",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/ParagraphStyleExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/ParagraphStyleExt.kt",
+      "gitBlobSha1": "79f77060c742936a588d130a9b8fb673eb820523",
+      "upstreamSha256": "3bccb42cf3bdabfa7b0d405e4e82c6c95911367cdddea2c7297cc0b79baa0ee7",
+      "localSha256": "3bccb42cf3bdabfa7b0d405e4e82c6c95911367cdddea2c7297cc0b79baa0ee7",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/RichParagraphExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/RichParagraphExt.kt",
+      "gitBlobSha1": "4f44e4f0edb2d8343d21e23f903a28b7dfe74db4",
+      "upstreamSha256": "68f41f031c8123d326f531b6aa81c8fb55f1bd953ec8084b4c4759ab0d95e7df",
+      "localSha256": "68f41f031c8123d326f531b6aa81c8fb55f1bd953ec8084b4c4759ab0d95e7df",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/RichSpanExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/RichSpanExt.kt",
+      "gitBlobSha1": "2494b3f1c4aa25dee22e3b50ed799d0de9e8000b",
+      "upstreamSha256": "f7fb6a813153c53b7ac4912b6a82d6798acb878a1a5eda61fe8c3f822b253747",
+      "localSha256": "f7fb6a813153c53b7ac4912b6a82d6798acb878a1a5eda61fe8c3f822b253747",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/SpanStyleExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/SpanStyleExt.kt",
+      "gitBlobSha1": "e7cb489c372462d24fbd5291f5a8281d0aff4573",
+      "upstreamSha256": "9b0f75b9890a1e000f61eb49c87dee8fc6b8e73c2946a4b7eaa77820610d569f",
+      "localSha256": "9b0f75b9890a1e000f61eb49c87dee8fc6b8e73c2946a4b7eaa77820610d569f",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/TextDecorationExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/TextDecorationExt.kt",
+      "gitBlobSha1": "ac8c0af0f2e3038a4b7ffde45005edb39c8d0cd7",
+      "upstreamSha256": "bb47586dd7b2f2de6659b4adf389bee9191139958393b0eff1cf9b9378dd5a1c",
+      "localSha256": "bb47586dd7b2f2de6659b4adf389bee9191139958393b0eff1cf9b9378dd5a1c",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/TextLayoutResultExt.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/TextLayoutResultExt.kt",
+      "gitBlobSha1": "fb87cebb89c03a84fe3da6aa5be9181583a98b87",
+      "upstreamSha256": "28c34b262e18b2b2a5d21a867a0ac38b5040b0acb5ea636c54fc6e33ddcdd327",
+      "localSha256": "28c34b262e18b2b2a5d21a867a0ac38b5040b0acb5ea636c54fc6e33ddcdd327",
+      "modified": false
+    },
+    {
+      "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/TextUtils.kt",
+      "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/utils/TextUtils.kt",
+      "gitBlobSha1": "99940745ea13f2bed5b17ce82b3b2f4f5402e9bb",
+      "upstreamSha256": "0f718fd16aad3154976c885a333d5dfc6cccedfadb89d1c1130acba5dd09afce",
+      "localSha256": "0f718fd16aad3154976c885a333d5dfc6cccedfadb89d1c1130acba5dd09afce",
+      "modified": false
+    },
+    {
+      "path": "src/main/resources/META-INF/compose-rich-editor-LICENSE.txt",
+      "upstreamPath": "LICENSE",
+      "gitBlobSha1": "c2c613e0a5f9de484b59d0a38d1e82a3672130d6",
+      "upstreamSha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722",
+      "localSha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722",
+      "modified": false
+    }
+  ],
+  "patchSha256": "81010901ae93e160c5b3fe179f0bbe347075a55c9677c79a02bfdf5cd48ba1d0"
+}

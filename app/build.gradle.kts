@@ -66,6 +66,7 @@ android {
         create("performance") {
             initWith(getByName("release"))
             applicationIdSuffix = ".performance"
+            matchingFallbacks += listOf("release")
             isDebuggable = false
             isProfileable = true
             signingConfig = null
@@ -106,7 +107,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.7.0")
     androidTestImplementation("com.google.code.gson:gson:2.12.1")
     implementation("com.google.zxing:core:3.5.4")
-    implementation("com.mohamedrejeb.richeditor:richeditor-compose:1.0.0-rc13")
+    implementation(project(":rich-editor-compat"))
     androidTestImplementation("org.bouncycastle:bcprov-jdk18on:1.86")
     androidTestImplementation(platform("androidx.compose:compose-bom:2026.06.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")

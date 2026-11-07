@@ -1,0 +1,92 @@
+--- a/third-party/compose-rich-editor/src/androidMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.android.kt
++++ b/third-party/compose-rich-editor/src/androidMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.android.kt
+@@ -1,3 +1,4 @@
++// Modified for Red Square Android (#94): bind the unchanged platform implementation to this Android-only module.
+ package com.mohamedrejeb.richeditor.platform
+ 
+-internal actual val currentPlatform: Platform = Platform.Android
+\ No newline at end of file
++internal val currentPlatform: Platform = Platform.Android
+\ No newline at end of file
+--- a/third-party/compose-rich-editor/src/androidMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.android.kt
++++ b/third-party/compose-rich-editor/src/androidMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.android.kt
+@@ -1,3 +1,4 @@
++// Modified for Red Square Android (#94): bind the unchanged platform implementation to this Android-only module.
+ package com.mohamedrejeb.richeditor.ui
+ 
+ import androidx.compose.foundation.layout.PaddingValues
+@@ -7,7 +8,7 @@
+ import com.mohamedrejeb.richeditor.model.RichTextState
+ import kotlinx.coroutines.CoroutineScope
+ 
+-internal actual fun Modifier.adjustTextIndicatorOffset(
++internal fun Modifier.adjustTextIndicatorOffset(
+     state: RichTextState,
+     contentPadding: PaddingValues,
+     density: Density,
+--- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt
++++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt
+@@ -1,3 +1,4 @@
++// Modified for Red Square Android (#94): capture immutable transformed text; preserve mapping validation.
+ package com.mohamedrejeb.richeditor.model
+ 
+ import androidx.compose.foundation.text.InlineTextContent
+@@ -1656,9 +1657,10 @@
+ 
+         styledRichSpanList.clear()
+         textFieldValue = newTextFieldValue.copy(text = annotatedString.text)
++        val transformed = annotatedString
+         visualTransformation = VisualTransformation { _ ->
+             TransformedText(
+-                text = annotatedString,
++                text = transformed,
+                 offsetMapping = OffsetMapping.Identity
+             )
+         }
+@@ -3952,9 +3954,10 @@
+             text = annotatedString.text,
+             selection = TextRange(selectionIndex),
+         )
++        val transformed = annotatedString
+         visualTransformation = VisualTransformation { _ ->
+             TransformedText(
+-                text = annotatedString,
++                text = transformed,
+                 offsetMapping = OffsetMapping.Identity
+             )
+         }
+--- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.kt
++++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/platform/Platform.kt
+@@ -1,3 +1,4 @@
++// Modified for Red Square Android (#94): bind the unchanged platform implementation to this Android-only module.
+ package com.mohamedrejeb.richeditor.platform
+ 
+ internal enum class Platform {
+@@ -19,4 +20,3 @@
+         get() = this == WebWasm
+ }
+ 
+-internal expect val currentPlatform: Platform
+\ No newline at end of file
+--- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt
++++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt
+@@ -1,3 +1,4 @@
++// Modified for Red Square Android (#94): bind the unchanged platform implementation to this Android-only module.
+ package com.mohamedrejeb.richeditor.ui
+ 
+ import androidx.compose.foundation.interaction.Interaction
+@@ -294,13 +295,7 @@
+     }
+ }
+ 
+-internal expect fun Modifier.adjustTextIndicatorOffset(
+-    state: RichTextState,
+-    contentPadding: PaddingValues,
+-    density: Density,
+-    layoutDirection: LayoutDirection,
+-    scope: CoroutineScope,
+-): Modifier
++
+ 
+ internal suspend fun adjustTextIndicatorOffset(
+     pressPosition: Offset,

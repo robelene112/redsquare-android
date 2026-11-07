@@ -5,6 +5,16 @@ image=redsquare-android-build:agp8.10.1
 if ! docker image inspect "$image" >/dev/null 2>&1; then
     docker build --memory=2g -t "$image" "$repo_dir/build-support"
 fi
+# Keep the vendored editor compiler lifetime separate from the app compiler in
+# this bounded local container. Hosted CI retains its existing complete task graph.
+warm_debug=false
+warm_release=false
+for task_argument in "$@"; do
+    if [[ "$task_argument" == :app:*Debug* ]]; then warm_debug=true; fi
+    if [[ "$task_argument" == :app:*Release* || "$task_argument" == :app:*Performance* ]]; then warm_release=true; fi
+done
+if [[ "$warm_debug" == true ]]; then "$repo_dir/scripts/android-build" :rich-editor-compat:compileDebugKotlin; fi
+if [[ "$warm_release" == true ]]; then "$repo_dir/scripts/android-build" :rich-editor-compat:compileReleaseKotlin; fi
 cache_dir="$repo_dir/.scratch/gradle-cache"
 mkdir -p "$cache_dir"
 docker run --rm --cpus=2 --memory=2500m \

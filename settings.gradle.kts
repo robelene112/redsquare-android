@@ -5,3 +5,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "RedSquare"
 include(":core", ":app", ":push-gateway")
+
+include(":rich-editor-compat")
+project(":rich-editor-compat").projectDir = file("third-party/compose-rich-editor")
