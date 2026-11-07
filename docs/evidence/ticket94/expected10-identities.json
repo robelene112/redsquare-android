@@ -3384,6 +3384,12 @@
     "occurrences": 1
   },
   {
+    "path": "stack-design-motion-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackDesignMotionTest",
+    "test": "editorSourceAndReviewFollowNormalAndDisabledSystemMotion",
+    "occurrences": 1
+  },
+  {
     "path": "status-motion.txt",
     "testClass": "nl.davidengelen.redsquare.StatusMotionPreviewTest",
     "test": "normalMotionAndLargeDarkTextKeepStatusRecoveryUsable",

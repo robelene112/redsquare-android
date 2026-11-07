@@ -21,7 +21,7 @@
     "classSeconds": 180
   },
   "recordedBeforeFullExecution": true,
-  "basis": "Accepted complete70 literal identities, plus independently audited71-93/83 additions and explicit owner-approved Like replacements. Observer-only candidate update classes are not application full-scope identities. Additive Stack prototype-fidelity UI journeys: two classes/methods and two original archives, with existing identities, goals, bounds, checker and collector unchanged.",
+  "basis": "Accepted complete70 literal identities, plus independently audited71-93/83 additions and explicit owner-approved Like replacements. Observer-only candidate update classes are not application full-scope identities. Additive Stack prototype-fidelity UI journeys: two classes/methods and two original archives, with existing identities, goals, bounds, checker and collector unchanged. One additional original-clock Stack editor/source/review motion class, method and archive at system0/1.",
   "references": [
     {
       "sdk": "10",
@@ -652,6 +652,12 @@
           "testClass": "nl.davidengelen.redsquare.StackDesignPixelViewportTest",
           "test": "pixelWritingPublicationAndAccessPreview",
           "occurrences": 1
+        },
+        {
+          "path": "stack-design-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.StackDesignMotionTest",
+          "test": "editorSourceAndReviewFollowNormalAndDisabledSystemMotion",
+          "occurrences": 1
         }
       ],
       "removedOwnerApprovedLikes": [
@@ -758,12 +764,12 @@
           "occurrences": 1
         }
       ],
-      "expectedIdentities": 628,
-      "expectedClasses": 213,
-      "expectedNormalCompletions": 230,
+      "expectedIdentities": 629,
+      "expectedClasses": 214,
+      "expectedNormalCompletions": 231,
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34,
-      "expectedArchives": 179
+      "expectedArchives": 180
     },
     {
       "sdk": "17",
@@ -1394,6 +1400,12 @@
           "testClass": "nl.davidengelen.redsquare.StackDesignPixelViewportTest",
           "test": "pixelWritingPublicationAndAccessPreview",
           "occurrences": 1
+        },
+        {
+          "path": "stack-design-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.StackDesignMotionTest",
+          "test": "editorSourceAndReviewFollowNormalAndDisabledSystemMotion",
+          "occurrences": 1
         }
       ],
       "removedOwnerApprovedLikes": [
@@ -1500,12 +1512,12 @@
           "occurrences": 1
         }
       ],
-      "expectedIdentities": 629,
-      "expectedClasses": 213,
-      "expectedNormalCompletions": 231,
+      "expectedIdentities": 630,
+      "expectedClasses": 214,
+      "expectedNormalCompletions": 232,
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34,
-      "expectedArchives": 179
+      "expectedArchives": 180
     }
   ],
   "newArchives": [
@@ -1530,6 +1542,7 @@
     "chat/node-viewport-evidence.tar",
     "chat/stack-design-320-evidence.tar",
     "chat/stack-design-412-evidence.tar",
+    "chat/stack-design-motion-evidence.tar",
     "chat/wallet-talkback-evidence.tar",
     "social/account-design-motion-evidence.tar",
     "social/account-design-viewport-evidence.tar",
@@ -1631,6 +1644,7 @@
     "chat/social-push-work-evidence.tar",
     "chat/stack-design-320-evidence.tar",
     "chat/stack-design-412-evidence.tar",
+    "chat/stack-design-motion-evidence.tar",
     "chat/status-motion-evidence.tar",
     "chat/status-recovery-evidence.tar",
     "chat/status-talkback-evidence.tar",
@@ -1744,8 +1758,8 @@
     "legacy-visual-errors10.json": "2dfd0e1477f247da6bfb9595acb3ef39cc44dfba8ac5cacd4b4f42b1be65c0d2",
     "legacy-visual-errors17.json": "289e44a0d4d8a367def390d1b9dee41cbb734b636300d181ab01801faa17ea7b",
     "legacy-profile-assumption.txt": "7c3ed443a2a27b11f57f0c79c3f64a391adebdd9eb636cb2e83a83c1b5b3846e",
-    "expected10-identities.json": "30159398327db6598b49d926abf89d7a7b2c6bb9e1f0051dd2e67f9ce24cadc0",
-    "expected17-identities.json": "c7fef5fcf0e316b76697b4c3585e5878aa9f33f663d202c80178d31ea02c4dea"
+    "expected10-identities.json": "7326cb6e8f29bdea440c77f885262dfd67e49e266e59db96f6c91d287b7fc6f1",
+    "expected17-identities.json": "af8e6ea2dab5893404d30a57c779602d0a573f1562f4868c18faef846c3c621d"
   },
   "viewerNavigationValidationRevision": {
     "previousSource": "4f2bd89f49a4fc2b01c989b452b9ff675f82620b",
