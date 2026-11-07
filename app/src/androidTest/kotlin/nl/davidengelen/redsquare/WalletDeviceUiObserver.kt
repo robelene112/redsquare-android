@@ -21,7 +21,7 @@ class WalletDeviceUiObserver {
         val capture = File(instrumentation.targetContext.cacheDir, "wallet-device-observation/screen.png")
         withFailureCapture({ captureNativeScreen(capture) }) {
             device.executeShellCommand("am start -W -n $application/nl.davidengelen.redsquare.MainActivity" +
-                if (application.endsWith(".dev")) " --ez feedDisabled true" else "")
+                if (application.endsWith(".dev")) " --ez feedDisabled true --es balanceApiUrl http://127.0.0.1:1/balance/" else "")
             // UiObject2 resolves the live object's bounds at click time, rather than using
             // coordinates from an earlier host-side hierarchy dump during startup.
             var action: androidx.test.uiautomator.UiObject2? = null
