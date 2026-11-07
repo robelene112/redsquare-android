@@ -225,8 +225,10 @@ class MainActivity : ComponentActivity() {
                     result
                 }, chooseDocument = { openWalletDocument.launch(arrayOf("*/*")) }) }
             val walletScrollState = rememberScrollState()
-            LaunchedEffect(walletOpen, walletImport.preview) {
-                if (walletOpen && walletImport.preview == null) walletScrollState.scrollTo(0)
+            LaunchedEffect(walletOpen, walletImport.preview?.publicKey) {
+                // Enter each overview/review at its beginning. Later balance,
+                // acknowledgement and backup updates retain the reader's position.
+                if (walletOpen) walletScrollState.scrollTo(0)
             }
             DisposableEffect(walletExport) {
                 walletExports = walletExport

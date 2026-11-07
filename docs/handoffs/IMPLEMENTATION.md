@@ -6,6 +6,28 @@ Issue94 remains active. Root is the sole implementation writer in
 `/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
 Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
+Current integration49f6330e0 is source-reviewed, with native module-shell and
+policies BOTH SDK PASS42402732693/42402734699 and42402736958/42402738809.
+Wallet-input49 BOTH PASS42402728586/42402730695. Wallet-design49 BOTH fail the
+later compact Settings readiness check at200% (the first wallet-header/task tests
+pass). Actual Settings index retains route scroll, consistent with the prototype;
+fixture now reveals Privacy and safety within the SAME shared10s bound. The actual
+320dark100 Wallet screenshot confirms global header/local Wallet+Back/noDone;
+Spec's supplemental visual check clears the old structural finding, not final
+same-source/motion/whole-app acceptance.
+
+Subsequent five-file source-reviewed repair: import review now starts at the
+beginning on new public-key/null stage transitions, while same-key balance/backup/
+acknowledgement updates retain reading position. Its native RED42403107435 on
+efd1575 proves Active wallet was offscreen BEFORE helper scrolling. The helper
+observes initial entry ONCE per chooser, then may reveal the exact incoming address;
+success retains the exact native predicate and original30s deadline. Overview-only
+Back/title margins align with the reference; focused task spacing stays unchanged.
+Motion readiness requires the real Close wallet marker, so the closing account
+menu Wallet row cannot falsely establish overview entry. All five source deltas
+are cleared on both review axes; native green reruns are required before another
+complete final-source dispatch.96+ still needs an actual clean build and all gates.
+
 Current integration replaces the remaining Wallet/Settings overview composition gap:
 the actual shared AppHeader renders inside each overview window, with the local
 Wallet/Settings Back hierarchy and no duplicate Done footer. Real module/account/node

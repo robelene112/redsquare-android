@@ -45,7 +45,12 @@ private fun ComposeTestRule.verifyAccountViewports(width: Int) {
             onNode(hasText("Close wallet") and hasClickAction()).assertHeightIsAtLeast(48.dp).performClick()
             waitUntil(10_000) { onNode(hasText("Home") and isSelected()).isDisplayed() }
             openSettings()
-            waitUntil(10_000) { onNodeWithText("Privacy and safety").isDisplayed() }
+            val settingsReadyBy = android.os.SystemClock.elapsedRealtime() + 10_000
+            waitUntil(10_000) { onAllNodesWithText("Privacy and safety").fetchSemanticsNodes().isNotEmpty() }
+            onNodeWithText("Privacy and safety").performScrollTo().assertIsDisplayed()
+            check(android.os.SystemClock.elapsedRealtime() <= settingsReadyBy) {
+                "The Settings action must remain reachable within its original ten-second bound"
+            }
             captureNativeScreen(File(folder, "$label-settings.png"))
             onNodeWithText("Node").performScrollTo().performClick()
             for (domain in listOf("saito.io", "saito.davidengelen.nl")) {

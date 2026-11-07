@@ -56,16 +56,18 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
     val contentList = By.res(Pattern.compile(".*:id/dir_list"))
     val selected = By.desc(context.getString(R.string.wallet_import_address)).text(incoming)
     val deadline = SystemClock.uptimeMillis() + 30_000
+    var observedEntry = false
     while (SystemClock.uptimeMillis() < deadline) {
         try {
             // The Compose clock can synchronize only after the external picker returns.
             if (device.currentPackageName == context.packageName) {
                 ui.waitForIdle()
                 val preview = hasContentDescription(context.getString(R.string.wallet_import_address)) and hasText(incoming)
-                if (ui.onAllNodes(preview).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
+                if (!observedEntry && ui.onAllNodes(preview).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
                     // Entering a new review must show its beginning, not the
                     // overview's old offset halfway through the risk guidance.
                     ui.onNode(hasText(context.getString(R.string.wallet_identity_heading))).assertIsDisplayed()
+                    observedEntry = true
                 }
                 if (!device.hasObject(selected)) {
                     // The picker can have returned successfully while large-text
@@ -74,7 +76,7 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
                         ui.onNode(preview).performScrollTo().assertIsDisplayed()
                     }
                 }
-                if (device.hasObject(selected)) {
+                if (observedEntry && device.hasObject(selected)) {
                     check(SystemClock.uptimeMillis() <= deadline) { "Wallet import preview exceeded its thirty-second deadline" }
                     return
                 }

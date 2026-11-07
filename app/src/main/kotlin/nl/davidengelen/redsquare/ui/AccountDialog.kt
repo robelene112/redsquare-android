@@ -33,13 +33,15 @@ internal fun AccountDialog(title: String, closeLabel: String, onDismissRequest: 
                 Column(Modifier.fillMaxHeight().widthIn(max = 600.dp).fillMaxWidth()
                     .windowInsetsPadding(WindowInsets.safeDrawing)) {
                     header?.invoke()
-                    Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small, vertical = 4.dp),
+                    Row(Modifier.fillMaxWidth().padding(
+                        horizontal = if (header != null) AppSpacing.screen else AppSpacing.small, vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically) {
                         IconButton(onClick = onDismissRequest, enabled = dismissEnabled,
                             modifier = Modifier.size(48.dp).semantics { this.text = AnnotatedString(backLabel ?: closeLabel) }) {
                             Icon(painterResource(if (backLabel == null) R.drawable.ic_close else R.drawable.ic_back), null)
                         }
-                        Text(title, Modifier.weight(1f).padding(horizontal = AppSpacing.small).semantics { heading() },
+                        Text(title, Modifier.weight(1f).padding(horizontal = if (header != null) 4.dp else AppSpacing.small)
+                            .semantics { heading() },
                             style = MaterialTheme.typography.headlineSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                     }
                     Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen,

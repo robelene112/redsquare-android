@@ -40,7 +40,13 @@ class AccountDesignMotionTest {
                 click("Back to Settings")
                 click("Close settings")
                 requireNotNull(device.wait(Until.findObject(By.desc("Account")), 5_000)).click()
-                movie("wallet-open") { click("Wallet"); check(device.wait(Until.hasObject(By.text("Wallet")), 5_000)) }
+                movie("wallet-open") {
+                    click("Wallet")
+                    // The closing account-menu row also says Wallet. Require
+                    // the overview's real Back action before accepting its title.
+                    check(device.wait(Until.hasObject(By.text("Close wallet")), 5_000))
+                    check(device.hasObject(By.text("Wallet")))
+                }
                 captureNativeScreen(File(folder, "scale-$scale-wallet.png"))
                 movie("wallet-return") {
                     click("Close wallet")
