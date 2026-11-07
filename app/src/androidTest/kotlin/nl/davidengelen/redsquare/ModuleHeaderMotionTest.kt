@@ -94,8 +94,9 @@ class ModuleHeaderMotionTest {
                 requireNotNull(device.findObject(By.desc("Account"))).click()
                 check(device.wait(Until.hasObject(By.text("Wallet")), 5_000))
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
-                check(device.wait(Until.gone(By.text("Wallet")), 5_000))
-                check(device.hasObject(By.text("Stack design preview")))
+                await(5_000, "Escape closes Account and retains the current Stack preview") {
+                    !device.hasObject(By.text("Wallet")) && device.hasObject(By.text("Stack design preview"))
+                }
             }
             movie("article") {
                 requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()

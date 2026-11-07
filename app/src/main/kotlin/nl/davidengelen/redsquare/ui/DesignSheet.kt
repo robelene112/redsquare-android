@@ -26,6 +26,7 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
     }
     if (mounted) ModalBottomSheet(onDismissRequest = onDismiss, sheetState = state,
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
+        DismissDialogOnEscape(onDismiss)
         Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
             .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {

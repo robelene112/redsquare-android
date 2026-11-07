@@ -2,6 +2,11 @@ package nl.davidengelen.redsquare.ui
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
+import android.view.KeyEvent
+import android.view.Window
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalView
@@ -24,5 +29,37 @@ internal fun AppDialogWindow(styleSystemBars: Boolean = false) {
             isAppearanceLightStatusBars = lightBars
             isAppearanceLightNavigationBars = lightBars
         }
+    }
+}
+
+/** A sheet must accept Escape even before one of its Compose controls gains input focus. */
+@Composable
+internal fun DismissDialogOnEscape(onDismiss: () -> Unit) {
+    val view = LocalView.current
+    val window = (view.parent as DialogWindowProvider).window
+    val dismiss by rememberUpdatedState(onDismiss)
+    DisposableEffect(window) {
+        val previous = requireNotNull(window.callback)
+        var tracking = false
+        val callback = object : Window.Callback by previous {
+            override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+                if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) return previous.dispatchKeyEvent(event)
+                when (event.action) {
+                    KeyEvent.ACTION_DOWN -> if (event.repeatCount == 0) tracking = true
+                    KeyEvent.ACTION_UP -> {
+                        val shouldDismiss = tracking && !event.isCanceled
+                        tracking = false
+                        if (shouldDismiss) dismiss()
+                    }
+                }
+                return true
+            }
+            override fun onWindowFocusChanged(hasFocus: Boolean) {
+                if (!hasFocus) tracking = false
+                previous.onWindowFocusChanged(hasFocus)
+            }
+        }
+        window.callback = callback
+        onDispose { if (window.callback === callback) window.callback = previous }
     }
 }
