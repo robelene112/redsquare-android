@@ -2,6 +2,20 @@
 
 ## Current owner feedback, November 7, 2026: prototype fidelity rejected
 
+Owner subsequently authorized fixing the mismatch. Active issue94, worktree
+`/mnt/storage/redsquare-android-artifacts/redesign86`. Source corrections through
+`0ac2d858d` now reproduce the reference profile composition, rounded selectors,
+menu sheets/cards, inline post actions, Chat composers and balance-first wallet.
+Beta89 is still live. New rendered comparison, full Android10/17 gates, signed
+update proof and replacement beta remain pending. Do not claim delivery yet.
+
+The red native profile run42375955818 reproduces the old95dp banner against the
+independent128dp reference. Initial focused dispatches42377250251/52540/54877
+failed checkout because a short source SHA was treated as a ref. Their replacement
+layout1 runs42377419383/21502/23543 were cancelled after the local observer compile
+found an invalid bounds accessor; no native or full pass is claimed. Bounds access
+is fixed in e3e92b29d; wait for the current compile before redispatching.
+
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be
 called visually complete. Existing functional/update/publication evidence remains
