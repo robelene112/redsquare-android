@@ -13,22 +13,26 @@
     "performance"
   ],
   "fullGateDefaultVersionCode": 1,
-  "note": "Full313 and authentic signed-reader0aa gates are running, not accepted.445producer inputs and731other full-execution inputs are independently unchanged; the standalone candidate reader is not selected by either211-class full catalog. No runtime waiver, debug/release binary equality, physical Pixel or provider acceptance is claimed.",
+  "note": "Both complete71ea suites are running, not accepted. Actual signed updates use declared independent observer sources with unchanged production inputs. Reviewed fixture changes retain original goals/deadlines; frozen catalogs and tools remain unchanged. No runtime waiver, debug/release binary equality, physical Pixel or provider acceptance is claimed.",
   "producerInputs": {
     "trackedEntries": 445,
     "canonicalSha256": "874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2",
     "independentlyReviewed": true,
-    "receipt": "producer-equivalence313.json"
+    "receipt": "full313-to71ea-bridge.json"
   },
-  "fullExecutionSource": "3135a58c321c875904f2bcdae928267ddbedda26",
+  "fullExecutionSource": "71ea524f115496a13699affd2fa5b56444b23c89",
   "fullRuns": {
-    "10": 42409844018,
-    "17": 42409846568
+    "10": 42412909858,
+    "17": 42413158524
   },
   "signedUpdateRuns": {
     "10": 42410496042,
-    "17": 42410498198
+    "17": 42411220633
   },
-  "signedUpdateReaderSource": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
-  "signedUpdateObserverEquivalence": "reader0aa-full313-equivalence.json"
+  "signedUpdateObserverEquivalence": "reader0aa-full313-equivalence.json",
+  "signedUpdateReaderSources": {
+    "10": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
+    "17": "7429895412452453174b828d660658d5fb7eb6a2"
+  },
+  "signedUpdateStatus": "both PASS, independently reviewed genuine authored-caption continuity"
 }

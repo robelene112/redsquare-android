@@ -1,0 +1,27 @@
+{
+  "source": "3135a58c321c875904f2bcdae928267ddbedda26",
+  "run": 42409844018,
+  "partition": "wallet",
+  "conclusion": "failure",
+  "note": "Initial requested post not applied when the old request/list-only guard completed. Later original failure capture shows the post. New same15s guard additionally requires expected post presence.",
+  "files": [
+    {
+      "file": "feed-ui.txt",
+      "sha256": "4db3ab063bb3b6e0e37ca269532ec16c49dccb970851f4fe4167e0461eb80e66",
+      "bytes": 12203,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final313-10/android-native-proof-wallet/.scratch/device-evidence/api-29/feed-ui.txt"
+    },
+    {
+      "file": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover-native.png",
+      "sha256": "08b9c52c3db4abd1c3b1d21761050eca7d95e2c39c2f6b6787333b1da69d58a9",
+      "bytes": 29626,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final313-10/wallet-native/feed-ui-failures/unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover-native.png"
+    },
+    {
+      "file": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover.semantics.txt",
+      "sha256": "6044bf5a95d0def9f6f915dc5473d245bc105b1df990af1b2525dbaab60fe43f",
+      "bytes": 20140,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final313-10/wallet-native/feed-ui-failures/unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover.semantics.txt"
+    }
+  ]
+}

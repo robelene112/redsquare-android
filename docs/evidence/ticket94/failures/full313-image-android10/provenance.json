@@ -1,0 +1,21 @@
+{
+  "source": "3135a58c321c875904f2bcdae928267ddbedda26",
+  "run": 42409844018,
+  "partition": "social",
+  "conclusion": "failure",
+  "note": "Actual recovered image is red; the expected2500ms FeedUpdated feedback overlays its sampled centre. Correction retains centre/RGB/tolerance and original15s total bound.",
+  "files": [
+    {
+      "file": "recovered-instrumentation.txt",
+      "sha256": "09e9136fe716ef9ae4cbc350afc5edf4ba6f29e52546bd08290de1dbec97d7f9",
+      "bytes": 2363,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final313-10/android-native-proof-social/.scratch/device-evidence/api-29/image-queue-process/recovered-instrumentation.txt"
+    },
+    {
+      "file": "image-cold-failure.png",
+      "sha256": "5a810eea2aeb0c47ac0a5875d844a0f0dfff310db1b594b6c644be3eabfba910",
+      "bytes": 34520,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final313-10/social-native/post-queue-process-evidence/image-cold-failure.png"
+    }
+  ]
+}

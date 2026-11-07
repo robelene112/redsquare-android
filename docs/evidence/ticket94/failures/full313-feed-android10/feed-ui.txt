@@ -1,0 +1,225 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedPreviewTest:
+INSTRUMENTATION_STATUS: test=pullRefreshWorksWhenTheFeedIsEmpty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pullRefreshWorksWhenTheFeedIsEmpty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=conversationPullRefreshKeepsTheSelectedPostAndReportsOfflineRecovery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=conversationPullRefreshKeepsTheSelectedPostAndReportsOfflineRecovery
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #3355 at (l=18.0, t=222.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@6f2b4af'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+Selector used: ((ScrollBy is defined) && (VerticalScrollAxisRange is defined))
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover$lambda$20$lambda$19$lambda$18(FeedPreviewTest.kt:132)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$yPqcUXvzKHJRkdeXXGR_QXEP97I(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:309)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover(FeedPreviewTest.kt:126)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover(nl.davidengelen.redsquare.FeedPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #3355 at (l=18.0, t=222.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@6f2b4af'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+Selector used: ((ScrollBy is defined) && (VerticalScrollAxisRange is defined))
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover$lambda$20$lambda$19$lambda$18(FeedPreviewTest.kt:132)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$yPqcUXvzKHJRkdeXXGR_QXEP97I(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:309)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover(FeedPreviewTest.kt:126)
+
+INSTRUMENTATION_STATUS: test=unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.BackendPreviewTest:
+INSTRUMENTATION_STATUS: test=unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.BackendPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedReadinessPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedReadinessPreviewTest:
+INSTRUMENTATION_STATUS: test=fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedReadinessPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 37.935
+There was 1 failure:
+1) unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover(nl.davidengelen.redsquare.FeedPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #3355 at (l=18.0, t=222.0, r=302.0, b=555.0)px, Tag: 'feed-post-list'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+CustomActions = '[]'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@6f2b4af'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 siblings
+Selector used: ((ScrollBy is defined) && (VerticalScrollAxisRange is defined))
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover$lambda$20$lambda$19$lambda$18(FeedPreviewTest.kt:132)
+	at nl.davidengelen.redsquare.FeedPreviewTest.$r8$lambda$yPqcUXvzKHJRkdeXXGR_QXEP97I(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.FeedPreviewTest.captureFailure(FeedPreviewTest.kt:309)
+	at nl.davidengelen.redsquare.FeedPreviewTest.unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover(FeedPreviewTest.kt:126)
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

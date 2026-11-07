@@ -1,0 +1,64 @@
+{
+  "reviewedAtUtc": "2026-11-07T20:43:08.309995+00:00",
+  "findingCount": 0,
+  "scope": "Android17 actual signed83\u219297 authentic-caption continuity only",
+  "run": 42411220633,
+  "readerSource": "7429895412452453174b828d660658d5fb7eb6a2",
+  "producer": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "artifactSha256": "66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5",
+  "hashInventoryEntries": 52,
+  "nonNativeRawCopiesChecked": 27,
+  "originalArchives": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth742-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/native-local-work.tar",
+      "sha256": "d773032f04ea0d482d112d79509eec44ed54288a1a0a3f15f96118fd6cfa9c5f"
+    }
+  ],
+  "extractedOriginalMembersChecked": 23,
+  "caption": "Hi guys, I see you are testing already ;), haven't announced it yet... 4mo into it, over 1k hours clocked in, rolling www.saitoverse.com out over the weekend, forgive any non-workign links and frequent node updates, should be stable in few days. Quick preview: https://www.youtube.com/watch?v=_jVKx9as6XE",
+  "author": "22jWAzPBoAqn9hUsec9UydbXvaj862qB6q4mBpa9Bex4P",
+  "authorLength": 45,
+  "canonicalCompressedCurvePointIndependentlyValidated": true,
+  "published": "Published 11/7/26 4:20 PM",
+  "sameExactPostPrepareAfterCold": true,
+  "sameDraftLightOfflineAfterCold": true,
+  "allFourWalletObservationsEqual": true,
+  "debugIdentitySeparateAndUnchanged": true,
+  "uids": {
+    "ordinary": 10236,
+    "debug": 10234
+  },
+  "restoration": {
+    "failures": [],
+    "originalWifi": "1",
+    "originalMobileData": "1"
+  },
+  "nativeXmlChecks": {
+    "prepareCaptionVisible": true,
+    "prepareIdentityTimeVisible": true,
+    "prepareReopenedDraftVisible": true,
+    "verifyCaptionVisible": true,
+    "verifyIdentityTimeVisible": true,
+    "verifyReopenedDraftVisible": true
+  },
+  "retainedPacket": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/update97-android17",
+  "rawPacket": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth742-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update",
+  "producerInputEquivalence": {
+    "count": 445,
+    "canonicalSha256": "874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2"
+  },
+  "android10Proof": {
+    "run": 42410496042,
+    "source": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
+    "difference": "Only bounded StaleObjectException requery during native author/card observation; original deadlines/assertions/goals unchanged",
+    "sourceDiffNonDocumentation": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ReviewUpdateUiObserver.kt"
+    ]
+  },
+  "limits": [
+    "Android10 and17 use explicitly different reader sources; not claimed one exact instrumentation binary.",
+    "Full313 does not execute this reader and remains separate; old failed Android10 full is not accepted.",
+    "No whole-app native acceptance or promotion claim.",
+    "Earlier media-button-caption packets are not authored-cache continuity proof."
+  ]
+}

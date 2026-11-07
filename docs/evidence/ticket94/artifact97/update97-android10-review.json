@@ -1,0 +1,52 @@
+{
+  "reviewedAtUtc": "2026-11-07T20:30:32.687055+00:00",
+  "findingCount": 0,
+  "scope": "Android10 actual signed83\u219297 authentic-caption continuity only",
+  "run": 42410496042,
+  "readerSource": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
+  "producer": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "artifactSha256": "66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5",
+  "hashInventoryEntries": 52,
+  "nonNativeRawCopiesChecked": 27,
+  "originalArchives": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth0aa-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/native-local-work.tar",
+      "sha256": "6fc2860543e5f58fed791dd24bdd5c8ecef6b429f748e121fbd99734f004e1e2"
+    }
+  ],
+  "extractedOriginalMembersChecked": 23,
+  "caption": "Hi guys, I see you are testing already ;), haven't announced it yet... 4mo into it, over 1k hours clocked in, rolling www.saitoverse.com out over the weekend, forgive any non-workign links and frequent node updates, should be stable in few days. Quick preview: https://www.youtube.com/watch?v=_jVKx9as6XE",
+  "author": "22jWAzPBoAqn9hUsec9UydbXvaj862qB6q4mBpa9Bex4P",
+  "authorLength": 45,
+  "canonicalCompressedCurvePointIndependentlyValidated": true,
+  "published": "Published 11/7/26 4:20 PM",
+  "sameExactPostPrepareAfterCold": true,
+  "sameDraftLightOfflineAfterCold": true,
+  "allFourWalletObservationsEqual": true,
+  "debugIdentitySeparateAndUnchanged": true,
+  "uids": {
+    "ordinary": 10118,
+    "debug": 10116
+  },
+  "restoration": {
+    "failures": [],
+    "originalWifi": "1",
+    "originalMobileData": "1"
+  },
+  "nativeXmlChecks": {
+    "prepareCaptionVisible": true,
+    "prepareIdentityTimeVisible": true,
+    "prepareReopenedDraftVisible": true,
+    "verifyCaptionVisible": true,
+    "verifyIdentityTimeVisible": true,
+    "verifyReopenedDraftVisible": true
+  },
+  "retainedPacket": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/update97-android10",
+  "rawPacket": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth0aa-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update",
+  "limits": [
+    "Android17 corrected stale-read source7429895 and run42411220633 remain separate/pending at assignment.",
+    "Full313 and final whole-app native acceptance remain separate; no promotion claim.",
+    "Earlier media-button-caption packets are not accepted as authored-cache continuity.",
+    "Source0aa Android10 proof is preserved; not relabelled as later-reader source."
+  ]
+}

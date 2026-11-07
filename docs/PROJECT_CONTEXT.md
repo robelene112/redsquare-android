@@ -6,68 +6,59 @@ Issue94 remains active. Root is the sole implementation writer in
 `/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
 Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
-Current frozen complete-source checkpoint:
-Actual complete consumer `3135a58c321c875904f2bcdae928267ddbedda26`, immutable tag
-`proof-prototype97-full3135a58`. Fresh full10/17 runs42409844018 / 42409846568
-were dispatched with matching actual head/source/workflow3135, all3partitions and
-public-read gates. Their results, frozen collectors and final native/prototype
-reviews are PENDING. No full-source acceptance or final publication is claimed.
-Do not change implementation while they run without recording a new relationship.
+Current frozen implementation and final gates:
+Both corrected complete suites execute71ea524f115496a13699affd2fa5b56444b23c89,
+immutable tag proof-prototype97-full71ea524. Android10 run42412909858 and Android17
+run42413158524 are PENDING. Require all3partitions on each SDK and the unchanged
+frozen collectors; never assemble old partial passes into acceptance. No production
+code changed since348's responsive wallet actions. Root remains sole writer.
 
-Candidate97 is staged, NOT promoted; beta89 remains latest. Actual signed producer
-`7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39`, tag `proof-prototype97-7e5bec5`.
-Built/public APK SHA256 `66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5`,
-38,992,531bytes, established certificate unchanged; build3m21. Actual package,
-signature/stage/download and independent provenance receipts are in artifact97.
-No production changes since348's responsive wallet actions. Never promote93–96.
+Earlier313 full10 42409844018 has failed Wallet (FeedPreview accepted an empty list
+before its requested post applied) and Social (recovered red image's centre was
+covered by the normal2.5s FeedUpdated overlay).313 full17 42409846568 has WalletPASS
+but SocialFAIL at the same image observation. Both old Chat jobs remain diagnostic;
+neither313 complete dispatch is accepted. Actual image failure PNGs show correct
+red content and the transient overlay. Cache initial readiness now additionally
+requires its expected post within the original15s. Image label/reveal/actualcentre
+RGB sampling now shares its original15s aggregate, with the same220/30/40±5 and
+all3finalchannel assertions. No actions, fixed sleep or tolerance change. Both
+review axes clear these fixture corrections; native validation remains mandatory.
 
-Both348 wallet-design42406839667/42406842007 and wallet-input42406844420/42406846234
-PASS. Both native axes confirm whole stacked labels at200%, original100/130%
-columns and native controls; motion review includes24independently decoded frames
-from8original1/0movies. fd4 post-presentation42407399421/42407402378, frame viewport
-42407404435/42407406448, appearance17 42407408561 and7e report42407623747/
-42407625926 PASS. Profiles61ae10 42408356014 and9fe17 42409020221 PASS; actual after
-PNG/XML on both show the whole enabled Bio above real IME and reachable48dp Save.
-These remain focused packets and do not replace final whole-app/native gates.
+Feed5ab focused42412149990 / 42412152410 BOTH PASS. Images71ea focused42412808543 /
+42412810685 BOTH PASS, including actual image queue/process recovery. The corrected
+complete10/17 gates remain pending. Independent source bridge
+verifies445identical producer inputs, canonical SHA256
+874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2. Full313-to71ea only
+changes the reviewed Feed/Image observation fixtures and the standalone update
+reader; both211-class catalogs and frozen collector/helper/tool pins are unchanged.
 
-Historical full f68610 42405076092 failed readiness and a missed Wallet Done exit;
-f68617 42405078203 failed offscreen About and unrevealed Bio. Both Wallet partitions
-pass; neither complete run is accepted. The old recreation PNG is after cleanup, so
-no cause was proved. Its new in-scope diagnostic retains all15s predicates. Reviewed
-fixture repairs preserve goals/deadlines: actual About/Bio reveal, named Wallet Back
-for two missed exits, and positive expected video caption within the original20s.
-61ae17 42408358124 failed a preceding cached-video readiness race BEFORE profiles;
-the corrected9fe17 profile scope passes. Failed native packets remain under failures/.
-Wrong-source42407609367/42407611488 were cancelled, never acceptance evidence.
+Actual signed83-to97 continuity is now authentically proven on BOTH SDKs:
+- Android10:42410496042, reader0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a.
+- Android17:42411220633, reader7429895412452453174b828d660658d5fb7eb6a2.
+Each retained update97-android10/17 packet has52hashed files. Independent review
+verifies all27raw copies and23originalTAR members, exact authored caption (not a
+media button), canonical45-character author and time, exact draft/LIGHT/offline
+cache,4wallet observations, distinct unchanged debug identity/UID and clean cleanup.
+The17reader only re-queries replaced native nodes inside its existing30s bound.
+Both reader sources have unchanged production inputs. Their standalone candidate
+observer is not selected by full suites. Earlier media-button-caption passes remain
+historical and do NOT prove authored-cache continuity.
 
-Authentic signed83-to97 checks now use reader0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a
-(tag proof-prototype97-update0aa40b5), runs42410496042 / 42410498198, PENDING.
-Auth313 runs42409848816/42409851190 failed BEFORE97 installation: actual authored
-caption was selected, but their old44-only public-author selector rejected the
-fully displayed45-character22jWAz... key. Original native/log packets are retained.
-The corrected reader accepts44/45 Base58 text and requires the existing canonical
-Saito public-key validator; exact caption/author/time and all bounds stay unchanged.
-Independent receipt `artifact97/reader0aa-full313-equivalence.json` verifies445
-unchanged producer inputs and731other unchanged full-execution inputs. This reader
-is absent from both211-class full catalogs; full legacy5-to8 uses the separate
-wallet observer. Keep full313 running. Source distinction is explicit, not a runtime
-waiver or a claim that the corrected reader ran in full313.
-Earlier7e10 42408005837 and a5ef10/17 42408818879/42408820926 pass their executed
-checks, but their cache picker accepted a nested 'Watch on YouTube' media label.
-They do NOT prove the authored-caption cache goal.7e17 42408007929 failed Light
-selection on immutable83 BEFORE97 installation. The new source-reviewed observer
-keeps native idle/tap within5s, selects only actual first-line body content below
-its author header, and physically reveals later eligible posts within its original
-30s prepare/20s verify bounds. Exact caption/author/time, offline cache, draft, wallet,
-LIGHT, UID isolation and cleanup requirements remain. Fresh runtime proof is required.
+Candidate97 is staged, NOT promoted; beta89 remains latest. Signed producer7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39,
+tag proof-prototype97-7e5bec5. Actual built/public APK SHA256
+66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5,
+38,992,531bytes, established certificate unchanged; build3m21. Artifact97 retains
+actual package/signature/stage/download and independent provenance/bridge receipts.
+Never promote93–96. Promote97 with EXACT immutable staged notes only after final
+gates, collectors and actual whole-app native/prototype/motion reviews pass.
 
-Producer7e-to-consumer3135 differs only in3reviewed instrumentation fixtures.
-Independent review verifies445identical producer-input entries, canonical SHA256
-`874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2`, plus unchanged
-frozen acceptance/tool inputs. `artifact97/producer-equivalence313.json` is the
-current receipt; prior61ae/9fe receipts retain their explicit scopes. Complete full outcomes/collectors, final actual native reviews,
-actual signed97 continuity and exact staged97 promotion remain required. Root is sole
-writer; canonical Chat WIP, nodes, other tickets and #55 owner acceptance stay separate.
+Prototype authority remainsc95ecaa01 / design-3d989e9e8406, with later owner amendments.
+Current348 wallet matrices bothSDK PASS, confirmed whole200%labels/original100/130%
+columns and independently decoded1/0motion. Profile Bio reveal after cancelled import
+is nativePASS61ae10/9fe17; real after PNG/XML show enabled fullfield aboveIME and48dp
+Save. Other focused read/navigation/report checks are retained below. These focused
+packets never replace complete/new-source/native acceptance. Canonical Chat WIP,
+production nodes, other tickets and #55 owner acceptance remain untouched.
 
 Earlier f686 checkpoint, preserved within its historical scope:
 CURRENT FROZEN IMPLEMENTATION / SIGNED PRODUCER:
