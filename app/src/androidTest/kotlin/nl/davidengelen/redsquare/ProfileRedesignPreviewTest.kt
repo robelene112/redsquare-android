@@ -47,7 +47,8 @@ class ProfileRedesignPreviewTest {
             val fill = selected.getPixel(8.coerceAtMost(selected.width - 1), selected.height / 2)
             assertTrue("Selected history uses the prototype's filled rounded chip, not an underline",
                 fill == android.graphics.Color.rgb(42, 48, 61) || fill == android.graphics.Color.rgb(232, 237, 247))
-            val chipHeight = selectedTab.getUnclippedBoundsInRoot().height.value
+            val chipBounds = selectedTab.getUnclippedBoundsInRoot()
+            val chipHeight = (chipBounds.bottom - chipBounds.top).value
             val paintRows = (0 until selected.height).count { y -> selected.getPixel(8.coerceAtMost(selected.width - 1), y) == fill }
             val paintHeight = paintRows * chipHeight / selected.height
             assertTrue("The prototype chip paints32dp inside its48dp touch target", paintHeight in 27f..33.5f)

@@ -62,7 +62,7 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
                 ui.openWallet()
-                ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Wallet address").isDisplayed() }
+                displayedWalletAddress(ui)
                 ui.onNodeWithContentDescription("Wallet address").assertTextEquals(activeAddress)
 
                 ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
@@ -75,7 +75,7 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 ui.openWallet()
-                ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Wallet address").isDisplayed() }
+                displayedWalletAddress(ui)
 
                 ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Recipient address").performScrollTo().assertIsDisplayed()

@@ -28,7 +28,7 @@ private fun ComposeTestRule.verifyAccountViewports(width: Int) {
         onNodeWithText("Later").performClick()
         withPostViewports(activity, folder, "account", widthDp = width) { label, _ ->
             openWallet()
-            waitUntil(10_000) { onNodeWithContentDescription("Wallet address").isDisplayed() }
+            displayedWalletAddress(this)
             val address = displayedWalletAddress(this)
             captureNativeScreen(File(folder, "$label-wallet-identity.png"))
             for (action in listOf("Export wallet", "Import wallet", "Balance and receive", "Send SAITO", "Recovery guide")) {

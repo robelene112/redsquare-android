@@ -9,6 +9,8 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 
@@ -16,7 +18,7 @@ fun displayedWalletAddress(ui: ComposeTestRule): String = captureWalletFailure {
     ui.waitUntil(10_000) {
         ui.onAllNodes(hasContentDescription("Wallet address")).fetchSemanticsNodes().isNotEmpty()
     }
-    ui.onNodeWithContentDescription("Wallet address")
+    ui.onNodeWithContentDescription("Wallet address").performScrollTo().assertIsDisplayed()
         .fetchSemanticsNode().config[SemanticsProperties.Text].single().text
 }
 
