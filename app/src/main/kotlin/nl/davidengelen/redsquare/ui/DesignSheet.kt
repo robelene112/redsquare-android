@@ -10,7 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -21,7 +20,6 @@ import androidx.compose.ui.unit.dp
 internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit,
     content: @Composable ColumnScope.(Modifier) -> Unit) {
     val firstAction = remember { FocusRequester() }
-    val inputMode = LocalInputModeManager.current
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var mounted by remember { mutableStateOf(false) }
     LaunchedEffect(expanded) {
@@ -33,13 +31,7 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
     }
     if (mounted) ModalBottomSheet(onDismissRequest = onDismiss, sheetState = state,
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
-        SheetKeyboardWindow(onDismiss) {
-            val granted = firstAction.requestFocus(FocusDirection.Enter)
-            // [DEBUG-94-sheet-entry] Only the menu's first navigation attempt, never typed input.
-            if (nl.davidengelen.redsquare.BuildConfig.DEBUG)
-                android.util.Log.d("DEBUG94SheetEntry", "mode=${inputMode.inputMode}; granted=$granted")
-            granted
-        }
+        SheetKeyboardWindow(onDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
         Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).focusGroup()
             .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {

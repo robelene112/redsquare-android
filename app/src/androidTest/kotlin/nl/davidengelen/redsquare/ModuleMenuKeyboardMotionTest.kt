@@ -27,9 +27,7 @@ class ModuleMenuKeyboardMotionTest {
         fun await(timeout: Long, message: String, condition: () -> Boolean) {
             val deadline = SystemClock.elapsedRealtime() + timeout
             while (!condition() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
-            check(condition()) {
-                message + "\n" + device.executeShellCommand("logcat -d -v brief -s DEBUG94SheetEntry:D '*:S'")
-            }
+            check(condition()) { message }
         }
         fun focusedMenuText(): String? {
             // The active native hierarchy exports focus on the clickable row,

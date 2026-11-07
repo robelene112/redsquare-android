@@ -6,6 +6,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.Window
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.luminance
@@ -43,7 +44,11 @@ internal fun SheetKeyboardWindow(onDismiss: () -> Unit, onKeyboardEntry: () -> B
         val previous = requireNotNull(window.callback)
         var tracking = false
         var enteredContent = false
+        var navigationDownObserved = false
         var entryKey: Int? = null
+        fun resetKeyboard() {
+            tracking = false; enteredContent = false; navigationDownObserved = false; entryKey = null
+        }
         val callback = object : Window.Callback by previous {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
                 if (event.keyCode != KeyEvent.KEYCODE_ESCAPE) {
@@ -51,11 +56,22 @@ internal fun SheetKeyboardWindow(onDismiss: () -> Unit, onKeyboardEntry: () -> B
                         if (event.action == KeyEvent.ACTION_UP) entryKey = null
                         return true
                     }
-                    val entering = !enteredContent && event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0 &&
-                        event.hasNoModifiers() && event.keyCode in setOf(KeyEvent.KEYCODE_TAB, KeyEvent.KEYCODE_DPAD_DOWN)
+                    val entryDirection = event.keyCode in setOf(KeyEvent.KEYCODE_TAB, KeyEvent.KEYCODE_DPAD_DOWN)
+                    val navigation = entryDirection || event.keyCode in setOf(KeyEvent.KEYCODE_DPAD_UP,
+                        KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT)
+                    val down = event.action == KeyEvent.ACTION_DOWN
+                    // Android may use the first navigation Down to leave touch mode,
+                    // before dispatching to this window. Its uncancelled Up still arrives.
+                    val frameworkEntryUp = event.action == KeyEvent.ACTION_UP && !navigationDownObserved
+                    if (navigation && down) {
+                        navigationDownObserved = true
+                        if (!entryDirection || !event.hasNoModifiers() || event.repeatCount != 0) enteredContent = true
+                    }
+                    val entering = !enteredContent && entryDirection && event.hasNoModifiers() && !event.isCanceled &&
+                        event.repeatCount == 0 && (down || frameworkEntryUp)
                     if (entering && enterContent()) {
                         enteredContent = true
-                        entryKey = event.keyCode
+                        if (down) entryKey = event.keyCode
                         return true
                     }
                     return previous.dispatchKeyEvent(event)
@@ -70,8 +86,12 @@ internal fun SheetKeyboardWindow(onDismiss: () -> Unit, onKeyboardEntry: () -> B
                 }
                 return true
             }
+            override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+                if (event.actionMasked == MotionEvent.ACTION_DOWN) resetKeyboard()
+                return previous.dispatchTouchEvent(event)
+            }
             override fun onWindowFocusChanged(hasFocus: Boolean) {
-                if (!hasFocus) { tracking = false; entryKey = null }
+                if (!hasFocus) resetKeyboard()
                 previous.onWindowFocusChanged(hasFocus)
             }
         }
