@@ -61,10 +61,15 @@ fun chooseWalletImport(ui: ComposeTestRule, filename: String, incoming: String) 
             // The Compose clock can synchronize only after the external picker returns.
             if (device.currentPackageName == context.packageName) {
                 ui.waitForIdle()
+                val preview = hasContentDescription(context.getString(R.string.wallet_import_address)) and hasText(incoming)
+                if (ui.onAllNodes(preview).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
+                    // Entering a new review must show its beginning, not the
+                    // overview's old offset halfway through the risk guidance.
+                    ui.onNode(hasText(context.getString(R.string.wallet_identity_heading))).assertIsDisplayed()
+                }
                 if (!device.hasObject(selected)) {
                     // The picker can have returned successfully while large-text
                     // review guidance leaves its actual address above the viewport.
-                    val preview = hasContentDescription(context.getString(R.string.wallet_import_address)) and hasText(incoming)
                     if (ui.onAllNodes(preview).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
                         ui.onNode(preview).performScrollTo().assertIsDisplayed()
                     }
