@@ -2,77 +2,93 @@
 
 ## Current owner feedback, November 7, 2026: prototype fidelity rejected
 
-Owner authorized completing issue94's prototype-fidelity repair. Root is the
-only implementation writer in `/mnt/storage/redsquare-android-artifacts/redesign86`;
+Owner authorized completing issue94's prototype-fidelity repair. Root is sole
+implementation writer in `/mnt/storage/redsquare-android-artifacts/redesign86`;
 preserve canonical Chat WIP. Beta89 remains latest. Do not claim delivery,
-promote historical candidates or start another issue. No production-node changes.
+promote obsolete93/94 or start another issue. No production-node mutations.
 
-Current production/source: `7d20760c4cc9c8d41fc844e6733ddd97ea4259aa`.
-Both source-review axes through7d report zero actionable findings. Complete
-Android10run42393108712 and17run42393108364 are running on exact7d, with unchanged
-frozen catalog/checker. All full4cc runs42390887070/42390887217 FAIL: Wallet10
-feedback offscreen, Avatar three-target clipping, Escape regression on17 and
-window-observation race on10. Its17 wallet partition passed; no partial/full mix.
-Actual originals remain in `/mnt/storage/redsquare-android-artifacts/prototype94-full4cc-{10,17}`.
+CurrentHEAD before this documentation:63c126639. Current normal UI includes
+wallet feedbackb1, native Escape7d, first-keyboard-action routing3e029 and genuine
+count-layout semanticsb88. TWO TEMPORARY PROBES MUST BE REMOVED before final build:
+`DEBUG-94-policy-focus` in PolicyCenterPreviewTest (timing JSON only), and
+`DEBUG-94-sheet-entry` in DesignSheet + failure-log read in ModuleMenuKeyboardMotionTest.
+The latter logs only menu-entry input mode/granted boolean in DEBUG, never typed
+input. No current final-source/full acceptance. No local builder active.
 
-New production corrections after signed93:
-- `WalletDialog` operation progress/results now remain outside its scroll body,
-  immediately above the footer. A failed actual export/authentication previously
-  left its message below the new balance/identity content. Existing visible-error
-  assertion failed full4cc10 at WalletExportPreviewTest175. All operation callbacks,
-  authentication/PIN/provider/readback/import safeguards and message meanings stay.
-  Shared status motion remains; a small result host retains tone through exit.
-- Shared native sheets regain Escape before any row has keyboard focus. A callback
-  wrapper belongs only to the sheet's actual dialog window, delegates other keys,
-  tracks initial down/uncancelled up, consumes repeats, resets on focus loss and
-  restores the previous callback without replacing a subsequent owner. Module17
-  full4cc image proves Account stayed open. Module10 image shows Stack restored;
-  test now waits for both outcomes together within the same original5s budget.
-- Avatar cache fixture now physically collapses chrome with one measured drag
-  ending at zero velocity. It requires all THREE complete targets simultaneously
-  inside the same viewport before unchanged pixels/rechecks/three signed>720KB
-  sources/heap/deadlines. Previously only7px of the third picture was in view.
-  No individual row reveal, fake list position or app/test-clock mutation.
+Actual new failures, repairs and pending targeted runs:
+- Full7d10/17 runs42393108712/42393108364 all FAIL. Exact raw roots
+  `/mnt/storage/redsquare-android-artifacts/prototype94-full7d-{10,17}` (some failed
+  Chat17/Social17 originals may still need downloading). Do not combine partitions.
+- First Tab in Material sheet focuses its48dp drag handle, not an action. Native
+  XML proves that. Escape now works on bothSDKs (ModuleHeaderMotionTestPASS1 each),
+  but ModuleMenuKeyboardMotionTest failsfirstTab. Production3e029 attaches a
+  remembered requester to actual first eligible rows in all4sheets; contentfocusGroup
+  retains the native handle and no opening/touch/TalkBack focus is requested. The
+  sheet-window callback handles only first unmodifiedTab/DpadDowninitialDown,
+  consumes matchingUp/repeats only on success; later/modifiedkeys delegate.
+  Actual3c1 runs42394690200/42394690800 still failfirstTab. Need probe result:
+  source153 module10/17 runs42395939405/42395939556 pending, logs in failure text
+  show `DEBUG94SheetEntry mode=...;granted=...`. Likely inputmode/initial focus
+  ordering remains, do not guess or weaken first-row/directional assertions.
+- AppFrame reading comparison was confounded by collapsed vs expanded chrome.
+  Correction:176→252 was mergedCARD vs unmergedBODY offset76, NOT proof of timing
+  drift. Nativepost04 stays424 in both captures, body05stays252 but is clipped by
+  expanded viewport264. Test now uses unmergedBODY consistently before/after,
+  initializes expandedChrome+Backup and centers body via actual UI before departure,
+  then refreshednative/Compose geometry must agree and fullnode dimensions fit.
+  Shared15s setup/200ms stability, original1pxreturn/recreation/outage/pull checks
+  remain. NO reposition afterdeparture.10PASS42394940682;17failedONLYdiagnostic
+  remainingSetup() call atJSONwrite afterbaseline hadpassed. Source153 records
+  diagnostic time without a new readiness assertion. Current10PASS42395939372,
+  17run42395939348 pending. Need both native outcomes and remove no real assertion.
+- Wallet operation statuses pinned outside scroll abovefooter, with tone retained
+  through exit. Actualerror-visible red full4cc10 now export10/17 green42392627216/
+  42392627041, raw `prototype94-wallet-feedback{10,17}`. Two remaining fixtures
+  tried scrolling pinned feedback: WalletImportPreviewTest85 andProfileEdit433.
+  Source05 removes ONLYthose scroll calls, keeps display/identity/save assertions.
+  Focusedimport10/17 runs42395509902/42395509978 (17PASS, check10status).
+- Avatar three-source cache test sampled only7px of thirdpicture. One real drag
+  collapsesheader at rest; allTHREE fulltargets must fit sameviewport beforeoriginal
+  pixels/rechecks/3signed>720KB/heap/timeouts. BothSDKPASS42392627246/42392627264,
+  originals `prototype94-avatars-reading{10,17}`. No individual row scrolling.
+- Full7dSocial reached genuine count-layout assertion. clearAndSetSemantics full
+  plural label hid GetTextLayoutResult. Sourceb88 exports the actual onTextLayout
+  result only for matching current numeric paint, retains exact fullpluralA11y.
+  Test verifies actual rendered digits+all glyphs independently of full label,
+  preserving hugecounts/overflow/ellipsis/fonts/targets/identity; receipt has both.
+ 10PASS42395629907,17run42395629772 pending. Android pinnedCompose1.11.4 official
+  source checks actual layout length before character boxes (null for nonvisible
+  semantic suffix); independentSpec review found no out-of-range risk/rearchitecture.
+- Full7d10Policy shared5s sometimes exhausts after actual initialBackfocus/speech.
+  Stageprobe10PASS42395509981: handoff4097ms, collection4100, logclear4107,
+  focusrequest4108. Traversal/logclear NOT the bottleneck now.17probePASS42395509939.
+  NativeTalkBackObservation.completedFragments was reading TWOdifferent PID logs:
+  callbacks from older snapshot and fragments from newer. Source63 now parses
+  BOTH from ONE snapshot, all originalSTART/AUDIO/DONE/positivebytes/noERROR/STOP/
+  PID/focus5s assertions unchanged. Current policy10/17 runs42396275067/42396275092
+  pending. Probes retained until this diagnosis is verified, then REMOVE them.
 
-Focused pending on b1 (wallet/avatar): export10/17 runs42392627216/42392627041;
-avatars10/17 42392627246/42392627264. On7d: module-header10/17 42393008501/
-42393008445 and broaderUI-regression10/17 42393008480/42393008551. These do not
-replace fresh complete gates. Further native findings must be repaired honestly.
+Signed93 is historical STAGED, producer4eae, hash931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72.
+Its actual83→93 update/isolation PASS42388351996/42388351928 and original445-path
+4eae→4cc equivalence remain valid ONLYin their historical scope, retainedunder94.
+Signed94 built b1 (Gradle3m28/manifestready, outerexec143) is OBSOLETE, NOTSTAGED.
+Do not overwrite versions. Fresh95+ needs probe-free actual producer, all complete
+same-source10/17/frozen collectors, current native/motion reviews, actual signed
+update/isolation onbothSDKs, then exact promotion with immutable notes. Existing
+notes are in `docs/evidence/ticket94/artifact93/staged-manifest.json`; choose95notes
+oncebeforestaging and reuse exactlyforpromotion. Do not reuse93's acceptance.
 
-Signed93 is HISTORICAL STAGED, NOT PROMOTABLE after the new production fixes.
-Actual producer4eae, SHA256931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72.
-Its actual update/isolation10/17 runs42388351996/42388351928 passed. Receipts and
-445-path4eae→4cc equivalence are retained under ticket94, explicitly historical.
-Signed94 was built on b1 before the Escape correction, so it is also OBSOLETE,
-not staged. Gradle success3m28, signed manifest generated; outer exec eventually
-returned143. Do not overwrite either version. Once native QA supports7d, build
-fresh95+, stage only, verify actual signed update/isolation on bothSDKs, complete
-same-final-source gates/collectors and native review, then promote unchanged notes.
-No local builder is active. The existing notes are in staged93-manifest.json.
+Earlier bounded passes: profile4cc7methods/SDK42390800414/42390800513 and focused
+profile-only20PNG/XMLvisualreview zero; firstuse200%123→223px42384551466; header
+post-scroll48dp42384549365; refresh applied-results/reading42387892609; node
+at-restexactanchorandbyte-identicalpre/postframes42388559625; media128dp/realpixels/
+normal-zero42390665139. All are historical source-specific evidence, not fresh
+whole-app acceptance. Current source review axes have cleared every reviewed delta
+through ebd and accepted single-snapshot protocol proposal; b88 UI source concern
+was separately cleared. Final current-source review still required.
 
-Earlier repair passes remain bounded/historical:
-- First-use320dp/200% reading123→223px green42384551466; Conversation fixed-header
-  post-scroll48dp red42383076638→green42384549365 viaz-priority.
-- Refresh success overlay preserves reading, applied-result ordering and2500ms:
-  actual two-method focused17green42387892609. Temporary probes removed.
-- Node at-rest physical-drag source45 green42388559625 at systemscales0/1, actual
-  identical pre/postresponse frames and exact post19y226. All original deadlines
-  remain; no fast-fling or physical-phone claim.
-- Policy foreground-window navigation/radio discovery focused10/17 PASS42390443450/
-  42390443660. Exact TWO radio choices, audio/PID/selection checks and5s budget
-  retained.
-- Profile full48dp target/32dp paint/128dp cover/64dp avatar4cc10/17 green42390800414/
-  42390800513. Source scrolls measured overflow before paint capture. Focused-only
-  visual review20PNG/XMLpairs found zero actionable profile appearance findings,
-  inventory `/tmp/prototype94-profile-final-spec-review.json`; not current whole-app
-  acceptance. Earlier source/template fixtures are not fresh7d native proof.
-- Media prototype128dp expectation with loading/loaded geometry equality, real
-  pixels and normal/zero animation focused10green42390665139. The old3:1 assertion
-  was explicitly obsolete against c95ecaa01, not a blanket acceptance waiver.
-
-Parents1/36/55/84/86, physical Pixel/provider/KVK/Play and actual Stack integration
-remain independent. Actual final native/profile/menu/motion review and all complete
-collectors are still required before publication. Preserve retained failures.
+Parents1/36/55/84/86, physicalPixel/provider/KVK/Play and actualStackintegration
+remain independent. Frozen catalog/checker/tool pins unchanged. Retain failures.
 
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be

@@ -8,12 +8,13 @@ producer equivalence are preserved in [artifact93](artifact93) and the
 subsequent wallet-feedback and native Escape corrections. Do not promote93/94.
 A fresh95+ candidate and actual signed continuity proofs remain required.
 
-Complete7d workflows42393108712/42393108364 are running with unchanged frozen
-catalog/checker. Full4cc workflows failed and remain historical. Source-review
-axes through7d have zero actionable findings. Current handoff records actual
-failures, focused boundaries and source references. Complete collectors, current
-whole-app native review and exact-candidate publication are pending. No focused
-or mixed-source collection is counted as a complete gate.
+Complete7d workflows42393108712/42393108364 FAIL and remain historical. Current
+repair includes subsequent first-Tab routing and truthful numeric-layout semantics.
+Temporary bounded diagnostics are active; no final source or candidate is accepted.
+Current handoff records exact sources, native failures, targeted passes and remaining
+work. Frozen catalog/checker/tool pins are unchanged. Fresh complete collectors,
+probe-free whole-app native review and exact-candidate publication are still pending.
+No focused or mixed-source collection is counted as a complete gate.
 
 ## Historical delivery: beta89 on November6,2026
 
