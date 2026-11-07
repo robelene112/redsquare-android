@@ -15,31 +15,43 @@ same-source complete Android10/17 gates, authentic signed update proofs and fina
 native/prototype reviews for the replacement candidate. Preserve original failures.
 Root remains sole writer; canonical Chat WIP and production nodes stay untouched.
 
-Current native preflight source is a922a1bce. Actual production changes after8e:
-c2/ad retain the visual editor buffer and protect newer canonical Markdown across
-lazy disposal and Review/Back;2e moves preview disclosure into the local toolbar;
-1fbd restores the approved discussion/share entry points as explicit local previews.
-The latest source reviews clear these changes. Three new Stack classes preserve
-all earlier goals and add214totalclasses,629/630identities and180archives. The
-collector/checker remain unchanged. Native all-Stack runs42419223489 /42419225236
-are PENDING, including compact/Pixel-like theme/font/keyboard/retention journeys
-and actual-clock editor/source/review movies at0/1. No98artifact has been built.
+Current implementation is7263a90df plus fixture4c2650c24. Signed98 has NOT been
+built; beta89 remains latest and93–97 are obsolete. Root is sole writer.
 
-Earlier1f native runs42417833309/42417835312 failed a fixture that searched for a
-Back content-description; the real shared button exposes Back as text. Earlier2e10
-42418649194 reached protected Markdown, then its fixture tried global navigation
-while the actual IME intentionally hid that header. The fixture now closes that
-keyboard and physically reveals disabled Visual before leaving. These failures
-remain diagnostic, not relaxed or accepted. All Stack sibling classes now retain
-their own result even if another fails; the whole scope still fails on any failure.
+Stack native a92210 passed all5tests, but independent native preflight found two
+source fidelity gaps (shared-header fade and block geometry) and two actual target
+issues (39dp dialog buttons and an occluded preview badge).7001 addresses these
+with a retained body-only reveal controller, fixed-header stacking, explicit48dp
+actions and scoped14dp block controls. Both7001 destination-reveal scopes pass
+42421257606 /42421259460. Updated native captures include Latest/Drafts/author and
+publication-success/reader, plus actual sole-clickable48dp checks.
 
-D689 header-motion42418096189 /42418097885 BOTH PASS; controls17 42418099853 PASS
-validates the actual profile-sheet Done reveal. They retain their actual earlier
-source scope and do not replace new-source whole-app acceptance. Old71ea10/17
-Social both fail the offscreen profile-sheet Done at the same goal; no final full
-pass is claimed. Beta89 remains latest, candidates93–97 obsolete. Require a fresh
-signed98+, ordinary signed update proofs, both complete same-source gates and final
-native/prototype/motion reviews after current Stack preflight is clear.
+A92217 failed the actual Pixel editor at OffsetMapping45 versus original44.
+The original failed goal/captures remain in failures/stack-editor-offset-android17.
+Persistent-form experiment183 passed42420555595 but is NOT accepted as the causal
+library fix.7263 replaces the Maven editor with an Android-only rc13 snapshot:
+62Kotlin files pinned to8342c9e, two immutable transformed-text captures from746,
+four mechanical platform bindings, original license/consumer rules/parser versions.
+All64 original/local inventory records, notices and exact5-file patch replay are
+independently verified. No mapping clamp, validation suppression or toolchain upgrade.
+Local app+instrumentation compilation passes with separate compiler lifetimes under
+the unchanged2.5GB local container cap; the combined cold daemon failure has no
+proven OOM cause. Hosted CI’s task graph and Android VM heap remain unchanged.
+
+700110 failed ModuleShell’s original15s initial-caption goal after prior20-row
+fixture history reappeared. Original packet: failures/module-cache-7001-android10.
+Actual public caches use PublicStringStore.lock, while the fixture had used only
+SaitoLocalState.lock.4c265 aligns both monitors, clears currently declared scope files
+and records read-only before/after/failure counts/hashes/current-peer counters. It
+retains the actual displayed-caption goal, identity checks, restoration and bounds.
+The specific late-writer timing remains a hypothesis, not a proven product defect.
+
+Current4c265 native scopes42422980094 /42422981832 are PENDING. Both source-review
+axes are clear. Require their real outcomes and fresh whole-Stack native/prototype/
+motion review before a signed98+ build. Then actual signed-update proofs, complete
+same-source10/17 gates and final whole-app reviews remain mandatory. Frozen catalog
+remains214classes,629/630identities,180archives; collector/checker unchanged. Other
+tickets, canonical Chat WIP, production nodes and owner55 acceptance remain untouched.
 
 ## Earlier checkpoints, historical scope only
 
