@@ -485,7 +485,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 unreadablePage -> R.string.feed_unreadable
                 else -> null
             }
-            InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null, StatusTone.SUCCESS)
             InlineStatus(feedNotice?.let { stringResource(it) }, when (feedNotice) {
                 R.string.feed_loading -> StatusTone.WORKING
                 R.string.feed_unreadable -> StatusTone.WARNING
@@ -550,6 +549,13 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     content()
                     if (home && wallet != null && !dockCompose) ComposePostButton(
                         Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
+                    // Completion feedback overlays the list instead of changing its viewport.
+                    // A reader may have scrolled elsewhere while the pull was pending.
+                    if (home) InlineStatus(
+                        if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
+                        StatusTone.SUCCESS,
+                        modifier = Modifier.align(Alignment.BottomCenter)
+                            .padding(bottom = if (wallet != null && !dockCompose) 82.dp else AppSpacing.small))
                 }
             }
         }

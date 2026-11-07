@@ -52,42 +52,7 @@ class FeedRefreshRedesignTest {
                 val target = ui.onNodeWithText("Reference post 10", useUnmergedTree = true).assertIsDisplayed()
                 val before = target.fetchSemanticsNode().boundsInRoot.top
                 release.countDown()
-                File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence").mkdirs()
-                val observations = com.google.gson.JsonArray()
-                val observedFrom = android.os.SystemClock.elapsedRealtime()
-                var lastObservation: String? = null
-                var clippingCaptured = false
-                try {
-                    ui.waitUntil(15_000) {
-                        val successVisible = ui.onNodeWithText("Feed updated.").isDisplayed()
-                        val targetVisible = target.isDisplayed()
-                        val observation = com.google.gson.JsonObject().apply {
-                            addProperty("successVisible", successVisible)
-                            addProperty("targetVisible", targetVisible)
-                            addProperty("successNodes", ui.onAllNodesWithText("Feed updated.").fetchSemanticsNodes().size)
-                            addProperty("targetBounds", ui.onAllNodesWithText("Reference post 10", useUnmergedTree = true)
-                                .fetchSemanticsNodes().singleOrNull()?.boundsInRoot?.toString())
-                            addProperty("listBounds", ui.onNodeWithTag("feed-post-list").fetchSemanticsNode().boundsInRoot.toString())
-                        }
-                        val signature = observation.toString()
-                        if (signature != lastObservation && observations.size() < 128) {
-                            observation.addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - observedFrom)
-                            observations.add(observation); lastObservation = signature
-                        }
-                        if (successVisible && !targetVisible && !clippingCaptured) {
-                            clippingCaptured = true
-                            captureNativeScreen(File(instrumentation.targetContext.cacheDir,
-                                "feed-refresh-evidence/success-with-clipped-target.png"))
-                        }
-                        successVisible && targetVisible
-                    }
-                } finally {
-                    File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/refresh-visibility-observations.json")
-                        .writeText(com.google.gson.JsonObject().apply {
-                            addProperty("nonAtomicObservations", true)
-                            add("observations", observations)
-                        }.toString())
-                }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Feed updated.").isDisplayed() && target.isDisplayed() }
                 assertEquals("A completed pull must not override the reader's subsequent scroll", before,
                     target.fetchSemanticsNode().boundsInRoot.top, 1f)
                 captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/reading-during-pending-refresh.png"))
