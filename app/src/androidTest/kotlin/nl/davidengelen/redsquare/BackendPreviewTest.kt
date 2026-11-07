@@ -43,6 +43,7 @@ class BackendPreviewTest {
         owner.start().use { ownerServer ->
             official.start().use { officialServer ->
                 val intent = Intent(instrumentation.targetContext, MainActivity::class.java)
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                 ActivityScenario.launch<MainActivity>(intent).use { activity ->
