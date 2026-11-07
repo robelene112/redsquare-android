@@ -1,0 +1,392 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PersonalControlsPreviewTest:
+INSTRUMENTATION_STATUS: test=realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem$lambda$70$lambda$66(PersonalControlsPreviewTest.kt:713)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$ITxQWK8OFZTEA9nxxUyKstl3rnI(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(PersonalControlsPreviewTest.kt:706)
+
+INSTRUMENTATION_STATUS: stream=
+Error in realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem$lambda$70$lambda$66(PersonalControlsPreviewTest.kt:713)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$ITxQWK8OFZTEA9nxxUyKstl3rnI(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(PersonalControlsPreviewTest.kt:706)
+
+INSTRUMENTATION_STATUS: test=realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14978 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices$lambda$22$lambda$16$lambda$15(PersonalControlsPreviewTest.kt:172)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$vmGiuW250BVlf8aOyfSZcs3iVro(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(PersonalControlsPreviewTest.kt:155)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14978 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices$lambda$22$lambda$16$lambda$15(PersonalControlsPreviewTest.kt:172)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$vmGiuW250BVlf8aOyfSZcs3iVro(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(PersonalControlsPreviewTest.kt:155)
+
+INSTRUMENTATION_STATUS: test=unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair$lambda$49$lambda$45(PersonalControlsPreviewTest.kt:526)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$gwGmmdSmVg4ZU_M2eM3kUtY7q3A(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda34.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(PersonalControlsPreviewTest.kt:516)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair$lambda$49$lambda$45(PersonalControlsPreviewTest.kt:526)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$gwGmmdSmVg4ZU_M2eM3kUtY7q3A(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda34.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(PersonalControlsPreviewTest.kt:516)
+
+INSTRUMENTATION_STATUS: test=failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14979 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts$lambda$10$lambda$9$lambda$6(PersonalControlsPreviewTest.kt:80)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$aDjZw9njnK_SIb4L9YZu6edKx7Q(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts(PersonalControlsPreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: stream=
+Error in mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14979 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts$lambda$10$lambda$9$lambda$6(PersonalControlsPreviewTest.kt:80)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$aDjZw9njnK_SIb4L9YZu6edKx7Q(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts(PersonalControlsPreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: test=mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair$lambda$43$lambda$39(PersonalControlsPreviewTest.kt:452)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$nEqhftKEXkVyUkbtxFNWX7_gc8A(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair(PersonalControlsPreviewTest.kt:442)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair$lambda$43$lambda$39(PersonalControlsPreviewTest.kt:452)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$nEqhftKEXkVyUkbtxFNWX7_gc8A(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair(PersonalControlsPreviewTest.kt:442)
+
+INSTRUMENTATION_STATUS: test=aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadableSavedChoicesHidePostsUntilRepairedAndRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unreadableSavedChoicesHidePostsUntilRepairedAndRetried$lambda$58$lambda$51(PersonalControlsPreviewTest.kt:601)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$mtA96Y5eTzl2zdqQX07Kdnd_dcg(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unreadableSavedChoicesHidePostsUntilRepairedAndRetried(PersonalControlsPreviewTest.kt:591)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unreadableSavedChoicesHidePostsUntilRepairedAndRetried(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unreadableSavedChoicesHidePostsUntilRepairedAndRetried$lambda$58$lambda$51(PersonalControlsPreviewTest.kt:601)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$mtA96Y5eTzl2zdqQX07Kdnd_dcg(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unreadableSavedChoicesHidePostsUntilRepairedAndRetried(PersonalControlsPreviewTest.kt:591)
+
+INSTRUMENTATION_STATUS: test=unreadableSavedChoicesHidePostsUntilRepairedAndRetried
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening$lambda$29$lambda$24(PersonalControlsPreviewTest.kt:234)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$q6TXxa_kooeWxvOWSgD7cVFRjoA(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening(PersonalControlsPreviewTest.kt:219)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening$lambda$29$lambda$24(PersonalControlsPreviewTest.kt:234)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$q6TXxa_kooeWxvOWSgD7cVFRjoA(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening(PersonalControlsPreviewTest.kt:219)
+
+INSTRUMENTATION_STATUS: test=unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PersonalControlsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+INSTRUMENTATION_STATUS: stream=
+Error in mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+INSTRUMENTATION_STATUS: test=mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 155.286
+There were 8 failures:
+1) realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem$lambda$70$lambda$66(PersonalControlsPreviewTest.kt:713)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$ITxQWK8OFZTEA9nxxUyKstl3rnI(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem(PersonalControlsPreviewTest.kt:706)
+2) unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14978 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices$lambda$22$lambda$16$lambda$15(PersonalControlsPreviewTest.kt:172)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$vmGiuW250BVlf8aOyfSZcs3iVro(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda41.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices(PersonalControlsPreviewTest.kt:155)
+3) failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair$lambda$49$lambda$45(PersonalControlsPreviewTest.kt:526)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$gwGmmdSmVg4ZU_M2eM3kUtY7q3A(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda34.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair(PersonalControlsPreviewTest.kt:516)
+4) mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14979 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts$lambda$10$lambda$9$lambda$6(PersonalControlsPreviewTest.kt:80)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$aDjZw9njnK_SIb4L9YZu6edKx7Q(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts(PersonalControlsPreviewTest.kt:70)
+5) aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair$lambda$43$lambda$39(PersonalControlsPreviewTest.kt:452)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$nEqhftKEXkVyUkbtxFNWX7_gc8A(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda26.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair(PersonalControlsPreviewTest.kt:442)
+6) unreadableSavedChoicesHidePostsUntilRepairedAndRetried(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14981 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unreadableSavedChoicesHidePostsUntilRepairedAndRetried$lambda$58$lambda$51(PersonalControlsPreviewTest.kt:601)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$mtA96Y5eTzl2zdqQX07Kdnd_dcg(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unreadableSavedChoicesHidePostsUntilRepairedAndRetried(PersonalControlsPreviewTest.kt:591)
+7) unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening$lambda$29$lambda$24(PersonalControlsPreviewTest.kt:234)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$q6TXxa_kooeWxvOWSgD7cVFRjoA(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening(PersonalControlsPreviewTest.kt:219)
+8) mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(nl.davidengelen.redsquare.PersonalControlsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14982 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.closeProfileActions(ProfileNavigationFixture.kt:29)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening$lambda$37$lambda$34(PersonalControlsPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.$r8$lambda$SQepGCD5bvjoxzoKLZS19qQp5TM(PersonalControlsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.withOpenApp(PersonalControlsPreviewTest.kt:854)
+	at nl.davidengelen.redsquare.PersonalControlsPreviewTest.mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening(PersonalControlsPreviewTest.kt:325)
+
+FAILURES!!!
+Tests run: 8,  Failures: 8
+
+
+INSTRUMENTATION_CODE: -1

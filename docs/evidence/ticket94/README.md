@@ -15,6 +15,18 @@ same-source complete Android10/17 gates, authentic signed update proofs and fina
 native/prototype reviews for the replacement candidate. Preserve original failures.
 Root remains sole writer; canonical Chat WIP and production nodes stay untouched.
 
+Current Stack production source8e994d39e restores the approved hero/chips/cards,
+200dp/serif reader and per-article routes, author hierarchy, canonical Visual/Markdown
+editor, publication success/reader and access-management previews. No network or
+wallet dependency is introduced. Both source-review axes are clear; native proofs
+remain pending. Fixture follow-ups1f6/441/78d/d689 preserve original goals and bounds.
+The additive catalog is frozen at214classes,629/630identities and180archives.
+The unchanged checker/collector and every previous literal identity remain required.
+Retained failed discovery goal: failures/stack-discovery-before-repair. Old71ea17
+Social failure: failures/profile-actions-close-android17; actual320px capture shows
+Done below the profile-sheet viewport. Its helper now reveals the real target within
+the same aggregate15s and retains the original dialog-removal assertion.
+
 ## Earlier checkpoints, historical scope only
 
 ## Reopened prototype repair: candidate97 staged, acceptance pending

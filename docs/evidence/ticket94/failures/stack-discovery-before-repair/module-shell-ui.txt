@@ -1,0 +1,82 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ModuleShellPreviewTest:
+INSTRUMENTATION_STATUS: test=moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Good ideas deserve
+a little more room.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft$lambda$17(ModuleShellPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.$r8$lambda$q5wfDHL2kAdYoMNq3N2WuUV1Y80(ModuleShellPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(ModuleShellPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: stream=
+Error in moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(nl.davidengelen.redsquare.ModuleShellPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Good ideas deserve
+a little more room.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft$lambda$17(ModuleShellPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.$r8$lambda$q5wfDHL2kAdYoMNq3N2WuUV1Y80(ModuleShellPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(ModuleShellPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: test=moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=modulePickerAndAccountMenuKeepTheRealFeedAndWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=modulePickerAndAccountMenuKeepTheRealFeedAndWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 25.594
+There was 1 failure:
+1) moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(nl.davidengelen.redsquare.ModuleShellPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Good ideas deserve
+a little more room.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft$lambda$17(ModuleShellPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.$r8$lambda$q5wfDHL2kAdYoMNq3N2WuUV1Y80(ModuleShellPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$10$lambda$9$lambda$8(AppFrameFixture.kt:51)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$M9pNmhsJsfD05K6halSfqPjH_O4(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:50)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(ModuleShellPreviewTest.kt:61)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
