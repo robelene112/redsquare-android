@@ -60,8 +60,18 @@ class ReviewUpdateUiObserver {
             device.executeShellCommand("am start -W -n $application/nl.davidengelen.redsquare.MainActivity")
             feed()
             settings()
-            if (phase == "prepare") find(text("Light")).click()
             val preferenceDeadline = android.os.SystemClock.elapsedRealtime() + 5_000
+            if (phase == "prepare") {
+                // Labels can appear before the ordinary app's opening window owns
+                // touch input. Wait for its native event queue before tapping,
+                // spending the same five-second preference observation budget.
+                val idleBudget = preferenceDeadline - android.os.SystemClock.elapsedRealtime()
+                check(idleBudget > 0) { "Appearance must be ready within the preference observation deadline" }
+                device.waitForIdle(idleBudget)
+                val remaining = preferenceDeadline - android.os.SystemClock.elapsedRealtime()
+                check(remaining > 0) { "Appearance must be ready within the preference observation deadline" }
+                find(text("Light"), remaining).click()
+            }
             var lightSelected = selected("Light")
             while (!lightSelected && android.os.SystemClock.elapsedRealtime() < preferenceDeadline) {
                 android.os.SystemClock.sleep(50)
