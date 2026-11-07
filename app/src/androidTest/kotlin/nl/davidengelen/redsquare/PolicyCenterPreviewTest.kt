@@ -165,7 +165,7 @@ class PolicyCenterPreviewTest {
                             waitFor("Node")
                             ui.onNodeWithText("Node").performClick()
                             waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
-    
+
                             val ownerFocusBy = android.os.SystemClock.elapsedRealtime() + 5_000
                             focusStarted = ownerFocusBy - 5_000
                             markFocusStage("budget-start")

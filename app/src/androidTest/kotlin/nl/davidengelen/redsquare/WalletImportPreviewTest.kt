@@ -82,7 +82,7 @@ class WalletImportPreviewTest {
                     captureFeedEvidence("wallet-import-evidence/failed-save-first-failure.png")
                     throw failure
                 }
-                ui.onNodeWithText(failed).performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText(failed).assertIsDisplayed()
                 assertEquals(address, displayedWalletAddress(ui))
                 ui.onNodeWithText("Import wallet").performScrollTo().assertIsEnabled()
                 val recovered = AndroidWalletStore(context).loadExisting()

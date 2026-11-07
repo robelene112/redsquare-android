@@ -430,7 +430,7 @@ class ProfileEditPreviewTest {
                     ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                     val failed = context.getString(R.string.wallet_import_work_save_failed)
                     ui.waitUntil(10_000) { ui.onAllNodesWithText(failed).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText(failed).performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText(failed).assertIsDisplayed()
                     ui.onNodeWithText("Import wallet").assertIsEnabled()
                     assertEquals(context.packageName, device.currentPackageName)
                     ui.onAllNodesWithContentDescription(context.getString(R.string.wallet_import_address)).assertCountEquals(0)
