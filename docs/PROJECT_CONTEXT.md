@@ -36,7 +36,7 @@ Native results and limits:
   and status offscreen. b614648 adds one actual-status reveal/display assertion before
   that capture. Original two deaths, signatures, no resend, pixels, identity/backend
   and deadlines remain. Both source axes clear this delta. Focused video-precondition
-  and complete profile/recovery reruns42400032887 / 42400035744 are pending.
+  and complete profile/recovery reruns42400032887 / 42400035744:10PASS,17pending.
   Raw022 failure originals: `prototype94-ui-final{10,17}` under the artifact mount.
 - Complete ca93566de runs42397470230 / 42397469795 were superseded and cancelled
   by workflow concurrency after both final fixture corrections. No acceptance claim.
@@ -45,8 +45,22 @@ Native results and limits:
   diagnostics. It predates the last cold-profile fixture correction, so no final-source
   acceptance is claimed. Do not launch another full run until profile scopes pass.
   A fresh same-source full10/17 execution with all partitions/public reads and frozen
-  collectors is still required after fixture stabilization.
+  collectors is still required after fixture stabilization and the targeted checks below.
   Earlier failed full runs and bounded source-specific passes remain historical.
+
+Additional bounded fixture checks before another full dispatch:
+- WalletFlowViewportPreviewTest39 still expects the intentionally removed heading
+  “Receive or send”;56 checks its absence vacuously. Approved prototype places
+  Receive/Send in the leading balance card. Both review axes confirm the stale
+  expectation. Keep the actual overview/action reachability and import isolation goals:
+  observe Reported balance and both Balance and receive / Send SAITO actions, and
+  require that region/actions absent during import review. Red native b614 scopes
+  42400385015 / 42400387703 are pending; retain actual failure before changing fixture.
+  Standards audited all132 Wallet scroll calls and found no other definite stale
+  pinned-status targets. No production change is indicated by the obsolete heading.
+- ProfileHierarchyPreviewTest moves to a long action sheet, so check real control
+  reachability under large text before the long full run. Native b614 scopes
+  42400534784 / 42400537045 pending. No speculative assertion removal or deadline change.
 
 Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable tag
 `proof-prototype95-d2afd32`. Build succeeded in3m34. APK SHA256 is
