@@ -64,13 +64,14 @@ class AppFrameReadingPreviewTest {
                     now - stableSince >= 200 &&
                     ui.onAllNodes(appNavigationRevealAction()).fetchSemanticsNodes().isEmpty()
             }
+            val observedAt = SystemClock.elapsedRealtime()
             val before = target.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             File(instrumentation.targetContext.cacheDir, "app-frame-reading-evidence/reading-baseline.json").apply {
                 parentFile?.mkdirs()
                 writeText(com.google.gson.JsonObject().apply {
                     addProperty("post", "Reference post 05"); addProperty("top", before)
                     addProperty("viewport", list.fetchSemanticsNode().boundsInRoot.toString())
-                    addProperty("setupElapsedMillis", 15_000 - remainingSetup())
+                    addProperty("setupElapsedMillis", observedAt - (setupBy - 15_000))
                 }.toString())
             }
             capture("scrolled-feed-before-chat.png")
