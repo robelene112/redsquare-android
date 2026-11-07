@@ -36,7 +36,11 @@ class WalletFlowViewportPreviewTest {
                 ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Wallet address")
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText("Back up or restore").performScrollTo().assertIsDisplayed()
-                ui.onNodeWithText("Receive or send").performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText("Reported balance").performScrollTo().assertIsDisplayed()
+                for (action in listOf("Balance and receive", "Send SAITO")) {
+                    ui.onNode(hasText(action) and hasClickAction()).performScrollTo()
+                        .assertIsDisplayed().assertIsEnabled()
+                }
                 captureNativeScreen(File(folder, "$label-wallet-overview.png"), "Your wallet")
 
                 val activeAddress = displayedWalletAddress(ui)
@@ -53,7 +57,10 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                 ui.onNodeWithText("Review wallet import").assertIsDisplayed()
                 ui.onNodeWithText("Back up or restore").assertDoesNotExist()
-                ui.onNodeWithText("Receive or send").assertDoesNotExist()
+                ui.onNodeWithText("Reported balance").assertDoesNotExist()
+                for (action in listOf("Balance and receive", "Send SAITO")) {
+                    ui.onNode(hasText(action) and hasClickAction()).assertDoesNotExist()
+                }
                 ui.onNodeWithText("Back").performClick()
                 ui.onNodeWithText("Your wallet").assertIsDisplayed()
                 ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
