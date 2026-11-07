@@ -35,6 +35,7 @@ class ProfileRedesignPreviewTest {
             assertEquals("Use the approved prototype cover height", 128f, (cover.bottom - cover.top).value, 0.5f)
             assertEquals("Use the approved prototype avatar size", 64f, (avatar.right - avatar.left).value, 0.5f)
             assertTrue("The avatar belongs below the cover, without overlap", (avatar.top - cover.bottom).value >= 13.5f)
+            captureNativeScreen(File(instrumentation.targetContext.cacheDir, "profile-redesign-evidence/prototype-profile-top.png"))
             ui.waitUntil(10_000) { ui.onAllNodesWithTag("profile-history-divider").fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithTag("profile-history-divider").performScrollTo().assertIsDisplayed()
             val line = ui.onNodeWithTag("profile-history-divider")

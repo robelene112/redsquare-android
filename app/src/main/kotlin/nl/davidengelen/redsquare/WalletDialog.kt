@@ -13,6 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.saito.ImportBalance
@@ -61,16 +64,20 @@ internal fun WalletDialog(address: String?, failed: Boolean, walletExport: Walle
                             }, style = if (balance != null) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.bodyMedium)
                             backend?.let { Text(stringResource(R.string.wallet_balance_source, it.domain),
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                            val receiveLabel = stringResource(R.string.wallet_balance_receive)
+                            val sendLabel = stringResource(R.string.transfer_send)
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                Button(modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                                Button(modifier = Modifier.weight(1f),
                                     enabled = address != null && !walletExport.busy && !walletImport.busy,
                                     onClick = { onOpen(WalletDestination.RECEIVE) }) {
-                                    Text(stringResource(R.string.wallet_balance_receive))
+                                    Text(stringResource(R.string.wallet_receive_action),
+                                        Modifier.clearAndSetSemantics { text = AnnotatedString(receiveLabel) })
                                 }
-                                OutlinedButton(modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                                OutlinedButton(modifier = Modifier.weight(1f),
                                     enabled = address != null && backend != null && !walletExport.busy && !walletImport.busy,
                                     onClick = { onOpen(WalletDestination.SEND) }) {
-                                    Text(stringResource(R.string.transfer_send))
+                                    Text(stringResource(R.string.wallet_send_action),
+                                        Modifier.clearAndSetSemantics { text = AnnotatedString(sendLabel) })
                                 }
                             }
                         }

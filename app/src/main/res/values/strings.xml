@@ -739,4 +739,6 @@
     <plurals name="social_reply_count"><item quantity="one">%d reply</item><item quantity="other">%d replies</item></plurals>
     <string name="chat_search">Search conversations</string>
     <string name="chat_search_empty">No matching conversations</string>
+    <string name="wallet_receive_action">Receive</string>
+    <string name="wallet_send_action">Send</string>
 </resources>

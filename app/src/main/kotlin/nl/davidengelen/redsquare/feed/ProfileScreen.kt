@@ -218,7 +218,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     val own = wallet?.publicKey == author
     val follow: @Composable (Boolean) -> Unit = { interactive ->
         OutlinedButton(enabled = interactive && following?.ready == true && !following.saving,
-            onClick = { following?.toggle(author) }, modifier = Modifier.heightIn(min = 48.dp)) {
+            onClick = { following?.toggle(author) }) {
             Text(stringResource(if (author in following?.accounts.orEmpty()) R.string.unfollow_account else R.string.follow_account))
         }
     }
@@ -236,7 +236,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty(), profile),
                         onDetails = { identityOpen = true }) {
-                        if (own) OutlinedButton(onClick = { view.editing = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                        if (own) OutlinedButton(onClick = { view.editing = true }) {
                             Text(stringResource(R.string.profile_edit))
                         } else follow(true)
                     }
