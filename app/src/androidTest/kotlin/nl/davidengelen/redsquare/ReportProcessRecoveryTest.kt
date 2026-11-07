@@ -92,7 +92,7 @@ class ReportProcessRecoveryTest {
                     ui.onNodeWithText("Cancel").performClick()
                     ui.openWallet()
                     assertEquals(row.get("owner").asString, displayedWalletAddress(ui))
-                    ui.onNodeWithText("Done").performClick()
+                    ui.closeWalletOverview()
                     ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     waitFor(unknown)
                     assertTrue(peer.reports.isEmpty())
