@@ -58,6 +58,15 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             capture("$label-reader-intro")
             onNodeWithTag("stack-content").performScrollToIndex(3)
             capture("$label-reader-body")
+            if (width == 412 && theme == "Dark") {
+                for (action in listOf("Discuss on Red Square", "Share article")) {
+                    click(action)
+                    onNodeWithText("This is a sample article. Discussion links and sharing will be connected when real Stack articles are available. Nothing is sent from this preview.").assertIsDisplayed()
+                    capture("$label-${if (action.startsWith("Discuss")) "discussion" else "sharing"}-preview")
+                    onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+                    waitUntil(5_000) { onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
+                }
+            }
             onNode(hasText("Back") and hasClickAction()).performClick()
             onNodeWithContentDescription("Write an article").performClick()
             click("Markdown")
