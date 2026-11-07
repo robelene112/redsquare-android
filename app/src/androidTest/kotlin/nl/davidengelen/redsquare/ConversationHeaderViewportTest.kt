@@ -55,21 +55,24 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() && ui.refreshableContentReady() }
                 ui.onNodeWithText("Conversation").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
                 val device = UiDevice.getInstance(instrumentation)
-                val targets = JsonObject()
-                val rectangles = mutableListOf<Rect>()
-                for (action in listOf("Back", "Reply", "Conversation information")) {
-                    val control = ui.onNode(hasText(action) and hasClickAction())
-                    control.assertIsDisplayed().assertIsEnabled()
-                    var native = requireNotNull(device.findObject(By.text(action)))
-                    while (!native.isClickable) native = requireNotNull(native.parent)
-                    val bounds = native.visibleBounds
-                    val density = context.resources.displayMetrics.density
-                    assertTrue("$action keeps its48dp native target", bounds.width() >= 48 * density - 1 && bounds.height() >= 48 * density - 1)
-                    assertTrue("Header targets do not overlap", rectangles.none { Rect.intersects(it, bounds) })
-                    rectangles += bounds
-                    targets.addProperty(action, bounds.flattenToString())
+                fun observeHeaderTargets(stage: String) {
+                    val targets = JsonObject()
+                    val rectangles = mutableListOf<Rect>()
+                    for (action in listOf("Back", "Reply", "Conversation information")) {
+                        val control = ui.onNode(hasText(action) and hasClickAction())
+                        control.assertIsDisplayed().assertIsEnabled()
+                        var native = requireNotNull(device.findObject(By.text(action)))
+                        while (!native.isClickable) native = requireNotNull(native.parent)
+                        val bounds = native.visibleBounds
+                        val density = context.resources.displayMetrics.density
+                        assertTrue("$action keeps its48dp native target", bounds.width() >= 48 * density - 1 && bounds.height() >= 48 * density - 1)
+                        assertTrue("Header targets do not overlap", rectangles.none { Rect.intersects(it, bounds) })
+                        rectangles += bounds
+                        targets.addProperty(action, bounds.flattenToString())
+                    }
+                    File(folder, if (stage == "initial") "$label-header-targets.json" else "$label-$stage-header-targets.json").writeText(targets.toString())
                 }
-                File(folder, "$label-header-targets.json").writeText(targets.toString())
+                observeHeaderTargets("initial")
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
                 ui.onNode(hasText("Conversation information") and hasClickAction()).performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertIsDisplayed()
@@ -86,6 +89,7 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 assertEquals("Public Conversation keeps its approved14sp body", 14f, layout.layoutInput.style.fontSize.value, 0.01f)
                 assertEquals("The full authentic text remains available", anchorText.length, layout.getLineEnd(layout.lineCount - 1))
                 val before = anchor.fetchSemanticsNode().boundsInRoot.top
+                observeHeaderTargets("reading")
                 captureNativeScreen(File(folder, "$label-reading.png"))
                 ui.onNode(hasText("Reply") and hasClickAction()).performClick()
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
