@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.Dispatchers
@@ -80,11 +81,11 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                             Row(Modifier.fillMaxWidth().padding(18.dp), verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                                 Surface(shape = RoundedCornerShape(12.dp), color = if (target == AppModule.RED_SQUARE)
-                                    MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary) {
+                                    MaterialTheme.colorScheme.primary else Color(0xffa7c9ff)) {
                                     Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
                                         Icon(painterResource(if (target == AppModule.RED_SQUARE) R.drawable.ic_home else R.drawable.ic_article),
                                             null, Modifier.size(22.dp), tint = if (target == AppModule.RED_SQUARE)
-                                                MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondary)
+                                                MaterialTheme.colorScheme.onPrimary else Color(0xff122344))
                                     }
                                 }
                                 Column(Modifier.weight(1f)) {
