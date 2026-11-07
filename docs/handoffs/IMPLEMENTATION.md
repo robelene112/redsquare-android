@@ -5,51 +5,62 @@
 Owner authorized completing issue94's prototype-fidelity repair. Root is the
 only implementation writer in `/mnt/storage/redsquare-android-artifacts/redesign86`;
 preserve the canonical checkout's unrelated Chat work. Beta89 remains latest.
-Do not claim delivery or start another issue. Stages90/91/92 are historical,
-immutable candidates. Signed93 is staged on actual producer
-`4eae1901bf01cf560f90fccf037f014d70517986`, SHA256
-`931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72`.
-Actual signed updates42388351996/42388351928 PASS on Android10/17. Public
-staged download hash matches; latest remains89.
+Do not claim delivery or start another issue. Stages90/91/92 are historical.
 
-Complete final-source Android10run42388798650 and17run42388799151 are running
-on `45d734f501ed5dd928f458c7bddd5e7be9316611`. The earlier4eae fullruns were
-superseded/cancelled after the physical-input fixture correction, never counted
-as full passes. Frozen catalog/checker remains unchanged. Focused refresh17
-42387892609, wallet-export17 42387892714 and node10 42388559625 all PASS.
-These are not complete acceptance. No additional production node changes.
+Signed93 is staged: actual producer `4eae1901bf01cf560f90fccf037f014d70517986`,
+SHA256 `931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72`.
+Actual signed update/isolation runs42388351996/42388351928 PASS Android10/17.
+The staged public APK was downloaded and its hash matches. Keep original notes.
+No production changes after93. Producer-input superset445paths/modes/types/blobs
+remains equal across subsequent docs/instrumentation changes.
 
-Repairs and actual evidence, with original assertions/deadlines retained:
-- First-use320dp/200% recovered reading area123→223px of640. Single horizontal
-  tabs,32dp paint in48dp targets and two-line node context pass42384551466.
-- Native Conversation header targets formerly48→24px after scrolling130%.
-  Red42383076638, z-priority fixfc9898ee3, green42384549365 keeps48px throughout.
--124 Compose scroll selectors now explicitly select vertical UI, not the new
-  horizontal chips. Native gesture helpers also distinguish vertical actions.
-- Wallet export/import fixtures reveal actual controls before clicking after
-  balance/identity/error content grows. PIN/provider/readback assertions remain.
-- Actual refresh trace42386481053 proves the success notice moves list top184→222
-  while pinned post194 becomes clipped. Source4eef33d8b overlays completion
-  feedback, preserving applied-result ordering,2500ms and navigation-error owner.
-  Temporary tracing removed; original simultaneous-success/target assertion stays.
-- Node10unprobed42386483271 failed205→188. Original movie frames show movement
-  before response and stable image2.015–4.898s across arrival, while native bounds
-  falsely declared200ms idle. Slowing the swipe64steps failed the original3.5s
-  settling precondition in42387960697. Source45d734f50 instead performs the
-  original physical drag path and holds120ms at rest before finger release.
-  Green42388559625 preserves exactpost19y226 at scales0/1, settled1664/1717ms
-  before4s response. All original200ms/3.5s/4s/4500ms/anchor/header requirements
-  remain. Actual movie review pending; this is not fast-fling acceptance.
-  Temporary tracing removed. Production93 inputs unchanged:445tracked producer
-  superset paths/modes/types/blobs match4eae→45, with docs/test-only differences.
+Complete source `4cc94436712af36662d5a5901d8439a6853a79ec` now executing:
+Android10run42390887070 and17run42390887217. Frozen catalog/checker unchanged.
+Full45runs42388798650/42388799151 FAIL: profile-chip capture sampled a target
+clipped below the viewport; LoadedMedia retained an obsolete3:1 assertion;
+Policy10 used covered Account navigation without closing its earlier Node task.
+All actual failures remain retained. The45Android17 wallet partition succeeded,
+but no mixed-source or partial full acceptance is claimed. Earlier4eae fullruns
+42388055407/42388055378 were superseded/cancelled, not passes.
 
-Signed92 historical producer `e697e0139b3a7a27751e3fac1801f6478fdd0174`, SHA256
-`426fbad83c1a1510398d308c34274e9ace95ebe2286ad928a67e47f1ea59bd1c`, actual update
-runs42381732133/42381734178 PASS. Full e697runs42381324445/42381326370 FAIL and
-remain historical. Source review axes through4eef33d8b have zero new actionable
-findings; native final-source reviews, complete collectors, new signed continuity
-and publication remain. Historical focused profile17run42380125900, wallet10run
-42379257881, module17run42377894534 and Chat17run42377898383 are bounded passes.
+Repair evidence and focused boundaries:
+- First-use320dp/200% reading area123→223px: green42384551466. Horizontal tabs
+  paint32dp in48dp targets, node context capped at two lines, original text scale.
+- Conversation header native targets48→24px after scroll: red42383076638,
+  z-priority fixfc9898ee3, green42384549365 keeps48px before/after.
+-124 Compose scroll selectors explicitly select vertical UI; native gesture
+  helpers distinguish vertical actions from horizontal tabs. Wallet fixtures
+  reveal genuine controls after balance/identity/error content grows.
+- Refresh trace42386481053 proves notice moves list184→222 and clips post194.
+  Production4eef33d8b overlays completion without changing ordering/2500ms or
+  navigation-error ownership. Green42387892609 includes both actual refresh
+  methods plus the six earlier readiness methods. Temporary tracing removed.
+- Node false-idle: original unprobed frames move before the response. Source45
+  performs the actual drag path then rests120ms before release. Green42388559625
+  keeps post19y226; original frames are byte-identical across response at scales
+  0/1. Native review confirms no displacement. Original5s/3.5s/4s/4500ms/200ms,
+  exact anchor and header assertions remain. This is not fast-fling acceptance.
+- Export17green42387892714 and signed93 continuity bothSDK green as above.
+- Policy explicitly closes the prior foreground Node task before fresh TalkBack
+  setup. Initial handoff then succeeds; subsequent8265e4dd9 limits radio traversal
+  to the active Settings root and labels inside its two actual rows, retaining
+  all shared5s focus, selection, radio-role, PID/engine/audio/restoration checks.
+  Focused10green42390443450,17run42390443660 pending. Request timing receipt is
+  measured before capture, not after the separate10s speech observation.
+- Profile first Lazy scroll still exposed only part of a nested horizontal tab.
+  Source4cc scrolls measured vertical overflow via actual ScrollBy, requires the
+  entire48dp target in the viewport, then unchanged exactfill/32dp-paint checks.
+  Focused4cc10run42390800414 and17run42390800513 pending.
+- LoadedMedia old3:1 expectation conflicts with approvedc95ecaa01ProfileBlock128dp.
+  Source01ad checks exact128dp and loading/loaded top+bottom equality, preserving
+  actual delivered-pixel, normal/zero animation and original delivery deadlines.
+  Focused10run42390665139 pending. This is the explicit prototype geometry update,
+  not a general assertion waiver; frozen identities/tools/catalog remain unchanged.
+
+Both source review axes through4cc have zero actionable findings. Final complete
+collectors, actual same-source prototype/native/motion review and promotion remain.
+No local builder active. No additional production-node changes. Keep parents
+1/36/55/84/86 and physical/provider/KVK/Play/actual-Stack criteria independent.
 
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be
