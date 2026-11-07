@@ -120,8 +120,10 @@ internal class NativeTalkBackObservation(private val folder: File) {
     }
 
     fun fragments(device: UiDevice, summary: String): List<String> =
-        speechLog(device).lineSequence()
-            .filter { it.contains("Speaking fragment text=") && it.contains(summary) }.toList()
+        fragmentLines(speechLog(device), summary)
+
+    private fun fragmentLines(log: String, summary: String): List<String> =
+        log.lineSequence().filter { it.contains("Speaking fragment text=") && it.contains(summary) }.toList()
 
     fun talkbackProcess(device: UiDevice): String =
         device.executeShellCommand("pidof com.android.talkback").trim().also { check(it.matches(Regex("[1-9][0-9]*"))) }
@@ -132,7 +134,8 @@ internal class NativeTalkBackObservation(private val folder: File) {
     /** These markers originate only in real engine callbacks, never fallback completion. */
     fun completedFragments(device: UiDevice, summary: String): List<String> {
         val log = speechLog(device)
-        return fragments(device, summary).mapNotNull { line ->
+        // Fragment IDs and their real engine callbacks must come from the same PID snapshot.
+        return fragmentLines(log, summary).mapNotNull { line ->
             Regex("utteranceId=([^,\\s]+)").find(line)?.groupValues?.get(1)
         }.filter { id ->
             fun callback(event: String) = Regex("REDSQUARE_ENGINE_$event utteranceId=${Regex.escape(id)}(?:\\s|$)")
