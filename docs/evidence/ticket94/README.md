@@ -1,6 +1,26 @@
 # Unified redesign release verification (#94)
 
-## Completed: unified redesign beta89 delivered on November6,2026
+## Reopened prototype repair: beta93 staged, final acceptance pending
+
+The owner rejected beta89's prototype correspondence and authorized issue94's
+repair. Signed93 is staged only; latest remains89. Actual signed83-to93 update
+and isolation checks pass on Android10/17 (42388351996/42388351928). Actual
+artifact, configuration, download and staging receipts are in [artifact93](artifact93).
+[Producer equivalence](candidate93-producer-equivalence.json) independently
+confirms445 equal tracked producer-input paths from actual APK source4eae to
+native consumer4cc, with instrumentation/documentation-only differences.
+
+Complete4cc workflows42390887070/42390887217 are running. Frozen catalog/checker
+remain unchanged. Focused profile, refresh, header/density, node, export, media
+and TalkBack corrections pass within their recorded scopes. Source review axes
+have zero actionable findings. Full collectors, final whole-app native review
+and promotion are still pending. See the current implementation handoff for the
+retained full45 failures and exact focused source/run boundaries. No focused or
+mixed-source collection is counted as a complete gate. The old3:1 media-test
+expectation was explicitly replaced by the approved prototype's128dp cover,
+adding loading-to-loaded geometry equality and retaining real pixel/motion checks.
+
+## Historical delivery: beta89 on November6,2026
 
 The five authorized tickets90/93/81/83/94 are implemented, verified and delivered.
 Review page: https://davidengelen.nl/redsquare/

@@ -45,20 +45,23 @@ Repair evidence and focused boundaries:
   setup. Initial handoff then succeeds; subsequent8265e4dd9 limits radio traversal
   to the active Settings root and labels inside its two actual rows, retaining
   all shared5s focus, selection, radio-role, PID/engine/audio/restoration checks.
-  Focused10green42390443450,17run42390443660 pending. Request timing receipt is
+  Focused10green42390443450 and17green42390443660. Request timing receipt is
   measured before capture, not after the separate10s speech observation.
 - Profile first Lazy scroll still exposed only part of a nested horizontal tab.
   Source4cc scrolls measured vertical overflow via actual ScrollBy, requires the
   entire48dp target in the viewport, then unchanged exactfill/32dp-paint checks.
-  Focused4cc10run42390800414 and17run42390800513 pending.
+  Focused4cc10run42390800414 and17run42390800513 both PASS.
 - LoadedMedia old3:1 expectation conflicts with approvedc95ecaa01ProfileBlock128dp.
   Source01ad checks exact128dp and loading/loaded top+bottom equality, preserving
   actual delivered-pixel, normal/zero animation and original delivery deadlines.
-  Focused10run42390665139 pending. This is the explicit prototype geometry update,
+  Focused10run42390665139 PASS. This is the explicit prototype geometry update,
   not a general assertion waiver; frozen identities/tools/catalog remain unchanged.
 
-Both source review axes through4cc have zero actionable findings. Final complete
-collectors, actual same-source prototype/native/motion review and promotion remain.
+Both source review axes through4cc have zero actionable findings. Independent
+provenance review recomputes445equal inputs and confirms actual signed93 data
+continuity. A focused profile-only visual review inspected20PNG/XML pairs across
+both SDKs with zero actionable appearance findings, explicitly not whole-app
+acceptance. Final complete collectors, native/motion review and promotion remain.
 No local builder active. No additional production-node changes. Keep parents
 1/36/55/84/86 and physical/provider/KVK/Play/actual-Stack criteria independent.
 
