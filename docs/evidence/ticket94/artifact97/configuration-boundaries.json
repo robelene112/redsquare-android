@@ -13,7 +13,7 @@
     "performance"
   ],
   "fullGateDefaultVersionCode": 1,
-  "note": "Complete and authentic signed update gates are running, not accepted. Three reviewed instrumentation fixtures differ from actual producer;445producer-input entries and frozen acceptance pins are independently verified unchanged. No debug/release binary equality, physical Pixel or provider acceptance is claimed.",
+  "note": "Full313 and authentic signed-reader0aa gates are running, not accepted.445producer inputs and731other full-execution inputs are independently unchanged; the standalone candidate reader is not selected by either211-class full catalog. No runtime waiver, debug/release binary equality, physical Pixel or provider acceptance is claimed.",
   "producerInputs": {
     "trackedEntries": 445,
     "canonicalSha256": "874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2",
@@ -26,7 +26,9 @@
     "17": 42409846568
   },
   "signedUpdateRuns": {
-    "10": 42409848816,
-    "17": 42409851190
-  }
+    "10": 42410496042,
+    "17": 42410498198
+  },
+  "signedUpdateReaderSource": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
+  "signedUpdateObserverEquivalence": "reader0aa-full313-equivalence.json"
 }

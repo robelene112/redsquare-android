@@ -1,0 +1,44 @@
+{
+  "source": "3135a58c321c875904f2bcdae928267ddbedda26",
+  "run": 42409848816,
+  "conclusion": "failure",
+  "note": "Actual authored caption was found. The standalone reader then rejected a fully displayed canonical45-character public author with its old44-only selector, before installing97. The separate full313 gates do not execute this reader.",
+  "files": [
+    {
+      "file": "work-before.log",
+      "sha256": "c91697b423b9cae1c9382f261578dd94dddcf0b1b4a5bdb4b8bf426ae1d7566a",
+      "bytes": 3746,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth313-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/work-before.log"
+    },
+    {
+      "file": "restoration.json",
+      "sha256": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1",
+      "bytes": 73,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth313-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/restoration.json"
+    },
+    {
+      "file": "prepare-failure.png",
+      "sha256": "8aa6b800470c03f8f82bb2dee1a0f01a436ef2a58ca2842d479169039fb3e453",
+      "bytes": 40733,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth313-10/native/review-update-observation/prepare-failure.png"
+    },
+    {
+      "file": "prepare-failure.xml",
+      "sha256": "82c5cfa32f13909194c27fd65474f0a623bc0272d5cb9510918c97cda6068663",
+      "bytes": 18478,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth313-10/native/review-update-observation/prepare-failure.xml"
+    },
+    {
+      "file": "prepare-feed.png",
+      "sha256": "96ab899308134361af15cc2fb9358b89a979063dc7a29047bf9187b948f9f666",
+      "bytes": 43885,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth313-10/native/review-update-observation/prepare-feed.png"
+    },
+    {
+      "file": "prepare-feed.xml",
+      "sha256": "ac1db5f778dfc420d945e8ee6c08888249f8657fb6d1c5343edcb0343802d1f9",
+      "bytes": 56957,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-update97-auth313-10/native/review-update-observation/prepare-feed.xml"
+    }
+  ]
+}

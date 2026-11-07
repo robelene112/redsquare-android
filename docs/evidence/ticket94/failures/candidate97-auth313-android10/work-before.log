@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReviewUpdateUiObserver:
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$find(ReviewUpdateUiObserver.kt:31)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$find$default(ReviewUpdateUiObserver.kt:30)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$lambda$23(ReviewUpdateUiObserver.kt:159)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.$r8$lambda$yvtsZgkP6ULK50M333BCvv0WC-4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences(ReviewUpdateUiObserver.kt:60)
+
+INSTRUMENTATION_STATUS: stream=
+Error in observeRetainedLocalWorkAndPreferences(nl.davidengelen.redsquare.ReviewUpdateUiObserver):
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$find(ReviewUpdateUiObserver.kt:31)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$find$default(ReviewUpdateUiObserver.kt:30)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$lambda$23(ReviewUpdateUiObserver.kt:159)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.$r8$lambda$yvtsZgkP6ULK50M333BCvv0WC-4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences(ReviewUpdateUiObserver.kt:60)
+
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.851
+There was 1 failure:
+1) observeRetainedLocalWorkAndPreferences(nl.davidengelen.redsquare.ReviewUpdateUiObserver)
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$find(ReviewUpdateUiObserver.kt:31)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$find$default(ReviewUpdateUiObserver.kt:30)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences$lambda$23(ReviewUpdateUiObserver.kt:159)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.$r8$lambda$yvtsZgkP6ULK50M333BCvv0WC-4(Unknown Source:0)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ReviewUpdateUiObserver.observeRetainedLocalWorkAndPreferences(ReviewUpdateUiObserver.kt:60)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

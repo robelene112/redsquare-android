@@ -1,0 +1,151 @@
+{
+  "reviewedAtUtc": "2026-11-07T20:21:41.707940+00:00",
+  "findingCount": 0,
+  "artifactVersion": 97,
+  "actualProducer": "7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39",
+  "completeGateSource": "3135a58c321c875904f2bcdae928267ddbedda26",
+  "signedUpdateReaderSource": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
+  "readerTag": "proof-prototype97-update0aa40b5",
+  "artifactSha256": "66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5",
+  "producerToReader": {
+    "trackedProducerSupersetEqual": true,
+    "count": 445,
+    "canonicalInputSha256": "874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2",
+    "excludedRootDocuments": [
+      "AGENTS.md",
+      "CODING_STANDARDS.md",
+      "GLOSSARY.md",
+      "OWNER_INPUTS.md",
+      "README.md"
+    ],
+    "excludedPrefixes": [
+      "docs/",
+      ".agents/",
+      "app/src/androidTest/"
+    ]
+  },
+  "fullToReader": {
+    "allOtherTrackedExecutionInputsEqual": true,
+    "count": 731,
+    "canonicalInputSha256": "960856eb1a4f78a519b4420c98e4e268e20454f89799c123c426a722d1f142d2",
+    "excludedRootDocuments": [
+      "AGENTS.md",
+      "CODING_STANDARDS.md",
+      "GLOSSARY.md",
+      "OWNER_INPUTS.md",
+      "README.md"
+    ],
+    "excludedPrefixes": [
+      "docs/",
+      ".agents/"
+    ],
+    "excludedStandaloneReader": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ReviewUpdateUiObserver.kt",
+    "onlyChangedNonDocumentPath": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ReviewUpdateUiObserver.kt",
+    "fullReaderBlobSha256": "2ea461cb93288b9eec54478ee4c186c935abf85c9646a07170e2208853a98cd7",
+    "correctedReaderBlobSha256": "736a74651fde384da6f52109cbcac2ae3223039db910ad20095eed91af28d7c3",
+    "changedDocuments": 39
+  },
+  "canonicalEncoding": "UTF-8 git ls-tree -r lines in Git order joined by LF plus trailing LF; exact paths/modes/types/blobs",
+  "expectedFullCatalogs": {
+    "10": {
+      "classCount": 211,
+      "identityRows": 626,
+      "sha256": "687357aa6e40ab2b853fe655dd7933aa526ba20c3acb6b33379bb4dc7b8f30a5",
+      "readerIncluded": false
+    },
+    "17": {
+      "classCount": 211,
+      "identityRows": 627,
+      "sha256": "948893af08174875b37f20505f00aa78f8f93380001e70f613aab0647f72613e",
+      "readerIncluded": false
+    }
+  },
+  "frozenPins": [
+    {
+      "path": "docs/evidence/ticket94/catalog.json",
+      "sha256": "20be403b92cd7b3f36a557090ff17ec76d33a696c2dc284c4dfb84890f68c9e5"
+    },
+    {
+      "path": "docs/evidence/ticket94/full-collector.py",
+      "sha256": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683"
+    },
+    {
+      "path": "docs/evidence/ticket94/test-identities.py",
+      "sha256": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577"
+    },
+    {
+      "path": "docs/evidence/ticket94/legacy-visual-errors10.json",
+      "sha256": "2dfd0e1477f247da6bfb9595acb3ef39cc44dfba8ac5cacd4b4f42b1be65c0d2"
+    },
+    {
+      "path": "docs/evidence/ticket94/legacy-visual-errors17.json",
+      "sha256": "289e44a0d4d8a367def390d1b9dee41cbb734b636300d181ab01801faa17ea7b"
+    },
+    {
+      "path": "docs/evidence/ticket94/legacy-profile-assumption.txt",
+      "sha256": "7c3ed443a2a27b11f57f0c79c3f64a391adebdd9eb636cb2e83a83c1b5b3846e"
+    },
+    {
+      "path": "docs/evidence/ticket94/expected10-identities.json",
+      "sha256": "687357aa6e40ab2b853fe655dd7933aa526ba20c3acb6b33379bb4dc7b8f30a5"
+    },
+    {
+      "path": "docs/evidence/ticket94/expected17-identities.json",
+      "sha256": "948893af08174875b37f20505f00aa78f8f93380001e70f613aab0647f72613e"
+    },
+    {
+      "path": "scripts/emulator-check",
+      "sha256": "02f3452668d7ec50a1e8fc8f22016dbc3350159b2f6910b9a3c04c0e3dea70cd"
+    },
+    {
+      "path": "scripts/ci-review-update",
+      "sha256": "f0bd91387ea6f478e1ec08ef5c9cc32620642b5bbbc0cd22a307258735381ca1"
+    },
+    {
+      "path": "scripts/review-update-work-check",
+      "sha256": "c9924465aa3f5a8a5f267308cc5c67b474a06bf742ab298e783e086c326bf840"
+    },
+    {
+      "path": "scripts/wallet-device-check",
+      "sha256": "417af34fd5ba833441aa0d7199185001b8383fafd840f103a3513a67a61a86d9"
+    },
+    {
+      "path": "scripts/ci-talkback-setup",
+      "sha256": "edd6531d49f5267147bae1bfcab496864ed6202871e635e4f4215b582dac7d5d"
+    },
+    {
+      "path": ".github/workflows/android-proof.yml",
+      "sha256": "9f019a409cebbc7a1a30c0e8a9c2264924d7758c25430a5ab05d9814a5169114"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletDeviceUiObserver.kt",
+      "sha256": "53b2b429ba12582e795e4d88896313026a046e8e8def5d45cd4d9550465b7dbd"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NativeTalkBackObservation.kt",
+      "sha256": "ed2a0d29e40255aa4a2a8c38b7ddf3a4f14b86e9fa88ffce82ff2586a5364a70"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NativeScreenEvidence.kt",
+      "sha256": "f3077b1cdb39b85ada7fea30ad3d0d04e91140959c27d423ba6cdba075a80ecb"
+    }
+  ],
+  "catalogSha256": "20be403b92cd7b3f36a557090ff17ec76d33a696c2dc284c4dfb84890f68c9e5",
+  "collectorSha256": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683",
+  "toolSourcePins": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executionSeam": {
+    "candidate": "TEST_SCOPE candidate-update* invokes ci-review-update83\u2192candidate --retain-local-work \u2192 review-update-work-check \u2192 ReviewUpdateUiObserver",
+    "full": "Existing complete legacy5\u21928 invokes ci-review-update without --retain-local-work \u2192 wallet-device-check; standalone reader absent from both211class catalogs"
+  },
+  "limits": [
+    "Test-source distinction is explicit; complete313 and signed-reader0aa are different sources.",
+    "No runtime waiver or retrospective source replacement: full313 must pass its original complete collector/catalog unchanged.",
+    "Fresh0aa authored-caption signed-update runs42410496042/42410498198 pending and must independently pass.",
+    "Earlier media-button-caption passes are not authored-cache continuity proof.",
+    "No whole-app native acceptance, promotion or debug/release binary equality claim."
+  ]
+}

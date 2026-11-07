@@ -36,7 +36,18 @@ for two missed exits, and positive expected video caption within the original20s
 the corrected9fe17 profile scope passes. Failed native packets remain under failures/.
 Wrong-source42407609367/42407611488 were cancelled, never acceptance evidence.
 
-Authentic signed83-to97 update checks3135 42409848816 / 42409851190 are PENDING.
+Authentic signed83-to97 checks now use reader0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a
+(tag proof-prototype97-update0aa40b5), runs42410496042 / 42410498198, PENDING.
+Auth313 runs42409848816/42409851190 failed BEFORE97 installation: actual authored
+caption was selected, but their old44-only public-author selector rejected the
+fully displayed45-character22jWAz... key. Original native/log packets are retained.
+The corrected reader accepts44/45 Base58 text and requires the existing canonical
+Saito public-key validator; exact caption/author/time and all bounds stay unchanged.
+Independent receipt `artifact97/reader0aa-full313-equivalence.json` verifies445
+unchanged producer inputs and731other unchanged full-execution inputs. This reader
+is absent from both211-class full catalogs; full legacy5-to8 uses the separate
+wallet observer. Keep full313 running. Source distinction is explicit, not a runtime
+waiver or a claim that the corrected reader ran in full313.
 Earlier7e10 42408005837 and a5ef10/17 42408818879/42408820926 pass their executed
 checks, but their cache picker accepted a nested 'Watch on YouTube' media label.
 They do NOT prove the authored-caption cache goal.7e17 42408007929 failed Light
