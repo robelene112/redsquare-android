@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
@@ -91,27 +92,61 @@ class ReviewUpdateUiObserver {
             val caption: String
             val card: UiObject2
             if (phase == "prepare") {
+                val captionDeadline = android.os.SystemClock.elapsedRealtime() + 30_000
                 find(By.descStartsWith("View profile for "), 30_000)
-                val authors = device.findObjects(By.pkg(application).descStartsWith("View profile for "))
-                val candidates = authors.mapNotNull { author ->
-                    val header = requireNotNull(author.parent)
-                    val metadata = header.findObjects(By.clazz("android.widget.TextView")).mapNotNull { it.text }.toSet()
-                    val post = postCard(author)
-                    val caption = post.findObjects(By.clazz("android.widget.TextView")).mapNotNull { it.text }
-                        .filter { it !in metadata }.mapNotNull { it.lineSequence().firstOrNull { line -> line.isNotBlank() } }
-                        .firstOrNull { it.length >= 8 && !it.startsWith("http", ignoreCase = true) &&
-                            !it.matches(Regex("[0-9]+ (likes?|reposts?)")) }
-                    caption?.let { it to post }
+                var candidate: Pair<String, UiObject2>? = null
+                while (candidate == null && android.os.SystemClock.elapsedRealtime() < captionDeadline) {
+                    val authors = device.findObjects(By.pkg(application).descStartsWith("View profile for "))
+                    candidate = authors.firstNotNullOfOrNull { author ->
+                        val post = postCard(author)
+                        // Authored body text is a direct child of the post card.
+                        // Nested media/action labels must never count as a caption.
+                        val authorBounds = author.visibleBounds
+                        if (authorBounds.isEmpty) return@firstNotNullOfOrNull null
+                        val headerBottom = authorBounds.bottom
+                        val body = post.children.firstOrNull {
+                            it.className == "android.widget.TextView" && !it.visibleBounds.isEmpty &&
+                                it.visibleBounds.top >= headerBottom
+                        }?.text?.lineSequence()?.firstOrNull()?.takeIf {
+                            // Match the exact text-prefix/first-line contract below.
+                            it.length >= 8 && it.isNotBlank() &&
+                                !it.startsWith("http", ignoreCase = true) && it != "Powered by GIPHY" &&
+                                !it.matches(Regex("[0-9]+ (likes?|reposts?)"))
+                        }
+                        body?.let { it to post }
+                    }
+                    if (candidate == null) {
+                        // A URL-only first post is valid content. Look farther down
+                        // the actual feed rather than accepting its media button.
+                        val remaining = captionDeadline - android.os.SystemClock.elapsedRealtime()
+                        check(remaining > 0) { "Selecting an authored caption exceeded its observation deadline" }
+                        find(By.scrollable(true), remaining).scroll(Direction.DOWN, 0.6f)
+                    }
                 }
-                val candidate = requireNotNull(candidates.firstOrNull()) {
-                    "An authored public caption, separate from author metadata and raw URLs, is required"
+                check(android.os.SystemClock.elapsedRealtime() <= captionDeadline) {
+                    "Selecting an authored cached caption must meet its original thirty-second bound"
                 }
-                caption = candidate.first
-                card = candidate.second
+                val selectedPost = requireNotNull(candidate) {
+                    "An authored public caption, separate from author metadata and media controls, is required"
+                }
+                caption = selectedPost.first
+                card = selectedPost.second
             } else {
                 find(text("No internet connection"))
                 caption = requireNotNull(expectedPost).getString("caption")
-                card = postCard(find(By.textStartsWith(caption)))
+                val selector = By.textStartsWith(caption).pkg(application)
+                val revealDeadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                var body = device.findObject(selector)
+                while (body == null && android.os.SystemClock.elapsedRealtime() < revealDeadline) {
+                    val remaining = revealDeadline - android.os.SystemClock.elapsedRealtime()
+                    check(remaining > 0) { "Revealing the cached caption exceeded its observation deadline" }
+                    find(By.scrollable(true), remaining).scroll(Direction.DOWN, 0.6f)
+                    body = device.findObject(selector)
+                }
+                check(android.os.SystemClock.elapsedRealtime() <= revealDeadline) {
+                    "The exact cached caption must be revealed within its original twenty-second bound"
+                }
+                card = postCard(requireNotNull(body) { "The exact authored caption must remain available offline" })
             }
             val actualText = requireNotNull(find(By.textStartsWith(caption)).text)
             val observedCaption = actualText.lineSequence().first { it.isNotBlank() }
