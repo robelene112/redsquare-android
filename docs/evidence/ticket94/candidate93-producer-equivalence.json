@@ -1,0 +1,33 @@
+{
+  "artifactSource": "4eae1901bf01cf560f90fccf037f014d70517986",
+  "artifactVersion": 93,
+  "artifactSha256": "931c7cd1c2e8938ff484310ff6fa461953ce0014607ac867d6d9b72714dc7c72",
+  "consumerSource": "4cc94436712af36662d5a5901d8439a6853a79ec",
+  "excludedAsNonProducer": {
+    "rootDocuments": [
+      "AGENTS.md",
+      "CODING_STANDARDS.md",
+      "GLOSSARY.md",
+      "OWNER_INPUTS.md",
+      "README.md"
+    ],
+    "prefixes": [
+      "docs/",
+      ".agents/",
+      "app/src/androidTest/"
+    ]
+  },
+  "trackedProducerSupersetEqual": true,
+  "trackedProducerFileCount": 445,
+  "canonicalEncoding": "UTF-8 git ls-tree -r lines in Git order, joined with LF and one trailing LF",
+  "canonicalInputSha256": "f9a5880a6b8a8bed0c5f6b15db13a1c76bd0b483b4d17bc3835c650339fd3736",
+  "changedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/LoadedMediaMotionTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NodeBlockMotionTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileRedesignPreviewTest.kt",
+    "docs/PROJECT_CONTEXT.md",
+    "docs/handoffs/IMPLEMENTATION.md"
+  ],
+  "limits": "Tracked producer-input superset equality only. Actual signing/configuration/artifact and installed continuity are checked separately. Not a debug/release binary equality claim."
+}
