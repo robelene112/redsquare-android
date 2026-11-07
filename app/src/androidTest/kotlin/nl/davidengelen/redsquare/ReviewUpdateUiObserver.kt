@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
@@ -97,24 +98,30 @@ class ReviewUpdateUiObserver {
                 find(By.descStartsWith("View profile for "), 30_000)
                 var candidate: Pair<String, UiObject2>? = null
                 while (candidate == null && android.os.SystemClock.elapsedRealtime() < captionDeadline) {
-                    val authors = device.findObjects(By.pkg(application).descStartsWith("View profile for "))
-                    candidate = authors.firstNotNullOfOrNull { author ->
-                        val post = postCard(author)
-                        // Authored body text is a direct child of the post card.
-                        // Nested media/action labels must never count as a caption.
-                        val authorBounds = author.visibleBounds
-                        if (authorBounds.isEmpty) return@firstNotNullOfOrNull null
-                        val headerBottom = authorBounds.bottom
-                        val body = post.children.firstOrNull {
-                            it.className == "android.widget.TextView" && !it.visibleBounds.isEmpty &&
-                                it.visibleBounds.top >= headerBottom
-                        }?.text?.lineSequence()?.firstOrNull()?.takeIf {
-                            // Match the exact text-prefix/first-line contract below.
-                            it.length >= 8 && it.isNotBlank() &&
-                                !it.startsWith("http", ignoreCase = true) && it != "Powered by GIPHY" &&
-                                !it.matches(Regex("[0-9]+ (likes?|reposts?)"))
+                    candidate = try {
+                        val authors = device.findObjects(By.pkg(application).descStartsWith("View profile for "))
+                        authors.firstNotNullOfOrNull { author ->
+                            val post = postCard(author)
+                            // Authored body text is a direct child of the post card.
+                            // Nested media/action labels must never count as a caption.
+                            val authorBounds = author.visibleBounds
+                            if (authorBounds.isEmpty) return@firstNotNullOfOrNull null
+                            val headerBottom = authorBounds.bottom
+                            val body = post.children.firstOrNull {
+                                it.className == "android.widget.TextView" && !it.visibleBounds.isEmpty &&
+                                    it.visibleBounds.top >= headerBottom
+                            }?.text?.lineSequence()?.firstOrNull()?.takeIf {
+                                // Match the exact text-prefix/first-line contract below.
+                                it.length >= 8 && it.isNotBlank() &&
+                                    !it.startsWith("http", ignoreCase = true) && it != "Powered by GIPHY" &&
+                                    !it.matches(Regex("[0-9]+ (likes?|reposts?)"))
+                            }
+                            body?.let { it to post }
                         }
-                        body?.let { it to post }
+                    } catch (_: StaleObjectException) {
+                        // A real feed update can replace native nodes mid-read.
+                        // Re-query only that observation within the same deadline.
+                        continue
                     }
                     if (candidate == null) {
                         // A URL-only first post is valid content. Look farther down
