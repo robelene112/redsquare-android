@@ -22,7 +22,7 @@
   },
   "fullExecutionSource": "71ea524f115496a13699affd2fa5b56444b23c89",
   "fullRuns": {
-    "10": 42412909858,
+    "10": 42414603792,
     "17": 42413158524
   },
   "signedUpdateRuns": {
@@ -34,5 +34,23 @@
     "10": "0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a",
     "17": "7429895412452453174b828d660658d5fb7eb6a2"
   },
-  "signedUpdateStatus": "both PASS, independently reviewed genuine authored-caption continuity"
+  "signedUpdateStatus": "both PASS, independently reviewed genuine authored-caption continuity",
+  "priorFailedFullRuns": [
+    {
+      "sdk": "10",
+      "source": "3135a58c321c875904f2bcdae928267ddbedda26",
+      "run": 42409844018
+    },
+    {
+      "sdk": "17",
+      "source": "3135a58c321c875904f2bcdae928267ddbedda26",
+      "run": 42409846568
+    },
+    {
+      "sdk": "10",
+      "source": "71ea524f115496a13699affd2fa5b56444b23c89",
+      "run": 42412909858,
+      "reason": "Actual16MiB versus declared512MiB heap; goal remains failed"
+    }
+  ]
 }

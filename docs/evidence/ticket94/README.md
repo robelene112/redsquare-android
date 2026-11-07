@@ -4,8 +4,14 @@
 
 Current frozen implementation and final gates:
 Both corrected complete suites execute71ea524f115496a13699affd2fa5b56444b23c89,
-immutable tag proof-prototype97-full71ea524. Android10 run42412909858 and Android17
-run42413158524 are PENDING. Require all3partitions on each SDK and the unchanged
+immutable tag proof-prototype97-full71ea524. Android10 fresh run42414603792 and Android17
+run42413158524 are PENDING. Previous71ea10 42412909858 failed AvatarRecovery heap
+parity: actual16MiB, declared512MiB before the large fixtures. Its failed goal and
+original process/config metadata are retained under full71ea-avatar-memory-android10.
+This knownAPI29 anomaly has no proven cause/fix; WORKFLOW forbids heap raising or
+service restarts. The new complete dispatch uses identical71ea source and ordinary
+lifecycle. Remaining old71ea10 jobs may be cancelled by workflow concurrency; no
+old partial pass substitutes for the new whole run. Require all3partitions on each SDK and the unchanged
 frozen collectors; never assemble old partial passes into acceptance. No production
 code changed since348's responsive wallet actions. Root remains sole writer.
 

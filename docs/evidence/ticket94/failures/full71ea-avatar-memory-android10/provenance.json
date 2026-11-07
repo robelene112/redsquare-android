@@ -1,0 +1,45 @@
+{
+  "source": "71ea524f115496a13699affd2fa5b56444b23c89",
+  "run": 42412909858,
+  "partition": "social",
+  "goalConclusion": "failure",
+  "note": "The process enters with16MiB actual max versus512MiB declared. Original heap-parity assertion remains failed; no root cause/fix, heap raising, service restart or goal waiver is claimed. Fresh complete dispatch42414603792 preserves code and lifecycle.",
+  "files": [
+    {
+      "file": "avatar-recovery-ui.txt",
+      "sha256": "e10acfdc4aeccf059014dded803b41127586f4e3035ca2696a99d59704880b1e",
+      "bytes": 9377,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final71ea-10/android-native-proof-social/.scratch/device-evidence/api-29/avatar-recovery-ui.txt"
+    },
+    {
+      "file": "avatar-recovery-runtime-properties.txt",
+      "sha256": "2373702f88ba0c579225ba5e51976a12a1d52cce11b80fbbe2e8585848c814c1",
+      "bytes": 211,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final71ea-10/android-native-proof-social/.scratch/device-evidence/api-29/avatar-recovery-runtime-properties.txt"
+    },
+    {
+      "file": "avatar-recovery-processes.txt",
+      "sha256": "b4930e04a674bafe141f2292e59ffebe1efc9d0a2cecf7e5e82a0cd54103838b",
+      "bytes": 4793,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final71ea-10/android-native-proof-social/.scratch/device-evidence/api-29/avatar-recovery-processes.txt"
+    },
+    {
+      "file": "avatar-recovery-avd-config.ini",
+      "sha256": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+      "bytes": 3764,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final71ea-10/android-native-proof-social/.scratch/device-evidence/api-29/avatar-recovery-avd-config.ini"
+    },
+    {
+      "file": "emulator-capacity.txt",
+      "sha256": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+      "bytes": 64,
+      "original": "/mnt/storage/redsquare-android-artifacts/prototype94-final71ea-10/android-native-proof-social/.scratch/device-evidence/api-29/emulator-capacity.txt"
+    },
+    {
+      "file": "process-runtime.jsonl",
+      "sha256": "42ef4ef8fbdb31a876a3087a2bc54196a050d5b11685a2f46954352a3e66b04f",
+      "bytes": 2964,
+      "original": "avatar-evidence.tar/avatar-evidence/process-runtime.jsonl"
+    }
+  ]
+}
