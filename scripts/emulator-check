@@ -729,6 +729,11 @@ if [[ "${TEST_SCOPE:-full}" == module-header* ]]; then
     printf '%s\n' 'Shared header gestures and real motion only; full application acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == stack-editor* ]]; then
+    verify_group_chat_native StackDesignPixelViewportTest 180 stack-design-412 stack-design-412-evidence
+    printf '%s\n' 'Focused existing Stack editor journey only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
     verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
     verify_stack_design

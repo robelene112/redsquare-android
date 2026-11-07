@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.stack
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -112,7 +114,13 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
                                 Text(stringResource(R.string.stack_review_action))
                             }
                         }
-                        LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth()
+                        if (page == StackPage.EDITOR) {
+                            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())
+                                .testTag("stack-content").padding(start = AppSpacing.screen, end = AppSpacing.screen,
+                                    top = 12.dp, bottom = 88.dp)) {
+                                StackEditorForm(draft, visual, { draft = it }, { draft = visual.applyVisual(draft, it) }, { navigate(StackPage.REVIEW) })
+                            }
+                        } else LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth()
                             .testTag("stack-content").then(anchor),
                             contentPadding = PaddingValues(start = AppSpacing.screen, end = AppSpacing.screen,
                                 top = 12.dp, bottom = 88.dp),
@@ -161,7 +169,7 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
                                         item { StackArticleCard(2, access) { openArticle(2) } }
                                     }
                                 }
-                                StackPage.EDITOR -> editorContent(draft, visual, { draft = it }, { draft = visual.applyVisual(draft, it) }, { navigate(StackPage.REVIEW) })
+                                StackPage.EDITOR -> Unit // The persistent form above owns its editor lifetime.
                                 StackPage.REVIEW -> publicationContent(draft, { draft = it }) { confirmation = StackPage.REVIEW }
                                 StackPage.PUBLISHED -> {
                                     item { StackIntro(stringResource(R.string.stack_publication_hero), stringResource(R.string.stack_no_publication),

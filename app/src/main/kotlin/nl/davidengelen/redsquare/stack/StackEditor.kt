@@ -59,14 +59,18 @@ internal class StackVisualBuffer {
 private fun sourceOnly(source: String): Boolean = source.contains(Regex(
     "(?m)^\\s*\\|.*\\|\\s*$|<[/a-zA-Z][^>]*>|^\\[\\^[^]]+]:|^ {0,3}\\|? *:?-+:? *(?:\\| *:?-+:? *)+\\|? *$"))
 
-internal fun LazyListScope.editorContent(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onVisualBody: (String) -> Unit, onReview: () -> Unit) {
-    item { OutlinedTextField(draft.title, { onChange(draft.copy(title = it)) }, Modifier.fillMaxWidth(),
-        label = { Text(stringResource(R.string.stack_title_field)) }, singleLine = true) }
-    item { OutlinedTextField(draft.subtitle, { onChange(draft.copy(subtitle = it)) }, Modifier.fillMaxWidth(),
-        label = { Text(stringResource(R.string.stack_subtitle_field)) }, singleLine = true) }
-    item { CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) } }
-    item { StackArticleEditor(draft, visual, onChange, onVisualBody) }
-    item { DesignButton(onReview, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_review_article)) } }
+@Composable
+internal fun StackEditorForm(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit,
+    onVisualBody: (String) -> Unit, onReview: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        OutlinedTextField(draft.title, { onChange(draft.copy(title = it)) }, Modifier.fillMaxWidth(),
+            label = { Text(stringResource(R.string.stack_title_field)) }, singleLine = true)
+        OutlinedTextField(draft.subtitle, { onChange(draft.copy(subtitle = it)) }, Modifier.fillMaxWidth(),
+            label = { Text(stringResource(R.string.stack_subtitle_field)) }, singleLine = true)
+        CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) }
+        StackArticleEditor(draft, visual, onChange, onVisualBody)
+        DesignButton(onReview, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_review_article)) }
+    }
 }
 
 @Composable
