@@ -6,7 +6,7 @@ Issue94 remains active. Root is the sole implementation writer in
 `/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
 Beta89 remains latest. No production-node changes or additional tickets are authorized.
 
-Current implementation is `aab35b7f9b8311d69f105d29379bd60da8bea473`.
+Current implementation is `b614648bda686aaee5f9b389876f460b39fd59ad`.
 The prototype repair includes profile composition/chips, actual native action sheets,
 compact post controls and Chat composers, balance-first wallet with visible operation
 feedback, accessible numeric counts and keyboard navigation in the actual sheet window.
@@ -29,13 +29,23 @@ Native results and limits:
 - Broad UI runs42397182668 / 42397183073 fail at profile status capture after the
   fixture scrolls to the generated avatar. Native PNG/XML confirms status is offscreen.
   Source aab35b7 reveals each actual status before its native capture, retaining all
-  signed-default, transaction, retry, identity and backend assertions. Broad UI reruns
-  42398801085 / 42398803012 are pending on source022e34b50.
+  signed-default, transaction, retry, identity and backend assertions. Both broad UI
+  022e34b50 runs42398801085 / 42398803012 passed that correction but fail the later
+  ProfileProcessRecoveryTest cold-candidate native capture after checking both
+  restored image colors. Actual failure10 PNG/XML has both correct pictures visible
+  and status offscreen. b614648 adds one actual-status reveal/display assertion before
+  that capture. Original two deaths, signatures, no resend, pixels, identity/backend
+  and deadlines remain. Both source axes clear this delta. Focused video-precondition
+  and complete profile/recovery reruns42400032887 / 42400035744 are pending.
+  Raw022 failure originals: `prototype94-ui-final{10,17}` under the artifact mount.
 - Complete ca93566de runs42397470230 / 42397469795 were superseded and cancelled
   by workflow concurrency after both final fixture corrections. No acceptance claim.
-  Fresh complete source `022e34b50d59b9e3234f428dc687863c25cb1b60`, immutable tag
-  `proof-prototype94-022e34b`, is running42398900323 / 42398902216. All three
-  partitions/public reads and the frozen collectors remain required on that source.
+  Complete source `022e34b50d59b9e3234f428dc687863c25cb1b60`, immutable tag
+  `proof-prototype94-022e34b`, is running42398900323 / 42398902216 for further
+  diagnostics. It predates the last cold-profile fixture correction, so no final-source
+  acceptance is claimed. Do not launch another full run until profile scopes pass.
+  A fresh same-source full10/17 execution with all partitions/public reads and frozen
+  collectors is still required after fixture stabilization.
   Earlier failed full runs and bounded source-specific passes remain historical.
 
 Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable tag

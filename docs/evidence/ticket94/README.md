@@ -16,7 +16,11 @@ passes, original failures and pending runs. Fresh complete same-source gates, fr
 collectors, native visual/motion reviews and exact95 publication remain required.
 Fresh complete source022e34b50 runs42398900323 / 42398902216; previous ca runs
 were superseded/cancelled, not accepted. Module keyboard10/17 both pass42398298060 /
-42398307515. Broad UI022 runs42398801085 / 42398803012 remain pending.
+42398307515. Broad UI022 runs42398801085 / 42398803012 fail a later cold-profile status
+capture after successful pixel checks. One-line fixture correctionb614648 is under
+focused profile/recovery verification42400032887 / 42400035744. Full022 is now
+diagnostic; it cannot establish final-source acceptance. Wait for profile scopes
+before dispatching another complete final-source pair.
 Focused or mixed-source results do not replace a complete final-source pass.
 Historical93 producer/update receipts remain valid only within their stated scope.
 
