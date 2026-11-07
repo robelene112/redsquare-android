@@ -75,6 +75,13 @@ class ModuleShellPreviewTest {
             ui.onNodeWithText("Article preview").assertIsDisplayed()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir,
                 "module-shell-evidence/stack-article.png"))
+            ui.onNodeWithTag("stack-content").performScrollToNode(hasText("Maya Chen"))
+            ui.onNodeWithText("Maya Chen").assertIsDisplayed().performClick()
+            ui.onNodeWithTag("stack-content").performScrollToNode(hasText("The quiet value of an open network"))
+            ui.onNodeWithText("The quiet value of an open network").assertIsDisplayed().performClick()
+            ui.onNode(hasText("Back") and hasClickAction()).performClick()
+            ui.onNode(hasText("Back") and hasClickAction()).performClick()
+            ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed()
             switchApp("Stack", "Red Square")
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 05").isDisplayed() }
             assertEquals("Switching modules retains the actual feed reading anchor", before,

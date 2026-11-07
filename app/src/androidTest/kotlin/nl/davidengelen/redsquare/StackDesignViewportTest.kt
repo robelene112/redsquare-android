@@ -138,7 +138,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 onNodeWithText("Preview access settings kept. Nothing was sent to Saito Store.").assertIsDisplayed()
             }
             if (width == 320 && theme == "Dark") {
-                val table = "A | B\n--- | ---\nx | y"
+                val table = "A | B\n- | -\nx | y"
                 click("Markdown")
                 onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo().performTextReplacement(table)
                 onNode(hasText("Visual") and hasClickAction()).assertIsNotEnabled()
