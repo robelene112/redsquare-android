@@ -46,7 +46,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             // The previous matrix cell deliberately left its real draft in Write.
             // Return through its local Back without discarding that retained work.
             if (!onNode(hasText("Discover") and hasClickAction()).isDisplayed()) {
-                onNodeWithContentDescription("Back").assertIsDisplayed().performClick()
+                onNode(hasText("Back") and hasClickAction()).assertIsDisplayed().performClick()
                 waitUntil(5_000) { onNode(hasText("Discover") and hasClickAction()).isDisplayed() }
             }
             onNode(hasText("Discover") and hasClickAction()).performClick()
@@ -58,7 +58,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             capture("$label-reader-intro")
             onNodeWithTag("stack-content").performScrollToIndex(3)
             capture("$label-reader-body")
-            onNodeWithContentDescription("Back").performClick()
+            onNode(hasText("Back") and hasClickAction()).performClick()
             onNodeWithContentDescription("Write an article").performClick()
             click("Markdown")
             val source = "## A retained idea\n\nA **careful** question for $label."
@@ -99,7 +99,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo().performTextReplacement(canonical)
                 onNodeWithText("Review", substring = false).performClick()
                 reveal("A newer Markdown revision.")
-                onNodeWithContentDescription("Back").performClick()
+                onNode(hasText("Back") and hasClickAction()).performClick()
                 reveal("Markdown source")
                 onNode(hasSetTextAction() and hasText("Markdown source"))
                     .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(canonical)))

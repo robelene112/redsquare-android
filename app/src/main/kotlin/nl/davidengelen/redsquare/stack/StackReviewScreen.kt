@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
@@ -85,16 +87,27 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
                     val anchor = rememberReadingAnchorModifier(list, enabled = !header.inMotion, relativeToRoot = true)
                     Column(Modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
                         ReadingHeader(header) { chrome(false) }
-                        Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
-                            verticalAlignment = Alignment.CenterVertically) {
-                            Text(stringResource(R.string.stack_review), Modifier.weight(1f),
-                                style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            FrameIconButton(R.drawable.ic_info, stringResource(R.string.stack_preview_details)) { explanation = true }
+                        val title = if (page == StackPage.AUTHOR) sampleAuthor(article) else stringResource(page.title)
+                        val compactTitle = LocalDensity.current.fontScale <= 1.3f && page != StackPage.EDITOR
+                        val preview: @Composable () -> Unit = {
+                            TextButton(onClick = { explanation = true }, modifier = Modifier.heightIn(min = 48.dp),
+                                contentPadding = PaddingValues(horizontal = 6.dp)) {
+                                Surface(shape = RoundedCornerShape(6.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                                    Text(stringResource(R.string.stack_review), Modifier.padding(horizontal = 6.dp, vertical = 3.dp),
+                                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                }
+                            }
                         }
                         Row(Modifier.fillMaxWidth().padding(horizontal = if (path.size > 1) 4.dp else AppSpacing.screen),
                             verticalAlignment = Alignment.CenterVertically) {
                             if (path.size > 1) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { back() }
-                            Text(if (page == StackPage.AUTHOR) sampleAuthor(article) else stringResource(page.title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+                            if (compactTitle) {
+                                Text(title, Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+                                preview()
+                            } else Column(Modifier.weight(1f)) {
+                                Text(title, style = MaterialTheme.typography.titleLarge)
+                                preview()
+                            }
                             if (page == StackPage.EDITOR) TextButton(onClick = { navigate(StackPage.REVIEW) }) {
                                 Text(stringResource(R.string.stack_review_action))
                             }
