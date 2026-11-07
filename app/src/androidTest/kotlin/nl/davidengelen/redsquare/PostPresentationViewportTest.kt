@@ -92,15 +92,18 @@ class PostPresentationViewportTest {
                 bounds.forEachIndexed { index, left -> bounds.drop(index + 1).forEach { right ->
                     assertFalse("Post action targets must not overlap at $label", left.overlaps(right))
                 } }
-                for (count in listOf("9223372036854775807 likes", "12345 reposts")) {
+                for ((count, visibleCount) in listOf("9223372036854775807 likes" to "9223372036854775807",
+                    "12345 reposts" to "12345")) {
                     val results = mutableListOf<TextLayoutResult>()
-                    ui.onNodeWithText(count, useUnmergedTree = true).assertIsDisplayed()
+                    ui.onNodeWithText(count, useUnmergedTree = true).assertIsDisplayed().assertTextEquals(count)
                         .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(results) }
                     assertEquals("Count must have an actual rendered text layout", 1, results.size)
                     val layout = results.single()
+                    assertEquals("The measured layout belongs to the actual compact numeric paint", visibleCount, layout.layoutInput.text.text)
                     File(folder, "$label-${if (count.endsWith("likes")) "likes" else "reposts"}-layout.json")
                         .writeText(JsonObject().apply {
                             addProperty("count", count)
+                            addProperty("renderedText", layout.layoutInput.text.text)
                             addProperty("size", layout.size.toString())
                             addProperty("constraints", layout.layoutInput.constraints.toString())
                             addProperty("paragraphWidth", layout.multiParagraph.width)
@@ -123,7 +126,7 @@ class PostPresentationViewportTest {
                         assertTrue("Complete observed $count must fit horizontally at $label",
                             layout.getLineLeft(line) >= 0f && layout.getLineRight(line) <= layout.size.width)
                     }
-                    assertEquals("Every observed count character must remain rendered", count.length,
+                    assertEquals("Every visible count digit must remain rendered", visibleCount.length,
                         layout.getLineEnd(layout.lineCount - 1))
                 }
                 File(folder, "$label.json").writeText(JsonObject().apply {

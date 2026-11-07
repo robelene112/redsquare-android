@@ -20,6 +20,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.semantics.getTextLayoutResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
@@ -179,6 +181,8 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
     feedbackActive: Boolean = false, suppressRipple: Boolean = false, displayCount: String? = null,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
+    val visibleCount = displayCount ?: count
+    var countLayout by remember(visibleCount) { mutableStateOf<TextLayoutResult?>(null) }
     val color = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     val button: @Composable () -> Unit = {
         TextButton(onClick = onClick, enabled = enabled,
@@ -193,8 +197,15 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
                 Icon(painterResource(icon), contentDescription = null,
                     tint = if (feedbackActive) MaterialTheme.colorScheme.primary else color,
                     modifier = Modifier.size(22.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
-                if (count != null) Text(displayCount ?: count, style = countStyle,
-                    modifier = Modifier.clearAndSetSemantics { text = AnnotatedString(count) })
+                if (count != null) Text(requireNotNull(visibleCount), style = countStyle,
+                    onTextLayout = { countLayout = it },
+                    modifier = Modifier.clearAndSetSemantics {
+                        text = AnnotatedString(count)
+                        getTextLayoutResult { results ->
+                            val current = countLayout?.takeIf { it.layoutInput.text.text == visibleCount }
+                            if (current == null) false else { results.add(current); true }
+                        }
+                    })
             }
         }
     }
