@@ -5,50 +5,41 @@
 Owner authorized completing issue94's prototype-fidelity repair. Root is the
 only implementation writer in `/mnt/storage/redsquare-android-artifacts/redesign86`;
 preserve the canonical checkout's unrelated Chat work. Beta89 remains latest.
-Do not claim delivery, promote a staged candidate or start another issue yet.
+Do not claim delivery or start another issue. Stages90/91/92 are historical,
+immutable candidates. A fresh signed93 is building on exact source
+`4eae1901bf01cf560f90fccf037f014d70517986`.
 
-Signed92 is staged only: producer `e697e0139b3a7a27751e3fac1801f6478fdd0174`,
-SHA256 `426fbad83c1a1510398d308c34274e9ace95ebe2286ad928a67e47f1ea59bd1c`.
-Its actual update runs42381732133/42381734178 PASS. Thread/read/motion focused
-run42381322578 PASS and two bounded native reviews found coherent prototype
-painting, but full e697 runs42381324445/42381326370 FAIL. Stages90/91/92 are
-historical, immutable candidates. New production needs a fresh signed version.
+Complete Android10run42388055407 and Android17run42388055378 are running on
+that same source. Frozen catalog/checker remains unchanged. Focused pending:
+refresh17run42387892609, wallet-export17run42387892714 and node10run42387960697.
+These are not complete acceptance. No additional production node changes.
 
-Actual full failures being repaired, with assertions/deadlines retained:
-- Chat17 first-use at320dp/200% leaves only123px of640 for reading (minimum204.8).
-  Source9c44bab57 restores a single horizontal tab strip, correctly centers32dp
-  paint within48dp targets, and caps node context at two lines. All124 ambiguous
-  Compose scroll selectors now explicitly select the vertical UI seam. The one
-  already explicit Giphy selector remains unchanged; native gesture helpers also
-  distinguish vertical action capabilities from horizontal tabs.
-- Wallet export's second failure iteration clicks Export offscreen after a new
-  error banner. Its real button is now scrolled into view before each attempt;
-  all actual PIN/provider/readback/identity requirements remain.
-- Feed refresh completion and the reader's post are never simultaneously visible
-  in a pending-read case. Terminal captures suggest top-notice clipping, not yet
-  proven. Probe records both booleans and target/list geometry during original15s.
-- Node10 block-arrival check observes4px reading drift with header already hidden.
-  Endpoints do not prove block causality. Probe records public native viewport,
-  visible-row geometry and timestamps within the original4.5s observation interval.
+Repairs and actual evidence, with original assertions/deadlines retained:
+- First-use320dp/200% recovered reading area123→223px of640. Single horizontal
+  tabs,32dp paint in48dp targets and two-line node context pass42384551466.
+- Native Conversation header targets formerly48→24px after scrolling130%.
+  Red42383076638, z-priority fixfc9898ee3, green42384549365 keeps48px throughout.
+-124 Compose scroll selectors now explicitly select vertical UI, not the new
+  horizontal chips. Native gesture helpers also distinguish vertical actions.
+- Wallet export/import fixtures reveal actual controls before clicking after
+  balance/identity/error content grows. PIN/provider/readback assertions remain.
+- Actual refresh trace42386481053 proves the success notice moves list top184→222
+  while pinned post194 becomes clipped. Source4eef33d8b overlays completion
+  feedback, preserving applied-result ordering,2500ms and navigation-error owner.
+  Temporary tracing removed; original simultaneous-success/target assertion stays.
+- Node10unprobed42386483271 failed205→188. Original movie frames show movement
+  before response and stable image2.015–4.898s across arrival. Native bounds
+  falsely declared200ms idle while original frames still moved. Initial drag now64
+  steps; path, exact equality and original3.5s/4s/4500ms bounds remain. New unprobed
+  run must verify settling; this is not fast-fling acceptance. Temporary probe removed.
 
-Native review additionally found fixed Conversation header accessibility bounds
-shrink from48 to24px after scrolling at130%. The same native assertions extended
-past the scroll reproduce RED in42383076638 (source60e625860). Sourcefc9898ee3
-gives that fixed header z-priority over scrolled regions. Green focused thread17
-42384549365 and density/first-use17 42384551466 are running on that source.
-
-Current probe sourcee758ed873 runs42384855662 (feed-refresh17) and42384857714
-(node-motion10). Test-only probe observations must inform the fix and be removed
-or retained as concise failure diagnostics appropriately; do not ship debug hooks.
-Sourceafecedafd additionally makes trace-directory creation order independent.
-Local density compilation passed3m57. No local builder is active. Full acceptance,
-new signed update proof, actual prototype/native review and publication remain.
-
-Earlier passing focused geometry: profile17 run42380125900 has7 passes (128dp
-cover, separate64dp avatar,32dp chip paint and48dp target); wallet10 run42379257881
-passes journeys and both viewport matrices. Module17 run42377894534 and Chat
-run42377898383 pass. These remain bounded historical evidence, never a full pass.
-Source reviews through e697 have zero findings; subsequent changes need review.
+Signed92 historical producer `e697e0139b3a7a27751e3fac1801f6478fdd0174`, SHA256
+`426fbad83c1a1510398d308c34274e9ace95ebe2286ad928a67e47f1ea59bd1c`, actual update
+runs42381732133/42381734178 PASS. Full e697runs42381324445/42381326370 FAIL and
+remain historical. Source review axes through4eef33d8b have zero new actionable
+findings; native final-source reviews, complete collectors, new signed continuity
+and publication remain. Historical focused profile17run42380125900, wallet10run
+42379257881, module17run42377894534 and Chat17run42377898383 are bounded passes.
 
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be
