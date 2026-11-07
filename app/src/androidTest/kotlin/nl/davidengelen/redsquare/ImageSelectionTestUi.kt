@@ -73,11 +73,25 @@ internal fun ComposeTestRule.assertSyntheticRedImage(postText: String? = null) {
         if (postText == null) label
         else label and hasAnyAncestor(hasText(postText) and hasClickAction())
     }
+    val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
     waitUntil(15_000) { onAllNodes(image).fetchSemanticsNodes().isNotEmpty() }
     if (postText != null) onNode(hasVerticalScrollAction()).performScrollToNode(image)
     else onNode(image).performScrollTo()
-    val bitmap = onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
-    val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+    val remaining = deadline - android.os.SystemClock.elapsedRealtime()
+    check(remaining > 0) { "Revealing the image must meet its existing fifteen-second observation bound" }
+    var pixel = 0
+    waitUntil(remaining) {
+        // PixelCopy includes transient screen feedback above the image. Observe
+        // its actual unobscured red paint, without changing the expected RGB.
+        val bitmap = onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
+        pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+        kotlin.math.abs(Color.red(pixel) - 220) <= 5 &&
+            kotlin.math.abs(Color.green(pixel) - 30) <= 5 &&
+            kotlin.math.abs(Color.blue(pixel) - 40) <= 5
+    }
+    check(android.os.SystemClock.elapsedRealtime() <= deadline) {
+        "The visible red image must meet its existing fifteen-second observation bound"
+    }
     assertTrue(kotlin.math.abs(Color.red(pixel) - 220) <= 5)
     assertTrue(kotlin.math.abs(Color.green(pixel) - 30) <= 5)
     assertTrue(kotlin.math.abs(Color.blue(pixel) - 40) <= 5)
