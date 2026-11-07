@@ -25,6 +25,8 @@ internal fun ComposeTestRule.openProfileActions(timeoutMillis: Long = 15_000) {
 
 internal fun ComposeTestRule.closeProfileActions() {
     val deadline = ProfileNavigationDeadline(15_000)
+    onNode(hasText("Done") and hasClickAction()).performScrollTo().assertIsDisplayed()
+    deadline.remaining()
     onNode(hasText("Done") and hasClickAction()).performClick()
     waitUntil(deadline.remaining()) { onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
 }
