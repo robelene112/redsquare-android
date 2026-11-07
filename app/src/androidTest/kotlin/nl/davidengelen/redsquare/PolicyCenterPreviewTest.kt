@@ -146,113 +146,88 @@ class PolicyCenterPreviewTest {
                     ui.onNode(hasText("Back to Settings") and hasAnyAncestor(isDialog())).assertDoesNotExist()
                     ui.onNode(hasContentDescription("Account") and hasClickAction())
                         .assertIsDisplayed().assertIsEnabled()
-                    // [DEBUG-94-policy-focus] Bounded stages, no native calls added to the timed path.
-                    val focusStages = com.google.gson.JsonArray()
-                    var focusStarted = 0L
-                    fun markFocusStage(stage: String) {
-                        if (focusStarted != 0L) focusStages.add(com.google.gson.JsonObject().apply {
-                            addProperty("stage", stage)
-                            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - focusStarted)
-                        })
-                    }
-                    try {
-                        NativeTalkBackObservation(talkBackFolder).observe {
-                            device.waitForIdle(5_000)
-                            ui.waitForAccountMenu(20_000)
-                            // Retain only this window's initial TalkBack handoff.
-                            device.executeShellCommand("logcat -c")
-                            ui.openSettings()
-                            waitFor("Node")
-                            ui.onNodeWithText("Node").performClick()
-                            waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
+                    NativeTalkBackObservation(talkBackFolder).observe {
+                        device.waitForIdle(5_000)
+                        ui.waitForAccountMenu(20_000)
+                        // Retain only this window's initial TalkBack handoff.
+                        device.executeShellCommand("logcat -c")
+                        ui.openSettings()
+                        waitFor("Node")
+                        ui.onNodeWithText("Node").performClick()
+                        waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
 
-                            val ownerFocusBy = android.os.SystemClock.elapsedRealtime() + 5_000
-                            focusStarted = ownerFocusBy - 5_000
-                            markFocusStage("budget-start")
-                            fun ownerFocusRemaining(): Long = (ownerFocusBy - android.os.SystemClock.elapsedRealtime()).also {
-                                markFocusStage("budget-check")
-                                check(it > 0) { "Initial window handoff and owner-radio focus must complete within five seconds" }
-                            }
-                            // The service initializes the new window asynchronously.
-                            // Observe its actual first focus and fresh completed speech
-                            // before one radio-focus request, sharing the original5s.
-                            waitFor(ownerFocusRemaining()) {
-                                focusedText(automation) == "Back to Settings" &&
-                                    completedFragments(device, "Back to Settings").isNotEmpty()
-                            }
-                            markFocusStage("initial-handoff-ready")
-                            fun collectRadioRows(node: android.view.accessibility.AccessibilityNodeInfo,
-                                rows: MutableList<android.view.accessibility.AccessibilityNodeInfo>) {
-                                if (node.isVisibleToUser && node.isFocusable && node.isCheckable) rows += node
-                                for (index in 0 until node.childCount) node.getChild(index)?.let { collectRadioRows(it, rows) }
-                            }
-                            // Resolve the choices in the actual foreground Settings window.
-                            // Repeatedly traversing covered feed windows consumes the same5s focus budget.
-                            val radioRows = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
-                            collectRadioRows(requireNotNull(automation.rootInActiveWindow), radioRows)
-                            markFocusStage("radio-rows-collected")
-                            assertEquals("The node settings expose exactly two focusable radio choices", 2, radioRows.size)
-                            fun labelIn(row: android.view.accessibility.AccessibilityNodeInfo, domain: String): android.view.accessibility.AccessibilityNodeInfo? {
-                                if (row.isVisibleToUser && row.text?.toString() == domain) return row
-                                for (index in 0 until row.childCount) row.getChild(index)?.let { child ->
-                                    labelIn(child, domain)?.let { return it }
-                                }
-                                return null
-                            }
-                            fun rowFor(domain: String) = radioRows.singleOrNull { row ->
-                                val label = labelIn(row, domain) ?: return@singleOrNull false
-                                val labelBounds = Rect().also(label::getBoundsInScreen)
-                                val rowBounds = Rect().also(row::getBoundsInScreen)
-                                rowBounds.contains(labelBounds.centerX(), labelBounds.centerY())
-                            }
-                            val selectedOwnerRow = requireNotNull(rowFor(SaitoBackend.OWNER.domain)) {
-                                "The owner node label belongs to one focusable radio row"
-                            }
-                            val officialRow = requireNotNull(rowFor(SaitoBackend.OFFICIAL.domain)) {
-                                "The official node label belongs to one focusable radio row"
-                            }
-                            markFocusStage("choices-resolved")
-                            assertTrue("The current owner node remains selected", selectedOwnerRow.isChecked)
-                            assertFalse("The other official node is not selected", officialRow.isChecked)
-                            markFocusStage("before-log-clear")
-                            device.executeShellCommand("logcat -c")
-                            markFocusStage("after-log-clear")
-                            assertTrue("TalkBack can focus the selected node radio",
-                                selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
-                            markFocusStage("owner-focus-request-returned")
-                            val ownerFocusRequestedAfter = android.os.SystemClock.elapsedRealtime() - (ownerFocusBy - 5_000)
-                            captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow,
-                                focusTimeoutMillis = ownerFocusRemaining())
-                            waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
-                            assertTrue("TalkBack announces the selected radio state",
-                                Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
-                            val ownerNodeUtterances = completedFragments(device, SaitoBackend.OWNER.domain).size
-                            officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
-                            device.executeShellCommand("logcat -c")
-                            assertTrue("TalkBack can focus the official node radio",
-                                officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
-                            captureFocusedSpeech("official-node", SaitoBackend.OFFICIAL.domain, talkBackFolder, officialRow)
-                            assertTrue("TalkBack identifies the official node as a radio choice",
-                                Regex("\\bradio button\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
-                            File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
-                                addProperty("ownerFocusRequestedAfterMillis", ownerFocusRequestedAfter)
-                                addProperty("ownerFocusBudgetMillis", 5_000)
-                                addProperty("selectedNode", SaitoBackend.OWNER.domain)
-                                addProperty("selected", selectedOwnerRow.isChecked)
-                                addProperty("completedNodeUtterances", ownerNodeUtterances)
-                                addProperty("officialNode", SaitoBackend.OFFICIAL.domain)
-                                addProperty("officialNodeRadioUtterances", completedFragments(device, SaitoBackend.OFFICIAL.domain).size)
-                                addProperty("physicalAudibility", false)
-                                addProperty("serviceProcess", serviceProcess)
-                            }.toString())
-                            ui.onNodeWithText("Done").performClick()
-                            unchanged()
+                        val ownerFocusBy = android.os.SystemClock.elapsedRealtime() + 5_000
+                        fun ownerFocusRemaining(): Long = (ownerFocusBy - android.os.SystemClock.elapsedRealtime()).also {
+                            check(it > 0) { "Initial window handoff and owner-radio focus must complete within five seconds" }
                         }
-                    } finally {
-                        File(talkBackFolder, "owner-focus-stage-observations.json").writeText(com.google.gson.JsonObject().apply {
-                            addProperty("probe", "DEBUG-94-policy-focus")
-                            add("observations", focusStages)
+                        // The service initializes the new window asynchronously.
+                        // Observe its actual first focus and fresh completed speech
+                        // before one radio-focus request, sharing the original5s.
+                        waitFor(ownerFocusRemaining()) {
+                            focusedText(automation) == "Back to Settings" &&
+                                completedFragments(device, "Back to Settings").isNotEmpty()
+                        }
+                        fun collectRadioRows(node: android.view.accessibility.AccessibilityNodeInfo,
+                            rows: MutableList<android.view.accessibility.AccessibilityNodeInfo>) {
+                            if (node.isVisibleToUser && node.isFocusable && node.isCheckable) rows += node
+                            for (index in 0 until node.childCount) node.getChild(index)?.let { collectRadioRows(it, rows) }
+                        }
+                        // Resolve the choices in the actual foreground Settings window.
+                        // Repeatedly traversing covered feed windows consumes the same5s focus budget.
+                        val radioRows = mutableListOf<android.view.accessibility.AccessibilityNodeInfo>()
+                        collectRadioRows(requireNotNull(automation.rootInActiveWindow), radioRows)
+                        assertEquals("The node settings expose exactly two focusable radio choices", 2, radioRows.size)
+                        fun labelIn(row: android.view.accessibility.AccessibilityNodeInfo, domain: String): android.view.accessibility.AccessibilityNodeInfo? {
+                            if (row.isVisibleToUser && row.text?.toString() == domain) return row
+                            for (index in 0 until row.childCount) row.getChild(index)?.let { child ->
+                                labelIn(child, domain)?.let { return it }
+                            }
+                            return null
+                        }
+                        fun rowFor(domain: String) = radioRows.singleOrNull { row ->
+                            val label = labelIn(row, domain) ?: return@singleOrNull false
+                            val labelBounds = Rect().also(label::getBoundsInScreen)
+                            val rowBounds = Rect().also(row::getBoundsInScreen)
+                            rowBounds.contains(labelBounds.centerX(), labelBounds.centerY())
+                        }
+                        val selectedOwnerRow = requireNotNull(rowFor(SaitoBackend.OWNER.domain)) {
+                            "The owner node label belongs to one focusable radio row"
+                        }
+                        val officialRow = requireNotNull(rowFor(SaitoBackend.OFFICIAL.domain)) {
+                            "The official node label belongs to one focusable radio row"
+                        }
+                        assertTrue("The current owner node remains selected", selectedOwnerRow.isChecked)
+                        assertFalse("The other official node is not selected", officialRow.isChecked)
+                        device.executeShellCommand("logcat -c")
+                        assertTrue("TalkBack can focus the selected node radio",
+                            selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                        val ownerFocusRequestedAfter = android.os.SystemClock.elapsedRealtime() - (ownerFocusBy - 5_000)
+                        captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow,
+                            focusTimeoutMillis = ownerFocusRemaining())
+                        waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
+                        assertTrue("TalkBack announces the selected radio state",
+                            Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
+                        val ownerNodeUtterances = completedFragments(device, SaitoBackend.OWNER.domain).size
+                        officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
+                        device.executeShellCommand("logcat -c")
+                        assertTrue("TalkBack can focus the official node radio",
+                            officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                        captureFocusedSpeech("official-node", SaitoBackend.OFFICIAL.domain, talkBackFolder, officialRow)
+                        assertTrue("TalkBack identifies the official node as a radio choice",
+                            Regex("\\bradio button\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
+                        File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
+                            addProperty("ownerFocusRequestedAfterMillis", ownerFocusRequestedAfter)
+                            addProperty("ownerFocusBudgetMillis", 5_000)
+                            addProperty("selectedNode", SaitoBackend.OWNER.domain)
+                            addProperty("selected", selectedOwnerRow.isChecked)
+                            addProperty("completedNodeUtterances", ownerNodeUtterances)
+                            addProperty("officialNode", SaitoBackend.OFFICIAL.domain)
+                            addProperty("officialNodeRadioUtterances", completedFragments(device, SaitoBackend.OFFICIAL.domain).size)
+                            addProperty("physicalAudibility", false)
+                            addProperty("serviceProcess", serviceProcess)
                         }.toString())
+                        ui.onNodeWithText("Done").performClick()
+                        unchanged()
                     }
                 }
             }
