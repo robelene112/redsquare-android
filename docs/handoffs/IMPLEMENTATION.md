@@ -15,17 +15,31 @@ same-source complete Android10/17 gates, authentic signed update proofs and fina
 native/prototype reviews for the replacement candidate. Preserve original failures.
 Root remains sole writer; canonical Chat WIP and production nodes stay untouched.
 
-Current Stack production source8e994d39e restores the approved hero/chips/cards,
-200dp/serif reader and per-article routes, author hierarchy, canonical Visual/Markdown
-editor, publication success/reader and access-management previews. No network or
-wallet dependency is introduced. Both source-review axes are clear; native proofs
-remain pending. Fixture follow-ups1f6/441/78d/d689 preserve original goals and bounds.
-The additive catalog is frozen at214classes,629/630identities and180archives.
-The unchanged checker/collector and every previous literal identity remain required.
-Retained failed discovery goal: failures/stack-discovery-before-repair. Old71ea17
-Social failure: failures/profile-actions-close-android17; actual320px capture shows
-Done below the profile-sheet viewport. Its helper now reveals the real target within
-the same aggregate15s and retains the original dialog-removal assertion.
+Current native preflight source is a922a1bce. Actual production changes after8e:
+c2/ad retain the visual editor buffer and protect newer canonical Markdown across
+lazy disposal and Review/Back;2e moves preview disclosure into the local toolbar;
+1fbd restores the approved discussion/share entry points as explicit local previews.
+The latest source reviews clear these changes. Three new Stack classes preserve
+all earlier goals and add214totalclasses,629/630identities and180archives. The
+collector/checker remain unchanged. Native all-Stack runs42419223489 /42419225236
+are PENDING, including compact/Pixel-like theme/font/keyboard/retention journeys
+and actual-clock editor/source/review movies at0/1. No98artifact has been built.
+
+Earlier1f native runs42417833309/42417835312 failed a fixture that searched for a
+Back content-description; the real shared button exposes Back as text. Earlier2e10
+42418649194 reached protected Markdown, then its fixture tried global navigation
+while the actual IME intentionally hid that header. The fixture now closes that
+keyboard and physically reveals disabled Visual before leaving. These failures
+remain diagnostic, not relaxed or accepted. All Stack sibling classes now retain
+their own result even if another fails; the whole scope still fails on any failure.
+
+D689 header-motion42418096189 /42418097885 BOTH PASS; controls17 42418099853 PASS
+validates the actual profile-sheet Done reveal. They retain their actual earlier
+source scope and do not replace new-source whole-app acceptance. Old71ea10/17
+Social both fail the offscreen profile-sheet Done at the same goal; no final full
+pass is claimed. Beta89 remains latest, candidates93–97 obsolete. Require a fresh
+signed98+, ordinary signed update proofs, both complete same-source gates and final
+native/prototype/motion reviews after current Stack preflight is clear.
 
 ## Earlier checkpoints, historical scope only
 
