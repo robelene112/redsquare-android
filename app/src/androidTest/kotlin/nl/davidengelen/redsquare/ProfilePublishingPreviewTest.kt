@@ -201,7 +201,8 @@ class ProfilePublishingPreviewTest {
                             ui.waitUntil(15_000) { ui.onAllNodesWithText(context.getString(R.string.wallet_import_cancelled)).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(context.getString(R.string.wallet_import_cancelled)).assertIsDisplayed()
                             ui.closeWalletOverview()
-                            ui.onNode(hasSetTextAction()).assertIsEnabled().performTextReplacement(nextBio)
+                            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
+                                .assertIsEnabled().performTextReplacement(nextBio)
                             ui.onNodeWithText("Save profile").assertIsEnabled()
                             ui.onNodeWithText("Profile available on this node.").assertDoesNotExist()
                             assertEquals(1, peer.transactions.size)
