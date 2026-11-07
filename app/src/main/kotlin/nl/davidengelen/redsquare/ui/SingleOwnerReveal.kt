@@ -13,17 +13,28 @@ import androidx.compose.ui.platform.LocalView
 import android.view.ViewTreeObserver
 import kotlinx.coroutines.CompletableDeferred
 
+/** Retain route motion when a saveable page holder replaces the rendered content owner. */
+internal class SingleOwnerRevealState(initialTarget: Any?) {
+    val opacity = Animatable(1f)
+    val previous = mutableStateOf(initialTarget)
+}
+
+@Composable
+internal fun rememberSingleOwnerRevealState(initialTarget: Any?): SingleOwnerRevealState =
+    remember { SingleOwnerRevealState(initialTarget) }
+
 /** Animate the new result while disposing the old feature immediately, including all of its effects. */
 @Composable
-internal fun SingleOwnerReveal(target: Any?, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    val opacity = remember { Animatable(1f) }
+internal fun SingleOwnerReveal(target: Any?, modifier: Modifier = Modifier,
+    state: SingleOwnerRevealState = rememberSingleOwnerRevealState(target), content: @Composable () -> Unit) {
+    val opacity = state.opacity
     val scope = rememberCoroutineScope()
     fun observe(event: String, value: Float) {
         if (nl.davidengelen.redsquare.BuildConfig.DEBUG) RevealDrawObservation.record(event, target, value,
             scope.coroutineContext[MotionDurationScale]?.scaleFactor ?: 1f)
     }
     val motionEnabled = (scope.coroutineContext[MotionDurationScale]?.scaleFactor ?: 1f) > 0f
-    var previous by remember { mutableStateOf(target) }
+    var previous by state.previous
     val view = LocalView.current
     val preparingReveal = remember(target, motionEnabled) { motionEnabled && previous != target }
     val firstFrame = remember(view, target, motionEnabled) { FirstContentFrame() }

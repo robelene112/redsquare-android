@@ -44,6 +44,19 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             onNode(target).performScrollTo().assertIsDisplayed()
         }
         fun click(text: String) { reveal(text); onNodeWithText(text).performClick() }
+        fun nativeTarget(label: String) {
+            val minimum = 48 * instrumentation.targetContext.resources.displayMetrics.density
+            fun text(node: android.view.accessibility.AccessibilityNodeInfo): String = buildString {
+                node.text?.let { append(it) }
+                for (index in 0 until node.childCount) node.getChild(index)?.let { append(text(it)) }
+            }
+            waitUntil(5_000) {
+                val targets = nativeWindowNodes().filter { it.refresh() && it.isVisibleToUser && it.isEnabled &&
+                    it.isClickable && label in text(it) }
+                targets.size == 1 && android.graphics.Rect().apply { targets.single().getBoundsInScreen(this) }
+                    .let { it.width() >= minimum && it.height() >= minimum }
+            }
+        }
         fun capture(label: String) { waitForIdle(); captureNativeScreen(File(folder, "$label.png")) }
         withPostViewports(activity, folder, "stack", scales, width) { label, theme ->
             switch("Red Square", "Stack")
@@ -66,6 +79,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 for (action in listOf("Discuss on Red Square", "Share article")) {
                     click(action)
                     onNodeWithText("This is a sample article. Discussion links and sharing will be connected when real Stack articles are available. Nothing is sent from this preview.").assertIsDisplayed()
+                    nativeTarget("Done")
                     capture("$label-${if (action.startsWith("Discuss")) "discussion" else "sharing"}-preview")
                     onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
                     waitUntil(5_000) { onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
@@ -95,6 +109,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
             onNode(hasSetTextAction() and hasText("Markdown source"))
                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(source)))
             click("Visual")
+            nativeTarget("Stack design preview")
             capture("$label-visual")
             click("Markdown")
             onNode(hasSetTextAction() and hasText("Markdown source"))
@@ -131,6 +146,10 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 onNode(hasText("Design preview only. No article, NFT or Red Square post is sent to the network.") and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 onNodeWithText("Show preview").performClick()
                 waitUntil(5_000) { onNodeWithText("Publication preview").isDisplayed() }
+                capture("$label-publication-success")
+                click("View article preview")
+                capture("$label-published-reader")
+                onNode(hasText("Back") and hasClickAction()).performClick()
                 click("Back to My articles")
                 onNode(hasText("Discover") and hasClickAction()).performClick()
                 click("The quiet value of an open network")
@@ -142,6 +161,9 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 onNodeWithText("Show preview").performClick()
                 waitUntil(5_000) { onNodeWithText("Article preview").isDisplayed() }
                 onNode(hasText("My articles") and hasClickAction()).performClick()
+                click("Drafts")
+                capture("$label-drafts")
+                onNode(hasText("Back") and hasClickAction()).performClick()
                 click("Subscriptions and access")
                 capture("$label-subscriptions")
                 click("Subscriber access")

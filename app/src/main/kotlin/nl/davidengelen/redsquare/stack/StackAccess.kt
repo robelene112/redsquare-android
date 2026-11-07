@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.ui.DesignButton
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
@@ -69,13 +68,13 @@ internal fun LazyListScope.accessContent(page: StackPage, access: Boolean, navig
             item { StackPair(stringResource(R.string.stack_price_label), stringResource(R.string.stack_sample_price)) }
             item { Text(stringResource(R.string.stack_access_explanation), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            item { DesignButton({ navigate(StackPage.ACCESS_REVIEW) }, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_access_review)) } }
+            item { StackBlockButton({ navigate(StackPage.ACCESS_REVIEW) }, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_access_review)) } }
         }
         StackPage.ACCESS_REVIEW -> {
             item { StackIntro(stringResource(R.string.stack_sample_price), stringResource(R.string.stack_access_body), stringResource(R.string.stack_preview_purchase)) }
             item { Text(stringResource(R.string.stack_no_payment), style = MaterialTheme.typography.bodyMedium) }
             item { Text(stringResource(R.string.stack_real_wallet), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            item { DesignButton(confirm, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_confirm_access)) } }
+            item { StackBlockButton(confirm, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_confirm_access)) } }
         }
         StackPage.SUBSCRIPTIONS -> {
             item { StackSection(stringResource(R.string.stack_reading_access)) }
@@ -104,12 +103,12 @@ private fun AuthorAccessPreview() {
     var listing by rememberSaveable { mutableStateOf(false) }
     var saved by rememberSaveable { mutableStateOf(false) }
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        OutlinedTextField(name, { name = it; saved = false }, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.stack_access_name)) })
-        OutlinedTextField(price, { price = it; saved = false }, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.stack_price)) }, singleLine = true)
+        OutlinedTextField(name, { name = it; saved = false }, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.stack_access_name)) }, shape = StackControlShape)
+        OutlinedTextField(price, { price = it; saved = false }, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.stack_price)) }, singleLine = true, shape = StackControlShape)
         OutlinedTextField(description, { description = it; saved = false }, Modifier.fillMaxWidth(), minLines = 3,
-            label = { Text(stringResource(R.string.stack_readers_receive)) })
+            label = { Text(stringResource(R.string.stack_readers_receive)) }, shape = StackControlShape)
         StackToggle(stringResource(R.string.stack_store_listing), stringResource(R.string.stack_store_listing_detail), listing) { listing = it; saved = false }
         if (saved) InlineStatus(stringResource(R.string.stack_preview_settings_saved), StatusTone.SUCCESS)
-        DesignButton({ saved = true }, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_save_access)) }
+        StackBlockButton({ saved = true }, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_save_access)) }
     }
 }

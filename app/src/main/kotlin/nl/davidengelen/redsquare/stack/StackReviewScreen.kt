@@ -13,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalDensity
@@ -77,124 +78,127 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
     fun openArticle(index: Int) { navigate(StackPage.ARTICLE, index) }
     BackHandler(path.size > 1) { back() }
     val pages = rememberSaveableStateHolder()
+    val routeReveal = rememberSingleOwnerRevealState(route)
     val keyboardVisible = keyboardOccupiesWindow()
     Column(modifier.imePadding()) {
         Box(Modifier.weight(1f)) {
-            SingleOwnerReveal(route, Modifier.fillMaxSize()) {
-                pages.SaveableStateProvider("${page.name}:${route.article}") {
-                    val list = rememberLazyListState()
-                    val collapsible = page in setOf(StackPage.DISCOVER, StackPage.LATEST, StackPage.DRAFTS, StackPage.FOLLOWING, StackPage.ARTICLES,
-                        StackPage.ARTICLE, StackPage.AUTHOR, StackPage.PREVIEW_ARTICLE)
-                    val header = rememberReadingHeaderState(enabled = collapsible, list = list)
-                    val anchor = rememberReadingAnchorModifier(list, enabled = !header.inMotion, relativeToRoot = true)
-                    Column(Modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
-                        ReadingHeader(header) { chrome(false) }
-                        val title = if (page == StackPage.AUTHOR) sampleAuthor(article) else stringResource(page.title)
-                        val compactTitle = LocalDensity.current.fontScale <= 1.3f && page != StackPage.EDITOR
-                        val preview: @Composable () -> Unit = {
-                            TextButton(onClick = { explanation = true }, modifier = Modifier.heightIn(min = 48.dp),
-                                contentPadding = PaddingValues(horizontal = 6.dp)) {
-                                Surface(shape = RoundedCornerShape(6.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                                    Text(stringResource(R.string.stack_review), Modifier.padding(horizontal = 6.dp, vertical = 3.dp),
-                                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                }
-                            }
-                        }
-                        Row(Modifier.fillMaxWidth().padding(horizontal = if (path.size > 1) 4.dp else AppSpacing.screen),
-                            verticalAlignment = Alignment.CenterVertically) {
-                            if (path.size > 1) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { back() }
-                            if (compactTitle) {
-                                Text(title, Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
-                                preview()
-                            } else Column(Modifier.weight(1f)) {
-                                Text(title, style = MaterialTheme.typography.titleLarge)
-                                preview()
-                            }
-                            if (page == StackPage.EDITOR) TextButton(onClick = { navigate(StackPage.REVIEW) }) {
-                                Text(stringResource(R.string.stack_review_action))
-                            }
-                        }
-                        if (page == StackPage.EDITOR) {
-                            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())
-                                .testTag("stack-content").padding(start = AppSpacing.screen, end = AppSpacing.screen,
-                                    top = 12.dp, bottom = 88.dp)) {
-                                StackEditorForm(draft, visual, { draft = it }, { draft = visual.applyVisual(draft, it) }, { navigate(StackPage.REVIEW) })
-                            }
-                        } else LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth()
-                            .testTag("stack-content").then(anchor),
-                            contentPadding = PaddingValues(start = AppSpacing.screen, end = AppSpacing.screen,
-                                top = 12.dp, bottom = 88.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            when (page) {
-                                StackPage.DISCOVER, StackPage.LATEST -> {
-                                    val latest = page == StackPage.LATEST
-                                    if (!latest) item { StackIntro(stringResource(R.string.stack_hero), stringResource(R.string.stack_hero_body),
-                                        stringResource(R.string.stack_eyebrow)) }
-                                    item { DesignTabs(listOf(stringResource(R.string.stack_for_you), stringResource(R.string.stack_latest)),
-                                        if (latest) 1 else 0, { if (it == 1) navigate(StackPage.LATEST) else if (latest) back() }) }
-                                    if (latest) item { StackSection(stringResource(R.string.stack_latest_stories)) }
-                                    item { StackArticleCard(if (latest) 1 else 0, access) { openArticle(if (latest) 1 else 0) } }
-                                    item { StackSection(stringResource(R.string.stack_worth_reading)) }
-                                    item { StackArticleCard(if (latest) 0 else 1, access) { openArticle(if (latest) 0 else 1) } }
-                                    item { StackArticleCard(2, access) { openArticle(2) } }
-                                }
-                                StackPage.FOLLOWING -> {
-                                    item { StackIntro(stringResource(R.string.stack_circle), stringResource(R.string.stack_following_intro)) }
-                                    item { StackAuthorRow(0 in follows, onFollow = { follows = if (0 in follows) follows - 0 else follows + 0 }) { navigate(StackPage.AUTHOR) } }
-                                    item { StackArticleCard(0, access) { openArticle(0) } }
-                                    item { StackArticleCard(2, access) { openArticle(2) } }
-                                }
-                                StackPage.ARTICLES, StackPage.DRAFTS -> {
-                                    val drafts = page == StackPage.DRAFTS
-                                    if (!drafts) item { DesignTabs(listOf(stringResource(R.string.stack_published), stringResource(R.string.stack_drafts)),
-                                        0, { if (it == 1) navigate(StackPage.DRAFTS) }) }
-                                    if (drafts) {
-                                        item { StackIntro(stringResource(R.string.stack_room_to_think), stringResource(R.string.stack_drafts_detail)) }
-                                        item { StackMenuRow(draft.title, stringResource(R.string.stack_local_draft), R.drawable.ic_compose) { navigate(StackPage.EDITOR) } }
-                                    } else {
-                                        publication?.let { saved -> item { StackDraftCard(saved) { navigate(StackPage.PREVIEW_ARTICLE) } } }
-                                        item { StackArticleCard(1, access) { openArticle(1) } }
+            pages.SaveableStateProvider("${page.name}:${route.article}") {
+                val list = rememberLazyListState()
+                val collapsible = page in setOf(StackPage.DISCOVER, StackPage.LATEST, StackPage.DRAFTS, StackPage.FOLLOWING, StackPage.ARTICLES,
+                    StackPage.ARTICLE, StackPage.AUTHOR, StackPage.PREVIEW_ARTICLE)
+                val header = rememberReadingHeaderState(enabled = collapsible, list = list)
+                val anchor = rememberReadingAnchorModifier(list, enabled = !header.inMotion, relativeToRoot = true)
+                Column(Modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
+                    ReadingHeader(header) { chrome(false) }
+                    SingleOwnerReveal(route, Modifier.weight(1f), state = routeReveal) {
+                        Column(Modifier.fillMaxSize()) {
+                            val title = if (page == StackPage.AUTHOR) sampleAuthor(article) else stringResource(page.title)
+                            val compactTitle = LocalDensity.current.fontScale <= 1.3f && page != StackPage.EDITOR
+                            val preview: @Composable () -> Unit = {
+                                TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { explanation = true },
+                                    contentPadding = PaddingValues(horizontal = 6.dp)) {
+                                    Surface(shape = RoundedCornerShape(6.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                                        Text(stringResource(R.string.stack_review), Modifier.padding(horizontal = 6.dp, vertical = 3.dp),
+                                            style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
-                                    item { StackMenuRow(stringResource(R.string.stack_subscriptions), stringResource(R.string.stack_subscriptions_detail),
-                                        R.drawable.ic_bookmark) { navigate(StackPage.SUBSCRIPTIONS) } }
                                 }
-                                StackPage.ARTICLE -> articleContent(article, access, followed,
-                                    { follow() }, { navigate(StackPage.AUTHOR, article) }, { navigate(StackPage.ACCESS) })
-                                StackPage.AUTHOR -> {
-                                    item { StackAuthorProfile(article, followed) { follow() } }
-                                    item { StackSection(stringResource(R.string.stack_writing_by, sampleAuthor(article))) }
-                                    if (article == 1) item { StackArticleCard(1, access) { openArticle(1) } }
-                                    else {
+                            }
+                            Row(Modifier.fillMaxWidth().zIndex(1f).padding(horizontal = if (path.size > 1) 4.dp else AppSpacing.screen),
+                                verticalAlignment = Alignment.CenterVertically) {
+                                if (path.size > 1) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { back() }
+                                if (compactTitle) {
+                                    Text(title, Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+                                    preview()
+                                } else Column(Modifier.weight(1f)) {
+                                    Text(title, style = MaterialTheme.typography.titleLarge)
+                                    preview()
+                                }
+                                if (page == StackPage.EDITOR) TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { navigate(StackPage.REVIEW) }) {
+                                    Text(stringResource(R.string.stack_review_action))
+                                }
+                            }
+                            if (page == StackPage.EDITOR) {
+                                Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())
+                                    .testTag("stack-content").padding(start = AppSpacing.screen, end = AppSpacing.screen,
+                                        top = 12.dp, bottom = 88.dp)) {
+                                    StackEditorForm(draft, visual, { draft = it }, { draft = visual.applyVisual(draft, it) }, { navigate(StackPage.REVIEW) })
+                                }
+                            } else LazyColumn(state = list, modifier = Modifier.weight(1f).fillMaxWidth()
+                                .testTag("stack-content").then(anchor),
+                                contentPadding = PaddingValues(start = AppSpacing.screen, end = AppSpacing.screen,
+                                    top = 12.dp, bottom = 88.dp),
+                                verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                                when (page) {
+                                    StackPage.DISCOVER, StackPage.LATEST -> {
+                                        val latest = page == StackPage.LATEST
+                                        if (!latest) item { StackIntro(stringResource(R.string.stack_hero), stringResource(R.string.stack_hero_body),
+                                            stringResource(R.string.stack_eyebrow)) }
+                                        item { DesignTabs(listOf(stringResource(R.string.stack_for_you), stringResource(R.string.stack_latest)),
+                                            if (latest) 1 else 0, { if (it == 1) navigate(StackPage.LATEST) else if (latest) back() }) }
+                                        if (latest) item { StackSection(stringResource(R.string.stack_latest_stories)) }
+                                        item { StackArticleCard(if (latest) 1 else 0, access) { openArticle(if (latest) 1 else 0) } }
+                                        item { StackSection(stringResource(R.string.stack_worth_reading)) }
+                                        item { StackArticleCard(if (latest) 0 else 1, access) { openArticle(if (latest) 0 else 1) } }
+                                        item { StackArticleCard(2, access) { openArticle(2) } }
+                                    }
+                                    StackPage.FOLLOWING -> {
+                                        item { StackIntro(stringResource(R.string.stack_circle), stringResource(R.string.stack_following_intro)) }
+                                        item { StackAuthorRow(0 in follows, onFollow = { follows = if (0 in follows) follows - 0 else follows + 0 }) { navigate(StackPage.AUTHOR) } }
                                         item { StackArticleCard(0, access) { openArticle(0) } }
                                         item { StackArticleCard(2, access) { openArticle(2) } }
                                     }
-                                }
-                                StackPage.EDITOR -> Unit // The persistent form above owns its editor lifetime.
-                                StackPage.REVIEW -> publicationContent(draft, { draft = it }) { confirmation = StackPage.REVIEW }
-                                StackPage.PUBLISHED -> {
-                                    item { StackIntro(stringResource(R.string.stack_publication_hero), stringResource(R.string.stack_no_publication),
-                                        stringResource(R.string.stack_preview_complete)) }
-                                    item {
-                                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                            Text(publication?.title.orEmpty(), style = MaterialTheme.typography.headlineMedium)
-                                            Text(publication?.subtitle.orEmpty(), style = MaterialTheme.typography.bodyMedium,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    StackPage.ARTICLES, StackPage.DRAFTS -> {
+                                        val drafts = page == StackPage.DRAFTS
+                                        if (!drafts) item { DesignTabs(listOf(stringResource(R.string.stack_published), stringResource(R.string.stack_drafts)),
+                                            0, { if (it == 1) navigate(StackPage.DRAFTS) }) }
+                                        if (drafts) {
+                                            item { StackIntro(stringResource(R.string.stack_room_to_think), stringResource(R.string.stack_drafts_detail)) }
+                                            item { StackMenuRow(draft.title, stringResource(R.string.stack_local_draft), R.drawable.ic_compose) { navigate(StackPage.EDITOR) } }
+                                        } else {
+                                            publication?.let { saved -> item { StackDraftCard(saved) { navigate(StackPage.PREVIEW_ARTICLE) } } }
+                                            item { StackArticleCard(1, access) { openArticle(1) } }
+                                        }
+                                        item { StackMenuRow(stringResource(R.string.stack_subscriptions), stringResource(R.string.stack_subscriptions_detail),
+                                            R.drawable.ic_bookmark) { navigate(StackPage.SUBSCRIPTIONS) } }
+                                    }
+                                    StackPage.ARTICLE -> articleContent(article, access, followed,
+                                        { follow() }, { navigate(StackPage.AUTHOR, article) }, { navigate(StackPage.ACCESS) })
+                                    StackPage.AUTHOR -> {
+                                        item { StackAuthorProfile(article, followed) { follow() } }
+                                        item { StackSection(stringResource(R.string.stack_writing_by, sampleAuthor(article))) }
+                                        if (article == 1) item { StackArticleCard(1, access) { openArticle(1) } }
+                                        else {
+                                            item { StackArticleCard(0, access) { openArticle(0) } }
+                                            item { StackArticleCard(2, access) { openArticle(2) } }
                                         }
                                     }
-                                    item { DesignButton({ navigate(StackPage.PREVIEW_ARTICLE) }, Modifier.fillMaxWidth()) {
-                                        Text(stringResource(R.string.stack_view_article)) } }
-                                    item { DesignButton({ destination = StackDestination.ARTICLES; path = listOf(StackRoute(StackPage.ARTICLES)) },
-                                        Modifier.fillMaxWidth(), outlined = true) { Text(stringResource(R.string.stack_back_articles)) } }
+                                    StackPage.EDITOR -> Unit // The persistent form above owns its editor lifetime.
+                                    StackPage.REVIEW -> publicationContent(draft, { draft = it }) { confirmation = StackPage.REVIEW }
+                                    StackPage.PUBLISHED -> {
+                                        item { StackIntro(stringResource(R.string.stack_publication_hero), stringResource(R.string.stack_no_publication),
+                                            stringResource(R.string.stack_preview_complete)) }
+                                        item {
+                                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                                Text(publication?.title.orEmpty(), style = MaterialTheme.typography.headlineMedium)
+                                                Text(publication?.subtitle.orEmpty(), style = MaterialTheme.typography.bodyMedium,
+                                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                            }
+                                        }
+                                        item { StackBlockButton({ navigate(StackPage.PREVIEW_ARTICLE) }, Modifier.fillMaxWidth()) {
+                                            Text(stringResource(R.string.stack_view_article)) } }
+                                        item { StackBlockButton({ destination = StackDestination.ARTICLES; path = listOf(StackRoute(StackPage.ARTICLES)) },
+                                            Modifier.fillMaxWidth(), outlined = true) { Text(stringResource(R.string.stack_back_articles)) } }
+                                    }
+                                    StackPage.PREVIEW_ARTICLE -> {
+                                        val saved = publication ?: draft
+                                        item { StackIntro(saved.title, saved.subtitle, stringResource(R.string.stack_published_preview)) }
+                                        if (saved.cover) item { StackCover(editorial = true, height = 200.dp) }
+                                        item { StackMarkdown(saved.body) }
+                                        item { Text(stringResource(R.string.stack_no_publication), style = MaterialTheme.typography.bodySmall) }
+                                        item { StackBlockButton({ navigate(StackPage.EDITOR) }, outlined = true) { Text(stringResource(R.string.stack_edit_preview)) } }
+                                    }
+                                    else -> accessContent(page, access, { navigate(it) }, { confirmation = StackPage.ACCESS_REVIEW })
                                 }
-                                StackPage.PREVIEW_ARTICLE -> {
-                                    val saved = publication ?: draft
-                                    item { StackIntro(saved.title, saved.subtitle, stringResource(R.string.stack_published_preview)) }
-                                    if (saved.cover) item { StackCover(editorial = true, height = 200.dp) }
-                                    item { StackMarkdown(saved.body) }
-                                    item { Text(stringResource(R.string.stack_no_publication), style = MaterialTheme.typography.bodySmall) }
-                                    item { DesignButton({ navigate(StackPage.EDITOR) }, outlined = true) { Text(stringResource(R.string.stack_edit_preview)) } }
-                                }
-                                else -> accessContent(page, access, { navigate(it) }, { confirmation = StackPage.ACCESS_REVIEW })
                             }
                         }
                     }
@@ -223,13 +227,13 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
     }
     if (explanation) AlertDialog(onDismissRequest = { explanation = false },
         title = { Text(stringResource(R.string.stack_review)) }, text = { Text(stringResource(R.string.stack_review_detail)) },
-        confirmButton = { TextButton(onClick = { explanation = false }) { Text(stringResource(R.string.done)) } })
+        confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { explanation = false }) { Text(stringResource(R.string.done)) } })
     confirmation?.let { requested ->
         AlertDialog(onDismissRequest = { confirmation = null },
             title = { Text(stringResource(if (requested == StackPage.REVIEW) R.string.stack_publish_preview else R.string.stack_confirm_access)) },
             text = { Text(stringResource(if (requested == StackPage.REVIEW) R.string.stack_no_publication else R.string.stack_no_payment)) },
-            dismissButton = { TextButton(onClick = { confirmation = null }) { Text(stringResource(R.string.stack_cancel)) } },
-            confirmButton = { TextButton(onClick = {
+            dismissButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { confirmation = null }) { Text(stringResource(R.string.stack_cancel)) } },
+            confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = {
                 confirmation = null
                 if (requested == StackPage.REVIEW) { draft = visual.snapshot(draft); publication = draft; navigate(StackPage.PUBLISHED) }
                 else { access = true; path = path.dropLast(2) }

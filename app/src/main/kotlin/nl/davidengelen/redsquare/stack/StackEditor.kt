@@ -27,7 +27,6 @@ import com.mohamedrejeb.richeditor.ui.material3.RichTextEditor
 import com.mohamedrejeb.richeditor.ui.material3.RichTextEditorDefaults
 import com.mohamedrejeb.richeditor.ui.material3.RichText
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.ui.DesignButton
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.ui.SingleOwnerReveal
 import java.io.Serializable
@@ -64,12 +63,12 @@ internal fun StackEditorForm(draft: StackDraft, visual: StackVisualBuffer, onCha
     onVisualBody: (String) -> Unit, onReview: () -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         OutlinedTextField(draft.title, { onChange(draft.copy(title = it)) }, Modifier.fillMaxWidth(),
-            label = { Text(stringResource(R.string.stack_title_field)) }, singleLine = true)
+            label = { Text(stringResource(R.string.stack_title_field)) }, singleLine = true, shape = StackControlShape)
         OutlinedTextField(draft.subtitle, { onChange(draft.copy(subtitle = it)) }, Modifier.fillMaxWidth(),
-            label = { Text(stringResource(R.string.stack_subtitle_field)) }, singleLine = true)
+            label = { Text(stringResource(R.string.stack_subtitle_field)) }, singleLine = true, shape = StackControlShape)
         CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) }
         StackArticleEditor(draft, visual, onChange, onVisualBody)
-        DesignButton(onReview, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_review_article)) }
+        StackBlockButton(onReview, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_review_article)) }
     }
 }
 
@@ -82,8 +81,8 @@ private fun CoverPicker(selected: Boolean, onSelect: (Boolean) -> Unit) {
     if (choosing) AlertDialog(onDismissRequest = { choosing = false },
         title = { Text(stringResource(R.string.stack_sample_cover)) },
         text = { StackCover(editorial = true, height = 160.dp) },
-        confirmButton = { TextButton(onClick = { onSelect(true); choosing = false }) { Text(stringResource(R.string.stack_use_cover)) } },
-        dismissButton = { TextButton(onClick = { onSelect(false); choosing = false }) { Text(stringResource(R.string.stack_no_cover)) } })
+        confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { onSelect(true); choosing = false }) { Text(stringResource(R.string.stack_use_cover)) } },
+        dismissButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { onSelect(false); choosing = false }) { Text(stringResource(R.string.stack_no_cover)) } })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -178,7 +177,7 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
         text = { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             StackCover(editorial = true, height = 160.dp)
             Text(stringResource(R.string.stack_inline_image_detail), style = MaterialTheme.typography.bodySmall)
-        } }, confirmButton = { TextButton(onClick = { imagePreview = false }) { Text(stringResource(R.string.done)) } })
+        } }, confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { imagePreview = false }) { Text(stringResource(R.string.done)) } })
 }
 
 @Composable
@@ -211,13 +210,13 @@ internal fun LazyListScope.publicationContent(draft: StackDraft, onChange: (Stac
         StackChoices(draft.audience) { onChange(draft.copy(audience = it)) }
     }
     if (draft.audience == 2) item { OutlinedTextField(draft.price, { onChange(draft.copy(price = it)) }, Modifier.fillMaxWidth(),
-        label = { Text(stringResource(R.string.stack_price)) }, singleLine = true) }
+        label = { Text(stringResource(R.string.stack_price)) }, singleLine = true, shape = StackControlShape) }
     if (draft.audience == 1) item { OutlinedTextField(draft.readers, { onChange(draft.copy(readers = it)) }, Modifier.fillMaxWidth(),
-        label = { Text(stringResource(R.string.stack_readers)) }) }
+        label = { Text(stringResource(R.string.stack_readers)) }, shape = StackControlShape) }
     item { StackToggle(stringResource(R.string.stack_share_redsquare), stringResource(R.string.stack_share_detail), draft.share) { onChange(draft.copy(share = it)) } }
     if (draft.share) item { OutlinedTextField(draft.post, { onChange(draft.copy(post = it)) }, Modifier.fillMaxWidth(),
-        label = { Text(stringResource(R.string.stack_accompanying_post)) }, minLines = 3) }
+        label = { Text(stringResource(R.string.stack_accompanying_post)) }, minLines = 3, shape = StackControlShape) }
     item { Text(stringResource(R.string.stack_no_publication), style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    item { DesignButton(onPublish, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_publish_preview)) } }
+    item { StackBlockButton(onPublish, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_publish_preview)) } }
 }

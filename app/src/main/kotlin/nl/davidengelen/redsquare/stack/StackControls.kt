@@ -1,0 +1,22 @@
+package nl.davidengelen.redsquare.stack
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+/** Approved Stack block controls; compact Follow and source-code controls keep their own treatment. */
+internal val StackControlShape = RoundedCornerShape(14.dp)
+
+@Composable
+internal fun StackBlockButton(onClick: () -> Unit, modifier: Modifier = Modifier, outlined: Boolean = false,
+    content: @Composable RowScope.() -> Unit) {
+    val target = modifier.fillMaxWidth().heightIn(min = 48.dp)
+    val padded: @Composable RowScope.() -> Unit = {
+        Box(Modifier.padding(vertical = 6.dp)) { Row(content = content) }
+    }
+    if (outlined) OutlinedButton(onClick, target, shape = StackControlShape, content = padded)
+    else Button(onClick, target, shape = StackControlShape, content = padded)
+}

@@ -124,7 +124,7 @@ internal fun LazyListScope.articleContent(index: Int, access: Boolean, followed:
                 Text(stringResource(R.string.stack_keep_reading), style = MaterialTheme.typography.titleLarge)
                 Text(stringResource(R.string.stack_support_writer), style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
-                DesignButton(onAccess, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_access_options)) }
+                StackBlockButton(onAccess, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_access_options)) }
             }
         }
     } else item { StackArticleActions() }
@@ -135,7 +135,7 @@ private fun StackArticleActions() {
     var discussion by remember { mutableStateOf<Boolean?>(null) }
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         StackSection(stringResource(R.string.stack_continue_conversation))
-        DesignButton({ discussion = true }, Modifier.fillMaxWidth(), outlined = true) {
+        StackBlockButton({ discussion = true }, Modifier.fillMaxWidth(), outlined = true) {
             Text(stringResource(R.string.stack_discuss))
         }
         StackMenuRow(stringResource(R.string.stack_share_article), stringResource(R.string.stack_share_article_detail),
@@ -147,7 +147,7 @@ private fun StackArticleActions() {
         AlertDialog(onDismissRequest = { discussion = null },
             title = { Text(stringResource(if (discussing) R.string.stack_discuss else R.string.stack_share_article)) },
             text = { Text(stringResource(R.string.stack_article_actions_preview)) },
-            confirmButton = { TextButton(onClick = { discussion = null }) { Text(stringResource(R.string.done)) } })
+            confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { discussion = null }) { Text(stringResource(R.string.done)) } })
     }
 }
 
