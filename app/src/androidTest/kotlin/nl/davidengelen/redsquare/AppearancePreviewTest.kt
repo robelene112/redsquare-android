@@ -143,7 +143,7 @@ class AppearancePreviewTest {
                             capture("notifications-detail-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Back to Settings").performClick()
 
-                            ui.onNodeWithText("About").performClick()
+                            ui.onNodeWithText("About").performScrollTo().assertIsDisplayed().performClick()
                             ui.onNodeWithText("A native Android client for RedSquare on Saito.")
                                 .performScrollTo()
                             ui.onNodeWithText("Independently developed by Angels’ Foundry.").performScrollTo()

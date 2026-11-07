@@ -210,7 +210,7 @@ class AppFramePreviewTest {
                         ui.onNode(hasText(backupLabel) and hasClickAction()).performClick()
                         ui.onNodeWithText(context.getString(R.string.wallet_backup_private)).performScrollTo().assertIsDisplayed()
                         capture("$name-backup-guidance.png")
-                        ui.onNodeWithText("Done").performClick()
+                        ui.closeWalletOverview()
                         ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
                         }
                     }

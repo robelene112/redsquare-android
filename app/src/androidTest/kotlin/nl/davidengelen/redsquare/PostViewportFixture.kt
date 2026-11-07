@@ -56,7 +56,9 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
         for (scale in scales) {
             font.apply(scale)
             recordLifecycle("before-explicit-recreation")
-            recreateHomeViewport(activity, widthDp, scale)
+            withFailureCapture({
+                captureNativeScreen(File(folder, "$prefix-recreation-font${(scale * 100).toInt()}-failure.png"))
+            }) { recreateHomeViewport(activity, widthDp, scale, folder, prefix) }
             recordLifecycle("after-explicit-recreation")
             for (theme in listOf("Light", "Dark")) {
                 val label = "$prefix-$widthDp-font${(scale * 100).toInt()}-${theme.lowercase()}"
@@ -97,19 +99,43 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
 }
 
 /** Recreate the current instance after platform display/font changes, within the original15s bound. */
-internal fun ComposeTestRule.recreateHomeViewport(activity: ActivityScenario<MainActivity>, widthDp: Int, scale: Float) {
+internal fun ComposeTestRule.recreateHomeViewport(activity: ActivityScenario<MainActivity>, widthDp: Int, scale: Float,
+    diagnostics: File? = null, prefix: String = "viewport") {
     val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     // Scenario.recreate() snapshots an instance before resuming it, which can race a
     // configuration relaunch. Request recreation on the current main-thread instance.
     var previous: MainActivity? = null
     activity.onActivity { current -> previous = current; current.recreate() }
-    waitUntil(15_000) {
-        var replaced = false
-        if (activity.state == androidx.lifecycle.Lifecycle.State.RESUMED) activity.onActivity { current ->
-            replaced = current !== previous && !current.isChangingConfigurations &&
-                current.window.decorView.hasWindowFocus() && current.resources.configuration.screenWidthDp == widthDp &&
-                kotlin.math.abs(current.resources.configuration.fontScale - scale) < 0.01f
+    var observation = JsonObject()
+    withFailureCapture({
+        diagnostics?.let {
+            it.mkdirs()
+            File(it, "$prefix-recreation-font${(scale * 100).toInt()}-readiness.json").writeText(observation.toString())
         }
-        replaced && device.displayWidth == widthDp && onNode(hasText("Home") and isSelected()).isDisplayed()
+    }) {
+        waitUntil(15_000) {
+            var replaced = false
+            observation = JsonObject().apply {
+                addProperty("scenarioState", activity.state.name)
+                addProperty("displayWidth", device.displayWidth)
+            }
+            if (activity.state == androidx.lifecycle.Lifecycle.State.RESUMED) activity.onActivity { current ->
+                observation.apply {
+                    addProperty("previousActivity", System.identityHashCode(previous))
+                    addProperty("currentActivity", System.identityHashCode(current))
+                    addProperty("changingConfigurations", current.isChangingConfigurations)
+                    addProperty("windowFocus", current.window.decorView.hasWindowFocus())
+                    addProperty("widthDp", current.resources.configuration.screenWidthDp)
+                    addProperty("fontScale", current.resources.configuration.fontScale)
+                }
+                replaced = current !== previous && !current.isChangingConfigurations &&
+                    current.window.decorView.hasWindowFocus() && current.resources.configuration.screenWidthDp == widthDp &&
+                    kotlin.math.abs(current.resources.configuration.fontScale - scale) < 0.01f
+            }
+            replaced && device.displayWidth == widthDp &&
+                onNode(hasText("Home") and isSelected()).isDisplayed().also {
+                    observation.addProperty("selectedHomeVisible", it)
+                }
+        }
     }
 }
