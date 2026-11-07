@@ -1,0 +1,31 @@
+{
+  "artifactSource": "d2afd32d27b9738ba0be7d05e3381c6ad4328116",
+  "artifactVersion": 95,
+  "artifactSha256": "f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b",
+  "consumerSource": "022e34b50d59b9e3234f428dc687863c25cb1b60",
+  "excludedAsNonProducer": {
+    "rootDocuments": [
+      "AGENTS.md",
+      "CODING_STANDARDS.md",
+      "GLOSSARY.md",
+      "OWNER_INPUTS.md",
+      "README.md"
+    ],
+    "prefixes": [
+      "docs/",
+      ".agents/",
+      "app/src/androidTest/"
+    ]
+  },
+  "trackedProducerSupersetEqual": true,
+  "trackedProducerFileCount": 445,
+  "canonicalEncoding": "UTF-8 git ls-tree -r lines in Git order, joined with LF and one trailing LF",
+  "canonicalInputSha256": "a0cb4e5c9e8bacb6e9ba11733cc6b226c4307c0e784186c22268c0f5ff870670",
+  "changedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileNewEditPreviewTest.kt",
+    "docs/PROJECT_CONTEXT.md",
+    "docs/evidence/ticket94/README.md",
+    "docs/handoffs/IMPLEMENTATION.md"
+  ],
+  "limits": "Tracked producer-input superset equality only. Actual signing/configuration/artifact and installed continuity are checked separately. Not a debug/release binary equality claim."
+}

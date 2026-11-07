@@ -25,13 +25,17 @@ Native results and limits:
 - Module-menu runs42397182544 / 42397182718 fail at immediate foreground lookup
   after Escape. The17 zero-motion cycle already passed Tab, directional movement
   and Escape. Source d2afd32 waits for actual foreground ownership within the same
-  five-second bounds; new focused runs42398298060 / 42398307515 are pending.
+  five-second bounds. Focused runs42398298060 / 42398307515 both PASS.
 - Broad UI runs42397182668 / 42397183073 fail at profile status capture after the
   fixture scrolls to the generated avatar. Native PNG/XML confirms status is offscreen.
   Source aab35b7 reveals each actual status before its native capture, retaining all
-  signed-default, transaction, retry, identity and backend assertions. Native rerun pending.
-- Complete ca93566de runs42397470230 / 42397469795 are still running. They predate
-  the two final fixture corrections and cannot establish final-source acceptance.
+  signed-default, transaction, retry, identity and backend assertions. Broad UI reruns
+  42398801085 / 42398803012 are pending on source022e34b50.
+- Complete ca93566de runs42397470230 / 42397469795 were superseded and cancelled
+  by workflow concurrency after both final fixture corrections. No acceptance claim.
+  Fresh complete source `022e34b50d59b9e3234f428dc687863c25cb1b60`, immutable tag
+  `proof-prototype94-022e34b`, is running42398900323 / 42398902216. All three
+  partitions/public reads and the frozen collectors remain required on that source.
   Earlier failed full runs and bounded source-specific passes remain historical.
 
 Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable tag
@@ -45,6 +49,9 @@ Exact staged notes must be reused for promotion. Obsolete93/94 must not be promo
 Remaining: native fixture reruns, complete same-source Android10/17 gates and frozen
 collectors, actual current native screenshot/prototype and normal/zero-motion review
 on both axes, producer-input equivalence, signed95 continuity and exact promotion.
+All445 audited producer-superset inputs equal d2afd32→022e34b50, canonicalSHA256
+`a0cb4e5c9e8bacb6e9ba11733cc6b226c4307c0e784186c22268c0f5ff870670`.
+This is tracked-input equality only, independent of actual artifact/update checks.
 No focused/mixed-source assembly counts as a full pass. Keep catalog/checker/tool
 pins unchanged and failures inspectable. Parents1/36/55/84/86, physical Pixel,
 provider/KVK/Play acceptance and actual Stack integration remain independent.

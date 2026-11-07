@@ -12,6 +12,9 @@ genuine count layouts and bounded native fixture observation corrections. Both s
 review axes report no unresolved findings. Current context/handoff record actual
 passes, original failures and pending runs. Fresh complete same-source gates, frozen
 collectors, native visual/motion reviews and exact95 publication remain required.
+Fresh complete source022e34b50 runs42398900323 / 42398902216; previous ca runs
+were superseded/cancelled, not accepted. Module keyboard10/17 both pass42398298060 /
+42398307515. Broad UI022 runs42398801085 / 42398803012 remain pending.
 Focused or mixed-source results do not replace a complete final-source pass.
 Historical93 producer/update receipts remain valid only within their stated scope.
 
