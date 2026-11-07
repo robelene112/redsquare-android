@@ -151,6 +151,7 @@ class ProfileProcessRecoveryTest {
             assertVisiblePixels("Profile picture", intArrayOf(220, 30, 40))
             assertVisiblePixels("Profile banner", intArrayOf(20, 60, 220))
             assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+            ui.onNodeWithText("Profile available on this node.").performScrollTo().assertIsDisplayed()
             capture("cold-candidate-available.png", "Profile available on this node.")
             ui.onNodeWithText("Back").performClick()
             waitForPublicEditor()
