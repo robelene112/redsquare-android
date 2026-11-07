@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -49,8 +50,17 @@ class ProfileRedesignPreviewTest {
             list.performScrollToNode(selectedHistory)
             val selectedTab = ui.onNode(selectedHistory).performScrollTo()
                 .assertIsDisplayed().assertHeightIsAtLeast(48.dp)
-            val targetBounds = selectedTab.getUnclippedBoundsInRoot()
             val viewport = list.getUnclippedBoundsInRoot()
+            val initialTarget = selectedTab.getUnclippedBoundsInRoot()
+            val overflow = when {
+                initialTarget.bottom > viewport.bottom -> (initialTarget.bottom - viewport.bottom).value
+                initialTarget.top < viewport.top -> (initialTarget.top - viewport.top).value
+                else -> 0f
+            }
+            if (overflow != 0f) list.performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                check(scroll(0f, overflow * instrumentation.targetContext.resources.displayMetrics.density))
+            }
+            val targetBounds = selectedTab.getUnclippedBoundsInRoot()
             assertTrue("Capture the whole history target inside the vertical viewport",
                 targetBounds.top >= viewport.top && targetBounds.bottom <= viewport.bottom)
             val selected = selectedTab.captureToImage().asAndroidBitmap()
