@@ -3,18 +3,29 @@
 ## Current owner feedback, November 7, 2026: prototype fidelity rejected
 
 Owner subsequently authorized fixing the mismatch. Active issue94, worktree
-`/mnt/storage/redsquare-android-artifacts/redesign86`. Source corrections through
-`0ac2d858d` now reproduce the reference profile composition, rounded selectors,
-menu sheets/cards, inline post actions, Chat composers and balance-first wallet.
-Beta89 is still live. New rendered comparison, full Android10/17 gates, signed
-update proof and replacement beta remain pending. Do not claim delivery yet.
+`/mnt/storage/redsquare-android-artifacts/redesign86`. Production through
+`a840ed5e1` reproduces reference composition, menu sheets/cards, compact post
+controls, Chat composers and balance-first wallet. Native control geometry is
+still under verification. Do not claim delivery. Beta89 remains latest.
 
-The red native profile run42375955818 reproduces the old95dp banner against the
-independent128dp reference. Initial focused dispatches42377250251/52540/54877
-failed checkout because a short source SHA was treated as a ref. Their replacement
-layout1 runs42377419383/21502/23543 were cancelled after the local observer compile
-found an invalid bounds accessor; no native or full pass is claimed. Bounds access
-is fixed in e3e92b29d; wait for the current compile before redispatching.
+Signed90 (producerf90f9a2f4, SHA256f100f21a40572745391721fb0b65560e64ecc27e102f069f4a6524237ea66d88)
+is staged only, not accepted or promoted. Its public download hash matches. New
+production control changes require another APK/version; never overwrite90.
+
+Native layout2 source9f40f70e9: module run42377894534 SUCCESS; wallet-design
+run42377896533 has both normal journeys PASS, then compact viewport FAIL on40dp
+clickable height against retained48dp assertion. Profile42377892771 fails before
+entering profile: horizontal tabs create a second ScrollBy for existing helpers.
+Chat-grouping42377898383 is still running. a840ed5e1 separates40dp/32dp paint from
+explicit48dp single interaction targets and wraps tabs, removing the unnecessary
+horizontal scroll container. Local compile is running; retest and inspect images
+before final complete Android10/17 gates, signed update proof and publication.
+
+Historical: red profile42375955818 proves old95dp cover versus independent128dp
+reference. First focused42377250251/52540/54877 failed short-SHA checkout; layout1
+42377419383/21502/23543 were cancelled after a local observer bounds-access compile
+error. That accessor was fixed ine3e92b29d. Compile5 PASSED3m46 before layout2;
+no native/full pass is inferred from a compile or an interrupted run.
 
 The owner reports that published beta89 does not resemble the approved native
 prototype. Issue94 is reopened for design integration; the redesign must not be
