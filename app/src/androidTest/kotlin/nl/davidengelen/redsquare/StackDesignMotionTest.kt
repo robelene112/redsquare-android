@@ -33,8 +33,11 @@ class StackDesignMotionTest {
                     requireNotNull(device.wait(Until.findObject(By.desc("Write an article")), 5_000)).click()
                     check(device.wait(Until.hasObject(By.text("Write")), 5_000))
                 }
+                fun markdownVisible(): Boolean = try {
+                    device.findObject(By.text("Markdown"))?.visibleBounds?.isEmpty == false
+                } catch (_: androidx.test.uiautomator.StaleObjectException) { false }
                 val end = SystemClock.elapsedRealtime() + 5_000
-                while (!device.hasObject(By.text("Markdown")) && SystemClock.elapsedRealtime() < end) {
+                while (!markdownVisible() && SystemClock.elapsedRealtime() < end) {
                     // The outer native reading viewport, excluding an editor's own scroll surface.
                     val bounds = nativeWindowNodes().filter { node -> node.isVisibleToUser && !node.isEditable &&
                         node.isScrollable && node.actionList.any { it.id == AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_DOWN.id } }
@@ -43,10 +46,10 @@ class StackDesignMotionTest {
                     check(device.swipe(bounds.centerX(), bounds.bottom - bounds.height() / 5,
                         bounds.centerX(), bounds.top + bounds.height() / 5, 20))
                 }
-                check(device.hasObject(By.text("Markdown")))
+                check(markdownVisible() && SystemClock.elapsedRealtime() <= end)
                 movie("source-toggle") {
                     click("Markdown")
-                    check(device.wait(Until.hasObject(By.text("Markdown source")), 5_000))
+                    check(device.wait(Until.hasObject(By.textContains("Markdown source")), 5_000))
                 }
                 movie("publication-review") {
                     click("Review")
