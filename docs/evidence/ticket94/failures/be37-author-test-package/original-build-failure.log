@@ -1,0 +1,980 @@
+native-proof (all)	UNKNOWN STEP	﻿2026-11-08T03:27:01.3908620Z Current runner version: '2.338.2'
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3923196Z ##[group]Runner Image Provisioner
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3923727Z Hosted Compute Agent
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3924077Z Version: 20261028.624
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3924551Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3924978Z Build Date: 2026-10-28T21:51:42Z
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3925400Z Worker ID: {7b3d725e-cc34-4bbf-8008-9fda43a0e20e}
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3925823Z Region: westus3
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3926303Z Cloud: Azure
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3926690Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3927654Z ##[group]Operating System
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3928008Z Ubuntu
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3928379Z 24.04.5
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3928688Z LTS
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3929092Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3929420Z ##[group]Runner Image
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3929761Z Image: ubuntu-24.04
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3930145Z Version: 20261101.360.1
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3930897Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3931787Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3932521Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3933310Z ##[group]GITHUB_TOKEN Permissions
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3934530Z Contents: read
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3934938Z Metadata: read
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3935272Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3936776Z Secret source: Actions
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3937350Z Cache mode: write
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.3937815Z Prepare workflow directory
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.4131752Z Prepare all required actions
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.4161742Z Getting action download info
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.6940855Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:01.7754564Z Download action repository 'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.6230333Z Download action repository 'actions/cache@caa296126883cff596d87d8935842f9db880ef25' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.7515749Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9164293Z Complete job name: native-proof (all)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9759349Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9759843Z with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9760101Z   ref: be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9760419Z   persist-credentials: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9760696Z   sparse-checkout-cone-mode: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9760991Z   sparse-checkout: /*
+native-proof (all)	UNKNOWN STEP	!/docs/evidence/
+native-proof (all)	UNKNOWN STEP	
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9761305Z   repository: robelene112/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9763399Z   token: ***
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9763625Z   ssh-strict: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9763861Z   ssh-user: git
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9764085Z   clean: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9764318Z   fetch-depth: 1
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9764558Z   fetch-tags: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9764791Z   show-progress: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9765021Z   lfs: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9765236Z   submodules: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9765470Z   set-safe-directory: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9765737Z   allow-unsafe-pr-checkout: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:02.9766317Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2018351Z Syncing repository: robelene112/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2019802Z ##[group]Getting Git version info
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2020441Z Working directory is '/home/runner/work/redsquare-android/redsquare-android'
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2021072Z [command]/usr/bin/git version
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2101465Z git version 2.56.0
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2103743Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2120775Z Temporarily overriding HOME='/home/runner/work/_temp/765eb087-8703-43a3-be3e-b41ed0de5290' before making global git config changes
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2121900Z Adding repository directory to the temporary git global config as a safe directory
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2124251Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/redsquare-android/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2167468Z Deleting the contents of '/home/runner/work/redsquare-android/redsquare-android'
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2170565Z ##[group]Determining repository object format
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2171373Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2171980Z ##[group]Initializing the repository
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2174632Z [command]/usr/bin/git init /home/runner/work/redsquare-android/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2262337Z hint: Using 'master' as the name for the initial branch. This default branch name
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2262959Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2263535Z hint: to use in all of your new repositories, which will suppress this warning,
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2263924Z hint: call:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2264137Z hint:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2264432Z hint: 	git config --global init.defaultBranch <name>
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2264791Z hint:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2265091Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2265564Z hint: 'development'. The just-created branch can be renamed via this command:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2266109Z hint:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2266348Z hint: 	git branch -m <name>
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2266590Z hint:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2266912Z hint: Disable this message with "git config set advice.defaultBranchName false"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2274603Z Initialized empty Git repository in /home/runner/work/redsquare-android/redsquare-android/.git/
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2283314Z [command]/usr/bin/git remote add origin https://github.com/robelene112/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2339876Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2340532Z ##[group]Disabling automatic garbage collection
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2342326Z [command]/usr/bin/git config --local gc.auto 0
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2387024Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2387688Z ##[group]Setting up auth
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2388020Z Removing SSH command configuration
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2388763Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2413868Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2724938Z Removing HTTP extra header
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2729106Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2765704Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2961947Z Removing includeIf entries pointing to credentials config files
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.2965527Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3007383Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3193871Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3233336Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path /home/runner/work/_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3269018Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3305076Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3340793Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3374897Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3375307Z ##[group]Fetching the repository
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:03.3378984Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3178882Z From https://github.com/robelene112/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3180906Z  * branch            be37e8c4276e001a453bbb282d1f5ecd4d8bcb26 -> FETCH_HEAD
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3187512Z [command]/usr/bin/git rev-parse --verify --quiet be37e8c4276e001a453bbb282d1f5ecd4d8bcb26^{object}
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3220949Z be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3224815Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3225716Z ##[group]Determining the checkout info
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3227014Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3228049Z ##[group]Setting up sparse checkout
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3228771Z [command]/usr/bin/git config core.sparseCheckout true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3265310Z [command]/usr/bin/git rev-parse --git-path info/sparse-checkout
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3295214Z .git/info/sparse-checkout
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3301038Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3302228Z ##[group]Checking out the ref
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:04.3303979Z [command]/usr/bin/git checkout --progress --force be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0312568Z Updating files:   0% (1/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0318100Z Updating files:   1% (11/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0325390Z Updating files:   2% (21/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0332001Z Updating files:   3% (32/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0338594Z Updating files:   4% (42/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0343881Z Updating files:   5% (53/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0352398Z Updating files:   6% (63/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0360237Z Updating files:   7% (74/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0377982Z Updating files:   8% (84/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0385760Z Updating files:   9% (95/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0395473Z Updating files:  10% (105/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0402842Z Updating files:  11% (116/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0408927Z Updating files:  12% (126/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0416274Z Updating files:  13% (137/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0425826Z Updating files:  14% (147/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0432594Z Updating files:  15% (158/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0442324Z Updating files:  16% (168/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0446952Z Updating files:  17% (179/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0455035Z Updating files:  18% (189/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0461845Z Updating files:  19% (200/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0468837Z Updating files:  20% (210/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0474265Z Updating files:  21% (221/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0479675Z Updating files:  22% (231/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0485208Z Updating files:  23% (242/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0491224Z Updating files:  24% (252/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0497488Z Updating files:  25% (262/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0503070Z Updating files:  26% (273/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0510154Z Updating files:  27% (283/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0516268Z Updating files:  28% (294/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0522806Z Updating files:  29% (304/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0527467Z Updating files:  30% (315/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0535683Z Updating files:  31% (325/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0541974Z Updating files:  32% (336/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0547149Z Updating files:  33% (346/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0553231Z Updating files:  34% (357/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0558282Z Updating files:  35% (367/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0566774Z Updating files:  36% (378/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0571634Z Updating files:  37% (388/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0575639Z Updating files:  38% (399/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0580884Z Updating files:  39% (409/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0586571Z Updating files:  40% (420/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0590915Z Updating files:  41% (430/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0595497Z Updating files:  42% (441/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0599998Z Updating files:  43% (451/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0605172Z Updating files:  44% (462/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0610393Z Updating files:  45% (472/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0615670Z Updating files:  46% (483/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0621486Z Updating files:  47% (493/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0625355Z Updating files:  48% (504/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0630411Z Updating files:  49% (514/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0634671Z Updating files:  50% (524/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0639414Z Updating files:  51% (535/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0643909Z Updating files:  52% (545/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0647878Z Updating files:  53% (556/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0650894Z Updating files:  54% (566/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0653266Z Updating files:  55% (577/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0655655Z Updating files:  56% (587/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0664305Z Updating files:  57% (598/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0667729Z Updating files:  58% (608/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0673266Z Updating files:  59% (619/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0677343Z Updating files:  60% (629/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0681777Z Updating files:  61% (640/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0685727Z Updating files:  62% (650/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0689521Z Updating files:  63% (661/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0695534Z Updating files:  64% (671/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0699233Z Updating files:  65% (682/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0703330Z Updating files:  66% (692/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0708948Z Updating files:  67% (703/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0713598Z Updating files:  68% (713/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0717244Z Updating files:  69% (724/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0721681Z Updating files:  70% (734/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0727910Z Updating files:  71% (745/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0736612Z Updating files:  72% (755/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0763671Z Updating files:  73% (766/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0771432Z Updating files:  74% (776/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0776943Z Updating files:  75% (786/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0782548Z Updating files:  76% (797/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0790970Z Updating files:  77% (807/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0799294Z Updating files:  78% (818/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0809768Z Updating files:  79% (828/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0819760Z Updating files:  80% (839/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0827536Z Updating files:  81% (849/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0833562Z Updating files:  82% (860/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0844886Z Updating files:  83% (870/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0849882Z Updating files:  84% (881/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0855462Z Updating files:  85% (891/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0861762Z Updating files:  86% (902/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0868788Z Updating files:  87% (912/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0876228Z Updating files:  88% (923/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0880609Z Updating files:  89% (933/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0886795Z Updating files:  90% (944/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0891252Z Updating files:  91% (954/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0895424Z Updating files:  92% (965/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0903802Z Updating files:  93% (975/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0912182Z Updating files:  94% (986/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0917195Z Updating files:  95% (996/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0922864Z Updating files:  96% (1007/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0929525Z Updating files:  97% (1017/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0933245Z Updating files:  98% (1028/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0937618Z Updating files:  99% (1038/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0937839Z Updating files: 100% (1048/1048)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.0938053Z Updating files: 100% (1048/1048), done.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2232169Z Note: switching to 'be37e8c4276e001a453bbb282d1f5ecd4d8bcb26'.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2232474Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2232622Z You are in 'detached HEAD' state. You can look around, make experimental
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2232886Z changes and commit them, and you can discard any commits you make in this
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2233145Z state without impacting any branches by switching back to a branch.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2233656Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2233815Z If you want to create a new branch to retain commits you create, you may
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2234297Z do so (now or later) by using -c with the switch command. Example:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2234515Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2234625Z   git switch -c <new-branch-name>
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2234777Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2234872Z Or undo this operation with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2235009Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2235087Z   git switch -
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2235192Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2235376Z Turn off this advice by setting config variable advice.detachedHead to false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2235625Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2235811Z HEAD is now at be37e8c fix: restore real author byline in local Stack article preview
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2279718Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2331492Z [command]/usr/bin/git log -1 --format=%H
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2365266Z be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2372459Z ##[group]Removing auth
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2372689Z Removing SSH command configuration
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2374824Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2411843Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2889257Z Removing HTTP extra header
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2893211Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.2939436Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3394290Z Removing includeIf entries pointing to credentials config files
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3396784Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3435263Z includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3435791Z includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3436338Z includeif.gitdir:/github/workspace/.git.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3436847Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3441678Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3474379Z /home/runner/work/_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3481665Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-41275509\-3684\-47d0\-b701\-d93645928c4d\.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3522631Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3553696Z /home/runner/work/_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3587126Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-41275509\-3684\-47d0\-b701\-d93645928c4d\.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3646320Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3680132Z /github/runner_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3685193Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-41275509\-3684\-47d0\-b701\-d93645928c4d\.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3725252Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3755528Z /github/runner_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3761056Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-41275509\-3684\-47d0\-b701\-d93645928c4d\.config
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.3799747Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4258125Z Removing credentials config '/home/runner/work/_temp/git-credentials-41275509-3684-47d0-b701-d93645928c4d.config'
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4267684Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4443824Z ##[group]Run mkdir -p .scratch
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4444034Z ^[[36;1mmkdir -p .scratch^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4444231Z ^[[36;1mgit rev-parse HEAD | tee .scratch/proof-source.txt^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4444492Z ^[[36;1mprintf '%s\n' "$PROOF_WORKFLOW_SHA" | tee .scratch/proof-workflow.txt^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4444765Z ^[[36;1mprintf '%s\n' "$PROOF_RUNNER" | tee .scratch/proof-runner.txt^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4464160Z shell: /usr/bin/bash -e {0}
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4464307Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4464463Z   PROOF_WORKFLOW_SHA: be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4464661Z   PROOF_RUNNER: ubuntu-24.04
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4464795Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4533905Z be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4545415Z be37e8c4276e001a453bbb282d1f5ecd4d8bcb26
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4555838Z ubuntu-24.04
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4665589Z ##[group]Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4665804Z with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4666153Z   distribution: temurin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4666310Z   java-version: 17
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4666426Z   cache: gradle
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4666806Z   cache-dependency-path: settings.gradle.kts
+native-proof (all)	UNKNOWN STEP	build.gradle.kts
+native-proof (all)	UNKNOWN STEP	core/build.gradle.kts
+native-proof (all)	UNKNOWN STEP	app/build.gradle.kts
+native-proof (all)	UNKNOWN STEP	push-gateway/build.gradle.kts
+native-proof (all)	UNKNOWN STEP	gradle/wrapper/gradle-wrapper.properties
+native-proof (all)	UNKNOWN STEP	
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4667221Z   java-package: jdk
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4667342Z   check-latest: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4667467Z   force-download: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4667590Z   set-default: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4667704Z   server-id: github
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4667840Z   mvn-repositories-include-central: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4668020Z   mvn-repositories-prioritize-central: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4668189Z   overwrite-settings: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4668325Z   cache-read-only: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4668475Z   job-status: success
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4669912Z   token: ***
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4670034Z   show-download-progress: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4670179Z   problem-matcher: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.4670304Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5156780Z ##[group]Installed distributions
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5481891Z Resolved Java 17.0.21+9 from tool-cache
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5482210Z Setting Java 17.0.21+9 as the default
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5486808Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5487041Z Java configuration:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5487256Z   Distribution: temurin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5487458Z   Version: 17.0.21+9
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5487742Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5487996Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5525144Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5568095Z Creating settings.xml with server-id: github
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5570018Z Creating toolchains.xml for JDK version 17 from temurin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5578518Z Writing to /home/runner/.m2/settings.xml
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5582291Z Writing to /home/runner/.m2/toolchains.xml
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.5587858Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.8422069Z gradle cache is not found
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:06.8447106Z Cache hit for: setup-java-Linux-x64-gradle-wrapper-7c2008d3b8cef40fcf013910e3362402855b96662f9cb4222b27d2eeb7d6cb90
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:08.0713361Z Received 58720256 of 136233399 (43.1%), 56.0 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:08.6691416Z Received 136233399 of 136233399 (100.0%), 81.4 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:08.6691739Z Cache Size: ~130 MB (136233399 B)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:08.6716340Z [command]/usr/bin/tar -xf /home/runner/work/_temp/d0d20630-8953-4b0f-9de8-29eff8c9051d/cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --use-compress-program unzstd
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:08.8268708Z Cache restored successfully
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:08.8323256Z gradle-wrapper cache restored from key: setup-java-Linux-x64-gradle-wrapper-7c2008d3b8cef40fcf013910e3362402855b96662f9cb4222b27d2eeb7d6cb90
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0440079Z ##[group]Run echo "home=$HOME" >> "$GITHUB_OUTPUT"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0440319Z ^[[36;1mecho "home=$HOME" >> "$GITHUB_OUTPUT"^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0440590Z ^[[36;1mprintf 'task-version-key=%s-%s\n' "$RUNNER_OS" "$TASK_BUILD_KEY" >> "$GITHUB_OUTPUT"^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0440886Z ^[[36;1mprintf 'task-production=%s\n' "$TASK_PRODUCTION_KEY" >> "$GITHUB_OUTPUT"^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0441120Z ^[[36;1mcase "$TASK_PROOF_SCOPE" in^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0441334Z ^[[36;1m  full*|source|release-tail*) echo 'task-kind=complete' >> "$GITHUB_OUTPUT" ;;^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0441572Z ^[[36;1m  *) echo 'task-kind=debug' >> "$GITHUB_OUTPUT" ;;^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0441735Z ^[[36;1mesac^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0461062Z shell: /usr/bin/bash -e {0}
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0461206Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0461373Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0461627Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0461880Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0462009Z   TASK_PROOF_SCOPE: stack-editor
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0462225Z   TASK_BUILD_KEY: fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0462521Z   TASK_PRODUCTION_KEY: 01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0462744Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0980534Z ##[group]Run actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0980750Z with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0980876Z   path: ~/.gradle/caches
+native-proof (all)	UNKNOWN STEP	~/.gradle/wrapper
+native-proof (all)	UNKNOWN STEP	
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0981134Z   key: redsquare-gradle-v1-17e5445bc681e76678a97189e909ef74c85cae99f306711fc494e3f0b6b329b9
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0981388Z   enableCrossOsArchive: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0981527Z   fail-on-cache-miss: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0981656Z   lookup-only: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0981768Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0981929Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0982186Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0982386Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.0982497Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.3832709Z Cache not found for input keys: redsquare-gradle-v1-17e5445bc681e76678a97189e909ef74c85cae99f306711fc494e3f0b6b329b9
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4371426Z ##[group]Run actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4371657Z with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4371778Z   path: /home/runner/.gradle/caches
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4372033Z   key: redsquare-gradle-v2-17e5445bc681e76678a97189e909ef74c85cae99f306711fc494e3f0b6b329b9
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4372340Z   restore-keys: redsquare-gradle-v2-
+native-proof (all)	UNKNOWN STEP	setup-java-Linux-x64-gradle-
+native-proof (all)	UNKNOWN STEP	
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4372544Z   enableCrossOsArchive: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4372682Z   fail-on-cache-miss: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4372816Z   lookup-only: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4372930Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4373093Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4373348Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4373553Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.4373667Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:09.7369717Z Cache hit for restore-key: redsquare-gradle-v2-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:10.9530755Z Received 62914560 of 815869018 (7.7%), 60.0 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:11.9557211Z Received 264241152 of 815869018 (32.4%), 125.9 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:12.9572588Z Received 436207616 of 815869018 (53.5%), 138.6 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:13.9567236Z Received 603979776 of 815869018 (74.0%), 143.9 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:14.9546340Z Received 759169024 of 815869018 (93.1%), 144.7 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:15.4822683Z Received 815869018 of 815869018 (100.0%), 140.7 MBs/sec
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:15.4824158Z Cache Size: ~778 MB (815869018 B)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:15.4902683Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9276d798-a770-4748-a471-0d0a1f396512/cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --use-compress-program unzstd
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.3169249Z Cache restored successfully
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.3614731Z Cache restored from key: redsquare-gradle-v2-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5303978Z ##[group]Run actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5304225Z with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5304368Z   path: /home/runner/.gradle/caches/build-cache-1
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5304863Z   key: redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-debug-01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5307271Z   restore-keys: redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-complete-01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e
+native-proof (all)	UNKNOWN STEP	redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-debug-01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e
+native-proof (all)	UNKNOWN STEP	redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-complete-
+native-proof (all)	UNKNOWN STEP	redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-debug-
+native-proof (all)	UNKNOWN STEP	redsquare-gradle-tasks-v2-Linux-d1a72395c57493e8dbbae263061907baec0eedb2d8105d3ea0bc9bb15ca0c1f8
+native-proof (all)	UNKNOWN STEP	redsquare-gradle-tasks-v1-Linux-d1a72395c57493e8dbbae263061907baec0eedb2d8105d3ea0bc9bb15ca0c1f8-
+native-proof (all)	UNKNOWN STEP	
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5308963Z   enableCrossOsArchive: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5309116Z   fail-on-cache-miss: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5309262Z   lookup-only: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5309380Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5309546Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5309813Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5310020Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.5310137Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8158978Z Cache not found for input keys: redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-debug-01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e, redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-complete-01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e, redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-debug-01dc5ca06d09635da713d27cf16f75604c456bfdcf4fc35817dddbd7ed19e64e, redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-complete-, redsquare-gradle-tasks-v3-Linux-fc336806472d0b7d17db8e2b9af3cef93ac52d45ddbba2e91f987e68db7ce9fd-debug-, redsquare-gradle-tasks-v2-Linux-d1a72395c57493e8dbbae263061907baec0eedb2d8105d3ea0bc9bb15ca0c1f8, redsquare-gradle-tasks-v1-Linux-d1a72395c57493e8dbbae263061907baec0eedb2d8105d3ea0bc9bb15ca0c1f8-
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8383374Z ##[group]Run test -c /dev/kvm
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8383630Z ^[[36;1mtest -c /dev/kvm^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8383837Z ^[[36;1msudo chmod a+rw /dev/kvm^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8384151Z ^[[36;1m# This Kotlin/JVM proof does not use the runner's large native SDKs.^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8384486Z ^[[36;1msudo rm -rf /usr/local/lib/android/sdk/ndk^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8384736Z ^[[36;1msudo apt-get update -qq^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8385121Z ^[[36;1mTASK_ALSA=libasound2t64^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8385338Z ^[[36;1mTASK_GLIB=libglib2.0-0t64^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8385558Z ^[[36;1m. /etc/os-release^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8385774Z ^[[36;1mif [[ "$VERSION_ID" == '22.04' ]]; then^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8386148Z ^[[36;1m  TASK_ALSA=libasound2^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8386364Z ^[[36;1m  TASK_GLIB=libglib2.0-0^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8386569Z ^[[36;1mfi^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8387205Z ^[[36;1msudo apt-get install -y --no-install-recommends libpulse0 libgl1 libnss3 "$TASK_ALSA" libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 "$TASK_GLIB"^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8387879Z ^[[36;1mscripts/ci-android-setup^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8388095Z ^[[36;1mjava -version^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8388329Z ^[[36;1m"$ANDROID_HOME/emulator/emulator" -version^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8407608Z shell: /usr/bin/bash -e {0}
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8407810Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8408060Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8408471Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8408789Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:18.8408968Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.6534136Z Reading package lists...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.8088633Z Building dependency tree...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.8093613Z Reading state information...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9115486Z libgl1 is already the newest version (1.7.0-1build1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9116077Z libgl1 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9116479Z libnss3 is already the newest version (2:3.98-1ubuntu0.3).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9116875Z libnss3 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9117275Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9117706Z libasound2t64 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9118106Z libx11-6 is already the newest version (2:1.8.7-1ubuntu0.1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9118500Z libx11-6 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9118831Z libxcb1 is already the newest version (1.15-1ubuntu2).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9119179Z libxcb1 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9119529Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9119904Z libxkbcommon0 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9120255Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9120625Z libxcomposite1 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9120978Z libxcursor1 is already the newest version (1:1.2.1-1build1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9121339Z libxcursor1 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9121675Z libxi6 is already the newest version (2:1.8.1-1build1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9122023Z libxi6 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9122360Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9122659Z libxrandr2 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9122949Z libxtst6 is already the newest version (2:1.2.3-1.1ubuntu0.1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9123259Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9123528Z libxdamage1 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9123873Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.10).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9124136Z libglib2.0-0t64 set to manually installed.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9124324Z The following additional packages will be installed:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9124561Z   libasyncns0 libflac12t64 libmp3lame0 libmpg123-0t64 libopus0 libsndfile1
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9124771Z   libvorbisenc2
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9125300Z Suggested packages:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9125427Z   opus-tools pulseaudio
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9273242Z The following NEW packages will be installed:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9274503Z   libasyncns0 libflac12t64 libmp3lame0 libmpg123-0t64 libopus0 libpulse0
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9276177Z   libsndfile1 libvorbisenc2
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9431356Z 0 upgraded, 8 newly installed, 0 to remove and 27 not upgraded.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9431627Z Need to get 1310 kB of archives.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9432066Z After this operation, 3874 kB of additional disk space will be used.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:26.9432300Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.0087703Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libasyncns0 amd64 0.8-6build4 [11.3 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.0539815Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libflac12t64 amd64 1.4.3+ds-2.1ubuntu2 [197 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.1013472Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libmp3lame0 amd64 3.100-6build1 [142 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.1478883Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libmpg123-0t64 amd64 1.32.5-1ubuntu1.1 [169 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.1944623Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopus0 amd64 1.4-1build1 [208 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.2418049Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvorbisenc2 amd64 1.3.7-1build3 [80.8 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.2874183Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libsndfile1 amd64 1.2.2-1ubuntu5.24.04.1 [209 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.3369713Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libpulse0 amd64 1:16.1+dfsg1-2ubuntu10.1 [292 kB]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5193468Z Fetched 1310 kB in 0s (3236 kB/s)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5373255Z Selecting previously unselected package libasyncns0:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5620454Z (Reading database ... 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5620814Z (Reading database ... 5%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5621160Z (Reading database ... 10%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5621400Z (Reading database ... 15%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5621554Z (Reading database ... 20%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5621683Z (Reading database ... 25%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5621810Z (Reading database ... 30%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5621939Z (Reading database ... 35%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5622065Z (Reading database ... 40%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5622190Z (Reading database ... 45%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5622322Z (Reading database ... 50%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.5664163Z (Reading database ... 55%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.7329888Z (Reading database ... 60%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:27.8786630Z (Reading database ... 65%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.1224654Z (Reading database ... 70%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.2926670Z (Reading database ... 75%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.3809996Z (Reading database ... 80%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.5389934Z (Reading database ... 85%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.6828459Z (Reading database ... 90%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.7825840Z (Reading database ... 95%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.7826191Z (Reading database ... 100%
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.7860713Z (Reading database ... 215960 files and directories currently installed.)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.7860981Z Preparing to unpack .../0-libasyncns0_0.8-6build4_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.7885555Z Unpacking libasyncns0:amd64 (0.8-6build4) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8207320Z Selecting previously unselected package libflac12t64:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8306137Z Preparing to unpack .../1-libflac12t64_1.4.3+ds-2.1ubuntu2_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8311275Z Unpacking libflac12t64:amd64 (1.4.3+ds-2.1ubuntu2) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8520019Z Selecting previously unselected package libmp3lame0:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8618419Z Preparing to unpack .../2-libmp3lame0_3.100-6build1_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8623302Z Unpacking libmp3lame0:amd64 (3.100-6build1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8823417Z Selecting previously unselected package libmpg123-0t64:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8924549Z Preparing to unpack .../3-libmpg123-0t64_1.32.5-1ubuntu1.1_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.8930060Z Unpacking libmpg123-0t64:amd64 (1.32.5-1ubuntu1.1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9127652Z Selecting previously unselected package libopus0:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9226410Z Preparing to unpack .../4-libopus0_1.4-1build1_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9231925Z Unpacking libopus0:amd64 (1.4-1build1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9439576Z Selecting previously unselected package libvorbisenc2:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9542325Z Preparing to unpack .../5-libvorbisenc2_1.3.7-1build3_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9548897Z Unpacking libvorbisenc2:amd64 (1.3.7-1build3) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9762091Z Selecting previously unselected package libsndfile1:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9865467Z Preparing to unpack .../6-libsndfile1_1.2.2-1ubuntu5.24.04.1_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:28.9871114Z Unpacking libsndfile1:amd64 (1.2.2-1ubuntu5.24.04.1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0092196Z Selecting previously unselected package libpulse0:amd64.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0193119Z Preparing to unpack .../7-libpulse0_1%3a16.1+dfsg1-2ubuntu10.1_amd64.deb ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0254898Z Unpacking libpulse0:amd64 (1:16.1+dfsg1-2ubuntu10.1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0610190Z Setting up libmpg123-0t64:amd64 (1.32.5-1ubuntu1.1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0627169Z Setting up libopus0:amd64 (1.4-1build1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0642463Z Setting up libasyncns0:amd64 (0.8-6build4) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0658004Z Setting up libflac12t64:amd64 (1.4.3+ds-2.1ubuntu2) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0673195Z Setting up libmp3lame0:amd64 (3.100-6build1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0687676Z Setting up libvorbisenc2:amd64 (1.3.7-1build3) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0703820Z Setting up libsndfile1:amd64 (1.2.2-1ubuntu5.24.04.1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0719378Z Setting up libpulse0:amd64 (1:16.1+dfsg1-2ubuntu10.1) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.0777222Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7049472Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050019Z Running kernel seems to be up-to-date.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050251Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050325Z No services need to be restarted.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050460Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050523Z No containers need to be restarted.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050624Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050699Z No user sessions are running outdated binaries.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050814Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:29.7050930Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:30.3401666Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:30.3402099Z                                  Dload  Upload   Total   Spent    Left  Speed
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:30.3402302Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:30.6934472Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:30.6934876Z 100  173M  100  173M    0     0   490M      0 --:--:-- --:--:-- --:--:--  491M
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:30.7933075Z /home/runner/work/redsquare-android/redsquare-android/.scratch/ci-sdk-tools/tools.zip: OK
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:31.4950374Z WARNING: The SDK Manager CLI tool (sdkmanager) is deprecated. Use Android CLI instead.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:31.4951128Z The 'android' binary can also be found in the cmdline-tools directory, and 'android sdk' is the replacement for 'sdkmanager'.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:31.4951867Z To learn more about the Android CLI and how to use it, see the documentation (https://d.android.com/tools/agents/android-cli)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:31.4952302Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.0736805Z Loading package information...                                                  
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.1227492Z Loading local repository...                                                     
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.1227895Z [                                       ] 3% Loading local repository...        
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.4366188Z [                                       ] 3% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.7137504Z [=                                      ] 3% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.7524949Z [=                                      ] 4% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.7767814Z [=                                      ] 5% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.8055109Z [==                                     ] 5% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.8384000Z [==                                     ] 6% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.9027150Z [==                                     ] 7% Fetch remote repository...         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.9056751Z [==                                     ] 7% Computing updates...               
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.9086554Z [===                                    ] 8% Computing updates...               
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.9182281Z [===                                    ] 10% Computing updates...              
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:32.9814784Z [===                                    ] 10% Installing Android Emulator       
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.0860214Z [===                                    ] 10% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.1891564Z [====                                   ] 10% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.2886968Z [====                                   ] 11% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.3529259Z [====                                   ] 12% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.3949306Z [=====                                  ] 13% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.4339533Z [=====                                  ] 14% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.4584879Z [=====                                  ] 15% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.4718173Z [======                                 ] 15% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.4926246Z [======                                 ] 16% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.5191864Z [======                                 ] 17% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.5513344Z [=======                                ] 18% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.5772079Z [=======                                ] 19% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.5873721Z [=======                                ] 20% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.5977388Z [========                               ] 20% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.6235414Z [========                               ] 21% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.6446204Z [========                               ] 22% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.6650065Z [=========                              ] 23% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.6900726Z [=========                              ] 24% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.6998689Z [=========                              ] 25% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.7097147Z [==========                             ] 25% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.7370370Z [==========                             ] 26% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.7589953Z [==========                             ] 27% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.7844238Z [===========                            ] 28% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.8043818Z [===========                            ] 29% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.8149705Z [===========                            ] 30% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.8298326Z [============                           ] 30% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.8498505Z [============                           ] 31% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.8701772Z [============                           ] 32% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.8709129Z [============                           ] 33% Downloading emulator-linux_x64-167
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.9230981Z [============                           ] 33% Unzipping...                      
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.9231654Z [============                           ] 33% Unzipping... emulator/            
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.9232340Z [============                           ] 33% Unzipping... emulator/resources/  
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.9243260Z [============                           ] 33% Unzipping... emulator/qsn         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:33.9955575Z [=============                          ] 33% Unzipping... emulator/qsn         
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.0919612Z [=============                          ] 33% Unzipping... emulator/emulator    
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.3316982Z [=============                          ] 33% Unzipping... emulator/netsimd     
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.3317573Z [=============                          ] 33% Unzipping... emulator/bin64/      
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.3317887Z [=============                          ] 33% Unzipping... emulator/qemu/       
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.4426600Z [=============                          ] 33% Unzipping... emulator/NOTICE.txt  
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.4504286Z [=============                          ] 33% Unzipping... emulator/crashpad_han
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.5608592Z [=============                          ] 34% Unzipping... emulator/crashpad_han
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.5610086Z [=============                          ] 34% Unzipping... emulator/source.prope
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.6903394Z [=============                          ] 34% Unzipping... emulator/nimble_bridg
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.6904570Z [=============                          ] 34% Unzipping... emulator/LICENSE     
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.6905098Z [=============                          ] 34% Unzipping... emulator/lib/        
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.7106572Z [=============                          ] 34% Unzipping... emulator/qemu-img    
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.7106890Z [=============                          ] 34% Unzipping... emulator/include/    
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.7492746Z [=============                          ] 34% Unzipping... emulator/NOTICE.csv  
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.7493391Z [=============                          ] 34% Unzipping... emulator/lib64/      
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.8199788Z [=============                          ] 34% Unzipping... emulator/emulator-che
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.9293811Z [=============                          ] 34% Unzipping... emulator/crashreport 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:34.9296186Z [=============                          ] 34% Unzipping... emulator/mksdcard    
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.0537614Z [=============                          ] 34% Unzipping... emulator/resources/To
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.0688745Z [=============                          ] 35% Unzipping... emulator/resources/To
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.1179034Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.1188724Z [=============                          ] 35% Unzipping... emulator/resources/To
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.1382487Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2078293Z [=============                          ] 35% Unzipping... emulator/resources/To
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2078644Z [=============                          ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2375334Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2375862Z [=============                          ] 35% Unzipping... emulator/resources/sk
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2474748Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2475145Z [=============                          ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2678096Z [=============                          ] 35% Unzipping... emulator/resources/po
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2890379Z [=============                          ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.2894243Z [==============                         ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.3387805Z [==============                         ] 35% Unzipping... emulator/resources/sk
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.3395820Z [==============                         ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.3568203Z [==============                         ] 35% Unzipping... emulator/bin64/e2fsck
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.3776640Z [==============                         ] 35% Unzipping... emulator/bin64/fsck.e
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.3866892Z [==============                         ] 35% Unzipping... emulator/bin64/tune2f
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.3877537Z [==============                         ] 35% Unzipping... emulator/bin64/resize
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.4075305Z [==============                         ] 35% Unzipping... emulator/bin64/mkfs.e
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.4743376Z [==============                         ] 35% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:35.7557650Z [==============                         ] 36% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:36.1870080Z [==============                         ] 37% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:36.4719642Z [===============                        ] 38% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:36.8384736Z [===============                        ] 39% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:36.8959642Z [===============                        ] 40% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.0883931Z [================                       ] 40% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3349727Z [================                       ] 41% Unzipping... emulator/qemu/linux-x
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3350112Z [================                       ] 41% Unzipping... emulator/lib/emulator
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3350450Z [================                       ] 41% Unzipping... emulator/lib/rtc_serv
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3352611Z [================                       ] 41% Unzipping... emulator/lib/advanced
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3353166Z [================                       ] 41% Unzipping... emulator/lib/cmake/  
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3354804Z [================                       ] 41% Unzipping... emulator/lib/emulator
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3356874Z [================                       ] 41% Unzipping... emulator/lib/control_
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3358603Z [================                       ] 41% Unzipping... emulator/lib/emulated
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3360358Z [================                       ] 41% Unzipping... emulator/lib/rtc_serv
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3362508Z [================                       ] 41% Unzipping... emulator/lib/emu-orig
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3837174Z [================                       ] 41% Unzipping... emulator/lib/hardware
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3837654Z [================                       ] 41% Unzipping... emulator/lib/pkgconfi
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3838535Z [================                       ] 41% Unzipping... emulator/lib/pc-bios/
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3840356Z [================                       ] 41% Unzipping... emulator/lib/snapshot
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3842000Z [================                       ] 41% Unzipping... emulator/lib/adb_serv
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3854399Z [================                       ] 41% Unzipping... emulator/lib/hostapd.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.3854927Z [================                       ] 41% Unzipping... emulator/lib/grpc_end
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.4237818Z [================                       ] 41% Unzipping... emulator/lib/ca-bundl
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.4239165Z [================                       ] 41% Unzipping... emulator/lib/ui_contr
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.4241990Z [================                       ] 41% Unzipping... emulator/lib/snapshot
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.4246418Z [================                       ] 41% Unzipping... emulator/lib/ice_conf
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.5543012Z [================                       ] 41% Unzipping... emulator/lib/libflatb
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.5557724Z [================                       ] 41% Unzipping... emulator/lib/emulator
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.5559626Z [================                       ] 41% Unzipping... emulator/lib/waterfal
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.5561353Z [================                       ] 41% Unzipping... emulator/lib/emulated
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.6228895Z [================                       ] 41% Unzipping... emulator/lib/cmake/fl
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.6328677Z [================                       ] 41% Unzipping... emulator/lib/pkgconfi
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.8434000Z [================                       ] 41% Unzipping... emulator/lib/pc-bios/
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.9331948Z [================                       ] 41% Unzipping... emulator/include/flat
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.9423394Z [================                       ] 41% Unzipping... emulator/lib64/libgli
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.9621455Z [================                       ] 41% Unzipping... emulator/lib64/libpro
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:37.9621986Z [================                       ] 41% Unzipping... emulator/lib64/qt/   
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.0327778Z [================                       ] 41% Unzipping... emulator/lib64/liband
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.0345611Z [================                       ] 41% Unzipping... emulator/lib64/libgfx
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.1934226Z [================                       ] 42% Unzipping... emulator/lib64/libgfx
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.1934713Z [================                       ] 42% Unzipping... emulator/lib64/gles_l
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.1940661Z [================                       ] 42% Unzipping... emulator/lib64/liband
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.1941081Z [================                       ] 42% Unzipping... emulator/lib64/vulkan
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.1941448Z [================                       ] 42% Unzipping... emulator/lib64/gles_s
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.1943502Z [================                       ] 42% Unzipping... emulator/lib64/libemu
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.2230351Z [================                       ] 42% Unzipping... emulator/lib64/libpro
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.3109480Z [================                       ] 42% Unzipping... emulator/lib64/liband
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.5223585Z [=================                      ] 43% Unzipping... emulator/lib64/liband
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.5616421Z [=================                      ] 43% Unzipping... emulator/lib64/libtcm
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.5618137Z [=================                      ] 43% Unzipping... emulator/lib64/libima
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.5944575Z [=================                      ] 43% Unzipping... emulator/lib64/libc++
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6334258Z [=================                      ] 43% Unzipping... emulator/lib64/liband
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6646598Z [=================                      ] 43% Unzipping... emulator/lib64/libabs
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6666472Z [=================                      ] 43% Unzipping... emulator/lib64/gles_a
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6724678Z [=================                      ] 43% Unzipping... emulator/lib64/libsha
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6837636Z [=================                      ] 43% Unzipping... emulator/lib64/libc++
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6838402Z [=================                      ] 43% Unzipping... emulator/lib64/qt/res
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6838904Z [=================                      ] 43% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6839387Z [=================                      ] 43% Unzipping... emulator/lib64/qt/tra
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.6839879Z [=================                      ] 43% Unzipping... emulator/lib64/qt/plu
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.7008815Z [=================                      ] 43% Unzipping... emulator/lib64/qt/res
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:38.9423492Z [=================                      ] 44% Unzipping... emulator/lib64/qt/res
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:39.0722278Z [=================                      ] 44% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:40.4014820Z [=================                      ] 45% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:41.3670651Z [==================                     ] 45% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:41.5074340Z [==================                     ] 46% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:41.6622624Z [==================                     ] 47% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:41.8212980Z [===================                    ] 48% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:42.6383275Z [===================                    ] 49% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:42.7779897Z [===================                    ] 50% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:42.8393365Z [====================                   ] 50% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:42.8615222Z [====================                   ] 50% Unzipping... emulator/lib64/qt/tra
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:42.9803803Z [====================                   ] 51% Unzipping... emulator/lib64/qt/tra
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:42.9882966Z [====================                   ] 51% Unzipping... emulator/lib64/qt/plu
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:43.0520667Z [====================                   ] 51% Unzipping... emulator/lib64/gles_l
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:43.1750931Z [====================                   ] 51% Unzipping... emulator/lib64/vulkan
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:43.3078522Z [====================                   ] 52% Unzipping... emulator/lib64/vulkan
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:43.5114236Z [=====================                  ] 53% Unzipping... emulator/lib64/vulkan
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.1285895Z [=====================                  ] 54% Unzipping... emulator/lib64/vulkan
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.1486259Z [=====================                  ] 54% Unzipping... emulator/lib64/gles_s
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.1796602Z [=====================                  ] 55% Unzipping... emulator/lib64/gles_s
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.2820858Z [=====================                  ] 55% Unzipping... emulator/lib64/gles_a
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.2821229Z [=======================================] 100% Unzipping... emulator/lib64/gles_
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.4101047Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.4610781Z openjdk version "17.0.21" 2026-10-20
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.4611194Z OpenJDK Runtime Environment Temurin-17.0.21+9 (build 17.0.21+9)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.4611655Z OpenJDK 64-Bit Server VM Temurin-17.0.21+9 (build 17.0.21+9, mixed mode, sharing)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5082915Z Android emulator version 37.2.13.0 (build_id 16740729) (CL:N/A)
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5083500Z Copyright (C) 2006-2024 The Android Open Source Project and many others.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5083981Z This program is a derivative of the QEMU CPU emulator (www.qemu.org).
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5084215Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5084410Z   This software is licensed under the terms of the GNU General Public
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5084806Z   License version 2, as published by the Free Software Foundation, and
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5085173Z   may be copied, distributed, and modified under those terms.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5085390Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5085539Z   This program is distributed in the hope that it will be useful,
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5085901Z   but WITHOUT ANY WARRANTY; without even the implied warranty of
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5086386Z   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5086710Z   GNU General Public License for more details.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5086881Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5144206Z ##[group]Run if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5144674Z ^[[36;1mif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5145409Z ^[[36;1m  ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5146143Z ^[[36;1melse^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5146548Z ^[[36;1m  ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5146974Z ^[[36;1mfi^[[0m
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5162153Z shell: /usr/bin/bash -e {0}
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5162290Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5162467Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5162732Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5162938Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5163189Z   VERIFICATION_SCOPE: stack-editor
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.5163336Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9705471Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9706331Z Welcome to Gradle 8.11.1!
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9706640Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9707370Z Here are the highlights of this release:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9708540Z  - Parallel load and store for Configuration Cache
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9727297Z  - Java compilation errors at the end of the build output
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9727661Z  - Consolidated report for warnings and deprecations
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9727858Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9728046Z For more details see https://docs.gradle.org/8.11.1/release-notes.html
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9728282Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:44.9728918Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:45.6698208Z Daemon will be stopped at the end of the build 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:58.7707379Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.0703616Z > Task :core:processResources NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1720021Z > Task :core:processTestResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1756672Z > Task :push-gateway:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1777846Z > Task :push-gateway:processResources NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1791925Z > Task :push-gateway:processTestResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1806515Z > Task :app:preBuild UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1836778Z > Task :app:preDebugBuild UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1840777Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1866529Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1872846Z > Task :app:generateDebugBuildConfig FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1896564Z > Task :rich-editor-compat:preBuild UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.1926548Z > Task :rich-editor-compat:preDebugBuild UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:27:59.2696501Z > Task :rich-editor-compat:writeDebugAarMetadata
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.2704390Z > Task :app:checkDebugAarMetadata
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.2717412Z > Task :app:generateDebugResValues FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.2738318Z > Task :rich-editor-compat:generateDebugResValues FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.2738726Z > Task :rich-editor-compat:generateDebugResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.2782340Z > Task :rich-editor-compat:packageDebugResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.3727068Z > Task :app:mapDebugSourceSetPaths
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:01.3733475Z > Task :app:generateDebugResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.4714471Z > Task :app:mergeDebugResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.4714737Z > Task :app:packageDebugResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.7711424Z > Task :app:parseDebugLocalResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.7746774Z > Task :app:createDebugCompatibleScreenManifests
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.7756487Z > Task :app:extractDeepLinksDebug FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.7786497Z > Task :rich-editor-compat:extractDeepLinksDebug FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:03.8696302Z > Task :rich-editor-compat:processDebugManifest
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:04.1743736Z > Task :app:processDebugMainManifest
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:04.2702368Z > Task :app:processDebugManifest
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:04.2724247Z > Task :app:processDebugManifestForPackage
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:04.2738028Z > Task :rich-editor-compat:compileDebugLibraryResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:04.2738576Z > Task :rich-editor-compat:parseDebugLocalResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:04.3698034Z > Task :rich-editor-compat:generateDebugRFile
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:05.0699456Z > Task :app:processDebugResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:05.0711236Z > Task :rich-editor-compat:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:11.0717153Z > Task :core:compileKotlin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:11.0717821Z > Task :core:compileJava NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:11.0746470Z > Task :core:classes UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:11.1701954Z > Task :core:jar
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:26.2710082Z > Task :core:compileTestKotlin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:26.3704904Z > Task :core:compileTestJava NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:26.3706724Z > Task :core:testClasses
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:29.3704801Z > Task :core:test
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6718104Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6743799Z > Task :rich-editor-compat:compileDebugKotlin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6762261Z w: file:///home/runner/work/redsquare-android/redsquare-android/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt:200:28 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6790931Z w: file:///home/runner/work/redsquare-android/redsquare-android/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/BasicRichTextEditor.kt:233:30 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6827151Z w: file:///home/runner/work/redsquare-android/redsquare-android/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt:3:8 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6857260Z w: file:///home/runner/work/redsquare-android/redsquare-android/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt:25:35 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.6867158Z w: file:///home/runner/work/redsquare-android/redsquare-android/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/ui/RichTextClipboardManager.kt:26:4 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.7699172Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.7736724Z > Task :core:writeHostPeerClasspath
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.7737285Z > Task :rich-editor-compat:javaPreCompileDebug FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.7765216Z > Task :rich-editor-compat:compileDebugJavaWithJavac NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:31.8707055Z > Task :rich-editor-compat:bundleLibCompileToJarDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:43.0711887Z > Task :push-gateway:compileKotlin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:43.0712342Z > Task :push-gateway:compileJava NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:43.0726454Z > Task :push-gateway:classes UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:43.0746389Z > Task :push-gateway:jar
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:58.9718462Z > Task :push-gateway:compileTestKotlin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:58.9768259Z > Task :push-gateway:compileTestJava NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:28:58.9804734Z > Task :push-gateway:testClasses
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:01.8708030Z > Task :app:compileDebugKotlin
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:24.7697612Z w: file:///home/runner/work/redsquare-android/redsquare-android/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:75:41 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:24.7700892Z w: file:///home/runner/work/redsquare-android/redsquare-android/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:157:51 'fun rememberTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API that takes a preferred positioning. Please use rememberTooltipPositionProvider with TooltipAnchorPosition.Above if this same behavior is desired.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:24.7708551Z w: file:///home/runner/work/redsquare-android/redsquare-android/app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackEditor.kt:106:21 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:24.7711183Z w: file:///home/runner/work/redsquare-android/redsquare-android/app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppFrame.kt:162:71 'fun rememberPlainTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:28.9696458Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:29:28.9727036Z > Task :push-gateway:test
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:07.9707550Z > Task :app:javaPreCompileDebug FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.3703561Z > Task :app:compileDebugJavaWithJavac
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4709333Z > Task :app:mergeDebugShaders
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4740645Z > Task :app:compileDebugShaders NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4746449Z > Task :app:generateDebugAssets UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4786656Z > Task :rich-editor-compat:mergeDebugShaders
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4806737Z > Task :rich-editor-compat:compileDebugShaders NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4826800Z > Task :rich-editor-compat:generateDebugAssets UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4827316Z > Task :rich-editor-compat:mergeDebugAssets
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4827743Z > Task :app:mergeDebugAssets
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.4828137Z > Task :app:compressDebugAssets FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.5717231Z > Task :app:desugarDebugFileDependencies FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:11.5747039Z > Task :rich-editor-compat:bundleLibRuntimeToJarDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:22.6717753Z > Task :app:dexBuilderDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:22.7701273Z > Task :app:processDebugJavaRes
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:22.7716970Z > Task :rich-editor-compat:processDebugJavaRes
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:23.8720040Z > Task :app:mergeDebugJavaResource
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:24.0697132Z > Task :app:checkDebugDuplicateClasses
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:27.3720068Z > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:33.0717107Z > Task :rich-editor-compat:bundleLibRuntimeToDirDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:34.7697131Z > Task :app:mergeLibDexDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:34.8707151Z > Task :app:mergeExtDexDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.0727034Z > Task :app:mergeDebugJniLibFolders
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.0727430Z > Task :rich-editor-compat:mergeDebugJniLibFolders
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.0727778Z > Task :rich-editor-compat:mergeDebugNativeLibs NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.3701311Z > Task :rich-editor-compat:copyDebugJniLibsProjectOnly
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.4726987Z > Task :app:mergeDebugNativeLibs
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.4736408Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.4756689Z > Task :app:stripDebugDebugSymbols
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.4806817Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.5695612Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:35.5727427Z > Task :app:mergeProjectDexDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.1698022Z > Task :app:validateSigningDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.1716598Z > Task :app:writeDebugAppMetadata
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.1746590Z > Task :app:writeDebugSigningConfigVersions
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.3707156Z > Task :app:bundleDebugClassesToCompileJar
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.4696133Z > Task :app:packageDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.4699045Z > Task :app:createDebugApkListingFileRedirect
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.4699584Z > Task :app:assembleDebug
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.4700270Z > Task :app:preDebugAndroidTestBuild SKIPPED
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.5698978Z > Task :app:processDebugAndroidTestManifest
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.5700806Z > Task :app:generateDebugAndroidTestBuildConfig
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.5701349Z > Task :app:checkDebugAndroidTestAarMetadata
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.5701844Z > Task :app:generateDebugAndroidTestResValues FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.6696344Z > Task :app:mapDebugAndroidTestSourceSetPaths
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.6698385Z > Task :app:generateDebugAndroidTestResources FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.6699023Z > Task :app:mergeDebugAndroidTestResources FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7707245Z > Task :app:javaPreCompileDebugAndroidTest FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7756477Z > Task :app:mergeDebugAndroidTestShaders
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7776363Z > Task :app:compileDebugAndroidTestShaders NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7786393Z > Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7816396Z > Task :app:mergeDebugAndroidTestAssets
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7836604Z > Task :app:compressDebugAndroidTestAssets FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7873886Z > Task :app:desugarDebugAndroidTestFileDependencies FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.7874604Z > Task :app:checkDebugAndroidTestDuplicateClasses
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8696572Z > Task :app:mergeExtDexDebugAndroidTest FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8698644Z > Task :app:mergeLibDexDebugAndroidTest FROM-CACHE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8699146Z > Task :app:mergeDebugAndroidTestJniLibFolders
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8699727Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8700236Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8700707Z > Task :app:validateSigningDebugAndroidTest
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8701169Z > Task :app:writeDebugAndroidTestSigningConfigVersions
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:36.8701639Z > Task :app:processDebugAndroidTestResources
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7695425Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7706108Z > Task :app:compileDebugAndroidTestKotlin FAILED
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7707436Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/StackDesignViewportTest.kt:159:36 Cannot infer type for this parameter. Specify it explicitly.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7708396Z 88 actionable tasks: 70 executed, 18 from cache
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7709234Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/StackDesignViewportTest.kt:159:83 Unresolved reference 'AndroidWalletStore'.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7710555Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/StackDesignViewportTest.kt:160:68 Unresolved reference 'publicKey'.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7711255Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7711493Z FAILURE: Build failed with an exception.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7711796Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7712005Z * What went wrong:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7712396Z Execution failed for task ':app:compileDebugAndroidTestKotlin'.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7713054Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7713537Z    > Compilation error. See log for more details
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7713807Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7714013Z * Try:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7714361Z > Run with --stacktrace option to get the stack trace.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7714818Z > Run with --info or --debug option to get more log output.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7715237Z > Run with --scan to get full insights.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7715851Z > Get more help at https://help.gradle.org.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7716491Z 
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:30:59.7716708Z BUILD FAILED in 3m 15s
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3454767Z ##[error]Process completed with exit code 1.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3603326Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3603701Z with:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3603884Z   name: android-native-proof
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3604502Z   path: .scratch/proof-source.txt
+native-proof (all)	UNKNOWN STEP	.scratch/proof-workflow.txt
+native-proof (all)	UNKNOWN STEP	.scratch/proof-runner.txt
+native-proof (all)	UNKNOWN STEP	.scratch/device-evidence/
+native-proof (all)	UNKNOWN STEP	core/build/reports/tests/
+native-proof (all)	UNKNOWN STEP	app/build/reports/lint-results-debug.html
+native-proof (all)	UNKNOWN STEP	
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3604957Z   include-hidden-files: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3605167Z   retention-days: 14
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3605361Z   if-no-files-found: warn
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3605561Z   compression-level: 6
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3605722Z   overwrite: false
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3605836Z   archive: true
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3606095Z env:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3606333Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3606688Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3607010Z   MAVEN_ARGS: -ntp
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.3607219Z ##[endgroup]
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.4719712Z Multiple search paths detected. Calculating the least common ancestor of all paths
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.4725484Z The least common ancestor is /home/runner/work/redsquare-android/redsquare-android. This will be the root directory of the artifact
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.4726293Z With the provided path, there will be 33 files uploaded
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.4726928Z Artifact name is valid!
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.4727262Z Root directory input is valid!
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.7858414Z Uploading artifact: android-native-proof.zip
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:00.7881574Z Beginning upload of artifact content to blob storage
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.0871982Z Uploaded bytes 36883
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.1408960Z Finished uploading artifact content to blob storage!
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.1409646Z SHA256 digest of uploaded artifact is ae7f7ecb8df809792f578b6b529c61beb7b38618ebca979654cea14cf8c51a35
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.1409987Z Finalizing artifact upload
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.6600686Z Artifact android-native-proof successfully finalized. Artifact ID 13601942859
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.6601261Z Artifact android-native-proof has been successfully uploaded! Final size is 36883 bytes. Artifact ID is 13601942859
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.6604489Z Artifact download URL: https://github.com/robelene112/redsquare-android/actions/runs/42442764360/artifacts/13601942859
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.6782463Z Post job cleanup.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.7340759Z Post job cleanup.
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.7923340Z [command]/usr/bin/git version
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.7986774Z git version 2.56.0
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8009836Z Temporarily overriding HOME='/home/runner/work/_temp/719233bf-c46e-4693-a8b4-4f9266277fa7' before making global git config changes
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8010583Z Adding repository directory to the temporary git global config as a safe directory
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8012966Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/redsquare-android/redsquare-android
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8043929Z Removing SSH command configuration
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8048617Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8078569Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8556683Z Removing HTTP extra header
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8560980Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.8604020Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.9063383Z Removing includeIf entries pointing to credentials config files
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.9071507Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.9113752Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+native-proof (all)	UNKNOWN STEP	2026-11-08T03:31:01.9719107Z Cleaning up orphan processes

@@ -1,0 +1,6 @@
+{
+  "source": "be37e8c4276e001a453bbb282d1f5ecd4d8bcb26",
+  "run": 42442764360,
+  "failure": "New test used wrong package for AndroidWalletStore; compileDebugAndroidTestKotlin failed before native execution. Corrected reference uses existing same-package class. Android17 run42442764238 cancelled as superseded; neither accepted.",
+  "compileQualification": "Earlier app+test compilation preceded the added public-key dialog assertion; release production compile passed2m25s. Corrected final instrumentation compilation pending."
+}

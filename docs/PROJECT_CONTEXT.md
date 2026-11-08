@@ -2,6 +2,19 @@
 
 ## Current verification status
 
+Focused9672 posting10(18cases), quotes17(7) and private/group own-send10(2)
+now pass in runs42442338355/42442337906/42442338052. Exact original logs/TARs are
+retained under focused-fixture-corrections/. These remain focused proofs.
+
+The old application fails the new own-author-row regression at the missing tag
+(run42442337880), confirming the visual gap is caught. The first repaired source
+be37 native attempt42442764360 failed instrumentation compilation because the
+added public-key assertion used an incorrect AndroidWalletStore package. Its
+failed log is retained;17 run42442764238 was cancelled. The test now uses the
+existing same-package class and reveals the lazy byline before checking it.
+Corrected instrumentation compilation passes2m9s; production release compilation
+passes2m25s. Fresh Stack native checks and complete10/17 gates remain required.
+
 The own-preview author row is now implemented with the approved42/12/5dp geometry,
 actual cached public name/avatar, explicit local-preview label and full public-key
 details on tap. Stack receives only a caller-owned presentation slot. Both source

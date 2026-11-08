@@ -151,12 +151,12 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 waitUntil(5_000) { onNodeWithText("Publication preview").isDisplayed() }
                 capture("$label-publication-success")
                 click("View article preview")
-                onNodeWithTag("stack-preview-author").assertExists()
                 reveal("Local preview · Not published")
+                onNodeWithTag("stack-preview-author").assertExists()
                 onNodeWithTag("stack-preview-author").assertIsDisplayed()
                 capture("$label-published-reader")
                 onNodeWithTag("stack-preview-author").performClick()
-                val publicAuthor = requireNotNull(nl.davidengelen.redsquare.saito.AndroidWalletStore(
+                val publicAuthor = requireNotNull(AndroidWalletStore(
                     instrumentation.targetContext).loadExisting()).publicKey
                 onNode(hasText(publicAuthor) and hasAnyAncestor(isDialog())).assertIsDisplayed()
                 onNodeWithText("Identity details").assertIsDisplayed()
