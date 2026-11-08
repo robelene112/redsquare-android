@@ -1,0 +1,58 @@
+{
+  "run": 42442449868,
+  "source": "36dd9b2c162326ef5ba93c6d20127d14b42ea6b4",
+  "trials": [
+    {
+      "trial": 1,
+      "tests": 7,
+      "time": [
+        "Time: 161.597"
+      ],
+      "logSha256": "45161232fe7e6ab648e30177beebe7b7e2efbbff90e4e86ae478dd5fb62bf97b",
+      "archiveSha256": "33a1d854006f21122c045e28b62307f88ba52dffb4ae27d7ef57b2e75d006f69",
+      "traceSha256": "edd07c54fbd4a12927505044c9458390b1908508176ffdc9abe72d666e820350"
+    },
+    {
+      "trial": 2,
+      "tests": 7,
+      "time": [
+        "Time: 202.694"
+      ],
+      "logSha256": "bde1c765ed2dc1dcf7015189861f32f974d2ab7a23ce83dfa9a6bc21ba097d9d",
+      "archiveSha256": "1d47cbba95ff159a3ca0061d9911b3ee841ef25dcb6030b9cf6c5d2255e2a58f",
+      "traceSha256": "d0f4f147b04d5271cbb18d5b24ceb96b826dff7059dc70436ba6935a7e56714e"
+    },
+    {
+      "trial": 3,
+      "tests": 7,
+      "time": [
+        "Time: 212.881"
+      ],
+      "logSha256": "f94665e6b39984c08559582115e0d1b6471f64e58190e3accc87377797823fa5",
+      "archiveSha256": "e22eb61a0ecc06c34addb0b24e11b97861a6f7fc040ea0d9b5f0fbafb00d6b3d",
+      "traceSha256": "01e4b0f9d5cc800e87bc559c8d37b3ebb367fbbda30cb120728feefe593e14b8"
+    },
+    {
+      "trial": 4,
+      "tests": 7,
+      "time": [
+        "Time: 220.857"
+      ],
+      "logSha256": "775360c3f4805e68123a180d7ba4f78ea6cda62bcf540cf2ff602ddf4f78d042",
+      "archiveSha256": "dab965433e51b866ff9221578257a1a27c8034dcdc9a22c3fe232164bd6c23fc",
+      "traceSha256": "0470ddb3ac1cb1a02bd683cfcda2dbafe38ec1f0697c6733be999e1c9001bd49"
+    },
+    {
+      "trial": 5,
+      "tests": 7,
+      "time": [
+        "Time: 229.802"
+      ],
+      "logSha256": "cb1a1c160ac7ea52ffeaceca9c6652f6134d0cfee1b571e94215bcfc32fc5b9b",
+      "archiveSha256": "9fd16c06d5bec89c72944f812037fa233cf41bbf1c48e03beaa0cf9794bf1952",
+      "traceSha256": "33ff5273cb1189105ce41b012cfba25fbc8f06c3c24aabac00d2d17bb7f758ca"
+    }
+  ],
+  "result": "35 original cases pass; prior blank surface not reproduced. No proven causal fix; originalfailure retained.",
+  "scope": "Read-only diagnostic branch only, not application acceptance."
+}

@@ -2,6 +2,30 @@
 
 ## Current verification status
 
+Full144 source144478128079f20321caaf401a8907597a3c4809 remains under verification:
+Android10 run42444221406 is pending. Android17 run42444221528 Wallet fails at
+PolicyCenterPreviewTest157: after a TalkBack-owned Node activation, actual PNG/XML
+show Appearance; the earlier ordinary keyboard Node journey passed. Original
+TAR/log/source/run state is retained under failures/144-policy-talkback-android17/.
+Other partitions continue; this failed run is never accepted as a full pass.
+
+Only two test activations inside NativeTalkBackObservation now reuse its existing
+real native ACTION_CLICK helper. All ordinary pointer/keyboard checks,20s readiness,
+the shared5s completed-speech/radio-focus budget, identity/draft and restoration
+assertions remain. Both source reviews clear the bounded change; instrumentation
+compilation passes2m20s. No production/build/workflow/catalog/test-identity change.
+The coordinate/handoff explanation remains a hypothesis. Focused17 native validation
+is next. A one-SDK fixture exception is not yet eligible: require opposite complete
+full10 all3SUCCESS and exact production equivalence; otherwise both fresh full gates.
+
+Own-author native Pixel412/font130 Dark proofs now pass on10/17 and both axes
+resolve its actual42dp/12dp/5dp/52dp geometry and real full-key dialog. Receipts and
+originals are retained under own-author-preview-android10/17 and reviews/. Qualified
+b64 Chat17 reviews complement earlier10 samples with explicit asynchronous/motion
+limits. Those failed overall b64 runs never become accepted. The reduced-observer
+Chrome diagnostic passes35original cases without reproducing the old blank root;
+no causal fix is claimed. Latest public beta89; counter101;102 remains unbuilt.
+
 Focused9672 posting10(18cases), quotes17(7) and private/group own-send10(2)
 now pass in runs42442338355/42442337906/42442338052. Exact original logs/TARs are
 retained under focused-fixture-corrections/. These remain focused proofs.

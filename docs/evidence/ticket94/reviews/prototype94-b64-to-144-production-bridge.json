@@ -1,0 +1,16 @@
+{
+  "reviewedNativeSource": "b64ac663514ce2d9610057ee70e36b998efc37a5",
+  "currentSource": "144478128079f20321caaf401a8907597a3c4809",
+  "changedProductionBuildPaths": [
+    "app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/identity/IdentityDetailsDialog.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackReviewScreen.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AccountIdentity.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/ui/ModuleShell.kt",
+    "app/src/main/res/values/stack.xml"
+  ],
+  "qualification": "Only real own-author presentation, existing identity dialog presentation extraction, cached Account name helper and Stack caller slot/local-author string change. Other production/build/workflow inputs unchanged. Changes have separate source and current-source native author proofs. This source bridge does not establish APK identity or full application acceptance.",
+  "run": 42438441132,
+  "partition": "Chat SUCCESS; full run FAILED Social. No full acceptance.",
+  "wholeTreeExclusionCheck": "Exact git diff across entire tree excluding docs/ and app/src/androidTest/ equals these6paths; no other code/build/workflow/vendor inputs changed."
+}

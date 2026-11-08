@@ -1,0 +1,123 @@
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt
+index 6e3d38e43..56d8166ee 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt
+@@ -354,18 +354,24 @@ class WalletImportPreviewTest {
+             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
+             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
+                 .putExtra("feedDisabled", true)
++                .putExtra("walletImportChromeTrace", true)
+                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
+                 withFailureCapture({
+                     val evidence = File(context.cacheDir, "wallet-import-evidence")
+                     cleanupAfterTest(null,
++                        { File(evidence.apply { mkdirs() }, "activation-chrome-trace.txt").writeText(nl.davidengelen.redsquare.ui.ChromeTrace.dump()) },
+                         { captureNativeScreen(File(evidence, "activation-first-failure.png")) },
+                         { File(evidence.apply { mkdirs() }, "activation-failure-state.txt").writeText(
+                             "selectedBackend=${backends.load().id}\n") },
+                         { captureActivationWindow(evidence) },
++                        { File(evidence, "activation-roots.txt").writeText(
++                            "clock=${ui.mainClock.currentTime} autoAdvance=${ui.mainClock.autoAdvance}\n" +
++                            ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE)) },
+                         { File(evidence, "activation-app-logcat.txt").writeText(device.executeShellCommand(
+                             "timeout 3 logcat -d -v threadtime --pid=${android.os.Process.myPid()} -t 300")) })
+                 }) {
+-                    openWallet("activation-entry")
++                    nl.davidengelen.redsquare.ui.ChromeTrace.clear()
++                openWallet("activation-entry")
+                     val originalAddress = displayedWalletAddress(ui)
+                     originalWallet = wallets.loadExisting()
+                     ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
+@@ -394,6 +400,7 @@ class WalletImportPreviewTest {
+                     ui.waitUntil(15_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
+                     ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
+                     captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-owner-feed-visible.png"))
++                    File(context.cacheDir, "wallet-import-evidence/activation-chrome-success.txt").writeText(nl.davidengelen.redsquare.ui.ChromeTrace.dump())
+                     scenario.recreate()
+                     ui.openWallet()
+                     assertEquals(incomingAddress, displayedWalletAddress(ui))
+diff --git a/app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt b/app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt
+index d984b10f5..07685be24 100644
+--- a/app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt
++++ b/app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt
+@@ -25,6 +25,11 @@ import androidx.compose.foundation.background
+ import androidx.compose.foundation.layout.padding
+ import androidx.compose.foundation.layout.ExperimentalLayoutApi
+ import androidx.compose.foundation.layout.isImeVisible
++import androidx.compose.foundation.layout.ime
++import androidx.compose.ui.platform.LocalView
++import androidx.compose.ui.platform.LocalDensity
++import androidx.compose.ui.layout.onGloballyPositioned
++import androidx.compose.ui.layout.boundsInWindow
+ import androidx.compose.foundation.layout.WindowInsets
+ import androidx.compose.foundation.layout.safeDrawing
+ import androidx.compose.foundation.layout.windowInsetsPadding
+@@ -368,7 +373,20 @@ class MainActivity : ComponentActivity() {
+                     val appHeader: @Composable () -> Unit = {
+                         val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
+                             !walletImport.busy && !walletExport.busy
+-                        if (!nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()) AppHeader(backend?.domain, address, module,
++                        val headerKeyboard = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
++                        if (BuildConfig.DEBUG && intent.getBooleanExtra("walletImportChromeTrace", false)) {
++                            val traceView = LocalView.current
++                            SideEffect {
++                                val native = androidx.core.view.ViewCompat.getRootWindowInsets(traceView)
++                                val imeType = androidx.core.view.WindowInsetsCompat.Type.ime()
++                                nl.davidengelen.redsquare.ui.ChromeTrace.record(
++                                    "header view=${System.identityHashCode(traceView)} root=${System.identityHashCode(traceView.rootView)} " +
++                                    "mainDecor=${System.identityHashCode(window.decorView)} focused=${traceView.hasWindowFocus()} " +
++                                    "gate=$headerKeyboard emitted=${!headerKeyboard} nativeIme=${native?.isVisible(imeType)} nativeBottom=${native?.getInsets(imeType)?.bottom} " +
++                                    "walletOpen=$walletOpen hasWallet=${wallet != null} backend=${backend?.id}")
++                            }
++                        }
++                        if (!headerKeyboard) AppHeader(backend?.domain, address, module,
+                             walletEnabled = navigationEnabled,
+                             settingsEnabled = backendReady && navigationEnabled,
+                             onWallet = {
+diff --git a/app/src/main/kotlin/nl/davidengelen/redsquare/ui/ChromeTrace.kt b/app/src/main/kotlin/nl/davidengelen/redsquare/ui/ChromeTrace.kt
+new file mode 100644
+index 000000000..ae9e6b8ec
+--- /dev/null
++++ b/app/src/main/kotlin/nl/davidengelen/redsquare/ui/ChromeTrace.kt
+@@ -0,0 +1,13 @@
++package nl.davidengelen.redsquare.ui
++
++/** Optional debug-only observations. Never changes Compose state or the Android window. */
++internal object ChromeTrace {
++    private val events = java.util.ArrayDeque<String>()
++    @Synchronized fun record(message: String) {
++        if (!nl.davidengelen.redsquare.BuildConfig.DEBUG) return
++        if (events.size >= 100) events.removeFirst()
++        events.addLast("${android.os.SystemClock.elapsedRealtime()} $message")
++    }
++    @Synchronized fun clear() { events.clear() }
++    @Synchronized fun dump(): String = events.joinToString("\n")
++}
+diff --git a/scripts/emulator-check b/scripts/emulator-check
+index e93b19ea1..04131e573 100755
+--- a/scripts/emulator-check
++++ b/scripts/emulator-check
+@@ -2003,6 +2003,23 @@ verify_wallet_import() {
+         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
+     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"keys":[{"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","identifier":"reference@saito"}],"pending_txs":[{}],"crypto":{"OTHER":{"isActivated":true,"address":"unverified","balance":"0"}}}' | \
+         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/risk-import.json > /dev/null
++    if [[ "${TEST_SCOPE:-full}" == import && "$TEST_DEVICE_API" == 29 ]]; then
++        # Diagnostic branch only: repeat the full original seven-method import class, without changing
++        # its assertions, deadlines, UI operations or restoration.
++        printf '%s\n' 'Read-only Chrome state diagnostic, repeated original seven-method import class only; not complete app acceptance.' > "$evidence/scope.txt"
++        for chrome_trial in 1 2 3 4 5; do
++            adb shell run-as nl.davidengelen.redsquare.dev rm -rf cache/wallet-import-evidence
++            timeout 300 adb shell am instrument -w -r \
++                -e class nl.davidengelen.redsquare.WalletImportPreviewTest \
++                nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
++                > "$evidence/wallet-import-trace-$chrome_trial.txt" || true
++            adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence \
++                > "$evidence/wallet-import-trace-$chrome_trial-evidence.tar" || true
++            grep -q 'OK (7 tests)' "$evidence/wallet-import-trace-$chrome_trial.txt" || exit 1
++        done
++        printf '%s\n' 'Read-only Chrome state diagnostic, repeated original seven-method import class only; not complete app acceptance.' > "$evidence/scope.txt"
++        exit 0
++    fi
+     if [[ "${TEST_SCOPE:-full}" != import-risk* ]]; then
+         timeout 300 adb shell am instrument -w -r \
+             -e class nl.davidengelen.redsquare.WalletImportPreviewTest \

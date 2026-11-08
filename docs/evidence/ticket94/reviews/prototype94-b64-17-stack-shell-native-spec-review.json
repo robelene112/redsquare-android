@@ -1,0 +1,4455 @@
+{
+  "status": "NO_NEW_ACTIONABLE_FINDING_IN_BOUNDED_ANDROID17_UNCHANGED_RENDERER_SUBSET; NOT_FULL_ACCEPTANCE",
+  "reviewedNativeSource": "b64ac663514ce2d9610057ee70e36b998efc37a5",
+  "currentSourceQualifiedByBridge": "144478128079f20321caaf401a8907597a3c4809",
+  "runId": "42438441132",
+  "runUrl": "https://github.com/robelene112/redsquare-android/actions/runs/42438441132",
+  "partitionQualification": "Chat partition SUCCESS only; overallb64 full17 run FAILED Social. Old full is not accepted. Fresh full14410/17 runs42444221406/42444221528 pending, not polled.",
+  "provenance": {
+    "source": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/proof-source.txt",
+      "sha256": "fae7d9f56e7234b11e9db143593ce5e59be648b4f6b16e9f4867330ab7ea7847",
+      "bytes": 41
+    },
+    "workflow": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/proof-workflow.txt",
+      "sha256": "fae7d9f56e7234b11e9db143593ce5e59be648b4f6b16e9f4867330ab7ea7847",
+      "bytes": 41
+    },
+    "selectedArchiveInventory": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/selected-original-archives.json",
+      "sha256": "bb0cd2dc7ca3441b8feb98f6bc0d9b41571fd905dec31a6ecbb5c6553ca3da49",
+      "bytes": 14221
+    },
+    "independentlyVerifiedSelectedArchives": [
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/module-shell-evidence.tar",
+        "sha256": "889cfcc4ee983093d9ba6d0c4db547ab84032c03d87edac1f70b93b6efc60765",
+        "bytes": 838144,
+        "matchesSelectionInventory": true
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-412-evidence.tar",
+        "sha256": "77226248c3cb412232bddf577d35f04e6dc78c2aef0f24e25db3adb5670d048f",
+        "bytes": 2900480,
+        "matchesSelectionInventory": true
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-320-evidence.tar",
+        "sha256": "8a8e51f41c504eeb2c6b040f28c543a1bae58aedc2dfdd50cdba57641aac06b9",
+        "bytes": 2654208,
+        "matchesSelectionInventory": true
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/module-menu-motion-evidence.tar",
+        "sha256": "aa266cafdf6da5fb8cedaa59640d4913dcc100acfd159a9f152ed0ab8edd7c93",
+        "bytes": 14767616,
+        "matchesSelectionInventory": true
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-motion-evidence.tar",
+        "sha256": "0faf8b17d6a0c3df12d1c0779a289834ff1501bb645abc7fe7cfea8a8bd63e0d",
+        "bytes": 8102912,
+        "matchesSelectionInventory": true
+      }
+    ],
+    "allChosenOriginalPngXmlMovieAndMetadataBytesMatchTheirTars": true,
+    "productionBridge": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-to-144-production-bridge.json",
+      "sha256": "50df32dff3f6e31a2bbe09f1a6ff60f5ca49060ab8d782dd4e1b7c3a68ede620",
+      "bytes": 1262
+    },
+    "independentlyObservedChangedProductionBuildPaths": [
+      "app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/identity/IdentityDetailsDialog.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackReviewScreen.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AccountIdentity.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/ui/ModuleShell.kt",
+      "app/src/main/res/values/stack.xml"
+    ],
+    "bridgeLimits": "These six paths only introduce own-preview author/cache-helper/dialog extraction/caller slot/string. Other sampled Stack rendering/build unchanged. This is no APK/execution identity or full acceptance equivalence."
+  },
+  "reference": {
+    "commit": "c95ecaa01",
+    "designRevision": "design-3d989e9e8406",
+    "issues": [
+      86,
+      90,
+      94
+    ],
+    "originalsActuallyViewed": [
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/article-dark.png",
+        "sha256": "b5ba8db0152f5ae5097df1ed2f7b555199ad0935bccdae83e2a6da591852c168",
+        "bytes": 164140
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/visual-editor.png",
+        "sha256": "ca145357b03b116faa4ca839ac5c82c5096c77ffaaab05f4054fdb2c0ea87284",
+        "bytes": 39086
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/access-review-dark.png",
+        "sha256": "be84f8da5b0f773207c10d020f79d858db558300fee59f0d9f4cb1a906fb0ef9",
+        "bytes": 37409
+      }
+    ],
+    "approvedDifferences": "Rounded module selector and actual account/node/block context; Stack protocols/payment/publication/subscriptions remain explicitly local previews with no fake real balances. Real owning identity row independently corrected in144; later reading-navigation amendment retained."
+  },
+  "counts": {
+    "nativePngActuallyViewed": 16,
+    "pairedXmlParsedCompared": 16,
+    "referencePngActuallyViewed": 3,
+    "originalMoviesIndependentlyDecoded": 4,
+    "originalFramesDecoded": 244,
+    "sampledOriginalFramesActuallyViewed": 77,
+    "contactSheetsActuallyViewed": 10,
+    "selectedOriginalArchivesActuallyUsed": 5,
+    "totalSelectionInventoryArchives": 35,
+    "qualifiedNamedClasses": 5,
+    "passedMethodsInThoseClasses": 6
+  },
+  "selectedOriginalStills": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/module-picker.png",
+      "sha256": "d4e42e79304682205a7b2bbee1acca6a13d586e6261044b467540a280b37a72a",
+      "bytes": 38893,
+      "originalTarMember": "module-shell-evidence/module-picker.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/module-picker.xml",
+        "sha256": "af3d7d00a11b64e51fe216a0c9dc2262cc1698f73b5ffef2ab45cb3af7b406aa",
+        "bytes": 23835,
+        "originalTarMember": "module-shell-evidence/module-picker.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Close sheet",
+          "bounds": "[0,0][320,318]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,340][176,344]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Your Saito apps",
+          "content-desc": "",
+          "bounds": "[18,366][171,391]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "One identity. A place for everything.",
+          "content-desc": "",
+          "bounds": "[18,403][208,417]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Red Square",
+          "content-desc": "",
+          "bounds": "[98,447][182,466]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Posts, conversations and your community",
+          "content-desc": "",
+          "bounds": "[98,466][248,498]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack",
+          "content-desc": "",
+          "bounds": "[98,554][138,573]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Read and write on Saito",
+          "content-desc": "",
+          "bounds": "[98,573][226,587]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "2:58",
+          "content-desc": "2:58\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/account-sheet.png",
+      "sha256": "674619c5f3e88296b032bbee1672f3e521597b4b575e90f7f46c5dfb228640a8",
+      "bytes": 38915,
+      "originalTarMember": "module-shell-evidence/account-sheet.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/account-sheet.xml",
+        "sha256": "19348c4a558b7651b41d69e83390e9fb45fdcdf51f3cf3dfa4e488d73c23d121",
+        "bytes": 26099,
+        "originalTarMember": "module-shell-evidence/account-sheet.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Close sheet",
+          "bounds": "[0,0][320,292]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,314][176,318]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Account",
+          "content-desc": "",
+          "bounds": "[18,340][98,365]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Generated profile picture",
+          "bounds": "[18,382][68,432]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Anon-syhGEN",
+          "content-desc": "",
+          "bounds": "[80,377][203,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "syhGENKm56LmZWB1DkNT6AboX69kpsdMBvTjdpdjYbZr",
+          "content-desc": "",
+          "bounds": "[80,405][302,437]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Wallet",
+          "content-desc": "",
+          "bounds": "[54,475][95,491]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Balance, payments and wallet backup",
+          "content-desc": "",
+          "bounds": "[54,495][258,509]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Settings",
+          "content-desc": "",
+          "bounds": "[54,547][108,563]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Privacy, identity and how Red Square looks on this device.",
+          "content-desc": "",
+          "bounds": "[54,567][271,599]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "2:58",
+          "content-desc": "2:58\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/stack-discover.png",
+      "sha256": "6a5beebaf79fccd533e83ffb794e4d5d29d419f038abaf582262aefec311e76e",
+      "bytes": 117099,
+      "originalTarMember": "module-shell-evidence/stack-discover.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/stack-discover.xml",
+        "sha256": "31baec5fd9e5396d3a327c5cf23c022d5867d6a495af2e1120cc7c49ad8ad09f",
+        "bytes": 44497,
+        "originalTarMember": "module-shell-evidence/stack-discover.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][119,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,106][173,119]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[185,106][272,119]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,103][298,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "INDEPENDENT WRITING",
+          "content-desc": "",
+          "bounds": "[18,196][174,209]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Good ideas deserve\na little more room.",
+          "content-desc": "",
+          "bounds": "[18,217][282,288]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stories and perspectives from people you choose.",
+          "content-desc": "",
+          "bounds": "[18,296][302,333]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "For you",
+          "content-desc": "",
+          "bounds": "[34,365][81,381]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Latest",
+          "content-desc": "",
+          "bounds": "[123,365][164,381]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[18,148][172,172]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[184,154][290,167]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Write an article",
+          "bounds": "[262,497][286,521]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,556][102,636]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[110,556][211,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[219,556][320,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "2:58",
+          "content-desc": "2:58\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/stack-author.png",
+      "sha256": "b6925c0461b353b69869b5e20fdbbccb4913ff90a476e83772f16858aebe13a5",
+      "bytes": 33931,
+      "originalTarMember": "module-shell-evidence/stack-author.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-shell/module-shell-evidence/stack-author.xml",
+        "sha256": "58b4366c7b0fa506901c93e1e830c130ac5b6838e3ae602e2d863497e0c108a7",
+        "bytes": 41866,
+        "originalTarMember": "module-shell-evidence/stack-author.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][119,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,106][173,119]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[185,106][272,119]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,103][298,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "MC",
+          "content-desc": "",
+          "bounds": "[34,358][67,383]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Follow",
+          "content-desc": "",
+          "bounds": "[236,360][278,380]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen",
+          "content-desc": "",
+          "bounds": "[18,416][127,441]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "maya@saito \u00b7 Sample identity",
+          "content-desc": "",
+          "bounds": "[18,445][180,459]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Independent writer. Curious about the shape of things to come. Essays on technology, people and possibility.",
+          "content-desc": "",
+          "bounds": "[18,473][302,531]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "SAMPLE AUTHOR",
+          "content-desc": "",
+          "bounds": "[18,545][108,555]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,136][52,184]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen",
+          "content-desc": "",
+          "bounds": "[52,148][186,172]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[198,154][304,167]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,556][102,636]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[110,556][211,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[219,556][320,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "2:58",
+          "content-desc": "2:58\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "Early near-zero-opacity body capture; no settled author-page appearance claim."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-reader-intro.png",
+      "sha256": "96296a19fe685e7f0242d35e5996dc2ee609b73255760988a3929cb16ba6de3d",
+      "bytes": 225815,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-reader-intro.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-reader-intro.xml",
+        "sha256": "599d80af70ea3c9fcbab623decf0f82f2bdc94adde87fd72a6b85b30f75db717",
+        "bytes": 47597,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-reader-intro.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "INDEPENDENT WRITING",
+          "content-desc": "",
+          "bounds": "[18,196][215,212]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Good ideas deserve\na little more room.",
+          "content-desc": "",
+          "bounds": "[18,220][282,291]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stories and perspectives from people you choose.",
+          "content-desc": "",
+          "bounds": "[18,299][394,350]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "For you",
+          "content-desc": "",
+          "bounds": "[34,379][93,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Latest",
+          "content-desc": "",
+          "bounds": "[135,379][186,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "SAITO STACK",
+          "content-desc": "",
+          "bounds": "[52,610][152,626]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A Node in a Browser Tab",
+          "content-desc": "",
+          "bounds": "[34,634][287,662]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "What happens when participation becomes as simple as opening a page?",
+          "content-desc": "",
+          "bounds": "[34,670][378,721]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen \u00b7 6 min read",
+          "content-desc": "",
+          "bounds": "[34,729][182,745]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Worth your attention",
+          "content-desc": "",
+          "bounds": "[18,777][203,801]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[18,146][236,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[248,152][382,168]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Write an article",
+          "bounds": "[354,772][378,796]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,831][132,911]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[140,831][272,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[280,831][411,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "2:59",
+          "content-desc": "2:59\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "PNG shows reader; paired XML remains Discover. PNG valid for appearance only, XML not reader geometry."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-reader-body.png",
+      "sha256": "118c8ef679413efc1be4b7265bb559e916cfecde37c1e0392fb6f9091b328ee1",
+      "bytes": 91484,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-reader-body.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-reader-body.xml",
+        "sha256": "599d80af70ea3c9fcbab623decf0f82f2bdc94adde87fd72a6b85b30f75db717",
+        "bytes": 47597,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-reader-body.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "INDEPENDENT WRITING",
+          "content-desc": "",
+          "bounds": "[18,196][215,212]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Good ideas deserve\na little more room.",
+          "content-desc": "",
+          "bounds": "[18,220][282,291]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stories and perspectives from people you choose.",
+          "content-desc": "",
+          "bounds": "[18,299][394,350]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "For you",
+          "content-desc": "",
+          "bounds": "[34,379][93,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Latest",
+          "content-desc": "",
+          "bounds": "[135,379][186,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "SAITO STACK",
+          "content-desc": "",
+          "bounds": "[52,610][152,626]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A Node in a Browser Tab",
+          "content-desc": "",
+          "bounds": "[34,634][287,662]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "What happens when participation becomes as simple as opening a page?",
+          "content-desc": "",
+          "bounds": "[34,670][378,721]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen \u00b7 6 min read",
+          "content-desc": "",
+          "bounds": "[34,729][182,745]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Worth your attention",
+          "content-desc": "",
+          "bounds": "[18,777][203,801]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[18,146][236,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[248,152][382,168]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Write an article",
+          "bounds": "[354,772][378,796]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,831][132,911]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[140,831][272,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[280,831][411,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "2:59",
+          "content-desc": "2:59\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "PNG shows scrolled reader prose; paired XML remains Discover. No reader geometry/position proof from this XML."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-visual.png",
+      "sha256": "64840c11a08e51cbaf3f64a0a188c5deb11e34099b6ebf6e66a27c0f06d71e71",
+      "bytes": 41244,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-visual.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-visual.xml",
+        "sha256": "4c9316a7c61b9e41a6b38366971098e55b049f970aae449d3b77f719bdf8ae3a",
+        "bytes": 41428,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-visual.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Cover image",
+          "content-desc": "",
+          "bounds": "[54,213][156,235]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Choose an image for your article",
+          "content-desc": "",
+          "bounds": "[54,235][274,253]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Visual",
+          "content-desc": "",
+          "bounds": "[34,294][85,316]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown",
+          "content-desc": "",
+          "bounds": "[127,294][211,316]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy Markdown",
+          "content-desc": "",
+          "bounds": "[346,281][394,329]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Bold",
+          "bounds": "[22,345][62,385]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "B",
+          "content-desc": "",
+          "bounds": "[36,350][49,381]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Italic",
+          "bounds": "[74,345][114,385]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "I",
+          "content-desc": "",
+          "bounds": "[92,350][97,381]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Insert link",
+          "content-desc": "",
+          "bounds": "[122,341][170,389]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "More formatting",
+          "content-desc": "",
+          "bounds": "[174,341][222,389]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "A retained idea  A careful question for stack-412-font130-dark.",
+          "content-desc": "",
+          "bounds": "[18,389][394,754]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Article body",
+          "bounds": "[18,389][394,754]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "9 words",
+          "content-desc": "",
+          "bounds": "[18,766][67,782]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Design draft kept while you explore. Not published to Stack.",
+          "content-desc": "",
+          "bounds": "[18,794][394,831]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Review article",
+          "content-desc": "",
+          "bounds": "[149,861][263,888]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,150][52,198]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Write",
+          "content-desc": "",
+          "bounds": "[52,136][106,164]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[64,180][198,196]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Review",
+          "content-desc": "",
+          "bounds": "[338,161][396,188]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "Early near-zero-opacity editor-content reveal; header/actions/footer visible, not settled rich-text contrast proof."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-markdown-keyboard.png",
+      "sha256": "d547fcc4e55580ee99bb1dbbeea948020beede0c1c7f1509b25955c6ded139bc",
+      "bytes": 50738,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-markdown-keyboard.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-markdown-keyboard.xml",
+        "sha256": "bf6d547709ee85f57db55ce9c2914ef9778aaddd9b3cde30f356bccebef18e72",
+        "bytes": 100294,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-markdown-keyboard.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "Visual",
+          "content-desc": "",
+          "bounds": "[34,134][85,156]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown",
+          "content-desc": "",
+          "bounds": "[127,134][211,156]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy Markdown",
+          "content-desc": "",
+          "bounds": "[346,121][394,169]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "## A retained idea\n\nA **careful** question for stack-412-font130-dark.",
+          "content-desc": "",
+          "bounds": "[18,181][394,623]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown source",
+          "content-desc": "",
+          "bounds": "[34,180][154,204]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,42][52,90]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Write",
+          "content-desc": "",
+          "bounds": "[52,28][106,56]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[64,72][198,88]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Review",
+          "content-desc": "",
+          "bounds": "[338,53][396,80]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Open features menu",
+          "bounds": "[2,627][44,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "This app does not support images here",
+          "bounds": "[53,627][114,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "This app does not support images here",
+          "bounds": "[114,627][175,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Clipboard",
+          "bounds": "[175,627][236,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Settings",
+          "bounds": "[236,627][297,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Theme settings",
+          "bounds": "[297,627][358,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Use voice typing",
+          "bounds": "[368,627][410,671]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "q",
+          "bounds": "[2,679][42,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "q",
+          "bounds": "[5,679][39,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "1",
+          "content-desc": "",
+          "bounds": "[33,679][39,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "w",
+          "bounds": "[42,679][82,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "w",
+          "bounds": "[45,679][79,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "2",
+          "content-desc": "",
+          "bounds": "[71,679][79,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "e",
+          "bounds": "[82,679][123,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "e",
+          "bounds": "[85,679][120,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3",
+          "content-desc": "",
+          "bounds": "[112,679][120,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "r",
+          "bounds": "[123,679][164,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "r",
+          "bounds": "[126,679][161,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "4",
+          "content-desc": "",
+          "bounds": "[152,679][161,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "t",
+          "bounds": "[164,679][205,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "t",
+          "bounds": "[167,679][202,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "5",
+          "content-desc": "",
+          "bounds": "[194,679][202,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "y",
+          "bounds": "[205,679][246,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "y",
+          "bounds": "[208,679][243,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "6",
+          "content-desc": "",
+          "bounds": "[234,679][243,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "u",
+          "bounds": "[246,679][287,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "u",
+          "bounds": "[249,679][284,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "7",
+          "content-desc": "",
+          "bounds": "[276,679][284,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "i",
+          "bounds": "[287,679][328,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "i",
+          "bounds": "[290,679][325,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "8",
+          "content-desc": "",
+          "bounds": "[317,679][325,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "o",
+          "bounds": "[328,679][369,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "o",
+          "bounds": "[331,679][366,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "9",
+          "content-desc": "",
+          "bounds": "[357,679][366,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "p",
+          "bounds": "[369,679][410,737]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "p",
+          "bounds": "[372,679][407,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "0",
+          "content-desc": "",
+          "bounds": "[397,679][407,697]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "a",
+          "bounds": "[2,737][63,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "a",
+          "bounds": "[26,737][60,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "s",
+          "bounds": "[63,737][103,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "s",
+          "bounds": "[66,737][100,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "d",
+          "bounds": "[103,737][143,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "d",
+          "bounds": "[106,737][140,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "f",
+          "bounds": "[143,737][184,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "f",
+          "bounds": "[146,737][181,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "g",
+          "bounds": "[184,737][225,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "g",
+          "bounds": "[187,737][222,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "h",
+          "bounds": "[225,737][266,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "h",
+          "bounds": "[228,737][263,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "j",
+          "bounds": "[266,737][307,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "j",
+          "bounds": "[269,737][304,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "k",
+          "bounds": "[307,737][348,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "k",
+          "bounds": "[310,737][345,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "l",
+          "bounds": "[348,737][410,796]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "l",
+          "bounds": "[351,737][386,784]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Shift",
+          "bounds": "[2,796][63,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "z",
+          "bounds": "[63,796][103,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "z",
+          "bounds": "[66,796][100,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "x",
+          "bounds": "[103,796][143,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "x",
+          "bounds": "[106,796][140,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "c",
+          "bounds": "[143,796][184,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "c",
+          "bounds": "[146,796][181,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "v",
+          "bounds": "[184,796][225,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "v",
+          "bounds": "[187,796][222,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "b",
+          "bounds": "[225,796][266,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "b",
+          "bounds": "[228,796][263,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "n",
+          "bounds": "[266,796][307,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "n",
+          "bounds": "[269,796][304,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "m",
+          "bounds": "[307,796][348,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "m",
+          "bounds": "[310,796][345,843]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Delete",
+          "bounds": "[348,796][410,855]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Symbol keyboard",
+          "bounds": "[2,855][63,915]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "?123",
+          "bounds": "[10,862][54,896]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": ",",
+          "bounds": "[63,855][103,915]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": ",",
+          "bounds": "[80,859][85,897]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Emoji button",
+          "bounds": "[103,855][143,915]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Space",
+          "bounds": "[143,855][307,915]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": ".",
+          "bounds": "[307,855][348,915]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": ".",
+          "bounds": "[325,859][329,897]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Enter",
+          "bounds": "[348,855][410,915]",
+          "clickable": "true",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-canonical-source-return.png",
+      "sha256": "aa634442287a73ba12c7ebcb424857ba3434ffd6314c51f71b28ba86fd967c5f",
+      "bytes": 39650,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-canonical-source-return.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-canonical-source-return.xml",
+        "sha256": "fe7a582f6c1f3b9faf59a4b8c624fba046869beb8c20666b71aff83a293ad2f3",
+        "bytes": 35379,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-canonical-source-return.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Visual",
+          "content-desc": "",
+          "bounds": "[34,212][85,230]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown",
+          "content-desc": "",
+          "bounds": "[127,212][211,230]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy Markdown",
+          "content-desc": "",
+          "bounds": "[346,198][394,243]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "## Canonical source\n\nA newer Markdown revision.",
+          "content-desc": "",
+          "bounds": "[18,255][394,697]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown source",
+          "content-desc": "",
+          "bounds": "[34,254][154,278]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "7 words",
+          "content-desc": "",
+          "bounds": "[18,709][67,725]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Design draft kept while you explore. Not published to Stack.",
+          "content-desc": "",
+          "bounds": "[18,737][394,774]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Review article",
+          "content-desc": "",
+          "bounds": "[149,804][263,831]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,150][52,198]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Write",
+          "content-desc": "",
+          "bounds": "[52,136][106,164]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[64,180][198,196]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Review",
+          "content-desc": "",
+          "bounds": "[338,161][396,188]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "Copy/tabs partly clipped at scrolled upper boundary. This capture is not a full48dp visibility proof; no conclusion that controls cannot be revealed."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-publication.png",
+      "sha256": "dafc4ec6b4a0092e9bb70b368c530493f28db151b176dc909a007fcfd5a93cec",
+      "bytes": 70315,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-publication.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-publication.xml",
+        "sha256": "321750bc73d2d5ec6bc6d56dd5e7917eeda145b805a4957771baacb10ac6c39c",
+        "bytes": 39084,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-publication.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A quieter kind of internet",
+          "content-desc": "",
+          "bounds": "[18,196][352,231]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A place for ideas, and the people behind them.",
+          "content-desc": "",
+          "bounds": "[18,239][385,261]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Canonical source  A newer Markdown revision. visual finish",
+          "content-desc": "",
+          "bounds": "[18,277][379,360]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Who can read this?",
+          "content-desc": "",
+          "bounds": "[18,376][188,400]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Everyone",
+          "content-desc": "",
+          "bounds": "[56,428][130,450]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Freely available to all readers",
+          "content-desc": "",
+          "bounds": "[56,450][251,468]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Restricted",
+          "content-desc": "",
+          "bounds": "[56,492][137,514]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Available to selected identities",
+          "content-desc": "",
+          "bounds": "[56,514][262,532]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Subscribers",
+          "content-desc": "",
+          "bounds": "[56,556][150,578]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Require compatible subscription access",
+          "content-desc": "",
+          "bounds": "[56,578][325,596]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Share to Red Square",
+          "content-desc": "",
+          "bounds": "[18,636][181,658]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Also create a post with an article preview.",
+          "content-desc": "",
+          "bounds": "[18,658][298,676]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Design preview only. No article, NFT or Red Square post is sent to the network.",
+          "content-desc": "",
+          "bounds": "[18,704][394,746]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Publish preview",
+          "content-desc": "",
+          "bounds": "[143,776][270,803]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,136][52,184]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Review & publish",
+          "content-desc": "",
+          "bounds": "[52,146][250,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[262,152][396,168]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-access-review.png",
+      "sha256": "4b24e1f6bb61eac83cfcd714bcbaee3a0e4791b892cdfd6e5056264f6e7e6952",
+      "bytes": 22767,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-access-review.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-access-review.xml",
+        "sha256": "21fcf14dd2b9f350565ba030ba943f31760d42d689e2798b8556cfdd13b5f5be",
+        "bytes": 30350,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-access-review.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "PREVIEW PURCHASE",
+          "content-desc": "",
+          "bounds": "[18,196][187,212]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "10.00 SAITO",
+          "content-desc": "",
+          "bounds": "[18,220][189,255]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Get access to Maya\u2019s subscriber articles.",
+          "content-desc": "",
+          "bounds": "[18,263][341,285]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Preview access only. No payment is made and no NFT is issued. Your real subscriptions are not changed.",
+          "content-desc": "",
+          "bounds": "[18,301][394,381]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Your real wallet is available in Account. This preview does not read or spend its balance.",
+          "content-desc": "",
+          "bounds": "[18,397][394,439]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Confirm preview access",
+          "content-desc": "",
+          "bounds": "[110,469][302,496]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,136][52,184]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Review access",
+          "content-desc": "",
+          "bounds": "[52,146][250,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[262,152][396,168]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "Early near-zero-opacity content reveal; no settled17 access-review contrast claim."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-author-access.png",
+      "sha256": "2e1145bb503fdc8eebd625d975b63960b1ce3120b584c798a8dcd856177cca1d",
+      "bytes": 41835,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-author-access.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-author-access.xml",
+        "sha256": "6eea22a3f254ed6bd2aed2ca89388ee81baf36bb44005e387c7542aa898133dd",
+        "bytes": 40562,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-author-access.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Reading access",
+          "content-desc": "",
+          "bounds": "[18,207][158,231]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen",
+          "content-desc": "",
+          "bounds": "[54,259][145,281]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Monthly access \u00b7 Active in this preview",
+          "content-desc": "",
+          "bounds": "[54,281][314,299]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Your publishing",
+          "content-desc": "",
+          "bounds": "[18,327][155,351]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Subscriber access",
+          "content-desc": "",
+          "bounds": "[54,379][200,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Configure access to your writing",
+          "content-desc": "",
+          "bounds": "[54,401][270,419]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,142][52,190]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Subscriptions and access",
+          "content-desc": "",
+          "bounds": "[52,136][250,195]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[262,158][396,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,831][132,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[140,831][272,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[280,831][411,911]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "PNG shows Author access form; paired XML remains Subscriptions. No form-field geometry proof from this XML."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-subscriptions.png",
+      "sha256": "57df4261d0c306144dbe7670bdc0bba1581a16ceb4bd43fae00e573d038e0bcf",
+      "bytes": 44701,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-subscriptions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-subscriptions.xml",
+        "sha256": "6eea22a3f254ed6bd2aed2ca89388ee81baf36bb44005e387c7542aa898133dd",
+        "bytes": 40562,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-subscriptions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Reading access",
+          "content-desc": "",
+          "bounds": "[18,207][158,231]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen",
+          "content-desc": "",
+          "bounds": "[54,259][145,281]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Monthly access \u00b7 Active in this preview",
+          "content-desc": "",
+          "bounds": "[54,281][314,299]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Your publishing",
+          "content-desc": "",
+          "bounds": "[18,327][155,351]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Subscriber access",
+          "content-desc": "",
+          "bounds": "[54,379][200,401]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Configure access to your writing",
+          "content-desc": "",
+          "bounds": "[54,401][270,419]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,142][52,190]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Subscriptions and access",
+          "content-desc": "",
+          "bounds": "[52,136][250,195]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[262,158][396,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,831][132,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[140,831][272,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[280,831][411,911]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-publication-success.png",
+      "sha256": "a40eae044f1409cdb1a562c1bbb98110e60a5498d6a99c997e921e46bac5807e",
+      "bytes": 49367,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-publication-success.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-publication-success.xml",
+        "sha256": "5497b6c67843a88f61898f8de6e2d2c1929e326a5276258152cc4e3dfbb9f418",
+        "bytes": 31579,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-publication-success.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "PREVIEW COMPLETE",
+          "content-desc": "",
+          "bounds": "[18,207][189,223]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Your story has a home.",
+          "content-desc": "",
+          "bounds": "[18,231][326,266]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Design preview only. No article, NFT or Red Square post is sent to the network.",
+          "content-desc": "",
+          "bounds": "[18,274][394,325]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A quieter kind of internet",
+          "content-desc": "",
+          "bounds": "[18,341][321,374]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A place for ideas, and the people behind them.",
+          "content-desc": "",
+          "bounds": "[18,382][385,404]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "View article preview",
+          "content-desc": "",
+          "bounds": "[125,434][288,461]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back to My articles",
+          "content-desc": "",
+          "bounds": "[130,505][283,532]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,142][52,190]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Publication preview",
+          "content-desc": "",
+          "bounds": "[52,136][250,195]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[262,158][396,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:00",
+          "content-desc": "3:00\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, one bar.",
+          "bounds": "[284,0][314,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[318,4][338,20]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[345,4][376,21]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font200-light-reader-body.png",
+      "sha256": "9c581511e1559475bc45fcc289d61d9c50419c5ea8f9747c502c63caacee0ec1",
+      "bytes": 53303,
+      "originalTarMember": "stack-design-320-evidence/stack-320-font200-light-reader-body.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font200-light-reader-body.xml",
+        "sha256": "0ad6427a28cebd913cf646b212ec1a644fdf3c42014a1292e71c375832a1780f",
+        "bytes": 32922,
+        "originalTarMember": "stack-design-320-evidence/stack-320-font200-light-reader-body.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][139,83]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,88][272,113]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[35,115][207,140]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,105][298,123]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "MAYA CHEN \u00b7 6 MIN READ",
+          "content-desc": "",
+          "bounds": "[18,240][302,297]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A Node in a Browser Tab",
+          "content-desc": "",
+          "bounds": "[18,305][302,395]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Notes from the edges of an open web.",
+          "content-desc": "",
+          "bounds": "[18,403][302,472]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Maya Chen",
+          "content-desc": "",
+          "bounds": "[72,488][167,537]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,160][52,208]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Article preview",
+          "content-desc": "",
+          "bounds": "[52,140][279,180]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[64,192][270,217]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,572][102,636]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[110,572][211,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[219,572][320,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "2:59",
+          "content-desc": "2:59\u202fAM",
+          "bounds": "[4,0][71,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, three bars.",
+          "bounds": "[153,0][176,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[234,0][280,24]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ],
+      "captureLimitation": "PNG shows scrolled prose; paired XML retains earlier author-intro geometry. No same-frame reading-position proof."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font200-dark-protected-markdown.png",
+      "sha256": "83592bbdc4d6e78a07ec51b1405b8036060a6e4f3fbb63b261c47fa01e2d6631",
+      "bytes": 50788,
+      "originalTarMember": "stack-design-320-evidence/stack-320-font200-dark-protected-markdown.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font200-dark-protected-markdown.xml",
+        "sha256": "28dc6cfa68dd0717d2a89778dae4ea0cc80f5e3619b4ccfe833a00c0a6728695",
+        "bytes": 30819,
+        "originalTarMember": "stack-design-320-evidence/stack-320-font200-dark-protected-markdown.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeTextAndControlNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][139,83]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,88][272,113]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[35,115][207,140]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,105][298,123]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Visual",
+          "content-desc": "",
+          "bounds": "[34,244][106,274]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown",
+          "content-desc": "",
+          "bounds": "[148,244][271,274]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy Markdown",
+          "content-desc": "",
+          "bounds": "[18,283][66,331]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Keep this formatting in Markdown. Tables, custom HTML and footnotes stay in source mode so they are not lost.",
+          "content-desc": "",
+          "bounds": "[18,343][302,515]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A | B\n- | -\nx | y",
+          "content-desc": "",
+          "bounds": "[18,527][302,636]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Markdown source",
+          "content-desc": "",
+          "bounds": "[34,527][226,560]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,168][52,216]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Write",
+          "content-desc": "",
+          "bounds": "[52,140][132,180]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[64,183][197,240]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Review",
+          "content-desc": "",
+          "bounds": "[221,173][304,211]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "2:59",
+          "content-desc": "2:59\u202fAM",
+          "bounds": "[4,0][71,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, two bars.",
+          "bounds": "[153,0][176,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[234,0][280,24]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    }
+  ],
+  "movies": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-0-menu-keyboard.mp4",
+      "sha256": "509e85f37a9e2784f780d62477e735e0e725614be4d401b34ea9f60ae584e409",
+      "bytes": 205511,
+      "originalTarMember": "module-menu-motion-evidence/scale-0-menu-keyboard.mp4",
+      "originalTarByteMatch": true,
+      "nativeFrameMetadata": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-0-menu-keyboard.json",
+        "sha256": "8f47537c4adcefdc8d6c07d0f02f088abb76fe7e0f4702c192d282f223534bb8",
+        "bytes": 4456,
+        "originalTarMember": "module-menu-motion-evidence/scale-0-menu-keyboard.json",
+        "originalTarByteMatch": true
+      },
+      "recorder": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-0-menu-keyboard-recorder.txt",
+        "sha256": "63796f94c4792bd13a70eb8358c042b3abfc39eb49d68f277073374376d58a76",
+        "bytes": 612,
+        "originalTarMember": "module-menu-motion-evidence/scale-0-menu-keyboard-recorder.txt",
+        "originalTarByteMatch": true
+      },
+      "originalFramesIndependentlyDecoded": 50,
+      "maxPtsDifferenceUs": "1.000000",
+      "allOriginalFramePtsSeconds": [
+        "0.000000",
+        "0.232544",
+        "0.264967",
+        "0.281556",
+        "0.314522",
+        "0.327767",
+        "0.377922",
+        "0.398044",
+        "0.416933",
+        "0.451244",
+        "0.468922",
+        "0.477733",
+        "0.538033",
+        "0.968922",
+        "1.601289",
+        "1.618067",
+        "1.648222",
+        "1.664878",
+        "1.683533",
+        "1.716956",
+        "1.734200",
+        "2.249656",
+        "2.266667",
+        "2.282122",
+        "2.333333",
+        "2.348433",
+        "2.371178",
+        "2.386489",
+        "2.419200",
+        "2.434256",
+        "2.451200",
+        "2.467067",
+        "2.485678",
+        "2.966044",
+        "3.585644",
+        "3.601278",
+        "4.168033",
+        "4.200756",
+        "4.216067",
+        "4.235033",
+        "4.251933",
+        "4.268044",
+        "4.286811",
+        "4.319378",
+        "4.332944",
+        "4.350056",
+        "4.365289",
+        "4.377889",
+        "4.398111",
+        "4.999578"
+      ],
+      "selectedOriginalFramesActuallyViewed": [
+        {
+          "originalIndex": 0,
+          "timeSeconds": "0.000000",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00001.png",
+          "sha256": "7df20c3923ac249ec1c1cfbd1e5c89bd84f969974d9ceec4bcb36cd1068460c4"
+        },
+        {
+          "originalIndex": 1,
+          "timeSeconds": "0.232544",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00002.png",
+          "sha256": "18c70d7bca70dcb28cf34180094d757575eb1268676301938eb077d64a931ac0"
+        },
+        {
+          "originalIndex": 2,
+          "timeSeconds": "0.264967",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00003.png",
+          "sha256": "7b13d2720cb299698d2be7a63ef2599e2fa3365f2eee28bddd22aacd29ebf2fe"
+        },
+        {
+          "originalIndex": 3,
+          "timeSeconds": "0.281556",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00004.png",
+          "sha256": "bc05df65a7d9ff24844990a86fce07c021283559c48300bfa126e6db9b0927f9"
+        },
+        {
+          "originalIndex": 4,
+          "timeSeconds": "0.314522",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00005.png",
+          "sha256": "584761a2623c378590fac97973cde76f8a6d1618763ca16617095940452f249c"
+        },
+        {
+          "originalIndex": 5,
+          "timeSeconds": "0.327767",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00006.png",
+          "sha256": "352b5d366371e9133dbb0fe4bb35f4127aed0299dfb34a3cac25f8441342b328"
+        },
+        {
+          "originalIndex": 6,
+          "timeSeconds": "0.377922",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00007.png",
+          "sha256": "02791e5e8a5c24cea5b561f910d36b41cbdfb17ebdd86d4c603d848f34040a77"
+        },
+        {
+          "originalIndex": 7,
+          "timeSeconds": "0.398044",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00008.png",
+          "sha256": "ad79ec76d0e7e28a59d3099c95a9e9c60481cf6643f4f4ef81bced459a709636"
+        },
+        {
+          "originalIndex": 21,
+          "timeSeconds": "2.249656",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00022.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 22,
+          "timeSeconds": "2.266667",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00023.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 23,
+          "timeSeconds": "2.282122",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00024.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 24,
+          "timeSeconds": "2.333333",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00025.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 25,
+          "timeSeconds": "2.348433",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00026.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 26,
+          "timeSeconds": "2.371178",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00027.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 27,
+          "timeSeconds": "2.386489",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00028.png",
+          "sha256": "902cc0e45c0878ff1ad05f55da733fa64529d669207d1652106bd54fa5651be8"
+        },
+        {
+          "originalIndex": 28,
+          "timeSeconds": "2.419200",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00029.png",
+          "sha256": "222f659a54c0d5e530c06c22e5349244f073b764cc78757ac3226173e7ba5e76"
+        },
+        {
+          "originalIndex": 42,
+          "timeSeconds": "4.286811",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00043.png",
+          "sha256": "41b8ea2affb4815b76d7215450eb9b58ebcc81b67292bbac8102d29ffd09d25d"
+        },
+        {
+          "originalIndex": 43,
+          "timeSeconds": "4.319378",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00044.png",
+          "sha256": "ff976966ca5b4909c8320ba418c141e1c7561a97336ce62ac5b3d72d53e5fa0d"
+        },
+        {
+          "originalIndex": 44,
+          "timeSeconds": "4.332944",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00045.png",
+          "sha256": "bc501f6edd69c256338ac9ab691b06857cf333975019fd1b3f166491322e480e"
+        },
+        {
+          "originalIndex": 45,
+          "timeSeconds": "4.350056",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00046.png",
+          "sha256": "a89252d34f7bf0f025da1544cd92d502d4b2bd4c1349af6a0e1e90d002a0bccf"
+        },
+        {
+          "originalIndex": 46,
+          "timeSeconds": "4.365289",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00047.png",
+          "sha256": "1bde8297a6c3a4fadfe1be979c18b6c2e16e00b26a8a63a3b497d9a12e903ace"
+        },
+        {
+          "originalIndex": 47,
+          "timeSeconds": "4.377889",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00048.png",
+          "sha256": "1bde8297a6c3a4fadfe1be979c18b6c2e16e00b26a8a63a3b497d9a12e903ace"
+        },
+        {
+          "originalIndex": 48,
+          "timeSeconds": "4.398111",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00049.png",
+          "sha256": "1bde8297a6c3a4fadfe1be979c18b6c2e16e00b26a8a63a3b497d9a12e903ace"
+        },
+        {
+          "originalIndex": 49,
+          "timeSeconds": "4.999578",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/original-00050.png",
+          "sha256": "b63486a1f153a2c7cb0d872d19d36ab9cf5168e822eb13852f4e6ef59647c23c"
+        }
+      ],
+      "contactSheetsActuallyViewed": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/contact-00.png",
+          "selectionIndices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "sha256": "07377a9595bbd2db7d661fa626f3985ce09f4c9cf8c9418568e49618d0170595"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/contact-01.png",
+          "selectionIndices": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "sha256": "a153199846142ae5b00793d4b6fec8d796704179e033f4e68791fe2aed25b67f"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-0-menu-keyboard/contact-02.png",
+          "selectionIndices": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "sha256": "de0359e96f84cd92eabd88b491b6c4cae075e3017ad005769469a7045148c0a8"
+        }
+      ],
+      "recordingElapsedNanos": {
+        "startElapsedNanos": 1148027284206,
+        "tapElapsedNanos": 1148317406928,
+        "tapReturnedElapsedNanos": 1155238277041,
+        "endElapsedNanos": 1155247402143
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-1-menu-keyboard.mp4",
+      "sha256": "fef247ceaf16231d155119ddba90501a56653bd00ec9510558b0183b00bc7cab",
+      "bytes": 525482,
+      "originalTarMember": "module-menu-motion-evidence/scale-1-menu-keyboard.mp4",
+      "originalTarByteMatch": true,
+      "nativeFrameMetadata": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-1-menu-keyboard.json",
+        "sha256": "ad703ef02de74f685c6c5dfe9f1ed39c9999931e164494a325eb3e44e67a1a3b",
+        "bytes": 11893,
+        "originalTarMember": "module-menu-motion-evidence/scale-1-menu-keyboard.json",
+        "originalTarByteMatch": true
+      },
+      "recorder": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-1-menu-keyboard-recorder.txt",
+        "sha256": "8e3f9d5a562681a90407f37de29f36ee9e41f1fc17eecde40ad7cfa8d8ce42b9",
+        "bytes": 613,
+        "originalTarMember": "module-menu-motion-evidence/scale-1-menu-keyboard-recorder.txt",
+        "originalTarByteMatch": true
+      },
+      "originalFramesIndependentlyDecoded": 136,
+      "maxPtsDifferenceUs": "1.000000",
+      "allOriginalFramePtsSeconds": [
+        "0.000000",
+        "0.223167",
+        "0.256300",
+        "0.272378",
+        "0.287856",
+        "0.306800",
+        "0.323044",
+        "0.339689",
+        "0.357100",
+        "0.372722",
+        "0.388189",
+        "0.407722",
+        "0.426211",
+        "0.445133",
+        "0.457556",
+        "0.474978",
+        "0.490889",
+        "0.510633",
+        "0.521444",
+        "0.541633",
+        "0.557633",
+        "0.574322",
+        "0.590033",
+        "0.606867",
+        "0.626144",
+        "0.642122",
+        "0.656078",
+        "0.673933",
+        "0.688667",
+        "0.706533",
+        "0.723533",
+        "0.740656",
+        "0.758444",
+        "0.775833",
+        "0.791700",
+        "0.822344",
+        "0.838622",
+        "0.856189",
+        "0.875411",
+        "0.890622",
+        "0.909100",
+        "0.924011",
+        "0.944644",
+        "0.960622",
+        "0.976089",
+        "0.992133",
+        "1.007700",
+        "1.025222",
+        "1.041644",
+        "1.055611",
+        "1.075611",
+        "1.089611",
+        "1.115044",
+        "1.125700",
+        "1.141567",
+        "1.156844",
+        "1.724633",
+        "1.741678",
+        "1.757989",
+        "1.775011",
+        "1.791767",
+        "1.824000",
+        "1.842878",
+        "1.861411",
+        "1.878333",
+        "1.893089",
+        "1.925444",
+        "1.940833",
+        "1.971667",
+        "1.991378",
+        "2.007700",
+        "2.023122",
+        "2.039278",
+        "2.055667",
+        "2.072056",
+        "2.656389",
+        "2.672133",
+        "2.689344",
+        "2.710600",
+        "2.722667",
+        "2.738956",
+        "2.755389",
+        "2.773178",
+        "2.789467",
+        "2.805878",
+        "2.822778",
+        "2.844100",
+        "2.860800",
+        "2.875844",
+        "2.893178",
+        "2.910511",
+        "2.927844",
+        "2.941689",
+        "2.959178",
+        "2.976544",
+        "2.994667",
+        "3.009733",
+        "3.025567",
+        "3.044311",
+        "3.061933",
+        "3.079733",
+        "3.093956",
+        "3.105367",
+        "3.125578",
+        "3.158056",
+        "3.176600",
+        "3.196411",
+        "3.212800",
+        "3.227167",
+        "3.242244",
+        "3.259778",
+        "3.292922",
+        "3.308067",
+        "3.321533",
+        "3.341956",
+        "3.358778",
+        "3.377289",
+        "3.392033",
+        "3.408733",
+        "3.426644",
+        "3.441744",
+        "3.459444",
+        "3.491389",
+        "3.507822",
+        "3.524722",
+        "3.538767",
+        "4.076700",
+        "4.108700",
+        "4.126667",
+        "4.156622",
+        "4.174867",
+        "4.590711",
+        "4.608989",
+        "4.626822",
+        "4.641722",
+        "4.657744"
+      ],
+      "selectedOriginalFramesActuallyViewed": [
+        {
+          "originalIndex": 0,
+          "timeSeconds": "0.000000",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00001.png",
+          "sha256": "595e4857e36917d83a7ff3a45c9e2282bc1489e94dfec8a98cf1fb1b45e30605"
+        },
+        {
+          "originalIndex": 1,
+          "timeSeconds": "0.223167",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00002.png",
+          "sha256": "c343aba1bf55c44aced7f3b20a5362ff4875df9f1e7d2f935ca6d64355d9020b"
+        },
+        {
+          "originalIndex": 2,
+          "timeSeconds": "0.256300",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00003.png",
+          "sha256": "23f0ac5a5d3cc61f51a71c93991716f184a92db249b64c00f55d8f69f0aedcdb"
+        },
+        {
+          "originalIndex": 3,
+          "timeSeconds": "0.272378",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00004.png",
+          "sha256": "55efdd61d9398cf7029e24225f7ff3bd9f00224d545a44eb5020d91220d1208a"
+        },
+        {
+          "originalIndex": 4,
+          "timeSeconds": "0.287856",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00005.png",
+          "sha256": "1d37c87ee9f173d7cdca3762c2ae20afd0d4e61ca593c125c8c49b6471e829cf"
+        },
+        {
+          "originalIndex": 5,
+          "timeSeconds": "0.306800",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00006.png",
+          "sha256": "aa3298ac23c3a3d28098ea9c32728168aeb934b182951058111bd5f425d2096c"
+        },
+        {
+          "originalIndex": 6,
+          "timeSeconds": "0.323044",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00007.png",
+          "sha256": "1d0847e665f5b4d6dae08e640abc312a17d9a2000c55d14c9afddd44df0c3109"
+        },
+        {
+          "originalIndex": 7,
+          "timeSeconds": "0.339689",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00008.png",
+          "sha256": "6e9227175207062899067ad93a8a17eb3b20fa827332722b09db4d32d0cd6a59"
+        },
+        {
+          "originalIndex": 64,
+          "timeSeconds": "1.878333",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00065.png",
+          "sha256": "d88e13c4a58a2b6b2a7010246cab4ee46e3f7432617cdfbe11db66ef9b10fe31"
+        },
+        {
+          "originalIndex": 65,
+          "timeSeconds": "1.893089",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00066.png",
+          "sha256": "8d287bb040d5313562a151ac474d69b77f60db092032ca4365d69a95e5aea2ab"
+        },
+        {
+          "originalIndex": 66,
+          "timeSeconds": "1.925444",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00067.png",
+          "sha256": "0e026f1958c37521b2d73ac147d43cf2cad6dce2874f7b880a2fb46a95232b4a"
+        },
+        {
+          "originalIndex": 67,
+          "timeSeconds": "1.940833",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00068.png",
+          "sha256": "778b10a159c7ad7089f74e916ca540bf78aa6776b47a46f08ee854efef08292f"
+        },
+        {
+          "originalIndex": 68,
+          "timeSeconds": "1.971667",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00069.png",
+          "sha256": "8fd2f41c2b49e8b4817720979a691095a94d9d791ee6d5600535347761880144"
+        },
+        {
+          "originalIndex": 69,
+          "timeSeconds": "1.991378",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00070.png",
+          "sha256": "8fd2f41c2b49e8b4817720979a691095a94d9d791ee6d5600535347761880144"
+        },
+        {
+          "originalIndex": 70,
+          "timeSeconds": "2.007700",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00071.png",
+          "sha256": "8fd2f41c2b49e8b4817720979a691095a94d9d791ee6d5600535347761880144"
+        },
+        {
+          "originalIndex": 71,
+          "timeSeconds": "2.023122",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00072.png",
+          "sha256": "8fd2f41c2b49e8b4817720979a691095a94d9d791ee6d5600535347761880144"
+        },
+        {
+          "originalIndex": 128,
+          "timeSeconds": "4.126667",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00129.png",
+          "sha256": "4e6cde9be83b57bc54217d41e112aeec61884cbeb59bdc29cd546da03b5df5ed"
+        },
+        {
+          "originalIndex": 129,
+          "timeSeconds": "4.156622",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00130.png",
+          "sha256": "1eb6388045cc2915a4c225db27cd8a878a4a4bafbd91493469ddfd1025f60e6f"
+        },
+        {
+          "originalIndex": 130,
+          "timeSeconds": "4.174867",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00131.png",
+          "sha256": "c99c66ccb8b9c1ca1957fcf0b6a210d3a473e39eb8553c8b50d52805c944d124"
+        },
+        {
+          "originalIndex": 131,
+          "timeSeconds": "4.590711",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00132.png",
+          "sha256": "deab9fd974933f2a845047c0e81fa73288cfe2a84cfce306382ea30fed748f5e"
+        },
+        {
+          "originalIndex": 132,
+          "timeSeconds": "4.608989",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00133.png",
+          "sha256": "ffb9b5219e88cc92df858f73c4ec2090e68abd9c8f0636f578516e40fa3ee0ee"
+        },
+        {
+          "originalIndex": 133,
+          "timeSeconds": "4.626822",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00134.png",
+          "sha256": "49e02cb03e0052a0b4419aff683f4996e36ef9450b76bed821b30663e180619d"
+        },
+        {
+          "originalIndex": 134,
+          "timeSeconds": "4.641722",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00135.png",
+          "sha256": "c621f39341dd166331674e94a55115679ee6e338aec29fbdce91bdef2ffa3434"
+        },
+        {
+          "originalIndex": 135,
+          "timeSeconds": "4.657744",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/original-00136.png",
+          "sha256": "29cfa825039372c9246049b13b15534227f7d1d9486a7aafbcd4b187827ce547"
+        }
+      ],
+      "contactSheetsActuallyViewed": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/contact-00.png",
+          "selectionIndices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "sha256": "a0e9e18d6b2f54ecb218a3a37aa587fbe9a0ba750b0975088c265f46ca77abfe"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/contact-01.png",
+          "selectionIndices": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "sha256": "6f9425d23f9224409c64c31fb9bb82ad74c9c51db9a679d9fefbd918f1632c25"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/module-menu-motion/scale-1-menu-keyboard/contact-02.png",
+          "selectionIndices": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "sha256": "a3abfc8a0f1990dc7700ef17b5cda65077b8d11e53e2519eb88fa69a731b9d5a"
+        }
+      ],
+      "recordingElapsedNanos": {
+        "startElapsedNanos": 1163726034465,
+        "tapElapsedNanos": 1164020270406,
+        "tapReturnedElapsedNanos": 1172322564216,
+        "endElapsedNanos": 1172333073385
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-0-source-toggle.mp4",
+      "sha256": "6bdd9a8564fe22b4fcdf49b0cb4f6731b7f0b3bf992db18be261b48a3c04547b",
+      "bytes": 30409,
+      "originalTarMember": "stack-design-motion-evidence/scale-0-source-toggle.mp4",
+      "originalTarByteMatch": true,
+      "nativeFrameMetadata": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-0-source-toggle.json",
+        "sha256": "31b16c1381b006173b80dcd938c6704095ee587f884183349099047e033af140",
+        "bytes": 604,
+        "originalTarMember": "stack-design-motion-evidence/scale-0-source-toggle.json",
+        "originalTarByteMatch": true
+      },
+      "recorder": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-0-source-toggle-recorder.txt",
+        "sha256": "fa6574a39a6171257011b8b1c43275ad33dd9ce0505ce90ea7322ae0fb079a4d",
+        "bytes": 611,
+        "originalTarMember": "stack-design-motion-evidence/scale-0-source-toggle-recorder.txt",
+        "originalTarByteMatch": true
+      },
+      "originalFramesIndependentlyDecoded": 5,
+      "maxPtsDifferenceUs": "1.000000",
+      "allOriginalFramePtsSeconds": [
+        "0.000000",
+        "0.264111",
+        "0.296689",
+        "0.313689",
+        "0.329333"
+      ],
+      "selectedOriginalFramesActuallyViewed": [
+        {
+          "originalIndex": 0,
+          "timeSeconds": "0.000000",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-0-source-toggle/original-00001.png",
+          "sha256": "a975380838eb783da1da553afc40f3b30fbdaadbcd4d0752ce9b3f323944983f"
+        },
+        {
+          "originalIndex": 1,
+          "timeSeconds": "0.264111",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-0-source-toggle/original-00002.png",
+          "sha256": "216259e844eb9ee380e74bad5b92fe76cfc1ed55f253fb442e8355082fd12fb9"
+        },
+        {
+          "originalIndex": 2,
+          "timeSeconds": "0.296689",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-0-source-toggle/original-00003.png",
+          "sha256": "fac468dc86e78b150029b6003e2b0f9e56f4db40ee2005e681cfd40d21673546"
+        },
+        {
+          "originalIndex": 3,
+          "timeSeconds": "0.313689",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-0-source-toggle/original-00004.png",
+          "sha256": "7e24b7cd0fe9f3f3e5687bf24a17e37da3b3592348b82c06dcc09cac28b53379"
+        },
+        {
+          "originalIndex": 4,
+          "timeSeconds": "0.329333",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-0-source-toggle/original-00005.png",
+          "sha256": "56cfa42a83f1a834a397074a35d0f87d26352a7486487f7acc4e6c6e7daa7af8"
+        }
+      ],
+      "contactSheetsActuallyViewed": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-0-source-toggle/contact-00.png",
+          "selectionIndices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "sha256": "5e6bae5906214e8b7c259880d3ac6ab4edc23ebea34f66ff518f910d09ba39bf"
+        }
+      ],
+      "recordingElapsedNanos": {
+        "startElapsedNanos": 1308266548485,
+        "tapElapsedNanos": 1308555690629,
+        "tapReturnedElapsedNanos": 1308674220489,
+        "endElapsedNanos": 1313532830953
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-1-source-toggle.mp4",
+      "sha256": "baf93a76869950752d4482d1cd3518a822ca9ffe3fdd82aec4789af54346f740",
+      "bytes": 100662,
+      "originalTarMember": "stack-design-motion-evidence/scale-1-source-toggle.mp4",
+      "originalTarByteMatch": true,
+      "nativeFrameMetadata": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-1-source-toggle.json",
+        "sha256": "d320186b7e3aba2af8a90d075f8267860726df000de619953cf0e9617d04396a",
+        "bytes": 4682,
+        "originalTarMember": "stack-design-motion-evidence/scale-1-source-toggle.json",
+        "originalTarByteMatch": true
+      },
+      "recorder": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-1-source-toggle-recorder.txt",
+        "sha256": "2402cdecfadbf5c1110e90de36fd962492bb65af08eba77155729c83c1c3970a",
+        "bytes": 612,
+        "originalTarMember": "stack-design-motion-evidence/scale-1-source-toggle-recorder.txt",
+        "originalTarByteMatch": true
+      },
+      "originalFramesIndependentlyDecoded": 53,
+      "maxPtsDifferenceUs": "1.000000",
+      "allOriginalFramePtsSeconds": [
+        "0.000000",
+        "0.264489",
+        "0.281456",
+        "0.297067",
+        "0.313533",
+        "0.328756",
+        "0.345956",
+        "0.362333",
+        "0.379067",
+        "0.396067",
+        "0.412000",
+        "0.429500",
+        "0.447144",
+        "0.463011",
+        "0.479256",
+        "0.495967",
+        "0.513344",
+        "0.529156",
+        "0.544133",
+        "0.562767",
+        "0.578356",
+        "0.594744",
+        "0.611744",
+        "0.628744",
+        "0.646144",
+        "0.662622",
+        "0.680211",
+        "0.695300",
+        "0.712800",
+        "0.730556",
+        "0.745356",
+        "0.762722",
+        "0.779378",
+        "0.797056",
+        "0.812133",
+        "0.828822",
+        "0.845922",
+        "0.863567",
+        "0.879033",
+        "0.895522",
+        "0.913400",
+        "0.929322",
+        "0.945978",
+        "0.962378",
+        "0.980056",
+        "0.995733",
+        "1.012900",
+        "1.028033",
+        "1.046678",
+        "1.063389",
+        "1.078800",
+        "1.095233",
+        "1.112722"
+      ],
+      "selectedOriginalFramesActuallyViewed": [
+        {
+          "originalIndex": 0,
+          "timeSeconds": "0.000000",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00001.png",
+          "sha256": "a975380838eb783da1da553afc40f3b30fbdaadbcd4d0752ce9b3f323944983f"
+        },
+        {
+          "originalIndex": 1,
+          "timeSeconds": "0.264489",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00002.png",
+          "sha256": "9ad6477a262b73f7c5e80e0c16ed9f4d9483ab6ee8a3c288299370251541f2a3"
+        },
+        {
+          "originalIndex": 2,
+          "timeSeconds": "0.281456",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00003.png",
+          "sha256": "8fbc34cb4ba221b7bf36e2f59e07fed7832fef3a59b461dc4be9f438cc9b2895"
+        },
+        {
+          "originalIndex": 3,
+          "timeSeconds": "0.297067",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00004.png",
+          "sha256": "f44ecd8d21946158eff7e494cce10c62ffd7fdf3bbd41d50f937422236da836c"
+        },
+        {
+          "originalIndex": 4,
+          "timeSeconds": "0.313533",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00005.png",
+          "sha256": "2ef0f64f0a612de39c95db8f71f3a6846b94fccfa0b9743d38b50a3570d7486a"
+        },
+        {
+          "originalIndex": 5,
+          "timeSeconds": "0.328756",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00006.png",
+          "sha256": "26c545e528f84d74cc52e703098b452b31d04d3889d3e4912e514aa6206b668c"
+        },
+        {
+          "originalIndex": 6,
+          "timeSeconds": "0.345956",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00007.png",
+          "sha256": "737c7fcedb4caa6f1e1c2e9213ff2a79fec6e2ac7aefcbb4a0fc2e327a0acafd"
+        },
+        {
+          "originalIndex": 7,
+          "timeSeconds": "0.362333",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00008.png",
+          "sha256": "eab22b15ee13a961dc4ec8c2c63f3e33cc5e6335512fb9f71273f2a4a43668d2"
+        },
+        {
+          "originalIndex": 22,
+          "timeSeconds": "0.611744",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00023.png",
+          "sha256": "cdc2db5c8cc374c9233f9aec787a7080b4997e45a1d191cb7543b9f0a9a3e269"
+        },
+        {
+          "originalIndex": 23,
+          "timeSeconds": "0.628744",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00024.png",
+          "sha256": "a85ec991cad34cf42b40187027153329dbb4aae1c3ec3e7729b5274f9bcf8c36"
+        },
+        {
+          "originalIndex": 24,
+          "timeSeconds": "0.646144",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00025.png",
+          "sha256": "dd146d7dfabd34473cb6b561b30790d268f06c376a3452b70e3f3574fdf4f1cb"
+        },
+        {
+          "originalIndex": 25,
+          "timeSeconds": "0.662622",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00026.png",
+          "sha256": "7ef2e1f4308a7fb6252142d5836cd13800d443033624ae0657270c788b6b39be"
+        },
+        {
+          "originalIndex": 26,
+          "timeSeconds": "0.680211",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00027.png",
+          "sha256": "1583017423a6a46ab16a0c1ec7bca6041be2c91629610d92fe7d2e8253594bb6"
+        },
+        {
+          "originalIndex": 27,
+          "timeSeconds": "0.695300",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00028.png",
+          "sha256": "31d315b5bb166a6fba7285f95042117eacd70ac061a63212cbe4b153acd172b9"
+        },
+        {
+          "originalIndex": 28,
+          "timeSeconds": "0.712800",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00029.png",
+          "sha256": "568903b27d67f20bf2c023860e357106d1cff40451d44401744c8a24267c6017"
+        },
+        {
+          "originalIndex": 29,
+          "timeSeconds": "0.730556",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00030.png",
+          "sha256": "11ef6cd89ed414194071aa20474b9decc25c08ea634ba87691ddb3f985e0485b"
+        },
+        {
+          "originalIndex": 45,
+          "timeSeconds": "0.995733",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00046.png",
+          "sha256": "9462f58dc67f4466b4a0a088fc9f0f9099ac53a54a30691617e44481ee5f5ebb"
+        },
+        {
+          "originalIndex": 46,
+          "timeSeconds": "1.012900",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00047.png",
+          "sha256": "20d75d1fc0c7c7d6e2b2c0db912aea4104d2ff61e3c67e5417d4c7b55055f442"
+        },
+        {
+          "originalIndex": 47,
+          "timeSeconds": "1.028033",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00048.png",
+          "sha256": "c44ff8b9f5a2917624b4fe9c260a31c2504bda107405a2621524ca4a808d6f50"
+        },
+        {
+          "originalIndex": 48,
+          "timeSeconds": "1.046678",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00049.png",
+          "sha256": "551dc299aaba94a7e65aa35440a509715e528ebe2ad0a68595778679115cc415"
+        },
+        {
+          "originalIndex": 49,
+          "timeSeconds": "1.063389",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00050.png",
+          "sha256": "551dc299aaba94a7e65aa35440a509715e528ebe2ad0a68595778679115cc415"
+        },
+        {
+          "originalIndex": 50,
+          "timeSeconds": "1.078800",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00051.png",
+          "sha256": "551dc299aaba94a7e65aa35440a509715e528ebe2ad0a68595778679115cc415"
+        },
+        {
+          "originalIndex": 51,
+          "timeSeconds": "1.095233",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00052.png",
+          "sha256": "551dc299aaba94a7e65aa35440a509715e528ebe2ad0a68595778679115cc415"
+        },
+        {
+          "originalIndex": 52,
+          "timeSeconds": "1.112722",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/original-00053.png",
+          "sha256": "551dc299aaba94a7e65aa35440a509715e528ebe2ad0a68595778679115cc415"
+        }
+      ],
+      "contactSheetsActuallyViewed": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/contact-00.png",
+          "selectionIndices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "sha256": "8c1340064860775b143c1cd915952bdba4714499320dd1bd3ebe3e679253924c"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/contact-01.png",
+          "selectionIndices": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "sha256": "b60966db29fb6e8b275419e4ab195ae738bb6d37fe7c8004733c25fe8b4400bb"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-stack-shell-native-spec/decoded/stack-design-motion/scale-1-source-toggle/contact-02.png",
+          "selectionIndices": [
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "sha256": "0f8a69983be0b25867f33aac75fdf127d056c611f69c073eed276e2651aabcac"
+        }
+      ],
+      "recordingElapsedNanos": {
+        "startElapsedNanos": 1330720746014,
+        "tapElapsedNanos": 1331007040762,
+        "tapReturnedElapsedNanos": 1331132742771,
+        "endElapsedNanos": 1336019682661
+      }
+    }
+  ],
+  "nativeConfigurationsAndWindowScales": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font100-dark-configuration.json",
+      "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+      "bytes": 77,
+      "originalTarMember": "stack-design-320-evidence/stack-320-font100-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.0,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font100-light-configuration.json",
+      "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+      "bytes": 78,
+      "originalTarMember": "stack-design-320-evidence/stack-320-font100-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.0,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font200-dark-configuration.json",
+      "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+      "bytes": 77,
+      "originalTarMember": "stack-design-320-evidence/stack-320-font200-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 2.0,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-320/stack-design-320-evidence/stack-320-font200-light-configuration.json",
+      "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+      "bytes": 78,
+      "originalTarMember": "stack-design-320-evidence/stack-320-font200-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 2.0,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-dark-configuration.json",
+      "sha256": "f30f8285abd83b58552639e1247088f5f93266fd609794b05eab6608e00c4015",
+      "bytes": 77,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 412,
+        "widthDp": 412,
+        "fontScale": 1.3,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-412/stack-design-412-evidence/stack-412-font130-light-configuration.json",
+      "sha256": "fc2f4f6f4fb50a0596b71ecf41a63b82f4527a2bd56f7cb90d5bddded10de128",
+      "bytes": 78,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 412,
+        "widthDp": 412,
+        "fontScale": 1.3,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-0-window.json",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "bytes": 69,
+      "originalTarMember": "module-menu-motion-evidence/scale-0-window.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/module-menu-motion/module-menu-motion-evidence/scale-1-window.json",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "bytes": 69,
+      "originalTarMember": "module-menu-motion-evidence/scale-1-window.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-0-window.json",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "bytes": 69,
+      "originalTarMember": "stack-design-motion-evidence/scale-0-window.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/stack-design-motion/stack-design-motion-evidence/scale-1-window.json",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "bytes": 69,
+      "originalTarMember": "stack-design-motion-evidence/scale-1-window.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    }
+  ],
+  "namedPassingLogs": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/module-shell-ui.txt",
+      "sha256": "2ef558a09f5a21466e078ef042e1d13bccf543e1b32c27f83d8d7a1a6006b91c",
+      "bytes": 1489,
+      "passedMethods": 2,
+      "exit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/module-shell-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-320-ui.txt",
+      "sha256": "8da978b471d2f3cc8b89f396757dbb518742e111d085dbee063c4d1d6894951a",
+      "bytes": 793,
+      "passedMethods": 1,
+      "exit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-320-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-412-ui.txt",
+      "sha256": "ff8f284772db4d7e1577adc18c0c31ba7f8f091611f989e7c47a447b96fc4cab",
+      "bytes": 807,
+      "passedMethods": 1,
+      "exit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-412-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-motion-ui.txt",
+      "sha256": "46c38413f1d9a9a98fba326c68dfd58df8fcb4606061d7fa4fc3ebc7597e6923",
+      "bytes": 820,
+      "passedMethods": 1,
+      "exit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/stack-design-motion-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      }
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/module-menu-ui.txt",
+      "sha256": "dc30fce79c9483551ea93fcfa701f011c96cd6e89b340ac3e9e1d20746c1f918",
+      "bytes": 839,
+      "passedMethods": 1,
+      "exit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/module-menu-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      }
+    }
+  ],
+  "decoder": {
+    "decoderImage": "x-downloader:442d3c1",
+    "decoderImageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+    "ffmpegVersion": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "sampling": "Independently decoded all original frames with fps_mode passthrough; selected first8, middle8 and last8 unique indices. Lossless PNG contact sheets preserve source resolution and row-major order; blank cells are not video frames."
+  },
+  "findings": [],
+  "knownHistoricalFinding": {
+    "id": "OWN_PREVIEW_AUTHOR_ROW_MISSING",
+    "notReopened": "Oldb64 omission is already fixed; own-preview reader deliberately not sampled as a new finding. Current144 native10/17 row/dialog receipts independently establish corrected geometry and actual key.",
+    "currentSourceReceipts": [
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10-native-spec-review.json",
+        "sha256": "aed43190ec08f69cf4af7c881bdc07a9cacdbfcd03aa7ae8113a87cb584dfd41",
+        "bytes": 14912
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17-native-spec-review.json",
+        "sha256": "2d48f21ccc9bdef86f3559dd17caed6e2850044473f756d7f219b43439ad682e",
+        "bytes": 15799
+      }
+    ]
+  },
+  "observations": [
+    "Module picker cards/Account sheet show real wallet identity/key and approved module navigation. Discovery and serif reader preserve hierarchy, artwork/card treatment and byline intent, with real shared identity separate from labelled sample Stack authors.",
+    "Actual canonical source text, protected table source guard, disabledVisual and visible Review survive200%/IME selected states.412font130 publication review/success and author-access/subscription surfaces preserve full-width actions and clear local-preview wording.",
+    "Normal source-toggle samples reveal Markdown while shared chrome/Title/Review remain stable. Zero-motion source-toggle samples change directly. Menus visibly open/focus/dismiss in selected original normal/zero frames; native keyboard assertions provide separate actual-input evidence. No motion is inferred from stills."
+  ],
+  "limits": [
+    "Bounded16native pairs +4 movies, not all35 selected archives or180 catalog archives. Only77 of244 decoded frames actually visually sampled. No physical Pixel performance claim.",
+    "Three paired XML snapshots are preceding-route trees:412reader intro/body XML is Discover; Author-access XML is Subscriptions.320font200Light reader-body XML is an earlier reader position. These XMLs cannot establish corresponding PNG target geometry or retained positions.",
+    "Sample-author, Visual and Access-review stills are early reveals. They do not prove settled text contrast; qualified10 settled captures/source remain separate evidence.",
+    "Canonical source capture has partly clipped scrolled tabs/copy at upper boundary; not full48dp fit proof and not evidence of an unrevealable control.",
+    "Normal menu film ends about4.66s while action callback lastsabout8.30s; zero film endsabout5s while callback lastsabout6.92s. Neither films the entire final Account/Escape tail.",
+    "Current144 byline/cache-helper/detailed-dialog differences have their own scoped native receipts; this older partition does not substitute for current full gates. No production/test edits or dispatch were performed."
+  ]
+}

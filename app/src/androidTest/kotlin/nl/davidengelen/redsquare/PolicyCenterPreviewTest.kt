@@ -153,7 +153,9 @@ class PolicyCenterPreviewTest {
                         device.executeShellCommand("logcat -c")
                         ui.openSettings()
                         waitFor("Node")
-                        ui.onNodeWithText("Node").performClick()
+                        // Use the real accessibility action in this TalkBack-owned journey.
+                        // A coordinate sampled before its window/focus handoff can hit Appearance.
+                        click(automation, "Node")
                         waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
 
                         val ownerFocusBy = android.os.SystemClock.elapsedRealtime() + 5_000
@@ -226,7 +228,7 @@ class PolicyCenterPreviewTest {
                             addProperty("physicalAudibility", false)
                             addProperty("serviceProcess", serviceProcess)
                         }.toString())
-                        ui.onNodeWithText("Done").performClick()
+                        click(automation, "Done")
                         unchanged()
                     }
                 }

@@ -1,0 +1,416 @@
+{
+  "status": "OWN_PREVIEW_AUTHOR_ROW_GAP_CLOSED_IN_SCOPED_ANDROID10_NATIVE_EVIDENCE; NOT_FULL_ACCEPTANCE",
+  "source": "144478128079f20321caaf401a8907597a3c4809",
+  "runId": "42443414275",
+  "runUrl": "https://github.com/robelene112/redsquare-android/actions/runs/42443414275",
+  "scope": "Existing StackDesignPixelViewportTest.pixelWritingPublicationAndAccessPreview, stack-editor scope, one case with412font130Light/Dark journey. This manual review inspects ONLY the two Dark own-author captures. Not full5 Stack/module-shell or whole-app gates.",
+  "provenance": {
+    "producerSource": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/proof-source.txt",
+      "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+      "bytes": 41
+    },
+    "workflowSource": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/proof-workflow.txt",
+      "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+      "bytes": 41
+    },
+    "originalTar": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/device-evidence/api-29/stack-design-412-evidence.tar",
+      "sha256": "e63360f6c02231887d30eba59bffe7e0d4abf05e2d306c46db3d437edb51a0b7",
+      "bytes": 2828800
+    },
+    "scopeMarker": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/device-evidence/api-29/scope.txt",
+      "sha256": "d9ec23117f7bd328ec423d7783d964f512a00479bb1ae2b5916b2f17eb295bc6",
+      "bytes": 81
+    },
+    "successfulNamedLog": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/device-evidence/api-29/stack-design-412-ui.txt",
+      "sha256": "cc89fa4cb08222817eab97d4619eed0b1c2bbbbdb335e6f1d66ee57a4cb1219a",
+      "bytes": 807
+    },
+    "exit": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/device-evidence/api-29/stack-design-412-ui-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    "allFourSelectedOriginalFilesByteMatch": true
+  },
+  "reference": {
+    "commit": "c95ecaa01",
+    "designRevision": "design-3d989e9e8406",
+    "issues": [
+      86,
+      90,
+      94
+    ],
+    "source": "prototype/native-shell/design.json:2764 published-article has person your-author between draft-preview/body; Blocks.kt person row; NativeShell.kt:107 defaultAvatar42.",
+    "approvedAmendment": "Actual key/name/avatar replaces fictitious Alex/Just now. Secondary explicitly states Local preview / Not published. Full actual public key available by tapping row.",
+    "previousFindingReceipt": {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-69dd-stack-shell-native-spec-review.json",
+      "sha256": "9eeb971211506a368c9ee3b71a7b2eb4bacbaeb0357e4d55818666eb94f2c32f",
+      "bytes": 322364
+    },
+    "previousFindingId": "OWN_PREVIEW_AUTHOR_ROW_MISSING",
+    "oldRedRetained": "42442337880 at9672 test-only source, retained by root; not overwritten or reclassified."
+  },
+  "selectedOriginals": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-reader.png",
+      "sha256": "3d28c30493facd6f8015e1d02e5e857f587e64fdb7ef146f2a56cac57633ef19",
+      "bytes": 58389,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-published-reader.png",
+      "byteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-reader.xml",
+        "sha256": "f0757691e84fc384f9402212197a11ffdf12e39da32d24293727d4c8139d388e",
+        "bytes": 39793,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-published-reader.xml",
+        "byteMatch": true
+      },
+      "nativeTextAndIdentityNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Stack",
+          "bounds": "[18,34][126,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[346,34][394,82]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,104][239,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[251,104][364,120]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[372,103][390,121]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Publication preview",
+          "content-desc": "",
+          "bounds": "[18,207][183,223]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A quieter kind of internet",
+          "content-desc": "",
+          "bounds": "[18,231][352,266]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "A place for ideas, and the people behind them.",
+          "content-desc": "",
+          "bounds": "[18,274][385,296]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Generated profile picture",
+          "bounds": "[18,317][60,359]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Anon-rLuFWd",
+          "content-desc": "",
+          "bounds": "[72,317][194,341]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Local preview \u00b7 Not published",
+          "content-desc": "",
+          "bounds": "[72,341][269,359]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Canonical source  A newer Markdown revision. visual finish",
+          "content-desc": "",
+          "bounds": "[18,380][379,463]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Design preview only. No article, NFT or Red Square post is sent to the network.",
+          "content-desc": "",
+          "bounds": "[18,479][394,521]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Edit preview",
+          "content-desc": "",
+          "bounds": "[157,551][255,578]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[4,142][52,190]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "Your article preview",
+          "content-desc": "",
+          "bounds": "[52,136][250,195]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Stack design preview",
+          "content-desc": "",
+          "bounds": "[262,158][396,174]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Discover",
+          "content-desc": "",
+          "bounds": "[0,831][132,911]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Following",
+          "content-desc": "",
+          "bounds": "[140,831][272,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "My articles",
+          "content-desc": "",
+          "bounds": "[280,831][412,911]",
+          "clickable": "true",
+          "enabled": "true"
+        },
+        {
+          "text": "3:42",
+          "content-desc": "3:42 AM",
+          "bounds": "[8,0][50,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[357,1][375,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[375,1][390,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[396,0][404,24]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-author.png",
+      "sha256": "a1b712a9d234ea652f0b45ea024817e893f769d84fc0585d5d4da4ba469f5022",
+      "bytes": 56348,
+      "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-published-author.png",
+      "byteMatch": true,
+      "dimensionsPixels": [
+        412,
+        915
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-author.xml",
+        "sha256": "5139c9a3f7ff477b6cd390abcd5cf8584f13349543f5593e4d761292aa34f51e",
+        "bytes": 18895,
+        "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-published-author.xml",
+        "byteMatch": true
+      },
+      "nativeTextAndIdentityNodes": [
+        {
+          "text": "Identity details",
+          "content-desc": "",
+          "bounds": "[70,364][232,396]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Anon-rLuFWd",
+          "content-desc": "",
+          "bounds": "[70,412][192,436]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "rLuFWd9van9WeW82cTN3xnDREAv5T999mYeHawsbTMYz",
+          "content-desc": "",
+          "bounds": "[70,452][334,503]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy public key",
+          "content-desc": "",
+          "bounds": "[130,538][256,565]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "Done",
+          "content-desc": "",
+          "bounds": "[288,538][330,565]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "3:42",
+          "content-desc": "3:42 AM",
+          "bounds": "[8,0][50,24]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[357,1][375,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[375,1][390,23]",
+          "clickable": "false",
+          "enabled": "true"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[396,0][404,24]",
+          "clickable": "false",
+          "enabled": "true"
+        }
+      ]
+    }
+  ],
+  "configuration": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-configuration.json",
+    "sha256": "f30f8285abd83b58552639e1247088f5f93266fd609794b05eab6608e00c4015",
+    "bytes": 77,
+    "originalTarMember": "stack-design-412-evidence/stack-412-font130-dark-configuration.json",
+    "byteMatch": true,
+    "value": {
+      "widthPixels": 412,
+      "widthDp": 412,
+      "fontScale": 1.3,
+      "selectedAppearance": "Dark"
+    }
+  },
+  "measuredNativeGeometry": {
+    "avatarBoundsPx": [
+      18,
+      317,
+      60,
+      359
+    ],
+    "rowBoundsPx": [
+      18,
+      312,
+      394,
+      364
+    ],
+    "nameBoundsPx": [
+      72,
+      317,
+      194,
+      341
+    ],
+    "secondaryBoundsPx": [
+      72,
+      341,
+      269,
+      359
+    ],
+    "avatarSizePx": [
+      42,
+      42
+    ],
+    "horizontalGapPx": 12,
+    "verticalPaddingPx": [
+      5,
+      5
+    ],
+    "rowClickTargetPx": [
+      376,
+      52
+    ],
+    "rowClickable": "true",
+    "rowEnabled": "true",
+    "displayPxPerDp": 1.0
+  },
+  "identity": {
+    "nativeDisplayedName": "Anon-rLuFWd",
+    "fullNativeDialogPublicKey": "rLuFWd9van9WeW82cTN3xnDREAv5T999mYeHawsbTMYz",
+    "fullKeyMatchesDisplayedAnonPrefix": true,
+    "nativeTestAssertion": "144478128 StackDesignViewportTest compares dialog text to AndroidWalletStore.loadExisting().publicKey and asserts displayed, after actual row click.",
+    "dialogControls": [
+      "Copy public key",
+      "Done"
+    ],
+    "cacheSourceReview": "144478128 AccountIdentity.kt shared owner/registrar/backend/freshness-validated cache with AppHeader; cachedOnly avatar, caller-owned slot, no wallet/private/publication owner inside Stack."
+  },
+  "findings": [],
+  "observations": [
+    "Actual byline restores the missing reference hierarchy between title/subtitle and canonical body. Clean42dp avatar with12dp gap and5dp vertical padding confirmed by XML and visible pixels. Enabled376x52px actual row preserves more than48dp target at configured density1.",
+    "Name is true current public identity fallback, with same-key generated avatar. Full44-character public key wraps visibly within existing Identity details dialog; no ellipsis or clipping. Existing native assertion binds it to current wallet public key.",
+    "Local preview / Not published secondary fits beside the avatar and clearly avoids fictitious timestamp or real publication claim. A shortened key need not displace this line because exact identity is accessible on tap."
+  ],
+  "counts": {
+    "actualNativePngViewed": 2,
+    "actualPairedXmlReviewed": 2,
+    "focusedPassedClasses": 1,
+    "focusedPassedCases": 1,
+    "moviesReviewed": 0
+  },
+  "limits": [
+    "Android10 only. Android17 peer pending atreview time; no crossSDK acceptance.",
+    "Only412font130Dark byline/dialog images manually inspected; this does not establish320font200 layout or motion.",
+    "No full application/module-shell/full5 Stack completion claim. Mandatory current full gates and Chrome diagnosis remain independent.",
+    "Byline fix resolution here does not erase prior source69dd omission or9672RED proof."
+  ]
+}

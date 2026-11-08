@@ -1,0 +1,114 @@
+{
+  "reviewedAtUtc": "2026-11-08T03:46:37.391347+00:00",
+  "scope": "Android10 Pixel412 font130 own-preview byline native review only",
+  "findings": [],
+  "source": "144478128079f20321caaf401a8907597a3c4809",
+  "runId": "42443414275",
+  "scopeConclusion": "Original one-case StackDesignPixelViewportTest passed; no full-gate or crossSDK acceptance implied.",
+  "sourceProof": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/proof-source.txt",
+    "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+    "workflowSha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8"
+  },
+  "originalArchive": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/device-evidence/api-29/stack-design-412-evidence.tar",
+    "sha256": "e63360f6c02231887d30eba59bffe7e0d4abf05e2d306c46db3d437edb51a0b7",
+    "selectedExactMembersVerified": 4
+  },
+  "selectedNativeFiles": [
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-reader.png",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-reader.png",
+      "bytes": 58389,
+      "sha256": "3d28c30493facd6f8015e1d02e5e857f587e64fdb7ef146f2a56cac57633ef19",
+      "inspection": "Actual PNG visually inspected"
+    },
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-reader.xml",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-reader.xml",
+      "bytes": 39793,
+      "sha256": "f0757691e84fc384f9402212197a11ffdf12e39da32d24293727d4c8139d388e",
+      "inspection": "Original native XML parsed and relevant labels/bounds inspected"
+    },
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-author.png",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-author.png",
+      "bytes": 56348,
+      "sha256": "a1b712a9d234ea652f0b45ea024817e893f769d84fc0585d5d4da4ba469f5022",
+      "inspection": "Actual PNG visually inspected"
+    },
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-author.xml",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-author.xml",
+      "bytes": 18895,
+      "sha256": "5139c9a3f7ff477b6cd390abcd5cf8584f13349543f5593e4d761292aa34f51e",
+      "inspection": "Original native XML parsed and relevant labels/bounds inspected"
+    }
+  ],
+  "originalNativeLog": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10/android-native-proof/.scratch/device-evidence/api-29/stack-design-412-ui.txt",
+    "sha256": "cc89fa4cb08222817eab97d4619eed0b1c2bbbbdb335e6f1d66ee57a4cb1219a",
+    "result": "OK (1 test),30.792s"
+  },
+  "originalAssertionSource": {
+    "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StackDesignViewportTest.kt",
+    "gitCommit": "144478128079f20321caaf401a8907597a3c4809",
+    "blobSha256": "d3a3b2dced7ee91e23a10e95575b7657d0d0279b3d93e13d44eaa8920895ec79",
+    "goal": "Original journey reveals actual byline, asserts its existence/display, clicks it, loads current AndroidWalletStore publicKey and asserts exact key displayed inside real identity dialog. Existing canonical-source/publication-preview/access/draft journey retained.",
+    "publicationBranch": "width==412 && theme==Dark"
+  },
+  "publicIdentity": {
+    "keyObservedInOriginalNativeXml": "rLuFWd9van9WeW82cTN3xnDREAv5T999mYeHawsbTMYz",
+    "fallbackNameObservedInReaderAndDialog": "Anon-rLuFWd",
+    "match": "Exact current real public key assertion passes in original instrumentation; observed fallback prefix matches full captured key."
+  },
+  "geometry": {
+    "viewport": [
+      412,
+      915
+    ],
+    "bylineClickableBounds": [
+      18,
+      312,
+      394,
+      364
+    ],
+    "bylineTargetHeightPx": 52,
+    "localLabelBounds": [
+      72,
+      341,
+      269,
+      359
+    ],
+    "identityKeyBounds": [
+      70,
+      452,
+      334,
+      503
+    ],
+    "dialogCopyXmlBounds": [
+      92,
+      527,
+      268,
+      567
+    ],
+    "dialogDoneXmlBounds": [
+      276,
+      527,
+      334,
+      567
+    ],
+    "limitation": "Dialog XML reports40px control height under known API29 dump clipping. Source explicitly requires48dp; these captures alone do not independently prove actual dialog touch bounds. No regression inferred from clipped XML."
+  },
+  "conclusions": [
+    "Actual public-author byline appears between article intro and canonical body, with readable generated avatar/name and local-preview label.",
+    "Identity dialog shows matching full public key, same name, Copy public key and Done without clipping the key text.",
+    "Preview states retain explicit Publication preview, Local preview \u00b7 Not published and Design preview only. No article, NFT or Red Square post is sent to the network. wording. No fake publication or network-success status is shown."
+  ],
+  "limits": [
+    "Only two Dark published PNG/XML pairs manually inspected. Light is part of original Pixel journey but published-author branch is Dark-only.",
+    "Unregistered/generated fallback observed; cached registered-name replacement and owner/backend switching are not natively established by these four files.",
+    "Android17,320dp/200%, motion and fresh complete gates remain outside this receipt. No broad native or signed-artifact acceptance.",
+    "No claim of absolute no-network behavior: existing cachedOnly public avatar semantics may retrieve an uncached raster from a validated cached image URL. No Stack protocol/signing/publication operation is introduced by the reviewed source."
+  ]
+}

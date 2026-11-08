@@ -1,0 +1,115 @@
+{
+  "reviewedAtUtc": "2026-11-08T03:50:01.552046+00:00",
+  "scope": "Android17 Pixel412/font130 Dark own-preview byline native review only",
+  "findings": [],
+  "source": "144478128079f20321caaf401a8907597a3c4809",
+  "runId": "42443414190",
+  "sourceProof": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/android-native-proof/.scratch/proof-source.txt",
+    "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+    "workflowPath": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/android-native-proof/.scratch/proof-workflow.txt",
+    "workflowSha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8"
+  },
+  "originalArchive": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/android-native-proof/.scratch/device-evidence/api-37.0/stack-design-412-evidence.tar",
+    "sha256": "31db2def35b7a919bd423e9eed26771ae819d1bd80df3e698f466d92144cbcc8",
+    "selectedExactMembersVerified": 4
+  },
+  "selectedNativeFiles": [
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-reader.png",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-reader.png",
+      "bytes": 60572,
+      "sha256": "ebccde8d006c3788b7bdeb8d3a51dfac3088db097fa36f6aa39396b424be4236",
+      "inspection": "Actual PNG visually inspected"
+    },
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-reader.xml",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-reader.xml",
+      "bytes": 42865,
+      "sha256": "4eeee8eb55c66ef44c226e08e33840c3bbf0a9ce7387760038956f04354c8861",
+      "inspection": "Native labels, public key, clickable bounds and hierarchy inspected"
+    },
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-author.png",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-author.png",
+      "bytes": 57949,
+      "sha256": "e1c135a99aba8e26e3d141f32cdba06d4b8094740928fb8ab80fc5024f945b89",
+      "inspection": "Actual PNG visually inspected"
+    },
+    {
+      "member": "stack-design-412-evidence/stack-412-font130-dark-published-author.xml",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/native/stack-design-412-evidence/stack-design-412-evidence/stack-412-font130-dark-published-author.xml",
+      "bytes": 21217,
+      "sha256": "c39a24c1b46913893dc06bec8edc9d4bf88d5a43cd2556dcdce0049ecbb3a403",
+      "inspection": "Native labels, public key, clickable bounds and hierarchy inspected"
+    }
+  ],
+  "originalNativeLog": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17/android-native-proof/.scratch/device-evidence/api-37.0/stack-design-412-ui.txt",
+    "sha256": "a25cb3c0dbfc3466e47f0bc7faf93fe7a3e94713127895dc15ed652b1894b958",
+    "result": "OK (1 test),55.703s",
+    "class": "StackDesignPixelViewportTest",
+    "method": "pixelWritingPublicationAndAccessPreview"
+  },
+  "originalAssertionSource": {
+    "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StackDesignViewportTest.kt",
+    "gitCommit": "144478128079f20321caaf401a8907597a3c4809",
+    "blobSha256": "d3a3b2dced7ee91e23a10e95575b7657d0d0279b3d93e13d44eaa8920895ec79",
+    "goal": "Original journey reveals actual byline, asserts its existence/display, clicks it, loads current AndroidWalletStore publicKey and asserts exact key displayed inside real identity dialog. Existing canonical-source/publication-preview/access/draft journey retained.",
+    "publicationBranch": "width==412 && theme==Dark"
+  },
+  "identity": {
+    "fullPublicKeyInOriginalXml": "fFsay8tx7TA6GxNBnzUaN35r9rqqiorNrKQxbffuoTQj",
+    "fallbackNameInReaderAndDialog": "Anon-fFsay8",
+    "exactRealKeyGoal": "Original test loads current AndroidWalletStore publicKey and asserts exact full key inside actual identity dialog. Same source assertion independently reviewed in preserved Android10 counterpart receipt."
+  },
+  "geometry": {
+    "viewport": [
+      412,
+      915
+    ],
+    "bylineClickableBounds": [
+      18,
+      312,
+      394,
+      364
+    ],
+    "bylineTargetHeightPx": 52,
+    "copyPublicKeyClickableBounds": [
+      92,
+      527,
+      268,
+      575
+    ],
+    "doneClickableBounds": [
+      276,
+      527,
+      342,
+      575
+    ],
+    "copyAndDoneTargetHeightPx": 48,
+    "fullIdentityKeyTextBounds": [
+      70,
+      452,
+      342,
+      503
+    ]
+  },
+  "conclusions": [
+    "Byline uses actual current public identity with matching generated avatar/name and visible Local preview \u00b7 Not published label.",
+    "Identity details dialog shows the exact full key, same name, readable Copy public key and Done; key wraps without clipping.",
+    "Native XML exposes52px byline target and48px Copy/Done targets at density1.",
+    "Reader explicitly retains Publication preview plus local/not-published/no-network-publication wording. No fake publication result shown."
+  ],
+  "preservedCounterpartReceipt": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10-standards-review.json",
+    "sha256": "f7b94612c10d1ed31d0bbac5fbe6d34aad294bce8a6c16b3796aeaf4f28d47ac"
+  },
+  "limits": [
+    "Only two Dark412/font130 PNG/XML pairs manually inspected. Light is exercised elsewhere in the one-case journey but not the published-author branch.",
+    "Generated fallback only; cached registered-name rendering and owner/backend transitions are not natively established by these four files.",
+    "Not320/200%, motion, signed artifact/update, whole-app or complete-gate acceptance. Fresh full144 runs42444221406/42444221528 remain separate pending gates.",
+    "Existing cachedOnly avatar semantics may retrieve a validated cached image URL; no absolute no-network claim. No Stack protocol/signing/publication operation introduced."
+  ]
+}

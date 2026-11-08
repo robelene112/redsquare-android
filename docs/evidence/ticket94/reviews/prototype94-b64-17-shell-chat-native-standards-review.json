@@ -1,0 +1,615 @@
+{
+  "reviewedAtUtc": "2026-11-08T03:58:04.332007+00:00",
+  "scope": "Complementary Android17 shell/Chat native Standards sample only",
+  "findings": [],
+  "source": "b64ac663514ce2d9610057ee70e36b998efc37a5",
+  "runId": "42438441132",
+  "partitionStatus": "Chat SUCCESS; overall dispatch FAILED Social, not accepted",
+  "sourceProof": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/proof-source.txt",
+    "sha256": "fae7d9f56e7234b11e9db143593ce5e59be648b4f6b16e9f4867330ab7ea7847",
+    "workflowPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/proof-workflow.txt",
+    "workflowSha256": "fae7d9f56e7234b11e9db143593ce5e59be648b4f6b16e9f4867330ab7ea7847"
+  },
+  "qualifiedBridge": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-to-144-production-bridge.json",
+    "sha256": "50df32dff3f6e31a2bbe09f1a6ff60f5ca49060ab8d782dd4e1b7c3a68ede620",
+    "currentSource": "144478128079f20321caaf401a8907597a3c4809",
+    "independentlyConfirmedChangedProductionPaths": [
+      "app/src/main/kotlin/nl/davidengelen/redsquare/MainActivity.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/identity/IdentityDetailsDialog.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackReviewScreen.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/ui/AccountIdentity.kt",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/ui/ModuleShell.kt",
+      "app/src/main/res/values/stack.xml"
+    ],
+    "interpretation": "Six own-preview byline/name-cache/dialog-presentation paths differ and have separate source/current10/17 native reviews. Other production/build/workflow inputs and Chat view implementations unchanged. No whole-tree/APK byte equality claim."
+  },
+  "originalByteInventory": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/original-byte-inventory.json",
+    "sha256": "fc9f18af0082ed358147c72cb69e176fb1de1db7283d06de2b9cc4f5d140bfff",
+    "selectedOriginalArchivesVerified": 14,
+    "exactOriginalMemberFiles": 1119,
+    "parentInventory": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/selected-original-archives.json",
+    "parentInventorySha256": "bb0cd2dc7ca3441b8feb98f6bc0d9b41571fd905dec31a6ecbb5c6553ca3da49"
+  },
+  "manualInspectionCounts": {
+    "nativePngXmlPairs": 16,
+    "originalMp4s": 4,
+    "independentlyDecodedAndVisuallyInspectedFrames": 19
+  },
+  "nativeSamples": [
+    {
+      "group": "chat-grouping-private-320",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-private-320-evidence.tar",
+      "member": "chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-private-320/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.png",
+      "pngSha256": "73bd18a50a95272f72fc738cfc57770919a9e1f30b2e6865fe4d9dc328573873",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-private-320/chat-grouping-private-320-evidence/chat-grouping-private-320-320-font200-dark-history-with-ime.xml",
+      "xmlSha256": "f7ba90758f9696d5c456b205bf9b5a135bb4741cf7cabbee6402b8c3241b028a",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "chat-grouping-group-320",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-group-320-evidence.tar",
+      "member": "chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-text.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-group-320/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-text.png",
+      "pngSha256": "58a007e1653157058c62de608ebec5bd3d12ffddaf7cf11e186ee0cb75fa66d1",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-group-320/chat-grouping-group-320-evidence/chat-grouping-group-320-320-font100-light-text.xml",
+      "xmlSha256": "588d3039370c87bc32b6ddb2ed11b070ef2585edc278171d250fa86f99b52e8f",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "chat-grouping-private-412",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-private-412-evidence.tar",
+      "member": "chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-private-412/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.png",
+      "pngSha256": "62dfdb7ae0bb42ca77ea3719a747c2db174fa98849d22bdc3a18a530ad75c861",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-private-412/chat-grouping-private-412-evidence/chat-grouping-private-412-412-font200-light-photo-reply.xml",
+      "xmlSha256": "e24078c5357b148c682184a9edd54024b789862627a1f7897be40e37a8d974b8",
+      "dimensions": [
+        412,
+        915
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "chat-grouping-group-412",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-group-412-evidence.tar",
+      "member": "chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-message-actions.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-group-412/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-message-actions.png",
+      "pngSha256": "1958d599e0a2b88203d16358371d7d79332cb7b7a95ad6de369cbed5963fb7e9",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-grouping-group-412/chat-grouping-group-412-evidence/chat-grouping-group-412-412-font200-dark-message-actions.xml",
+      "xmlSha256": "1af4508300d853b1f7b84b5f380787611f121a404b3bc954dec618ac6d0fb577",
+      "dimensions": [
+        412,
+        915
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "conversation-send",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/conversation-send-evidence.tar",
+      "member": "conversation-send-evidence/conversation-private-send-320-font130-light-older-before-own-send.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-private-send-320-font130-light-older-before-own-send.png",
+      "pngSha256": "2fe501a79d17fc81b18b4320cdf1354ff0ab9e951d316e95da4737212a13193e",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-private-send-320-font130-light-older-before-own-send.xml",
+      "xmlSha256": "588bdbf80b1099fad7c36da4072b1659d6650c6153fff9c963920cb20043d1bd",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "conversation-send",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/conversation-send-evidence.tar",
+      "member": "conversation-send-evidence/conversation-private-send-320-font130-light-own-send-exposes-latest.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-private-send-320-font130-light-own-send-exposes-latest.png",
+      "pngSha256": "cc54c414cd5a6dfb26b48fda5dbbaf8f1cc2556923d57151398ac4d12a1e7e12",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-private-send-320-font130-light-own-send-exposes-latest.xml",
+      "xmlSha256": "06abeceb9bbf28d48a1d5041b153ef38684584686311c9b60b1fc2613c0a9db5",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "conversation-send",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/conversation-send-evidence.tar",
+      "member": "conversation-send-evidence/conversation-group-send-320-font130-dark-older-before-own-send.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-group-send-320-font130-dark-older-before-own-send.png",
+      "pngSha256": "307691a2fddf0ae4f764b322c5d99b7f3fb01783add8d11cec1857842f18e409",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-group-send-320-font130-dark-older-before-own-send.xml",
+      "xmlSha256": "0f1aefca1f751abf78c93a086705cf3cdee18f2286568ce7a600fa3af2206349",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "conversation-send",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/conversation-send-evidence.tar",
+      "member": "conversation-send-evidence/conversation-group-send-320-font130-dark-own-send-exposes-latest.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-group-send-320-font130-dark-own-send-exposes-latest.png",
+      "pngSha256": "b0957d3fa6bb1a15d3b6b7bea50108333d9147d47dc99222ce8eddae62fc5382",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/conversation-send/conversation-send-evidence/conversation-group-send-320-font130-dark-own-send-exposes-latest.xml",
+      "xmlSha256": "c0055c739609397cde58cb3a43048da547c8e6b65b88a249ce91b9cab8221fcc",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "chat-keyboard",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-keyboard-evidence.tar",
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-keyboard/chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime.png",
+      "pngSha256": "d2a6877eb0a06865dfc7b2fa34b4223cc55c437aa683e437bf25d19694d093ac",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-keyboard/chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime.xml",
+      "xmlSha256": "caa507322872cd364504bfb0d325c945b167cf0a1dc2e69410c97b60934ef184",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "chat-keyboard",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-keyboard-evidence.tar",
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-closed.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-keyboard/chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-closed.png",
+      "pngSha256": "abac878de3243ca4a2a4934dc35cd0493470e2819ab4c2f91e08989a3da43e43",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/chat-keyboard/chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-closed.xml",
+      "xmlSha256": "942892cf0381227559ed65b3647a012980d6c018565c413375b15b0fdbc4c3f6",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "private-conversation-reading",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/private-conversation-reading-evidence.tar",
+      "member": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/private-conversation-reading/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.png",
+      "pngSha256": "0d8027b965417c5e13471a78521857f6d88cdd3749972dd00cd1d3e0e4acb7a4",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/private-conversation-reading/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.xml",
+      "xmlSha256": "8f1f3d7abb4c0c023a115ccef88e66e85228c3200f45ab8f41641c4970e1546f",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "group-conversation-polish",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/group-conversation-polish-evidence.tar",
+      "member": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/group-conversation-polish/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.png",
+      "pngSha256": "87fd7cf5025bd0237933f1d84975b01f7850d42c54a11ab473be6188f66cd19c",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/group-conversation-polish/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.xml",
+      "xmlSha256": "54f00d1c1a39ea746c7db8711efd50ee6697336c98c0542f333f2c28be9ab484",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "group-setup",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/group-setup-evidence.tar",
+      "member": "group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/group-setup/group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.png",
+      "pngSha256": "9db30a8935fd9e151aecd4a990ddd17151938a28c41cb7166704a9f10967fae2",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/group-setup/group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.xml",
+      "xmlSha256": "8f5de31402e2af1b89487d857e1b4d5f6998bb6ec1ee887152605c46215124b2",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "group-invitation-share",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/group-invitation-share-evidence.tar",
+      "member": "group-invitation-share-evidence/group-invitation-share-320-font200-dark-copied.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/group-invitation-share/group-invitation-share-evidence/group-invitation-share-320-font200-dark-copied.png",
+      "pngSha256": "92ec05216eaf478d9e77a4b59855371e26e39d6bf7787971a8da58948b841727",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/group-invitation-share/group-invitation-share-evidence/group-invitation-share-320-font200-dark-copied.xml",
+      "xmlSha256": "2f881cf2807974f12524ad5a9392160d1b9f63cab69e901df7be668fb40ab13a",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "navigation-keyboard",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/navigation-keyboard-evidence.tar",
+      "member": "navigation-keyboard-evidence/keyboard-320-font200-light-focus-4.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/navigation-keyboard/navigation-keyboard-evidence/keyboard-320-font200-light-focus-4.png",
+      "pngSha256": "40e0fded2724d82e248e05aae977b429576d7be3e3d8e7c5a390db4548fa366c",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/navigation-keyboard/navigation-keyboard-evidence/keyboard-320-font200-light-focus-4.xml",
+      "xmlSha256": "e16890bf90db2025a1e09daa234a73db8525f0eb717e1663f2c3da1e85e44df9",
+      "dimensions": [
+        320,
+        640
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    },
+    {
+      "group": "app-frame",
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/app-frame-evidence.tar",
+      "member": "app-frame-evidence/frame-412-font200-dark-account-menu.png",
+      "png": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/app-frame/app-frame-evidence/frame-412-font200-dark-account-menu.png",
+      "pngSha256": "986d9df2fbc4a48edaa1176dd67a0000f3fc8678d0fd3c682062486695c456ff",
+      "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/app-frame/app-frame-evidence/frame-412-font200-dark-account-menu.xml",
+      "xmlSha256": "2b22b4a4e48e31167882375b0eba8255361a0264cd6e607a647cd84ffc02066d",
+      "dimensions": [
+        412,
+        915
+      ],
+      "actualPngVisuallyInspected": true,
+      "xmlInspected": true
+    }
+  ],
+  "independentMovies": [
+    {
+      "originalMp4": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/navigation-motion/navigation-motion-evidence/navigation-1.mp4",
+      "originalMp4Sha256": "1560d38a88dca77d6019ae4a5563411a2f94de6c0a612ed1f54cc0f28587bcc7",
+      "image": "x-downloader:442d3c1",
+      "imageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+      "ffmpegVersion": "7.1.5-0+deb13u1",
+      "probe": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-ffprobe.json",
+      "probeSha256": "644a86666a3bacc10b182d0bf8931993ff2555dac629113816327ceb1545e628",
+      "duration": "2.666522",
+      "originalFrameCount": 46,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 320,
+          "height": 640,
+          "nb_frames": "46"
+        }
+      ],
+      "selectedFrames": [
+        {
+          "originalFrameIndex": 0,
+          "ptsSeconds": 0.0,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-001.png",
+          "sha256": "a5d87d5ed853978b7edbb580f9792deb7454a49f4e9670a227bd52e6aa622499"
+        },
+        {
+          "originalFrameIndex": 1,
+          "ptsSeconds": 0.348144,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-002.png",
+          "sha256": "4eee748ed12a88e9c77c124afb85f9d74b1862ab0a08ae6cb97f800d2cfa5cda"
+        },
+        {
+          "originalFrameIndex": 2,
+          "ptsSeconds": 0.418733,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-003.png",
+          "sha256": "753b16ba5f2cb3f845f1e8a94c92741217a610ecf3e5b8a859df3add96c07ce8"
+        },
+        {
+          "originalFrameIndex": 5,
+          "ptsSeconds": 0.515978,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-004.png",
+          "sha256": "70998f3a8202926b6bb30d43673a0c0c9b22e6e6909bcb376e538586be88dfaf"
+        },
+        {
+          "originalFrameIndex": 45,
+          "ptsSeconds": 1.916133,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-005.png",
+          "sha256": "bd4ffba0d65eab8feff71d530a4b4fa986182d9d335bb6a5db6f55ff91bf44d5"
+        },
+        {
+          "originalFrameIndex": 20,
+          "ptsSeconds": 0.763344,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-mid-001.png",
+          "sha256": "962bcc2b72c3904166b711d13422c741c2966a15d8b806ebe67fcf27d07461d5"
+        },
+        {
+          "originalFrameIndex": 35,
+          "ptsSeconds": 1.016089,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-1-mid-002.png",
+          "sha256": "3ea8eef47403700d0ca0d1ab926d50357c14252293fa0ce34c17ece4f94517b0"
+        }
+      ]
+    },
+    {
+      "originalMp4": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/navigation-motion/navigation-motion-evidence/navigation-0.mp4",
+      "originalMp4Sha256": "45c4e231341418f75b954c69f646893c5ae1559d5c0cc2b47bed7c3de7b1b054",
+      "image": "x-downloader:442d3c1",
+      "imageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+      "ffmpegVersion": "7.1.5-0+deb13u1",
+      "probe": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-0-ffprobe.json",
+      "probeSha256": "8ff60a8cc4b66df15b2491208c066d505cd2c946f2e0e036e54299075cba22bb",
+      "duration": "0.616811",
+      "originalFrameCount": 5,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 320,
+          "height": 640,
+          "nb_frames": "5"
+        }
+      ],
+      "selectedFrames": [
+        {
+          "originalFrameIndex": 0,
+          "ptsSeconds": 0.0,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-0-001.png",
+          "sha256": "a5d87d5ed853978b7edbb580f9792deb7454a49f4e9670a227bd52e6aa622499"
+        },
+        {
+          "originalFrameIndex": 1,
+          "ptsSeconds": 0.534256,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-0-002.png",
+          "sha256": "4521001e0dc1a2f142072953f5419dd3ba58ced718482beb48c83038a86a4157"
+        },
+        {
+          "originalFrameIndex": 4,
+          "ptsSeconds": 0.5987,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/navigation-0-003.png",
+          "sha256": "a26debe73abbd544fd73c296a89612b78959a22469fe7957190b5258a724d305"
+        }
+      ]
+    },
+    {
+      "originalMp4": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/app-frame-motion/app-frame-motion-evidence/motion-1.mp4",
+      "originalMp4Sha256": "a6b5c141c4b45fd99e24debe030bbb156dd2096c4be6238b8056047567fa4c01",
+      "image": "x-downloader:442d3c1",
+      "imageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+      "ffmpegVersion": "7.1.5-0+deb13u1",
+      "probe": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-1-ffprobe.json",
+      "probeSha256": "ea78344f0f9b43c76a08fc96b7e998bb520523d8e91bb9afb46dcc8ab5e55ddb",
+      "duration": "0.581489",
+      "originalFrameCount": 21,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 320,
+          "height": 640,
+          "nb_frames": "21"
+        }
+      ],
+      "selectedFrames": [
+        {
+          "originalFrameIndex": 0,
+          "ptsSeconds": 0.0,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-1-001.png",
+          "sha256": "8b92380f14c9e9127aa5c8f4901d999946d4a5c9a6fbe673820d527f59204a8b"
+        },
+        {
+          "originalFrameIndex": 3,
+          "ptsSeconds": 0.252567,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-1-002.png",
+          "sha256": "f7564c65236c9d4e02a8ceb066489e37996f49ee922ea37e773d6f49871eecc7"
+        },
+        {
+          "originalFrameIndex": 10,
+          "ptsSeconds": 0.381322,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-1-003.png",
+          "sha256": "df4fc5569c7615b031658359b8ab300f126c37e2b9f16f4fa617659e2024c7c4"
+        },
+        {
+          "originalFrameIndex": 17,
+          "ptsSeconds": 0.513989,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-1-004.png",
+          "sha256": "adcddb119303da7f003a602768b661545078f955b1fc2b0f3066ff1f6b89ebf9"
+        },
+        {
+          "originalFrameIndex": 20,
+          "ptsSeconds": 0.564567,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-1-005.png",
+          "sha256": "c30cc1ebb341ab8eea2472224ec55461063333f964e164f02c28fc7964c1c55a"
+        }
+      ]
+    },
+    {
+      "originalMp4": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/native-chat-selected/app-frame-motion/app-frame-motion-evidence/motion-0.mp4",
+      "originalMp4Sha256": "9aec1243f7f0973cf29ad51ac8989720f4a8cf32ec9eb48ae732efd828aa032c",
+      "image": "x-downloader:442d3c1",
+      "imageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+      "ffmpegVersion": "7.1.5-0+deb13u1",
+      "probe": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-0-ffprobe.json",
+      "probeSha256": "c33a33571d569ddebedf331bd2d8d96645c1e8ce41af72577b82de04bbca14c2",
+      "duration": "2.647589",
+      "originalFrameCount": 7,
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 320,
+          "height": 640,
+          "nb_frames": "7"
+        }
+      ],
+      "selectedFrames": [
+        {
+          "originalFrameIndex": 0,
+          "ptsSeconds": 0.0,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-0-001.png",
+          "sha256": "8b92380f14c9e9127aa5c8f4901d999946d4a5c9a6fbe673820d527f59204a8b"
+        },
+        {
+          "originalFrameIndex": 3,
+          "ptsSeconds": 0.333622,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-0-002.png",
+          "sha256": "cb324e307898caa3d6d8575db90ac41e8fe27979f359b42be6ebce65e41074dc"
+        },
+        {
+          "originalFrameIndex": 4,
+          "ptsSeconds": 0.365456,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-0-003.png",
+          "sha256": "00f7c01a893f6608f89a2472323795040b34e681e73cab472b9da873840b9996"
+        },
+        {
+          "originalFrameIndex": 6,
+          "ptsSeconds": 1.514978,
+          "decodedPng": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-original-frames/motion-0-004.png",
+          "sha256": "823869f93865caf25986c51ac73d8a392e7c1f7759c2dc6bd5a17782a1dc6b55"
+        }
+      ]
+    }
+  ],
+  "movieReceipt": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-standards-working/independent-movie-receipt.json",
+    "sha256": "fbcefd6bf132d1a7ea2f0492e2cb55acad26e454f17898783e45c7706434186a",
+    "executionBoundary": "Fresh --rm/no-network/read-only/cpu1/memory512m/currentUID containers, original input readonly, external output only; no live service exec."
+  },
+  "selectedNativeLogs": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/group-conversation-polish-ui.txt",
+      "sha256": "c8dd3a39ce0fd7e8e352faa6e8c4a5db0ccb4f5438fb99a66dd1f5897cbd9791",
+      "reportedPassingTests": 1
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-group-320-ui.txt",
+      "sha256": "c2a395d27ebe51499e54670d0221be2b534d524f963b77b47b961ad6e18c6dd1",
+      "reportedPassingTests": 1
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/navigation-motion-ui.txt",
+      "sha256": "a656374506c11d2f862d52ab2fe0c7528dec0591771d788bc81fb0fd291d3ae7",
+      "reportedPassingTests": 2
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/conversation-send-ui.txt",
+      "sha256": "eea170401bbd27dcb345535c108d05b2c56cc856bb76f36c8cab3ba6d43fbc44",
+      "reportedPassingTests": 2
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-keyboard-ui.txt",
+      "sha256": "16ba7ce9b19431c871a0e09f4ed9fd9c7ddb688420d8c30d81f02429448e3687",
+      "reportedPassingTests": 10
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/app-frame-motion-ui.txt",
+      "sha256": "cc3d301e45776d78ba02fac978ad8526d3a2e0868961ec7d473ba7607d2696d8",
+      "reportedPassingTests": 2
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-group-412-ui.txt",
+      "sha256": "cb4c9746567489c4c23290da0e3f136e007142b5cb7dd5a620b6c8dc10d869bf",
+      "reportedPassingTests": 1
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-private-320-ui.txt",
+      "sha256": "197b46e89de72bca2ccf6ff9d8e0e307a99f68a2c04972a37a340e79eec54e2e",
+      "reportedPassingTests": 1
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-b64-17/android-native-proof-chat/.scratch/device-evidence/api-37.0/chat-grouping-private-412-ui.txt",
+      "sha256": "16992537d6fd7bba100c8c478fe36f359ac19c524f93e475ecf4aacf3b309a52",
+      "reportedPassingTests": 1
+    }
+  ],
+  "nativeTargetExamples": [
+    {
+      "sample": "private-photo-long-reply-font130-physical-send-ime",
+      "Back": [
+        18,
+        28,
+        66,
+        76
+      ],
+      "Mute": [
+        206,
+        28,
+        254,
+        76
+      ],
+      "Details": [
+        254,
+        28,
+        302,
+        76
+      ],
+      "Send": [
+        254,
+        320,
+        302,
+        368
+      ],
+      "SendEnabled": true
+    },
+    {
+      "sample": "group412font200dark message actions",
+      "Identity details": [
+        97,
+        274,
+        294,
+        322
+      ],
+      "Like": [
+        97,
+        322,
+        294,
+        370
+      ],
+      "note": "48px native target heights at density1."
+    }
+  ],
+  "conclusions": [
+    "Private/group320/412 examples retain distinct privacy state, sender/message/media hierarchy, readable action menus and composer placement under large text/realIME.",
+    "Own-send pairs show earlier history followed by the intended outgoing text. Submitted/Forwarded delivery-not-confirmed and Queued states remain explicit rather than implying delivery.",
+    "Reading samples retain older history with New messages action and expose latest history after deliberate activation.",
+    "Account412font200 sheet fits public identity plus Wallet/Settings; group validation remains visible above real keyboard.",
+    "Invitation copied feedback is explicit. Android17 clipboard overlay covers part of footer in captured instant; it is OS-owned, not classified as app-layout overlap.",
+    "Normal navigation selected frames show blank transition at0.348/0.419/0.516s with header retained, Search body visible by0.763s, and stable final destination. Zero-motion recording reaches Search without same fade sequence. No persistent blank established.",
+    "Backup-reminder normal movie shows local fade/collapse and recovered reading space. Zero movie shows state acknowledgement then collapsed space without prolonged fade.",
+    "No new actionable Standards/visual defect established in this bounded sample."
+  ],
+  "complementaryEvidence": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-69dd-shell-chat-native-standards-review.json",
+      "sha256": "cfc8f3fb048bde3ea1bfc82e50469174d4d10ded4c05102160bd780fe32b36d5"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10-standards-review.json",
+      "sha256": "f7b94612c10d1ed31d0bbac5fbe6d34aad294bce8a6c16b3796aeaf4f28d47ac"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17-standards-review.json",
+      "sha256": "297a1b9919f6ef6841778230bb94a1e5f79e44fe34dee76eb8e25bd42cb33c9c"
+    }
+  ],
+  "limits": [
+    "Only16 native PNG/XML pairs and19 independently decoded frames from4 original movies inspected, not every state/frame or all76 Chat archives.14 relevant archive extractions verified byte-for-byte; that inventory is not a manual visual pass.",
+    "This is old-source b64 qualified evidence. Fresh144 complete runs42444221406/42444221528 remain separate and are not accepted by this receipt. No partial-pass assembly, oneSDK exception, signed artifact/update, promotion or whole-app acceptance.",
+    "No byline repeat review; renderer bridge explicitly preserves six separately reviewed source differences.",
+    "physical-send-ime/closed screenshots are captured before physical Send injection by helper, so those images alone demonstrate pre-tap geometry/draft, not completed sending. Original own-send logs/captures provide separate journey evidence.",
+    "Group own-send latest capture can still show Queued/in-flight processing; no delivered/available assertion inferred from that frame.",
+    "OS keyboard font-update banner/clipboard overlay and temporary keyboard-focus tooltip overlap are recorded as platform-owned transient surfaces.",
+    "Native PNG/XML are separate observations. List-edge clipping is not treated as overlapping windows or smaller underlying targets.",
+    "Emulator movies are selected observations, not physical-device performance guarantees."
+  ]
+}
