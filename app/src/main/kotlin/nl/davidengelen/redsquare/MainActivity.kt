@@ -376,18 +376,12 @@ class MainActivity : ComponentActivity() {
                         val headerKeyboard = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
                         if (BuildConfig.DEBUG && intent.getBooleanExtra("walletImportChromeTrace", false)) {
                             val traceView = LocalView.current
-                            val traceDensity = LocalDensity.current
-                            val traceImeVisible = WindowInsets.isImeVisible
-                            val traceImeBottom = WindowInsets.ime.getBottom(traceDensity)
-                            val traceDrawingBottom = WindowInsets.safeDrawing.getBottom(traceDensity)
-                            val traceDrawingTop = WindowInsets.safeDrawing.getTop(traceDensity)
                             SideEffect {
                                 val native = androidx.core.view.ViewCompat.getRootWindowInsets(traceView)
                                 val imeType = androidx.core.view.WindowInsetsCompat.Type.ime()
                                 nl.davidengelen.redsquare.ui.ChromeTrace.record(
                                     "header view=${System.identityHashCode(traceView)} root=${System.identityHashCode(traceView.rootView)} " +
                                     "mainDecor=${System.identityHashCode(window.decorView)} focused=${traceView.hasWindowFocus()} " +
-                                    "composeIme=$traceImeVisible composeBottom=$traceImeBottom safeBottom=$traceDrawingBottom safeTop=$traceDrawingTop " +
                                     "gate=$headerKeyboard emitted=${!headerKeyboard} nativeIme=${native?.isVisible(imeType)} nativeBottom=${native?.getInsets(imeType)?.bottom} " +
                                     "walletOpen=$walletOpen hasWallet=${wallet != null} backend=${backend?.id}")
                             }
@@ -435,11 +429,7 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
-                    val chromeTraceModifier = if (BuildConfig.DEBUG && intent.getBooleanExtra("walletImportChromeTrace", false))
-                        Modifier.onGloballyPositioned { coordinates ->
-                            nl.davidengelen.redsquare.ui.ChromeTrace.record("column size=${coordinates.size} bounds=${coordinates.boundsInWindow()}")
-                        } else Modifier
-                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp).then(chromeTraceModifier)) {
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
                             key(wallet!!.publicKey, backend) {
