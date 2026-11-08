@@ -1,0 +1,669 @@
+{
+  "reviewedAtUtc": "2026-11-08T02:34:17.112437+00:00",
+  "scope": "Scoped actual native Wallet partition Standards review, not whole-app or complete-run acceptance",
+  "findings": [],
+  "source": "69ddcc49e73a1544506596edbf4b6c25d9198700",
+  "currentConsumer": "b64ac663514ce2d9610057ee70e36b998efc37a5",
+  "sourceBridge": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-production-bridge.json",
+    "sha256": "f2de7ea60cbb6a751f87bf4fe4bb013f57b578186fa5c078ae4a6d1dd6918ad8",
+    "independentlyVerifiedOnlyNonDocumentationDelta": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ThreadProfilePreviewTest.kt"
+    ],
+    "productionBuildWorkflowUnchanged": true
+  },
+  "originalByteInventory": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-69dd-wallet-standards-working/original-byte-inventories.json",
+    "sha256": "e6c61e1aaed3b50260eaf8008caf9a3d0e7de82b1f3523a864ff9b1b09a6dadb"
+  },
+  "packets": [
+    {
+      "android": "10",
+      "api": "29",
+      "runId": "42436306551",
+      "walletPartition": "SUCCESS reported by parent; original selected native logs independently verified. Overall dispatch not accepted.",
+      "proofSourcePath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/proof-source.txt",
+      "proofSourceSha256": "0d05e1c1b0982011bed7f756370ad573b3cbd9b7216449fb6c0397456c607c9a",
+      "proofWorkflowSha256": "0d05e1c1b0982011bed7f756370ad573b3cbd9b7216449fb6c0397456c607c9a",
+      "originalArchivesVerified": 22,
+      "exactSafelyExtractedOriginalFiles": 332,
+      "nativeMp4Count": 0,
+      "selectedPngCount": 20,
+      "selectedXmlCount": 5,
+      "samples": [
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/no-lock.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-export-evidence/wallet-export-evidence/no-lock.png",
+          "pngSha256": "a468e93c25d97e80f274ba2071849c0314b60aeb38a8acb76c789ea8c6c281c6",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/provider-deadline.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-export-evidence/wallet-export-evidence/provider-deadline.png",
+          "pngSha256": "39a573049642bc2325f7f9023a08577e68e5ef66f170c6be03df069afda63413",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/write-fails.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-export-evidence/wallet-export-evidence/write-fails.png",
+          "pngSha256": "7bda5dd305b351629c0568213aa6a8ac99d37d9bf0a7f9ac72684c3fb3bd5a86",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/read-fails.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-export-evidence/wallet-export-evidence/read-fails.png",
+          "pngSha256": "711096980c39af16dd5283d27d771eebb9aef4d0a3dfc9f2aa7361d64d52a7fd",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/real-pin-success.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-export-evidence/wallet-export-evidence/real-pin-success.png",
+          "pngSha256": "260bdd814bb12084bfdca2ee320c16da4799d0f7000640f8d23a092df78a4a10",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/authentication-cancelled.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-export-evidence/wallet-export-evidence/authentication-cancelled.png",
+          "pngSha256": "6f459259c4c9c8d4d8228ebaeb1522d6b108a28bbbfacaf40584e16b19bb2eb5",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/valid-preview-different.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-import-evidence/wallet-import-evidence/valid-preview-different.png",
+          "pngSha256": "5dd215e8705a19f2bcdcde07e27bdc95ecc496490eacff6137366838c8ca9be4",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/failed-save-restored.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-import-evidence/wallet-import-evidence/failed-save-restored.png",
+          "pngSha256": "8d075c6c8b7c8d30638e3824221841d7676a87192b37dca2980faafc10b8cb85",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/reselected-backup-required.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-import-evidence/wallet-import-evidence/reselected-backup-required.png",
+          "pngSha256": "fd8da28773af3d9c66b09e151758312e433adecf0beac3e409fd3adf9204a0bd",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/activated-wallet-recreated.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-import-evidence/wallet-import-evidence/activated-wallet-recreated.png",
+          "pngSha256": "b5fc9e3efc09e5771328424290269f424ea3ed1bc418cdcae3f9573dea1db069",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/balance-positive.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-import-evidence/wallet-import-evidence/balance-positive.png",
+          "pngSha256": "d6e8ce8f43dd4028e8381f73128bbfc1290326be34e9d1d20687991e3d71fa70",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/balance-stale.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-import-evidence/wallet-import-evidence/balance-stale.png",
+          "pngSha256": "d18e8d7b3e422e6317d40720d968c2b81bb91fc6ba57091b82b6a669b9e50df1",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-risk-evidence.tar",
+          "member": "wallet-risk-evidence/other-assets-require-backup.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-risk-evidence/wallet-risk-evidence/other-assets-require-backup.png",
+          "pngSha256": "24371b99d199e8a01e59f6ff5ad4fae706bf4261a98facd792cda3329eb0302e",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-storage-recovery-evidence.tar",
+          "member": "wallet-storage-recovery-evidence/failed-save-recreated.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-storage-recovery-evidence/wallet-storage-recovery-evidence/failed-save-recreated.png",
+          "pngSha256": "ac678173affbb8a74ab756615b817427ae9c0352a2f1ec7eb02d8c81e5998200",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-backup-evidence.tar",
+          "member": "wallet-backup-evidence/recovery-guide.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/wallet-backup-evidence/wallet-backup-evidence/recovery-guide.png",
+          "pngSha256": "11d0b6218134884591efe88d9b78a5dec559e5276d865e51744f2b582ea2809b",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "publisher-viewport-evidence.tar",
+          "member": "publisher-viewport-evidence/publisher-font130-real-ime-compose.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-compose.png",
+          "pngSha256": "4ce4dc6b45535850eff40f4157feda8dc6ad68e2952e80550f1a53ab361773fe",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-compose.xml",
+          "xmlSha256": "07a4f554e9a4b837ab0558142271fd57df929dd5a2ec182a596dcbf8fa6eec6e",
+          "xmlParsed": true
+        },
+        {
+          "archive": "publisher-viewport-evidence.tar",
+          "member": "publisher-viewport-evidence/publisher-font130-long-request-page.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-long-request-page.png",
+          "pngSha256": "468f0b14ae1af89304bb4e7f1de375df2389d7263f32c520c3bffdb38582c0b9",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-long-request-page.xml",
+          "xmlSha256": "822a946dc480d250d6bc53da921266d817b9aebfed9e35f6f11b394005cdf0bf",
+          "xmlParsed": true
+        },
+        {
+          "archive": "policy-evidence.tar",
+          "member": "policy-evidence/settings-talkback/owner-node.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/policy-evidence/policy-evidence/settings-talkback/owner-node.png",
+          "pngSha256": "97af7c56b16e06aa504401f907c29b166c9f21f3988a8a1dcf479a2b94cb8026",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/policy-evidence/policy-evidence/settings-talkback/owner-node.xml",
+          "xmlSha256": "8b7c10b1d16ed2407298383c9b93946b9d3daf3e53f71d498d93bc9f8ae30ff1",
+          "xmlParsed": true
+        },
+        {
+          "archive": "agreement-post-queue-evidence.tar",
+          "member": "agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.png",
+          "pngSha256": "86d9d3a3593812dca9536e09fcc8e7b9e28cc8809eb45930f2d88ef2350c5bfa",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.xml",
+          "xmlSha256": "12f7d405430b3fcde78d55f1d9292edff4cd314c76eeb3d44b60af03c9611569",
+          "xmlParsed": true
+        },
+        {
+          "archive": "agreement-group-evidence.tar",
+          "member": "agreement-group-evidence/promotion-cancel-keeps-work.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/agreement-group-evidence/agreement-group-evidence/promotion-cancel-keeps-work.png",
+          "pngSha256": "72d3376a1f85de56dcbf6649b0d5c45a1d4636127c0a012d617dc7b1dae6a091",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/agreement-group-evidence/agreement-group-evidence/promotion-cancel-keeps-work.xml",
+          "xmlSha256": "546fe9d048a2c8febcfbdf19112e879093dff969127fb366ea07b8d3417e46a3",
+          "xmlParsed": true
+        }
+      ],
+      "selectedPassedLogs": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/device-evidence/api-29/wallet-export-ui.txt",
+          "sha256": "95305e5b4129c43e0ae5fa7321a47c89ef2156711b7a8f518fccd02827e637e7",
+          "tests": 5
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "sha256": "f1794c51a09615fc29cc58c900c816b7c9ca516702b8a39de5f5c199114cb27b",
+          "tests": 7
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/device-evidence/api-29/wallet-risk-ui.txt",
+          "sha256": "5864f67ccbc5a7305358ddd332c720b3477b172b9bd600d030d32b7791505978",
+          "tests": 1
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/device-evidence/api-29/wallet-backup-ui.txt",
+          "sha256": "7f657ff48261bca38082bbf879b24f15e01fde90ff8f14c958ffdd8e57ed2729",
+          "tests": 1
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/device-evidence/api-29/policies-ui.txt",
+          "sha256": "c10741f632e1338f7d5d51faa63e145be6348ac95de91c79434b6acebc296d37",
+          "tests": 1
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-wallet/.scratch/device-evidence/api-29/publisher-viewport-ui.txt",
+          "sha256": "5e7d12ff33382eddb3e773b1b3a7f430abf4b5de7ed8e9f9c7101eb6cd4cc257",
+          "tests": 1
+        }
+      ],
+      "nativeFocusResults": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/policy-evidence/policy-evidence/settings-talkback/owner-node-result.json",
+          "sha256": "7c259102ed2e947487be7b10661a4fe43ff655d93f7b56f852efdb56c44d2fd1",
+          "observation": {
+            "expectedContext": "saito.davidengelen.nl",
+            "actualAccessibilityFocus": true,
+            "serviceProcess": "10188",
+            "engineCompletions": "talkback_5",
+            "physicalAudibility": false
+          }
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/native-wallet/policy-evidence/policy-evidence/settings-talkback/official-node-result.json",
+          "sha256": "921d2660a7eafaea4b6a59d5b68672baa7acbf44b4852d819a119ac2cf6849bf",
+          "observation": {
+            "expectedContext": "saito.io",
+            "actualAccessibilityFocus": true,
+            "serviceProcess": "10188",
+            "engineCompletions": "talkback_6",
+            "physicalAudibility": false
+          }
+        }
+      ]
+    },
+    {
+      "android": "17",
+      "api": "37.0",
+      "runId": "42436308492",
+      "walletPartition": "SUCCESS reported by parent; original selected native logs independently verified. Overall dispatch not accepted.",
+      "proofSourcePath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/proof-source.txt",
+      "proofSourceSha256": "0d05e1c1b0982011bed7f756370ad573b3cbd9b7216449fb6c0397456c607c9a",
+      "proofWorkflowSha256": "0d05e1c1b0982011bed7f756370ad573b3cbd9b7216449fb6c0397456c607c9a",
+      "originalArchivesVerified": 22,
+      "exactSafelyExtractedOriginalFiles": 333,
+      "nativeMp4Count": 0,
+      "selectedPngCount": 16,
+      "selectedXmlCount": 4,
+      "samples": [
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/screen.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-export-evidence/wallet-export-evidence/screen.png",
+          "pngSha256": "5736be536fd19d978f9ec2668ae0e886a856dde884fff558a6562b2f386cb609",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/real-pin-success.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-export-evidence/wallet-export-evidence/real-pin-success.png",
+          "pngSha256": "16738ab0a562b53d01966b00cde82ec2cc4d21bb7bd17d276693a16e6f9c73b3",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-export-evidence.tar",
+          "member": "wallet-export-evidence/provider-retry.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-export-evidence/wallet-export-evidence/provider-retry.png",
+          "pngSha256": "1cd134f109562b159400db9b1ee0bf37ae4befa66702e23e1e1e89e2a2080b29",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/valid-preview-same.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-import-evidence/wallet-import-evidence/valid-preview-same.png",
+          "pngSha256": "981a120f805601d38cd9e5e2dba377d19f2ab36164fec1208461f601b495eaa9",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/valid-preview-different.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-import-evidence/wallet-import-evidence/valid-preview-different.png",
+          "pngSha256": "f1bd129d40eed03148f8fda3bc3f4e953114379a894c3e144709a6d9d1fbef81",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/fresh-candidate-backup.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-import-evidence/wallet-import-evidence/fresh-candidate-backup.png",
+          "pngSha256": "0e902fcfecdf727661d6c9361809e01b77833d654e635fc5770ae9d9aeddf5e8",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/failed-save-restored-recreated.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-import-evidence/wallet-import-evidence/failed-save-restored-recreated.png",
+          "pngSha256": "a184be88eda950faaf780dff9092ff7808f432ffe1452694c2c07cf144167f2f",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/stalled-provider-fresh-preview.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-import-evidence/wallet-import-evidence/stalled-provider-fresh-preview.png",
+          "pngSha256": "b5efc5ede8fc307edbb49dd54bfc9ae66ca5ebff22e470625e91fee469f11f9e",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-import-evidence.tar",
+          "member": "wallet-import-evidence/balance-malformed.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-import-evidence/wallet-import-evidence/balance-malformed.png",
+          "pngSha256": "a1a174cab63294a54cabce70dd1066e6ca2404d4e94f273298730dc37e5b46d1",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-risk-evidence.tar",
+          "member": "wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-risk-evidence/wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+          "pngSha256": "44fc7a265e3d54d97f2d2dd7566c4e7efa42056d40b00f187aae1b971800a3b4",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-storage-recovery-evidence.tar",
+          "member": "wallet-storage-recovery-evidence/failed-save-recreated.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-storage-recovery-evidence/wallet-storage-recovery-evidence/failed-save-recreated.png",
+          "pngSha256": "03fb7d31b7658e8cc09bd909c94dfa254c0740d15ee4637f7f342fefb1d948c4",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "wallet-backup-evidence.tar",
+          "member": "wallet-backup-evidence/private-backup-guidance.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/wallet-backup-evidence/wallet-backup-evidence/private-backup-guidance.png",
+          "pngSha256": "95ba6ebf6a8cb5974ccc5f99edbefa2993f96ea82f1eeae28b54042dd60705a9",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": false
+        },
+        {
+          "archive": "publisher-viewport-evidence.tar",
+          "member": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-cancel.png",
+          "pngSha256": "d1f292652e865ff18244508d23a11954c466f2dce2e4b354e8d48a3f94ee22c0",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml",
+          "xmlSha256": "92f475aafbc91122a825297a9f04acaf8a16c6659bdb368dd86f1499e2c586d3",
+          "xmlParsed": true
+        },
+        {
+          "archive": "publisher-viewport-evidence.tar",
+          "member": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png",
+          "pngSha256": "f5cfa4f70e198a956eae71a8d245ac0bbe202e06001ca99f7ccdaf9d7d133c07",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.xml",
+          "xmlSha256": "a583b2b320876ae74ffb6e2fb0c638265348cdcd2074c2a1c8fa70eb16e8f5b9",
+          "xmlParsed": true
+        },
+        {
+          "archive": "policy-evidence.tar",
+          "member": "policy-evidence/settings-talkback/official-node.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/policy-evidence/policy-evidence/settings-talkback/official-node.png",
+          "pngSha256": "e18bb29c2fa1cdf57b0f37832ac2c0e84a26fef52eb4b215dd68fdaf143ba1d6",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/policy-evidence/policy-evidence/settings-talkback/official-node.xml",
+          "xmlSha256": "67840b40122622480b9940b21159a40ece5bce1c4a5bc8342d67202e5b668752",
+          "xmlParsed": true
+        },
+        {
+          "archive": "agreement-surfaces-evidence.tar",
+          "member": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png",
+          "pngPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/agreement-surfaces-evidence/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png",
+          "pngSha256": "cbb1e2025c3e83c46d67d9ad91ad08dadd16eba54dc4e62150ba0c68dd564837",
+          "dimensions": [
+            320,
+            640
+          ],
+          "visuallyInspected": true,
+          "xmlPresent": true,
+          "xmlPath": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/agreement-surfaces-evidence/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.xml",
+          "xmlSha256": "2b1abe365ef2da7d9b5f99976d58d8d361c8b35392cadf7f69f3e9c6978e7209",
+          "xmlParsed": true
+        }
+      ],
+      "selectedPassedLogs": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/device-evidence/api-37.0/wallet-export-ui.txt",
+          "sha256": "c60987d025ba4b25fe68d0e123504cc75d027cbb7eda225d703d2713be35acb8",
+          "tests": 5
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "sha256": "1ee8871915fd68c0ec7401c7e74ae9286c101b7811780ab584ea41844aa15bb9",
+          "tests": 7
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/device-evidence/api-37.0/wallet-risk-ui.txt",
+          "sha256": "8113dee2ad0ddd3a878cc11d0b7de494f949edcd19a1add236b7083ec7c91452",
+          "tests": 1
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/device-evidence/api-37.0/wallet-backup-ui.txt",
+          "sha256": "b2e8ad09dc24c6cecef5db0fa40f47222d726dd87c7ecc37a35b8c32d6bdc82a",
+          "tests": 1
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/device-evidence/api-37.0/policies-ui.txt",
+          "sha256": "c160f2f411e306f22088c1e99202495c77574e07d2467a2af4bd057cba6efa73",
+          "tests": 1
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-ui.txt",
+          "sha256": "a030416ef161c06d085348c972a19307921c0e64e03fa6e2f9e6f5682640a38e",
+          "tests": 1
+        }
+      ],
+      "nativeFocusResults": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/policy-evidence/policy-evidence/settings-talkback/owner-node-result.json",
+          "sha256": "319acaa2f65ebecc2cdcfd414fcd6232703eb0526fd46b8d10b5ed3344f2ec96",
+          "observation": {
+            "expectedContext": "saito.davidengelen.nl",
+            "actualAccessibilityFocus": true,
+            "serviceProcess": "5956",
+            "engineCompletions": "talkback_3",
+            "physicalAudibility": false
+          }
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-17/native-wallet/policy-evidence/policy-evidence/settings-talkback/official-node-result.json",
+          "sha256": "080a941356a1ba802c5c0b435d0bd3a1fac00fecbe43dd5ef95ab96404da0307",
+          "observation": {
+            "expectedContext": "saito.io",
+            "actualAccessibilityFocus": true,
+            "serviceProcess": "5956",
+            "engineCompletions": "talkback_4",
+            "physicalAudibility": false
+          }
+        }
+      ]
+    }
+  ],
+  "conclusions": [
+    "Selected export states clearly distinguish missing screen lock, provider failure, cancellation and successful backup. Pinned operation feedback remains readable outside the scrolled body.",
+    "Selected import states distinguish same-wallet restore from identity replacement and retain backup/acknowledgement requirements and local-work ownership. List-edge clipping does not overlap fixed controls/status.",
+    "Storage/recreation and recovery guidance remain readable, showing public identity without private backup material.",
+    "Publisher130% realIME samples keep actions above the keyboard. Android17 keyboard font-update banner is OS-owned.",
+    "Node selected radio and separate accessibility focus remain distinguishable. Native engine completions/focus are recorded without physical-audibility claims.",
+    "Agreement, queued-post and promotion states preserve deliberate review and retained-work boundaries.",
+    "Shared header, Back/title and palette follow approved authority plus real node/balance/identity/protected-wallet amendments."
+  ],
+  "limits": [
+    "Overall69dd runs failed Social and are not accepted. This receipt does not accept pending b64 complete runs, invoke a oneSDK exception or combine partial passes.",
+    "36 actual PNGs visually inspected;9 paired original XMLs parsed.27 legacy screenshot captures have no paired XML in their original TAR, so exact semantics/48dp bounds are not inferred from appearance.",
+    "Both Wallet packets contain zeroMP4 files. No motion/normal-vs-reduced-motion/timing assessment claimed.",
+    "Secure credential-entry window is not pictured in selected captures. Native successful/cancelled tests and return UI do not establish PIN-window appearance or physical authentication performance.",
+    "Current sample320x640 default100%, plus publisher130% dark realIME and light/dark guarded tasks. Not a fresh412/200% wallet matrix. Earlier qualified FFE viewport/transfer review is complementary only.",
+    "PNG/XML are separate observations. Known Android10 window-dump clipping retained; inherited40px dialog XML alone is not classified as a94 regression.",
+    "Policy physicalAudibility=false retained. Blank feed in isolated backup fixture is fixture context, not default app behavior."
+  ],
+  "referenceSamples": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/wallet-dark.png",
+      "sha256": "b9e2df49cc2c94a42f1b8d85888bb4316c38910222e3f206d9333d47f93cbec7",
+      "basis": "Independent approvedc95/design-3d989 authority viewed alongside owner amendments"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/settings-dark.png",
+      "sha256": "411d475a178d5e2349cc50eb69f01461437e5019c3e1e25c39e65ca1c7eef809",
+      "basis": "Independent approvedc95/design-3d989 authority viewed alongside owner amendments"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/node-settings-dark.png",
+      "sha256": "6154fffa4d8fda022bc74e786e2782c1fe1d8b9f8f41adae013d5a108315426d",
+      "basis": "Independent approvedc95/design-3d989 authority viewed alongside owner amendments"
+    }
+  ],
+  "complementaryScopedEvidence": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-ffe-wallet-transfer-standards-review.json",
+      "sha256": "f07c422cf0be1e6f8c63f4084255e0534df2c410399fe3599e132a69c7ff44a6"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update100-standards-review.json",
+      "sha256": "106b39fc0f118cc906d47fa4d2721f5f8dcbc529140d2b8345d58acef27517b4"
+    }
+  ]
+}

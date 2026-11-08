@@ -1,0 +1,14 @@
+{
+  "scope": "Separate read-only diagnostic boot, not final app acceptance or a causal fix.",
+  "source": "4aa433244bf6364d79142cbb623542625dd1ea9c",
+  "baseApplication": "69ddcc49e73a1544506596edbf4b6c25d9198700",
+  "observations": "Fresh standalone VM512MiB; original AvatarRecovery all5pass with512MiB beforemethod1. Currentextraopts empty. Readable shipped vendorinit assignsheapunderonboot. Rootinit/buildprop permission-denied captures prove no contents.",
+  "bootOrder": "Zygote service start02:19:35.201; qemu receivesheap512at35.416; AndroidRuntime startup35.913. Receipt is not exact property-publication or property-read instant.",
+  "interpretation": "Supports startup-scheduling hypothesis but does not reproduce earlier16/512 split. No source/configuration/heap/service mutation or guard waiver. Failed focused69dd10 remains failed.",
+  "primarySources": [
+    "https://android.googlesource.com/platform/frameworks/base/+/android10-release/core/jni/AndroidRuntime.cpp",
+    "https://android.googlesource.com/device/generic/goldfish/+/android10-release/init.ranchu.rc",
+    "https://android.googlesource.com/platform/frameworks/base/+/android10-release/core/java/android/app/ActivityManager.java"
+  ],
+  "review": "Independent Standards evidence review confirms limits; actual original bootlogSHA256bed70e2ae3963c131ef11082119c89dabbfc5629e8fcb28d60da17100280eadf."
+}

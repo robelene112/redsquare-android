@@ -301,7 +301,7 @@ class QuotePreviewTest {
                     waitFor("4 likes")
                     count.set(9)
                     ui.clickVisiblePostProfile("Anon-${original.get("field2").asString.take(6)}")
-                    waitFor("Profile history could not be refreshed. Available posts remain visible.")
+                    ui.revealProfileHistoryItem("Profile history could not be refreshed. Available posts remain visible.", timeoutMillis = 20_000)
                     ui.revealProfileHistoryItem("9 likes", timeoutMillis = 20_000)
                     ui.onNodeWithText("9 likes").assertIsDisplayed()
                     assertTrue(peer.transactions.isEmpty())

@@ -1,0 +1,36 @@
+{
+  "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-full-69dd-10/android-native-proof-chat/.scratch/device-evidence/api-29/conversation-send-evidence.tar",
+  "sha256": "684a971dccb4da6f885d1b37eb3c8b1f48f4b8afda85c85a01447f450eb78cbc",
+  "members": [
+    {
+      "member": "conversation-send-evidence/conversation-private-send-font-scale.json",
+      "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+      "bytes": 98
+    },
+    {
+      "member": "conversation-send-evidence/conversation-private-send-activity-lifecycle.jsonl",
+      "sha256": "8205026f8e40fd3f605acd91660529be1149e123d9eba491e0cecf4f5900dafe",
+      "bytes": 1680
+    },
+    {
+      "member": "conversation-send-evidence/conversation-private-send-recreation-font130-readiness.json",
+      "sha256": "d167667866eaaf070e2ae5de66e5b288ce6f018e7f499b309963a0536014b89c",
+      "bytes": 182
+    },
+    {
+      "member": "conversation-send-evidence/conversation-private-send-recreation-font130-failure.png",
+      "sha256": "a3cee505440a3cad4101ae8371415d676b20a7c78ba0a2526fd535b38176eaa7",
+      "bytes": 29600
+    },
+    {
+      "member": "conversation-send-evidence/conversation-private-send-recreation-font130-failure.xml",
+      "sha256": "8c8e27c2c0ead96a32420fae2a78385bf0dc8b09d65ccc867a36baac43c62eed",
+      "bytes": 55481
+    },
+    {
+      "member": "conversation-send-evidence/conversation-private-send-font-restored.json",
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+      "bytes": 98
+    }
+  ]
+}

@@ -151,6 +151,9 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 waitUntil(5_000) { onNodeWithText("Publication preview").isDisplayed() }
                 capture("$label-publication-success")
                 click("View article preview")
+                onNodeWithTag("stack-preview-author").assertExists()
+                reveal("Local preview · Not published")
+                onNodeWithTag("stack-preview-author").assertIsDisplayed()
                 capture("$label-published-reader")
                 onNode(hasText("Back") and hasClickAction()).performClick()
                 click("Back to My articles")

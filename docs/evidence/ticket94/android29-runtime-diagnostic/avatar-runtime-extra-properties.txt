@@ -1,0 +1,6 @@
+dalvik.vm.extra-opts=
+dalvik.vm.heapstartsize=
+ro.zygote=zygote64_32
+ro.kernel.qemu.dalvik.vm.heapsize=512m
+init.svc.zygote=running
+init.svc.zygote_secondary=running

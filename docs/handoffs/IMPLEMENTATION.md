@@ -1,6 +1,31 @@
 # Implementation handoff
 
+## Current verification status
+
+The b64 complete runs42438242283/42438441132 are not accepted: Social fails on
+both SDKs and Android10 Wallet captures a blank main surface after a successful
+wallet replacement. Original logs/TARs are retained under failures/b64-*.
+Three bounded fixture corrections now compare exact EditableText UTF-16 content
+without style metadata, reveal the existing offscreen profile-history message,
+and observe the foreground Activity configuration before its one existing
+recreation. Original goals and aggregate deadlines remain. Instrumentation
+compilation passes; fresh focused native verification remains required.
+
+Read-only wallet Chrome diagnostic91110411, run42440902135, passes three
+unchanged original-method trials without reproducing the blank surface. It
+establishes no causal fix and must not be merged as application functionality.
+The actual69dd Android10 native review also found the own-article preview lacks
+the approved author row. Add the real cached public identity, with explicit
+local-preview wording, before fresh complete application gates. Latest beta89;
+102 is unbuilt, and no candidate may be promoted on partial/failed evidence.
+
 ## Current correction: final search-route and observer verification
+
+Earlier b64 gates executed `b64ac663514ce2d9610057ee70e36b998efc37a5`,
+tag `proof-prototype102-b64ac66`: Android10 run42438242283 and Android17
+run42438441132, all three partitions required on each. No102APK exists; do not
+build/promote it until application gates pass. Latest public beta remains89.
+Earlier69dd Social failures are preserved and cannot establish full acceptance.
 
 Issue94 remains active. Native prototype `c95ecaa01`, live design
 `design-3d989e9e8406`, and the owner's amendments are the visual authority.
@@ -64,7 +89,7 @@ checks remain. Both source-review axes and local instrumentation compilation pas
 These two test-only changes do not change production, declarations, bounds or
 frozen acceptance inputs.
 
-Corrected frozen source is `69ddcc49e73a1544506596edbf4b6c25d9198700`, tag
+Prior corrected source was `69ddcc49e73a1544506596edbf4b6c25d9198700`, tag
 `proof-prototype102-69ddcc4`. Fresh complete10/17 runs42436306551 /42436308492
 are pending, with all three partitions each. Focused avatars10/17 runs42436310508 /
 42436312369 check the corrected journey early. Production/build inputs are unchanged.
@@ -83,7 +108,7 @@ originals are retained under `failures/69dd-avatar-memory-android10/`. No heap
 raising, service restart or guard relaxation. Full69dd runs continue independently.
 
 A separate read-only diagnostic tag `diag-android29-runtime-69dd-v2`, source
-`4aa433244bf6364d79142cbb623542625dd1ea9c`, run42437655489, captures actual shipped
+`4aa433244bf6364d79142cbb623542625dd1ea9c`, run42437655489, captures available shipped
 init/build properties, late VM options and boot logs, and compares a fresh ordinary
 standalone VM with the inherited app VM. It changes no configuration or application
 code and leaves all original cases/assertions intact. Its nonJUnit test helper
@@ -101,10 +126,17 @@ error assertions, declarations and frozen inputs remain. Production is unchanged
 
 That same full69dd10 run passes all5 AvatarRecovery cases at genuine512MiB from
 method1, unlike the focused16MiB failure. No causal fix or configuration mutation is
-claimed. Full69dd17 continues. If it completes all3partitions, WORKFLOW permits an
-unchanged-production fixture correction to run only the outstanding10 full scope;
-retain both complete runs and prove source/goal equivalence. No partial partitions
-may substitute, and failed69dd10 remains failed regardless of later successes.
+claimed. Full69dd17 subsequently reproduces the same Profile309 failure; its
+originals remain under `failures/69dd-profile-tabs-android17/`. Thus neither69dd
+SDK run qualifies for acceptance or the oneSDK fixture-only rule.
+
+Current corrected source is `b64ac663514ce2d9610057ee70e36b998efc37a5`, immutable
+tag `proof-prototype102-b64ac66`. Fresh complete10 run42438242283 and complete17
+run42438441132 are pending. Require all3partitions each and the unchanged frozen
+collectors. Production/build/workflow are byte-identical to69dd; only the reviewed
+Profile test helper and documentation/evidence changed. Do not combine old partial
+partitions into acceptance. Actual102 build remains deferred until application
+full gates pass; version counter is101 and no102APK exists.
 
 The pinned rc13 editor repair, immutable upstream inventory, exact five-file
 patch and packaged license remain under `third-party/compose-rich-editor`.

@@ -105,15 +105,43 @@ internal fun ComposeTestRule.recreateHomeViewport(activity: ActivityScenario<Mai
     // Scenario.recreate() snapshots an instance before resuming it, which can race a
     // configuration relaunch. Request recreation on the current main-thread instance.
     var previous: MainActivity? = null
-    activity.onActivity { current -> previous = current; current.recreate() }
     var observation = JsonObject()
+    val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
+    fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+        check(it > 0) { "Viewport recreation exceeded the original 15 second budget" }
+    }
     withFailureCapture({
         diagnostics?.let {
             it.mkdirs()
             File(it, "$prefix-recreation-font${(scale * 100).toInt()}-readiness.json").writeText(observation.toString())
         }
     }) {
-        waitUntil(15_000) {
+        // The application Resources can observe a setting before the foreground
+        // Activity receives its configuration. Recreating that stale instance can
+        // preserve its old font override. Wait for the actual Activity first.
+        waitUntil(remaining()) {
+            var configured = false
+            observation = JsonObject().apply {
+                addProperty("phase", "before-explicit-recreation")
+                addProperty("scenarioState", activity.state.name)
+                addProperty("displayWidth", device.displayWidth)
+            }
+            if (activity.state == androidx.lifecycle.Lifecycle.State.RESUMED) activity.onActivity { current ->
+                observation.apply {
+                    addProperty("currentActivity", System.identityHashCode(current))
+                    addProperty("changingConfigurations", current.isChangingConfigurations)
+                    addProperty("windowFocus", current.window.decorView.hasWindowFocus())
+                    addProperty("widthDp", current.resources.configuration.screenWidthDp)
+                    addProperty("fontScale", current.resources.configuration.fontScale)
+                }
+                configured = !current.isChangingConfigurations && current.window.decorView.hasWindowFocus() &&
+                    current.resources.configuration.screenWidthDp == widthDp &&
+                    kotlin.math.abs(current.resources.configuration.fontScale - scale) < 0.01f
+            }
+            configured && device.displayWidth == widthDp
+        }
+        activity.onActivity { current -> previous = current; current.recreate() }
+        waitUntil(remaining()) {
             var replaced = false
             observation = JsonObject().apply {
                 addProperty("scenarioState", activity.state.name)
