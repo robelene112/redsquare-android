@@ -38,6 +38,19 @@ exactly one overview read and exactly one subsequent Receive read, both within i
 original aggregate15s budget; active-key/balance/address/clipboard checks remain.
 Two-axis review clears these bounded corrections; new native results are pending.
 
+FFE native preflight passes Search, writing and transfer scopes on bothSDKs.
+Remaining FFE fixture failures are preserved under `failures/fidelity-ffe/`.
+A native-only caption wait starved the v2 Compose scheduler during real font
+recreation; the original10s `ui.waitUntil` now advances its normal clock while
+observing an exact visible AccessibilityNodeInfo caption. The additional Chat
+journey launches a fresh Activity after the viewport helper deliberately closes
+its owner. Activity avatars/options are scoped to one actual grouped row, not a
+last composed duplicate author. Eight older signed already-read mentions preserve
+original2unread/3likes goals and provide genuine scroll on the tall Pixel. Every
+case keeps a positive pre-departure scroll, exact1dp/axis return and no corrective
+return scroll. Source reviews and local app/instrumentation compilation pass;
+new native outcomes remain required. Production delta is only a group test tag.
+
 Stack restores approved discovery, Latest/Drafts, reading, canonical Visual/Markdown
 writing, publication review and access as clearly labelled local design previews.
 Actual Stack publication, NFTs, payments, subscriptions and protocol remain under #1.

@@ -46,9 +46,10 @@ class ChatEntryPreviewTest {
             backends.save(SaitoBackend.OWNER)
             check(cache.save(listOf(original)).entries.single().message.text == body)
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                val launchIntent = Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                    .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                ActivityScenario.launch<MainActivity>(launchIntent).use { activity ->
                     ui.withPostViewports(activity, folder, "chat-entry") { label, _ ->
                         withFailureCapture({
                             File(folder, "$label-failure.semantics.txt").writeText(
@@ -91,6 +92,10 @@ class ChatEntryPreviewTest {
                         ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                         }
                     }
+                }
+                // withPostViewports deliberately closes its Activity before restoring
+                // device configuration. Start this separate journey in a fresh owner.
+                ActivityScenario.launch<MainActivity>(launchIntent).use {
                     withFailureCapture({ captureNativeScreen(File(folder, "profile-origin-failure.png")) }) {
                     // A new profile recipient has no contact/history yet. Its unsent
                     // work must become reachable through the ordinary Chat list.
@@ -124,7 +129,7 @@ class ChatEntryPreviewTest {
                     physicalContact(profileContact, File(folder, "profile-origin-contact-target.json"))
                     ui.waitUntil(15_000) { ui.onNode(hasSetTextAction()).fetchSemanticsNode().config[
                         androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == draft }
-                    ui.onNode(hasSetTextAction()).assertTextContains(draft)
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals(draft)
                     captureNativeScreen(File(folder, "profile-origin-draft-reopened.png"), draft)
                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
                     click("Back")
@@ -181,7 +186,7 @@ class ChatEntryPreviewTest {
     private fun click(text: String) {
         val matcher = hasText(text) and hasClickAction() and isEnabled()
         val target = ui.onNode(matcher)
-        ui.waitUntil(15_000) { target.isDisplayed() }
+        ui.waitUntil(15_000) { ui.onAllNodes(matcher).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() && target.isDisplayed() }
         target.assertIsDisplayed().performClick()
     }
 

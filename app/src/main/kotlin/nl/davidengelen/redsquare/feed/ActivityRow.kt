@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -72,7 +73,7 @@ internal fun ActivityRow(authors: List<String>, createdAt: Long, caption: Int, p
     var identity by rememberSaveable(author, createdAt) { mutableStateOf(false) }
     val background by animateColorAsState(if (unread == true) MaterialTheme.colorScheme.surfaceContainerLow
         else MaterialTheme.colorScheme.surface, tween(AppSpacing.transitionMillis), label = "Activity read status")
-    Surface(color = background) {
+    Surface(modifier = if (likeCount != null) Modifier.testTag("activity-like-group") else Modifier, color = background) {
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small)) {
             Row(verticalAlignment = Alignment.Top) {
                 if (authors.size == 1) {

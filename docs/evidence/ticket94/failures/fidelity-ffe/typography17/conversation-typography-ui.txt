@@ -1,0 +1,47 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationTypographyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationTypographyPreviewTest:
+INSTRUMENTATION_STATUS: test=conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationTypographyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes$lambda$4$lambda$3(ConversationTypographyPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.$r8$lambda$CayyA4S5C0L_WpKSUttCpOLK4Zo(ConversationTypographyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.captureFailure(ConversationTypographyPreviewTest.kt:142)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes(ConversationTypographyPreviewTest.kt:55)
+
+INSTRUMENTATION_STATUS: stream=
+Error in conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes(nl.davidengelen.redsquare.ConversationTypographyPreviewTest):
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes$lambda$4$lambda$3(ConversationTypographyPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.$r8$lambda$CayyA4S5C0L_WpKSUttCpOLK4Zo(ConversationTypographyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.captureFailure(ConversationTypographyPreviewTest.kt:142)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes(ConversationTypographyPreviewTest.kt:55)
+
+INSTRUMENTATION_STATUS: test=conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.193
+There was 1 failure:
+1) conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes(nl.davidengelen.redsquare.ConversationTypographyPreviewTest)
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes$lambda$4$lambda$3(ConversationTypographyPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.$r8$lambda$CayyA4S5C0L_WpKSUttCpOLK4Zo(ConversationTypographyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.captureFailure(ConversationTypographyPreviewTest.kt:142)
+	at nl.davidengelen.redsquare.ConversationTypographyPreviewTest.conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes(ConversationTypographyPreviewTest.kt:55)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

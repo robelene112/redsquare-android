@@ -1,0 +1,110 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest:
+INSTRUMENTATION_STATUS: test=narrowGroupedActivityKeepsPeopleAndPostTargetsReadable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16$lambda$15$lambda$14(ActivityGroupingViewportTest.kt:59)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$5lc1hy0ywVkH1VJ9crLI59HhM9c(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16$lambda$15(ActivityGroupingViewportTest.kt:46)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$uD6pqegiZrpBkjpVhJX7npgRbs0(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16(ActivityGroupingViewportTest.kt:45)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$dk0K0tgE8IiJgpjNfbPwNBpjrFk(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(ActivityInboxFixture.kt:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise(ActivityGroupingViewportTest.kt:42)
+	at nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest.narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(ActivityGroupingViewportTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16$lambda$15$lambda$14(ActivityGroupingViewportTest.kt:59)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$5lc1hy0ywVkH1VJ9crLI59HhM9c(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16$lambda$15(ActivityGroupingViewportTest.kt:46)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$uD6pqegiZrpBkjpVhJX7npgRbs0(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16(ActivityGroupingViewportTest.kt:45)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$dk0K0tgE8IiJgpjNfbPwNBpjrFk(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(ActivityInboxFixture.kt:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise(ActivityGroupingViewportTest.kt:42)
+	at nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest.narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(ActivityGroupingViewportTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=narrowGroupedActivityKeepsPeopleAndPostTargetsReadable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 67.409
+There was 1 failure:
+1) narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16$lambda$15$lambda$14(ActivityGroupingViewportTest.kt:59)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$5lc1hy0ywVkH1VJ9crLI59HhM9c(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16$lambda$15(ActivityGroupingViewportTest.kt:46)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$uD6pqegiZrpBkjpVhJX7npgRbs0(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$16(ActivityGroupingViewportTest.kt:45)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$dk0K0tgE8IiJgpjNfbPwNBpjrFk(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(ActivityInboxFixture.kt:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise(ActivityGroupingViewportTest.kt:42)
+	at nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest.narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(ActivityGroupingViewportTest.kt:20)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

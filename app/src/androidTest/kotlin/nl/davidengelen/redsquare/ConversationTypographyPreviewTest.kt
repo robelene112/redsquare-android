@@ -60,14 +60,31 @@ class ConversationTypographyPreviewTest {
                     val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                     val scaledDeadline = android.os.SystemClock.elapsedRealtime() + 10_000
                     recordStage(evidence, "scaled-caption-observation-enter")
-                    device.waitForIdle(10_000)
-                    val remaining = scaledDeadline - android.os.SystemClock.elapsedRealtime()
-                    check(remaining > 0) { "The scaled post must be ready inside the original ten-second budget" }
-                    val caption = requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
-                        androidx.test.uiautomator.By.text(postText)), remaining))
-                    val bounds = caption.visibleBounds
-                    check(bounds.width() > 0 && bounds.height() > 0 &&
-                        android.os.SystemClock.elapsedRealtime() <= scaledDeadline)
+                    fun visibleCaption(node: android.view.accessibility.AccessibilityNodeInfo): android.graphics.Rect? {
+                        try {
+                            if (node.packageName?.toString() == context.packageName && node.text?.toString() == postText && node.isVisibleToUser) {
+                                val bounds = android.graphics.Rect().also(node::getBoundsInScreen)
+                                if (!bounds.isEmpty) return bounds
+                            }
+                            for (index in 0 until node.childCount) {
+                                val found = node.getChild(index)?.let(::visibleCaption)
+                                if (found != null) return found
+                            }
+                            return null
+                        } finally {
+                            @Suppress("DEPRECATION")
+                            node.recycle()
+                        }
+                    }
+                    var captionBounds: android.graphics.Rect? = null
+                    // Keep the v2 Compose scheduler progressing during real recreation.
+                    // A native-only wait leaves its queued composition work unadvanced.
+                    ui.waitUntil(10_000) {
+                        captionBounds = instrumentation.uiAutomation.rootInActiveWindow?.let(::visibleCaption)
+                        captionBounds != null
+                    }
+                    val bounds = requireNotNull(captionBounds)
+                    check(android.os.SystemClock.elapsedRealtime() <= scaledDeadline)
                     recordStage(evidence, "scaled-post-visible")
                     captureFeedEvidence("conversation-typography-evidence/scaled-feed.png")
                     // The long card extends below the display. Tap its actual visible

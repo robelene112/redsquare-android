@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatEntryPreviewTest:
+INSTRUMENTATION_STATUS: test=knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.click$lambda$30(ChatEntryPreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$yqo8uuRhcRRNY2gQOQm1sCgeDyE(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.click(ChatEntryPreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard$lambda$21$lambda$19$lambda$18(ChatEntryPreviewTest.kt:100)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$rYXMGP1rzLFDOmAWQJgZAw4StgE(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(ChatEntryPreviewTest.kt:94)
+
+INSTRUMENTATION_STATUS: stream=
+Error in knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(nl.davidengelen.redsquare.ChatEntryPreviewTest):
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.click$lambda$30(ChatEntryPreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$yqo8uuRhcRRNY2gQOQm1sCgeDyE(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.click(ChatEntryPreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard$lambda$21$lambda$19$lambda$18(ChatEntryPreviewTest.kt:100)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$rYXMGP1rzLFDOmAWQJgZAw4StgE(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(ChatEntryPreviewTest.kt:94)
+
+INSTRUMENTATION_STATUS: test=knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 90.254
+There was 1 failure:
+1) knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(nl.davidengelen.redsquare.ChatEntryPreviewTest)
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test(SemanticsNodeInteraction.kt:64)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNodes$ui_test$default(SemanticsNodeInteraction.kt:59)
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:29)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.click$lambda$30(ChatEntryPreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$yqo8uuRhcRRNY2gQOQm1sCgeDyE(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.click(ChatEntryPreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard$lambda$21$lambda$19$lambda$18(ChatEntryPreviewTest.kt:100)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$rYXMGP1rzLFDOmAWQJgZAw4StgE(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(ChatEntryPreviewTest.kt:94)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
