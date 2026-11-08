@@ -354,18 +354,24 @@ class WalletImportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedDisabled", true)
+                .putExtra("walletImportChromeTrace", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
                 withFailureCapture({
                     val evidence = File(context.cacheDir, "wallet-import-evidence")
                     cleanupAfterTest(null,
+                        { File(evidence.apply { mkdirs() }, "activation-chrome-trace.txt").writeText(nl.davidengelen.redsquare.ui.ChromeTrace.dump()) },
                         { captureNativeScreen(File(evidence, "activation-first-failure.png")) },
                         { File(evidence.apply { mkdirs() }, "activation-failure-state.txt").writeText(
                             "selectedBackend=${backends.load().id}\n") },
                         { captureActivationWindow(evidence) },
+                        { File(evidence, "activation-roots.txt").writeText(
+                            "clock=${ui.mainClock.currentTime} autoAdvance=${ui.mainClock.autoAdvance}\n" +
+                            ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE)) },
                         { File(evidence, "activation-app-logcat.txt").writeText(device.executeShellCommand(
                             "timeout 3 logcat -d -v threadtime --pid=${android.os.Process.myPid()} -t 300")) })
                 }) {
-                    openWallet("activation-entry")
+                    nl.davidengelen.redsquare.ui.ChromeTrace.clear()
+                openWallet("activation-entry")
                     val originalAddress = displayedWalletAddress(ui)
                     originalWallet = wallets.loadExisting()
                     ui.onNodeWithText("Export wallet").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
@@ -394,6 +400,7 @@ class WalletImportPreviewTest {
                     ui.waitUntil(15_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
                     ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                     captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-owner-feed-visible.png"))
+                    File(context.cacheDir, "wallet-import-evidence/activation-chrome-success.txt").writeText(nl.davidengelen.redsquare.ui.ChromeTrace.dump())
                     scenario.recreate()
                     ui.openWallet()
                     assertEquals(incomingAddress, displayedWalletAddress(ui))

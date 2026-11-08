@@ -25,6 +25,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.isImeVisible
+import androidx.compose.foundation.layout.ime
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -368,7 +373,26 @@ class MainActivity : ComponentActivity() {
                     val appHeader: @Composable () -> Unit = {
                         val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
                             !walletImport.busy && !walletExport.busy
-                        if (!nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()) AppHeader(backend?.domain, address, module,
+                        val headerKeyboard = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
+                        if (BuildConfig.DEBUG && intent.getBooleanExtra("walletImportChromeTrace", false)) {
+                            val traceView = LocalView.current
+                            val traceDensity = LocalDensity.current
+                            val traceImeVisible = WindowInsets.isImeVisible
+                            val traceImeBottom = WindowInsets.ime.getBottom(traceDensity)
+                            val traceDrawingBottom = WindowInsets.safeDrawing.getBottom(traceDensity)
+                            val traceDrawingTop = WindowInsets.safeDrawing.getTop(traceDensity)
+                            SideEffect {
+                                val native = androidx.core.view.ViewCompat.getRootWindowInsets(traceView)
+                                val imeType = androidx.core.view.WindowInsetsCompat.Type.ime()
+                                nl.davidengelen.redsquare.ui.ChromeTrace.record(
+                                    "header view=${System.identityHashCode(traceView)} root=${System.identityHashCode(traceView.rootView)} " +
+                                    "mainDecor=${System.identityHashCode(window.decorView)} focused=${traceView.hasWindowFocus()} " +
+                                    "composeIme=$traceImeVisible composeBottom=$traceImeBottom safeBottom=$traceDrawingBottom safeTop=$traceDrawingTop " +
+                                    "gate=$headerKeyboard emitted=${!headerKeyboard} nativeIme=${native?.isVisible(imeType)} nativeBottom=${native?.getInsets(imeType)?.bottom} " +
+                                    "walletOpen=$walletOpen hasWallet=${wallet != null} backend=${backend?.id}")
+                            }
+                        }
+                        if (!headerKeyboard) AppHeader(backend?.domain, address, module,
                             walletEnabled = navigationEnabled,
                             settingsEnabled = backendReady && navigationEnabled,
                             onWallet = {
@@ -411,7 +435,11 @@ class MainActivity : ComponentActivity() {
                             Button(onClick = { failed = false; retry++ }) { Text(stringResource(R.string.retry)) }
                         }
                     }
-                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
+                    val chromeTraceModifier = if (BuildConfig.DEBUG && intent.getBooleanExtra("walletImportChromeTrace", false))
+                        Modifier.onGloballyPositioned { coordinates ->
+                            nl.davidengelen.redsquare.ui.ChromeTrace.record("column size=${coordinates.size} bounds=${coordinates.boundsInWindow()}")
+                        } else Modifier
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp).then(chromeTraceModifier)) {
                         if (usernameOpen && wallet != null && backend != null) {
                             chrome(false)
                             key(wallet!!.publicKey, backend) {

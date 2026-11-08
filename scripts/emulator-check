@@ -2003,6 +2003,23 @@ verify_wallet_import() {
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/reference-import.json > /dev/null
     printf '%s' '{"wallet":{"version":5.677,"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"},"keys":[{"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","identifier":"reference@saito"}],"pending_txs":[{}],"crypto":{"OTHER":{"isActivated":true,"address":"unverified","balance":"0"}}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/risk-import.json > /dev/null
+    if [[ "${TEST_SCOPE:-full}" == import && "$TEST_DEVICE_API" == 29 ]]; then
+        # Diagnostic branch only: repeat one original method, without changing
+        # its assertions, deadlines, UI operations or restoration.
+        printf '%s\n' 'Read-only Chrome state diagnostic, repeated original import method only; not complete app acceptance.' > "$evidence/scope.txt"
+        for chrome_trial in 1 2 3; do
+            adb shell run-as nl.davidengelen.redsquare.dev rm -rf cache/wallet-import-evidence
+            timeout 300 adb shell am instrument -w -r \
+                -e class 'nl.davidengelen.redsquare.WalletImportPreviewTest#explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers' \
+                nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+                > "$evidence/wallet-import-trace-$chrome_trial.txt" || true
+            adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-import-evidence \
+                > "$evidence/wallet-import-trace-$chrome_trial-evidence.tar" || true
+            grep -q 'OK (1 test)' "$evidence/wallet-import-trace-$chrome_trial.txt" || exit 1
+        done
+        printf '%s\n' 'Read-only Chrome state diagnostic, repeated original import method only; not complete app acceptance.' > "$evidence/scope.txt"
+        exit 0
+    fi
     if [[ "${TEST_SCOPE:-full}" != import-risk* ]]; then
         timeout 300 adb shell am instrument -w -r \
             -e class nl.davidengelen.redsquare.WalletImportPreviewTest \
