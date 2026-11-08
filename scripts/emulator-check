@@ -725,7 +725,7 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == first-use* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == module-header* ]]; then
     # Diagnostic branch only: benchmark unchanged original videos with no UI or state writes.
-    if [[ "$TEST_DEVICE_API" == 29 ]]; then
+    if [[ "$TEST_DEVICE_API" == 29 || "$TEST_DEVICE_API" == 37* ]]; then
         printf '%s\n' 'Read-only original-frame batching comparison, not native UI/full acceptance.' > "$evidence/scope.txt"
         adb push "$repo_dir/diagnostics/frame-batch/scale-0-article-reading.mp4" /data/local/tmp/frame-batch-reading.mp4
         adb push "$repo_dir/diagnostics/frame-batch/scale-1-module.mp4" /data/local/tmp/frame-batch-module.mp4

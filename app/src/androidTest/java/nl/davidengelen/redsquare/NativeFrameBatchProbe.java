@@ -70,8 +70,9 @@ public final class NativeFrameBatchProbe {
                     ? java.util.Collections.singletonList(decoder.getFrameAtIndex(first))
                     : decoder.getFramesAtIndex(first, size);
                 decodeNanos += System.nanoTime() - tick;
-                if (frames == null || frames.size() != size) throw new AssertionError("Missing decoded frames");
+                if (frames == null) throw new AssertionError("Missing decoded frames");
                 try {
+                    if (frames.size() != size) throw new AssertionError("Missing decoded frames");
                     for (Bitmap frame : frames) {
                         if (frame == null) throw new AssertionError("Null original frame");
                         if (width < 0) { width = frame.getWidth(); height = frame.getHeight(); }
