@@ -724,28 +724,10 @@ if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == first-use* ]]; then
     fi
 fi
 if [[ "${TEST_SCOPE:-full}" == module-header* ]]; then
-    # Diagnostic branch only: benchmark unchanged original videos with no UI or state writes.
-    if [[ "$TEST_DEVICE_API" == 29 || "$TEST_DEVICE_API" == 37* ]]; then
-        printf '%s\n' 'Read-only original-frame batching comparison, not native UI/full acceptance.' > "$evidence/scope.txt"
-        adb push "$repo_dir/diagnostics/frame-batch/scale-0-article-reading.mp4" /data/local/tmp/frame-batch-reading.mp4
-        adb push "$repo_dir/diagnostics/frame-batch/scale-1-module.mp4" /data/local/tmp/frame-batch-module.mp4
-        native_test_apk=$(adb shell pm path nl.davidengelen.redsquare.dev.test | tr -d '\r' | sed -n 's/^package://p')
-        [[ "$native_test_apk" == /data/app/*/base.apk ]]
-        timeout 240 adb shell env "CLASSPATH=$native_test_apk" app_process /system/bin \
-            nl.davidengelen.redsquare.NativeFrameBatchProbe \
-            /data/local/tmp/frame-batch-reading.mp4 /data/local/tmp/frame-batch-module.mp4 \
-            > "$evidence/frame-batch-probe.txt" 2>&1
-        python3 - "$evidence/frame-batch-probe.txt" <<'PROBE'
-import json,sys
-lines=open(sys.argv[1]).read().splitlines()
-rows=[json.loads(line.split('=',1)[1]) for line in lines if line.startswith('NATIVE_FRAME_BATCH_JSON=')]
-assert len(rows)==1 and len(rows[0]['movies'])==2
-for movie in rows[0]['movies']:
-    assert len(movie['modes'])==3
-    assert all(row['pngSha256']==movie['modes'][0]['pngSha256'] for row in movie['modes'])
-PROBE
-        exit 0
-    fi
+    # Diagnostic-only original-frame comparison in the real instrumentation process.
+    printf '%s\n' 'Original-frame comparison only; no UI or full acceptance.' > "$evidence/scope.txt"
+    verify_group_chat_native NativeFrameBatchProbeTest 240 frame-batch-probe frame-batch-probe-evidence
+    exit 0
     verify_group_chat_native ModuleHeaderMotionTest 180 module-header module-header-motion-evidence
     verify_group_chat_native ModuleMenuKeyboardMotionTest 180 module-menu module-menu-motion-evidence
     printf '%s\n' 'Shared header gestures and real motion only; full application acceptance not run.' > "$evidence/scope.txt"

@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 /** Diagnostic-only standalone comparison of every original frame; no JUnit case or app state. */
 public final class NativeFrameBatchProbe {
-    public static void main(String[] paths) throws Exception {
+    public static JSONObject compare(String[] paths) throws Exception {
         JSONArray movies = new JSONArray();
         for (String path : paths) {
             MediaExtractor extractor = new MediaExtractor();
@@ -50,8 +50,7 @@ public final class NativeFrameBatchProbe {
                 .put("movieSha256", digest(Files.readAllBytes(new File(path).toPath())))
                 .put("presentationTimeUs", new JSONArray(times)).put("modes", modes));
         }
-        System.out.println("NATIVE_FRAME_BATCH_JSON=" + new JSONObject()
-            .put("maxMemoryBytes", Runtime.getRuntime().maxMemory()).put("movies", movies));
+        return new JSONObject().put("maxMemoryBytes", Runtime.getRuntime().maxMemory()).put("movies", movies);
     }
 
     private static JSONObject decode(String path, int count, int batchSize) throws Exception {
