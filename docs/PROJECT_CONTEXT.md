@@ -1,294 +1,44 @@
-# Project context
+# Red Square Android project context
 
 ## Current verification status
 
-Issue94 remains open: restore the approved native prototype, then publish a signed
-beta after both complete Android gates and signed-update checks. Latest public
-beta is89. Counter101;102 is unbuilt and unreserved. Never promote93 through101.
-Production source last changed atbe37e8c42 (real own-author row in the local Stack
-preview). Later changes are test fixtures and evidence only. Stack remains a local
-design preview; actual network/publication/payment behavior stays under issue1.
+Issue #94's prototype-fidelity repair is delivered as signed beta **0.1.102**:
+[download or update](https://davidengelen.nl/redsquare/). The public latest pointer,
+actual APK checksum and exact immutable notes are verified after promotion.
+Frozen source: `1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c`, tag
+`proof-prototype94-loaded-activity`. Production last changed at be37e8c42; later
+changes are tests/evidence only, with an exact whole-tree bridge retained.
 
-Focused source d9c1ed4d2b0906281b972f1f90bd00e95c146257:
+Both complete runs pass all three partitions: Android 10 [42452255196](https://github.com/robelene112/redsquare-android/actions/runs/42452255196)
+and Android 17 [42451092093](https://github.com/robelene112/redsquare-android/actions/runs/42451092093).
+The unchanged frozen Android 17 collector confirms 630 identities and no assumptions. The Android 10 collector
+confirms 629 identities: 628 passed and the single inherited
+API29 Profile assumption. Both catalogs have no missing or extra identities.
+Both independent final packet reviews find no actionable defects. No partial or tail assembly is used.
+Original 180-second class bounds, 214 classes and 629/630 expected identities remain frozen.
 
-- Original180s module header/menu classes pass on10/17, runs42449386645 and
-  42449386489. Every recorded motion frame is retained in consecutive batches of4.
-- Private/group photo process recovery17 passes, run42449386884; the exact original
-  ARGB target is awaited within the unchanged20s, with every snapshot recycled.
-- Complete Notifications17 focused scope passes, run42449386669.
-- Notifications10 run42449386941 fails a later Activity group navigation case.
-  All32 core notification cases pass. Original failure PNG shows cached2unread
-  while the list is still loading, not an offscreen row. The existing15s wait now
-  also requires refresh readiness and the exact clickable target to be displayed.
-  Both independent source reviews find no weakening. Native rerun is still due.
+Actual signed 83-to-102 update/isolation passes Android 10 [42454280787](https://github.com/robelene112/redsquare-android/actions/runs/42454280787)
+and Android 17 [42454286099](https://github.com/robelene112/redsquare-android/actions/runs/42454286099).
+Independent actual artifact and update-native reviews find no actionable defects.
+APK: 42,355,754 bytes; SHA256 `616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7`.
+Signing certificate, package, minimum API29 and target API36 and vendored license are verified.
+Never promote superseded candidates 93 through 101.
 
-Original focused files and qualifications live under
-`focused-fixture-corrections/d9-*` in ticket94 evidence. Paired codec diagnostics
-retain all191 ordered PNG hashes/PTS and demonstrate batch equivalence on29/37;
-they never substitute for the original180s classes. Earlier144 complete runs both
-failed, so BOTH fresh full10/17 runs remain required. Frozen collector/catalog,
-214classes,629/630 identities and180 archives are unchanged. No one-SDK or tail
-exception is eligible from those failed runs.
+Prototype authority: `c95ecaa01abb71c576f052c7cc2303356416091c`,
+`design-3d989e9e8406`, plus owner amendments: rounded named module selector,
+real identity/data, separated profile history, compact repeatable heart, exact-post
+Activity grouping and collapsing reading header. Do not copy sample identities or
+artwork as live data. Stack remains explicitly a local design preview; actual
+network/publication/payment/subscription work stays under issue #1.
 
-Remaining sequence: compile and rerun affected Notifications10; freeze its final
-source/ref; complete all3 partitions on BOTH SDKs and frozen collectors; build and
-stage the actual next signed candidate; independently review native/artifact
-proofs; verify genuine83-to-candidate updates on both SDKs; promote exact bytes.
-Do not close issues1/36/55/84/86 or disturb canonical-checkout work, nodes or services.
-
-## Earlier checkpoints, historical scope only
-
-## Current owner feedback, November 7, 2026: prototype fidelity repair
-
-Issue94 remains active. Root is the sole implementation writer in
-`/mnt/storage/redsquare-android-artifacts/redesign86`; preserve canonical Chat WIP.
-Beta89 remains latest. No production-node changes or additional tickets are authorized.
-
-Current frozen implementation and final gates:
-Both corrected complete suites execute71ea524f115496a13699affd2fa5b56444b23c89,
-immutable tag proof-prototype97-full71ea524. Android10 fresh run42414603792 and Android17
-run42413158524 are PENDING. Previous71ea10 42412909858 failed AvatarRecovery heap
-parity: actual16MiB, declared512MiB before the large fixtures. Its failed goal and
-original process/config metadata are retained under full71ea-avatar-memory-android10.
-This knownAPI29 anomaly has no proven cause/fix; WORKFLOW forbids heap raising or
-service restarts. The new complete dispatch uses identical71ea source and ordinary
-lifecycle. Remaining old71ea10 jobs may be cancelled by workflow concurrency; no
-old partial pass substitutes for the new whole run. Require all3partitions on each SDK and the unchanged
-frozen collectors; never assemble old partial passes into acceptance. No production
-code changed since348's responsive wallet actions. Root remains sole writer.
-
-Earlier313 full10 42409844018 has failed Wallet (FeedPreview accepted an empty list
-before its requested post applied) and Social (recovered red image's centre was
-covered by the normal2.5s FeedUpdated overlay).313 full17 42409846568 has WalletPASS
-but SocialFAIL at the same image observation. Both old Chat jobs remain diagnostic;
-neither313 complete dispatch is accepted. Actual image failure PNGs show correct
-red content and the transient overlay. Cache initial readiness now additionally
-requires its expected post within the original15s. Image label/reveal/actualcentre
-RGB sampling now shares its original15s aggregate, with the same220/30/40±5 and
-all3finalchannel assertions. No actions, fixed sleep or tolerance change. Both
-review axes clear these fixture corrections; native validation remains mandatory.
-
-Feed5ab focused42412149990 / 42412152410 BOTH PASS. Images71ea focused42412808543 /
-42412810685 BOTH PASS, including actual image queue/process recovery. The corrected
-complete10/17 gates remain pending. Independent source bridge
-verifies445identical producer inputs, canonical SHA256
-874f58eff7ce462c7941fffa50420bd8a111a04ac9784c9dfdc40568fec839a2. Full313-to71ea only
-changes the reviewed Feed/Image observation fixtures and the standalone update
-reader; both211-class catalogs and frozen collector/helper/tool pins are unchanged.
-
-Actual signed83-to97 continuity is now authentically proven on BOTH SDKs:
-- Android10:42410496042, reader0aa40b501aa2821a80ac7cc65ae2f28f20f4d92a.
-- Android17:42411220633, reader7429895412452453174b828d660658d5fb7eb6a2.
-Each retained update97-android10/17 packet has52hashed files. Independent review
-verifies all27raw copies and23originalTAR members, exact authored caption (not a
-media button), canonical45-character author and time, exact draft/LIGHT/offline
-cache,4wallet observations, distinct unchanged debug identity/UID and clean cleanup.
-The17reader only re-queries replaced native nodes inside its existing30s bound.
-Both reader sources have unchanged production inputs. Their standalone candidate
-observer is not selected by full suites. Earlier media-button-caption passes remain
-historical and do NOT prove authored-cache continuity.
-
-Candidate97 is staged, NOT promoted; beta89 remains latest. Signed producer7e5bec5b8b75dccf3879e7f4191bcb4da0ad5c39,
-tag proof-prototype97-7e5bec5. Actual built/public APK SHA256
-66356d5eb6dbdc1ae0e5c0d371ce5cd82531933db23bf99008c6a0bd9b2d12a5,
-38,992,531bytes, established certificate unchanged; build3m21. Artifact97 retains
-actual package/signature/stage/download and independent provenance/bridge receipts.
-Never promote93–96. Promote97 with EXACT immutable staged notes only after final
-gates, collectors and actual whole-app native/prototype/motion reviews pass.
-
-Prototype authority remainsc95ecaa01 / design-3d989e9e8406, with later owner amendments.
-Current348 wallet matrices bothSDK PASS, confirmed whole200%labels/original100/130%
-columns and independently decoded1/0motion. Profile Bio reveal after cancelled import
-is nativePASS61ae10/9fe17; real after PNG/XML show enabled fullfield aboveIME and48dp
-Save. Other focused read/navigation/report checks are retained below. These focused
-packets never replace complete/new-source/native acceptance. Canonical Chat WIP,
-production nodes, other tickets and #55 owner acceptance remain untouched.
-
-Earlier f686 checkpoint, preserved within its historical scope:
-CURRENT FROZEN IMPLEMENTATION / SIGNED PRODUCER:
-`f68613a41e3889de841611bf93ba93011ec6957f`, tag `proof-prototype96-f68613a`.
-Beta96 built successfully in3m36 and is staged, NOT promoted. Actual public download
-matches SHA256 `3e9a7412a548e5461dd3d57ce52c5f12ba7829007945d4cca222137f25592081`
-and38,992,531 bytes; the established certificate is unchanged. Actual signed83-to96
-update/isolation runs42404612618 / 42404614774 BOTH PASS on its immutable tag.
-Actual original receipts/captures are retained in `update96-android10` / `update96-android17`;
-independent continuity review is pending, separate from source/configuration provenance.
-Build/stage/download receipts are under `docs/evidence/ticket94/artifact96`.
-Independent Standards provenance review verifies actual downloaded package/signature/
-version/flags and exact receipt copies; no acceptance claim. Source and tracker delivery
-are NOT complete.
-
-Final targeted native wave on this exact source:
-- wallet-design10/17:42404068519 / 42404071172 BOTH PASS;
-- wallet-input10/17:42404073848 / 42404076838 BOTH PASS.
-The actual import-entry regression efd1575 run42403107435 fails Active wallet visibility
-BEFORE helper scrolling. Its one-time entry guard, correct review-stage reset,
-Settings row reveal within original10s and unique native Wallet readiness marker
-are source-cleared on both axes. No new class/method IDs, catalog or tool pins changed.
-
-All final targeted gates passed before complete dispatch. Full-source96 runs
-42405076092 / 42405078203 are NOW RUNNING, all three partitions/public reads,
-actual source/workflow/metadata HEADf68613a. Actual signed96 producer == intended
-complete consumer: no tracked-input equivalence exception is needed. New evidence/
-doc-only commits may now follow; do not change implementation or count these runs
-as passed before their actual outcomes and frozen collectors. Old022 complete runs
-42398900323 / 42398902216 finished Chat+WalletPASS, SocialFAIL at obsolete Quote
-descendant selector; historical diagnostic results only, never final acceptance. If code changes become necessary, fix
-properly and record the new source/artifact relationship rather than hiding failures.
-Then require fresh frozen collectors, both actual final native/prototype/motion review
-axes, signed96 continuity and exact staged96 promotion. Reuse EXACT artifact96 staged
-notes. No current final-source/full acceptance; latest89 and obsolete93/94/95 unchanged.
-Local signed builder has finished. No production-node change or canonical-WIP mutation.
-
-Current integration49f6330e0 is source-reviewed, with native module-shell and
-policies BOTH SDK PASS42402732693/42402734699 and42402736958/42402738809.
-Wallet-input49 BOTH PASS42402728586/42402730695. Wallet-design49 BOTH fail the
-later compact Settings readiness check at200% (the first wallet-header/task tests
-pass). Actual Settings index retains route scroll, consistent with the prototype;
-fixture now reveals Privacy and safety within the SAME shared10s bound. The actual
-320dark100 Wallet screenshot confirms global header/local Wallet+Back/noDone;
-Spec's supplemental visual check clears the old structural finding, not final
-same-source/motion/whole-app acceptance.
-
-Subsequent five-file source-reviewed repair: import review now starts at the
-beginning on new public-key/null stage transitions, while same-key balance/backup/
-acknowledgement updates retain reading position. Its native RED42403107435 on
-efd1575 proves Active wallet was offscreen BEFORE helper scrolling. The helper
-observes initial entry ONCE per chooser, then may reveal the exact incoming address;
-success retains the exact native predicate and original30s deadline. Overview-only
-Back/title margins align with the reference; focused task spacing stays unchanged.
-Motion readiness requires the real Close wallet marker, so the closing account
-menu Wallet row cannot falsely establish overview entry. All five source deltas
-are cleared on both review axes; native green reruns are required before another
-complete final-source dispatch.96+ still needs an actual clean build and all gates.
-
-Current integration replaces the remaining Wallet/Settings overview composition gap:
-the actual shared AppHeader renders inside each overview window, with the local
-Wallet/Settings Back hierarchy and no duplicate Done footer. Real module/account/node
-callbacks remain attached; navigation is disabled during busy work and module changes
-close overviews only after the existing draft-save path succeeds. Focused import,
-payment and category tasks retain their own headers/actions. Both source axes have
-zero unresolved findings. Main compile passed1m53 and instrumentation compile2m;
-the last small import-preview helper delta still needs native verification.
-
-The actual dialog-scoped header regression is RED on old source2abac437f:
-run42401608093, missing Switch-app control inside the foreground Wallet dialog.
-New tests cannot pass on the Activity header behind it.96 explicit overview exits
-(93Wallet+3Settings) now use their named Back action; focused child Done is retained.
-Wallet title expectations now match the prototype's Wallet. The module journey also
-switches to Stack from the actual overview header, returns and reopens the wallet.
-
-IMPORTANT: signed95 is now OBSOLETE because production UI changed. Beta89 remains
-latest. Never promote93/94/95. A fresh96+ build, signed continuity/isolation, complete
-same-source10/17 gates/frozen collectors and actual final native reviews remain needed.
-No local signed builder is running. Root is the sole writer; canonical Chat WIP and
-production node remain untouched. Earlier source-specific results below are historical.
-
-Earlier implementation checkpoint: `b614648bda686aaee5f9b389876f460b39fd59ad`.
-The prototype repair includes profile composition/chips, actual native action sheets,
-compact post controls and Chat composers, balance-first wallet with visible operation
-feedback, accessible numeric counts and keyboard navigation in the actual sheet window.
-All temporary policy/sheet probes have been removed. Both source-review axes have
-zero unresolved actionable findings through this implementation revision.
-
-Native results and limits:
-- AppFrame reading/return/recreation/outage checks pass on both SDKs:
-  42395939372 / 42395939348. The fixture consistently compares unmerged body geometry;
-  no positioning is performed after departure from the initial reading baseline.
-- Genuine numeric layout, full accessibility labels and large-count rendering pass:
-  42395629907 / 42395629772. Import checks pass42395509902 / 42395509978.
-- Probe-free Settings/TalkBack checks pass42397470220 / 42397470081, retaining the
-  original five-second focus/speech boundary and actual engine completions. Fragment
-  IDs and engine callbacks now come from one PID-filtered log snapshot.
-- Module-menu runs42397182544 / 42397182718 fail at immediate foreground lookup
-  after Escape. The17 zero-motion cycle already passed Tab, directional movement
-  and Escape. Source d2afd32 waits for actual foreground ownership within the same
-  five-second bounds. Focused runs42398298060 / 42398307515 both PASS.
-- Broad UI runs42397182668 / 42397183073 fail at profile status capture after the
-  fixture scrolls to the generated avatar. Native PNG/XML confirms status is offscreen.
-  Source aab35b7 reveals each actual status before its native capture, retaining all
-  signed-default, transaction, retry, identity and backend assertions. Both broad UI
-  022e34b50 runs42398801085 / 42398803012 passed that correction but fail the later
-  ProfileProcessRecoveryTest cold-candidate native capture after checking both
-  restored image colors. Actual failure10 PNG/XML has both correct pictures visible
-  and status offscreen. b614648 adds one actual-status reveal/display assertion before
-  that capture. Original two deaths, signatures, no resend, pixels, identity/backend
-  and deadlines remain. Both source axes clear this delta. Focused video-precondition
-  and complete profile/recovery reruns42400032887 / 42400035744 both PASS.
-  Raw022 failure originals: `prototype94-ui-final{10,17}` under the artifact mount.
-- Complete ca93566de runs42397470230 / 42397469795 were superseded and cancelled
-  by workflow concurrency after both final fixture corrections. No acceptance claim.
-  Complete source `022e34b50d59b9e3234f428dc687863c25cb1b60`, immutable tag
-  `proof-prototype94-022e34b`, is running42398900323 / 42398902216 for further
-  diagnostics. It predates the last cold-profile fixture correction, so no final-source
-  acceptance is claimed. Do not launch another full run until profile scopes pass.
-  A fresh same-source full10/17 execution with all partitions/public reads and frozen
-  collectors is still required after fixture stabilization and the targeted checks below.
-  Earlier failed full runs and bounded source-specific passes remain historical.
-
-Additional bounded fixture checks before another full dispatch:
-- WalletFlowViewportPreviewTest39 still expects the intentionally removed heading
-  “Receive or send”;56 checks its absence vacuously. Approved prototype places
-  Receive/Send in the leading balance card. Both review axes confirm the stale
-  expectation. Keep the actual overview/action reachability and import isolation goals:
-  observe Reported balance and both Balance and receive / Send SAITO actions, and
-  require that region/actions absent during import review. Red native b614 scopes
-  42400385015 / 42400387703 are pending; retain actual failure before changing fixture.
-  Standards audited all132 Wallet scroll calls and found no other definite stale
-  pinned-status targets. No production change is indicated by the obsolete heading.
-- ProfileHierarchyPreviewTest moves to a long action sheet, so check real control
-  reachability under large text before the long full run. Native b614 scopes
-  42400534784 / 42400537045 both PASS (no menu reachability defect found). No speculative assertion removal or deadline change.
-
-Signed beta95 producer is `d2afd32d27b9738ba0be7d05e3381c6ad4328116`, immutable tag
-`proof-prototype95-d2afd32`. Build succeeded in3m34. APK SHA256 is
-`f6c6767bbf3e1c9d87a9bd0fbd9197a060cd02755b97512aa60675bf1497805b`;
-certificate remains `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
-It is staged, not promoted, and the actual public candidate download hash matches.
-Actual signed83-to95 update/isolation runs42398721945 / 42398723901 both PASS.
-Independent review verifies retained wallet/drafts/cache/preferences, package isolation,
-actual original captures and successful cleanup. Receipts: `docs/evidence/ticket94/update95-android{10,17}`.
-Exact staged notes must be reused for promotion. Obsolete93/94 must not be promoted.
-
-Remaining: native fixture reruns, complete same-source Android10/17 gates and frozen
-collectors, actual current native screenshot/prototype and normal/zero-motion review
-on both axes and exact promotion. Producer-input equivalence and actual signed95
-continuity are independently verified; they do not replace final native acceptance.
-All445 audited producer-superset inputs equal d2afd32→022e34b50, canonicalSHA256
-`a0cb4e5c9e8bacb6e9ba11733cc6b226c4307c0e784186c22268c0f5ff870670`.
-This is tracked-input equality only, independent of actual artifact/update checks.
-No focused/mixed-source assembly counts as a full pass. Keep catalog/checker/tool
-pins unchanged and failures inspectable. Parents1/36/55/84/86, physical Pixel,
-provider/KVK/Play acceptance and actual Stack integration remain independent.
-
-The owner reports that published beta89 does not resemble the approved native
-prototype. Issue94 is reopened for design integration; the redesign must not be
-called visually complete. Existing functional/update/publication evidence remains
-valid within its recorded scope, but the prior zero-finding native reviews did
-not adequately establish prototype-to-beta visual correspondence.
-
-Read the reference on `prototype/native-shell-live-design`, particularly
-`shell-ui/.../Blocks.kt` and `prototype/native-shell/design.json`. Compare actual
-screens directly at matching viewport, theme, font scale and equivalent content.
-Confirmed profile differences include the cover/avatar composition, an additional
-public-key/Identity details row and underlined full-width tabs instead of rounded
-prototype chips. Preserve later agreed module-selector changes and real identity,
-available data and wallet safeguards. Sample names, artwork and follower totals
-must not be copied as live data. Beta89 remains published; this feedback update
-changes no app code, tests, APK, node or deployment. Issue55 remains open.
-
-## Delivery checkpoint, November6,2026
-
-The owner-authorized five-ticket redesign cohort90/93/81/83/94 is delivered as
-signed ordinary beta89 at https://davidengelen.nl/redsquare/. Complete same-source
-Android10/17 gates, frozen collectors, both actual native/motion review axes,
-original signed83→89 continuity and actual public checksum verification pass.
-See `docs/evidence/ticket94/README.md` for exact producer/consumer provenance,
-retained failures and bounded review limits. Normal updates retain package and
-certificate. Stack remains explicitly a designpreview; real Stack integration
-is still first-release work under1. Owner visual55, audit84/spec86 and physical/
-provider/KVK/Play36 acceptance remain independent. This delivery does not close
-those parents or authorize starting another ticket automatically.
+Current originals, frozen collector results and qualified independent reviews are
+in [ticket94 evidence](evidence/ticket94/README.md). Historical failed executions
+remain failed. Known baseline missing failure-only captures are recorded by the
+frozen collector; they are not missing application identities or waived goals.
+Physical Pixel performance, actual provider delivery, business/policy setup and
+Play acceptance remain pending under #36 and [OWNER_INPUTS.md](../OWNER_INPUTS.md).
+Do not automatically close issues #1/#36/#55/#84/#86. Canonical checkout, other work,
+production nodes and services remain untouched. Issue #94 is complete. Stop until the owner requests further work.
 
 ## Desired outcome
 
@@ -317,7 +67,7 @@ details. The completion-status section below identifies actual remaining work.
 - The app's display name is Red Square. The native application ID is
   `nl.davidengelen.redsquare`. Signed review updates retain the established
   certificate and package as documented in REVIEW_BUILDS.md. Actual Play signing
-  enrollment and publisher configuration remain release36 work.
+  enrollment and publisher configuration remain release #36 work.
 - First-release baseline: the core social experience, including feed, threads,
   posting/replies, likes/reposts, profiles, following, in-app notifications and
   wallet creation/import/export. Additional features are decided individually;
@@ -443,7 +193,7 @@ details. The completion-status section below identifies actual remaining work.
 - Design the app to add further Saito modules, such as Saito Stack, without
   rebuilding shared wallet identity and backend connectivity. Red Square and
   Chat should have distinct feature boundaries. The owner subsequently included
-  Saito Stack in the first release. The approved redesign86 establishes its
+  Saito Stack in the first release. The approved redesign #86 establishes its
   module shell with explicitly labelled review content; real archive, publishing,
   subscription and payment integration remains later first-release work under1.
   Never present a sample route as working production networking. See
@@ -554,58 +304,21 @@ or authorization to bypass the subsequent specification and ticket phases.
 
 ## Scope and current completion status
 
-The app-wide product grill has settled the platform, release baseline, wallet
-safeguards, social/Chat capabilities, backend choice, offline behavior, review
-approach and initial delivery priority. On 2026-10-08 the owner authorized
-sequential implementation of the proposed 35 tickets with a commit after each
-completed ticket and final app review. This covers the proposed testing
-boundaries and breakdown; do not request routine approval again.
-[Specification #1](https://github.com/robelene112/redsquare-android/issues/1)
-and its 35 sub-issues (#2 through #36) are published with native dependencies.
-The original native implementation tickets2through35 and prior supplementary
-slices were closed at the functional checkpoint on2026-10-19. Ordinary42 is
-published after complete Android10/17 verification and two-axis review;
-matching43 has separate signed35/43 installation/isolation proof. These functional
-checks do not establish final app-wide UI quality.
+The original native functional tickets #2 through #35 and the supplementary UI slices
+are implemented. The current delivery is the approved redesign #86 and prototype
+fidelity correction #94, with its exact state and verification above. The original
+specification #1, physical/provider/store release #36 and owner visual acceptance #55
+remain independent. Audit #84 and parent #86 are not closed automatically by #94.
 
-The owner reviewed beta42 and explicitly rejected the claim that UI work was
-finished. The active native backlog is now [app-wide UI55](https://github.com/robelene112/redsquare-android/issues/55),
-consolidated from three independent whole-app audits, plus the requested
-[Node wording56](https://github.com/robelene112/redsquare-android/issues/56) and
-[repeat-like behavior57](https://github.com/robelene112/redsquare-android/issues/57).
-The owner authorized implementing the complete backlog without routine stops.
-On2026-11-01 the owner superseded57's local two-Likes-per-second cap. Like
-controls now accept repeated taps immediately, without waiting for archive
-confirmation or showing Like pending/failure UI. Each tap sends a distinct
-signed action to the selected backend; node-served counts remain authoritative.
-Issue71 owns this updated behavior and its controlled-peer verification.
-Use the linked child issues and genuine tracker dependencies for sequential work.
-The shared content-first frame58 is the first major UI slice. Rendered walkthroughs,
-accessibility/motion checks and owner review of the signed result are required
-before declaring app-wide UI polish accepted. Earlier closed37/39 are bounded
-history, not proof that the current UI is done.
+Repeated likes accept taps immediately without waiting for archive confirmation,
+pending/failure UI or the superseded two-per-second cap. Each tap queues a distinct
+signed action on the selected node; node-served counts remain authoritative.
+Unavailable history stays honestly unavailable. Cached content and imported wallet
+identity do not imply permanent history or actual provider delivery.
 
-KVK, accounts, real provider/gateway activation and physical release checks remain
-parked under release36 and OWNER_INPUTS.md. They do not block the native UI work.
-Specification1 remains open. Discover current status from the tracker and handoff.
-
-The following were the original specification/planning topics. Their native
-functional behavior is implemented in the original tickets; these are historical
-scope pointers. Current UI/repeat-like work is linked above, while actual remaining
-provider/device/policy/store acceptance is in36. Future changes should retain the
-accepted baseline and ask the owner only when a new decision materially changes
-behavior or scope.
-
-- Attachment limits, archive/search coverage, report acknowledgement and detailed
-  personal-control/history behavior, grounded in the existing Saito capabilities.
-- Secure wallet storage, compatible import/export format, identity-isolated local
-  work, interruption recovery and unavailable-authentication behavior.
-- Native Saito integration, protocol-version differences, any required backend
-  adapter and push delivery while the app is closed.
-- UI toolkit, feature architecture, selector placement and precise performance
-  measurement conditions.
-- Application ID, signing compatibility, build/update automation and phone review
-  evidence. Verify store eligibility when release work begins.
+Use GitHub Issues for the current backlog and dependencies. Parked owner inputs
+remain in OWNER_INPUTS.md and do not block independent native app work. Do not
+ask the owner to repeat routine emulator or integration checks on their phone.
 
 ## Specification authority
 

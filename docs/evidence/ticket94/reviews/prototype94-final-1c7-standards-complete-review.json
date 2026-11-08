@@ -1,0 +1,350 @@
+{
+  "review": "Final issue94 Standards and complete-proof audit",
+  "dateUtc": "2026-11-08T07:07:17.567856+00:00",
+  "reviewer": "prototype94_standards_review",
+  "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "result": "No actionable Standards or complete-proof blocker found before promotion of exact candidate102. Publication remains pending.",
+  "findings": [],
+  "methods": [
+    "Read-only independent fixed-source catalog/checker hashes and freeze chronology, exact expected identity-set comparisons and occurrence counts, complete three-job run/source metadata, retained SHA256SUMS, canonical external archive/direct-original byte hashes and runtime source/tool/heap receipts.",
+    "All 360 archive-path byte hashes plus 108 direct-original hashes matched canonical downloaded full-run raw evidence. One inherited unavailable archive entry per SDK remains explicitly recorded rather than treated as an actual TAR. All retained packet SHA256SUMS entries passed.",
+    "Prior native source reviews and actual PNG/XML plus independently decoded original MP4 reviews reused only with reviewed production bridges. No new tests, CI runs, builds or application operations."
+  ],
+  "frozenChecks": {
+    "catalog.json": "d647621d1a8abc7164ae1862325d824e4dafad6fed8d36ab98f43dcc042a4668",
+    "full-collector.py": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683",
+    "test-identities.py": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577",
+    "viewer-check.py": "d100f1333ca2475cc5c9617f2f5531794294be6ac6bff2ae2b021ac832015cc5",
+    "navigation-check.py": "37e4ff9d7c07f4c7675057075074f334dd3ed597240cca1ded847738c5da972a",
+    "legacy-visual-errors10.json": "2dfd0e1477f247da6bfb9595acb3ef39cc44dfba8ac5cacd4b4f42b1be65c0d2",
+    "legacy-visual-errors17.json": "289e44a0d4d8a367def390d1b9dee41cbb734b636300d181ab01801faa17ea7b",
+    "legacy-profile-assumption.txt": "7c3ed443a2a27b11f57f0c79c3f64a391adebdd9eb636cb2e83a83c1b5b3846e",
+    "expected10-identities.json": "7326cb6e8f29bdea440c77f885262dfd67e49e266e59db96f6c91d287b7fc6f1",
+    "expected17-identities.json": "af8e6ea2dab5893404d30a57c779602d0a573f1562f4868c18faef846c3c621d"
+  },
+  "catalogFreezeCommit": "78d468f32901724ecb7215cb1941762add347b7f",
+  "catalogFreezeTime": "2026-11-07T21:53:15Z",
+  "catalogPredatesBothFinalRuns": true,
+  "packets": {
+    "10": {
+      "run": 42452255196,
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "conclusion": "success",
+      "threeSuccessfulJobs": [
+        "native-proof (social)",
+        "native-proof (wallet)",
+        "native-proof (chat)"
+      ],
+      "runSha256": "4e86f582b1e75da7926c9713f70d57f8cfb2f57c11715e2f3e87a1de60fd9aec",
+      "summarySha256": "c8a175259fbc5ad367ada751657ce8e55c756127a1bf10b60bd5b769faf93f61",
+      "identityFileSha256": "7326cb6e8f29bdea440c77f885262dfd67e49e266e59db96f6c91d287b7fc6f1",
+      "identities": {
+        "expected": 629,
+        "actual": 629,
+        "missing": [],
+        "extra": []
+      },
+      "passed": 628,
+      "assumptions": 1,
+      "assumptionIdentities": [
+        {
+          "path": "ProfilePublishingPreviewTest-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+        }
+      ],
+      "shaInventoryEntriesVerified": 8152,
+      "archivePathsExactlyEqualFrozenCatalog": 180,
+      "actualTarArchives": 179,
+      "knownUnavailableArchiveEntries": 1,
+      "archiveRawByteHashesIndependentlyVerified": 180,
+      "directOriginalRawByteHashesIndependentlyVerified": 54,
+      "knownVisualErrorsMatchFrozenBaselineAfterPartitionPrefixNormalization": true,
+      "knownVisualErrors": [
+        {
+          "path": "chat/chat-image-history-evidence.tar",
+          "error": "unavailable archive"
+        },
+        {
+          "path": "wallet/live-official/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-official/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        }
+      ],
+      "runtimeBeforeEachOfFiveMethods": [
+        {
+          "pid": 11581,
+          "parentPid": 1661,
+          "maxBytes": 536870912,
+          "memoryClassMiB": 512,
+          "largeMemoryClassMiB": 512
+        },
+        {
+          "pid": 11581,
+          "parentPid": 1661,
+          "maxBytes": 536870912,
+          "memoryClassMiB": 512,
+          "largeMemoryClassMiB": 512
+        },
+        {
+          "pid": 11581,
+          "parentPid": 1661,
+          "maxBytes": 536870912,
+          "memoryClassMiB": 512,
+          "largeMemoryClassMiB": 512
+        },
+        {
+          "pid": 11581,
+          "parentPid": 1661,
+          "maxBytes": 536870912,
+          "memoryClassMiB": 512,
+          "largeMemoryClassMiB": 512
+        },
+        {
+          "pid": 11581,
+          "parentPid": 1661,
+          "maxBytes": 536870912,
+          "memoryClassMiB": 512,
+          "largeMemoryClassMiB": 512
+        }
+      ],
+      "sourceAndWorkflowProofPerPartitionMatch": true,
+      "talkbackSourcePatchAndEspeakPinsMatch": true
+    },
+    "17": {
+      "run": 42451092093,
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "conclusion": "success",
+      "threeSuccessfulJobs": [
+        "native-proof (wallet)",
+        "native-proof (social)",
+        "native-proof (chat)"
+      ],
+      "runSha256": "755d6b149e1dee58066dd0c9d797cad2b425f3f4030e17607a49845138437fd4",
+      "summarySha256": "3ed4022bc39560449232952bb48e455a5d4233815d7af66776cd555bf052588d",
+      "identityFileSha256": "af8e6ea2dab5893404d30a57c779602d0a573f1562f4868c18faef846c3c621d",
+      "identities": {
+        "expected": 630,
+        "actual": 630,
+        "missing": [],
+        "extra": []
+      },
+      "passed": 630,
+      "assumptions": 0,
+      "assumptionIdentities": [],
+      "shaInventoryEntriesVerified": 8660,
+      "archivePathsExactlyEqualFrozenCatalog": 180,
+      "actualTarArchives": 179,
+      "knownUnavailableArchiveEntries": 1,
+      "archiveRawByteHashesIndependentlyVerified": 180,
+      "directOriginalRawByteHashesIndependentlyVerified": 54,
+      "knownVisualErrorsMatchFrozenBaselineAfterPartitionPrefixNormalization": true,
+      "knownVisualErrors": [
+        {
+          "path": "chat/chat-image-history-evidence.tar",
+          "error": "unavailable archive"
+        },
+        {
+          "path": "wallet/live-official/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-official/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        }
+      ],
+      "runtimeBeforeEachOfFiveMethods": [
+        {
+          "pid": 8215,
+          "parentPid": 435,
+          "maxBytes": 201326592,
+          "memoryClassMiB": 192,
+          "largeMemoryClassMiB": 576
+        },
+        {
+          "pid": 8215,
+          "parentPid": 435,
+          "maxBytes": 201326592,
+          "memoryClassMiB": 192,
+          "largeMemoryClassMiB": 576
+        },
+        {
+          "pid": 8215,
+          "parentPid": 435,
+          "maxBytes": 201326592,
+          "memoryClassMiB": 192,
+          "largeMemoryClassMiB": 576
+        },
+        {
+          "pid": 8215,
+          "parentPid": 435,
+          "maxBytes": 201326592,
+          "memoryClassMiB": 192,
+          "largeMemoryClassMiB": 576
+        },
+        {
+          "pid": 8215,
+          "parentPid": 435,
+          "maxBytes": 201326592,
+          "memoryClassMiB": 192,
+          "largeMemoryClassMiB": 576
+        }
+      ],
+      "sourceAndWorkflowProofPerPartitionMatch": true,
+      "talkbackSourcePatchAndEspeakPinsMatch": true
+    }
+  },
+  "productionBridge": {
+    "receipt": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/candidate102-artifact/production-bridge.json",
+    "sha256": "326487650e7beb7c2e59cc2788aefc4436d303e3ae921b960326f6512489433d",
+    "baseline": "be37e8c4276e001a453bbb282d1f5ecd4d8bcb26",
+    "final": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "wholeTreeChangedOnlyDocumentationOrInstrumentation": true,
+    "productionCoreResourcesBuildDependenciesWorkflowUnchanged": true,
+    "changedInstrumentationPaths": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityGroupingPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueueProcessRecoveryTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NativeMotionEvidence.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NotificationsPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StackDesignViewportTest.kt"
+    ]
+  },
+  "guardReview": {
+    "originalGoalsCatalogCollectorObserverToolPinsRetained": true,
+    "noHeapOrClassDeadlineIncrease": true,
+    "fixtureCorrectionsPreviouslyReviewedAgainstActualFailures": true,
+    "api29InheritedAssumptionMatchesFrozenLegacyIdentity": true,
+    "api37Ordinary192MiBHeapIsNotRequiredToEqualLargeMemoryClass576MiB": true,
+    "reviewerCheckCorrection": "An intermediate reviewer assertion mistakenly required max heap to equal both ordinary and large memory class. Corrected against the ordinary-heap guard; actual API37 max192/ordinary192/large576 is legitimate and all five guarded methods pass. No app/test/evidence modification."
+  },
+  "artifact": {
+    "version": 102,
+    "producer": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "bytes": 42355754,
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "independentReviewReused": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-review.json",
+    "copiedReviewMatchesExternal": true,
+    "noDebugReleaseBinaryEqualityClaim": true
+  },
+  "signedUpdates": {
+    "10": {
+      "inventoryVerified": 31,
+      "rawByteIdenticalFiles": 30,
+      "tarSha256": "e5e12dd36c800157c8c78226b013afb634fceb838276f280c61771792b583d1e",
+      "qualification": {
+        "run": 42454280787,
+        "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+        "candidate": 102,
+        "conclusion": "success",
+        "qualification": "Actual83-to102 signed in-place update and local-work/isolation proof only. Full application gates remain separate."
+      }
+    },
+    "17": {
+      "inventoryVerified": 31,
+      "rawByteIdenticalFiles": 30,
+      "tarSha256": "e2692feacd98c3006b50e19af776a2a49079db50e80a743c2ac1e785a6b789c2",
+      "qualification": {
+        "run": 42454286099,
+        "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+        "candidate": 102,
+        "conclusion": "success",
+        "qualification": "Actual83-to102 signed in-place update and local-work/isolation proof only. Full application gates remain separate."
+      }
+    }
+  },
+  "signedUpdateNativeReview": {
+    "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-update102-native-spec-review.json",
+    "sha256": "3a8d40918a09e71e7a6290fee32f557f260fc939a34facd299b38f5271c801d7",
+    "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "baseline": 83,
+    "candidate": 102,
+    "findings": [],
+    "goals": "All four ordinary-wallet observations per SDK; exact authored body caption/canonical author/published time; exact unsent draft; Light; offline cache; independent ordinary/debug UID and identity; final original radio/install restoration. Original bytes separately checked here, selected PNG/XML independently reviewed by Spec.",
+    "imageLimit": "prepare and final verify-cold PNG/XML retained; first verify names overwritten by cold observer, with distinct original work-after.log and work-after-cold.log retaining both observations."
+  },
+  "qualifiedNativeReviewsReused": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-stack026-standards-review.json",
+      "sha256": "468634d2e8c99e297e0b8e02d16abf70d5a10f00637aae28b7f72993d7c31c67"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-ffe-wallet-transfer-standards-review.json",
+      "sha256": "f07c422cf0be1e6f8c63f4084255e0534df2c410399fe3599e132a69c7ff44a6"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-69dd-wallet-native-standards-review.json",
+      "sha256": "f38ddaa862d9ddcbd7c6c24ef8facd0f365d12cbd210eff6859329c3c8020d80"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-69dd-shell-chat-native-standards-review.json",
+      "sha256": "cfc8f3fb048bde3ea1bfc82e50469174d4d10ded4c05102160bd780fe32b36d5"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-b64-17-shell-chat-native-standards-review.json",
+      "sha256": "74db5c5d779bcec9ffe3b30421b3ff2b08add83287496c1faa8c6db1e33e45e7"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-10-standards-review.json",
+      "sha256": "f7b94612c10d1ed31d0bbac5fbe6d34aad294bce8a6c16b3796aeaf4f28d47ac"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-author-v2-17-standards-review.json",
+      "sha256": "297a1b9919f6ef6841778230bb94a1e5f79e44fe34dee76eb8e25bd42cb33c9c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-144-social-native-standards-review.json",
+      "sha256": "5df5a3ba320dc879a6881062cddc6aa9d952bc8d85a4c952ed7c1df44a012c56"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-native-standards-review.json",
+      "sha256": "21da177ac928e625118c3ff8d2031fcc4461f73fa8cf7f37eec6f3ccd0286e1f"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-review.json",
+      "sha256": "bc97f6c1de0d7fefab07a306e98646b850813bb5161ef590894c7cfe42a1c874"
+    }
+  ],
+  "documentation": {
+    "remainingDiffPaths": 16949,
+    "remainingDiffOnlyDocumentationEvidence": true,
+    "startupContextAndHandoffConsolidationReviewed": true,
+    "scopedQualificationBoilerplateFixesPreserveOriginalRunAndFailureStatus": true,
+    "latestPublicAtReview": 89,
+    "candidate102StagedOnly": true
+  },
+  "limits": [
+    "Actual manual native coverage is sampled and source-qualified, not a claim to inspect every member of all 180 archive paths per SDK. Exact reviewed PNG/XML/movie paths, frame indices and times remain in individual receipts.",
+    "Known failure-only capture deficiencies and unavailable chat-image-history archive are inherited frozen baseline entries, not reconstructed images or unrecorded waivers.",
+    "API29 window dump clipping, list-edge clipping, transient OS overlays, secure PIN windows, first-verify overwrite and absent Block-confirmation manual capture remain qualified in prior receipts; no new defect is inferred solely from clipped XML bounds.",
+    "Physical Pixel performance, actual provider delivery, policy/business setup, Play/store and owner visual acceptance remain outside emulator proof. Stack remains local design preview, not real publication/payment/subscription.",
+    "No promotion, publication, source edit, CI dispatch/cancel, emulator/node/service mutation or production operation performed. Exact publication pointer and public-byte checks remain the root task."
+  ]
+}

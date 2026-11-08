@@ -1,0 +1,23 @@
+{
+  "phase": "verified",
+  "pid": 21473,
+  "owner": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+  "backend": "owner",
+  "wake": "7474747474747474747474747474747474747474747474747474747474747474",
+  "signature": "20f87271ab2fe5c77d4030572864c5883925ee75edcbfd8ad00c3347abc9b07f6b042bdbf8534379d0cd08ebabc60bbf4d1195628baab1020c3d1f6201905ac8",
+  "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAACD4cnGrL+XHfUAwVyhkxYg5Je517cv9itAMM0erybB/awQr2/hTQ3nQzQjrq8YLv00RlWKLqrECDD0fYgGQWsgAAAGhudBAfAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOs1ITi8Mf2UwmtF4qfVZq94JeWl0xX5xTDXxEN/CfMvgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgbWVzc2FnZSIsImdyb3VwX2lkIjoiMjZLY0J4SmltWHVrNUhZYVJyVVZHUGZEb2ZiNHFoTFZ3UWlYRHVhOEdNdmpQIiwibWVzc2FnZSI6IlJlY292ZXIgdGhpcyByZXRhaW5lZCBncm91cCBtZXNzYWdlIGFmdGVyIGFuIGFjdHVhbCBwcm9jZXNzIGludGVycnVwdGlvbiIsInRpbWVzdGFtcCI6MTc5NDExODc5NTM4OCwibWVudGlvbmVkIjpbXSwiZ3JvdXBfbmFtZSI6IlJldGFpbmVkIHByb2Nlc3MgcmVjb3ZlcnkgZ3JvdXAifQ==\",\"opt\":\"e30=\"}",
+  "legacySignature": "374f2999a552da48799c152ec7cc990471044828a565cfd6c551e0aee5f27d5c62cc516996c5a91d6e09369eda449c9043e7b2815d4772945c39cc70b1673e04",
+  "obstruction": "groupchatpush.jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR.owner.ledger.v1.new",
+  "originalWalletDigest": "387a3df504ee914c6c59ca38c5991e4434c58ca9484c0a0aa5ed9184625cdb72",
+  "originalBackend": "owner",
+  "walletDigest": "caa9906ffc70a84a37ac5eeee11dcb6d54455a6f5ed24a3141c12318bfafe43c",
+  "savedFiles": [
+    "wallet.v1",
+    "backend.v1"
+  ],
+  "port": 34013,
+  "workId": "04078025-c683-4924-a344-5912c7ffd233",
+  "expiredRequests": 0,
+  "recoveredPid": 21520,
+  "finalPid": 21585
+}

@@ -2,6 +2,6 @@
   "source": "d9c1ed4d2b0906281b972f1f90bd00e95c146257",
   "run": 42449386941,
   "conclusion": "failure",
-  "qualification": "Original focused artifacts only, never complete acceptance. Android10 notifications core32 pass, grouping navigation fails while list loads. All original classes/deadlines unchanged.",
+  "qualification": "Focused scope fails group navigation while list loads;32core Notifications cases pass. Original run remains FAILED. Corrected run42451074424 passes separately.",
   "selectedOriginalFiles": 55
 }

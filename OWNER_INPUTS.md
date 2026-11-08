@@ -1,6 +1,6 @@
 # Nog nodig van David
 
-Bijgewerkt: 6 november 2026. Dit is het centrale overzicht voor jouw bijdragen
+Bijgewerkt: 8 november 2026. Dit is het centrale overzicht voor jouw bijdragen
 aan de eerste release. Werk dit document bij zodra iets geregeld is. De agent
 houdt de status bij en gaat ondertussen verder met herkenbare placeholders en
 concepten. Een placeholder geldt nooit als een afgeronde integratie, geldende
@@ -58,28 +58,21 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta64](https://davidengelen.nl/redsquare/) staat online. Deze update
-bevat het compactere appframe, de Node-benaming, gedeelde statusmeldingen,
-consistente postkaarten, een gerichte schrijfinterface met duidelijkere
-opgeslagen en wachtende posts en herhaald liken met een limiet van twee nieuwe
-likes per seconde per wallet. Chats hebben compactere koppen, berichtmenu’s en
-meer ruimte voor de geschiedenis naast het toetsenbord. Je leespositie blijft
-behouden bij nieuwe berichten, met een knop om naar de nieuwste te gaan.
-Je kunt chats starten vanuit bekende contacten, groepsleden afzonderlijk kiezen
-en uitnodigingen kopiëren of delen. Geïmporteerde groepen kun je herstellen via
-een uitnodiging, met een preview voordat je bewust deelneemt.
-Profielen hebben een duidelijkere kop, toegankelijke geschiedenis-tabs en
-compacte identiteitsdetails. Profielbewerking toont een samenhangende preview
-en houdt de opslagknoppen bereikbaar naast het toetsenbord.
-De verdere UI-verbeteringen zijn nog in uitvoering
-onder #55. Download, versie en ondertekening zijn gecontroleerd.
+De gewone [beta102](https://davidengelen.nl/redsquare/) staat online. Deze versie
+herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
+accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
+Stack blijft herkenbaar een lokale ontwerppreview. Herhaald liken heeft geen
+lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
+
+De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
+van beta83 naar102 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
+ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
+fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint en bevat nog niet de nieuwe Node-tekst of het huidige appframe. Gebruik hem
-niet als definitieve meting van de actuele app. De eerdere geslaagde Android10/17
-installatieproef gebruikte gewone referentie35 en timing43: gescheiden wallets en
-opslag, met behoud van de gewone testidentiteit. Dat bewijst geen fysieke update
-naar beta64. Voor de definitieve metingen levert de agent een passende timingbuild.
+checkpoint. Gebruik die niet als definitieve meting van beta102. Voor definitieve
+fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en
 PIXEL_FRESH). #35 bewaart het afgeronde ontwikkelcheckpoint. De precieze meetwijze

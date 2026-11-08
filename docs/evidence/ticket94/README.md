@@ -2,43 +2,70 @@
 
 ## Current verification status
 
-Issue94 remains open: restore the approved native prototype, then publish a signed
-beta after both complete Android gates and signed-update checks. Latest public
-beta is89. Counter101;102 is unbuilt and unreserved. Never promote93 through101.
-Production source last changed atbe37e8c42 (real own-author row in the local Stack
-preview). Later changes are test fixtures and evidence only. Stack remains a local
-design preview; actual network/publication/payment behavior stays under issue1.
+Issue #94's prototype-fidelity repair is delivered as signed beta **0.1.102**:
+[download or update](https://davidengelen.nl/redsquare/). The public latest pointer,
+actual APK checksum and exact immutable notes are verified after promotion.
+Frozen source: `1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c`, tag
+`proof-prototype94-loaded-activity`. Production last changed at be37e8c42; later
+changes are tests/evidence only, with an exact whole-tree bridge retained.
 
-Focused source d9c1ed4d2b0906281b972f1f90bd00e95c146257:
+Both complete runs pass all three partitions: Android 10 [42452255196](https://github.com/robelene112/redsquare-android/actions/runs/42452255196)
+and Android 17 [42451092093](https://github.com/robelene112/redsquare-android/actions/runs/42451092093).
+The unchanged frozen Android 17 collector confirms 630 identities and no assumptions. The Android 10 collector
+confirms 629 identities: 628 passed and the single inherited
+API29 Profile assumption. Both catalogs have no missing or extra identities.
+Both independent final packet reviews find no actionable defects. No partial or tail assembly is used.
+Original 180-second class bounds, 214 classes and 629/630 expected identities remain frozen.
 
-- Original180s module header/menu classes pass on10/17, runs42449386645 and
-  42449386489. Every recorded motion frame is retained in consecutive batches of4.
-- Private/group photo process recovery17 passes, run42449386884; the exact original
-  ARGB target is awaited within the unchanged20s, with every snapshot recycled.
-- Complete Notifications17 focused scope passes, run42449386669.
-- Notifications10 run42449386941 fails a later Activity group navigation case.
-  All32 core notification cases pass. Original failure PNG shows cached2unread
-  while the list is still loading, not an offscreen row. The existing15s wait now
-  also requires refresh readiness and the exact clickable target to be displayed.
-  Both independent source reviews find no weakening. Native rerun is still due.
+Actual signed 83-to-102 update/isolation passes Android 10 [42454280787](https://github.com/robelene112/redsquare-android/actions/runs/42454280787)
+and Android 17 [42454286099](https://github.com/robelene112/redsquare-android/actions/runs/42454286099).
+Independent actual artifact and update-native reviews find no actionable defects.
+APK: 42,355,754 bytes; SHA256 `616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7`.
+Signing certificate, package, minimum API29 and target API36 and vendored license are verified.
+Never promote superseded candidates 93 through 101.
 
-Original focused files and qualifications live under
-`focused-fixture-corrections/d9-*` in ticket94 evidence. Paired codec diagnostics
-retain all191 ordered PNG hashes/PTS and demonstrate batch equivalence on29/37;
-they never substitute for the original180s classes. Earlier144 complete runs both
-failed, so BOTH fresh full10/17 runs remain required. Frozen collector/catalog,
-214classes,629/630 identities and180 archives are unchanged. No one-SDK or tail
-exception is eligible from those failed runs.
+Prototype authority: `c95ecaa01abb71c576f052c7cc2303356416091c`,
+`design-3d989e9e8406`, plus owner amendments: rounded named module selector,
+real identity/data, separated profile history, compact repeatable heart, exact-post
+Activity grouping and collapsing reading header. Do not copy sample identities or
+artwork as live data. Stack remains explicitly a local design preview; actual
+network/publication/payment/subscription work stays under issue #1.
 
-Remaining sequence: compile and rerun affected Notifications10; freeze its final
-source/ref; complete all3 partitions on BOTH SDKs and frozen collectors; build and
-stage the actual next signed candidate; independently review native/artifact
-proofs; verify genuine83-to-candidate updates on both SDKs; promote exact bytes.
-Do not close issues1/36/55/84/86 or disturb canonical-checkout work, nodes or services.
+Current originals, frozen collector results and qualified independent reviews are
+in [ticket94 evidence](README.md). Historical failed executions
+remain failed. Known baseline missing failure-only captures are recorded by the
+frozen collector; they are not missing application identities or waived goals.
+Physical Pixel performance, actual provider delivery, business/policy setup and
+Play acceptance remain pending under #36 and [OWNER_INPUTS.md](../../../OWNER_INPUTS.md).
+Do not automatically close issues #1/#36/#55/#84/#86. Canonical checkout, other work,
+production nodes and services remain untouched. Issue #94 is complete. Stop until the owner requests further work.
+
+## Current release evidence
+
+- [Exact signed artifact and public promotion](candidate102-artifact/manifest.json),
+  [final run manifest](candidate102-artifact/final-run-manifest.json) and
+  [production source bridge](candidate102-artifact/production-bridge.json).
+- Complete [Android 10 results](final-1c7-android10/summary.json) and
+  [Android 17 results](final-1c7-android17/summary.json), with frozen catalogs,
+  original archive inventories and per-file SHA256 records in each packet.
+- Actual [83-to-102 update on Android 10](candidate102-update10/qualification.json)
+  and [Android 17](candidate102-update17/qualification.json).
+- Independent final [Spec](reviews/prototype94-final-1c7-spec-acceptance-review.json)
+  and [Standards](reviews/prototype94-final-1c7-standards-complete-review.json) reviews.
+- Independent [artifact](reviews/prototype94-artifact102-standards-review.json),
+  [native update](reviews/prototype94-update102-native-spec-review.json) and
+  [public release](reviews/prototype94-public102-final-standards-review.json) checks.
+
+The collector's inherited visual observations are retained unchanged: unavailable
+old Chat image-history archive and absent failure-only public-read captures.
+They are not new missing application cases. Native sample limits, including clips
+ending before callback completion and ambiguous API29 dialog XML geometry, remain
+qualified in the relevant independent receipts. No physical performance, provider,
+store or actual Stack network acceptance is inferred.
 
 ## Earlier checkpoints, historical scope only
 
-## Reopened prototype repair: candidate97 staged, acceptance pending
+## Historical: Reopened prototype repair: candidate97 staged, acceptance pending
 
 Current frozen implementation and final gates:
 Both corrected complete suites execute71ea524f115496a13699affd2fa5b56444b23c89,
@@ -421,7 +448,7 @@ visual acceptance55, parent84/spec1 and release36 retain their own criteria.
 Stack functionality, physical Pixel performance/gesture feel, provider lifecycle,
 KVK and Play acceptance remain pending unless separately established.
 
-## Initial candidate update observation
+## Historical: Initial candidate update observation
 
 Source71f66dd25aafbed3fc214858213d4afd42061674 built/staged candidate84,
 SHA256801ad531fb9e3546e47bf68ce93dff2e2b50d55eb0e1e798337b41895bf26da1.
@@ -464,7 +491,7 @@ This is equivalent consumer source, not an identical full Git revision or an
 identical debug/release binary. Actual version86, release/debug configuration,
 manifest signing identity and downloaded artifact hash remain explicit.
 
-## Candidate86 signed-update observations (before the integration layout repair)
+## Historical: Candidate86 signed-update observations (before the integration layout repair)
 
 Both actual83-to86 update scopes passed on exact harness
 6c993209f793acb5b0e511f24acce215ab5bc32b: Android10 run42166921730 and
@@ -488,7 +515,7 @@ later cold state. Both invocations have separate successful logs and equal
 observed values. Native XML/PNG remain non-atomic. Full-source application
 acceptance and final cross-module native/motion review are still pending.
 
-## Complete6c regression failures and repairs in progress
+## Historical: Complete6c regression failures and repairs in progress
 
 The complete10/17 runs42166974293/42166977033 failed all three partitions.
 They stopped at the first failed class in each partition, so they do not prove
@@ -521,7 +548,7 @@ shell builtin with the same bounded owned-path predicate. This is test setup,
 not an app or gateway failure. Both seeded scopes will be repeated. Other focused
 results remain pending; none of these replaces complete final-source proof.
 
-## Current final-source verification
+## Historical: Current final-source verification
 
 Source3f4dfdc3254a69d20b3986a737fa448099b098d9 is the current complete
 application and signed87 build source. All ten focused repair observations pass:
@@ -697,7 +724,7 @@ height1184241; official/options also reports thatheight. This is observed extern
 unavailability, not permission to waive the public goal or relax freshness.
 
 
-## Latest targeted native reviews, before full H acceptance
+## Historical: Latest targeted native reviews, before full H acceptance
 
 Both independent review axes found zero actionable findings in the targeted
 repairs. The standards review inspected all 58 controls PNG/XML pairs across

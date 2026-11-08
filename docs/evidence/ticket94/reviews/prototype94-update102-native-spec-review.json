@@ -1,0 +1,1203 @@
+{
+  "review": "Issue94 independent signed83-to102 update and retained-local-work Spec audit",
+  "reviewDateUtc": "2026-11-08",
+  "reviewer": "prototype94_spec_review",
+  "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "candidate": 102,
+  "baseline": 83,
+  "result": "No actionable signed-update/retention evidence defect found. Scoped signed-update acceptance on both emulators only; whole-application acceptance remains pending.",
+  "findings": [],
+  "runs": {
+    "android10": 42454280787,
+    "android17": 42454286099
+  },
+  "apk": {
+    "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/102/redsquare.apk",
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "bytes": 42355754,
+    "applicationId": "nl.davidengelen.redsquare",
+    "versionCode": 102,
+    "versionName": "0.1.102",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "independentApksignerVerifyExit": 0,
+    "independentAaptVersionCheck": true
+  },
+  "independentPublicDownloads": [
+    {
+      "version": 83,
+      "manifest": {
+        "versionCode": 83,
+        "versionName": "0.1.83",
+        "applicationId": "nl.davidengelen.redsquare",
+        "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+        "sha256": "47c5f0582db9eed3451438d2ab3f639a656bd925950139ec06dfb1105f55fb23",
+        "commit": "61187f51ee6b14addeb2bc8e2671567fe5e286af",
+        "variant": "release",
+        "apkUrl": "https://davidengelen.nl/redsquare/releases/83/redsquare.apk",
+        "notes": "Beta 0.1.83 polishes Like feedback with a clear heart pop and immediate count pulse."
+      },
+      "httpStatus": 200,
+      "downloadBytes": 38496523,
+      "sha256": "47c5f0582db9eed3451438d2ab3f639a656bd925950139ec06dfb1105f55fb23",
+      "url": "https://davidengelen.nl/redsquare/releases/83/redsquare.apk",
+      "headers": {
+        "Date": "Sun, 08 Nov 2026 06:29:07 GMT",
+        "Content-Type": "application/octet-stream",
+        "Content-Length": "38496523",
+        "Connection": "close",
+        "Server": "cloudflare",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Last-Modified": "Tue, 03 Nov 2026 12:39:26 GMT",
+        "ETag": "\"6ae9d5fe-24b690b\"",
+        "Accept-Ranges": "bytes",
+        "X-Served-By": "davidengelen.nl",
+        "Cache-Control": "max-age=14400",
+        "cf-cache-status": "MISS",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=q87S9NOXaEIo7oTEse1hI4L6QKuSEuQwa8th%2BwJu5mTILyO5A%2BWKu7tBaMMjNk86JHO5FMYOpNCQ6NHgI%2Bc3IXT70r9JXsCxyvKfP5ndPqf73dOK6osNCLgWwHwqPk97eVYgO53D3WIc%2FTjVx9A%3D\"}]}",
+        "CF-RAY": "a5728582ab3ad389-FRA",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    },
+    {
+      "version": 102,
+      "manifest": {
+        "versionCode": 102,
+        "versionName": "0.1.102",
+        "applicationId": "nl.davidengelen.redsquare",
+        "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+        "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+        "commit": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+        "variant": "release",
+        "apkUrl": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+        "notes": "Restores the approved app navigation, profiles, compact post actions and Chat design. Adds separate Posts/People and All/Mentions views, a direct Message action on profiles and retained reading and drafts. Stack includes a local design preview for discovery, reading, Visual/Markdown writing, publication review and access. Actual Stack network operations remain pending."
+      },
+      "httpStatus": 200,
+      "downloadBytes": 42355754,
+      "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+      "url": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+      "headers": {
+        "Date": "Sun, 08 Nov 2026 06:29:08 GMT",
+        "Content-Type": "application/octet-stream",
+        "Content-Length": "42355754",
+        "Connection": "close",
+        "Server": "cloudflare",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Last-Modified": "Sun, 08 Nov 2026 06:19:23 GMT",
+        "ETag": "\"6af0146b-2864c2a\"",
+        "Accept-Ranges": "bytes",
+        "X-Served-By": "davidengelen.nl",
+        "Cache-Control": "max-age=14400",
+        "cf-cache-status": "MISS",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Y%2B6J29ZUS1ce7qbps3hMF%2F3uNz89Mrux4Z4JTqGAzDaHQXkqIH1rbt9ih%2BWx6XaYQc4kZZHGSwq5zYCpHZ0KOT83ObRPBh8%2B8ye1ohw6TGnfMcsvzJUv8Debok8vBFAXznrAfwMEq0EiN7nYuLQ%3D\"}]}",
+        "CF-RAY": "a572858a3bcf74c9-HAM",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    }
+  ],
+  "downloadMethod": "Fresh HTTPS streaming SHA256 of both public83 and102 APKs with redsquare-review-check/1 User-Agent; no duplicate candidate APK retained. Separate fresh baseline83 download was hash-verified and passed actual apksigner/aapt inspection, then reviewer-owned temporary APK removed. Initial urllib default-User-Agent manifest request returned403; explicit documented checker User-Agent succeeded200 for both manifests/APKs. This was a reviewer request limitation, not a failed native update.",
+  "inspectionTools": {
+    "image": "redsquare-android-build:agp8.10.1",
+    "imageId": "sha256:c53d429fc1d896a90280072bedfd228d3c36844de40c9da7bcb80b961f0dd0e8",
+    "apksigner": "/opt/android-sdk/build-tools/35.0.0/apksigner verify --print-certs",
+    "aapt": "/opt/android-sdk/build-tools/35.0.0/aapt dump badging",
+    "boundary": "Fresh --rm --network none --cpus1 --memory512m/currentUID containers, APK bind mounts readonly. No live service exec, build/install/signing material access."
+  },
+  "staticInspectionFiles": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/independent-baseline83-signature.txt",
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/independent-baseline83-package.txt",
+      "sha256": "6a92cd0bcaab488ccc8844ca09b6f020fa0797b2769d6a593de89624aacf1742"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/independent-signature.txt",
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/independent-package.txt",
+      "sha256": "9980ad496dfaf581b7912dbca2761bcb993b16886ff9aa992fdd25528cee827b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/independent-public-downloads.json",
+      "sha256": "ad607fe89531f008253a7aac6df5e944d0588761e87be923db5fedea36543e86"
+    }
+  ],
+  "actualNativeReview": {
+    "originalTars": 2,
+    "archiveFilesIndependentlyByteMatched": 46,
+    "nativeLocalWorkPngsViewed": 16,
+    "walletOriginalPngsViewed": 4,
+    "totalOriginalPngsViewed": 20,
+    "nativeLocalWorkXmlParsedAndExactPredicateChecked": 20,
+    "walletNativeXmlExactPublicAddressChecked": 8,
+    "actualContactsViewed": 2,
+    "moviesReviewed": 0,
+    "scope": "BothSDKs320x640 Light, original baseline83 and updated102 settings/feed/identity/draft; wallet observations1and4visually compared perSDK, all4perSDKchecked in nativeXML+logs."
+  },
+  "goalAudit": [
+    "All8wallet observer invocations succeed and show one exact matching ordinary public address, including baseline cold and updated cold observations. Continuity receipt and actual native XML agree.",
+    "Both ordinary UIDs differ from their debug UID and both public identities differ. Exact debug public address is unchanged before/after. Passing source asserts both UIDs unchanged after update and cold observation.",
+    "Exact authored body caption, canonical public author key and published time match in prepare, verify and verify-cold observations. Actual baseline/candidate public-identity XML agrees. URL/media-button substitution is excluded by the reviewed direct-body observer seam.",
+    "Exact unsent local draft survives update and cold launch, is physically saved and reopened without tapping Send. Actual original draft EditText XML preserves the full String.",
+    "Light is selected in actual baseline/candidate native checked-row XML and visible original PNGs. Verify and cold capture actual No internet connection and exact cached post.",
+    "Original Wi-Fi/mobile state1/1 and originally absent ordinary installation are restored and re-observed by the checker; restoration failure arrays are empty on bothSDKs. Debug package is retained.",
+    "Original package/signature/version and actual install-r behavior remain checked by the frozen scripts. No uninstall of ordinary app occurs until owned final restoration."
+  ],
+  "sdkEvidence": [
+    {
+      "sdk": "10",
+      "run": 42454280787,
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "rawRoot": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch",
+      "walletObservations": [
+        {
+          "observation": 1,
+          "phase": "baseline83",
+          "publicAddressSha256": "f6043dce341d487f3ac5d99917ba36002ce30d64dcdc0f27f610a1afe10f09ef",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-1.log",
+          "logSha256": "aead4b3c85a9b860175b2347bf6ab40e16ad20605f73e28a9c4589fa67e03927",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-1.xml",
+          "xmlSha256": "c338fc5ae8e3b057f16e42b7c6b3f0b78060e0d252527a33cf464a5b0e8f417f",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-1.png",
+          "pngSha256": "3f3ebd041fa4d6bff6a1c27a8860613eb44998e458ff056c97472a8d741ff973",
+          "pngVisuallyInspected": true,
+          "exactAddressInActualNativeXml": true
+        },
+        {
+          "observation": 2,
+          "phase": "baseline83Cold",
+          "publicAddressSha256": "f6043dce341d487f3ac5d99917ba36002ce30d64dcdc0f27f610a1afe10f09ef",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-2.log",
+          "logSha256": "7b091fdf06423c980e18fac7db9dbe38844f6650932ea5574ba4c9cd9c217282",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-2.xml",
+          "xmlSha256": "c338fc5ae8e3b057f16e42b7c6b3f0b78060e0d252527a33cf464a5b0e8f417f",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-2.png",
+          "pngSha256": "3f3ebd041fa4d6bff6a1c27a8860613eb44998e458ff056c97472a8d741ff973",
+          "pngVisuallyInspected": false,
+          "exactAddressInActualNativeXml": true
+        },
+        {
+          "observation": 3,
+          "phase": "candidate102AfterInstallR",
+          "publicAddressSha256": "f6043dce341d487f3ac5d99917ba36002ce30d64dcdc0f27f610a1afe10f09ef",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-3.log",
+          "logSha256": "2d169fa1f38bbbff6e81ef85e6dfe675e974dc04710f9ad923890027eacc9718",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-3.xml",
+          "xmlSha256": "5b093ff10308a0321e3d47166a17834a28572ade3a0d0fa13ddcfe209f94eead",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-3.png",
+          "pngSha256": "75148459d75bdb0dd0812620271205435241160a332977d91fa4bc5c89cc4425",
+          "pngVisuallyInspected": false,
+          "exactAddressInActualNativeXml": true
+        },
+        {
+          "observation": 4,
+          "phase": "candidate102Cold",
+          "publicAddressSha256": "f6043dce341d487f3ac5d99917ba36002ce30d64dcdc0f27f610a1afe10f09ef",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-4.log",
+          "logSha256": "013b63f96081a19096e5beff301a48407ab9b27e640d5ff39012054b4522012b",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-4.xml",
+          "xmlSha256": "5b093ff10308a0321e3d47166a17834a28572ade3a0d0fa13ddcfe209f94eead",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/wallet/observation-4.png",
+          "pngSha256": "75148459d75bdb0dd0812620271205435241160a332977d91fa4bc5c89cc4425",
+          "pngVisuallyInspected": true,
+          "exactAddressInActualNativeXml": true
+        }
+      ],
+      "debugObservations": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/debug-before.log",
+          "sha256": "5516a980be00a26c5f9e419aea994da066d80c68f245ed066c9431ab690e0f1b",
+          "exactPublicIdentityMatches": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/debug-after.log",
+          "sha256": "7b66c7adc007387766d4216131e19d4f4c77cae85f891b5cce343c29b19faf0b",
+          "exactPublicIdentityMatches": true
+        }
+      ],
+      "ordinaryUid": 10118,
+      "debugUid": 10116,
+      "ordinaryAndDebugUidsDistinct": true,
+      "sameOrdinaryUidBeforeAfterAssertedBySource": true,
+      "sameDebugUidBeforeAfterAssertedBySource": true,
+      "exactDraft": "Redesign update check. This is an unsent local draft.",
+      "exactCachedPost": {
+        "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+        "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+        "published": "Published 11/8/26 5:34 AM"
+      },
+      "allThreeWorkObservations": [
+        {
+          "phase": "prepare",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+            "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+            "published": "Published 11/8/26 5:34 AM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": false
+        },
+        {
+          "phase": "verify",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+            "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+            "published": "Published 11/8/26 5:34 AM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": true
+        },
+        {
+          "phase": "verify",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+            "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+            "published": "Published 11/8/26 5:34 AM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": true
+        }
+      ],
+      "allWorkLogs": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/work-before.log",
+          "sha256": "c3c4951eec3bc4657ed903cf663f9f13af6a84dbe5b800da04e54b8c03664498"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/work-after.log",
+          "sha256": "20dd617655ad471c1188c75c09fa9ad5de888dafd714d068e7c57ec7e25dfcbd"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/work-after-cold.log",
+          "sha256": "cc9c4a980a4d46c48841bbadc235a01f4b69889f9605a022c9aa54eed4bfce8a"
+        }
+      ],
+      "localWorkAndIsolationReceipt": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/local-work-and-isolation.json",
+        "sha256": "c6a8573feddade52fe4fb6ac4d62a9c280ab8f117855fd33d86c3aa744e0fea7"
+      },
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/native-local-work.tar",
+      "archiveSha256": "e5e12dd36c800157c8c78226b013afb634fceb838276f280c61771792b583d1e",
+      "archiveOriginalFiles": [
+        {
+          "member": "review-update-observation/prepare-preference.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-preference.xml",
+          "sha256": "2913bb614f8647405b438ce0c6cc640a7187fc39e35499e7e9adae3886440f26",
+          "bytes": 22138,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-preference.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-preference.png",
+          "sha256": "4f41047a865aa5b4cdb02fc25699e4c4c7e8e66b65459bdc9295e5bd122eb409",
+          "bytes": 30081,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/native-capture-timings.jsonl",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/native-capture-timings.jsonl",
+          "sha256": "7f637532c25b4c9fd07b08941d3f6187098f41557167d6340aa66fb31c7dc22c",
+          "bytes": 2427,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-feed.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-feed.xml",
+          "sha256": "1f2a6530b7a4885ec6514e4015b98420de1fd0c2e73eb2b50a67b266cdcc80c0",
+          "bytes": 57564,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-feed.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-feed.png",
+          "sha256": "925f06eb1cb04345c44fd4c48dd487b81a478fc9a69b1234d3aeb439760bf6f1",
+          "bytes": 44204,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/prepare-cached-identity.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-cached-identity.xml",
+          "sha256": "447b8a584be891d81c1ae1fd03ab637dbe3f208cae3a0938afcc728ec998673c",
+          "bytes": 18477,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-cached-identity.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-cached-identity.png",
+          "sha256": "32701ba102550c10ea3fd2f2db9ae1a797f004df3a5f3862d8c9234408d9af30",
+          "bytes": 38694,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/prepare-draft-saved.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-draft-saved.xml",
+          "sha256": "1f2a6530b7a4885ec6514e4015b98420de1fd0c2e73eb2b50a67b266cdcc80c0",
+          "bytes": 57564,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-draft-saved.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-draft-saved.png",
+          "sha256": "925f06eb1cb04345c44fd4c48dd487b81a478fc9a69b1234d3aeb439760bf6f1",
+          "bytes": 44204,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-draft-reopened.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-draft-reopened.xml",
+          "sha256": "34501371a6cc1b8cad322f6257a942cc7ab24db3f6cc5894b8cba6a261e40d4b",
+          "bytes": 25280,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-draft-reopened.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-draft-reopened.png",
+          "sha256": "eec923552e61b9a9783b51bcbe6d250b07ded08f11700f5dc54a40b3e05c9db5",
+          "bytes": 25025,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/prepare.json",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare.json",
+          "sha256": "af467267e9dfd41525a41681f75ab971d01f27689baa6944206bfdfe8fe76fa3",
+          "bytes": 420,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-preference.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-preference.xml",
+          "sha256": "4bc7168884166bdcac913e4c31f98febbfbd2f9537e3d0a0facb87ac385313f8",
+          "bytes": 21229,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-preference.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-preference.png",
+          "sha256": "649a9efe8d11f861b7e3954dd8d2856e0e5164225abc114aa11cfacd04c35184",
+          "bytes": 12531,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify-feed.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-feed.xml",
+          "sha256": "f31572a7e292e244cbbe02032a2f7edb19597002b08fe8f19bd791ff7ccf1187",
+          "bytes": 63793,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-feed.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-feed.png",
+          "sha256": "a101829933ca22bbb311ebda1affdac75e33684b0c6ac2a6c6c3ce4346067c54",
+          "bytes": 41497,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify-cached-identity.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-cached-identity.xml",
+          "sha256": "81fdc7b07e5c375d9cf595a8d095e77443c9fbee293d01daa795fb63a102e36a",
+          "bytes": 17123,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-cached-identity.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-cached-identity.png",
+          "sha256": "26f5c320f5b665e397799a87176ea51a6dcdd66ef88d089bdb950246e2c90c04",
+          "bytes": 35611,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify-draft-saved.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-draft-saved.xml",
+          "sha256": "f31572a7e292e244cbbe02032a2f7edb19597002b08fe8f19bd791ff7ccf1187",
+          "bytes": 63793,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-draft-saved.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-draft-saved.png",
+          "sha256": "a101829933ca22bbb311ebda1affdac75e33684b0c6ac2a6c6c3ce4346067c54",
+          "bytes": 41497,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-draft-reopened.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-draft-reopened.xml",
+          "sha256": "b1f70f589b0b13dee4e64888592c7dc1dc31599fae8d1af5b4589af3370dece1",
+          "bytes": 30197,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-draft-reopened.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-draft-reopened.png",
+          "sha256": "db70fff581947be9ef8519674e74ddb3048d83ea6e0d86d87d0aced0f199b5f7",
+          "bytes": 27586,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify.json",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify.json",
+          "sha256": "c4da31de039eec298ccb71ae262bd490aa2117992d9bc030d1cab60eb0178a0a",
+          "bytes": 418,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        }
+      ],
+      "nativeXmlGoals": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-preference.xml",
+          "sha256": "2913bb614f8647405b438ce0c6cc640a7187fc39e35499e7e9adae3886440f26",
+          "goal": [
+            "preference",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-feed.xml",
+          "sha256": "1f2a6530b7a4885ec6514e4015b98420de1fd0c2e73eb2b50a67b266cdcc80c0",
+          "goal": [
+            "feed",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-cached-identity.xml",
+          "sha256": "447b8a584be891d81c1ae1fd03ab637dbe3f208cae3a0938afcc728ec998673c",
+          "goal": [
+            "cached-identity",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-draft-saved.xml",
+          "sha256": "1f2a6530b7a4885ec6514e4015b98420de1fd0c2e73eb2b50a67b266cdcc80c0",
+          "goal": [
+            "draft-saved",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/prepare-draft-reopened.xml",
+          "sha256": "34501371a6cc1b8cad322f6257a942cc7ab24db3f6cc5894b8cba6a261e40d4b",
+          "goal": [
+            "draft-reopened",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-preference.xml",
+          "sha256": "4bc7168884166bdcac913e4c31f98febbfbd2f9537e3d0a0facb87ac385313f8",
+          "goal": [
+            "preference",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-feed.xml",
+          "sha256": "f31572a7e292e244cbbe02032a2f7edb19597002b08fe8f19bd791ff7ccf1187",
+          "goal": [
+            "feed",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-cached-identity.xml",
+          "sha256": "81fdc7b07e5c375d9cf595a8d095e77443c9fbee293d01daa795fb63a102e36a",
+          "goal": [
+            "cached-identity",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-draft-saved.xml",
+          "sha256": "f31572a7e292e244cbbe02032a2f7edb19597002b08fe8f19bd791ff7ccf1187",
+          "goal": [
+            "draft-saved",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/verify-draft-reopened.xml",
+          "sha256": "b1f70f589b0b13dee4e64888592c7dc1dc31599fae8d1af5b4589af3370dece1",
+          "goal": [
+            "draft-reopened",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        }
+      ],
+      "restoration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/restoration.json",
+        "sha256": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1",
+        "observation": {
+          "failures": [],
+          "originalWifi": "1",
+          "originalMobileData": "1"
+        },
+        "sourceChecks": "Both originally-enabled network states re-read as restored; originally-absent ordinary installation removed and absence re-read. Empty failures records all checks completed."
+      },
+      "versions": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/versions.txt",
+        "sha256": "c2d2d43dac7cd6d2cf5b162829ab012aac1453a84be02bb75d703cb844c792a0"
+      },
+      "downloads": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/download-83.json",
+          "sha256": "209ad045211c157905d91a0f50423012fcfa71c0adc08525056cfc7e10f61cdd",
+          "observation": {
+            "version": 83,
+            "httpStatus": 200,
+            "url": "https://davidengelen.nl/redsquare/releases/83/redsquare.apk",
+            "headers": {
+              "Content-Length": "38496523",
+              "Content-Range": null,
+              "Content-Encoding": null,
+              "Content-Type": "application/octet-stream",
+              "ETag": "\"6ae9d5fe-24b690b\""
+            },
+            "bytes": 38496523,
+            "sha256": "47c5f0582db9eed3451438d2ab3f639a656bd925950139ec06dfb1105f55fb23",
+            "expectedSha256": "47c5f0582db9eed3451438d2ab3f639a656bd925950139ec06dfb1105f55fb23"
+          }
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/candidate-update/download-102.json",
+          "sha256": "b47af4270f98c3714f9e6fad742a99be8387cbb8ef103c4fb664469b7d2d9458",
+          "observation": {
+            "version": 102,
+            "httpStatus": 200,
+            "url": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+            "headers": {
+              "Content-Length": "42355754",
+              "Content-Range": null,
+              "Content-Encoding": null,
+              "Content-Type": "application/octet-stream",
+              "ETag": "\"6af0146b-2864c2a\""
+            },
+            "bytes": 42355754,
+            "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+            "expectedSha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7"
+          }
+        }
+      ],
+      "contactSheet": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk10/contacts/work-contact.png",
+        "sha256": "74d7a94eef0d355b3cc02fab679aa361b99f616ce9666fbe62a685e4062c7f1c",
+        "rowMajorOriginals": [
+          "prepare-preference",
+          "verify-preference",
+          "prepare-feed",
+          "verify-feed",
+          "prepare-cached-identity",
+          "verify-cached-identity",
+          "prepare-draft-reopened",
+          "verify-draft-reopened"
+        ],
+        "all8ActuallyViewed": true
+      }
+    },
+    {
+      "sdk": "17",
+      "run": 42454286099,
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "rawRoot": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch",
+      "walletObservations": [
+        {
+          "observation": 1,
+          "phase": "baseline83",
+          "publicAddressSha256": "04aa28e7f8c90358924576619e2f8ee363d892e2ce732960692250bc5a542357",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-1.log",
+          "logSha256": "b4cf9e96d25e33c64954a0aaa2cabad901dc1f1357449e86170d9487a1842ca4",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-1.xml",
+          "xmlSha256": "697ed7c60f975e1b223b93b77d0bd219a8ada1fb29be73b3d7b991398731e7e8",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-1.png",
+          "pngSha256": "e364851743ac1695b1b89ecd534840613bd6d0bf1d745c0ff63cc214a625761e",
+          "pngVisuallyInspected": true,
+          "exactAddressInActualNativeXml": true
+        },
+        {
+          "observation": 2,
+          "phase": "baseline83Cold",
+          "publicAddressSha256": "04aa28e7f8c90358924576619e2f8ee363d892e2ce732960692250bc5a542357",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-2.log",
+          "logSha256": "ecee317f682fa454d960cb66616b38497d556ea4000223a39568895b82ca66ad",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-2.xml",
+          "xmlSha256": "a0da2f24d0c3ba61facf7695fd1b9304305f2636fd9bcf734d61e50ac4a26e2c",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-2.png",
+          "pngSha256": "1a73f651f09f553971b1d5e7f7321b818b636f167b999358d97df3cf875b859e",
+          "pngVisuallyInspected": false,
+          "exactAddressInActualNativeXml": true
+        },
+        {
+          "observation": 3,
+          "phase": "candidate102AfterInstallR",
+          "publicAddressSha256": "04aa28e7f8c90358924576619e2f8ee363d892e2ce732960692250bc5a542357",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-3.log",
+          "logSha256": "17561f924ac99b4e9bfc1dd1ef2c7dab64f237c4f8fc65d37731d89b28e702e9",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-3.xml",
+          "xmlSha256": "f8e3b35db033722e633053360dd989f9ab1cfb7a9c2c19005e83d2bee728399c",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-3.png",
+          "pngSha256": "54c56a454fee530a6f3ba39cc9f1d945d9172907e81d7758b6b59fdc071e9395",
+          "pngVisuallyInspected": false,
+          "exactAddressInActualNativeXml": true
+        },
+        {
+          "observation": 4,
+          "phase": "candidate102Cold",
+          "publicAddressSha256": "04aa28e7f8c90358924576619e2f8ee363d892e2ce732960692250bc5a542357",
+          "log": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-4.log",
+          "logSha256": "1829abec646887e955df3e6aa2e06787f921cd7cc0efd7902dae613cca289cf7",
+          "xml": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-4.xml",
+          "xmlSha256": "f8e3b35db033722e633053360dd989f9ab1cfb7a9c2c19005e83d2bee728399c",
+          "png": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/wallet/observation-4.png",
+          "pngSha256": "54c56a454fee530a6f3ba39cc9f1d945d9172907e81d7758b6b59fdc071e9395",
+          "pngVisuallyInspected": true,
+          "exactAddressInActualNativeXml": true
+        }
+      ],
+      "debugObservations": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/debug-before.log",
+          "sha256": "2ce7a588bb87749e79ec400198778f9aad398212f1d6613847c931150403b477",
+          "exactPublicIdentityMatches": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/debug-after.log",
+          "sha256": "9a2c5c18fdf0921fecd55cc1124c77bd1ef7265a8324bacd321d9e583f5addd9",
+          "exactPublicIdentityMatches": true
+        }
+      ],
+      "ordinaryUid": 10236,
+      "debugUid": 10234,
+      "ordinaryAndDebugUidsDistinct": true,
+      "sameOrdinaryUidBeforeAfterAssertedBySource": true,
+      "sameDebugUidBeforeAfterAssertedBySource": true,
+      "exactDraft": "Redesign update check. This is an unsent local draft.",
+      "exactCachedPost": {
+        "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+        "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+        "published": "Published 11/8/26 5:34 AM"
+      },
+      "allThreeWorkObservations": [
+        {
+          "phase": "prepare",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+            "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+            "published": "Published 11/8/26 5:34 AM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": false
+        },
+        {
+          "phase": "verify",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+            "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+            "published": "Published 11/8/26 5:34 AM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": true
+        },
+        {
+          "phase": "verify",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "Anyone interested in buying some saito below market price? I have 400k up for sale/trade",
+            "author": "om9NmZKpTA7n8Zb7CeNfmwLZ4KUGxcKLkJDrTVSPGiiU",
+            "published": "Published 11/8/26 5:34 AM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": true
+        }
+      ],
+      "allWorkLogs": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/work-before.log",
+          "sha256": "11c86773d4a28a1e9c7f71887c41a0483ff8b92adea71a0176bfa968d66cb931"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/work-after.log",
+          "sha256": "b5e946bb7cb8581f5df92c55a56fec0ea3023353388ad278bbaf7f455ab69416"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/work-after-cold.log",
+          "sha256": "7bcf58febd4faf91f6ff9addd3d633f1c7c95d980b5c6634e28cdc1c0c84c6b7"
+        }
+      ],
+      "localWorkAndIsolationReceipt": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/local-work-and-isolation.json",
+        "sha256": "b429d87fedec6d2230f29a0c72de8897ae1f715af88439bdf46057f02f7d69a3"
+      },
+      "archive": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/native-local-work.tar",
+      "archiveSha256": "e2692feacd98c3006b50e19af776a2a49079db50e80a743c2ac1e785a6b789c2",
+      "archiveOriginalFiles": [
+        {
+          "member": "review-update-observation/prepare-preference.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-preference.xml",
+          "sha256": "085685b5bd109638729d4fdf81425ac11b5a29ac6ba3f7830d0927908ff6254f",
+          "bytes": 24097,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-preference.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-preference.png",
+          "sha256": "d22140aed3ef06de78e44320ed9a2a7a69b20f8211d9e9bda30a7d46b0b79d96",
+          "bytes": 30613,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/native-capture-timings.jsonl",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/native-capture-timings.jsonl",
+          "sha256": "b3f89a4c8acd463dd656c12873505da7356dfb6acf0201a971bfba6bb9d07138",
+          "bytes": 2426,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-feed.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-feed.xml",
+          "sha256": "02e7b7604f25df8510b42189bf60492ae4b4881adae0f12e878ee37ea2470b35",
+          "bytes": 60828,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-feed.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-feed.png",
+          "sha256": "6282385f808602ee966306b7be27364c70216dc17f1b737196efefd562b25d21",
+          "bytes": 45513,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/prepare-cached-identity.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-cached-identity.xml",
+          "sha256": "d8b6057994acfd9b504737a26d283f814be31a3d4160d5b8bad766815266bf47",
+          "bytes": 20301,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-cached-identity.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-cached-identity.png",
+          "sha256": "d66735fd94f6a861a176a2b905f64ebb1aede5d775b3b8142266b46abe9a61f1",
+          "bytes": 39509,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/prepare-draft-saved.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-draft-saved.xml",
+          "sha256": "02e7b7604f25df8510b42189bf60492ae4b4881adae0f12e878ee37ea2470b35",
+          "bytes": 60828,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-draft-saved.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-draft-saved.png",
+          "sha256": "6282385f808602ee966306b7be27364c70216dc17f1b737196efefd562b25d21",
+          "bytes": 45513,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-draft-reopened.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-draft-reopened.xml",
+          "sha256": "0554a559cda9ada07a5e4036a06e2fe849d4d10919286f60a6cef6581619a202",
+          "bytes": 27359,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/prepare-draft-reopened.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-draft-reopened.png",
+          "sha256": "6e53a80d6ff54f6cc070f0d1b78b47bf0d66d68d82cb74ddddfd4261820c387b",
+          "bytes": 25360,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/prepare.json",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare.json",
+          "sha256": "af467267e9dfd41525a41681f75ab971d01f27689baa6944206bfdfe8fe76fa3",
+          "bytes": 420,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-preference.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-preference.xml",
+          "sha256": "121178bae5c4fe0c3fd2f57a9df7531c21786107176f1d17bc7f30f2ff45e098",
+          "bytes": 22635,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-preference.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-preference.png",
+          "sha256": "72992c1dd4bfd9ed216b4ad90fb5ecc9213db63919139b2f106408cd720ceb80",
+          "bytes": 11720,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify-feed.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-feed.xml",
+          "sha256": "32f0445a13a7f17494ea25f8e81e7d67d956d2d69709793807d68f833e497f00",
+          "bytes": 66744,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-feed.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-feed.png",
+          "sha256": "15ab00b4681d10fed060c15e0d681e7c57c87314e2ccdcd8d1e67def6ae11cdf",
+          "bytes": 42257,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify-cached-identity.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-cached-identity.xml",
+          "sha256": "a7f1f594717862c7352ec2bfb5da0e4081c78a69bb0d900e26f9b4d9edb61746",
+          "bytes": 18379,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-cached-identity.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-cached-identity.png",
+          "sha256": "838e90cb361e4edc9e00bf95e7b6eccd8eeeef03b1e21c2c49f3d732f6bc484f",
+          "bytes": 35751,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify-draft-saved.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-draft-saved.xml",
+          "sha256": "a5db058df3559ec2eeb725391ad40de97fc4965ce55a186a13fa1aa2f529288b",
+          "bytes": 66744,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-draft-saved.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-draft-saved.png",
+          "sha256": "99b9f9fab316b50d48cd0bc623c7366854fa6b5d18c810c1e39f4829d2019d98",
+          "bytes": 42199,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-draft-reopened.xml",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-draft-reopened.xml",
+          "sha256": "1889676eb8cabfe14c12df029992fa18ab301111a27e70bdad7f67ccd960ef96",
+          "bytes": 31933,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        },
+        {
+          "member": "review-update-observation/verify-draft-reopened.png",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-draft-reopened.png",
+          "sha256": "825b4d0e4b7020204da93e811ee14a2f7a139ef9d8e512e1f1aa639183d51870",
+          "bytes": 27945,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": true
+        },
+        {
+          "member": "review-update-observation/verify.json",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify.json",
+          "sha256": "c4da31de039eec298ccb71ae262bd490aa2117992d9bc030d1cab60eb0178a0a",
+          "bytes": 418,
+          "originalBytesMatch": true,
+          "pngVisuallyInspected": false
+        }
+      ],
+      "nativeXmlGoals": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-preference.xml",
+          "sha256": "085685b5bd109638729d4fdf81425ac11b5a29ac6ba3f7830d0927908ff6254f",
+          "goal": [
+            "preference",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-feed.xml",
+          "sha256": "02e7b7604f25df8510b42189bf60492ae4b4881adae0f12e878ee37ea2470b35",
+          "goal": [
+            "feed",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-cached-identity.xml",
+          "sha256": "d8b6057994acfd9b504737a26d283f814be31a3d4160d5b8bad766815266bf47",
+          "goal": [
+            "cached-identity",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-draft-saved.xml",
+          "sha256": "02e7b7604f25df8510b42189bf60492ae4b4881adae0f12e878ee37ea2470b35",
+          "goal": [
+            "draft-saved",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/prepare-draft-reopened.xml",
+          "sha256": "0554a559cda9ada07a5e4036a06e2fe849d4d10919286f60a6cef6581619a202",
+          "goal": [
+            "draft-reopened",
+            "prepare"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-preference.xml",
+          "sha256": "121178bae5c4fe0c3fd2f57a9df7531c21786107176f1d17bc7f30f2ff45e098",
+          "goal": [
+            "preference",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-feed.xml",
+          "sha256": "32f0445a13a7f17494ea25f8e81e7d67d956d2d69709793807d68f833e497f00",
+          "goal": [
+            "feed",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-cached-identity.xml",
+          "sha256": "a7f1f594717862c7352ec2bfb5da0e4081c78a69bb0d900e26f9b4d9edb61746",
+          "goal": [
+            "cached-identity",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-draft-saved.xml",
+          "sha256": "a5db058df3559ec2eeb725391ad40de97fc4965ce55a186a13fa1aa2f529288b",
+          "goal": [
+            "draft-saved",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/verify-draft-reopened.xml",
+          "sha256": "1889676eb8cabfe14c12df029992fa18ab301111a27e70bdad7f67ccd960ef96",
+          "goal": [
+            "draft-reopened",
+            "verify"
+          ],
+          "exactNativePredicateVerified": true
+        }
+      ],
+      "restoration": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/restoration.json",
+        "sha256": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1",
+        "observation": {
+          "failures": [],
+          "originalWifi": "1",
+          "originalMobileData": "1"
+        },
+        "sourceChecks": "Both originally-enabled network states re-read as restored; originally-absent ordinary installation removed and absence re-read. Empty failures records all checks completed."
+      },
+      "versions": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/versions.txt",
+        "sha256": "c2d2d43dac7cd6d2cf5b162829ab012aac1453a84be02bb75d703cb844c792a0"
+      },
+      "downloads": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/download-83.json",
+          "sha256": "209ad045211c157905d91a0f50423012fcfa71c0adc08525056cfc7e10f61cdd",
+          "observation": {
+            "version": 83,
+            "httpStatus": 200,
+            "url": "https://davidengelen.nl/redsquare/releases/83/redsquare.apk",
+            "headers": {
+              "Content-Length": "38496523",
+              "Content-Range": null,
+              "Content-Encoding": null,
+              "Content-Type": "application/octet-stream",
+              "ETag": "\"6ae9d5fe-24b690b\""
+            },
+            "bytes": 38496523,
+            "sha256": "47c5f0582db9eed3451438d2ab3f639a656bd925950139ec06dfb1105f55fb23",
+            "expectedSha256": "47c5f0582db9eed3451438d2ab3f639a656bd925950139ec06dfb1105f55fb23"
+          }
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/candidate-update/download-102.json",
+          "sha256": "b47af4270f98c3714f9e6fad742a99be8387cbb8ef103c4fb664469b7d2d9458",
+          "observation": {
+            "version": 102,
+            "httpStatus": 200,
+            "url": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+            "headers": {
+              "Content-Length": "42355754",
+              "Content-Range": null,
+              "Content-Encoding": null,
+              "Content-Type": "application/octet-stream",
+              "ETag": "\"6af0146b-2864c2a\""
+            },
+            "bytes": 42355754,
+            "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+            "expectedSha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7"
+          }
+        }
+      ],
+      "contactSheet": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-spec-working/sdk17/contacts/work-contact.png",
+        "sha256": "fd54ac156b4fbf412c67e3dcafbdedd045302b4d754ec463e1e224ab9dab8424",
+        "rowMajorOriginals": [
+          "prepare-preference",
+          "verify-preference",
+          "prepare-feed",
+          "verify-feed",
+          "prepare-cached-identity",
+          "verify-cached-identity",
+          "prepare-draft-reopened",
+          "verify-draft-reopened"
+        ],
+        "all8ActuallyViewed": true
+      }
+    }
+  ],
+  "sourceAndWorkflowBinding": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/proof-source.txt",
+      "sha256": "f4d4cacb32e1d9e952cf4aabcdcf6a38ce2f20982b129675dd1b32aa47601e2b",
+      "value": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/proof-workflow.txt",
+      "sha256": "f4d4cacb32e1d9e952cf4aabcdcf6a38ce2f20982b129675dd1b32aa47601e2b",
+      "value": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/proof-runner.txt",
+      "sha256": "133ae462930a750f586835027fb9be64ca40cebbd1c87126533b23a6909ba119",
+      "value": "ubuntu-24.04"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-10/android-native-proof/.scratch/device-evidence/api-29/scope.txt",
+      "sha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+      "value": "Actual signed beta83-to-candidate update, retained local work and package isolation only; not full application acceptance."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/proof-source.txt",
+      "sha256": "f4d4cacb32e1d9e952cf4aabcdcf6a38ce2f20982b129675dd1b32aa47601e2b",
+      "value": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/proof-workflow.txt",
+      "sha256": "f4d4cacb32e1d9e952cf4aabcdcf6a38ce2f20982b129675dd1b32aa47601e2b",
+      "value": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/proof-runner.txt",
+      "sha256": "133ae462930a750f586835027fb9be64ca40cebbd1c87126533b23a6909ba119",
+      "value": "ubuntu-24.04"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-update102-17/android-native-proof/.scratch/device-evidence/api-37.0/scope.txt",
+      "sha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+      "value": "Actual signed beta83-to-candidate update, retained local work and package isolation only; not full application acceptance."
+    }
+  ],
+  "reviewedFrozenSourceSeams": [
+    {
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "path": "scripts/ci-review-update",
+      "blobSha256": "f0bd91387ea6f478e1ec08ef5c9cc32620642b5bbbc0cd22a307258735381ca1"
+    },
+    {
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "path": "scripts/review-update-work-check",
+      "blobSha256": "c9924465aa3f5a8a5f267308cc5c67b474a06bf742ab298e783e086c326bf840"
+    },
+    {
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "path": "scripts/wallet-device-check",
+      "blobSha256": "417af34fd5ba833441aa0d7199185001b8383fafd840f103a3513a67a61a86d9"
+    },
+    {
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ReviewUpdateUiObserver.kt",
+      "blobSha256": "d2508e7000a902f6744ceb8e23c4737905105a0120509dea48ce2e78f6fab0fb"
+    },
+    {
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletDeviceUiObserver.kt",
+      "blobSha256": "901de2eb78cf920032f469146fcb459ab01d37301404a8473a286a4476479f8d"
+    }
+  ],
+  "limits": [
+    "This audits actual signed-update emulator proof, not full10run42452255196 or full17run42451092093. Neither pending full result is counted as passed; no promotion/publication decision is established.",
+    "Native-local-work.tar contains prepare and final verify (cold) PNG/XML files. The first post-update verify files use the same names and are overwritten by the cold observer; distinct successful work-after.log and work-after-cold.log preserve both exact observations. Do not claim a separate first-verify image set.",
+    "UID/network restoration results are independently checked for internal consistency with the frozen checker and passing receipts; this review does not reconnect to the original ephemeral emulators or re-query them.",
+    "Native screenshots/XML are separate sequential observations, not atomic frames. No physical device, motion, production server response, or exhaustive UI fidelity acceptance is inferred.",
+    "Public addresses appear only in original public-UI evidence. This reviewer receipt uses wallet-address hashes and does not output or access private wallet data.",
+    "No repo edits, emulator installs, CI dispatch/cancel, app/node mutations, or publication performed."
+  ]
+}

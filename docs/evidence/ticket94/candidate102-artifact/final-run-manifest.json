@@ -1,0 +1,53 @@
+{
+  "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "tag": "proof-prototype94-loaded-activity",
+  "focusedNotifications10": 42451074424,
+  "full17": 42451092093,
+  "full10": 42452255196,
+  "publicLatest": 102,
+  "nextCandidate": "102 published",
+  "qualification": "Both fresh complete SDK runs and collectors mandatory; no exception from earlier failed full144 runs.",
+  "compile": "PASS2m16s",
+  "sourceReview": "Both axes clear Activity readiness patch",
+  "focusedHeaderReviews": {
+    "spec": "prototype94-d9-header-native-spec-review.json",
+    "standards": "prototype94-d9-header-native-standards-review.json",
+    "qualification": "All28movies/1462frames retained. Fixed5sclip does not include all6.14s of action sequence; subsequent assertions establish closure."
+  },
+  "focusedNotifications10Conclusion": "success",
+  "candidate": {
+    "version": 102,
+    "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "bytes": 42355754,
+    "update10": 42454280787,
+    "update17": 42454286099,
+    "update10Conclusion": "success",
+    "update17Conclusion": "success",
+    "artifactReview": "No findings",
+    "updateNativeSpecReview": "No findings"
+  },
+  "full17Conclusion": "success",
+  "full17Collector": {
+    "packet": "docs/evidence/ticket94/final-1c7-android17",
+    "passed": 630,
+    "assumptions": 0
+  },
+  "full10Partitions": {
+    "wallet": "success",
+    "social": "success",
+    "chat": "success"
+  },
+  "full10Conclusion": "success",
+  "full10Collector": {
+    "packet": "docs/evidence/ticket94/final-1c7-android10",
+    "expectedIdentities": 629,
+    "passed": 628,
+    "assumptions": 1,
+    "qualification": "Single inherited API29 ProfilePublishing assumption; no missing/extra identities."
+  },
+  "finalReviews": {
+    "spec": "No actionable findings",
+    "standards": "No actionable findings"
+  }
+}

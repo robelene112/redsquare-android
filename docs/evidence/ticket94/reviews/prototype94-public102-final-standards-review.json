@@ -1,0 +1,41 @@
+{
+  "review": "Independent final public candidate102 pointer and download check",
+  "checkedAtUtc": "2026-11-08T07:08:50.368401+00:00",
+  "result": "No actionable public delivery mismatch. Candidate102 is publicly selected and its actual linked APK bytes and exact notes match the independently verified artifact.",
+  "findings": [],
+  "pageUrl": "https://davidengelen.nl/redsquare/",
+  "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+  "pagePointerAndLinkSource": [
+    "fetch('latest.json?check=' + Date.now(), {cache: 'no-store'})",
+    "const target = new URL(build.apkUrl);",
+    "document.querySelector('#notes').textContent = build.notes;",
+    "link.href = target.href; link.hidden = false;"
+  ],
+  "freshLatestUrl": "https://davidengelen.nl/redsquare/latest.json?check=1794121713065",
+  "latest": {
+    "versionCode": 102,
+    "versionName": "0.1.102",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "commit": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+    "notes": "Restores the approved app navigation, profiles, compact post actions and Chat design. Adds separate Posts/People and All/Mentions views, a direct Message action on profiles and retained reading and drafts. Stack includes a local design preview for discovery, reading, Visual/Markdown writing, publication review and access. Actual Stack network operations remain pending."
+  },
+  "actualLinkedDownload": {
+    "bytes": 42355754,
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "curlExit": 0
+  },
+  "notes": {
+    "exactImmutableFile": "/mnt/storage/redsquare-android-artifacts/prototype94-beta102-notes.txt",
+    "stripTrailingNewlineOnly": true,
+    "match": true,
+    "sourceFileSha256": "cd928924ff547079937cf817c4bf1627eec5fa1d52daae93c9f31ef0b866fc1a"
+  },
+  "limits": [
+    "Read-only public HTTP source/pointer/download verification; page JavaScript was inspected, not interactively executed.",
+    "APK signature/package/source/native behavior reuse prior candidate102 and final complete-proof receipts; no rebuild or publication performed by this reviewer."
+  ]
+}

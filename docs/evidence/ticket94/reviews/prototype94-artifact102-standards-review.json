@@ -1,0 +1,158 @@
+{
+  "reviewedAtUtc": "2026-11-08T06:22:17.337738+00:00",
+  "scope": "Independent signed candidate102 artifact/provenance/configuration/staging review only",
+  "findings": [],
+  "producer": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "buildManifest": {
+    "versionCode": 102,
+    "versionName": "0.1.102",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "commit": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "variant": "release"
+  },
+  "gitAtReview": {
+    "head": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+    "status": [],
+    "tagsPointingAtProducer": [
+      "proof-prototype94-loaded-activity"
+    ]
+  },
+  "actualApk": {
+    "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/102/redsquare.apk",
+    "bytes": 42355754,
+    "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7"
+  },
+  "signature": {
+    "independentlyVerified": true,
+    "method": "apksigner verify --print-certs on actual APK, exit0",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+  },
+  "actualDecodedApk": {
+    "package": "nl.davidengelen.redsquare",
+    "versionCode": "102",
+    "versionName": "0.1.102",
+    "minSdk": "29",
+    "targetSdk": "36",
+    "debuggable": "false",
+    "profileable": false,
+    "manifestSha256": "ea65997b296dc87aefcca2fa4c7299b9f48d9d5c8ddfa596d00f8e6faec84330",
+    "exactDecodedBuildReceiptMatch": true,
+    "duplicateZipEntries": 0,
+    "vendoredRteLicense": {
+      "entry": "META-INF/compose-rich-editor-LICENSE.txt",
+      "bytes": 11343,
+      "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722",
+      "exactSourceResourceMatch": true
+    }
+  },
+  "generatedReleaseBooleans": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "configurationBoundary": "Generated release booleans checked separately from actual APK manifest. Signed review/release version102 differs from complete-gate default version/debug/release/performance configuration; no binary equality or pending runtime claim.",
+  "publicStaging": {
+    "url": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+    "method": "Independent real curl --fail --location HTTPS download streamed to SHA256, no duplicate APK retained",
+    "downloadBytes": 42355754,
+    "downloadSha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+    "manifestMatchesAllBuildFields": true,
+    "publicManifest": {
+      "versionCode": 102,
+      "versionName": "0.1.102",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+      "commit": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "variant": "release",
+      "apkUrl": "https://davidengelen.nl/redsquare/releases/102/redsquare.apk",
+      "notes": "Restores the approved app navigation, profiles, compact post actions and Chat design. Adds separate Posts/People and All/Mentions views, a direct Message action on profiles and retained reading and drafts. Stack includes a local design preview for discovery, reading, Visual/Markdown writing, publication review and access. Actual Stack network operations remain pending."
+    },
+    "notesSource": "/mnt/storage/redsquare-android-artifacts/prototype94-beta102-notes.txt",
+    "notesSourceSha256": "cd928924ff547079937cf817c4bf1627eec5fa1d52daae93c9f31ef0b866fc1a",
+    "notesMatchExactlyAfterRemovingTrailingLf": true,
+    "notesUtf8Sha256": "daf7d7af2320400fb58c25ae9f463144d8a4d82fd223ffc5b565b9d57522aa3c",
+    "observedLatestVersion": 89,
+    "promotion": "Stage only, latest still89 at review"
+  },
+  "buildLog": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta102-build.log",
+    "sha256": "fab472a7df19e52412c33ddc8a2bfb6a93ff3d1da8626e649c4c6b1b70cfb81e",
+    "result": "BUILD SUCCESSFUL31s then1m3s, signed output path matches actual reviewed APK"
+  },
+  "inspectionEnvironment": {
+    "image": "redsquare-android-build:agp8.10.1",
+    "imageId": "sha256:c53d429fc1d896a90280072bedfd228d3c36844de40c9da7bcb80b961f0dd0e8",
+    "boundary": "Fresh --rm/no-network/read-only/cpu1/memory512m/currentUID containers. Only actualAPK mounted readonly. Separate apksigner/aapt/apkanalyzer inspections; no live service exec/signing material access."
+  },
+  "receipts": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/102/manifest.json",
+      "bytes": 352,
+      "sha256": "ac726ab6b82e39b7e403a015df9b160f814a8fec8e65145c83092d8e5b70abf4"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/102/signature.txt",
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/102/package.txt",
+      "bytes": 5068,
+      "sha256": "9980ad496dfaf581b7912dbca2761bcb993b16886ff9aa992fdd25528cee827b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/102/android-manifest.xml",
+      "bytes": 10814,
+      "sha256": "ea65997b296dc87aefcca2fa4c7299b9f48d9d5c8ddfa596d00f8e6faec84330"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-working/android-manifest.txt",
+      "bytes": 10814,
+      "sha256": "ea65997b296dc87aefcca2fa4c7299b9f48d9d5c8ddfa596d00f8e6faec84330"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-working/public-download-headers.txt",
+      "bytes": 720,
+      "sha256": "55360baae2ceb77a2b36cedbb370edc5b560270d77336bdab58120d4d9698ef7"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-working/package.txt",
+      "bytes": 5068,
+      "sha256": "9980ad496dfaf581b7912dbca2761bcb993b16886ff9aa992fdd25528cee827b"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-working/signature.txt",
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-working/public-manifest.json",
+      "bytes": 814,
+      "sha256": "90e3e3e40e51c35c37cb522d36f8abfb6026b5c9599241f2d228feb1539fedf0"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-artifact102-standards-working/observed-latest.json",
+      "bytes": 637,
+      "sha256": "d572f5c93dd4a9093b65caebc103467fd6b559eb5b193588085f7236720ad06e"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta102-notes.txt",
+      "bytes": 372,
+      "sha256": "cd928924ff547079937cf817c4bf1627eec5fa1d52daae93c9f31ef0b866fc1a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta102-build.log",
+      "bytes": 7423,
+      "sha256": "fab472a7df19e52412c33ddc8a2bfb6a93ff3d1da8626e649c4c6b1b70cfb81e"
+    }
+  ],
+  "limits": [
+    "Artifact provenance/configuration/staging only. Full10run42452255196 and full17run42451092093 remain outside this receipt; no pending result counted as passed.",
+    "No signed83-to102 continuity/native runtime/whole-app visual/full-release acceptance or promotion is established here.",
+    "Source binding rests on exact clean producer checkout, build/public source receipts and known build workflow, not reverse engineering compiled bytecode to prove all source files.",
+    "No source edits/build/install/CI dispatch/service/node/promotion operations performed. Only isolated readonly inspections, public reads and external reviewer receipts."
+  ]
+}

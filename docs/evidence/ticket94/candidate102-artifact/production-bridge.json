@@ -1,0 +1,12 @@
+{
+  "productionBaseline": "be37e8c4276e001a453bbb282d1f5ecd4d8bcb26",
+  "finalSource": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "changedOnlyDocumentationOrInstrumentationTests": true,
+  "unexpectedProductionPaths": [],
+  "frozenChecks": {
+    "docs/evidence/ticket94/catalog.json": "d647621d1a8abc7164ae1862325d824e4dafad6fed8d36ab98f43dcc042a4668",
+    "docs/evidence/ticket94/full-collector.py": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683",
+    "docs/evidence/ticket94/test-identities.py": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577"
+  },
+  "qualification": "Exact whole-tree path audit; no production/build/workflow/core inputs changed after own-author repair. Frozen acceptance remains required."
+}

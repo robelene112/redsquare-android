@@ -1,0 +1,389 @@
+{
+  "review": "Final issue94 aggregated pre-promotion Spec acceptance packet audit",
+  "reviewDateUtc": "2026-11-08",
+  "reviewer": "prototype94_spec_review",
+  "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "tag": "proof-prototype94-loaded-activity",
+  "result": "CLEAR for issue94 prototype-repair source/native/full-gate/signed-candidate prerequisites. No actionable missing application acceptance found. Exact102 promotion, independent public-pointer/byte verification and final evidence/tracker delivery remain required before claiming issue94 complete.",
+  "actionableAcceptanceFindings": [],
+  "authority": {
+    "prototypeCommit": "c95ecaa01abb71c576f052c7cc2303356416091c",
+    "designRevision": "design-3d989e9e8406",
+    "issues": [
+      "86 approved prototype",
+      "90 native evidence",
+      "94 owner-requested fidelity repair"
+    ],
+    "amendments": [
+      "Rounded named module selector",
+      "Actual identities/art/history/counts/balances rather than sample live data",
+      "Real node/block context",
+      "Profile biography/history divider and retained Likes",
+      "Grouped Chat/Activity and exact destinations",
+      "Compact local1.16heart pulse and repeated Like outline return",
+      "Reading chrome collapse/reveal",
+      "Stack explicitly local design preview while real network/publication/payment/subscription remains issue1"
+    ]
+  },
+  "fullGates": [
+    {
+      "sdk": "10",
+      "run": 42452255196,
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "runConclusion": "success",
+      "threeMandatoryJobs": [
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success",
+          "databaseId": 128643786465
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "success",
+          "databaseId": 128643786607
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "success",
+          "databaseId": 128643786704
+        }
+      ],
+      "identities": 629,
+      "uniqueClasses": 214,
+      "passed": 628,
+      "assumptions": 1,
+      "assumptionIdentities": [
+        {
+          "path": "ProfilePublishingPreviewTest-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+        }
+      ],
+      "missing": [],
+      "extra": [],
+      "archivePaths": 180,
+      "independentFrozenIdentityCheckerExit": 0,
+      "allThreeSourceWorkflowAndPartitionCompleteMarkersExact": true,
+      "originalPacketSha256SumsIndependentlyVerified": {
+        "files": 8152,
+        "bytes": 378303179
+      },
+      "totals": {
+        "identities": 629,
+        "normalCompletions": 231,
+        "deliberateInterruptions": 35,
+        "continuityRecords": 34,
+        "png": 5398,
+        "xml": 2499
+      },
+      "originalVisualErrors": {
+        "chat": [
+          {
+            "path": "chat/chat-image-history-evidence.tar",
+            "error": "unavailable archive"
+          }
+        ],
+        "wallet": [
+          {
+            "path": "wallet/live-official/wallet-first-failure.png",
+            "error": "PNG signature",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+          },
+          {
+            "path": "wallet/live-official/wallet-first-failure.xml",
+            "error": "syntax error: line 1, column 0",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+          },
+          {
+            "path": "wallet/live-owner/wallet-first-failure.png",
+            "error": "PNG signature",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+          },
+          {
+            "path": "wallet/live-owner/wallet-first-failure.xml",
+            "error": "syntax error: line 1, column 0",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+          }
+        ]
+      },
+      "visualErrorQualification": "Every exact path/error/prefix is present in the frozen legacy53 baseline. Includes unavailable old chat-image-history archive and absent live-feed failure-only PNG/XML cat output. These are retained legacy limitations, not newly waived goals or missing identities.",
+      "packetFiles": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android10/summary.json",
+          "sha256": "c8a175259fbc5ad367ada751657ce8e55c756127a1bf10b60bd5b769faf93f61"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android10/run.json",
+          "sha256": "4e86f582b1e75da7926c9713f70d57f8cfb2f57c11715e2f3e87a1de60fd9aec"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android10/identities.json",
+          "sha256": "7326cb6e8f29bdea440c77f885262dfd67e49e266e59db96f6c91d287b7fc6f1"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android10/archive-inventory.json",
+          "sha256": "e4b2b8ba017430889bd79b55b098276ff51caa381109bc03a2aa41ae49c5d2a1"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android10/direct-original-inventory.json",
+          "sha256": "cae93e4a7829a9d67bf7ab590d431d2d071e3ce88cc635c8f57b5aff56bb3037"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android10/SHA256SUMS",
+          "sha256": "f356946a592b1244f230b1af5a235036e19530da9c3694bbfbcad6997a2ae70a"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "run": 42451092093,
+      "source": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "runConclusion": "success",
+      "threeMandatoryJobs": [
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "success",
+          "databaseId": 128640280972
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success",
+          "databaseId": 128640281096
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "success",
+          "databaseId": 128640281143
+        }
+      ],
+      "identities": 630,
+      "uniqueClasses": 214,
+      "passed": 630,
+      "assumptions": 0,
+      "assumptionIdentities": [],
+      "missing": [],
+      "extra": [],
+      "archivePaths": 180,
+      "independentFrozenIdentityCheckerExit": 0,
+      "allThreeSourceWorkflowAndPartitionCompleteMarkersExact": true,
+      "originalPacketSha256SumsIndependentlyVerified": {
+        "files": 8660,
+        "bytes": 420626790
+      },
+      "totals": {
+        "identities": 630,
+        "normalCompletions": 232,
+        "deliberateInterruptions": 35,
+        "continuityRecords": 34,
+        "png": 5903,
+        "xml": 2500
+      },
+      "originalVisualErrors": {
+        "chat": [
+          {
+            "path": "chat/chat-image-history-evidence.tar",
+            "error": "unavailable archive"
+          }
+        ],
+        "wallet": [
+          {
+            "path": "wallet/live-official/wallet-first-failure.png",
+            "error": "PNG signature",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+          },
+          {
+            "path": "wallet/live-official/wallet-first-failure.xml",
+            "error": "syntax error: line 1, column 0",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+          },
+          {
+            "path": "wallet/live-owner/wallet-first-failure.png",
+            "error": "PNG signature",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+          },
+          {
+            "path": "wallet/live-owner/wallet-first-failure.xml",
+            "error": "syntax error: line 1, column 0",
+            "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+          }
+        ]
+      },
+      "visualErrorQualification": "Every exact path/error/prefix is present in the frozen legacy53 baseline. Includes unavailable old chat-image-history archive and absent live-feed failure-only PNG/XML cat output. These are retained legacy limitations, not newly waived goals or missing identities.",
+      "packetFiles": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android17/summary.json",
+          "sha256": "3ed4022bc39560449232952bb48e455a5d4233815d7af66776cd555bf052588d"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android17/run.json",
+          "sha256": "755d6b149e1dee58066dd0c9d797cad2b425f3f4030e17607a49845138437fd4"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android17/identities.json",
+          "sha256": "af8e6ea2dab5893404d30a57c779602d0a573f1562f4868c18faef846c3c621d"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android17/archive-inventory.json",
+          "sha256": "7e739352f1867001861d2d05f54de99367a9a93420f499b75b429818980cc520"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android17/direct-original-inventory.json",
+          "sha256": "f155c8c4fc3441f1bbff25ffdd3e10bfed957645e0502ace5fe0bf42355e66ae"
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/final-1c7-android17/SHA256SUMS",
+          "sha256": "135c1fbf0c77767f01fe55fd01b048870304a8eb257649a4a9296cd1f9dff6e3"
+        }
+      ]
+    }
+  ],
+  "frozenChecks": {
+    "catalog": {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/catalog.json",
+      "sha256": "d647621d1a8abc7164ae1862325d824e4dafad6fed8d36ab98f43dcc042a4668"
+    },
+    "collector": {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/full-collector.py",
+      "sha256": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683"
+    },
+    "identityChecker": {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/test-identities.py",
+      "sha256": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577"
+    },
+    "acceptanceInputHashesAllMatch": true,
+    "requiredArchiveSetsExact": true,
+    "collectorRerunByReviewer": false,
+    "qualification": "Reviewed original completed collector packets; independently reran unchanged identity checker on both complete partition sets, verified frozen hashes/counts/archive sets/legacy-errors/source markers and every retained packet SHA256SUMS file. Did not modify or reexecute collector into repository."
+  },
+  "productionBridge": {
+    "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/candidate102-artifact/production-bridge.json",
+    "sha256": "326487650e7beb7c2e59cc2788aefc4436d303e3ae921b960326f6512489433d",
+    "value": {
+      "productionBaseline": "be37e8c4276e001a453bbb282d1f5ecd4d8bcb26",
+      "finalSource": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "changedOnlyDocumentationOrInstrumentationTests": true,
+      "unexpectedProductionPaths": [],
+      "frozenChecks": {
+        "docs/evidence/ticket94/catalog.json": "d647621d1a8abc7164ae1862325d824e4dafad6fed8d36ab98f43dcc042a4668",
+        "docs/evidence/ticket94/full-collector.py": "bedb2872297254dc2315345f8a5167edb03a63b417d100747bc3fec11106b683",
+        "docs/evidence/ticket94/test-identities.py": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577"
+      },
+      "qualification": "Exact whole-tree path audit; no production/build/workflow/core inputs changed after own-author repair. Frozen acceptance remains required."
+    },
+    "independentWholeTreePathCheck": true,
+    "changedPathsCount": 355,
+    "unexpectedPaths": [],
+    "currentWorkingAppTestBuildScriptDiffEmpty": true
+  },
+  "candidate102": {
+    "manifest": {
+      "versionCode": 102,
+      "versionName": "0.1.102",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "616a151011887ba2f19be9cba8fb23d69f33d4b4da15d02bebcc142d1ec14fb7",
+      "commit": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+      "variant": "release"
+    },
+    "manifestPath": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/candidate102-artifact/manifest.json",
+    "manifestSha256": "ac726ab6b82e39b7e403a015df9b160f814a8fec8e65145c83092d8e5b70abf4",
+    "exactOriginalNotesPath": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/candidate102-artifact/release-notes.txt",
+    "notesSha256": "cd928924ff547079937cf817c4bf1627eec5fa1d52daae93c9f31ef0b866fc1a",
+    "notesMatchExternalImmutableOriginal": true,
+    "signedUpdateRuns": {
+      "android10": 42454280787,
+      "android17": 42454286099
+    },
+    "artifactAndActualUpdateNativeIndependentReviewsClear": true
+  },
+  "qualifiedPriorNativeAndArtifactReviews": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/ffe-search-writing-spec.json",
+      "sha256": "fd5c74af1ec97f968b94a6ba76bfb4822a56492f27ddae21b4e461abfd3ac598",
+      "qualification": "Search Posts/People and real publishing/editor/draft composition, large text/IME. Focused source-equivalent rendering, not an old full pass."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/ea76-chat-activity-spec.json",
+      "sha256": "ec8366a2f997f967771e1cccd3d71ea4f892f2002f983b1bf72953aa93384ee9",
+      "qualification": "Private/group Chat entry, profile-origin draft reopening, exact native targets and actual nonzero Activity reading roundtrip on both SDKs."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/d683-partial-social-native-spec.json",
+      "sha256": "bfdffa77b21c9329b5486fd117af54396b5ecbda973eaf082ce7d0e18befc124",
+      "qualification": "Feed, compact social controls, thread/profile/editor representative composition and independently decoded original motion. Failed old full remains failed."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/69dd-avatars17-native-spec.json",
+      "sha256": "f21ac85e8619ab79a23c0581566b90bdbd9af591fde42f2f199c4e4c3f73d7c8",
+      "qualification": "Signed identity-picture changes/removal across Feed/Thread/People/Activity/Chat/Profile and actual original normal/zero movies."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/69dd-heart-profile-native-spec.json",
+      "sha256": "36f4e8250fb310592886e10b07b13b46d0d0e0171bd0a6f94fcd5df68125a4b4",
+      "qualification": "Local repeatable outline-return heart pulse, no ring/label, original normal/zero movies and signed Like envelopes."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/69dd-stack-shell-native-spec.json",
+      "sha256": "9eeb971211506a368c9ee3b71a7b2eb4bacbaeb0357e4d55818666eb94f2c32f",
+      "qualification": "Android10 full local Stack route/editor/source/access/reading/menu subset. Historical own-preview missing author finding is closed only by later real-author source/native proof, not by modifying this receipt."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-b64-17-stack-shell-native-spec-review.json",
+      "sha256": "60bee375f906bf29fd35629b29eb23a4373be0723551e191c318660a403c7c88",
+      "qualification": "Complementary Android17 module/account/Stack route and normal/zero motion subset, qualified by retained production bridge."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-author-v2-10-native-spec-review.json",
+      "sha256": "aed43190ec08f69cf4af7c881bdc07a9cacdbfcd03aa7ae8113a87cb584dfd41",
+      "qualification": "Corrected real own-preview byline and actual full public-key details, Dark412font130, Android10."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-author-v2-17-native-spec-review.json",
+      "sha256": "2d48f21ccc9bdef86f3559dd17caed6e2850044473f756d7f219b43439ad682e",
+      "qualification": "Independent same fixed own-preview byline/public-key details on Android17."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-144-social-profile-actions-mentions-native-spec-review.json",
+      "sha256": "8a16840760a55b720cbb782c1584a5d661efce45f9844be97cf02131806ae75b",
+      "qualification": "Open Profile actions, full public identity, Mute confirmation, selected/retained Mentions across both SDKs and selected font/themes."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-d9-header-native-spec-review.json",
+      "sha256": "84ea922187e6ac4fae01ea0b54c7069af2d326b89d418f48cbef6184377be1ff",
+      "qualification": "BothSDK actual module/account/menu/header reading normal/zero films, all retained frame counts/PTS/dimensions and original180s focused class completion."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-artifact102-standards-review.json",
+      "sha256": "bc97f6c1de0d7fefab07a306e98646b850813bb5161ef590894c7cfe42a1c874",
+      "qualification": "Independent actual signed102 artifact/public-byte/package/certificate/source/configuration/vendor-license review."
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/reviews/prototype94-update102-native-spec-review.json",
+      "sha256": "3a8d40918a09e71e7a6290fee32f557f260fc939a34facd299b38f5271c801d7",
+      "qualification": "Independent genuine83-to102 updates bothSDKs, four wallet observations each, exact authored cached post/draft/Light/cold/UID/debug separation/restoration; actual native PNG/XML."
+    }
+  ],
+  "historicalFailureHandling": [
+    "Prior full/focused assertion failures, deadline timeout, memory-parity guard, blank wallet-return state, author-row absence and failed diagnostic harness remain recorded as failures or diagnostic observations. They are not counted as passes or assembled into the two new complete runs.",
+    "All3partitions on each new full share exact1c7source and complete the full frozen catalog with original goals/deadlines. No one-SDK exception or tail/public-read assembly is invoked.",
+    "Old69ddown-preview-author actionable finding is resolved by actual real-identity author source and independent14410/17native row/dialog proofs, then same renderer is exercised by final complete1c7gates.",
+    "Earlier causal uncertainties (including transient blank wallet state, API29focused16MiB process anomaly and coordinate/fade/readiness races) are not rewritten as proven causes. Current complete acceptance establishes passing original goals on final runs, not historical-cause certainty."
+  ],
+  "remainingBeforeIssue94Completion": [
+    "Promote exactly staged102 APK and immutable release notes through the authorized publisher. No rebuild or version reuse.",
+    "Independently verify public latest manifest/HTML/download pointers now select102 and actual downloaded bytes/hash/package/version/certificate match the accepted artifact. Verify protected historical resources remain unchanged as required by publication workflow.",
+    "Retain publication/public-after receipts, finalize maintained status/evidence-only commit and push, and close issue94 only after those checks. Current latest89 is reported by the pre-promotion packet; no after-promotion pointer verification has occurred in this review."
+  ],
+  "explicitLimits": [
+    "Acceptance is scoped to issue94 prototype repair and signed beta delivery prerequisites. It does not close issues1/36/55/84/86 or establish physical Pixel performance, actual configured-provider delivery, business/policy operations, ARM64/Play/store submission or owner app-wide acceptance.",
+    "Manual native review is representative and source-qualified across retained receipts, not manual inspection of all180archives or every frame. Exact per-receipt counts/PTS/hashes and asynchronous screenshot/XML limits remain authoritative.",
+    "No open Block-confirmation pixels were manually inspected in the supplied Profile-action subset. Its functional paths/source/shared structure and final full gates are separate evidence; this audit does not retroactively claim those pixels were viewed.",
+    "API29dialog native bounds in selected asynchronous/clipped XML do not prove every48dp target. API17positive geometry, source controls and native functional assertions remain separate evidence. No blanket allAPI29geometry claim.",
+    "Some motion films end before callback completion. Separate successful native assertions establish subsequent closure/destinations; no fabricated movie tail, every-frame fluency or physical-motion timing guarantee.",
+    "Signed update native TAR overwrites first verify images with final cold verify images; distinct logs retain both exact observations. No separate first-verify screenshot set claimed.",
+    "The single inherited API29ProfilePublishing assumption is explicitly retained; Android10 is628passed+1assumption, not629unqualifiedpasses. Android17is630passed/noassumptions.",
+    "Known frozen legacy unavailable failure-only evidence remains visible in collector summaries. It is not newly omitted or treated as actual valid PNG/XML.",
+    "No new broad screenshot re-audit in this aggregation. No source edits, CI dispatch/cancel, build/install, service/node mutation, publication or pointer update performed."
+  ],
+  "documentationObservation": "Current maintained tops correctly distinguish staged102/latest89 and final complete results from historical checkpoints. The previously stale finish-Android10-collector handoff phrase was removed by root during review. Final independent packet reviews remain marked pending until this and peer reviews are recorded."
+}

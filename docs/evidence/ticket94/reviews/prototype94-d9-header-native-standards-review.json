@@ -1,0 +1,245 @@
+{
+  "reviewedAtUtc": "2026-11-08T05:39:14.840428+00:00",
+  "scope": "Focused original D9 ModuleHeaderMotionTest and ModuleMenuKeyboardMotionTest native evidence Standards audit only",
+  "findings": [],
+  "source": "d9c1ed4d2b0906281b972f1f90bd00e95c146257",
+  "currentConsumer": "1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c",
+  "unchangedClassCapSeconds": 180,
+  "sourceEquivalence": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NativeMotionEvidence.kt": "ceeb721cd99212489894be8f52cf45581db5aea2f9a8305a1bae1086ba5e1400",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ModuleHeaderMotionTest.kt": "d21c889996fe1ea99d0c321775954d9503a26d03f40f6ad1d73fb8c5e3786809",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ModuleMenuKeyboardMotionTest.kt": "a99745a3e6e31422b2c32248c75224b9f80266e8ef2d867d977cd385222f20af",
+    "scripts/emulator-check": "3198dcd740d31ffc0a34601e9592a4e84a9bdbeeb9088e3fa4bd4dd221762ce1"
+  },
+  "originalByteInventory": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/original-byte-inventory.json",
+    "sha256": "768cece692db01b239542cff646ddac674f92223a4aa2a82e3aa97c09f5cad08",
+    "originalTars": 4,
+    "safelyExtractedExactOriginalFiles": 1608,
+    "retainedRepoTarsEqualDownloadedOriginalBytes": true
+  },
+  "allFrameAudit": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/all-frame-index-pts-tail-verification.json",
+    "sha256": "9e215b0d3b648eca28586269d62e01500942c06d19502d1bc94eb4e36c125a54",
+    "originalMp4sIndependentlyProbed": 28,
+    "framesWithCompleteIndexPtsDimensionsAndPngFileChecks": 1462,
+    "allRecordedTailFilesPresent": true,
+    "dimensions": [
+      320,
+      640
+    ],
+    "timestampMethod": "Exact integerPTS times stream time_base converted to whole microseconds; equals original MediaExtractor metadata exactly. Rounded six-decimal ffprobe text can differ1us and was not used as expected timestamps. No tolerance or original metadata change."
+  },
+  "visualSamples": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/sampled-frame-receipt.json",
+    "sha256": "2f1848afae44bb79dc56d4d9001e328424ada1527d32b380700aac8f24d94352",
+    "originalMoviesSampled": 6,
+    "independentlyDecodedFramesVisuallyInspected": 18,
+    "additionalNativeRetainedTailPngsVisuallyCompared": 3,
+    "note": "18 independent movie frames plus3 original native-tail PNGs actually viewed. Not a manual visual pass of every frame."
+  },
+  "packets": [
+    {
+      "android": "10",
+      "api": "29",
+      "runId": "42449386645",
+      "sourceProofPath": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header10/android-native-proof/.scratch/proof-source.txt",
+      "sourceProofSha256": "b55f6da17e4e06923b7b4b4205e889d58b50a28c6cc7bdd1dc754c670c397b5e",
+      "workflowProofSha256": "b55f6da17e4e06923b7b4b4205e889d58b50a28c6cc7bdd1dc754c670c397b5e",
+      "retainedInventory": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/focused-fixture-corrections/d9-header10/SHA256SUMS",
+      "retainedInventorySha256": "01af3f5cd890139efc076d738c139bdda886298684e798da5a38dcc1d6d8a769",
+      "retainedEntriesVerified": 17,
+      "observedQualification": {
+        "source": "d9c1ed4d2b0906281b972f1f90bd00e95c146257",
+        "run": 42449386645,
+        "conclusion": "success",
+        "qualification": "Original focused artifacts only, never complete acceptance. Android10 notifications core32 pass, grouping navigation fails while list loads. All original classes/deadlines unchanged.",
+        "selectedOriginalFiles": 17
+      },
+      "nativeClasses": [
+        {
+          "class": "ModuleHeaderMotionTest",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header10/android-native-proof/.scratch/device-evidence/api-29/module-header-ui.txt",
+          "sha256": "e552692556e4647836e833eecfbb7de64c9d5c9603fe962fb889daab3d476556",
+          "exitPath": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header10/android-native-proof/.scratch/device-evidence/api-29/module-header-ui-exit.txt",
+          "exitSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "exit": 0,
+          "reportedTests": 1,
+          "elapsedSeconds": 108.785,
+          "originalCapSeconds": 180
+        },
+        {
+          "class": "ModuleMenuKeyboardMotionTest",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header10/android-native-proof/.scratch/device-evidence/api-29/module-menu-ui.txt",
+          "sha256": "0420e783b7a12f5671fd2200c107c310e47a295694c9d5100e34b06edd121b5b",
+          "exitPath": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header10/android-native-proof/.scratch/device-evidence/api-29/module-menu-ui-exit.txt",
+          "exitSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "exit": 0,
+          "reportedTests": 1,
+          "elapsedSeconds": 26.645,
+          "originalCapSeconds": 180
+        }
+      ],
+      "movies": 14,
+      "allOriginalFrames": 774
+    },
+    {
+      "android": "17",
+      "api": "37.0",
+      "runId": "42449386489",
+      "sourceProofPath": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header17/android-native-proof/.scratch/proof-source.txt",
+      "sourceProofSha256": "b55f6da17e4e06923b7b4b4205e889d58b50a28c6cc7bdd1dc754c670c397b5e",
+      "workflowProofSha256": "b55f6da17e4e06923b7b4b4205e889d58b50a28c6cc7bdd1dc754c670c397b5e",
+      "retainedInventory": "/mnt/storage/redsquare-android-artifacts/redesign86/docs/evidence/ticket94/focused-fixture-corrections/d9-header17/SHA256SUMS",
+      "retainedInventorySha256": "93cf138b6f5c47663b898059d7dc9fcb458a96c08960d81c7aace4938e4c548f",
+      "retainedEntriesVerified": 19,
+      "observedQualification": {
+        "source": "d9c1ed4d2b0906281b972f1f90bd00e95c146257",
+        "run": 42449386489,
+        "conclusion": "success",
+        "qualification": "Original focused artifacts only, never complete acceptance. Android10 notifications core32 pass, grouping navigation fails while list loads. All original classes/deadlines unchanged.",
+        "selectedOriginalFiles": 19
+      },
+      "nativeClasses": [
+        {
+          "class": "ModuleHeaderMotionTest",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header17/android-native-proof/.scratch/device-evidence/api-37.0/module-header-ui.txt",
+          "sha256": "a30c9371abb5aa86b28485c093af5838d147b10360c6cd23d0b4cf32c658efd7",
+          "exitPath": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header17/android-native-proof/.scratch/device-evidence/api-37.0/module-header-ui-exit.txt",
+          "exitSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "exit": 0,
+          "reportedTests": 1,
+          "elapsedSeconds": 123.141,
+          "originalCapSeconds": 180
+        },
+        {
+          "class": "ModuleMenuKeyboardMotionTest",
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header17/android-native-proof/.scratch/device-evidence/api-37.0/module-menu-ui.txt",
+          "sha256": "8c601f44b7d3dfb946d9abefa8317e724dd802dbbe274c776a583cf2dc9e2d58",
+          "exitPath": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header17/android-native-proof/.scratch/device-evidence/api-37.0/module-menu-ui-exit.txt",
+          "exitSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "exit": 0,
+          "reportedTests": 1,
+          "elapsedSeconds": 32.704,
+          "originalCapSeconds": 180
+        }
+      ],
+      "movies": 14,
+      "allOriginalFrames": 688
+    }
+  ],
+  "windowMotionProofs": [
+    {
+      "android": "10",
+      "group": "module-header-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android10/module-header-motion-evidence/module-header-motion-evidence/scale-0-window.json",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "android": "10",
+      "group": "module-header-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android10/module-header-motion-evidence/module-header-motion-evidence/scale-1-window.json",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "android": "10",
+      "group": "module-menu-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android10/module-menu-motion-evidence/module-menu-motion-evidence/scale-0-window.json",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "android": "10",
+      "group": "module-menu-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android10/module-menu-motion-evidence/module-menu-motion-evidence/scale-1-window.json",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "android": "17",
+      "group": "module-header-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android17/module-header-motion-evidence/module-header-motion-evidence/scale-0-window.json",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "android": "17",
+      "group": "module-header-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android17/module-header-motion-evidence/module-header-motion-evidence/scale-1-window.json",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    },
+    {
+      "android": "17",
+      "group": "module-menu-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android17/module-menu-motion-evidence/module-menu-motion-evidence/scale-0-window.json",
+      "sha256": "7c95ce3c1a29022f2dc2148762f7e76693cf13c3e3949ce53c501ed11942e8d3",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 0.0,
+        "systemMotionScale": 0.0
+      }
+    },
+    {
+      "android": "17",
+      "group": "module-menu-motion-evidence",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d9-header-standards-working/android17/module-menu-motion-evidence/module-menu-motion-evidence/scale-1-window.json",
+      "sha256": "fb1403caa626b0a3ce44e97d26fd75e906226e4f1551884431786c9fa4850e53",
+      "observation": {
+        "isRecomposer": true,
+        "windowMotionScale": 1.0,
+        "systemMotionScale": 1.0
+      }
+    }
+  ],
+  "conclusions": [
+    "All28 original MP4 frame counts/indices/PTS match native manifests; all1462 named native PNGs exist with expected320x640 dimensions, including every final index. No truncation/drop found in these checks.",
+    "Both original classes pass on bothSDKs under their unchanged180-second invocation caps. Actual header108.785s/123.141s and menu26.645s/32.704s are retained; no deadline increase or evidence-count reduction.",
+    "Actual window recomposer/system motion receipts match0 and1 for header and menu on bothSDKs.",
+    "Sampled original transitions show shared module chrome, menu, Stack/article content and return states without a new visible loss/regression. Native and independently decoded selected tails visually agree.",
+    "API10 last normal article-reading tail114 andAPI17 tail78 are present and visually coherent, supplementing complete automated tail checks."
+  ],
+  "limits": [
+    "Focused two-class proof only, not complete214-class/full-run/native-whole-app/signed-release/update/promotion acceptance. No partial acceptance assembly.",
+    "Counts/PTS/dimensions/all-tail validation covers all28 movies; detailed manual visual inspection is bounded to18 independent frames and3 retained native tails. No whole-movie/per-pixel equivalence claim across different decoder implementations.",
+    "A fixed5-second recorder can finish before the full multi-action callback. API17scale0module ends with Account open: action returned6.136694453s after start, while native movie tail is4.553522s. Subsequent original Escape/Stack assertions pass; the clip alone does not show complete dismissal. This is a recording-coverage limit, not dropped encoded frames.",
+    "VFR recordings do not imply a frame at every wall-clock instant. Tail completeness means all actually encoded video samples, not every later action.",
+    "Emulator timings do not establish physical-device performance or a universal causal speedup. Earlier fixed-order benchmark warm-up/file-I/O caveats remain; actual unchanged-cap passes are the present end-to-end result.",
+    "Current unrelated Activity wait change is outside these class/helper sources. No source/app/service/node/CI changes performed by reviewer."
+  ],
+  "metadataNotes": [
+    "At review, focused qualification.json includes an accurate but misplaced Notifications/grouping context clause. Source/run/conclusion are correct; parent acknowledged it and plans to rescope wording in final evidence-only commit. Original native bytes remain unchanged."
+  ],
+  "decoder": {
+    "image": "x-downloader:442d3c1",
+    "imageId": "sha256:b5d3218a55fc9edb2afd906c69fa1a2d4a4ea21ef653f1a392849098537adc64",
+    "ffmpegVersion": "7.1.5-0+deb13u1",
+    "boundary": "Fresh --rm/no-network/read-only/cpu1/memory512m/currentUID; originals readonly, external output only; no live service exec."
+  }
+}
