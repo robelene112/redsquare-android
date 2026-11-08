@@ -703,6 +703,27 @@ if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == avatars* ]]; then
     done > "$evidence/avatar-recovery-runtime-properties.txt"
     timeout 15 adb shell ps -A -o PID,PPID,NAME > "$evidence/avatar-recovery-processes.txt"
     cp "$avd_home/redsquare-proof.avd/config.ini" "$evidence/avatar-recovery-avd-config.ini"
+    if [[ "$TEST_DEVICE_API" == 29 ]]; then
+        # Diagnostic branch only: read current configuration and launch one ordinary
+        # standalone VM. Do not set properties, raise heap limits or restart services.
+        for property in dalvik.vm.extra-opts dalvik.vm.heapstartsize ro.zygote ro.kernel.qemu.dalvik.vm.heapsize init.svc.zygote init.svc.zygote_secondary; do
+            printf '%s=' "$property"
+            timeout 15 adb shell getprop "$property" | tr -d '\r'
+        done > "$evidence/avatar-runtime-extra-properties.txt"
+        for runtime_file in /vendor/etc/init/hw/init.ranchu.rc /init.rc /system/etc/init/hw/init.rc /system/etc/init/hw/init.zygote64_32.rc /default.prop /system/build.prop /vendor/default.prop /vendor/build.prop; do
+            runtime_label=${runtime_file//\//_}
+            timeout 15 adb shell cat "$runtime_file" > "$evidence/runtime-$runtime_label.txt" 2>&1 || true
+        done
+        timeout 20 adb shell logcat -b all -d -v threadtime > "$evidence/avatar-runtime-boot-logcat.txt" 2>&1 || true
+        test_runtime_apk=$(timeout 15 adb shell pm path nl.davidengelen.redsquare.dev.test | tr -d '\r' | sed -n 's/^package://p')
+        if [[ "$test_runtime_apk" =~ ^/data/app/[A-Za-z0-9_./~=+-]+/base\.apk$ ]]; then
+            timeout 25 adb shell env "CLASSPATH=$test_runtime_apk" /system/bin/app_process64 /system/bin \
+                nl.davidengelen.redsquare.diagnostics.HeapRuntimeSnapshot \
+                > "$evidence/avatar-fresh-runtime.txt" 2>&1 || true
+        else
+            printf '%s\n' 'No single approved test APK path' > "$evidence/avatar-fresh-runtime.txt"
+        fi
+    fi
     verify_group_chat_native AvatarRecoveryPreviewTest 180 avatar-recovery avatar-evidence
     verify_group_chat_native AvatarMotionTest 180 avatar-motion avatar-evidence
     if [[ "${TEST_SCOPE:-full}" == avatars* ]]; then
