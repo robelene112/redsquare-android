@@ -1,0 +1,114 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityGroupingPreviewTest:
+INSTRUMENTATION_STATUS: test=aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNewLikeRaisesItsReadGroupAutomaticallyWhileDuplicateReloadKeepsItRead
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'Liked your post' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview$lambda$26(ActivityGroupingPreviewTest.kt:108)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.$r8$lambda$XQwZNt_UIzQl1e5mzt9LBOSeXEY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview(ActivityGroupingPreviewTest.kt:93)
+
+INSTRUMENTATION_STATUS: stream=
+Error in samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview(nl.davidengelen.redsquare.ActivityGroupingPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'Liked your post' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview$lambda$26(ActivityGroupingPreviewTest.kt:108)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.$r8$lambda$XQwZNt_UIzQl1e5mzt9LBOSeXEY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview(ActivityGroupingPreviewTest.kt:93)
+
+INSTRUMENTATION_STATUS: test=samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=severalPeopleLikingOnePostShareOneDirectDestinationWithoutSwallowingReplies
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=severalPeopleLikingOnePostShareOneDirectDestinationWithoutSwallowingReplies
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.613
+There was 1 failure:
+1) samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview(nl.davidengelen.redsquare.ActivityGroupingPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'Liked your post' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview$lambda$26(ActivityGroupingPreviewTest.kt:108)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.$r8$lambda$XQwZNt_UIzQl1e5mzt9LBOSeXEY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingPreviewTest.samePersonDifferentTargetsKeepExactDirectNavigationWithoutAPreview(ActivityGroupingPreviewTest.kt:93)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

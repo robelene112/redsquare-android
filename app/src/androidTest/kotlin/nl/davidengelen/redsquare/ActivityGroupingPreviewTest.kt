@@ -104,7 +104,9 @@ class ActivityGroupingPreviewTest {
             captureNativeScreen(File(folder, "missing-preview-direct-reference.png"))
             ui.onNodeWithText("Back").performClick()
             // Opening the exact target retains the existing explicit per-event read controls.
-            ui.waitUntil(15_000) { ui.onNodeWithText("2 unread").isDisplayed() }
+            ui.waitUntil(15_000) { ui.refreshableContentReady() &&
+                ui.onNodeWithText("2 unread").isDisplayed() &&
+                ui.onNode(hasText("Liked your post") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Liked your post") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()

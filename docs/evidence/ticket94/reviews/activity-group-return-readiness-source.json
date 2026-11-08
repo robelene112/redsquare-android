@@ -1,0 +1,17 @@
+{
+  "baseline": "d9c1ed4d2b0906281b972f1f90bd00e95c146257",
+  "file": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityGroupingPreviewTest.kt",
+  "change": "Strengthen existing15s wait after Back with completed refresh and exact clickable target visibility. No extra wait or new retry.",
+  "specReview": {
+    "agent": "prototype94_spec_review",
+    "findings": [],
+    "qualification": "Native rerun still required. Original2unread, exact signed-ID lookup, Retry and known-root navigation goals unchanged."
+  },
+  "standardsReview": {
+    "agent": "prototype94_standards_review",
+    "findings": [],
+    "qualification": "Shared readiness helper; no new smell or deadline, reset, case or catalog changes."
+  },
+  "evidence": "focused-fixture-corrections/d9-notifications10/.scratch/device-evidence/api-29/activity-group-evidence.tar",
+  "observation": "Failure PNG shows loading notifications with cached2unread and empty list. Not an offscreen scrolling failure."
+}

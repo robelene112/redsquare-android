@@ -2,221 +2,39 @@
 
 ## Current verification status
 
-All144 complete runs are FAILED and retained:10 WalletPASS, ChatModuleHeader
-host180s timeout and Social32cases/3virtualisedactor-count failures;17 WalletPolicy
-TalkBack route failure, Chatpre-deathphoto capturedduringfade, Socialsame3actor-count
-failures. Neither SDK has a full pass, so no one-SDK/tail exception is eligible.
+Issue94 remains open: restore the approved native prototype, then publish a signed
+beta after both complete Android gates and signed-update checks. Latest public
+beta is89. Counter101;102 is unbuilt and unreserved. Never promote93 through101.
+Production source last changed atbe37e8c42 (real own-author row in the local Stack
+preview). Later changes are test fixtures and evidence only. Stack remains a local
+design preview; actual network/publication/payment behavior stays under issue1.
 
-Current proposed corrections change only three Android-test helpers: retain ALL
-motion frames in batchesof4 with identicalPTS/names/losslessPNG/per-framewidth and
-boundedrecycling; check exactly3logicalnotificationrows and eachsignedactor through
-real listscrolling; await exact photoARGB within original20s with snapshots recycled
-finally. Both review axes clear the final diff; instrumentation compile2m13s passes.
-No production/build/workflow/catalog/identity/deadline changes. Fresh focused native
-checks then complete10/17 gates remain mandatory before102build/promotion.
+Focused source d9c1ed4d2b0906281b972f1f90bd00e95c146257:
 
-Paired normal-instrumentation codec comparisons pass on29/37 (runs42447998875 /
-42447998965): all191orderedPNG hashes match single/batch2/batch4, everyPTS/count/
-dimension preserved. Every191retained original29PNG also matches the freshbaseline.
-Observed timings favorbatch4, with fixed-order/warm-up/no-fileIO limitations retained;
-these diagnostic cases do not replace original180sclass/fullacceptance. Original
-ModuleHeader timeout/notification/photo failures remain under failures/144-*.
-The earlier standalone probe exited137/Killed without usable result and was not
-accepted; the valid comparison uses a separate diagnostic-only test class outside
-Main and its frozen catalog. Native helper adoption still needs fresh180sclasspasses.
+- Original180s module header/menu classes pass on10/17, runs42449386645 and
+  42449386489. Every recorded motion frame is retained in consecutive batches of4.
+- Private/group photo process recovery17 passes, run42449386884; the exact original
+  ARGB target is awaited within the unchanged20s, with every snapshot recycled.
+- Complete Notifications17 focused scope passes, run42449386669.
+- Notifications10 run42449386941 fails a later Activity group navigation case.
+  All32 core notification cases pass. Original failure PNG shows cached2unread
+  while the list is still loading, not an offscreen row. The existing15s wait now
+  also requires refresh readiness and the exact clickable target to be displayed.
+  Both independent source reviews find no weakening. Native rerun is still due.
 
-Policy17 focused3c686 run42446087481 passes53.6s with exactoriginalgoals: radiofocus
-requestedafter2843mswithin shared5000ms and bothnodeutterancescompleted. Actual
-identity/draft/restoration stay intact. Causeofoldcoordinatehandoff remains unproven.
-Latestbeta89,counter101,102unbuilt/unreserved. Preserve all other tickets/nodes/WIP.
+Original focused files and qualifications live under
+`focused-fixture-corrections/d9-*` in ticket94 evidence. Paired codec diagnostics
+retain all191 ordered PNG hashes/PTS and demonstrate batch equivalence on29/37;
+they never substitute for the original180s classes. Earlier144 complete runs both
+failed, so BOTH fresh full10/17 runs remain required. Frozen collector/catalog,
+214classes,629/630 identities and180 archives are unchanged. No one-SDK or tail
+exception is eligible from those failed runs.
 
-Full144 source144478128079f20321caaf401a8907597a3c4809 remains under verification:
-Android10 run42444221406 is pending. Android17 run42444221528 Wallet fails at
-PolicyCenterPreviewTest157: after a TalkBack-owned Node activation, actual PNG/XML
-show Appearance; the earlier ordinary keyboard Node journey passed. Original
-TAR/log/source/run state is retained under failures/144-policy-talkback-android17/.
-Other partitions continue; this failed run is never accepted as a full pass.
-
-Only two test activations inside NativeTalkBackObservation now reuse its existing
-real native ACTION_CLICK helper. All ordinary pointer/keyboard checks,20s readiness,
-the shared5s completed-speech/radio-focus budget, identity/draft and restoration
-assertions remain. Both source reviews clear the bounded change; instrumentation
-compilation passes2m20s. No production/build/workflow/catalog/test-identity change.
-The coordinate/handoff explanation remains a hypothesis. Focused17 native validation
-is next. A one-SDK fixture exception is not yet eligible: require opposite complete
-full10 all3SUCCESS and exact production equivalence; otherwise both fresh full gates.
-
-Own-author native Pixel412/font130 Dark proofs now pass on10/17 and both axes
-resolve its actual42dp/12dp/5dp/52dp geometry and real full-key dialog. Receipts and
-originals are retained under own-author-preview-android10/17 and reviews/. Qualified
-b64 Chat17 reviews complement earlier10 samples with explicit asynchronous/motion
-limits. Those failed overall b64 runs never become accepted. The reduced-observer
-Chrome diagnostic passes35original cases without reproducing the old blank root;
-no causal fix is claimed. Latest public beta89; counter101;102 remains unbuilt.
-
-Focused9672 posting10(18cases), quotes17(7) and private/group own-send10(2)
-now pass in runs42442338355/42442337906/42442338052. Exact original logs/TARs are
-retained under focused-fixture-corrections/. These remain focused proofs.
-
-The old application fails the new own-author-row regression at the missing tag
-(run42442337880), confirming the visual gap is caught. The first repaired source
-be37 native attempt42442764360 failed instrumentation compilation because the
-added public-key assertion used an incorrect AndroidWalletStore package. Its
-failed log is retained;17 run42442764238 was cancelled. The test now uses the
-existing same-package class and reveals the lazy byline before checking it.
-Corrected instrumentation compilation passes2m9s; production release compilation
-passes2m25s. Fresh Stack native checks and complete10/17 gates remain required.
-
-The own-preview author row is now implemented with the approved42/12/5dp geometry,
-actual cached public name/avatar, explicit local-preview label and full public-key
-details on tap. Stack receives only a caller-owned presentation slot. Both source
-review axes report no unresolved finding. App and instrumentation compilation pass
-(4m17s). Native rendering and focused regression verification remain pending.
-
-The b64 complete runs42438242283/42438441132 are not accepted: Social fails on
-both SDKs and Android10 Wallet captures a blank main surface after a successful
-wallet replacement. Original logs/TARs are retained under failures/b64-*.
-Three bounded fixture corrections now compare exact EditableText UTF-16 content
-without style metadata, reveal the existing offscreen profile-history message,
-and observe the foreground Activity configuration before its one existing
-recreation. Original goals and aggregate deadlines remain. Instrumentation
-compilation passes; fresh focused native verification remains required.
-
-Read-only wallet Chrome diagnostic91110411, run42440902135, passes three
-unchanged original-method trials without reproducing the blank surface. It
-establishes no causal fix and must not be merged as application functionality.
-The actual69dd Android10 native review also found the own-article preview lacks
-the approved author row. Add the real cached public identity, with explicit
-local-preview wording, before fresh complete application gates. Latest beta89;
-102 is unbuilt, and no candidate may be promoted on partial/failed evidence.
-
-## Current correction: final search-route and observer verification
-
-Earlier b64 gates executed `b64ac663514ce2d9610057ee70e36b998efc37a5`,
-tag `proof-prototype102-b64ac66`: Android10 run42438242283 and Android17
-run42438441132, all three partitions required on each. No102APK exists; do not
-build/promote it until application gates pass. Latest public beta remains89.
-Earlier69dd Social failures are preserved and cannot establish full acceptance.
-
-Issue94 remains active. Native prototype `c95ecaa01`, live design
-`design-3d989e9e8406`, and the owner's amendments are the visual authority.
-Root is the sole implementation writer in redesign86. Preserve canonical Chat
-WIP, production nodes and other tickets.
-
-The repaired app includes the global module/account header, approved form and
-button geometry, typography, compact post actions, profile separation, grouped
-Activity, separate Posts/People and All/Mentions selectors, public-profile Message
-entry and content-sized Chat bubbles. Reading positions, real identities, drafts,
-protocols and publishing guards remain. Stack discovery, reading, Visual/Markdown
-writing, publication review and access are clearly labelled local design previews.
-Actual Stack protocol/publication/payment/subscriptions remain pending under #1.
-
-Latest public beta is89. Candidates93 through101 are superseded and must not be
-promoted.98 failed before artifact creation. Actual signed100 from sourceEA76 is
-42335274bytes, SHA256 `5fed1b01bcb1604919211a6fc53cdd258420a3e4043471959a92467f64822f23`.
-Its independent artifact review, public byte match and genuine83-to100 signed
-updates on Android10/17 pass. Identity, exact unsent draft, cached authored post,
-Light preference, debug isolation and restoration are verified. Receipts remain
-under `candidate100/`, `update100-android10/` and `update100-android17/` in ticket94
-evidence. They are historical qualified proofs, not final publication acceptance.
-
-EA76 focused Chat and Activity pass both SDKs, including exact retained drafts,
-real48dp targets and nonzero reading returns. Scoped Spec review inspected39
-originalPNG/XML pairs with no findings. Earlier FFE Search/writing/transfers and
-48f8 Typography pass both SDKs; renderer source equivalence is recorded. Scope
-limits remain explicit and stills do not establish motion or complete acceptance.
-
-CompleteEA runs42432950122 /42432951769 failed PolicyCenter125 on both SDKs:
-its old combined Text + EditableText assertion included the new visible label,
-while actual EditableText was exactly the retained draft. Original failures are
-preserved under `failures/policy-labelled-ea76/`; remaining partitions were
-cancelled as superseded. Neither full run counts as acceptance. Six remaining
-PublishingEditor comparisons now use existing exact EditableText equality with
-the identical expected expressions/selectors and disabled guards. This completes
-the47-comparison labelled-field migration without production changes, new test identities,
-relaxed assertions, longer deadlines or collector/catalog edits. Both review axes
-clear this bounded correction. Fresh complete validation remains mandatory.
-
-D683 complete10 run42434527500 failed AvatarIdentityJourneyTest85: its
-legacy Search journey queried the exact public key in default Posts, without
-selecting People. Both Light/Dark pictures were correct in feed/thread, and the
-cached-picture case passed. Original log and native PNG/XML remain under
-`failures/avatar-people-d683-android10/`. Old complete runs42434527500 /
-42434529784 were cancelled as superseded. Neither establishes complete acceptance.
-The journey now selects actual People before its unchanged identity/pixel/removal/
-discovery-count checks. A systematic search-route audit found other People
-journeys already select that tab; post-reading routes remain on Posts.
-
-Signed101 is historically built from d683:42335274bytes, SHA256
-`6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d`.
-Independent artifact review and public byte match pass. Its first signed update10
-run42435036865 failed a StaleObjectException at WalletDeviceUiObserver32 clicking
-Account; baseline observations passed and restoration succeeded. Exact originals
-remain under `failures/update101-stale-android10/`. Fresh unchanged whole update
-run42435678265 and Android17 run42435039231 both pass. This retry does not prove a
-causal fix. The observer now catches only that stale Account reference inside the
-original20x1s loop and re-queries; all four observations, address and identity
-checks remain. Both source-review axes and local instrumentation compilation pass.
-These two test-only changes do not change production, declarations, bounds or
-frozen acceptance inputs.
-
-Prior corrected source was `69ddcc49e73a1544506596edbf4b6c25d9198700`, tag
-`proof-prototype102-69ddcc4`. Fresh complete10/17 runs42436306551 /42436308492
-are pending, with all three partitions each. Focused avatars10/17 runs42436310508 /
-42436312369 check the corrected journey early. Production/build inputs are unchanged.
-Require unchanged frozen collectors (214classes,629/630identities,180archives).
-Defer actual signed102+ build until complete application gates succeed, then
-verify genuine signed update/isolation, remaining broad native/prototype/normal-zero
-motion reviews and actual public bytes before promotion. No focused, old,
-cancelled or failed partial assembly. Latest remains89.
-
-Focused69dd avatars17 run42436312369 SUCCESS. Focused10 run42436310508
-passes the corrected identity journey and four recovery cases, but fails the
-existing memory-parity assertion before large-fixture allocation: actual16MiB,
-declared512MiB. The actual maximum is16MiB from method1 onward. Untouched current
-properties report heapsize512m, absent growthlimit/extra data not yet captured;
-originals are retained under `failures/69dd-avatar-memory-android10/`. No heap
-raising, service restart or guard relaxation. Full69dd runs continue independently.
-
-A separate read-only diagnostic tag `diag-android29-runtime-69dd-v2`, source
-`4aa433244bf6364d79142cbb623542625dd1ea9c`, run42437655489, captures available shipped
-init/build properties, late VM options and boot logs, and compares a fresh ordinary
-standalone VM with the inherited app VM. It changes no configuration or application
-code and leaves all original cases/assertions intact. Its nonJUnit test helper
-and capture-only script live only in the external diagnostic worktree/tag; do not
-merge them as app functionality. Source-supported startup ordering is a hypothesis,
-not a proven cause/fix. Require actual captured evidence before intervention.
-
-Complete69dd10 Social subsequently fails only cached-profile browse method309:
-correct offline Profile + Message + error banner fill320pxviewport before lazy Posts
-tabs compose. Other7browse methods pass. Original PNG/XML and logs remain under
-`failures/69dd-profile-tabs-android10/`. Four legacy readiness waits now reveal
-actual Posts and assert visibility within one original15s aggregate budget. Both
-review axes and local instrumentation compilation pass. All cache/restart/identity/history/body/
-error assertions, declarations and frozen inputs remain. Production is unchanged.
-
-That same full69dd10 run passes all5 AvatarRecovery cases at genuine512MiB from
-method1, unlike the focused16MiB failure. No causal fix or configuration mutation is
-claimed. Full69dd17 subsequently reproduces the same Profile309 failure; its
-originals remain under `failures/69dd-profile-tabs-android17/`. Thus neither69dd
-SDK run qualifies for acceptance or the oneSDK fixture-only rule.
-
-Current corrected source is `b64ac663514ce2d9610057ee70e36b998efc37a5`, immutable
-tag `proof-prototype102-b64ac66`. Fresh complete10 run42438242283 and complete17
-run42438441132 are pending. Require all3partitions each and the unchanged frozen
-collectors. Production/build/workflow are byte-identical to69dd; only the reviewed
-Profile test helper and documentation/evidence changed. Do not combine old partial
-partitions into acceptance. Actual102 build remains deferred until application
-full gates pass; version counter is101 and no102APK exists.
-
-The pinned rc13 editor repair, immutable upstream inventory, exact five-file
-patch and packaged license remain under `third-party/compose-rich-editor`.
-Do not clamp mappings or raise emulator heap/restart services to conceal failures.
-API29 UiAutomator window clipping alone does not prove reduced touch targets;
-actual native target observations remain authoritative.
-
-Keep #1/#36/#55/#84/#86 open. Owner visual acceptance, physical Pixel performance,
-actual provider lifecycle, KVK and Play acceptance remain explicitly pending.
+Remaining sequence: compile and rerun affected Notifications10; freeze its final
+source/ref; complete all3 partitions on BOTH SDKs and frozen collectors; build and
+stage the actual next signed candidate; independently review native/artifact
+proofs; verify genuine83-to-candidate updates on both SDKs; promote exact bytes.
+Do not close issues1/36/55/84/86 or disturb canonical-checkout work, nodes or services.
 
 ## Earlier checkpoints, historical scope only
 

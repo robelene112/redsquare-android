@@ -1,0 +1,3365 @@
+{
+  "status": "NO_OBSERVED_VISUAL_PRODUCT_DEFECT_IN_SCOPED_PROFILE_ACTIONS_MENTIONS_REVIEW; API29_DIALOG_TARGET_PROOF_INCONCLUSIVE; NOT_FULL_ACCEPTANCE",
+  "reviewedAtUtc": "2026-11-08T05:14:30.949921+00:00",
+  "source": "144478128079f20321caaf401a8907597a3c4809",
+  "currentRendererEquivalentSource": "d9c1ed4d2b0906281b972f1f90bd00e95c146257",
+  "productionBuildWorkflowChangedPaths": [],
+  "runQualification": "Both full144Social partitions failed only the three preserved legacy virtualized actor-count assertions in32 Notifications methods. ProfileHierarchy and named Mention methods passed. No overall Social/full pass inferred; corrected D9 focused checks and new full gates remain independent.",
+  "referenceAuthority": {
+    "prototypeCommit": "c95ecaa01",
+    "designRevision": "design-3d989e9e8406",
+    "issues": [
+      86,
+      84,
+      94
+    ],
+    "approvedAmendments": "Rounded module selector, actual identity/key/data, groupedActivity, All/Mentions selectors, profile biography/history divider and secondary actions/privacy hierarchy. No fabricated follower/name/art data.",
+    "originalsActuallyViewed": [
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/profile-dark.png",
+        "sha256": "e1ab6fb39fa8b7e9f8e8bb54f8b21df7d903feeb86d8f518a85e36953966838f",
+        "bytes": 66106
+      },
+      {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-reference-evidence/activity-dark.png",
+        "sha256": "2279379a8091c4ed8aa7be0b1f90efedf95b5f8835e5b1e1bc85c1f380503495",
+        "bytes": 42953
+      }
+    ],
+    "currentSourceReviewed": [
+      "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileScreen.kt:307 DesignSheet Identity/Connection/Privacy sections",
+      "app/src/main/kotlin/nl/davidengelen/redsquare/moderation/PersonalControls.kt:175 showEffects rows and shared confirmation",
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileHierarchyPreviewTest.kt:79 realcopy/actions/Mute confirmation/cancel workflow"
+    ]
+  },
+  "provenance": [
+    {
+      "sdk": "10",
+      "api": "29",
+      "runId": "42444221406",
+      "source": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/proof-source.txt",
+        "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+        "bytes": 41
+      },
+      "workflow": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/proof-workflow.txt",
+        "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+        "bytes": 41
+      },
+      "archiveInventory": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/original-archives.json",
+        "sha256": "1569c4f2af5ae0877df64ca4e77cea0359988e0c64041949655b000c32b70627",
+        "bytes": 1190
+      },
+      "independentlyVerifiedArchives": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/device-evidence/api-29/profile-hierarchy-evidence.tar",
+          "sha256": "883d4d4050bca7c20c7d436b69111d002c666a688cd2e7dd743273a602411762",
+          "bytes": 3445760,
+          "selectionInventoryHashMatch": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/device-evidence/api-29/profile-redesign-evidence.tar",
+          "sha256": "b4a43a0d26096f68f454f434d457e53a9c6f418e5c1ccfe0de38b42517f829ca",
+          "bytes": 5849600,
+          "selectionInventoryHashMatch": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/device-evidence/api-29/notifications-evidence.tar",
+          "sha256": "e3abf21ba37494006c7e1f05f1c06d6ebfc188bd215ca32c0964d2cfcd6985ff",
+          "bytes": 4588544,
+          "selectionInventoryHashMatch": true
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "api": "37.0",
+      "runId": "42444221528",
+      "source": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/proof-source.txt",
+        "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+        "bytes": 41
+      },
+      "workflow": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/proof-workflow.txt",
+        "sha256": "c85ea61e4d757d0cb3b3be02f5154a5e282f8519cc2aecf710a8c6b3b4f3b8c8",
+        "bytes": 41
+      },
+      "archiveInventory": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/original-archives.json",
+        "sha256": "9d40af149b62383555f8053f817d1d63c8dfdefece1671e75ae7d7a14d9cc19b",
+        "bytes": 1196
+      },
+      "independentlyVerifiedArchives": [
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/device-evidence/api-37.0/profile-hierarchy-evidence.tar",
+          "sha256": "15873120d05843e53f06a026aea9285ef19b0bb5132ac423372c2d884749bdba",
+          "bytes": 3962368,
+          "selectionInventoryHashMatch": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/device-evidence/api-37.0/profile-redesign-evidence.tar",
+          "sha256": "753999a77a99ff8eefef3bc626ede73d734fbdd085fc4e8c4da20cc8ec34ada4",
+          "bytes": 6803456,
+          "selectionInventoryHashMatch": true
+        },
+        {
+          "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/device-evidence/api-37.0/notifications-evidence.tar",
+          "sha256": "485946d77d4fb6c2b208e6c23ae2469a9375570cbeff619db7d33bc11aaf6a3c",
+          "bytes": 4854784,
+          "selectionInventoryHashMatch": true
+        }
+      ]
+    }
+  ],
+  "selectionCounts": {
+    "nativePngActuallyViewed": 16,
+    "pairedXmlCompared": 16,
+    "sdk10Pairs": 8,
+    "sdk17Pairs": 8,
+    "referenceOriginalsActuallyViewed": 2,
+    "originalArchivesHashVerified": 6,
+    "archivesUsedForSelectedPixels": 4,
+    "availableOriginalPngPerSdk": {
+      "profileHierarchy": 44,
+      "profileRedesign": 57,
+      "notifications": 49
+    },
+    "openProfileActionsSamples": 6,
+    "fullIdentitySamples": 2,
+    "muteConfirmationSamples": 4,
+    "mentionEntryReturnSamples": 4,
+    "blockConfirmationSamples": 0,
+    "moviesReviewed": 0
+  },
+  "selectedOriginals": [
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-profile-actions.png",
+      "sha256": "0026fc35648d126179419757f664adf33360f7ae496acbce3a7e0b2a762c9266",
+      "bytes": 36619,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-profile-actions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-profile-actions.xml",
+        "sha256": "d2203acaf529925f189d14040eab503fae17365560dc91960f54347ac855cf3b",
+        "bytes": 29720,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-profile-actions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,143][134,162]",
+          "clickableAncestorBounds": "[22,133][298,189]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[241,438][274,458]",
+          "clickableAncestorBounds": "[228,424][286,472]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[239,525][274,545]",
+          "clickableAncestorBounds": "[227,511][286,559]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,46][176,50]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Profile actions",
+          "content-desc": "",
+          "bounds": "[18,72][162,97]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Identity",
+          "content-desc": "",
+          "bounds": "[30,109][79,125]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Public identity",
+          "content-desc": "",
+          "bounds": "[34,143][134,162]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "View this account's public name and key.",
+          "content-desc": "",
+          "bounds": "[34,166][255,180]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Connection",
+          "content-desc": "",
+          "bounds": "[30,209][103,225]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Not following",
+          "content-desc": "",
+          "bounds": "[34,241][119,257]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Posts from accounts you follow appear in the Following feed.",
+          "content-desc": "",
+          "bounds": "[34,265][286,297]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Follow",
+          "content-desc": "",
+          "bounds": "[220,319][262,339]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Privacy and safety",
+          "content-desc": "",
+          "bounds": "[30,381][147,397]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[34,413][121,429]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[34,433][228,483]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[241,438][274,458]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block account",
+          "content-desc": "",
+          "bounds": "[34,500][123,516]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block hides this account's posts, social notifications and incoming Chat messages.",
+          "content-desc": "",
+          "bounds": "[34,520][227,570]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block",
+          "content-desc": "",
+          "bounds": "[239,525][274,545]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Report user to publisher",
+          "content-desc": "",
+          "bounds": "[34,603][201,622]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Send a report about this account to the selected node's publisher.",
+          "content-desc": "",
+          "bounds": "[34,626][286,640]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:22",
+          "content-desc": "4:22 AM",
+          "bounds": "[8,0][43,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Physically scrolled sheet boundary varies with configuration; not all sections/Done expected simultaneously.17 clipboard preview is a transient system overlay over part of lower sheet, not proof of unreachable Block."
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-dark-profile-actions.png",
+      "sha256": "5f6cdc989a38ad0c324670ec7b969cba43830f0453b287ef10158ab542138fbb",
+      "bytes": 38479,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-dark-profile-actions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-dark-profile-actions.xml",
+        "sha256": "85e2eb794eb91499b5b39cfe84fc730067f32701cefab0b77c05e7b57ef26e39",
+        "bytes": 27133,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-dark-profile-actions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,72][160,85]",
+          "clickableAncestorBounds": "[22,53][298,139]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[232,436][274,463]",
+          "clickableAncestorBounds": "[220,425][286,473]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[230,569][274,596]",
+          "clickableAncestorBounds": "[218,558][286,606]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,46][176,50]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Public identity",
+          "content-desc": "",
+          "bounds": "[34,72][160,85]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "View this account's public name and key.",
+          "content-desc": "",
+          "bounds": "[34,89][286,131]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Connection",
+          "content-desc": "",
+          "bounds": "[30,159][122,181]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Not following",
+          "content-desc": "",
+          "bounds": "[34,197][141,219]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Posts from accounts you follow appear in the Following feed.",
+          "content-desc": "",
+          "bounds": "[34,227][286,269]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Follow",
+          "content-desc": "",
+          "bounds": "[209,287][262,314]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Privacy and safety",
+          "content-desc": "",
+          "bounds": "[30,353][178,375]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[34,391][144,413]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[34,417][220,507]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[232,436][274,463]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block account",
+          "content-desc": "",
+          "bounds": "[34,524][146,546]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block hides this account's posts, social notifications and incoming Chat messages.",
+          "content-desc": "",
+          "bounds": "[34,550][218,640]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block",
+          "content-desc": "",
+          "bounds": "[230,569][274,596]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:22",
+          "content-desc": "4:22 AM",
+          "bounds": "[8,0][50,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Physically scrolled sheet boundary varies with configuration; not all sections/Done expected simultaneously.17 clipboard preview is a transient system overlay over part of lower sheet, not proof of unreachable Block."
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-light-profile-actions.png",
+      "sha256": "6cef9dfe36515175fbf735ff7d72555478912b0197839e3c7c1efdba8574f12d",
+      "bytes": 40224,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-light-profile-actions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-light-profile-actions.xml",
+        "sha256": "e38b031614288c2c670e6598cd0daa04f0fa3e04274ce904616dae45382a7ae8",
+        "bytes": 20718,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-light-profile-actions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[214,149][274,187]",
+          "clickableAncestorBounds": "[202,141][286,195]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[208,463][274,501]",
+          "clickableAncestorBounds": "[196,455][286,509]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,46][176,50]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[34,72][202,307]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[214,149][274,187]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block account",
+          "content-desc": "",
+          "bounds": "[34,324][196,392]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block hides this account's posts, social notifications and incoming Chat messages.",
+          "content-desc": "",
+          "bounds": "[34,396][196,640]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block",
+          "content-desc": "",
+          "bounds": "[208,463][274,501]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:23",
+          "content-desc": "4:23 AM",
+          "bounds": "[8,0][70,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Physically scrolled sheet boundary varies with configuration; not all sections/Done expected simultaneously.17 clipboard preview is a transient system overlay over part of lower sheet, not proof of unreachable Block."
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-full-identity.png",
+      "sha256": "41255d3080a95e2b7239fb27a7101a594d06fc3fd8b24c231d9c7a52e1f35040",
+      "bytes": 41898,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-full-identity.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-full-identity.xml",
+        "sha256": "efcdf33dc249985b23a0b276508967ad4ec7f85aa3a0623990cb2799b9cd0e3a",
+        "bytes": 18886,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-full-identity.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[24,261][288,369]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        },
+        {
+          "text": "Done",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[224,401][284,439]",
+          "clickableAncestorBounds": "[212,393][288,447]",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy public key",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[99,467][284,505]",
+          "clickableAncestorBounds": "[61,459][288,505]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "Identity details",
+          "content-desc": "",
+          "bounds": "[24,151][257,196]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Anon-jesTu2",
+          "content-desc": "",
+          "bounds": "[24,212][183,245]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,261][288,369]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Done",
+          "content-desc": "",
+          "bounds": "[224,401][284,439]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Copy public key",
+          "content-desc": "",
+          "bounds": "[99,467][284,505]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:23",
+          "content-desc": "4:23 AM",
+          "bounds": "[8,0][70,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Some exported native dialog button bounds are39/40/46px despite visible PNG card/native-window bounds disagreement. No positive48dp proof for those29 dialog controls; no undersized-product cause inferred from this pair."
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.png",
+      "sha256": "72fd94deb9666f5510419c7b50f8b3a68ec39e817aaf51e8d5c497bb25506e0a",
+      "bytes": 33550,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.xml",
+        "sha256": "ed7b16c199a0f0b1e9dc3d4aa0d8cff6d2811986d89770b59960b342dc8df281",
+        "bytes": 17647,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[154,398][210,425]",
+          "clickableAncestorBounds": "[142,388][222,427]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[242,398][284,425]",
+          "clickableAncestorBounds": "[230,388][288,427]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[24,228][177,260]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[24,276][288,363]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Cancel",
+          "content-desc": "",
+          "bounds": "[154,398][210,425]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[242,398][284,425]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:22",
+          "content-desc": "4:22 AM",
+          "bounds": "[8,0][50,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Some exported native dialog button bounds are39/40/46px despite visible PNG card/native-window bounds disagreement. No positive48dp proof for those29 dialog controls; no undersized-product cause inferred from this pair."
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-mute-confirmation.png",
+      "sha256": "f00acf573060a0eb4b52852aad93f973473aa523670d0905bf29d66bb4dfbfdb",
+      "bytes": 32519,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-mute-confirmation.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-mute-confirmation.xml",
+        "sha256": "83f81acda1a85d99b28918e52d2e1cdce22d3bc5bcd321d5f7902730f2b4e474",
+        "bytes": 17647,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-mute-confirmation.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[174,387][218,407]",
+          "clickableAncestorBounds": "[162,373][230,413]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[251,387][284,407]",
+          "clickableAncestorBounds": "[238,373][288,413]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[24,242][159,270]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[24,286][288,349]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Cancel",
+          "content-desc": "",
+          "bounds": "[174,387][218,407]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[251,387][284,407]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:22",
+          "content-desc": "4:22 AM",
+          "bounds": "[8,0][43,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Some exported native dialog button bounds are39/40/46px despite visible PNG card/native-window bounds disagreement. No positive48dp proof for those29 dialog controls; no undersized-product cause inferred from this pair."
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/notifications-evidence/notification-evidence/incoming-mention-mentions-tab.png",
+      "sha256": "5c4340bb44fd2cf8526d53af54153a9b4867c5a2ff9d40278927ab76663c105c",
+      "bytes": 33139,
+      "originalTarMember": "notification-evidence/incoming-mention-mentions-tab.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/notifications-evidence/notification-evidence/incoming-mention-mentions-tab.xml",
+        "sha256": "109c9d8842daa082290e5a1372643d220306d9bd9c74d445448e57bd1c56a1b3",
+        "bytes": 50958,
+        "originalTarMember": "notification-evidence/incoming-mention-mentions-tab.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "All",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,200][51,216]",
+          "clickableAncestorBounds": "[18,184][67,232]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mentions",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[93,200][153,216]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Red Square",
+          "bounds": "[18,34][170,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,106][173,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[185,106][272,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,103][298,121]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[18,136][66,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Activity",
+          "content-desc": "",
+          "bounds": "[66,148][254,173]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Refresh",
+          "content-desc": "",
+          "bounds": "[254,136][302,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "All",
+          "content-desc": "",
+          "bounds": "[34,200][51,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentions",
+          "content-desc": "",
+          "bounds": "[93,200][153,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "1 unread",
+          "content-desc": "",
+          "bounds": "[18,248][74,264]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mark all as read",
+          "content-desc": "",
+          "bounds": "[254,232][302,280]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "View profile for Anon-pncSjs",
+          "bounds": "[26,280][246,328]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Anon-pncSjs",
+          "content-desc": "",
+          "bounds": "[66,296][246,312]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Activity options for Anon-pncSjs",
+          "bounds": "[246,280][294,328]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Open activity from Anon-pncSjs",
+          "bounds": "[26,328][294,412]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentioned you",
+          "content-desc": "",
+          "bounds": "[52,329][147,345]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference",
+          "content-desc": "",
+          "bounds": "[26,350][294,387]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "11/14/23 10:13 PM",
+          "content-desc": "",
+          "bounds": "[26,391][120,404]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Unread",
+          "content-desc": "",
+          "bounds": "[128,391][163,404]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Load more activity",
+          "content-desc": "",
+          "bounds": "[110,524][210,538]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Home",
+          "content-desc": "",
+          "bounds": "[0,556][57,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Search",
+          "content-desc": "",
+          "bounds": "[65,556][122,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Notifications",
+          "content-desc": "",
+          "bounds": "[130,556][188,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Chat",
+          "content-desc": "",
+          "bounds": "[196,556][254,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Your profile",
+          "content-desc": "",
+          "bounds": "[262,556][320,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:38",
+          "content-desc": "4:38 AM",
+          "bounds": "[8,0][43,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ]
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/notifications-evidence/notification-evidence/incoming-mention-retained-mentions.png",
+      "sha256": "0304176e1072cb23b9bed9c08ce2227bec513a2b14d554c8c76bd0b5fe000057",
+      "bytes": 36309,
+      "originalTarMember": "notification-evidence/incoming-mention-retained-mentions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/notifications-evidence/notification-evidence/incoming-mention-retained-mentions.xml",
+        "sha256": "600edf4ff311d03ca4c7c0b42f6c7fae610fe4ceb7f5b13cfe41b6cab112db43",
+        "bytes": 53066,
+        "originalTarMember": "notification-evidence/incoming-mention-retained-mentions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "All",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,200][51,216]",
+          "clickableAncestorBounds": "[18,184][67,232]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mentions",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[93,200][153,216]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Red Square",
+          "bounds": "[18,34][170,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,106][173,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[185,106][272,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,103][298,121]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[18,136][66,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Activity",
+          "content-desc": "",
+          "bounds": "[66,148][254,173]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Refresh",
+          "content-desc": "",
+          "bounds": "[254,136][302,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "All",
+          "content-desc": "",
+          "bounds": "[34,200][51,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentions",
+          "content-desc": "",
+          "bounds": "[93,200][153,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "1 unread",
+          "content-desc": "",
+          "bounds": "[18,242][74,258]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "In available history",
+          "content-desc": "",
+          "bounds": "[18,258][111,271]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mark all as read",
+          "content-desc": "",
+          "bounds": "[254,232][302,280]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Loading notifications...",
+          "content-desc": "",
+          "bounds": "[48,292][290,306]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "View profile for Anon-pncSjs",
+          "bounds": "[26,318][246,366]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Anon-pncSjs",
+          "content-desc": "",
+          "bounds": "[66,334][246,350]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Activity options for Anon-pncSjs",
+          "bounds": "[246,318][294,366]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Open activity from Anon-pncSjs",
+          "bounds": "[26,366][294,450]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentioned you",
+          "content-desc": "",
+          "bounds": "[52,367][147,383]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference",
+          "content-desc": "",
+          "bounds": "[26,388][294,425]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "11/14/23 10:13 PM",
+          "content-desc": "",
+          "bounds": "[26,429][120,442]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Unread",
+          "content-desc": "",
+          "bounds": "[128,429][163,442]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Load more activity",
+          "content-desc": "",
+          "bounds": "[110,524][210,538]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Home",
+          "content-desc": "",
+          "bounds": "[0,556][57,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Search",
+          "content-desc": "",
+          "bounds": "[65,556][122,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Notifications",
+          "content-desc": "",
+          "bounds": "[130,556][188,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Chat",
+          "content-desc": "",
+          "bounds": "[196,556][254,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Your profile",
+          "content-desc": "",
+          "bounds": "[262,556][320,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:38",
+          "content-desc": "4:38 AM",
+          "bounds": "[8,0][43,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[265,1][283,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Phone two bars.",
+          "bounds": "[283,1][298,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[304,0][312,24]",
+          "package": "com.android.systemui"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-profile-actions.png",
+      "sha256": "f976753f502f96e2e29a4349c5a3cd8a2c29e6a58806457d6e665da3a2ef9ada",
+      "bytes": 44022,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-profile-actions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-profile-actions.xml",
+        "sha256": "16f5a9ab269eb96a1dc5ca6081798864a415c672f09d8701430760037fce2965",
+        "bytes": 39625,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-profile-actions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,143][134,162]",
+          "clickableAncestorBounds": "[22,133][298,189]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[241,438][274,458]",
+          "clickableAncestorBounds": "[228,424][286,472]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[239,525][274,545]",
+          "clickableAncestorBounds": "[227,511][286,559]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,46][176,50]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Profile actions",
+          "content-desc": "",
+          "bounds": "[18,72][159,97]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Identity",
+          "content-desc": "",
+          "bounds": "[30,109][79,125]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Public identity",
+          "content-desc": "",
+          "bounds": "[34,143][134,162]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "View this account's public name and key.",
+          "content-desc": "",
+          "bounds": "[34,166][255,180]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Connection",
+          "content-desc": "",
+          "bounds": "[30,209][103,225]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Not following",
+          "content-desc": "",
+          "bounds": "[34,241][119,257]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Posts from accounts you follow appear in the Following feed.",
+          "content-desc": "",
+          "bounds": "[34,265][286,297]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Follow",
+          "content-desc": "",
+          "bounds": "[220,319][262,339]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Privacy and safety",
+          "content-desc": "",
+          "bounds": "[30,381][147,397]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[34,413][121,429]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[34,433][228,483]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[241,438][274,458]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block account",
+          "content-desc": "",
+          "bounds": "[34,500][123,516]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block hides this account's posts, social notifications and incoming Chat messages.",
+          "content-desc": "",
+          "bounds": "[34,520][227,570]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block",
+          "content-desc": "",
+          "bounds": "[239,525][274,545]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Report user to publisher",
+          "content-desc": "",
+          "bounds": "[34,603][202,622]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Send a report about this account to the selected node's publisher.",
+          "content-desc": "",
+          "bounds": "[34,626][286,640]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Clipboard",
+          "bounds": "[0,526][260,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,542][104,622]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Share",
+          "bounds": "[120,578][168,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Send to nearby device",
+          "bounds": "[180,578][228,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Text copied",
+          "bounds": "[0,639][1,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "4:30",
+          "content-desc": "4:30\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Physically scrolled sheet boundary varies with configuration; not all sections/Done expected simultaneously.17 clipboard preview is a transient system overlay over part of lower sheet, not proof of unreachable Block."
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-profile-actions.png",
+      "sha256": "ed7c4afb4f0a3b4d1f644fc625d32fe810c0b6b1dfcc8740b3c5ff1ff4b613f7",
+      "bytes": 47271,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-profile-actions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-profile-actions.xml",
+        "sha256": "4857fac2aaa69edf139d2269d9620ee2bd2d4aac283e7d9b5f9adf582fca785a",
+        "bytes": 36948,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-profile-actions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,72][160,85]",
+          "clickableAncestorBounds": "[22,53][298,139]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[232,436][274,463]",
+          "clickableAncestorBounds": "[220,425][286,473]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[230,569][274,596]",
+          "clickableAncestorBounds": "[218,558][286,606]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,46][176,50]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Public identity",
+          "content-desc": "",
+          "bounds": "[34,72][160,85]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "View this account's public name and key.",
+          "content-desc": "",
+          "bounds": "[34,89][286,131]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Connection",
+          "content-desc": "",
+          "bounds": "[30,159][122,181]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Not following",
+          "content-desc": "",
+          "bounds": "[34,197][141,219]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Posts from accounts you follow appear in the Following feed.",
+          "content-desc": "",
+          "bounds": "[34,227][286,269]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Follow",
+          "content-desc": "",
+          "bounds": "[209,287][262,314]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Privacy and safety",
+          "content-desc": "",
+          "bounds": "[30,353][177,375]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[34,391][144,413]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[34,417][220,507]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[232,436][274,463]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block account",
+          "content-desc": "",
+          "bounds": "[34,524][147,546]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block hides this account's posts, social notifications and incoming Chat messages.",
+          "content-desc": "",
+          "bounds": "[34,550][218,640]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block",
+          "content-desc": "",
+          "bounds": "[230,569][274,596]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Clipboard",
+          "bounds": "[0,526][264,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,542][104,622]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Share",
+          "bounds": "[120,575][170,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Send to nearby device",
+          "bounds": "[182,575][232,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Text copied",
+          "bounds": "[0,639][1,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "4:30",
+          "content-desc": "4:30\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[192,0][222,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[226,4][246,20]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[253,4][284,21]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Physically scrolled sheet boundary varies with configuration; not all sections/Done expected simultaneously.17 clipboard preview is a transient system overlay over part of lower sheet, not proof of unreachable Block."
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-profile-actions.png",
+      "sha256": "5e2f8fb62f04436959bde887653286c6c7d3badc0e4de7fd1f71e437fcbfa99d",
+      "bytes": 45252,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-profile-actions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-profile-actions.xml",
+        "sha256": "d5252cab5dd6d2879b757d98d373ede552698cdb06beb0ef54136f8d9df00c4c",
+        "bytes": 27889,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-profile-actions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[214,149][274,187]",
+          "clickableAncestorBounds": "[202,141][286,195]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[208,463][274,501]",
+          "clickableAncestorBounds": "[196,455][286,509]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Drag handle",
+          "bounds": "[144,46][176,50]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[34,72][202,307]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[214,149][274,187]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block account",
+          "content-desc": "",
+          "bounds": "[34,324][196,392]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block hides this account's posts, social notifications and incoming Chat messages.",
+          "content-desc": "",
+          "bounds": "[34,396][196,640]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block",
+          "content-desc": "",
+          "bounds": "[208,463][274,501]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Clipboard",
+          "bounds": "[0,526][284,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,542][104,622]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Share",
+          "bounds": "[120,566][180,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Send to nearby device",
+          "bounds": "[192,566][252,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Text copied",
+          "bounds": "[0,639][1,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "4:30",
+          "content-desc": "4:30\u202fAM",
+          "bounds": "[4,0][71,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[153,0][176,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[234,0][280,24]",
+          "package": "com.android.systemui"
+        }
+      ],
+      "limit": "Physically scrolled sheet boundary varies with configuration; not all sections/Done expected simultaneously.17 clipboard preview is a transient system overlay over part of lower sheet, not proof of unreachable Block."
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-light-full-identity.png",
+      "sha256": "978cfa0d7dc88110d2f6a65e9e22b0531ff067e00bfa4be68a32d32296cade26",
+      "bytes": 42923,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-light-full-identity.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-light-full-identity.xml",
+        "sha256": "840241de9959a81e09969293538cdfd9aecad25dc1d5ee763a9f69771c93d13a",
+        "bytes": 19219,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-light-full-identity.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[24,261][296,369]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        },
+        {
+          "text": "Done",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[224,401][284,439]",
+          "clickableAncestorBounds": "[212,393][296,447]",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy public key",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[99,467][284,505]",
+          "clickableAncestorBounds": "[61,459][296,513]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "Identity details",
+          "content-desc": "",
+          "bounds": "[24,151][258,196]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Anon-jesTu2",
+          "content-desc": "",
+          "bounds": "[24,212][185,245]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,261][296,369]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Done",
+          "content-desc": "",
+          "bounds": "[224,401][284,439]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Copy public key",
+          "content-desc": "",
+          "bounds": "[99,467][284,505]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:30",
+          "content-desc": "4:30\u202fAM",
+          "bounds": "[4,0][71,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[153,0][176,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[234,0][280,24]",
+          "package": "com.android.systemui"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-mute-confirmation.png",
+      "sha256": "321d6deb796779c94e8c74e8055703574ae241681813b96e6487ec523dc2ac65",
+      "bytes": 39464,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-mute-confirmation.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-mute-confirmation.xml",
+        "sha256": "8725679886f96bcd73c6065328432a4ef427230a4940216f29ede3b8de7f1461",
+        "bytes": 24713,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-mute-confirmation.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[112,453][192,491]",
+          "clickableAncestorBounds": "[100,445][204,499]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[224,453][284,491]",
+          "clickableAncestorBounds": "[212,445][296,499]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[24,165][242,210]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[24,226][296,421]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Cancel",
+          "content-desc": "",
+          "bounds": "[112,453][192,491]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[224,453][284,491]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Clipboard",
+          "bounds": "[0,526][284,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,542][104,622]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Share",
+          "bounds": "[120,566][180,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Send to nearby device",
+          "bounds": "[192,566][252,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Text copied",
+          "bounds": "[0,639][1,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "4:30",
+          "content-desc": "4:30\u202fAM",
+          "bounds": "[4,0][71,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[153,0][176,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[234,0][280,24]",
+          "package": "com.android.systemui"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.png",
+      "sha256": "94d10e9e0c6e58e42b8b599bca45267360764ca83270074a17644f4ab7482a90",
+      "bytes": 42238,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.xml",
+        "sha256": "4a9f9d268141294d50da0f6e68090c82c7d687be6debc4e732e2ccc87b437da5",
+        "bytes": 27132,
+        "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-mute-confirmation.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[154,398][210,425]",
+          "clickableAncestorBounds": "[142,388][222,436]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[242,398][284,425]",
+          "clickableAncestorBounds": "[230,388][296,436]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "Mute account",
+          "content-desc": "",
+          "bounds": "[24,228][176,260]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute hides this account's posts and social notifications. Chat messages remain available.",
+          "content-desc": "",
+          "bounds": "[24,276][296,363]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Cancel",
+          "content-desc": "",
+          "bounds": "[154,398][210,425]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mute",
+          "content-desc": "",
+          "bounds": "[242,398][284,425]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Clipboard",
+          "bounds": "[0,526][264,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "content-desc": "",
+          "bounds": "[24,542][104,622]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Share",
+          "bounds": "[120,575][170,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Send to nearby device",
+          "bounds": "[182,575][232,626]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Text copied",
+          "bounds": "[0,639][1,640]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "4:30",
+          "content-desc": "4:30\u202fAM",
+          "bounds": "[4,0][58,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[192,0][222,24]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[226,4][246,20]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[253,4][284,21]",
+          "package": "com.android.systemui"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/notifications-evidence/notification-evidence/feed-mention-mentions-tab.png",
+      "sha256": "470fb4f7c7206d7474e61bcdfd542815e8ec8d514880f35a58c0f92696d63f68",
+      "bytes": 34630,
+      "originalTarMember": "notification-evidence/feed-mention-mentions-tab.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/notifications-evidence/notification-evidence/feed-mention-mentions-tab.xml",
+        "sha256": "963b3d9c829548367181caf28f617354941e881a869230384cc35bbf76ab38e2",
+        "bytes": 54867,
+        "originalTarMember": "notification-evidence/feed-mention-mentions-tab.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "All",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,200][51,216]",
+          "clickableAncestorBounds": "[18,184][67,232]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mentions",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[93,200][153,216]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Red Square",
+          "bounds": "[18,34][171,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,106][173,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[185,106][272,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,103][298,121]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[18,136][66,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Activity",
+          "content-desc": "",
+          "bounds": "[66,148][254,173]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Refresh",
+          "content-desc": "",
+          "bounds": "[254,136][302,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "All",
+          "content-desc": "",
+          "bounds": "[34,200][51,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentions",
+          "content-desc": "",
+          "bounds": "[93,200][153,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "1 unread",
+          "content-desc": "",
+          "bounds": "[18,248][74,264]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mark all as read",
+          "content-desc": "",
+          "bounds": "[254,232][302,280]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "View profile for Anon-pncSjs",
+          "bounds": "[26,280][246,328]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Anon-pncSjs",
+          "content-desc": "",
+          "bounds": "[66,296][246,312]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Activity options for Anon-pncSjs",
+          "bounds": "[246,280][294,328]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Open activity from Anon-pncSjs",
+          "bounds": "[26,328][294,412]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentioned you",
+          "content-desc": "",
+          "bounds": "[52,329][147,345]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference",
+          "content-desc": "",
+          "bounds": "[26,350][294,387]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "11/14/23 10:13 PM",
+          "content-desc": "",
+          "bounds": "[26,391][120,404]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Unread",
+          "content-desc": "",
+          "bounds": "[128,391][163,404]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Load more activity",
+          "content-desc": "",
+          "bounds": "[112,524][209,538]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Home",
+          "content-desc": "",
+          "bounds": "[0,556][57,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Search",
+          "content-desc": "",
+          "bounds": "[65,556][122,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Notifications",
+          "content-desc": "",
+          "bounds": "[130,556][188,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Chat",
+          "content-desc": "",
+          "bounds": "[196,556][254,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Your profile",
+          "content-desc": "",
+          "bounds": "[262,556][320,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:50",
+          "content-desc": "4:50\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "package": "com.android.systemui"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/notifications-evidence/notification-evidence/feed-mention-retained-mentions.png",
+      "sha256": "22acdc67ba84cff01554760a7e590f2bc3a2644b64a5e52cfbdcd12028b65e1c",
+      "bytes": 37716,
+      "originalTarMember": "notification-evidence/feed-mention-retained-mentions.png",
+      "originalTarByteMatch": true,
+      "dimensionsPixels": [
+        320,
+        640
+      ],
+      "xml": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/notifications-evidence/notification-evidence/feed-mention-retained-mentions.xml",
+        "sha256": "6eb38a3de760c31255ce9818a1a978473cda914342899f0638f11219d92d15ca",
+        "bytes": 57050,
+        "originalTarMember": "notification-evidence/feed-mention-retained-mentions.xml",
+        "originalTarByteMatch": true
+      },
+      "nativeControlsCompared": [
+        {
+          "text": "All",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,200][51,216]",
+          "clickableAncestorBounds": "[18,184][67,232]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mentions",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[93,200][153,216]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        }
+      ],
+      "actualTextNodes": [
+        {
+          "text": "",
+          "content-desc": "Switch app: Red Square",
+          "bounds": "[18,34][171,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Account",
+          "bounds": "[254,34][302,82]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Node: saito.davidengelen.nl",
+          "content-desc": "",
+          "bounds": "[35,106][173,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Block unavailable",
+          "content-desc": "",
+          "bounds": "[185,106][272,119]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Connection details",
+          "bounds": "[280,103][298,121]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Back",
+          "content-desc": "",
+          "bounds": "[18,136][66,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Activity",
+          "content-desc": "",
+          "bounds": "[66,148][254,173]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Refresh",
+          "content-desc": "",
+          "bounds": "[254,136][302,184]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "All",
+          "content-desc": "",
+          "bounds": "[34,200][51,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentions",
+          "content-desc": "",
+          "bounds": "[93,200][153,216]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "1 unread",
+          "content-desc": "",
+          "bounds": "[18,242][74,258]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "In available history",
+          "content-desc": "",
+          "bounds": "[18,258][111,271]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mark all as read",
+          "content-desc": "",
+          "bounds": "[254,232][302,280]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Loading notifications...",
+          "content-desc": "",
+          "bounds": "[48,292][290,306]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "View profile for Anon-pncSjs",
+          "bounds": "[26,318][246,366]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Anon-pncSjs",
+          "content-desc": "",
+          "bounds": "[66,334][246,350]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Activity options for Anon-pncSjs",
+          "bounds": "[246,318][294,366]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "",
+          "content-desc": "Open activity from Anon-pncSjs",
+          "bounds": "[26,366][294,450]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Mentioned you",
+          "content-desc": "",
+          "bounds": "[52,367][147,383]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference",
+          "content-desc": "",
+          "bounds": "[26,388][294,425]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "11/14/23 10:13 PM",
+          "content-desc": "",
+          "bounds": "[26,429][120,442]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Unread",
+          "content-desc": "",
+          "bounds": "[128,429][163,442]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Load more activity",
+          "content-desc": "",
+          "bounds": "[112,524][209,538]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Home",
+          "content-desc": "",
+          "bounds": "[0,556][57,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Search",
+          "content-desc": "",
+          "bounds": "[65,556][122,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Notifications",
+          "content-desc": "",
+          "bounds": "[130,556][188,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Chat",
+          "content-desc": "",
+          "bounds": "[196,556][254,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "Your profile",
+          "content-desc": "",
+          "bounds": "[262,556][320,636]",
+          "package": "nl.davidengelen.redsquare.dev"
+        },
+        {
+          "text": "4:50",
+          "content-desc": "4:50\u202fAM",
+          "bounds": "[4,1][47,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "T-Mobile, signal full.",
+          "bounds": "[215,1][238,23]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Wifi signal full.",
+          "bounds": "[241,6][256,18]",
+          "package": "com.android.systemui"
+        },
+        {
+          "text": "",
+          "content-desc": "Battery charging, 100 percent.",
+          "bounds": "[262,5][286,18]",
+          "package": "com.android.systemui"
+        }
+      ]
+    }
+  ],
+  "nativeProfileConfigurations": [
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-configuration.json",
+      "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+      "bytes": 77,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.0,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-configuration.json",
+      "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+      "bytes": 78,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.0,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-dark-configuration.json",
+      "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+      "bytes": 77,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.3,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-configuration.json",
+      "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+      "bytes": 78,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.3,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-configuration.json",
+      "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+      "bytes": 77,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 2.0,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "sdk": "10",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-light-configuration.json",
+      "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+      "bytes": 78,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 2.0,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-configuration.json",
+      "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+      "bytes": 77,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font100-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.0,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font130-light-configuration.json",
+      "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+      "bytes": 78,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font130-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 1.3,
+        "selectedAppearance": "Light"
+      }
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-configuration.json",
+      "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+      "bytes": 77,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-dark-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 2.0,
+        "selectedAppearance": "Dark"
+      }
+    },
+    {
+      "sdk": "17",
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/native-social-selected/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font200-light-configuration.json",
+      "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+      "bytes": 78,
+      "originalTarMember": "profile-hierarchy-evidence/profile-hierarchy-320-font200-light-configuration.json",
+      "originalTarByteMatch": true,
+      "value": {
+        "widthPixels": 320,
+        "widthDp": 320,
+        "fontScale": 2.0,
+        "selectedAppearance": "Light"
+      }
+    }
+  ],
+  "nativeControlBoundsEvidence": [
+    {
+      "sdk": "10",
+      "capture": "profile-hierarchy-320-font100-light-profile-actions",
+      "controls": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,143][134,162]",
+          "clickableAncestorBounds": "[22,133][298,189]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[241,438][274,458]",
+          "clickableAncestorBounds": "[228,424][286,472]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[239,525][274,545]",
+          "clickableAncestorBounds": "[227,511][286,559]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "10",
+      "capture": "profile-hierarchy-320-font130-dark-profile-actions",
+      "controls": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,72][160,85]",
+          "clickableAncestorBounds": "[22,53][298,139]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[232,436][274,463]",
+          "clickableAncestorBounds": "[220,425][286,473]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[230,569][274,596]",
+          "clickableAncestorBounds": "[218,558][286,606]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "10",
+      "capture": "profile-hierarchy-320-font200-light-profile-actions",
+      "controls": [
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[214,149][274,187]",
+          "clickableAncestorBounds": "[202,141][286,195]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[208,463][274,501]",
+          "clickableAncestorBounds": "[196,455][286,509]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "10",
+      "capture": "profile-hierarchy-320-font200-dark-full-identity",
+      "controls": [
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[24,261][288,369]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        },
+        {
+          "text": "Done",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[224,401][284,439]",
+          "clickableAncestorBounds": "[212,393][288,447]",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy public key",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[99,467][284,505]",
+          "clickableAncestorBounds": "[61,459][288,505]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "10",
+      "capture": "profile-hierarchy-320-font130-light-mute-confirmation",
+      "controls": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[154,398][210,425]",
+          "clickableAncestorBounds": "[142,388][222,427]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[242,398][284,425]",
+          "clickableAncestorBounds": "[230,388][288,427]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "10",
+      "capture": "profile-hierarchy-320-font100-dark-mute-confirmation",
+      "controls": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[174,387][218,407]",
+          "clickableAncestorBounds": "[162,373][230,413]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[251,387][284,407]",
+          "clickableAncestorBounds": "[238,373][288,413]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "profile-hierarchy-320-font100-dark-profile-actions",
+      "controls": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,143][134,162]",
+          "clickableAncestorBounds": "[22,133][298,189]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[241,438][274,458]",
+          "clickableAncestorBounds": "[228,424][286,472]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[239,525][274,545]",
+          "clickableAncestorBounds": "[227,511][286,559]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "profile-hierarchy-320-font130-light-profile-actions",
+      "controls": [
+        {
+          "text": "Public identity",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[34,72][160,85]",
+          "clickableAncestorBounds": "[22,53][298,139]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[232,436][274,463]",
+          "clickableAncestorBounds": "[220,425][286,473]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[230,569][274,596]",
+          "clickableAncestorBounds": "[218,558][286,606]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "profile-hierarchy-320-font200-dark-profile-actions",
+      "controls": [
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[214,149][274,187]",
+          "clickableAncestorBounds": "[202,141][286,195]",
+          "enabled": "true"
+        },
+        {
+          "text": "Block",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[208,463][274,501]",
+          "clickableAncestorBounds": "[196,455][286,509]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "profile-hierarchy-320-font200-light-full-identity",
+      "controls": [
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[24,261][296,369]",
+          "clickableAncestorBounds": null,
+          "enabled": null
+        },
+        {
+          "text": "Done",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[224,401][284,439]",
+          "clickableAncestorBounds": "[212,393][296,447]",
+          "enabled": "true"
+        },
+        {
+          "text": "Copy public key",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[99,467][284,505]",
+          "clickableAncestorBounds": "[61,459][296,513]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "profile-hierarchy-320-font200-dark-mute-confirmation",
+      "controls": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[112,453][192,491]",
+          "clickableAncestorBounds": "[100,445][204,499]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[224,453][284,491]",
+          "clickableAncestorBounds": "[212,445][296,499]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "profile-hierarchy-320-font130-light-mute-confirmation",
+      "controls": [
+        {
+          "text": "Cancel",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[154,398][210,425]",
+          "clickableAncestorBounds": "[142,388][222,436]",
+          "enabled": "true"
+        },
+        {
+          "text": "Mute",
+          "package": "nl.davidengelen.redsquare.dev",
+          "textBounds": "[242,398][284,425]",
+          "clickableAncestorBounds": "[230,388][296,436]",
+          "enabled": "true"
+        },
+        {
+          "text": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "package": "com.android.systemui",
+          "textBounds": "[24,542][104,622]",
+          "clickableAncestorBounds": "[24,542][104,622]",
+          "enabled": "true"
+        }
+      ]
+    }
+  ],
+  "selectedMentionsEvidence": [
+    {
+      "sdk": "10",
+      "capture": "incoming-mention-mentions-tab",
+      "selectedMentionsAncestor": {
+        "class": "android.view.View",
+        "text": "",
+        "bounds": "[77,184][169,232]",
+        "selected": "true",
+        "clickable": "false"
+      },
+      "ancestorChain": [
+        {
+          "class": "android.widget.TextView",
+          "text": "Mentions",
+          "bounds": "[93,200][153,216]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,192][169,224]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,184][169,232]",
+          "selected": "true",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        }
+      ],
+      "targetSizePx": [
+        92,
+        48
+      ]
+    },
+    {
+      "sdk": "10",
+      "capture": "incoming-mention-retained-mentions",
+      "selectedMentionsAncestor": {
+        "class": "android.view.View",
+        "text": "",
+        "bounds": "[77,184][169,232]",
+        "selected": "true",
+        "clickable": "false"
+      },
+      "ancestorChain": [
+        {
+          "class": "android.widget.TextView",
+          "text": "Mentions",
+          "bounds": "[93,200][153,216]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,192][169,224]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,184][169,232]",
+          "selected": "true",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        }
+      ],
+      "targetSizePx": [
+        92,
+        48
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "feed-mention-mentions-tab",
+      "selectedMentionsAncestor": {
+        "class": "android.view.View",
+        "text": "",
+        "bounds": "[77,184][169,232]",
+        "selected": "true",
+        "clickable": "false"
+      },
+      "ancestorChain": [
+        {
+          "class": "android.widget.TextView",
+          "text": "Mentions",
+          "bounds": "[93,200][153,216]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,192][169,224]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,184][169,232]",
+          "selected": "true",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        }
+      ],
+      "targetSizePx": [
+        92,
+        48
+      ]
+    },
+    {
+      "sdk": "17",
+      "capture": "feed-mention-retained-mentions",
+      "selectedMentionsAncestor": {
+        "class": "android.view.View",
+        "text": "",
+        "bounds": "[77,184][169,232]",
+        "selected": "true",
+        "clickable": "false"
+      },
+      "ancestorChain": [
+        {
+          "class": "android.widget.TextView",
+          "text": "Mentions",
+          "bounds": "[93,200][153,216]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,192][169,224]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[77,184][169,232]",
+          "selected": "true",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        },
+        {
+          "class": "android.view.View",
+          "text": "",
+          "bounds": "[18,184][302,232]",
+          "selected": "false",
+          "clickable": "false"
+        }
+      ],
+      "targetSizePx": [
+        92,
+        48
+      ]
+    }
+  ],
+  "namedNativeOutcomes": [
+    {
+      "sdk": "10",
+      "profileHierarchyLog": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/device-evidence/api-29/profile-hierarchy-ui.txt",
+        "sha256": "078d761f6342ded1d1a338b1f9d938cefc4e9b14622efa5e12309aae3962b1c3",
+        "bytes": 880
+      },
+      "profileHierarchyOutcome": "OK1test",
+      "profileHierarchyExit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/device-evidence/api-29/profile-hierarchy-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      },
+      "notificationsLog": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-10/android-native-proof-social/.scratch/device-evidence/api-29/notifications-ui.txt",
+        "sha256": "6165eeb9b2c05da523c1f1949cc997b83239545b039eba52ba7f157ee5b5840b",
+        "bytes": 42390
+      },
+      "notificationsOutcome": "FAILED3of32; retained as failed",
+      "notificationsSeparateExitFilePresent": false,
+      "namedMentionMethodsPassed": [
+        {
+          "method": "anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile",
+          "statusCodes": [
+            "INSTRUMENTATION_STATUS_CODE: 1",
+            "INSTRUMENTATION_STATUS_CODE: 0"
+          ]
+        },
+        {
+          "method": "anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex",
+          "statusCodes": [
+            "INSTRUMENTATION_STATUS_CODE: 1",
+            "INSTRUMENTATION_STATUS_CODE: 0"
+          ]
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "profileHierarchyLog": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/device-evidence/api-37.0/profile-hierarchy-ui.txt",
+        "sha256": "a0c489dccf08b523b247497041608e6efcff96d67ee1655e06ad12b6ccd4c4ed",
+        "bytes": 880
+      },
+      "profileHierarchyOutcome": "OK1test",
+      "profileHierarchyExit": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/device-evidence/api-37.0/profile-hierarchy-ui-exit.txt",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "bytes": 2
+      },
+      "notificationsLog": {
+        "path": "/mnt/storage/redsquare-android-artifacts/prototype94-full-144-17/android-native-proof-social/.scratch/device-evidence/api-37.0/notifications-ui.txt",
+        "sha256": "de57a81448f3dbb0f79a6d5896d1340f902ad05e5866557a8bbdbe2dac03af36",
+        "bytes": 42624
+      },
+      "notificationsOutcome": "FAILED3of32; retained as failed",
+      "notificationsSeparateExitFilePresent": false,
+      "namedMentionMethodsPassed": [
+        {
+          "method": "anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile",
+          "statusCodes": [
+            "INSTRUMENTATION_STATUS_CODE: 1",
+            "INSTRUMENTATION_STATUS_CODE: 0"
+          ]
+        },
+        {
+          "method": "anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex",
+          "statusCodes": [
+            "INSTRUMENTATION_STATUS_CODE: 1",
+            "INSTRUMENTATION_STATUS_CODE: 0"
+          ]
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "verificationGaps": [
+    {
+      "id": "API29_DIALOG_TOUCH_BOUNDS_INCONCLUSIVE",
+      "evidence": "10font100Dark Mute/Cancel native clickable bounds40px;130Light39px;200Dark identity Copy46px.17 counterparts48/54px. Visible PNG cards and29 exported dialog/window bounds disagree; even explicit48 Identity button clips to46.",
+      "conclusion": "Do not infer product defect solely from this stale/clipped pair and do not claim all29 dialog targets verified. A fresh stable direct native observation would resolve physical/accessibility target size. Actual opening/cancel/copy goals passed in unchanged native class."
+    },
+    {
+      "id": "OPEN_BLOCK_CONFIRMATION_NOT_CAPTURED",
+      "evidence": "All three supplied archives contain profile Block entry/details and Activity state after blocking, but no open Block confirmation still.",
+      "conclusion": "Only Mute confirmation was manually inspected. Shared source confirmation structure does not substitute for actual Block pixels."
+    }
+  ],
+  "observations": [
+    "OpenProfile actions keep Identity, Connection and Privacy/safety distinct, use genuine public identity and preserve disclosure of actual Mute/Block effects. The top/bottom truncation in scrolled captures is normal sheet viewport behavior, not evidence that those controls cannot be revealed.",
+    "Full public key fits readable multiline Identity details at200%, with copy/Done actions. Mute explanation clearly says Chat messages remain available; Cancel/Mute dialog content remains readable at100/130/200 and boththemes.17 actual dialog action bounds are48/54px.",
+    "Both selectedMention entry/after-post-return pairs show Mentions selected; XML confirms same92x48 selected ancestor on bothSDKs. Real actor/caption/preview remains. Return loading banner shifts event row, so these stills do not prove a1dp reading anchor.",
+    "17 platform clipboard overlay from the genuine public-key copy partly covers lower underlying actions. Foreground Mute dialogs remain readable and their actions are above it. Overlay is a bounded capture/platform state limitation."
+  ],
+  "limits": [
+    "16pairs only; no all3archives/manual alltheme-font cross-product claim. profile-redesign archive hashes were verified but its pixels were not re-reviewed here because prior qualified profile geometry evidence already exists.",
+    "No native motion, physicalPixel, realTalkBackaudibility, allfour control-state color matrix or full29 touch-target acceptance inferred from stills.",
+    "No open Block confirmation pixels. Source/shared structure and visible Block entry are insufficient to mark that manual gap closed.",
+    "The three Notification failures remain failed; named passingMention methods are separate qualified cases. No current full acceptance or source/code changes were performed by reviewer."
+  ]
+}
