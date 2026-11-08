@@ -45,7 +45,6 @@ class ConversationTypographyPreviewTest {
         val postText = ("A long conversation body wraps across many lines at larger text sizes. ").repeat(10) +
             "The final sentence stays available after scrolling."
         val row = postingArchiveRow(SaitoTransaction.create(author, RedSquarePosts.message(postText), 1_700_000_000_000))
-        val postTag = "post-card-${row.get("sig").asString.take(12)}"
         val peer = ControlledFeedPeer("[$row]", archiveResponse = { "[$row]" })
         val server = peer.start()
         var primary: Throwable? = null
@@ -58,9 +57,23 @@ class ConversationTypographyPreviewTest {
                     recordStage(evidence, "feed-visible")
                     font.apply(1.3f)
                     recordStage(evidence, "font-scale-applied")
-                    ui.waitUntil(10_000) { ui.onNodeWithText(postText).isDisplayed() }
+                    val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                    val scaledDeadline = android.os.SystemClock.elapsedRealtime() + 10_000
+                    recordStage(evidence, "scaled-caption-observation-enter")
+                    device.waitForIdle(10_000)
+                    val remaining = scaledDeadline - android.os.SystemClock.elapsedRealtime()
+                    check(remaining > 0) { "The scaled post must be ready inside the original ten-second budget" }
+                    val caption = requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                        androidx.test.uiautomator.By.text(postText)), remaining))
+                    val bounds = caption.visibleBounds
+                    check(bounds.width() > 0 && bounds.height() > 0 &&
+                        android.os.SystemClock.elapsedRealtime() <= scaledDeadline)
                     recordStage(evidence, "scaled-post-visible")
-                    ui.onNodeWithTag(postTag).performClick()
+                    captureFeedEvidence("conversation-typography-evidence/scaled-feed.png")
+                    // The long card extends below the display. Tap its actual visible
+                    // caption, rather than the offscreen centre of the complete card.
+                    val inset = (24 * context.resources.displayMetrics.density).toInt()
+                    check(device.click(bounds.centerX(), bounds.top + minOf(inset, bounds.height() / 2)))
                     recordStage(evidence, "post-click-complete")
                     waitForConversation()
                     recordStage(evidence, "conversation-open")

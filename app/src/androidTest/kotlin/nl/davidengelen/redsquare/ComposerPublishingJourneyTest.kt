@@ -163,7 +163,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     ui.onNodeWithText("Back").performClick()
                     home()
                     open()
-                    ui.onNode(editor).assertTextEquals(text)
+                    ui.onNode(editor).assertEditableTextEquals(text)
                     ui.onNodeWithText("Saved on this device").assertIsDisplayed()
                     ui.assertSyntheticRedImage()
                     if (kind == ComposerJourneyKind.QUOTE) ui.onNodeWithText(referenceText).assertExists()
@@ -185,7 +185,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     captureNativeScreen(File(folder, "$label-policy.png"))
                     ui.onNodeWithText("Cancel").performClick()
                     ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
-                    ui.onNode(editor).assertTextEquals(text)
+                    ui.onNode(editor).assertEditableTextEquals(text)
                     assertEquals(before, peer.transactions.size)
                     ui.onNodeWithText("Send").performClick()
                     ui.waitUntil(10_000) { ui.onNodeWithText("Review publishing terms").isDisplayed() }
@@ -201,7 +201,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     val candidate = postingTransaction(peer.transactions.last()).id
                     ui.onNode(hasText("Retry") and hasClickAction()).assertIsNotEnabled()
                     ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
-                        .assertIsNotEnabled().assertTextEquals(text)
+                        .assertIsNotEnabled().assertEditableTextEquals(text)
                     ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.ProgressBarRangeInfo,
                         ProgressBarRangeInfo.Indeterminate)).assertCountEquals(1)
                     captureNativeScreen(File(folder, "$label-submitted.png"))

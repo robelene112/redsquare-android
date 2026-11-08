@@ -1,0 +1,60 @@
+{
+  "source": "d124e55082ce53d238c909a4811e506032b45e8d",
+  "scope": "Original failed native preflight, not acceptance. Preserve original assertions and deadlines. Current patches require new native runs.",
+  "runs": [
+    {
+      "run": 42427932530,
+      "scope": "search10",
+      "statusLog": "search-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-search10/.scratch/device-evidence/api-29"
+    },
+    {
+      "run": 42427934698,
+      "scope": "search17",
+      "statusLog": "search-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-search17/.scratch/device-evidence/api-37.0"
+    },
+    {
+      "run": 42427936522,
+      "scope": "chat-entry10",
+      "statusLog": "chat-entry-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-chat-entry10/.scratch/device-evidence/api-29"
+    },
+    {
+      "run": 42427938349,
+      "scope": "chat-entry17",
+      "statusLog": "chat-entry-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-chat-entry17/.scratch/device-evidence/api-37.0"
+    },
+    {
+      "run": 42427939928,
+      "scope": "activity10",
+      "statusLog": "activity-group-narrow-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-activity10/.scratch/device-evidence/api-29"
+    },
+    {
+      "run": 42427941804,
+      "scope": "activity17",
+      "statusLog": "activity-group-pixel-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-activity17/.scratch/device-evidence/api-37.0"
+    },
+    {
+      "run": 42427943537,
+      "scope": "writing10",
+      "statusLog": "composer-focus-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-writing10/.scratch/device-evidence/api-29"
+    },
+    {
+      "run": 42427945143,
+      "scope": "writing17",
+      "statusLog": "composer-focus-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-writing17/.scratch/device-evidence/api-37.0"
+    },
+    {
+      "run": 42428039319,
+      "scope": "typography10",
+      "statusLog": "conversation-typography-ui.txt",
+      "rawRetainedOutsideGit": "/mnt/storage/redsquare-android-artifacts/prototype94-d124-typography10/.scratch/device-evidence/api-29"
+    }
+  ]
+}

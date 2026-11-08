@@ -23,6 +23,21 @@ Original test identities, class/UI deadlines, wallet checks and restoration rema
 The new Chat journey uses its existing owned mutable fixture, not the read-only
 frame fixture. No collector/catalog relaxation is permitted.
 
+D124 native preflight exposed observation/setup mismatches, retained under
+`failures/fidelity-d124/`: exact input assertions had accidentally combined the
+new visible label with the unchanged draft; a contact caption needed actual
+scroll revelation at200%; the chosen Activity reply was already first, so the
+nonzero return goal now uses the later Like group; two fixtures needed explicit
+result-tab selection. All41 input assertions now compare exact EditableText,
+with the same expected values and enabled/disabled goals. No bounds were raised.
+The approved Posts section heading restores a stable top anchor during new search.
+Typography observes/taps the actual visible long-post caption within its original
+10s readiness budget, retains the15s Conversation/180s class goals, and does not
+claim a proven cause for old026’s host timeout. The wallet balance test observes
+exactly one overview read and exactly one subsequent Receive read, both within its
+original aggregate15s budget; active-key/balance/address/clipboard checks remain.
+Two-axis review clears these bounded corrections; new native results are pending.
+
 Stack restores approved discovery, Latest/Drafts, reading, canonical Visual/Markdown
 writing, publication review and access as clearly labelled local design previews.
 Actual Stack publication, NFTs, payments, subscriptions and protocol remain under #1.

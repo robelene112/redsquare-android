@@ -490,13 +490,18 @@ class WalletTransferPreviewTest {
                 val address = displayedWalletAddress(ui)
                 withFailureCapture({ captureNativeScreen(File(context.cacheDir,
                     "transfer-evidence/balance-first-failure.png")) }) {
+                    val observationDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+                    ui.waitUntil(15_000) { ui.onNodeWithText("7.5 SAITO").isDisplayed() }
+                    assertEquals("The approved overview reads the active balance once", listOf(address), requestedKeys.toList())
                     ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("7.5 SAITO"))
+                    val remaining = observationDeadline - android.os.SystemClock.elapsedRealtime()
+                    check(remaining > 0) { "Both balance surfaces stay inside the original fifteen-second observation budget" }
+                    ui.waitUntil(remaining) { ui.onAllNodes(hasText("7.5 SAITO"))
                         .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("7.5 SAITO").assertIsDisplayed()
                     ui.onNodeWithText("Balance from saito.davidengelen.nl").assertIsDisplayed()
                     ui.onNodeWithContentDescription("Receiving address").assertTextEquals(address)
-                    assertEquals(listOf(address), requestedKeys.toList())
+                    assertEquals("Receive performs exactly one fresh read after the overview", listOf(address, address), requestedKeys.toList())
                     ui.onNodeWithText("Copy address").performClick()
                     scenario.onActivity { activity ->
                         val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

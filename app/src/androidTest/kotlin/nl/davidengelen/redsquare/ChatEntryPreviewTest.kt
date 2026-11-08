@@ -155,7 +155,8 @@ class ChatEntryPreviewTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         val density = context.resources.displayMetrics.density
-        val unclipped = ui.onNodeWithText(key, useUnmergedTree = true).getUnclippedBoundsInRoot()
+        val caption = ui.onNodeWithText(key, useUnmergedTree = true).performScrollTo().assertIsDisplayed()
+        val unclipped = caption.getUnclippedBoundsInRoot()
         val fullHeight = (unclipped.bottom.value - unclipped.top.value) * density
         val identity = requireNotNull(device.findObject(By.text(key)))
         val visible = identity.visibleBounds

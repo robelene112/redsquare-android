@@ -164,7 +164,7 @@ class PostPresentationPreviewTest {
         ui.onNode(edit).performClick()
         ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
         ui.onNodeWithText("Edit post").assertIsDisplayed()
-        ui.onNode(hasSetTextAction()).assertTextEquals("Own post action preview")
+        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Own post action preview")
         ui.onNodeWithText("Back").performClick()
         awaitReturnedPost(more)
         ui.onNode(more).performClick()

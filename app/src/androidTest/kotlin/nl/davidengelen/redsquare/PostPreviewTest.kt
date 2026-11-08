@@ -66,7 +66,7 @@ class PostPreviewTest {
                     waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals(text)
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals(text)
                     ui.onNodeWithText("Save draft").performClick()
                     ui.waitUntil(10_000) {
                         ui.onAllNodes(hasText("New post") and hasClickAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()
@@ -84,7 +84,7 @@ class PostPreviewTest {
                     waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals(text)
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals(text)
                     captureFeedEvidence("posting-evidence/restored-legacy-draft.png")
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
@@ -178,7 +178,7 @@ class PostPreviewTest {
                             .hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
                     }
                     ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Account").isDisplayed() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Unfinished owner draft")
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("Unfinished owner draft")
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     ui.openSettings()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
@@ -205,7 +205,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) {
                         ui.onAllNodes(hasSetTextAction() and hasText("Unfinished owner draft")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Unfinished owner draft")
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("Unfinished owner draft")
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     owner.assertHealthy(); official.assertHealthy()
                     captureFeedEvidence("posting-evidence/unfinished-draft-backend-recreation.png")
@@ -233,7 +233,7 @@ class PostPreviewTest {
                 ui.waitUntil(10_000) {
                     ui.onAllNodes(hasSetTextAction() and hasText("Keep this unsaved composition")).fetchSemanticsNodes().isNotEmpty()
                 }
-                ui.onNode(hasSetTextAction()).assertTextEquals("Keep this unsaved composition").assertIsEnabled()
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep this unsaved composition").assertIsEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/unsaved-composition-recreation.png")
@@ -303,7 +303,7 @@ class PostPreviewTest {
                                 waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
                                 assertTrue("A failed draft save must not open an external picker",
                                     androidx.test.espresso.intent.Intents.getIntents().none { it.action in pickerActions })
-                                ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
+                                ui.onNode(hasSetTextAction()).assertEditableTextEquals("Retain work when saving fails").assertIsEnabled()
                                 ui.assertSyntheticRedImage()
                                 assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                             } finally { androidx.test.espresso.intent.Intents.release() }
@@ -314,7 +314,7 @@ class PostPreviewTest {
                         waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
                         ui.waitUntil(10_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
                         ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
-                        ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Retain work when saving fails").assertIsEnabled()
                         if (withImage) ui.assertSyntheticRedImage()
                         assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                         captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
@@ -380,7 +380,7 @@ class PostPreviewTest {
                     file.writeBytes(original)
                     ui.onNodeWithText("Retry").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Recover the encrypted draft")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Recover the encrypted draft").assertIsEnabled()
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("Recover the encrypted draft").assertIsEnabled()
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
                 } finally { file.writeBytes(original); original.fill(0); damaged.fill(0) }
@@ -426,7 +426,7 @@ class PostPreviewTest {
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
                 waitFor("Send requested. Availability on this node is not confirmed.")
-                ui.onNodeWithText("Retry the original signed post").assertTextEquals("Retry the original signed post").assertIsNotEnabled()
+                ui.onNodeWithText("Retry the original signed post").assertEditableTextEquals("Retry the original signed post").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, received.size)
                 ui.onNodeWithText("Retry").performClick()
                 waitFor("Available on this node.")
@@ -525,13 +525,13 @@ class PostPreviewTest {
                 ui.onNode(hasSetTextAction()).performTextReplacement(invalid)
                 ui.onNodeWithText("Send").performClick()
                 waitFor("This post is too large or contains invalid text. Shorten it or remove an image, then try again. Your draft is still here.")
-                ui.onNode(hasSetTextAction()).assertTextEquals(invalid).assertIsEnabled()
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals(invalid).assertIsEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/invalid-text-retained.png")
                 ui.onNodeWithText("Save draft").performClick()
                 waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
-                ui.onNode(hasSetTextAction()).assertTextEquals(invalid)
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals(invalid)
             }
             // A new activity has no previous ViewModel edits to hide a disk overwrite.
             ActivityScenario.launch<MainActivity>(intent).use {
@@ -545,7 +545,7 @@ class PostPreviewTest {
                     captureFeedEvidence("posting-evidence/invalid-save-cold-recovery-failure.png")
                     throw failure
                 }
-                ui.onNode(hasSetTextAction()).assertTextEquals("Last recoverable valid draft")
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals("Last recoverable valid draft")
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/invalid-save-keeps-last-good-draft.png")
@@ -658,7 +658,7 @@ class PostPreviewTest {
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Draft belonging to the outgoing wallet")).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasSetTextAction()).assertTextEquals("Draft belonging to the outgoing wallet")
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals("Draft belonging to the outgoing wallet")
                 if (withImage) ui.assertSyntheticRedImage()
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
@@ -886,7 +886,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) {
                         ui.onAllNodes(hasSetTextAction() and hasText("Draft kept until Send")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Draft kept until Send")
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("Draft kept until Send")
                     peer.assertHealthy()
                     assertTrue("Saving or reopening a draft must not publish it", peer.transactions.isEmpty())
                     captureFeedEvidence("posting-evidence/recovered-unsent-draft.png")

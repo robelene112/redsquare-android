@@ -47,7 +47,7 @@ class PublishingWorkViewportTest {
                 captureNativeScreen(File(folder, "$label-list.png"), "Edit post")
                 ui.onNodeWithText("Edit post").performClick()
                 ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
-                ui.onNode(editor).assertTextEquals(text)
+                ui.onNode(editor).assertEditableTextEquals(text)
                 captureNativeScreen(File(folder, "$label-reopened.png"))
                 ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Saved post changes").isDisplayed() }
@@ -102,7 +102,7 @@ class PublishingWorkViewportTest {
                         ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
                         ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
-                        ui.onNode(editor).assertTextEquals(text)
+                        ui.onNode(editor).assertEditableTextEquals(text)
                         ui.onNodeWithText("Saved on this device").assertIsDisplayed()
                         captureNativeScreen(File(folder, "$label-editable.png"))
                         ui.onNodeWithText("Save draft").performClick()

@@ -63,7 +63,7 @@ class PostComposerFocusPreviewTest {
                 }
                 ui.onNode(editor).performClick()
                 ui.waitUntil(10_000) { keyboardVisible() }
-                ui.onNode(editor).assertTextEquals(draft).assertIsDisplayed()
+                ui.onNode(editor).assertEditableTextEquals(draft).assertIsDisplayed()
                 ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).assertIsDisplayed()
                 var sendTarget = requireNotNull(device.findObject(By.text("Send")))
                 while (!sendTarget.isClickable) sendTarget = requireNotNull(sendTarget.parent) {
@@ -95,7 +95,7 @@ class PostComposerFocusPreviewTest {
                 ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
                 ui.onNode(hasText("New post") and hasClickAction()).performClick()
                 ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
-                ui.onNode(editor).assertTextEquals(draft)
+                ui.onNode(editor).assertEditableTextEquals(draft)
                 captureNativeScreen(File(folder, "$label-returned-draft.png"))
                 ui.onNodeWithText("Save draft").performClick()
                 ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }

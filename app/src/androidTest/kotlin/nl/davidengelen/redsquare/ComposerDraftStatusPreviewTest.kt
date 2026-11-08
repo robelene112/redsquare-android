@@ -47,7 +47,7 @@ class ComposerDraftStatusPreviewTest {
                     captureNativeScreen(File(folder, "$label-unconfirmed-images.png"))
                     ui.onNodeWithText("Saved on this device").assertDoesNotExist()
                     ui.onNodeWithText("Unsaved changes").assertIsDisplayed()
-                    ui.onNode(editor).assertTextEquals(draft)
+                    ui.onNode(editor).assertEditableTextEquals(draft)
                 } catch (failure: Throwable) { primary = failure; throw failure }
                 finally {
                     cleanupAfterTest(primary, {
@@ -63,7 +63,7 @@ class ComposerDraftStatusPreviewTest {
                 ui.onNodeWithText("Remove image 1").performScrollTo().assertIsEnabled().performClick()
                 ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
                 ui.onNodeWithText("Saved on this device").assertIsDisplayed()
-                ui.onNode(editor).performScrollTo().assertTextEquals(draft)
+                ui.onNode(editor).performScrollTo().assertEditableTextEquals(draft)
                 captureNativeScreen(File(folder, "$label-repaired-images.png"))
                 ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
@@ -93,7 +93,7 @@ class ComposerDraftStatusPreviewTest {
                 ui.onNodeWithText("Save draft").performClick()
                 home()
                 open()
-                ui.onNode(editor).assertTextEquals(original)
+                ui.onNode(editor).assertEditableTextEquals(original)
                 captureNativeScreen(File(folder, "$label-saved.png"))
                 ui.onNodeWithText("Saved on this device").assertIsDisplayed()
                 ui.onNode(editor).performTextReplacement(edited)
@@ -103,7 +103,7 @@ class ComposerDraftStatusPreviewTest {
                 ui.onNodeWithText("Back").performClick()
                 home()
                 open()
-                ui.onNode(editor).assertTextEquals(edited)
+                ui.onNode(editor).assertEditableTextEquals(edited)
                 ui.onNodeWithText("Saved on this device").assertIsDisplayed()
                 ui.onNodeWithText("Unsaved changes").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-returned.png"))

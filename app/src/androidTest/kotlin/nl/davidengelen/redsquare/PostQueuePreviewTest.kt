@@ -50,7 +50,7 @@ class PostQueuePreviewTest {
             if (withImage) ui.assertSyntheticRedImage()
             ui.onNodeWithText("Cancel queued post").performScrollTo().assertIsDisplayed().performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-            ui.onNode(hasSetTextAction()).assertTextEquals("Keep my explicitly queued post")
+            ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep my explicitly queued post")
             if (withImage) ui.assertSyntheticRedImage()
             val peer = ControlledFeedPeer("[]")
             peer.start(port).use {
@@ -291,7 +291,7 @@ class PostQueuePreviewTest {
             ui.onNodeWithText("Back").performClick()
             ui.onNodeWithText("New post").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-            ui.onNode(hasSetTextAction()).assertTextEquals("Manage this queued work from the feed")
+            ui.onNode(hasSetTextAction()).assertEditableTextEquals("Manage this queued work from the feed")
             val peer = ControlledFeedPeer("[]")
             peer.start(port).use {
                 ui.onNodeWithText("Save draft").performClick()

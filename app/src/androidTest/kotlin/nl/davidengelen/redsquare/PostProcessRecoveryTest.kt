@@ -105,7 +105,7 @@ class PostProcessRecoveryTest {
                 waitFor("New post")
                 openComposer()
                 waitFor("Send requested. Availability on this node is not confirmed.")
-                ui.onNodeWithText(body).assertTextEquals(body).assertIsNotEnabled()
+                ui.onNodeWithText(body).assertEditableTextEquals(body).assertIsNotEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 ui.onNodeWithText("Retry").performClick()
                 waitFor("Available on this node.")

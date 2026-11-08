@@ -115,7 +115,7 @@ class AuthorPostPreviewTest {
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
                     waitFor("Edit post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Native author's original post")
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("Native author's original post")
                     ui.onNode(hasSetTextAction()).performTextReplacement("Native author's edited post")
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Edit available on this node.")
@@ -275,18 +275,18 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Another edit is available. Your text is saved on this device.")
                     ui.onNodeWithText("Edit available on this node.").assertDoesNotExist()
-                    ui.onNodeWithText("My retained text").assertTextEquals("My retained text").assertIsNotEnabled()
+                    ui.onNodeWithText("My retained text").assertEditableTextEquals("My retained text").assertIsNotEnabled()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Keep my text") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Keep my text").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("My retained text")
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("My retained text")
                     assertEquals(2, peer.transactions.size)
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Another edit is available. Your text is saved on this device.")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Use latest text") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Use latest text").performClick()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assertTextEquals("Competing text 2")
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals("Competing text 2")
                     assertEquals(3, peer.transactions.size)
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Edit available on this node.")

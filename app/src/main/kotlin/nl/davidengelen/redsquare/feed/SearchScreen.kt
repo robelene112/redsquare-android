@@ -416,6 +416,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         onProfile = { onIdentity(personKey) }, onDetails = { identityDetails = personKey })
                 }
                 } else {
+                item(key = "posts-heading") { SearchSectionTitle(stringResource(R.string.search_explore)) }
                 if (matches.isEmpty() && !loading) item(key = "posts-empty") {
                     SearchEmptyResult(stringResource(if (view.failed) R.string.search_cached_empty else R.string.search_empty))
                 }

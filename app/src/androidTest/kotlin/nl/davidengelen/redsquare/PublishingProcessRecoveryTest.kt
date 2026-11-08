@@ -107,7 +107,7 @@ class PublishingProcessRecoveryTest {
         })
         launch(peer, "cold-agreement-failure.png") {
             click("New post"); waitForEditor()
-            ui.onNode(hasSetTextAction()).assertTextEquals(row.get("text").asString).assertIsEnabled()
+            ui.onNode(hasSetTextAction()).assertEditableTextEquals(row.get("text").asString).assertIsEnabled()
             assertTrue("A cold unsent draft must not automatically publish", peer.transactions.isEmpty())
             capture("cold-agreement-keeps-unsent-draft.png")
             click("Send"); waitFor("Available on this node.")

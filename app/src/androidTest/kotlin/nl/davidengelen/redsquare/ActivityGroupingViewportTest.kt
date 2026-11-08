@@ -86,17 +86,21 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                 ui.onNodeWithText("Done").performClick()
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Replied to your post"))
                 val reply = hasText("Replied to your post") and hasText("Reply notification reference") and hasClickAction()
-                val before = ui.onNode(reply).assertIsDisplayed().getUnclippedBoundsInRoot().top
+                ui.onNode(reply).assertIsDisplayed()
+                val readingTarget = hasText("Liked your post") and hasClickAction()
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(readingTarget)
+                val readingCaption = ui.onNodeWithText("Liked your post", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
+                val before = ui.onNode(readingTarget).assertIsDisplayed().getUnclippedBoundsInRoot().top
                 fun observedScroll() = ui.onNode(hasScrollToIndexAction()).fetchSemanticsNode().config[
                     androidx.compose.ui.semantics.SemanticsProperties.VerticalScrollAxisRange].value()
                 val beforeScroll = observedScroll()
                 if (context.resources.configuration.fontScale >= 1.99f)
                     assertTrue("Large-text return exercises a genuinely nonzero Activity reading position", beforeScroll > 0f)
-                ui.onNode(reply).performClick()
+                readingCaption.performTouchInput { click(center) }
                 ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()
-                ui.waitUntil(15_000) { ui.refreshableContentReady() && ui.onNode(reply).isDisplayed() }
-                val after = ui.onNode(reply).getUnclippedBoundsInRoot().top
+                ui.waitUntil(15_000) { ui.refreshableContentReady() && ui.onNode(readingTarget).isDisplayed() }
+                val after = ui.onNode(readingTarget).getUnclippedBoundsInRoot().top
                 assertEquals("Returning from the post retains the scrolled Activity row without a corrective scroll",
                     before.value, after.value, 1f)
                 val afterScroll = observedScroll()
@@ -107,7 +111,7 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                     addProperty("fontScale", context.resources.configuration.fontScale)
                     addProperty("widthDp", width)
                 }.toString())
-                captureNativeScreen(File(folder, "$label-retained-reading.png"), "Reply notification reference")
+                captureNativeScreen(File(folder, "$label-retained-reading.png"), "Liked your post")
                 ui.onNode(hasText("Home") and hasClickAction()).performClick()
               }
             }

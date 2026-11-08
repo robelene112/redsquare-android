@@ -105,7 +105,7 @@ class PublishingRecoveryPreviewTest {
                     assertArrayEquals(firstRecord, record.readBytes())
                     capture("unready-policy-cannot-reuse-earlier-agreement.png")
                     click("Done")
-                    ui.onNode(hasSetTextAction()).assertTextEquals(text).assertIsEnabled()
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals(text).assertIsEnabled()
 
                     ready(current)
                     click("Send"); waitFor("Review publishing terms")
@@ -124,7 +124,7 @@ class PublishingRecoveryPreviewTest {
                     assertTrue(peer.transactions.isEmpty())
                     capture("unreadable-record-does-not-authorize-publishing.png")
                     click("Cancel")
-                    ui.onNode(hasSetTextAction()).assertTextEquals(text).assertIsEnabled()
+                    ui.onNode(hasSetTextAction()).assertEditableTextEquals(text).assertIsEnabled()
                     assertArrayEquals(damaged, record.readBytes())
                     click("Send"); waitFor("Review publishing terms"); click("Accept")
                     waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")

@@ -1,0 +1,167 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostComposerFocusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostComposerFocusPreviewTest:
+INSTRUMENTATION_STATUS: test=writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostComposerFocusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.])
+Semantics of the node:
+Node #780 at (l=18.0, t=138.0, r=302.0, b=282.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@a4557aa'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.'
+IsEditable = 'true'
+Text = '[Write a post]'
+TextSelectionRange = 'TextRange(32, 32)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15$lambda$14(PostComposerFocusPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$VqGSYZUcB2l52CMqbSAzB_LBSTM(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15(PostComposerFocusPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$pjqyRjHiGPV49ZXEDSjlJ4mjF_M(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(nl.davidengelen.redsquare.PostComposerFocusPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.])
+Semantics of the node:
+Node #780 at (l=18.0, t=138.0, r=302.0, b=282.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@a4557aa'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.'
+IsEditable = 'true'
+Text = '[Write a post]'
+TextSelectionRange = 'TextRange(32, 32)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15$lambda$14(PostComposerFocusPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$VqGSYZUcB2l52CMqbSAzB_LBSTM(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15(PostComposerFocusPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$pjqyRjHiGPV49ZXEDSjlJ4mjF_M(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.844
+There was 1 failure:
+1) writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(nl.davidengelen.redsquare.PostComposerFocusPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.])
+Semantics of the node:
+Node #780 at (l=18.0, t=138.0, r=302.0, b=282.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@a4557aa'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'A focused draft for composer-focus-320-font130-light.
+Writing comes first.
+Keep this exact text when I return.'
+IsEditable = 'true'
+Text = '[Write a post]'
+TextSelectionRange = 'TextRange(32, 32)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15$lambda$14(PostComposerFocusPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$VqGSYZUcB2l52CMqbSAzB_LBSTM(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15(PostComposerFocusPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$pjqyRjHiGPV49ZXEDSjlJ4mjF_M(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:26)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
