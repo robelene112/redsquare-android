@@ -259,7 +259,7 @@ class PublisherRoutesPreviewTest {
                         waitFor("New post", action = true)
                         ui.onNodeWithText("New post").performClick()
                         waitForEditor()
-                        ui.onNode(hasSetTextAction()).assertTextEquals(text)
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals(text)
                         assertTrue("Publisher navigation must preserve complete wallet options",
                             originalWallet.exportJson() == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())

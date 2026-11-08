@@ -1,0 +1,30 @@
+{
+  "kind": "Source equivalence only, not binary identity or complete native acceptance",
+  "base": "ffe6e7e02de47b8161a027075a8bdb91adb107ba",
+  "current": "ea76e435a8222457b18e4ca82b9128eb989af977",
+  "paths": [
+    "app/src/main",
+    "app/src/debug",
+    "app/src/release",
+    "app/src/performance",
+    "core/src/main",
+    "push-gateway/src/main",
+    "third-party",
+    "build-support",
+    "gradle",
+    "settings.gradle.kts",
+    "build.gradle.kts",
+    "gradle.properties",
+    "app/build.gradle.kts",
+    "core/build.gradle.kts",
+    "push-gateway/build.gradle.kts"
+  ],
+  "baseRecords": 417,
+  "currentRecords": 417,
+  "changed": [
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityRow.kt"
+  ],
+  "diff": "diff --git a/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityRow.kt b/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityRow.kt\nindex ebd48a41d..8b95677cd 100644\n--- a/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityRow.kt\n+++ b/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ActivityRow.kt\n@@ -14,6 +14,7 @@ import androidx.compose.runtime.*\n import androidx.compose.runtime.saveable.rememberSaveable\n import androidx.compose.ui.Alignment\n import androidx.compose.ui.Modifier\n+import androidx.compose.ui.platform.testTag\n import androidx.compose.ui.draw.clip\n import androidx.compose.ui.res.painterResource\n import androidx.compose.ui.res.stringResource\n@@ -72,7 +73,7 @@ internal fun ActivityRow(authors: List<String>, createdAt: Long, caption: Int, p\n     var identity by rememberSaveable(author, createdAt) { mutableStateOf(false) }\n     val background by animateColorAsState(if (unread == true) MaterialTheme.colorScheme.surfaceContainerLow\n         else MaterialTheme.colorScheme.surface, tween(AppSpacing.transitionMillis), label = \"Activity read status\")\n-    Surface(color = background) {\n+    Surface(modifier = if (likeCount != null) Modifier.testTag(\"activity-like-group\") else Modifier, color = background) {\n         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.small)) {\n             Row(verticalAlignment = Alignment.Top) {\n                 if (authors.size == 1) {\n",
+  "frozenAcceptanceInputsUnchanged": true,
+  "currentTreeSha256": "7f39a06eaf1f740be4ad35be8786b14d517be7661ef0e7c61dec632453171889"
+}

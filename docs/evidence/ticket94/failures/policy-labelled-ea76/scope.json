@@ -1,0 +1,7 @@
+{
+  "scope": "Both actual PolicyCenter application-class failures from completeEA runs, before cancellation of remaining partitions. Neither full run accepted.",
+  "finding": "Old combined Text + EditableText assertion compares new visible field label alongside exact intact draft.",
+  "correction": "Same exact EditableText matcher already adopted for labelled fields; six remaining PublishingEditor comparisons migrated systematically, expected expressions/disabled assertions retained.",
+  "productionChange": false,
+  "limits": "Fresh whole-source complete pair and final signed artifact/update/native reviews still mandatory."
+}

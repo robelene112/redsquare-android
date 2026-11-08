@@ -1,94 +1,58 @@
 # Unified redesign release verification (#94)
 
-## Current correction: final form/navigation fidelity repair
+## Current correction: final labelled-field verification
 
-Issue94 remains active. Approved authority is native prototypec95ecaa01,
-`design-3d989e9e8406`, plus owner amendments. Root is sole writer in redesign86;
-canonical Chat WIP, production nodes and other tickets remain untouched.
+Issue94 remains active. Native prototype `c95ecaa01`, live design
+`design-3d989e9e8406`, and the owner's amendments are the visual authority.
+Root is the sole implementation writer in redesign86. Preserve canonical Chat
+WIP, production nodes and other tickets.
 
-Signed99 is now superseded and MUST NOT be promoted. Beta89 remains latest.
-A final broad source comparison found ordinary form/control geometry, title/label
-weights, missing Posts/People and All/Mentions selectors, missing public-profile
-Message entry, and stretched short Chat bubbles. The working correction closes
-those six groups while preserving actual identity, protocols and publishing guards.
-Two-axis source review is clear; fresh native outcomes remain mandatory.
+The repaired app includes the global module/account header, approved form and
+button geometry, typography, compact post actions, profile separation, grouped
+Activity, separate Posts/People and All/Mentions selectors, public-profile Message
+entry and content-sized Chat bubbles. Reading positions, real identities, drafts,
+protocols and publishing guards remain. Stack discovery, reading, Visual/Markdown
+writing, publication review and access are clearly labelled local design previews.
+Actual Stack protocol/publication/payment/subscriptions remain pending under #1.
 
-Search has separate retained result positions. Activity filter/positions are
-hoisted into wallet/backend navigation memory; the real list is mounted only after
-cached/known history and personal policy are ready. Profile Message shares the
-existing owned contact-retention helper before navigation, so unsent drafts remain
-discoverable in ordinary Chat. Existing native methods now exercise selectors,
-Mentions return, exact row/scroll retention and profile-origin draft reopening.
-Original test identities, class/UI deadlines, wallet checks and restoration remain.
-The new Chat journey uses its existing owned mutable fixture, not the read-only
-frame fixture. No collector/catalog relaxation is permitted.
+Latest public beta is89. Candidates93 through100 are superseded and must not be
+promoted.98 failed before artifact creation. Actual signed100 from sourceEA76 is
+42335274bytes, SHA256 `5fed1b01bcb1604919211a6fc53cdd258420a3e4043471959a92467f64822f23`.
+Its independent artifact review, public byte match and genuine83-to100 signed
+updates on Android10/17 pass. Identity, exact unsent draft, cached authored post,
+Light preference, debug isolation and restoration are verified. Receipts remain
+under `candidate100/`, `update100-android10/` and `update100-android17/` in ticket94
+evidence. They are historical qualified proofs, not final publication acceptance.
 
-D124 native preflight exposed observation/setup mismatches, retained under
-`failures/fidelity-d124/`: exact input assertions had accidentally combined the
-new visible label with the unchanged draft; a contact caption needed actual
-scroll revelation at200%; the chosen Activity reply was already first, so the
-nonzero return goal now uses the later Like group; two fixtures needed explicit
-result-tab selection. All41 input assertions now compare exact EditableText,
-with the same expected values and enabled/disabled goals. No bounds were raised.
-The approved Posts section heading restores a stable top anchor during new search.
-Typography observes/taps the actual visible long-post caption within its original
-10s readiness budget, retains the15s Conversation/180s class goals, and does not
-claim a proven cause for old026’s host timeout. The wallet balance test observes
-exactly one overview read and exactly one subsequent Receive read, both within its
-original aggregate15s budget; active-key/balance/address/clipboard checks remain.
-Two-axis review clears these bounded corrections; new native results are pending.
+EA76 focused Chat and Activity pass both SDKs, including exact retained drafts,
+real48dp targets and nonzero reading returns. Scoped Spec review inspected39
+originalPNG/XML pairs with no findings. Earlier FFE Search/writing/transfers and
+48f8 Typography pass both SDKs; renderer source equivalence is recorded. Scope
+limits remain explicit and stills do not establish motion or complete acceptance.
 
-FFE native preflight passes Search, writing and transfer scopes on bothSDKs.
-Remaining FFE fixture failures are preserved under `failures/fidelity-ffe/`.
-FFE snapshots show Loading posts during a native-only caption wait after real
-font recreation. Queued v2 Compose work not advancing is the leading explanation,
-consistent with the framework's test-clock contract; no causal thread trace was
-captured. The original10s `ui.waitUntil` now drives its normal clock while
-observing an exact visible AccessibilityNodeInfo caption. The additional Chat
-journey launches a fresh Activity after the viewport helper deliberately closes
-its owner. Activity avatars/options are scoped to one actual grouped row, not a
-last composed duplicate author. Eight older signed already-read mentions preserve
-original2unread/3likes goals and provide genuine scroll on the tall Pixel. Every
-case keeps a positive pre-departure scroll, exact1dp/axis return and no corrective
-return scroll. Source reviews and local app/instrumentation compilation pass;
-new native outcomes remain required. Production delta is only a group test tag.
+CompleteEA runs42432950122 /42432951769 failed PolicyCenter125 on both SDKs:
+its old combined Text + EditableText assertion included the new visible label,
+while actual EditableText was exactly the retained draft. Original failures are
+preserved under `failures/policy-labelled-ea76/`; remaining partitions were
+cancelled as superseded. Neither full run counts as acceptance. Six remaining
+PublishingEditor comparisons now use existing exact EditableText equality with
+the identical expected expressions/selectors and disabled guards. This completes
+the47-comparison labelled-field migration without production changes, new test identities,
+relaxed assertions, longer deadlines or collector/catalog edits. Both review axes
+clear this bounded correction. Fresh complete validation remains mandatory.
 
-48f8 focused Typography passes bothSDKs, Activity10 and Chat17 pass. Remaining
-Chat10 snapshot shows Loading contacts after the New chat FAB is already visible;
-the test now observes the actual contact list before lazy revelation of the exact
-retained key. Activity17 PNG/Compose show the three actual group targets, while
-its immediate native geometry observation is stale. Compose and all native matches
-now share the original15s budget, re-query current rectangles within the same1px
-relation and catch only stale-node replacement. No production change, relaxed
-assertion or corrective return scroll. Original failures remain under
-`failures/fidelity-48f8/`. Full48 runs42431340556/42431342487 are cancelled and must
-not count toward acceptance. Require a replacement complete same-source pair.
+Require a new immutable final source, signed101+ build, complete same-source
+Android10/17 runs with all three partitions each, unchanged frozen collectors
+(214classes,629/630identities,180archives), genuine signed update/isolation and
+remaining broad native/prototype/normal-zero-motion reviews before promotion.
+Do not assemble focused, old, cancelled or failed partial runs into acceptance.
+Keep actual APK/signature/public bytes bound to the final producer source.
 
-Stack restores approved discovery, Latest/Drafts, reading, canonical Visual/Markdown
-writing, publication review and access as clearly labelled local design previews.
-Actual Stack publication, NFTs, payments, subscriptions and protocol remain under #1.
-The editor compatibility repair and original failures are retained: immutable rc13
-source inventory, exact five-file patch, license, two immutable transformations,
-no mapping clamp or toolchain upgrade. See `third-party/compose-rich-editor`.
-Android10 UiAutomator dialog-window clipping is not proof of reduced touch targets;
-real native48dp observations remain required.
-
-Earlier0263ab513 whole-Stack runs42424088512/42424090652 and scoped native reviews
-pass, but do not accept this newer production change. Old full026 runs42425233337 /
-42425235024 remain diagnostic. Authentic signed83-to99 runs42426257539 /
-42426259270 both SUCCESS, but are superseded update proof. Candidate99 receipts
-remain under `docs/evidence/ticket94/candidate99/`; its actual APK is42318890bytes,
-SHA25683ce502568af22e0a95ea28e2cdadac8431b1c21b467b9d4adf3f68566000fba.
-Candidate98 failed before artifact with a recorded local container OOM.99 was
-built using separate normal compiler/lint lifetimes under unchanged2500MiB/1792MiB
-limits. No98 APK exists. Do not promote93 through99.
-
-Before a replacement100+ promotion require fresh same-source Android10/17 complete
-runs, all three partitions each, unchanged frozen collectors (214classes,
-629/630identities,180archives), real signed update/isolation proofs, actual native
-prototype/motion review on both axes and public APK verification. Do not substitute
-old or focused partial runs. Preserve failures. Never raise emulator heap or restart
-services to work around the unproven API29 heap anomaly.
+The pinned rc13 editor repair, immutable upstream inventory, exact five-file
+patch and packaged license remain under `third-party/compose-rich-editor`.
+Do not clamp mappings or raise emulator heap/restart services to conceal failures.
+API29 UiAutomator window clipping alone does not prove reduced touch targets;
+actual native target observations remain authoritative.
 
 Keep #1/#36/#55/#84/#86 open. Owner visual acceptance, physical Pixel performance,
 actual provider lifecycle, KVK and Play acceptance remain explicitly pending.

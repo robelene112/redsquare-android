@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PolicyCenterPreviewTest:
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Unsent policy navigation draft])
+Semantics of the node:
+Node #3058 at (l=18.0, t=298.0, r=302.0, b=458.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Unsent policy navigation draft'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4678b3a'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Unsent policy navigation draft'
+IsEditable = 'true'
+Text = '[Write a post]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:125)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(Unknown Source:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: stream=
+Error in draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Unsent policy navigation draft])
+Semantics of the node:
+Node #3058 at (l=18.0, t=298.0, r=302.0, b=458.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Unsent policy navigation draft'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4678b3a'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Unsent policy navigation draft'
+IsEditable = 'true'
+Text = '[Write a post]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:125)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(Unknown Source:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 21.122
+There was 1 failure:
+1) draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Unsent policy navigation draft])
+Semantics of the node:
+Node #3058 at (l=18.0, t=298.0, r=302.0, b=458.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Unsent policy navigation draft'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4678b3a'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'Unsent policy navigation draft'
+IsEditable = 'true'
+Text = '[Write a post]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:125)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(Unknown Source:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,99 @@
+{
+  "reviewedAtUtc": "2026-11-08T01:13:39.346648+00:00",
+  "scope": "Independent candidate100 built-artifactreviewonly;no whole-native,signed-update,public-staging orreleaseacceptance",
+  "findingCount": 0,
+  "source": "ea76e435a8222457b18e4ca82b9128eb989af977",
+  "immutableTag": "proof-prototype100-ea76e43",
+  "tagResolves": "ea76e435a8222457b18e4ca82b9128eb989af977",
+  "checkoutDuringReview": {
+    "productionInputsUnchanged": true,
+    "status": [
+      " M docs/PROJECT_CONTEXT.md",
+      " M docs/handoffs/IMPLEMENTATION.md"
+    ],
+    "explanation": "Initialinspectionclean;rootupdatedonlytwo documentationfiles duringindependentreview. ProducerHEAD/tagremainedunchanged."
+  },
+  "variant": "release",
+  "buildManifest": {
+    "versionCode": 100,
+    "versionName": "0.1.100",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "5fed1b01bcb1604919211a6fc53cdd258420a3e4043471959a92467f64822f23",
+    "commit": "ea76e435a8222457b18e4ca82b9128eb989af977",
+    "variant": "release"
+  },
+  "actualApk": {
+    "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/100/redsquare.apk",
+    "bytes": 42335274,
+    "sha256": "5fed1b01bcb1604919211a6fc53cdd258420a3e4043471959a92467f64822f23"
+  },
+  "actualApkManifestAndLicense": {
+    "apkBytes": 42335274,
+    "apkSha256": "5fed1b01bcb1604919211a6fc53cdd258420a3e4043471959a92467f64822f23",
+    "package": "nl.davidengelen.redsquare",
+    "versionCode": "100",
+    "versionName": "0.1.100",
+    "minSdk": "29",
+    "targetSdk": "36",
+    "debuggable": "false",
+    "profileable": false,
+    "actualDecodedManifestSha256": "f458b2c0333832d6b962647149a5cad464705b63a770e8baa9ff0ce126e9482d",
+    "decodedManifestMatchesBuildReceipt": true,
+    "license": {
+      "bytes": 11343,
+      "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722"
+    },
+    "duplicateZipEntries": 0
+  },
+  "signatureIndependentlyVerified": true,
+  "signatureVerification": "Fresh512m readonlynetworknone ephemeralbuildimage;apksigner verify --print-certs actualbuiltAPK;exit0;establishedcertificateSHA256matchesmanifest",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "generatedReleaseBooleans": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "configurationBoundary": "Generatedreleasebooleans retainedseparately.No debug/release/performance/defaultversionbinaryequalityclaim.",
+  "buildResult": "BUILD SUCCESSFUL in1m14s;86tasks9executed77uptodate;SignedpreviewpathmatchesreviewedAPK",
+  "verificationImageId": "sha256:c53d429fc1d896a90280072bedfd228d3c36844de40c9da7bcb80b961f0dd0e8",
+  "receipts": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/100/manifest.json",
+      "bytes": 352,
+      "sha256": "6974639cb03b292382e0c6379e19af017738b76d0e5ffce4030f43b0a8a148d2"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/100/signature.txt",
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/100/package.txt",
+      "bytes": 5068,
+      "sha256": "b9caf08d51d2e1b99ff760db1f3ce8a2e8ddea5e50e57fb026731c7e72998b7a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/100/android-manifest.xml",
+      "bytes": 10814,
+      "sha256": "f458b2c0333832d6b962647149a5cad464705b63a770e8baa9ff0ce126e9482d"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta100-build.log",
+      "bytes": 7424,
+      "sha256": "0408580e11b65f6b3e1b2b7a6f5afe73b741a8397e95fb2b1b6e1cf6fcedd0e5"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-ea76-runs.json",
+      "bytes": 1328,
+      "sha256": "aa9823dde4fac8b864500df74e1d5ab9f3a5144ec1d4268d6dee66445a81f7f3"
+    }
+  ],
+  "limits": [
+    "Artifactreviewonly.Focused/completeEA native runs listedinmanifestnot evaluated;no pass/acceptanceinferred.",
+    "No publicdownload/staging/promotionverificationperformedorclaimed.",
+    "Sourcebindingchecks producerHEAD,tag,buildmanifest,unchangedproductioncheckout andactualAPKidentity;notreproducible-buildbinarycomparison.",
+    "Nosigningsecretsread,printed orcopied.",
+    "Actualpackagedlicensebytesverified;sourcepatch/provenance/modification-noticereviewsseparatelyrecorded."
+  ]
+}

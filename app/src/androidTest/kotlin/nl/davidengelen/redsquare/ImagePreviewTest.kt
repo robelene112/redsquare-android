@@ -257,7 +257,7 @@ class ImagePreviewTest {
                         assertTrue(kotlin.math.abs(android.graphics.Color.red(pixel) - 30) <= 5)
                         assertTrue(kotlin.math.abs(android.graphics.Color.green(pixel) - 190) <= 5)
                         assertTrue(kotlin.math.abs(android.graphics.Color.blue(pixel) - 70) <= 5)
-                        ui.onNode(hasSetTextAction()).assertTextEquals("Keep picker selection across rotation")
+                        ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep picker selection across rotation")
                         ui.onNode(hasText("Send") and isEnabled()).assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
                         peer.assertHealthy()

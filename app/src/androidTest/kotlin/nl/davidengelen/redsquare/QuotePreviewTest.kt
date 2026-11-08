@@ -203,7 +203,7 @@ class QuotePreviewTest {
                 waitFor(originalText)
                 ui.clickVisiblePostContent("Quote")
                 waitFor("Recover this quote draft")
-                ui.onNode(hasSetTextAction()).assertTextEquals("Recover this quote draft")
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals("Recover this quote draft")
                 ui.onNodeWithContentDescription("Quoted original").assertIsDisplayed()
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
