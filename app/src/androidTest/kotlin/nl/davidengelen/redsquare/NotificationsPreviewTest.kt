@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -50,7 +52,10 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
             // The quote sorts first, then this reply, then the like; all have the same signer.
-            ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(3)[1].assertIsDisplayed().performClick()
+            assertThreeActivityActorsAndOpen(actor, listOf(
+                "Quoted your post" to "Quote carrying a parent reference",
+                "Replied to your post" to "Reply notification reference",
+                "Liked your post" to "Native Red Square reference post"), selectedRow = 1)
             waitFor("Profile")
             ui.inspectProfileIdentity(actor)
         }
@@ -124,7 +129,10 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Reposted your post")
-            ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(3)[0].assertIsDisplayed().performClick()
+            assertThreeActivityActorsAndOpen(actor, listOf(
+                "Reposted your post" to "Native Red Square reference post",
+                "Quoted your post" to "Quote carrying a parent reference",
+                "Liked your post" to "Native Red Square reference post"), selectedRow = 0)
             waitFor("Profile")
             ui.inspectProfileIdentity(actor)
         }
@@ -149,7 +157,10 @@ class NotificationsPreviewTest {
                 ui.onNodeWithText("Back").performClick()
                 waitFor("Quoted your post")
             }
-            ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(3)[0].assertIsDisplayed().performClick()
+            assertThreeActivityActorsAndOpen(actor, listOf(
+                "Quoted your post" to "Legacy quote notification reference",
+                "Quoted your post" to "Quote notification reference",
+                "Liked your post" to "Native Red Square reference post"), selectedRow = 0)
             waitFor("Profile")
             ui.inspectProfileIdentity(actor)
         }
@@ -1367,6 +1378,25 @@ class NotificationsPreviewTest {
     }
 
     private fun actorLabel(key: String) = "View profile for Anon-${key.take(6)}"
+
+    /** Verify all three signer targets through the real virtualised list, then open the intended event's author. */
+    private fun assertThreeActivityActorsAndOpen(actor: String, events: List<Pair<String, String>>, selectedRow: Int) {
+        check(events.size == 3 && events.distinct().size == 3 && selectedRow in events.indices)
+        val list = ui.onNode(hasScrollToIndexAction())
+        list.assert(SemanticsMatcher("Activity retains exactly three signed event rows") { node ->
+            node.config.getOrNull(SemanticsProperties.CollectionInfo)?.let { it.rowCount == 3 && it.columnCount == 1 } == true
+        })
+        fun revealAuthor(event: Pair<String, String>): SemanticsNodeInteraction {
+            val content = hasClickAction() and hasText(event.first) and hasText(event.second)
+            val row = hasAnyChild(content)
+            list.performScrollToNode(row)
+            ui.onNode(row).performScrollTo().assertIsDisplayed()
+            val author = hasContentDescription(actorLabel(actor)) and hasParent(row)
+            return ui.onAllNodes(author).assertCountEquals(1)[0].assertIsDisplayed().assertHasClickAction()
+        }
+        events.forEach { revealAuthor(it) }
+        revealAuthor(events[selectedRow]).performClick()
+    }
 
     private fun waitForActor(key: String) {
         ui.waitUntil(15_000) { ui.onAllNodesWithContentDescription(actorLabel(key))

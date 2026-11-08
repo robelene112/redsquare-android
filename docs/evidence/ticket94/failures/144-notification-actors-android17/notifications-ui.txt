@@ -1,0 +1,741 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #5444 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #5468 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile$lambda$1(NotificationsPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$b1LCHME_AtLSBxEVom3w_orK9ps(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #5444 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #5468 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile$lambda$1(NotificationsPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$b1LCHME_AtLSBxEVom3w_orK9ps(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #6974 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #6998 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor$lambda$5(NotificationsPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$bZHDT4NMFC9Esw9GIpWLyNfQ-2w(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda82.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(NotificationsPreviewTest.kt:134)
+
+INSTRUMENTATION_STATUS: stream=
+Error in incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #6974 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #6998 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor$lambda$5(NotificationsPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$bZHDT4NMFC9Esw9GIpWLyNfQ-2w(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda82.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(NotificationsPreviewTest.kt:134)
+
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #7474 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #7498 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile$lambda$4(NotificationsPreviewTest.kt:127)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$eg79XrFaFKCuZFU58VxhsnDGaN8(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda86.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:117)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #7474 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #7498 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile$lambda$4(NotificationsPreviewTest.kt:127)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$eg79XrFaFKCuZFU58VxhsnDGaN8(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda86.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:117)
+
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=backendSwitchesKeepActivityAndReadMarkersSeparateThroughFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=backendSwitchesKeepActivityAndReadMarkersSeparateThroughFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=moreActivityDiscoversRepliesToTheEleventhKnownOwnPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=moreActivityDiscoversRepliesToTheEleventhKnownOwnPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=muteAndBlockHideActivityAndUnreadCountsThroughOutagesUntilExplicitRemoval
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=muteAndBlockHideActivityAndUnreadCountsThroughOutagesUntilExplicitRemoval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 135.949
+There were 3 failures:
+1) anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #5444 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #5468 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile$lambda$1(NotificationsPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$b1LCHME_AtLSBxEVom3w_orK9ps(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile(NotificationsPreviewTest.kt:39)
+2) incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #6974 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #6998 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor$lambda$5(NotificationsPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$bZHDT4NMFC9Esw9GIpWLyNfQ-2w(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda82.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor(NotificationsPreviewTest.kt:134)
+3) anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Expected '3' nodes but found '2' nodes that satisfy: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+Nodes found:
+1) Node #7474 at (l=26.0, t=318.0, r=246.0, b=366.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+2) Node #7498 at (l=26.0, t=430.0, r=246.0, b=478.0)px
+ContentDescription = '[View profile for Anon-pncSjs]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-pncSjs]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile$lambda$4(NotificationsPreviewTest.kt:127)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$eg79XrFaFKCuZFU58VxhsnDGaN8(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda86.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$102$lambda$101$lambda$100$lambda$99(NotificationsPreviewTest.kt:1224)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$dixXVQFvlkLzlVWpif3CJFJKPWc(NotificationsPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda63.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1190)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile(NotificationsPreviewTest.kt:117)
+
+FAILURES!!!
+Tests run: 32,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

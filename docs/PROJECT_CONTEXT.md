@@ -2,6 +2,34 @@
 
 ## Current verification status
 
+All144 complete runs are FAILED and retained:10 WalletPASS, ChatModuleHeader
+host180s timeout and Social32cases/3virtualisedactor-count failures;17 WalletPolicy
+TalkBack route failure, Chatpre-deathphoto capturedduringfade, Socialsame3actor-count
+failures. Neither SDK has a full pass, so no one-SDK/tail exception is eligible.
+
+Current proposed corrections change only three Android-test helpers: retain ALL
+motion frames in batchesof4 with identicalPTS/names/losslessPNG/per-framewidth and
+boundedrecycling; check exactly3logicalnotificationrows and eachsignedactor through
+real listscrolling; await exact photoARGB within original20s with snapshots recycled
+finally. Both review axes clear the final diff; instrumentation compile2m13s passes.
+No production/build/workflow/catalog/identity/deadline changes. Fresh focused native
+checks then complete10/17 gates remain mandatory before102build/promotion.
+
+Paired normal-instrumentation codec comparisons pass on29/37 (runs42447998875 /
+42447998965): all191orderedPNG hashes match single/batch2/batch4, everyPTS/count/
+dimension preserved. Every191retained original29PNG also matches the freshbaseline.
+Observed timings favorbatch4, with fixed-order/warm-up/no-fileIO limitations retained;
+these diagnostic cases do not replace original180sclass/fullacceptance. Original
+ModuleHeader timeout/notification/photo failures remain under failures/144-*.
+The earlier standalone probe exited137/Killed without usable result and was not
+accepted; the valid comparison uses a separate diagnostic-only test class outside
+Main and its frozen catalog. Native helper adoption still needs fresh180sclasspasses.
+
+Policy17 focused3c686 run42446087481 passes53.6s with exactoriginalgoals: radiofocus
+requestedafter2843mswithin shared5000ms and bothnodeutterancescompleted. Actual
+identity/draft/restoration stay intact. Causeofoldcoordinatehandoff remains unproven.
+Latestbeta89,counter101,102unbuilt/unreserved. Preserve all other tickets/nodes/WIP.
+
 Full144 source144478128079f20321caaf401a8907597a3c4809 remains under verification:
 Android10 run42444221406 is pending. Android17 run42444221528 Wallet fails at
 PolicyCenterPreviewTest157: after a TalkBack-owned Node activation, actual PNG/XML

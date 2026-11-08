@@ -91,17 +91,24 @@ internal fun retainNativeMotionFrames(movie: File): JsonObject {
         val count = requireNotNull(decoder.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_FRAME_COUNT)).toInt()
         check(count == timestamps.size && count >= 2) { "Insufficient or inconsistent native recording frames" }
         val frames = JsonArray()
-        // Decode every actual frame of the bounded recording, including a late input transition.
-        for (index in timestamps.indices) {
-            val frame = requireNotNull(decoder.getFrameAtIndex(index))
+        // Retain every actual frame, including late input. Consecutive retrieval avoids
+        // restarting indexed decoding for each PNG; at most four returned bitmaps stay live.
+        for (first in timestamps.indices step 4) {
+            val requested = minOf(4, timestamps.size - first)
+            val decoded = requireNotNull(decoder.getFramesAtIndex(first, requested))
             try {
-                check(frame.width == UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).displayWidth)
-                val name = "${movie.nameWithoutExtension}-frame-$index.png"
-                File(movie.parentFile, name).outputStream().use { check(frame.compress(Bitmap.CompressFormat.PNG, 100, it)) }
-                frames.add(JsonObject().apply {
-                    addProperty("index", index); addProperty("presentationTimeUs", timestamps[index]); addProperty("file", name)
-                })
-            } finally { frame.recycle() }
+                check(decoded.size == requested) { "Inconsistent native frame batch" }
+                for (offset in decoded.indices) {
+                    val index = first + offset
+                    val frame = requireNotNull(decoded[offset])
+                    check(frame.width == UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).displayWidth)
+                    val name = "${movie.nameWithoutExtension}-frame-$index.png"
+                    File(movie.parentFile, name).outputStream().use { check(frame.compress(Bitmap.CompressFormat.PNG, 100, it)) }
+                    frames.add(JsonObject().apply {
+                        addProperty("index", index); addProperty("presentationTimeUs", timestamps[index]); addProperty("file", name)
+                    })
+                }
+            } finally { decoded.forEach { it?.recycle() } }
         }
         return JsonObject().apply { addProperty("frameCount", count); add("decodedOriginalFrames", frames) }
     } catch (failure: Throwable) { primary = failure; throw failure }

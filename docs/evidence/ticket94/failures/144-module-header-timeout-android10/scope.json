@@ -1,0 +1,148 @@
+{
+  "source": "144478128079f20321caaf401a8907597a3c4809",
+  "run": 42444221406,
+  "partition": "chat",
+  "class": "ModuleHeaderMotionTest",
+  "exit": 124,
+  "hostCapSeconds": 180,
+  "result": "NoJavafailure or OK/classcompletion. All12movies retained; finalnormalarticle-reading original frames captured through index64. Final frame JSON/window assertion not complete. Native class must rerun, no tailobserverexception.",
+  "movies": [
+    {
+      "name": "module-header-motion-evidence/scale-0-collapse.mp4",
+      "size": 160392,
+      "mtime": 1794111589
+    },
+    {
+      "name": "module-header-motion-evidence/scale-0-keyboard.mp4",
+      "size": 30779,
+      "mtime": 1794111601
+    },
+    {
+      "name": "module-header-motion-evidence/scale-0-reveal.mp4",
+      "size": 137221,
+      "mtime": 1794111610
+    },
+    {
+      "name": "module-header-motion-evidence/scale-0-module.mp4",
+      "size": 256129,
+      "mtime": 1794111622
+    },
+    {
+      "name": "module-header-motion-evidence/scale-0-article.mp4",
+      "size": 61802,
+      "mtime": 1794111633
+    },
+    {
+      "name": "module-header-motion-evidence/scale-0-article-reading.mp4",
+      "size": 392031,
+      "mtime": 1794111638
+    },
+    {
+      "name": "module-header-motion-evidence/scale-1-collapse.mp4",
+      "size": 162960,
+      "mtime": 1794111676
+    },
+    {
+      "name": "module-header-motion-evidence/scale-1-keyboard.mp4",
+      "size": 26050,
+      "mtime": 1794111688
+    },
+    {
+      "name": "module-header-motion-evidence/scale-1-reveal.mp4",
+      "size": 137818,
+      "mtime": 1794111696
+    },
+    {
+      "name": "module-header-motion-evidence/scale-1-module.mp4",
+      "size": 956057,
+      "mtime": 1794111709
+    },
+    {
+      "name": "module-header-motion-evidence/scale-1-article.mp4",
+      "size": 310286,
+      "mtime": 1794111738
+    },
+    {
+      "name": "module-header-motion-evidence/scale-1-article-reading.mp4",
+      "size": 405260,
+      "mtime": 1794111746
+    }
+  ],
+  "lastRetainedFrameIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "hypotheses": [
+    "Individual-index decoding repeats decoder work",
+    "PNG encoding/writes dominate",
+    "Per-frame display-width query adds overhead"
+  ],
+  "diagnosticRuns": {
+    "api29": 42447214006,
+    "api37": 42447719398
+  },
+  "goalPreservation": "Keep all12movies/everydecodedframe/PTS/losslessPNG/width/window/allassertions and original180cap. No sourcehelper change until pairedhash/timing measurement."
+}

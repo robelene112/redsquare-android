@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateAfterExplicitOfflineSendWithItsOriginalStillQueued
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<-2351576> but was:<-329221>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto(ChatQueueProcessRecoveryTest.kt:221)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto$default(ChatQueueProcessRecoveryTest.kt:208)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued$lambda$14(ChatQueueProcessRecoveryTest.kt:92)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.$r8$lambda$wRAS82rL0Y6ajg3knx5edBPnbbQ(ChatQueueProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.launch(ChatQueueProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(ChatQueueProcessRecoveryTest.kt:88)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest):
+java.lang.AssertionError: expected:<-2351576> but was:<-329221>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto(ChatQueueProcessRecoveryTest.kt:221)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto$default(ChatQueueProcessRecoveryTest.kt:208)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued$lambda$14(ChatQueueProcessRecoveryTest.kt:92)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.$r8$lambda$wRAS82rL0Y6ajg3knx5edBPnbbQ(ChatQueueProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.launch(ChatQueueProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(ChatQueueProcessRecoveryTest.kt:88)
+
+INSTRUMENTATION_STATUS: test=terminateAfterExplicitOfflineSendWithItsOriginalStillQueued
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.284
+There was 1 failure:
+1) terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest)
+java.lang.AssertionError: expected:<-2351576> but was:<-329221>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto(ChatQueueProcessRecoveryTest.kt:221)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.assertPhoto$default(ChatQueueProcessRecoveryTest.kt:208)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued$lambda$14(ChatQueueProcessRecoveryTest.kt:92)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.$r8$lambda$wRAS82rL0Y6ajg3knx5edBPnbbQ(ChatQueueProcessRecoveryTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.launch(ChatQueueProcessRecoveryTest.kt:199)
+	at nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest.terminateAfterExplicitOfflineSendWithItsOriginalStillQueued(ChatQueueProcessRecoveryTest.kt:88)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

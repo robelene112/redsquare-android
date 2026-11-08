@@ -216,9 +216,19 @@ class ChatQueueProcessRecoveryTest {
             ui.onNode(list).performScrollToIndex(1)
             captureLayout("$kind-history-after-photo-scroll")
         }
-        ui.waitUntil(20_000){displayed(image)}
-        val bitmap=ui.onNode(image).captureToImage().asAndroidBitmap()
-        assertEquals(0xffdc1e28.toInt(),bitmap.getPixel(bitmap.width/2,bitmap.height/2))
+        // Semantics can be visible during the parent's real preparation/fade frame.
+        // Keep the original20s readiness budget and require the exact rendered photo.
+        var renderedColor: Int? = null
+        ui.waitUntil(20_000) {
+            if (!displayed(image)) false else {
+                val candidate = ui.onNode(image).captureToImage().asAndroidBitmap()
+                try {
+                    renderedColor = candidate.getPixel(candidate.width / 2, candidate.height / 2)
+                    renderedColor == 0xffdc1e28.toInt()
+                } finally { candidate.recycle() }
+            }
+        }
+        assertEquals(0xffdc1e28.toInt(), requireNotNull(renderedColor))
     }
     private fun click(text:String) {val target=hasText(text) and hasClickAction() and isEnabled();ui.waitUntil(20_000){displayed(target)};ui.onNode(target).performClick()}
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
