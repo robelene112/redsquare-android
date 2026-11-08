@@ -1,0 +1,10 @@
+{
+  "scope": "Actual signed101 build and staged download verification. Complete native gates, signed update, final broad native review and promotion remain pending.",
+  "source": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+  "bytes": 42335274,
+  "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+  "publicApkUrl": "https://davidengelen.nl/redsquare/releases/101/redsquare.apk",
+  "publicMatchesActualApk": true,
+  "independentArtifactReceiptSha256": "a8b445fd8efe4316f5ef9186a174d239f9f5dc9486df34376f99cdaa1eb4c081",
+  "buildPreparation": "Separate ordinary compiler/lint lifetimes under unchanged2500MiB container and1792MiB JVM; no check skipped, same frozen producerHEAD throughout."
+}

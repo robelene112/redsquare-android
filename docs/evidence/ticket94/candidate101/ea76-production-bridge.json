@@ -1,0 +1,37 @@
+{
+  "scope": "Source equivalence only, not APK binary identity or whole native acceptance.",
+  "base": "ea76e435a8222457b18e4ca82b9128eb989af977",
+  "current": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+  "productionPaths": [
+    "app/src/main",
+    "app/src/debug",
+    "app/src/release",
+    "app/src/performance",
+    "core/src/main",
+    "push-gateway/src/main",
+    "third-party",
+    "build-support",
+    "gradle",
+    "settings.gradle.kts",
+    "build.gradle.kts",
+    "gradle.properties",
+    "app/build.gradle.kts",
+    "core/build.gradle.kts",
+    "push-gateway/build.gradle.kts"
+  ],
+  "productionDiffEmpty": true,
+  "nonDocumentationChanged": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImageProcessRecoveryTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublisherRequestsPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublisherRoutesPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/QuotePreviewTest.kt"
+  ],
+  "sixChanges": "Exact EditableText matcher substitutions only; identical expected values/selectors and disabled assertions.",
+  "frozenCatalogCollectorIdentitiesUnchanged": true,
+  "priorFfeBridge": {
+    "path": "/mnt/storage/redsquare-android-artifacts/prototype94-ea76-production-bridge.json",
+    "sha256": "9b1073bc24ca28b5a09bb1e22136fd773504a8864c4ac95d5fe407a0dd321f84"
+  }
+}

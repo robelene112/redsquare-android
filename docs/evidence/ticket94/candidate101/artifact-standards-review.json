@@ -1,0 +1,152 @@
+{
+  "reviewedAtUtc": "2026-11-08T01:39:25.428683+00:00",
+  "scope": "Independent actual signed candidate101 artifact/configuration/provenance review only",
+  "findingCount": 0,
+  "source": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+  "immutableTag": "proof-prototype101-d6838d4",
+  "tagResolves": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+  "checkoutDuringReview": {
+    "head": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+    "status": [
+      " M docs/PROJECT_CONTEXT.md",
+      " M docs/evidence/ticket94/README.md",
+      " M docs/handoffs/IMPLEMENTATION.md"
+    ],
+    "interpretation": "Documentation-only working changes during inspection. Root reports clean frozen checkout throughout actual build; actual build manifest binds exact d683 source."
+  },
+  "variant": "release",
+  "buildManifest": {
+    "versionCode": 101,
+    "versionName": "0.1.101",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+    "commit": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+    "variant": "release"
+  },
+  "actualApk": {
+    "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/101/redsquare.apk",
+    "bytes": 42335274,
+    "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d"
+  },
+  "actualApkManifestAndLicense": {
+    "package": "nl.davidengelen.redsquare",
+    "versionCode": "101",
+    "versionName": "0.1.101",
+    "minSdk": "29",
+    "targetSdk": "36",
+    "debuggable": "false",
+    "profileable": false,
+    "actualDecodedManifestSha256": "e2972694eedb4eddca54ba61dd64aec36a0197508a90075c066dcf010cdd0a2d",
+    "decodedManifestMatchesBuildReceipt": true,
+    "license": {
+      "bytes": 11343,
+      "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722",
+      "exactVendoredSourceResourceBytes": true
+    },
+    "duplicateZipEntries": 0
+  },
+  "signatureIndependentlyVerified": true,
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "signatureVerification": "Fresh512m readonly/no-network cpu1 ephemeral existing build image, current host UID, only actualAPK mounted readonly; apksigner verify --print-certs exit0. Separate aapt and apkanalyzer inspect actualAPK.",
+  "generatedReleaseBooleans": {
+    "DEBUG": false,
+    "REVIEW_BUILD": true,
+    "PUSH_CONFIGURED": false
+  },
+  "configurationBoundary": "Generated release booleans verified separately from actual decoded APK manifest. Signed review/release version101 is distinct from complete-gate default version/debug/release/performance configurations; no binary equality claim.",
+  "publicStaging": {
+    "url": "https://davidengelen.nl/redsquare/releases/101/redsquare.apk",
+    "downloadMethod": "Independent real curl HTTPS200 download streamed directly to SHA256, 42335274bytes; exact APK hash matches local built file and public manifest. No duplicate APK retained.",
+    "bytes": 42335274,
+    "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+    "publicManifest": {
+      "versionCode": 101,
+      "versionName": "0.1.101",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+      "commit": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+      "variant": "release",
+      "apkUrl": "https://davidengelen.nl/redsquare/releases/101/redsquare.apk",
+      "notes": "Restores the approved app navigation, profiles, compact post actions and Chat design. Adds separate Posts/People and All/Mentions views, a direct Message action on profiles and retained reading and drafts. Stack includes a local design preview for discovery, reading, Visual/Markdown writing, publication review and access. Actual Stack network operations remain pending."
+    },
+    "observedLatestVersion": 89,
+    "promotionStatusAtReview": "Stage only, latest remains89"
+  },
+  "buildResult": "Actual ordinary build log BUILD SUCCESSFUL in48s after rich-editor warm15s. Separate compiler/lint warm logs retained; no source/toolchain/heap override applied by reviewer.",
+  "verificationImage": "redsquare-android-build:agp8.10.1",
+  "verificationImageId": "sha256:c53d429fc1d896a90280072bedfd228d3c36844de40c9da7bcb80b961f0dd0e8",
+  "receipts": [
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/101/manifest.json",
+      "bytes": 352,
+      "sha256": "3e4334033b781dcec10ce3f54a0d01cfeaddfba4feb2eefe0b809e4b0ffd9560"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/101/signature.txt",
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/101/package.txt",
+      "bytes": 5068,
+      "sha256": "0997993a9b61876ef2aa360c81c8e54d0ec6ef874a4df3470521aa7e1c269b8a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/redesign86/.scratch/review-builds/101/android-manifest.xml",
+      "bytes": 10814,
+      "sha256": "e2972694eedb4eddca54ba61dd64aec36a0197508a90075c066dcf010cdd0a2d"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d683-native-standards/artifact101/android-manifest.txt",
+      "bytes": 10814,
+      "sha256": "e2972694eedb4eddca54ba61dd64aec36a0197508a90075c066dcf010cdd0a2d"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d683-native-standards/artifact101/public-download-headers.txt",
+      "bytes": 718,
+      "sha256": "bb28a22346b224d9255d01b403def4701d22433be5fc8e39e019d52da121d341"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d683-native-standards/artifact101/package.txt",
+      "bytes": 5068,
+      "sha256": "0997993a9b61876ef2aa360c81c8e54d0ec6ef874a4df3470521aa7e1c269b8a"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d683-native-standards/artifact101/signature.txt",
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d683-native-standards/artifact101/public-manifest.json",
+      "bytes": 814,
+      "sha256": "f7804abeea061ad798f93c5f296f30742fcf6538c052419c1f85036c6c81d675"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-d683-native-standards/artifact101/observed-latest.json",
+      "bytes": 637,
+      "sha256": "d572f5c93dd4a9093b65caebc103467fd6b559eb5b193588085f7236720ad06e"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta101-warm-compile.log",
+      "bytes": 5298,
+      "sha256": "e7e8f8e81ab8e44f27397a7ef9e53d9c9b1860bbde696992d504c7d885504339"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta101-warm-lint.log",
+      "bytes": 5787,
+      "sha256": "9083ceb3015f586c85299b4195b1885b566fb3bcc6a8dd30cf4176b5985e738e"
+    },
+    {
+      "path": "/mnt/storage/redsquare-android-artifacts/prototype94-beta101-build.log",
+      "bytes": 7443,
+      "sha256": "6c0c1c08a722e2af1722668547595dad26ae9e710a6311bae09a2ac6f01a8608"
+    }
+  ],
+  "limits": [
+    "Artifact/configuration/staging review only, not whole-app visual/native, complete-suite, signed update or delivery acceptance.",
+    "No build/install/promotion/service action performed. Only fresh isolated read-only inspection containers and external receipts created.",
+    "Actual83-to101 native update runs42435036865/42435039231 and complete runs42434527500/42434529784 are outside this receipt; no pending runtime result counted as passed."
+  ]
+}

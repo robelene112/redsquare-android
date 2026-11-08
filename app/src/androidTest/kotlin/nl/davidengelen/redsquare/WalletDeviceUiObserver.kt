@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.StaleObjectException
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import org.junit.Test
@@ -29,7 +30,12 @@ class WalletDeviceUiObserver {
                 if (action == null) {
                     // Legacy signed previews have a direct Wallet control. Newer
                     // builds expose the same public address through Account.
-                    device.findObject(By.pkg(application).desc("Account").enabled(true))?.click()
+                    try {
+                        device.findObject(By.pkg(application).desc("Account").enabled(true))?.click()
+                    } catch (_: StaleObjectException) {
+                        // Startup can replace the accessibility node before its click.
+                        // Re-query in the existing bounded loop, never reuse that node.
+                    }
                     if (device.hasObject(By.text("System UI isn't responding")))
                         device.findObject(By.text("Wait"))?.click()
                     action = device.wait(Until.findObject(By.pkg(application).text("Wallet").enabled(true)), 1_000)

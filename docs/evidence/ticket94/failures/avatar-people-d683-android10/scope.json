@@ -1,0 +1,5 @@
+{
+  "scope": "Actual failed d683 Social10 AvatarIdentityJourneyTest, not accepted full run.",
+  "failure": "Light and Dark tour85 timeout looking for avatar in Search default Posts. Exact key query, actual Posts content/no matching posts shown; People not selected. Cached picture case passes.",
+  "correction": "Select actual People tab before the same exact signed-identity lookup and native avatar assertions. No production/pixel/request/deadline/declaration/catalog changes."
+}

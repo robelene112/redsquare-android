@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletDeviceUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletDeviceUiObserver:
+INSTRUMENTATION_STATUS: test=openTheCurrentPublicWalletAddress
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletDeviceUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.test.uiautomator.StaleObjectException
+	at androidx.test.uiautomator.UiObject2.getAccessibilityNodeInfo(UiObject2.java:1042)
+	at androidx.test.uiautomator.UiObject2.click(UiObject2.java:526)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.openTheCurrentPublicWalletAddress$lambda$3(WalletDeviceUiObserver.kt:32)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.$r8$lambda$nTJiW4EmTczUWNm_v8tA6xAU1vo(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.openTheCurrentPublicWalletAddress(WalletDeviceUiObserver.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in openTheCurrentPublicWalletAddress(nl.davidengelen.redsquare.WalletDeviceUiObserver):
+androidx.test.uiautomator.StaleObjectException
+	at androidx.test.uiautomator.UiObject2.getAccessibilityNodeInfo(UiObject2.java:1042)
+	at androidx.test.uiautomator.UiObject2.click(UiObject2.java:526)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.openTheCurrentPublicWalletAddress$lambda$3(WalletDeviceUiObserver.kt:32)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.$r8$lambda$nTJiW4EmTczUWNm_v8tA6xAU1vo(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.openTheCurrentPublicWalletAddress(WalletDeviceUiObserver.kt:22)
+
+INSTRUMENTATION_STATUS: test=openTheCurrentPublicWalletAddress
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 2.357
+There was 1 failure:
+1) openTheCurrentPublicWalletAddress(nl.davidengelen.redsquare.WalletDeviceUiObserver)
+androidx.test.uiautomator.StaleObjectException
+	at androidx.test.uiautomator.UiObject2.getAccessibilityNodeInfo(UiObject2.java:1042)
+	at androidx.test.uiautomator.UiObject2.click(UiObject2.java:526)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.openTheCurrentPublicWalletAddress$lambda$3(WalletDeviceUiObserver.kt:32)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.$r8$lambda$nTJiW4EmTczUWNm_v8tA6xAU1vo(Unknown Source:0)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.WalletDeviceUiObserver.openTheCurrentPublicWalletAddress(WalletDeviceUiObserver.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

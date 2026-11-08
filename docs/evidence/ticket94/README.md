@@ -1,6 +1,6 @@
 # Unified redesign release verification (#94)
 
-## Current correction: final labelled-field verification
+## Current correction: final search-route and observer verification
 
 Issue94 remains active. Native prototype `c95ecaa01`, live design
 `design-3d989e9e8406`, and the owner's amendments are the visual authority.
@@ -15,7 +15,7 @@ protocols and publishing guards remain. Stack discovery, reading, Visual/Markdow
 writing, publication review and access are clearly labelled local design previews.
 Actual Stack protocol/publication/payment/subscriptions remain pending under #1.
 
-Latest public beta is89. Candidates93 through100 are superseded and must not be
+Latest public beta is89. Candidates93 through101 are superseded and must not be
 promoted.98 failed before artifact creation. Actual signed100 from sourceEA76 is
 42335274bytes, SHA256 `5fed1b01bcb1604919211a6fc53cdd258420a3e4043471959a92467f64822f23`.
 Its independent artifact review, public byte match and genuine83-to100 signed
@@ -41,12 +41,35 @@ the47-comparison labelled-field migration without production changes, new test i
 relaxed assertions, longer deadlines or collector/catalog edits. Both review axes
 clear this bounded correction. Fresh complete validation remains mandatory.
 
-Require a new immutable final source, signed101+ build, complete same-source
-Android10/17 runs with all three partitions each, unchanged frozen collectors
-(214classes,629/630identities,180archives), genuine signed update/isolation and
-remaining broad native/prototype/normal-zero-motion reviews before promotion.
-Do not assemble focused, old, cancelled or failed partial runs into acceptance.
-Keep actual APK/signature/public bytes bound to the final producer source.
+D683 complete10 run42434527500 failed AvatarIdentityJourneyTest85: its
+legacy Search journey queried the exact public key in default Posts, without
+selecting People. Both Light/Dark pictures were correct in feed/thread, and the
+cached-picture case passed. Original log and native PNG/XML remain under
+`failures/avatar-people-d683-android10/`. Old complete runs42434527500 /
+42434529784 were cancelled as superseded. Neither establishes complete acceptance.
+The journey now selects actual People before its unchanged identity/pixel/removal/
+discovery-count checks. A systematic search-route audit found other People
+journeys already select that tab; post-reading routes remain on Posts.
+
+Signed101 is historically built from d683:42335274bytes, SHA256
+`6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d`.
+Independent artifact review and public byte match pass. Its first signed update10
+run42435036865 failed a StaleObjectException at WalletDeviceUiObserver32 clicking
+Account; baseline observations passed and restoration succeeded. Exact originals
+remain under `failures/update101-stale-android10/`. Fresh unchanged whole update
+run42435678265 and Android17 run42435039231 both pass. This retry does not prove a
+causal fix. The observer now catches only that stale Account reference inside the
+original20x1s loop and re-queries; all four observations, address and identity
+checks remain. Both source-review axes and local instrumentation compilation pass.
+These two test-only changes do not change production, declarations, bounds or
+frozen acceptance inputs.
+
+Next freeze the corrected source and run a fresh complete10/17 pair, all three
+partitions each, unchanged frozen collectors (214classes,629/630identities,
+180archives). Defer the actual signed102+ build until those application gates
+succeed, then verify genuine signed update/isolation, remaining broad native/
+prototype/normal-zero-motion reviews and actual public bytes before promotion.
+No focused, old, cancelled or failed partial assembly. Latest remains89.
 
 The pinned rc13 editor repair, immutable upstream inventory, exact five-file
 patch and packaged license remain under `third-party/compose-rich-editor`.

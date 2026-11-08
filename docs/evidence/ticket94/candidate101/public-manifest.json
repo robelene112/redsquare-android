@@ -1,0 +1,11 @@
+{
+  "versionCode": 101,
+  "versionName": "0.1.101",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+  "commit": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/101/redsquare.apk",
+  "notes": "Restores the approved app navigation, profiles, compact post actions and Chat design. Adds separate Posts/People and All/Mentions views, a direct Message action on profiles and retained reading and drafts. Stack includes a local design preview for discovery, reading, Visual/Markdown writing, publication review and access. Actual Stack network operations remain pending."
+}

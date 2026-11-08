@@ -78,6 +78,7 @@ class AvatarIdentityJourneyTest {
         assertPicture(authorRow(key), color)
         capture("$theme-$stage-thread")
         tab("Search")
+        ui.onNodeWithText("People").performClick()
         val input = ui.onNode(hasSetTextAction() and isEnabled())
         ui.waitUntil(15_000) { input.isDisplayed() }
         input.performTextReplacement(key)

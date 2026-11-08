@@ -1,0 +1,138 @@
+native-proof (all)	Verify Android 10 runtime	﻿2026-11-08T01:42:52.8098792Z ##[group]Run scripts/ci-android-device 29
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8099105Z ^[[36;1mscripts/ci-android-device 29^[[0m
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8116384Z shell: /usr/bin/bash -e {0}
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8116613Z env:
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8116873Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8117399Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8117740Z   MAVEN_ARGS: -ntp
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8117948Z   TEST_CANDIDATE_VERSION: 101
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8118169Z   TEST_MAIN_REFERENCE_VERSION: 29
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8118405Z   TEST_PERFORMANCE_VERSION: 
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8118626Z   TEST_PUBLIC_SIGNED_UPDATE: 1
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8118859Z   TEST_PUBLIC_FEED_READ: 0
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8119071Z   TEST_PUBLIC_VIDEO_REFERENCE: 0
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8119283Z   TEST_PARTITION: all
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8119489Z   TEST_SCOPE: candidate-update
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.8119691Z ##[endgroup]
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.9060487Z WARNING: The SDK Manager CLI tool (sdkmanager) is deprecated. Use Android CLI instead.
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.9061870Z The 'android' binary can also be found in the cmdline-tools directory, and 'android sdk' is the replacement for 'sdkmanager'.
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.9063152Z To learn more about the Android CLI and how to use it, see the documentation (https://d.android.com/tools/agents/android-cli)
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:52.9063883Z 
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:53.5092657Z Loading package information...                                                  
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:53.5787893Z Loading local repository...                                                     
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:53.5788716Z [                                       ] 3% Loading local repository...        
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:53.8728604Z [                                       ] 3% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.2049421Z [=                                      ] 3% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.2625343Z [=                                      ] 4% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.2792814Z [=                                      ] 5% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.3071938Z [==                                     ] 5% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.3566803Z [==                                     ] 6% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.4728845Z [==                                     ] 7% Fetch remote repository...         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.4758530Z [==                                     ] 7% Computing updates...               
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.4847887Z [===                                    ] 8% Computing updates...               
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.4940429Z [===                                    ] 10% Computing updates...              
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:54.5695006Z [===                                    ] 10% Installing Intel x86_64 Atom Syste
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:55.0473537Z [===                                    ] 10% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:55.2638267Z [====                                   ] 10% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:55.6941747Z [====                                   ] 11% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:56.2786885Z [====                                   ] 12% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:56.7116012Z [=====                                  ] 13% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:57.1406521Z [=====                                  ] 14% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:57.5195322Z [=====                                  ] 15% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:57.7158255Z [======                                 ] 15% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:58.1780828Z [======                                 ] 16% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:58.7150742Z [======                                 ] 17% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:59.1382680Z [=======                                ] 18% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:59.5950923Z [=======                                ] 19% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:59.7544289Z [=======                                ] 20% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:42:59.9481558Z [========                               ] 20% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:00.4032392Z [========                               ] 21% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:00.7569980Z [========                               ] 22% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:01.1095152Z [=========                              ] 23% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:01.5591517Z [=========                              ] 24% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:01.7440131Z [=========                              ] 25% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:01.9115718Z [==========                             ] 25% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:02.3612640Z [==========                             ] 26% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:02.7171799Z [==========                             ] 27% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:03.1652501Z [===========                            ] 28% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:03.5219248Z [===========                            ] 29% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:03.7100502Z [===========                            ] 30% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:03.9699476Z [============                           ] 30% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.3362365Z [============                           ] 31% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.6984631Z [============                           ] 32% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.6998203Z [============                           ] 33% Downloading x86_64-29_r08-linux.zi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.7402799Z [============                           ] 33% Unzipping...                      
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.7403451Z [============                           ] 33% Unzipping... x86_64/              
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.7412561Z [============                           ] 33% Unzipping... x86_64/advancedFeatur
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.7421917Z [=============                          ] 33% Unzipping... x86_64/advancedFeatur
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.7428047Z [=============                          ] 33% Unzipping... x86_64/VerifiedBootPa
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8026813Z [=============                          ] 33% Unzipping... x86_64/kernel-ranchu 
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8187775Z [=============                          ] 33% Unzipping... x86_64/NOTICE.txt    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8190640Z [=============                          ] 33% Unzipping... x86_64/build.prop    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8234066Z [=============                          ] 33% Unzipping... x86_64/userdata.img  
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8258207Z [=============                          ] 33% Unzipping... x86_64/source.propert
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8280473Z [=============                          ] 33% Unzipping... x86_64/data/         
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8282843Z [=============                          ] 33% Unzipping... x86_64/data/misc/    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8283569Z [=============                          ] 33% Unzipping... x86_64/data/misc/wifi
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8284242Z [=============                          ] 33% Unzipping... x86_64/data/misc/apns
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:04.8291437Z [=============                          ] 33% Unzipping... x86_64/ramdisk.img   
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:05.3510457Z [=============                          ] 33% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:06.0047971Z [=============                          ] 34% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:06.2812039Z [=============                          ] 35% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:06.6374508Z [==============                         ] 35% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:07.2333491Z [==============                         ] 36% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:07.7111770Z [==============                         ] 37% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:08.3068512Z [===============                        ] 38% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:08.8878526Z [===============                        ] 39% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:09.1258643Z [===============                        ] 40% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:09.5385219Z [================                       ] 40% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:10.1589743Z [================                       ] 41% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:10.6460078Z [================                       ] 42% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:11.0359798Z [=================                      ] 43% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:11.4136690Z [=================                      ] 44% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:11.6408501Z [=================                      ] 45% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:11.7923957Z [==================                     ] 45% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:12.1717634Z [==================                     ] 46% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:12.5496146Z [==================                     ] 47% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:12.9315347Z [===================                    ] 48% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:13.2343028Z [===================                    ] 49% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:13.4615268Z [===================                    ] 50% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:13.6660086Z [====================                   ] 50% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:14.2951197Z [====================                   ] 51% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:15.0960428Z [====================                   ] 52% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:27.0957825Z [=====================                  ] 53% Unzipping... x86_64/system.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:27.1206666Z [=====================                  ] 53% Unzipping... x86_64/vendor.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:27.4514704Z [=====================                  ] 54% Unzipping... x86_64/vendor.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:28.2012560Z [=====================                  ] 55% Unzipping... x86_64/vendor.img    
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:28.2749758Z [=====================                  ] 55% Unzipping... x86_64/encryptionkey.
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:28.2751768Z [=======================================] 100% Unzipping... x86_64/encryptionkey
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:28.3853809Z 
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:29.1245751Z Loading local repository...                                                     
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:29.1653246Z [=========                              ] 25% Loading local repository...       
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:29.1654206Z Auto-selecting single ABI x86_64
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:29.4250766Z * daemon not running; starting now at tcp:5037
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:29.5035513Z * daemon started successfully
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:48.7821826Z Do you wish to create a custom hardware profile? [no] Performing Streamed Install
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:48.7822399Z Success
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:49.2660429Z Performing Streamed Install
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:43:49.2669267Z Success
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6637183Z Traceback (most recent call last):
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6638175Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/wallet-device-check", line 59, in <module>
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6638901Z     updated_address = open_address()
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6639219Z                       ^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6639843Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/wallet-device-check", line 45, in open_address
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6640969Z     raise AssertionError("Wallet did not open through the native UI observer")
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:00.6641576Z AssertionError: Wallet did not open through the native UI observer
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4131446Z Traceback (most recent call last):
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4132637Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/review-update-work-check", line 81, in <module>
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4134010Z     subprocess.run(["python3", str(repo / "scripts/wallet-device-check"),
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4134925Z   File "/usr/lib/python3.12/subprocess.py", line 571, in run
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4135594Z     raise CalledProcessError(retcode, process.args,
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4138606Z subprocess.CalledProcessError: Command '['python3', '/home/runner/work/redsquare-android/redsquare-android/scripts/wallet-device-check', '--before', '/home/runner/work/redsquare-android/redsquare-android/.scratch/update-artifacts/83.apk', '--after', '/home/runner/work/redsquare-android/redsquare-android/.scratch/update-artifacts/101.apk', '--evidence', '/home/runner/work/redsquare-android/redsquare-android/.scratch/device-evidence/api-29/candidate-update/wallet']' returned non-zero exit status 1.
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4657000Z Traceback (most recent call last):
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4657921Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/ci-review-update", line 60, in <module>
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4658517Z     subprocess.run(["python3", str(repo / "scripts" / observer), "--before", str(apks[0]),
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4658946Z   File "/usr/lib/python3.12/subprocess.py", line 571, in run
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4668019Z     raise CalledProcessError(retcode, process.args,
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4669816Z subprocess.CalledProcessError: Command '['python3', '/home/runner/work/redsquare-android/redsquare-android/scripts/review-update-work-check', '--before', '/home/runner/work/redsquare-android/redsquare-android/.scratch/update-artifacts/83.apk', '--after', '/home/runner/work/redsquare-android/redsquare-android/.scratch/update-artifacts/101.apk', '--evidence', '/home/runner/work/redsquare-android/redsquare-android/.scratch/device-evidence/api-29/candidate-update']' returned non-zero exit status 1.
+native-proof (all)	Verify Android 10 runtime	2026-11-08T01:45:01.4867614Z ##[error]Process completed with exit code 1.
