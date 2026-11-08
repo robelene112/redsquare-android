@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.media
 
+import nl.davidengelen.redsquare.ui.AppSpacing
+import androidx.compose.foundation.shape.RoundedCornerShape
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -57,7 +59,7 @@ internal fun GiphyPicker(onClose: () -> Unit, onSelect: (GiphyItem) -> Unit,
                         style = MaterialTheme.typography.titleLarge)
                     TextButton(onClick = onClose) { Text(stringResource(R.string.giphy_close)) }
                 }
-                if (configuration.configured) OutlinedTextField(value = query, onValueChange = { query = it },
+                if (configuration.configured) OutlinedTextField(value = query, onValueChange = { query = it }, shape = RoundedCornerShape(AppSpacing.controlRadius),
                     label = { Text(stringResource(R.string.giphy_query)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
                 Text(stringResource(R.string.giphy_brand), Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.labelMedium)
                 if (selectionError) Text(stringResource(R.string.image_prepare_failed))

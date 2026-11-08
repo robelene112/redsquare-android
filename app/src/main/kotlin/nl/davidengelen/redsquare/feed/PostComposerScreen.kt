@@ -141,13 +141,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     if (ready) saveAndClose(onClose) else onClose()
                 }
                 Text(stringResource(if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply),
-                    Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
-                Button(modifier = Modifier.heightIn(min = 48.dp),
-                    enabled = ready && !saving && !sending && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
-                    if (available) saveAndClose(onClose) else send(publishing::beforePublishing)
-                }) {
-                    Text(stringResource(if (available) R.string.done else if (transaction == null) R.string.post_send else R.string.retry))
-                }
+                    Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
+
             }
             val localStatus = if (transaction != null || !ready || error || saving || sending) null else when {
                 text.isEmpty() && images.isEmpty() -> R.string.status_unsent_draft
@@ -237,6 +232,13 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     saveAndClose(onClose)
                 }
             }
+                Button(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    shape = RoundedCornerShape(AppSpacing.controlRadius),
+                    enabled = ready && !saving && !sending && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
+                    if (available) saveAndClose(onClose) else send(publishing::beforePublishing)
+                }) {
+                    Text(stringResource(if (available) R.string.done else if (transaction == null) R.string.post_send else R.string.retry), Modifier.padding(vertical = 6.dp))
+                }
         }
         if (choosingGif) GiphyPicker(onClose = { choosingGif = false },
             onSelect = { item -> addGif(item) { choosingGif = false } },

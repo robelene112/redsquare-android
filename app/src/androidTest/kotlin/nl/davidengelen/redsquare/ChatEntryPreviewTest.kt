@@ -32,7 +32,7 @@ class ChatEntryPreviewTest {
         val prefixes = SaitoBackend.entries.flatMap { backend -> listOf(
             "chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
             "chatreactions.${backend.id}.${wallet.publicKey}.", "groupchat.${backend.id}.${wallet.publicKey}.")
-        } + "personal.${wallet.publicKey}."
+        } + listOf("personal.${wallet.publicKey}.", "feed.", "profile.", "profilemeta.", "search.", "namemap.")
         val retained = ChatFixtureState(context, prefixes, wallet.publicKey)
         val body = "My existing private conversation stays available."
         val original = PrivateChat.create(contact, wallet.publicKey, body, 1700000123400L).envelope()
@@ -90,6 +90,46 @@ class ChatEntryPreviewTest {
                         click("Back")
                         ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                         }
+                    }
+                    withFailureCapture({ captureNativeScreen(File(folder, "profile-origin-failure.png")) }) {
+                    // A new profile recipient has no contact/history yet. Its unsent
+                    // work must become reachable through the ordinary Chat list.
+                    val profileContact = SaitoWallet.fromPrivateKey("0".repeat(63) + "4").publicKey
+                    val beforeProfile = wallets.loadExisting()
+                    check(profileContact !in beforeProfile.chatContacts())
+                    click("Search")
+                    click("People")
+                    ui.onNode(hasSetTextAction()).performTextInput(profileContact)
+                    ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
+                    ui.onNodeWithContentDescription("Search history").performClick()
+                    ui.waitUntil(15_000) { ui.onNode(searchPersonResult(profileContact)).isDisplayed() }
+                    ui.onNode(searchPersonResult(profileContact)).performClick()
+                    val message = hasText("Message") and hasClickAction()
+                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(message)
+                    ui.onNode(message).assertIsDisplayed().performClick()
+                    waitFor("Encrypted")
+                    inspectIdentity(profileContact, File(folder, "profile-origin-chat-identity.png"))
+                    val draft = "A profile-origin chat draft stays discoverable."
+                    val editor = hasSetTextAction() and isEnabled()
+                    ui.waitUntil(15_000) { ui.onNode(editor).isDisplayed() }
+                    ui.onNode(editor).performTextInput(draft)
+                    ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
+                    UiDevice.getInstance(instrumentation).executeShellCommand("input keyevent 4")
+                    ui.waitUntil(10_000) { focusedWindowImeBottom() == 0 }
+                    click("Back")
+                    waitFor("Profile")
+                    check(wallets.loadExisting().exportJson() == beforeProfile.withChatContact(profileContact).exportJson())
+                    click("Chat")
+                    waitFor("New chat")
+                    physicalContact(profileContact, File(folder, "profile-origin-contact-target.json"))
+                    ui.waitUntil(15_000) { ui.onNode(hasSetTextAction()).fetchSemanticsNode().config[
+                        androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == draft }
+                    ui.onNode(hasSetTextAction()).assertTextContains(draft)
+                    captureNativeScreen(File(folder, "profile-origin-draft-reopened.png"), draft)
+                    check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                    click("Back")
+                    click("Back")
+                    ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                     }
                 }
                 check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })

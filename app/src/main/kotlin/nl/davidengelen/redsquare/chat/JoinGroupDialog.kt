@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.chat
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.foundation.layout.*
@@ -117,7 +118,7 @@ internal fun JoinGroupDialog(backend: SaitoBackend, busy: Boolean, knownGroups: 
                         Icon(painterResource(R.drawable.ic_close), stringResource(R.string.group_cancel))
                     }
                     Text(stringResource(R.string.group_join), Modifier.weight(1f).padding(start = AppSpacing.small)
-                        .semantics { heading() }, style = MaterialTheme.typography.titleMedium)
+                        .semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
                 }
                 HorizontalDivider()
                 val contentLabel = stringResource(R.string.group_join_content)
@@ -137,6 +138,7 @@ internal fun JoinGroupDialog(backend: SaitoBackend, busy: Boolean, knownGroups: 
                             if (!busy && !resolving) { input = value; validationError = 0 }
                         }, label = { Text(stringResource(R.string.group_invitation_link)) },
                             modifier = Modifier.fillMaxWidth(), enabled = !working, maxLines = 4,
+                            shape = RoundedCornerShape(AppSpacing.controlRadius),
                             isError = validationError != 0,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, autoCorrectEnabled = false,
                                 imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { requestPreview() }))
@@ -167,6 +169,7 @@ internal fun JoinGroupDialog(backend: SaitoBackend, busy: Boolean, knownGroups: 
                         Text(stringResource(R.string.group_cancel))
                     }
                     Button(enabled = !working && (preview != null || input.isNotBlank()),
+                        shape = RoundedCornerShape(AppSpacing.controlRadius),
                         modifier = Modifier.weight(1f).heightIn(min = 48.dp), onClick = {
                             if (!busy && !resolving) {
                                 if (preview != null) onJoin(preview) else requestPreview()
@@ -176,7 +179,7 @@ internal fun JoinGroupDialog(backend: SaitoBackend, busy: Boolean, knownGroups: 
                             resolving -> R.string.group_invitation_reading
                             preview != null -> R.string.group_join_confirm
                             else -> R.string.group_preview
-                        })) }
+                        }), Modifier.padding(vertical = 6.dp)) }
                 }
             }
         }

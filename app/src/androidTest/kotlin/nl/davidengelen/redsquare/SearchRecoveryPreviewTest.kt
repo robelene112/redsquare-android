@@ -87,6 +87,7 @@ class SearchRecoveryPreviewTest {
             ui.onNodeWithText("Retry search").assertIsEnabled()
             assertEquals(1, names.get()); assertEquals(1, posts.get()); assertEquals(1, quotes.get())
             available.set(true)
+            ui.onNodeWithText("People").performClick()
             ui.onNodeWithText("Retry search").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Identity details for NativeCase7@saito").isDisplayed() }
             ui.onNodeWithContentDescription("Identity details for NativeCase7@saito").performClick()

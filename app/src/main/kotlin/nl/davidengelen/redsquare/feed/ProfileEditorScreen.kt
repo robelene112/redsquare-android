@@ -429,7 +429,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !busy) { close(onClose) }
                 Text(stringResource(R.string.profile_edit), Modifier.weight(1f),
-                    style = MaterialTheme.typography.titleMedium)
+                    style = MaterialTheme.typography.headlineSmall)
                 TextButton(enabled = ready && !busy, onClick = { close(onClose) },
                     modifier = Modifier.widthIn(min = 48.dp, max = 128.dp).heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.post_save_draft))
@@ -473,7 +473,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 }
                 OutlinedTextField(value = bio(preview),
                     onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
-                    label = { Text(stringResource(R.string.profile_bio)) },
+                    label = { Text(stringResource(R.string.profile_bio)) }, shape = RoundedCornerShape(AppSpacing.controlRadius),
                     modifier = Modifier.fillMaxWidth().heightIn(min = 128.dp, max = 280.dp))
                 for (kind in ProfileImageKind.entries) {
                     OutlinedCard(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
@@ -494,13 +494,13 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 }
             }
             Button(enabled = ready && previewReady && !busy && !available && !superseded && changes.size() > 0,
-                onClick = { send(profile, publishing::beforePublishing) },
+                onClick = { send(profile, publishing::beforePublishing) }, shape = RoundedCornerShape(AppSpacing.controlRadius),
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(when {
                     candidate == null -> R.string.profile_save
                     previouslyAvailable -> R.string.profile_check
                     else -> R.string.profile_retry
-                }))
+                }), Modifier.padding(vertical = 6.dp))
             }
         }
     }

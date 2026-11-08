@@ -343,7 +343,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     LaunchedEffect(pullRefreshSucceeded) { if (pullRefreshSucceeded) { delay(2_500); pullRefreshSucceeded = false } }
     val home = !reviewingChat && !reviewingQueue && !reviewingChanges && !composing && navigation.isEmpty()
     val primary = when {
-        reviewingChat -> PrimaryDestination.CHAT
+        reviewingChat || navigation.lastOrNull() is BrowseDestination.PrivateConversation -> PrimaryDestination.CHAT
         navigation.firstOrNull() is BrowseDestination.Search -> PrimaryDestination.SEARCH
         navigation.firstOrNull() is BrowseDestination.Notifications -> PrimaryDestination.NOTIFICATIONS
         (navigation.firstOrNull() as? BrowseDestination.Profile)?.author == wallet?.publicKey && wallet != null -> PrimaryDestination.PROFILE
@@ -381,7 +381,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
         when (val destination = navigation.lastOrNull()) {
             is BrowseDestination.Notifications -> {
-                NotificationsScreen(wallet, endpoint, backend, posts, following?.accounts.orEmpty(), lifecycle, childModifier, onBack = { back() },
+                NotificationsScreen(wallet, endpoint, backend, posts, following?.accounts.orEmpty(), lifecycle, navigationMemory.activityView, childModifier, onBack = { back() },
                     onPost = { navigation.add(BrowseDestination.Conversation(it)) },
                     onIdentity = { openProfile(it) },
                     onReference = { navigation.add(BrowseDestination.Reference(it)) })
@@ -395,10 +395,23 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
                 return@content
             }
+            is BrowseDestination.PrivateConversation -> {
+                if (wallet != null) CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
+                    nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
+                    nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, childModifier, onWalletMetadata,
+                        initialContact = destination.contact, onInitialDestinationClosed = { back() }, onBack = { back() })
+                }
+                return@content
+            }
             is BrowseDestination.Profile -> {
                 ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, childModifier,
                     onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                    onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
+                    onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions,
+                    onMessage = { contact -> formNavigation.navigate {
+                        nl.davidengelen.redsquare.chat.retainChatContact(requireNotNull(wallet), contact, onWalletMetadata)
+                        navigation.add(BrowseDestination.PrivateConversation(contact))
+                        true
+                    } })
                 return@content
             }
             is BrowseDestination.Reference -> {

@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.policy
 
+import nl.davidengelen.redsquare.ui.AppSpacing
+import androidx.compose.foundation.shape.RoundedCornerShape
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -84,7 +86,7 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
                     if (report != null) Text(stringResource(R.string.publisher_user_report_explanation),
                         style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.publisher_email_explanation), style = MaterialTheme.typography.bodyMedium)
-                    OutlinedTextField(description, onValueChange = { description = it },
+                    OutlinedTextField(description, onValueChange = { description = it }, shape = RoundedCornerShape(AppSpacing.controlRadius),
                         label = { Text(stringResource(R.string.publisher_description)) },
                         modifier = Modifier.fillMaxWidth(), minLines = 4)
                 }

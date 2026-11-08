@@ -86,7 +86,7 @@ private fun PostMoreActions(post: FeedPost, author: String, timestamp: String, r
         Box {
             IconButton(onClick = { expanded = true }, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)
                 .semantics { contentDescription = menuLabel }) {
-                Icon(painterResource(R.drawable.ic_more), contentDescription = null)
+                Icon(painterResource(R.drawable.ic_more), contentDescription = null, modifier = Modifier.size(22.dp))
             }
             DesignSheet(expanded, menuLabel, { expanded = false }) { firstAction ->
                 AccountActionRow(stringResource(R.string.post_public_identity), R.drawable.ic_profile,

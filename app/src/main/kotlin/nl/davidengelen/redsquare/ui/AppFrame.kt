@@ -29,6 +29,7 @@ import nl.davidengelen.redsquare.R
 
 /** Shared geometry and motion for the actual application frame and destination surfaces. */
 internal object AppSpacing {
+    val controlRadius = 14.dp
     val cardRadius = 18.dp
     val screen = 18.dp
     val gap = 16.dp
@@ -56,7 +57,7 @@ internal enum class PrimaryDestination(override val label: Int, override val cap
 internal fun FrameIconButton(icon: Int, label: String, enabled: Boolean = true, onClick: () -> Unit) {
     IconButton(onClick = onClick, enabled = enabled,
         modifier = Modifier.semantics { text = AnnotatedString(label) }) {
-        Icon(painterResource(icon), contentDescription = null)
+        Icon(painterResource(icon), contentDescription = null, modifier = Modifier.size(22.dp))
     }
 }
 
@@ -165,7 +166,7 @@ internal fun <T : ModuleDestination> ModuleNavigation(entries: List<T>, selected
                                 NavigationBarItem(selected = selected == destination, enabled = enabled,
                                     modifier = Modifier.semantics { text = AnnotatedString(name) },
                                     onClick = { onSelect(destination) },
-                                    icon = { Icon(painterResource(destination.icon), contentDescription = null) },
+                                    icon = { Icon(painterResource(destination.icon), contentDescription = null, modifier = Modifier.size(22.dp)) },
                                     label = if (compact) null else { {
                                         Text(stringResource(destination.caption), Modifier.clearAndSetSemantics { },
                                             style = style, maxLines = 1)

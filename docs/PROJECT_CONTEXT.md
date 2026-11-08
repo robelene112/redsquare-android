@@ -1,61 +1,55 @@
 # Project context
 
-## Current correction: signed beta99 staged, final acceptance pending
+## Current correction: final form/navigation fidelity repair
 
-Issue94 remains active. The approved native prototype is c95ecaa01, live design
-`design-3d989e9e8406`. Frozen implementation and signed producer are
-`0263ab513517f5bf3c5b642b2c7dd9e8f42ab3b8`, immutable tag
-`proof-prototype98-0263ab5`. Root remains sole writer in the redesign86 worktree.
-Canonical Chat WIP, production nodes and other tickets remain untouched.
+Issue94 remains active. Approved authority is native prototypec95ecaa01,
+`design-3d989e9e8406`, plus owner amendments. Root is sole writer in redesign86;
+canonical Chat WIP, production nodes and other tickets remain untouched.
 
-Stack now restores the approved discovery, Latest/Drafts, article/author reading,
-Visual/Markdown editor, publication review, success and access/subscription
-presentation. All are explicitly local design previews. Real Stack publication,
-NFTs, payments, subscriptions and protocol remain pending under #1.
+Signed99 is now superseded and MUST NOT be promoted. Beta89 remains latest.
+A final broad source comparison found ordinary form/control geometry, title/label
+weights, missing Posts/People and All/Mentions selectors, missing public-profile
+Message entry, and stretched short Chat bubbles. The working correction closes
+those six groups while preserving actual identity, protocols and publishing guards.
+Two-axis source review is clear; fresh native outcomes remain mandatory.
 
-Whole-Stack focused native runs42424088512 (Android10) and42424090652 (Android17)
-PASS all five tests. Independent Standards and Spec preflight reviews have no
-unresolved actionable findings. Fresh026 evidence covers both themes,320/412dp,
-100/130/200%, editor keyboard, protected Markdown, retained route/draft identity,
-and actual normal/zero-motion recordings. These are scoped Stack preflight,
-not full-app, physical-device or signed-candidate acceptance.
+Search has separate retained result positions. Activity filter/positions are
+hoisted into wallet/backend navigation memory; the real list is mounted only after
+cached/known history and personal policy are ready. Profile Message shares the
+existing owned contact-retention helper before navigation, so unsent drafts remain
+discoverable in ordinary Chat. Existing native methods now exercise selectors,
+Mentions return, exact row/scroll retention and profile-origin draft reopening.
+Original test identities, class/UI deadlines, wallet checks and restoration remain.
+The new Chat journey uses its existing owned mutable fixture, not the read-only
+frame fixture. No collector/catalog relaxation is permitted.
 
-The actual editor crash (OffsetMapping45 versus original44) remains preserved in
-`failures/stack-editor-offset-android17`. The compatible Android-only rc13 snapshot
-pins62 Kotlin files to8342c9e, keeps the original license/consumer/parser versions,
-and captures immutable transformed text at the two existing transformation sites.
-Independent reviews replayed the exact five-file patch and all64 inventory records.
-There is no mapping clamp, suppressed validation or broader toolchain upgrade.
+Stack restores approved discovery, Latest/Drafts, reading, canonical Visual/Markdown
+writing, publication review and access as clearly labelled local design previews.
+Actual Stack publication, NFTs, payments, subscriptions and protocol remain under #1.
+The editor compatibility repair and original failures are retained: immutable rc13
+source inventory, exact five-file patch, license, two immutable transformations,
+no mapping clamp or toolchain upgrade. See `third-party/compose-rich-editor`.
+Android10 UiAutomator dialog-window clipping is not proof of reduced touch targets;
+real native48dp observations remain required.
 
-The profile Done reveal and declared-cache monitor corrections retain their
-original assertions/deadlines/restoration. Original failure packets remain under
-`failures/`. Cache late-writer timing remains a hypothesis. Earlier Android10
-39/40px target concerns based only on UiAutomator XML are qualified: that dump
-clips the complete dialog window32px short of the actual native PNG/bounds.
-It does not prove reduced button size. Direct native48dp assertions now pass.
+Earlier0263ab513 whole-Stack runs42424088512/42424090652 and scoped native reviews
+pass, but do not accept this newer production change. Old full026 runs42425233337 /
+42425235024 remain diagnostic. Authentic signed83-to99 runs42426257539 /
+42426259270 both SUCCESS, but are superseded update proof. Candidate99 receipts
+remain under `docs/evidence/ticket94/candidate99/`; its actual APK is42318890bytes,
+SHA25683ce502568af22e0a95ea28e2cdadac8431b1c21b467b9d4adf3f68566000fba.
+Candidate98 failed before artifact with a recorded local container OOM.99 was
+built using separate normal compiler/lint lifetimes under unchanged2500MiB/1792MiB
+limits. No98 APK exists. Do not promote93 through99.
 
-Signed99 is built and staged, NOT promoted. Candidate98 reserved a version code
-but failed before any APK; Docker recorded a local OOM event. Separate normal
-Gradle compiler/lint lifetimes then produced99 with the unchanged2500MiB container,
-1792MiB JVM heap and source. No checks were skipped. Build/signature/public-download
-receipts are in `docs/evidence/ticket94/candidate99/`.
-Actual APK42318890bytes, SHA256
-`83ce502568af22e0a95ea28e2cdadac8431b1c21b467b9d4adf3f68566000fba`,
-established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
-package `nl.davidengelen.redsquare`, version0.1.99, min29/target36,
-nondebuggable/nonprofileable, REVIEW_BUILD=true/PUSH_CONFIGURED=false.
-The packaged source-library Apache2 license and actual public APK bytes are verified.
+Before a replacement100+ promotion require fresh same-source Android10/17 complete
+runs, all three partitions each, unchanged frozen collectors (214classes,
+629/630identities,180archives), real signed update/isolation proofs, actual native
+prototype/motion review on both axes and public APK verification. Do not substitute
+old or focused partial runs. Preserve failures. Never raise emulator heap or restart
+services to work around the unproven API29 heap anomaly.
 
-Complete same-source Android10 run42425233337 and Android17 run42425235024 are
-PENDING, all three partitions each. Actual signed83-to99 update/isolation runs
-42426257539 /42426259270 are PENDING. Require their real outcomes, unchanged frozen
-collectors and final whole-app native/prototype/motion reviews before promotion.
-Catalog remains214 classes,629/630 identities and180 original archives; no old or
-focused partial runs substitute for complete acceptance. Do not raise emulator
-heap or restart services to address the known, unproven API29 heap anomaly.
-
-Beta89 remains latest;93 through97 are obsolete and98 has no artifact. Keep
-#1/#36/#55/#84/#86 open. Owner visual acceptance, physical Pixel performance,
+Keep #1/#36/#55/#84/#86 open. Owner visual acceptance, physical Pixel performance,
 actual provider lifecycle, KVK and Play acceptance remain explicitly pending.
 
 ## Earlier checkpoints, historical scope only

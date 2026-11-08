@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -186,6 +187,7 @@ private fun TransferField(
         value = value,
         onValueChange = { entered -> update(if (keyboardType == KeyboardType.Decimal) entered.replace(',', '.') else entered) },
         singleLine = true,
+        shape = RoundedCornerShape(AppSpacing.controlRadius),
         label = { Text(label) },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = KeyboardActions(

@@ -70,7 +70,7 @@ private val RedSquareTypography = Typography(
     titleSmall = readableText(14, 20, FontWeight.SemiBold),
     bodyLarge = readableText(16, 24), bodyMedium = readableText(14, 21), bodySmall = readableText(12, 18),
     labelLarge = readableText(14, 20, FontWeight.Medium),
-    labelMedium = readableText(12, 17, FontWeight.Medium), labelSmall = readableText(11, 16),
+    labelMedium = readableText(12, 17, FontWeight.Medium), labelSmall = readableText(11, 16, FontWeight.Medium),
 )
 
 @Composable

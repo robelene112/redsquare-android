@@ -386,6 +386,7 @@ class PersonalControlsPreviewTest {
                 ui.onNodeWithContentDescription("Search history").performClick()
                 waitForEnabled("Search history")
                 // A matching editable query alone is not a discovered person.
+                ui.onNodeWithText("People").performClick()
                 val person = searchPersonResult(author)
                 ui.onNode(hasVerticalScrollAction() and !hasSetTextAction()).performScrollToNode(person)
                 ui.onNode(person).assertIsDisplayed().performClick()

@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
@@ -61,7 +62,7 @@ private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List
 @Composable
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
     view: ProfileViewState, following: FollowingState?, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
-    onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
+    onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null, onMessage: (suspend (String) -> Boolean)? = null) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
@@ -217,6 +218,9 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     var actionsOpen by remember(author) { mutableStateOf(false) }
     var identityOpen by rememberSaveable(author) { mutableStateOf(false) }
     val own = wallet?.publicKey == author
+    val messageScope = rememberCoroutineScope()
+    var openingMessage by remember(author) { mutableStateOf(false) }
+    var messageFailed by remember(author) { mutableStateOf(false) }
     val follow: @Composable (Boolean) -> Unit = { interactive ->
         DesignButton(outlined = true, enabled = interactive && following?.ready == true && !following.saving,
             onClick = { following?.toggle(author) }) {
@@ -240,6 +244,22 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         if (own) DesignButton(outlined = true, onClick = { view.editing = true }) {
                             Text(stringResource(R.string.profile_edit))
                         } else follow(true)
+                    }
+                    if (!own) {
+                        DesignButton(outlined = true, enabled = !openingMessage && wallet != null && onMessage != null &&
+                            personal?.ready == true && author !in personal.policy.blocked, onClick = {
+                            if (!openingMessage) {
+                                openingMessage = true
+                                messageFailed = false
+                                messageScope.launch {
+                                    try { messageFailed = onMessage?.invoke(author) != true }
+                                    catch (cancelled: CancellationException) { throw cancelled }
+                                    catch (_: Exception) { messageFailed = true }
+                                    finally { openingMessage = false }
+                                }
+                            }
+                        }) { Text(stringResource(if (openingMessage) R.string.chat_opening else R.string.chat_message)) }
+                        InlineStatus(if (messageFailed) stringResource(R.string.chat_contact_save_error) else null, StatusTone.ERROR)
                     }
                     if (own && following?.ready == true) Text(
                         stringResource(R.string.profile_following_count, following.accounts.size),

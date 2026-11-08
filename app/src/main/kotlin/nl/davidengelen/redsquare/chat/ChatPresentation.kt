@@ -58,7 +58,7 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
             color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     val media = remember(text) { chatPhoto(privateMessageBody(text)) != null }
-    Surface(Modifier.widthIn(max = 290.dp).fillMaxWidth().then(if (showIdentity) Modifier else
+    Surface(Modifier.widthIn(max = 290.dp).then(if (media) Modifier.fillMaxWidth() else Modifier.width(IntrinsicSize.Max)).then(if (showIdentity) Modifier else
         Modifier.semantics { contentDescription = senderDescription }), shape = RoundedCornerShape(
         topStart = 18.dp, topEnd = 18.dp,
         bottomStart = if (outgoing) 18.dp else 5.dp,
@@ -137,7 +137,7 @@ internal fun ConversationDetails(onDismiss: () -> Unit, content: @Composable Col
 internal fun ChatIdentityRow(key: String, title: String, subtitle: String, titleMaxLines: Int = Int.MAX_VALUE) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically) {
-        ProfileAvatar(key, Modifier.size(40.dp).clip(CircleShape))
+        ProfileAvatar(key, Modifier.size(42.dp).clip(CircleShape))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium, maxLines = titleMaxLines, overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurface)

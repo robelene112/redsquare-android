@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.chat
 
+import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.ui.FrameIconButton
@@ -84,10 +85,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         contactFailed = false
         scope.launch {
             try {
-                val updated = withContext(Dispatchers.IO) {
-                    if (address in wallet.chatContacts()) null else wallet.withChatContact(address)
-                }
-                if (updated != null) onWalletMetadata(wallet, updated)
+                retainChatContact(wallet, address, onWalletMetadata)
                 counterparty = address
                 addingContact = false
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -338,7 +336,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val detailsLabel = stringResource(R.string.chat_conversation_details)
             if (counterparty != null) IconButton(onClick = { details = true },
                 modifier = Modifier.semantics { contentDescription = detailsLabel }) {
-                Icon(painterResource(R.drawable.ic_info), contentDescription = null)
+                Icon(painterResource(R.drawable.ic_info), contentDescription = null, modifier = Modifier.size(22.dp))
             } else TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
         }
         if (counterparty == null) Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
@@ -386,9 +384,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 .filter { (key, name) -> search.isBlank() || key.contains(search, ignoreCase = true) || name.contains(search, ignoreCase = true) }
             OutlinedTextField(search, onValueChange = { search = it.take(256) },
                 modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), singleLine = true,
-                shape = RoundedCornerShape(24.dp),
-                leadingIcon = { Icon(painterResource(R.drawable.ic_search), null) },
-                placeholder = { Text(stringResource(R.string.chat_search)) })
+                shape = RoundedCornerShape(AppSpacing.controlRadius),
+                label = { Text(stringResource(R.string.chat_search)) })
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.chat_messages), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
                 TextButton(enabled = !savingContact && !navigation.transitioning, onClick = { reviewingGroups = true }) {
@@ -424,7 +421,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         Surface(onClick = { openContact(key) }, modifier = Modifier.fillMaxWidth(),
                             enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
                             color = MaterialTheme.colorScheme.surface) {
-                            Box(Modifier.padding(vertical = 13.dp)) {
+                            Box(Modifier.heightIn(min = 48.dp).padding(vertical = 5.dp)) {
                                 ChatIdentityRow(key, name, key)
                             }
                         }
@@ -438,7 +435,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 FloatingActionButton(onClick = { contactFailed = false; addingContact = true },
                     modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp).semantics { text = AnnotatedString(newLabel) },
                     containerColor = MaterialTheme.colorScheme.primary) {
-                    Icon(painterResource(R.drawable.ic_compose), newLabel)
+                    Icon(painterResource(R.drawable.ic_compose), newLabel, Modifier.size(22.dp))
                 }
             }
         } else {

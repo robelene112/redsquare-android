@@ -366,7 +366,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val detailsLabel = stringResource(R.string.chat_conversation_details)
             if (entry != null) IconButton(onClick = { details = true },
                 modifier = Modifier.semantics { contentDescription = detailsLabel }) {
-                Icon(painterResource(R.drawable.ic_info), contentDescription = null)
+                Icon(painterResource(R.drawable.ic_info), contentDescription = null, modifier = Modifier.size(22.dp))
             }
             else TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
@@ -653,7 +653,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                                 withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
                                                 publish{store.entries()}
                                             }
-                                        }){Icon(painterResource(R.drawable.ic_send),null)}
+                                        }){Icon(painterResource(R.drawable.ic_send),null,Modifier.size(22.dp))}
                                     }
                                 })
                         }

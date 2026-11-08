@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.chat
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
@@ -101,7 +102,7 @@ internal fun ChatPublicKeyDialog(owner: String, purpose: ChatKeyPurpose, busy: B
                         Icon(painterResource(R.drawable.ic_close), stringResource(R.string.group_cancel))
                     }
                     Text(stringResource(purpose.title), Modifier.weight(1f).padding(start = AppSpacing.small)
-                        .semantics { heading() }, style = MaterialTheme.typography.titleMedium)
+                        .semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
                 }
                 HorizontalDivider()
                 Column(Modifier.weight(1f).fillMaxWidth().onSizeChanged { viewportHeight = it.height }
@@ -110,6 +111,7 @@ internal fun ChatPublicKeyDialog(owner: String, purpose: ChatKeyPurpose, busy: B
                     PersonalControlsStatus(personal)
                     OutlinedTextField(publicKey, onValueChange = { publicKey = it; validationError = 0 },
                         label = { Text(stringResource(R.string.chat_public_key)) }, singleLine = true,
+                        shape = RoundedCornerShape(AppSpacing.controlRadius),
                         enabled = !busy, isError = validationError != 0, modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii, autoCorrectEnabled = false,
                             imeAction = ImeAction.Done),
@@ -119,9 +121,9 @@ internal fun ChatPublicKeyDialog(owner: String, purpose: ChatKeyPurpose, busy: B
                     Text(stringResource(purpose.privacy), style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                Button(onClick = ::open, enabled = !working && personal?.ready == true && publicKey.isNotBlank(),
+                Button(onClick = ::open, shape = RoundedCornerShape(AppSpacing.controlRadius), enabled = !working && personal?.ready == true && publicKey.isNotBlank(),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = AppSpacing.small).heightIn(min = 48.dp)) {
-                    Text(stringResource(if (working) purpose.working else purpose.action))
+                    Text(stringResource(if (working) purpose.working else purpose.action), Modifier.padding(vertical = 6.dp))
                 }
             }
         }

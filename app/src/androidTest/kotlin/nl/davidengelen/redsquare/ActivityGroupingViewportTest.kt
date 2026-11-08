@@ -85,7 +85,29 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                 captureNativeScreen(File(folder, "$label-people-dialog.png"), "3 likes from 3 people")
                 ui.onNodeWithText("Done").performClick()
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Replied to your post"))
-                ui.onNode(hasText("Replied to your post") and hasText("Reply notification reference") and hasClickAction()).assertIsDisplayed()
+                val reply = hasText("Replied to your post") and hasText("Reply notification reference") and hasClickAction()
+                val before = ui.onNode(reply).assertIsDisplayed().getUnclippedBoundsInRoot().top
+                fun observedScroll() = ui.onNode(hasScrollToIndexAction()).fetchSemanticsNode().config[
+                    androidx.compose.ui.semantics.SemanticsProperties.VerticalScrollAxisRange].value()
+                val beforeScroll = observedScroll()
+                if (context.resources.configuration.fontScale >= 1.99f)
+                    assertTrue("Large-text return exercises a genuinely nonzero Activity reading position", beforeScroll > 0f)
+                ui.onNode(reply).performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                ui.waitUntil(15_000) { ui.refreshableContentReady() && ui.onNode(reply).isDisplayed() }
+                val after = ui.onNode(reply).getUnclippedBoundsInRoot().top
+                assertEquals("Returning from the post retains the scrolled Activity row without a corrective scroll",
+                    before.value, after.value, 1f)
+                val afterScroll = observedScroll()
+                assertEquals("The actual Activity scroll position is retained", beforeScroll, afterScroll, 0.01f)
+                File(folder, "$label-retained-reading.json").writeText(JsonObject().apply {
+                    addProperty("beforeRowTopDp", before.value); addProperty("afterRowTopDp", after.value)
+                    addProperty("beforeScroll", beforeScroll); addProperty("afterScroll", afterScroll)
+                    addProperty("fontScale", context.resources.configuration.fontScale)
+                    addProperty("widthDp", width)
+                }.toString())
+                captureNativeScreen(File(folder, "$label-retained-reading.png"), "Reply notification reference")
                 ui.onNode(hasText("Home") and hasClickAction()).performClick()
               }
             }

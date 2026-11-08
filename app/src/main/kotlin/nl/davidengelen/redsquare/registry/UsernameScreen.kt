@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare.registry
 
+import nl.davidengelen.redsquare.ui.AppSpacing
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -59,7 +61,7 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
             } else if (savedName != null) Text(stringResource(R.string.username_cached, savedName!!.name.identifier))
             else verifiedOwnName?.let { Text(stringResource(R.string.username_previous, it.identifier)) }
             if (cacheError) Text(stringResource(R.string.username_cache_error))
-            OutlinedTextField(value = name, enabled = ready && !busy && candidate == null && verifiedOwnName == null, singleLine = true,
+            OutlinedTextField(value = name, shape = RoundedCornerShape(AppSpacing.controlRadius), enabled = ready && !busy && candidate == null && verifiedOwnName == null, singleLine = true,
                 onValueChange = ::edit, label = { Text(stringResource(R.string.username_label)) },
                 supportingText = { Text(stringResource(R.string.username_rules)) }, modifier = Modifier.fillMaxWidth())
             if (candidate == null) {

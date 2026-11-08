@@ -67,16 +67,28 @@ class NotificationsPreviewTest {
     private fun mentionJourney(mode: Mode, evidenceName: String) {
         withNotifications(evidenceName, mode) { actor, _, _ ->
             waitFor("Mentioned you")
+            ui.onNode(hasText("All") and isSelected()).assertIsDisplayed()
+            ui.onNodeWithText("Mentions").performClick().assertIsSelected()
+            ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
+            ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/$evidenceName-mentions-tab.png"), "Mentioned you")
+            ui.onNodeWithText("All").performClick().assertIsSelected()
             ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/$evidenceName.png"), "Mentioned you")
+            ui.onNodeWithText("Mentions").performClick()
             ui.onNodeWithText("Mentioned you").assertIsDisplayed().performClick()
             waitFor("Conversation")
             waitFor("Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference")
             ui.onNodeWithText("Hello @jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, mention reference").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Mentioned you")
+            ui.onNode(hasText("Mentions") and isSelected()).assertIsDisplayed()
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "notification-evidence/$evidenceName-retained-mentions.png"), "Mentioned you")
+            ui.onNodeWithText("All").performClick()
             ui.onAllNodesWithContentDescription(actorLabel(actor)).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.inspectProfileIdentity(actor)

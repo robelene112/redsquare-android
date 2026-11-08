@@ -73,6 +73,10 @@ class ProfileRedesignPreviewTest {
             val paintHeight = paintRows * chipHeight / selected.height
             assertTrue("The prototype chip paints32dp inside its48dp touch target", paintHeight in 27f..33.5f)
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "profile-redesign-evidence/biography-history-boundary.png"))
+            val message = hasText("Message") and hasClickAction()
+            list.performScrollToNode(message)
+            ui.onNode(message).assertIsDisplayed().assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+
         }
     }
 }

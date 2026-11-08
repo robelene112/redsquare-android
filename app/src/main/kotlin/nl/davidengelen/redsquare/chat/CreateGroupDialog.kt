@@ -83,7 +83,7 @@ internal fun CreateGroupDialog(wallet: SaitoWallet, backend: SaitoBackend, busy:
                         Icon(painterResource(R.drawable.ic_close), stringResource(R.string.group_cancel))
                     }
                     Text(stringResource(R.string.group_create), Modifier.weight(1f).padding(start = AppSpacing.small)
-                        .semantics { heading() }, style = MaterialTheme.typography.titleMedium)
+                        .semantics { heading() }, style = MaterialTheme.typography.headlineSmall)
                 }
                 HorizontalDivider()
                 val contentLabel = stringResource(R.string.group_setup_content)
@@ -93,6 +93,7 @@ internal fun CreateGroupDialog(wallet: SaitoWallet, backend: SaitoBackend, busy:
                     item(key = "group-name") {
                         OutlinedTextField(name, { name = it }, Modifier.fillMaxWidth(),
                             label = { Text(stringResource(R.string.group_name)) }, singleLine = true, enabled = !busy,
+                            shape = RoundedCornerShape(AppSpacing.controlRadius),
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                             keyboardActions = KeyboardActions(onDone = { finishTyping() }))
                     }
@@ -154,14 +155,14 @@ internal fun CreateGroupDialog(wallet: SaitoWallet, backend: SaitoBackend, busy:
                 }
                 Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = AppSpacing.small)) {
                     InlineStatus(if (selectionError != 0) stringResource(selectionError) else null, StatusTone.ERROR)
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(AppSpacing.small),
-                        verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                         Text(pluralStringResource(R.plurals.group_selected_count, selected.size, selected.size),
-                            Modifier.weight(1f), style = MaterialTheme.typography.bodySmall,
+                            style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Button(enabled = !busy && personal?.ready == true && name.isNotBlank(),
-                            modifier = Modifier.heightIn(min = 48.dp), onClick = { finishTyping(); onCreate(name.trim(), selected.toList()) }) {
-                            Text(stringResource(R.string.group_create_confirm))
+                            shape = RoundedCornerShape(AppSpacing.controlRadius),
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = { finishTyping(); onCreate(name.trim(), selected.toList()) }) {
+                            Text(stringResource(R.string.group_create_confirm), Modifier.padding(vertical = 6.dp))
                         }
                     }
                 }

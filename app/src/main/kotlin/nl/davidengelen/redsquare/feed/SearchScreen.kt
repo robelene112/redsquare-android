@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import nl.davidengelen.redsquare.ui.preserveReadingAnchor
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
@@ -48,8 +49,12 @@ import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.saito.*
 
 /** Retained by the wallet/backend navigation memory, never by an old coroutine scope. */
+internal enum class SearchResultKind { POSTS, PEOPLE }
+
 internal class SearchViewState {
     val resultsPosition = LazyListState()
+    val peoplePosition = LazyListState()
+    var resultKind by mutableStateOf(SearchResultKind.POSTS)
     var query by mutableStateOf("")
     var searchedQuery by mutableStateOf("")
     var submitted by mutableStateOf(false)
@@ -300,7 +305,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 knownNames[key]?.name?.startsWith(view.searchedQuery, ignoreCase = true) == true)
         }.sorted()).distinct()
     }
-    val resultsPosition = view.resultsPosition
+    val resultsPosition = if (view.resultKind == SearchResultKind.POSTS) view.resultsPosition else view.peoplePosition
     val queryError = if (view.query.length > 256) stringResource(R.string.search_query_too_long) else null
     val canSearch = wallet != null && cacheReady && !loading && view.query.isNotBlank() && queryError == null
     val submit = {
@@ -308,7 +313,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             keyboard?.hide()
             loading = true
             view.search()
-            resultsPosition.requestScrollToItem(0)
+            view.resultsPosition.requestScrollToItem(0)
+            view.peoplePosition.requestScrollToItem(0)
         }
     }
     var identityDetails by remember { mutableStateOf<String?>(null) }
@@ -354,7 +360,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
             OutlinedTextField(value = view.query, onValueChange = { view.query = it },
                 label = { Text(stringResource(R.string.search_query), maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                singleLine = true, isError = queryError != null,
+                singleLine = true, isError = queryError != null, shape = RoundedCornerShape(AppSpacing.controlRadius),
                 modifier = Modifier.weight(1f).semantics { queryError?.let { error(it) } },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { submit() }),
@@ -371,6 +377,9 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 Icon(painterResource(R.drawable.ic_search), stringResource(R.string.search_history))
             }
         }
+        nl.davidengelen.redsquare.ui.DesignTabs(
+            listOf(stringResource(R.string.search_posts), stringResource(R.string.search_people)), view.resultKind.ordinal,
+            onSelect = { view.resultKind = SearchResultKind.entries[it] })
         if (queryError != null) Text(queryError, color = MaterialTheme.colorScheme.error,
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = AppSpacing.small))
@@ -392,9 +401,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             actionEnabled = wallet != null && !loading &&
                 (view.pending.isNotEmpty() || view.usernamePending || view.usernameFailed),
             onAction = { loading = true; view.retry() })
-        LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
+        nl.davidengelen.redsquare.ui.SingleOwnerReveal(view.resultKind, Modifier.weight(1f).fillMaxWidth()) {
+        LazyColumn(Modifier.fillMaxSize().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
             if (view.submitted) {
-                item(key = "people-heading") { SearchSectionTitle(stringResource(R.string.search_people)) }
+                if (view.resultKind == SearchResultKind.PEOPLE) {
                 if (people.isEmpty() && !loading) item(key = "people-empty") {
                     SearchEmptyResult(stringResource(R.string.search_people_empty))
                 }
@@ -405,13 +415,14 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         cachedName = !confirmed && label.equals(view.searchedQuery, ignoreCase = true),
                         onProfile = { onIdentity(personKey) }, onDetails = { identityDetails = personKey })
                 }
-                item(key = "posts-heading") { SearchSectionTitle(stringResource(R.string.search_posts)) }
+                } else {
                 if (matches.isEmpty() && !loading) item(key = "posts-empty") {
                     SearchEmptyResult(stringResource(if (view.failed) R.string.search_cached_empty else R.string.search_empty))
                 }
                 items(matches, key = { it.id }) { post ->
                     PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
                     HorizontalDivider()
+                }
                 }
                 item(key = "more") {
                     TextButton(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
@@ -422,6 +433,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 SearchEmptyResult(stringResource(R.string.search_intro))
             }
         }
+    }
     }
     identityDetails?.let { IdentityDetailsDialog(it) { identityDetails = null } }
     if (coverageDetails) SearchCoverageDialog { coverageDetails = false }

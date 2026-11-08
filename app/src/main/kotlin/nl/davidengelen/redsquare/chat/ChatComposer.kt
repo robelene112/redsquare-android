@@ -307,7 +307,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                     finally { sending = false }
                                 }
                             }) { Icon(painterResource(R.drawable.ic_send),
-                                contentDescription = null) }
+                                contentDescription = null, modifier = Modifier.size(22.dp)) }
                     }
                 })
         }

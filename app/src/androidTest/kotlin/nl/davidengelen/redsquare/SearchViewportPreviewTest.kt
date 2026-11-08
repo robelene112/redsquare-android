@@ -85,6 +85,7 @@ class SearchViewportPreviewTest {
                 assertEquals(beforePosts, posts.get())
                 assertEquals(beforeQuotes, quotes.get())
 
+                ui.onNodeWithText("People").performClick()
                 ui.onNode(editor).performClick().performTextInput(name)
                 ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
                 ui.onNode(editor).assertTextContains(name)
@@ -125,6 +126,7 @@ class SearchViewportPreviewTest {
                 captureNativeScreen(File(folder, "$label-long-name-identity.png"), person)
                 ui.onNodeWithText("Done").performClick()
 
+                ui.onNodeWithText("Posts").performClick()
                 ui.onNode(editor).performTextReplacement("search preview")
                 ui.onNode(editor).performImeAction()
                 ui.waitUntil(15_000) { ui.onNode(search and isEnabled()).isDisplayed() }

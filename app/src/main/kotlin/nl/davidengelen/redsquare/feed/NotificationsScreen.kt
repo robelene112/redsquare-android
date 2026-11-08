@@ -6,7 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.animation.core.tween
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
@@ -120,9 +120,16 @@ private fun <T> availableActivity(incoming: List<T>, retained: List<T>, id: (T) 
     createdAt: (T) -> Long): List<T> = (incoming + retained).distinctBy(id)
     .sortedByDescending(createdAt).take(NotificationHistoryStore.MAX_EVENTS)
 
+/** The selected filter and each reading position survive post/profile visits and recreation. */
+internal class ActivityViewState {
+    var mentionsOnly by mutableStateOf(false)
+    val allPosition = LazyListState()
+    val mentionPosition = LazyListState()
+}
+
 @Composable
 internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, knownPosts: List<FeedPost>, followed: Set<String>, lifecycle: Lifecycle,
-    modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
+    view: ActivityViewState, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit, onIdentity: (String) -> Unit, onReference: (String) -> Unit) {
     val walletKey = wallet?.publicKey
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
@@ -142,6 +149,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var markingRead by remember(walletKey, backend) { mutableStateOf(false) }
     var cacheWarning by remember(walletKey, backend) { mutableStateOf(false) }
     var loading by remember(walletKey, backend, endpoint) { mutableStateOf(true) }
+    var historyReady by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
     var failed by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
     var completedRead by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
     var partialRead by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
@@ -154,7 +162,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     var loadGeneration by remember(walletKey, backend, endpoint) { mutableIntStateOf(0) }
     var refresh by remember { mutableIntStateOf(0) }
     var backgroundRead by remember(walletKey, backend, endpoint) { mutableStateOf(false) }
-    val position = rememberLazyListState()
+    val position = view.allPosition
+    val mentionPosition = view.mentionPosition
     var followNewest by remember(walletKey, backend, endpoint) { mutableIntStateOf(0) }
     LaunchedEffect(followNewest) {
         if (followNewest > 0 && !position.isScrollInProgress) position.scrollToItem(0)
@@ -231,6 +240,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         cached.forEach { publish(it) }
         val available = withContext(Dispatchers.IO) { readAvailableHistory(knownPosts.map { it.envelope }) }
         available.forEach { publish(it) }
+        historyReady = true
         val availableEnvelopes = available.flatMap { it.envelopes }
         if (availableEnvelopes.isNotEmpty()) {
             try { withContext(Dispatchers.IO) { history!!.save(availableEnvelopes) } }
@@ -337,6 +347,9 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 if (!loading && !markingRead) { backgroundRead = false; pending = emptyMap(); pagingWarning = false; refresh++ }
             }
         }
+        nl.davidengelen.redsquare.ui.DesignTabs(
+            listOf(stringResource(R.string.activity_filter_all), stringResource(R.string.activity_filter_mentions)),
+            if (view.mentionsOnly) 1 else 0, onSelect = { view.mentionsOnly = it == 1 })
         PersonalControlsStatus(personal)
         val repostRows = reposts.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
@@ -369,15 +382,17 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val contactRows = contacts.filter { it.author in followed }.map { post ->
             NotificationRow(post.id, post.author, post.createdAt, post, R.string.notifications_posted)
         }
-        val individual = (quoteRows + repostRows + replyRows +
-            mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) } + contactRows)
+        val mentionRows = mentions.map { mention ->
+            NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention)
+        }.filter { personal?.hidesPosts(it.author) == false }
+        val individual = (quoteRows + repostRows + replyRows + mentionRows + contactRows)
             .distinctBy { it.id }.filter { personal?.hidesPosts(it.author) == false }
             .map { NotificationItem(it.id, listOf(it)) }
         val groupedLikes = likeRows.filter { personal?.hidesPosts(it.author) == false }
             .groupBy { it.target }.map { (target, members) ->
                 NotificationItem("like:$target", members.distinctBy { it.id }.sortedWith(compareByDescending<NotificationRow> { it.createdAt }.thenByDescending { it.id }), like = true)
             }
-        val visible = (individual + groupedLikes).sortedWith(compareByDescending<NotificationItem> { it.latest.createdAt }.thenBy { it.key })
+        val visible = (if (view.mentionsOnly) mentionRows.map { NotificationItem(it.id, listOf(it)) } else individual + groupedLikes).sortedWith(compareByDescending<NotificationItem> { it.latest.createdAt }.thenBy { it.key })
         val previews = rememberActivityPreviews(visible.mapNotNull { it.latest.post }.distinctBy { it.id }.sortedBy { it.id }, backend)
         val unread = visible.count { it.unread(readIds) }
         val eligibleStreams = notificationStreams(followed, ownPosts)
@@ -438,7 +453,9 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 if (stream.kind == "RedSquareLike") likeHistory.continuation ?: ActivityPageRead.Older(requireNotNull(before))
                 else ActivityPageRead.Older(requireNotNull(before))
             }
-        LazyColumn(Modifier.weight(1f), state = position) {
+        nl.davidengelen.redsquare.ui.SingleOwnerReveal(view.mentionsOnly, Modifier.weight(1f).fillMaxWidth()) {
+        // Do not measure a temporary empty history over a retained reading position.
+        if (historyReady && personal?.ready == true) LazyColumn(Modifier.fillMaxSize(), state = if (view.mentionsOnly) mentionPosition else position) {
             if (visible.isEmpty() && completedRead && (!loading || backgroundRead) && !failed && ignored == 0 &&
                 !cacheWarning && !pagingWarning && !moreHistory) item(key = "empty-activity") {
                 Text(stringResource(R.string.activity_empty), Modifier.fillMaxWidth().padding(vertical = AppSpacing.gap),
@@ -458,6 +475,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                     onOpen = { available?.let(onPost) ?: onReference(event.target) })
                 }
             }
+        }
         }
         TextButton(enabled = wallet != null && !loading && !markingRead &&
             (undiscovered.isNotEmpty() || older.isNotEmpty()), onClick = {

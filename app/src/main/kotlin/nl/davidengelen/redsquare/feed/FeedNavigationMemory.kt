@@ -9,6 +9,7 @@ internal sealed interface BrowseDestination {
     class Search(val view: SearchViewState = SearchViewState()) : BrowseDestination
     data object Notifications : BrowseDestination
     data class Reference(val target: String) : BrowseDestination
+    data class PrivateConversation(val contact: String) : BrowseDestination
     data class Conversation(val post: FeedPost) : BrowseDestination
     data class Quote(val post: FeedPost) : BrowseDestination
     data class Author(val post: FeedPost, val kind: AuthorActionKind) : BrowseDestination
@@ -20,5 +21,6 @@ internal class FeedNavigationMemory : ViewModel() {
     val destinations = mutableStateListOf<BrowseDestination>()
     val visitedProfiles = mutableStateListOf<String>()
     val searchView = SearchViewState()
+    val activityView = ActivityViewState()
     val ownProfileView = ProfileViewState()
 }
