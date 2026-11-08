@@ -53,6 +53,17 @@ case keeps a positive pre-departure scroll, exact1dp/axis return and no correcti
 return scroll. Source reviews and local app/instrumentation compilation pass;
 new native outcomes remain required. Production delta is only a group test tag.
 
+48f8 focused Typography passes bothSDKs, Activity10 and Chat17 pass. Remaining
+Chat10 snapshot shows Loading contacts after the New chat FAB is already visible;
+the test now observes the actual contact list before lazy revelation of the exact
+retained key. Activity17 PNG/Compose show the three actual group targets, while
+its immediate native geometry observation is stale. Compose and all native matches
+now share the original15s budget, re-query current rectangles within the same1px
+relation and catch only stale-node replacement. No production change, relaxed
+assertion or corrective return scroll. Original failures remain under
+`failures/fidelity-48f8/`. Full48 runs42431340556/42431342487 are cancelled and must
+not count toward acceptance. Require a replacement complete same-source pair.
+
 Stack restores approved discovery, Latest/Drafts, reading, canonical Visual/Markdown
 writing, publication review and access as clearly labelled local design previews.
 Actual Stack publication, NFTs, payments, subscriptions and protocol remain under #1.

@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -126,9 +127,14 @@ class ChatEntryPreviewTest {
                     check(wallets.loadExisting().exportJson() == beforeProfile.withChatContact(profileContact).exportJson())
                     click("Chat")
                     waitFor("New chat")
+                    val knownContacts = hasContentDescription(context.getString(R.string.chat_known_contacts))
+                    ui.waitUntil(15_000) { ui.onAllNodes(knownContacts).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(knownContacts).performScrollToNode(hasText(profileContact))
                     physicalContact(profileContact, File(folder, "profile-origin-contact-target.json"))
-                    ui.waitUntil(15_000) { ui.onNode(hasSetTextAction()).fetchSemanticsNode().config[
-                        androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == draft }
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodes(hasSetTextAction()).fetchSemanticsNodes(atLeastOneRootRequired = false)
+                            .singleOrNull()?.config?.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.EditableText)?.text == draft
+                    }
                     ui.onNode(hasSetTextAction()).assertEditableTextEquals(draft)
                     captureNativeScreen(File(folder, "profile-origin-draft-reopened.png"), draft)
                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())

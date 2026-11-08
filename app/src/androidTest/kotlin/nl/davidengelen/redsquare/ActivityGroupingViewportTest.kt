@@ -69,19 +69,30 @@ private class ActivityGroupingViewport(private val ui: ComposeTestRule) {
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(labels[2]))
                 fun groupActor(label: String) = ui.onNode(hasContentDescription(label) and
                     hasAnyAncestor(hasTestTag("activity-like-group")))
+                val peopleDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
                 ui.waitUntil(15_000) { labels.all { groupActor(it).isDisplayed() } }
                 val rectangles = mutableListOf<Rect>()
                 val targets = JsonObject()
                 for (actorLabel in labels) {
                     val actorNode = groupActor(actorLabel).assertIsDisplayed()
                         .assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp)
-                    val actorBounds = actorNode.getUnclippedBoundsInRoot()
                     val density = context.resources.displayMetrics.density
-                    var native = requireNotNull(device.findObjects(By.desc(actorLabel)).singleOrNull { node ->
-                        val bounds = node.visibleBounds
-                        kotlin.math.abs(bounds.exactCenterX() - (actorBounds.left.value + actorBounds.right.value) * density / 2) <= 1 &&
-                            kotlin.math.abs(bounds.exactCenterY() - (actorBounds.top.value + actorBounds.bottom.value) * density / 2) <= 1
-                    })
+                    var observedNative: androidx.test.uiautomator.UiObject2? = null
+                    val remaining = peopleDeadline - android.os.SystemClock.elapsedRealtime()
+                    check(remaining > 0) { "Native people targets share the original fifteen-second readiness budget" }
+                    ui.waitUntil(remaining) {
+                        val actorBounds = actorNode.getUnclippedBoundsInRoot()
+                        observedNative = try {
+                            device.findObjects(By.desc(actorLabel)).singleOrNull { node ->
+                                val bounds = node.visibleBounds
+                                kotlin.math.abs(bounds.exactCenterX() - (actorBounds.left.value + actorBounds.right.value) * density / 2) <= 1 &&
+                                    kotlin.math.abs(bounds.exactCenterY() - (actorBounds.top.value + actorBounds.bottom.value) * density / 2) <= 1
+                            }
+                        } catch (_: androidx.test.uiautomator.StaleObjectException) { null }
+                        observedNative != null
+                    }
+                    check(android.os.SystemClock.elapsedRealtime() <= peopleDeadline)
+                    var native = requireNotNull(observedNative)
                     while (!native.isClickable) native = requireNotNull(native.parent)
                     val bounds = native.visibleBounds
                     assertTrue("Avatar profile targets are at least48dp", bounds.width() >= 48 && bounds.height() >= 48)

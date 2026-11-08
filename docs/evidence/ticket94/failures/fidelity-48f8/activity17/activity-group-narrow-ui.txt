@@ -1,0 +1,104 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest:
+INSTRUMENTATION_STATUS: test=narrowGroupedActivityKeepsPeopleAndPostTargetsReadable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21$lambda$20$lambda$19(ActivityGroupingViewportTest.kt:80)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$PQc2h3st5FUNpCIbeYrevQwn-Y0(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21$lambda$20(ActivityGroupingViewportTest.kt:57)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$1CsECrjRdBRaRWHLerGTyIuylUw(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21(ActivityGroupingViewportTest.kt:56)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$IdEYrPsdHxVe4FK49DJENI-_8MA(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(ActivityInboxFixture.kt:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise(ActivityGroupingViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest.narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(ActivityGroupingViewportTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest):
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21$lambda$20$lambda$19(ActivityGroupingViewportTest.kt:80)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$PQc2h3st5FUNpCIbeYrevQwn-Y0(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21$lambda$20(ActivityGroupingViewportTest.kt:57)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$1CsECrjRdBRaRWHLerGTyIuylUw(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21(ActivityGroupingViewportTest.kt:56)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$IdEYrPsdHxVe4FK49DJENI-_8MA(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(ActivityInboxFixture.kt:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise(ActivityGroupingViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest.narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(ActivityGroupingViewportTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=narrowGroupedActivityKeepsPeopleAndPostTargetsReadable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 58.353
+There was 1 failure:
+1) narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest)
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21$lambda$20$lambda$19(ActivityGroupingViewportTest.kt:80)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$PQc2h3st5FUNpCIbeYrevQwn-Y0(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21$lambda$20(ActivityGroupingViewportTest.kt:57)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$1CsECrjRdBRaRWHLerGTyIuylUw(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise$lambda$21(ActivityGroupingViewportTest.kt:56)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.$r8$lambda$IdEYrPsdHxVe4FK49DJENI-_8MA(ActivityGroupingViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$17$lambda$16$lambda$15(ActivityInboxFixture.kt:95)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$phIJ9E1FJD12jVPta8aWRoYr4VU(ActivityInboxFixture.kt:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:94)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:16)
+	at nl.davidengelen.redsquare.ActivityGroupingViewport.exercise(ActivityGroupingViewportTest.kt:48)
+	at nl.davidengelen.redsquare.ActivityGroupingNarrowViewportTest.narrowGroupedActivityKeepsPeopleAndPostTargetsReadable(ActivityGroupingViewportTest.kt:20)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
