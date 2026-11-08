@@ -40,8 +40,10 @@ Two-axis review clears these bounded corrections; new native results are pending
 
 FFE native preflight passes Search, writing and transfer scopes on bothSDKs.
 Remaining FFE fixture failures are preserved under `failures/fidelity-ffe/`.
-A native-only caption wait starved the v2 Compose scheduler during real font
-recreation; the original10s `ui.waitUntil` now advances its normal clock while
+FFE snapshots show Loading posts during a native-only caption wait after real
+font recreation. Queued v2 Compose work not advancing is the leading explanation,
+consistent with the framework's test-clock contract; no causal thread trace was
+captured. The original10s `ui.waitUntil` now drives its normal clock while
 observing an exact visible AccessibilityNodeInfo caption. The additional Chat
 journey launches a fresh Activity after the viewport helper deliberately closes
 its owner. Activity avatars/options are scoped to one actual grouped row, not a
