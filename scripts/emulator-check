@@ -710,7 +710,7 @@ if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == avatars* ]]; then
             printf '%s=' "$property"
             timeout 15 adb shell getprop "$property" | tr -d '\r'
         done > "$evidence/avatar-runtime-extra-properties.txt"
-        for runtime_file in /vendor/etc/init/hw/init.ranchu.rc /init.rc /system/etc/init/hw/init.rc /system/etc/init/hw/init.zygote64_32.rc /default.prop /system/build.prop /vendor/default.prop /vendor/build.prop; do
+        for runtime_file in /init.ranchu.rc /init.zygote64_32.rc /init.zygote64.rc /vendor/etc/init/hw/init.ranchu.rc /init.rc /system/etc/init/hw/init.rc /system/etc/init/hw/init.zygote64_32.rc /default.prop /system/build.prop /vendor/default.prop /vendor/build.prop; do
             runtime_label=${runtime_file//\//_}
             timeout 15 adb shell cat "$runtime_file" > "$evidence/runtime-$runtime_label.txt" 2>&1 || true
         done
