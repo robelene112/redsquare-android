@@ -64,12 +64,47 @@ checks remain. Both source-review axes and local instrumentation compilation pas
 These two test-only changes do not change production, declarations, bounds or
 frozen acceptance inputs.
 
-Next freeze the corrected source and run a fresh complete10/17 pair, all three
-partitions each, unchanged frozen collectors (214classes,629/630identities,
-180archives). Defer the actual signed102+ build until those application gates
-succeed, then verify genuine signed update/isolation, remaining broad native/
-prototype/normal-zero-motion reviews and actual public bytes before promotion.
-No focused, old, cancelled or failed partial assembly. Latest remains89.
+Corrected frozen source is `69ddcc49e73a1544506596edbf4b6c25d9198700`, tag
+`proof-prototype102-69ddcc4`. Fresh complete10/17 runs42436306551 /42436308492
+are pending, with all three partitions each. Focused avatars10/17 runs42436310508 /
+42436312369 check the corrected journey early. Production/build inputs are unchanged.
+Require unchanged frozen collectors (214classes,629/630identities,180archives).
+Defer actual signed102+ build until complete application gates succeed, then
+verify genuine signed update/isolation, remaining broad native/prototype/normal-zero
+motion reviews and actual public bytes before promotion. No focused, old,
+cancelled or failed partial assembly. Latest remains89.
+
+Focused69dd avatars17 run42436312369 SUCCESS. Focused10 run42436310508
+passes the corrected identity journey and four recovery cases, but fails the
+existing memory-parity assertion before large-fixture allocation: actual16MiB,
+declared512MiB. The actual maximum is16MiB from method1 onward. Untouched current
+properties report heapsize512m, absent growthlimit/extra data not yet captured;
+originals are retained under `failures/69dd-avatar-memory-android10/`. No heap
+raising, service restart or guard relaxation. Full69dd runs continue independently.
+
+A separate read-only diagnostic tag `diag-android29-runtime-69dd-v2`, source
+`4aa433244bf6364d79142cbb623542625dd1ea9c`, run42437655489, captures actual shipped
+init/build properties, late VM options and boot logs, and compares a fresh ordinary
+standalone VM with the inherited app VM. It changes no configuration or application
+code and leaves all original cases/assertions intact. Its nonJUnit test helper
+and capture-only script live only in the external diagnostic worktree/tag; do not
+merge them as app functionality. Source-supported startup ordering is a hypothesis,
+not a proven cause/fix. Require actual captured evidence before intervention.
+
+Complete69dd10 Social subsequently fails only cached-profile browse method309:
+correct offline Profile + Message + error banner fill320pxviewport before lazy Posts
+tabs compose. Other7browse methods pass. Original PNG/XML and logs remain under
+`failures/69dd-profile-tabs-android10/`. Four legacy readiness waits now reveal
+actual Posts and assert visibility within one original15s aggregate budget. Both
+review axes and local instrumentation compilation pass. All cache/restart/identity/history/body/
+error assertions, declarations and frozen inputs remain. Production is unchanged.
+
+That same full69dd10 run passes all5 AvatarRecovery cases at genuine512MiB from
+method1, unlike the focused16MiB failure. No causal fix or configuration mutation is
+claimed. Full69dd17 continues. If it completes all3partitions, WORKFLOW permits an
+unchanged-production fixture correction to run only the outstanding10 full scope;
+retain both complete runs and prove source/goal equivalence. No partial partitions
+may substitute, and failed69dd10 remains failed regardless of later successes.
 
 The pinned rc13 editor repair, immutable upstream inventory, exact five-file
 patch and packaged license remain under `third-party/compose-rich-editor`.

@@ -1,0 +1,167 @@
+{
+  "scope": "Superseded101 actual signed83-to101 complete update observations. Initial10 stale failure remains failed; fresh identical-source retry passes without a causal-fix claim. Not final102+ acceptance.",
+  "records": [
+    {
+      "sdk": "10",
+      "run": {
+        "conclusion": "success",
+        "headSha": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+        "status": "completed",
+        "url": "https://github.com/robelene112/redsquare-android/actions/runs/42435678265"
+      },
+      "actualDownload": {
+        "version": 101,
+        "httpStatus": 200,
+        "url": "https://davidengelen.nl/redsquare/releases/101/redsquare.apk",
+        "headers": {
+          "Content-Length": "42335274",
+          "Content-Range": null,
+          "Content-Encoding": null,
+          "Content-Type": "application/octet-stream",
+          "ETag": "\"6aefd250-285fc2a\""
+        },
+        "bytes": 42335274,
+        "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+        "expectedSha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d"
+      },
+      "localWorkAndIsolation": {
+        "ordinaryUid": 10118,
+        "debugUid": 10116,
+        "ordinaryPublicAddress": "d6xGoRYKtwRFQ4tcJq8gFa8UkTjC6YGLHje9L8syX5bN",
+        "debugPublicAddress": "s4LDEedP1fUoL8U9ehr1kByrMmngbAtD12SeApgix9D1",
+        "debugIdentityUnchanged": true,
+        "differentPackageIdentities": true,
+        "sameDraftAfterUpdateAndColdLaunch": true,
+        "sameOfflinePost": true,
+        "sameLightPreference": true,
+        "prepared": {
+          "phase": "prepare",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "This is awesome, good job !",
+            "author": "jHmXKyBJVjxUvKaDGQQhkbRfowdWtcKBqg9Mgj5moDzT",
+            "published": "Published 11/7/26 10:58 PM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": false
+        }
+      },
+      "restoration": {
+        "failures": [],
+        "originalWifi": "1",
+        "originalMobileData": "1"
+      },
+      "walletContinuity": "PASS: same public identity after cold process launch and ordinary signed APK update\nd6xGoRYKtwRFQ4tcJq8gFa8UkTjC6YGLHje9L8syX5bN\n",
+      "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/prototype94-update101-10/android-native-proof/.scratch",
+      "observations": {
+        "debug-after.log": "19ba8398ecbc696b62aeec4e9a13728e74477cf52a08c01f9a63293d1e2afc17",
+        "debug-before.log": "6177fd1b9b946569ec6d750cc65fcb06b8ac07089509717b33ba4e3a5ad19d3a",
+        "download-101.json": "2d5dc915bba93dc8a06ee15249d54c91ab30a6125c6e825a03a8c97a3e0b54d4",
+        "download-83.json": "209ad045211c157905d91a0f50423012fcfa71c0adc08525056cfc7e10f61cdd",
+        "local-work-and-isolation.json": "eed91f2cef83e48aaa3dbda31ec8768b40a16f07ccc9eee881d9748c9490a4af",
+        "native-local-work.tar": "9eb9063dc6445405b34e80a8644ae300868cc7d9c19b8c286daffb3391816d80",
+        "restoration.json": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1",
+        "versions.txt": "e915a76ea9285853bc20466a137a08261879977cd16da7f04c5065b0cdd9af51",
+        "continuity.txt": "dede02a67445b759014bc2f0d139e10fbcfebef4c70bd12839c688d072430577",
+        "observation-1.log": "b12e9281f609b2825436ceefd04c233973e8b6ea03aac7fe0a9b95cf516c0605",
+        "observation-1.png": "c9db18eba8488d05e44545fe72cc70ad7d1be7a9a3a7d7a53f755cf4c2a998f9",
+        "observation-1.xml": "d5fcd7191e0a92acc9987a64f6bbf6152cfc6883ed79376e9ce36f6ff4422d2f",
+        "observation-2.log": "cf28c7816c4b325bc2d065ff0f412ffcc344a2fcf73054005a93d65343d8b22b",
+        "observation-2.png": "c9db18eba8488d05e44545fe72cc70ad7d1be7a9a3a7d7a53f755cf4c2a998f9",
+        "observation-2.xml": "d5fcd7191e0a92acc9987a64f6bbf6152cfc6883ed79376e9ce36f6ff4422d2f",
+        "observation-3.log": "690e9bf3b12aca84d6b755f7132620d28f4613908e5170c8fdeaed5c954a0c12",
+        "observation-3.png": "f9080fc17f80898d88543e669bcb42c633f8e015ca05e79b1f23bfa5e80f2b25",
+        "observation-3.xml": "4aa9d14be905ac3a9cb940e21c8109dc92b89feaa298067f09b9d7411f43b0e5",
+        "observation-4.log": "67e11500e39395c57dc35076a304452447f1ebe5094b64864bb64eb65ffc6729",
+        "observation-4.png": "f9080fc17f80898d88543e669bcb42c633f8e015ca05e79b1f23bfa5e80f2b25",
+        "observation-4.xml": "4aa9d14be905ac3a9cb940e21c8109dc92b89feaa298067f09b9d7411f43b0e5",
+        "wallet.png": "2d9dcf600af9e1c699a37e2dcab12f91bcd1ec5df1e948db40edfd1cba1a59b8",
+        "work-after-cold.log": "0c6349a5b7ccd23df1cce4022905c8f1ef9346f9b548a200d02f27aadd9b6410",
+        "work-after.log": "5fb4aba496c75ac403eff5acca15efa8c3aba7e5d28fd7dfde20e7e96390b26b",
+        "work-before.log": "9059928f2c9d9b7159bfe6bade28042db59294a4c10f3592b4ec7a5dcea5124d"
+      }
+    },
+    {
+      "sdk": "17",
+      "run": {
+        "conclusion": "success",
+        "headSha": "d6838d41451d04f73b37cb60d8abffa6f3e0b35d",
+        "status": "completed",
+        "url": "https://github.com/robelene112/redsquare-android/actions/runs/42435039231"
+      },
+      "actualDownload": {
+        "version": 101,
+        "httpStatus": 200,
+        "url": "https://davidengelen.nl/redsquare/releases/101/redsquare.apk",
+        "headers": {
+          "Content-Length": "42335274",
+          "Content-Range": null,
+          "Content-Encoding": null,
+          "Content-Type": "application/octet-stream",
+          "ETag": "\"6aefd250-285fc2a\""
+        },
+        "bytes": 42335274,
+        "sha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d",
+        "expectedSha256": "6ae94360cad7fdf2dc6aebdcc139c18bbf5da15b715e8b78dd6fceef11fdda6d"
+      },
+      "localWorkAndIsolation": {
+        "ordinaryUid": 10236,
+        "debugUid": 10234,
+        "ordinaryPublicAddress": "iyneVxoGxuPehDr74Xmps1uwX8q5WPbohiiPMgyUi6JW",
+        "debugPublicAddress": "cNRkMp4dZpfBZGJgxTg5mbH1xaMakvppT8KzLaBD7gGn",
+        "debugIdentityUnchanged": true,
+        "differentPackageIdentities": true,
+        "sameDraftAfterUpdateAndColdLaunch": true,
+        "sameOfflinePost": true,
+        "sameLightPreference": true,
+        "prepared": {
+          "phase": "prepare",
+          "appearance": "LIGHT",
+          "cachedPost": {
+            "caption": "This is awesome, good job !",
+            "author": "jHmXKyBJVjxUvKaDGQQhkbRfowdWtcKBqg9Mgj5moDzT",
+            "published": "Published 11/7/26 10:58 PM"
+          },
+          "draft": "Redesign update check. This is an unsent local draft.",
+          "draftRemainsUnsent": true,
+          "offlineCacheRequired": false
+        }
+      },
+      "restoration": {
+        "failures": [],
+        "originalWifi": "1",
+        "originalMobileData": "1"
+      },
+      "walletContinuity": "PASS: same public identity after cold process launch and ordinary signed APK update\niyneVxoGxuPehDr74Xmps1uwX8q5WPbohiiPMgyUi6JW\n",
+      "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/prototype94-update101-17/android-native-proof/.scratch",
+      "observations": {
+        "debug-after.log": "8aa4a0e750f3282b6df4ef7628f44f8f8f61a2150c8bcd314f89e7682b20ba68",
+        "debug-before.log": "b18e46dd1e43a4d222014786bc674f86caf9fde946dfa3130e628cfe069b7e37",
+        "download-101.json": "2d5dc915bba93dc8a06ee15249d54c91ab30a6125c6e825a03a8c97a3e0b54d4",
+        "download-83.json": "209ad045211c157905d91a0f50423012fcfa71c0adc08525056cfc7e10f61cdd",
+        "local-work-and-isolation.json": "e22c7339d99b28077bce5faa52943b476abcea97f83f142ab54fcc214cdd1f82",
+        "native-local-work.tar": "fb4a091e69514c6aaa650875130ead43efd0cf46cc65e27ebad59f7b90e861dc",
+        "restoration.json": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1",
+        "versions.txt": "e915a76ea9285853bc20466a137a08261879977cd16da7f04c5065b0cdd9af51",
+        "continuity.txt": "18f4d7b31ce2c376ec0a167d277829dd2b76996daa891f526037a34e13619f6b",
+        "observation-1.log": "190a41b51e274bbff1c198744458aea95c0ecc90c9da5af40ee533cb7b1ef940",
+        "observation-1.png": "8900b557d92c0aa9ac2c64bb718e847a49da73235d346cb14c2167d09d0ff657",
+        "observation-1.xml": "56bbbac418089ec6d03d7203b4326f9da73aa177b5210e090b2bd2630656dd22",
+        "observation-2.log": "0292816c2665c7db33cd83c67397e6602833e47d839385a9d41a4899c4b4927b",
+        "observation-2.png": "8900b557d92c0aa9ac2c64bb718e847a49da73235d346cb14c2167d09d0ff657",
+        "observation-2.xml": "56bbbac418089ec6d03d7203b4326f9da73aa177b5210e090b2bd2630656dd22",
+        "observation-3.log": "045c94bdc544356c8f2d04c3d57662afab4b47866abea3b425186a358c325674",
+        "observation-3.png": "b4a33fbc98942af44d1a8ea239e49379420bd513344a47b518e5304d86e664dc",
+        "observation-3.xml": "58ca9f79d4cc472bab78e1561364c322a86f85941b6c41bae69f89d66bc046f3",
+        "observation-4.log": "5f6305c5ae76e0c61802f744034ac1f24d70d6a253f5d4323ba6216ce5212ed4",
+        "observation-4.png": "b4a33fbc98942af44d1a8ea239e49379420bd513344a47b518e5304d86e664dc",
+        "observation-4.xml": "58ca9f79d4cc472bab78e1561364c322a86f85941b6c41bae69f89d66bc046f3",
+        "wallet.png": "a78a9918ad08c2d460e9d01d003edecf6bf0af24a576f70a0d2d6e181802a859",
+        "work-after-cold.log": "a735e793b1af14f0e98a03c8612d64666d8e4cd42943d1ddff54a9a6f0f66022",
+        "work-after.log": "45e574eb0d8af3f25997decb983baef5566fab6f23fdc545d1c3b26c03754f5e",
+        "work-before.log": "758a00a542014470fa11c853217e5ae2fc97aee1e17dd83aa77d843db48b4274"
+      }
+    }
+  ]
+}

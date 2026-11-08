@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -35,7 +36,7 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
+                    revealProfileTabs()
                     ui.waitUntil(15_000) { ui.refreshableContentReady() }
                     scrollProfileTo("Native Red Square reference post")
                     scrollProfileTo(context.getString(R.string.feed_cache_warning))
@@ -288,7 +289,7 @@ class ThreadProfilePreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
+                    revealProfileTabs()
                     ui.revealProfileHistoryItem("Native Red Square reference post")
                     scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
@@ -306,7 +307,7 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
+                    revealProfileTabs()
                     // The offline header can fill a small screen before this lazy row is composed.
                     // Enabled Profile Refresh also confirms cached history has finished loading.
                     waitForProfileHistory()
@@ -387,7 +388,7 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    revealProfileTabs()
                     ui.revealProfileHistoryItem("Native Red Square reference post")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     ui.onNodeWithText("Independent Saito reply").assertDoesNotExist()
@@ -539,6 +540,19 @@ class ThreadProfilePreviewTest {
         ui.clickVisiblePostProfile("Anon-${author.take(6)}")
         ui.waitUntil(15_000) { ui.onAllNodesWithText("Profile")
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+    }
+
+    private fun revealProfileTabs() {
+        val deadline = SystemClock.elapsedRealtime() + 15_000
+        val history = ui.onNode(hasVerticalScrollAction())
+        ui.waitUntil(15_000) { history.isDisplayed() }
+        // The offline profile header can fill the viewport before tabs compose.
+        // Reveal the real tab rather than wait for an offscreen lazy node.
+        history.performScrollToNode(hasText("Posts"))
+        ui.onNodeWithText("Posts").assertIsDisplayed()
+        check(SystemClock.elapsedRealtime() <= deadline) {
+            "Profile tabs were not revealed within their original15-second budget"
+        }
     }
 
     private fun waitForProfileHistory() {

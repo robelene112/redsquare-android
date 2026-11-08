@@ -1,0 +1,6 @@
+{
+  "scope": "Actual focused69dd Android10 failure, not complete acceptance.",
+  "finding": "AvatarRecovery declared-memory assertion179 observes actual16MiB from firstmethodbeforelargefixtures while declareddevice512MiB. Other4recoverycases and corrected People identity journey pass.",
+  "configuration": "Untouched originalRAM/heap/service settings. Runtime heapgrowthlimit absent, heapsize512m, emulatorboot qemuheapsize512m, AVDvm.heapSize32M.",
+  "cause": "Unproven; no heap raise/service restart/guard relaxation. Current complete69dd runs remain in progress."
+}
