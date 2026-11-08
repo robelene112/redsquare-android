@@ -47,7 +47,8 @@ private data class StackRoute(val page: StackPage, val article: Int = 0) : Seria
 
 /** A local, explicitly labelled design journey. It has no network/wallet/signing dependency. */
 @Composable
-internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean) -> Unit) {
+internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean) -> Unit,
+    author: @Composable () -> Unit) {
     var destination by rememberSaveable { mutableStateOf(StackDestination.DISCOVER) }
     var path by rememberSaveable { mutableStateOf(listOf(StackRoute(StackPage.DISCOVER))) }
     var follows by rememberSaveable { mutableStateOf(listOf<Int>()) }
@@ -192,6 +193,7 @@ internal fun StackReviewScreen(modifier: Modifier, chrome: @Composable (Boolean)
                                     StackPage.PREVIEW_ARTICLE -> {
                                         val saved = publication ?: draft
                                         item { StackIntro(saved.title, saved.subtitle, stringResource(R.string.stack_published_preview)) }
+                                        item { author() }
                                         if (saved.cover) item { StackCover(editorial = true, height = 200.dp) }
                                         item { StackMarkdown(saved.body) }
                                         item { Text(stringResource(R.string.stack_no_publication), style = MaterialTheme.typography.bodySmall) }

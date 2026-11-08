@@ -2,6 +2,12 @@
 
 ## Current verification status
 
+The own-preview author row is now implemented with the approved42/12/5dp geometry,
+actual cached public name/avatar, explicit local-preview label and full public-key
+details on tap. Stack receives only a caller-owned presentation slot. Both source
+review axes report no unresolved finding. App and instrumentation compilation pass
+(4m17s). Native rendering and focused regression verification remain pending.
+
 The b64 complete runs42438242283/42438441132 are not accepted: Social fails on
 both SDKs and Android10 Wallet captures a blank main surface after a successful
 wallet replacement. Original logs/TARs are retained under failures/b64-*.

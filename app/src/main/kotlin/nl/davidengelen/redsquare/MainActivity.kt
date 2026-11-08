@@ -431,7 +431,12 @@ class MainActivity : ComponentActivity() {
                                     SingleOwnerReveal(module, Modifier.weight(1f)) {
                                         moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
                                             if (module == AppModule.STACK) {
-                                                StackReviewScreen(Modifier.fillMaxSize(), chrome)
+                                                StackReviewScreen(Modifier.fillMaxSize(), chrome) {
+                                                    address?.let { owner ->
+                                                        nl.davidengelen.redsquare.ui.StackPreviewAuthor(owner, selected,
+                                                            RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, selected)))
+                                                    }
+                                                }
                                             } else {
                                                 val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
                                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation,

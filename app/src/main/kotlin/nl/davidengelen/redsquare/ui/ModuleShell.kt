@@ -19,12 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.CancellationException
-import nl.davidengelen.redsquare.registry.RegisteredNameStore
-import nl.davidengelen.redsquare.registry.registeredNameIsCurrent
 import nl.davidengelen.redsquare.saito.SaitoRegistry
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import androidx.compose.foundation.background
@@ -110,17 +104,8 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                 }
                 DesignSheet(accountOpen, accountLabel, { accountOpen = false }) { firstAction ->
                     if (owner != null) {
-                        val context = LocalContext.current.applicationContext
                         val backend = SaitoBackend.entries.firstOrNull { it.domain == node }
-                        val name by produceState<String?>(null, owner, backend, registryAuthority, accountOpen) {
-                            value = if (!accountOpen || backend == null) null else try {
-                                withContext(Dispatchers.IO) {
-                                    RegisteredNameStore(context, owner, registryAuthority).load()
-                                        ?.takeIf { registeredNameIsCurrent(it, backend, System.currentTimeMillis()) }?.name?.identifier
-                                }
-                            } catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) { null }
-                        }
+                        val name = cachedAccountName(owner, backend, registryAuthority, accountOpen)
                         Row(verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             ProfileAvatar(owner, Modifier.size(50.dp).clip(CircleShape), cachedOnly = true)

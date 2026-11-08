@@ -1,0 +1,16 @@
+{
+  "comparisonBase": "9672b44db",
+  "scope": "Source-only review of own-preview public author-row repair; excludes native rendering/full acceptance",
+  "spec": {
+    "agent": "/root/prototype94_spec_review",
+    "unresolvedFindings": 0,
+    "observation": "Approved42dp avatar,12dp gap,5dp padding/two text lines; caller-owned public slot, qualified cached name, cachedOnly avatar, true local-preview wording; real full key on tap."
+  },
+  "standards": {
+    "agent": "/root/prototype94_standards_review",
+    "unresolvedFindings": 0,
+    "observation": "Owner/backend/registrar keys prevent cross-scope label reuse; validated IO cache, cancellation preserved; presentation-only identity dialog avoids discovery; existing cachedOnly avatar may still retrieve raster from validated cached URL."
+  },
+  "localCompilation": "app:compileDebugKotlin + app:compileDebugAndroidTestKotlin SUCCESS4m17s",
+  "nativeStatus": "Pending, no appearance/full acceptance claim"
+}

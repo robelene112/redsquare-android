@@ -155,6 +155,13 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
                 reveal("Local preview · Not published")
                 onNodeWithTag("stack-preview-author").assertIsDisplayed()
                 capture("$label-published-reader")
+                onNodeWithTag("stack-preview-author").performClick()
+                val publicAuthor = requireNotNull(nl.davidengelen.redsquare.saito.AndroidWalletStore(
+                    instrumentation.targetContext).loadExisting()).publicKey
+                onNode(hasText(publicAuthor) and hasAnyAncestor(isDialog())).assertIsDisplayed()
+                onNodeWithText("Identity details").assertIsDisplayed()
+                capture("$label-published-author")
+                onNode(hasText("Done") and hasAnyAncestor(isDialog())).performClick()
                 onNode(hasText("Back") and hasClickAction()).performClick()
                 click("Back to My articles")
                 onNode(hasText("Discover") and hasClickAction()).performClick()

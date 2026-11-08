@@ -22,8 +22,13 @@ import nl.davidengelen.redsquare.ui.StatusTone
 
 @Composable
 internal fun IdentityDetailsDialog(author: String, onDone: () -> Unit) {
+    PublicIdentityDetailsDialog(author, registeredIdentity(author).name, onDone)
+}
+
+/** Display an already verified/cached label without mounting network identity discovery. */
+@Composable
+internal fun PublicIdentityDetailsDialog(author: String, name: String, onDone: () -> Unit) {
     val context = LocalContext.current
-    val name = registeredIdentity(author).name
     var copied by remember(author) { mutableStateOf<Boolean?>(null) }
     AlertDialog(onDismissRequest = onDone,
         title = { Text(stringResource(R.string.profile_identity_details)) },
