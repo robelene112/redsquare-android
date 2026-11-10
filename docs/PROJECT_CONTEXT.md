@@ -1,5 +1,17 @@
 # Red Square Android project context
 
+## Active fix #97
+
+The owner reported refresh completion feedback covering posts near the bottom
+of the visible feed. Implement only [issue97](https://github.com/robelene112/redsquare-android/issues/97),
+then deliver its compatible signed beta and stop. Review base:
+`ee8683f6d31680a911f105ab52ed971aaa392d86`; public beta remains105.
+Anchor completion below the feed tabs at the top of the visible posts viewport,
+without moving the reading anchor. Preserve truthful refresh, outage/recovery,
+brief lifetime, shared motion/accessibility and all existing acceptance gates.
+Use the existing native UI/controlled-peer and reversible viewport seams.
+No node/service/provider/physical/Play changes. Historical96 delivery stays accepted.
+
 ## Delivered fix #96
 
 Signed [beta 0.1.105](https://davidengelen.nl/redsquare/) completes

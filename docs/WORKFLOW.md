@@ -11,11 +11,10 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-Issue #96 is complete as signed beta105, including both complete Android10/17
-runs, independent review, actual signed-update proof and public delivery checks.
-Stop after recording this one-ticket delivery. No further implementation is
-authorized by that request. Issue95 remains the previous beta104 checkpoint.
-Exact status is in [the handoff](handoffs/IMPLEMENTATION.md).
+The owner requested issue #97: keep feed refresh completion at the top of the
+visible feed, preserving reading position and truthful completion. Implement
+only97 and deliver its compatible signed beta, then stop. Issue96 remains the
+accepted beta105 checkpoint. See [the handoff](handoffs/IMPLEMENTATION.md).
 
 The earlier five-ticket redesign sequence (#90, #93, #81, #83 and #94) was
 completed with beta102. Specifications #1/#55/#84/#86 and release #36 retain
