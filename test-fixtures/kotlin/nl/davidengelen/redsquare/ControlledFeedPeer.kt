@@ -23,6 +23,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val reportResponse: ((ByteArray) -> String)? = null,
     private val relayResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val advertisedServices: String? = null,
+    private val onArchiveResponse: ((com.google.gson.JsonObject, String, Boolean) -> Unit)? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var registryFallbackBeforeNamecheck = false
     val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
@@ -272,10 +273,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(criteria.get("flagged_ne").asInt == 1)
                             rows
                         }
-                        if (!withholdArchiveReply) {
-                            webSocket.send((byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
+                        val queued = !withholdArchiveReply && webSocket.send(
+                            (byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
                                 frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
-                        }
+                        onArchiveResponse?.invoke(criteria.deepCopy(), response, queued)
                         requests.incrementAndGet()
                         received.countDown()
                     }

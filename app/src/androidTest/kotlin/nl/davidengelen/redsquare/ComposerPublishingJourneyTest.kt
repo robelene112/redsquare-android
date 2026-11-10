@@ -103,15 +103,18 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
             }
         }
         indexed[candidate.id] = postingArchiveRow(candidate)
-    }, archiveResponse = { criteria ->
+    }, onArchiveResponse = { criteria, response, queued ->
         if (criteria.has("sig")) archiveObservations.add(JsonObject().apply {
             addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
             addProperty("signature", criteria.get("sig").asString)
-            addProperty("visible", visible.get())
+            addProperty("queued", queued)
+            addProperty("empty", response == "[]")
             addProperty("indexed", indexed.containsKey(criteria.get("sig").asString))
         })
+    }, archiveResponse = { criteria ->
+        val exposed = visible.get()
         if (criteria.get("field1").asString != "RedSquare") "[]"
-        else (listOf(original) + if (visible.get()) indexed.values.toList() else emptyList()).filter { row ->
+        else (listOf(original) + if (exposed) indexed.values.toList() else emptyList()).filter { row ->
             (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) &&
                 (!criteria.has("field2") || criteria.get("field2").asString == row.get("field2").asString) &&
                 (!criteria.has("field5") || criteria.get("field5").asString == row.get("field5").asString)
@@ -212,6 +215,21 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     ui.onNodeWithText("Retry").assertDoesNotExist()
                     ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText)).assertDoesNotExist()
                     captureNativeScreen(File(folder, "$label-submitted.png"))
+                    fun emptyReplies() = archiveObservations.count {
+                        it.get("signature").asString == candidate && it.get("queued").asBoolean && it.get("empty").asBoolean
+                    }
+                    val absenceAt = android.os.SystemClock.elapsedRealtime()
+                    withFailureCapture({
+                        File(folder, "$label-empty-response-precondition.json").writeText(JsonObject().apply {
+                            addProperty("emptyReplies", emptyReplies())
+                            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - absenceAt)
+                        }.toString())
+                    }) {
+                        // Exercise delayed availability rather than racing the
+                        // worker's first lookup after the row is already visible.
+                        ui.waitUntil(15_000) { peer.assertHealthy(); emptyReplies() >= 2 }
+                    }
+                    val initialEmptyReplies = emptyReplies()
                     visible.set(true)
                     val waitingAt = android.os.SystemClock.elapsedRealtime()
                     val clockAt = ui.mainClock.currentTime
@@ -228,6 +246,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                             addProperty("probeMillis", probeMillis)
                             addProperty("postChanges", PostDraftStore.changes.value - changesAt)
                             addProperty("candidate", candidate)
+                            addProperty("initialEmptyReplies", initialEmptyReplies)
                             add("signatureQueries", com.google.gson.JsonArray().apply {
                                 archiveObservations.filter { it.get("elapsedMillis").asLong >= waitingAt }.forEach(::add)
                             })
