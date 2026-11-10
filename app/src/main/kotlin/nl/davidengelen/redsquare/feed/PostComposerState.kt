@@ -6,8 +6,6 @@ import android.net.Uri
 import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.media.GiphyItem
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -74,10 +72,6 @@ internal class PostComposerState(
                         catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                         true
                     } else reconcile(candidate, saved.text)
-                } catch (timeout: TimeoutCancellationException) {
-                    currentCoroutineContext().ensureActive()
-                    checkError = true
-                    false
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (failure: DraftPersistenceFailure) { throw failure }
                 catch (_: Exception) { checkError = true; false }
@@ -140,9 +134,6 @@ internal class PostComposerState(
                     memory.clearSubmitted()
                     submitted = true
                 }
-            } catch (timeout: TimeoutCancellationException) {
-                currentCoroutineContext().ensureActive()
-                checkError = true
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: DraftPersistenceFailure) { error = true }
             catch (_: Exception) { checkError = true }
@@ -240,10 +231,7 @@ internal class PostComposerState(
                         finishSubmission(candidate.id)
                     }
                     }
-                } } catch (timeout: TimeoutCancellationException) {
-                    currentCoroutineContext().ensureActive()
-                    networkError = true
-                } catch (cancelled: CancellationException) { throw cancelled }
+                } } catch (cancelled: CancellationException) { throw cancelled }
                 catch (failure: DraftPersistenceFailure) { throw failure }
                 catch (_: Exception) { networkError = true }
                 error = false
