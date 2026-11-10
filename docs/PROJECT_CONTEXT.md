@@ -11,6 +11,9 @@ without moving the reading anchor. Preserve truthful refresh, outage/recovery,
 brief lifetime, shared motion/accessibility and all existing acceptance gates.
 Use the existing native UI/controlled-peer and reversible viewport seams.
 No node/service/provider/physical/Play changes. Historical96 delivery stays accepted.
+The owner subsequently requested profile history-information clarity as issue98.
+Finish97 source correction and focused review first, then implement98 sequentially.
+Both may share the final complete verification and compatible beta.
 
 ## Delivered fix #96
 

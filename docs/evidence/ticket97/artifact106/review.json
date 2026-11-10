@@ -21,5 +21,10 @@
     "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722"
   },
   "actionableFindings": [],
-  "qualification": "Actual local immutable106 inspected read-only/offline. Full-primary, native signed-update and public delivery gates remain separate; no physical/provider/Play acceptance."
+  "qualification": "Actual local immutable106 inspected read-only/offline. Full-primary, native signed-update and public delivery gates remain separate; no physical/provider/Play acceptance.",
+  "superseded": {
+    "promoted": false,
+    "reason": "Full97 exposed top-overlay pointer interception on original98c, independently reproduced by actual tap regression42908321686. Binary-only PASS is historical, not app acceptance.",
+    "replacement": "Future corrected107 candidate, not built yet"
+  }
 }

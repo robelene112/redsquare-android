@@ -1,0 +1,211 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AvatarRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate","elapsedMillis":447828,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":536870912,"freeBytes":528726368,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate","elapsedMillis":451795,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":16499680,"freeBytes":495584,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval","elapsedMillis":451809,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":11291040,"freeBytes":6176768,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval","elapsedMillis":468207,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":16922080,"freeBytes":6152160,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval$lambda$9(AvatarRecoveryPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.$r8$lambda$YJSNEOJwXVnY-9UnQjdEKlbBOpA(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval(AvatarRecoveryPreviewTest.kt:103)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval(nl.davidengelen.redsquare.AvatarRecoveryPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval$lambda$9(AvatarRecoveryPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.$r8$lambda$YJSNEOJwXVnY-9UnQjdEKlbBOpA(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval(AvatarRecoveryPreviewTest.kt:103)
+
+INSTRUMENTATION_STATUS: test=cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp","elapsedMillis":468222,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":16922080,"freeBytes":5770816,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp","elapsedMillis":469464,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":13242080,"freeBytes":307008,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry","elapsedMillis":469502,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":13242080,"freeBytes":175936,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry","elapsedMillis":485730,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":28093048,"freeBytes":0,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry$lambda$5$lambda$4(AvatarRecoveryPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.$r8$lambda$ArBGC0i-o-61-zCorsxtzb1RjLo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry(AvatarRecoveryPreviewTest.kt:81)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry(nl.davidengelen.redsquare.AvatarRecoveryPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry$lambda$5$lambda$4(AvatarRecoveryPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.$r8$lambda$ArBGC0i-o-61-zCorsxtzb1RjLo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry(AvatarRecoveryPreviewTest.kt:81)
+
+INSTRUMENTATION_STATUS: test=anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction","elapsedMillis":485746,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":22709152,"freeBytes":5996544,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar large pictures: max=536870912 total=22709152 free=5980160 memoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction","elapsedMillis":490185,"pid":11729,"parentPid":1664,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":22580064,"freeBytes":323392,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 42.445
+There were 2 failures:
+1) cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval(nl.davidengelen.redsquare.AvatarRecoveryPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval$lambda$9(AvatarRecoveryPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.$r8$lambda$YJSNEOJwXVnY-9UnQjdEKlbBOpA(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval(AvatarRecoveryPreviewTest.kt:103)
+2) anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry(nl.davidengelen.redsquare.AvatarRecoveryPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry$lambda$5$lambda$4(AvatarRecoveryPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.$r8$lambda$ArBGC0i-o-61-zCorsxtzb1RjLo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$lambda$14$lambda$13$lambda$12(AvatarJourneyFixture.kt:95)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.$r8$lambda$nZWP7ZgHxj7Km7i-S-JDiSYKqyo(Unknown Source:0)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney(AvatarJourneyFixture.kt:94)
+	at nl.davidengelen.redsquare.AvatarJourneyFixtureKt.withAvatarJourney$default(AvatarJourneyFixture.kt:15)
+	at nl.davidengelen.redsquare.AvatarRecoveryPreviewTest.anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry(AvatarRecoveryPreviewTest.kt:81)
+
+FAILURES!!!
+Tests run: 5,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

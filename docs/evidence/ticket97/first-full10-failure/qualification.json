@@ -1,0 +1,9 @@
+{
+  "result": "FAILED partition; remaining old-source jobs intentionally canceled before correction",
+  "run": 42903926048,
+  "source": "98c881a50b62784feae171b33f46fe2da094d6e0",
+  "scope": "social",
+  "originals": "/mnt/storage/redsquare-android-artifacts/feed97-failed-10-social",
+  "qualification": "Not full acceptance and never assembled with replacement partitions. Original app98c top overlay subsequently reproduced swallowing a post tap. Corrected production will require fresh complete primary runs on both SDKs.",
+  "failure": "AvatarRecovery5 cases3PASS/2FAIL42.445s:15s profile-navigation timeouts after first-row taps at87/113. Originalframes remain onfeed. NewtopSurfaceoverlapsrowcenter and contains pointer handler; original avatar tests/fixtures unchanged. Precise tapred42908321686 independently reproduces blocked post navigation."
+}

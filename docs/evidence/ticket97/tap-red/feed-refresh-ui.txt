@@ -1,0 +1,82 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedRefreshRedesignTest:
+INSTRUMENTATION_STATUS: test=readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel$lambda$17(FeedRefreshRedesignTest.kt:64)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$TIKN-LY13pKK4v1YkroVNEWEfAw(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(FeedRefreshRedesignTest.kt:31)
+
+INSTRUMENTATION_STATUS: stream=
+Error in readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(nl.davidengelen.redsquare.FeedRefreshRedesignTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel$lambda$17(FeedRefreshRedesignTest.kt:64)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$TIKN-LY13pKK4v1YkroVNEWEfAw(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(FeedRefreshRedesignTest.kt:31)
+
+INSTRUMENTATION_STATUS: test=readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.829
+There was 1 failure:
+1) readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(nl.davidengelen.redsquare.FeedRefreshRedesignTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel$lambda$17(FeedRefreshRedesignTest.kt:64)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$TIKN-LY13pKK4v1YkroVNEWEfAw(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(FeedRefreshRedesignTest.kt:31)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -13,7 +13,9 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 The owner requested issue #97: keep feed refresh completion at the top of the
 visible feed, preserving reading position and truthful completion. Implement
-only97 and deliver its compatible signed beta, then stop. Issue96 remains the
+97 first, then the subsequently requested profile-history clarification98,
+sequentially. A shared final compatible beta may deliver both after complete
+verification. Stop after these requested UI fixes. Issue96 remains the
 accepted beta105 checkpoint. See [the handoff](handoffs/IMPLEMENTATION.md).
 
 The earlier five-ticket redesign sequence (#90, #93, #81, #83 and #94) was

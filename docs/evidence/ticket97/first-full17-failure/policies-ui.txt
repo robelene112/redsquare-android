@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PolicyCenterPreviewTest:
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'Settings' (ignoreCase: false)) && (OnClick is defined)) && (hasAnyAncestorThat((IsPopup is defined) || (IsDialog is defined))) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openSettings(AccountMenuFixture.kt:101)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18$lambda$17(PolicyCenterPreviewTest.kt:154)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$_CwFmIubGWWNCOj_uqk2YJfKjY0(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: stream=
+Error in draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'Settings' (ignoreCase: false)) && (OnClick is defined)) && (hasAnyAncestorThat((IsPopup is defined) || (IsDialog is defined))) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openSettings(AccountMenuFixture.kt:101)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18$lambda$17(PolicyCenterPreviewTest.kt:154)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$_CwFmIubGWWNCOj_uqk2YJfKjY0(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 34.451
+There was 1 failure:
+1) draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ((Text + InputText + EditableText contains 'Settings' (ignoreCase: false)) && (OnClick is defined)) && (hasAnyAncestorThat((IsPopup is defined) || (IsDialog is defined))) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AccountMenuFixtureKt.openSettings(AccountMenuFixture.kt:101)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18$lambda$17(PolicyCenterPreviewTest.kt:154)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$_CwFmIubGWWNCOj_uqk2YJfKjY0(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -541,7 +541,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 // Overlay the visible posts viewport so feedback stays below the tabs
                 // without moving the reader's post when it appears or disappears.
                 InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
-                    StatusTone.SUCCESS, modifier = Modifier.align(Alignment.TopCenter).padding(top = AppSpacing.small))
+                    StatusTone.SUCCESS, modifier = Modifier.align(Alignment.TopCenter).padding(top = AppSpacing.small),
+                    passThrough = true)
             }
             else Spacer(Modifier.weight(1f))
         }
