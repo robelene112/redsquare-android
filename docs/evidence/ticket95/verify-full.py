@@ -121,6 +121,17 @@ for part in ("chat", "social", "wallet"):
     actual.update(ids.identities(root))
     destination = view / part
     destination.mkdir()
+    # Preserve the inherited optional JVM report check without inventing
+    # counts when CI supplies only its HTML summary.
+    for path in sorted(artifact.glob("core/build/test-results/test/TEST-*.xml")):
+        suite = ET.fromstring(path.read_bytes())
+        assert int(suite.get("failures", "0")) == 0 and int(suite.get("errors", "0")) == 0
+        originals[part + "/" + path.relative_to(artifact).as_posix()] = {
+            "bytes": path.stat().st_size, "sha256": digest(path)}
+    for pattern in ("core/build/reports/tests/test/index.html", "app/build/reports/lint-results-*.html"):
+        for path in sorted(artifact.glob(pattern)):
+            originals[part + "/" + path.relative_to(artifact).as_posix()] = {
+                "bytes": path.stat().st_size, "sha256": digest(path)}
     for path in sorted(root.rglob("*")):
         if not path.is_file():
             continue
