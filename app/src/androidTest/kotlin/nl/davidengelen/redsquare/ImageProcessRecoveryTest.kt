@@ -132,7 +132,13 @@ class ImageProcessRecoveryTest {
             else if (criteria.has("sig")) "[]" else "[$row,$original]"
         })
         launch(peer) {
-            waitFor(text)
+            ui.waitForRefreshableContent(20_000)
+            ui.waitUntil(20_000) {
+                try {
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text))
+                    ui.onNodeWithText(text).isDisplayed()
+                } catch (_: AssertionError) { false }
+            }
             assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore(context,
                 row.get("field2").asString, SaitoBackend.OWNER).hasSubmission(row.get("sig").asString))
             ui.waitUntil(20_000) {

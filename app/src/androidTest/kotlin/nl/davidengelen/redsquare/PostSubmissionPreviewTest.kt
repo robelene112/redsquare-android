@@ -94,6 +94,57 @@ class PostSubmissionPreviewTest {
         }
     }
 
+    @Test fun timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallet = AndroidWalletStore(context).loadOrCreate()
+        val backends = AndroidBackendStore(context)
+        val originalBackend = backends.load()
+        val retained = ChatFixtureState(context, listOf("postdraft.", "feed."), wallet.publicKey)
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        val expose = java.util.concurrent.atomic.AtomicBoolean(false)
+        val peer = ControlledFeedPeer("[]", archiveResponse = { query ->
+            if (expose.get() && query.has("sig")) indexed.get()?.takeIf { it.get("sig").asString == query.get("sig").asString }
+                ?.let { "[$it]" } ?: "[]" else "[]"
+        }, onTransaction = { indexed.set(postingArchiveRow(postingTransaction(it))) })
+            .apply { withholdCloseReplies = true }
+        var primary: Throwable? = null
+        try {
+            retained.prepare()
+            backends.save(SaitoBackend.OWNER)
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "post-submission-evidence/timeout-failure.png")) }) {
+                        ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Recover the original after a transport timeout")
+                        ui.onNodeWithText("Send").performClick()
+                        ui.waitUntil(10_000) { peer.transactions.size == 1 }
+                        val candidate = postingTransaction(peer.transactions.single())
+                        ui.waitUntil(20_000) { ui.onNode(hasText("Retry") and isEnabled()).isDisplayed() }
+                        val saved = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+                        assertEquals(candidate.encoded(), saved.load().transaction?.encoded())
+                        org.junit.Assert.assertFalse(saved.hasSubmission(candidate.id))
+                        peer.withholdCloseReplies = false
+                        expose.set(true)
+                        ui.onNodeWithText("Retry").performClick()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Post submitted").isDisplayed() }
+                        org.junit.Assert.assertTrue(saved.hasSubmission(candidate.id))
+                        assertEquals(1, peer.transactions.size)
+                        ui.onNode(hasSetTextAction()).assertDoesNotExist()
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally { cleanupAfterTest(primary, {
+            peer.transactions.firstOrNull()?.let { androidx.work.WorkManager.getInstance(context)
+                .cancelUniqueWork("post:${postingTransaction(it).id}").result.get() }
+        }, { retained.restoreFiles() }, { retained.restorePreferences() }, { backends.save(originalBackend) }) }
+    }
+
     @Test fun failedReceiptKeepsTheOriginalAndStaleSavingCannotReplaceTheNextDraft() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))

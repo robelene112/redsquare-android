@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.app.UiAutomation
 import android.os.SystemClock
 import android.view.accessibility.AccessibilityNodeInfo
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -30,7 +31,8 @@ internal fun ComposeTestRule.waitForRefreshableContent(timeoutMillis: Long) {
 internal fun ComposeTestRule.refreshVisibleView() {
     val tag = listOf("feed-post-list", "conversation-post-list").firstOrNull { onNodeWithTag(it).isDisplayed() }
     if (tag != null) {
-        onNodeWithTag(tag).performScrollToIndex(0)
+        val axis = onNodeWithTag(tag).fetchSemanticsNode().config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)
+        if (axis != null && runOnIdle { axis.value() > 0f }) onNodeWithTag(tag).performScrollToIndex(0)
         pullToRefresh(tag)
     } else onNode(hasText("Refresh") and hasClickAction() and isEnabled()).performClick()
 }

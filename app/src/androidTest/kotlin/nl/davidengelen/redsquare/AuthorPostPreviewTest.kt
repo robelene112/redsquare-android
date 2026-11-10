@@ -105,11 +105,16 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement("Native author's original post")
                     if (withImage) ui.attachSyntheticImage()
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this node.")
-                    ui.onNodeWithText("Back").performClick()
+                    waitFor("Post submitted")
                     waitForList()
                     waitForRefresh()
-                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native author's original post"))
+                    ui.refreshVisibleView()
+                    ui.waitUntil(20_000) {
+                        try {
+                            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Native author's original post"))
+                            ui.onNodeWithText("Native author's original post").isDisplayed()
+                        } catch (_: AssertionError) { false }
+                    }
                     ui.clickVisiblePostBody("Native author's original post")
                     waitFor("Conversation")
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")

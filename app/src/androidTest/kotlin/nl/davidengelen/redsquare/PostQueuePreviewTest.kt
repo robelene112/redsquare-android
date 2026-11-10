@@ -227,7 +227,11 @@ class PostQueuePreviewTest {
                 org.junit.Assert.assertEquals(address, post.author)
                 org.junit.Assert.assertEquals("Retain work until it can be saved", post.text)
                 org.junit.Assert.assertEquals(if (withImage) 1 else 0, post.images.size)
-                if (withImage) ui.assertSyntheticRedImage()
+                if (withImage) {
+                    ui.waitForRefreshableContent(10_000)
+                    ui.refreshVisibleView()
+                    ui.assertSyntheticRedImage(postText = "Retain work until it can be saved")
+                }
                 peer.assertHealthy()
                 captureFeedEvidence("post-queue-evidence/failed-save-repaired-without-losing-work.png")
             }

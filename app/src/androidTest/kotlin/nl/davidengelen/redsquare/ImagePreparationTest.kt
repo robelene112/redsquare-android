@@ -177,9 +177,8 @@ class ImagePreparationTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement("Image preparation fixture")
                         block(peer, sent)
-                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNodeWithText("Back").performClick()
-                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                        ui.onNode(hasSetTextAction()).assertDoesNotExist()
                     } catch (failure: Throwable) {
                         val file = File(context.cacheDir, "images-evidence/preparation-failure.png").apply { parentFile?.mkdirs() }
                         androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(file)

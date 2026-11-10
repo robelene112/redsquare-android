@@ -223,20 +223,15 @@ class QuotePreviewTest {
         }, archiveResponse = { criteria ->
             if (criteria.has("sig")) indexed.get()?.takeIf { it.get("sig").asString == criteria.get("sig").asString }
                 ?.let { "[$it]" } ?: "[]" else "[$original]"
-        }).apply { disconnectAfterTransaction = true }
+        })
         peer.start().use { server ->
-            val intent = Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-            ActivityScenario.launch<MainActivity>(intent).use {
-                waitFor(originalText)
-                ui.clickVisiblePostContent("Quote")
-                readyComposer()
-                ui.onNode(hasSetTextAction()).performTextReplacement("Uncertain quote commentary")
-                ui.onNodeWithText("Send").performClick()
-                waitFor("Could not check or send this post with the selected node. Retry checks for it first, then sends the original post if needed.")
-                assertEquals(1, peer.transactions.size)
-            }
-            peer.disconnectAfterTransaction = false
+            val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+            AndroidWalletStore(context).loadOrCreate()
+            val candidate = legacySubmittedPost(context, endpoint, "Uncertain quote commentary",
+                quote = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(original.get("tx").asString))
+            assertEquals(1, peer.transactions.size)
+            assertEquals(candidate.id, postingTransaction(peer.transactions.single()).id)
+            val intent = Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint)
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor(originalText)
                 ui.clickVisiblePostContent("Quote")
