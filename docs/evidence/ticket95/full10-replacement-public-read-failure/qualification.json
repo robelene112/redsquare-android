@@ -1,0 +1,16 @@
+{
+  "result": "NOT_ACCEPTED",
+  "run": 42838295047,
+  "source": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "failedGoal": "OwnerLiveFeedTest.freshInstallationReadsTheSelectedApprovedPublicFeed, official backend",
+  "observed": "Fresh official feed displayed, separate RedSquare operation timedout after12002ms, no archived response/search/wallet success. Owner backendpassed.",
+  "locationLimit": "SaitoPeer.request12s includes readiness plus response waiting. HTTP0 warnings are not correlated with that particular peer. Cannot prove manual Archive frame reached official node or infer a production app defect.",
+  "httpReadOnlyObservation": "From VPS at15:26UTC official/redsquare HTTP301 and official/wsopen upgradeHTTP101. No authenticated Archive success inferred from these ordinary endpoint observations.",
+  "nextFocusedReadinessRun": 42844381304,
+  "nextStep": "Unchanged feed scope/public_feed_read=true at same5336. A focusedpass is readiness only; newcomplete10 all3 required, no failed-tail/missing-option exception.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/post95-replacement-full10/android-native-proof-wallet",
+  "qualification": "Actual public-read goal failed. Wallet failed; unfinished Chat/Social were cancelled when the complete replacement began. No node/service/wallet/test-deadline/heap changes. This packet contributes no replacement acceptance fragments.",
+  "actualRunConclusion": "cancelled",
+  "unfinishedOtherPartitions": "Chat and Social cancelled by the existing workflow concurrency when the next same-scope complete dispatch started. They are not passes or application defects.",
+  "nextCompleteRun": 42845159882
+}

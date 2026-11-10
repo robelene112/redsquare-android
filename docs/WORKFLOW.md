@@ -11,14 +11,13 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The latest owner request authorizes the five redesign tickets:
-#90, #93, #81, #83 and #94, sequentially, then beta publication through #94.
-Continue between these tickets without asking again. This replaces the earlier
-two-ticket stop boundary. No parallel ticket implementation or intermediate beta.
+The owner approved issue #95 and its compatible signed beta delivery. It is
+complete as beta104. Stop after recording this delivery; another ticket requires
+a new owner request. Exact acceptance is in [the handoff](handoffs/IMPLEMENTATION.md).
 
-The approved redesign86 scope and ticket sequence remain. Publish the integrated
-signed beta after94's final verification; no intermediate beta is requested.
-Specification86,55,84,1and36 retain their independent acceptance criteria.
+The earlier five-ticket redesign sequence (#90, #93, #81, #83 and #94) was
+completed with beta102. Specification86,55,84,1and36 retain their independent
+acceptance criteria. Only the requested development ticket closes.
 
 ## Load the real skills
 

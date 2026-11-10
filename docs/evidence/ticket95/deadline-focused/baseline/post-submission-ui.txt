@@ -1,0 +1,109 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostSubmissionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostSubmissionPreviewTest:
+INSTRUMENTATION_STATUS: test=failedReceiptKeepsTheOriginalAndStaleSavingCannotReplaceTheNextDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostSubmissionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedReceiptKeepsTheOriginalAndStaleSavingCannotReplaceTheNextDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostSubmissionPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostSubmissionPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend$lambda$38$lambda$37$lambda$36(PostSubmissionPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.$r8$lambda$U_Qs9jfMgJbgGYAgAcZvvmgO77U(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend(PostSubmissionPreviewTest.kt:119)
+
+INSTRUMENTATION_STATUS: stream=
+Error in timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend(nl.davidengelen.redsquare.PostSubmissionPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend$lambda$38$lambda$37$lambda$36(PostSubmissionPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.$r8$lambda$U_Qs9jfMgJbgGYAgAcZvvmgO77U(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend(PostSubmissionPreviewTest.kt:119)
+
+INSTRUMENTATION_STATUS: test=timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostSubmissionPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostSubmissionPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed$lambda$18$lambda$17$lambda$16(PostSubmissionPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.$r8$lambda$9KGpBqTHB2_VONQyIva7yTDE74I(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed(PostSubmissionPreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: stream=
+Error in submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed(nl.davidengelen.redsquare.PostSubmissionPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed$lambda$18$lambda$17$lambda$16(PostSubmissionPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.$r8$lambda$9KGpBqTHB2_VONQyIva7yTDE74I(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed(PostSubmissionPreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: test=submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 63.103
+There were 2 failures:
+1) timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend(nl.davidengelen.redsquare.PostSubmissionPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend$lambda$38$lambda$37$lambda$36(PostSubmissionPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.$r8$lambda$U_Qs9jfMgJbgGYAgAcZvvmgO77U(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.timedOutSubmissionKeepsTheOriginalAndRetryReconcilesWithoutAnotherSend(PostSubmissionPreviewTest.kt:119)
+2) submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed(nl.davidengelen.redsquare.PostSubmissionPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed$lambda$18$lambda$17$lambda$16(PostSubmissionPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.$r8$lambda$9KGpBqTHB2_VONQyIva7yTDE74I(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostSubmissionPreviewTest.submittedPostReturnsToReadingAndOpensAFreshDraftWhileArchiveIsDelayed(PostSubmissionPreviewTest.kt:46)
+
+FAILURES!!!
+Tests run: 3,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

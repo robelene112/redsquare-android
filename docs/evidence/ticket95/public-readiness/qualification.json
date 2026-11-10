@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "run": 42844381304,
+  "source": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "scope": "feed with public_feed_read=true",
+  "actualOfficialRedSquareMillis": 586,
+  "actualOfficialRetweetMillis": 43,
+  "qualification": "Unchanged narrow native readiness proof only; both nodes, signed feed streams and unfunded-wallet public reads passed. Earlier timeout did not recur, root cause unproved. No complete SDK acceptance or failed-goal replacement."
+}

@@ -1,0 +1,48 @@
+{
+  "artifactCompiledSource": "fd82ad47754d3e5137503d14331e6a6b2b4be2a1",
+  "android17FullSource": "fd82ad47754d3e5137503d14331e6a6b2b4be2a1",
+  "android10ReplacementFullSource": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "unchangedTrackedPaths": 221074,
+  "unchangedPathsModeTypeBlobDigest": "a5f43ff8195a97b7e1e6910d51c650d26c3bbe63137052d533414baf2ecec1ea",
+  "changedPaths": {
+    ".github/workflows/android-proof.yml": {
+      "before": "100644 blob 2c30ac36973ea80d4e4668d9470f6caf88ed6bf7",
+      "after": "100644 blob 8705b16990430cf09e7c6d3db3413586e0dbf8ad"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ComposerPublishingJourneyTest.kt": {
+      "before": "100644 blob 75bb61204442402ed7e07d83dcbb292bf1acfd78",
+      "after": "100644 blob aad56eaf5732059f27a3b1c661830cdedb59971e"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImageProcessRecoveryTest.kt": {
+      "before": "100644 blob ad9dc84fbdee5ccfe5eee6319e590d03763e40d3",
+      "after": "100644 blob 9caa088f8123c024fd18486abb1f31632798fcdd"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/LegacyPostFixture.kt": {
+      "before": "100644 blob 237177df98395cfc060e445ab292e64e68f2c8c8",
+      "after": "100644 blob c4f4b6bc745c2ffd9f8823684f88261d3300338f"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostProcessRecoveryTest.kt": {
+      "before": "100644 blob 2698963bc3644e59489a5959396f521420e4041c",
+      "after": "100644 blob 90a5c00d670685dc63849c4aa00573f5782a1acf"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostSubmissionPreviewTest.kt": {
+      "before": "100644 blob 8a1d821d9073f6affe8f4faac7c0546d45721ace",
+      "after": "100644 blob ad0482e9036f6435ad710d60cff21250694f3e01"
+    },
+    "docs/WORKFLOW.md": {
+      "before": "100644 blob a99c5528cfe5f840991377996e8fcdf35cf628c4",
+      "after": "100644 blob 71ec26851a81d0fc3d4c1e0c0858572ca80b86fb"
+    },
+    "scripts/emulator-check": {
+      "before": "100755 blob 0c26446d64274a4ac38edea4ae238349844792dd",
+      "after": "100755 blob 8aa2725b2317a3359b59689de3629b87b2f143ad"
+    },
+    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+      "before": "100644 blob 2abd1d81ef30f65cf0c03e3da93f00c3676aec35",
+      "after": "100644 blob 85f6f88e6b528d8bfd1bac3616158d6cbeea235e"
+    }
+  },
+  "frozenContractAndVerifierUnchanged": true,
+  "applicationResourcesManifestsDependenciesAndBuildInputsUnchanged": true,
+  "qualification": "Exact complete tracked-tree comparison, excluding only the nine explicitly enumerated test/harness/documentation changes. Both frozen complete-run checks remain required. Candidate104 keeps its actual compiled-source manifest; no binary reattribution."
+}

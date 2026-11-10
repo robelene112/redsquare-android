@@ -1,0 +1,28 @@
+{
+  "actualCandidateVersion": 104,
+  "source": "fd82ad47754d3e5137503d14331e6a6b2b4be2a1",
+  "artifactSha256": "a21bc86d6ce64c3cec38afdeadf9cfeb1e7b4f3dd143b98b5af324a0dc17c789",
+  "artifactBytes": 42372138,
+  "reserved103": "Initial bounded build failed with Docker OOM event1794317474; no signed/staged/published103. Canonical version counter may have gaps.",
+  "recovery": "Separate existing wrapper invocations compiled104ReleaseKotlin and lintVitalAnalyzeRelease, then canonical review-build succeeded. Existing2500MiB container/1792MiB Gradle heap/2CPU caps unchanged. No inputs changed while104 compiled.",
+  "originalBuildLogs": "/mnt/storage/redsquare-android-artifacts",
+  "logs": {
+    "post95-review-build.log": {
+      "bytes": 13858,
+      "sha256": "477b80a4f7b3c27863a46a983955e4c70e0de8047d428e720e373b772ef27a66"
+    },
+    "post95-release104-warm.log": {
+      "bytes": 5212,
+      "sha256": "63acf9489f957100a2cb92df00169983faed70a3e9a31482b257278f18d96ef6"
+    },
+    "post95-release104-lint.log": {
+      "bytes": 5522,
+      "sha256": "a2f788e54ff257567d958db50d2b7c4dc7636ba4be472aab1d151b6babc80c81"
+    },
+    "post95-review-build104.log": {
+      "bytes": 7432,
+      "sha256": "95651ca9f80355ab7f70e55a2cda258ddfa4cc1e143d3339044c885248cf0d42"
+    }
+  },
+  "qualification": "Candidate104 staged only; independent binary and actual signed-update gates passed. Full acceptance/public promotion remain separate."
+}

@@ -1,22 +1,41 @@
 # Implementation handoff
 
-## Active fix #95
+## Delivered fix #95
 
-The owner approved fixing misleading post-submission Retry UI on November10.
-Implement only[issue95](https://github.com/robelene112/redsquare-android/issues/95),
-then deliver its compatible signed beta and stop. Beta102 remains public.
-Worktree/branch below remain the sole implementation checkout. Actual baseline
-regression42807333964 fails with one sent transaction and the old Retry screen.
-First repair4cbf5a3b7 passes the targeted UI case on10/17 in42809361321.
-Expanded legacy/fault/recreation and before/after-receipt real process checks are
-being validated; they are not accepted yet. Preserve original signatures, media,
-identity/backend selection and current policy checks. Do not publish103 or close95
-until affected checks, required full gates and both review axes pass.
+Issue [95](https://github.com/robelene112/redsquare-android/issues/95) is delivered
+as signed beta **0.1.104**: [download or update](https://davidengelen.nl/redsquare/).
+After successful post/reply/quote submission, the app returns to its reading
+context with brief neutral "Post submitted" feedback. The signed original and
+media stay durable for background observation; a delayed node cannot cause a
+receipt to be resent or erase the next draft. Actual send/storage failures and
+legacy102 attempts remain recoverable using the original signature.
+
+Complete Android 10 run [42845159882](https://github.com/robelene112/redsquare-android/actions/runs/42845159882)
+and Android 17 run [42823896331](https://github.com/robelene112/redsquare-android/actions/runs/42823896331)
+pass all three partitions and the unchanged pre-run verifier: 634/635 identities,
+215 classes, 181 archives, 37 deliberate interruptions and 36 continuity records per
+SDK. Android 10 retains the one inherited Profile assumption; Android 17 has none.
+Original failed/cancelled runs remain qualified, with no partial assembly.
+
+Compiled source and immutable 104 manifest remain
+`fd82ad47754d3e5137503d14331e6a6b2b4be2a1`. Android 10's final harness source is
+`5336c0536c47f1d6db5ab347a91f4b802a2d097c`; an exact whole-tree bridge proves only
+nine test/harness/documentation paths differ. The existing workflow permits
+retaining the complete Android 17 run after a fixture-only correction. Both
+independent final reviews pass. Actual signed 83-to-104 update/isolation also passes
+on Android 10/17, preserving wallet, unsent draft, cached content and preferences.
+
+APK: 42,372,138 bytes; SHA256
+`a21bc86d6ce64c3cec38afdeadf9cfeb1e7b4f3dd143b98b5af324a0dc17c789`.
+The ordinary public page/latest/immutable manifest and downloaded APK are verified
+after exact promotion. See [ticket95 evidence](../evidence/ticket95/README.md) for originals, reviews and limits.
+This delivery completes issue #95; stop after recording it. Physical/OEM, provider and
+Play acceptance remain under #36 and [OWNER_INPUTS.md](../../OWNER_INPUTS.md). Keep issues #1, #36, #55, #84 and #86 open.
 
 ## Previous delivery #94
 
 Issue #94's prototype-fidelity repair is delivered as signed beta **0.1.102**:
-[download or update](https://davidengelen.nl/redsquare/). The public latest pointer,
+[archived APK](https://davidengelen.nl/redsquare/releases/102/redsquare.apk). The public latest pointer,
 actual APK checksum and exact immutable notes are verified after promotion.
 Frozen source: `1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c`, tag
 `proof-prototype94-loaded-activity`. Production last changed at be37e8c42; later
@@ -51,7 +70,7 @@ frozen collector; they are not missing application identities or waived goals.
 Physical Pixel performance, actual provider delivery, business/policy setup and
 Play acceptance remain pending under #36 and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
 Do not automatically close issues #1/#36/#55/#84/#86. Canonical checkout, other work,
-production nodes and services remain untouched. Issue #94 is complete; its accepted scope does not complete the active fix above.
+production nodes and services remain untouched. Issue #94 is the previous accepted checkpoint; the later95 delivery is recorded above.
 
 ## Working paths and resume boundary
 
@@ -59,14 +78,15 @@ production nodes and services remain untouched. Issue #94 is complete; its accep
   branch `codex/unified-redesign`. Preserve canonical `/home/david/projects/redsquare-android`.
 - Large raw captures and build/probe logs live under
   `/mnt/storage/redsquare-android-artifacts`; verified additional storage, not root.
-- Current run manifest: `prototype94-final-loaded-activity-runs.json` there.
-- Exact published artifact: `.scratch/review-builds/102`; notes are
-  `prototype94-beta102-notes.txt` in the external artifact root. The public release uses
+- Current full10 manifest: `post95-third-full10-runs.json`; full17 is recorded in
+  `post95-final-full-runs.json` there. Use only its successful17 entry for acceptance.
+- Exact published artifact: `.scratch/review-builds/104`; notes are
+  `post95-release-notes.txt` in the external artifact root. The public release uses
   those exact immutable notes and APK bytes. Do not rebuild/reserve another version.
-- Completion: both collectors, both independent review axes, exact version 102
+- Completion: both frozen verifiers, both independent review axes, exact version104
   promotion and public-pointer/hash checks pass. Final evidence is committed on
-  this branch; close only issue #94 and stop.
+  this branch; close only issue #95 and stop.
 - Original failed runs, scoped diagnostics and earlier delivery history are in
-  ticket94 evidence and Git history. They are not current pending work.
+  ticket95 evidence and Git history. They are not current pending work.
 - Read [project context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
   [operations](../OPERATIONS.md) and current tracker before future changes.

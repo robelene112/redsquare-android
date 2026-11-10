@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "verifiedAt": "2026-11-10T16:43:43.648791+00:00",
+  "publicManifest": {
+    "versionCode": 104,
+    "versionName": "0.1.104",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "a21bc86d6ce64c3cec38afdeadf9cfeb1e7b4f3dd143b98b5af324a0dc17c789",
+    "commit": "fd82ad47754d3e5137503d14331e6a6b2b4be2a1",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/104/redsquare.apk",
+    "notes": "Posts, replies and quotes now return you to reading after sending, with a brief \"Post submitted\" message. Slow node updates no longer leave a successful send on a Retry screen. Improved recovery after connection problems."
+  },
+  "downloadedApk": {
+    "bytes": 42372138,
+    "sha256": "a21bc86d6ce64c3cec38afdeadf9cfeb1e7b4f3dd143b98b5af324a0dc17c789",
+    "retainedExternalPath": "/mnt/storage/redsquare-android-artifacts/post95-public104-verified.apk"
+  },
+  "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+  "httpResponses": {
+    "https://davidengelen.nl/redsquare/latest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/latest.json"
+    },
+    "https://davidengelen.nl/redsquare/releases/104/manifest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/104/manifest.json"
+    },
+    "https://davidengelen.nl/redsquare/": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/"
+    },
+    "https://davidengelen.nl/redsquare/releases/104/redsquare.apk": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/104/redsquare.apk"
+    }
+  },
+  "completeRuns": {
+    "android10": 42845159882,
+    "android17": 42823896331
+  },
+  "actualSignedUpdateRuns": {
+    "android10": 42828308797,
+    "android17": 42828314062
+  },
+  "certificateQualification": "Public APK bytes hash-identical to independently binary-reviewed local104; same package/version/certificate, rechecked by canonical publisher before atomic promotion.",
+  "qualification": "Actual verified ordinary beta delivery. Android10/17 controlled/native and signed83-to104 update checks; no physical Pixel/OEM/provider/Play acceptance."
+}

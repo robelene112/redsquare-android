@@ -58,20 +58,22 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta102](https://davidengelen.nl/redsquare/) staat online. Deze versie
+De gewone [beta104](https://davidengelen.nl/redsquare/) staat online. Deze versie
 herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
 accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
+Na succesvol plaatsen keer je terug naar de feed of conversatie met kort
+"Post submitted". Een trage node laat geen misleidende Retry-knop meer staan.
 Stack blijft herkenbaar een lokale ontwerppreview. Herhaald liken heeft geen
 lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
 
 De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
-van beta83 naar102 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+van beta83 naar104 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
 en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
 ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
 fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint. Gebruik die niet als definitieve meting van beta102. Voor definitieve
+checkpoint. Gebruik die niet als definitieve meting van beta104. Voor definitieve
 fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en

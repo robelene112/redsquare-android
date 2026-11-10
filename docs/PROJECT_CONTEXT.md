@@ -1,22 +1,23 @@
 # Red Square Android project context
 
-## Active fix #95
+## Delivered fix #95
 
-The owner approved fixing misleading post-submission Retry UI on November10.
-Implement only[issue95](https://github.com/robelene112/redsquare-android/issues/95),
-then deliver its compatible signed beta and stop. Beta102 remains public.
-Worktree/branch below remain the sole implementation checkout. Actual baseline
-regression42807333964 fails with one sent transaction and the old Retry screen.
-First repair4cbf5a3b7 passes the targeted UI case on10/17 in42809361321.
-Expanded legacy/fault/recreation and before/after-receipt real process checks are
-being validated; they are not accepted yet. Preserve original signatures, media,
-identity/backend selection and current policy checks. Do not publish103 or close95
-until affected checks, required full gates and both review axes pass.
+Signed [beta 0.1.104](https://davidengelen.nl/redsquare/) completes issue #95.
+Successful posts, replies and quotes return to reading with brief "Post submitted"
+feedback. The signed original remains durable for background observation without
+resending it or erasing the next draft. Actual failures remain recoverable.
+
+Complete Android 10/17 verification, independent reviews, actual signed 83-to-104
+updates and public APK/page/manifest checks pass. Exact runs, source equivalence,
+counts and limits are in [the handoff](handoffs/IMPLEMENTATION.md) and
+[ticket95 evidence](evidence/ticket95/README.md). Stop after this delivery.
+Physical/OEM, provider and Play acceptance remain under #36 and
+[OWNER_INPUTS.md](../OWNER_INPUTS.md). Keep #1/#36/#55/#84/#86 open.
 
 ## Previous delivery #94
 
 Issue #94's prototype-fidelity repair is delivered as signed beta **0.1.102**:
-[download or update](https://davidengelen.nl/redsquare/). The public latest pointer,
+[archived APK](https://davidengelen.nl/redsquare/releases/102/redsquare.apk). The public latest pointer,
 actual APK checksum and exact immutable notes are verified after promotion.
 Frozen source: `1c7cb53d8c077aa1cd132deec22a1c5a72cc2d3c`, tag
 `proof-prototype94-loaded-activity`. Production last changed at be37e8c42; later
@@ -51,7 +52,7 @@ frozen collector; they are not missing application identities or waived goals.
 Physical Pixel performance, actual provider delivery, business/policy setup and
 Play acceptance remain pending under #36 and [OWNER_INPUTS.md](../OWNER_INPUTS.md).
 Do not automatically close issues #1/#36/#55/#84/#86. Canonical checkout, other work,
-production nodes and services remain untouched. Issue #94 is complete; its accepted scope does not complete the active fix above.
+production nodes and services remain untouched. Issue #94 is the previous accepted checkpoint; the later95 delivery is recorded above.
 
 ## Desired outcome
 
@@ -319,7 +320,8 @@ or authorization to bypass the subsequent specification and ticket phases.
 
 The original native functional tickets #2 through #35 and the supplementary UI slices
 are implemented. The current delivery is the approved redesign #86 and prototype
-fidelity correction #94, with its exact state and verification above. The original
+fidelity correction #94, followed by post-submission completion #95, with exact
+state and verification above. The original
 specification #1, physical/provider/store release #36 and owner visual acceptance #55
 remain independent. Audit #84 and parent #86 are not closed automatically by #94.
 

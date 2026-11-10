@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerQuoteJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ComposerQuoteJourneyTest:
+INSTRUMENTATION_STATUS: test=imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerQuoteJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:209)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$AgSjCwGk-ViuYqNm679cH6c1C5Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:123)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerQuoteJourneyTest.imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:43)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(nl.davidengelen.redsquare.ComposerQuoteJourneyTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:209)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$AgSjCwGk-ViuYqNm679cH6c1C5Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:123)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerQuoteJourneyTest.imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:43)
+
+INSTRUMENTATION_STATUS: test=imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 43.824
+There was 1 failure:
+1) imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(nl.davidengelen.redsquare.ComposerQuoteJourneyTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:209)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$AgSjCwGk-ViuYqNm679cH6c1C5Y(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:123)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerQuoteJourneyTest.imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:43)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

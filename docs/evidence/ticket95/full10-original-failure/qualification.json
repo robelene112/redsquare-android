@@ -1,0 +1,15 @@
+{
+  "run": 42823891448,
+  "source": "fd82ad47754d3e5137503d14331e6a6b2b4be2a1",
+  "result": "FAILURE",
+  "originals": "/mnt/storage/redsquare-android-artifacts/post95-final-full10",
+  "downloadedPartitions": [
+    "social",
+    "chat"
+  ],
+  "walletJobResult": "success, not used as substitute for replacement complete run",
+  "socialFailure": "ComposerPublishingJourneyTest.kt:209, original20s quote node-observation goal. Original returned Conversation with Post submitted; pending original was not yet observed.",
+  "chatFailure": "Final chat-alerts case began then INSTRUMENTATION_ABORTED: System has crashed. Original eleven-case gate remains failed; no app defect inferred from system abort alone.",
+  "replacementRun": 42838295047,
+  "qualification": "Historical failed primary execution stays failed. Replacement must independently complete all three primary partitions. Later focused successes are not complete-run acceptance."
+}

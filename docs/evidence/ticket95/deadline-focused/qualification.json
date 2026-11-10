@@ -1,0 +1,27 @@
+{
+  "runs": [
+    {
+      "label": "baseline",
+      "run": 42820302417,
+      "source": "d8ef3cf2cb2b212644d1dfe171a80812dd3d3090",
+      "result": "failure"
+    },
+    {
+      "label": "android10",
+      "run": 42822255151,
+      "source": "afb2b48075cb99754eb81802d32b28f74a088303",
+      "result": "success"
+    },
+    {
+      "label": "android17",
+      "run": 42822260323,
+      "source": "afb2b48075cb99754eb81802d32b28f74a088303",
+      "result": "success"
+    }
+  ],
+  "unchangedHarnessSha256": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostSubmissionPreviewTest.kt": "f47d82efb8de6d97622cd1fbcde98a568c0491fbc7fa4bf887448ae51fa09ad1",
+    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": "82bb8bdd35709a802d9731330fbe18d01a1a4647d4be24958a467054653fc178"
+  },
+  "qualification": "Focused native/persistence only. Baseline fails the actual Archive-deadline Retry and delayed-observation goals; both current SDK runs pass all3methods. Earlier dbe64 cleanup failure is not used as a timeout red. No full/release/physical/provider acceptance."
+}
