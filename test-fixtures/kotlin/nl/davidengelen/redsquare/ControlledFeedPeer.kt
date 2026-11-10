@@ -28,6 +28,15 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
     @Volatile var disconnectAfterTransaction = false
     @Volatile var withholdCloseReplies = false
+    private val withheldClosingSockets = java.util.concurrent.ConcurrentHashMap.newKeySet<WebSocket>()
+
+    /** Release sockets deliberately held past the client's transport deadline. */
+    fun cancelWithheldCloseReplies() {
+        withheldClosingSockets.toList().forEach { socket ->
+            socket.cancel()
+            withheldClosingSockets.remove(socket)
+        }
+    }
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
     @Volatile var withholdArchiveReply = false
@@ -95,13 +104,16 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
-            if (!withholdCloseReplies) webSocket.close(code, reason)
+            if (withholdCloseReplies) withheldClosingSockets.add(webSocket)
+            else webSocket.close(code, reason)
         }
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+            withheldClosingSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
         }
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
+            withheldClosingSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
         }

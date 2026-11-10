@@ -113,6 +113,7 @@ class PostSubmissionPreviewTest {
             retained.prepare()
             backends.save(SaitoBackend.OWNER)
             peer.start().use { server ->
+                try {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir, "post-submission-evidence/timeout-failure.png")) }) {
@@ -128,6 +129,7 @@ class PostSubmissionPreviewTest {
                         assertEquals(candidate.encoded(), saved.load().transaction?.encoded())
                         org.junit.Assert.assertFalse(saved.hasSubmission(candidate.id))
                         peer.withholdCloseReplies = false
+                        peer.cancelWithheldCloseReplies()
                         expose.set(true)
                         ui.onNodeWithText("Retry").performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Post submitted").isDisplayed() }
@@ -137,6 +139,7 @@ class PostSubmissionPreviewTest {
                         peer.assertHealthy()
                     }
                 }
+                } finally { peer.cancelWithheldCloseReplies() }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally { cleanupAfterTest(primary, {
