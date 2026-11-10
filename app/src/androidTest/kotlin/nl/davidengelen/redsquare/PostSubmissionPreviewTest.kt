@@ -129,7 +129,7 @@ class PostSubmissionPreviewTest {
                         assertEquals(candidate.encoded(), saved.load().transaction?.encoded())
                         org.junit.Assert.assertFalse(saved.hasSubmission(candidate.id))
                         peer.withholdCloseReplies = false
-                        peer.cancelWithheldCloseReplies()
+                        peer.releaseWithheldCloseReplies()
                         expose.set(true)
                         ui.onNodeWithText("Retry").performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Post submitted").isDisplayed() }
@@ -139,7 +139,7 @@ class PostSubmissionPreviewTest {
                         peer.assertHealthy()
                     }
                 }
-                } finally { peer.cancelWithheldCloseReplies() }
+                } finally { peer.releaseWithheldCloseReplies() }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally { cleanupAfterTest(primary, {
