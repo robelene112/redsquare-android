@@ -1,0 +1,20 @@
+{
+  "scope": "Actual signed83-to107 emulator update gate",
+  "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "runs": {
+    "android10": 42915069181,
+    "android17": 42915072894
+  },
+  "spec": {
+    "reviewer": "history98_spec",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "standards": {
+    "reviewer": "history98_standards",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "checked": "Both exact107 downloads match42388522bytes/SHA55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3. Four wallet, two debug-isolation and three local-work observations perSDK pass original assertions/deadlines; exact offline cached caption/author/time, unsent draft and Light preference retained after update+cold launch. All native archives and independent restoration records retained, failures[].",
+  "qualification": "Actual bounded disposable-emulator update gate only. Complete app and public107 promotion remain separate; no physical/OEM/provider/Play claim."
+}

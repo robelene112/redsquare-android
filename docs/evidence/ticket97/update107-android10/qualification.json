@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "scope": "Actual signed83-to107 in-place update on disposable emulator",
+  "run": 42915069181,
+  "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "originals": "/mnt/storage/redsquare-android-artifacts/ui9798-update-raw/candidate-update",
+  "qualification": "Original native update/isolation gate passes; independent actual packet reviews recorded separately. No physical/OEM/Play installation or latency claim."
+}
