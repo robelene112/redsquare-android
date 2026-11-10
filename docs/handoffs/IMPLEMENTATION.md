@@ -105,9 +105,12 @@ production nodes and services remain untouched. Issue #94 is the previous accept
   branch `codex/unified-redesign`. Preserve canonical `/home/david/projects/redsquare-android`.
 - Original large raw packets and build logs remain under
   `/mnt/storage/redsquare-android-artifacts` on the additional disk.
-- Complete96 manifest: `reply96-full-runs.json`; original complete directories:
-  `reply96-acceptance-raw/full-android10` and `full-android17` there. Both sources
-  and workflows are exactly `c1c1d1066b28fb9eff626bc27908d8c79e409382`.
+- Accepted complete96 manifest: `reply96-final-full-runs.json`. Accepted originals:
+  `reply96-retry-full-raw/full-android10` and
+  `reply96-acceptance-raw/full-android17` in the external artifact directory.
+  Both sources and workflows are exactly `c1c1d1066b28fb9eff626bc27908d8c79e409382`.
+  `reply96-full-runs.json` retains the historical failed first Android10 run;
+  it is not the accepted pair.
 - Exact published artifact: `.scratch/review-builds/105`; external notes:
   `reply96-release-notes.txt`. Do not rebuild/reserve another version for96.
 - Both frozen verifiers, independent final reviews, actual signed83-to105 update
