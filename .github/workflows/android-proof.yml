@@ -23,6 +23,10 @@ on:
         type: choice
         options: [all, chat, social, wallet]
         default: all
+      diagnostic_stop_after:
+        description: Optional feed-reading endpoint for a diagnostic Social prefix only
+        type: string
+        default: ''
       public_feed_read:
         description: Enable public reads for focused scopes (full suites always include all public-read gates)
         type: boolean
@@ -66,13 +70,16 @@ jobs:
     timeout-minutes: ${{ (inputs.scope == 'full' || startsWith(inputs.scope, 'full-')) && 120 || 60 }}
     steps:
       - name: Qualify diagnostic partition
-        if: inputs.diagnostic_partition && inputs.diagnostic_partition != 'all'
+        if: (inputs.diagnostic_partition && inputs.diagnostic_partition != 'all') || inputs.diagnostic_stop_after
         env:
-          DIAGNOSTIC_PARTITION: ${{ inputs.diagnostic_partition }}
+          DIAGNOSTIC_PARTITION: ${{ inputs.diagnostic_partition || 'all' }}
+          DIAGNOSTIC_STOP_AFTER: ${{ inputs.diagnostic_stop_after }}
           VERIFICATION_SCOPE: ${{ inputs.scope }}
         run: |
           case "$DIAGNOSTIC_PARTITION" in chat|social|wallet) ;; *) exit 2 ;; esac
           case "$VERIFICATION_SCOPE" in full-android10|full-android17) ;; *) exit 2 ;; esac
+          case "$DIAGNOSTIC_STOP_AFTER" in ''|feed-reading) ;; *) exit 2 ;; esac
+          if [[ -n "$DIAGNOSTIC_STOP_AFTER" && "$DIAGNOSTIC_PARTITION" != social ]]; then exit 2; fi
           echo 'Single-partition diagnostic only. Complete acceptance requires the ordinary three-job run.'
       - name: Validate optional 16 KB environment
         if: inputs.android17_16kb
@@ -228,6 +235,7 @@ jobs:
           TEST_PUBLIC_FEED_READ: ${{ (startsWith(inputs.scope, 'full') || inputs.public_feed_read) && '1' || '0' }}
           TEST_PUBLIC_VIDEO_REFERENCE: ${{ inputs.public_video_reference && '1' || '0' }}
           TEST_PARTITION: ${{ matrix.partition }}
+          PROOF_DIAGNOSTIC_UNTIL: ${{ inputs.diagnostic_stop_after }}
           TEST_SCOPE: ${{ inputs.scope == 'full-android10' && 'full' || inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
@@ -238,6 +246,7 @@ jobs:
           TEST_MAIN_REFERENCE_VERSION: ${{ inputs.main_reference_version || '29' }}
           TEST_PERFORMANCE_VERSION: ${{ inputs.performance_version || '' }}
           TEST_PARTITION: ${{ matrix.partition }}
+          PROOF_DIAGNOSTIC_UNTIL: ${{ inputs.diagnostic_stop_after }}
           TEST_SCOPE: ${{ inputs.scope == 'full-android17' && 'full' || inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ (startsWith(inputs.scope, 'full') || inputs.public_feed_read) && '1' || '0' }}

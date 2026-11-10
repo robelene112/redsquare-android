@@ -17,6 +17,10 @@ if [[ "${TEST_SCOPE:-full}" == full ]]; then
     [[ "$partition" == all || "$partition" == chat ]] && full_chat=true
     [[ "$partition" == all || "$partition" == social ]] && full_social=true
 fi
+diagnostic_until=${PROOF_DIAGNOSTIC_UNTIL:-}
+if [[ -n "$diagnostic_until" && ( "$diagnostic_until" != feed-reading || "$partition" != social || "${TEST_SCOPE:-full}" != full ) ]]; then
+    echo 'The feed-reading diagnostic endpoint requires the isolated full Social partition' >&2; exit 2
+fi
 avd_home="${ANDROID_AVD_HOME:-$HOME/.android/avd}"
 if [[ ! -f "$avd_home/redsquare-proof.ini" ]]; then
     printf 'no\n' | avdmanager create avd --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
@@ -665,6 +669,10 @@ if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == feed-redesign* ]]; then
     verify_group_chat_native FeedLinkPreviewTest 180 feed-links feed-redesign-evidence || feed_redesign_failed=1
     verify_group_chat_native FeedRefreshRedesignTest 180 feed-refresh feed-refresh-evidence || feed_redesign_failed=1
     verify_group_chat_native FeedReadingRedesignTest 180 feed-reading feed-reading-evidence || feed_redesign_failed=1
+    if [[ "$diagnostic_until" == feed-reading ]]; then
+        printf '%s\n' 'Diagnostic full Social prefix through FeedReading only; no complete partition or application acceptance.' > "$evidence/scope.txt"
+        exit "$feed_redesign_failed"
+    fi
     verify_group_chat_native FeedWritingViewportTest 180 feed-writing feed-writing-evidence || feed_redesign_failed=1
     verify_group_chat_native FeedMediaMotionTest 180 feed-media-motion feed-media-motion-evidence || feed_redesign_failed=1
     if [[ "${TEST_SCOPE:-full}" == feed-redesign* ]]; then

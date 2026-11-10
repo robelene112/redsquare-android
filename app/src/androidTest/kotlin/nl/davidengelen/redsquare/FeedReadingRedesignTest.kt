@@ -55,10 +55,6 @@ class FeedReadingRedesignTest {
             ui.waitUntil(15_000) { editor.isDisplayed() }
             editor.performScrollTo().performTextReplacement("A retained unsent draft from the scrolled feed")
             val save = ui.onNode(hasText("Save draft") and hasClickAction())
-            val control = save.fetchSemanticsNode()
-            val snapshotAt = SystemClock.elapsedRealtime()
-            val priorBounds = control.boundsInRoot
-            val priorDisabled = control.config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)
             var observedAt = 0L
             var observedCenter = androidx.compose.ui.geometry.Offset.Zero
             var observedSize = androidx.compose.ui.unit.IntSize.Zero
@@ -70,8 +66,7 @@ class FeedReadingRedesignTest {
             }
             File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-touch.json").writeText(
                 com.google.gson.JsonObject().apply {
-                    addProperty("priorSnapshotAt", snapshotAt); addProperty("priorBounds", priorBounds.toString())
-                    addProperty("priorDisabled", priorDisabled); addProperty("observedAt", observedAt)
+                    addProperty("observedAt", observedAt)
                     addProperty("localCenter", observedCenter.toString()); addProperty("visibleSize", observedSize.toString())
                 }.toString())
             returned()

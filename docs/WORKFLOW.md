@@ -420,6 +420,9 @@ complete first-release scope and the established production boundaries.
    partition to reproduce its unchanged suite prefix. It is diagnostic only:
    default `all` retains the three-job matrix, and the frozen complete verifier
    rejects a one-job result. It changes no class, assertion or runtime deadline.
+   Optional `diagnostic_stop_after=feed-reading` stops that diagnostic Social
+   prefix immediately after the target class and records its partial scope.
+   Ordinary dispatches leave it empty and retain all completion/recovery goals.
    Each partition retains a distinct named artifact and a
    partition-complete marker. Their combined original class/test identities must
    cover the accepted complete suite, including API-specific cases. A passing
