@@ -24,3 +24,6 @@ internal class PostNavigation {
 }
 
 internal val LocalPostNavigation = staticCompositionLocalOf<PostNavigation?> { null }
+
+/** Submission feedback belongs to the reading surface that owns the composer. */
+internal val LocalPostSubmissionNotice = staticCompositionLocalOf<() -> Unit> { {} }

@@ -9,7 +9,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -61,6 +60,13 @@ internal class PostComposerState(
     suspend fun load() {
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
+            val handedOff = (transaction?.id ?: memory.transactionId)?.let { id ->
+                withContext(Dispatchers.IO) { store.hasSubmission(id) }
+            } == true
+            if (handedOff) {
+                if (ready && transaction != null) submitted = true
+                memory.clearSubmitted()
+            }
             savedContent = saved
             text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
             images = if (saved.transaction != null) saved.images else memory.images ?: saved.images
@@ -70,6 +76,7 @@ internal class PostComposerState(
             memory.images = images
             memory.gifAttributions = gifAttributions
             transaction = saved.transaction
+            memory.transactionId = saved.transaction?.id
             queued = saved.queued
             queueSaved = saved.queued
             available = saved.available
@@ -124,6 +131,7 @@ internal class PostComposerState(
                     }
                     if (transaction == null) queued = true
                     transaction = prepared
+                    memory.transactionId = prepared.id
                     val snapshot = PostDraftStore.Saved(text, prepared, queued, images = images, gifAttributions = gifAttributions)
                     savedContent = null
                     val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
@@ -139,7 +147,7 @@ internal class PostComposerState(
                         if (retrying && peer.hasPost(candidate, owner, text)) {
                             try { check(store.confirmAvailable(candidate.id)) }
                             catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
-                            withContext(Dispatchers.Main.immediate) { available = true; queued = false }
+                            finishSubmission(candidate.id)
                             return@use
                         }
                         peer.authenticate()
@@ -164,16 +172,8 @@ internal class PostComposerState(
                         peer.submit(candidate) {
                             store.assertCanPublish(candidate.id)
                         }
-                        withContext(Dispatchers.Main.immediate) { submitted = true }
-                        for (attempt in 0 until 6) {
-                            if (peer.hasPost(candidate, owner, text)) {
-                                try { check(store.confirmAvailable(candidate.id)) }
-                                catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
-                                withContext(Dispatchers.Main.immediate) { available = true }
-                                break
-                            }
-                            if (attempt < 5) delay(2_000)
-                        }
+                        peer.finishBroadcast()
+                        finishSubmission(candidate.id)
                     }
                     }
                 } } catch (cancelled: CancellationException) { throw cancelled }
@@ -184,6 +184,15 @@ internal class PostComposerState(
             catch (_: SaitoTransaction.InvalidMessage) { validationError = true }
             catch (_: Exception) { error = true }
             finally { sending = false }
+        }
+    }
+    private suspend fun finishSubmission(id: String) {
+        try { withContext(NonCancellable + Dispatchers.IO) { store.markSubmitted(id) } }
+        catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
+        withContext(Dispatchers.Main.immediate) {
+            memory.clearSubmitted()
+            queued = false
+            submitted = true
         }
     }
     fun cancelQueued() {

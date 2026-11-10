@@ -163,8 +163,17 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val position = rememberLazyListState()
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val navigationNotice = remember { SnackbarHostState() }
+    var submittedPosts by remember(wallet?.publicKey, backend) { mutableIntStateOf(0) }
+    var announcedPosts by remember(wallet?.publicKey, backend) { mutableIntStateOf(0) }
+    val submittedMessage = stringResource(R.string.post_submitted_notice)
     val navigationFailureMessage = stringResource(R.string.navigation_save_failed)
     val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
+    LaunchedEffect(submittedPosts, keyboardVisible) {
+        if (submittedPosts > announcedPosts && !keyboardVisible) {
+            announcedPosts = submittedPosts
+            navigationNotice.showSnackbar(submittedMessage)
+        }
+    }
     LaunchedEffect(keyboardVisible) {
         if (keyboardVisible) navigationNotice.currentSnackbarData?.dismiss()
     }
@@ -559,7 +568,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
             SingleOwnerReveal(revealTarget, Modifier.fillMaxSize()) {
                 Box(Modifier.fillMaxSize()) {
-                    content()
+                    CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ }) { content() }
                     if (home && wallet != null && !dockCompose) ComposePostButton(
                         Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
                     // Completion feedback overlays the list instead of changing its viewport.

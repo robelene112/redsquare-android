@@ -41,7 +41,8 @@ import nl.davidengelen.redsquare.ui.FrameIconButton
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    parent: FeedPost? = null, quote: FeedPost? = null, onClose: () -> Unit) {
+    parent: FeedPost? = null, quote: FeedPost? = null,
+    onSubmitted: () -> Unit = LocalPostSubmissionNotice.current, onClose: () -> Unit) {
     require(parent == null || quote == null)
     val owner = wallet.publicKey
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -57,6 +58,22 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
     val publishing = LocalPublishingAgreement.current
+    val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
+    val focus = androidx.compose.ui.platform.LocalFocusManager.current
+    LaunchedEffect(state.submitted, state.sending, state.saving) {
+        if (state.submitted && !state.sending && !state.saving) {
+            try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) {
+                // The durable receipt is also reconciled by foreground/startup delivery.
+                android.util.Log.w("PostSubmission", "Availability check scheduling deferred")
+            }
+            focus.clearFocus(force = true)
+            keyboard?.hide()
+            onSubmitted()
+            onClose()
+        }
+    }
     var choosingGif by remember(state) { mutableStateOf(false) }
     var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
     // Only public session metadata enters saved state. Wallet material and draft

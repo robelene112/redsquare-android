@@ -65,8 +65,9 @@ internal fun QueuedPostsScreen(owner: String, selected: SaitoBackend, modifier: 
                 PublishingWorkItem(row.backend.domain) {
                     if (row.saved.text.isNotEmpty()) Text(row.saved.text, style = MaterialTheme.typography.bodyLarge)
                     PostImages(row.saved.images, row.backend, gifAttributions = row.saved.gifAttributions, previewHeight = 120.dp)
-                    InlineStatus(stringResource(if (row.saved.queued) R.string.post_queued else R.string.post_pending),
-                        if (row.saved.queued) StatusTone.INFO else StatusTone.WARNING,
+                    InlineStatus(stringResource(if (row.store.isSubmittedRecord) R.string.post_submitted
+                        else if (row.saved.queued) R.string.post_queued else R.string.post_pending),
+                        if (row.saved.queued || row.store.isSubmittedRecord) StatusTone.INFO else StatusTone.WARNING,
                         details = listOf(stringResource(R.string.status_origin_node, row.backend.domain)))
                     InlineStatus(if (row.backend != selected) stringResource(R.string.post_queue_paused) else null, StatusTone.WARNING)
                     if (row.saved.queued) OutlinedButton(enabled = saving == null, onClick = {

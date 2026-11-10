@@ -19,12 +19,17 @@ import com.google.gson.Strictness
 /** Unpublished text and normalized media stay encrypted, scoped to wallet and backend. */
 internal class PostDraftStore private constructor(private val context: Context, private val owner: String, private val backend: SaitoBackend,
     private val parentId: String, private val parentThread: String?, private val quoteId: String = "",
-    private val authorTarget: String = "", private val authorKind: AuthorActionKind? = null) {
+    private val authorTarget: String = "", private val authorKind: AuthorActionKind? = null,
+    private val submissionId: String = "") {
     constructor(context: Context, owner: String, backend: SaitoBackend, parent: FeedPost? = null, quote: FeedPost? = null) :
         this(context, owner, backend, parent?.id.orEmpty(), parent?.threadId, quote?.id.orEmpty())
-    init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
+    init {
+        require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
+        require(submissionId.isEmpty() || (authorKind == null && submissionId.matches(Regex("[0-9a-f]{128}"))))
+    }
+    val isSubmittedRecord: Boolean get() = submissionId.isNotEmpty()
     private val file = EncryptedLocalFile(context,
-        "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}.v1", "redsquare.postdraft.v1", "postdraft.")
+        "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}.v1", "redsquare.postdraft.v1", "postdraft.")
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
         val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null,
@@ -72,7 +77,11 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 ?.entrySet()?.asSequence()?.filter { it.key in images }?.mapNotNull { entry ->
                     GiphyAttribution.fromJson(entry.value)?.let { entry.key to it }
                 }?.take(RedSquareImages.MAX_COUNT)?.toMap().orEmpty()
-            Saved(content, transaction, queued, available, automatic, baseline, images, credits)
+            val saved = Saved(content, transaction, queued, available, automatic, baseline, images, credits)
+            // The receipt is the commit point. A crash need not atomically clear
+            // another file before the next composer can safely start a new draft.
+            if (authorKind == null && !isSubmittedRecord && transaction != null && hasSubmission(transaction.id)) Saved("")
+            else saved
         }
     }
 
@@ -111,6 +120,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
     }
 
     private fun validateTransaction(transaction: SaitoTransaction?, content: String, images: List<String>) {
+        require(!isSubmittedRecord || transaction?.id == submissionId)
         require(images.size <= RedSquareImages.MAX_COUNT && images.all {
             it.length <= RedSquarePosts.MAX_IMAGE_CHARS && RedSquareImages.safeSource(it) == it
         })
@@ -123,8 +133,10 @@ internal class PostDraftStore private constructor(private val context: Context, 
             } else {
                 val post = RedSquareFeed.decode(it.envelope())
                 require(post.author == owner && post.text == content)
-                require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
-                require(post.quoted?.id.orEmpty() == quoteId)
+                if (!isSubmittedRecord) {
+                    require(post.parentId == parentId && (parentThread == null || post.threadId == parentThread))
+                    require(post.quoted?.id.orEmpty() == quoteId)
+                }
                 val signedImages = SaitoEnvelope.decode(it.envelope()).body.getAsJsonObject("data").get("images")
                     ?: com.google.gson.JsonArray()
                 require(signedImages == com.google.gson.JsonArray().apply { images.forEach(::add) })
@@ -142,12 +154,32 @@ internal class PostDraftStore private constructor(private val context: Context, 
     /** A mounted editor must preserve delivery progress recorded by another operation. */
     fun saveComposer(saved: Saved): Saved = synchronized(lock) {
         val current = load()
-        val replacement = if (current.transaction == null) saved else {
+        val replacement = if (saved.transaction?.let { hasSubmission(it.id) } == true) current
+        else if (current.transaction == null) saved else {
             check(saved.transaction?.id == current.transaction.id)
             if (saved.available || current.available) Saved("") else current
         }
         save(replacement)
         replacement
+    }
+
+    // A signature uniquely identifies its original parent/quote too. Keeping
+    // another full signature in the filename would exceed Android's name limit.
+    private fun submission(id: String) = PostDraftStore(context, owner, backend, "", null, submissionId = id)
+
+    fun hasSubmission(id: String): Boolean = synchronized(lock) {
+        authorKind == null && !isSubmittedRecord && submission(id).load().transaction?.id == id
+    }
+
+    /** Retain the original signed work before releasing its composer slot. */
+    fun markSubmitted(id: String): PostDraftStore = synchronized(lock) {
+        check(authorKind == null && !isSubmittedRecord)
+        val receipt = submission(id)
+        val previous = receipt.load()
+        val saved = if (previous.transaction != null) previous else load()
+        check(saved.transaction?.id == id && !saved.queued)
+        receipt.save(saved.copy(queued = false, automatic = true))
+        receipt
     }
 
     /** Compare durable state under the same lock as wallet/backend mutation. */
@@ -217,10 +249,13 @@ internal class PostDraftStore private constructor(private val context: Context, 
         fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"
             return requireNotNull(context.noBackupFilesDir.listFiles()).map { it.name.removeSuffix(".bak") }
-                .distinct().filter { it == "$prefix.v1" || it.matches(Regex("${Regex.escape(prefix)}\\.(quote\\.)?[0-9a-f]{128}\\.v1")) }
+                .distinct().filter { it.matches(Regex("${Regex.escape(prefix)}(?:\\.(?:quote\\.)?[0-9a-f]{128}|\\.submitted\\.[0-9a-f]{128})?\\.v1")) }
                 .map { name ->
-                    val parent = name.removePrefix(prefix).removeSuffix(".v1").removePrefix(".")
-                    if (parent.startsWith("quote.")) PostDraftStore(context, owner, backend, "", null, parent.removePrefix("quote."))
+                    val suffix = name.removePrefix(prefix).removeSuffix(".v1")
+                    val parent = suffix.removePrefix(".")
+                    if (parent.startsWith("submitted."))
+                        PostDraftStore(context, owner, backend, "", null, submissionId = parent.removePrefix("submitted."))
+                    else if (parent.startsWith("quote.")) PostDraftStore(context, owner, backend, "", null, parent.removePrefix("quote."))
                     else PostDraftStore(context, owner, backend, parent, null)
                 }.filter { store -> store.load().let { !it.available && (it.queued || it.automatic) } }
         }
