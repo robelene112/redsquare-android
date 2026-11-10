@@ -66,6 +66,7 @@ class PostProcessRecoveryTest {
         }, archiveResponse = { criteria -> if (criteria.has("sig")) "[]" else "[${root()}]" })
             .apply { withholdCloseReplies = !committedReceipt }
         peer.start().use { server ->
+            try {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("New post")
@@ -93,6 +94,7 @@ class PostProcessRecoveryTest {
                 Process.killProcess(Process.myPid())
                 error("Expected process termination")
             }
+            } finally { peer.releaseWithheldCloseReplies() }
         }
     }
 

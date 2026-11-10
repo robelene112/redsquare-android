@@ -83,12 +83,15 @@ class AuthorProcessRecoveryTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(originalText)
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Available on this node.")
-                enabled("Back")
-                ui.onNodeWithText("Back").performClick()
+                waitFor("Post submitted")
                 ui.waitForRefreshableContent(20_000)
-                ui.waitUntil(20_000) { ui.onAllNodes(hasVerticalScrollAction()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(originalText))
+                ui.refreshVisibleView()
+                ui.waitUntil(20_000) {
+                    try {
+                        ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(originalText))
+                        ui.onNodeWithText(originalText).isDisplayed()
+                    } catch (_: AssertionError) { false }
+                }
                 ui.onNodeWithText(originalText).performClick()
                 ui.clickVisiblePostMenuAction("Anon-${original.get()!!.get("field2").asString.take(6)}",
                     if (delete) "Delete" else "Edit")

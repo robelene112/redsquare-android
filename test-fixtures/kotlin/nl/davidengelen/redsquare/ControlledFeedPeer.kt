@@ -28,15 +28,19 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
     @Volatile var disconnectAfterTransaction = false
     @Volatile var withholdCloseReplies = false
+    private val closeRepliesLock = Any()
     private val withheldClosingSockets = java.util.concurrent.ConcurrentHashMap<WebSocket, Pair<Int, String>>()
 
     /** Release sockets deliberately held past the client's transport deadline. */
     fun releaseWithheldCloseReplies() {
-        withheldClosingSockets.entries.toList().forEach { (socket, response) ->
+        val pending = synchronized(closeRepliesLock) {
+            withholdCloseReplies = false
+            withheldClosingSockets.entries.map { it.key to it.value }.also { withheldClosingSockets.clear() }
+        }
+        pending.forEach { (socket, response) ->
             // Server-side upgraded sockets have no client Call to cancel.
             // Answer their retained close frame so MockWebServer can drain.
             socket.close(response.first, response.second)
-            withheldClosingSockets.remove(socket)
         }
     }
     @Volatile var disconnectAfterReport = false
@@ -106,8 +110,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
-            if (withholdCloseReplies) withheldClosingSockets[webSocket] = code to reason
-            else webSocket.close(code, reason)
+            val withheld = synchronized(closeRepliesLock) {
+                if (withholdCloseReplies) {
+                    withheldClosingSockets[webSocket] = code to reason
+                    true
+                } else false
+            }
+            if (!withheld) webSocket.close(code, reason)
         }
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             withheldClosingSockets.remove(webSocket)
