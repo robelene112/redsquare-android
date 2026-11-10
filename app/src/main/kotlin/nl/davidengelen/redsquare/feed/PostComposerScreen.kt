@@ -14,6 +14,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -21,6 +23,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -53,11 +56,20 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     val store = remember(owner, backend, parent?.id, quote?.id) { PostDraftStore(context, owner, backend, parent, quote) }
     val navigation = requireNotNull(LocalPostNavigation.current)
     val session = "$owner:${backend.id}:${parent?.id.orEmpty()}:quote:${quote?.id.orEmpty()}:$endpoint"
+    val editorView = remember(session) { BringIntoViewRequester() }
+    var editorPlaced by remember(session) { mutableStateOf(false) }
     val state = key(session) {
         val scope = rememberCoroutineScope()
         remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
     val publishing = LocalPublishingAgreement.current
+    LaunchedEffect(state, state.ready, editorPlaced) {
+        if (parent != null && state.ready && editorPlaced && state.transaction == null) {
+            // A long parent at large text sizes must not hide the writing field.
+            // Reveal it without taking focus or opening the keyboard.
+            editorView.bringIntoView()
+        }
+    }
     var observedTransaction by rememberSaveable(session) { mutableStateOf<String?>(null) }
     val closeEditor = { observedTransaction = null; onClose() }
     LaunchedEffect(state.transaction?.id) {
@@ -233,7 +245,10 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     }
                     quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                    PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = writingHeight)
+                    PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null, maximumHeight = writingHeight,
+                        modifier = Modifier.bringIntoViewRequester(editorView).onGloballyPositioned {
+                            editorPlaced = it.size.height > 0
+                        })
                     PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
                         previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
                     quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }

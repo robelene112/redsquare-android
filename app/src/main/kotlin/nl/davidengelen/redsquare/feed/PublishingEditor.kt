@@ -13,11 +13,12 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 
 /** The same readable writing surface is retained while a signed attempt is read-only. */
 @Composable
-internal fun PublishingEditor(value: String, onChange: (String) -> Unit, enabled: Boolean, maximumHeight: Dp = 280.dp) {
+internal fun PublishingEditor(value: String, onChange: (String) -> Unit, enabled: Boolean, maximumHeight: Dp = 280.dp,
+    modifier: Modifier = Modifier) {
     val height = maximumHeight.coerceIn(1.dp, 280.dp)
     OutlinedTextField(value = value, onValueChange = onChange, enabled = enabled,
         label = { Text(stringResource(R.string.post_write)) }, textStyle = MaterialTheme.typography.bodyLarge,
         colors = OutlinedTextFieldDefaults.colors(disabledTextColor = MaterialTheme.colorScheme.onSurface),
         shape = RoundedCornerShape(AppSpacing.controlRadius),
-        modifier = Modifier.fillMaxWidth().heightIn(min = minOf(160.dp, height), max = height))
+        modifier = modifier.fillMaxWidth().heightIn(min = minOf(160.dp, height), max = height))
 }

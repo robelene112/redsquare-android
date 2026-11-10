@@ -113,7 +113,14 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 captureNativeScreen(File(folder, "$label-reading.png"))
                 ui.replyToPost(replyPost.id)
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
-                ui.waitUntil(15_000) { editor.isDisplayed() }
+                ui.waitUntil(15_000) {
+                    if (!editor.isDisplayed()) false else {
+                        val visible = editor.fetchSemanticsNode().boundsInRoot.height
+                        val complete = editor.getUnclippedBoundsInRoot().let { (it.bottom - it.top).value } * context.resources.displayMetrics.density
+                        visible >= 80 * context.resources.displayMetrics.density - 1 && complete <= visible + 1
+                    }
+                }
+                captureNativeScreen(File(folder, "$label-reply-entry.png"))
                 val draft = "A real reply for $label. Preserve this exact unsent text."
                 editor.performClick().performTextReplacement(draft)
                 ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
