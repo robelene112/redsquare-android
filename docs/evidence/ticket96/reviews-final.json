@@ -1,0 +1,44 @@
+{
+  "result": "PASS",
+  "scope": "Independent complete-native, source, binary and signed-update gates before exact105 promotion",
+  "implementationReviewBase": "bf362ddec3a287c2d26d69ef30c147f9db6c0585",
+  "artifactCompiledSource": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "android10Source": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "android17Source": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "completeRuns": {
+    "android10": 42887785531,
+    "android17": 42878955982
+  },
+  "spec": {
+    "reviewer": "reply96_spec",
+    "result": "PASS",
+    "originalHashChecks": {
+      "android10": 895,
+      "android17": 905
+    },
+    "actionableFindings": [],
+    "checked": "Exact full catalogs/archives/recovery and source/workflow/partition markers; actual nested reply/recreation/signed parent/thread/recipient order/draft isolation/submission return; image/GIF/search/username selectors; all12viewport cells, wholefield80dp/actualIME/48dp targets/reading anchors; queue and actual process recovery. Both signed83-to105 updates reviewed separately against exact candidate."
+  },
+  "standards": {
+    "reviewer": "reply96_standards",
+    "result": "PASS",
+    "originalHashChecks": {
+      "android10": 895,
+      "android17": 905,
+      "signedUpdate10": 68,
+      "signedUpdate17": 70
+    },
+    "actionableFindings": [],
+    "checked": "Independent frozen verifier validation before report writes equals all saved inventories; original contract/verifier and inherited validators unchanged; source/core/release/lint/public-read gates and complete recovery; actual native matrices/drafts/anchors/receipt-storage physical dismissal; exact105 binary and both signed updates, evidence-only later source bridge."
+  },
+  "historicalFailure": {
+    "run": 42878937339,
+    "conclusion": "FAILURE, never converted or assembled into acceptance",
+    "failure": "Original physical private-notification swipe did not remove its notification within original5s. Cause remains unproved.",
+    "unchangedFocusedReadiness": 42887093487,
+    "acceptance": "Fresh complete10run42887785531 passed all3parts at exact same source, without app/test/harness/assertion/deadline changes. Readiness contributes no acceptance fragments."
+  },
+  "publication": "Exact staged105 promotion and actual public page/latest/immutable manifest/downloaded APK verification pass separately in publication105.json. Documentation closeout follows.",
+  "qualification": "Controlled native/full and signed-update gates pass. Inherited API29 Profile assumption, known failure-only captures and unavailable Chat image-history archive stay qualified by unchanged contract. Physical/OEM/provider/Play acceptance remains36.",
+  "publicationAtIndependentReview": "Exact staged105 promotion and actual public verification remain separate, not yet claimed by these reviews."
+}

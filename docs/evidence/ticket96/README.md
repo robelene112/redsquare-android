@@ -1,5 +1,9 @@
 # Direct Conversation replies, issue96
 
+Delivered as signed [beta105](https://davidengelen.nl/redsquare/).
+Complete SDK checks, independent reviews, actual signed updates and exact public
+delivery pass. See [publication](publication105.json) and [final reviews](reviews-final.json).
+
 The Conversation action below each post now opens a reply to that exact post.
 It has a visible Reply caption and the available count. The redundant header
 reply is removed; Back and history information remain. Post-body navigation stays
@@ -33,6 +37,14 @@ This limitation is qualified, not used to waive a failed application assertion.
 [The exact source bridge](focused-source-bridge.json) proves only evidence paths
 changed from the focused source to the complete/candidate source.
 
+Original full Android10 run42878937339 fails its physical private-notification
+dismissal goal. [Original failure](full10-original-chat-failure/qualification.json)
+remains failed. The same unchanged source passes [focused readiness](chat-readiness/qualification.json)
+with actual disappearance and no owned notification after the swipe. The cause
+of the original failure remains unproved. This focused result does not replace
+a complete SDK run; fresh whole10 run42887785531 provides that separate gate.
+No app, fixture, assertion or deadline was changed for this rerun.
+
 [Source reviews](source-reviews.json) pass both axes. The [full contract](full-contract.json)
 and [verifier](verify-full.py) were frozen before complete execution, retaining
 95's entire634/635 identity catalog,215 classes,181 archives and all recovery,
@@ -40,8 +52,25 @@ viewport, publication and public-read gates at their original bounds.
 
 Signed105 [binary review](artifact105/review.json) passes actual APK checks,
 including established certificate continuity and the unchanged editor license.
-[Staging verification](artifact105/staged.json) confirms exact immutable download
-bytes/notes while the public latest remains104. Complete Android10/17, actual
-signed-update and final publication gates are still pending. This evidence does
-not establish physical Pixel/OEM, actual provider or Play acceptance. Parent
+[Staging verification](artifact105/staged.json) checked the immutable candidate
+before promotion, while latest was104. Both actual signed83-to105 updates pass:
+[Android10](update105-android10/qualification.json),
+[Android17](update105-android17/qualification.json) and
+[independent review](update-reviews.json).
+
+Both complete primary runs pass the frozen verifier at the exact candidate
+source, with all three partitions per dispatch and no partial assembly:
+[Android10](full10-c1c1-42887785531/summary.json),
+[Android17](full17-c1c1-42878955982/summary.json). Counts are634/635 identities,
+215 classes and181 archives. Original normal completions234/235,37 deliberate
+interruptions and36 continuity records per SDK remain. Only the inherited API29
+Profile assumption applies. Known inherited failure-only capture and Chat archive
+exceptions stay qualified by the unchanged verifier.
+
+Both [independent final reviews](reviews-final.json) pass. Exact staged105
+promotion and actual public page/latest/immutable-manifest/downloaded-APK checks
+pass in [publication105](publication105.json). APK SHA256 is
+`2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a`.
+
+This evidence does not establish physical Pixel/OEM, actual provider or Play acceptance. Parent
 specifications1/55/84/86 and release36 remain open.

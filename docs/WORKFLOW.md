@@ -11,9 +11,11 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner requested issue #96, fixing the Conversation reply controls, followed
-by its compatible signed beta. Implement only this ticket and stop. Issue #95
-is complete as beta104. Exact status is in [the handoff](handoffs/IMPLEMENTATION.md).
+Issue #96 is complete as signed beta105, including both complete Android10/17
+runs, independent review, actual signed-update proof and public delivery checks.
+Stop after recording this one-ticket delivery. No further implementation is
+authorized by that request. Issue95 remains the previous beta104 checkpoint.
+Exact status is in [the handoff](handoffs/IMPLEMENTATION.md).
 
 The earlier five-ticket redesign sequence (#90, #93, #81, #83 and #94) was
 completed with beta102. Specifications #1/#55/#84/#86 and release #36 retain

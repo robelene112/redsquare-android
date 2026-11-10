@@ -1,16 +1,31 @@
 # Red Square Android project context
 
-## Active fix #96
+## Delivered fix #96
 
-The owner requested fixing the misleading Conversation reply controls after a
-screenshot-only usability check. Implement only
-[issue96](https://github.com/robelene112/redsquare-android/issues/96), then deliver
-its compatible signed beta and stop. Review base is
-`bf362ddec3a287c2d26d69ef30c147f9db6c0585`. Public beta remains104.
-The post-body route stays for reading; each conversation post's inline Reply
-opens its own composer. Preserve exact parent/thread/recipients and unsent work.
-Use the existing native UI/controlled-peer seam, existing deadlines and full
-acceptance catalog. No node/provider/physical/Play changes.
+Signed [beta 0.1.105](https://davidengelen.nl/redsquare/) completes
+[issue96](https://github.com/robelene112/redsquare-android/issues/96).
+In Conversation, the visible Reply action beneath each post now opens a reply
+to that exact post, including replies to replies. The redundant header bubble
+is removed; Back, history information and post-body reading navigation remain.
+Per-parent drafts, exact parent/thread/recipients, recreation and successful-send
+return are preserved. Long-parent replies expose the writing field at large
+text sizes without forcing focus or the keyboard.
+
+Complete Android 10 [42887785531](https://github.com/robelene112/redsquare-android/actions/runs/42887785531)
+and Android 17 [42878955982](https://github.com/robelene112/redsquare-android/actions/runs/42878955982)
+pass all three partitions and the pre-run frozen verifier: 634/635 identities,
+215 classes, 181 archives, 37 deliberate interruptions and 36 continuity records
+per SDK. The single inherited API29 Profile assumption remains; Android 17 has none.
+Both independent final reviews, actual signed 83-to-105 update checks, binary gate
+and post-promotion public APK/page/manifest verification pass. No partial assembly.
+
+Compiled APK and both complete-run sources are
+`c1c1d1066b28fb9eff626bc27908d8c79e409382`. The APK is 42,388,522 bytes, SHA256
+`2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a`, using the
+established package and certificate. Later commits retain evidence/documentation.
+See [ticket96 evidence](evidence/ticket96/README.md) for originals, reviews and qualifications.
+This completes only issue #96; stop. Physical/OEM/provider/Play acceptance remains open
+under #36 and [OWNER_INPUTS.md](../OWNER_INPUTS.md). Keep #1, #36, #55, #84 and #86 open. No node or service changes.
 
 ## Delivered fix #95
 

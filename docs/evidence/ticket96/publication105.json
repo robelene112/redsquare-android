@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "verifiedAt": "2026-11-10T20:58:17.679630+00:00",
+  "publicManifest": {
+    "versionCode": 105,
+    "versionName": "0.1.105",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a",
+    "commit": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/105/redsquare.apk",
+    "notes": "Moved the conversation reply action from the header to the relevant post. A visible Reply label makes it easier to find, while drafts and the selected reply target survive screen rotation."
+  },
+  "downloadedApk": {
+    "bytes": 42388522,
+    "sha256": "2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a",
+    "retainedExternalPath": "/mnt/storage/redsquare-android-artifacts/reply96-public105-verified.apk"
+  },
+  "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+  "httpResponses": {
+    "https://davidengelen.nl/redsquare/latest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/latest.json"
+    },
+    "https://davidengelen.nl/redsquare/releases/105/manifest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/105/manifest.json"
+    },
+    "https://davidengelen.nl/redsquare/": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/"
+    },
+    "https://davidengelen.nl/redsquare/releases/105/redsquare.apk": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/105/redsquare.apk"
+    }
+  },
+  "completeRuns": {
+    "android10": 42887785531,
+    "android17": 42878955982
+  },
+  "actualSignedUpdateRuns": {
+    "android10": 42880043575,
+    "android17": 42880063023
+  },
+  "certificateQualification": "Public APK bytes hash-identical to independently binary-reviewed local105; same package/version/certificate, rechecked by canonical publisher before atomic promotion.",
+  "qualification": "Actual verified ordinary beta delivery. Android10/17 controlled/native and signed83-to105 update checks; no physical Pixel/OEM/provider/Play acceptance."
+}
