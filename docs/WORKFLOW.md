@@ -11,13 +11,13 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner approved issue #95 and its compatible signed beta delivery. It is
-complete as beta104. Stop after recording this delivery; another ticket requires
-a new owner request. Exact acceptance is in [the handoff](handoffs/IMPLEMENTATION.md).
+The owner requested issue #96, fixing the Conversation reply controls, followed
+by its compatible signed beta. Implement only this ticket and stop. Issue #95
+is complete as beta104. Exact status is in [the handoff](handoffs/IMPLEMENTATION.md).
 
 The earlier five-ticket redesign sequence (#90, #93, #81, #83 and #94) was
-completed with beta102. Specification86,55,84,1and36 retain their independent
-acceptance criteria. Only the requested development ticket closes.
+completed with beta102. Specifications #1/#55/#84/#86 and release #36 retain
+independent acceptance criteria. Only the requested development ticket closes.
 
 ## Load the real skills
 

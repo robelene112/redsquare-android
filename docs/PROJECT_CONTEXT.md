@@ -1,5 +1,17 @@
 # Red Square Android project context
 
+## Active fix #96
+
+The owner requested fixing the misleading Conversation reply controls after a
+screenshot-only usability check. Implement only
+[issue96](https://github.com/robelene112/redsquare-android/issues/96), then deliver
+its compatible signed beta and stop. Review base is
+`bf362ddec3a287c2d26d69ef30c147f9db6c0585`. Public beta remains104.
+The post-body route stays for reading; each conversation post's inline Reply
+opens its own composer. Preserve exact parent/thread/recipients and unsent work.
+Use the existing native UI/controlled-peer seam, existing deadlines and full
+acceptance catalog. No node/provider/physical/Play changes.
+
 ## Delivered fix #95
 
 Signed [beta 0.1.104](https://davidengelen.nl/redsquare/) completes issue #95.

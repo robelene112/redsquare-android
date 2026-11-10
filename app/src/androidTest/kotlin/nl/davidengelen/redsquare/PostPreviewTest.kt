@@ -137,8 +137,7 @@ class PostPreviewTest {
                     waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     waitForVisiblePost("Independent recipient reply")
-                    ui.onNodeWithText("Independent recipient reply").performClick()
-                    ui.onNodeWithText("Reply").performClick()
+                    ui.replyToPost(parent.get("sig").asString)
                     waitFor("Replying to Anon-${parent.get("field2").asString.take(6)}")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Nested native reply")
