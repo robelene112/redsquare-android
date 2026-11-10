@@ -19,5 +19,12 @@
     "contractSha256": "9b4668195350d23f05cefc9131f3bb2dd620b2222bb6563f60ab8429e40df4eb",
     "verifierSha256": "62a9d4f591526089f9a9053ec8f5b01d49f338267835f4848898872459124e00",
     "checked": "All expected counts/identities/recovery/archive/assumption/inherited-validator fields equal95. Only baseline metadata and verifier packet paths/temp prefix differ; no logic change or old94/95 tracked-file edits. Freeze before full dispatch."
+  },
+  "followup": {
+    "source": "9fa494eac91940b83873b03a3d7657fdbdfd8548",
+    "specReviewer": "reply96_spec",
+    "standardsReviewer": "reply96_standards",
+    "actionableFindings": [],
+    "checked": "Reply-only field reveal after actual placement/readiness without focus/IME or repeated typing scroll, unchanged parent/draft/publication/reading behavior. Same15s goal strengthened to whole field visible with80dp minimum; actual native reruns still required."
   }
 }

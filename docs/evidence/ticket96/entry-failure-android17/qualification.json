@@ -1,0 +1,10 @@
+{
+  "result": "FAILURE",
+  "run": 42874277927,
+  "testedSource": "8f4f3c27953f1b73d9481083b1a913a96d0a6c88",
+  "workflowSource": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "actual": "Narrow320dp/font200/Light reply opens correct editor screen but long parent preview places text input below visible scroll viewport. Original15-second isDisplayed goal fails; other thread cases passed.",
+  "fixSource": "9fa494eac91940b83873b03a3d7657fdbdfd8548",
+  "qualification": "Actual functional viewport failure, not waived or accepted. Initial source had correct reply selection but incomplete initial field visibility. New native runs must prove whole field visibility at original15s and all remaining assertions.",
+  "originals": "/mnt/storage/redsquare-android-artifacts/reply96-focused/thread-redesign-android17"
+}

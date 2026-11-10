@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest:
+INSTRUMENTATION_STATUS: test=narrowThreadsKeepHeaderReadingAndRealReplyKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$22$lambda$21(ConversationHeaderViewportTest.kt:116)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$EOixCeo_5ZgTCcNarj5MVJtIBiQ(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$22(ConversationHeaderViewportTest.kt:52)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$TjKoDZSdMM4u8TU0NbhT8WV7aLY(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise(ConversationHeaderViewportTest.kt:47)
+	at nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest.narrowThreadsKeepHeaderReadingAndRealReplyKeyboard(ConversationHeaderViewportTest.kt:24)
+
+INSTRUMENTATION_STATUS: stream=
+Error in narrowThreadsKeepHeaderReadingAndRealReplyKeyboard(nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$22$lambda$21(ConversationHeaderViewportTest.kt:116)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$EOixCeo_5ZgTCcNarj5MVJtIBiQ(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$22(ConversationHeaderViewportTest.kt:52)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$TjKoDZSdMM4u8TU0NbhT8WV7aLY(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise(ConversationHeaderViewportTest.kt:47)
+	at nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest.narrowThreadsKeepHeaderReadingAndRealReplyKeyboard(ConversationHeaderViewportTest.kt:24)
+
+INSTRUMENTATION_STATUS: test=narrowThreadsKeepHeaderReadingAndRealReplyKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 82.668
+There was 1 failure:
+1) narrowThreadsKeepHeaderReadingAndRealReplyKeyboard(nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$22$lambda$21(ConversationHeaderViewportTest.kt:116)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$EOixCeo_5ZgTCcNarj5MVJtIBiQ(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise$lambda$22(ConversationHeaderViewportTest.kt:52)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.$r8$lambda$TjKoDZSdMM4u8TU0NbhT8WV7aLY(ConversationHeaderViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ConversationHeaderViewportFixture.exercise(ConversationHeaderViewportTest.kt:47)
+	at nl.davidengelen.redsquare.ConversationHeaderNarrowViewportTest.narrowThreadsKeepHeaderReadingAndRealReplyKeyboard(ConversationHeaderViewportTest.kt:24)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
