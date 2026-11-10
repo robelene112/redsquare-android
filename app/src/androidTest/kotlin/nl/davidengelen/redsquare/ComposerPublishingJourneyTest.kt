@@ -65,6 +65,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
     val ownedCandidates = ConcurrentHashMap.newKeySet<String>()
     val indexed = ConcurrentHashMap<String, JsonObject>()
     val visible = AtomicBoolean(false)
+    val archiveObservations = java.util.concurrent.CopyOnWriteArrayList<JsonObject>()
     val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
         val candidate = postingTransaction(frame)
         val signed = SaitoEnvelope.decode(candidate.envelope())
@@ -103,6 +104,12 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
         }
         indexed[candidate.id] = postingArchiveRow(candidate)
     }, archiveResponse = { criteria ->
+        if (criteria.has("sig")) archiveObservations.add(JsonObject().apply {
+            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+            addProperty("signature", criteria.get("sig").asString)
+            addProperty("visible", visible.get())
+            addProperty("indexed", indexed.containsKey(criteria.get("sig").asString))
+        })
         if (criteria.get("field1").asString != "RedSquare") "[]"
         else (listOf(original) + if (visible.get()) indexed.values.toList() else emptyList()).filter { row ->
             (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString) &&
@@ -206,11 +213,63 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText)).assertDoesNotExist()
                     captureNativeScreen(File(folder, "$label-submitted.png"))
                     visible.set(true)
-                    ui.waitUntil(20_000) {
-                        peer.assertHealthy()
-                        PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
-                            .none { it.load().transaction?.id == candidate }
+                    val waitingAt = android.os.SystemClock.elapsedRealtime()
+                    val clockAt = ui.mainClock.currentTime
+                    val changesAt = PostDraftStore.changes.value
+                    var probes = 0
+                    var probeMillis = 0L
+                    fun observation() {
+                        val now = android.os.SystemClock.elapsedRealtime()
+                        val clockNow = ui.mainClock.currentTime
+                        val record = JsonObject().apply {
+                            addProperty("wallElapsedMillis", now - waitingAt)
+                            addProperty("testClockElapsedMillis", clockNow - clockAt)
+                            addProperty("probes", probes)
+                            addProperty("probeMillis", probeMillis)
+                            addProperty("postChanges", PostDraftStore.changes.value - changesAt)
+                            addProperty("candidate", candidate)
+                            add("signatureQueries", com.google.gson.JsonArray().apply {
+                                archiveObservations.filter { it.get("elapsedMillis").asLong >= waitingAt }.forEach(::add)
+                            })
+                            try {
+                                addProperty("receipt", PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER).hasSubmission(candidate))
+                                add("pending", com.google.gson.JsonArray().apply {
+                                    PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER).forEach { store ->
+                                        val saved = store.load()
+                                        add(JsonObject().apply {
+                                            addProperty("signature", saved.transaction?.id)
+                                            addProperty("automatic", saved.automatic)
+                                            addProperty("queued", saved.queued)
+                                            addProperty("available", saved.available)
+                                        })
+                                    }
+                                })
+                            } catch (failure: Exception) { addProperty("storeFailure", failure.javaClass.simpleName) }
+                            try {
+                                val work = androidx.work.WorkManager.getInstance(context)
+                                    .getWorkInfosForUniqueWork("post:$candidate").get(5, java.util.concurrent.TimeUnit.SECONDS)
+                                add("work", com.google.gson.JsonArray().apply { work.forEach {
+                                    add(JsonObject().apply {
+                                        addProperty("state", it.state.name)
+                                        addProperty("attempts", it.runAttemptCount)
+                                    })
+                                } })
+                            } catch (failure: Exception) { addProperty("workFailure", failure.javaClass.simpleName) }
+                        }
+                        File(folder, "$label-observation.json").writeText(record.toString())
                     }
+                    withFailureCapture({ observation() }) {
+                        ui.waitUntil(20_000) {
+                            peer.assertHealthy()
+                            val started = android.os.SystemClock.elapsedRealtime()
+                            val complete = PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
+                                .none { it.load().transaction?.id == candidate }
+                            probes++
+                            probeMillis += android.os.SystemClock.elapsedRealtime() - started
+                            complete
+                        }
+                    }
+                    observation()
                     assertEquals(before + 1, peer.transactions.size)
                     assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
                     captureNativeScreen(File(folder, "$label-available.png"))

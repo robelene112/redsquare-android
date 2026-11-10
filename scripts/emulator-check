@@ -615,6 +615,10 @@ if [[ "${TEST_SCOPE:-full}" == composer-work* ]]; then
     printf '%s\n' 'Focused native saved-author and policy-paused queued-work viewports only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == composer-quote* ]]; then
+    verify_group_chat_native ComposerQuoteJourneyTest 180 composer-quote composer-publishing-evidence
+    exit
+fi
 if [[ "${TEST_SCOPE:-full}" == composer-publishing* ]]; then
     verify_composer_publishing
     printf '%s\n' 'Focused native composer return, policy and publishing journeys only; full acceptance not run.' > "$evidence/scope.txt"

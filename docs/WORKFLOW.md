@@ -127,6 +127,11 @@ complete first-release scope and the established production boundaries.
 2. Record the starting commit as the review base. Use the current working branch
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`.
+   `composer-quote` and its Android17 variant isolate the existing quote
+   publishing journey under its unchanged180second class bound. Full and
+   complete publishing scopes retain it. Failure/pass observations record
+   wall/test clock progress and real signature lookup/persistence outcomes;
+   they never replace the original twenty-second availability goal.
    `agreement-post-queue` and its Android17 variant isolate the existing two
    Post policy/queue methods under their unchanged180second class bound.
    Complete agreement/full scopes retain both, including original signatures,
