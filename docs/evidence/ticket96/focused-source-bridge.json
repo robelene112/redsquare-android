@@ -1,0 +1,86 @@
+{
+  "result": "PASS",
+  "focusedSource": "9fa494eac91940b83873b03a3d7657fdbdfd8548",
+  "completeAndCandidateSource": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "unchangedTrackedPaths": 221275,
+  "unchangedModeTypeBlobDigest": "3172dc342dc7fa23a32ee82568cd34cca5ece991fa55175189604f466cc5a14e",
+  "changedPaths": {
+    "docs/evidence/ticket96/entry-failure-android10/conversation-narrow-ui.txt": {
+      "before": null,
+      "after": "100644 blob 9e03191ab35466e6471ee71476905ec1c7916e47"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/original-SHA256.json": {
+      "before": null,
+      "after": "100644 blob db44ffa043b3ada5b4bc8e294c50810cd02dc094"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/proof-runner.txt": {
+      "before": null,
+      "after": "100644 blob 2c0c1ac72ca6f98de1ae1b4f29ef7af7f7d9acda"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/proof-source.txt": {
+      "before": null,
+      "after": "100644 blob 6d599d6c5fa7227ca799701cae476957c5632e31"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/proof-workflow.txt": {
+      "before": null,
+      "after": "100644 blob 3a868004aa001d78f483955db880ba5498ecb5fd"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/qualification.json": {
+      "before": null,
+      "after": "100644 blob 72621094392a2d0e998a6c17c5c4550c0354656c"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/run.json": {
+      "before": null,
+      "after": "100644 blob 13fd5621fc112eedc17848fb657b0b078ca4f33e"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/thread-320-font200-light-failure.png": {
+      "before": null,
+      "after": "100644 blob e619270b36659b9853d4fa56136f26f70e777d27"
+    },
+    "docs/evidence/ticket96/entry-failure-android10/thread-320-font200-light-failure.xml": {
+      "before": null,
+      "after": "100644 blob 12bc1c97074efeadafa5cdd5b378ef56b28f78ce"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/conversation-narrow-ui.txt": {
+      "before": null,
+      "after": "100644 blob 268c783db746dd8956458c5590547933a74e7b82"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/original-SHA256.json": {
+      "before": null,
+      "after": "100644 blob 9973fb8ae150527a1dd5abac3b609034f99d2746"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/proof-runner.txt": {
+      "before": null,
+      "after": "100644 blob 2c0c1ac72ca6f98de1ae1b4f29ef7af7f7d9acda"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/proof-source.txt": {
+      "before": null,
+      "after": "100644 blob 6d599d6c5fa7227ca799701cae476957c5632e31"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/proof-workflow.txt": {
+      "before": null,
+      "after": "100644 blob 3a868004aa001d78f483955db880ba5498ecb5fd"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/qualification.json": {
+      "before": null,
+      "after": "100644 blob 8edd17f365f6c15b24805bf0c3f60fd4be47b639"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/run.json": {
+      "before": null,
+      "after": "100644 blob f8b70101f7157622aeb39a6879a29dcd8aab571f"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/thread-320-font200-light-failure.png": {
+      "before": null,
+      "after": "100644 blob fcd2959eb74632f987787fe90913b3dfc2b7d2bb"
+    },
+    "docs/evidence/ticket96/entry-failure-android17/thread-320-font200-light-failure.xml": {
+      "before": null,
+      "after": "100644 blob 459ae0b46759e75621626f1633020c72e238c1b5"
+    },
+    "docs/evidence/ticket96/source-reviews.json": {
+      "before": "100644 blob b0673d719f50b19f7be2fccd1c702137ec1acce7",
+      "after": "100644 blob 814059a5a19ec167037e0b0349e1ade807f93637"
+    }
+  },
+  "qualification": "Only original failure evidence and bounded source review changed between focused correction and complete/candidate source. All app, tests, harness, workflow, build and pinned reference inputs identical. Both full SDK runs remain required."
+}

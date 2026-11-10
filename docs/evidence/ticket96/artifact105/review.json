@@ -1,0 +1,25 @@
+{
+  "scope": "Independent actual signedAPK binary gate only",
+  "reviewer": "reply96_standards",
+  "result": "PASS",
+  "source": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "versionCode": 105,
+  "bytes": 42388522,
+  "sha256": "2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "apkSignature": "PASS: v3, one signer; actual104APK and ledger certificate continuity",
+  "applicationId": "nl.davidengelen.redsquare",
+  "minSdk": 29,
+  "targetSdk": 36,
+  "debuggable": false,
+  "profileable": false,
+  "reviewBuild": true,
+  "pushConfigured": false,
+  "editorLicense": {
+    "path": "META-INF/compose-rich-editor-LICENSE.txt",
+    "bytes": 11343,
+    "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722"
+  },
+  "actionableFindings": [],
+  "qualification": "Actual immutable localAPK inspected using read-only/offline tooling. Complete-native/update/publication gates separate; no physical/provider/Play acceptance."
+}

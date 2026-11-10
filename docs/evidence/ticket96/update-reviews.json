@@ -1,0 +1,16 @@
+{
+  "scope": "Independent actual signed83-to105 native update proofs",
+  "result": "PASS",
+  "reviewer": "reply96_spec",
+  "source": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "android10": {
+    "run": 42880043575,
+    "actionableFindings": []
+  },
+  "android17": {
+    "run": 42880063023,
+    "actionableFindings": []
+  },
+  "checked": "Actual download hash/size/version/package/certificate; four native wallet observations; exact unsent draft, cached post author/content/time and Light preference after update and cold launch; distinct ordinary/debug UIDs and identities; original network/restoration without failures. Original native screenshots corroborate retained work.",
+  "qualification": "Existing disposable-emulator signed83-to105 update seam. Complete application acceptance and public promotion remain separate gates; no physical Pixel/OEM/Play installation or latency claim."
+}

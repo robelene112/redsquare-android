@@ -1,0 +1,21 @@
+{
+  "scope": "Independent actual focused-native evidence review only",
+  "testedSource": "9fa494eac91940b83873b03a3d7657fdbdfd8548",
+  "workflowSource": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "spec": {
+    "reviewer": "reply96_spec",
+    "result": "PASS",
+    "actionableFindings": [],
+    "checked": "Both SDK originals: posting18 plus submission3; thread16, all12width/font/theme configurations, whole-field entry/actualIME/exactdraft/reading anchors/native48dp; writing8. Nested reply recreation and actual signed parent/thread/inherited recipients, no early send and successful-send return."
+  },
+  "standards": {
+    "reviewer": "reply96_standards",
+    "result": "PASS",
+    "actionableFindings": [],
+    "checked": "All six source/workflow markers, original logs,72native48dp target measurements perSDK, preserved15s whole-field80dp entry goal,12writing matrix cells, original contract/verifier hashes."
+  },
+  "evidenceLimitations": [
+    "Android17 320/font200/Dark and412/font100/Dark entryXML show priorConversation hierarchy; paired originalPNG show correct whole visibleReply field, subsequentIME XML shows exactdraft/bounds. Snapshot mismatch qualified, not a product defect or accepted stalePNG."
+  ],
+  "qualification": "Focused correction only. Complete full10/17, signed105binary/update and exact public delivery remain separate gates. No physical/provider/Play acceptance."
+}

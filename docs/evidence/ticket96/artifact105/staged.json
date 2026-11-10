@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-11-10T18:56:26.323439+00:00",
+  "stagedManifest": {
+    "versionCode": 105,
+    "versionName": "0.1.105",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a",
+    "commit": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/105/redsquare.apk",
+    "notes": "Moved the conversation reply action from the header to the relevant post. A visible Reply label makes it easier to find, while drafts and the selected reply target survive screen rotation."
+  },
+  "bytes": 42388522,
+  "sha256": "2975aa69337016bbfaa57ba368ff082135bc4dc094deb57c794e83e7c79a3d0a",
+  "publicLatestStill": 104,
+  "qualification": "Staged immutable candidate download verified; no promotion or complete-native acceptance."
+}

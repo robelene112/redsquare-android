@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "run": 42877108576,
+  "testedSource": "9fa494eac91940b83873b03a3d7657fdbdfd8548",
+  "workflowSource": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "originals": "/mnt/storage/redsquare-android-artifacts/reply96-field-focused/feed-writing-android17",
+  "qualification": "Existing focused native scopes only, not full acceptance. All original class/request/assertion deadlines retained; migrated selectors exercise actual per-post Reply. Full source/core/release/lint, complete Android10/17 and signed-update/publication remain independent gates."
+}
