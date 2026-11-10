@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-11-10T22:29:32.580152+00:00",
+  "immutableManifest": {
+    "versionCode": 107,
+    "versionName": "0.1.107",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3",
+    "commit": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/107/redsquare.apk",
+    "notes": "Feed refresh feedback stays below the tabs at the top of the visible feed, including while reading older posts. Messages underneath remain tappable. Profile history now uses a neutral information icon and clearer wording about possibly missing older activity. Install over your existing app to preserve your wallet and local work."
+  },
+  "actualDownloadedBytes": 42388522,
+  "actualDownloadedSha256": "55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3",
+  "latestRemains": 105,
+  "qualification": "Staged immutable candidate only. Promotion remains gated by complete final-source application/update/review verification."
+}

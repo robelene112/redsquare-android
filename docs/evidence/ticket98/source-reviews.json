@@ -1,0 +1,21 @@
+{
+  "base": "c4ca9575ebf9928ba1585672ba162d9e9edf07d3",
+  "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "spec": {
+    "reviewer": "history98_spec",
+    "result": "PASS",
+    "remainingFindings": []
+  },
+  "standards": {
+    "reviewer": "history98_standards",
+    "result": "PASS",
+    "remainingFindings": []
+  },
+  "resolvedFinding": "Initial f400 shared status copy also changed Chat/group labels. Corrective8ab restores shared copy and uses profile_history_summary only in ProfileScreen. No Chat test changes.",
+  "preRunContract": {
+    "sha256": "aae5421db7957a6f372502d20f213e8c0dc315e565f699b094900a9964ade449",
+    "verifierSha256": "4c25ea00afc0f44f5d341d91a645025fd3331a5d47a233295aa153fc18fc17a6",
+    "checked": "Only contract basis changes. All634/635 identities,215classes,181archives,recovery totals,exceptions,assumptions and inherited validator hashes unchanged. No verifier/catalog/workflow changes."
+  },
+  "qualification": "Source-only acceptance. Focused f400 observations are intermediate. Complete Android10/17 and signed107 update/publication must cover corrected8ab source."
+}

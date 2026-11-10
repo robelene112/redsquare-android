@@ -1,0 +1,13 @@
+{
+  "scope": "Independent actual offline binary gate only",
+  "result": "PASS",
+  "reviewer": "history98_standards",
+  "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "versionCode": 107,
+  "bytes": 42388522,
+  "sha256": "55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "checked": "Actual APK v3 one-signer and accepted105/ledger continuity; package/version107, minimum29,target36, nondebuggable, no profileable declaration; actual DEX REVIEW_BUILD=true PUSH_CONFIGURED=false; packaged editor license byte-identical to105 and vendored source.",
+  "actionableFindings": [],
+  "qualification": "Offline actual binary only. Complete final-source SDK, native update and publication acceptance remain separate."
+}
