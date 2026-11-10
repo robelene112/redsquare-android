@@ -45,16 +45,17 @@ class PublishingRecoveryPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("manual-reconciliation-failure.png") }) {
                     click("New post")
-                    click("Retry")
-                    waitFor("Available on this node.")
+                    waitFor("Post submitted")
                     assertTrue("The exact original must actually be queried", originalLookups.get() > 0)
                     ui.onAllNodesWithText("Publishing terms are being prepared").assertCountEquals(0)
                     ui.onAllNodesWithText("Review publishing terms").assertCountEquals(0)
                     assertTrue("Reading must not rebroadcast", peer.transactions.isEmpty())
-                    val saved = PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER).load()
-                    assertTrue(saved.available)
-                    assertEquals(candidate.envelope(), saved.transaction?.envelope())
-                    assertFalse(saved.queued || saved.automatic)
+                    val slot = PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+                    assertTrue("The validated original has a durable submission receipt", slot.hasSubmission(candidate.id))
+                    assertEquals(null, slot.load().transaction)
+                    assertTrue("Reconciliation cannot leave armed publishing work",
+                        PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
+                            .none { it.load().transaction?.id == candidate.id })
                     peer.assertHealthy()
                     capture("manual-original-reconciled-without-policy-acceptance.png")
                 }
@@ -129,7 +130,7 @@ class PublishingRecoveryPreviewTest {
                     click("Send"); waitFor("Review publishing terms"); click("Accept")
                     waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                     assertTrue(peer.transactions.isEmpty())
-                    click("Send"); waitFor("Available on this node.")
+                    click("Send"); waitFor("Post submitted")
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
                     capture("current-agreement-recovered-and-draft-deliberately-published.png")

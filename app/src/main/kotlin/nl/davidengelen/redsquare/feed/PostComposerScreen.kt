@@ -58,6 +58,16 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
     val publishing = LocalPublishingAgreement.current
+    var observedTransaction by rememberSaveable(session) { mutableStateOf<String?>(null) }
+    val closeEditor = { observedTransaction = null; onClose() }
+    LaunchedEffect(state.transaction?.id) {
+        state.transaction?.id?.let { observedTransaction = it }
+    }
+    LaunchedEffect(state.ready, observedTransaction) {
+        val id = observedTransaction
+        if (state.ready && id != null && !state.submitted &&
+            withContext(Dispatchers.IO) { store.hasSubmission(id) }) state.submitted = true
+    }
     val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
     val focus = androidx.compose.ui.platform.LocalFocusManager.current
     LaunchedEffect(state.submitted, state.sending, state.saving) {
@@ -71,7 +81,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             focus.clearFocus(force = true)
             keyboard?.hide()
             onSubmitted()
-            onClose()
+            closeEditor()
         }
     }
     var choosingGif by remember(state) { mutableStateOf(false) }
@@ -150,12 +160,12 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
     }
     with(state) {
-        BackHandler { if (!sending && !saving) { if (ready) saveAndClose(onClose) else onClose() } }
+        BackHandler { if (!sending && !saving) { if (ready) saveAndClose(closeEditor) else closeEditor() } }
         Column(modifier.imePadding()) {
             Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !saving && !sending) {
-                    if (ready) saveAndClose(onClose) else onClose()
+                    if (ready) saveAndClose(closeEditor) else closeEditor()
                 }
                 Text(stringResource(if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply),
                     Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
@@ -170,6 +180,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 details = listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
                 announce = false)
             val deliveryStatus = when {
+                checking -> R.string.post_checking
                 preparingImages -> R.string.image_preparing
                 saving -> R.string.publishing_saving
                 available -> R.string.post_available
@@ -183,7 +194,6 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             InlineStatus(deliveryStatus?.let { stringResource(it) }, when {
                 saving || sending || !ready -> StatusTone.WORKING
                 available -> StatusTone.SUCCESS
-                transaction != null && !queued && !submitted -> StatusTone.WARNING
                 else -> StatusTone.INFO
             }, details = buildList {
                 if (saving || sending) add(stringResource(R.string.publishing_busy_detail))
@@ -197,6 +207,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
+                    InlineStatus(if (checkError) stringResource(R.string.post_check_failed) else null, StatusTone.INFO)
                     InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
                     InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
                     if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
@@ -233,6 +244,10 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     }
                     if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
                         onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
+                    if (transaction != null && !available && !queued && !submitted && !networkError && !error)
+                        TextButton(enabled = !saving && !sending, onClick = { send(publishing::beforePublishing) }) {
+                            Text(stringResource(R.string.post_send_saved))
+                        }
                 }
             }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
@@ -246,15 +261,22 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 }
                 Spacer(Modifier.weight(1f))
                 FrameIconButton(R.drawable.ic_save, stringResource(R.string.post_save_draft), ready && !saving && !sending) {
-                    saveAndClose(onClose)
+                    saveAndClose(closeEditor)
                 }
             }
                 Button(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     shape = RoundedCornerShape(AppSpacing.controlRadius),
                     enabled = ready && !saving && !sending && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
-                    if (available) saveAndClose(onClose) else send(publishing::beforePublishing)
+                    if (available) saveAndClose(closeEditor)
+                    else if (transaction == null || networkError || error) send(publishing::beforePublishing)
+                    else checkStatus()
                 }) {
-                    Text(stringResource(if (available) R.string.done else if (transaction == null) R.string.post_send else R.string.retry), Modifier.padding(vertical = 6.dp))
+                    Text(stringResource(when {
+                        available -> R.string.done
+                        transaction == null -> R.string.post_send
+                        networkError || error -> R.string.retry
+                        else -> R.string.post_check_status
+                    }), Modifier.padding(vertical = 6.dp))
                 }
         }
         if (choosingGif) GiphyPicker(onClose = { choosingGif = false },
@@ -264,7 +286,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             onDismissRequest = { confirmClear = false },
             title = { Text(stringResource(R.string.post_clear_title)) },
             text = { Text(stringResource(R.string.post_clear_detail)) },
-            confirmButton = { TextButton(onClick = { clearAndClose(onClose) }) { Text(stringResource(R.string.post_clear_confirm)) } },
+            confirmButton = { TextButton(onClick = { clearAndClose(closeEditor) }) { Text(stringResource(R.string.post_clear_confirm)) } },
             dismissButton = { TextButton(onClick = { confirmClear = false }) { Text(stringResource(R.string.post_clear_keep)) } },
         )
     }

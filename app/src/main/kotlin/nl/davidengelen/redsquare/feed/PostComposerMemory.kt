@@ -11,9 +11,9 @@ internal class PostComposerMemory : ViewModel() {
     var transactionId: String? = null
 
     fun clearSubmitted() {
-        text = ""
-        images = emptyList()
-        gifAttributions = emptyMap()
+        text = null
+        images = null
+        gifAttributions = null
         transactionId = null
     }
 }

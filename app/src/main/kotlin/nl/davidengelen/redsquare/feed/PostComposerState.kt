@@ -45,6 +45,8 @@ internal class PostComposerState(
     var saving by mutableStateOf(false)
     var error by mutableStateOf(false)
     var networkError by mutableStateOf(false)
+    var checking by mutableStateOf(false)
+    var checkError by mutableStateOf(false)
     var validationError by mutableStateOf(false)
     var transaction by mutableStateOf<SaitoTransaction?>(null)
     var queued by mutableStateOf(false)
@@ -59,7 +61,26 @@ internal class PostComposerState(
     } == true
     suspend fun load() {
         try {
-            val saved = withContext(Dispatchers.IO) { store.load() }
+            var saved = withContext(Dispatchers.IO) { store.load() }
+            // Older versions retained an uncertain attempt in the editor. A
+            // read can reconcile it, but absence is never permission to resend.
+            if (saved.transaction != null && !saved.queued) {
+                val candidate = requireNotNull(saved.transaction)
+                val reconciled = try {
+                    if (saved.available) {
+                        try { withContext(NonCancellable + Dispatchers.IO) { store.markSubmitted(candidate.id) } }
+                        catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
+                        true
+                    } else reconcile(candidate, saved.text)
+                } catch (cancelled: CancellationException) { throw cancelled }
+                catch (failure: DraftPersistenceFailure) { throw failure }
+                catch (_: Exception) { checkError = true; false }
+                if (reconciled) {
+                    memory.clearSubmitted()
+                    submitted = true
+                    saved = withContext(Dispatchers.IO) { store.load() }
+                }
+            }
             val handedOff = (transaction?.id ?: memory.transactionId)?.let { id ->
                 withContext(Dispatchers.IO) { store.hasSubmission(id) }
             } == true
@@ -84,6 +105,40 @@ internal class PostComposerState(
             error = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true }
+    }
+    private suspend fun reconcile(candidate: SaitoTransaction, content: String): Boolean = withContext(Dispatchers.IO) {
+        var confirmed = false
+        DeliveryAttempts.run(candidate.id) {
+            SaitoPeer(wallet, endpoint).use { peer ->
+                if (peer.hasPost(candidate, owner, content)) {
+                    try {
+                        check(store.confirmAvailable(candidate.id))
+                        store.markSubmitted(candidate.id)
+                    } catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
+                    confirmed = true
+                }
+            }
+        }
+        confirmed
+    }
+
+    fun checkStatus() {
+        val candidate = transaction ?: return
+        if (!ready || saving || sending) return
+        checking = true
+        sending = true
+        checkError = false
+        scope.launch {
+            try {
+                if (reconcile(candidate, text)) {
+                    memory.clearSubmitted()
+                    submitted = true
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: DraftPersistenceFailure) { error = true }
+            catch (_: Exception) { checkError = true }
+            finally { checking = false; sending = false }
+        }
     }
     suspend fun persist(): Boolean = writes.withLock {
         if (!ready) return@withLock false

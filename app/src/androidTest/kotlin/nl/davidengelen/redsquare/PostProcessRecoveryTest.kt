@@ -24,6 +24,7 @@ class PostProcessRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
     private val quote get() = InstrumentationRegistry.getArguments().getString("quote") == "true"
+    private val committedReceipt get() = InstrumentationRegistry.getArguments().getString("handoff") == "true"
     private val checkpoint get() = File(context.cacheDir, if (quote) "quote-process-checkpoint.json" else "post-process-checkpoint.json")
     private val body get() = if (quote) "Recover this uncertain quote after process death" else "Recover this uncertain post after process death"
 
@@ -50,7 +51,7 @@ class PostProcessRecoveryTest {
         ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()
     }
 
-    @Test fun terminateAfterAnUncertainSendBeforeLeavingTheComposer() {
+    @Test fun terminateAfterOriginalPostTransmission() {
         prepare()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") || it.name.startsWith("feed.") }
             ?.forEach { check(it.delete()) }
@@ -63,6 +64,7 @@ class PostProcessRecoveryTest {
             if (quote) assertEquals(root().get("sig").asString, post.quoted!!.id)
             observed.set(postingArchiveRow(candidate))
         }, archiveResponse = { criteria -> if (criteria.has("sig")) "[]" else "[${root()}]" })
+            .apply { withholdCloseReplies = !committedReceipt }
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
@@ -74,11 +76,17 @@ class PostProcessRecoveryTest {
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(body)
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Submitted. Waiting for this node.")
                 ui.waitUntil(10_000) { observed.get() != null }
+                if (committedReceipt) waitFor("Post submitted")
                 peer.assertHealthy()
                 checkpoint.outputStream().use { output ->
-                    val row = requireNotNull(observed.get()).deepCopy().apply { addProperty("pid", Process.myPid()) }
+                    val row = requireNotNull(observed.get()).deepCopy().apply {
+                        addProperty("pid", Process.myPid())
+                        addProperty("receipt_committed", committedReceipt)
+                    }
+                    val hasReceipt = nl.davidengelen.redsquare.feed.PostDraftStore(context,
+                        row.get("field2").asString, SaitoBackend.OWNER).hasSubmission(row.get("sig").asString)
+                    assertEquals("The deliberate crash must hit its declared persistence window", committedReceipt, hasReceipt)
                     output.write(row.toString().toByteArray())
                     output.fd.sync()
                 }
@@ -103,21 +111,23 @@ class PostProcessRecoveryTest {
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                 ui.closeWalletOverview()
                 waitFor("New post")
-                openComposer()
-                waitFor("Send requested. Availability on this node is not confirmed.")
-                ui.onNodeWithText(body).assertEditableTextEquals(body).assertIsNotEnabled()
-                assertTrue(peer.transactions.isEmpty())
-                ui.onNodeWithText("Retry").performClick()
-                waitFor("Available on this node.")
-                ui.waitUntil(10_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                if (!committedReceipt) {
+                    openComposer()
+                    waitFor("Post submitted")
+                }
+                assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore(context,
+                    row.get("field2").asString, SaitoBackend.OWNER).hasSubmission(row.get("sig").asString))
+                ui.waitUntil(20_000) {
+                    nl.davidengelen.redsquare.feed.PostDraftStore.pendingDelivery(context,
+                        row.get("field2").asString, SaitoBackend.OWNER)
+                        .none { it.load().transaction?.id == row.get("sig").asString }
+                }
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("post-process-evidence/reconciled-without-rebroadcast.png")
-                ui.onNodeWithText("Back").performClick()
-                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 openComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasSetTextAction()).assert(hasText(""))
+                ui.onNode(hasSetTextAction()).assertEditableTextEquals("")
             }
         }
     }

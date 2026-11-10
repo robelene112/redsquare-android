@@ -157,7 +157,9 @@ internal class PostDraftStore private constructor(private val context: Context, 
         val replacement = if (saved.transaction?.let { hasSubmission(it.id) } == true) current
         else if (current.transaction == null) saved else {
             check(saved.transaction?.id == current.transaction.id)
-            if (saved.available || current.available) Saved("") else current
+            // Availability alone cannot clear the only durable original. The
+            // validated receipt above is what releases this composer slot.
+            current
         }
         save(replacement)
         replacement
@@ -168,7 +170,11 @@ internal class PostDraftStore private constructor(private val context: Context, 
     private fun submission(id: String) = PostDraftStore(context, owner, backend, "", null, submissionId = id)
 
     fun hasSubmission(id: String): Boolean = synchronized(lock) {
-        authorKind == null && !isSubmittedRecord && submission(id).load().transaction?.id == id
+        if (authorKind != null || isSubmittedRecord) return@synchronized false
+        // Only a readable, validated receipt releases the original. An unreadable
+        // receipt must not prevent recovery of an independently valid draft.
+        try { submission(id).load().transaction?.id == id }
+        catch (_: Exception) { false }
     }
 
     /** Retain the original signed work before releasing its composer slot. */

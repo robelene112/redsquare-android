@@ -135,10 +135,10 @@ class GiphyPostingTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNode(hasText("Send") and isEnabled()).performClick()
-                        ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Available on this node.").fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Post submitted").fetchSemanticsNodes().isNotEmpty() }
                         assertEquals(1, peer.transactions.size)
                         capture("$label-available")
-                        ui.onNodeWithText("Back").performClick()
+                        ui.onNode(hasSetTextAction()).assertDoesNotExist()
                         ui.waitUntil(20_000) { ui.refreshableContentReady() }
                         val requests = peer.requests.get()
                         ui.refreshVisibleView()

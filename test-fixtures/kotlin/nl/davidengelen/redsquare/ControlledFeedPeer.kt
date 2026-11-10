@@ -27,6 +27,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var registryFallbackBeforeNamecheck = false
     val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
     @Volatile var disconnectAfterTransaction = false
+    @Volatile var withholdCloseReplies = false
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
     @Volatile var withholdArchiveReply = false
@@ -94,7 +95,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
-            webSocket.close(code, reason)
+            if (!withholdCloseReplies) webSocket.close(code, reason)
         }
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)

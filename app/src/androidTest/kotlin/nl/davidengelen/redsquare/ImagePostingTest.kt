@@ -164,12 +164,12 @@ class ImagePostingTest {
                             ui.onNode(hasText("Send") and isEnabled()).performClick()
                             ui.waitUntil(20_000) {
                                 peer.assertHealthy()
-                                ui.onAllNodesWithText("Available on this node.").fetchSemanticsNodes().isNotEmpty()
+                                ui.onAllNodesWithText("Post submitted").fetchSemanticsNodes().isNotEmpty()
                             }
                             assertEquals(1, peer.transactions.size)
                             peer.assertHealthy()
                             capture("$kind-published.png")
-                            ui.onNodeWithText("Back").performClick()
+                            ui.onNode(hasSetTextAction()).assertDoesNotExist()
                             if (kind == "reply") {
                                 waitFor("Conversation")
                                 ui.waitUntil(20_000) { ui.refreshableContentReady() }

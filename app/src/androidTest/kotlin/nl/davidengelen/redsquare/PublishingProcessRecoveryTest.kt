@@ -110,7 +110,7 @@ class PublishingProcessRecoveryTest {
             ui.onNode(hasSetTextAction()).assertEditableTextEquals(row.get("text").asString).assertIsEnabled()
             assertTrue("A cold unsent draft must not automatically publish", peer.transactions.isEmpty())
             capture("cold-agreement-keeps-unsent-draft.png")
-            click("Send"); waitFor("Available on this node.")
+            click("Send"); waitFor("Post submitted")
             ui.onAllNodesWithText("Review publishing terms").assertCountEquals(0)
             ui.onAllNodesWithText("Accept").assertCountEquals(0)
             assertEquals(1, peer.transactions.size)
@@ -127,11 +127,20 @@ class PublishingProcessRecoveryTest {
         val row = readCheckpoint()
         val owner = row.get("owner").asString
         cleanupAfterTest(null,
-            { val saved = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
-                saved.transaction?.takeIf { saved.text == row.get("text").asString }?.let { candidate ->
-                    assertEquals(owner, RedSquareFeed.decode(candidate.envelope()).author)
-                    WorkManager.getInstance(context).cancelUniqueWork("post:${candidate.id}").result.get(5, TimeUnit.SECONDS)
-                }
+            { val retainedNames = row.getAsJsonArray("savedFiles").map { it.asString }.toSet()
+                val receiptPattern = Regex("postdraft\\.owner\\.${Regex.escape(owner)}\\.submitted\\.([0-9a-f]{128})\\.v1(?:\\.bak|\\.new)?")
+                val retainedIds = retainedNames.mapNotNull { receiptPattern.matchEntire(it)?.groupValues?.get(1) }.toSet()
+                val createdIds = fileNames(owner).mapNotNull { receiptPattern.matchEntire(it)?.groupValues?.get(1) }
+                    .filterNot { it in retainedIds }
+                val saved = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
+                val ids = (createdIds + listOfNotNull(row.get("signature")?.asString,
+                    saved.transaction?.takeIf { saved.text == row.get("text").asString }?.id)).distinct()
+                val cancellations: List<() -> Unit> = ids.map { id -> {
+                    check(id.matches(Regex("[0-9a-f]{128}")))
+                    WorkManager.getInstance(context).cancelUniqueWork("post:$id").result.get(5, TimeUnit.SECONDS)
+                    Unit
+                } }
+                cleanupAfterTest(null, *cancellations.toTypedArray())
             },
             { restoreProcessFixtureFiles(context, originals, fileNames(owner), row.getAsJsonArray("savedFiles")) },
             { row.getAsJsonArray("preferences").forEach { value ->
@@ -157,9 +166,12 @@ class PublishingProcessRecoveryTest {
     }
     private fun fileNames(owner: String): Set<String> {
         require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
-        return listOf("feed.owner.v1", "postdraft.owner.$owner.v1", "publishing-policy-fixture.json",
+        val receipts = context.noBackupFilesDir.listFiles().orEmpty().map { it.name }.filter {
+            it.matches(Regex("postdraft\\.owner\\.${Regex.escape(owner)}\\.submitted\\.[0-9a-f]{128}\\.v1(?:\\.bak|\\.new)?"))
+        }
+        return (listOf("feed.owner.v1", "postdraft.owner.$owner.v1", "publishing-policy-fixture.json",
             "publishing-agreement.v1", "publishing-agreement.pending", "backend.v1", "backend.pending")
-            .flatMap { listOf(it, "$it.bak", "$it.new") }.toSet()
+            .flatMap { listOf(it, "$it.bak", "$it.new") } + receipts).toSet()
     }
     private fun preferenceKeys(owner: String) = listOf("notification-permission" to "offered",
         "wallet-backup-reminders" to "hidden:$owner")

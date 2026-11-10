@@ -115,7 +115,7 @@ class ImageProcessRecoveryTest {
             assertTrue(serving.transactions.isEmpty())
             capture("cold-draft.png")
             ui.onNode(hasText("Send") and isEnabled()).performClick()
-            waitFor("Submitted. Waiting for this node.")
+            waitFor("Post submitted")
             ui.waitUntil(10_000) { observed.get() != null }
             assertEquals(1, serving.transactions.size); serving.assertHealthy()
             terminate(requireNotNull(observed.get()).deepCopy().apply { addProperty("phase", "candidate") })
@@ -129,19 +129,22 @@ class ImageProcessRecoveryTest {
         val original = fixture().getAsJsonObject("ordinary")
         val peer = ControlledFeedPeer("[$original]", archiveResponse = { criteria ->
             if (criteria.get("sig")?.asString == row.get("sig").asString) "[$row]"
-            else if (criteria.has("sig")) "[]" else "[$original]"
+            else if (criteria.has("sig")) "[]" else "[$row,$original]"
         })
         launch(peer) {
-            openComposer(waitForEditable = false)
-            waitFor("Send requested. Availability on this node is not confirmed.")
+            waitFor(text)
+            assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore(context,
+                row.get("field2").asString, SaitoBackend.OWNER).hasSubmission(row.get("sig").asString))
+            ui.waitUntil(20_000) {
+                nl.davidengelen.redsquare.feed.PostDraftStore.pendingDelivery(context,
+                    row.get("field2").asString, SaitoBackend.OWNER)
+                    .none { it.load().transaction?.id == row.get("sig").asString }
+            }
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription("Image 1 of 1"))
             waitForPreparedImage(editable = false)
-            ui.onNodeWithText(text).assertEditableTextEquals(text).assertIsNotEnabled()
-            assertTrue(peer.transactions.isEmpty())
-            ui.onNodeWithText("Retry").performClick()
-            waitFor("Available on this node.")
+            ui.onNodeWithText(text).assertIsDisplayed()
             assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
             capture("reconciled-image.png")
-            ui.onNodeWithText("Back").performClick()
             openComposer()
             ui.onNode(hasSetTextAction()).assert(hasText(""))
             ui.onAllNodesWithContentDescription("Image 1 of 1").assertCountEquals(0)

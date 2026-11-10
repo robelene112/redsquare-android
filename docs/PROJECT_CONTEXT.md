@@ -1,6 +1,19 @@
 # Red Square Android project context
 
-## Current verification status
+## Active fix #95
+
+The owner approved fixing misleading post-submission Retry UI on November10.
+Implement only[issue95](https://github.com/robelene112/redsquare-android/issues/95),
+then deliver its compatible signed beta and stop. Beta102 remains public.
+Worktree/branch below remain the sole implementation checkout. Actual baseline
+regression42807333964 fails with one sent transaction and the old Retry screen.
+First repair4cbf5a3b7 passes the targeted UI case on10/17 in42809361321.
+Expanded legacy/fault/recreation and before/after-receipt real process checks are
+being validated; they are not accepted yet. Preserve original signatures, media,
+identity/backend selection and current policy checks. Do not publish103 or close95
+until affected checks, required full gates and both review axes pass.
+
+## Previous delivery #94
 
 Issue #94's prototype-fidelity repair is delivered as signed beta **0.1.102**:
 [download or update](https://davidengelen.nl/redsquare/). The public latest pointer,
@@ -38,7 +51,7 @@ frozen collector; they are not missing application identities or waived goals.
 Physical Pixel performance, actual provider delivery, business/policy setup and
 Play acceptance remain pending under #36 and [OWNER_INPUTS.md](../OWNER_INPUTS.md).
 Do not automatically close issues #1/#36/#55/#84/#86. Canonical checkout, other work,
-production nodes and services remain untouched. Issue #94 is complete. Stop until the owner requests further work.
+production nodes and services remain untouched. Issue #94 is complete; its accepted scope does not complete the active fix above.
 
 ## Desired outcome
 

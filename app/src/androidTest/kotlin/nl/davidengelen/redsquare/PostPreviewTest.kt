@@ -143,7 +143,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Nested native reply")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this node.")
+                    waitFor("Post submitted")
                     peer.assertHealthy()
                     captureFeedEvidence("posting-evidence/nested-reply-correct-parent.png")
                 } catch (failure: Throwable) {
@@ -388,7 +388,7 @@ class PostPreviewTest {
         }
     }
 
-    @Test fun recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability() {
+    @Test fun legacyPendingPostRetriesItsOriginalSignatureWithoutBlockingTheNextDraft() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -413,27 +413,18 @@ class PostPreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                waitForReferencePost()
-                ui.onNodeWithText("New post").performClick()
-                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasSetTextAction()).performTextReplacement("Retry the original signed post")
-                ui.onNodeWithText("Send").performClick()
-                waitFor("Submitted. Waiting for this node.")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                backFromComposer()
-                ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
+                legacySubmittedPost(context, "ws://127.0.0.1:${server.port}/wsopen", "Retry the original signed post")
                 scenario.recreate()
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
                 waitFor("Send requested. Availability on this node is not confirmed.")
                 ui.onNodeWithText("Retry the original signed post").assertEditableTextEquals("Retry the original signed post").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, received.size)
-                ui.onNodeWithText("Retry").performClick()
-                waitFor("Available on this node.")
+                ui.onNodeWithText("Send saved post").performClick()
+                waitFor("Post submitted")
                 org.junit.Assert.assertEquals(2, received.size)
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/retried-original-pending-post.png")
-                backFromComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("New post").performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -487,8 +478,7 @@ class PostPreviewTest {
                     }
                     ui.onNodeWithText("Replying to Anon-${root.get("field2").asString.take(6)}").assertIsDisplayed()
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this node.")
-                    backFromComposer()
+                    waitFor("Post submitted")
                     waitFor("Conversation")
                     waitForVisiblePost("Reply from the native composer")
                     peer.assertHealthy()
@@ -570,12 +560,10 @@ class PostPreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+                legacySubmittedPost(context, "ws://127.0.0.1:${server.port}/wsopen", "A post whose availability remains uncertain")
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
-                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasSetTextAction()).performTextReplacement("A post whose availability remains uncertain")
-                ui.onNodeWithText("Send").performClick()
-                waitFor("Submitted. Waiting for this node.")
+                waitFor("Send requested. Availability on this node is not confirmed.")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Start another draft").performClick()
                 waitFor("Clear this local posting record?")
@@ -805,9 +793,8 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement(text + backend.id)
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this node.")
+                    waitFor("Post submitted")
                     captureFeedEvidence("posting-evidence/long-multilingual-${backend.id}.png")
-                    backFromComposer()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 }
                 org.junit.Assert.assertEquals(1, owner.transactions.size)
@@ -844,9 +831,8 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Observed native publication")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this node.")
+                    waitFor("Post submitted")
                     captureFeedEvidence("posting-evidence/observed-publication.png")
-                    backFromComposer()
                     waitFor("New post")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                     waitForVisiblePost("Observed native publication")
@@ -916,10 +902,6 @@ class PostPreviewTest {
         }
     }
 
-    private fun backFromComposer() {
-        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-        ui.onNodeWithText("Back").performClick()
-    }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
         ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
@@ -948,7 +930,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Explicit unfunded native post")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Submitted. Waiting for this node.")
+                    waitFor("Post submitted")
                     ui.waitUntil(10_000) { peer.transactions.isNotEmpty() }
                     val frame = peer.transactions.single()
                     check(frame[0] == 4.toByte())

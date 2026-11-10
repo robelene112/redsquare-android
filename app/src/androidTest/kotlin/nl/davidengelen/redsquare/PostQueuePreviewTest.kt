@@ -167,7 +167,8 @@ class PostQueuePreviewTest {
                 val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
                 org.junit.Assert.assertEquals(address, post.author)
                 scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Available on this node.")).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitForPostAvailability(address, postingTransaction(peer.transactions.single()).id)
+                ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isEmpty() }
                 peer.assertHealthy()
                 captureFeedEvidence("post-queue-evidence/background-resumption-confirmed.png")
             }
@@ -221,7 +222,7 @@ class PostQueuePreviewTest {
                     assertTrue("Failed persistence must prevent transmission", peer.transactions.isEmpty())
                 }
                 ui.onNodeWithText("Retry").performClick()
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Available on this node.")).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(20_000) { ui.onNodeWithText("Post submitted").isDisplayed() }
                 val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(peer.transactions.single()).envelope())
                 org.junit.Assert.assertEquals(address, post.author)
                 org.junit.Assert.assertEquals("Retain work until it can be saved", post.text)
@@ -255,7 +256,11 @@ class PostQueuePreviewTest {
             ui.onNodeWithText("Send").performClick()
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             peer.start(port).use {
-                ui.waitUntil(60_000) { ui.onAllNodes(hasText("Available on this node.")).fetchSemanticsNodes().isNotEmpty() }
+                val deadline = android.os.SystemClock.elapsedRealtime() + 60_000
+                ui.waitUntil(60_000) { peer.transactions.isNotEmpty() }
+                val original = postingTransaction(peer.transactions.single())
+                ui.waitForPostAvailability(nl.davidengelen.redsquare.saito.RedSquareFeed.decode(original.envelope()).author,
+                    original.id, maxOf(1L, deadline - android.os.SystemClock.elapsedRealtime()))
                 val candidate = postingTransaction(peer.transactions.single())
                 assertTrue("Recovery must query the original transaction identity", exactQueries.count { it == candidate.id } >= 2)
                 val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(candidate.envelope())

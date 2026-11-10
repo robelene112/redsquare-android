@@ -127,11 +127,11 @@ class QuotePreviewTest {
                     ui.onNode(hasSetTextAction()).performTextInput(commentary)
                     ui.onNodeWithText("Send").performClick()
                     quotePhase("quote available: start")
-                    waitFor("Available on this node.")
+                    waitFor("Post submitted")
                     quotePhase("quote available: done")
                     assertEquals(1, peer.transactions.size)
                     quotePhase("return to feed: start")
-                    ui.onNodeWithText("Back").performClick()
+                    ui.onNode(hasSetTextAction()).assertDoesNotExist()
                     quotePhase("return to feed: done")
                     ui.waitUntil(20_000) { ui.refreshableContentReady() }
                     quotePhase("scroll commentary: start")
@@ -240,11 +240,10 @@ class QuotePreviewTest {
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor(originalText)
                 ui.clickVisiblePostContent("Quote")
-                waitFor("Uncertain quote commentary")
-                ui.onNodeWithText("Uncertain quote commentary").assertIsNotEnabled()
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Retry").performClick()
-                waitFor("Available on this node.")
+                // A cold legacy attempt is reconciled by its exact original,
+                // without a second publication or an alarming Retry screen.
+                waitFor("Post submitted")
+                ui.onNode(hasSetTextAction()).assertDoesNotExist()
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
                 captureQuoteEvidence("quote-evidence/recovered-original-quote-candidate.png")

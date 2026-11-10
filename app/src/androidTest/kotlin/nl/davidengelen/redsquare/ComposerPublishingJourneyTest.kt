@@ -1,5 +1,7 @@
 package nl.davidengelen.redsquare
 
+import nl.davidengelen.redsquare.feed.PostDraftStore
+
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -195,26 +197,23 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     ui.onNodeWithText("Send").assertIsEnabled().performClick()
                     ui.waitUntil(10_000) {
                         peer.assertHealthy()
-                        ui.onNodeWithText("Submitted. Waiting for this node.").isDisplayed()
+                        ui.onNodeWithText("Post submitted").isDisplayed()
                     }
                     assertEquals(before + 1, peer.transactions.size)
                     val candidate = postingTransaction(peer.transactions.last()).id
-                    ui.onNode(hasText("Retry") and hasClickAction()).assertIsNotEnabled()
-                    ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
-                        .assertIsNotEnabled().assertEditableTextEquals(text)
-                    ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.ProgressBarRangeInfo,
-                        ProgressBarRangeInfo.Indeterminate)).assertCountEquals(1)
+                    assertTrue(PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER).hasSubmission(candidate))
+                    ui.onNodeWithText("Retry").assertDoesNotExist()
+                    ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText)).assertDoesNotExist()
                     captureNativeScreen(File(folder, "$label-submitted.png"))
                     visible.set(true)
                     ui.waitUntil(20_000) {
                         peer.assertHealthy()
-                        ui.onNodeWithText("Available on this node.").isDisplayed()
+                        PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
+                            .none { it.load().transaction?.id == candidate }
                     }
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Done") and hasClickAction() and isEnabled()).fetchSemanticsNodes().size == 1 }
                     assertEquals(before + 1, peer.transactions.size)
                     assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
                     captureNativeScreen(File(folder, "$label-available.png"))
-                    ui.onNodeWithText("Done").performClick()
                     home()
                     assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                     assertEquals(SaitoBackend.OWNER, backends.load())

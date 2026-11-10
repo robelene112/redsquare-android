@@ -24,34 +24,41 @@ if not adb("get-serialno").stdout.strip().startswith("emulator-"):
     raise SystemExit("This process check requires an isolated emulator")
 args.evidence.mkdir(parents=True, exist_ok=True)
 state_path = "cache/quote-process-checkpoint.json" if args.quote else "cache/post-process-checkpoint.json"
-mode_arguments = ["-e", "quote", "true"] if args.quote else []
-adb("shell", "run-as", package, "rm", "-f", state_path)
-prepared = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
-               test_class + "#terminateAfterAnUncertainSendBeforeLeavingTheComposer", runner,
-               check=False, timeout=120)
-(args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
-if "FAILURES!!!" in prepared.stdout:
-    raise AssertionError("Posting preparation failed before deliberate termination; see interrupted-instrumentation.txt")
-row = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
-if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["field2"]):
-    raise AssertionError("Public posting checkpoint identity is invalid")
-if not re.fullmatch(r"[0-9a-f]{128}", row["sig"]):
-    raise AssertionError("Public posting checkpoint signature is invalid")
-if str(row["pid"]) in adb("shell", "pidof", package, check=False).stdout.split():
-    raise AssertionError("Posting process was not actually terminated")
-adb("shell", "am", "force-stop", package)
-recovered = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
-                test_class + "#coldStartupReconcilesTheOriginalPostWithoutRebroadcasting", runner,
-                timeout=120)
-(args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
-if "OK (1 test)" not in recovered.stdout:
-    raise AssertionError("Cold posting reconciliation did not pass")
-with (args.evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
-    subprocess.run(["adb", "exec-out", "run-as", package, "cat",
-                    "cache/post-process-evidence/reconciled-without-rebroadcast.png"],
-                   stdout=output, check=True, timeout=60)
-(args.evidence / "continuity.txt").write_text(
-    "PASS: process death after uncertain send; cold app startup retains the original "
-    "signed candidate, checks exact verified availability, and does not rebroadcast.\n"
-    + row["field2"] + "\n" + row["sig"] + "\n")
-print("PASS: " + ("quote" if args.quote else "posting") + " process interruption and cold reconciliation")
+base_arguments = ["-e", "quote", "true"] if args.quote else []
+for committed_receipt in (False, True):
+    phase = "after-receipt" if committed_receipt else "before-receipt"
+    evidence = args.evidence / phase
+    evidence.mkdir(parents=True, exist_ok=True)
+    mode_arguments = base_arguments + ["-e", "handoff", str(committed_receipt).lower()]
+    adb("shell", "run-as", package, "rm", "-f", state_path)
+    prepared = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
+                   test_class + "#terminateAfterOriginalPostTransmission", runner,
+                   check=False, timeout=120)
+    (evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
+    if "FAILURES!!!" in prepared.stdout:
+        raise AssertionError("Posting preparation failed before deliberate termination; see interrupted-instrumentation.txt")
+    row = json.loads(adb("exec-out", "run-as", package, "cat", state_path).stdout)
+    if row.get("receipt_committed") is not committed_receipt:
+        raise AssertionError("Wrong submission crash window")
+    if not re.fullmatch(r"[1-9A-HJ-NP-Za-km-z]{43,45}", row["field2"]):
+        raise AssertionError("Public posting checkpoint identity is invalid")
+    if not re.fullmatch(r"[0-9a-f]{128}", row["sig"]):
+        raise AssertionError("Public posting checkpoint signature is invalid")
+    if str(row["pid"]) in adb("shell", "pidof", package, check=False).stdout.split():
+        raise AssertionError("Posting process was not actually terminated")
+    adb("shell", "am", "force-stop", package)
+    recovered = adb("shell", "am", "instrument", "-w", "-r", *mode_arguments, "-e", "class",
+                    test_class + "#coldStartupReconcilesTheOriginalPostWithoutRebroadcasting", runner,
+                    timeout=120)
+    (evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
+    if "OK (1 test)" not in recovered.stdout:
+        raise AssertionError("Cold posting reconciliation did not pass")
+    with (evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
+        subprocess.run(["adb", "exec-out", "run-as", package, "cat",
+                        "cache/post-process-evidence/reconciled-without-rebroadcast.png"],
+                       stdout=output, check=True, timeout=60)
+    (evidence / "continuity.txt").write_text(
+        "PASS: actual process death " + phase + "; cold startup retains the original "
+        "signed candidate, checks exact verified availability, and does not rebroadcast.\n"
+        + row["field2"] + "\n" + row["sig"] + "\n")
+    print("PASS: " + ("quote" if args.quote else "posting") + " " + phase + " interruption and cold reconciliation")
