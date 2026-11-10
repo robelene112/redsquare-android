@@ -211,7 +211,7 @@ assert len(assumptions) <= (1 if sdk == "10" else 0)
 tree = ast.parse((prior / "full-collector.py").read_text())
 functions = ast.Module(body=[node for node in tree.body if isinstance(node, ast.FunctionDef)], type_ignores=[])
 namespace = {"Path": Path, "json": json, "re": re, "ET": ET, "sdk": sdk,
-             "sha": lambda data: hashlib.sha256(data).hexdigest()}
+             "struct": struct, "zlib": zlib, "sha": lambda data: hashlib.sha256(data).hexdigest()}
 exec(compile(functions, str(prior / "full-collector.py"), "exec"), namespace)
 for name in ("status", "post", "composer", "conversation", "chat_entry", "profile", "search", "activity"):
     validator = namespace["validate_" + name + "_evidence"]
