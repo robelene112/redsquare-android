@@ -1,0 +1,26 @@
+{
+  "scope": "Independent actual focused-native reviews only",
+  "result": "PASS",
+  "source": "98c881a50b62784feae171b33f46fe2da094d6e0",
+  "runs": {
+    "android10": 42902568901,
+    "android17": 42902583711
+  },
+  "spec": {
+    "reviewer": "feed97_spec",
+    "result": "PASS",
+    "actionableFindings": [],
+    "checked": "Original6+strengthened2pass; source/workflow stamps, four actual archive geometry/captures perSDK including collapsed header and applied/recovered results; pending/outage absence; exact reading pixels, wallet/backend/no-publication and original restoration."
+  },
+  "standards": {
+    "reviewer": "feed97_standards",
+    "result": "PASS",
+    "actionableFindings": [],
+    "originalHashChecks": {
+      "android10": 49,
+      "android17": 51
+    },
+    "checked": "Every original size/hash, compact packet byte equality, no failed/skipped statuses, unchanged180sclass and assertion deadlines, actual original geometry and exact anchors, existing cleanup and no-publication goals."
+  },
+  "qualification": "Focused correction only, not full application or signed106 delivery. Complete-primary/binary/update/publication gates remain separate."
+}

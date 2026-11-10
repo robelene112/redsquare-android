@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "run": 42902568901,
+  "source": "98c881a50b62784feae171b33f46fe2da094d6e0",
+  "scope": "Original6 feed cases plus2 strengthened refresh methods at existing native/controlled-peer seams",
+  "actual": "Feedback stays in actual top posts viewport in all4 observations, including physically collapsed header. Original exact pixel anchors, applied-result/error/recovery and no-publication assertions pass.",
+  "originals": "/mnt/storage/redsquare-android-artifacts/feed97-focused/feed-refresh-regression",
+  "qualification": "Focused UI correction only, not complete application or signed-beta acceptance. Full catalogs and signed-update/publication remain separate."
+}

@@ -1,0 +1,24 @@
+{
+  "scope": "Independent source and pre-run contract reviews only",
+  "base": "ee8683f6d31680a911f105ab52ed971aaa392d86",
+  "source": "98c881a50b62784feae171b33f46fe2da094d6e0",
+  "spec": {
+    "reviewer": "feed97_spec",
+    "result": "PASS",
+    "actionableFindings": [],
+    "checked": "Top of actual posts viewport under tabs, no viewport/anchor movement, original refresh state/timing/lifetime/shared motion/announcement retained; strengthened existing native cases and collapsed reading use original identities/deadlines."
+  },
+  "standards": {
+    "reviewer": "feed97_standards",
+    "result": "PASS",
+    "actionableFindings": [],
+    "checked": "Smallest one-file UI relocation; observable existing-seam geometry and reading tests; existing fixture restoration; unchanged complete catalogs/recovery/archives/assumptions/exceptions/validators. Verifier differs only in two ticket-specific paths; inherited temporary prefix remains cosmetic."
+  },
+  "preRunContract": {
+    "contractSha256": "34b53e102ab33a4d75b39abcfce865cfda1f4833e4b8e5f8e8c9a943c9fefba8",
+    "verifierSha256": "4c25ea00afc0f44f5d341d91a645025fd3331a5d47a233295aa153fc18fc17a6",
+    "counts": "634/635 identities;215classes;181archives;234/235normal37interrupt36continuity unchanged",
+    "committedBeforeFullDispatch": true
+  },
+  "qualification": "Native effectiveness, complete Android10/17, actual signed106 update and public delivery remain separate pending gates; no physical/provider/Play acceptance."
+}

@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "verifiedAt": "2026-11-10T21:22:58.326901+00:00",
+  "stagedManifest": {
+    "versionCode": 106,
+    "versionName": "0.1.106",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "a197bbb8a9319334ea3607a8f07cb0a1d027626d9bc62c72c842ecb7cd86f219",
+    "commit": "98c881a50b62784feae171b33f46fe2da094d6e0",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/106/redsquare.apk",
+    "notes": "Keep feed refresh feedback at the top below the tabs while preserving your reading position."
+  },
+  "bytes": 42388522,
+  "sha256": "a197bbb8a9319334ea3607a8f07cb0a1d027626d9bc62c72c842ecb7cd86f219",
+  "publicLatestStill": 105,
+  "qualification": "Actual staged download/notes match exact local106; no promotion or full acceptance claimed."
+}

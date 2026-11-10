@@ -1,0 +1,25 @@
+{
+  "scope": "Independent actual offline binary gate only",
+  "result": "PASS",
+  "reviewer": "feed97_standards",
+  "source": "98c881a50b62784feae171b33f46fe2da094d6e0",
+  "versionCode": 106,
+  "bytes": 42388522,
+  "sha256": "a197bbb8a9319334ea3607a8f07cb0a1d027626d9bc62c72c842ecb7cd86f219",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "apkSignature": "PASS: v3, one signer; exact accepted105APK and signing ledger continuity",
+  "applicationId": "nl.davidengelen.redsquare",
+  "minSdk": 29,
+  "targetSdk": 36,
+  "debuggable": false,
+  "profileable": false,
+  "reviewBuild": true,
+  "pushConfigured": false,
+  "editorLicense": {
+    "path": "META-INF/compose-rich-editor-LICENSE.txt",
+    "bytes": 11343,
+    "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722"
+  },
+  "actionableFindings": [],
+  "qualification": "Actual local immutable106 inspected read-only/offline. Full-primary, native signed-update and public delivery gates remain separate; no physical/provider/Play acceptance."
+}
