@@ -416,6 +416,10 @@ complete first-release scope and the established production boundaries.
    explicit x86_64 16 KB image and requires actual16384-byte pages before tests;
    default targets/scopes remain unchanged. `main_reference_version=35` can pair
    current ordinary35 with performance36; default29 keeps its independent hash.
+   Optional `diagnostic_partition` narrows a whole-SDK dispatch to one existing
+   partition to reproduce its unchanged suite prefix. It is diagnostic only:
+   default `all` retains the three-job matrix, and the frozen complete verifier
+   rejects a one-job result. It changes no class, assertion or runtime deadline.
    Each partition retains a distinct named artifact and a
    partition-complete marker. Their combined original class/test identities must
    cover the accepted complete suite, including API-specific cases. A passing

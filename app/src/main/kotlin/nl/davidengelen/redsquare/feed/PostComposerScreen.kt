@@ -153,6 +153,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
     }
     DisposableEffect(state) {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("DEBUG-save-9798",
+            "event=attached elapsed=${android.os.SystemClock.elapsedRealtime()} state=${System.identityHashCode(state)}")
         val save: suspend () -> Boolean = { state.persist() }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
@@ -167,6 +169,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         navigation.saveCurrent = save
         navigation.guardedCurrent = guarded
         onDispose {
+            if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("DEBUG-save-9798",
+                "event=disposed elapsed=${android.os.SystemClock.elapsedRealtime()} state=${System.identityHashCode(state)}")
             if (navigation.saveCurrent === save) navigation.saveCurrent = null
             if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
         }

@@ -169,15 +169,25 @@ internal class PostComposerState(
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true; false }
     }
+    private fun traceSave(event: String) {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("DEBUG-save-9798",
+            "event=$event elapsed=${android.os.SystemClock.elapsedRealtime()} state=${System.identityHashCode(this)} " +
+                "ready=$ready saving=$saving sending=$sending active=${scope.coroutineContext[kotlinx.coroutines.Job]?.isActive}")
+    }
     fun saveAndClose(onClose: () -> Unit) {
-        if (!ready || saving || sending) return
+        traceSave("requested")
+        if (!ready || saving || sending) { traceSave("guard-rejected"); return }
         saving = true
+        traceSave("scheduled")
         scope.launch {
+            traceSave("coroutine-entered")
             try {
-                if (persist()) onClose()
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { error = true }
-            finally { saving = false }
+                val persisted = persist()
+                traceSave("persisted:$persisted")
+                if (persisted) { traceSave("before-close"); onClose(); traceSave("after-close") }
+            } catch (cancelled: CancellationException) { traceSave("cancelled"); throw cancelled }
+            catch (failure: Exception) { traceSave("failure:${failure.javaClass.simpleName}"); error = true }
+            finally { saving = false; traceSave("finished") }
         }
     }
     fun send(beforePublishing: suspend () -> Boolean) {

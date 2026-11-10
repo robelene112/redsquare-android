@@ -20,6 +20,7 @@ class FeedReadingRedesignTest {
         }
         val post = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }
         withAppFrameFixture("feed-reading", "feed-reading-evidence", rows) {
+            try {
             val readyBy = SystemClock.uptimeMillis() + 15_000
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
@@ -53,12 +54,33 @@ class FeedReadingRedesignTest {
             val editor = ui.onNode(hasSetTextAction() and isEnabled())
             ui.waitUntil(15_000) { editor.isDisplayed() }
             editor.performScrollTo().performTextReplacement("A retained unsent draft from the scrolled feed")
-            ui.onNode(hasText("Save draft") and hasClickAction()).performClick(); returned()
+            val save = ui.onNode(hasText("Save draft") and hasClickAction())
+            val control = save.fetchSemanticsNode()
+            var clickedAt = 0L
+            var accepted = false
+            save.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { action ->
+                clickedAt = SystemClock.elapsedRealtime()
+                accepted = action()
+            }
+            File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-invocation.json").writeText(
+                com.google.gson.JsonObject().apply {
+                    addProperty("clickedAt", clickedAt); addProperty("accepted", accepted)
+                    addProperty("snapshotDisabled", control.config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled))
+                    addProperty("snapshotBounds", control.boundsInRoot.toString())
+                }.toString())
+            returned()
             ui.onNode(hasText("New post") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { editor.isDisplayed() }
             editor.assertTextContains("A retained unsent draft from the scrolled feed")
             ui.onNode(hasText("Back") and hasClickAction()).performClick(); returned()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/retained-feed-anchor.png"))
+            } finally {
+                runCatching {
+                    val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                    File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-transition.log").writeText(
+                        device.executeShellCommand("logcat -d -v brief -s DEBUG-save-9798:D '*:S'"))
+                }
+            }
         }
     }
 }
