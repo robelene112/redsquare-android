@@ -1,0 +1,123 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AvatarRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate","elapsedMillis":63023,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":536870912,"freeBytes":529491744,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate","elapsedMillis":68868,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":17907328,"freeBytes":708576,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLateLegacyImageFieldReplacesThePictureWithoutChangingTheNewestUpdate
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval","elapsedMillis":68881,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":17907328,"freeBytes":561120,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval","elapsedMillis":71649,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":12749568,"freeBytes":6135776,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cacheWriteFailureDoesNotCrashProfileOrIgnoreSignedRemoval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp","elapsedMillis":71664,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":12749568,"freeBytes":5988320,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp","elapsedMillis":73013,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":13637288,"freeBytes":6094848,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=refreshDuringAnOlderLookupPerformsOneCoalescedFollowUp
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry","elapsedMillis":73023,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":13637288,"freeBytes":5963776,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry","elapsedMillis":75805,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":23106704,"freeBytes":430000,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnavailablePictureHasGeneratedFallbackAndExplicitProfileRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"before","method":"threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction","elapsedMillis":75815,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":23106704,"freeBytes":282544,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar large pictures: max=536870912 total=23106704 free=266160 memoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Avatar process observation: {"phase":"after","method":"threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction","elapsedMillis":80527,"pid":4013,"parentPid":1665,"is64Bit":true,"applicationFlags":684211782,"maxBytes":536870912,"totalBytes":18310480,"freeBytes":257856,"memoryClassMiB":512,"largeMemoryClassMiB":512}
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AvatarRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.704
+
+OK (5 tests)
+
+
+INSTRUMENTATION_CODE: -1

@@ -61,6 +61,19 @@ class ProfileHierarchyPreviewTest {
                     }
                     capture(folder, "$label-${name.lowercase()}-selected.png")
                 }
+                // Permanent history guidance is readable information, not a loading/error state.
+                val history = hasText("History may be limited")
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(history)
+                ui.onNode(history).performScrollTo().assertIsDisplayed()
+                assertFalse("Static history guidance must not repeat live announcements",
+                    ui.onNode(history).fetchSemanticsNode().config.contains(SemanticsProperties.LiveRegion))
+                capture(folder, "$label-history-information.png")
+                ui.onNodeWithContentDescription("Details: History may be limited")
+                    .assertHasClickAction().assertIsEnabled().performClick()
+                ui.onNodeWithText("Shows locally saved posts and history available from this node. Older posts, replies or likes may be missing.")
+                    .performScrollTo().assertIsDisplayed()
+                capture(folder, "$label-history-explanation.png")
+                ui.onNodeWithText("Done").performClick()
                 // The header menu inspects identity without moving the history viewport.
                 ui.onNode(hasText("Profile actions") and hasClickAction()).performClick()
                 ui.onNodeWithText("Public identity").assertIsDisplayed().performClick()
