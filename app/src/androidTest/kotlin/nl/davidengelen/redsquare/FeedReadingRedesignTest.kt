@@ -23,6 +23,7 @@ class FeedReadingRedesignTest {
             var observedWindow: android.view.Window? = null
             var originalCallback: android.view.Window.Callback? = null
             var observer: android.view.Window.Callback? = null
+            try {
             activity.onActivity { current ->
                 val window = current.window
                 val original = requireNotNull(window.callback)
@@ -38,7 +39,6 @@ class FeedReadingRedesignTest {
                 observedWindow = window; originalCallback = original; observer = callback
                 window.callback = callback
             }
-            try {
             val readyBy = SystemClock.uptimeMillis() + 15_000
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
@@ -85,7 +85,7 @@ class FeedReadingRedesignTest {
                 runCatching {
                     val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                     File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-transition.log").writeText(
-                        device.executeShellCommand("logcat -d -v brief -s DEBUG-save-9798:D '*:S'"))
+                        device.executeShellCommand("logcat -d -v brief -s DEBUG-save-9798:D *:S"))
                 }
             }
         }
