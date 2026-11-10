@@ -125,6 +125,8 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Edit available on this node.")
                     ui.onNodeWithText("Back").performClick()
+                    waitFor("Conversation")
+                    ui.onNode(hasSetTextAction()).assertDoesNotExist()
                     waitForList()
                     waitFor("Native author's edited post")
                     ui.onNodeWithText("Native author's original post").assertDoesNotExist()
