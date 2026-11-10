@@ -1,0 +1,16 @@
+{
+  "scope": "Independent actual signed83-to106 update compatibility only",
+  "result": "PASS",
+  "reviewer": "feed97_spec",
+  "source": "98c881a50b62784feae171b33f46fe2da094d6e0",
+  "android10": {
+    "run": 42904433597,
+    "actionableFindings": []
+  },
+  "android17": {
+    "run": 42904441798,
+    "actionableFindings": []
+  },
+  "checked": "Actual106 download hash/size/certificate/source; four public-wallet native observations; exact unsent draft, offline cached caption/author/time and Light preference after update/cold launches; separate ordinary/debug UIDs and identities; restoration without failures.",
+  "qualification": "Disposable-emulator native signed83-to106 gate only. Complete app and public delivery remain separate; no physical/OEM/provider/Play installation or performance claim."
+}
