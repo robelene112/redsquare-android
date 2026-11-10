@@ -1,0 +1,11 @@
+{
+  "result": "FAILURE",
+  "run": 42878937339,
+  "job": 130049695804,
+  "source": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "failure": "PrivatePushWorkFixture.kt:360, physical swipe did not remove New message within original5s. Owned notification still active. Eleven-case command10PASS/1FAIL,113.041s. Stops before receipt-recovery dedup/finalidentity assertions.",
+  "independentReviewer": "reply96_standards",
+  "finding": "Clearable/nonongoing,flags24. Gesture duration184ms and bounds recorded, but no continuous pointer/post-time trace proves cause. Fixture/helper/worker/notificationbuilder unchanged from accepted95; current UI change does not establish causation.",
+  "qualification": "Original primaryChat failure remains failed. Whole run still in progress when this job was inspected. No acceptance waiver or weakened assertion. Existing unchanged chat-alerts focused run42887093487 is diagnosis/readiness only; a qualifying complete run is still required.",
+  "originals": "/mnt/storage/redsquare-android-artifacts/reply96-full10-chat-failure"
+}

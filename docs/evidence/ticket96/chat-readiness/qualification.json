@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "scope": "Unmodified existing chat-alerts Android10 diagnosis/readiness only",
+  "run": 42887093487,
+  "source": "c1c1d1066b28fb9eff626bc27908d8c79e409382",
+  "actual": "Original11case command11PASS116.116s. Same clearable/nonongoing/flags24/cardbounds,physicalswipe140ms,textHiddentrue/ownedNotificationStillActivefalse. Other existing focused private/group/process/capacity/mute gates succeed.",
+  "qualification": "Earlier primary failure is not reproduced in this unchanged run. Its cause remains unproved. No app/test/harness/deadline/assertion changes; no waiver or conversion of failed42878937339. Fresh whole Android10 run42887785531 and whole17 remain required.",
+  "originals": "/mnt/storage/redsquare-android-artifacts/reply96-chat-readiness",
+  "independentReview": {
+    "reviewer": "reply96_standards",
+    "result": "PASS",
+    "actionableFindings": [],
+    "checked": "Original11case command, exact receipt-storage disappearance/active-state diagnostics, group7/capacity1/mute1 and private/group process verification/restoration/continuity. No cause claimed for failed primary run."
+  }
+}
