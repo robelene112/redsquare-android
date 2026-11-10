@@ -141,11 +141,7 @@ class ImageProcessRecoveryTest {
             }
             assertTrue(nl.davidengelen.redsquare.feed.PostDraftStore(context,
                 row.get("field2").asString, SaitoBackend.OWNER).hasSubmission(row.get("sig").asString))
-            ui.waitUntil(20_000) {
-                nl.davidengelen.redsquare.feed.PostDraftStore.pendingDelivery(context,
-                    row.get("field2").asString, SaitoBackend.OWNER)
-                    .none { it.load().transaction?.id == row.get("sig").asString }
-            }
+            ui.waitForPostAvailability(row.get("field2").asString, row.get("sig").asString)
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription("Image 1 of 1"))
             waitForPreparedImage(editable = false)
             ui.onNodeWithText(text).assertIsDisplayed()

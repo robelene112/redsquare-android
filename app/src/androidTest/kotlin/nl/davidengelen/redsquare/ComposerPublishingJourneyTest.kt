@@ -199,7 +199,22 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
                     ui.onNode(editor).assertEditableTextEquals(text)
                     assertEquals(before, peer.transactions.size)
-                    ui.onNodeWithText("Send").performClick()
+                    // Cancel restores editor focus. Complete a real show/hide
+                    // cycle before the next physical Send tap so an IME
+                    // transition cannot move its target during injection.
+                    ui.onNode(editor).performScrollTo().performClick()
+                    ui.waitUntil(10_000) { imeVisible() }
+                    UiDevice.getInstance(instrumentation).pressBack()
+                    ui.waitUntil(10_000) {
+                        var hidden = false
+                        activity.onActivity {
+                            val insets = ViewCompat.getRootWindowInsets(it.window.decorView)
+                            hidden = insets != null && !insets.isVisible(WindowInsetsCompat.Type.ime()) &&
+                                insets.getInsets(WindowInsetsCompat.Type.ime()).bottom == 0
+                        }
+                        hidden
+                    }
+                    ui.onNodeWithText("Send").assertIsDisplayed().assertIsEnabled().performClick()
                     ui.waitUntil(10_000) { ui.onNodeWithText("Review publishing terms").isDisplayed() }
                     ui.onNodeWithText("Accept").performClick()
                     ui.waitUntil(10_000) { ui.onNodeWithText("Agreement saved. New content stays unsent. Queued messages may resume.").isDisplayed() }
@@ -234,6 +249,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     val waitingAt = android.os.SystemClock.elapsedRealtime()
                     val clockAt = ui.mainClock.currentTime
                     val changesAt = PostDraftStore.changes.value
+                    val available = postAvailabilityProbe(context, wallet.publicKey, candidate)
                     var probes = 0
                     var probeMillis = 0L
                     fun observation() {
@@ -281,8 +297,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                         ui.waitUntil(20_000) {
                             peer.assertHealthy()
                             val started = android.os.SystemClock.elapsedRealtime()
-                            val complete = PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
-                                .none { it.load().transaction?.id == candidate }
+                            val complete = available()
                             probes++
                             probeMillis += android.os.SystemClock.elapsedRealtime() - started
                             complete

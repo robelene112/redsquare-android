@@ -65,10 +65,7 @@ class PostSubmissionPreviewTest {
                         ui.onNode(hasSetTextAction()).performTextReplacement("Keep this next draft")
                         val original = postingTransaction(peer.transactions.single())
                         available.set(postingArchiveRow(original))
-                        ui.waitUntil(20_000) {
-                            nl.davidengelen.redsquare.feed.PostDraftStore.pendingDelivery(context, wallet.publicKey, SaitoBackend.OWNER)
-                                .none { it.load().transaction?.id == original.id }
-                        }
+                        ui.waitForPostAvailability(wallet.publicKey, original.id)
                         ui.onNode(hasSetTextAction()).assertEditableTextEquals("Keep this next draft")
                         activity.recreate()
                         ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }

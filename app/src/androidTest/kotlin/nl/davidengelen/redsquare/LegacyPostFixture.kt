@@ -33,14 +33,28 @@ internal fun legacySubmittedPost(context: Context, endpoint: String, text: Strin
     return candidate
 }
 
+/** Validate durable state on changes, without redoing signature/Keystore work
+ * on every test frame and starving the Compose clock used by the observer. */
+internal fun postAvailabilityProbe(context: Context, owner: String, id: String): () -> Boolean {
+    check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+    var observedVersion = Long.MIN_VALUE
+    var available = false
+    return {
+        val version = PostDraftStore.changes.value
+        if (version != observedVersion) {
+            available = PostDraftStore(context, owner, SaitoBackend.OWNER).hasSubmission(id) &&
+                PostDraftStore.pendingDelivery(context, owner, SaitoBackend.OWNER).none { it.load().transaction?.id == id }
+            // A write during the probe remains visible on the next iteration.
+            observedVersion = version
+        }
+        available
+    }
+}
+
 /** A validated retained receipt and no pending observation prove node reconciliation. */
 internal fun ComposeTestRule.waitForPostAvailability(owner: String, id: String, timeoutMillis: Long = 20_000,
     destinationReady: () -> Boolean = { true }) {
     val context = InstrumentationRegistry.getInstrumentation().targetContext
-    check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
-    waitUntil(timeoutMillis) {
-        PostDraftStore(context, owner, SaitoBackend.OWNER).hasSubmission(id) &&
-            PostDraftStore.pendingDelivery(context, owner, SaitoBackend.OWNER).none { it.load().transaction?.id == id } &&
-            destinationReady()
-    }
+    val available = postAvailabilityProbe(context, owner, id)
+    waitUntil(timeoutMillis) { available() && destinationReady() }
 }
