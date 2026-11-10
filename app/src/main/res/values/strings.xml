@@ -201,6 +201,7 @@
     <string name="profile_posts">Posts</string>
     <string name="profile_replies">Replies</string>
     <string name="profile_likes">Likes</string>
+    <string name="profile_history_summary">History may be limited</string>
     <string name="profile_history">Shows locally saved posts and history available from this node. Older posts, replies or likes may be missing.</string>
     <string name="profile_loading">Loading profile history</string>
     <string name="profile_error">Profile history could not be refreshed. Available posts remain visible.</string>
@@ -690,7 +691,7 @@
     <string name="status_connection_recovered">The selected node responded again. This does not confirm delivery of pending posts, messages or transfers.</string>
     <string name="status_details_for">Details: %1$s</string>
     <string name="status_search_coverage">Search coverage</string>
-    <string name="status_available_history">History may be limited</string>
+    <string name="status_available_history">Available history</string>
     <string name="status_unsent_draft">Unsent draft</string>
     <string name="status_saved_locally">Saved on this device</string>
     <string name="status_origin_node">This work belongs to %1$s. Switching nodes does not reroute it.</string>
