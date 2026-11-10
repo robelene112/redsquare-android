@@ -427,13 +427,15 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 NotificationReferenceScreen(wallet, endpoint, backend, destination.target, quotes, childModifier,
                     onBack = { back() }, onIdentity = { openProfile(it) },
                     onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social,
-                    onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
+                    onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions,
+                    conversation = destination.view)
                 return@content
             }
             is BrowseDestination.Conversation -> {
                 ConversationScreen(wallet, endpoint, backend, destination.post, childModifier,
                     onBack = { back(); refresh++ }, onIdentity = { openProfile(it) },
-                    onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
+                    onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes,
+                    onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions, view = destination.view)
                 return@content
             }
             is BrowseDestination.Author -> {

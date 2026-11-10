@@ -132,7 +132,7 @@ class PostPreviewTest {
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 try {
                     waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
@@ -141,6 +141,13 @@ class PostPreviewTest {
                     waitFor("Replying to Anon-${parent.get("field2").asString.take(6)}")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Nested native reply")
+                    assertTrue("Opening and editing a reply must not publish", peer.transactions.isEmpty())
+                    activity.recreate()
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodes(hasSetTextAction() and hasText("Nested native reply")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.onNodeWithText("Replying to Anon-${parent.get("field2").asString.take(6)}").assertIsDisplayed()
+                    captureFeedEvidence("posting-evidence/nested-reply-correct-editor.png")
                     ui.onNodeWithText("Send").performClick()
                     waitFor("Post submitted")
                     peer.assertHealthy()
@@ -468,7 +475,7 @@ class PostPreviewTest {
                     waitForReferencePost()
                     ui.onNodeWithText("Native Red Square reference post").performClick()
                     waitFor("Conversation")
-                    ui.onNodeWithText("Reply").performClick()
+                    ui.replyToPost(root.get("sig").asString)
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Reply from the native composer")
                     scenario.recreate()

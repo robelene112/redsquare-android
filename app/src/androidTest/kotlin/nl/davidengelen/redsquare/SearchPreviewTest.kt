@@ -820,7 +820,8 @@ class SearchPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                     ui.onNode(hasVerticalScrollAction() and !hasSetTextAction(), useUnmergedTree = true).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed().performClick()
-                    waitForEnabled("Reply")
+                    ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() }
+                    ui.revealPostReply(reply.get("sig").asString)
                     ui.onNodeWithText("Conversation").assertIsDisplayed()
                     ui.clickVisiblePostProfile("Anon-${author.take(6)}")
                     waitForText("Profile")

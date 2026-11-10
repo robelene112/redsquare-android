@@ -42,7 +42,8 @@ internal class PostAuthorActions(val owner: String, val open: (FeedPost, AuthorA
 @Composable
 internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String) -> Unit,
     onPost: (FeedPost) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: ((FeedPost) -> Unit)? = null,
-    authorActions: PostAuthorActions? = null, bodyTextStyle: TextStyle? = null, bodyVerticalPadding: Dp? = null) {
+    authorActions: PostAuthorActions? = null, bodyTextStyle: TextStyle? = null, bodyVerticalPadding: Dp? = null,
+    onReply: ((FeedPost) -> Unit)? = null) {
     val author = registeredIdentity(post.author).name
     val timestamp = remember(post.createdAt) {
         DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH).format(Date(post.createdAt))
@@ -70,7 +71,8 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
         PostContent(post, backend, bodyTextStyle ?: MaterialTheme.typography.bodyLarge,
             bodyVerticalPadding ?: 0.dp)
         QuoteContent(post, quotes, backend)
-        SocialActions(post, social, author, onQuote, onReply = { onPost(post) })
+        SocialActions(post, social, author, onQuote, onReply = { (onReply ?: onPost)(post) },
+            showReplyLabel = onReply != null)
     }
 }
 

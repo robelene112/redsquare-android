@@ -96,7 +96,7 @@ class ConversationTypographyPreviewTest {
                     recordStage(evidence, "conversation-open")
                     assertCompleteBody(postText)
                     captureFeedEvidence("conversation-typography-evidence/light.png")
-                    ui.onNodeWithText("Reply").assertIsDisplayed()
+                    ui.revealPostReply(row.get("sig").asString)
                     check(appearance.edit().putString("mode", "DARK").commit())
                     activity.recreate()
                     recordStage(evidence, "dark-recreated")
@@ -104,7 +104,7 @@ class ConversationTypographyPreviewTest {
                     recordStage(evidence, "dark-conversation-open")
                     assertCompleteBody(postText)
                     captureFeedEvidence("conversation-typography-evidence/dark.png")
-                    ui.onNodeWithText("Reply").assertIsDisplayed()
+                    ui.revealPostReply(row.get("sig").asString)
                     peer.assertHealthy()
                 }
             }

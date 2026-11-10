@@ -132,7 +132,7 @@ class ImagePostingTest {
                                 "reply" -> {
                                     ui.clickVisiblePostBody("Signed image reference")
                                     waitFor("Conversation")
-                                    ui.onNodeWithText("Reply").performClick()
+                                    ui.replyToPost(original.get("sig").asString)
                                 }
                                 "quote" -> {
                                     ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Quote"))

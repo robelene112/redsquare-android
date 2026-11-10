@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.test.platform.app.InstrumentationRegistry
 
 /** Use the reply action belonging to this post, rather than another author's matching label. */
 internal fun postReplyAction(postId: String): SemanticsMatcher =
@@ -10,8 +11,17 @@ internal fun postReplyAction(postId: String): SemanticsMatcher =
 
 internal fun ComposeTestRule.revealPostReply(postId: String): SemanticsNodeInteraction {
     val action = postReplyAction(postId)
-    onNodeWithTag("conversation-post-list").performScrollToNode(action)
-    return onNode(action).performScrollTo().assertIsDisplayed().assertIsEnabled()
+    val control = onNode(action)
+    val minimum = 48 * InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density - 1
+    val alreadyVisible = runCatching {
+        val bounds = control.fetchSemanticsNode().boundsInRoot
+        control.isDisplayed() && bounds.width >= minimum && bounds.height >= minimum
+    }.getOrDefault(false)
+    if (!alreadyVisible) {
+        onNodeWithTag("conversation-post-list").performScrollToNode(action)
+        control.performScrollTo()
+    }
+    return control.assertIsDisplayed().assertIsEnabled()
 }
 
 internal fun ComposeTestRule.replyToPost(postId: String) {

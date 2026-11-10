@@ -55,10 +55,10 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() && ui.refreshableContentReady() }
                 ui.onNodeWithText("Conversation").assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
                 val device = UiDevice.getInstance(instrumentation)
-                fun observeHeaderTargets(stage: String) {
+                fun observeHeaderTargets(stage: String, replyPost: FeedPost) {
                     val targets = JsonObject()
                     val rectangles = mutableListOf<Rect>()
-                    for (action in listOf("Back", "Reply", "Conversation information")) {
+                    for (action in listOf("Back", "Conversation information")) {
                         val control = ui.onNode(hasText(action) and hasClickAction())
                         control.assertIsDisplayed().assertIsEnabled()
                         var native = requireNotNull(device.findObject(By.text(action)))
@@ -70,15 +70,33 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                         rectangles += bounds
                         targets.addProperty(action, bounds.flattenToString())
                     }
+                    val replyAction = ui.onNode(postReplyAction(replyPost.id)).assertIsDisplayed().assertIsEnabled()
+                    val description = replyAction.fetchSemanticsNode().config[SemanticsProperties.ContentDescription].single()
+                    var ancestor = requireNotNull(device.findObject(By.text(replyPost.text)))
+                    var nativeReply = ancestor.findObject(By.desc(description))
+                    while (nativeReply == null) {
+                        ancestor = requireNotNull(ancestor.parent)
+                        nativeReply = ancestor.findObject(By.desc(description))
+                    }
+                    var target = requireNotNull(nativeReply)
+                    while (!target.isClickable) target = requireNotNull(target.parent)
+                    val bounds = target.visibleBounds
+                    val density = context.resources.displayMetrics.density
+                    assertTrue("Inline Reply keeps its48dp native target", bounds.width() >= 48 * density - 1 && bounds.height() >= 48 * density - 1)
+                    assertTrue("Reply and header targets do not overlap", rectangles.none { Rect.intersects(it, bounds) })
+                    targets.addProperty("Reply", bounds.flattenToString())
+                    targets.addProperty("replyPostId", replyPost.id)
                     File(folder, if (stage == "initial") "$label-header-targets.json" else "$label-$stage-header-targets.json").writeText(targets.toString())
                 }
-                observeHeaderTargets("initial")
+                ui.revealPostReply(rootPost.id)
+                observeHeaderTargets("initial", rootPost)
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
                 ui.onNode(hasText("Conversation information") and hasClickAction()).performClick()
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-history.png"))
                 ui.onNodeWithText("Done").performClick()
                 val anchorText = if (longThread.get()) texts[5] else rootPost.text
+                val replyPost = if (longThread.get()) RedSquareFeed.decode(replies[5].get("tx").asString) else rootPost
                 ui.onNodeWithTag("conversation-post-list").performScrollToNode(hasText(anchorText))
                 ui.revealAppNavigation()
                 val anchor = ui.onNodeWithText(anchorText, useUnmergedTree = true)
@@ -88,10 +106,12 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 val layout = layouts.single()
                 assertEquals("Public Conversation keeps its approved14sp body", 14f, layout.layoutInput.style.fontSize.value, 0.01f)
                 assertEquals("The full authentic text remains available", anchorText.length, layout.getLineEnd(layout.lineCount - 1))
+                ui.revealPostReply(replyPost.id)
+                anchor.assertIsDisplayed()
                 val before = anchor.fetchSemanticsNode().boundsInRoot.top
-                observeHeaderTargets("reading")
+                observeHeaderTargets("reading", replyPost)
                 captureNativeScreen(File(folder, "$label-reading.png"))
-                ui.onNode(hasText("Reply") and hasClickAction()).performClick()
+                ui.replyToPost(replyPost.id)
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
                 ui.waitUntil(15_000) { editor.isDisplayed() }
                 val draft = "A real reply for $label. Preserve this exact unsent text."
@@ -99,7 +119,7 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
                 ui.acknowledgeKeyboardFontEducation()
                 editor.performScrollTo().assertTextContains(draft)
-                ui.onNodeWithText(rootPost.text, useUnmergedTree = true).assertExists()
+                ui.onNodeWithText(replyPost.text, useUnmergedTree = true).assertExists()
                 captureNativeScreen(File(folder, "$label-reply-ime.png"))
                 if (width == 320 && context.resources.configuration.fontScale > 1.5f && theme == "Light") {
                     val samples = com.google.gson.JsonArray()
@@ -123,7 +143,7 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 anchor.assertIsDisplayed()
                 assertEquals("Unsent reply return keeps the same post and pixel", before, anchor.fetchSemanticsNode().boundsInRoot.top, 1f)
                 captureNativeScreen(File(folder, "$label-return.png"))
-                ui.onNode(hasText("Reply") and hasClickAction()).performClick()
+                ui.replyToPost(replyPost.id)
                 ui.waitUntil(15_000) { editor.isDisplayed() }
                 editor.assertTextContains(draft)
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()

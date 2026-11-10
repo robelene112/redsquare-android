@@ -24,6 +24,8 @@ class FeedWritingViewportTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val folder = File(context.cacheDir, "feed-writing-evidence").apply { mkdirs() }
         val signer = "Anon-${AndroidWalletStore(context).loadOrCreate().publicKey.take(6)}"
+        val rootId = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+            .reader().use { com.google.gson.JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow").get("sig").asString }
         withAppFrameFixture("writing-$width", "feed-writing-evidence") { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
@@ -45,16 +47,18 @@ class FeedWritingViewportTest {
                     // Disabled text fields lose SetText during saving. Observe the actual
                     // destination instead of confusing a busy editor with a closed one.
                     ui.waitUntil(15_000) {
-                        if (reply) ui.onNode(hasText("Reply") and hasClickAction() and isEnabled()).isDisplayed()
+                        if (reply) ui.onNode(postReplyAction(rootId)).isDisplayed()
                         else ui.onNodeWithTag("feed-post-list").isDisplayed()
                     }
                 }
                 fun open() {
-                    val action = if (reply) "Reply" else if (quote) "Quote" else "New post"
-                    if (quote) ui.onNodeWithTag("feed-post-list").performScrollToNode(hasText(action) and hasClickAction())
-                    val target = ui.onNode(hasText(action) and hasClickAction())
-                    if (quote) target.performScrollTo()
-                    target.assertIsDisplayed().performClick()
+                    if (reply) ui.replyToPost(rootId) else {
+                        val action = if (quote) "Quote" else "New post"
+                        if (quote) ui.onNodeWithTag("feed-post-list").performScrollToNode(hasText(action) and hasClickAction())
+                        val target = ui.onNode(hasText(action) and hasClickAction())
+                        if (quote) target.performScrollTo()
+                        target.assertIsDisplayed().performClick()
+                    }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 }
                 open()

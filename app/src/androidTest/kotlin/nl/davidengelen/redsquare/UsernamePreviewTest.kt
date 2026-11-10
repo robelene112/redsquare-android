@@ -102,10 +102,11 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     waitForText(text)
                     ui.clickVisiblePostContent(text)
-                    waitForEnabled("Reply")
+                    ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() }
+                    ui.revealPostReply(row.get("sig").asString)
                     ui.onNode(targetAuthor).assertIsDisplayed()
                     capture("username-shared-conversation.png", "NativeCase7@saito")
-                    ui.onNodeWithText("Reply").performClick()
+                    ui.replyToPost(row.get("sig").asString)
                     waitForText("Replying to NativeCase7@saito")
                     ui.onNodeWithText("Replying to NativeCase7@saito").assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()

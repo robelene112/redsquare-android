@@ -45,7 +45,8 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
     modifier: Modifier, onBack: () -> Unit, onIdentity: (String) -> Unit, onPost: (FeedPost) -> Unit,
-    social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
+    social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null,
+    authorActions: PostAuthorActions? = null, view: ConversationViewState) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
@@ -60,10 +61,10 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var manualPullPending by remember(selected.id) { mutableStateOf(false) }
     var pullRefreshSucceeded by remember(selected.id) { mutableStateOf(false) }
     val position = rememberLazyListState()
-    var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
     var historyInformation by rememberSaveable(selected.id) { mutableStateOf(false) }
-    if (replying && wallet != null) {
-        PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
+    val replyTarget = view.replyingTo
+    if (replyTarget != null && wallet != null) {
+        PostComposerScreen(wallet, endpoint, backend, modifier, replyTarget) { view.replyingTo = null; refresh++ }
         return
     }
     BackHandler(onBack = onBack)
@@ -165,8 +166,6 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).semantics { heading() },
                 style = MaterialTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            FrameIconButton(R.drawable.ic_chat, stringResource(R.string.post_reply),
-                enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true })
             FrameIconButton(R.drawable.ic_info, stringResource(R.string.conversation_information),
                 onClick = { historyInformation = true })
         }
@@ -184,7 +183,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             LazyColumn(Modifier.fillMaxSize().testTag("conversation-post-list").refreshAction(wallet != null && !loading, refreshContent), state = position) {
                 items(visiblePosts, key = { it.id }) { post ->
                     PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions,
-                        bodyTextStyle = MaterialTheme.typography.bodyMedium, bodyVerticalPadding = 4.dp)
+                        bodyTextStyle = MaterialTheme.typography.bodyMedium, bodyVerticalPadding = 4.dp,
+                        onReply = if (wallet != null) { target -> view.replyingTo = target } else null)
                     HorizontalDivider()
                 }
             }

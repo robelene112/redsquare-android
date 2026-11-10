@@ -64,7 +64,7 @@ class ConversationHeaderPreviewTest {
                 ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
                 ui.onNodeWithText(context.getString(R.string.conversation_history)).assertDoesNotExist()
                 ui.onNode(hasText("Back") and hasClickAction()).assertIsDisplayed()
-                ui.onNode(hasText("Reply") and hasClickAction()).assertIsDisplayed()
+                ui.revealPostReply(reply.get("sig").asString)
                 ui.onNodeWithText(context.getString(R.string.conversation_loading)).assertIsDisplayed()
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/loading.png"))
                 ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, "Loading replies")).performClick()
@@ -100,13 +100,13 @@ class ConversationHeaderPreviewTest {
                 requireNotNull(peer).rejectNewConnections = false
                 ui.onNode(hasText("Retry") and hasClickAction() and hasAnyAncestor(hasTestTag("conversation-status"))).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.conversation_refresh_success)).isDisplayed() }
-                ui.onNode(hasText("Reply") and hasClickAction()).performClick()
+                ui.replyToPost(reply.get("sig").asString)
                 val editor = ui.onNode(hasSetTextAction() and isEnabled())
                 ui.waitUntil(15_000) { editor.isDisplayed() }
                 editor.performTextInput("An exact unsent reply during the thread redesign")
                 ui.onNode(hasText("Save draft") and hasClickAction()).performClick()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Reply") and hasClickAction()).isDisplayed() }
-                ui.onNode(hasText("Reply") and hasClickAction()).performClick()
+                ui.waitUntil(15_000) { ui.onNode(postReplyAction(reply.get("sig").asString)).isDisplayed() }
+                ui.replyToPost(reply.get("sig").asString)
                 ui.waitUntil(15_000) { editor.isDisplayed() }
                 editor.assertTextContains("An exact unsent reply during the thread redesign")
                 captureNativeScreen(File(context.cacheDir, "conversation-header-evidence/recovered-reply.png"))

@@ -59,7 +59,8 @@ internal fun servedCount(post: FeedPost, field: String): Long? = try {
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class)
-internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, onQuote: ((FeedPost) -> Unit)? = null, onReply: (() -> Unit)? = null) {
+internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, onQuote: ((FeedPost) -> Unit)? = null,
+    onReply: (() -> Unit)? = null, showReplyLabel: Boolean = false) {
     Column(Modifier.fillMaxWidth()) {
         FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -67,8 +68,9 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, 
             if (onReply != null) {
                 val replies = remember(post.envelope) { servedCount(post, "num_replies") }
                 val replyCount = replies?.let { pluralStringResource(R.plurals.social_reply_count, if (it == 1L) 1 else 2, it) }
-                SocialControl("", R.drawable.ic_chat, stringResource(R.string.post_reply_for, author),
-                    replyCount, enabled = true, displayCount = replies?.toString(), onClick = onReply)
+                SocialControl(if (showReplyLabel) stringResource(R.string.post_reply) else "", R.drawable.ic_chat,
+                    stringResource(R.string.post_reply_for, author), replyCount, enabled = true,
+                    displayCount = replies?.toString(), showLabel = showReplyLabel, onClick = onReply)
             }
             SocialAction(post, state, RedSquareActionKind.REPOST, author)
             if (onQuote != null) SocialControl(stringResource(R.string.social_quote), R.drawable.ic_quote,
@@ -178,7 +180,7 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 @OptIn(ExperimentalMaterial3Api::class)
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
     enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
-    feedbackActive: Boolean = false, suppressRipple: Boolean = false, displayCount: String? = null,
+    feedbackActive: Boolean = false, suppressRipple: Boolean = false, displayCount: String? = null, showLabel: Boolean = false,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
     val visibleCount = displayCount ?: count
@@ -197,6 +199,7 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
                 Icon(painterResource(icon), contentDescription = null,
                     tint = if (feedbackActive) MaterialTheme.colorScheme.primary else color,
                     modifier = Modifier.size(22.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
+                if (showLabel) Text(label, style = countStyle, modifier = Modifier.clearAndSetSemantics { })
                 if (count != null) Text(requireNotNull(visibleCount), style = countStyle,
                     onTextLayout = { countLayout = it },
                     modifier = Modifier.clearAndSetSemantics {

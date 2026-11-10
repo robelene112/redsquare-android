@@ -123,7 +123,7 @@ class GiphyPostingTest {
                             "reply" -> {
                                 ui.clickVisiblePostBody("Signed image reference")
                                 waitFor("Conversation")
-                                ui.onNodeWithText("Reply").performClick()
+                                ui.replyToPost(original.get("sig").asString)
                             }
                             "quote" -> ui.clickVisiblePostContent("Quote")
                         }
