@@ -1,0 +1,104 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NodeBlockMotionTest:
+INSTRUMENTATION_STATUS: test=normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds(NativeWindowObservation.kt:24)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$lambda$18$lambda$17$lambda$16(NodeBlockMotionTest.kt:104)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$T2HD-LeWcDeDJclnJ8XzPTVL488(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$movie$lambda$5(NodeBlockMotionTest.kt:47)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$_iguN3DdqL341aPX8nSYcSxJpFk(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$movie(NodeBlockMotionTest.kt:45)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$lambda$18$lambda$17(NodeBlockMotionTest.kt:96)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$TzEe7xjUzoaDZhTvHPG_zvcCETY(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19(NodeBlockMotionTest.kt:87)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$46arIghlU0LWO6J7VxUtJbxKWi8(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(nl.davidengelen.redsquare.NodeBlockMotionTest):
+java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds(NativeWindowObservation.kt:24)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$lambda$18$lambda$17$lambda$16(NodeBlockMotionTest.kt:104)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$T2HD-LeWcDeDJclnJ8XzPTVL488(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$movie$lambda$5(NodeBlockMotionTest.kt:47)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$_iguN3DdqL341aPX8nSYcSxJpFk(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$movie(NodeBlockMotionTest.kt:45)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$lambda$18$lambda$17(NodeBlockMotionTest.kt:96)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$TzEe7xjUzoaDZhTvHPG_zvcCETY(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19(NodeBlockMotionTest.kt:87)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$46arIghlU0LWO6J7VxUtJbxKWi8(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 64.228
+There was 1 failure:
+1) normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(nl.davidengelen.redsquare.NodeBlockMotionTest)
+java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds(NativeWindowObservation.kt:24)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$lambda$18$lambda$17$lambda$16(NodeBlockMotionTest.kt:104)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$T2HD-LeWcDeDJclnJ8XzPTVL488(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$movie$lambda$5(NodeBlockMotionTest.kt:47)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$_iguN3DdqL341aPX8nSYcSxJpFk(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$movie(NodeBlockMotionTest.kt:45)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19$lambda$18$lambda$17(NodeBlockMotionTest.kt:96)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$TzEe7xjUzoaDZhTvHPG_zvcCETY(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader$lambda$19(NodeBlockMotionTest.kt:87)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.$r8$lambda$46arIghlU0LWO6J7VxUtJbxKWi8(NodeBlockMotionTest.kt:0)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.NodeBlockMotionTest.normalAndZeroMotionKeepChecksInterruptibleAndDoNotRevealAReadingHeader(NodeBlockMotionTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

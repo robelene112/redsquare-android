@@ -1,0 +1,12 @@
+{
+  "run": 42914310908,
+  "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "partition": "chat",
+  "result": "FAIL",
+  "originalDownloadComplete": true,
+  "originals": "/mnt/storage/redsquare-android-artifacts/ui9798-failed17-chat",
+  "reason": "One-shot native active-window scroll lookup was empty after Done/title disappearance. Cause unproved; no partial acceptance.",
+  "qualification": "Failed original partition, never final acceptance. Relevant original archive members retained byte-for-byte with complete raw and archive inventories. Existing class/assertion bounds remain unchanged; no fixture-only diagnosis established.",
+  "laterOverallConclusion": "cancelled",
+  "replacement": "Fresh whole17 run42919304537 uses same source8ab and workflow concurrency group; original Wallet cancelled. No partial acceptance."
+}
