@@ -64,9 +64,11 @@ internal class PostComposerState(
     suspend fun load() {
         try {
             var saved = withContext(Dispatchers.IO) { store.load() }
-            // Older versions retained an uncertain attempt in the editor. A
-            // read can reconcile it, but absence is never permission to resend.
-            if (saved.transaction != null && !saved.queued) {
+            // Reconcile a legacy attempt on entry, not after every local
+            // delivery change: an unsolicited read must not occupy the
+            // original while the user deliberately retries this session.
+            // Durable availability still allows a failed receipt save to heal.
+            if (saved.transaction != null && !saved.queued && (!ready || saved.available)) {
                 val candidate = requireNotNull(saved.transaction)
                 val reconciled = try {
                     if (saved.available) {
