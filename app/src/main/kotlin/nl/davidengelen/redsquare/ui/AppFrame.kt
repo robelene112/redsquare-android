@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -60,7 +61,7 @@ internal fun FrameIconButton(icon: Int, label: String, enabled: Boolean = true, 
     val observed = if (nl.davidengelen.redsquare.BuildConfig.DEBUG && icon == R.drawable.ic_save)
         Modifier.onGloballyPositioned { coordinates ->
             android.util.Log.d("DEBUG-save-9798", "event=save-bounds elapsed=${android.os.SystemClock.elapsedRealtime()} " +
-                "enabled=$enabled bounds=${coordinates.boundsInWindow()}")
+                "enabled=$enabled rootBounds=${coordinates.boundsInRoot()} windowBounds=${coordinates.boundsInWindow()}")
         } else Modifier
     IconButton(onClick = onClick, enabled = enabled,
         modifier = observed.semantics { text = AnnotatedString(label) }) {

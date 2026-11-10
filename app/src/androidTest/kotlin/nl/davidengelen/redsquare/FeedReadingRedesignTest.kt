@@ -19,26 +19,8 @@ class FeedReadingRedesignTest {
             JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
         }
         val post = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }
-        withAppFrameFixture("feed-reading", "feed-reading-evidence", rows) { activity ->
-            var observedWindow: android.view.Window? = null
-            var originalCallback: android.view.Window.Callback? = null
-            var observer: android.view.Window.Callback? = null
+        withAppFrameFixture("feed-reading", "feed-reading-evidence", rows) {
             try {
-            activity.onActivity { current ->
-                val window = current.window
-                val original = requireNotNull(window.callback)
-                val callback = object : android.view.Window.Callback by original {
-                    override fun dispatchTouchEvent(event: android.view.MotionEvent): Boolean {
-                        if (event.actionMasked == android.view.MotionEvent.ACTION_DOWN ||
-                            event.actionMasked == android.view.MotionEvent.ACTION_UP) android.util.Log.d("DEBUG-save-9798",
-                            "event=touch elapsed=${SystemClock.elapsedRealtime()} action=${event.actionMasked} " +
-                                "x=${event.x} y=${event.y} rawX=${event.rawX} rawY=${event.rawY}")
-                        return original.dispatchTouchEvent(event)
-                    }
-                }
-                observedWindow = window; originalCallback = original; observer = callback
-                window.callback = callback
-            }
             val readyBy = SystemClock.uptimeMillis() + 15_000
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
@@ -72,16 +54,33 @@ class FeedReadingRedesignTest {
             val editor = ui.onNode(hasSetTextAction() and isEnabled())
             ui.waitUntil(15_000) { editor.isDisplayed() }
             editor.performScrollTo().performTextReplacement("A retained unsent draft from the scrolled feed")
-            ui.onNode(hasText("Save draft") and hasClickAction()).performClick(); returned()
+            val save = ui.onNode(hasText("Save draft") and hasClickAction())
+            val control = save.fetchSemanticsNode()
+            val snapshotAt = SystemClock.elapsedRealtime()
+            val priorBounds = control.boundsInRoot
+            val priorDisabled = control.config.contains(androidx.compose.ui.semantics.SemanticsProperties.Disabled)
+            var observedAt = 0L
+            var observedCenter = androidx.compose.ui.geometry.Offset.Zero
+            var observedSize = androidx.compose.ui.unit.IntSize.Zero
+            // Android performClick delegates to this same public touch injection and default click.
+            save.performTouchInput {
+                observedCenter = center; observedSize = visibleSize
+                observedAt = SystemClock.elapsedRealtime()
+                click()
+            }
+            File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-touch.json").writeText(
+                com.google.gson.JsonObject().apply {
+                    addProperty("priorSnapshotAt", snapshotAt); addProperty("priorBounds", priorBounds.toString())
+                    addProperty("priorDisabled", priorDisabled); addProperty("observedAt", observedAt)
+                    addProperty("localCenter", observedCenter.toString()); addProperty("visibleSize", observedSize.toString())
+                }.toString())
+            returned()
             ui.onNode(hasText("New post") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { editor.isDisplayed() }
             editor.assertTextContains("A retained unsent draft from the scrolled feed")
             ui.onNode(hasText("Back") and hasClickAction()).performClick(); returned()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/retained-feed-anchor.png"))
             } finally {
-                runCatching { instrumentation.runOnMainSync {
-                    observedWindow?.let { window -> if (window.callback === observer) window.callback = originalCallback }
-                } }
                 runCatching {
                     val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                     File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-transition.log").writeText(
