@@ -1,0 +1,10 @@
+{
+  "result": "EXPECTED_REGRESSION_FAILURE",
+  "run": 42872277261,
+  "testedSource": "398cd904fef43798887c89afeb23d459b1a3f695",
+  "workflowSource": "5336c0536c47f1d6db5ab347a91f4b802a2d097c",
+  "actual": "18 original posting cases:17pass, only nested-reply case fails at waitFor Replying to after pressing the specific inline action. Actual original PNG shows Conversation instead of editor.",
+  "symptomBoundary": "Real native UI and existing signed controlled-peer seam; no production app changes in red source relative tobf362ddec. No class/request/assertion bound changed.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/reply96-baseline",
+  "qualification": "Baseline only, never accepted as successful implementation or full SDK proof."
+}

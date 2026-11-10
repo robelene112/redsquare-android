@@ -1,0 +1,23 @@
+{
+  "scope": "Independent source review only; native and publication gates remain separate",
+  "base": "bf362ddec3a287c2d26d69ef30c147f9db6c0585",
+  "source": "8f4f3c27953f1b73d9481083b1a913a96d0a6c88",
+  "spec": {
+    "reviewer": "reply96_spec",
+    "actionableFindings": [],
+    "checked": "Exact per-post composer; visible Reply/count/48dp target; header removal; reading navigation; per-parent draft/recipient/thread behavior; recreation and unchanged assertions/deadlines."
+  },
+  "standards": {
+    "reviewer": "reply96_standards",
+    "actionableFindings": [],
+    "checked": "Six UI/navigation production files and selectors; existing scoped VM retains parent without image payloads in Bundle; no documented-standard breach or actionable smell."
+  },
+  "qualification": "Source passes both axes. Focused/full Android10/17 and compatible signed beta remain pending. No physical/provider/Play acceptance.",
+  "preRunContractReview": {
+    "reviewer": "reply96_standards",
+    "result": "PASS",
+    "contractSha256": "9b4668195350d23f05cefc9131f3bb2dd620b2222bb6563f60ab8429e40df4eb",
+    "verifierSha256": "62a9d4f591526089f9a9053ec8f5b01d49f338267835f4848898872459124e00",
+    "checked": "All expected counts/identities/recovery/archive/assumption/inherited-validator fields equal95. Only baseline metadata and verifier packet paths/temp prefix differ; no logic change or old94/95 tracked-file edits. Freeze before full dispatch."
+  }
+}
