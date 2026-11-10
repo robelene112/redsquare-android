@@ -792,6 +792,10 @@ verify_agreement() {
     [[ "$queue_failed" == 0 ]]
     verify_agreement_recovery
 }
+if [[ "${TEST_SCOPE:-full}" == agreement-post-queue* ]]; then
+    verify_group_chat_native PublishingPostQueuePreviewTest 180 agreement-post-queue agreement-post-queue-evidence
+    exit
+fi
 if [[ "${TEST_SCOPE:-full}" == agreement-recovery* ]]; then
     verify_agreement_recovery
     printf '%s\n' 'Focused controlled publishing-agreement recovery only; no actual owner policy approval or full acceptance.' > "$evidence/scope.txt"

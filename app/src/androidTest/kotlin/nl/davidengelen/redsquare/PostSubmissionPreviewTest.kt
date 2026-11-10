@@ -130,6 +130,19 @@ class PostSubmissionPreviewTest {
                         org.junit.Assert.assertFalse(saved.hasSubmission(candidate.id))
                         peer.withholdCloseReplies = false
                         peer.releaseWithheldCloseReplies()
+                        // A withheld Archive reply deterministically reaches
+                        // SaitoPeer's coroutine deadline rather than a socket
+                        // close/ping race. It must leave Retry usable too.
+                        peer.withholdArchiveReply = true
+                        val checkingAt = android.os.SystemClock.elapsedRealtime()
+                        ui.onNodeWithText("Retry").performClick()
+                        ui.waitUntil(20_000) { ui.onNode(hasText("Retry") and isEnabled()).isDisplayed() }
+                        org.junit.Assert.assertTrue("Observe the actual twelve-second Archive deadline",
+                            android.os.SystemClock.elapsedRealtime() - checkingAt >= 11_000)
+                        assertEquals(candidate.encoded(), saved.load().transaction?.encoded())
+                        org.junit.Assert.assertFalse(saved.hasSubmission(candidate.id))
+                        assertEquals(1, peer.transactions.size)
+                        peer.withholdArchiveReply = false
                         expose.set(true)
                         ui.onNodeWithText("Retry").performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Post submitted").isDisplayed() }

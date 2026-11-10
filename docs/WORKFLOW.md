@@ -126,7 +126,11 @@ complete first-release scope and the established production boundaries.
    standards. Confirm every blocker is complete. State the behavior to deliver.
 2. Record the starting commit as the review base. Use the current working branch
    unless the owner requests another; preserve unrelated changes.
-3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
+3. Implement the ticket at its agreed testing boundaries using `tdd`.
+   `agreement-post-queue` and its Android17 variant isolate the existing two
+   Post policy/queue methods under their unchanged180second class bound.
+   Complete agreement/full scopes retain both, including original signatures,
+   publication permission, cancellation and node-availability goals. Run focused
    checks during development and the relevant full suite at completion.
    Viewer69 adds ImageViewerPreviewTest and ImageViewerViewportTest to the
    `image-viewer`/Android17 focused scopes and full Social, each with its own180s

@@ -19,6 +19,7 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
             val candidate = requireNotNull(saved.transaction)
             if (onlyId != null && candidate.id != onlyId) continue
             DeliveryAttempts.run(candidate.id) {
+            var submitted: PostDraftStore? = null
             SaitoPeer(wallet, endpoint).use { peer ->
                 if (peer.hasPost(candidate, wallet.publicKey, saved.text)) {
                     if (store.confirmAvailable(candidate.id) && !store.isSubmittedRecord)
@@ -35,7 +36,15 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
                     store.assertCanPublish(candidate.id)
                 }
                 peer.finishBroadcast()
-                store.markSubmitted(candidate.id)
+                submitted = store.markSubmitted(candidate.id)
+            }
+            // The broadcasting socket is drained and closed. Preserve the
+            // immediate queued-delivery observation on a fresh connection.
+            submitted?.let { receipt ->
+                SaitoPeer(wallet, endpoint).use { observer ->
+                    if (observer.hasPost(candidate, wallet.publicKey, saved.text))
+                        receipt.confirmAvailable(candidate.id)
+                }
             }
             }
         } catch (_: TimeoutCancellationException) {
