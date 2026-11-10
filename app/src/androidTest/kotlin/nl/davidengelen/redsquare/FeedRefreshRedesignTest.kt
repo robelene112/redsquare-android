@@ -59,6 +59,15 @@ class FeedRefreshRedesignTest {
                     target.fetchSemanticsNode().boundsInRoot.top, 1f)
                 captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/reading-during-pending-refresh.png"))
                 assertRefreshFeedbackAtTop("reading-during-pending-refresh")
+                ui.onNodeWithText("Feed updated.").assertIsDisplayed()
+                target.performTouchInput { click(center) }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+                captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/post-opened-through-feedback.png"))
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                ui.waitUntil(15_000) { target.isDisplayed() && ui.refreshableContentReady() }
+                ui.revealAppNavigation()
+                assertEquals("Opening a post through refresh feedback must preserve its reading pixel", before,
+                    target.fetchSemanticsNode().boundsInRoot.top, 1f)
                 ui.waitUntil(5_000) { ui.refreshableContentReady() }
                 ui.onNodeWithTag("feed-post-list").performTouchInput { swipeUp() }
                 ui.waitUntil(5_000) {
