@@ -1292,6 +1292,10 @@ if [[ "${TEST_SCOPE:-full}" == following* ]]; then
     printf '%s\n' 'Focused following check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == post-submission* ]]; then
+    verify_group_chat_native PostSubmissionPreviewTest 180 post-submission post-submission-evidence
+    exit
+fi
 verify_posting() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     # Public unsafe scalar1 fixture for real SAF import. Never fund this identity.
