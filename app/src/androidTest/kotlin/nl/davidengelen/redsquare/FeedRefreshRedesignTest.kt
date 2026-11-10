@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
@@ -26,7 +27,8 @@ class FeedRefreshRedesignTest {
         val pending = AtomicBoolean(false)
         val entered = CountDownLatch(1)
         val release = CountDownLatch(1)
-        withAppFrameFixture("read-during-refresh", "feed-refresh-evidence", initial, archiveResponse = { criteria ->
+        lateinit var peer: ControlledFeedPeer
+        withAppFrameFixture("read-during-refresh", "feed-refresh-evidence", initial, configurePeer = { peer = it }, archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquare") {
                 if (pending.get() && criteria.has("field4") && !criteria.has("sig")) {
                     entered.countDown(); check(release.await(15, TimeUnit.SECONDS))
@@ -57,6 +59,26 @@ class FeedRefreshRedesignTest {
                     target.fetchSemanticsNode().boundsInRoot.top, 1f)
                 captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/reading-during-pending-refresh.png"))
                 assertRefreshFeedbackAtTop("reading-during-pending-refresh")
+                ui.waitUntil(5_000) { ui.refreshableContentReady() }
+                ui.onNodeWithTag("feed-post-list").performTouchInput { swipeUp() }
+                ui.waitUntil(5_000) {
+                    ui.onAllNodes(appNavigationRevealAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                }
+                val viewport = ui.onNodeWithTag("feed-post-list").fetchSemanticsNode().boundsInRoot
+                val reading = ui.onAllNodes(hasText("Reference post", substring = true), useUnmergedTree = true)
+                    .fetchSemanticsNodes().first { it.boundsInRoot.top >= viewport.top && it.boundsInRoot.bottom <= viewport.bottom }
+                val readingText = reading.config[SemanticsProperties.Text].single().text
+                val collapsedTarget = ui.onNodeWithText(readingText, useUnmergedTree = true).assertIsDisplayed()
+                val collapsedBefore = collapsedTarget.fetchSemanticsNode().boundsInRoot.top
+                val requestsBefore = peer.requests.get()
+                ui.refreshKeepingReadingPosition()
+                ui.waitUntil(15_000) {
+                    peer.requests.get() > requestsBefore && ui.refreshableContentReady() && ui.onNodeWithText("Feed updated.").isDisplayed()
+                }
+                assertEquals("Refresh feedback must not move the post while app navigation is collapsed", collapsedBefore,
+                    collapsedTarget.fetchSemanticsNode().boundsInRoot.top, 1f)
+                assertRefreshFeedbackAtTop("collapsed-reading")
+                captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/collapsed-reading.png"))
             } finally { release.countDown() }
         }
     }

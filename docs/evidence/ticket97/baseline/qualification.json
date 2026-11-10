@@ -1,0 +1,8 @@
+{
+  "result": "FAILURE, intended UI position regression",
+  "run": 42901485731,
+  "source": "44f2e6802450dc75b4d58f2475df436f6ef6fedd",
+  "workflowSource": "44f2e6802450dc75b4d58f2475df436f6ef6fedd",
+  "actual": "Original6 feed cases pass. Both existing refresh redesign methods fail the new position assertion, after retaining the original applied-result and reading-anchor checks. At1px/dp viewportTop184/bottom555, noticeTop447/bottom461; expected notice inside top80dp. Native screenshot corroborates feedback over older posts near viewport bottom. No production change in baseline.",
+  "qualification": "Actual agent-run UI reproduction of owner screenshot. New position expectation fails on unchanged beta105 production. Original class/assertion deadlines retained. Not acceptance of corrected source."
+}

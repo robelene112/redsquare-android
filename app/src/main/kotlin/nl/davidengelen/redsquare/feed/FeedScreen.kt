@@ -538,6 +538,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         HorizontalDivider()
                     }
                 }
+                // Overlay the visible posts viewport so feedback stays below the tabs
+                // without moving the reader's post when it appears or disappears.
+                InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
+                    StatusTone.SUCCESS, modifier = Modifier.align(Alignment.TopCenter).padding(top = AppSpacing.small))
             }
             else Spacer(Modifier.weight(1f))
         }
@@ -573,13 +577,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     CompositionLocalProvider(LocalPostSubmissionNotice provides { submittedPosts++ }) { content() }
                     if (home && wallet != null && !dockCompose) ComposePostButton(
                         Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen).size(56.dp)) { composing = true }
-                    // Completion feedback overlays the list instead of changing its viewport.
-                    // A reader may have scrolled elsewhere while the pull was pending.
-                    if (home) InlineStatus(
-                        if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
-                        StatusTone.SUCCESS,
-                        modifier = Modifier.align(Alignment.BottomCenter)
-                            .padding(bottom = if (wallet != null && !dockCompose) 82.dp else AppSpacing.small))
                 }
             }
         }

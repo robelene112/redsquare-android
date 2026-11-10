@@ -1,0 +1,131 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FeedRefreshRedesignTest:
+INSTRUMENTATION_STATUS: test=readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Refresh feedback must stay inside the top of the visible posts viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.assertRefreshFeedbackAtTop(FeedRefreshRedesignTest.kt:130)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel$lambda$8(FeedRefreshRedesignTest.kt:59)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$h08qQM3TZ6v3b3eMjQ4Zi-odldc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(FeedRefreshRedesignTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(nl.davidengelen.redsquare.FeedRefreshRedesignTest):
+java.lang.AssertionError: Refresh feedback must stay inside the top of the visible posts viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.assertRefreshFeedbackAtTop(FeedRefreshRedesignTest.kt:130)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel$lambda$8(FeedRefreshRedesignTest.kt:59)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$h08qQM3TZ6v3b3eMjQ4Zi-odldc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(FeedRefreshRedesignTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FeedRefreshRedesignTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Refresh feedback must stay inside the top of the visible posts viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.assertRefreshFeedbackAtTop(FeedRefreshRedesignTest.kt:130)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage$lambda$21(FeedRefreshRedesignTest.kt:102)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$DYVcZzRtxDuRC8dPDKJPpVYfJY0(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage(FeedRefreshRedesignTest.kt:77)
+
+INSTRUMENTATION_STATUS: stream=
+Error in physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage(nl.davidengelen.redsquare.FeedRefreshRedesignTest):
+java.lang.AssertionError: Refresh feedback must stay inside the top of the visible posts viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.assertRefreshFeedbackAtTop(FeedRefreshRedesignTest.kt:130)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage$lambda$21(FeedRefreshRedesignTest.kt:102)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$DYVcZzRtxDuRC8dPDKJPpVYfJY0(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage(FeedRefreshRedesignTest.kt:77)
+
+INSTRUMENTATION_STATUS: test=physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.514
+There were 2 failures:
+1) readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(nl.davidengelen.redsquare.FeedRefreshRedesignTest)
+java.lang.AssertionError: Refresh feedback must stay inside the top of the visible posts viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.assertRefreshFeedbackAtTop(FeedRefreshRedesignTest.kt:130)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel$lambda$8(FeedRefreshRedesignTest.kt:59)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$h08qQM3TZ6v3b3eMjQ4Zi-odldc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.readingDuringAPendingTopPullKeepsTheNewlyChosenPostAndPixel(FeedRefreshRedesignTest.kt:29)
+2) physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage(nl.davidengelen.redsquare.FeedRefreshRedesignTest)
+java.lang.AssertionError: Refresh feedback must stay inside the top of the visible posts viewport
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.assertRefreshFeedbackAtTop(FeedRefreshRedesignTest.kt:130)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage$lambda$21(FeedRefreshRedesignTest.kt:102)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.$r8$lambda$DYVcZzRtxDuRC8dPDKJPpVYfJY0(Unknown Source:0)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.FeedRefreshRedesignTest.physicalPullAnnouncesSuccessOnlyAfterAppliedResultsAndRetainsThemThroughAnOutage(FeedRefreshRedesignTest.kt:77)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
