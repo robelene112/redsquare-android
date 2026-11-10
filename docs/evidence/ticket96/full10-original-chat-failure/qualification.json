@@ -7,5 +7,13 @@
   "independentReviewer": "reply96_standards",
   "finding": "Clearable/nonongoing,flags24. Gesture duration184ms and bounds recorded, but no continuous pointer/post-time trace proves cause. Fixture/helper/worker/notificationbuilder unchanged from accepted95; current UI change does not establish causation.",
   "qualification": "Original primaryChat failure remains failed. Whole run still in progress when this job was inspected. No acceptance waiver or weakened assertion. Existing unchanged chat-alerts focused run42887093487 is diagnosis/readiness only; a qualifying complete run is still required.",
-  "originals": "/mnt/storage/redsquare-android-artifacts/reply96-full10-chat-failure"
+  "originals": "/mnt/storage/redsquare-android-artifacts/reply96-full10-chat-failure",
+  "completedRun": {
+    "conclusion": "failure",
+    "social": "success",
+    "chat": "failure",
+    "wallet": "success",
+    "originals": "/mnt/storage/redsquare-android-artifacts/reply96-acceptance-raw/full-android10",
+    "qualification": "Whole original run now complete. Its successful partitions are not assembled into the fresh run. All three fresh10 partitions remain required."
+  }
 }
