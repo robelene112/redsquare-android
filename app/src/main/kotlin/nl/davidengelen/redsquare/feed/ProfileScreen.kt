@@ -283,7 +283,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.profile_load_older)) }
                     if (personal?.ready == true && visiblePosts.size < posts.size)
                         Text(stringResource(R.string.personal_posts_hidden), style = MaterialTheme.typography.bodySmall)
-                    InlineStatus(stringResource(R.string.status_available_history),
+                    InlineStatus(stringResource(R.string.status_available_history), StatusTone.NEUTRAL,
                         details = listOf(stringResource(R.string.profile_history)), announce = false)
                     InlineStatus(if (loading) stringResource(R.string.profile_loading) else null, StatusTone.WORKING)
                     InlineStatus(if (failed) stringResource(R.string.profile_error) else null, StatusTone.ERROR)

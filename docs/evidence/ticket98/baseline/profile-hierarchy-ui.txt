@@ -1,0 +1,134 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileHierarchyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileHierarchyPreviewTest:
+INSTRUMENTATION_STATUS: test=identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileHierarchyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'History may be limited' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #778 at (l=18.0, t=184.0, r=302.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=4, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@dff2085'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=335.0, maxValue=335.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 12 children, 4 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17$lambda$16$lambda$15(ProfileHierarchyPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$EdqWiqbxQHYsxZCXplFeu0vedz0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17$lambda$16(ProfileHierarchyPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$dHfRFIIM-eVpuLWNDhcTGKxz58M(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17(ProfileHierarchyPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$QIjVp8lDLDPehTcGJzniTAryhag(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(ProfileHierarchyPreviewTest.kt:35)
+
+INSTRUMENTATION_STATUS: stream=
+Error in identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.ProfileHierarchyPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'History may be limited' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #778 at (l=18.0, t=184.0, r=302.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=4, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@dff2085'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=335.0, maxValue=335.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 12 children, 4 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17$lambda$16$lambda$15(ProfileHierarchyPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$EdqWiqbxQHYsxZCXplFeu0vedz0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17$lambda$16(ProfileHierarchyPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$dHfRFIIM-eVpuLWNDhcTGKxz58M(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17(ProfileHierarchyPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$QIjVp8lDLDPehTcGJzniTAryhag(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(ProfileHierarchyPreviewTest.kt:35)
+
+INSTRUMENTATION_STATUS: test=identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.354
+There was 1 failure:
+1) identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.ProfileHierarchyPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'History may be limited' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #778 at (l=18.0, t=184.0, r=302.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=4, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@dff2085'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=335.0, maxValue=335.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 12 children, 4 siblings
+Selector used: (ScrollToIndex is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17$lambda$16$lambda$15(ProfileHierarchyPreviewTest.kt:66)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$EdqWiqbxQHYsxZCXplFeu0vedz0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17$lambda$16(ProfileHierarchyPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$dHfRFIIM-eVpuLWNDhcTGKxz58M(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$17(ProfileHierarchyPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$QIjVp8lDLDPehTcGJzniTAryhag(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:81)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:77)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(ProfileHierarchyPreviewTest.kt:35)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

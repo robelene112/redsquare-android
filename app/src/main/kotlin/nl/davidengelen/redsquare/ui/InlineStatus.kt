@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -28,7 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 
-internal enum class StatusTone { INFO, WORKING, SUCCESS, WARNING, ERROR }
+internal enum class StatusTone { INFO, NEUTRAL, WORKING, SUCCESS, WARNING, ERROR }
 
 /** Only the stable summary is live. Details and progress never repeat polling announcements. */
 @Composable
@@ -53,6 +54,7 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
         }
     }
     val color = when (tone) {
+        StatusTone.NEUTRAL -> MaterialTheme.colorScheme.onSurfaceVariant
         StatusTone.ERROR -> MaterialTheme.colorScheme.error
         StatusTone.SUCCESS -> androidx.compose.ui.graphics.Color(0xff168039)
         StatusTone.WARNING -> MaterialTheme.colorScheme.tertiary
@@ -73,6 +75,8 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
                 Row(Modifier.padding(start = AppSpacing.small, end = 4.dp).heightIn(min = 32.dp),
                     verticalAlignment = Alignment.CenterVertically) {
                     if (tone == StatusTone.WORKING) CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp)
+                    else if (tone == StatusTone.NEUTRAL) Icon(painterResource(R.drawable.ic_info),
+                        contentDescription = null, modifier = Modifier.size(16.dp), tint = color)
                     else Box(Modifier.size(8.dp).background(color, CircleShape))
                     Text(renderedSummary, Modifier.weight(1f).padding(horizontal = AppSpacing.small, vertical = 6.dp)
                         .semantics { if (summary != null && announce) liveRegion = LiveRegionMode.Polite },

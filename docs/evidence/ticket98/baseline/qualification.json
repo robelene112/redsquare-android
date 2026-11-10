@@ -1,0 +1,9 @@
+{
+  "scope": "profile-hierarchy",
+  "run": 42912497737,
+  "testedSource": "fd9c6f374810fb03ace03cbafe083314e6e4b120",
+  "workflowSource": "fd9c6f374810fb03ace03cbafe083314e6e4b120",
+  "expectedResult": "FAIL",
+  "actual": "Existing hierarchy method fails at line66: new plain-English History may be limited guidance is absent. Original default frame/Posts-Replies-Likes assertions execute before this new check. Production source unchanged from corrected97.",
+  "qualification": "Red regression only, not corrected-source acceptance. Prior42912333192 failed checkout because root dispatched abbreviated source SHA; no application tests ran there. Exact full-SHA replacement is42912497737."
+}

@@ -1,19 +1,22 @@
 # Red Square Android project context
 
-## Active fix #97
+## Active UI fixes #97 and #98
 
-The owner reported refresh completion feedback covering posts near the bottom
-of the visible feed. Implement only [issue97](https://github.com/robelene112/redsquare-android/issues/97),
-then deliver its compatible signed beta and stop. Review base:
-`ee8683f6d31680a911f105ab52ed971aaa392d86`; public beta remains105.
-Anchor completion below the feed tabs at the top of the visible posts viewport,
-without moving the reading anchor. Preserve truthful refresh, outage/recovery,
-brief lifetime, shared motion/accessibility and all existing acceptance gates.
-Use the existing native UI/controlled-peer and reversible viewport seams.
-No node/service/provider/physical/Play changes. Historical96 delivery stays accepted.
-The owner subsequently requested profile history-information clarity as issue98.
-Finish97 source correction and focused review first, then implement98 sequentially.
-Both may share the final complete verification and compatible beta.
+Deliver the two owner-requested UI corrections sequentially, then one compatible
+signed beta and stop. Review base: `ee8683f6d31680a911f105ab52ed971aaa392d86`.
+Public latest remains105. Issue97's corrective source and focused native reviews
+pass at `c4ca9575ebf9928ba1585672ba162d9e9edf07d3`: feedback stays at the top of the
+visible posts viewport and actual taps reach the post underneath. Initial full
+runs failed; superseded106 must never be promoted. See ticket97 evidence.
+
+Implement [issue98](https://github.com/robelene112/redsquare-android/issues/98)
+next: make permanent profile-history guidance clearly neutral/static with plain
+English copy and accessible details. Preserve distinct real loading/failure/
+limited-data conditions, all tabs and recovery controls. Existing native UI,
+controlled-peer and reversible viewport seams remain authorized. Final complete
+Android10/17, independent reviews, actual signed update and exact public beta
+verification must cover both corrections. No node/service/provider/physical/Play
+changes. Historical96 acceptance and parent issues remain unchanged.
 
 ## Delivered fix #96
 
