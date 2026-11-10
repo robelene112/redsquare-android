@@ -209,10 +209,15 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                             waitFor("Review publishing terms")
                             touch("Accept")
                             if (kind == Kind.POST) {
-                                ui.waitForPostAvailability(wallet.publicKey, candidate.id)
-                                val editor = ui.onNode(hasSetTextAction())
-                                if (ui.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isNotEmpty()) editor.assertIsEnabled().assertEditableTextEquals("")
-                                else ui.onNode(hasText("New post") and hasClickAction()).assertIsDisplayed()
+                                // Durable availability and the actual reading
+                                // destination share the original twenty-second
+                                // bound, including the editor-close transition.
+                                ui.waitForPostAvailability(wallet.publicKey, candidate.id) {
+                                    ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() &&
+                                        ui.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isEmpty()
+                                }
+                                ui.onNode(hasText("New post") and hasClickAction()).assertIsDisplayed()
+                                ui.onNode(hasSetTextAction()).assertDoesNotExist()
                             } else waitFor("Forwarded. Delivery is not confirmed.")
                             assertEquals(1, peer.transactions.size)
                             assertEquals(if (kind == Kind.POST) 0 else 1, peer.relayedMessages.size)

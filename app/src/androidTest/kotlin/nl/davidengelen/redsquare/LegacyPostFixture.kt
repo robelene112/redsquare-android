@@ -34,11 +34,13 @@ internal fun legacySubmittedPost(context: Context, endpoint: String, text: Strin
 }
 
 /** A validated retained receipt and no pending observation prove node reconciliation. */
-internal fun ComposeTestRule.waitForPostAvailability(owner: String, id: String, timeoutMillis: Long = 20_000) {
+internal fun ComposeTestRule.waitForPostAvailability(owner: String, id: String, timeoutMillis: Long = 20_000,
+    destinationReady: () -> Boolean = { true }) {
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
     waitUntil(timeoutMillis) {
         PostDraftStore(context, owner, SaitoBackend.OWNER).hasSubmission(id) &&
-            PostDraftStore.pendingDelivery(context, owner, SaitoBackend.OWNER).none { it.load().transaction?.id == id }
+            PostDraftStore.pendingDelivery(context, owner, SaitoBackend.OWNER).none { it.load().transaction?.id == id } &&
+            destinationReady()
     }
 }
