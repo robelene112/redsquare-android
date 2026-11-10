@@ -191,6 +191,8 @@ class PostQueuePreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                withFailureCapture({ captureNativeScreen(java.io.File(context.cacheDir,
+                    "post-queue-evidence/failed-save-${if (withImage) "image" else "text"}-failure.png")) }) {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.openWallet()
                 val address = displayedWalletAddress(ui)
@@ -234,6 +236,7 @@ class PostQueuePreviewTest {
                 }
                 peer.assertHealthy()
                 captureFeedEvidence("post-queue-evidence/failed-save-repaired-without-losing-work.png")
+                }
             }
         }
     }

@@ -3,6 +3,9 @@ package nl.davidengelen.redsquare.feed
 import nl.davidengelen.redsquare.saito.DeliveryAttempts
 import android.content.Context
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -35,6 +38,10 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
                 store.markSubmitted(candidate.id)
             }
             }
+        } catch (_: TimeoutCancellationException) {
+            // A peer deadline is a failed observation, not cancellation of this
+            // wallet session or permission to discard the original.
+            currentCoroutineContext().ensureActive()
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { /* Queued or uncertain signed work remains durable. */ }
     }

@@ -269,10 +269,15 @@ class AuthorPostPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Original before competing edits")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this node.")
-                    ui.onNodeWithText("Back").performClick()
+                    waitFor("Post submitted")
                     waitForList(); waitForRefresh()
-                    ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Original before competing edits"))
+                    ui.refreshVisibleView()
+                    ui.waitUntil(20_000) {
+                        try {
+                            ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Original before competing edits"))
+                            ui.onNodeWithText("Original before competing edits").isDisplayed()
+                        } catch (_: AssertionError) { false }
+                    }
                     ui.onNodeWithText("Original before competing edits").performClick()
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
