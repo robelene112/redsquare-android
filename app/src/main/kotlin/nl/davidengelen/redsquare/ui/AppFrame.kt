@@ -16,6 +16,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -55,8 +57,13 @@ internal enum class PrimaryDestination(override val label: Int, override val cap
 /** The icon carries one text label at its button seam; its painted path is decorative. */
 @Composable
 internal fun FrameIconButton(icon: Int, label: String, enabled: Boolean = true, onClick: () -> Unit) {
+    val observed = if (nl.davidengelen.redsquare.BuildConfig.DEBUG && icon == R.drawable.ic_save)
+        Modifier.onGloballyPositioned { coordinates ->
+            android.util.Log.d("DEBUG-save-9798", "event=save-bounds elapsed=${android.os.SystemClock.elapsedRealtime()} " +
+                "enabled=$enabled bounds=${coordinates.boundsInWindow()}")
+        } else Modifier
     IconButton(onClick = onClick, enabled = enabled,
-        modifier = Modifier.semantics { text = AnnotatedString(label) }) {
+        modifier = observed.semantics { text = AnnotatedString(label) }) {
         Icon(painterResource(icon), contentDescription = null, modifier = Modifier.size(22.dp))
     }
 }
