@@ -13,7 +13,6 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.fileshare.*
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -234,7 +233,18 @@ abstract class FileshareFixture {
                                         ui.onNodeWithText(author.publicKey).performClick()
                                         waitUntil { ui.onAllNodesWithText("File saved").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                                         ui.onNodeWithText("Save as…").performScrollTo().assertIsDisplayed()
-                                            .assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+                                            .assertIsEnabled()
+                                        // Material paints40dp inside its48dp native touch/accessibility
+                                        // target. Measure the actual clickable parent, as other viewports do.
+                                        var nativeSave = requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Save as…")))
+                                        while (!nativeSave.isClickable) nativeSave = requireNotNull(nativeSave.parent)
+                                        val bounds = nativeSave.visibleBounds
+                                        val density = context.resources.displayMetrics.density
+                                        assertTrue(bounds.width() >= 47.5f * density && bounds.height() >= 47.5f * density)
+                                        File(folder, "$cell-save-target.json").writeText(com.google.gson.JsonObject().apply {
+                                            addProperty("bounds", bounds.flattenToString()); addProperty("density", density)
+                                            addProperty("widthDp", bounds.width() / density); addProperty("heightDp", bounds.height() / density)
+                                        }.toString())
                                         ui.onNodeWithText(draft).assertExists()
                                         captureNativeScreen(File(folder, "$cell-saved.png"), "File saved")
                                         ui.onNodeWithText("Back").performClick()
