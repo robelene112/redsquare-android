@@ -1,6 +1,6 @@
 # Fast-scroll responsiveness, issue101
 
-Review base: `c8f1654a1`, accepted beta109. Delivery is pending.
+Review base: `c8f1654a1`, accepted beta109. Signed [beta0.1.110](https://davidengelen.nl/redsquare/) is delivered. Both complete SDK runs, signed updates, independent reviews and exact public delivery verification pass with the qualifications below.
 
 A nondebuggable performance app drives three rounds of20 actual native swipes,
 retaining Android frame statistics, Perfetto and native screenshots/window dumps.
@@ -137,3 +137,15 @@ interruptions and36continuity records. The inherited API29 Profile assumption,
 unavailable Chat archive and four failure-capture qualifications remain explicit.
 No partial jobs, new exception or weakened deadline contributes acceptance.
 Final independent evidence review and public promotion remain pending.
+
+[Final independent acceptance reviews](final-reviews.json) pass both axes with
+zero findings, independently checking all1878 complete-run originals and144
+signed-update originals. All23 product/source-bridge objects match. The exact
+existing candidate110 is promoted at16:17UTC. [Public delivery](public-delivery110.json)
+verifies HTTP200, exact latest/immutable manifests and notes, page loading, and
+the actual downloaded42,650,666byte APK with the approved SHA256.
+[Independent delivery reviews](delivery-reviews.json) pass both axes.
+
+Issue101 is complete in beta110. Parent1/36/55/84/86 remain open. No physical
+Pixel/OEM performance, provider activation, store submission, Saito publication
+or production node operation is claimed. Stop until another issue is requested.

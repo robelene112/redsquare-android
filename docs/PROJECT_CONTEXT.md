@@ -1,46 +1,43 @@
 # Red Square Android project context
 
 
-## Active fast-scroll correction #101
+## Delivered fast-scroll correction #101
 
-Work on one [performance issue](https://github.com/robelene112/redsquare-android/issues/101),
-starting from accepted beta109 / `c8f1654a1`. Actual nondebuggable native scroll
-traces identify main-thread `SocialActionOperations.busy()` waiting34.4ms behind
-background durable storage. Only that reactive map membership read loses the
-disk lock; all operation claims, identity changes and journal writes remain
-serialized. Animations, content, reading position and transaction formats stay.
+Signed [beta 0.1.110](https://davidengelen.nl/redsquare/) removes a measured
+main-thread wait while drawing post actions. The reactive busy-status read now
+uses SnapshotStateMap directly instead of waiting on the lock held by background
+durable storage. Actual operation claims, identity changes and journal writes
+remain serialized. Appearance, animation and transaction formats are preserved.
 
-The real old-source native regression fails at8375ms. Both focused Android10/17
-runs43038801167/43038806657 pass at163/434ms while the controlled durable
-transaction remains pending, with owned worker/files restored. Three after-trace
-rounds show zero busy-lock contention, versus4/1/3 before. Cold emulator timing
-remains mixed, so this establishes removal of one measured stall, not physical
-smoothness or a general FPS gain. Ordinary performance builds omit the opt-in
-composition diagnostic libraries.
+Actual traces identify a34.4ms busy-read wait behind FileDescriptor.sync. The
+controlled native regression fails on old source at8375ms and passes on Android10/
+17 at163/434ms while the owned durable transaction remains pending. Three
+post-fix scroll rounds contain zero such monitor-contention events, versus4/1/3
+before. Cold emulator timing remains mixed, including a worse151.73ms sample.
+This establishes removal of one measured stall, not physical smoothness or a
+controlled general FPS gain. No profiling SDK is added to the ordinary APK.
 
-Signed candidate110, compiled from`64494ef9e`, is staged with exact downloaded
-bytes/certificate/license verified. Actual signed83-to110 update runs43038821274/
-43038826400 pass wallet, draft, cache, preference and separate debug identity.
-Ordinary latest remains109 until complete acceptance. Source/actual artifact,
-CI setup and narrow fixture reviews pass both axes.
+Both complete three-part Android10/17 runs43040719802/43040725444 pass at
+`75920db2d63eff0d3cc5b2e621609c5bd13349ac`. The unchanged pre-run101 verifier
+accepts651/652identities,228classes,194archives,247/248normal completions,
+37deliberate interruptions and36continuity records. The inherited API29 Profile
+assumption, unavailable Chat archive and four failure-capture qualifications
+remain explicit. Actual signed83-to110 updates43038821274/43038826400 preserve
+wallet, exact draft, cached post, preference and separate debug identity.
 
-The hosted Ubuntu DNS failure is isolated with a bounded read-only probe; the
-observed reachable kernel.org Ubuntu mirror is preferred while all original
-fallbacks and package signatures remain. The temporary probe workflow is removed.
-One original full build fails an existing gateway fixture observation race:
-MockWebServer queues the request before dispatch captures verification. Its
-correction waits only within the original five-second goal, preserving all
-assertions and the30-second bound. Local focused proof passes. No gateway
-production change or new signing version is needed.
+The APK is42,650,666bytes, SHA256
+`dd548a3f6d4abb37b94aad25d1073e2be428c30376e79a3fdb0b776201b37414`,
+compiled from`64494ef9e`. Reviewed source bridges retain that exact artifact
+through CI dependency provisioning and one existing JVM observer correction.
+All original failed/cancelled runs retain their outcomes; none contributes partial
+acceptance. Both independent final acceptance and delivery reviews pass with zero
+findings. Public latest, immutable manifest, notes, page and downloaded bytes match.
 
-Fresh whole Android10/17 runs43040719802/43040725444 execute from`75920db2d`.
-Both match the unchanged pre-run101 contract:651/652 identities,228classes,
-194archives,247/248normal completions,37deliberate interruptions and36continuity
-records, retaining all inherited qualifications. Earlier failed/cancelled runs
-contribute no complete acceptance. See the ticket101 packet for originals and
-exact source bridges. Both complete runs and the frozen verification pass. Final evidence review
-and public promotion are pending. No owner-phone QA, live writes, node/provider/Play change or other
-issue work. Keep #1/#36/#55/#84/#86 open; stop after101. Canonical checkout stays.
+The [ticket101 packet](evidence/ticket101/README.md) records original evidence,
+source bridges and limits. No owner-phone QA, live write, node/provider/Play
+operation or physical/OEM acceptance is claimed. #101 is complete. Keep
+#1/#36/#55/#84/#86 open and stop until another issue is requested. Preserve the
+canonical checkout.
 
 ## Delivered robust display names #100
 

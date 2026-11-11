@@ -11,15 +11,14 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner now reports visible fast-scroll stutter. Diagnose and improve it as
-one issue #101, starting from accepted beta109. Use the existing public native
-UI and Android OS observation seams on disposable emulators; measure before
-choosing a correction and do not treat emulator rendering as physical acceptance.
-If application code changes, preserve original functional goals and signed-update
-continuity and complete appropriate focused/full verification and independent
-reviews before the next beta. No owner-phone QA, live writes or production
-node/service/provider/Play changes. Keep #1/#36/#55/#84/#86 open; stop after #101.
-Issue #100 remains complete in beta109.
+The authorized scroll-performance issue #101 is complete in signed beta110.
+Both complete Android10/17 runs, the unchanged frozen acceptance catalog,
+actual signed updates, independent Spec/Standards reviews and exact public
+promotion/download verification pass. The packet records the specific removed
+storage wait and mixed cold emulator timings; physical smoothness remains an
+external #36 gate. No owner-phone QA, live writes or node/service/provider/Play
+changes were used. Keep #1/#36/#55/#84/#86 open and stop until the owner requests
+another issue. Issue #100 remains complete in beta109.
 
 ## Load the real skills
 

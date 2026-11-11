@@ -1,0 +1,23 @@
+{
+  "reviewBase": "c8f1654a1",
+  "reviewHead": "5d0f50219ceed9354fb61bd4e2c53da21c9e0b92",
+  "completeSource": "75920db2d63eff0d3cc5b2e621609c5bd13349ac",
+  "compiledSource": "64494ef9e455efc39e31a5d07258fd0f92b0f4a5",
+  "spec": {
+    "agent": "scroll101_spec",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "standards": {
+    "agent": "scroll101_standards",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "independentlyVerifiedOriginals": {
+    "completeFiles": 1878,
+    "signedUpdateFiles": 144,
+    "sourceBridgeObjects": 23
+  },
+  "summary": "Both whole primary runs and unchanged frozen goals pass. Actual signed updates preserve wallet/draft/cache/preferences/debug isolation and restore owned state. Source bridge retains exact candidate110. Original failures and inherited qualifications remain; mixed cold timing prevents a general FPS or physical smoothness claim.",
+  "qualification": "Independent final pre-promotion acceptance. Static public promotion/download verification remains outstanding at this checkpoint."
+}

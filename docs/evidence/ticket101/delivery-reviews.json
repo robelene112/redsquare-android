@@ -1,0 +1,15 @@
+{
+  "version": 110,
+  "spec": {
+    "agent": "scroll101_spec",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "standards": {
+    "agent": "scroll101_standards",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "summary": "Public latest and immutable manifests match approved staged metadata and notes. Public/local APK bytes match42650666B and dd548a3f6d4abb37b94aad25d1073e2be428c30376e79a3fdb0b776201b37414. Stable page loads latest110; all responses200. Compiled source644 retained.",
+  "qualification": "Actual dedicated static beta delivery only. Physical/OEM/provider/Play gates remain open."
+}
