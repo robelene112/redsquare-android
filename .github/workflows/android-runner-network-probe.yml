@@ -1,0 +1,30 @@
+name: Temporary Android dependency diagnosis
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Compare ordinary and APT DNS and public package reads
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          hosts = ['archive.ubuntu.com', 'security.ubuntu.com', 'azure.archive.ubuntu.com', 'mirrors.edge.kernel.org', 'dl.google.com', 'github.com']
+          for host in hosts:
+              for prefix in [[], ['sudo', '-u', '_apt']]:
+                  command = prefix + ['getent', 'ahostsv4', host]
+                  try:
+                      result = subprocess.run(command, capture_output=True, text=True, timeout=10)
+                      print({'command': command, 'exit': result.returncode, 'output': result.stdout[:600], 'error': result.stderr[:600]}, flush=True)
+                  except subprocess.TimeoutExpired:
+                      print({'command': command, 'timeoutSeconds': 10}, flush=True)
+          for host in ['archive.ubuntu.com/ubuntu', 'mirrors.edge.kernel.org/ubuntu']:
+              for prefix in [[], ['sudo', '-u', '_apt']]:
+                  command = prefix + ['curl', '--silent', '--show-error', '--head', '--connect-timeout', '5', '--max-time', '10', 'https://' + host + '/dists/noble/InRelease']
+                  result = subprocess.run(command, capture_output=True, text=True)
+                  print({'command': command, 'exit': result.returncode, 'output': result.stdout[:600], 'error': result.stderr[:600]}, flush=True)
+          PY
