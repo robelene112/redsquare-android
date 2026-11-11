@@ -37,3 +37,23 @@ Large original native artifacts, probes and capture hashes remain outside Git
 at `/mnt/storage/redsquare-android-artifacts/identity100`. Final source, complete
 Android10/17, signed-update and delivery evidence will be recorded here before
 closing100. Parent1/36/55/84/86 remain open; no phone QA or node changes are used.
+
+The [offline RED run42991234195](https://github.com/robelene112/redsquare-android/actions/runs/42991234195)
+on `ff45860be` loses the name after recreation and fails its original15-second
+retention goal. The [selected-node RED run42992451215](https://github.com/robelene112/redsquare-android/actions/runs/42992451215)
+on `543f69f55` fails the original20-second no-navigation recovery goal.
+Original instrumentation logs remain in this packet, and complete native artifacts
+remain external. Neither failed execution is accepted by a later pass.
+
+On `e7969c227`, the focused [Android17 name run42991535779](https://github.com/robelene112/redsquare-android/actions/runs/42991535779)
+and [Android10 recovery run42991531381](https://github.com/robelene112/redsquare-android/actions/runs/42991531381)
+pass. They establish their focused goals, not complete final-source acceptance.
+
+The pre-run100 contract retains the actual accepted99 identity lists and archive
+paths. In particular, StackPublicReadTest stays under Chat, matching the accepted
+raw99 executions and reviewed99 catalog erratum. Six additive native classes bring
+the frozen complete goals to648/649 identities,226 classes,192 archives and245/246
+normal completions. All37 deliberate interruptions,36 continuity records, original
+deadlines, the inherited Android10 Profile assumption and unavailable Chat archive
+remain. The unchanged94 visual/motion/speech validators are reused. No100 result
+has yet been accepted against this complete contract.

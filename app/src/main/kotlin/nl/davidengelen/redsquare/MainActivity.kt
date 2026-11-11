@@ -617,8 +617,11 @@ class MainActivity : ComponentActivity() {
                                 if (settingsCategory == "node") {
                                     nl.davidengelen.redsquare.registry.NameDirectoryChoice(nameDirectoryEnabled,
                                         retryLoad = { nameDirectoryLoad++ }) { requested ->
-                                        withContext(Dispatchers.IO) { nameDirectorySettings.setEnabled(requested) }
-                                        nameDirectoryEnabled = requested
+                                        // Closing Settings must not cancel application of an explicitly saved choice.
+                                        withContext(NonCancellable) {
+                                            withContext(Dispatchers.IO) { nameDirectorySettings.setEnabled(requested) }
+                                            nameDirectoryEnabled = requested
+                                        }
                                     }
                                 }
                                 if (settingsCategory == "appearance") {

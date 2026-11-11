@@ -74,8 +74,8 @@ private class RegisteredIdentities(
     private val directoryInFlight = mutableSetOf<String>()
     private val directoryPending = Channel<String>(Channel.UNLIMITED)
     private val visible = mutableMapOf<String, Int>()
-    private val directoryRetries = mutableMapOf<String, Job>()
-    private val failures = mutableMapOf<String, Int>()
+    private val directoryRetry = VisibleNameRetry(scope, { it in visible && it !in labels }, ::requestDirectory)
+    private val selectedRetry = VisibleNameRetry(scope, { it in visible && it !in labels }, ::request)
     private val displayStore = wallet?.let { DirectoryNameStore(context, it.publicKey, backend, registrar,
         endpoint, directoryEndpoint) }
 
@@ -93,28 +93,14 @@ private class RegisteredIdentities(
         if (remaining > 0) visible[publicKey] = remaining
         else {
             visible.remove(publicKey)
-            directoryRetries.remove(publicKey)?.cancel()
-            failures.remove(publicKey)
+            directoryRetry.release(publicKey)
+            selectedRetry.release(publicKey)
         }
     }
 
     private fun requestDirectory(publicKey: String) {
         if (wallet != null && directoryEndpoint != null && publicKey !in labels &&
             directoryInFlight.add(publicKey)) directoryPending.trySend(publicKey)
-    }
-
-    private fun retryDirectory(publicKey: String, successfulRead: Boolean) {
-        if (publicKey !in visible || directoryEndpoint == null) return
-        directoryRetries.remove(publicKey)?.cancel()
-        val pause = if (successfulRead) { failures.remove(publicKey); 5 * 60_000L }
-            else { val attempt = ((failures[publicKey] ?: 0) + 1).coerceAtMost(7)
-                failures[publicKey] = attempt
-                (1_000L shl (attempt - 1)).coerceAtMost(60_000L) }
-        directoryRetries[publicKey] = scope.launch {
-            delay(pause)
-            directoryRetries.remove(publicKey)
-            if (publicKey in visible) requestDirectory(publicKey)
-        }
     }
 
     suspend fun loadCached(publicKeys: Set<String>) {
@@ -135,7 +121,6 @@ private class RegisteredIdentities(
 
     fun request(publicKey: String) {
         if (!SaitoWallet.isPublicKey(publicKey)) return
-        if (publicKey !in directoryLabels && publicKey !in directoryRetries) requestDirectory(publicKey)
         // A newly mounted view can retry a failed save. Other repeated rows share one result.
         if (labels[publicKey]?.saveError == false || !inFlight.add(publicKey)) return
         scope.launch {
@@ -150,8 +135,10 @@ private class RegisteredIdentities(
             if (cached != null) {
                 labels[publicKey] = RegisteredIdentityLabel(cached)
                 inFlight.remove(publicKey)
-            } else if (wallet != null) pending.send(publicKey)
-            else inFlight.remove(publicKey)
+            } else {
+                if (!directoryRetry.isScheduled(publicKey)) requestDirectory(publicKey)
+                if (wallet != null) pending.send(publicKey) else inFlight.remove(publicKey)
+            }
         }
     }
 
@@ -191,6 +178,10 @@ private class RegisteredIdentities(
             val keys = mutableListOf(first)
             delay(20)
             while (keys.size < 50) keys += directoryPending.tryReceive().getOrNull() ?: break
+            val dropped = keys.filter { it !in visible || it in labels }
+            dropped.forEach { directoryInFlight.remove(it) }
+            keys.removeAll(dropped.toSet())
+            if (keys.isEmpty()) continue
             var successfulRead = false
             try {
                 val names = withContext(Dispatchers.IO) {
@@ -204,7 +195,10 @@ private class RegisteredIdentities(
             } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { /* A directory outage never changes author identity or ownership. */ }
-            finally { keys.forEach { directoryInFlight.remove(it); retryDirectory(it, successfulRead) } }
+            finally {
+                keys.forEach { directoryInFlight.remove(it) }
+                directoryRetry.afterRead(keys, successfulRead)
+            }
         }
     }
 
@@ -213,11 +207,17 @@ private class RegisteredIdentities(
             val keys = mutableListOf(first)
             delay(20) // Gather authors composed in the same frame without blocking rendering.
             while (keys.size < 50) keys += pending.tryReceive().getOrNull() ?: break
+            val dropped = keys.filter { it !in visible || labels[it]?.saveError == false }
+            dropped.forEach { inFlight.remove(it) }
+            keys.removeAll(dropped.toSet())
+            if (keys.isEmpty()) continue
+            var successfulRead = false
             try {
                 withContext(Dispatchers.IO) {
                     SaitoPeer(requireNotNull(wallet), endpoint).use { peer ->
                         val lookup = RegistryLookup(peer, registrar)
                         val hints = lookup.hints(keys)
+                        withContext(Dispatchers.Main) { successfulRead = true }
                         val limit = Semaphore(4)
                         coroutineScope {
                             hints.map { (publicKey, name) -> launch {
@@ -243,9 +243,41 @@ private class RegisteredIdentities(
             } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { /* Unavailable discovery preserves cached/generated labels. */ }
-            finally { keys.forEach { inFlight.remove(it) } }
+            finally {
+                keys.forEach { inFlight.remove(it) }
+                selectedRetry.afterRead(keys, successfulRead)
+            }
         }
     }
 
     private fun cache(publicKey: String) = RegisteredNameStore(context, publicKey, registrar)
+}
+
+/** Both read-only lookup sources share bounded backoff; only retained rows keep retries alive. */
+private class VisibleNameRetry(private val scope: CoroutineScope, private val needed: (String) -> Boolean,
+    private val request: (String) -> Unit) {
+    private val jobs = mutableMapOf<String, Job>()
+    private val failures = mutableMapOf<String, Int>()
+
+    fun isScheduled(key: String): Boolean = key in jobs
+
+    fun release(key: String) { jobs.remove(key)?.cancel(); failures.remove(key) }
+
+    fun afterRead(keys: Collection<String>, successful: Boolean) {
+        keys.forEach { key ->
+            if (!needed(key) || !scope.isActive) { release(key); return@forEach }
+            jobs.remove(key)?.cancel()
+            val pause = if (successful) { failures.remove(key); 5 * 60_000L }
+                else {
+                    val attempt = ((failures[key] ?: 0) + 1).coerceAtMost(7)
+                    failures[key] = attempt
+                    (1_000L shl (attempt - 1)).coerceAtMost(60_000L)
+                }
+            jobs[key] = scope.launch {
+                delay(pause)
+                jobs.remove(key)
+                if (needed(key)) request(key)
+            }
+        }
+    }
 }

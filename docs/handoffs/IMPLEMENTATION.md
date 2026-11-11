@@ -27,10 +27,12 @@ No fabricated names, registrations, live transactions, node/service/provider/Pla
 changes or owner-phone QA. Existing native UI, signed peer, cache and reversible
 viewport seams remain authorized; keep original goals and deadlines.
 
-The first native tracer adds a controlled second directory peer while the selected
-node returns no name. It must show the directory label and preserve the exact post
-identity without changing the content backend. Production code is still unchanged;
-compile passes and the actual native RED run is next. Complete Android10/17,
+Actual native RED runs reproduce missing names, no-navigation recovery failure,
+loss on recreation and selected-node recovery failure. The first directory label
+passes Android17 run42991535779; transient recovery passes Android10 run42991531381.
+Bounded encrypted directory cache, provenance and the separate provider preference
+are implemented, with further native checks in progress. Source and evidence are
+recorded in [ticket100](../evidence/ticket100/README.md). Complete Android10/17,
 independent reviews, compatible signed update and exact beta verification remain
 required before closing100. Keep #1/#36/#55/#84/#86 open.
 

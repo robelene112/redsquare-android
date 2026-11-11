@@ -422,6 +422,11 @@ if [[ "${TEST_SCOPE:-full}" == destination-reveal* ]]; then
     verify_group_chat_native DestinationRevealMotionTest 180 destination-reveal destination-reveal-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == name-directory-choice* ]]; then
+    verify_group_chat_native NameDirectoryChoiceTest 180 name-directory-choice name-directory-choice-evidence
+    printf '%s\n' 'Native name-provider choice and viewport checks only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == name-directory-node* ]]; then
     verify_group_chat_native NameDirectoryNodeTest 180 name-directory-node name-directory-node-evidence
     printf '%s\n' 'Native selected-node display-name recovery only; not complete application acceptance.' > "$evidence/scope.txt"
@@ -443,7 +448,16 @@ if [[ "${TEST_SCOPE:-full}" == name-directory-recovery* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
-    verify_group_chat_native NameDirectoryPreviewTest 180 name-directory name-directory-evidence
+    name_directory_failed=0
+    verify_group_chat_native NameDirectoryPreviewTest 180 name-directory name-directory-evidence || name_directory_failed=1
+    verify_group_chat_native NameDirectoryRecoveryTest 180 name-directory-recovery name-directory-recovery-evidence || name_directory_failed=1
+    verify_group_chat_native NameDirectoryCacheTest 180 name-directory-cache name-directory-cache-evidence || name_directory_failed=1
+    verify_group_chat_native NameDirectoryNodeTest 180 name-directory-node name-directory-node-evidence || name_directory_failed=1
+    verify_group_chat_native NameDirectoryChoiceTest 180 name-directory-choice name-directory-choice-evidence || name_directory_failed=1
+    if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
+        verify_group_chat_native NameDirectoryPublicReadTest 180 name-directory-public name-directory-public-evidence || name_directory_failed=1
+    fi
+    [[ "$name_directory_failed" == 0 ]] || exit 1
     printf '%s\n' 'Native display-name directory only; not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -576,6 +590,14 @@ if [[ "${TEST_SCOPE:-full}" == thread-narrow* ]]; then
     verify_group_chat_native ConversationHeaderNarrowViewportTest 180 conversation-narrow conversation-viewport-evidence
     printf '%s\n' 'Focused existing narrow native thread/IME matrix and settled display observations; not full acceptance.' > "$evidence/scope.txt"
     exit 0
+fi
+if [[ "$full_social" == true ]]; then
+    verify_group_chat_native NameDirectoryPreviewTest 180 name-directory name-directory-evidence
+    verify_group_chat_native NameDirectoryRecoveryTest 180 name-directory-recovery name-directory-recovery-evidence
+    verify_group_chat_native NameDirectoryCacheTest 180 name-directory-cache name-directory-cache-evidence
+    verify_group_chat_native NameDirectoryNodeTest 180 name-directory-node name-directory-node-evidence
+    verify_group_chat_native NameDirectoryChoiceTest 180 name-directory-choice name-directory-choice-evidence
+    verify_group_chat_native NameDirectoryPublicReadTest 180 name-directory-public name-directory-public-evidence
 fi
 if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == thread-redesign* ]]; then
     thread_redesign_failed=0
