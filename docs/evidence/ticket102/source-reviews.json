@@ -1,0 +1,21 @@
+{
+  "base": "1521b56846ce1c2ac07e1e33bb0cb507ea2827a0",
+  "reviewedSource": "60ade34fbd97f6e16c5d29447ddb6591da507c36",
+  "standards": {
+    "reviewer": "/root/stack102_standards",
+    "actionableFindings": 0,
+    "scope": "Independent read-only source review including fix60ade34fb; runtime acceptance not established."
+  },
+  "spec": {
+    "reviewer": "/root/stack102_spec",
+    "initialFindings": [
+      {
+        "severity": "P2",
+        "finding": "Unavailable or restricted linked article loses Retry and exact-URL explicit browser recovery.",
+        "fix": "60ade34fb adds Retry and Open original, preserves original signed entry URL, extends existing native test interactions."
+      }
+    ],
+    "remainingActionableFindings": 0,
+    "scope": "Independent read-only source review through60ade34fb; runtime acceptance pending."
+  }
+}
