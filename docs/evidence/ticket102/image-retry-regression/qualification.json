@@ -1,0 +1,18 @@
+{
+  "run": "43062414396",
+  "source": "d08aa7df522efc4359ca9428e2a786bbf1139dcb",
+  "actualFailure": "Existing ImageRetryOwnershipTest caption-preservation assertion fails after three physical Retry taps. XML shows native Stack unavailable reader; media requests exactly2. Taps start940873/941045/941225, before delayed replacement completes.",
+  "cause": "While PostImage is loading, disabled outgoing Retry no longer owns the touch and its containing clickable link card handles the repeated tap. Native routing makes that navigation visible instead of an intercepted browser action.",
+  "fix": "ff747eff5 consumes otherwise unowned gestures while raster image is unavailable/loading. Child Retry and scroll retain their gesture; loaded image link remains active. Existing native test preserves all original goals and additionally rejects external intents and physically opens Stack after loading.",
+  "review": {
+    "spec": {
+      "reviewer": "/root/stack102_spec",
+      "remainingActionableFindings": 0
+    },
+    "standards": {
+      "reviewer": "/root/stack102_standards",
+      "actionableFindings": 0
+    }
+  },
+  "qualification": "Actual RED retained; focused normal/zero motion proof on both SDKs pending. Original full17 remaining jobs and secondoldsourcefull10 cancelled, no partial result accepted. Candidate111 now superseded and must never be promoted; fresh signed112/fullboth/updateboth required."
+}

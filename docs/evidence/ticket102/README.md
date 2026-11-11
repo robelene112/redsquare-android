@@ -59,3 +59,18 @@ Original complete17 run43062414396 continues. Full acceptance and promotion pend
 
 No owner-phone/OEM, provider, Play, live Saito write or production node operation
 is claimed. Parents1/36/55/84/86 remain open. Stop after102.
+
+
+Complete17 exposes an actual image Retry click-through in the original
+ImageRetryOwnershipTest: the loading image passes a repeated physical tap to its
+parent link card, opening native Stack and losing the caption. The [regression
+packet](image-retry-regression/qualification.json) retains the exact failure,
+XML/PNG, three-tap timings and two-request count. Fixff747eff5 gives the loading
+raster image ownership of otherwise unhandled gestures while preserving child
+Retry, scrolling and subsequent loaded-image navigation. Both independent source
+reviews pass. The original test is strengthened without dropping its old goals.
+Focused dual-SDK normal/zero motion confirmation is pending in43068297828.
+
+The remaining old17 and second10 jobs are cancelled after this product fix.
+No partial full results contribute acceptance. Candidate111 is now superseded:
+**never promote111**. Fresh signed112, full10/17 and exact update checks are needed.
