@@ -1,0 +1,31 @@
+{
+  "scope": "Final complete native packet and aggregate release evidence for #97 and #98, before public promotion",
+  "completeRuns": {
+    "android10": {
+      "run": 42914306789,
+      "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+      "originalFiles": 895
+    },
+    "android17": {
+      "run": 42931114125,
+      "source": "82c01e74da76abd2117bedb3eeed73e60945a8cd",
+      "originalFiles": 905,
+      "originalBytes": 524494463
+    }
+  },
+  "compiledApkSource": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "spec": {
+    "reviewer": "history98_spec",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "standards": {
+    "reviewer": "history98_standards",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "checked": "Both independent reviews recomputed all final17 original hashes and exact 635 identities, 215 classes, 181 archives, 235 normal completions, 37 deliberate interruptions and 36 continuity records. All three successful source/workflow/completion markers match fixture82c. No assumptions. Fourteen restoration logs and all 74 restoration comparisons pass. Both original refresh methods, physical covered-post tap navigation, exact reading pixels, profile information/Details in all six theme/font cells, original Save/draft recovery and both Node motion scales pass. Actual native frames inspected. Frozen contract/verifier/inherited validator hashes remain unchanged.",
+  "fixtureQualification": "Complete Android10 at compiled8ab is retained under the documented fixture-only rule. Both reviewers rechecked exact production/core/toolchain equality with fixture82c/current HEAD and absence of temporary main probes. Two complete SDK executions, no partial SDK assembly. Actual signed107 binary/staging and signed83-to107 update reviews remain applicable.",
+  "diagnosticQualification": "Historical unsuccessful runs remain failed or cancelled as recorded. Successful Save geometry/storage observations support readiness checks but do not prove the later historical Save/window failure causes. No new assumptions or waived goals; inherited unavailable archive and failure-only captures remain qualified.",
+  "remainingGate": "Actual public107 exact promotion and post-publication verification are separate. Physical/OEM/provider/Play acceptance is not claimed."
+}
