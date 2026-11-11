@@ -1,0 +1,6 @@
+{
+  "result": "NOT_APPLICATION_ACCEPTANCE",
+  "reason": "Ubuntu24 hosted runner failed to resolve azure.archive.ubuntu.com while installing emulator system dependencies. No application build/runtime was reached.",
+  "originalRawDirectory": "/mnt/storage/redsquare-android-artifacts/scroll101/lock-green-android17",
+  "retry": "Same source and goals on supported Ubuntu22 runner pool; pending."
+}

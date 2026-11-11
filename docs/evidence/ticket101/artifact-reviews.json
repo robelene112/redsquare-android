@@ -1,0 +1,18 @@
+{
+  "source": "64494ef9e455efc39e31a5d07258fd0f92b0f4a5",
+  "reviewedProductSource": "b381590d60f82d6d4ff0bfbf1f92f44e1ccd1d2c",
+  "standards": {
+    "agent": "scroll101_standards",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "summary": "Actual APK and downloaded bytes match; manifest is nondebuggable/nonprofileable with backup disabled, no diagnostic receiver or SDK classes, exact vendored license. Before/after trace counts match retained queries; worse cold151.73ms remains recorded.",
+    "qualification": "Certificate receipt inspected; this reviewer could not independently run apksigner in its shell."
+  },
+  "spec": {
+    "agent": "scroll101_spec",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "summary": "Independent apksigner succeeds with established certificate. Actual local/downloaded artifact and license match. All38 original hashes per diagnostic match; whole after-run success confirmed. Production/build/harness/tests unchanged from source review. Main busy contention4/1/3 becomes0/0/0 without a general FPS claim."
+  },
+  "qualification": "Independent artifact/staging evidence reviews. Native green, full verification, signed updates and promotion remain pending."
+}

@@ -1,0 +1,15 @@
+{
+  "source": "6c52ab5a975dbdb79d55cfdcf56b78c5b7e47be4",
+  "apkSha256": "3f2f12adea96f9233dfb98369fcf2d76771f2723e811dfcd977d463fa65dee56",
+  "applicationId": "nl.davidengelen.redsquare.performance",
+  "deviceBuild": "google/sdk_gphone64_x86_64/emu64xa:17/CE2A.260420.051.A3/16571990:userdebug/dev-keys",
+  "display": "Physical size: 320x640",
+  "nondebuggable": true,
+  "profileable": true,
+  "signing": "Disposable CI debug certificate, not a publishable beta",
+  "compositionTracing": "Performance-only runtime/perfetto instrumentation; attribution evidence, not identical ordinary APK bytes",
+  "renderer": "Hosted emulator SwiftShader, not physical GPU performance",
+  "frameSelection": "Flags0 UI frames within the OS reset interval. Missing/inconsistent completion timestamps remain unknown and are retained. Main-thread wall times are independent of completion availability, include scheduling delay and are not CPU time. Raw completion latency is unadjusted IntendedVsync-to-FrameCompleted, not the framework adjusted total-duration histogram.",
+  "workload": "20 swipes,10 in each direction,120ms each, live public feed, no taps on post actions",
+  "qualification": "Live-read diagnostic only; content/network timing are not controlled. No physical Pixel/OEM acceptance or predetermined smoothness PASS."
+}

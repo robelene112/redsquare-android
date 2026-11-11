@@ -1,0 +1,2 @@
+Broadcasting: Intent { act=androidx.tracing.perfetto.action.ENABLE_TRACING flg=0x400000 cmp=nl.davidengelen.redsquare.performance/androidx.tracing.perfetto.TracingReceiver }
+Broadcast completed: result=1, data="{"exitCode":1,"requiredVersion":"1.0.1"}"

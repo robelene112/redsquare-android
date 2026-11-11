@@ -53,3 +53,22 @@ below the viewport of a long real post. Subsequent observer corrections preserve
 actual public UI, capture failures and retain incomplete OS timestamps as unknown.
 No failed execution contributes whole-run acceptance. A local optimizer experiment
 did not complete its bounded build and was removed; no optimizer speed claim.
+
+The [post-fix trace run](after-diagnostic/summary.json),43034190819 on`b381590d6`,
+succeeds under the same three-round swipe workload. Main-thread busy-lock
+contentions change from4/1/3 to0/0/0. This supports removal of that particular
+storage wait. Raw timings remain mixed: first-trial main-thread maximum worsens
+from70.15ms to151.73ms, with ongoing cold renderer/shader work. All original
+frame samples and unknown completion counts remain. No general FPS improvement
+or physical performance acceptance is inferred.
+
+[Independent actual artifact reviews](artifact-reviews.json) pass both axes.
+Candidate110 is42,650,666bytes, SHA256`dd548a3f6d4abb37b94aad25d1073e2be428c30376e79a3fdb0b776201b37414`,
+compiled from`64494ef9e`. Exact downloaded staged bytes, existing certificate,
+ordinary package/min29/target36, nondebuggable/nonprofileable/backupfalse manifest
+and bundled license pass. The ordinary latest manifest remains109 at staging.
+
+Focused runs43034181461/43034186221 fail before application build/runtime because
+the Ubuntu24 runner cannot resolve its package mirror. Their original failures
+are [retained](setup-failures). Same-source, unchanged-goal executions use the
+already supported Ubuntu22 runner pool; failed setup never becomes an app pass.

@@ -1,0 +1,68 @@
+[
+  {
+    "trial": 0,
+    "completedUiFrames": 113,
+    "gestureSeconds": 6.36770500199998,
+    "unavailableCompletionTimes": 1,
+    "mainThreadSamples": 114,
+    "deadlineOverrunsInUiSample": 39,
+    "rawCompletionLatencyMs": {
+      "50": 32.535654,
+      "90": 83.483684,
+      "95": 105.643914,
+      "99": 178.730638,
+      "100": 272.849882
+    },
+    "mainThreadWallMs": {
+      "50": 5.588835,
+      "90": 16.326724,
+      "95": 22.97768,
+      "99": 33.874165,
+      "100": 70.147827
+    }
+  },
+  {
+    "trial": 1,
+    "completedUiFrames": 117,
+    "gestureSeconds": 5.412911942999983,
+    "unavailableCompletionTimes": 1,
+    "mainThreadSamples": 118,
+    "deadlineOverrunsInUiSample": 2,
+    "rawCompletionLatencyMs": {
+      "50": 7.668766,
+      "90": 35.679397,
+      "95": 36.505753,
+      "99": 42.926156,
+      "100": 46.600609
+    },
+    "mainThreadWallMs": {
+      "50": 1.687445,
+      "90": 5.193561,
+      "95": 7.527542,
+      "99": 12.565417,
+      "100": 28.538765
+    }
+  },
+  {
+    "trial": 2,
+    "completedUiFrames": 115,
+    "gestureSeconds": 5.360489763000032,
+    "unavailableCompletionTimes": 1,
+    "mainThreadSamples": 116,
+    "deadlineOverrunsInUiSample": 7,
+    "rawCompletionLatencyMs": {
+      "50": 9.454318,
+      "90": 20.953748,
+      "95": 24.349989,
+      "99": 33.497112,
+      "100": 46.984072
+    },
+    "mainThreadWallMs": {
+      "50": 1.643961,
+      "90": 4.997921,
+      "95": 6.149624,
+      "99": 8.071487,
+      "100": 11.023442
+    }
+  }
+]

@@ -1,0 +1,2 @@
+"name","is_main_thread","ts","wall_ms","name"
+"are.performance",1,101642801649,0.002193,"monitor contention with owner DefaultDispatcher-worker-8 (3267) at nl.davidengelen.redsquare.feed.SocialActionJournal$Saved nl.davidengelen.redsquare.feed.SocialActionJournal.load()(SocialActionJournal.kt:19) waiters=0 blocking from boolean nl.davidengelen.redsquare.feed.SocialActionOperations.busy(java.lang.String, nl.davidengelen.redsquare.saito.SaitoBackend, nl.davidengelen.redsquare.feed.PostActionKey)(SocialActionJournal.kt:120)"

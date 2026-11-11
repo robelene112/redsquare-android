@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "entry": "META-INF/compose-rich-editor-LICENSE.txt",
+  "bytes": 11343,
+  "sha256": "188187b988999fc9f6ecdae6ba6e49e4f53f0488ec5af68acbfff3b2cf0c8722",
+  "source": "third-party/compose-rich-editor/src/main/resources/META-INF/compose-rich-editor-LICENSE.txt",
+  "qualification": "Packaged vendored editor license is byte-identical to the maintained source."
+}

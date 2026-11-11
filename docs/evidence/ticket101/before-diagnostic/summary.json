@@ -1,0 +1,22 @@
+{
+  "run": "43028401807",
+  "source": "6c52ab5a975dbdb79d55cfdcf56b78c5b7e47be4",
+  "busyLockObservations": [
+    {
+      "trial": 0,
+      "mainBusyMonitorContentions": 4,
+      "waitMs": 52.814594
+    },
+    {
+      "trial": 1,
+      "mainBusyMonitorContentions": 1,
+      "waitMs": 0.002193
+    },
+    {
+      "trial": 2,
+      "mainBusyMonitorContentions": 3,
+      "waitMs": 22.186279
+    }
+  ],
+  "qualification": "Same three-round native swipe workload; public live feed contents, runner, network and JIT uncontrolled. No physical frame-rate acceptance or controlled cross-run latency percentage."
+}
