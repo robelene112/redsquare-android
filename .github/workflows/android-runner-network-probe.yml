@@ -1,6 +1,7 @@
 name: Temporary Android dependency diagnosis
 on:
-  workflow_dispatch:
+  push:
+    tags: [proof-scroll101-dns-probe-run]
 permissions:
   contents: read
 jobs:
