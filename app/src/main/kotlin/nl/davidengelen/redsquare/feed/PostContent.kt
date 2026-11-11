@@ -37,6 +37,7 @@ internal fun PostContent(post: FeedPost, backend: SaitoBackend, style: TextStyle
 @Composable
 private fun PostLinkCard(link: RedSquareLink, backend: SaitoBackend, onOpenSource: (() -> Unit) -> Unit) {
     val uri = LocalUriHandler.current
+    val nativeStack = remember(link.url) { StackLink.parse(link.url) != null }
     var unavailable by remember(link.url) { mutableStateOf(false) }
     OutlinedCard(onClick = { onOpenSource {
         try { uri.openUri(link.url); unavailable = false }
@@ -57,7 +58,7 @@ private fun PostLinkCard(link: RedSquareLink, backend: SaitoBackend, onOpenSourc
             link.title?.let { Text(it, style = MaterialTheme.typography.titleMedium, maxLines = 3, overflow = TextOverflow.Ellipsis) }
             link.description?.let { Text(it, style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 3, overflow = TextOverflow.Ellipsis) }
-            Text(stringResource(R.string.post_open_link, link.host), style = MaterialTheme.typography.labelSmall,
+            Text(if (nativeStack) stringResource(R.string.post_open_stack) else stringResource(R.string.post_open_link, link.host), style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }

@@ -44,13 +44,15 @@ private data class StackLiveRoute(val author: String? = null, val article: Strin
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: String, modifier: Modifier,
-    chrome: @Composable (Boolean) -> Unit, onNodeSettings: () -> Unit) {
+    chrome: @Composable (Boolean) -> Unit, entry: StackLink? = null, onExitLink: (() -> Unit)? = null, onNodeSettings: () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
-    val uri = LocalUriHandler.current
+    val uri = LocalExternalUriHandler.current ?: LocalUriHandler.current
     val navigation = requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
     var tab by rememberSaveable { mutableStateOf(StackTab.DISCOVER) }
-    var path by rememberSaveable { mutableStateOf(listOf(StackLiveRoute())) }
+    var path by rememberSaveable { mutableStateOf(listOf(if (entry == null) StackLiveRoute() else
+        StackLiveRoute(author = if (entry.signature == null) entry.author else null,
+            article = entry.signature, articleAuthor = entry.author))) }
     val current = path.last()
     val latest = current.latest
     val author = current.author
@@ -91,7 +93,13 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
     val authorLibrary = remember(wallet, backend, endpoint, author) {
         author?.let { key -> wallet?.let { StackLibrary(context, it, backend, endpoint, key) } }
     }
-    val library = authorLibrary ?: if (tab == StackTab.ARTICLES) ownLibrary else generalLibrary
+    val linkedLibrary = remember(wallet, backend, endpoint, entry) {
+        entry?.signature?.let { signature -> wallet?.let {
+            StackLibrary(context, it, backend, endpoint, requireNotNull(entry.author), signature)
+        } }
+    }
+    val library = if (entry?.signature != null && articleId == entry.signature && articleAuthor == entry.author)
+        linkedLibrary else authorLibrary ?: if (tab == StackTab.ARTICLES) ownLibrary else generalLibrary
     LaunchedEffect(library, editing, reviewing, drafts) {
         if (!editing && !reviewing && !(tab == StackTab.ARTICLES && drafts)) library?.start()
     }
@@ -114,11 +122,11 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         return
     }
     fun back() {
-        if (path.size > 1) path = path.dropLast(1)
+        if (path.size > 1) path = path.dropLast(1) else onExitLink?.invoke()
     }
-    BackHandler(path.size > 1) { back() }
+    BackHandler(path.size > 1 || onExitLink != null) { back() }
     val pages = rememberSaveableStateHolder()
-    val selected = library?.articles?.firstOrNull { it.id == articleId && it.author == articleAuthor }
+    val selected = library?.articles?.firstOrNull { (it.id == articleId || it.revision == articleId) && it.author == articleAuthor }
     val readingArticle = articleId != null && selected != null
     val visible = library?.articles.orEmpty().filter {
         personal?.ready == true && !personal.policy.hidesSocial(it.author) &&
@@ -143,7 +151,7 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                     Column(Modifier.fillMaxSize()) {
                     Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
                         verticalAlignment = Alignment.CenterVertically) {
-                        if (path.size > 1) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { back() }
+                        if (path.size > 1 || onExitLink != null) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { back() }
                         Text(if (articleId != null) stringResource(R.string.stack_live_article)
                             else if (author != null) registeredIdentity(author).name
                             else stringResource(if (latest) R.string.stack_latest else tab.label),

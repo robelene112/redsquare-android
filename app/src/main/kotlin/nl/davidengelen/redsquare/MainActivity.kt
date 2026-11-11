@@ -172,6 +172,8 @@ class MainActivity : ComponentActivity() {
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             val settingsStates = rememberSaveableStateHolder()
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
+            var stackLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StackLinkEntry?>(null) }
+            var stackLinkRequest by remember { mutableStateOf(0L) }
             var moduleSwitchFailed by remember { mutableStateOf(false) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
             var personalControlsOpen by remember { mutableStateOf(false) }
@@ -185,9 +187,9 @@ class MainActivity : ComponentActivity() {
             }
             val postNavigation = remember { PostNavigation() }
             fun selectModule(selected: AppModule, onSelected: () -> Unit = {}) {
-                if (selected == module) onSelected()
+                if (selected == module && stackLinkEntry == null) onSelected()
                 else scope.launch {
-                    val moved = postNavigation.navigate { module = selected; onSelected(); true }
+                    val moved = postNavigation.navigate { stackLinkEntry = null; module = selected; onSelected(); true }
                     moduleSwitchFailed = !moved
                 }
             }
@@ -319,10 +321,48 @@ class MainActivity : ComponentActivity() {
                 }
                 Os.fsync(descriptor)
             } }
+            LaunchedEffect(address, backend, backendReady) {
+                if (address != null && backendReady && backend != null && stackLinkEntry?.let {
+                    it.owner != address || it.savedBackend != backend } == true) stackLinkEntry = null
+            }
+            val linkedStack = stackLinkEntry?.takeIf {
+                module == AppModule.STACK && it.owner == address && it.savedBackend == backend
+            }
+            val visibleBackend = linkedStack?.target?.backend ?: backend
+            val externalUri = androidx.compose.ui.platform.LocalUriHandler.current
+            val readingUri = remember(externalUri) {
+                object : androidx.compose.ui.platform.UriHandler {
+                    override fun openUri(uri: String) {
+                        val target = nl.davidengelen.redsquare.saito.StackLink.parse(uri)
+                        if (target == null) { externalUri.openUri(uri); return }
+                        val owner = wallet?.publicKey ?: return
+                        val savedNode = backend ?: return
+                        val request = ++stackLinkRequest
+                        scope.launch {
+                            // Reading surfaces may already own the draft-save guard around openUri.
+                            snapshotFlow { postNavigation.transitioning }.first { !it }
+                            if (request != stackLinkRequest) return@launch
+                            val moved = postNavigation.navigate {
+                                if (wallet?.publicKey != owner || backend != savedNode || savingBackend ||
+                                    walletImport.busy || walletExport.busy) false
+                                else {
+                                    stackLinkEntry = nl.davidengelen.redsquare.ui.StackLinkEntry(target, owner, savedNode)
+                                    module = AppModule.STACK
+                                    settingsOpen = false; settingsCategory = null
+                                    true
+                                }
+                            }
+                            moduleSwitchFailed = !moved
+                        }
+                    }
+                }
+            }
             RedSquareTheme(this@MainActivity, appearance) {
                 nl.davidengelen.redsquare.feed.ProfileAvatarScope(wallet, backend,
                     backend?.let { FeedEndpoints.fromIntent(intent, it) }) {
                 CompositionLocalProvider(LocalPublishingAgreement provides publishingAgreement,
+                    androidx.compose.ui.platform.LocalUriHandler provides readingUri,
+                    nl.davidengelen.redsquare.ui.LocalExternalUriHandler provides externalUri,
                     LocalVideoFixture provides VideoFixture.fromIntent(intent),
                     LocalVideoDiagnostics provides videoDiagnostics,
                     LocalGiphyConfiguration provides GiphyConfiguration.fromIntent(intent),
@@ -349,7 +389,7 @@ class MainActivity : ComponentActivity() {
                 }) {
                 // safeDrawing remains the sole IME/system-inset owner. Secondary
                 // chrome returns when typing ends without dismissing any reminders.
-                val nodeBlock = rememberNodeBlocks(backend, intent)
+                val nodeBlock = rememberNodeBlocks(visibleBackend, intent)
                 val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
                 val featureUnobstructed = !settingsOpen && !connectionDetailsOpen && !policiesOpen &&
                     !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
@@ -377,7 +417,7 @@ class MainActivity : ComponentActivity() {
                     val appHeader: @Composable () -> Unit = {
                         val navigationEnabled = !postNavigation.transitioning && !savingBackend &&
                             !walletImport.busy && !walletExport.busy
-                        if (!nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()) AppHeader(backend?.domain, address, module,
+                        if (!nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()) AppHeader(visibleBackend?.domain, address, module,
                             walletEnabled = navigationEnabled,
                             settingsEnabled = backendReady && navigationEnabled,
                             onWallet = {
@@ -392,7 +432,7 @@ class MainActivity : ComponentActivity() {
                                 settingsOpen = false; settingsCategory = null
                             } },
                             onConnectionDetails = { connectionDetailsOpen = true }, blocks = nodeBlock,
-                            registryAuthority = backend?.let { RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, it)) }
+                            registryAuthority = visibleBackend?.let { RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, it)) }
                                 ?: nl.davidengelen.redsquare.saito.SaitoRegistry.REGISTRAR)
                         nl.davidengelen.redsquare.ui.InlineStatus(
                             if (moduleSwitchFailed) stringResource(R.string.navigation_save_failed) else null,
@@ -437,10 +477,10 @@ class MainActivity : ComponentActivity() {
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
                                     val moduleStates = rememberSaveableStateHolder()
-                                    SingleOwnerReveal(module, Modifier.weight(1f)) {
-                                        moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
+                                    SingleOwnerReveal(module to linkedStack?.target, Modifier.weight(1f)) {
+                                        val renderModule: @Composable () -> Unit = {
                                             if (module == AppModule.STACK) {
-                                                if (BuildConfig.DEBUG && intent.getBooleanExtra("stackDesignFixture", false)) {
+                                                if (linkedStack == null && BuildConfig.DEBUG && intent.getBooleanExtra("stackDesignFixture", false)) {
                                                     StackReviewScreen(Modifier.fillMaxSize(), chrome) {
                                                         address?.let { owner ->
                                                             nl.davidengelen.redsquare.ui.StackPreviewAuthor(owner, selected,
@@ -448,15 +488,20 @@ class MainActivity : ComponentActivity() {
                                                         }
                                                     }
                                                 } else {
-                                                    val stackEndpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                    val stackNode = linkedStack?.target?.backend ?: selected
+                                                    val stackEndpoint = FeedEndpoints.fromIntent(intent, stackNode)
+                                                    nl.davidengelen.redsquare.feed.ProfileAvatarScope(wallet, stackNode, stackEndpoint) {
                                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, stackEndpoint)) {
-                                                        RegisteredIdentityScope(wallet, stackEndpoint, selected,
+                                                        RegisteredIdentityScope(wallet, stackEndpoint, stackNode,
                                                             RegistryAuthority.directoryPeer(intent, stackEndpoint).takeIf { nameDirectoryEnabled == true }) {
-                                                            StackScreen(wallet, selected, stackEndpoint, Modifier.fillMaxSize(), chrome) {
+                                                            StackScreen(wallet, stackNode, stackEndpoint, Modifier.fillMaxSize(), chrome,
+                                                                entry = linkedStack?.target,
+                                                                onExitLink = if (linkedStack != null) ({ selectModule(AppModule.RED_SQUARE) }) else null) {
                                                                 settingsCategory = "node"; settingsOpen = true
                                                             }
                                                         }
+                                                    }
                                                     }
                                                 }
                                             } else {
@@ -492,6 +537,8 @@ class MainActivity : ComponentActivity() {
                                                 }
                                             }
                                         }
+                                        if (linkedStack != null) key(linkedStack.target) { renderModule() }
+                                        else moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") { renderModule() }
                                     }
                                 }
                             } else {
@@ -500,7 +547,7 @@ class MainActivity : ComponentActivity() {
                             }
                         } else chrome(true)
                     }
-                    if (connectionDetailsOpen) NodeConnectionDetails(backend?.domain, nodeBlock) { connectionDetailsOpen = false }
+                    if (connectionDetailsOpen) NodeConnectionDetails(visibleBackend?.domain, nodeBlock) { connectionDetailsOpen = false }
                     if (settingsOpen) AccountDialog(
                         onDismissRequest = {
                             if (!savingBackend) {

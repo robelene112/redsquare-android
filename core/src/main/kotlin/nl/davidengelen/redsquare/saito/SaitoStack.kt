@@ -56,6 +56,24 @@ object SaitoStack {
         }.toString()
     }
 
+    fun articleRequest(author: String, signature: String): String {
+        require(SaitoWallet.isPublicKey(author) && this.signature.matches(signature))
+        return JsonObject().apply {
+            addProperty("request", "archive")
+            add("data", JsonObject().apply {
+                addProperty("request", "load"); addProperty("field1", "Stack"); addProperty("field4", "stack:post")
+                addProperty("field2", author); addProperty("sig", signature); addProperty("limit", 1)
+            })
+        }.toString()
+    }
+
+    /** Filter before collapsing revisions: an explicit article URL must not become another revision. */
+    fun readArticle(response: String, author: String, signature: String): StackArticle? {
+        require(SaitoWallet.isPublicKey(author) && this.signature.matches(signature))
+        return readArchiveRows(response, ::decode, { it.author == author && it.revision == signature },
+            { it.revision }).entries.singleOrNull()
+    }
+
     fun articleUrl(article: StackArticle, backend: SaitoBackend): String =
         "${backend.webUrl}/stack/${article.author}/${article.revision}"
 

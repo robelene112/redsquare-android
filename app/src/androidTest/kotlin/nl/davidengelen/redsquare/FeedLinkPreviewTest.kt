@@ -27,7 +27,7 @@ class FeedLinkPreviewTest {
             addProperty("og:image", "data:image/png;base64," + Base64.getEncoder().encodeToString(linkPreviewPng()))
         }) }
         val row = linkedFeedRow("A linked essay worth reading.", metadata = metadata.toString())
-        withAppFrameFixture("article-card", "feed-redesign-evidence", "[$row]") {
+        withLinkFixture("article-card", "feed-redesign-evidence", "[$row]") {
             ui.waitUntil(15_000) { ui.onNodeWithText("A linked essay worth reading.").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             val article = hasText("Independent writing, together") and hasClickAction()
@@ -48,10 +48,10 @@ class FeedLinkPreviewTest {
 
     @Test fun absentOrUnreadableHintsKeepTheActualTextLinkWithoutInventedArticleMetadata() = withInterceptedPostLinks {
         val row = linkedFeedRow("A caption before its standalone link.\n$referenceArticleLink", link = "", metadata = "not JSON")
-        withAppFrameFixture("article-without-hints", "feed-redesign-evidence", "[$row]") {
+        withLinkFixture("article-without-hints", "feed-redesign-evidence", "[$row]") {
             ui.waitUntil(15_000) { ui.onNodeWithText("A caption before its standalone link.", useUnmergedTree = true).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
-            val article = hasText("Open link at saito.io") and hasClickAction()
+            val article = hasText("Open in Stack") and hasClickAction()
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(article)
             ui.onNode(article).performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Independent writing, together").assertDoesNotExist()
@@ -67,7 +67,7 @@ class FeedLinkPreviewTest {
         for (link in listOf("https://example.org/article!", "https://example.org/a.", "https://example.org/read?ref=a,b;!")) {
             withInterceptedPostLinks {
                 val row = linkedFeedRow("A complete punctuation-bearing target.\n$link", link = "", metadata = "{}")
-                withAppFrameFixture("punctuation-target", "feed-redesign-evidence", "[$row]") {
+                withLinkFixture("punctuation-target", "feed-redesign-evidence", "[$row]") {
                     ui.waitUntil(15_000) { ui.onNode(hasText("A complete punctuation-bearing target.", substring = true)).isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
                     val article = hasText("Open link at example.org") and hasClickAction()
@@ -88,14 +88,14 @@ class FeedLinkPreviewTest {
         )) withInterceptedPostLinks {
             val row = linkedFeedRow("Original text target.\nhttps://example.org/old", link = explicit,
                 metadata = hints, editedText = edited)
-            withAppFrameFixture("edited-link-$suffix", "feed-redesign-evidence", "[$row]") {
+            withLinkFixture("edited-link-$suffix", "feed-redesign-evidence", "[$row]") {
                 ui.waitUntil(15_000) { ui.onNode(hasText(edited.substringBefore('\n'), substring = true)).isDisplayed() }
                 ui.onNodeWithText("Later").performClick()
                 if (explicit.isEmpty()) ui.onNodeWithText("The original linked article").assertDoesNotExist()
                 else ui.onNodeWithText("The original linked article", useUnmergedTree = true).assertExists()
                 if (destination.isEmpty()) ui.onNodeWithText("Open link at example.org", useUnmergedTree = true).assertDoesNotExist()
                 else {
-                    val article = hasText("Open link at ${if (explicit.isEmpty()) "example.org" else "saito.io"}") and hasClickAction()
+                    val article = hasText(if (explicit.isEmpty()) "Open link at example.org" else "Open in Stack") and hasClickAction()
                     ui.onNode(hasScrollToIndexAction()).performScrollToNode(article)
                     ui.onNode(article).performScrollTo().assertIsDisplayed().performClick()
                     assertOriginalTarget(destination)
@@ -105,7 +105,29 @@ class FeedLinkPreviewTest {
         }
     }
 
+    private val articleRequests = java.util.concurrent.ConcurrentLinkedQueue<JsonObject>()
+
+    private fun withLinkFixture(name: String, folder: String, rows: String,
+        block: (androidx.test.core.app.ActivityScenario<MainActivity>) -> Unit) {
+        articleRequests.clear()
+        withAppFrameFixture(name, folder, rows, archiveResponse = { criteria ->
+            if (criteria.get("field1").asString == "Stack") { articleRequests.add(criteria.deepCopy()); "[]" }
+            else if (criteria.get("field1").asString == "RedSquare") rows else "[]"
+        }) { activity ->
+            activity.onActivity { it.intent.putExtra("feedOfficialPeerUrl", it.intent.getStringExtra("feedPeerUrl")) }
+            block(activity)
+        }
+    }
+
     private fun assertOriginalTarget(expected: String = referenceArticleLink) {
+        if (expected == referenceArticleLink) {
+            ui.waitUntil(5_000) { ui.onNodeWithContentDescription("Switch app: Stack").isDisplayed() && articleRequests.isNotEmpty() }
+            val request = articleRequests.single()
+            assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", request.get("field2").asString)
+            assertEquals("a".repeat(128), request.get("sig").asString)
+            assertTrue(Intents.getIntents().none { it.action == Intent.ACTION_VIEW })
+            return
+        }
         ui.waitUntil(5_000) { Intents.getIntents().any { it.action == Intent.ACTION_VIEW } }
         val opened = Intents.getIntents().filter { it.action == Intent.ACTION_VIEW }
         assertEquals(1, opened.size)
