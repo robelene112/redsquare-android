@@ -172,10 +172,11 @@ jobs:
           sudo chmod a+rw /dev/kvm
           # This Kotlin/JVM proof does not use the runner's large native SDKs.
           sudo rm -rf /usr/local/lib/android/sdk/ndk
-          # Hosted images share an Azure-first mirror list across Ubuntu versions.
-          # Keep the signed official archives when that mirror cannot resolve.
+          # Hosted probes found Ubuntu-domain DNS unavailable, while this Ubuntu
+          # mirror resolves for both runner and APT users. Keep original fallbacks
+          # and Ubuntu signature verification; only prefer the reachable mirror.
           if [[ -f /etc/apt/apt-mirrors.txt ]]; then
-            sudo sed -i '\|^http://azure\.archive\.ubuntu\.com/ubuntu/[[:space:]]|d' /etc/apt/apt-mirrors.txt
+            sudo sed -i '1ihttps://mirrors.edge.kernel.org/ubuntu/\tpriority:0' /etc/apt/apt-mirrors.txt
             test -s /etc/apt/apt-mirrors.txt
           fi
           sudo apt-get update -qq
