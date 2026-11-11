@@ -59,12 +59,25 @@ with tempfile.TemporaryDirectory(prefix="redsquare-scroll-signing-") as signing:
 
 
 def snapshot(name):
-    adb("shell", "uiautomator", "dump", "/sdcard/scroll-performance.xml")
-    xml = adb("shell", "cat", "/sdcard/scroll-performance.xml")
-    (evidence / (name + ".xml")).write_text(xml)
+    failure = None
+    view = None
+    for attempt in range(5):
+        try:
+            # Never mistake a previous successful dump for the current window.
+            adb("shell", "rm", "-f", "/sdcard/scroll-performance.xml")
+            adb("shell", "uiautomator", "dump", "/sdcard/scroll-performance.xml", timeout=15)
+            xml = adb("shell", "cat", "/sdcard/scroll-performance.xml")
+            view = ET.fromstring(xml)
+            (evidence / (name + ".xml")).write_text(xml)
+            break
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired, ET.ParseError) as error:
+            failure = error
+            time.sleep(.3)
     with (evidence / (name + ".png")).open("wb") as output:
         subprocess.run(["adb", "exec-out", "screencap", "-p"], stdout=output, timeout=20, check=True)
-    return ET.fromstring(xml)
+    if view is None:
+        raise RuntimeError("No current native UI hierarchy after bounded window observation") from failure
+    return view
 
 
 def coordinates(node):
@@ -204,6 +217,14 @@ data_sources { config { name: "android.surfaceflinger.frametimeline" } }
     (evidence / "observations.json").write_text(json.dumps(trials, indent=2) + "\n")
 except BaseException as error:
     failure = error
+    # Keep app failures visible before cleanup; a transient observer failure must
+    # never conceal an AndroidRuntime crash or replace its original exception.
+    try:
+        (evidence / "failure-runtime.txt").write_text(adb("logcat", "-d", "-v", "brief", "AndroidRuntime:E", "*:S"))
+        with (evidence / "failure-screen.png").open("wb") as output:
+            subprocess.run(["adb", "exec-out", "screencap", "-p"], stdout=output, timeout=20, check=True)
+    except BaseException as capture_error:
+        error.add_note("Failure capture: " + type(capture_error).__name__)
     raise
 finally:
     cleanup = []
