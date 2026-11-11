@@ -118,7 +118,8 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         it.author in following?.accounts.orEmpty()
     } else visible
     val route = "${tab.name}:${author.orEmpty()}:${articleAuthor.orEmpty()}:${articleId.orEmpty()}:$latest"
-    val reveal = rememberSingleOwnerRevealState(route)
+    val revealTarget = route to (articleId == null || library?.cacheReady == true)
+    val reveal = rememberSingleOwnerRevealState(revealTarget)
     Column(modifier) {
         Box(Modifier.weight(1f)) {
             pages.SaveableStateProvider(route) {
@@ -127,7 +128,7 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                 val anchor = rememberReadingAnchorModifier(list, enabled = !header.inMotion, relativeToRoot = true)
                 Column(Modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
                     ReadingHeader(header) { chrome(false) }
-                    SingleOwnerReveal(route, Modifier.weight(1f), state = reveal) {
+                    SingleOwnerReveal(revealTarget, Modifier.weight(1f), state = reveal) {
                     Column(Modifier.fillMaxSize()) {
                     Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
                         verticalAlignment = Alignment.CenterVertically) {
