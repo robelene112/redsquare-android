@@ -161,21 +161,24 @@ abstract class FileshareFixture {
                                 device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
                                 device.openNotification()
                                 val deadline = android.os.SystemClock.uptimeMillis() + 5000
-                                while (!device.hasObject(androidx.test.uiautomator.By.text("Cancel")) && android.os.SystemClock.uptimeMillis() < deadline) {
+                                val cancelAction = androidx.test.uiautomator.By.text(java.util.regex.Pattern.compile("Cancel", java.util.regex.Pattern.CASE_INSENSITIVE))
+                                while (!device.hasObject(cancelAction) && android.os.SystemClock.uptimeMillis() < deadline) {
                                     // Android can collapse this transfer inside the app's automatic
                                     // notification group. Expand its actual row/group, not a system alert.
                                     var row = device.findObject(androidx.test.uiautomator.By.text("Sending file"))
-                                    if (row == null) device.swipe(device.displayWidth / 2, device.displayHeight * 4 / 5,
-                                        device.displayWidth / 2, device.displayHeight / 3, 12)
+                                    var expanded = false
                                     while (row != null) {
                                         val expand = row.findObject(androidx.test.uiautomator.By.res("android:id/expand_button").desc("Expand"))
-                                        if (expand != null) { expand.click(); break }
+                                        if (expand != null) { expand.click(); expanded = true; break }
                                         row = row.parent
                                     }
+                                    // Its title can be visible while its expanded action is below the fold.
+                                    if (!expanded) device.swipe(device.displayWidth / 2, device.displayHeight * 4 / 5,
+                                        device.displayWidth / 2, device.displayHeight / 3, 12)
                                     Thread.sleep(100)
                                 }
-                                check(device.hasObject(androidx.test.uiautomator.By.text("Cancel")))
-                                device.findObject(androidx.test.uiautomator.By.text("Cancel")).click()
+                                check(device.hasObject(cancelAction))
+                                device.findObject(cancelAction).click()
                                 waitUntil { session!!.transfers.value.any { it.token == token && it.phase == FilePhase.CANCELLED } }
                                 assertNull(browser.received.get())
                             } else {
