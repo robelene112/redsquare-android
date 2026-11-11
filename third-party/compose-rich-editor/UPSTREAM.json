@@ -235,8 +235,8 @@
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt",
       "gitBlobSha1": "8371d1e996f6e8ff4276125513cc74443363cc12",
       "upstreamSha256": "08483390e00348358913b09e1f35484b81829793e1a42024db7f63d2aa9db9e3",
-      "localSha256": "08483390e00348358913b09e1f35484b81829793e1a42024db7f63d2aa9db9e3",
-      "modified": false
+      "localSha256": "2c585c6b22a26bb6f14aa751abd78a304ee998af40e8d5a4f83e48356fd86cc1",
+      "modified": true
     },
     {
       "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/utils/ElementsSpanStyle.kt",
@@ -519,5 +519,7 @@
       "modified": false
     }
   ],
-  "patchSha256": "81010901ae93e160c5b3fe179f0bbe347075a55c9677c79a02bfdf5cd48ba1d0"
+  "patchSha256": "81010901ae93e160c5b3fe179f0bbe347075a55c9677c79a02bfdf5cd48ba1d0",
+  "fencedCodeCompatibility": "Preserve CODE_FENCE_CONTENT as literal code, with existing AST token boundaries and line breaks; no image interpretation inside fences. Native Stack reader regression in issue99.",
+  "fencedCodePatchSha256": "9d5516fbbc7e7f9754f6898ebbf6969991ea554811dd081431eb88054fddf51a"
 }

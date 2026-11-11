@@ -1,5 +1,7 @@
 package com.mohamedrejeb.richeditor.parser.markdown
 
+// Local Android compatibility change: preserve literal fenced-code content in article reading (#99).
+
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextDecoration
@@ -199,7 +201,8 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 
                 if (
                     node.type == GFMTokenTypes.GFM_AUTOLINK ||
-                    node.type == MarkdownTokenTypes.CODE_LINE
+                    node.type == MarkdownTokenTypes.CODE_LINE ||
+                    node.type == MarkdownTokenTypes.CODE_FENCE_CONTENT
                 ) {
                     onText(node.getTextInNode(input).toString())
                 }
@@ -530,7 +533,9 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
                     RichSpanStyle.Link(url = destination)
             }
 
-            MarkdownElementTypes.CODE_SPAN ->
+            MarkdownElementTypes.CODE_SPAN,
+            MarkdownTokenTypes.CODE_LINE,
+            MarkdownTokenTypes.CODE_FENCE_CONTENT ->
                 RichSpanStyle.Code()
 
             else ->
