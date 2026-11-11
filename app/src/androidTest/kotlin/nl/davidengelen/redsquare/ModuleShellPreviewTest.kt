@@ -15,7 +15,7 @@ class ModuleShellPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
     @Test fun modulePickerAndAccountMenuKeepTheRealFeedAndWallet() =
-        withAppFrameFixture("module-account", "module-shell-evidence", stackDesignFixture = true) { activity ->
+        withAppFrameFixture("module-account", "module-shell-evidence") { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.onNodeWithContentDescription("Switch app: Red Square").assertIsDisplayed().assertHasClickAction().performClick()
             ui.onNode(hasText("Red Square") and isSelected()).assertIsDisplayed()
@@ -34,7 +34,7 @@ class ModuleShellPreviewTest {
                 .assertIsDisplayed().performClick()
             ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isDialog()))
                 .assertIsDisplayed().assertIsEnabled().performClick()
-            ui.waitUntil(5_000) { ui.onNodeWithText("Stack design preview").isDisplayed() }
+            ui.waitUntil(5_000) { ui.onNodeWithTag("stack-live-content").isDisplayed() }
             ui.onNode(hasText("Wallet") and hasAnyAncestor(isDialog()) and
                 SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading)).assertDoesNotExist()
             switchApp("Stack", "Red Square")
@@ -58,13 +58,15 @@ class ModuleShellPreviewTest {
         val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
             com.google.gson.JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
         }
-        withAppFrameFixture("module-retention", "module-shell-evidence", rows, stackDesignFixture = true) { activity ->
+        withAppFrameFixture("module-retention", "module-shell-evidence", rows, archiveResponse = { criteria ->
+            when (criteria.get("field1").asString) { "Stack" -> stackMotionArchive(); "RedSquare" -> rows; else -> "[]" }
+        }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 20").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNodeWithTag("feed-post-list").performScrollToNode(hasText("Reference post 05"))
             val before = ui.onNodeWithText("Reference post 05").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             switchApp("Red Square", "Stack")
-            ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+            ui.onNodeWithTag("stack-live-content").assertIsDisplayed()
             ui.onNodeWithText("Good ideas deserve\na little more room.").assertIsDisplayed()
             ui.onNode(hasText("For you") and isSelected()).assertIsDisplayed()
             ui.onNodeWithContentDescription("Write an article").assertIsDisplayed()
@@ -73,20 +75,22 @@ class ModuleShellPreviewTest {
             ui.onNode(hasText("Latest") and hasClickAction()).performClick()
             ui.waitForIdle()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "module-shell-evidence/stack-latest.png"))
-            ui.onNode(hasText("Back") and hasClickAction()).performClick()
-            ui.onNodeWithTag("stack-content").performScrollToNode(hasText("A Node in a Browser Tab"))
+            ui.onNodeWithContentDescription("Back").performClick()
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("A Node in a Browser Tab").fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("A Node in a Browser Tab"))
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed().performClick()
-            ui.onNodeWithText("Article preview").assertIsDisplayed()
+            ui.onNodeWithText("Article").assertIsDisplayed()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir,
                 "module-shell-evidence/stack-article.png"))
-            ui.onNodeWithTag("stack-content").performScrollToNode(hasText("Maya Chen"))
-            ui.onNodeWithText("Maya Chen").assertIsDisplayed().performClick()
+            ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("Anon-pncSjs"))
+            ui.onNodeWithText("Anon-pncSjs").assertIsDisplayed().performClick()
             ui.waitForIdle()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "module-shell-evidence/stack-author.png"))
-            ui.onNodeWithTag("stack-content").performScrollToNode(hasText("The quiet value of an open network"))
+            ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("The quiet value of an open network"))
             ui.onNodeWithText("The quiet value of an open network").assertIsDisplayed().performClick()
-            ui.onNode(hasText("Back") and hasClickAction()).performClick()
-            ui.onNode(hasText("Back") and hasClickAction()).performClick()
+            ui.onNodeWithContentDescription("Back").performClick()
+            ui.onNodeWithContentDescription("Back").performClick()
+            ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("A Node in a Browser Tab"))
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed()
             switchApp("Stack", "Red Square")
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 05").isDisplayed() }
@@ -113,7 +117,7 @@ class ModuleShellPreviewTest {
             ui.waitUntil(10_000) { !keyboardVisible() }
             ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
             switchApp("Red Square", "Stack")
-            ui.onNodeWithText("Article preview").assertIsDisplayed()
+            ui.onNodeWithText("Article").assertIsDisplayed()
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed()
             switchApp("Stack", "Red Square")
             val returnDeadline = android.os.SystemClock.elapsedRealtime() + 15_000

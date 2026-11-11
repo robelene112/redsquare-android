@@ -60,7 +60,7 @@ class ModuleMenuKeyboardMotionTest {
             observed.add("recording", recording)
             File(folder, "scale-$scale-$name.json").writeText(observed.toString())
         }
-        withAppFrameFixture("menu-$scale", "module-menu-motion-evidence", rows, stackDesignFixture = true) { activity ->
+        withAppFrameFixture("menu-$scale", "module-menu-motion-evidence", rows) { activity ->
             check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
             requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
             check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
@@ -90,7 +90,7 @@ class ModuleMenuKeyboardMotionTest {
                 }) {
                     await(5_000, "Directional navigation moves focus without activating a module") { focusedMenuText() == next }
                 }
-                assertFalse(device.hasObject(By.text("Stack design preview")))
+                assertFalse(device.hasObject(By.desc("Switch app: Stack")))
                 File(folder, "scale-$scale-menu-focus.txt").writeText("$first -> $next\n")
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
                 await(5_000, "Escape returns ownership to the actual Account control") {

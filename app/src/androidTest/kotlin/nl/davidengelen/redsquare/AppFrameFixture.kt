@@ -20,7 +20,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
     val backends = AndroidBackendStore(context)
     val originalBackend = backends.load()
     val retained = ChatFixtureState(context, listOf("feed.", "conversation.", "profile.", "profilemeta.", "profiledraft.", "search.",
-        "authorposts.", "postdraft.", "namemap.", "following.", "quoteoriginal.", "stack."), wallet.publicKey)
+        "authorposts.", "postdraft.", "namemap.", "following.", "quoteoriginal.", "stack.", "stackwindow.", "stackdraft."), wallet.publicKey)
     val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
     val rows = feedRows ?: JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
         .asJsonObject.get("archiveRow").let { "[$it]" }
@@ -28,7 +28,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
         quoteArchiveResponse = quoteArchiveResponse, archiveResponse = { criteria ->
         archiveResponse?.invoke(criteria) ?: when (criteria.get("field1").asString) {
             "RedSquare" -> rows
-            "RedSquareLike" -> "[]"
+            "RedSquareLike", "Stack" -> "[]"
             else -> error("Unexpected frame browsing request")
         }
     })

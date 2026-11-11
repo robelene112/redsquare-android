@@ -50,7 +50,9 @@ class ModuleHeaderMotionTest {
             observed.add("recording", recording)
             File(folder, "scale-$scale-$name.json").writeText(observed.toString())
         }
-        withAppFrameFixture("header-$scale", "module-header-motion-evidence", rows, stackDesignFixture = true) { activity ->
+        withAppFrameFixture("header-$scale", "module-header-motion-evidence", rows, archiveResponse = { criteria ->
+            when (criteria.get("field1").asString) { "Stack" -> stackMotionArchive(); "RedSquare" -> rows; else -> "[]" }
+        }) { activity ->
             check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
             requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
             check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
@@ -87,15 +89,15 @@ class ModuleHeaderMotionTest {
             movie("module") {
                 requireNotNull(device.findObject(By.desc("Switch app: Red Square"))).click()
                 requireNotNull(device.wait(Until.findObject(By.text("Stack")), 5_000)).click()
-                check(device.wait(Until.hasObject(By.text("Stack design preview")), 5_000))
+                check(device.wait(Until.hasObject(By.desc("Switch app: Stack")), 5_000))
                 // Rapidly reopen account controls during module/menu transitions.
                 // Each real popup owns an independent native composition lifetime.
                 await(5_000, "The new module exposes the actual account control") { accountVisible() == true }
                 requireNotNull(device.findObject(By.desc("Account"))).click()
                 check(device.wait(Until.hasObject(By.text("Wallet")), 5_000))
                 check(device.pressKeyCode(android.view.KeyEvent.KEYCODE_ESCAPE))
-                await(5_000, "Escape closes Account and retains the current Stack preview") {
-                    !device.hasObject(By.text("Wallet")) && device.hasObject(By.text("Stack design preview"))
+                await(5_000, "Escape closes Account and retains the current Stack module") {
+                    !device.hasObject(By.text("Wallet")) && device.hasObject(By.desc("Switch app: Stack"))
                 }
             }
             val articleDeadline = SystemClock.elapsedRealtime() + 5_000
@@ -103,7 +105,7 @@ class ModuleHeaderMotionTest {
             check(device.hasObject(By.textContains("A Node in a Browser Tab")))
             movie("article") {
                 requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()
-                check(device.wait(Until.hasObject(By.text("Article preview")), 5_000))
+                check(device.wait(Until.hasObject(By.text("Article")), 5_000))
             }
             val stackNavigation = requireNotNull(device.findObject(By.text("Discover"))).visibleBounds
             movie("article-reading") {

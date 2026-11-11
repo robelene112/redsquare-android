@@ -108,8 +108,19 @@ The owner /stack URL returned its public404 page. Empty/unavailable reading must
 not silently change node or substitute sample stories. A real node-setting action
 and original Stack website links let users make their own choice. Real native
 publication/access/payment/subscriptions remain under #1, not this reading slice.
-Historical preview/editor tests opt into an explicit debug-only design fixture;
-real module reading has separate native controlled-peer and public-read checks.
+Only historical preview/editor/access tests opt into an explicit debug-only design
+fixture. Shared module/header/menu goals exercise the real native Stack route with
+owned signed fixtures. New native reading, continuation/recreation, local draft
+and approved public-read journeys supplement every existing identity/deadline.
+
+The active reading window and cursor are separately stored by wallet/backend/author
+filter so older loaded articles survive navigation and outages even after the newest
+cache reaches its byte budget. Ordinary local drafts are wallet-scoped, durable
+and retain visual plus canonical Markdown. Internal and shared navigation await a
+final visual snapshot and atomic save. The publication review explicitly copies
+Markdown and opens the selected Stack website with the browser wallet; it does not
+claim a native broadcast, purchase or entitlement. Native publication/access remains
+under #1. The prior disposable design draft had no on-disk format to migrate.
 
 ## Android GIF configuration
 

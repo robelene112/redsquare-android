@@ -47,6 +47,8 @@ class StackLivePreviewTest {
             ui.onNodeWithText("Article").assertIsDisplayed()
             ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("Original Markdown.", substring = true))
             ui.onNodeWithText("Original Markdown.", substring = true).assertIsDisplayed()
+            ui.onNodeWithText("![Literal](stack:image:missing)", substring = true).assertExists()
+            ui.onNodeWithText("![Fenced example](stack:image:missing)", substring = true).assertExists()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "stack-live-evidence/article.png"))
             ui.revealAppNavigation()
             ui.onNodeWithContentDescription("Back").performClick()
@@ -58,6 +60,7 @@ class StackLivePreviewTest {
             ui.onNodeWithText("Follow").performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Following") and hasClickAction() and hasAnyAncestor(hasTestTag("stack-live-content"))).isDisplayed() }
             ui.revealAppNavigation()
+            ui.onNodeWithContentDescription("Back").performClick()
             ui.onNodeWithContentDescription("Back").performClick()
             ui.onNode(hasText("Following") and hasClickAction() and SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Selected)).performClick()
             ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("Open networks, real writing"))

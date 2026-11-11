@@ -60,15 +60,15 @@ private fun sourceOnly(source: String): Boolean = source.contains(Regex(
 
 @Composable
 internal fun StackEditorForm(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit,
-    onVisualBody: (String) -> Unit, onReview: () -> Unit) {
+    onVisualBody: (String) -> Unit, onReview: () -> Unit, sampleMedia: Boolean = true, enabled: Boolean = true) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         OutlinedTextField(draft.title, { onChange(draft.copy(title = it)) }, Modifier.fillMaxWidth(),
-            label = { Text(stringResource(R.string.stack_title_field)) }, singleLine = true, shape = StackControlShape)
+            label = { Text(stringResource(R.string.stack_title_field)) }, enabled = enabled, singleLine = true, shape = StackControlShape)
         OutlinedTextField(draft.subtitle, { onChange(draft.copy(subtitle = it)) }, Modifier.fillMaxWidth(),
-            label = { Text(stringResource(R.string.stack_subtitle_field)) }, singleLine = true, shape = StackControlShape)
-        CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) }
-        StackArticleEditor(draft, visual, onChange, onVisualBody)
-        StackBlockButton(onReview, Modifier.fillMaxWidth()) { Text(stringResource(R.string.stack_review_article)) }
+            label = { Text(stringResource(R.string.stack_subtitle_field)) }, enabled = enabled, singleLine = true, shape = StackControlShape)
+        if (sampleMedia) CoverPicker(draft.cover) { onChange(draft.copy(cover = it)) }
+        StackArticleEditor(draft, visual, onChange, onVisualBody, sampleMedia, enabled)
+        StackBlockButton(onReview, Modifier.fillMaxWidth(), enabled = enabled) { Text(stringResource(R.string.stack_review_article)) }
     }
 }
 
@@ -87,7 +87,8 @@ private fun CoverPicker(selected: Boolean, onSelect: (Boolean) -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onVisualBody: (String) -> Unit) {
+private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onChange: (StackDraft) -> Unit, onVisualBody: (String) -> Unit,
+    sampleMedia: Boolean = true, enabled: Boolean = true) {
     // Lazy reading may dispose the editor item. Keep its last input/undo state in
     // the screen-owned buffer until navigation/save synchronises canonical source.
     val rich = remember { visual.rich ?: RichTextState().setMarkdown(draft.body).also {
@@ -109,11 +110,11 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
     var imagePreview by remember { mutableStateOf(false) }
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         val tabs: @Composable () -> Unit = {
-            FilterChip(selected = !sourceMode, enabled = !unsupported, onClick = {
+            FilterChip(selected = !sourceMode, enabled = enabled && !unsupported, onClick = {
                 rich.setMarkdown(draft.body); visual.baseline = rich.toMarkdown()
                 onChange(draft.copy(sourceMode = false))
             }, label = { Text(stringResource(R.string.stack_visual)) })
-            FilterChip(selected = sourceMode, onClick = {
+            FilterChip(selected = sourceMode, enabled = enabled, onClick = {
                 val markdown = rich.toMarkdown()
                 onChange(draft.copy(sourceMode = true, body = if (!sourceMode && markdown != visual.baseline) markdown else draft.body))
                 visual.baseline = markdown
@@ -135,23 +136,23 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
             color = MaterialTheme.colorScheme.onSurfaceVariant)
         SingleOwnerReveal(sourceMode) {
             if (sourceMode) OutlinedTextField(draft.body, { onChange(draft.copy(body = it)); copied = false },
-                Modifier.fillMaxWidth(), minLines = 14, label = { Text(stringResource(R.string.stack_markdown_source)) },
+                Modifier.fillMaxWidth(), enabled = enabled, minLines = 14, label = { Text(stringResource(R.string.stack_markdown_source)) },
                 textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace))
             else Column {
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     val bold = stringResource(R.string.stack_bold)
-                    IconButton(onClick = { rich.toggleSpanStyle(SpanStyle(fontWeight = FontWeight.Bold)) },
+                    IconButton(enabled = enabled, onClick = { rich.toggleSpanStyle(SpanStyle(fontWeight = FontWeight.Bold)) },
                         modifier = Modifier.semantics { contentDescription = bold }) { Text("B", fontWeight = FontWeight.Bold) }
                     val italic = stringResource(R.string.stack_italic)
-                    IconButton(onClick = { rich.toggleSpanStyle(SpanStyle(fontStyle = FontStyle.Italic)) },
+                    IconButton(enabled = enabled, onClick = { rich.toggleSpanStyle(SpanStyle(fontStyle = FontStyle.Italic)) },
                         modifier = Modifier.semantics { contentDescription = italic }) { Text("I", fontStyle = FontStyle.Italic) }
-                    FrameIconButton(R.drawable.ic_link, stringResource(R.string.stack_insert_link)) { rich.addLink("Link text", "https://saito.io") }
+                    FrameIconButton(R.drawable.ic_link, stringResource(R.string.stack_insert_link), enabled) { rich.addLink("Link text", "https://saito.io") }
                     Box {
-                        FrameIconButton(R.drawable.ic_more, stringResource(R.string.stack_more_formatting)) { formatting = true }
-                        DropdownMenu(expanded = formatting, onDismissRequest = { formatting = false }) {
+                        FrameIconButton(R.drawable.ic_more, stringResource(R.string.stack_more_formatting), enabled) { formatting = true }
+                        DropdownMenu(expanded = formatting && enabled, onDismissRequest = { formatting = false }) {
                             DropdownMenuItem(text = { Text(stringResource(R.string.stack_heading)) },
                                 onClick = { formatting = false; rich.insertMarkdownAfterSelection("\n## Heading\n") })
-                            DropdownMenuItem(text = { Text(stringResource(R.string.stack_inline_image)) },
+                            if (sampleMedia) DropdownMenuItem(text = { Text(stringResource(R.string.stack_inline_image)) },
                                 onClick = { formatting = false; imagePreview = true })
                             DropdownMenuItem(text = { Text(stringResource(R.string.stack_bullets)) },
                                 onClick = { formatting = false; rich.toggleUnorderedList() })
@@ -159,7 +160,7 @@ private fun StackArticleEditor(draft: StackDraft, visual: StackVisualBuffer, onC
                     }
                 }
                 val bodyLabel = stringResource(R.string.stack_article_body)
-                RichTextEditor(rich, modifier = Modifier.fillMaxWidth().heightIn(min = 300.dp).semantics { contentDescription = bodyLabel },
+                RichTextEditor(rich, enabled = enabled, modifier = Modifier.fillMaxWidth().heightIn(min = 300.dp).semantics { contentDescription = bodyLabel },
                     colors = RichTextEditorDefaults.richTextEditorColors(textColor = MaterialTheme.colorScheme.onSurface,
                         containerColor = Color.Transparent, cursorColor = MaterialTheme.colorScheme.primary,
                         focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent),

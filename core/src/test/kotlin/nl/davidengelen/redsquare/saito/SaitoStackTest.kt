@@ -30,7 +30,7 @@ class SaitoStackTest {
         assertEquals("Different author", page.articles.single { it.author != "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR" }.title)
         assertEquals(1700001000000L, page.before)
         assertEquals("https://saito.io/stack/jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR/" +
-            reference.getAsJsonObject("article").get("sig").asString,
+            reference.getAsJsonObject("revision").get("sig").asString,
             SaitoStack.articleUrl(page.articles.single { it.title == "Revised writing" }, SaitoBackend.OFFICIAL))
     }
 }

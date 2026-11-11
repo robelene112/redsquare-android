@@ -57,7 +57,7 @@ object SaitoStack {
     }
 
     fun articleUrl(article: StackArticle, backend: SaitoBackend): String =
-        "${backend.webUrl}/stack/${article.author}/${article.id}"
+        "${backend.webUrl}/stack/${article.author}/${article.revision}"
 
     private fun JsonObject.string(name: String): String {
         val value = get(name)?.takeIf { it.isJsonPrimitive }?.asJsonPrimitive

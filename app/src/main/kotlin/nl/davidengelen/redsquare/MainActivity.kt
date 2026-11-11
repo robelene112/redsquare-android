@@ -441,7 +441,8 @@ class MainActivity : ComponentActivity() {
                                                     }
                                                 } else {
                                                     val stackEndpoint = FeedEndpoints.fromIntent(intent, selected)
-                                                    CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, stackEndpoint)) {
+                                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation,
+                                                        LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, stackEndpoint)) {
                                                         RegisteredIdentityScope(wallet, stackEndpoint, selected) {
                                                             StackScreen(wallet, selected, stackEndpoint, Modifier.fillMaxSize(), chrome) {
                                                                 settingsCategory = "node"; settingsOpen = true
