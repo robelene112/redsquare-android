@@ -4,6 +4,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.VisualResultReveal
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -92,8 +96,19 @@ internal fun PostImage(source: String, backend: SaitoBackend, label: String?, mo
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
     }
+    // Keep blank/loading image taps from falling through to the containing link or viewer.
+    // Child Retry owns its gesture; a scroll can still take over at normal touch slop.
+    val loadingInput = if (image == null) Modifier.pointerInput(source, backend) {
+        awaitEachGesture {
+            val down = awaitFirstDown(requireUnconsumed = false)
+            if (!down.isConsumed) {
+                down.consume()
+                waitForUpOrCancellation()?.consume()
+            }
+        }
+    } else Modifier
     key(source, backend) {
-        VisualResultReveal(image to failed, modifier) { (ready, unavailable), current ->
+        VisualResultReveal(image to failed, modifier.then(loadingInput)) { (ready, unavailable), current ->
             if (ready != null) Image(ready, label, Modifier.fillMaxSize(), contentScale = scale)
             else Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant), contentAlignment = Alignment.Center) {
                 if (unavailable) Column(horizontalAlignment = Alignment.CenterHorizontally) {

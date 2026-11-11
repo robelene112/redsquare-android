@@ -42,6 +42,7 @@ class ImageRetryOwnershipTest {
                 val row = linkedFeedRow("One deliberate image retry", metadata = metadata.toString())
                 withInterceptedPostLinks {
                 withAppFrameFixture("retry-$scale", "image-retry-evidence", "[$row]") { activity ->
+                    activity.onActivity { it.intent.putExtra("feedOfficialPeerUrl", it.intent.getStringExtra("feedPeerUrl")) }
                     requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
                     check(device.wait(Until.hasObject(By.text(context.getString(R.string.image_unavailable))), 10_000))
                     val retry = requireNotNull(device.wait(Until.findObject(By.text("Retry").enabled(true)), 5_000)).visibleBounds
@@ -68,7 +69,12 @@ class ImageRetryOwnershipTest {
                     check(device.wait(Until.gone(By.text(context.getString(R.string.image_unavailable))), 5_000))
                     check(device.wait(Until.gone(By.text(context.getString(R.string.image_loading))), 5_000))
                     assertTrue(device.hasObject(By.text("One deliberate image retry")))
+                    assertTrue("Image recovery must not open a browser", androidx.test.espresso.intent.Intents.getIntents()
+                        .none { it.action == android.content.Intent.ACTION_VIEW })
                     captureNativeScreen(File(folder, "scale-$scale-loaded.png"))
+                    // Once loaded, the image remains an ordinary way to open its linked article.
+                    requireNotNull(device.wait(Until.findObject(By.desc(context.getString(R.string.post_link_image))), 5_000)).click()
+                    check(device.wait(Until.hasObject(By.desc("Switch app: Stack")), 5_000))
                 }
                 }
             }
