@@ -1,0 +1,130 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLocalDraftTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.StackLocalDraftTest:
+INSTRUMENTATION_STATUS: test=finalVisualCharacterSurvivesModuleChangeAndActivityRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLocalDraftTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText = 'The final visual character survives!')
+Semantics of the node:
+Node #970 at (l=18.0, t=256.0, r=302.0, b=556.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+ContentDescription = '[Article body]'
+EditableText = 'The final visual character survives!'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@ad77948'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'The final visual character survives!'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(36, 36)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (ContentDescription = 'Article body' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.finalVisualCharacterSurvivesModuleChangeAndActivityRecreation$lambda$8(StackLocalDraftTest.kt:40)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.$r8$lambda$VF1ezMHDR1KUrcBel06p1UFeRqw(StackLocalDraftTest.kt:0)
+	at nl.davidengelen.redsquare.StackLocalDraftTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.finalVisualCharacterSurvivesModuleChangeAndActivityRecreation(StackLocalDraftTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in finalVisualCharacterSurvivesModuleChangeAndActivityRecreation(nl.davidengelen.redsquare.StackLocalDraftTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'The final visual character survives!')
+Semantics of the node:
+Node #970 at (l=18.0, t=256.0, r=302.0, b=556.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+ContentDescription = '[Article body]'
+EditableText = 'The final visual character survives!'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@ad77948'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'The final visual character survives!'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(36, 36)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (ContentDescription = 'Article body' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.finalVisualCharacterSurvivesModuleChangeAndActivityRecreation$lambda$8(StackLocalDraftTest.kt:40)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.$r8$lambda$VF1ezMHDR1KUrcBel06p1UFeRqw(StackLocalDraftTest.kt:0)
+	at nl.davidengelen.redsquare.StackLocalDraftTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.finalVisualCharacterSurvivesModuleChangeAndActivityRecreation(StackLocalDraftTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=finalVisualCharacterSurvivesModuleChangeAndActivityRecreation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLocalDraftTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSavingKeepsTheEditorUntilTheSameDraftCanBeSaved
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLocalDraftTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSavingKeepsTheEditorUntilTheSameDraftCanBeSaved
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.915
+There was 1 failure:
+1) finalVisualCharacterSurvivesModuleChangeAndActivityRecreation(nl.davidengelen.redsquare.StackLocalDraftTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'The final visual character survives!')
+Semantics of the node:
+Node #970 at (l=18.0, t=256.0, r=302.0, b=556.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+ContentDescription = '[Article body]'
+EditableText = 'The final visual character survives!'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@ad77948'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = 'The final visual character survives!'
+IsEditable = 'true'
+TextSelectionRange = 'TextRange(36, 36)'
+Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (ContentDescription = 'Article body' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.finalVisualCharacterSurvivesModuleChangeAndActivityRecreation$lambda$8(StackLocalDraftTest.kt:40)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.$r8$lambda$VF1ezMHDR1KUrcBel06p1UFeRqw(StackLocalDraftTest.kt:0)
+	at nl.davidengelen.redsquare.StackLocalDraftTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLocalDraftTest.finalVisualCharacterSurvivesModuleChangeAndActivityRecreation(StackLocalDraftTest.kt:27)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

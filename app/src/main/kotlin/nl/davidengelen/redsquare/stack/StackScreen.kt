@@ -109,6 +109,7 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
     BackHandler(path.size > 1) { back() }
     val pages = rememberSaveableStateHolder()
     val selected = library?.articles?.firstOrNull { it.id == articleId && it.author == articleAuthor }
+    val readingArticle = articleId != null && selected != null
     val visible = library?.articles.orEmpty().filter {
         personal?.ready == true && !personal.policy.hidesSocial(it.author) &&
             (tab != StackTab.FOLLOWING || it.author in following?.accounts.orEmpty())
@@ -146,14 +147,13 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                         }
                     }
                     PullToRefreshBox(library?.loading == true, { scope.launch { library?.load() } }, Modifier.weight(1f)) {
-                        LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("stack-live-content").then(anchor),
+                        // Do not attach an empty temporary list to a restored reading offset.
+                        if (articleId != null && library?.cacheReady != true) {
+                            InlineStatus(stringResource(R.string.stack_loading), StatusTone.WORKING)
+                        } else LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("stack-live-content").then(anchor),
                             contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            item {
-                                InlineStatus(if (linkFailed) stringResource(R.string.stack_link_failed) else null, StatusTone.ERROR)
-                                InlineStatus(if (library?.failed == true) stringResource(R.string.stack_load_failed) else null,
-                                    StatusTone.ERROR, actionLabel = stringResource(R.string.retry), onAction = { scope.launch { library?.load() } })
-                                InlineStatus(if (library?.cacheWarning == true) stringResource(R.string.stack_cache_warning) else null, StatusTone.NEUTRAL, announce = false)
-                                nl.davidengelen.redsquare.moderation.PersonalControlsStatus(personal)
+                            if (!readingArticle) item {
+                                StackLibraryStatus(library, linkFailed) { scope.launch { library?.load() } }
                             }
                             if (articleId != null) {
                                 if (selected != null && personal?.ready == true && !personal.policy.hidesSocial(selected.author)) {
@@ -175,6 +175,10 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                                 } else if (personal?.ready == true) item {
                                     if (library?.cacheReady != true || library.loading) InlineStatus(stringResource(R.string.stack_loading), StatusTone.WORKING)
                                     else Text(stringResource(R.string.stack_article_unavailable))
+                                }
+                                // Background recovery information follows the saved article, so it never moves reading text.
+                                if (readingArticle) item {
+                                    StackLibraryStatus(library, linkFailed) { scope.launch { library?.load() } }
                                 }
                             } else {
                                 if (author == null && tab == StackTab.ARTICLES) item {
@@ -251,4 +255,14 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         }
         ModuleNavigation(StackTab.entries, tab, enabled = true, onSelect = ::select)
     }
+}
+
+@Composable
+private fun StackLibraryStatus(library: StackLibrary?, linkFailed: Boolean, onRetry: () -> Unit) {
+    InlineStatus(if (linkFailed) stringResource(R.string.stack_link_failed) else null, StatusTone.ERROR)
+    InlineStatus(if (library?.failed == true) stringResource(R.string.stack_load_failed) else null,
+        StatusTone.ERROR, actionLabel = stringResource(R.string.retry), onAction = onRetry)
+    InlineStatus(if (library?.cacheWarning == true) stringResource(R.string.stack_cache_warning) else null,
+        StatusTone.NEUTRAL, announce = false)
+    nl.davidengelen.redsquare.moderation.PersonalControlsStatus(LocalPersonalControls.current)
 }

@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleHeaderMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ModuleHeaderMotionTest:
+INSTRUMENTATION_STATUS: test=readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleHeaderMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$lambda$23$lambda$19(ModuleHeaderMotionTest.kt:108)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$3lWJEBkDHsXONhjGydkpRkbaelo(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$movie(ModuleHeaderMotionTest.kt:48)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$lambda$23(ModuleHeaderMotionTest.kt:106)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$hbMAk4ZYZJYfpkgpzblNGss491I(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24(ModuleHeaderMotionTest.kt:53)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$X06RM3nINxTOjSyA6O8dAsqn4qc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify(ModuleHeaderMotionTest.kt:19)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(ModuleHeaderMotionTest.kt:16)
+
+INSTRUMENTATION_STATUS: stream=
+Error in readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(nl.davidengelen.redsquare.ModuleHeaderMotionTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$lambda$23$lambda$19(ModuleHeaderMotionTest.kt:108)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$3lWJEBkDHsXONhjGydkpRkbaelo(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$movie(ModuleHeaderMotionTest.kt:48)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$lambda$23(ModuleHeaderMotionTest.kt:106)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$hbMAk4ZYZJYfpkgpzblNGss491I(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24(ModuleHeaderMotionTest.kt:53)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$X06RM3nINxTOjSyA6O8dAsqn4qc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify(ModuleHeaderMotionTest.kt:19)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(ModuleHeaderMotionTest.kt:16)
+
+INSTRUMENTATION_STATUS: test=readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 88.888
+There was 1 failure:
+1) readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(nl.davidengelen.redsquare.ModuleHeaderMotionTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$lambda$23$lambda$19(ModuleHeaderMotionTest.kt:108)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$3lWJEBkDHsXONhjGydkpRkbaelo(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeMotionEvidenceKt.recordNativeTransition(NativeMotionEvidence.kt:46)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$movie(ModuleHeaderMotionTest.kt:48)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24$lambda$23(ModuleHeaderMotionTest.kt:106)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$hbMAk4ZYZJYfpkgpzblNGss491I(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify$lambda$24(ModuleHeaderMotionTest.kt:53)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.$r8$lambda$X06RM3nINxTOjSyA6O8dAsqn4qc(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.verify(ModuleHeaderMotionTest.kt:19)
+	at nl.davidengelen.redsquare.ModuleHeaderMotionTest.readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion(ModuleHeaderMotionTest.kt:16)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

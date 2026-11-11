@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackImageMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.StackImageMotionTest:
+INSTRUMENTATION_STATUS: test=loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackImageMotionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds(NativeWindowObservation.kt:27)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds$default(NativeWindowObservation.kt:19)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion$lambda$9$lambda$8$lambda$7(StackImageMotionTest.kt:64)
+	at nl.davidengelen.redsquare.StackImageMotionTest.$r8$lambda$wdvUf_wAi7XiTvr-kyF5k3KDVwk(StackImageMotionTest.kt:0)
+	at nl.davidengelen.redsquare.StackImageMotionTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion$lambda$9(StackImageMotionTest.kt:52)
+	at nl.davidengelen.redsquare.StackImageMotionTest.$r8$lambda$C76OYJks_4jf_veW5RvsFxb_Eyg(StackImageMotionTest.kt:0)
+	at nl.davidengelen.redsquare.StackImageMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion(StackImageMotionTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion(nl.davidengelen.redsquare.StackImageMotionTest):
+java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds(NativeWindowObservation.kt:27)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds$default(NativeWindowObservation.kt:19)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion$lambda$9$lambda$8$lambda$7(StackImageMotionTest.kt:64)
+	at nl.davidengelen.redsquare.StackImageMotionTest.$r8$lambda$wdvUf_wAi7XiTvr-kyF5k3KDVwk(StackImageMotionTest.kt:0)
+	at nl.davidengelen.redsquare.StackImageMotionTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion$lambda$9(StackImageMotionTest.kt:52)
+	at nl.davidengelen.redsquare.StackImageMotionTest.$r8$lambda$C76OYJks_4jf_veW5RvsFxb_Eyg(StackImageMotionTest.kt:0)
+	at nl.davidengelen.redsquare.StackImageMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion(StackImageMotionTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.442
+There was 1 failure:
+1) loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion(nl.davidengelen.redsquare.StackImageMotionTest)
+java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds(NativeWindowObservation.kt:27)
+	at nl.davidengelen.redsquare.NativeWindowObservationKt.nativeVerticalScrollBounds$default(NativeWindowObservation.kt:19)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion$lambda$9$lambda$8$lambda$7(StackImageMotionTest.kt:64)
+	at nl.davidengelen.redsquare.StackImageMotionTest.$r8$lambda$wdvUf_wAi7XiTvr-kyF5k3KDVwk(StackImageMotionTest.kt:0)
+	at nl.davidengelen.redsquare.StackImageMotionTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion$lambda$9(StackImageMotionTest.kt:52)
+	at nl.davidengelen.redsquare.StackImageMotionTest.$r8$lambda$C76OYJks_4jf_veW5RvsFxb_Eyg(StackImageMotionTest.kt:0)
+	at nl.davidengelen.redsquare.StackImageMotionTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ModuleMotionFixtureKt.withNativeModuleMotionScale(ModuleMotionFixture.kt:27)
+	at nl.davidengelen.redsquare.StackImageMotionTest.loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion(StackImageMotionTest.kt:26)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

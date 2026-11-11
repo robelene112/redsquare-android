@@ -100,9 +100,7 @@ class ModuleHeaderMotionTest {
                     !device.hasObject(By.text("Wallet")) && device.hasObject(By.desc("Switch app: Stack"))
                 }
             }
-            val articleDeadline = SystemClock.elapsedRealtime() + 5_000
-            while (!device.hasObject(By.textContains("A Node in a Browser Tab")) && SystemClock.elapsedRealtime() < articleDeadline) swipe(up = true)
-            check(device.hasObject(By.textContains("A Node in a Browser Tab")))
+            awaitNativeStackArticleCard(device, "A Node in a Browser Tab", 5_000, File(folder, "scale-$scale-card-ready.json"))
             movie("article") {
                 requireNotNull(device.findObject(By.textContains("A Node in a Browser Tab"))).click()
                 check(device.wait(Until.hasObject(By.text("Article")), 5_000))

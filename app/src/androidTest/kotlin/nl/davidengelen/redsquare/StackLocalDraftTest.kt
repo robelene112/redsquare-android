@@ -3,7 +3,6 @@ package nl.davidengelen.redsquare
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
-import androidx.compose.ui.text.AnnotatedString
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import java.io.File
@@ -37,8 +36,9 @@ class StackLocalDraftTest {
             ui.switchStackModule("Stack", "Red Square")
             ui.switchStackModule("Red Square", "Stack")
             ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Article body").isDisplayed() }
-            ui.onNodeWithContentDescription("Article body").assert(SemanticsMatcher.expectValue(
-                SemanticsProperties.EditableText, AnnotatedString(text)))
+            ui.onNodeWithContentDescription("Article body").assert(SemanticsMatcher("Exact final visual text remains, independently of renderer span annotations") {
+                it.config[SemanticsProperties.EditableText].text == text
+            })
             ui.onNodeWithText("Markdown").performScrollTo().performClick()
             ui.onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo()
                 .assert(SemanticsMatcher("Exact final visual character is in canonical Markdown") {

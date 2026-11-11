@@ -56,16 +56,7 @@ class StackImageMotionTest {
                         requireNotNull(device.wait(Until.findObject(By.desc("Switch app: Red Square")), 5_000)).click()
                         requireNotNull(device.wait(Until.findObject(By.text("Stack")), 5_000)).click()
                         check(device.wait(Until.hasObject(By.desc("Switch app: Stack")), 5_000))
-                        fun cardVisible(): Boolean = try {
-                            (device.findObject(By.text("A loaded Stack image"))?.visibleBounds?.height() ?: 0) >= 24
-                        } catch (_: androidx.test.uiautomator.StaleObjectException) { false }
-                        val deadline = SystemClock.elapsedRealtime() + 15_000
-                        while (!cardVisible() && SystemClock.elapsedRealtime() < deadline) {
-                            val list = nativeVerticalScrollBounds()
-                            check(device.swipe(list.centerX(), list.bottom - list.height() / 5,
-                                list.centerX(), list.top + list.height() / 5, 20))
-                        }
-                        check(cardVisible() && SystemClock.elapsedRealtime() <= deadline) { "The real article card remains reachable within fifteen seconds" }
+                        awaitNativeStackArticleCard(device, "A loaded Stack image", 15_000, File(folder, "scale-$scale-card-ready.json"))
                         requireNotNull(device.findObject(By.text("A loaded Stack image"))).click()
                         check(requested.await(5, TimeUnit.SECONDS))
                         val placeholder = requireNotNull(device.wait(Until.findObject(By.desc("Loading image")), 5_000)).visibleBounds
