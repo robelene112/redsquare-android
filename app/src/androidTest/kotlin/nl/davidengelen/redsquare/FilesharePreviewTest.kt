@@ -51,6 +51,7 @@ abstract class FileshareFixture {
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/saved.bin")
         val draft = "Keep this unsent message"
         var session: FileSession? = null
+        var restoreLegacyNotifications: (() -> Unit)? = null
         var primary: Throwable? = null
         fun waitUntil(goal: () -> Boolean) = ui.waitUntil(30_000) {
             browserRef.get()?.errors?.firstOrNull()?.let { throw AssertionError("Browser peer: $it") }
@@ -87,6 +88,29 @@ abstract class FileshareFixture {
                             session = FileshareRuntime.session(context, wallet, SaitoBackend.OWNER, endpoint, author.publicKey)
                             waitUntil { session!!.ready.value }
                             if (denyNotifications) {
+                                if (android.os.Build.VERSION.SDK_INT < 33) {
+                                    val manager = context.getSystemService(NotificationManager::class.java)
+                                    val original = manager.areNotificationsEnabled()
+                                    fun setNotifications(enabled: Boolean, returnToChat: Boolean) {
+                                        val settings = Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                                            .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName)
+                                        if (returnToChat) activity.onActivity { current -> current.startActivity(settings) }
+                                        else context.startActivity(settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                                        val by = androidx.test.uiautomator.By.pkg("com.android.settings").clickable(true)
+                                            .hasDescendant(androidx.test.uiautomator.By.res("com.android.settings", "switch_text").text("Show notifications"))
+                                        val toggle = requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(by), 10_000))
+                                        if (manager.areNotificationsEnabled() != enabled) toggle.click()
+                                        val deadline = android.os.SystemClock.uptimeMillis() + 5000
+                                        while (manager.areNotificationsEnabled() != enabled && android.os.SystemClock.uptimeMillis() < deadline) Thread.sleep(25)
+                                        assertEquals(enabled, manager.areNotificationsEnabled())
+                                        if (returnToChat) {
+                                            device.pressBack()
+                                            waitUntil { device.currentPackageName == context.packageName }
+                                        } else device.pressHome()
+                                    }
+                                    restoreLegacyNotifications = { setNotifications(original, false) }
+                                    setNotifications(false, true)
+                                }
                                 check(!FileshareNotifications.available(context))
                                 ui.onNodeWithContentDescription("Add media").performClick()
                                 ui.onNodeWithText("Send a file").performClick()
@@ -202,7 +226,7 @@ abstract class FileshareFixture {
                                 captureNativeScreen(File(evidence, "saved.png"), "File saved")
                                 viewportWidth?.let { width ->
                                     val folder = File(evidence, "viewport-$width").apply { mkdirs() }
-                                    ui.onNodeWithContentDescription("Back").performClick()
+                                    ui.onNodeWithText("Back").performClick()
                                     ui.onNodeWithText("Home").performClick()
                                     ui.withPostViewports(activity, folder, "fileshare", widthDp = width) { cell, _ ->
                                         ui.onNodeWithText("Chat").performClick()
@@ -213,7 +237,7 @@ abstract class FileshareFixture {
                                             .assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
                                         ui.onNodeWithText(draft).assertExists()
                                         captureNativeScreen(File(folder, "$cell-saved.png"), "File saved")
-                                        ui.onNodeWithContentDescription("Back").performClick()
+                                        ui.onNodeWithText("Back").performClick()
                                         ui.onNodeWithText("Home").performClick()
                                     }
                                 }
@@ -240,6 +264,7 @@ abstract class FileshareFixture {
             device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
             cleanupAfterTest(primary,
                 { Intents.release() },
+                { restoreLegacyNotifications?.invoke() },
                 { if (preparationCancel) context.contentResolver.call(source, "release", null, null) },
                 { context.getSystemService(NotificationManager::class.java).cancel(FileTransferService.NOTIFICATION_ID) },
                 { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(previousBackend) },
