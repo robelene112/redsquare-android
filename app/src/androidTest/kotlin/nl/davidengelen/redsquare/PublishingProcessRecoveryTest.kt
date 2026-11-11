@@ -126,9 +126,14 @@ class PublishingProcessRecoveryTest {
         if (!checkpoint.exists()) { check(!originals.exists()); return }
         val row = readCheckpoint()
         val owner = row.get("owner").asString
+        require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
+        val retainedNames = row.getAsJsonArray("savedFiles").map { it.asString }.toSet()
+        val receiptPattern = Regex("postdraft\\.owner\\.${Regex.escape(owner)}\\.submitted\\.([0-9a-f]{128})\\.v1(?:\\.bak|\\.new)?")
+        // Preparation removes prior receipts from the active directory. Their exact saved names
+        // remain part of this owner's declared fixture even when no current file enumerates them.
+        val retainedReceipts = retainedNames.filter(receiptPattern::matches)
         cleanupAfterTest(null,
-            { val retainedNames = row.getAsJsonArray("savedFiles").map { it.asString }.toSet()
-                val receiptPattern = Regex("postdraft\\.owner\\.${Regex.escape(owner)}\\.submitted\\.([0-9a-f]{128})\\.v1(?:\\.bak|\\.new)?")
+            {
                 val retainedIds = retainedNames.mapNotNull { receiptPattern.matchEntire(it)?.groupValues?.get(1) }.toSet()
                 val createdIds = fileNames(owner).mapNotNull { receiptPattern.matchEntire(it)?.groupValues?.get(1) }
                     .filterNot { it in retainedIds }
@@ -142,7 +147,7 @@ class PublishingProcessRecoveryTest {
                 } }
                 cleanupAfterTest(null, *cancellations.toTypedArray())
             },
-            { restoreProcessFixtureFiles(context, originals, fileNames(owner), row.getAsJsonArray("savedFiles")) },
+            { restoreProcessFixtureFiles(context, originals, fileNames(owner) + retainedReceipts, row.getAsJsonArray("savedFiles")) },
             { row.getAsJsonArray("preferences").forEach { value ->
                 val pref = value.asJsonObject
                 val pair = pref.get("name").asString to pref.get("key").asString
