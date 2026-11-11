@@ -480,6 +480,11 @@ if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
     printf '%s\n' 'Native display-name directory only; not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
+    verify_group_chat_native StackLinkPreviewTest 180 stack-links stack-link-evidence
+    exit 0
+fi
+
 if [[ "${TEST_SCOPE:-full}" == stack-live* ]]; then
     # Collect independent focused failures in one run; every class still must pass.
     stack_native_result=0
@@ -854,6 +859,7 @@ if [[ "$full_chat" == true ]]; then
     verify_group_chat_native ModuleShellPreviewTest 180 module-shell module-shell-evidence
     verify_stack_design
     verify_group_chat_native StackLivePreviewTest 180 stack-live stack-live-evidence
+    verify_group_chat_native StackLinkPreviewTest 180 stack-links stack-link-evidence
     verify_group_chat_native StackReadingRecoveryTest 180 stack-reading stack-reading-evidence
     verify_group_chat_native StackLocalDraftTest 180 stack-draft stack-draft-evidence
     verify_group_chat_native StackImageMotionTest 180 stack-image-motion stack-image-motion-evidence

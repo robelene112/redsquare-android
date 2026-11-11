@@ -11,14 +11,13 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The authorized scroll-performance issue #101 is complete in signed beta110.
-Both complete Android10/17 runs, the unchanged frozen acceptance catalog,
-actual signed updates, independent Spec/Standards reviews and exact public
-promotion/download verification pass. The packet records the specific removed
-storage wait and mixed cold emulator timings; physical smoothness remains an
-external #36 gate. No owner-phone QA, live writes or node/service/provider/Play
-changes were used. Keep #1/#36/#55/#84/#86 open and stop until the owner requests
-another issue. Issue #100 remains complete in beta109.
+The owner requests native Stack-link navigation, issue102. Implement sequentially
+from beta110/1521b5684 using existing native UI, signed controlled peer, core and
+Android external-intent seams. Preserve signed target/source, drafts, reading
+position and saved node; canonical Stack cards now intentionally supersede their
+old browser expectation. Review, complete both SDKs, verify a compatible signed
+beta update and delivery. No owner-phone QA, live writes or node/provider/Play
+operations. Keep #1/#36/#55/#84/#86 open; stop after102. Issue101 is complete.
 
 ## Load the real skills
 

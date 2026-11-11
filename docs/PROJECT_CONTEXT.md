@@ -1,6 +1,18 @@
 # Red Square Android project context
 
 
+## Active native Stack links #102
+
+The owner requests in-app Stack links. Implement one issue102 from accepted
+beta110/1521b5684. Approved Stack article, author and root URLs route natively,
+with exact signed targets and explicit source node, no persisted node switch,
+Back to the prior post/reading position and activity/draft recovery. Preserve
+external URLs and deliberate browser publication/Open original actions. Existing
+native/controlled-peer/Android-intent seams are authorized; no owner-phone QA,
+live Saito writes, node/provider/Play operations or other issue work. Full goals
+remain; only prior canonical Stack-card browser expectations are superseded by
+the owner's explicit new behavior. Review, verify, signed beta delivery and stop102.
+
 ## Delivered fast-scroll correction #101
 
 Signed [beta 0.1.110](https://davidengelen.nl/redsquare/) removes a measured
