@@ -485,12 +485,39 @@ if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
     exit 0
 fi
 verify_fileshare() {
-    verify_group_chat_native FileshareSendPreviewTest 180 fileshare-send fileshare-evidence
-    verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
-    verify_group_chat_native FileshareCancelPreviewTest 180 fileshare-cancel fileshare-evidence
-    verify_group_chat_native FileshareUnknownSizePreviewTest 180 fileshare-unknown-size fileshare-evidence
-    verify_group_chat_native FileshareNotificationPreviewTest 180 fileshare-notifications fileshare-evidence
-    verify_group_chat_native FilesharePreparationCancelPreviewTest 180 fileshare-preparation-cancel fileshare-evidence
+    verify_fileshare_case FileshareSendPreviewTest fileshare-send
+    verify_fileshare_case FileshareReceivePreviewTest fileshare-receive
+    verify_fileshare_case FileshareCancelPreviewTest fileshare-cancel
+    verify_fileshare_case FileshareUnknownSizePreviewTest fileshare-unknown-size
+    verify_fileshare_case FileshareNotificationPreviewTest fileshare-notifications denied
+    verify_fileshare_case FilesharePreparationCancelPreviewTest fileshare-preparation-cancel
+}
+verify_fileshare_case() {
+    local case_class=$1 case_prefix=$2 mode=${3:-ordinary} case_exit=0
+    local old_notification_permission old_notification_op
+    old_notification_permission=$(adb shell dumpsys package nl.davidengelen.redsquare.dev | python3 -c '
+import re,sys
+text=sys.stdin.read()
+print("granted" if re.search(r"android.permission.POST_NOTIFICATIONS: granted=true",text) else "denied")')
+    old_notification_op=$(adb shell appops get nl.davidengelen.redsquare.dev POST_NOTIFICATION | python3 -c '
+import re,sys
+match=re.search(r"POST_NOTIFICATION: (allow|ignore|deny|default)",sys.stdin.read())
+print(match.group(1) if match else "default")')
+    if [[ "$mode" == denied ]]; then
+        if [[ "$TEST_DEVICE_API" != 29 ]]; then adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS; fi
+        adb shell appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION deny
+    fi
+    verify_group_chat_native "$case_class" 180 "$case_prefix" fileshare-evidence || case_exit=$?
+    # Revocation intentionally terminates the UID. Restore only after JUnit has returned its real outcome.
+    if [[ "$TEST_DEVICE_API" != 29 ]]; then
+        if [[ "$old_notification_permission" == granted ]]; then
+            adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+        else
+            adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+        fi
+    fi
+    adb shell appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION "$old_notification_op"
+    return "$case_exit"
 }
 if [[ "${TEST_SCOPE:-full}" == fileshare* ]]; then
     verify_fileshare

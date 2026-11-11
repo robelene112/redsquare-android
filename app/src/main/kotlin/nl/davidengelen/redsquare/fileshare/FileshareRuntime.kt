@@ -70,6 +70,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var lastPublication = 0L
     private var checkedRevision = -1L
     private var checkedAt = 0L
+    @Volatile private var chatWallet = wallet
     @Volatile private var serviceStarted = false
     val foregroundOwned get() = serviceStarted
     private var observers = 0
@@ -89,7 +90,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val task = scope.launch(start = CoroutineStart.LAZY) {
                     try { event() }
                     catch (_: CancellationException) { /* An explicit Cancel preempts connection/request waits. */ }
-                    catch (_: Exception) {
+                    catch (failure: Exception) {
+                        diagnose("operation", failure)
                         error.value = true
                         try {
                             if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
@@ -290,7 +292,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 }) throw IllegalStateException("Transfer queue full")
                 retainedSource = null // The serialized controller now owns the opened source.
             } catch (_: CancellationException) { retainedSource?.close() }
-            catch (_: Exception) {
+            catch (failure: Exception) {
+                diagnose("preparation", failure)
                 retainedSource?.close()
                 post { if (preparationState.value?.token == pending.token) finishPreparation(PreparationPhase.FAILED) }
             } finally { work.input = null }
@@ -317,8 +320,10 @@ internal class FileSession(private val context: Context, private val wallet: Sai
 
     private fun assertSelected() = synchronized(SaitoLocalState.lock) {
         if (checkedRevision == SaitoLocalState.authorityRevision && System.currentTimeMillis() - checkedAt < 1000) return@synchronized
-        check(AndroidWalletStore(context).loadExisting().publicKey == owner && AndroidBackendStore(context).load() == backend)
+        val selected = AndroidWalletStore(context).loadExisting()
+        check(selected.publicKey == owner && AndroidBackendStore(context).load() == backend)
         check(!AndroidPersonalControls(context, owner).load().hidesIncomingChat(contact))
+        chatWallet = selected // Same signer, current imported/updated Chat key metadata.
         checkedRevision = SaitoLocalState.authorityRevision; checkedAt = System.currentTimeMillis()
     }
 
@@ -328,7 +333,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         val connection = SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
             try {
                 if (!receive(bytes)) {
-                    val savedContact = receiveChat(context, wallet, backend, bytes, endpoint)
+                    assertSelected()
+                    val savedContact = receiveChat(context, chatWallet, backend, bytes, endpoint)
                     FileshareRuntime.chatChanges.tryEmit(Triple(owner, backend, savedContact))
                 }
                 true
@@ -455,11 +461,18 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                         Fileshare.Chunk(value.offer, value.bytes, sendingIndex, bytes), System.currentTimeMillis()))
                 }
             } catch (_: CancellationException) { }
-            catch (_: Exception) { post { if (generation == channelGeneration) end(FilePhase.FAILED) } }
+            catch (failure: Exception) {
+                diagnose("read", failure)
+                post { if (generation == channelGeneration) end(FilePhase.FAILED) }
+            }
         }
     }
     private fun update(value: FileTransfer) {
         store.save(value); publish(value); activityAt = System.currentTimeMillis()
+    }
+    private fun diagnose(stage: String, failure: Exception) {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.w("FileshareDiagnostic",
+            "$stage: ${failure.javaClass.simpleName}; ${failure.stackTrace.take(6).joinToString("; ")}")
     }
     private fun sendChannel(transaction: SaitoTransaction) {
         val frame = transaction.envelope()

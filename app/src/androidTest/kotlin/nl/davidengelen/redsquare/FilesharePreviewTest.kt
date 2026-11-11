@@ -39,8 +39,6 @@ abstract class FileshareFixture {
         val files = ChatFixtureState(context, listOf("fileshare.", "personal.${wallet.publicKey}.",
             "chat.owner.${wallet.publicKey}.", "chatwork.owner.${wallet.publicKey}.", "chatreactions.owner.${wallet.publicKey}."), wallet.publicKey)
         val device = UiDevice.getInstance(instrumentation)
-        val originalAppOp = Regex("POST_NOTIFICATION: (allow|ignore|deny|default)").find(
-            device.executeShellCommand("appops get ${context.packageName} POST_NOTIFICATION"))?.groupValues?.get(1) ?: "default"
         val permitted = android.os.Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         val evidence = File(context.cacheDir, "fileshare-evidence").apply { mkdirs() }
         val browserRef = AtomicReference<FileshareBrowserPeer>()
@@ -59,7 +57,7 @@ abstract class FileshareFixture {
         }
         try {
             files.prepare(); backends.save(SaitoBackend.OWNER); wallets.replace(wallets.loadOrCreate(), wallet)
-            if (!permitted) device.executeShellCommand("pm grant ${context.packageName} android.permission.POST_NOTIFICATIONS")
+            if (!permitted && !denyNotifications) device.executeShellCommand("pm grant ${context.packageName} android.permission.POST_NOTIFICATIONS")
             context.contentResolver.call(source, "prepare", sourceName, Bundle().apply { putByteArray("bytes", bytes) })
             if (unknown) context.contentResolver.query(source, arrayOf(android.provider.OpenableColumns.SIZE), null, null, null)!!.use {
                 check(it.moveToFirst() && it.isNull(0))
@@ -83,17 +81,21 @@ abstract class FileshareFixture {
                             waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText(author.publicKey).performClick()
                             waitUntil { ui.onAllNodesWithText("Message").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                            ui.onNodeWithText("Message").performTextInput(draft)
-                            device.pressBack() // Dismiss the IME while keeping the draft.
+                            ui.onNodeWithText("Message").performClick().performTextInput(draft)
+                            if (focusedWindowImeBottom() > 0) device.pressBack()
                             session = FileshareRuntime.session(context, wallet, SaitoBackend.OWNER, endpoint, author.publicKey)
                             waitUntil { session!!.ready.value }
                             if (denyNotifications) {
-                                device.executeShellCommand("appops set ${context.packageName} POST_NOTIFICATION deny")
                                 check(!FileshareNotifications.available(context))
                                 ui.onNodeWithContentDescription("Add media").performClick()
                                 ui.onNodeWithText("Send a file").performClick()
                                 val explanation = context.getString(nl.davidengelen.redsquare.R.string.fileshare_notifications_required)
-                                waitUntil { ui.onAllNodesWithText(explanation).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                waitUntil {
+                                    val deny = device.findObject(androidx.test.uiautomator.By.res("com.google.android.permissioncontroller:id/permission_deny_button"))
+                                        ?: device.findObject(androidx.test.uiautomator.By.res("com.android.permissioncontroller:id/permission_deny_button"))
+                                    deny?.click()
+                                    ui.onAllNodesWithText(explanation).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                                }
                                 assertTrue(session!!.transfers.value.isEmpty())
                                 assertTrue(FileshareRuntime.preparations.value.none { it.phase == PreparationPhase.PREPARING })
                                 assertTrue(fixture.relayedMessages.isEmpty() && fixture.transactions.isEmpty())
@@ -108,8 +110,9 @@ abstract class FileshareFixture {
                                 waitUntil { ui.onAllNodesWithText("Accept file").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                                 assertTrue(session!!.transfers.value.single().phase == FilePhase.OFFERED)
                                 assertEquals(0L, session!!.transfers.value.single().bytes)
+                                ui.onNodeWithText("Accept file").performScrollTo()
                                 captureNativeScreen(File(evidence, "incoming-accept.png"), "Accept file")
-                                ui.onNodeWithText("Accept file").performScrollTo().performClick()
+                                ui.onNodeWithText("Accept file").performClick()
                                 waitUntil { session!!.transfers.value.any { it.phase == FilePhase.RECEIVING && it.bytes > 0 } }
                                 session!!.accept(session!!.transfers.value.single().token)
                                 // A late duplicate Accept must leave the already receiving transfer intact.
@@ -176,6 +179,7 @@ abstract class FileshareFixture {
                                 ui.onNodeWithText("Save as…").performScrollTo().performClick()
                                 waitUntil { ui.onAllNodesWithText("File saved").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                                 assertArrayEquals(bytes, context.contentResolver.openInputStream(destination)!!.use { it.readBytes() })
+                                ui.onNodeWithText(draft).assertExists()
                                 captureNativeScreen(File(evidence, "saved.png"), "File saved")
                             }
                             assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
@@ -203,9 +207,7 @@ abstract class FileshareFixture {
                 { if (preparationCancel) context.contentResolver.call(source, "release", null, null) },
                 { context.getSystemService(NotificationManager::class.java).cancel(FileTransferService.NOTIFICATION_ID) },
                 { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(previousBackend) },
-                { files.restoreFiles() }, { files.restorePreferences() },
-                { if (denyNotifications) device.executeShellCommand("appops set ${context.packageName} POST_NOTIFICATION $originalAppOp") },
-                { if (!permitted) device.executeShellCommand("pm revoke ${context.packageName} android.permission.POST_NOTIFICATIONS") })
+                { files.restoreFiles() }, { files.restorePreferences() })
         }
     }
 }

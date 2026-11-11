@@ -38,6 +38,21 @@ The initial originals and native capture are retained under
 probe43100469789 was superseded once actual focused jobs started and contributes
 no acceptance.
 
+Later focused runs43103158001(Android17) and43103422669(Android10) at
+`d00ec1de4` also fail. Android10 reaches a failed transfer card before its first
+chunk and times out at the unchanged30second goal. Android17's event log records
+the UID killed for `permissions revoked` during fixture cleanup, masking the
+underlying JUnit result. Notification permission/app-op restoration is moved to
+the host after instrumentation returns. The fixture dismisses Back only with a
+real visible IME. Neither change waives the transfer/background assertions.
+Full originals remain under external `fileshare103/focused-<runid>`.
+
+Independent standards and spec re-reviews of `d00ec1de4` plus these changes find
+no actionable source defect. They confirm the atomic cancellation fix, gated
+Retry, Save-as draft persistence and refreshed same-owner Chat metadata. This is
+source review only. Debug-only exception class/stack diagnostics now distinguish
+the unresolved pre-first-chunk failure without logging payloads or keys.
+
 ## Verification boundaries
 
 Tests use real native screens, Android document-provider/picker boundaries,

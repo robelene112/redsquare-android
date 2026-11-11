@@ -83,6 +83,8 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
     var savingError by remember(session) { mutableStateOf(false) }
     var selectedSave by rememberSaveable(session.owner, session.contact, session.backend) { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
+    val navigation = nl.davidengelen.redsquare.feed.LocalPostNavigation.current
+    val saveBusy = saving != null || selectedSave != null
     val save = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) { uri: Uri? ->
         val token = selectedSave; selectedSave = null
         if (uri != null && token != null) {
@@ -94,8 +96,15 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
         }
     }
     val onSave: (FileTransfer) -> Unit = { value ->
-        selectedSave = value.token; savingError = false
-        try { save.launch(value.offer.name) } catch (_: Exception) { selectedSave = null; savingError = true }
+        if (!saveBusy) {
+            selectedSave = value.token; savingError = false
+            scope.launch {
+                try {
+                    if (navigation?.save() != false) save.launch(value.offer.name) else selectedSave = null
+                } catch (cancelled: CancellationException) { selectedSave = null; throw cancelled }
+                catch (_: Exception) { selectedSave = null; savingError = true }
+            }
+        }
     }
     Column(Modifier.animateContentSize()) {
         preparation?.let { pending ->
@@ -116,7 +125,7 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
         InlineStatus(if (error) stringResource(R.string.fileshare_error) else null, StatusTone.ERROR)
         InlineStatus(if (savingError) stringResource(R.string.fileshare_save_error) else null, StatusTone.ERROR)
         transfers.firstOrNull()?.let { latest ->
-            FileTransferCard(latest, session, enabled && (saving == null || latest.phase.active), saving == latest.token, busy, onSave)
+            FileTransferCard(latest, session, enabled && (!saveBusy || latest.phase.active), saving == latest.token, busy, onSave)
             if (transfers.size > 1) TextButton(onClick = { expanded = true }) { Text(stringResource(R.string.fileshare_all)) }
         }
     }
@@ -126,7 +135,7 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
         LazyColumn(Modifier.fillMaxWidth().weight(1f, fill = false), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(transfers, key = { it.token }) { value ->
-                FileTransferCard(value, session, enabled && (saving == null || value.phase.active), saving == value.token, busy, onSave)
+                FileTransferCard(value, session, enabled && (!saveBusy || value.phase.active), saving == value.token, busy, onSave)
             }
         }
     }
