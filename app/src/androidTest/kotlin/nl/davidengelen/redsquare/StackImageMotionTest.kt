@@ -3,8 +3,6 @@ package nl.davidengelen.redsquare
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.SystemClock
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -20,13 +18,10 @@ import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import okio.Buffer
 import org.junit.Assert.*
-import org.junit.Rule
 import org.junit.Test
 
 /** Native Markdown image delivery after the independent route transition has settled. */
 class StackImageMotionTest {
-    @get:Rule val ui = createEmptyComposeRule()
-
     @Test fun loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion() {
         for (scale in listOf(1, 0)) withNativeModuleMotionScale(scale) {
             val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -57,12 +52,21 @@ class StackImageMotionTest {
                     withAppFrameFixture("stack-image-$scale", "stack-image-motion-evidence", archiveResponse = { criteria ->
                         if (criteria.get("field1").asString == "Stack") "[${postingArchiveRow(article)}]" else "[]"
                     }) { activity ->
-                        ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
-                        ui.onNodeWithText("Later").performClick()
-                        ui.switchStackModule("Red Square", "Stack")
-                        ui.waitUntil(15_000) { ui.onAllNodesWithText("A loaded Stack image").fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("A loaded Stack image"))
-                        ui.onNodeWithText("A loaded Stack image").performClick()
+                        requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
+                        requireNotNull(device.wait(Until.findObject(By.desc("Switch app: Red Square")), 5_000)).click()
+                        requireNotNull(device.wait(Until.findObject(By.text("Stack")), 5_000)).click()
+                        check(device.wait(Until.hasObject(By.desc("Switch app: Stack")), 5_000))
+                        fun cardVisible(): Boolean = try {
+                            (device.findObject(By.text("A loaded Stack image"))?.visibleBounds?.height() ?: 0) >= 24
+                        } catch (_: androidx.test.uiautomator.StaleObjectException) { false }
+                        val deadline = SystemClock.elapsedRealtime() + 15_000
+                        while (!cardVisible() && SystemClock.elapsedRealtime() < deadline) {
+                            val list = nativeVerticalScrollBounds()
+                            check(device.swipe(list.centerX(), list.bottom - list.height() / 5,
+                                list.centerX(), list.top + list.height() / 5, 20))
+                        }
+                        check(cardVisible() && SystemClock.elapsedRealtime() <= deadline) { "The real article card remains reachable within fifteen seconds" }
+                        requireNotNull(device.findObject(By.text("A loaded Stack image"))).click()
                         check(requested.await(5, TimeUnit.SECONDS))
                         val placeholder = requireNotNull(device.wait(Until.findObject(By.desc("Loading image")), 5_000)).visibleBounds
                         assertFalse("The Markdown loading image is visible", placeholder.isEmpty)
