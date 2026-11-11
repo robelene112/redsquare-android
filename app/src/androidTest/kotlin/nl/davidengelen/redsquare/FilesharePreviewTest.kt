@@ -296,6 +296,11 @@ abstract class FileshareFixture {
                                 addProperty("sha256", MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) })
                                 addProperty("actualWebRtc", true); addProperty("screenOffObserved", true)
                                 addProperty("unknownSizeProvider", unknown)
+                                if (large) {
+                                    addProperty("browserChunksPrepared", browser.signedChunks.get())
+                                    addProperty("browserLastReceipt", browser.acknowledgedChunk.get())
+                                    addProperty("browserReadFinished", browser.uploadReadFinished.get())
+                                }
                                 addProperty("browserAdapterWallet", "Native public unsafe fixture; independent wallet vectors verified separately")
                             }.toString())
                         }
