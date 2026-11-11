@@ -67,7 +67,7 @@ class StackReadingRecoveryTest {
             ui.onNode(hasText("Anon-pncSjs") and hasClickAction()).performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText("Follow").isDisplayed() }
             ui.revealAppNavigation()
-            ui.onNodeWithContentDescription("Back").performClick()
+            ui.onNode(hasText("Back") and hasClickAction()).performClick()
             ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("The original content of continued story 30."))
             ui.onNodeWithText("The original content of continued story 30.").assertIsDisplayed()
             val originalPixel = ui.onNodeWithText("The original content of continued story 30.").fetchSemanticsNode().boundsInRoot.top

@@ -1,0 +1,100 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ModuleShellPreviewTest:
+INSTRUMENTATION_STATUS: test=moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Back' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft$lambda$19(ModuleShellPreviewTest.kt:78)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.$r8$lambda$J5Je2FpvGfoWakrEtxvUKnfjz-8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(ModuleShellPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: stream=
+Error in moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(nl.davidengelen.redsquare.ModuleShellPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Back' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft$lambda$19(ModuleShellPreviewTest.kt:78)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.$r8$lambda$J5Je2FpvGfoWakrEtxvUKnfjz-8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(ModuleShellPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: test=moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=modulePickerAndAccountMenuKeepTheRealFeedAndWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ModuleShellPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=modulePickerAndAccountMenuKeepTheRealFeedAndWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.76
+There was 1 failure:
+1) moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(nl.davidengelen.redsquare.ModuleShellPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Back' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft$lambda$19(ModuleShellPreviewTest.kt:78)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.$r8$lambda$J5Je2FpvGfoWakrEtxvUKnfjz-8(Unknown Source:0)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ModuleShellPreviewTest.moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft(ModuleShellPreviewTest.kt:61)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -51,7 +51,7 @@ class StackLivePreviewTest {
             ui.onNodeWithText("![Fenced example](stack:image:missing)", substring = true).assertExists()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "stack-live-evidence/article.png"))
             ui.revealAppNavigation()
-            ui.onNodeWithContentDescription("Back").performClick()
+            ui.onNode(hasText("Back") and hasClickAction()).performClick()
             ui.onNodeWithText("Open networks, real writing").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Open networks, real writing").performClick()
             ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("Anon-pncSjs"))
@@ -60,8 +60,8 @@ class StackLivePreviewTest {
             ui.onNodeWithText("Follow").performClick()
             ui.waitUntil(5_000) { ui.onNode(hasText("Following") and hasClickAction() and hasAnyAncestor(hasTestTag("stack-live-content"))).isDisplayed() }
             ui.revealAppNavigation()
-            ui.onNodeWithContentDescription("Back").performClick()
-            ui.onNodeWithContentDescription("Back").performClick()
+            ui.onNode(hasText("Back") and hasClickAction()).performClick()
+            ui.onNode(hasText("Back") and hasClickAction()).performClick()
             ui.onNode(hasText("Following") and hasClickAction() and SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Selected)).performClick()
             ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("Open networks, real writing"))
             ui.onNodeWithText("Open networks, real writing").assertIsDisplayed()
@@ -103,7 +103,7 @@ class StackLivePreviewTest {
                 ui.onNodeWithText("Original Markdown.", substring = true).assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-reader.png"))
                 ui.revealAppNavigation()
-                ui.onNodeWithContentDescription("Back").performClick()
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
                 switch("Stack", "Red Square")
                 ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             }

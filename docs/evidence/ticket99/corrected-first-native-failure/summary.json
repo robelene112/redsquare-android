@@ -1,0 +1,11 @@
+{
+  "result": "FAILURE",
+  "source": "1eafaa794b7ea4ead643da8fe8b61f0eddd56896",
+  "runs": [
+    42952801883,
+    42952805299
+  ],
+  "qualification": "Both actual SDKs executed ModuleShellPreviewTest. Retention method failed before later native classes at its first Back selector; the account/menu method passed. No later class acceptance is claimed.",
+  "diagnosis": "Retained native XML contains clickable text Back at [18,136][66,184]; shared FrameIconButton exposes semantic text, not contentDescription. The migrated test searched contentDescription Back. Correct only these new/migrated Stack selectors to the actual labelled clickable action, preserving navigation assertions and deadlines.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/stack99-corrected-focused-raw"
+}
