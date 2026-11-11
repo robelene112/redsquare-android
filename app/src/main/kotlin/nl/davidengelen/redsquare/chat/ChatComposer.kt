@@ -209,7 +209,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         }
     } else {
         nl.davidengelen.redsquare.fileshare.FileAttachment(fileSession, editable && permitted,
-            beforePicker = { !navigation.transitioning && publishing.beforePublishing() && persist() && !navigation.transitioning }) { pickFile, filePanel ->
+            beforePicker = { !navigation.transitioning && publishing.beforePublishing() && persist() && !navigation.transitioning }) { pickFile, filePanel, hasFiles ->
         ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
             beforePicker = { !navigation.transitioning && persist() && !navigation.transitioning },
             onPreparing = { preparingPhoto = it },
@@ -234,6 +234,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             }) { preview, attachments ->
             ConversationComposerFrame("${wallet.publicKey}:${backend.id}:$contact", modifier,
                 hasPreview = quote != null || photo != null,
+                previewMinimum = if (hasFiles) 128.dp * androidx.compose.ui.platform.LocalDensity.current.fontScale else 48.dp,
                 supplemental = {
                     filePanel()
                     publishingNotice()

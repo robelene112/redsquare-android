@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import nl.davidengelen.redsquare.R
 
 /** Keep history readable while the complete composer, including its preview, grows. */
@@ -33,11 +34,12 @@ internal fun ConversationContent(modifier: Modifier,
 /** Scroll supplemental content independently; the editor and Send keep their own row. */
 @Composable
 internal fun ConversationComposerFrame(session: String, modifier: Modifier, hasPreview: Boolean,
+    previewMinimum: Dp = 48.dp,
     supplemental: @Composable () -> Unit, editor: @Composable (Modifier) -> Unit) = key(session) {
     BoxWithConstraints(modifier) {
         val editorMinimum = 56.dp * LocalDensity.current.fontScale
         val editorMaximum = minOf(maxHeight, maxOf(editorMinimum,
-            if (hasPreview) maxHeight / 2 else (maxHeight - 48.dp).coerceAtLeast(0.dp)))
+            minOf(if (hasPreview) maxHeight / 2 else (maxHeight - 48.dp).coerceAtLeast(0.dp), maxHeight - previewMinimum)))
         val previewLabel = stringResource(R.string.chat_composition_preview)
         Column(Modifier.fillMaxWidth()) {
             Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState())

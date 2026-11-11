@@ -33,8 +33,8 @@ import java.util.Locale
 /** Document picking preserves the Chat draft; transfer ownership remains outside composition. */
 @Composable
 internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicker: suspend () -> Boolean,
-    content: @Composable (pickFile: (() -> Unit)?, panel: @Composable () -> Unit) -> Unit) {
-    if (session == null) { content(null, {}); return }
+    content: @Composable (pickFile: (() -> Unit)?, panel: @Composable () -> Unit, hasFiles: Boolean) -> Unit) {
+    if (session == null) { content(null, {}, false); return }
     val context = androidx.compose.ui.platform.LocalContext.current
     val scope = rememberCoroutineScope()
     val focus = androidx.compose.ui.platform.LocalFocusManager.current
@@ -73,7 +73,7 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
         notifications.notice()
         InlineStatus(if (pickerFailed) stringResource(R.string.fileshare_error) else null, StatusTone.ERROR)
         FileTransferPanel(session, enabled)
-    })
+    }, states.isNotEmpty() || preparing != null)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
