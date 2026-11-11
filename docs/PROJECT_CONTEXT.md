@@ -1,6 +1,15 @@
 # Red Square Android project context
 
 
+## Telegram Desktop performance reference
+
+The owner requested a short source-based performance comparison after beta112.
+[The retained chat notes](research/REDSQUARE_CHAT.md#telegram-desktop-performance-reference-2026-11-11)
+pin Telegram's source and identify unmeasured local candidates: incremental inbox
+summaries, bounded active history, narrow updates and reusable media work.
+Existing LazyColumn/stable IDs and background IO are acknowledged. This comparison
+does not implement or benchmark a performance change.
+
 ## Delivered native Stack links #102
 
 Signed [beta0.1.112](https://davidengelen.nl/redsquare/) opens approved public

@@ -96,3 +96,57 @@ and [chain pruning design](https://archive.saito.io/saito.tech/index.html%3Fp%3D
 These are historical explanations; the observations above come from inspected
 source rather than an assumption that the historical tutorials match all current
 runtime behavior.
+
+
+## Telegram Desktop performance reference, 2026-11-11
+
+Owner-requested short reference after beta112. Official source inspected at
+[`1924801c147371267b4cb8696767bc0d4d8f39c7`](https://github.com/telegramdesktop/tdesktop/commit/1924801c147371267b4cb8696767bc0d4d8f39c7).
+These are observed mechanisms and prospective Android lessons, not measured
+explanations of Telegram's overall speed or a scalability result for our app.
+
+- Limit painting to visible/damaged rows: the message list finds its paint
+  interval with binary searches. Our LazyColumn already supplies lazy rows;
+  data preparation during scrolling must also stay small.
+  [Viewport painting](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/view/history_view_list_widget.cpp#L3487-L3492).
+- Request history slices around the reading position, with before/after limits
+  adjusted from the viewport. Preload near a boundary and guard duplicate requests.
+  Preserve the reading anchor; the desktop preload distances are not mobile defaults.
+  [Slices](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/view/history_view_list_widget.cpp#L818-L843),
+  [sizing](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/view/history_view_list_widget.cpp#L2537-L2584),
+  [ordinary history request guards](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/history_widget.cpp#L5138-L5186).
+- Maintain message IDs/ranges incrementally and reuse existing item views.
+  Stable Compose keys help, but do not make rebuilding an entire data model cheap.
+  [ID updates](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/data/data_messages.cpp#L94-L135),
+  [view reuse](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/view/history_view_list_widget.cpp#L1636-L1652).
+- Repaint the affected item/rectangle and reuse measured heights until a resize
+  or width change requires recalculation. Consider narrow message updates and
+  reusable derived row state when unrelated counters or receipts change.
+  [Repaint](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/view/history_view_list_widget.cpp#L6113-L6138),
+  [measurement](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/history/view/history_view_list_widget.cpp#L3256-L3268).
+- Reuse prepared image variants. One cached-file path decodes asynchronously and
+  returns through a guarded main-thread callback. Prepare display-sized media,
+  reuse transformations and discard obsolete results; this is not evidence that
+  every Telegram operation or decoding path runs off the UI thread.
+  [Image variants](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/ui/image/image.cpp#L91-L112),
+  [cached-file decoding](https://github.com/telegramdesktop/tdesktop/blob/1924801c147371267b4cb8696767bc0d4d8f39c7/Telegram/SourceFiles/storage/file_download.cpp#L277-L315).
+
+Local inspection at `b2e46f9950` identifies candidates to measure, not confirmed bottlenecks:
+
+- `GroupChatStore.entries()` enumerates group files and calls `load()` for each;
+  `load()` replays group originals. `GroupChatScreen.publish()` already does this
+  work on Dispatchers.IO, but multiple updates reload the collection. Investigate
+  an incrementally maintained inbox summary and loading detailed history only
+  for the conversation/window that needs it.
+- `ChatHistoryStore.contacts()` recovers counterparties from retained envelopes.
+  Explore a verified discovery index rather than repeated full envelope recovery.
+- `ConversationMessageList` already uses LazyColumn, stable row IDs and reading
+  anchors. Its derived history sets/filtering and list membership checks during
+  scroll are further measurement candidates before changing Compose structure.
+
+Any derived index must preserve verified originals, encrypted private storage,
+wallet/node isolation, membership changes and durable send/acknowledgement rules.
+Do not remove transactional locks or skip signature/replay checks on the strength
+of this comparison. Measure cold/warm opening, scrolling, media and one incoming
+message at realistic chat/history sizes, separating IO/replay/lock time from UI
+work. No application change, new performance target or benchmark is established here.
