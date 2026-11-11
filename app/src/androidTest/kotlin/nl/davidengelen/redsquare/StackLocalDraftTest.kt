@@ -5,7 +5,6 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.text.AnnotatedString
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.UiDevice
 import java.io.File
 import nl.davidengelen.redsquare.feed.PublicStringStore
 import org.junit.Assert.assertTrue
@@ -15,11 +14,15 @@ import org.junit.Test
 class StackLocalDraftTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    private fun closeKeyboard() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val keyboard = focusedWindowImeBottom() > 0
-        if (keyboard) UiDevice.getInstance(instrumentation).pressBack()
+    private fun closeKeyboard(activity: androidx.test.core.app.ActivityScenario<MainActivity>) {
+        val deadline = android.os.SystemClock.elapsedRealtime() + 10_000
+        // Hide the real IME without sending a navigation key during its closing animation.
+        activity.onActivity { screen ->
+            androidx.core.view.WindowCompat.getInsetsController(screen.window, screen.window.decorView)
+                .hide(androidx.core.view.WindowInsetsCompat.Type.ime())
+        }
         ui.waitUntil(10_000) { focusedWindowImeBottom() == 0 && ui.onNodeWithContentDescription("Switch app: Stack").isDisplayed() }
+        check(android.os.SystemClock.elapsedRealtime() <= deadline) { "Keyboard dismissal retains its original ten-second bound" }
     }
 
     @Test fun finalVisualCharacterSurvivesModuleChangeAndActivityRecreation() {
@@ -33,7 +36,7 @@ class StackLocalDraftTest {
             ui.onNode(hasSetTextAction() and hasText("Title")).performTextReplacement("An actual local draft")
             val text = "The final visual character survives!"
             ui.onNodeWithContentDescription("Article body").performScrollTo().performTextReplacement(text)
-            closeKeyboard()
+            closeKeyboard(activity)
             ui.switchStackModule("Stack", "Red Square")
             ui.switchStackModule("Red Square", "Stack")
             ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Article body").isDisplayed() }
@@ -70,7 +73,10 @@ class StackLocalDraftTest {
                 ui.onNodeWithText("Markdown").performScrollTo().performClick()
                 val source = "## Keep this draft\n\nThe original **unsent** source.\n"
                 ui.onNode(hasSetTextAction() and hasText("Markdown source")).performScrollTo().performTextReplacement(source)
-                closeKeyboard()
+                closeKeyboard(activity)
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithText("Could not save this draft. Your text stays here. Try again.").isDisplayed() }
+                ui.onNode(hasSetTextAction() and hasText("Markdown source")).assertExists()
                 ui.onNodeWithContentDescription("Switch app: Stack").performClick()
                 ui.onNode(hasText("Red Square") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Could not save this draft. Your text stays here. Try again.").isDisplayed() }

@@ -75,8 +75,8 @@
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt",
       "gitBlobSha1": "d4da37320f99e147d6d3a2d704c68dd6a94c56a8",
       "upstreamSha256": "ffcac48fce732b00fb0c7cdda1f66cfc06967a432e4c9afd493eef582b9c7af7",
-      "localSha256": "ffcac48fce732b00fb0c7cdda1f66cfc06967a432e4c9afd493eef582b9c7af7",
-      "modified": false
+      "localSha256": "e31a3bf70f2ee3833d9e84d8875b28643a795b716ee6bacb37a1e6fcc65939be",
+      "modified": true
     },
     {
       "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpanStyle.kt",
@@ -520,6 +520,6 @@
     }
   ],
   "patchSha256": "81010901ae93e160c5b3fe179f0bbe347075a55c9677c79a02bfdf5cd48ba1d0",
-  "fencedCodeCompatibility": "Retain literal fenced-code tokens and Code style. Preserve code fences, code blocks and inline code before prose normalization; pass the exact parsed source with AST callbacks so token offsets match extraction. Native indented/literal-code regression in issue99.",
-  "fencedCodePatchSha256": "4b538afcc60f7959254f9322e6a47f0dac6b8a5024da932258d5e9fff2530f37"
+  "fencedCodeCompatibility": "Retain literal fenced-code tokens and Code style. Preserve code fences, code blocks and inline code before prose normalization; pass the exact parsed source with AST callbacks so token offsets match extraction. Native indented/literal-code regression in issue99. Code spans are exempt from paragraph edge trimming so indentation and trailing literal whitespace remain intact.",
+  "fencedCodePatchSha256": "1dffed1b0bcb41d02cddd964dfba2f648ea4637d26ef8b210d08b326c0994d6d"
 }

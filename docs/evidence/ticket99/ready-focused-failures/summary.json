@@ -1,0 +1,18 @@
+{
+  "result": "FAILURE",
+  "source": "8184669039f141a9affb31c2ed013d015a90b472",
+  "runs": [
+    42958303843,
+    42958306963
+  ],
+  "qualification": "Both native SDKs exercised all7 required classes. No complete/native-motion acceptance. Whole-source verification/update/delivery still pending.",
+  "passed": [
+    "Both SDKs: shared ModuleShell/Header/Menu, real viewport/empty Stack cases, older article30 retained with exact reading pixel through offline recreation, and final visual/source content through module navigation/recreation."
+  ],
+  "failed": [
+    "Both: second fenced code line loses leading literal whitespace. Pinned AST primary-API probe confirms both CODE_FENCE_CONTENT tokens retain2spaces in signed source. RichParagraph.trim invokes RichSpan.trimStart/End, which previously exempted only Image. Extend the same exemption to literal Code spans, retaining unchanged exact native assertions.",
+    "Both: forced-save test closeKeyboard sends Back during an IME transition and later observes Launcher. Actual cause remains unproved; no crash-buffer exception. Hide the actual IME through its window controller without a navigation key, retain original10s actual-IME/header checks, then explicitly exercise editor Back plus module guard under failed storage.",
+    "Both: image fixture calls postingArchiveRow on a Stack transaction, but that helper calls RedSquareFeed.decode. The controlled peer cannot return a valid Stack reply. Return the genuine Stack envelope/created_at row directly instead. Original15s readiness and actual native image motion/geometry assertions remain."
+  ],
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/stack99-ready-focused-raw"
+}

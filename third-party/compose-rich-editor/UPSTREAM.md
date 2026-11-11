@@ -31,7 +31,9 @@ Issue99's native article test exposed that the pinned parser silently omitted
 AST tokens as literal code, using the existing line-break handling and Code style.
 Normalization preserves code regions selected by the original AST, and callbacks
 receive the exact parsed source for their offsets. Indentation and formatting
-characters inside code remain literal, including after normalized prose.
+characters inside code remain literal, including after normalized prose. The
+existing paragraph edge trim also exempts Code spans, preserving their indentation
+and trailing literal whitespace instead of treating them as prose.
 This prevents image-looking text in fenced examples from disappearing or becoming
 an image. The exact addition is in `android-fenced-code.patch` (zero-context Git patch); the original
 upstream SHA256 and updated local hash remain in `UPSTREAM.json`. No dependency

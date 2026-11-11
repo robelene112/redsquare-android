@@ -48,9 +48,13 @@ class StackImageMotionTest {
                         addProperty("content", "![A field photograph](${media.url("/article-$scale.png")})")
                     })
                 }, 1_700_000_000_000L + scale)
+                val row = JsonObject().apply {
+                    addProperty("created_at", 1_700_000_000_000L + scale)
+                    addProperty("tx", article.envelope())
+                }
                 try {
                     withAppFrameFixture("stack-image-$scale", "stack-image-motion-evidence", archiveResponse = { criteria ->
-                        if (criteria.get("field1").asString == "Stack") "[${postingArchiveRow(article)}]" else "[]"
+                        if (criteria.get("field1").asString == "Stack") "[$row]" else "[]"
                     }) { activity ->
                         requireNotNull(device.wait(Until.findObject(By.text("Later")), 15_000)).click()
                         requireNotNull(device.wait(Until.findObject(By.desc("Switch app: Red Square")), 5_000)).click()

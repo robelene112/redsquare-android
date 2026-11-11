@@ -1,5 +1,7 @@
 package com.mohamedrejeb.richeditor.model
 
+// Local Android compatibility change (#99): retain literal code whitespace during paragraph trimming.
+
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.util.fastForEach
@@ -256,7 +258,7 @@ internal class RichSpan(
      * @return True if the rich span is empty after trimming, false otherwise
      */
     internal fun trimStart(): Boolean {
-        if (richSpanStyle is RichSpanStyle.Image)
+        if (richSpanStyle is RichSpanStyle.Image || richSpanStyle is RichSpanStyle.Code)
             return false
 
         if (isBlank()) {
@@ -295,6 +297,7 @@ internal class RichSpan(
     }
 
     internal fun trimEnd(): Boolean {
+        if (richSpanStyle is RichSpanStyle.Code) return false
         val isImage = richSpanStyle is RichSpanStyle.Image
 
         if (isImage)

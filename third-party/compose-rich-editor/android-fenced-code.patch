@@ -1,3 +1,15 @@
+diff --git a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt
+index d4da37320..b41b4df8f 100644
+--- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt
++++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichSpan.kt
+@@ -2,0 +3,2 @@ package com.mohamedrejeb.richeditor.model
++// Local Android compatibility change (#99): retain literal code whitespace during paragraph trimming.
++
+@@ -259 +261 @@ internal class RichSpan(
+-        if (richSpanStyle is RichSpanStyle.Image)
++        if (richSpanStyle is RichSpanStyle.Image || richSpanStyle is RichSpanStyle.Code)
+@@ -297,0 +300 @@ internal class RichSpan(
++        if (richSpanStyle is RichSpanStyle.Code) return false
 diff --git a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt
 index 61c0dc27e..a1e08dbbc 100644
 --- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt
