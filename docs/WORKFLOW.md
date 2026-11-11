@@ -11,16 +11,12 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner requested issue #97: keep feed refresh completion at the top of the
-visible feed, preserving reading position and truthful completion. Implement
-97 first, then the subsequently requested profile-history clarification98,
-sequentially. A shared final compatible beta may deliver both after complete
-verification. Stop after these requested UI fixes. Issue96 remains the
-accepted beta105 checkpoint. See [the handoff](handoffs/IMPLEMENTATION.md).
-
-The earlier five-ticket redesign sequence (#90, #93, #81, #83 and #94) was
-completed with beta102. Specifications #1/#55/#84/#86 and release #36 retain
-independent acceptance criteria. Only the requested development ticket closes.
+The requested UI corrections #97 and #98 are delivered as signed beta 107 after
+sequential implementation, complete Android 10/17 verification and compatible
+signed-update/publication checks. Stop after recording these two deliveries.
+Do not start another ticket automatically. See [the handoff](handoffs/IMPLEMENTATION.md).
+Parent specifications #1/#55/#84/#86 and release #36 retain independent criteria.
+The prior #96/beta 105 and redesign/beta 102 checkpoints remain historical acceptances.
 
 ## Load the real skills
 

@@ -1,0 +1,55 @@
+{
+  "result": "PASS",
+  "verifiedAt": "2026-11-11T01:47:49.182559+00:00",
+  "publicManifest": {
+    "versionCode": 107,
+    "versionName": "0.1.107",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3",
+    "commit": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/107/redsquare.apk",
+    "notes": "Feed refresh feedback stays below the tabs at the top of the visible feed, including while reading older posts. Messages underneath remain tappable. Profile history now uses a neutral information icon and clearer wording about possibly missing older activity. Install over your existing app to preserve your wallet and local work."
+  },
+  "downloadedApk": {
+    "bytes": 42388522,
+    "sha256": "55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3",
+    "retainedExternalPath": "/mnt/storage/redsquare-android-artifacts/ui9798-public107-verified.apk"
+  },
+  "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+  "httpResponses": {
+    "https://davidengelen.nl/redsquare/releases/107/manifest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/107/manifest.json"
+    },
+    "https://davidengelen.nl/redsquare/latest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/latest.json"
+    },
+    "https://davidengelen.nl/redsquare/": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/"
+    },
+    "https://davidengelen.nl/redsquare/releases/107/redsquare.apk": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/107/redsquare.apk"
+    }
+  },
+  "completeRuns": {
+    "android10": 42914306789,
+    "android17": 42931114125
+  },
+  "completeRunSources": {
+    "android10": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+    "android17": "82c01e74da76abd2117bedb3eeed73e60945a8cd"
+  },
+  "compiledApkSource": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "fixtureEquivalence": "Exact production/core/toolchain objects match; only fixtures and diagnostic controls differ. Complete10 retained under the documented fixture-only rule; fresh whole17 executes corrected fixtures. No partial SDK assembly.",
+  "actualSignedUpdateRuns": {
+    "android10": 42915069181,
+    "android17": 42915072894
+  },
+  "certificateQualification": "Actual public APK hash-identical to independently verified local107, established certificate and package preserved. Canonical publisher rechecks identity/signature before exact atomic promotion.",
+  "qualification": "Actual ordinary beta delivery for97 and98. Complete native/control and signed83-to107 update checks do not establish physical/OEM/provider/Play acceptance."
+}

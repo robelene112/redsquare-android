@@ -1,6 +1,6 @@
 # Nog nodig van David
 
-Bijgewerkt: 10 november 2026. Dit is het centrale overzicht voor jouw bijdragen
+Bijgewerkt: 11 november 2026. Dit is het centrale overzicht voor jouw bijdragen
 aan de eerste release. Werk dit document bij zodra iets geregeld is. De agent
 houdt de status bij en gaat ondertussen verder met herkenbare placeholders en
 concepten. Een placeholder geldt nooit als een afgeronde integratie, geldende
@@ -58,7 +58,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta105](https://davidengelen.nl/redsquare/) staat online. Deze versie
+De gewone [beta107](https://davidengelen.nl/redsquare/) staat online. Deze versie
 herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
 accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
 Na succesvol plaatsen keer je terug naar de feed of conversatie met kort
@@ -67,17 +67,20 @@ Onder iedere post in een gesprek opent de knop Reply nu rechtstreeks een
 antwoord op die specifieke post. Het losse ballonnetje bovenaan is verwijderd.
 Concepten blijven bij schermrotatie behouden. Ook met grote tekst blijft het
 schrijfveld bereikbaar.
+De feedmelding staat nu bovenaan onder de tabbladen, ook tijdens verder lezen.
+Berichten eronder blijven aanklikbaar. De profieluitleg gebruikt een neutraal
+informatie-icoon en "History may be limited", met Details voor de toelichting.
 Stack blijft herkenbaar een lokale ontwerppreview. Herhaald liken heeft geen
 lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
 
 De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
-van beta83 naar105 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+van beta83 naar107 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
 en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
 ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
 fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint. Gebruik die niet als definitieve meting van beta105. Voor definitieve
+checkpoint. Gebruik die niet als definitieve meting van beta107. Voor definitieve
 fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en

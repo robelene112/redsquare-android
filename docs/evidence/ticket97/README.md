@@ -1,58 +1,75 @@
-# Feed refresh feedback placement, issue97
+# Feed refresh feedback placement, issue #97
 
-The owner reported Feed updated covering an older post near the bottom of the
-visible feed. The OS volume panel in the screenshot is unrelated.
-The correction anchors the existing brief status beneath the feed tabs, at the
-top of the actual posts viewport. Its overlay does not reserve space or move
-the reading anchor. Refresh state, applied-result timing, outage behavior,
-2.5-second lifetime, shared motion and live announcement remain unchanged.
+Delivered with #98 as signed [beta 107](https://davidengelen.nl/redsquare/).
+See [publication](publication107.json) and [independent final reviews](final-reviews.json).
+Feedback stays below the tabs at the top of the actual visible posts viewport,
+including collapsed reading navigation. It preserves the reading anchor and lets
+physical taps reach the post underneath. Applied-result timing, outages/recovery,
+brief lifetime, motion and accessibility remain enforced.
 
 Review base: `ee8683f6d31680a911f105ab52ed971aaa392d86`.
-Initial placement source: `98c881a50b62784feae171b33f46fe2da094d6e0`.
-Corrected pass-through source: `c4ca9575ebf9928ba1585672ba162d9e9edf07d3`.
-Final combined97/98 verification and candidate source remain to be frozen.
+Compiled APK and complete Android 10 source: `8ab10cdd08909f969d485f0a4cb555e438e9bcc0`.
+Complete Android 17 fixture source: `82c01e74da76abd2117bedb3eeed73e60945a8cd`.
+[Exact production equivalence](fixture-source-equivalence.json) and
+[fixture source reviews](fixture-source-reviews.json) preserve the documented
+fixture-only rule. No temporary main-source probes remain.
 
-[Baseline42901485731](baseline/qualification.json) fails both strengthened
-existing refresh methods on unchanged beta105 production. The six original feed
-cases pass. Actual geometry places notice text at447–461px in a viewport
-starting184px; original PNGs show the reported bottom overlay. This run remains
-failed and is not corrected-source acceptance.
+## Original failures and corrective observations
 
-Both corrected focused runs pass the six original and two strengthened cases:
-[Android10](focused/feed-refresh-regression/qualification.json) and
-[Android17](focused/feed-refresh-regression-android17/qualification.json).
-Four original geometry observations per SDK include expanded and physically
-collapsed app navigation, applied results and outage recovery. Exact reading
-pixels and all original deadlines remain enforced. Original PNGs show the banner
-beneath the tabs. [Independent focused reviews](focused-reviews.json) find no
-outstanding defects; the full scope remains a separate gate.
+[Position baseline](baseline/qualification.json) fails both strengthened original
+refresh methods while the six original feed cases pass. Native geometry and PNGs
+show the old bottom overlay. Initial source `98c881a5` relocates the banner but its
+Material3 Surface intercepts a covered post tap. Initial full 10 run 42903926048
+fails original Avatar navigation; full 17 run 42903935061 independently fails
+Settings readiness under TalkBack, whose cause remains unproved. Originals remain
+in [first full 10](first-full10-failure/qualification.json) and
+[first full 17](first-full17-failure/qualification.json). Neither unsuccessful run accepts an SDK.
+The [physical tap baseline](tap-red/qualification.json) reproduces interception.
 
-[Source reviews](source-reviews.json) pass both axes. The [contract](full-contract.json)
-and [verifier](verify-full.py) were committed before complete execution. They
-preserve96's full634/635 identities,215 classes,181 archives and every recovery,
-assumption, exception and inherited-validator goal. Only baseline metadata and
-two packet paths change; the inherited temporary prefix is cosmetic.
+Corrective `c4ca9575` gives only the read-only refresh overlay a painted pass-through
+Box; ordinary statuses keep their Surface/details/actions. All original six feed
+plus two strengthened refresh methods and all twelve avatar cases pass both SDKs
+in [corrective originals](corrective/) with [independent reviews](corrective-reviews.json).
+Candidate 106 is superseded, was never promoted, and must never be promoted.
+Its binary/staging/update results remain historical only.
 
-The initial full Android10 run42903926048 failed Avatar navigation after the
-new status Surface swallowed a covered post tap. The original failing Social
-packet remains in [first-full10-failure](first-full10-failure/qualification.json).
-The independent new physical-tap regression [fails before correction](tap-red/qualification.json).
-Android17 run42903935061 separately failed Settings readiness under TalkBack;
-its [original Wallet packet](first-full17-failure/qualification.json) remains
-failed, and the cause is unproven. The unchanged focused policy17 readiness
-run42908326045 passes. Both first full runs were cancelled after their failed
-partitions; no fragments accept either SDK.
+The first final-source 17 attempt 42914310908 fails Social's Save draft return and
+Chat's one-shot native viewport observation; remaining Wallet is cancelled when
+the replacement starts. The next whole 17 attempt 42919304537 repeats the Save
+return failure. [First Social failure](first-final17-social-failure/qualification.json),
+[first Chat failure](first-final17-chat-failure/qualification.json), and
+[repeated Social failure](retry-final17-social-failure/qualification.json) remain unsuccessful.
+No partial success from either run accepts Android 17.
 
-The corrective source replaces only the read-only refresh overlay's blocking
-Surface with a painted Box. Ordinary statuses retain their Surface and interactive
-details/actions. [Corrective focused originals](corrective/) preserve all6+2 feed
-and12 avatar methods per SDK, including actual post tapping while the notice is
-visible. Source and native follow-up reviews are recorded separately.
+Unchanged [reading readiness](reading-readiness17/qualification.json) and
+[Node readiness](node-readiness17/qualification.json) pass original goals. The
+[save-prefix diagnostic](save-prefix-diagnostic/qualification.json) observes a 235px
+Save movement during IME entry followed by successful persistence/close. These
+observations do not prove historical failure causes. Timing probes can perturb the run.
 
-Signed106 [binary verification](artifact106/review.json), staging and update
-checks remain historical only. Candidate106 is superseded and must never be
-promoted. Public latest remains105. Final complete primary Android10/17,
-compatible signed candidate/update checks, final packet reviews and exact public
-delivery remain pending. Issue98 is implemented next, sequentially, and may share
-those final gates. No physical/OEM/provider or Play acceptance is claimed.
-Parents1/36/55/84/86 remain open.
+Final fixtures require positive usable targets: enabled/visible Save above the
+actual IME with stable bounds before physical input; readiness, input and visible
+feed return share the original 15-second budget. The original pixel/draft assertions
+remain. Dialog dismissal and positive feed content/unique viewport share the
+original 3-second budget; original collapse before 4s and exact anchors remain.
+Class bounds, catalog, contract and verifier are unchanged.
+
+## Complete verification and delivery
+
+[Android 10](full10-8ab1-42914306789/summary.json) and
+[Android 17](full17-82c0-42931114125/summary.json) pass all three partitions.
+The frozen [contract](full-contract.json) and [verifier](verify-full.py) enforce
+634/635 identities, 215 classes, 181 archives, 234/235 normal completions,
+37 deliberate interruptions and 36 continuity records. The inherited API29 Profile
+assumption, unavailable Chat archive and four failure-only captures remain qualified;
+no new goal is waived. Both independent final packet reviews pass.
+
+Actual [107 binary](artifact107/review.json), [staging](artifact107/staged.json),
+[Android 10 update](update107-android10/qualification.json),
+[Android 17 update](update107-android17/qualification.json) and
+[update reviews](update107-reviews.json) pass. Exact promotion and actual public
+page/latest/immutable manifest/downloaded APK checks pass in publication107.json.
+APK: 42,388,522 bytes; SHA256
+`55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3`.
+No physical/OEM/provider/Play acceptance is claimed. Keep #1/#36/#55/#84/#86 open;
+stop after #97 and #98 delivery.

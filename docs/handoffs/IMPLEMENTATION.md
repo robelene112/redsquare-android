@@ -1,22 +1,38 @@
 # Implementation handoff
 
-## Active UI fixes #97 and #98
+## Delivered UI fixes #97 and #98
 
-Deliver the two owner-requested UI corrections sequentially, then one compatible
-signed beta and stop. Review base: `ee8683f6d31680a911f105ab52ed971aaa392d86`.
-Public latest remains105. Issue97's corrective source and focused native reviews
-pass at `c4ca9575ebf9928ba1585672ba162d9e9edf07d3`: feedback stays at the top of the
-visible posts viewport and actual taps reach the post underneath. Initial full
-runs failed; superseded106 must never be promoted. See ticket97 evidence.
+Signed [beta 0.1.107](https://davidengelen.nl/redsquare/) delivers the requested
+feed and profile corrections. Refresh completion stays below the tabs at the top
+of the visible posts viewport, preserves the reading pixel and lets taps reach
+posts underneath. Profile history uses a neutral information icon and "History
+may be limited", with accessible Details explaining local/node history and
+possibly missing older posts, replies or likes. Real loading, errors and recovery
+controls remain separate.
 
-Implement [issue98](https://github.com/robelene112/redsquare-android/issues/98)
-next: make permanent profile-history guidance clearly neutral/static with plain
-English copy and accessible details. Preserve distinct real loading/failure/
-limited-data conditions, all tabs and recovery controls. Existing native UI,
-controlled-peer and reversible viewport seams remain authorized. Final complete
-Android10/17, independent reviews, actual signed update and exact public beta
-verification must cover both corrections. No node/service/provider/physical/Play
-changes. Historical96 acceptance and parent issues remain unchanged.
+Complete Android 10 [42914306789](https://github.com/robelene112/redsquare-android/actions/runs/42914306789)
+and Android 17 [42931114125](https://github.com/robelene112/redsquare-android/actions/runs/42931114125)
+pass all three partitions and the frozen verifier: 634/635 identities, 215 classes,
+181 archives, 37 deliberate interruptions and 36 continuity records per SDK.
+Only the inherited API29 Profile assumption remains; Android 17 has none.
+Both independent final reviews, actual signed 83-to-107 updates on both SDKs,
+binary verification and exact public APK/page/manifest verification pass.
+No partial SDK assembly is used. Earlier unsuccessful runs remain qualified.
+
+The compiled APK and complete Android 10 use source
+`8ab10cdd08909f969d485f0a4cb555e438e9bcc0`. Complete Android 17 uses fixture source
+`82c01e74da76abd2117bedb3eeed73e60945a8cd`, tag `proof-ui9798-fixture-final`.
+Exact production/core/toolchain objects match. The documented fixture-only rule
+retains the complete Android 10 run while fresh Android 17 verifies stronger
+input/window readiness inside the original budgets. Temporary probes are removed;
+later Save/window readiness failure causes remain unproved. See [feed evidence](../evidence/ticket97/README.md) and [profile evidence](../evidence/ticket98/README.md).
+
+APK: 42,388,522 bytes, SHA256
+`55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3`.
+The established package/certificate are preserved. This completes only #97 and
+#98; stop after recording delivery. Keep #1, #36, #55, #84 and #86 open. Physical,
+OEM, provider and Play acceptance remain under #36 and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
+No production node or service changes were made.
 
 ## Delivered fix #96
 
@@ -121,19 +137,23 @@ production nodes and services remain untouched. Issue #94 is the previous accept
 
 - Sole implementation checkout: `/mnt/storage/redsquare-android-artifacts/redesign86`,
   branch `codex/unified-redesign`. Preserve canonical `/home/david/projects/redsquare-android`.
-- Original large raw packets and build logs remain under
-  `/mnt/storage/redsquare-android-artifacts` on the additional disk.
-- Accepted complete96 manifest: `reply96-final-full-runs.json`. Accepted originals:
-  `reply96-retry-full-raw/full-android10` and
-  `reply96-acceptance-raw/full-android17` in the external artifact directory.
-  Both sources and workflows are exactly `c1c1d1066b28fb9eff626bc27908d8c79e409382`.
-  `reply96-full-runs.json` retains the historical failed first Android10 run;
-  it is not the accepted pair.
-- Exact published artifact: `.scratch/review-builds/105`; external notes:
-  `reply96-release-notes.txt`. Do not rebuild/reserve another version for96.
-- Both frozen verifiers, independent final reviews, actual signed83-to105 update
-  proofs and public105 delivery checks pass. Close only96 and stop.
-- Historical failures stay qualified in ticket96 evidence. Previous95 evidence
-  and earlier delivery history remain unchanged. No further owner QA is needed
-  for the completed development checks; physical/provider/Play gates remain36.
+- External original artifact root: `/mnt/storage/redsquare-android-artifacts`.
+- Accepted pair manifest: `ui9798-accepted-full-runs.json`. Actual originals:
+  `feed97-final-full-raw/full-android10` (source/workflow `8ab10cdd0`) and
+  `ui9798-fixture-final-full-raw/full-android17` (source/workflow `82c01e74d`).
+  Both are complete three-job SDK executions; no fragments are combined.
+- `feed97-full-runs.json`, `feed97-final-full-runs.json`, and
+  `ui9798-retry-full17-runs.json` retain earlier execution history, including unsuccessful runs.
+  The old `ui9798-final-full-runs.json` is an unsuccessful intended pair, not acceptance.
+- Compiled APK source stays `8ab10cdd0`. `fixture-source-equivalence.json` records
+  exact production/core/toolchain equality with final fixture source `82c01e74d`.
+  Temporary main probes are removed. Do not mistake diagnostic prefixes for full acceptance.
+- Actual signed 83-to-107 updates: `ui9798-update-runs.json`; originals under
+  `ui9798-update-raw/candidate-update` and `candidate-update-android17`.
+- Published artifact: `.scratch/review-builds/107`; exact notes: `ui9798-release-notes.txt`.
+  Do not rebuild/reserve another version for these completed fixes or promote 106.
+- Frozen verifiers, independent final reviews, native updates, binary gate and exact
+  public 107 checks pass. Close only #97 and #98, then stop.
+- Parents #1/#36/#55/#84/#86 and owner/provider/physical/Play gates remain open.
+  No further owner QA is needed for these development checks.
 - Read current context, workflow, operations and tracker before a future task.

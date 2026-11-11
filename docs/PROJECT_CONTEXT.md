@@ -1,22 +1,38 @@
 # Red Square Android project context
 
-## Active UI fixes #97 and #98
+## Delivered UI fixes #97 and #98
 
-Deliver the two owner-requested UI corrections sequentially, then one compatible
-signed beta and stop. Review base: `ee8683f6d31680a911f105ab52ed971aaa392d86`.
-Public latest remains105. Issue97's corrective source and focused native reviews
-pass at `c4ca9575ebf9928ba1585672ba162d9e9edf07d3`: feedback stays at the top of the
-visible posts viewport and actual taps reach the post underneath. Initial full
-runs failed; superseded106 must never be promoted. See ticket97 evidence.
+Signed [beta 0.1.107](https://davidengelen.nl/redsquare/) delivers the requested
+feed and profile corrections. Refresh completion stays below the tabs at the top
+of the visible posts viewport, preserves the reading pixel and lets taps reach
+posts underneath. Profile history uses a neutral information icon and "History
+may be limited", with accessible Details explaining local/node history and
+possibly missing older posts, replies or likes. Real loading, errors and recovery
+controls remain separate.
 
-Implement [issue98](https://github.com/robelene112/redsquare-android/issues/98)
-next: make permanent profile-history guidance clearly neutral/static with plain
-English copy and accessible details. Preserve distinct real loading/failure/
-limited-data conditions, all tabs and recovery controls. Existing native UI,
-controlled-peer and reversible viewport seams remain authorized. Final complete
-Android10/17, independent reviews, actual signed update and exact public beta
-verification must cover both corrections. No node/service/provider/physical/Play
-changes. Historical96 acceptance and parent issues remain unchanged.
+Complete Android 10 [42914306789](https://github.com/robelene112/redsquare-android/actions/runs/42914306789)
+and Android 17 [42931114125](https://github.com/robelene112/redsquare-android/actions/runs/42931114125)
+pass all three partitions and the frozen verifier: 634/635 identities, 215 classes,
+181 archives, 37 deliberate interruptions and 36 continuity records per SDK.
+Only the inherited API29 Profile assumption remains; Android 17 has none.
+Both independent final reviews, actual signed 83-to-107 updates on both SDKs,
+binary verification and exact public APK/page/manifest verification pass.
+No partial SDK assembly is used. Earlier unsuccessful runs remain qualified.
+
+The compiled APK and complete Android 10 use source
+`8ab10cdd08909f969d485f0a4cb555e438e9bcc0`. Complete Android 17 uses fixture source
+`82c01e74da76abd2117bedb3eeed73e60945a8cd`, tag `proof-ui9798-fixture-final`.
+Exact production/core/toolchain objects match. The documented fixture-only rule
+retains the complete Android 10 run while fresh Android 17 verifies stronger
+input/window readiness inside the original budgets. Temporary probes are removed;
+later Save/window readiness failure causes remain unproved. See [feed evidence](evidence/ticket97/README.md) and [profile evidence](evidence/ticket98/README.md).
+
+APK: 42,388,522 bytes, SHA256
+`55dbc679d116079f0e3d47c83db1073ffeeaac82633bd7fccf4e046e94ef41b3`.
+The established package/certificate are preserved. This completes only #97 and
+#98; stop after recording delivery. Keep #1, #36, #55, #84 and #86 open. Physical,
+OEM, provider and Play acceptance remain under #36 and [OWNER_INPUTS.md](../OWNER_INPUTS.md).
+No production node or service changes were made.
 
 ## Delivered fix #96
 
