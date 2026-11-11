@@ -11,13 +11,15 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-Issue #100, robust directory display names and recovery, is implemented and
-delivered in verified signed beta 109. Both complete Android 10/17 runs, actual
-signed updates and independent Spec/Standards reviews pass. Stop here until the
-owner requests another issue. Parent #1/#36/#55/#84/#86 remain open.
-See [the current handoff](handoffs/IMPLEMENTATION.md) and
-[qualified evidence](evidence/ticket100/README.md). No production node/service/
-provider/Play changes, live writes or owner-phone QA were part of this issue.
+The owner now reports visible fast-scroll stutter. Diagnose and improve it as
+one issue #101, starting from accepted beta109. Use the existing public native
+UI and Android OS observation seams on disposable emulators; measure before
+choosing a correction and do not treat emulator rendering as physical acceptance.
+If application code changes, preserve original functional goals and signed-update
+continuity and complete appropriate focused/full verification and independent
+reviews before the next beta. No owner-phone QA, live writes or production
+node/service/provider/Play changes. Keep #1/#36/#55/#84/#86 open; stop after #101.
+Issue #100 remains complete in beta109.
 
 ## Load the real skills
 

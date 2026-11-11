@@ -1,5 +1,25 @@
 # Implementation handoff
 
+
+## Active fast-scroll diagnosis #101
+
+The owner reports intermittent visible stuttering during fast scrolling and asks
+for improvements. Work on one [performance issue](https://github.com/robelene112/redsquare-android/issues/101),
+starting from accepted beta109 / `c8f1654a1`. Measure actual Android frames and
+system traces in the separate nondebuggable performance package before choosing
+an application correction. Existing startup/function tests are not scroll timing.
+The release configuration currently leaves R8 optimization disabled; this is a
+configuration observation, not a measured cause. Existing packaged profiles are
+present, so do not claim the APK has no baseline profiles.
+
+The first diagnostic uses the existing hosted disposable Android17 emulator and
+public native UI/OS observation seams, with a separate CI-signed performance APK.
+No public version reservation, owner installation, production deployment, live
+transaction or provider change is needed. Public-feed/network/content timing and
+SwiftShader rendering limit the observation; do not claim physical Pixel/OEM
+smoothness. Keep ordinary latest109 and parent issues unchanged. No baseline
+scroll result or root cause has yet been established. See #101 for acceptance.
+
 ## Delivered robust display names #100
 
 Signed [beta 0.1.109](https://davidengelen.nl/redsquare/) resolves available public

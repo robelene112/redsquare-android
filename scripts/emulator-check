@@ -98,6 +98,12 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then
+    [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]] || { echo 'Scroll diagnostics require explicit public-feed read permission' >&2; exit 2; }
+    python3 "$repo_dir/scripts/scroll-performance-check" --evidence "$evidence/scroll-profile"
+    printf '%s\n' 'Release-equivalent scroll diagnostics only; no complete or physical performance acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == candidate-update* ]]; then
     [[ "${TEST_CANDIDATE_VERSION:-}" =~ ^[0-9]+$ ]] && ((10#$TEST_CANDIDATE_VERSION > 83)) || {
         echo 'Require an immutable signed candidate newer than beta83' >&2; exit 2;

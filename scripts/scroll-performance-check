@@ -1,0 +1,203 @@
+#!/usr/bin/env python3
+"""Record release-equivalent fast-scroll diagnostics on an empty disposable emulator."""
+import argparse
+import csv
+import hashlib
+import io
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import time
+import xml.etree.ElementTree as ET
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+package = "nl.davidengelen.redsquare.performance"
+repo = Path(__file__).resolve().parent.parent
+evidence = args.evidence.resolve()
+evidence.mkdir(parents=True, exist_ok=False)
+
+
+def adb(*arguments, timeout=30):
+    return subprocess.check_output(["adb", *arguments], text=True, timeout=timeout)
+
+
+def installed():
+    return "package:" + package in adb("shell", "pm", "list", "packages", package).splitlines()
+
+
+assert adb("get-serialno").strip().startswith("emulator-")
+assert adb("shell", "getprop", "ro.hardware").strip() in ("ranchu", "goldfish")
+assert not installed(), "Preserve any existing performance installation"
+tools = Path(os.environ["ANDROID_HOME"]) / "build-tools/35.0.0"
+original = repo / "app/build/outputs/apk/performance/app-performance-unsigned.apk"
+manifest = subprocess.check_output(["apkanalyzer", "manifest", "print", str(original)], text=True)
+root = ET.fromstring(manifest)
+android = "{http://schemas.android.com/apk/res/android}"
+app = root.find("application")
+assert root.get("package") == package and app.get(android + "debuggable", "false") == "false"
+assert app.find("profileable").get(android + "shell") == "true"
+(evidence / "android-manifest.xml").write_text(manifest)
+# This known disposable CI key never leaves the hosted runner. No release key,
+# public version reservation, publication or existing phone data is involved.
+apk = evidence / "diagnostic.apk"
+subprocess.run([str(tools / "apksigner"), "sign", "--ks", str(Path.home() / ".android/debug.keystore"),
+    "--ks-key-alias", "androiddebugkey", "--ks-pass", "pass:android", "--key-pass", "pass:android",
+    "--out", str(apk), str(original)], check=True)
+(evidence / "signature.txt").write_text(subprocess.check_output(
+    [str(tools / "apksigner"), "verify", "--print-certs", str(apk)], text=True))
+
+
+def snapshot(name):
+    adb("shell", "uiautomator", "dump", "/sdcard/scroll-performance.xml")
+    xml = adb("shell", "cat", "/sdcard/scroll-performance.xml")
+    (evidence / (name + ".xml")).write_text(xml)
+    with (evidence / (name + ".png")).open("wb") as output:
+        subprocess.run(["adb", "exec-out", "screencap", "-p"], stdout=output, timeout=20, check=True)
+    return ET.fromstring(xml)
+
+
+def coordinates(node):
+    x1, y1, x2, y2 = map(int, re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", node.get("bounds")).groups())
+    return (x1 + x2) // 2, (y1 + y2) // 2
+
+
+def frames(text):
+    result = []
+    for section in text.split("---PROFILEDATA---")[1::2]:
+        for row in csv.DictReader(io.StringIO(section.strip())):
+            if row.get("Flags") != "0" or not row.get("FrameCompleted"):
+                continue
+            values = {k: int(v) for k, v in row.items() if k and v and k != "Flags"}
+            start, end = values["IntendedVsync"], values["FrameCompleted"]
+            deadline = values.get("FrameDeadline", 0)
+            assert 0 < start <= end and deadline > start, "Require actual OS frame deadlines"
+            result.append({"durationMs": (end - start) / 1e6, "budgetMs": (deadline - start) / 1e6,
+                "overrunMs": max(0, end - deadline) / 1e6,
+                "mainPhaseMs": (values["SyncQueued"] - values["HandleInputStart"]) / 1e6})
+    assert result, "An empty frame dump is not a scroll observation"
+    return result
+
+
+def percentiles(values):
+    values = sorted(values)
+    return {str(p): values[min(len(values) - 1, (len(values) * p + 99) // 100 - 1)] for p in (50, 90, 95, 99, 100)}
+
+
+owned = False
+animations = {}
+failure = None
+try:
+    owned = True
+    assert "Success" in adb("install", str(apk), timeout=90)
+    launch = adb("shell", "am", "start", "-W", "-n", package + "/nl.davidengelen.redsquare.MainActivity")
+    (evidence / "launch.txt").write_text(launch)
+    for attempt in range(30):
+        view = snapshot("preparation")
+        own = [n for n in view.iter("node") if n.get("package") == package]
+        later = next((n for n in own if n.get("text") == "Later"), None)
+        if later is not None:
+            adb("shell", "input", "tap", *map(str, coordinates(later)))
+            continue
+        if any(n.get("text") == "Repost" or n.get("content-desc", "").startswith("Repost") for n in own):
+            break
+        time.sleep(1)
+    else:
+        raise AssertionError("Actual release-equivalent feed did not show public posts")
+    display = adb("shell", "wm", "size")
+    width, height = map(int, re.search(r"(\d+)x(\d+)", display).groups())
+    animations = {key: adb("shell", "settings", "get", "global", key).strip()
+        for key in ("window_animation_scale", "transition_animation_scale", "animator_duration_scale")}
+    metadata = {"source": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo, text=True).strip(),
+        "apkSha256": hashlib.sha256(apk.read_bytes()).hexdigest(), "applicationId": package,
+        "deviceBuild": adb("shell", "getprop", "ro.build.fingerprint").strip(),
+        "display": display.strip(), "nondebuggable": True, "profileable": True,
+        "signing": "Disposable CI debug certificate, not a publishable beta",
+        "renderer": "Hosted emulator SwiftShader, not physical GPU performance",
+        "workload": "20 swipes,10 in each direction,120ms each, live public feed, no taps on post actions",
+        "qualification": "Live-read diagnostic only; content/network timing are not controlled. No physical Pixel/OEM acceptance or predetermined smoothness PASS."}
+    (evidence / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n")
+    trials = []
+    for key in animations:
+        adb("shell", "settings", "put", "global", key, "1")
+    for trial in range(3):
+        snapshot(f"trial-{trial}-before")
+        remote = f"/data/local/tmp/redsquare-scroll-{trial}.perfetto-trace"
+        config = '''buffers { size_kb: 32768 fill_policy: RING_BUFFER }
+duration_ms: 30000
+data_sources { config { name: "linux.ftrace" ftrace_config {
+  ftrace_events: "sched/sched_switch"
+  ftrace_events: "sched/sched_waking"
+  ftrace_events: "power/cpu_frequency"
+  atrace_categories: "gfx"
+  atrace_categories: "view"
+  atrace_categories: "wm"
+  atrace_categories: "am"
+  atrace_categories: "dalvik"
+  atrace_apps: "nl.davidengelen.redsquare.performance"
+} } }
+data_sources { config { name: "linux.process_stats" process_stats_config { scan_all_processes_on_start: true } } }
+data_sources { config { name: "android.surfaceflinger.frametimeline" } }
+'''
+        (evidence / f"trial-{trial}-config.txt").write_text(config)
+        with (evidence / f"trial-{trial}-trace-log.txt").open("w") as log:
+            trace = subprocess.Popen(["adb", "shell", "perfetto", "--txt", "-c", "-", "-o", remote],
+                stdin=subprocess.PIPE, stdout=log, stderr=subprocess.STDOUT, text=True)
+            trace.stdin.write(config)
+            trace.stdin.close()
+            try:
+                time.sleep(1)
+                adb("shell", "dumpsys", "gfxinfo", package, "reset")
+                started = time.monotonic()
+                for index in range(20):
+                    first, second = (int(height * .78), int(height * .35))
+                    if index >= 10:
+                        first, second = second, first
+                    adb("shell", "input", "swipe", str(width // 2), str(first), str(width // 2), str(second), "120")
+                    time.sleep(.1)
+                dump = adb("shell", "dumpsys", "gfxinfo", package, "framestats")
+                elapsed = time.monotonic() - started
+                (evidence / f"trial-{trial}-gfxinfo.txt").write_text(dump)
+                assert elapsed < 28, "Trace duration must cover the complete gesture interval"
+                assert trace.wait(timeout=45) == 0
+            finally:
+                if trace.poll() is None:
+                    trace.terminate()
+                    trace.wait(timeout=10)
+        adb("pull", remote, str(evidence / f"trial-{trial}.perfetto-trace"))
+        adb("shell", "rm", remote)
+        observed = frames(dump)
+        (evidence / f"trial-{trial}-frames.json").write_text(json.dumps(observed, indent=2) + "\n")
+        result = {"trial": trial, "frames": len(observed), "gestureSeconds": elapsed,
+            "lateFrames": sum(f["overrunMs"] > 0 for f in observed),
+            "durationMs": percentiles([f["durationMs"] for f in observed]),
+            "mainPhaseMs": percentiles([f["mainPhaseMs"] for f in observed])}
+        trials.append(result)
+        print(json.dumps(result), flush=True)
+        snapshot(f"trial-{trial}-after")
+    (evidence / "observations.json").write_text(json.dumps(trials, indent=2) + "\n")
+except BaseException as error:
+    failure = error
+    raise
+finally:
+    cleanup = []
+    for key, value in animations.items():
+        try:
+            adb("shell", "settings", "put", "global", key, value)
+        except BaseException as error:
+            cleanup.append("animation:" + key + ":" + type(error).__name__)
+    if owned:
+        try:
+            if installed():
+                adb("shell", "am", "force-stop", package)
+                assert "Success" in adb("uninstall", package)
+            assert not installed()
+        except BaseException as error:
+            cleanup.append(type(error).__name__)
+    (evidence / "restoration.json").write_text(json.dumps({"originallyAbsentPackageRestored": not cleanup,
+        "cleanupFailures": cleanup}, indent=2) + "\n")
+    if cleanup and failure is None:
+        raise RuntimeError("Diagnostic package restoration failed")
