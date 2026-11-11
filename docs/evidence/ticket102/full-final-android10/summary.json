@@ -1,0 +1,43 @@
+{
+  "result": "PASS",
+  "sdk": "10",
+  "source": "8612758a28cfe9c8b64abe90b77fa84eee85d9b9",
+  "run": "43073588639",
+  "completedIdentities": 652,
+  "recoveryTotals": {
+    "normalCompletions": 248,
+    "deliberateInterruptions": 37,
+    "continuityRecords": 36
+  },
+  "classes": 229,
+  "assumptions": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 195,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/stack102/complete4-android10",
+  "qualification": "Frozen goals verified with independently reviewed archive-partition catalog erratum. Complete original three-part SDK execution; original raw artifact paths retained. No partial assembly or physical/provider/store acceptance.",
+  "verification": "frozen-goals-with-archive-partition-erratum",
+  "archivePartitionErratum": {
+    "expectedPath": "social/stack-link-evidence.tar",
+    "actualPath": "chat/stack-link-evidence.tar",
+    "correctedExpectedPath": "chat/stack-link-evidence.tar",
+    "preservedInheritedArchivePaths": 194,
+    "unchangedOtherCurrentArchivePaths": 194,
+    "originalVerifierSha256": "dc73ab5f3c4f4249b1f2f8e7ba9fcea3739dcab6d6f8c0fb089c37e905e42341",
+    "originalContractSha256": "9364a0eebd9181dd61ada2115abeda9b8158065da2c7d46f826b57e6cd45f4c8",
+    "adapterSha256": "b78fd66dc83b1f2f04e1c16db2faa2ef73cbb8103252b8586694edf146296c0f",
+    "actualArchiveSha256": "24a4158f21cc13081ff40047aea33969186452f3ea09348d54d33aa5b6aa0ff5",
+    "nativeLinkedArticleAndReturn": true,
+    "qualification": "Post-run catalog correction only. Original files, identities, deadlines, assumptions, archive count, recovery and inherited validators are unchanged. No partition assembly or omitted runtime goal."
+  }
+}

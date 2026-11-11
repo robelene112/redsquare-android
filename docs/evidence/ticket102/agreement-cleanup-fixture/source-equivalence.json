@@ -11,7 +11,7 @@
   "fixtureAfterSha256": "e78398182947b7d9f3c58deceaf2ba117a64e4693d375da43af183272b7a6a2d",
   "originalFailure": "43069527048 Walletjob130693334798: resetSyntheticDrafts check(file.delete) fails after the third full native journey; original file identity/precise cause unknown.",
   "fix": "Same hard cleanup and debug/emulator guards run under existing PostDraftStore SaitoLocalState.lock; failure diagnostics added. No application change or deadline/goal relaxation.",
-  "qualification": "Source bridge only. Old10 failed/cancelled, no partial acceptance. Fresh full10 all3jobs43073588639 and retained full17 all3jobs43069531194 must independently pass complete frozen goals. This does not prove the original race cause. Candidate112 remains staged only.",
+  "qualification": "Source bridge with complete SDK evidence: old10 failed/cancelled and no partial result accepted; fresh all3job10 run43073588639 at861 and retained all3job17 run43069531194 at0fd succeed. Both wholeSDKs pass every frozen goal with reviewed archive-partition catalog erratum. Native test bodies/product unchanged. Original deletion failure cause remains unproved. Candidate112 stays staged pending final acceptance/promotion.",
   "reviews": {
     "spec": {
       "reviewer": "/root/stack102_spec",

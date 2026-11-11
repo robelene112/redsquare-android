@@ -1,115 +1,82 @@
 # Native Stack links102
 
-The signed post URL determines an approved native Stack destination. Article
-links request the exact authenticated author and revision, including articles
-outside the newest discovery page. Author and root URLs use the corresponding
-native routes. The reading source is temporary and visible; saved node choice
-and the prior Red Square page remain intact. The card says Open in Stack.
+Public Stack article, author and root links on approved nodes open the native
+module. The actual signed post URL determines the destination; preview metadata
+cannot retarget it. Exact article reads authenticate the requested author/revision
+without relying on the newest discovery page. The reading node is explicit and
+temporary, leaving the saved node and originating feed/thread/profile state intact.
+The preview says Open in Stack. Unavailable articles offer Retry and an explicit
+Open original action retaining the signed URL. Other URLs and deliberate website
+publication/access remain external. No native entitlement or publishing is invented.
 
-Ordinary external URLs keep their original Android intent target. Explicit
-publication/access/Open original actions use the browser. Missing or rejected
-articles offer Retry and preserve the original signed URL for deliberate website
-access; no native restricted-content entitlement or publishing is invented.
-
-Review base: accepted beta110 `1521b56846ce1c2ac07e1e33bb0cb507ea2827a0`.
-Implementation04991556f, ordinary reveal identity51574974f, recovery fix60ade34fb.
-Both independent [source reviews](source-reviews.json) pass through60ade34fb.
-The initial Spec finding on unavailable recovery is fixed and covered through
-the existing native peer/intent seam. No runtime acceptance follows from review.
-
-Actual native [RED](red/stack-links-ui.txt), run43058690826 on4549e3ff6,
-fails the original native-Stack header goal after the prior browser action.
-Core URL parsing and exact-article lookup have actual failing assertions before
-implementation, retained with the successful local build log under red/.
-Original raw evidence is externally retained in
-`/mnt/storage/redsquare-android-artifacts/stack102`.
-
-The unchanged new native journey passes on both emulators in43062113422 at
-60ade34fb: exact older signed article absent from discovery, no browser intent,
-Markdown reading after Activity recreation, Back to original post and saved
-owner-node preference. [Android10](focused-native-android10/stack-links-ui.txt)
-and [Android17](focused-native-android17/stack-links-ui.txt) retain originals,
-source metadata, native captures and hashes. The earlier Android17-only run
-43061704935 also passes51574974f. Focused proofs are not complete acceptance.
-
-The [frozen contract](full-contract.json) extends every accepted101 goal with
-one method/class/archive per SDK. Expected:652/653 identities,229classes,
-195archives,248/249normal completions,37deliberate interruptions and36continuity
-records. All inherited validators/deadlines and the API29 Profile assumption,
-unavailable Chat archive and failure-capture qualifications remain. Only the
-canonical Stack-card browser expectation is deliberately replaced by native
-routing under the owner's request; actual signed-target and external URL goals
-remain. The verifier was committed before complete execution.
-
-Candidate111 is compiled from`d08aa7df522efc4359ca9428e2a786bbf1139dcb`,
-42,683,434bytes, SHA256
-`22e9fb4e11032aa70560a9e245e6b121494ee3362e6794c0d42a010fbea2c37f`.
-[Staging](staging-verification.json) matches exact manifest, notes and actual
-downloaded bytes; public latest remains110. Actual signed83-to111 updates43063137023/43063144215
-pass at that same source, preserving wallet, separate debug identity, exact unsent
-draft, cached post and Light preference through cold launch. Both update packets
-retain originals and independent download/restoration checks.
-
-The complete first Android10 Social job fails the existing AvatarRecovery guard:
-process max16MiB versus declared512MiB, before fixture writes. The remaining10
-jobs are cancelled and no partial result contributes acceptance. The original
-observation and unknown cause stay in [the precondition packet](api29-precondition/qualification.json).
-Fresh complete10 run43066244144 repeats all3jobs at unchanged source and goals.
-Original complete17 run43062414396 continues. Full acceptance and promotion pending.
-
-No owner-phone/OEM, provider, Play, live Saito write or production node operation
-is claimed. Parents1/36/55/84/86 remain open. Stop after102.
-
-
-Complete17 exposes an actual image Retry click-through in the original
-ImageRetryOwnershipTest: the loading image passes a repeated physical tap to its
-parent link card, opening native Stack and losing the caption. The [regression
-packet](image-retry-regression/qualification.json) retains the exact failure,
-XML/PNG, three-tap timings and two-request count. Fixff747eff5 gives the loading
-raster image ownership of otherwise unhandled gestures while preserving child
-Retry, scrolling and subsequent loaded-image navigation. Both independent source
-reviews pass. The original test is strengthened without dropping its old goals.
-Focused dual-SDK normal/zero motion confirmation is pending in43068297828.
-
-The remaining old17 and second10 jobs are cancelled after this product fix.
-No partial full results contribute acceptance. Candidate111 is now superseded:
-**never promote111**. Fresh signed112, full10/17 and exact update checks are needed.
-
-
-The corrected image Retry journey now passes on both SDKs at its original native
-seam:43068297828(Android10,17.913s) and43069632746(Android17,28.608s). Both
-normal/zero-motion observations retain the original two-request and caption
-requirements; the added checks reject browser intents and physically open the
-linked article from the loaded image. Native captures and original hashes are
-under image-retry-regression/green-android10 and green-android17. The initial
-Android10-only focused execution was explicitly distinguished from the later17
-confirmation. These remain focused, not complete application acceptance.
-
-Fresh candidate112 is compiled from`0fd2133e78688d89f4ae2671b0d5715eba15e127`,
-42,683,434bytes, SHA256
+Candidate112 is staged, compiled from
+`0fd2133e78688d89f4ae2671b0d5715eba15e127`,42,683,434bytes, SHA256
 `6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb`.
 The established certificate, ordinary package, min29/target36, nondebuggable,
 nonprofileable and disabled backup settings are verified. [Staging112](staging112-verification.json)
-checks exact manifest, notes and actual downloaded bytes while latest stays110.
-Actual signed83-to112 updates43069542086/43069547302 pass on that same source,
-including exact draft, offline post, Light preference, wallet and distinct debug
-identity after cold launch. Fresh complete3part runs43069527048/43069531194
-are executing at that same source. Full acceptance and public promotion pending.
+checks exact manifest, notes and actual downloaded bytes. Latest remains110 until
+final independent acceptance and promotion. **Candidate111 is superseded; never promote111.**
 
+## Complete verification
 
-The next complete10 run43069527048 fails only its initial agreement class cleanup
-hook after all three native publication-policy journeys finished. The remaining10
-jobs are cancelled; no partial SDK result is accepted. The [fixture source bridge](agreement-cleanup-fixture/source-equivalence.json)
-retains the exact failure, unknown original file/cause, unchanged application and
-byte-identical native test bodies. Fix8612758a2 serializes the same hard draft
-cleanup with PostDraftStore writes and adds failure diagnostics. Both independent
-source reviews pass. Focused existing agreement/recovery run43073403669 passes;
-its original first three methods finish in17.083s. Repetition does not establish
-the original deletion failure cause.
+- [Android10](full-final-android10/summary.json):43073588639,
+  source`8612758a28cfe9c8b64abe90b77fa84eee85d9b9`,all3jobs succeed.
+- [Android17](full-final-android17/summary.json):43069531194,
+  source`0fd2133e78688d89f4ae2671b0d5715eba15e127`,all3jobs succeed.
+- Frozen goals are verified **with the independently reviewed archive-partition
+  catalog erratum**:652/653identities,229classes,195archives,248/249normal
+  completions,37deliberate interruptions and36continuity records per SDK.
+  The exact inherited API29 Profile assumption, unavailable Chat archive and four
+  missing failure-capture qualifications remain. No partial SDK assembly or new
+  runtime exemption contributes acceptance.
+- The [fixture-only source bridge](agreement-cleanup-fixture/source-equivalence.json)
+  proves unchanged product/harness/other tests and byte-identical native test bodies.
+  Only the synthetic draft cleanup uses its production store's existing lock,
+  retaining every hard deletion assertion and adding failure diagnostics. Both
+  independent source reviews and the full existing focused agreement/recovery
+  scope pass. The original deletion failure's precise cause remains unproved.
+- The [reviewed catalog adapter](archive-partition-erratum/source-reviews.json)
+  follows the accepted99 procedure. The immutable pre-run harness runs the new
+  StackLinkPreviewTest in Chat; the new archive was mistakenly catalogued under
+  Social. Exactly that expected path changes in memory. All194 inherited paths,
+  original raw paths, frozen files, identities, deadlines, recovery and inherited
+  content/visual validators stay unchanged. Both original verifier failures remain
+  retained. This is not an unchanged-verifier PASS.
 
-Fresh complete10 run43073588639 executes all3jobs at8612758a2. The retained
-complete17 run43069531194 continues at0fd2133e7 with identical production and
-native goals. The candidate112 artifact and signed-update receipts remain exact.
-The accepted per-SDK fixture correction requires both entire SDK results and the
-unchanged frozen catalog; no standalone job or partial assembly can satisfy it.
-Complete17 Wallet is successful at18:12UTC; Chat/Social and fresh10 remain pending.
+Actual [signed83-to112 updates10](update112-android10/summary.json) and
+[17](update112-android17/summary.json) pass with the exact candidate bytes. They
+preserve wallet, distinct unchanged debug identity, exact unsent draft, cached
+post and Light preference through cold launch. These are separate from full-suite
+application acceptance and public promotion.
+
+## Native and retained failing evidence
+
+Review base: accepted beta110`1521b56846ce1c2ac07e1e33bb0cb507ea2827a0`.
+Both independent [source reviews](source-reviews.json) pass after the unavailable
+article recovery correction. Actual native [RED](red/stack-links-ui.txt),43058690826
+at4549e3ff6,fails the original native-module goal after the prior browser action.
+Core URL parsing and exact lookup retain actual failing assertions before their
+implementation. The unchanged new older-article journey passes on [10](focused-native-android10/stack-links-ui.txt)
+and [17](focused-native-android17/stack-links-ui.txt), including exact signed content
+absent from discovery, no browser, recreation, Back and unchanged saved node.
+The [existing link-card goals](focused-feed-links-android17/feed-links-ui.txt)
+retain signed-target, unsigned-hint, punctuation and external-intent checks,
+with canonical Stack behavior deliberately superseded by the native route.
+
+The [image Retry regression](image-retry-regression/qualification.json) retains
+its actual full17 failure, native XML/PNG, three physical taps and two-request
+count. Loading-image taps had fallen through to the parent link card. Fixff747eff5
+preserves child Retry/scroll ownership and subsequent loaded-image link activation.
+The original count/caption/motion goals plus no-browser and loaded-image navigation
+pass at normal/zero motion on both SDKs and in the complete runs.
+
+Earlier full attempts retain their failed/cancelled outcomes: the first
+[API29 heap precondition](api29-precondition/qualification.json), the image Retry
+failure and the [agreement cleanup failure](agreement-cleanup-fixture/agreement-ui.txt).
+No partial result from those attempts is accepted. The emulator heap condition's
+cause also remains unproved. External originals remain under
+`/mnt/storage/redsquare-android-artifacts/stack102` and are bound by packet hashes.
+
+No owner-phone/OEM, provider, Play, live Saito write or production node operation
+is claimed. Parents1/36/55/84/86 remain open. Final independent packet review and
+public promotion remain pending. Stop after102.
