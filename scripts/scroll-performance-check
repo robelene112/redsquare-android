@@ -129,19 +129,25 @@ try:
         "deviceBuild": adb("shell", "getprop", "ro.build.fingerprint").strip(),
         "display": display.strip(), "nondebuggable": True, "profileable": True,
         "signing": "Disposable CI debug certificate, not a publishable beta",
+        "compositionTracing": "Performance-only runtime/perfetto instrumentation; attribution evidence, not identical ordinary APK bytes",
         "renderer": "Hosted emulator SwiftShader, not physical GPU performance",
         "frameSelection": "Flags0 UI frames within the OS reset interval. Missing/inconsistent completion timestamps remain unknown and are retained. Main-thread wall times are independent of completion availability, include scheduling delay and are not CPU time. Raw completion latency is unadjusted IntendedVsync-to-FrameCompleted, not the framework adjusted total-duration histogram.",
         "workload": "20 swipes,10 in each direction,120ms each, live public feed, no taps on post actions",
         "qualification": "Live-read diagnostic only; content/network timing are not controlled. No physical Pixel/OEM acceptance or predetermined smoothness PASS."}
     (evidence / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n")
+    tracing = adb("shell", "am", "broadcast", "-a", "androidx.tracing.perfetto.action.ENABLE_TRACING",
+        package + "/androidx.tracing.perfetto.TracingReceiver")
+    (evidence / "composition-tracing.txt").write_text(tracing)
+    assert "result=0" in tracing, "Composition tracing must be enabled before attribution"
     trials = []
     for key in animations:
         adb("shell", "settings", "put", "global", key, "1")
     for trial in range(3):
         snapshot(f"trial-{trial}-before")
         remote = f"/data/misc/perfetto-traces/redsquare-scroll-{trial}.perfetto-trace"
-        config = '''buffers { size_kb: 32768 fill_policy: RING_BUFFER }
+        config = '''buffers { size_kb: 65536 fill_policy: RING_BUFFER }
 duration_ms: 30000
+data_sources { config { name: "track_event" } }
 data_sources { config { name: "linux.ftrace" ftrace_config {
   ftrace_events: "sched/sched_switch"
   ftrace_events: "sched/sched_waking"
