@@ -138,7 +138,8 @@ try:
     tracing = adb("shell", "am", "broadcast", "-a", "androidx.tracing.perfetto.action.ENABLE_TRACING",
         package + "/androidx.tracing.perfetto.TracingReceiver")
     (evidence / "composition-tracing.txt").write_text(tracing)
-    assert "result=0" in tracing, "Composition tracing must be enabled before attribution"
+    # AndroidX handshake protocol:1=enabled,2=already enabled;0 means cancelled.
+    assert re.search(r"Broadcast completed: result=(1|2)(?:,|$)", tracing), "Composition tracing must be enabled before attribution"
     trials = []
     for key in animations:
         adb("shell", "settings", "put", "global", key, "1")
