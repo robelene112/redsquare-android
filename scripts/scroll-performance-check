@@ -73,20 +73,26 @@ def coordinates(node):
 
 
 def frames(text):
-    result = []
+    completed, unavailable, main_times = [], [], []
+    since = int(re.search(r"Stats since: (\d+)ns", text)[1])
     for section in text.split("---PROFILEDATA---")[1::2]:
         for row in csv.DictReader(io.StringIO(section.strip())):
             if row.get("Flags") != "0" or not row.get("FrameCompleted"):
                 continue
             values = {k: int(v) for k, v in row.items() if k and v and k != "Flags"}
             start, end = values["IntendedVsync"], values["FrameCompleted"]
+            if start < since:
+                continue
+            if 0 < values["HandleInputStart"] <= values["SyncQueued"]:
+                main_times.append((values["SyncQueued"] - values["HandleInputStart"]) / 1e6)
             deadline = values.get("FrameDeadline", 0)
-            assert 0 < start <= end and deadline > start, "Require actual OS frame deadlines"
-            result.append({"durationMs": (end - start) / 1e6, "budgetMs": (deadline - start) / 1e6,
-                "overrunMs": max(0, end - deadline) / 1e6,
-                "mainPhaseMs": (values["SyncQueued"] - values["HandleInputStart"]) / 1e6})
-    assert result, "An empty frame dump is not a scroll observation"
-    return result
+            if not (0 < start <= end < 2**63 - 1 and start < deadline < 2**63 - 1):
+                unavailable.append({"reason": "Missing or inconsistent OS completion/deadline timestamp", "raw": row})
+                continue
+            completed.append({"completionLatencyMs": (end - start) / 1e6,
+                "budgetMs": (deadline - start) / 1e6, "overrunMs": max(0, end - deadline) / 1e6})
+    assert completed and main_times, "Empty/incomplete frame observations are not scroll evidence"
+    return completed, unavailable, main_times
 
 
 def percentiles(values):
@@ -124,6 +130,7 @@ try:
         "display": display.strip(), "nondebuggable": True, "profileable": True,
         "signing": "Disposable CI debug certificate, not a publishable beta",
         "renderer": "Hosted emulator SwiftShader, not physical GPU performance",
+        "frameSelection": "Flags0 UI frames within the OS reset interval. Missing/inconsistent completion timestamps remain unknown and are retained. Main-thread wall times are independent of completion availability, include scheduling delay and are not CPU time. Raw completion latency is unadjusted IntendedVsync-to-FrameCompleted, not the framework adjusted total-duration histogram.",
         "workload": "20 swipes,10 in each direction,120ms each, live public feed, no taps on post actions",
         "qualification": "Live-read diagnostic only; content/network timing are not controlled. No physical Pixel/OEM acceptance or predetermined smoothness PASS."}
     (evidence / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n")
@@ -176,12 +183,14 @@ data_sources { config { name: "android.surfaceflinger.frametimeline" } }
                     trace.wait(timeout=10)
         adb("pull", remote, str(evidence / f"trial-{trial}.perfetto-trace"))
         adb("shell", "rm", remote)
-        observed = frames(dump)
-        (evidence / f"trial-{trial}-frames.json").write_text(json.dumps(observed, indent=2) + "\n")
-        result = {"trial": trial, "frames": len(observed), "gestureSeconds": elapsed,
-            "lateFrames": sum(f["overrunMs"] > 0 for f in observed),
-            "durationMs": percentiles([f["durationMs"] for f in observed]),
-            "mainPhaseMs": percentiles([f["mainPhaseMs"] for f in observed])}
+        observed, unavailable, main_times = frames(dump)
+        (evidence / f"trial-{trial}-frames.json").write_text(json.dumps({"completedUiFrames": observed,
+            "unavailableCompletionTimes": unavailable, "mainThreadWallTimesMs": main_times}, indent=2) + "\n")
+        result = {"trial": trial, "completedUiFrames": len(observed), "gestureSeconds": elapsed,
+            "unavailableCompletionTimes": len(unavailable), "mainThreadSamples": len(main_times),
+            "deadlineOverrunsInUiSample": sum(f["overrunMs"] > 0 for f in observed),
+            "rawCompletionLatencyMs": percentiles([f["completionLatencyMs"] for f in observed]),
+            "mainThreadWallMs": percentiles(main_times)}
         trials.append(result)
         print(json.dumps(result), flush=True)
         snapshot(f"trial-{trial}-after")
