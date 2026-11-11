@@ -29,8 +29,10 @@ internal fun RegisteredIdentityScope(wallet: SaitoWallet?, endpoint: String, bac
     val registrar = LocalRegistryAuthority.current
     val scope = rememberCoroutineScope()
     val identities = remember(wallet, endpoint, backend, registrar, directoryEndpoint) {
-        RegisteredIdentities(context, wallet, endpoint, backend, registrar, scope, directoryEndpoint)
+        val lifetime = CoroutineScope(scope.coroutineContext + SupervisorJob(scope.coroutineContext[Job]))
+        RegisteredIdentities(context, wallet, endpoint, backend, registrar, lifetime, directoryEndpoint)
     }
+    DisposableEffect(identities) { onDispose { identities.close() } }
     LaunchedEffect(identities) { identities.discover() }
     CompositionLocalProvider(LocalIdentities provides identities, content = content)
 }
@@ -39,7 +41,10 @@ internal fun RegisteredIdentityScope(wallet: SaitoWallet?, endpoint: String, bac
 @Composable
 internal fun registeredIdentity(publicKey: String): RegisteredIdentityLabel {
     val identities = requireNotNull(LocalIdentities.current)
-    LaunchedEffect(identities, publicKey) { identities.request(publicKey) }
+    DisposableEffect(identities, publicKey) {
+        identities.retain(publicKey)
+        onDispose { identities.release(publicKey) }
+    }
     return identities.labels[publicKey] ?: identities.directoryLabels[publicKey]
         ?: RegisteredIdentityLabel("Anon-${publicKey.take(6)}", origin = IdentityNameOrigin.GENERATED)
 }
@@ -67,6 +72,46 @@ private class RegisteredIdentities(
     private val pending = Channel<String>(Channel.UNLIMITED)
     private val directoryInFlight = mutableSetOf<String>()
     private val directoryPending = Channel<String>(Channel.UNLIMITED)
+    private val visible = mutableMapOf<String, Int>()
+    private val directoryRetries = mutableMapOf<String, Job>()
+    private val failures = mutableMapOf<String, Int>()
+
+    fun close() { scope.cancel(); pending.close(); directoryPending.close() }
+
+    fun retain(publicKey: String) {
+        if (!SaitoWallet.isPublicKey(publicKey)) return
+        visible[publicKey] = (visible[publicKey] ?: 0) + 1
+        request(publicKey)
+    }
+
+    fun release(publicKey: String) {
+        val remaining = (visible[publicKey] ?: 1) - 1
+        if (remaining > 0) visible[publicKey] = remaining
+        else {
+            visible.remove(publicKey)
+            directoryRetries.remove(publicKey)?.cancel()
+            failures.remove(publicKey)
+        }
+    }
+
+    private fun requestDirectory(publicKey: String) {
+        if (wallet != null && directoryEndpoint != null && publicKey !in labels &&
+            directoryInFlight.add(publicKey)) directoryPending.trySend(publicKey)
+    }
+
+    private fun retryDirectory(publicKey: String, successfulRead: Boolean) {
+        if (publicKey !in visible || directoryEndpoint == null) return
+        directoryRetries.remove(publicKey)?.cancel()
+        val pause = if (successfulRead) { failures.remove(publicKey); 5 * 60_000L }
+            else { val attempt = ((failures[publicKey] ?: 0) + 1).coerceAtMost(7)
+                failures[publicKey] = attempt
+                (1_000L shl (attempt - 1)).coerceAtMost(60_000L) }
+        directoryRetries[publicKey] = scope.launch {
+            delay(pause)
+            directoryRetries.remove(publicKey)
+            if (publicKey in visible) requestDirectory(publicKey)
+        }
+    }
 
     suspend fun loadCached(publicKeys: Set<String>) {
         val missing = publicKeys.filter { it !in labels }
@@ -86,8 +131,7 @@ private class RegisteredIdentities(
 
     fun request(publicKey: String) {
         if (!SaitoWallet.isPublicKey(publicKey)) return
-        if (wallet != null && directoryEndpoint != null && publicKey !in labels && publicKey !in directoryLabels &&
-            directoryInFlight.add(publicKey)) directoryPending.trySend(publicKey)
+        if (publicKey !in directoryLabels && publicKey !in directoryRetries) requestDirectory(publicKey)
         // A newly mounted view can retry a failed save. Other repeated rows share one result.
         if (labels[publicKey]?.saveError == false || !inFlight.add(publicKey)) return
         scope.launch {
@@ -117,6 +161,7 @@ private class RegisteredIdentities(
             val keys = mutableListOf(first)
             delay(20)
             while (keys.size < 50) keys += directoryPending.tryReceive().getOrNull() ?: break
+            var successfulRead = false
             try {
                 val names = withContext(Dispatchers.IO) {
                     // A disposable read-only peer identity is separate from the user's account wallet.
@@ -124,13 +169,14 @@ private class RegisteredIdentities(
                         RegistryLookup(peer, registrar).hints(keys)
                     }
                 }
+                successfulRead = true
                 names.forEach { (key, name) ->
                     directoryLabels[key] = RegisteredIdentityLabel(name, origin = IdentityNameOrigin.DIRECTORY)
                 }
             } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { /* A directory outage never changes author identity or ownership. */ }
-            finally { keys.forEach { directoryInFlight.remove(it) } }
+            finally { keys.forEach { directoryInFlight.remove(it); retryDirectory(it, successfulRead) } }
         }
     }
 

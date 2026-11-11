@@ -2,4 +2,7 @@
     <string name="identity_name_directory_source">Display name from the Saito name directory.</string>
     <string name="identity_name_node_source">Display name from your selected node.</string>
     <string name="identity_name_explanation">Display names help you recognise an account. Its public key is the account identity.</string>
+    <string name="identity_directory_choice">Use Saito Registry for missing names</string>
+    <string name="identity_directory_choice_detail">Look up public account keys at saito.io when names are missing on your node. This is on by default. Turning it off stops this separate lookup and hides its cached names. Your selected node still supplies posts and Chat.</string>
+    <string name="identity_directory_choice_error">Could not save or load your name lookup choice. Try again.</string>
 </resources>

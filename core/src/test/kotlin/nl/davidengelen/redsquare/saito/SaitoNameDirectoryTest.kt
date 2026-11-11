@@ -17,4 +17,8 @@ class SaitoNameDirectoryTest {
         assertEquals(mapOf(digirok to "digirok@saito", cryptoKen to "CryptoKen@saito"),
             SaitoNameDirectory.readMappings(response, listOf(digirok, cryptoKen, SaitoRegistry.REGISTRAR)))
     }
+    @Test(expected = IllegalArgumentException::class)
+    fun `a directory error is a failed read rather than a missing name`() {
+        SaitoNameDirectory.readMappings("""{"err":"temporarily unavailable"}""", listOf(SaitoRegistry.REGISTRAR))
+    }
 }

@@ -148,6 +148,14 @@ class MainActivity : ComponentActivity() {
                 }
                 appearanceReady = true
             }
+            val nameDirectorySettings = remember { nl.davidengelen.redsquare.registry.NameDirectorySettings(applicationContext) }
+            var nameDirectoryEnabled by remember { mutableStateOf<Boolean?>(null) }
+            var nameDirectoryLoad by remember { mutableIntStateOf(0) }
+            LaunchedEffect(nameDirectoryLoad) {
+                nameDirectoryEnabled = try { withContext(Dispatchers.IO) { nameDirectorySettings.enabled() } }
+                catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+                catch (_: Exception) { null }
+            }
             var wallet by remember { mutableStateOf<SaitoWallet?>(null) }
             val backendStore = remember {
                 AndroidBackendStore(applicationContext) { descriptor ->
@@ -444,7 +452,7 @@ class MainActivity : ComponentActivity() {
                                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, stackEndpoint)) {
                                                         RegisteredIdentityScope(wallet, stackEndpoint, selected,
-                                                            RegistryAuthority.directoryPeer(intent, stackEndpoint)) {
+                                                            RegistryAuthority.directoryPeer(intent, stackEndpoint).takeIf { nameDirectoryEnabled == true }) {
                                                             StackScreen(wallet, selected, stackEndpoint, Modifier.fillMaxSize(), chrome) {
                                                                 settingsCategory = "node"; settingsOpen = true
                                                             }
@@ -456,7 +464,7 @@ class MainActivity : ComponentActivity() {
                                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                                     LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                                     RegisteredIdentityScope(wallet, feedEndpoint, selected,
-                                                        RegistryAuthority.directoryPeer(intent, feedEndpoint)) {
+                                                        RegistryAuthority.directoryPeer(intent, feedEndpoint).takeIf { nameDirectoryEnabled == true }) {
                                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                                             lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
                                                             allowPushRoute = featureUnobstructed,
@@ -605,6 +613,13 @@ class MainActivity : ComponentActivity() {
                                         })
                                 }
                                 }
+                                }
+                                if (settingsCategory == "node") {
+                                    nl.davidengelen.redsquare.registry.NameDirectoryChoice(nameDirectoryEnabled,
+                                        retryLoad = { nameDirectoryLoad++ }) { requested ->
+                                        withContext(Dispatchers.IO) { nameDirectorySettings.setEnabled(requested) }
+                                        nameDirectoryEnabled = requested
+                                    }
                                 }
                                 if (settingsCategory == "appearance") {
                                 Spacer(Modifier.height(12.dp))

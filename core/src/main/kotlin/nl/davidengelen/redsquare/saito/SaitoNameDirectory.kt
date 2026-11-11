@@ -14,6 +14,10 @@ object SaitoNameDirectory {
         require(requestedKeys.all(SaitoWallet::isPublicKey))
         require(response.toByteArray(Charsets.UTF_8).size <= 64 * 1024)
         val entries = requireNotNull(gson.fromJson(response, JsonObject::class.java))
+        val error = entries.get("err")
+        require(error == null || (error.isJsonPrimitive && error.asJsonPrimitive.isString && error.asString.isEmpty())) {
+            "Name directory returned an error"
+        }
         val requested = requestedKeys.toSet()
         return buildMap {
             for ((key, value) in entries.entrySet()) {
