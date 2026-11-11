@@ -227,15 +227,15 @@
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt",
       "gitBlobSha1": "61c0dc27e69e675b58aa763132ca8f59a83be9ac",
       "upstreamSha256": "61899ed07b20616d4ad9feee9d2e51adf5fc3f6c11fd6f692af04dba17c5c40a",
-      "localSha256": "61899ed07b20616d4ad9feee9d2e51adf5fc3f6c11fd6f692af04dba17c5c40a",
-      "modified": false
+      "localSha256": "014b58e03efa91a8489d8a95a94bfe62c2799a2974307cc4bcbb7ac8bdb25479",
+      "modified": true
     },
     {
       "path": "src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt",
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt",
       "gitBlobSha1": "8371d1e996f6e8ff4276125513cc74443363cc12",
       "upstreamSha256": "08483390e00348358913b09e1f35484b81829793e1a42024db7f63d2aa9db9e3",
-      "localSha256": "2c585c6b22a26bb6f14aa751abd78a304ee998af40e8d5a4f83e48356fd86cc1",
+      "localSha256": "d1d388b7eb0b473c6dc46d203ea6e61ecf3974c6d43c9ccf2604e1710352e181",
       "modified": true
     },
     {
@@ -520,6 +520,6 @@
     }
   ],
   "patchSha256": "81010901ae93e160c5b3fe179f0bbe347075a55c9677c79a02bfdf5cd48ba1d0",
-  "fencedCodeCompatibility": "Preserve CODE_FENCE_CONTENT as literal code, with existing AST token boundaries and line breaks; no image interpretation inside fences. Native Stack reader regression in issue99.",
-  "fencedCodePatchSha256": "9d5516fbbc7e7f9754f6898ebbf6969991ea554811dd081431eb88054fddf51a"
+  "fencedCodeCompatibility": "Retain literal fenced-code tokens and Code style. Preserve code fences, code blocks and inline code before prose normalization; pass the exact parsed source with AST callbacks so token offsets match extraction. Native indented/literal-code regression in issue99.",
+  "fencedCodePatchSha256": "4b538afcc60f7959254f9322e6a47f0dac6b8a5024da932258d5e9fff2530f37"
 }

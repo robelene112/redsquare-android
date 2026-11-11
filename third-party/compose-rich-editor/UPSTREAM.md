@@ -14,7 +14,7 @@ Mapping validation remains enabled. No clamping or exception suppression is used
 
 `UPSTREAM.json` records every original blob/SHA256 and local SHA256. All62 Kotlin
 sources are unchanged except the model's two captures, the fenced-code compatibility
-repair described below and four mechanical platform
+repairs described below and four mechanical platform
 binding files: common `expect` declarations are removed and Android `actual`
 modifiers become ordinary declarations. Their implementations are unchanged.
 Each modified source carries its local-change notice. The exact changes are retained in `android-immutable-transform.patch`. The64-file
@@ -29,7 +29,10 @@ selection, lifecycle and native rendering regressions before removing this snaps
 Issue99's native article test exposed that the pinned parser silently omitted
 `CODE_FENCE_CONTENT` tokens. The compatibility parser now retains those atomic
 AST tokens as literal code, using the existing line-break handling and Code style.
+Normalization preserves code regions selected by the original AST, and callbacks
+receive the exact parsed source for their offsets. Indentation and formatting
+characters inside code remain literal, including after normalized prose.
 This prevents image-looking text in fenced examples from disappearing or becoming
-an image. The exact addition is in `android-fenced-code.patch`; the original
+an image. The exact addition is in `android-fenced-code.patch` (zero-context Git patch); the original
 upstream SHA256 and updated local hash remain in `UPSTREAM.json`. No dependency
 version, editor API or immutable-transformation fix changes.

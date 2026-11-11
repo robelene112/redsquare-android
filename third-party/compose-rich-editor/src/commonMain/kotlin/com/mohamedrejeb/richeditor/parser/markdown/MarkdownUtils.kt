@@ -1,5 +1,7 @@
 package com.mohamedrejeb.richeditor.parser.markdown
 
+// Local Android compatibility change (#99): preserve literal code and matching AST source offsets.
+
 import androidx.compose.ui.util.fastForEach
 import org.intellij.markdown.MarkdownElementTypes
 import org.intellij.markdown.MarkdownTokenTypes
@@ -13,16 +15,30 @@ import org.intellij.markdown.parser.MarkdownParser
 
 internal fun encodeMarkdownToRichText(
     markdown: String,
-    onOpenNode: (node: ASTNode) -> Unit,
+    onOpenNode: (node: ASTNode, source: String) -> Unit,
     onCloseNode: (node: ASTNode) -> Unit,
     onText: (text: String) -> Unit,
     onHtmlTag: (tag: String) -> Unit,
     onHtmlBlock: (html: String) -> Unit,
 ) {
-    val markdownText = correctMarkdownText(markdown)
-
     val parser = MarkdownParser(GFMFlavourDescriptor())
-    val tree = parser.buildMarkdownTreeFromString(markdownText)
+    val originalTree = parser.buildMarkdownTreeFromString(markdown)
+    fun literalCode(node: ASTNode): List<ASTNode> = when (node.type) {
+        MarkdownElementTypes.CODE_FENCE, MarkdownElementTypes.CODE_BLOCK, MarkdownElementTypes.CODE_SPAN -> listOf(node)
+        else -> node.children.flatMap { literalCode(it) }
+    }
+    // Prose/list cleanup must never rewrite indentation or formatting characters inside code.
+    val code = literalCode(originalTree).sortedBy { it.startOffset }
+    val markdownText = if (code.isEmpty()) correctMarkdownText(markdown) else buildString {
+        var before = 0
+        code.forEach { node ->
+            append(correctMarkdownText(markdown.substring(before, node.startOffset)))
+            append(markdown.substring(node.startOffset, node.endOffset))
+            before = node.endOffset
+        }
+        append(correctMarkdownText(markdown.substring(before)))
+    }
+    val tree = if (markdownText == markdown) originalTree else parser.buildMarkdownTreeFromString(markdownText)
     tree.children.fastForEach { node ->
         encodeMarkdownNodeToRichText(
             node = node,
@@ -188,7 +204,7 @@ internal fun correctMarkdownText(text: String): String {
 private fun encodeMarkdownNodeToRichText(
     node: ASTNode,
     markdown: String,
-    onOpenNode: (node: ASTNode) -> Unit,
+    onOpenNode: (node: ASTNode, source: String) -> Unit,
     onCloseNode: (node: ASTNode) -> Unit,
     onText: (text: String) -> Unit,
     onHtmlTag: (tag: String) -> Unit,
@@ -210,7 +226,7 @@ private fun encodeMarkdownNodeToRichText(
         MarkdownTokenTypes.EMPH -> onText("*")
         GFMTokenTypes.TILDE -> onText("~")
         MarkdownElementTypes.STRONG, GFMElementTypes.STRIKETHROUGH -> {
-            onOpenNode(node)
+            onOpenNode(node, markdown)
             val children = node.children.toMutableList()
             children.removeFirstOrNull()
             children.removeFirstOrNull()
@@ -231,7 +247,7 @@ private fun encodeMarkdownNodeToRichText(
         }
 
         MarkdownElementTypes.EMPH -> {
-            onOpenNode(node)
+            onOpenNode(node, markdown)
             val children = node.children.toMutableList()
             children.removeFirstOrNull()
             children.removeLastOrNull()
@@ -250,13 +266,13 @@ private fun encodeMarkdownNodeToRichText(
         }
 
         MarkdownElementTypes.CODE_SPAN -> {
-            onOpenNode(node)
+            onOpenNode(node, markdown)
             onText(node.getTextInNode(markdown).removeSurrounding("`").toString())
             onCloseNode(node)
         }
 
         MarkdownElementTypes.INLINE_LINK -> {
-            onOpenNode(node)
+            onOpenNode(node, markdown)
             val text = node
                 .findChildOfType(MarkdownElementTypes.LINK_TEXT)
                 ?.getTextInNode(markdown)
@@ -276,7 +292,7 @@ private fun encodeMarkdownNodeToRichText(
         }
 
         else -> {
-            onOpenNode(node)
+            onOpenNode(node, markdown)
             node.children.fastForEach { child ->
                 encodeMarkdownNodeToRichText(
                     node = child,

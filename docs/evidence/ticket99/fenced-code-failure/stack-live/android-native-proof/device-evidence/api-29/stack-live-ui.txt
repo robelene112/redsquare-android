@@ -1,0 +1,108 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.StackLivePreviewTest:
+INSTRUMENTATION_STATUS: test=genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains '![Fenced example](stack:image:missing)' (ignoreCase: false) as substring)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation$lambda$13(StackLivePreviewTest.kt:51)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$ONFPyDvgeJ9f2yFn9kW9XgZnM_Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(StackLivePreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: stream=
+Error in genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(nl.davidengelen.redsquare.StackLivePreviewTest):
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains '![Fenced example](stack:image:missing)' (ignoreCase: false) as substring)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation$lambda$13(StackLivePreviewTest.kt:51)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$ONFPyDvgeJ9f2yFn9kW9XgZnM_Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(StackLivePreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: test=genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=emptyNodeOffersARealChoiceWithoutInventingStories
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=emptyNodeOffersARealChoiceWithoutInventingStories
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.781
+There was 1 failure:
+1) genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(nl.davidengelen.redsquare.StackLivePreviewTest)
+java.lang.AssertionError: Failed: assertExists.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains '![Fenced example](stack:image:missing)' (ignoreCase: false) as substring)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists(SemanticsNodeInteraction.kt:125)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertExists$default(SemanticsNodeInteraction.kt:124)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation$lambda$13(StackLivePreviewTest.kt:51)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$ONFPyDvgeJ9f2yFn9kW9XgZnM_Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(StackLivePreviewTest.kt:36)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

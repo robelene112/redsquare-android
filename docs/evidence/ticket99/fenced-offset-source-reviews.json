@@ -1,0 +1,23 @@
+{
+  "source": "f6064d2c7",
+  "qualification": "Independent source-derived finding; no runtime/CI claim.",
+  "standards": {
+    "agent": "stack99_standards",
+    "findings": [
+      {
+        "severity": "P2",
+        "description": "New CODE_FENCE_CONTENT token offsets come from corrected Markdown but extraction slices original input. Two-space indentation shifts literal text. Preserve code before normalization and align extraction with parsed source."
+      }
+    ]
+  },
+  "spec": {
+    "agent": "stack99_spec",
+    "findings": [
+      {
+        "severity": "P2",
+        "requirement": "Exact article with Markdown",
+        "description": "After normalized two-space-indented prose, fenced Literal is sliced as teral plus closing-fence characters. Emit against matching parsed source."
+      }
+    ]
+  }
+}

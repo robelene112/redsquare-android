@@ -115,7 +115,7 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
             onText = { text ->
                 onText(text)
             },
-            onOpenNode = { node ->
+            onOpenNode = { node, source ->
                 openedNodes.add(node)
 
                 if (node.type == MarkdownElementTypes.LIST_ITEM) {
@@ -154,7 +154,7 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
                         currentRichSpan = null
                     }
                 } else if (node.type != MarkdownTokenTypes.EOL) {
-                    val richSpanStyle = encodeMarkdownElementToRichSpanStyle(node, input)
+                    val richSpanStyle = encodeMarkdownElementToRichSpanStyle(node, source)
 
                     if (richParagraphList.isEmpty())
                         richParagraphList.add(RichParagraph())
@@ -204,7 +204,7 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
                     node.type == MarkdownTokenTypes.CODE_LINE ||
                     node.type == MarkdownTokenTypes.CODE_FENCE_CONTENT
                 ) {
-                    onText(node.getTextInNode(input).toString())
+                    onText(node.getTextInNode(source).toString())
                 }
             },
             onCloseNode = { node ->
