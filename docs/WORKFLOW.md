@@ -11,13 +11,17 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner requests native Stack-link navigation, issue102. Implement sequentially
-from beta110/1521b5684 using existing native UI, signed controlled peer, core and
-Android external-intent seams. Preserve signed target/source, drafts, reading
-position and saved node; canonical Stack cards now intentionally supersede their
-old browser expectation. Review, complete both SDKs, verify a compatible signed
-beta update and delivery. No owner-phone QA, live writes or node/provider/Play
-operations. Keep #1/#36/#55/#84/#86 open; stop after102. Issue101 is complete.
+Issue102 native Stack links is delivered in signed beta112. Complete Android10/17
+three-job runs and actual83-to112 update checks pass; the explicit one-path
+archive-partition catalog erratum and fixture-only source bridge are preserved in
+[ticket102 evidence](evidence/ticket102/README.md). Both independent final packet
+reviews pass. The exact approved APK is publicly promoted and downloaded bytes
+match. Candidate111 is superseded and must never be promoted.
+
+Stop until another issue is requested. Keep #1/#36/#55/#84/#86 open. Preserve the
+canonical checkout and its unrelated research. No owner-phone QA, live Saito
+write, production node/provider/Play operation or other issue work is authorized
+by this completion. New work remains one issue at a time.
 
 ## Load the real skills
 

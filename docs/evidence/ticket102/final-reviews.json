@@ -1,0 +1,33 @@
+{
+  "scope": "Independent complete-packet prepromotion acceptance",
+  "reviewedHead": "011dae8ce12e4358c3aafeffe95e5b9b0fba4cec",
+  "base": "1521b56846ce1c2ac07e1e33bb0cb507ea2827a0",
+  "spec": {
+    "reviewer": "/root/stack102_spec",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "standards": {
+    "reviewer": "/root/stack102_standards",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "verifiedOriginalFiles": {
+    "full10": 937,
+    "full17": 947,
+    "update10": 72,
+    "update17": 74
+  },
+  "counts": {
+    "identities10": 652,
+    "identities17": 653,
+    "classesEach": 229,
+    "archivesEach": 195,
+    "normalCompletions10": 248,
+    "normalCompletions17": 249,
+    "deliberateInterruptionsEach": 37,
+    "continuityEach": 36
+  },
+  "checked": "Both independently verified all original hashes, fresh primary3job/run metadata, exact identity/archive/recovery sets, unchanged frozen files/approved adapter/194inheritedpaths, exact fixture-only0fd-to861sourcebridge with byte-identical native test bodies, and actual signed112APK/update/restoration. No hidden waiver/source drift/partial assembly.",
+  "qualification": "Frozen goals verified with reviewed one-path archive-partition catalog erratum. Inherited qualifications/original failures retained. Prepromotion acceptance only; actual public delivery remains to be verified. Candidate111 superseded, no phone/OEM/provider/Play/live-write acceptance."
+}

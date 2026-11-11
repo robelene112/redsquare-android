@@ -1,17 +1,41 @@
 # Red Square Android project context
 
 
-## Active native Stack links #102
+## Delivered native Stack links #102
 
-The owner requests in-app Stack links. Implement one issue102 from accepted
-beta110/1521b5684. Approved Stack article, author and root URLs route natively,
-with exact signed targets and explicit source node, no persisted node switch,
-Back to the prior post/reading position and activity/draft recovery. Preserve
-external URLs and deliberate browser publication/Open original actions. Existing
-native/controlled-peer/Android-intent seams are authorized; no owner-phone QA,
-live Saito writes, node/provider/Play operations or other issue work. Full goals
-remain; only prior canonical Stack-card browser expectations are superseded by
-the owner's explicit new behavior. Review, verify, signed beta delivery and stop102.
+Signed [beta0.1.112](https://davidengelen.nl/redsquare/) opens approved public
+Stack article, author and root links inside the native module. Exact signed
+article lookup does not depend on the newest discovery page. The URL source is
+visible without overwriting the saved node; Back restores the originating post
+and reading state. Unavailable articles retain Retry and an explicit website
+Open original. Ordinary external URLs and deliberate publication/access stay
+external. Loading-image Retry taps cannot activate the parent card; a loaded
+image remains a normal article link.
+
+Complete three-job Android10/17 runs43073588639/43069531194 pass with652/653
+identities,229classes,195archives,248/249normal completions,37deliberate
+interruptions and36continuity records. Acceptance is explicitly frozen goals
+verified with the independently reviewed archive-partition catalog erratum:
+the new Stack-link archive was catalogued under Social but the immutable harness
+runs it in Chat. Both original verifier failures and frozen files are retained;
+all194 inherited paths/goals/deadlines remain. The inherited API29 Profile
+assumption, unavailable Chat archive and four failure-capture qualifications remain.
+
+Compiled source0fd2133e7 is also the complete17 source. Complete10 source8612758a2
+changes only the synthetic draft cleanup hook to use the existing store lock;
+all native test bodies and production/harness are unchanged. The reviewed source
+bridge preserves the actual earlier failure and its unproved precise cause.
+Actual signed83-to112 updates pass on both SDKs, retaining wallet, exact unsent
+draft, offline post, Light preference and distinct debug identity after cold launch.
+Both independent final packet reviews pass after verifying1884 complete-run and
+146 signed-update originals. Candidate111 is superseded and must never be promoted.
+
+Public latest, immutable manifest, notes, page and actual downloaded42,683,434byte
+APK match SHA256`6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb`
+at19:21UTC November11. The [ticket102 packet](evidence/ticket102/README.md) records source,
+qualified complete results, original failures and delivery receipts. No
+owner-phone/OEM, provider, Play, live Saito write or production node change is
+claimed. Keep #1/#36/#55/#84/#86 open and stop after102.
 
 ## Delivered fast-scroll correction #101
 

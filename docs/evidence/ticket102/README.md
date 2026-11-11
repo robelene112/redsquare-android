@@ -9,13 +9,15 @@ The preview says Open in Stack. Unavailable articles offer Retry and an explicit
 Open original action retaining the signed URL. Other URLs and deliberate website
 publication/access remain external. No native entitlement or publishing is invented.
 
-Candidate112 is staged, compiled from
+Signed beta112 is live, compiled from
 `0fd2133e78688d89f4ae2671b0d5715eba15e127`,42,683,434bytes, SHA256
 `6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb`.
 The established certificate, ordinary package, min29/target36, nondebuggable,
 nonprofileable and disabled backup settings are verified. [Staging112](staging112-verification.json)
-checks exact manifest, notes and actual downloaded bytes. Latest remains110 until
-final independent acceptance and promotion. **Candidate111 is superseded; never promote111.**
+checks exact manifest, notes and actual downloaded bytes while latest was110.
+Both [final independent packet reviews](final-reviews.json) pass. The exact
+approved112 is promoted at19:21UTC; [public delivery](public-delivery112.json)
+verifies latest/immutable manifests, notes, page and downloaded APK byte-for-byte. **Candidate111 is superseded; never promote111.**
 
 ## Complete verification
 
@@ -78,5 +80,4 @@ cause also remains unproved. External originals remain under
 `/mnt/storage/redsquare-android-artifacts/stack102` and are bound by packet hashes.
 
 No owner-phone/OEM, provider, Play, live Saito write or production node operation
-is claimed. Parents1/36/55/84/86 remain open. Final independent packet review and
-public promotion remain pending. Stop after102.
+is claimed. Parents1/36/55/84/86 remain open. Final independent packet reviews pass and public delivery is verified. Stop after102.
