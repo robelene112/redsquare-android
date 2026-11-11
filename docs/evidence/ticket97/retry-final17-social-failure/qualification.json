@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "run": 42919304537,
+  "source": "8ab10cdd08909f969d485f0a4cb555e438e9bcc0",
+  "partition": "social",
+  "originalDownloadComplete": true,
+  "originals": "/mnt/storage/redsquare-android-artifacts/ui9798-retry17-social-failure",
+  "actual": "Same original FeedReading Save draft to visible feed return times out after15s at line56/42. No click-time/persistence trace exists for this failed run.",
+  "qualification": "Second unsuccessful whole17 attempt, never acceptance. Other successful partitions are not substituted into a complete SDK. Historical cause remains unproved; later positive target readiness is a fixture correction, not a proved application-defect claim."
+}

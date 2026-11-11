@@ -1,0 +1,8 @@
+{
+  "result": "PASS_FOCUSED",
+  "run": 42930593223,
+  "source": "82c01e74da76abd2117bedb3eeed73e60945a8cd",
+  "originals": "/mnt/storage/redsquare-android-artifacts/ui9798-fixture-node-raw/node-motion-android17",
+  "actual": "Original NodeBlockMotion method passes86.456s. Normal/zero collapse2151/2421ms; anchors settled2354/2633ms before controlled4000ms arrival. Positive native feed/viewport under original3s; original input/motion/anchor goals retained.",
+  "qualification": "Focused corrected fixture only; no historical-cause or whole17 acceptance claim. Complete originals retained externally; selected members are byte-identical."
+}
