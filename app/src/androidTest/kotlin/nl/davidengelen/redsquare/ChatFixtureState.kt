@@ -12,7 +12,7 @@ internal class ChatFixtureState(private val context: android.content.Context,
         context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
             .associate { check(it.isFile); it.name to it.readBytes() }
     }
-    private val preferences = listOf("notification-permission" to "offered",
+    private val preferences = listOf("name-directory" to "enabled", "notification-permission" to "offered",
         "notification-permission" to "social-offered:$owner", "wallet-backup-reminders" to "hidden:$owner")
         .map { (name, key) -> val prefs = context.getSharedPreferences(name, 0)
             Triple(prefs, key, if (prefs.contains(key)) prefs.getBoolean(key, false) else null) }

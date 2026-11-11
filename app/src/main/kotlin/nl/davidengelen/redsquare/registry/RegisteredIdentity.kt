@@ -12,7 +12,8 @@ import nl.davidengelen.redsquare.saito.*
 internal val LocalRegistryAuthority = staticCompositionLocalOf { SaitoRegistry.REGISTRAR }
 internal enum class IdentityNameOrigin { GENERATED, REGISTRAR, SELECTED_NODE, DIRECTORY }
 internal data class RegisteredIdentityLabel(val name: String, val saveError: Boolean = false,
-    val origin: IdentityNameOrigin = IdentityNameOrigin.REGISTRAR)
+    val origin: IdentityNameOrigin = IdentityNameOrigin.REGISTRAR,
+    val cached: Boolean = false, val checkedAt: Long? = null)
 private val LocalIdentities = staticCompositionLocalOf<RegisteredIdentities?> { null }
 /** Cached names only remain display identities for one day after the selected backend confirmed them. */
 internal const val REGISTERED_NAME_FRESHNESS_MILLIS = 24 * 60 * 60 * 1000L
@@ -49,7 +50,7 @@ internal fun registeredIdentity(publicKey: String): RegisteredIdentityLabel {
         ?: RegisteredIdentityLabel("Anon-${publicKey.take(6)}", origin = IdentityNameOrigin.GENERATED)
 }
 
-/** Searches verified cached names for known keys without querying a global directory. */
+/** Searches known display labels without adding new directory requests. */
 @Composable
 internal fun knownRegisteredIdentities(publicKeys: Set<String>): Map<String, RegisteredIdentityLabel> {
     val identities = requireNotNull(LocalIdentities.current)
@@ -75,6 +76,9 @@ private class RegisteredIdentities(
     private val visible = mutableMapOf<String, Int>()
     private val directoryRetries = mutableMapOf<String, Job>()
     private val failures = mutableMapOf<String, Int>()
+    private val displayStore = wallet?.let { DirectoryNameStore(context, it.publicKey, backend, registrar,
+        endpoint, directoryEndpoint) }
+
 
     fun close() { scope.cancel(); pending.close(); directoryPending.close() }
 
@@ -152,8 +156,34 @@ private class RegisteredIdentities(
     }
 
     suspend fun discover() = coroutineScope {
+        try {
+            val saved = withContext(Dispatchers.IO) { displayStore?.load().orEmpty() }
+            saved.forEach { showDirectoryLabel(it, cached = true) }
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { /* A disposable display cache never blocks reading or ownership checks. */ }
         if (directoryEndpoint != null) launch { discoverDirectory() }
         discoverSelected()
+    }
+
+    private fun showDirectoryLabel(saved: DirectoryNameStore.Saved, cached: Boolean) {
+        val previous = directoryLabels[saved.key]
+        if (previous?.origin == IdentityNameOrigin.DIRECTORY && saved.origin != IdentityNameOrigin.DIRECTORY) return
+        directoryLabels[saved.key] = RegisteredIdentityLabel(saved.name, origin = saved.origin,
+            cached = cached, checkedAt = saved.checkedAt)
+        while (directoryLabels.size > DirectoryNameStore.LIMIT) {
+            val discard = directoryLabels.keys.firstOrNull { it !in visible } ?: directoryLabels.keys.first()
+            directoryLabels.remove(discard)
+        }
+    }
+
+    private suspend fun saveDirectoryLabels(names: Map<String, String>, origin: IdentityNameOrigin) {
+        if (names.isEmpty()) return
+        val now = System.currentTimeMillis()
+        val saved = names.map { (key, name) -> DirectoryNameStore.Saved(key, name, origin, now) }
+        try { withContext(Dispatchers.IO) { displayStore?.save(saved) } }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { /* The reported label remains useful even when its disposable cache cannot be written. */ }
+        saved.forEach { showDirectoryLabel(it, cached = false) }
     }
 
     private suspend fun discoverDirectory() {
@@ -170,9 +200,7 @@ private class RegisteredIdentities(
                     }
                 }
                 successfulRead = true
-                names.forEach { (key, name) ->
-                    directoryLabels[key] = RegisteredIdentityLabel(name, origin = IdentityNameOrigin.DIRECTORY)
-                }
+                saveDirectoryLabels(names, IdentityNameOrigin.DIRECTORY)
             } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { /* A directory outage never changes author identity or ownership. */ }
@@ -209,6 +237,7 @@ private class RegisteredIdentities(
                                 }
                             } }.joinAll()
                         }
+                        withContext(Dispatchers.Main) { saveDirectoryLabels(hints, IdentityNameOrigin.SELECTED_NODE) }
                     }
                 }
             } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }

@@ -24,12 +24,12 @@ import nl.davidengelen.redsquare.ui.StatusTone
 @Composable
 internal fun IdentityDetailsDialog(author: String, onDone: () -> Unit) {
     val label = registeredIdentity(author)
-    PublicIdentityDetailsDialog(author, label.name, origin = label.origin, onDone = onDone)
+    PublicIdentityDetailsDialog(author, label.name, origin = label.origin, cached = label.cached, checkedAt = label.checkedAt, onDone = onDone)
 }
 
 /** A display label and its public-key identity never establish registration availability or ownership. */
 @Composable
-internal fun PublicIdentityDetailsDialog(author: String, name: String, origin: IdentityNameOrigin? = null,
+internal fun PublicIdentityDetailsDialog(author: String, name: String, origin: IdentityNameOrigin? = null, cached: Boolean = false, checkedAt: Long? = null,
     onDone: () -> Unit) {
     val context = LocalContext.current
     var copied by remember(author) { mutableStateOf<Boolean?>(null) }
@@ -44,10 +44,14 @@ internal fun PublicIdentityDetailsDialog(author: String, name: String, origin: I
                         Text(author, style = MaterialTheme.typography.bodyMedium)
                     }
                 }
-                if (origin == IdentityNameOrigin.DIRECTORY) Text(stringResource(R.string.identity_name_directory_source),
+                if (origin == IdentityNameOrigin.DIRECTORY) Text(stringResource(if (cached) R.string.identity_name_directory_cached else R.string.identity_name_directory_source),
                     style = MaterialTheme.typography.bodySmall)
-                if (origin == IdentityNameOrigin.SELECTED_NODE) Text(stringResource(R.string.identity_name_node_source),
+                if (origin == IdentityNameOrigin.SELECTED_NODE) Text(stringResource(if (cached) R.string.identity_name_node_cached else R.string.identity_name_node_source),
                     style = MaterialTheme.typography.bodySmall)
+                if (checkedAt != null && origin in setOf(IdentityNameOrigin.DIRECTORY, IdentityNameOrigin.SELECTED_NODE))
+                    Text(stringResource(R.string.identity_name_checked,
+                        java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.SHORT)
+                            .format(java.util.Date(checkedAt))), style = MaterialTheme.typography.bodySmall)
                 Text(stringResource(R.string.identity_name_explanation), style = MaterialTheme.typography.bodySmall)
                 InlineStatus(when (copied) {
                     true -> stringResource(R.string.profile_identity_copied)
