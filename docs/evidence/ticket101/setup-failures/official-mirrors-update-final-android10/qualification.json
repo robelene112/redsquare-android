@@ -1,0 +1,7 @@
+{
+  "result": "NOT_APPLICATION_ACCEPTANCE",
+  "primaryConclusion": "failure",
+  "source": "50c224f80",
+  "reason": "Removing only the Azure mirror was insufficient. Official Ubuntu domains also fail hosted DNS; application build/runtime was not reached. Selected focused10 was cancelled for immediate setup log inspection; no test result accepted.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/scroll101/update-final-android10"
+}

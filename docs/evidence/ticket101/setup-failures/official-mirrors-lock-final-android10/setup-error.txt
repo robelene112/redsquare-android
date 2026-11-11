@@ -1,0 +1,6 @@
+native-proof (all)	Check runner SDK and acceleration	2026-11-11T14:20:32.0381520Z W: Failed to fetch mirror+file:/etc/apt/apt-mirrors.txt/dists/noble/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+native-proof (all)	Check runner SDK and acceleration	2026-11-11T14:20:32.0382878Z W: Failed to fetch mirror+file:/etc/apt/apt-mirrors.txt/dists/noble-updates/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+native-proof (all)	Check runner SDK and acceleration	2026-11-11T14:20:32.0384212Z W: Failed to fetch mirror+file:/etc/apt/apt-mirrors.txt/dists/noble-backports/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+native-proof (all)	Check runner SDK and acceleration	2026-11-11T14:20:32.0385289Z W: Failed to fetch mirror+file:/etc/apt/apt-mirrors.txt/dists/noble-security/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+native-proof (all)	Check runner SDK and acceleration	2026-11-11T14:23:52.8005819Z   Temporary failure resolving 'archive.ubuntu.com'
+native-proof (all)	Check runner SDK and acceleration	2026-11-11T14:24:02.9214813Z ##[error]The operation was canceled.

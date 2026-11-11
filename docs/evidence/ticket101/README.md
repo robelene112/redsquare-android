@@ -90,3 +90,19 @@ update runs execute from`50c224f80`. The [exact source bridge](source-equivalenc
 checks every tracked top-level Git object except docs/.github, plus the frozen
 contract/verifier: candidate110's compiled application/build/test/harness inputs
 remain identical. Its compiled-source identity stays`64494ef9e`.
+
+The preceding50c mirror change is a historical, insufficient attempt. Its fresh
+runs also stop during dependency provisioning; no application gate is accepted.
+The selected focused10 run is cancelled to obtain its original setup log, which
+shows archive.ubuntu.com also failing DNS. The bounded [actual remote probe](runner-dns-probe/observations.log),
+run43038383935, confirms all three Ubuntu names fail for ordinary and APT users,
+while the kernel.org Ubuntu mirror resolves and returns HTTP200 for both.
+Google and GitHub DNS work. This rules out an APT-user permission explanation.
+
+Final source`54e06c357` prefers that observed reachable HTTPS mirror withpriority0
+and preserves every original fallback and Ubuntu signature validation. The
+temporary probe workflow is removed. [Both independent reviews](ci-reachable-mirror-reviews.json)
+pass, including the [new exact22-object source bridge](source-equivalence-mirror.json)
+from candidate110's compiled`64494ef9e`. The50c receipt remains historical only.
+Fresh complete SDK runs43038811822/43038816776, focused43038801167/43038806657
+and actual signed-update43038821274/43038826400 now execute from54e.

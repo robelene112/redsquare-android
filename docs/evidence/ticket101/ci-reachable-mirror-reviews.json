@@ -1,0 +1,15 @@
+{
+  "source": "54e06c357",
+  "standards": {
+    "agent": "scroll101_standards",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "spec": {
+    "agent": "scroll101_spec",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "summary": "Actual hosted DNS/HEAD observations justify preferring the reachable HTTPS Ubuntu mirror. Original fallbacks and Ubuntu signature verification remain. Temporary probe removed; all22 product/build/test/harness/frozen objects match candidate110. New receipt resolves bookkeeping while retaining prior50c historical receipt.",
+  "qualification": "Source/setup and receipt review only. Functional and signed-update gates remain pending."
+}

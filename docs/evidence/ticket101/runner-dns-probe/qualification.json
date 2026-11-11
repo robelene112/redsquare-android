@@ -1,0 +1,8 @@
+{
+  "result": "DEPENDENCY_DIAGNOSIS_ONLY",
+  "ubuntuNamesUnavailableForBothUsers": true,
+  "kernelMirrorDnsAndHead200ForBoth": true,
+  "googleAndGithubDnsAvailable": true,
+  "temporaryWorkflowRemovedIn": "54e06c357",
+  "qualification": "Actual bounded hosted read-only DNS/HEAD observations, not any application or runtime acceptance. Earlier mirror deletion was insufficient. APT signature validation and original fallback list remain intact."
+}
