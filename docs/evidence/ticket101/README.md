@@ -106,3 +106,24 @@ pass, including the [new exact22-object source bridge](source-equivalence-mirror
 from candidate110's compiled`64494ef9e`. The50c receipt remains historical only.
 Fresh complete SDK runs43038811822/43038816776, focused43038801167/43038806657
 and actual signed-update43038821274/43038826400 now execute from54e.
+
+Both focused native runs43038801167/43038806657 pass at163ms/434ms under the
+original3000ms goal while the controlled durable transaction remains held. Owned
+worker/files restore cleanly. These are controlled UI responsiveness observations,
+not physical FPS. Both actual signed83-to110 updates43038821274/43038826400 pass
+exact downloaded bytes, ordinary/debug identity isolation, unsent draft, offline
+post and Light preference through cold launch. See the focused/update packets.
+
+Whole54e attempts43038811822/43038816776 are not accepted. The Android10 Wallet
+job fails an unchanged gateway JVM assertion at line109; its actual recorded
+request can precede the dispatcher that captures verification. Published
+MockWebServer5.4.0 source confirms queue-before-dispatch ordering. The narrow
+[fixture correction](gateway-observer-fixture/qualification.json) waits for the
+unchanged snapshot only within the original five-second arrival goal;30-second
+class and every signature/routing/payload/session/count assertion remain. The
+local class passes in4.223s. Both [independent reviews](gateway-observer-reviews.json)
+pass; the original failure cause is not claimed proven by repetition. Remaining
+old full jobs are cancelled and contribute no partial acceptance. Fresh whole
+10/17 runs43040719802/43040725444 execute from`75920db2d`, with an
+[exact product and fixture bridge](fixture-source-equivalence.json) to the same
+compiled candidate110. Complete execution and final delivery remain pending.

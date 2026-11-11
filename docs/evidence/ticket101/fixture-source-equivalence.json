@@ -1,0 +1,37 @@
+{
+  "result": "PASS",
+  "compiledSource": "64494ef9e455efc39e31a5d07258fd0f92b0f4a5",
+  "verificationSource": "75920db2d63eff0d3cc5b2e621609c5bd13349ac",
+  "equalGitObjects": {
+    ".agents": "25cc062f1f50013d0c64817f854e34ab638a67fc",
+    ".gitignore": "c0e35613881a56424fa3c0f1ca76aa627c953adf",
+    "AGENTS.md": "539d132fa6d8dfdf811675158cdef1e6aa940b5d",
+    "CODING_STANDARDS.md": "f4842cea23942596d9e5785de980b3f72ea3b472",
+    "GLOSSARY.md": "2426cee3a7c0b01858cd67d73cc39dbf48d4cf91",
+    "OWNER_INPUTS.md": "701a5bb177d706e2aa73ed81d23dfb7fc1d11ddf",
+    "README.md": "240c2544ba7b40e985da69415db213ceafa1e627",
+    "app": "6ef8815ba12de61d417b94e6d55c2ae305e552a6",
+    "build-support": "a65cd2a86f1db7157357446ea65447a67a38a93a",
+    "build.gradle.kts": "1ae7069dd0fef1901abe227e84916fb4a4b9a36c",
+    "core": "e74963b5109b90e5c91d4678d530d344cad17ca8",
+    "gradle.properties": "66974a7b674d72bf28fca5ac6c8682f780b97127",
+    "gradle": "4167f4ea961fcf6b4ae64c287eee7d16241e967e",
+    "gradlew": "f5feea6d6b116baaca5a2642d4d9fa1f47d574a7",
+    "gradlew.bat": "9b42019c7915b971238526075306ffba3b666dd5",
+    "scripts": "65ec3a59025344223073ff89f74af5b859c7a5a9",
+    "settings.gradle.kts": "3684a8397da92bbb9c1814a184ca80543bf02a62",
+    "test-fixtures": "35075ef1c7399f938b6699afc5eab8ec53516fd0",
+    "third-party": "a6d17f97472f84906c9d9dc20be9a59a838f8e03",
+    "push-gateway/src/main": "c54a4d37d5c2c994d774265594943a492fbc00d7",
+    "push-gateway/build.gradle.kts": "517dcc470f27fb27f9bdfc758dfd81a473192f90",
+    "docs/evidence/ticket101/full-contract.json": "597b1ab0679b21413963a1782b79514c5f587775",
+    "docs/evidence/ticket101/verify-full.py": "8f1a7f1d35d96e72e9cfda291bbc35fd2c250f46"
+  },
+  "allowedNonProductDifferences": [
+    "Evidence documentation",
+    "Hosted Ubuntu mirror preference",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt"
+  ],
+  "fixtureDelta": "diff --git a/push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt b/push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt\nindex 512421024..68268c87a 100644\n--- a/push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt\n+++ b/push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt\n@@ -37,6 +37,7 @@ import java.util.Base64\n import java.util.Date\n import java.util.UUID\n import java.util.concurrent.ConcurrentHashMap\n+import java.util.concurrent.CountDownLatch\n import java.util.concurrent.Executors\n import java.util.concurrent.TimeUnit\n import java.util.concurrent.atomic.AtomicBoolean\n@@ -58,10 +59,12 @@ class GatewaySessionDeliveryTest {\n             RoutedPeer(identity, fixture).use { peer ->\n                 MockWebServer().use { fcm ->\n                     val verifiedBeforeSend = AtomicBoolean()\n+                    val dispatched = CountDownLatch(1)\n                     fcm.dispatcher = object : Dispatcher() {\n                         override fun dispatch(request: RecordedRequest): MockResponse {\n                             verifiedBeforeSend.set(peer.exactReads.containsAll(listOf(\"root\", \"reply\")\n                                 .map { fixture.getAsJsonObject(it).get(\"sig\").asString }))\n+                            dispatched.countDown()\n                             return MockResponse.Builder().body(\"{\\\"name\\\":\\\"projects/owned-fixture/messages/accepted\\\"}\").build()\n                         }\n                     }\n@@ -102,10 +105,15 @@ class GatewaySessionDeliveryTest {\n                             GatewayObserver(gateway, identity, backend, sender, intervalMillis = 60_000,\n                                 localChainOrigin = peer.origin, localArchiveOrigin = archiveOrigin).use { observer ->\n                                 observer.start()\n+                                val arrivalDeadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)\n                                 val sent = fcm.takeRequest(5, TimeUnit.SECONDS)\n                                 peer.check()\n                                 assertNotNull(\"Verified reply must reach FCM on ${backend.id}; \" +\n                                     \"connections=${peer.connections.get()}, misroutedArchiveReplies=${peer.misrouted.get()}\", sent)\n+                                // MockWebServer queues takeRequest before entering dispatch.\n+                                // Observe its captured verification within the same arrival bound.\n+                                assertTrue(\"FCM observation must finish within the original five seconds\",\n+                                    dispatched.await((arrivalDeadline - System.nanoTime()).coerceAtLeast(0), TimeUnit.NANOSECONDS))\n                                 assertTrue(\"Exact signed reply and parent must be read before sending\", verifiedBeforeSend.get())\n                                 val message = JsonParser.parseString(requireNotNull(sent?.body).utf8()).asJsonObject.getAsJsonObject(\"message\")\n                                 assertEquals(\"owned-session-fid\", message.get(\"fid\").asString)\n",
+  "qualification": "Same exact signed candidate110. No production/build/dependency/native harness/fixture/installer/assertion/deadline/contract difference. Only existing JVM test observer awaits its original verification snapshot within its unchanged five-second goal. Complete fresh SDKs use75920db2d; signed updates/focused native use54e06c357."
+}

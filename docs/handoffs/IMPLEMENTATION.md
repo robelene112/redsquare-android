@@ -1,34 +1,46 @@
 # Implementation handoff
 
 
-## Active fast-scroll diagnosis #101
+## Active fast-scroll correction #101
 
-The owner reports intermittent visible stuttering during fast scrolling and asks
-for improvements. Work on one [performance issue](https://github.com/robelene112/redsquare-android/issues/101),
-starting from accepted beta109 / `c8f1654a1`. Measure actual Android frames and
-system traces in the separate nondebuggable performance package before choosing
-an application correction. Existing startup/function tests are not scroll timing.
-The release configuration currently leaves R8 optimization disabled; this is a
-configuration observation, not a measured cause. Existing packaged profiles are
-present, so do not claim the APK has no baseline profiles.
+Work on one [performance issue](https://github.com/robelene112/redsquare-android/issues/101),
+starting from accepted beta109 / `c8f1654a1`. Actual nondebuggable native scroll
+traces identify main-thread `SocialActionOperations.busy()` waiting34.4ms behind
+background durable storage. Only that reactive map membership read loses the
+disk lock; all operation claims, identity changes and journal writes remain
+serialized. Animations, content, reading position and transaction formats stay.
 
-The first diagnostic uses the existing hosted disposable Android17 emulator and
-public native UI/OS observation seams, with a separate CI-signed performance APK.
-No public version reservation, owner installation, production deployment, live
-transaction or provider change is needed. Public-feed/network/content timing and
-SwiftShader rendering limit the observation; do not claim physical Pixel/OEM
-smoothness. Keep ordinary latest109 and parent issues unchanged. Whole baseline4 run43024558841 records three actual scroll rounds. The trace
-then identifies main-thread monitor contention in SocialActionOperations.busy,
-waiting on SaitoLocalState.lock while a background thread is in FileDescriptor.sync.
-The native FeedScrollIoPreviewTest now reproduces rendering new signed posts
-while an unrelated owned durable transaction remains pending. Its3000ms UI goal
-and8000ms controlled gate were defined before the fix. Old-source run43032048915
-failed the real UI goal at8375ms; its owned worker and files restored cleanly. Keep all atomic claims, journal writes and identity checks serialized.
-The rendering-only status read now uses the reactive SnapshotStateMap directly,
-without the unrelated durable-I/O lock. All operation claims and identity/journal
-mutations remain serialized. Focused green and complete acceptance are pending. The R8 experiment did not complete
-its bounded local build and was removed without claiming a performance result.
-See #101 for acceptance.
+The real old-source native regression fails at8375ms. Both focused Android10/17
+runs43038801167/43038806657 pass at163/434ms while the controlled durable
+transaction remains pending, with owned worker/files restored. Three after-trace
+rounds show zero busy-lock contention, versus4/1/3 before. Cold emulator timing
+remains mixed, so this establishes removal of one measured stall, not physical
+smoothness or a general FPS gain. Ordinary performance builds omit the opt-in
+composition diagnostic libraries.
+
+Signed candidate110, compiled from`64494ef9e`, is staged with exact downloaded
+bytes/certificate/license verified. Actual signed83-to110 update runs43038821274/
+43038826400 pass wallet, draft, cache, preference and separate debug identity.
+Ordinary latest remains109 until complete acceptance. Source/actual artifact,
+CI setup and narrow fixture reviews pass both axes.
+
+The hosted Ubuntu DNS failure is isolated with a bounded read-only probe; the
+observed reachable kernel.org Ubuntu mirror is preferred while all original
+fallbacks and package signatures remain. The temporary probe workflow is removed.
+One original full build fails an existing gateway fixture observation race:
+MockWebServer queues the request before dispatch captures verification. Its
+correction waits only within the original five-second goal, preserving all
+assertions and the30-second bound. Local focused proof passes. No gateway
+production change or new signing version is needed.
+
+Fresh whole Android10/17 runs43040719802/43040725444 execute from`75920db2d`.
+They must match the unchanged pre-run101 contract:651/652 identities,228classes,
+194archives,247/248normal completions,37deliberate interruptions and36continuity
+records, retaining all inherited qualifications. Earlier failed/cancelled runs
+contribute no complete acceptance. See the ticket101 packet for originals and
+exact source bridges. Full results, final evidence review and public promotion
+are pending. No owner-phone QA, live writes, node/provider/Play change or other
+issue work. Keep #1/#36/#55/#84/#86 open; stop after101. Canonical checkout stays.
 
 ## Delivered robust display names #100
 
