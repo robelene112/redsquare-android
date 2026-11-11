@@ -477,7 +477,7 @@ class MainActivity : ComponentActivity() {
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
                                     val moduleStates = rememberSaveableStateHolder()
-                                    SingleOwnerReveal(module to linkedStack?.target, Modifier.weight(1f)) {
+                                    SingleOwnerReveal(linkedStack?.target ?: module, Modifier.weight(1f)) {
                                         val renderModule: @Composable () -> Unit = {
                                             if (module == AppModule.STACK) {
                                                 if (linkedStack == null && BuildConfig.DEBUG && intent.getBooleanExtra("stackDesignFixture", false)) {
