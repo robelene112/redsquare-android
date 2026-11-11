@@ -44,7 +44,7 @@ private data class StackLiveRoute(val author: String? = null, val article: Strin
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: String, modifier: Modifier,
-    chrome: @Composable (Boolean) -> Unit, entry: StackLink? = null, onExitLink: (() -> Unit)? = null, onNodeSettings: () -> Unit) {
+    chrome: @Composable (Boolean) -> Unit, entry: StackLink? = null, entryUrl: String? = null, onExitLink: (() -> Unit)? = null, onNodeSettings: () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
     val uri = LocalExternalUriHandler.current ?: LocalUriHandler.current
@@ -198,7 +198,18 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                                     } }
                                 } else if (personal?.ready == true) item {
                                     if (library?.cacheReady != true || library.loading) InlineStatus(stringResource(R.string.stack_loading), StatusTone.WORKING)
-                                    else Text(stringResource(R.string.stack_article_unavailable))
+                                    else {
+                                        Text(stringResource(R.string.stack_article_unavailable))
+                                        if (library?.failed != true) TextButton(onClick = { scope.launch { library?.load() } }) {
+                                            Text(stringResource(R.string.retry))
+                                        }
+                                        articleAuthor?.let { owner ->
+                                            StackBlockButton({ open(entryUrl?.takeIf { entry?.signature == articleId && entry.author == owner }
+                                                ?: "${backend.webUrl}/stack/$owner/$articleId") }, Modifier.fillMaxWidth(), outlined = true) {
+                                                Text(stringResource(R.string.stack_open_original))
+                                            }
+                                        }
+                                    }
                                 }
                                 // Background recovery information follows the saved article, so it never moves reading text.
                                 if (readingArticle) item {

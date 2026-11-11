@@ -346,7 +346,7 @@ class MainActivity : ComponentActivity() {
                                 if (wallet?.publicKey != owner || backend != savedNode || savingBackend ||
                                     walletImport.busy || walletExport.busy) false
                                 else {
-                                    stackLinkEntry = nl.davidengelen.redsquare.ui.StackLinkEntry(target, owner, savedNode)
+                                    stackLinkEntry = nl.davidengelen.redsquare.ui.StackLinkEntry(target, owner, savedNode, uri)
                                     module = AppModule.STACK
                                     settingsOpen = false; settingsCategory = null
                                     true
@@ -496,7 +496,7 @@ class MainActivity : ComponentActivity() {
                                                         RegisteredIdentityScope(wallet, stackEndpoint, stackNode,
                                                             RegistryAuthority.directoryPeer(intent, stackEndpoint).takeIf { nameDirectoryEnabled == true }) {
                                                             StackScreen(wallet, stackNode, stackEndpoint, Modifier.fillMaxSize(), chrome,
-                                                                entry = linkedStack?.target,
+                                                                entry = linkedStack?.target, entryUrl = linkedStack?.url,
                                                                 onExitLink = if (linkedStack != null) ({ selectModule(AppModule.RED_SQUARE) }) else null) {
                                                                 settingsCategory = "node"; settingsOpen = true
                                                             }

@@ -126,6 +126,14 @@ class FeedLinkPreviewTest {
             assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", request.get("field2").asString)
             assertEquals("a".repeat(128), request.get("sig").asString)
             assertTrue(Intents.getIntents().none { it.action == Intent.ACTION_VIEW })
+            ui.waitUntil(5_000) { ui.onNodeWithText("This article is not available from saved history or this node.").isDisplayed() }
+            ui.onNodeWithText("Retry").performScrollTo().performClick()
+            ui.waitUntil(5_000) { articleRequests.size == 2 }
+            ui.onNodeWithText("Open original on Stack").performScrollTo().performClick()
+            ui.waitUntil(5_000) { Intents.getIntents().any { it.action == Intent.ACTION_VIEW } }
+            val explicit = Intents.getIntents().filter { it.action == Intent.ACTION_VIEW }
+            assertEquals(1, explicit.size)
+            assertEquals(expected, explicit.single().dataString)
             return
         }
         ui.waitUntil(5_000) { Intents.getIntents().any { it.action == Intent.ACTION_VIEW } }
