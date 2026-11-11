@@ -241,6 +241,11 @@ if [[ "${TEST_SCOPE:-full}" == push-binding-cache-regression* ]]; then
     if [[ "$binding_primary" != 0 ]]; then exit "$binding_primary"; fi
     exit "$binding_cleanup"
 fi
+if [[ "${TEST_SCOPE:-full}" == scroll-io* ]]; then
+    verify_group_chat_native FeedScrollIoPreviewTest 90 feed-scroll-io feed-scroll-io-evidence
+    printf '%s\n' 'Real native scrolling while a separate owned durable transaction remains pending; not physical frame-rate acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == feed-refresh-regression* ]]; then
     refresh_regression_failed=0
     verify_group_chat_native 'FeedPreviewTest' \
@@ -753,6 +758,7 @@ if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == feed-redesign* ]]; then
         printf '%s\n' 'Diagnostic full Social prefix through FeedReading only; no complete partition or application acceptance.' > "$evidence/scope.txt"
         exit "$feed_redesign_failed"
     fi
+    verify_group_chat_native FeedScrollIoPreviewTest 90 feed-scroll-io feed-scroll-io-evidence || feed_redesign_failed=1
     verify_group_chat_native FeedWritingViewportTest 180 feed-writing feed-writing-evidence || feed_redesign_failed=1
     verify_group_chat_native FeedMediaMotionTest 180 feed-media-motion feed-media-motion-evidence || feed_redesign_failed=1
     if [[ "${TEST_SCOPE:-full}" == feed-redesign* ]]; then

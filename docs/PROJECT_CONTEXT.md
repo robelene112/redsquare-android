@@ -17,8 +17,16 @@ public native UI/OS observation seams, with a separate CI-signed performance APK
 No public version reservation, owner installation, production deployment, live
 transaction or provider change is needed. Public-feed/network/content timing and
 SwiftShader rendering limit the observation; do not claim physical Pixel/OEM
-smoothness. Keep ordinary latest109 and parent issues unchanged. No baseline
-scroll result or root cause has yet been established. See #101 for acceptance.
+smoothness. Keep ordinary latest109 and parent issues unchanged. Whole baseline4 run43024558841 records three actual scroll rounds. The trace
+then identifies main-thread monitor contention in SocialActionOperations.busy,
+waiting on SaitoLocalState.lock while a background thread is in FileDescriptor.sync.
+The native FeedScrollIoPreviewTest now reproduces rendering new signed posts
+while an unrelated owned durable transaction remains pending. Its3000ms UI goal
+and8000ms controlled gate are defined before the fix; the actual RED remains
+required. Keep all atomic claims, journal writes and identity checks serialized.
+The ordinary app has not been changed yet. The R8 experiment did not complete
+its bounded local build and was removed without claiming a performance result.
+See #101 for acceptance.
 
 ## Delivered robust display names #100
 
