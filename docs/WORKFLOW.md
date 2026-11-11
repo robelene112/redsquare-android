@@ -11,12 +11,15 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The requested UI corrections #97 and #98 are delivered as signed beta 107 after
-sequential implementation, complete Android 10/17 verification and compatible
-signed-update/publication checks. Stop after recording these two deliveries.
-Do not start another ticket automatically. See [the handoff](handoffs/IMPLEMENTATION.md).
-Parent specifications #1/#55/#84/#86 and release #36 retain independent criteria.
-The prior #96/beta 105 and redesign/beta 102 checkpoints remain historical acceptances.
+The owner requested replacing Stack's preview stories with genuine Stack articles.
+Implement issue #99, one sequential native discovery/reading slice and compatible
+beta delivery, then stop. Existing shared wallet/backend, native UI/controlled
+peer, signed-envelope and reversible viewport seams are authorized. Historical
+Stack design fixtures remain separately labelled and never accept live features.
+The approved public endpoints may be read without posting or changing node state.
+Preserve explicit node choice and genuine remaining first-release publishing/access
+criteria under #1. Beta107 and completed #97/#98 remain accepted history.
+See [the handoff](handoffs/IMPLEMENTATION.md). Parent #1/#36/#55/#84/#86 stay open.
 
 ## Load the real skills
 

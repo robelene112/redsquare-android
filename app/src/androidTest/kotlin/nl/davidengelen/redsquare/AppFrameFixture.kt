@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 
 /** Read-only frame peer and declared local state, restored after the Activity closes. No recomposer replacement. */
-internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, giphyFixtureUrl: String? = null, block: (ActivityScenario<MainActivity>) -> Unit) {
+internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, giphyFixtureUrl: String? = null, stackDesignFixture: Boolean = false, block: (ActivityScenario<MainActivity>) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -20,7 +20,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
     val backends = AndroidBackendStore(context)
     val originalBackend = backends.load()
     val retained = ChatFixtureState(context, listOf("feed.", "conversation.", "profile.", "profilemeta.", "profiledraft.", "search.",
-        "authorposts.", "postdraft.", "namemap.", "following.", "quoteoriginal."), wallet.publicKey)
+        "authorposts.", "postdraft.", "namemap.", "following.", "quoteoriginal.", "stack."), wallet.publicKey)
     val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
     val rows = feedRows ?: JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
         .asJsonObject.get("archiveRow").let { "[$it]" }
@@ -69,6 +69,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
             val launchIntent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", registryResponse != null)
+                .putExtra("stackDesignFixture", stackDesignFixture)
             giphyFixtureUrl?.let { launchIntent.putExtra("giphyFixtureUrl", it) }
             balanceApiUrl?.let { launchIntent.putExtra("balanceApiUrl", it) }
             nodeBlockApiUrl?.let { launchIntent.putExtra("nodeBlockApiUrl", it) }

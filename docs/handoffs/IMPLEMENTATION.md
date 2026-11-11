@@ -1,5 +1,26 @@
 # Implementation handoff
 
+## Active Stack integration #99
+
+The owner requested genuine Saito Stack articles in place of the installed design
+preview. Implement [issue99](https://github.com/robelene112/redsquare-android/issues/99)
+as one sequential native discovery/reading slice, then compatible beta delivery
+and stop. Review base `84c9d9baa`; public beta107 remains the accepted baseline.
+Use the shared wallet and explicitly selected node, authentic signed public Stack
+articles, real authors/covers/Markdown, retained public cache and truthful states.
+Never fall back to sample stories or simulate access/publication. Existing native
+public-envelope, controlled peer and reversible viewport seams remain authorized.
+Historical design fixtures are explicitly debug-only and do not accept live Stack.
+
+Read-only observation on November11: the owner node does not advertise Stack and
+returns an empty Stack archive; saito.io advertises Stack and returned10 rows,
+which the native decoder authenticates as9 logical articles. Preserve explicit
+node choice. Do not silently change backends or enable a production node module.
+Native publishing/access/payment/subscriptions remain genuine first-release work
+under1; this ticket replaces the sample article experience, not those wider gates.
+No owner setup/phone QA or live writes are needed. Complete native10/17, actual
+signed update and verified beta delivery remain required before closure.
+
 ## Delivered UI fixes #97 and #98
 
 Signed [beta 0.1.107](https://davidengelen.nl/redsquare/) delivers the requested
