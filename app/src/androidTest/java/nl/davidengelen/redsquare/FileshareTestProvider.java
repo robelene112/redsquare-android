@@ -28,7 +28,8 @@ public final class FileshareTestProvider extends ContentProvider {
         File file = file(uri.getLastPathSegment());
         MatrixCursor cursor = new MatrixCursor(projection != null ? projection : new String[] {OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE});
         MatrixCursor.RowBuilder row = cursor.newRow();
-        for (String column : cursor.getColumnNames()) row.add(column.equals(OpenableColumns.DISPLAY_NAME) ? file.getName() : file.length());
+        for (String column : cursor.getColumnNames()) row.add(column.equals(OpenableColumns.DISPLAY_NAME) ? file.getName() :
+            (file.getName().startsWith("unknown-") ? null : file.length()));
         return cursor;
     }
     @Override public Bundle call(String method, String name, Bundle extras) {

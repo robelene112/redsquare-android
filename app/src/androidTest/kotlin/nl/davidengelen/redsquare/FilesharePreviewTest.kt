@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference
 abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
-    protected fun transfer(incoming: Boolean, cancel: Boolean = false) {
+    protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false, denyNotifications: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -38,13 +38,16 @@ abstract class FileshareFixture {
         val files = ChatFixtureState(context, listOf("fileshare.", "personal.${wallet.publicKey}.",
             "chat.owner.${wallet.publicKey}.", "chatwork.owner.${wallet.publicKey}.", "chatreactions.owner.${wallet.publicKey}."), wallet.publicKey)
         val device = UiDevice.getInstance(instrumentation)
+        val originalAppOp = Regex("POST_NOTIFICATION: (allow|ignore|deny|default)").find(
+            device.executeShellCommand("appops get ${context.packageName} POST_NOTIFICATION"))?.groupValues?.get(1) ?: "default"
         val permitted = android.os.Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         val evidence = File(context.cacheDir, "fileshare-evidence").apply { mkdirs() }
         val browserRef = AtomicReference<FileshareBrowserPeer>()
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
             relayResponse = { browserRef.get().relay(it) })
         val bytes = ByteArray(150_007) { ((it * 13 + 7) % 251).toByte() }
-        val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/source.bin")
+        val sourceName = if (unknown) "unknown-source.bin" else "source.bin"
+        val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$sourceName")
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/saved.bin")
         val draft = "Keep this unsent message"
         var session: FileSession? = null
@@ -56,7 +59,10 @@ abstract class FileshareFixture {
         try {
             files.prepare(); backends.save(SaitoBackend.OWNER); wallets.replace(wallets.loadOrCreate(), wallet)
             if (!permitted) device.executeShellCommand("pm grant ${context.packageName} android.permission.POST_NOTIFICATIONS")
-            context.contentResolver.call(source, "prepare", "source.bin", Bundle().apply { putByteArray("bytes", bytes) })
+            context.contentResolver.call(source, "prepare", sourceName, Bundle().apply { putByteArray("bytes", bytes) })
+            if (unknown) context.contentResolver.query(source, arrayOf(android.provider.OpenableColumns.SIZE), null, null, null)!!.use {
+                check(it.moveToFirst() && it.isNull(0))
+            }
             context.contentResolver.call(destination, "prepare", "saved.bin", Bundle().apply { putByteArray("bytes", byteArrayOf()) })
             Intents.init()
             Intents.intending(hasAction(Intent.ACTION_OPEN_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(Activity.RESULT_OK,
@@ -80,6 +86,21 @@ abstract class FileshareFixture {
                             device.pressBack() // Dismiss the IME while keeping the draft.
                             session = FileshareRuntime.session(context, wallet, SaitoBackend.OWNER, endpoint, author.publicKey)
                             waitUntil { session!!.ready.value }
+                            if (denyNotifications) {
+                                device.executeShellCommand("appops set ${context.packageName} POST_NOTIFICATION deny")
+                                check(!FileshareNotifications.available(context))
+                                ui.onNodeWithContentDescription("Add media").performClick()
+                                ui.onNodeWithText("Send a file").performClick()
+                                val explanation = context.getString(nl.davidengelen.redsquare.R.string.fileshare_notifications_required)
+                                waitUntil { ui.onAllNodesWithText(explanation).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                assertTrue(session!!.transfers.value.isEmpty())
+                                assertTrue(FileshareRuntime.preparations.value.none { it.phase == PreparationPhase.PREPARING })
+                                assertTrue(fixture.relayedMessages.isEmpty() && fixture.transactions.isEmpty())
+                                ui.onNodeWithText(draft).assertExists()
+                                captureNativeScreen(File(evidence, "notifications-disabled.png"), explanation)
+                                File(evidence, "notifications-disabled.json").writeText("{\"result\":\"PASS\",\"actualAppOpDenied\":true,\"noTransferStarted\":true,\"draftRetained\":true}")
+                                return@withFailureCapture
+                            }
                             browser.hold(receipts = !incoming, chunks = incoming)
                             if (incoming) {
                                 browser.send(bytes, "from-browser.bin", "browser103")
@@ -89,12 +110,15 @@ abstract class FileshareFixture {
                                 captureNativeScreen(File(evidence, "incoming-accept.png"), "Accept file")
                                 ui.onNodeWithText("Accept file").performScrollTo().performClick()
                                 waitUntil { session!!.transfers.value.any { it.phase == FilePhase.RECEIVING && it.bytes > 0 } }
+                                session!!.accept(session!!.transfers.value.single().token)
+                                // A late duplicate Accept must leave the already receiving transfer intact.
                             } else {
                                 ui.onNodeWithContentDescription("Add media").performClick()
                                 ui.onNodeWithText("Send a file").performClick()
                                 waitUntil { browser.chunks.get() > 0 && session!!.transfers.value.any { it.phase == FilePhase.SENDING } }
                             }
                             val token = session!!.transfers.value.first().token
+                            if (!incoming) session!!.retry(token) // A stale conflicting Retry must not fail live work.
                             val notifications = context.getSystemService(NotificationManager::class.java)
                             waitUntil { notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID } }
                             captureNativeScreen(File(evidence, "active-${incoming}-${cancel}.png"))
@@ -129,11 +153,12 @@ abstract class FileshareFixture {
                             assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
                             assertTrue(fixture.transactions.isEmpty()) // No broadcast transaction carries a file.
                             fixture.assertHealthy()
-                            File(evidence, "result-${incoming}-${cancel}.json").writeText(com.google.gson.JsonObject().apply {
+                            File(evidence, "result-${incoming}-${cancel}-${unknown}.json").writeText(com.google.gson.JsonObject().apply {
                                 addProperty("result", "PASS"); addProperty("incoming", incoming); addProperty("cancel", cancel)
                                 addProperty("sourcePin", pin); addProperty("bytes", bytes.size)
                                 addProperty("sha256", MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) })
                                 addProperty("actualWebRtc", true); addProperty("screenOffObserved", true)
+                                addProperty("unknownSizeProvider", unknown)
                                 addProperty("browserAdapterWallet", "Native public unsafe fixture; independent wallet vectors verified separately")
                             }.toString())
                         }
@@ -150,6 +175,7 @@ abstract class FileshareFixture {
                 { context.getSystemService(NotificationManager::class.java).cancel(FileTransferService.NOTIFICATION_ID) },
                 { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(previousBackend) },
                 { files.restoreFiles() }, { files.restorePreferences() },
+                { if (denyNotifications) device.executeShellCommand("appops set ${context.packageName} POST_NOTIFICATION $originalAppOp") },
                 { if (!permitted) device.executeShellCommand("pm revoke ${context.packageName} android.permission.POST_NOTIFICATIONS") })
         }
     }
@@ -163,4 +189,11 @@ class FileshareReceivePreviewTest : FileshareFixture() {
 }
 class FileshareCancelPreviewTest : FileshareFixture() {
     @Test fun theActualNotificationCancelStopsTheSpecificTransferWithoutClaimingCompletion() = transfer(incoming = false, cancel = true)
+}
+class FileshareUnknownSizePreviewTest : FileshareFixture() {
+    @Test fun anUnknownLengthDocumentIsPreparedAndDeliversTheExactBytes() = transfer(incoming = false, unknown = true)
+}
+class FileshareNotificationPreviewTest : FileshareFixture() {
+    @Test fun disabledNotificationsExplainTheNeededControlsWithoutStartingATransferOrLosingTheDraft() =
+        transfer(incoming = false, denyNotifications = true)
 }

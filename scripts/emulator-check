@@ -484,6 +484,8 @@ verify_fileshare() {
     verify_group_chat_native FileshareSendPreviewTest 180 fileshare-send fileshare-evidence
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
     verify_group_chat_native FileshareCancelPreviewTest 180 fileshare-cancel fileshare-evidence
+    verify_group_chat_native FileshareUnknownSizePreviewTest 180 fileshare-unknown-size fileshare-evidence
+    verify_group_chat_native FileshareNotificationPreviewTest 180 fileshare-notifications fileshare-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == fileshare* ]]; then
     verify_fileshare

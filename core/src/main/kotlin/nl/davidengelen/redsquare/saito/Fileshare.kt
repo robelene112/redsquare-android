@@ -22,7 +22,7 @@ object Fileshare {
         }
     }
     data class Chunk(val offer: Offer, val offset: Long, val index: Long, val bytes: ByteArray)
-    data class Message(val body: JsonObject, val id: String? = null) {
+    data class Message(val body: JsonObject, val id: String? = null, val sender: String? = null) {
         val request: String get() = body.requiredString("request")
         val data: JsonObject get() = body.getAsJsonObject("data")
     }
@@ -87,8 +87,8 @@ object Fileshare {
         val raw = rawBody(envelope)
         if (!relevant(raw)) return null
         val signed = SaitoEnvelope.decode(envelope)
-        require(signed.author == peer && owner in signed.recipients)
-        return Message(signed.body, signed.id)
+        require(signed.author in setOf(peer, owner) && owner in signed.recipients)
+        return Message(signed.body, signed.id, signed.author)
     }
 
     /** The caller binds this channel to signed Stun SDP. Unsigned controls never gain signer status. */

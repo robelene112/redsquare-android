@@ -37,13 +37,15 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
     if (session == null) { content(null, {}); return }
     val context = androidx.compose.ui.platform.LocalContext.current
     val scope = rememberCoroutineScope()
+    val notifications = rememberFileNotificationGate()
     val binding = "${session.owner}:${session.backend.id}:${session.contact}"
     var pickingFor by rememberSaveable(binding) { mutableStateOf<String?>(null) }
     var pickerFailed by remember(binding) { mutableStateOf(false) }
     val currentEnabled by rememberUpdatedState(enabled)
     val ready by session.ready.collectAsState()
     val states by session.transfers.collectAsState()
-    val busy = states.any { it.phase.active || it.phase == FilePhase.OFFERED }
+    val preparing by session.preparation.collectAsState()
+    val busy = states.any { it.phase.active || it.phase == FilePhase.OFFERED } || preparing?.phase == PreparationPhase.PREPARING
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         val accepted = pickingFor == binding
         pickingFor = null
@@ -57,12 +59,13 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
         if (enabled && ready && !busy && pickingFor == null) scope.launch {
             try {
                 if (beforePicker() && currentEnabled) {
-                    pickingFor = binding; pickerFailed = false; picker.launch(arrayOf("*/*"))
+                    notifications.run { pickingFor = binding; pickerFailed = false; picker.launch(arrayOf("*/*")) }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { pickingFor = null; pickerFailed = true }
         }
     }, {
+        notifications.notice()
         InlineStatus(if (pickerFailed) stringResource(R.string.fileshare_error) else null, StatusTone.ERROR)
         FileTransferPanel(session, enabled)
     })
@@ -72,6 +75,8 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
 @Composable
 private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
     val transfers by session.transfers.collectAsState()
+    val preparation by session.preparation.collectAsState()
+    val busy = transfers.any { it.phase.active || it.phase == FilePhase.OFFERED } || preparation?.phase == PreparationPhase.PREPARING
     val error by session.error.collectAsState()
     var expanded by remember(session) { mutableStateOf(false) }
     var saving by remember(session) { mutableStateOf<String?>(null) }
@@ -93,10 +98,25 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
         try { save.launch(value.offer.name) } catch (_: Exception) { selectedSave = null; savingError = true }
     }
     Column(Modifier.animateContentSize()) {
+        preparation?.let { pending ->
+            Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer) {
+                Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    pending.name?.let { Text(it, style = MaterialTheme.typography.titleSmall) }
+                    Text(stringResource(preparationLabel(pending.phase)), style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+                    if (pending.phase == PreparationPhase.PREPARING) {
+                        LinearProgressIndicator(Modifier.fillMaxWidth())
+                        Text(stringResource(R.string.fileshare_preparing_detail), style = MaterialTheme.typography.bodySmall)
+                        if (pending.bytes > 0) Text(fileSize(pending.bytes), style = MaterialTheme.typography.bodySmall)
+                        TextButton(onClick = { session.cancel(pending.token) }) { Text(stringResource(R.string.fileshare_cancel)) }
+                    }
+                }
+            }
+        }
         InlineStatus(if (error) stringResource(R.string.fileshare_error) else null, StatusTone.ERROR)
         InlineStatus(if (savingError) stringResource(R.string.fileshare_save_error) else null, StatusTone.ERROR)
         transfers.firstOrNull()?.let { latest ->
-            FileTransferCard(latest, session, enabled && saving == null, saving == latest.token, onSave)
+            FileTransferCard(latest, session, enabled && (saving == null || latest.phase.active), saving == latest.token, busy, onSave)
             if (transfers.size > 1) TextButton(onClick = { expanded = true }) { Text(stringResource(R.string.fileshare_all)) }
         }
     }
@@ -106,7 +126,7 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
         LazyColumn(Modifier.fillMaxWidth().weight(1f, fill = false), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(transfers, key = { it.token }) { value ->
-                FileTransferCard(value, session, enabled && saving == null, saving == value.token, onSave)
+                FileTransferCard(value, session, enabled && (saving == null || value.phase.active), saving == value.token, busy, onSave)
             }
         }
     }
@@ -115,7 +135,10 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FileTransferCard(value: FileTransfer, session: FileSession, enabled: Boolean,
-    saving: Boolean, onSave: (FileTransfer) -> Unit) {
+    saving: Boolean, busy: Boolean, onSave: (FileTransfer) -> Unit) {
+    val notifications = rememberFileNotificationGate()
+    val scope = rememberCoroutineScope()
+    val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer,
         modifier = Modifier.fillMaxWidth().animateContentSize()) {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -140,16 +163,19 @@ private fun FileTransferCard(value: FileTransfer, session: FileSession, enabled:
                 Text(stringResource(R.string.fileshare_incoming_interrupted), style = MaterialTheme.typography.bodySmall)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (value.phase == FilePhase.OFFERED) {
-                    FilledTonalButton(enabled = enabled, onClick = { session.accept(value.token) }) { Text(stringResource(R.string.fileshare_accept)) }
+                    FilledTonalButton(enabled = enabled, onClick = {
+                        notifications.run { scope.launch { if (publishing.beforePublishing()) session.accept(value.token) } }
+                    }) { Text(stringResource(R.string.fileshare_accept)) }
                     TextButton(enabled = enabled, onClick = { session.cancel(value.token) }) { Text(stringResource(R.string.fileshare_decline)) }
                 } else if (value.phase.active) {
                     TextButton(enabled = enabled, onClick = { session.cancel(value.token) }) { Text(stringResource(R.string.fileshare_cancel)) }
                 } else if (value.incoming && value.phase in setOf(FilePhase.COMPLETE, FilePhase.SAVED)) {
                     FilledTonalButton(enabled = enabled, onClick = { onSave(value) }) { Text(stringResource(R.string.fileshare_save)) }
                 } else if (!value.incoming && value.source != null) {
-                    TextButton(enabled = enabled, onClick = { session.retry(value.token) }) { Text(stringResource(R.string.fileshare_retry)) }
+                    TextButton(enabled = enabled && !busy, onClick = { session.retry(value.token) }) { Text(stringResource(R.string.fileshare_retry)) }
                 }
             }
+            notifications.notice()
         }
     }
 }

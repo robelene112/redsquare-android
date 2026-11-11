@@ -21,6 +21,8 @@ internal object FileshareRuntime {
     private val sessions = ConcurrentHashMap<String, FileSession>()
     private val changes = MutableStateFlow<List<FileTransfer>>(emptyList())
     val transfers: StateFlow<List<FileTransfer>> = changes.asStateFlow()
+    private val preparingChanges = MutableStateFlow<List<FilePreparation>>(emptyList())
+    val preparations = preparingChanges.asStateFlow()
     val chatChanges = MutableSharedFlow<Pair<String, SaitoBackend>>(extraBufferCapacity = 16)
     fun session(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String): FileSession {
         require(SaitoWallet.isPublicKey(contact) && contact != wallet.publicKey)
@@ -30,9 +32,13 @@ internal object FileshareRuntime {
     }
     @Synchronized private fun publish() {
         changes.value = sessions.values.flatMap { it.transfers.value }.sortedByDescending { it.createdAt }
+        preparingChanges.value = sessions.values.mapNotNull { it.preparation.value }
     }
     fun cancel(token: String) { sessions.values.forEach { it.cancel(token) } }
     fun stopAll() { sessions.values.forEach { it.interrupt() } }
+    @Synchronized fun hasLiveWork() = sessions.values.any { session ->
+        session.transfers.value.any { it.phase.active } || session.preparation.value?.phase == PreparationPhase.PREPARING
+    }
 }
 
 internal class FileSession(private val context: Context, private val wallet: SaitoWallet,
@@ -42,6 +48,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private val events = Channel<suspend () -> Unit>(32)
     private val state = MutableStateFlow<List<FileTransfer>>(emptyList())
     val transfers = state.asStateFlow()
+    private val preparationState = MutableStateFlow<FilePreparation?>(null)
+    val preparation = preparationState.asStateFlow()
+    private class Preparing(val token: String) {
+        val cancellation = android.os.CancellationSignal()
+        @Volatile var input: InputStream? = null
+    }
+    private var preparingWork: Preparing? = null
+    private var preparationJob: Job? = null
     private val store = FileTransferStore(context, owner, backend, contact)
     private var current: FileTransfer? = null
     private var rtc: SaitoFileChannel? = null
@@ -52,7 +66,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var receiver: Fileshare.Receiver? = null
     private var sendingIndex = 0L
     private var sendingBytes = 0
-    private var activityAt = System.currentTimeMillis()
+    @Volatile private var activityAt = System.currentTimeMillis()
     private var lastPublication = 0L
     private var checkedRevision = -1L
     private var checkedAt = 0L
@@ -71,16 +85,23 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     init {
         scope.launch {
             for (event in events) {
-                val task = scope.launch {
+                val task = scope.launch(start = CoroutineStart.LAZY) {
                     try { event() }
                     catch (_: CancellationException) { /* An explicit Cancel preempts connection/request waits. */ }
                     catch (_: Exception) {
                         error.value = true
-                        try { end(FilePhase.FAILED) } catch (_: Exception) { cleanup() }
+                        try {
+                            if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
+                            else end(FilePhase.FAILED)
+                        } catch (_: Exception) { cleanup() }
                     }
                 }
-                operation = task; task.join(); operation = null
-                if (overflow) { overflow = false; error.value = true; end(FilePhase.FAILED) }
+                operation = task; task.start(); task.join(); operation = null
+                if (overflow) {
+                    overflow = false; error.value = true
+                    if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
+                    else end(FilePhase.FAILED)
+                }
             }
         }
         post {
@@ -90,7 +111,13 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                     value.copy(phase = FilePhase.INTERRUPTED).also(store::save)
                 } else value
             }
-            state.value = retained; loaded = true; ready.value = true; changed()
+            state.value = retained
+            store.loadPreparation()?.let { previous ->
+                store.discard(previous.token)
+                val restored = if (previous.phase == PreparationPhase.PREPARING) previous.copy(phase = PreparationPhase.INTERRUPTED) else previous
+                preparationState.value = restored; store.savePreparation(restored)
+            }
+            loaded = true; ready.value = true; changed()
         }
     }
 
@@ -100,9 +127,16 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             while (isActive) {
                 delay(1000)
                 post {
+                    val pending = preparationState.value
+                    if (pending?.phase == PreparationPhase.PREPARING) {
+                        assertSelected()
+                        if (!FileshareNotifications.available(context) || System.currentTimeMillis() - activityAt > 60_000)
+                            finishPreparation(PreparationPhase.INTERRUPTED)
+                    }
                     val value = current
                     if (value != null && (value.phase.active || value.phase == FilePhase.OFFERED)) {
                         assertSelected()
+                        if (value.phase.active && !FileshareNotifications.available(context)) end(FilePhase.INTERRUPTED)
                         val bound = if (value.phase in setOf(FilePhase.WAITING, FilePhase.OFFERED)) 120_000 else 60_000
                         if (System.currentTimeMillis() - activityAt > bound) end(FilePhase.INTERRUPTED)
                     } else if (rtc != null && System.currentTimeMillis() - activityAt > 30_000) cleanup()
@@ -114,16 +148,27 @@ internal class FileSession(private val context: Context, private val wallet: Sai
 
     fun attach() { post { observers++ } }
     fun detach() { post { observers = maxOf(0, observers - 1) } }
-    fun send(uri: Uri) { post { start(uri) } }
+    @Synchronized fun send(uri: Uri) {
+        if (!ready.value || state.value.any { it.phase.active || it.phase == FilePhase.OFFERED } ||
+            preparationState.value?.phase == PreparationPhase.PREPARING) return
+        if (!FileshareNotifications.available(context)) { error.value = true; return }
+        require(uri.scheme == "content" && uri.toString().length <= 8192)
+        val pending = FilePreparation(UUID.randomUUID().toString(), owner, backend, contact, endpoint, uri.toString())
+        preparationState.value = pending; error.value = false; activityAt = System.currentTimeMillis(); changed()
+        try { context.startForegroundService(Intent(context, FileTransferService::class.java)) }
+        catch (_: Exception) { preparationState.value = pending.copy(phase = PreparationPhase.FAILED); error.value = true; changed(); return }
+        post { startPreparation(uri, pending) }
+    }
     fun retry(token: String) { post {
-        val previous = state.value.single { it.token == token }
-        require(!previous.incoming && !previous.phase.active && previous.source != null)
-        start(Uri.parse(previous.source))
+        val previous = state.value.singleOrNull { it.token == token } ?: return@post
+        if (previous.incoming || previous.phase.active || previous.source == null) return@post
+        send(Uri.parse(previous.source))
     } }
 
     /** Called by the existing Chat receiver, or the foreground connection, never by an arbitrary URI. */
     @Synchronized fun receive(bytes: ByteArray): Boolean {
         val message = Fileshare.network(bytes, contact, owner) ?: return false
+        if (message.sender == owner) return true // A Relay may echo the signed change/self output.
         if (message.id in seenSignals) return true
         check(post { handle(message) })
         message.id?.let { seenSignals.add(it) }
@@ -132,12 +177,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
 
     fun accept(token: String) {
+        if (state.value.none { it.token == token && it.phase == FilePhase.OFFERED }) return
+        if (!FileshareNotifications.available(context)) { error.value = true; return }
         // The platform foreground-service launch stays directly attached to the visible user action.
         try { context.startForegroundService(Intent(context, FileTransferService::class.java)) }
         catch (_: Exception) { error.value = true; return }
         post {
-            val value = requireNotNull(current)
-            require(value.token == token && value.phase == FilePhase.OFFERED && open)
+            val value = current ?: return@post
+            if (value.token != token || value.phase != FilePhase.OFFERED || !open) return@post
             assertSelected(); nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
             serviceStarted = true
             update(value.copy(phase = FilePhase.RECEIVING))
@@ -147,8 +194,12 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
 
     fun cancel(token: String) {
-        if (state.value.any { it.token == token && (it.phase.active || it.phase == FilePhase.OFFERED) }) operation?.cancel()
+        if (state.value.any { it.token == token && (it.phase.active || it.phase == FilePhase.OFFERED) } ||
+            preparationState.value?.let { it.token == token && it.phase == PreparationPhase.PREPARING } == true) operation?.cancel()
         post {
+        if (preparationState.value?.let { it.token == token && it.phase == PreparationPhase.PREPARING } == true) {
+            finishPreparation(PreparationPhase.CANCELLED); return@post
+        }
         val value = current ?: return@post
         if (value.token != token || !(value.phase.active || value.phase == FilePhase.OFFERED)) return@post
         try {
@@ -158,7 +209,10 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     } }
     fun interrupt() {
         operation?.cancel()
-        post { if (current?.phase?.active == true) end(FilePhase.INTERRUPTED) else cleanup() }
+        post {
+            if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.INTERRUPTED)
+            else if (current?.phase?.active == true) end(FilePhase.INTERRUPTED) else cleanup()
+        }
     }
 
     suspend fun export(token: String, uri: Uri): Boolean = withContext(Dispatchers.IO) {
@@ -177,30 +231,81 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         }
     }
 
-    private suspend fun start(uri: Uri) {
-        check(loaded && current?.phase?.active != true && current?.phase != FilePhase.OFFERED)
+    private fun startPreparation(uri: Uri, pending: FilePreparation) {
         assertSelected(); nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
-        error.value = false
-        var name: String? = null; var size: Long? = null
-        context.contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null, null, null)?.use { cursor ->
-            if (cursor.moveToFirst()) {
-                name = cursor.getString(0)
-                if (!cursor.isNull(1)) size = cursor.getLong(1)
-            }
+        if (preparationState.value?.token != pending.token || preparationState.value?.phase != PreparationPhase.PREPARING) return
+        cleanup(); serviceStarted = true
+        store.savePreparation(pending)
+        val work = Preparing(pending.token); preparingWork = work
+        startWatchdog()
+        preparationJob = scope.launch(PREPARATION_IO) {
+            var retainedSource: InputStream? = null
+            try {
+                var name: String? = null; var size: Long? = null
+                context.contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null, null, null,
+                    work.cancellation)?.use { cursor ->
+                    if (cursor.moveToFirst()) {
+                        name = cursor.getString(0)
+                        if (!cursor.isNull(1)) size = cursor.getLong(1)
+                    }
+                }
+                val cleaned = (name ?: "Shared file").replace('/', '_').replace('\\', '_').filter { it.code >= 32 }.take(255)
+                val filename = (if (cleaned.lastOrNull()?.isHighSurrogate() == true) cleaned.dropLast(1) else cleaned).ifBlank { "Shared file" }
+                val worker = currentCoroutineContext()
+                fun progress(bytes: Long) {
+                    worker.ensureActive(); assertSelected()
+                    check(preparationState.value?.token == pending.token && preparationState.value?.phase == PreparationPhase.PREPARING)
+                    activityAt = System.currentTimeMillis()
+                    if (activityAt - lastPublication >= 100) {
+                        lastPublication = activityAt
+                        preparationState.value = pending.copy(name = filename, bytes = bytes); changed()
+                    }
+                }
+                progress(0)
+                val staged = size == null
+                val input = requireNotNull(context.contentResolver.openInputStream(uri)); work.input = input
+                retainedSource = input
+                if (staged) input.use { size = store.prepare(pending.token, it, ::progress) }
+                val offer = Fileshare.Offer(UUID.randomUUID().toString().replace("-", "").take(12), filename,
+                    requireNotNull(size), context.contentResolver.getType(uri).orEmpty())
+                val value = FileTransfer(pending.token, owner, backend, contact, endpoint, offer, false,
+                    FilePhase.CONNECTING, source = uri.toString())
+                val prepared = if (staged) store.openPrepared(value) else input
+                retainedSource = prepared
+                worker.ensureActive()
+                if (!post {
+                    if (preparationState.value?.token != pending.token || preparationState.value?.phase != PreparationPhase.PREPARING) {
+                        prepared.close(); store.discard(pending.token); return@post
+                    }
+                    assertSelected(); check(FileshareNotifications.available(context))
+                    source = prepared; update(value)
+                    preparationState.value = null; store.savePreparation(null); changed()
+                    preparingWork = null; preparationJob = null
+                    connect(initiator = true)
+                }) throw IllegalStateException("Transfer queue full")
+                retainedSource = null // The serialized controller now owns the opened source.
+            } catch (_: CancellationException) { retainedSource?.close() }
+            catch (_: Exception) {
+                retainedSource?.close()
+                post { if (preparationState.value?.token == pending.token) finishPreparation(PreparationPhase.FAILED) }
+            } finally { work.input = null }
         }
-        val filename = requireNotNull(name).replace('/', '_').replace('\\', '_').filter { it.code >= 32 }.take(255)
-        val offer = Fileshare.Offer(UUID.randomUUID().toString().replace("-", "").take(12), filename,
-            requireNotNull(size), context.contentResolver.getType(uri).orEmpty())
+    }
+
+    private fun finishPreparation(phase: PreparationPhase) {
+        val pending = preparationState.value ?: return
+        if (pending.phase != PreparationPhase.PREPARING) return
+        preparationJob?.cancel(); preparationJob = null
+        preparingWork?.let { work ->
+            work.cancellation.cancel()
+            scope.launch(Dispatchers.IO) { try { work.input?.close() } catch (_: Exception) { } }
+        }
+        preparingWork = null
+        store.discard(pending.token)
+        val stopped = pending.copy(phase = phase)
+        preparationState.value = stopped; store.savePreparation(stopped); changed()
+        if (phase == PreparationPhase.FAILED) error.value = true
         cleanup()
-        val value = FileTransfer(UUID.randomUUID().toString(), owner, backend, contact, endpoint, offer, false,
-            FilePhase.CONNECTING, source = uri.toString())
-        update(value)
-        withContext(Dispatchers.Main.immediate) {
-            context.startForegroundService(Intent(context, FileTransferService::class.java))
-        }
-        serviceStarted = true
-        source = requireNotNull(context.contentResolver.openInputStream(uri))
-        connect(initiator = true)
     }
 
     private fun assertSelected() = synchronized(SaitoLocalState.lock) {
@@ -269,7 +374,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 check(open)
                 val offer = Fileshare.readOffer(message.data)
                 if (current?.offer?.id == offer.id) return
-                if (observers == 0 || current?.phase?.active == true || current?.phase == FilePhase.OFFERED) {
+                if (observers == 0 || current?.phase?.active == true || current?.phase == FilePhase.OFFERED || preparationState.value?.phase == PreparationPhase.PREPARING) {
                     sendControl("deny file permission", offer.id); return
                 }
                 update(FileTransfer(UUID.randomUUID().toString(), owner, backend, contact, endpoint,
@@ -374,6 +479,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         cleanup()
     }
     private fun cleanup() {
+        current?.takeIf { !it.incoming }?.let { store.discard(it.token) }
         channelGeneration++; watchdog?.cancel(); watchdog = null
         readJob?.cancel(); readJob = null
         open = false; serviceStarted = false
@@ -387,5 +493,6 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         delay(1500)
         post { if (current?.token == token && current?.phase == FilePhase.COMPLETE) cleanup() }
     } }
+    companion object { private val PREPARATION_IO = Dispatchers.IO.limitedParallelism(2) }
     private fun post(event: suspend () -> Unit): Boolean = events.trySend(event).isSuccess.also { if (!it) overflow = true }
 }

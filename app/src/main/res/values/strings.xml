@@ -755,6 +755,11 @@
     <string name="post_open_stack">Open in Stack</string>
 
     <string name="fileshare_add">Send a file</string>
+    <string name="fileshare_preparing">Preparing file…</string>
+    <string name="fileshare_prepare_failed">Could not prepare this file. Choose a readable, non-empty file and try again.</string>
+    <string name="fileshare_preparing_detail">The file size is being checked before sharing.</string>
+    <string name="fileshare_notifications_required">Enable file transfer notifications to follow progress and cancel from outside the app.</string>
+    <string name="fileshare_notification_settings">Notification settings</string>
     <string name="fileshare_cancel">Cancel</string>
     <string name="fileshare_channel">File transfers</string>
     <string name="fileshare_connecting">Connecting for file transfer…</string>

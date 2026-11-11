@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.os.PowerManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import nl.davidengelen.redsquare.MainActivity
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.BuildConfig
@@ -20,6 +21,8 @@ class FileTransferService : Service() {
     private var lastProgress = -1
     private var lastPhase: FilePhase? = null
     private var stoppingNormally = false
+    private var lastStartId = 0
+    private var lastCommandAt = android.os.SystemClock.elapsedRealtime()
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
@@ -34,55 +37,83 @@ class FileTransferService : Service() {
         scope.launch {
             while (isActive) {
                 delay(60_000)
-                if (FileshareRuntime.transfers.value.any { it.phase.active }) wake.acquire(10 * 60_000L)
+                if (FileshareRuntime.transfers.value.any { it.phase.active } ||
+                    FileshareRuntime.preparations.value.any { it.phase == PreparationPhase.PREPARING }) wake.acquire(10 * 60_000L)
             }
         }
         scope.launch {
-            FileshareRuntime.transfers.collectLatest { transfers ->
-                val value = transfers.firstOrNull { it.phase.active }
-                if (value == null) {
-                    // Allow the user action to publish its session, and the final receipt to drain.
-                    delay(2000)
-                    val last = transfers.firstOrNull { it.token == lastToken }
-                    if (last != null) notifications.notify(NOTIFICATION_ID, notification(last))
+            while (isActive) {
+                delay(1000)
+                if (!FileshareRuntime.hasLiveWork() && android.os.SystemClock.elapsedRealtime() - lastCommandAt >= 2000) {
                     stoppingNormally = true
-                    stopForeground(if (last == null) STOP_FOREGROUND_REMOVE else STOP_FOREGROUND_DETACH)
-                    stopSelf()
-                } else {
+                    if (stopSelfResult(lastStartId)) {
+                        stopForeground(if (lastToken == null) STOP_FOREGROUND_REMOVE else STOP_FOREGROUND_DETACH)
+                        return@launch
+                    }
+                    stoppingNormally = false
+                }
+            }
+        }
+        scope.launch {
+            combine(FileshareRuntime.transfers, FileshareRuntime.preparations) { transfers, preparing -> transfers to preparing }
+                .collectLatest { (transfers, preparing) ->
+                val value = transfers.firstOrNull { it.phase.active }
+                val preparation = preparing.firstOrNull { it.phase == PreparationPhase.PREPARING }
+                if (value == null && preparation == null) {
+                    val last = transfers.firstOrNull { it.token == lastToken }
+                    val lastPreparation = preparing.firstOrNull { it.token == lastToken }
+                    if (last != null) notifications.notify(NOTIFICATION_ID, notification(last))
+                    else if (lastPreparation != null) notifications.notify(NOTIFICATION_ID, notification(lastPreparation))
+                } else if (value != null) {
                     val progress = (100L * value.bytes / value.offer.size).toInt()
                     if (value.token != lastToken || value.phase != lastPhase || progress != lastProgress) {
                         lastToken = value.token; lastPhase = value.phase; lastProgress = progress
                         notifications.notify(NOTIFICATION_ID, notification(value))
                     }
+                } else if (preparation != null && preparation.token != lastToken) {
+                    lastToken = preparation.token; lastPhase = null; lastProgress = -1
+                    notifications.notify(NOTIFICATION_ID, notification(preparation))
                 }
             }
         }
     }
 
     private fun notification(value: FileTransfer): Notification {
+        return builder(FileTransferReference(value.owner, value.backend, value.contact, value.token), value.endpoint,
+            getString(filePhaseLabel(value.phase, value.incoming)), value.phase.active).apply {
+            if (value.phase.active) setProgress(100, (100L * value.bytes / value.offer.size).toInt(),
+                value.phase in setOf(FilePhase.CONNECTING, FilePhase.WAITING))
+        }.build()
+    }
+    private fun notification(value: FilePreparation): Notification = builder(
+        FileTransferReference(value.owner, value.backend, value.contact, value.token), value.endpoint,
+        getString(preparationLabel(value.phase)), value.phase == PreparationPhase.PREPARING)
+        .apply { if (value.phase == PreparationPhase.PREPARING) setProgress(0, 0, true) }.build()
+
+    private fun builder(reference: FileTransferReference, endpoint: String, title: String, active: Boolean): Notification.Builder {
         val destination = Intent(this, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            .setData(FileTransferReference(value.owner, value.backend, value.contact, value.token).uri())
-        if (BuildConfig.DEBUG && android.os.Build.HARDWARE in listOf("ranchu", "goldfish") && value.endpoint != value.backend.peerUrl)
-            destination.putExtra(if (value.backend == nl.davidengelen.redsquare.saito.SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl", value.endpoint)
-        val open = PendingIntent.getActivity(this, value.token.hashCode(), destination,
+            .setData(reference.uri())
+        if (BuildConfig.DEBUG && android.os.Build.HARDWARE in listOf("ranchu", "goldfish") && endpoint != reference.backend.peerUrl)
+            destination.putExtra(if (reference.backend == nl.davidengelen.redsquare.saito.SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl", endpoint)
+        val open = PendingIntent.getActivity(this, reference.token.hashCode(), destination,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         val cancelIntent = Intent(this, FileTransferService::class.java).setAction(CANCEL)
-            .setData(Uri.Builder().scheme("fileshare-cancel").authority(packageName).appendPath(value.token).build())
-        val cancel = PendingIntent.getService(this, value.token.hashCode(), cancelIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+            .setData(Uri.Builder().scheme("fileshare-cancel").authority(packageName).appendPath(reference.token).build())
+        val cancel = PendingIntent.getService(this, reference.token.hashCode(), cancelIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         return Notification.Builder(this, CHANNEL).setSmallIcon(R.drawable.ic_file)
-            .setContentTitle(getString(filePhaseLabel(value.phase, value.incoming)))
+            .setContentTitle(title)
             .setContentText(getString(R.string.fileshare_notification_detail)) // Keep filenames out of private notifications.
-            .setContentIntent(open).setOnlyAlertOnce(true).setOngoing(value.phase.active).setAutoCancel(!value.phase.active)
+            .setContentIntent(open).setOnlyAlertOnce(true).setOngoing(active).setAutoCancel(!active)
             .apply {
-                if (value.phase.active) {
-                    setProgress(100, (100L * value.bytes / value.offer.size).toInt(), value.phase in setOf(FilePhase.CONNECTING, FilePhase.WAITING))
+                if (active) {
                     addAction(Notification.Action.Builder(null, getString(R.string.fileshare_cancel), cancel).build())
                 }
-            }.build()
+            }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        lastStartId = startId; lastCommandAt = android.os.SystemClock.elapsedRealtime()
         if (intent?.action == CANCEL && intent.data?.scheme == "fileshare-cancel" && intent.data?.authority == packageName)
             intent.data?.lastPathSegment?.let(FileshareRuntime::cancel)
         return START_NOT_STICKY
@@ -101,6 +132,13 @@ class FileTransferService : Service() {
         const val NOTIFICATION_ID = 9103
         private const val CANCEL = "nl.davidengelen.redsquare.fileshare.CANCEL"
     }
+}
+
+internal fun preparationLabel(phase: PreparationPhase) = when (phase) {
+    PreparationPhase.PREPARING -> R.string.fileshare_preparing
+    PreparationPhase.CANCELLED -> R.string.fileshare_cancelled
+    PreparationPhase.INTERRUPTED -> R.string.fileshare_interrupted
+    PreparationPhase.FAILED -> R.string.fileshare_prepare_failed
 }
 
 internal fun filePhaseLabel(phase: FilePhase, incoming: Boolean) = when (phase) {

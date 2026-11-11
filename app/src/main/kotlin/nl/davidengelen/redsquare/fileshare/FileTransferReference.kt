@@ -13,7 +13,9 @@ internal data class FileTransferReference(val owner: String, val backend: SaitoB
     fun canOpen(context: Context): Boolean {
         check(AndroidWalletStore(context).loadExisting().publicKey == owner && AndroidBackendStore(context).load() == backend)
         return !AndroidPersonalControls(context, owner).load().hidesIncomingChat(contact) &&
-            FileTransferStore(context, owner, backend, contact).load().any { it.token == token }
+            (FileTransferStore(context, owner, backend, contact).load().any { it.token == token } ||
+                FileTransferStore(context, owner, backend, contact).loadPreparation()?.token == token ||
+                FileshareRuntime.preparations.value.any { it.owner == owner && it.backend == backend && it.contact == contact && it.token == token })
     }
     companion object {
         fun parse(uri: Uri?): FileTransferReference? = try {
