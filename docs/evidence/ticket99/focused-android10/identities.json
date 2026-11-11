@@ -1,0 +1,68 @@
+[
+  {
+    "path": "module-header-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ModuleHeaderMotionTest",
+    "test": "readingChromeCollapsesRevealsAndChangesModulesAtNormalAndZeroMotion",
+    "occurrences": 1
+  },
+  {
+    "path": "module-menu-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ModuleMenuKeyboardMotionTest",
+    "test": "menuKeyboardAndImmediateEscapeWorkAtNormalAndZeroMotion",
+    "occurrences": 1
+  },
+  {
+    "path": "module-shell-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ModuleShellPreviewTest",
+    "test": "modulePickerAndAccountMenuKeepTheRealFeedAndWallet",
+    "occurrences": 1
+  },
+  {
+    "path": "module-shell-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ModuleShellPreviewTest",
+    "test": "moduleSwitchKeepsTheFeedAnchorAndUnsentProfileDraft",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-draft-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackLocalDraftTest",
+    "test": "failedSavingKeepsTheEditorUntilTheSameDraftCanBeSaved",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-draft-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackLocalDraftTest",
+    "test": "finalVisualCharacterSurvivesModuleChangeAndActivityRecreation",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-image-motion-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackImageMotionTest",
+    "test": "loadedArticleImagesKeepTheirGeometryAndRespectNormalAndZeroMotion",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-live-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackLivePreviewTest",
+    "test": "emptyNodeOffersARealChoiceWithoutInventingStories",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-live-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackLivePreviewTest",
+    "test": "genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-live-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackLivePreviewTest",
+    "test": "liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes",
+    "occurrences": 1
+  },
+  {
+    "path": "stack-reading-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.StackReadingRecoveryTest",
+    "test": "anOlderArticleOutsideTheNewestCacheSurvivesAuthorBackAndOfflineRecreation",
+    "occurrences": 1
+  }
+]

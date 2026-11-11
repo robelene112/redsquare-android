@@ -1,0 +1,37 @@
+{
+  "module-shell-evidence.tar": {
+    "bytes": 585728,
+    "sha256": "a9e9d4329cb219b275fb9bf19dab4153adc59ef585cbfb8217be1bf512f48d4c",
+    "members": 22
+  },
+  "stack-draft-evidence.tar": {
+    "bytes": 134656,
+    "sha256": "dfffa5d3108ce8706b095fe7278ef5f9278712c047022fa327b530798935bb66",
+    "members": 10
+  },
+  "module-menu-motion-evidence.tar": {
+    "bytes": 12217344,
+    "sha256": "e93a020e0177a155012ccc29bcfa4329773a09c77cfff55db21edccd521d6257",
+    "members": 165
+  },
+  "stack-image-motion-evidence.tar": {
+    "bytes": 1359872,
+    "sha256": "bf37fb6e558dc92680182cc15530eb07a5480a3e659659d4561f5ad0d0a0879c",
+    "members": 40
+  },
+  "stack-live-evidence.tar": {
+    "bytes": 1121280,
+    "sha256": "a31dc63ca5221ca34e72eb9f5861e7ba92a73c50b6ef48eaab9b7b08c02ab664",
+    "members": 47
+  },
+  "stack-reading-evidence.tar": {
+    "bytes": 87552,
+    "sha256": "6cf9ab145e78293831d13ae86118724ab41340eeb1408d7f485d8967ce8c7c38",
+    "members": 6
+  },
+  "module-header-motion-evidence.tar": {
+    "bytes": 38924800,
+    "sha256": "97dde2be99f9aecda26542591c73f0934b20197ddbfb83936ac176bac28792d6",
+    "members": 568
+  }
+}
