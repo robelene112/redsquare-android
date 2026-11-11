@@ -480,6 +480,16 @@ if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
     printf '%s\n' 'Native display-name directory only; not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_fileshare() {
+    verify_group_chat_native FileshareSendPreviewTest 180 fileshare-send fileshare-evidence
+    verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
+    verify_group_chat_native FileshareCancelPreviewTest 180 fileshare-cancel fileshare-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == fileshare* ]]; then
+    verify_fileshare
+    printf '%s\n' 'Fileshare focused verification only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     verify_group_chat_native StackLinkPreviewTest 180 stack-links stack-link-evidence
     exit 0
@@ -844,6 +854,7 @@ if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
     exit 0
 fi
 if [[ "$full_chat" == true ]]; then
+    verify_fileshare
     verify_group_chat_native ChatGroupingPreviewTest 180 chat-grouping chat-grouping-evidence
     verify_group_chat_native GroupChatGroupingPreviewTest 180 group-chat-grouping group-chat-grouping-evidence
     verify_group_chat_native PrivateGroupingNarrowTest 180 chat-grouping-private-320 chat-grouping-private-320-evidence

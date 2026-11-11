@@ -753,4 +753,32 @@
     <string name="search_explore">Conversations to explore</string>
 
     <string name="post_open_stack">Open in Stack</string>
+
+    <string name="fileshare_add">Send a file</string>
+    <string name="fileshare_cancel">Cancel</string>
+    <string name="fileshare_channel">File transfers</string>
+    <string name="fileshare_connecting">Connecting for file transfer…</string>
+    <string name="fileshare_waiting">Waiting for acceptance</string>
+    <string name="fileshare_offered">Wants to send you a file</string>
+    <string name="fileshare_sending">Sending file</string>
+    <string name="fileshare_receiving">Receiving file</string>
+    <string name="fileshare_received">File received</string>
+    <string name="fileshare_sent">File sent</string>
+    <string name="fileshare_saved">File saved</string>
+    <string name="fileshare_declined">File declined</string>
+    <string name="fileshare_cancelled">Transfer cancelled</string>
+    <string name="fileshare_interrupted">Transfer interrupted</string>
+    <string name="fileshare_failed">Could not transfer file</string>
+    <string name="fileshare_notification_detail">Tap to open this conversation</string>
+    <string name="fileshare_live_hint">Both people need to be online. Accepted transfers continue in the background.</string>
+    <string name="fileshare_accept">Accept file</string>
+    <string name="fileshare_decline">Decline</string>
+    <string name="fileshare_save">Save as…</string>
+    <string name="fileshare_retry">Send again</string>
+    <string name="fileshare_all">Files in this conversation</string>
+    <string name="fileshare_error">Could not read or transfer this file. Check your connection and choose the file again.</string>
+    <string name="fileshare_save_error">Could not save the file. Choose a location again. An incomplete copy may remain at the previous location.</string>
+    <string name="fileshare_saving">Saving file…</string>
+    <string name="fileshare_incoming_interrupted">Ask the sender to share the file again.</string>
+    <string name="fileshare_progress">%1$s of %2$s</string>
 </resources>

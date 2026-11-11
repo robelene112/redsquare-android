@@ -92,6 +92,7 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
 
     /** The recovery record remains authoritative until a verified commit removes it. */
     fun replace(expected: SaitoWallet, replacement: SaitoWallet): SaitoWallet = synchronized(lock) {
+        nl.davidengelen.redsquare.saito.SaitoLocalState.invalidateAuthority()
         require(!initializing.exists()) { "Wallet initialization is incomplete" }
         val key = requireNotNull(KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
             .getKey(KEY_ALIAS, null) as? SecretKey) { "Wallet storage key unavailable" }

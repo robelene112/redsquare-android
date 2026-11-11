@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import nl.davidengelen.redsquare.chat.ChatAlertReference
+import nl.davidengelen.redsquare.fileshare.FileTransferReference
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
@@ -19,7 +20,7 @@ internal class NotificationRoutes(private val saved: SavedStateHandle) : ViewMod
     }
 
     fun enqueue(uri: Uri?) {
-        if (parse(uri) == null && ChatAlertReference.parse(uri) == null) return
+        if (parse(uri) == null && ChatAlertReference.parse(uri) == null && FileTransferReference.parse(uri) == null) return
         val generation = (saved.get<Long>("social.generation") ?: 0L) + 1L
         check(generation > 0)
         saved["social.generation"] = generation
@@ -39,6 +40,7 @@ internal class NotificationRoutes(private val saved: SavedStateHandle) : ViewMod
         const val VIEW_MODEL_KEY = "androidx.lifecycle.ViewModelProvider.DefaultKey:nl.davidengelen.redsquare.notifications.SocialPushRoutes"
 
         fun chatReference(delivery: Bundle): ChatAlertReference? = ChatAlertReference.parse(delivery.getString("uri")?.let(Uri::parse))
+        fun fileReference(delivery: Bundle): FileTransferReference? = FileTransferReference.parse(delivery.getString("uri")?.let(Uri::parse))
 
         fun socialReference(delivery: Bundle): SocialPushReference? = parse(delivery.getString("uri")?.let(Uri::parse))
 
@@ -46,6 +48,7 @@ internal class NotificationRoutes(private val saved: SavedStateHandle) : ViewMod
         fun targetsScope(delivery: Bundle, owner: String?, backend: SaitoBackend?): Boolean {
             if (owner == null || backend == null) return false
             return chatReference(delivery)?.let { it.owner == owner && it.backend == backend } == true ||
+                fileReference(delivery)?.let { it.owner == owner && it.backend == backend } == true ||
                 socialReference(delivery)?.let { it.owner == owner && it.backend == backend } == true
         }
 

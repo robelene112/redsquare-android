@@ -5,6 +5,9 @@
         <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
     </queries>
     <application>
+        <provider android:name="nl.davidengelen.redsquare.FileshareTestProvider"
+            android:authorities="nl.davidengelen.redsquare.dev.test.fileshare" android:exported="true"
+            android:grantUriPermissions="true" android:process=":fileshareDocuments" />
         <provider
             android:name="nl.davidengelen.redsquare.ChatPhotoFaultProvider"
             android:authorities="nl.davidengelen.redsquare.dev.test.chat-photo-faults"

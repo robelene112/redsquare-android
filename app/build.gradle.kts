@@ -1,4 +1,5 @@
 import java.net.URI
+import java.security.MessageDigest
 
 plugins {
     id("com.android.application")
@@ -83,8 +84,31 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
 }
+
+// Compatibility specimens enter the instrumentation APK only, never the application.
+val fileshareReferenceAssets = layout.buildDirectory.dir("generated/fileshare-reference-assets")
+val prepareFileshareReference by tasks.registering {
+    val pins = mapOf(
+        "9a4ca7e9442eb5e872168ced361ce741d7d139d7" to "082cd20fd07c76b4cbd43e42ff87d9626bd9631410aa676a5a3b667fc2776406",
+        "e6c937c686495a37d8fc94ecc894189e23a453c3" to "1de51975798726b58c00a043cc95cdca9e52c4b85def7d08da5644ee719b238c")
+    inputs.property("pins", pins)
+    outputs.dir(fileshareReferenceAssets)
+    doLast {
+        val directory = fileshareReferenceAssets.get().asFile.apply { mkdirs() }
+        pins.forEach { (pin, hash) ->
+            val bytes = URI("https://raw.githubusercontent.com/SaitoTech/saito/$pin/node/mods/fileshare/fileshare.js")
+                .toURL().openConnection().apply { connectTimeout = 15_000; readTimeout = 15_000 }.getInputStream().use { it.readBytes() }
+            check(MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) } == hash)
+            directory.resolve("fileshare-$pin.js").writeBytes(bytes)
+        }
+    }
+}
+android.sourceSets.getByName("androidTest").assets.srcDir(fileshareReferenceAssets)
+tasks.configureEach { if (name == "mergeDebugAndroidTestAssets") dependsOn(prepareFileshareReference) }
+
 dependencies {
     implementation(project(":core"))
+    implementation("io.github.webrtc-sdk:android:150.7871.04")
     // Opt-in diagnostics only; ordinary performance builds retain their release-equivalent inputs.
     if (providers.gradleProperty("scrollCompositionTracing").orNull == "true") {
         add("performanceImplementation", "androidx.compose.runtime:runtime-tracing")

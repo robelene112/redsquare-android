@@ -78,6 +78,13 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var contactsFailed by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var contactsReady by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    val fileSession = remember(wallet.publicKey, backend, endpoint, counterparty) {
+        counterparty?.let { nl.davidengelen.redsquare.fileshare.FileshareRuntime.session(context, wallet, backend, endpoint, it) }
+    }
+    DisposableEffect(fileSession) {
+        fileSession?.attach()
+        onDispose { fileSession?.detach() }
+    }
     var identityAuthor by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
     fun openContact(address: String) {
         if (savingContact || personal?.ready != true || navigation.transitioning) return
@@ -105,12 +112,19 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         try { for (ignored in groupReceiveFailures) groupReceiveFailed = true }
         finally { groupReceiveFailures.close() }
     }
-    fun retainIncoming(bytes: ByteArray): String? = try { receiveChat(context, wallet, backend, bytes, endpoint) }
+    fun retainIncoming(bytes: ByteArray): String? = try {
+        if (fileSession?.receive(bytes) == true) null else receiveChat(context, wallet, backend, bytes, endpoint)
+    }
         catch (failure: GroupChatStorageException) {
             groupReceiveFailures.trySend(Unit)
             throw failure // Failed retention must keep the negative acknowledgement.
         }
     var refresh by remember { mutableIntStateOf(0) }
+    LaunchedEffect(wallet.publicKey, backend) {
+        nl.davidengelen.redsquare.fileshare.FileshareRuntime.chatChanges.collect { binding ->
+            if (binding.first == wallet.publicKey && binding.second == backend) refresh++
+        }
+    }
     var hasOlder by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderLoading by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderRequest by remember(wallet, backend, counterparty) { mutableIntStateOf(0) }
@@ -503,6 +517,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     }
                 }, composer = { composerModifier ->
                     ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies,
+                        fileSession = fileSession,
                         onOutgoing = { id -> outgoingRequest = ConversationMessageRequest(id, (outgoingRequest?.attempt ?: 0) + 1) }, modifier = composerModifier) { saved ->
                         entries = ChatHistoryStore.merge(entries, saved)
                     }

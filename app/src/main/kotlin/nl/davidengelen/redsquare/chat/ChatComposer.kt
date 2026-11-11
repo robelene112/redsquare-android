@@ -44,6 +44,7 @@ internal class ChatReplyActions {
 @Composable
 internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String,
     permitted: Boolean, replies: ChatReplyActions, onOutgoing: (String) -> Unit, modifier: Modifier = Modifier,
+    fileSession: nl.davidengelen.redsquare.fileshare.FileSession? = null,
     onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
@@ -207,11 +208,13 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             }
         }
     } else {
+        nl.davidengelen.redsquare.fileshare.FileAttachment(fileSession, editable && permitted,
+            beforePicker = { !navigation.transitioning && publishing.beforePublishing() && persist() && !navigation.transitioning }) { pickFile, filePanel ->
         ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
             beforePicker = { !navigation.transitioning && persist() && !navigation.transitioning },
             onPreparing = { preparingPhoto = it },
             onChange = { if (!navigation.transitioning) changeText((quote?.prefix ?: "") + it) },
-            gifAttribution = saved.gifAttribution,
+            gifAttribution = saved.gifAttribution, onAddFile = pickFile,
             onSelectGif = { item ->
                 writes.withLock {
                     if (!ready || sending || saved.frozen || !permitted || navigation.transitioning) false
@@ -232,6 +235,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             ConversationComposerFrame("${wallet.publicKey}:${backend.id}:$contact", modifier,
                 hasPreview = quote != null || photo != null,
                 supplemental = {
+                    filePanel()
                     publishingNotice()
                     status()
                     if (quote != null) {
@@ -310,6 +314,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 contentDescription = null, modifier = Modifier.size(22.dp)) }
                     }
                 })
+        }
         }
     }
 }

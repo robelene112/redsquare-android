@@ -39,6 +39,7 @@ class AndroidBackendStore(context: Context, private val commitDirectorySync: (Fi
     }
 
     fun save(backend: SaitoBackend) = synchronized(lock) {
+        SaitoLocalState.invalidateAuthority()
         require(!file.baseFile.exists() || file.baseFile.isFile)
         require(!pending.exists() || (pending.isFile && pending.length() == 0L))
         try {

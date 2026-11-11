@@ -150,3 +150,38 @@ Do not remove transactional locks or skip signature/replay checks on the strengt
 of this comparison. Measure cold/warm opening, scrolling, media and one incoming
 message at realistic chat/history sizes, separating IO/replay/lock time from UI
 work. No application change, new performance target or benchmark is established here.
+
+
+## Native Fileshare contract
+
+Issue103 adds the separately approved live Fileshare feature to private Chat.
+The compatibility sources are official Saito `node/mods/fileshare/fileshare.js`
+at owner baseline `9a4ca7e9442eb5e872168ced361ce741d7d139d7` and inspected prod
+`e6c937c686495a37d8fc94ecc894189e23a453c3`. Their hashes are pinned in the
+instrumentation-only asset preparation task; these source specimens and the
+WebView peer enter the test APK only. The production runtime is native WebRTC
+`io.github.webrtc-sdk:android:150.7871.04` from Maven Central.
+
+Stun uses signed `peer-joined`, `peer-description` and `peer-candidate` messages
+relayed through the selected Saito node. The ordered negotiated data channel has
+label `data-channel` and id42. Fileshare uses Relay permission/query/stop controls
+and signed Fileshare chunks/read receipts; normal source chunks are64256bytes.
+The existing web Relay controls can be unsigned. Native accepts such controls
+only on the data channel bound by the signed Stun descriptions, never as a trusted
+unsigned server-Relay sender. File contents are not broadcast or archived in Chat.
+
+A user-started Android dataSync foreground service owns active transfers and a
+partial wake lock. Screen disposal is independent of transfer ownership. Android
+force-stop, process death and dataSync time limits can interrupt a live transfer;
+retained active records become interrupted, not falsely completed. No automatic
+offline delivery or transparent process-death continuation is promised.
+
+Incoming files require acceptance and stream into independent AEAD-encrypted
+chunks in device-only storage. Authenticated lengths/offsets and metadata bind
+chunks to their owner/node/contact/transfer; Save as decrypts bounded chunks only
+after complete receipt. Ordinary selection/policy mutations invalidate the live
+authority cache before committing, with revalidation under the same enqueue lock.
+The file name is display metadata, never a storage path. Controlled fixtures must
+observe real data channels, final bytes, background/screen-off behavior, notification
+cancellation and retained draft state. They are not proof of a live community
+transfer, OEM behavior or universal traversal-provider availability.

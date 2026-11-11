@@ -11,17 +11,18 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-Issue102 native Stack links is delivered in signed beta112. Complete Android10/17
-three-job runs and actual83-to112 update checks pass; the explicit one-path
-archive-partition catalog erratum and fixture-only source bridge are preserved in
-[ticket102 evidence](evidence/ticket102/README.md). Both independent final packet
-reviews pass. The exact approved APK is publicly promoted and downloaded bytes
-match. Candidate111 is superseded and must never be promoted.
+The owner requested Fileshare after beta112 and explicitly approved background
+and screen-off continuation with an Android progress notification and Cancel.
+Implement [issue103](https://github.com/robelene112/redsquare-android/issues/103)
+as one complete private-Chat feature, using the existing native protocol/user-flow
+verification boundaries and controlled WebRTC browser peers. No community recipient
+or public Saito write is needed. The owner has delegated routine test decisions
+and emulator work; do not ask for repeated phone testing or routine permissions.
 
-Stop until another issue is requested. Keep #1/#36/#55/#84/#86 open. Preserve the
-canonical checkout and its unrelated research. No owner-phone QA, live Saito
-write, production node/provider/Play operation or other issue work is authorized
-by this completion. New work remains one issue at a time.
+The preceding issue102 is delivered in signed beta112. Preserve its accepted
+full-run catalog erratum and fixture-only source bridge. Keep #1/#36/#55/#84/#86
+open. No node, provider or Play operation is authorized. Work remains sequential;
+Fileshare does not authorize starting other module tickets.
 
 ## Load the real skills
 

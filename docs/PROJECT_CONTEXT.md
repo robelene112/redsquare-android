@@ -1,5 +1,17 @@
 # Red Square Android project context
 
+## Active Fileshare #103
+
+The owner approved native Fileshare in private Chat, including continuing live
+transfers outside the app and with the screen off, with Android progress and
+Cancel. [Issue103](https://github.com/robelene112/redsquare-android/issues/103)
+is the only active implementation. Review base is `d46cce88b` on
+`codex/unified-redesign`; preserve the canonical checkout. Native protocol,
+streaming encrypted storage, foreground ownership and controlled browser/Android
+proofs are being implemented. No Fileshare runtime or delivery acceptance is
+claimed yet. Public beta112 remains the preceding accepted release.
+
+
 
 ## Telegram Desktop performance reference
 

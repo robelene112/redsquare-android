@@ -119,6 +119,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val restoredChatAlert = nl.davidengelen.redsquare.chat.ChatAlertReference.parse(chatAlertUri?.let(android.net.Uri::parse))
     val chatAlert = restoredChatAlert?.takeIf { it.owner == wallet?.publicKey && it.backend == backend }
     var chatAlertGeneration by rememberSaveable { mutableLongStateOf(0L) }
+    var fileAlertUri by rememberSaveable { mutableStateOf<String?>(null) }
+    val fileAlert = nl.davidengelen.redsquare.fileshare.FileTransferReference.parse(fileAlertUri?.let(android.net.Uri::parse))
+        ?.takeIf { it.owner == wallet?.publicKey && it.backend == backend }
+    LaunchedEffect(wallet?.publicKey, backend, fileAlertUri) {
+        if (wallet != null && fileAlertUri != null && fileAlert == null) fileAlertUri = null
+    }
     LaunchedEffect(wallet?.publicKey, backend, chatAlertUri) {
         if (wallet != null && chatAlertUri != null && chatAlert == null) chatAlertUri = null
     }
@@ -187,6 +193,26 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         val routes = notificationRoutes ?: return@LaunchedEffect
         val currentWallet = wallet ?: return@LaunchedEffect
         if (!allowPushRoute || personal?.ready != true || personal.saving) return@LaunchedEffect
+        val fileReference = NotificationRoutes.fileReference(delivery)
+        if (fileReference != null) {
+            tapFailed = false
+            try {
+                snapshotFlow { formNavigation.transitioning }.first { !it }
+                val opened = formNavigation.navigate {
+                    val permitted = withContext(Dispatchers.IO) { fileReference.canOpen(context) }
+                    if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) false
+                    else {
+                        composing = false; reviewingQueue = false; reviewingChanges = false
+                        chatAlertUri = null; fileAlertUri = fileReference.uri().toString()
+                        chatAlertGeneration = delivery.getLong("generation")
+                        reviewingChat = true; routes.consume(delivery); true
+                    }
+                }
+                tapFailed = !opened
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { tapFailed = true }
+            return@LaunchedEffect
+        }
         val chatReference = NotificationRoutes.chatReference(delivery)
         if (chatReference != null) {
             tapFailed = false
@@ -213,6 +239,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     } else {
                         composing = false; reviewingQueue = false; reviewingChanges = false
                         chatAlertUri = chatReference.uri().toString()
+                        fileAlertUri = null
                         chatAlertGeneration = delivery.getLong("generation")
                         reviewingChat = true
                         routes.consume(delivery)
@@ -370,8 +397,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
                 key(chatAlertGeneration) {
                     nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, childModifier, onWalletMetadata,
-                        initialContact = chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
-                        onInitialDestinationClosed = { chatAlertUri = null }) { reviewingChat = false; chatAlertUri = null }
+                        initialContact = fileAlert?.contact ?: chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
+                        onInitialDestinationClosed = { chatAlertUri = null; fileAlertUri = null }) {
+                            reviewingChat = false; chatAlertUri = null; fileAlertUri = null
+                        }
                 }
             }
             return@content

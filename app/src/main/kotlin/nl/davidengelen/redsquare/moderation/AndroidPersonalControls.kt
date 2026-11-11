@@ -37,6 +37,7 @@ internal class AndroidPersonalControls(private val context: Context, private val
     }
 
     fun save(expected: PersonalPolicy, updated: PersonalPolicy): PersonalPolicy = synchronized(SaitoLocalState.lock) {
+        SaitoLocalState.invalidateAuthority()
         validate(updated)
         val previous = try { load() } catch (failure: Exception) { throw RecoveryRequired(failure) }
         if (previous != expected) throw RecoveryRequired(IOException("Saved personal choices changed"))

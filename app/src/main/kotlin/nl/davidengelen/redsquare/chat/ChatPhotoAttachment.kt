@@ -36,6 +36,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
     beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null,
     showPickerActions: Boolean = true,
+    onAddFile: (() -> Unit)? = null,
     content: @Composable (preview: @Composable () -> Unit, actions: @Composable () -> Unit) -> Unit) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -80,13 +81,17 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
         }
     }
     val actions: @Composable () -> Unit = {
-        if (photo == null && showPickerActions) Box {
+        if ((photo == null || onAddFile != null) && showPickerActions) Box {
             var expanded by remember { mutableStateOf(false) }
             IconButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
                 onClick = { expanded = true }) {
-                Icon(painterResource(R.drawable.ic_image), stringResource(R.string.chat_attach_media))
+                Icon(painterResource(if (onAddFile != null) R.drawable.ic_file else R.drawable.ic_image),
+                    stringResource(R.string.chat_attach_media))
             }
             DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
+                if (onAddFile != null) DropdownMenuItem(text = { Text(stringResource(R.string.fileshare_add)) },
+                    enabled = enabled && !preparing && pickingFor == null && !selectingGif,
+                    onClick = { expanded = false; onAddFile() })
                 DropdownMenuItem(text = { Text(stringResource(R.string.chat_add_photo)) },
                     enabled = enabled && !preparing && pickingFor == null, onClick = {
                     expanded = false
