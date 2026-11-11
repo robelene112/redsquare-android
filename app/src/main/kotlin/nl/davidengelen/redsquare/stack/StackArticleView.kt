@@ -107,7 +107,7 @@ private class StackArticleImageLoader(private val images: Map<String, String>, p
         val painter = remember(delegate, bounds) { StackReaderPainter(delegate, bounds) }
         return ImageData(painter,
             contentDescription = if (bitmap != null) null else stringResource(if (failed) R.string.image_unavailable else R.string.image_loading),
-            modifier = Modifier.clickable(enabled = failed) { retry++ })
+            modifier = if (failed) Modifier.clickable(onClickLabel = stringResource(R.string.retry)) { retry++ } else Modifier)
     }
 }
 
