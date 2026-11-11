@@ -443,7 +443,8 @@ class MainActivity : ComponentActivity() {
                                                     val stackEndpoint = FeedEndpoints.fromIntent(intent, selected)
                                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, stackEndpoint)) {
-                                                        RegisteredIdentityScope(wallet, stackEndpoint, selected) {
+                                                        RegisteredIdentityScope(wallet, stackEndpoint, selected,
+                                                            RegistryAuthority.directoryPeer(intent, stackEndpoint)) {
                                                             StackScreen(wallet, selected, stackEndpoint, Modifier.fillMaxSize(), chrome) {
                                                                 settingsCategory = "node"; settingsOpen = true
                                                             }
@@ -454,7 +455,8 @@ class MainActivity : ComponentActivity() {
                                                 val feedEndpoint = FeedEndpoints.fromIntent(intent, selected)
                                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                                     LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
-                                                    RegisteredIdentityScope(wallet, feedEndpoint, selected) {
+                                                    RegisteredIdentityScope(wallet, feedEndpoint, selected,
+                                                        RegistryAuthority.directoryPeer(intent, feedEndpoint)) {
                                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                                             lifecycle, Modifier.fillMaxSize(), notificationRoutes = notificationRoutes,
                                                             allowPushRoute = featureUnobstructed,

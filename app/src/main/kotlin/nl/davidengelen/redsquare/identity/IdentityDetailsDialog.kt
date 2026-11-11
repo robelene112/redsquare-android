@@ -16,18 +16,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.registry.IdentityNameOrigin
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
 @Composable
 internal fun IdentityDetailsDialog(author: String, onDone: () -> Unit) {
-    PublicIdentityDetailsDialog(author, registeredIdentity(author).name, onDone)
+    val label = registeredIdentity(author)
+    PublicIdentityDetailsDialog(author, label.name, origin = label.origin, onDone = onDone)
 }
 
-/** Display an already verified/cached label without mounting network identity discovery. */
+/** A display label and its public-key identity never establish registration availability or ownership. */
 @Composable
-internal fun PublicIdentityDetailsDialog(author: String, name: String, onDone: () -> Unit) {
+internal fun PublicIdentityDetailsDialog(author: String, name: String, origin: IdentityNameOrigin? = null,
+    onDone: () -> Unit) {
     val context = LocalContext.current
     var copied by remember(author) { mutableStateOf<Boolean?>(null) }
     AlertDialog(onDismissRequest = onDone,
@@ -41,6 +44,11 @@ internal fun PublicIdentityDetailsDialog(author: String, name: String, onDone: (
                         Text(author, style = MaterialTheme.typography.bodyMedium)
                     }
                 }
+                if (origin == IdentityNameOrigin.DIRECTORY) Text(stringResource(R.string.identity_name_directory_source),
+                    style = MaterialTheme.typography.bodySmall)
+                if (origin == IdentityNameOrigin.SELECTED_NODE) Text(stringResource(R.string.identity_name_node_source),
+                    style = MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.identity_name_explanation), style = MaterialTheme.typography.bodySmall)
                 InlineStatus(when (copied) {
                     true -> stringResource(R.string.profile_identity_copied)
                     false -> stringResource(R.string.profile_identity_copy_failed)
