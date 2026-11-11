@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "sdk": "10",
+  "source": "54e06c3571e4e915b91de949be2088db5355aa08",
+  "run": "43038801167",
+  "scrollMillis": 163,
+  "renderedWhileDurableLockHeld": true,
+  "originalUiGoalMillis": 3000,
+  "controlledGateMillis": 8000,
+  "restoration": true,
+  "qualification": "Actual native signed-post rendering during a controlled durable transaction delay. Final PNG after worker/file restoration; timing assertion occurs while gate held. Not physical frame-rate acceptance."
+}

@@ -37,6 +37,7 @@ import java.util.Base64
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
@@ -58,10 +59,12 @@ class GatewaySessionDeliveryTest {
             RoutedPeer(identity, fixture).use { peer ->
                 MockWebServer().use { fcm ->
                     val verifiedBeforeSend = AtomicBoolean()
+                    val dispatched = CountDownLatch(1)
                     fcm.dispatcher = object : Dispatcher() {
                         override fun dispatch(request: RecordedRequest): MockResponse {
                             verifiedBeforeSend.set(peer.exactReads.containsAll(listOf("root", "reply")
                                 .map { fixture.getAsJsonObject(it).get("sig").asString }))
+                            dispatched.countDown()
                             return MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/accepted\"}").build()
                         }
                     }
@@ -102,10 +105,15 @@ class GatewaySessionDeliveryTest {
                             GatewayObserver(gateway, identity, backend, sender, intervalMillis = 60_000,
                                 localChainOrigin = peer.origin, localArchiveOrigin = archiveOrigin).use { observer ->
                                 observer.start()
+                                val arrivalDeadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
                                 val sent = fcm.takeRequest(5, TimeUnit.SECONDS)
                                 peer.check()
                                 assertNotNull("Verified reply must reach FCM on ${backend.id}; " +
                                     "connections=${peer.connections.get()}, misroutedArchiveReplies=${peer.misrouted.get()}", sent)
+                                // MockWebServer queues takeRequest before entering dispatch.
+                                // Observe its captured verification within the same arrival bound.
+                                assertTrue("FCM observation must finish within the original five seconds",
+                                    dispatched.await((arrivalDeadline - System.nanoTime()).coerceAtLeast(0), TimeUnit.NANOSECONDS))
                                 assertTrue("Exact signed reply and parent must be read before sending", verifiedBeforeSend.get())
                                 val message = JsonParser.parseString(requireNotNull(sent?.body).utf8()).asJsonObject.getAsJsonObject("message")
                                 assertEquals("owned-session-fid", message.get("fid").asString)

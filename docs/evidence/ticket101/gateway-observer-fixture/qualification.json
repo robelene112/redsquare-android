@@ -1,0 +1,17 @@
+{
+  "originalRun": "43038811822",
+  "originalJob": "130584775915",
+  "originalSource": "54e06c357",
+  "failedAssertion": "Exact signed reply and parent must be read before sending, line109",
+  "diagnosis": "MockWebServer5.4.0 queues recorded requests before invoking Dispatcher. takeRequest may return before the fixture captures verifiedBeforeSend.",
+  "primarySource": "https://repo.maven.apache.org/maven2/com/squareup/okhttp3/mockwebserver3/5.4.0/mockwebserver3-5.4.0-sources.jar",
+  "primarySourceSha256": "86434dbf8a8cad6dc5b293eb9f7bdda1378cee4f170d133e232680c50309f7b5",
+  "sourceOrderingLines": [
+    586,
+    592
+  ],
+  "correction": "Latch after the unchanged verification snapshot, awaited only within remaining time of the same original5-second request-arrival budget. Original30-second class and all signature/routing assertions remain. No production change.",
+  "focusedCommand": "scripts/android-build :push-gateway:test --tests nl.davidengelen.redsquare.gateway.GatewaySessionDeliveryTest",
+  "focusedResult": "PASS",
+  "qualification": "Fixture observation correction only; fresh complete SDK acceptance remains required. Local focused pass does not establish the original failure by repetition."
+}
