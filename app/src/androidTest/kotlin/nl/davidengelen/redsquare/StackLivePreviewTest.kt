@@ -48,6 +48,7 @@ class StackLivePreviewTest {
             ui.onNodeWithTag("stack-live-content").performScrollToNode(hasText("Original Markdown.", substring = true))
             ui.onNodeWithText("Original Markdown.", substring = true).assertIsDisplayed()
             ui.onNodeWithText("![Literal](stack:image:missing)", substring = true).assertExists()
+            ui.onNodeWithText("A paragraph with real emphasis before the code.", substring = true).assertExists()
             ui.onNodeWithText("  ![Fenced example](stack:image:missing)", substring = true).assertExists()
             ui.onNodeWithText("  val untouched = \"* literal *\"", substring = true).assertExists()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "stack-live-evidence/article.png"))

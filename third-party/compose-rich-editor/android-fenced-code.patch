@@ -10,20 +10,33 @@ index d4da37320..b41b4df8f 100644
 +        if (richSpanStyle is RichSpanStyle.Image || richSpanStyle is RichSpanStyle.Code)
 @@ -297,0 +300 @@ internal class RichSpan(
 +        if (richSpanStyle is RichSpanStyle.Code) return false
+diff --git a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt
+index 55aeca4c3..4041a0929 100644
+--- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt
++++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt
+@@ -3733,2 +3733,5 @@ public class RichTextState internal constructor(
+-    public fun setMarkdown(markdown: String): RichTextState {
+-        val richParagraphList = RichTextStateMarkdownParser.encode(markdown).richParagraphList
++    public fun setMarkdown(markdown: String): RichTextState = setMarkdown(markdown, normalizeProse = true)
++
++    /** Local compatibility addition (#99): readers may preserve the original Markdown grammar. */
++    public fun setMarkdown(markdown: String, normalizeProse: Boolean): RichTextState {
++        val richParagraphList = RichTextStateMarkdownParser.encode(markdown, normalizeProse).richParagraphList
 diff --git a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt
-index 61c0dc27e..a1e08dbbc 100644
+index 61c0dc27e..ffa7085e9 100644
 --- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt
 +++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt
 @@ -2,0 +3,2 @@ package com.mohamedrejeb.richeditor.parser.markdown
 +// Local Android compatibility change (#99): preserve literal code and matching AST source offsets.
 +
-@@ -16 +18 @@ internal fun encodeMarkdownToRichText(
+@@ -16 +18,2 @@ internal fun encodeMarkdownToRichText(
 -    onOpenNode: (node: ASTNode) -> Unit,
++    normalizeProse: Boolean = true,
 +    onOpenNode: (node: ASTNode, source: String) -> Unit,
-@@ -22,2 +23,0 @@ internal fun encodeMarkdownToRichText(
+@@ -22,2 +24,0 @@ internal fun encodeMarkdownToRichText(
 -    val markdownText = correctMarkdownText(markdown)
 -
-@@ -25 +25,17 @@ internal fun encodeMarkdownToRichText(
+@@ -25 +26,17 @@ internal fun encodeMarkdownToRichText(
 -    val tree = parser.buildMarkdownTreeFromString(markdownText)
 +    val originalTree = parser.buildMarkdownTreeFromString(markdown)
 +    fun literalCode(node: ASTNode): List<ASTNode> = when (node.type) {
@@ -31,8 +44,8 @@ index 61c0dc27e..a1e08dbbc 100644
 +        else -> node.children.flatMap { literalCode(it) }
 +    }
 +    // Prose/list cleanup must never rewrite indentation or formatting characters inside code.
-+    val code = literalCode(originalTree).sortedBy { it.startOffset }
-+    val markdownText = if (code.isEmpty()) correctMarkdownText(markdown) else buildString {
++    val code = if (normalizeProse) literalCode(originalTree).sortedBy { it.startOffset } else emptyList()
++    val markdownText = if (!normalizeProse) markdown else if (code.isEmpty()) correctMarkdownText(markdown) else buildString {
 +        var before = 0
 +        code.forEach { node ->
 +            append(correctMarkdownText(markdown.substring(before, node.startOffset)))
@@ -42,45 +55,53 @@ index 61c0dc27e..a1e08dbbc 100644
 +        append(correctMarkdownText(markdown.substring(before)))
 +    }
 +    val tree = if (markdownText == markdown) originalTree else parser.buildMarkdownTreeFromString(markdownText)
-@@ -191 +207 @@ private fun encodeMarkdownNodeToRichText(
+@@ -191 +208 @@ private fun encodeMarkdownNodeToRichText(
 -    onOpenNode: (node: ASTNode) -> Unit,
 +    onOpenNode: (node: ASTNode, source: String) -> Unit,
-@@ -213 +229 @@ private fun encodeMarkdownNodeToRichText(
+@@ -213 +230 @@ private fun encodeMarkdownNodeToRichText(
 -            onOpenNode(node)
 +            onOpenNode(node, markdown)
-@@ -234 +250 @@ private fun encodeMarkdownNodeToRichText(
+@@ -234 +251 @@ private fun encodeMarkdownNodeToRichText(
 -            onOpenNode(node)
 +            onOpenNode(node, markdown)
-@@ -253 +269 @@ private fun encodeMarkdownNodeToRichText(
+@@ -253 +270 @@ private fun encodeMarkdownNodeToRichText(
 -            onOpenNode(node)
 +            onOpenNode(node, markdown)
-@@ -259 +275 @@ private fun encodeMarkdownNodeToRichText(
+@@ -259 +276 @@ private fun encodeMarkdownNodeToRichText(
 -            onOpenNode(node)
 +            onOpenNode(node, markdown)
-@@ -279 +295 @@ private fun encodeMarkdownNodeToRichText(
+@@ -279 +296 @@ private fun encodeMarkdownNodeToRichText(
 -            onOpenNode(node)
 +            onOpenNode(node, markdown)
 diff --git a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt
-index 8371d1e99..baa1db86f 100644
+index 8371d1e99..b86479284 100644
 --- a/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt
 +++ b/third-party/compose-rich-editor/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt
 @@ -2,0 +3,2 @@ package com.mohamedrejeb.richeditor.parser.markdown
 +// Local Android compatibility change: preserve literal fenced-code content in article reading (#99).
 +
-@@ -116 +118 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
+@@ -33,0 +36,2 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
++    override fun encode(input: String): RichTextState = encode(input, normalizeProse = true)
++
+@@ -35 +39 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
+-    override fun encode(input: String): RichTextState {
++    fun encode(input: String, normalizeProse: Boolean): RichTextState {
+@@ -112,0 +117 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
++            normalizeProse = normalizeProse,
+@@ -116 +121 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 -            onOpenNode = { node ->
 +            onOpenNode = { node, source ->
-@@ -155 +157 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
+@@ -155 +160 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 -                    val richSpanStyle = encodeMarkdownElementToRichSpanStyle(node, input)
 +                    val richSpanStyle = encodeMarkdownElementToRichSpanStyle(node, source)
-@@ -202 +204,2 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
+@@ -202 +207,2 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 -                    node.type == MarkdownTokenTypes.CODE_LINE
 +                    node.type == MarkdownTokenTypes.CODE_LINE ||
 +                    node.type == MarkdownTokenTypes.CODE_FENCE_CONTENT
-@@ -204 +207 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
+@@ -204 +210 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 -                    onText(node.getTextInNode(input).toString())
 +                    onText(node.getTextInNode(source).toString())
-@@ -533 +536,3 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
+@@ -533 +539,3 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 -            MarkdownElementTypes.CODE_SPAN ->
 +            MarkdownElementTypes.CODE_SPAN,
 +            MarkdownTokenTypes.CODE_LINE,

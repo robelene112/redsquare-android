@@ -15,6 +15,7 @@ import org.intellij.markdown.parser.MarkdownParser
 
 internal fun encodeMarkdownToRichText(
     markdown: String,
+    normalizeProse: Boolean = true,
     onOpenNode: (node: ASTNode, source: String) -> Unit,
     onCloseNode: (node: ASTNode) -> Unit,
     onText: (text: String) -> Unit,
@@ -28,8 +29,8 @@ internal fun encodeMarkdownToRichText(
         else -> node.children.flatMap { literalCode(it) }
     }
     // Prose/list cleanup must never rewrite indentation or formatting characters inside code.
-    val code = literalCode(originalTree).sortedBy { it.startOffset }
-    val markdownText = if (code.isEmpty()) correctMarkdownText(markdown) else buildString {
+    val code = if (normalizeProse) literalCode(originalTree).sortedBy { it.startOffset } else emptyList()
+    val markdownText = if (!normalizeProse) markdown else if (code.isEmpty()) correctMarkdownText(markdown) else buildString {
         var before = 0
         code.forEach { node ->
             append(correctMarkdownText(markdown.substring(before, node.startOffset)))

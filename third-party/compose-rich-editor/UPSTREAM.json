@@ -99,7 +99,7 @@
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/model/RichTextState.kt",
       "gitBlobSha1": "405cefde536a5382f9467711005c2d972d81d671",
       "upstreamSha256": "333024fef3494c6c747d0f765e24e54295ae66d292d12077bd63fe203f8966c9",
-      "localSha256": "08253c9a2d6f2f36bfb3cf5f65cfb159b0f906149a4cd29b9a89a6bab57e6570",
+      "localSha256": "a2991e757302650a257fbb06ecd971bb77c959ca77124a17c365de38c40a484d",
       "modified": true
     },
     {
@@ -227,7 +227,7 @@
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/MarkdownUtils.kt",
       "gitBlobSha1": "61c0dc27e69e675b58aa763132ca8f59a83be9ac",
       "upstreamSha256": "61899ed07b20616d4ad9feee9d2e51adf5fc3f6c11fd6f692af04dba17c5c40a",
-      "localSha256": "014b58e03efa91a8489d8a95a94bfe62c2799a2974307cc4bcbb7ac8bdb25479",
+      "localSha256": "07151d9b86f65f60bb24d25b6d2c5ad002b848e05a25a39279102ec8f4226aeb",
       "modified": true
     },
     {
@@ -235,7 +235,7 @@
       "upstreamPath": "richeditor-compose/src/commonMain/kotlin/com/mohamedrejeb/richeditor/parser/markdown/RichTextStateMarkdownParser.kt",
       "gitBlobSha1": "8371d1e996f6e8ff4276125513cc74443363cc12",
       "upstreamSha256": "08483390e00348358913b09e1f35484b81829793e1a42024db7f63d2aa9db9e3",
-      "localSha256": "d1d388b7eb0b473c6dc46d203ea6e61ecf3974c6d43c9ccf2604e1710352e181",
+      "localSha256": "cfb2a0fb14c79ae1586c5352e82efbf5ce2fbafa9e0e91304914e4c567371f3c",
       "modified": true
     },
     {
@@ -521,5 +521,6 @@
   ],
   "patchSha256": "81010901ae93e160c5b3fe179f0bbe347075a55c9677c79a02bfdf5cd48ba1d0",
   "fencedCodeCompatibility": "Retain literal fenced-code tokens and Code style. Preserve code fences, code blocks and inline code before prose normalization; pass the exact parsed source with AST callbacks so token offsets match extraction. Native indented/literal-code regression in issue99. Code spans are exempt from paragraph edge trimming so indentation and trailing literal whitespace remain intact.",
-  "fencedCodePatchSha256": "1dffed1b0bcb41d02cddd964dfba2f648ea4637d26ef8b210d08b326c0994d6d"
+  "fencedCodePatchSha256": "d5d9cf3528d75e890c9348e75f7716951fc1a5cdae479965180e275fa6fd95da",
+  "articleReadingCompatibility": "Add a compatible setMarkdown(markdown, normalizeProse) overload. Article reading uses the original Markdown AST without editor prose cleanup; existing one-argument editor calls retain their cleanup behavior."
 }

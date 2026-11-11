@@ -3730,8 +3730,11 @@ public class RichTextState internal constructor(
      *
      * @param markdown The markdown to update the [RichTextState] with.
      */
-    public fun setMarkdown(markdown: String): RichTextState {
-        val richParagraphList = RichTextStateMarkdownParser.encode(markdown).richParagraphList
+    public fun setMarkdown(markdown: String): RichTextState = setMarkdown(markdown, normalizeProse = true)
+
+    /** Local compatibility addition (#99): readers may preserve the original Markdown grammar. */
+    public fun setMarkdown(markdown: String, normalizeProse: Boolean): RichTextState {
+        val richParagraphList = RichTextStateMarkdownParser.encode(markdown, normalizeProse).richParagraphList
         updateRichParagraphList(richParagraphList)
         return this
     }

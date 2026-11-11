@@ -67,7 +67,7 @@ internal fun stackArticleDate(article: StackArticle): String =
 @Composable
 internal fun LiveStackMarkdown(article: StackArticle, backend: SaitoBackend) {
     val rich = remember(article.revision, article.markdown) {
-        RichTextState().setMarkdown(article.markdown)
+        RichTextState().setMarkdown(article.markdown, normalizeProse = false)
     }
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val density = LocalDensity.current

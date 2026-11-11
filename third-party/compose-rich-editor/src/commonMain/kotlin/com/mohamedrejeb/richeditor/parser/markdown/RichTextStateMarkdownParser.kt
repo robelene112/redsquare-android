@@ -33,8 +33,10 @@ import org.intellij.markdown.flavours.gfm.GFMTokenTypes
 
 internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 
+    override fun encode(input: String): RichTextState = encode(input, normalizeProse = true)
+
     @OptIn(ExperimentalRichTextApi::class)
-    override fun encode(input: String): RichTextState {
+    fun encode(input: String, normalizeProse: Boolean): RichTextState {
         val openedNodes = mutableListOf<ASTNode>()
         val openedHtmlTags = mutableListOf<String>()
         val richParagraphList = mutableListOf(RichParagraph())
@@ -112,6 +114,7 @@ internal object RichTextStateMarkdownParser : RichTextStateParser<String> {
 
         encodeMarkdownToRichText(
             markdown = input,
+            normalizeProse = normalizeProse,
             onText = { text ->
                 onText(text)
             },

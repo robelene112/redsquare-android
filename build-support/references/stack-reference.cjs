@@ -10,7 +10,7 @@ const foreign=signedReference('2',{...body,data:{...body.data,parent_id:article.
 const restricted=signedReference('1',{...body,access_hash:'1'.repeat(64)},1700001000003);
 const pixel='iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=';
 const reader=signedReference('2',{...body,data:{...body.data,image:pixel,imageUrl:'',
-  content:body.data.content+'\n\nInline `![Literal](stack:image:missing)` stays text.\n\n  A paragraph before the code.\n\n```md\n  ![Fenced example](stack:image:missing)\n  val untouched = "* literal *"\n```\n\n![Diagram](stack:image:diagram)\n\nEnd of the original article.',
+  content:body.data.content+'\n\nInline `![Literal](stack:image:missing)` stays text.\n\n  A paragraph with **real emphasis** before the code.\n\n```md\n  ![Fenced example](stack:image:missing)\n  val untouched = "* literal *"\n```\n\n![Diagram](stack:image:diagram)\n\nEnd of the original article.',
   images:[{id:'diagram',mime:'image/png',data:pixel}]}},1700001000010);
 const motion=signedReference('2',{...body,data:{...body.data,title:'A Node in a Browser Tab',image:pixel,imageUrl:'',
   content:Array.from({length:40},(_,i)=>`Paragraph ${i+1} of a signed Stack article. Reading stays within the native module.`).join('\n\n')}},1700001000020);

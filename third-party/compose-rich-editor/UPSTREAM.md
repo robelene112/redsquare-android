@@ -37,4 +37,8 @@ and trailing literal whitespace instead of treating them as prose.
 This prevents image-looking text in fenced examples from disappearing or becoming
 an image. The exact addition is in `android-fenced-code.patch` (zero-context Git patch); the original
 upstream SHA256 and updated local hash remain in `UPSTREAM.json`. No dependency
-version, editor API or immutable-transformation fix changes.
+version or existing editor API changes. An additive `setMarkdown(markdown,
+normalizeProse)` overload lets article readers use the original Markdown grammar,
+so a two-space prose paragraph is not turned into an indented code block. The
+existing one-argument editor API keeps its cleanup behavior. The immutable
+transformation fix remains unchanged.
