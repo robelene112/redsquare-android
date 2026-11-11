@@ -422,6 +422,11 @@ if [[ "${TEST_SCOPE:-full}" == destination-reveal* ]]; then
     verify_group_chat_native DestinationRevealMotionTest 180 destination-reveal destination-reveal-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == name-directory-cache* ]]; then
+    verify_group_chat_native NameDirectoryCacheTest 180 name-directory-cache name-directory-cache-evidence
+    printf '%s\n' 'Native name-directory saved labels only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == name-directory-recovery* ]]; then
     verify_group_chat_native NameDirectoryRecoveryTest 180 name-directory-recovery name-directory-recovery-evidence
     printf '%s\n' 'Native name-directory recovery only; not complete application acceptance.' > "$evidence/scope.txt"

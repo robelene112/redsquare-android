@@ -39,7 +39,7 @@ class NameDirectoryPreviewTest {
                 ui.waitUntil(10_000) { ui.onNodeWithText("Profile").isDisplayed() }
                 ui.inspectProfileIdentity(author.publicKey) {
                     onNodeWithText(author.publicKey, useUnmergedTree = true).assertIsDisplayed()
-                    onNodeWithText(name, useUnmergedTree = true).assertIsDisplayed()
+                    onNode(hasText(name) and hasAnySibling(hasText(author.publicKey)), useUnmergedTree = true).assertIsDisplayed()
                     captureNativeScreen(File(context.cacheDir, "name-directory-evidence/profile-name.png"))
                 }
                 assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
