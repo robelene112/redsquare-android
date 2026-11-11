@@ -202,6 +202,8 @@ abstract class FileshareFixture {
                                 captureNativeScreen(File(evidence, "saved.png"), "File saved")
                                 viewportWidth?.let { width ->
                                     val folder = File(evidence, "viewport-$width").apply { mkdirs() }
+                                    ui.onNodeWithContentDescription("Back").performClick()
+                                    ui.onNodeWithText("Home").performClick()
                                     ui.withPostViewports(activity, folder, "fileshare", widthDp = width) { cell, _ ->
                                         ui.onNodeWithText("Chat").performClick()
                                         waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

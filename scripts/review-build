@@ -8,11 +8,13 @@ artifact_family=review-builds
 format=apk
 review_build=true
 build_task=assembleRelease
+compile_task=compileReleaseKotlin
 if [[ $# == 1 && "$1" == --performance ]]; then
     variant_dir=performance
     application_id=nl.davidengelen.redsquare.performance
     artifact_family=performance-builds
     build_task=assemblePerformance
+    compile_task=compilePerformanceKotlin
 elif [[ $# == 1 && "$1" == --bundle ]]; then
     format=aab
     artifact_family=play-builds
@@ -37,6 +39,10 @@ next=$((10#$previous + 1))
 printf '%s\n' "$next" > "$review_state/version-code.new"
 mv "$review_state/version-code.new" "$review_state/version-code"
 version_name="0.1.$next"
+# End the Kotlin compiler's lifetime before packaging/lint inside the bounded VPS
+# container. Keep the exact reserved version and public build options in both phases.
+"$repo_dir/scripts/android-build" ":app:$compile_task" \
+    "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name" "-PreviewBuild=$review_build"
 "$repo_dir/scripts/android-build" ":app:$build_task" \
     "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name" "-PreviewBuild=$review_build"
 artifact_dir="$repo_dir/.scratch/$artifact_family/$next"

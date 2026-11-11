@@ -95,6 +95,24 @@ The standards reviewer caught a report-label variable shadowing bug, corrected
 and independently confirmed before freezing or starting any complete run.
 Complete final runtime acceptance remains pending.
 
+At `034114aa5`, run43111204765(Android17) passes all six transfer/control classes,
+including blocked-pipe preparation Cancel. It then fails the narrow viewport
+fixture's original15second Home-readiness goal: the caller was still in Chat when
+invoking the existing Home-specific recreation helper. The native capture shows
+the correctly restored conversation, saved file and exact draft. The caller now
+returns Home before the unchanged helper. Android10 run43111200525 still fails
+the original Cancel goal: its expanded file row is visible at the bottom but its
+action is below the fold. The driver also scrolls when the title is visible and
+the action is offscreen, retaining the original5second bound and token outcome.
+
+The combined local release/lint build and a fresh release-only attempt ended with
+daemon disappearance. Docker records an OOM event for the release-only container;
+the compile-then-packaging heap lifetime exceeded its2.5GiB limit. Packaging in a
+fresh compiler-free process succeeds in1m29s. The signed-review script now uses
+separate compiler/packaging lifetimes with the exact same reserved version/options.
+No service or memory limit on the VPS is changed. Local originals remain in
+`/tmp/redsquare-fileshare-release*.log`; these failures contribute no acceptance.
+
 ## Verification boundaries
 
 Tests use real native screens, Android document-provider/picker boundaries,
