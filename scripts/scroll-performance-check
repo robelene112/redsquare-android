@@ -128,7 +128,8 @@ try:
         if later is not None:
             adb("shell", "input", "tap", *map(str, coordinates(later)))
             continue
-        if any(n.get("text") == "Repost" or n.get("content-desc", "").startswith("Repost") for n in own):
+        # A long genuine post can place its footer below the viewport.
+        if any(n.get("content-desc", "").startswith("Post actions for ") for n in own):
             break
         time.sleep(1)
     else:
