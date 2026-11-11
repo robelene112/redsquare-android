@@ -169,9 +169,16 @@ class PolicyCenterPreviewTest {
                             focusedText(automation) == "Back to Settings" &&
                                 completedFragments(device, "Back to Settings").isNotEmpty()
                         }
+                        fun hasRadioIndicator(node: android.view.accessibility.AccessibilityNodeInfo): Boolean {
+                            if (node.className?.toString() == "android.widget.RadioButton") return true
+                            for (index in 0 until node.childCount) node.getChild(index)?.let {
+                                if (hasRadioIndicator(it)) return true
+                            }
+                            return false
+                        }
                         fun collectRadioRows(node: android.view.accessibility.AccessibilityNodeInfo,
                             rows: MutableList<android.view.accessibility.AccessibilityNodeInfo>) {
-                            if (node.isVisibleToUser && node.isFocusable && node.isCheckable) rows += node
+                            if (node.isVisibleToUser && node.isFocusable && node.isCheckable && hasRadioIndicator(node)) rows += node
                             for (index in 0 until node.childCount) node.getChild(index)?.let { collectRadioRows(it, rows) }
                         }
                         // Resolve the choices in the actual foreground Settings window.
