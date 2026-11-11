@@ -1,6 +1,6 @@
 {
   "baselineSource": "1f12812635690547656e6373f0a45a5c85542780",
-  "basis": "Retain every accepted99 identity, recovery goal, original deadline and actual archive path from its complete Android10/17 packets, including the explicitly reviewed Chat location of StackPublicReadTest. Add shared native directory labels with exact public-key identity, no-navigation transient recovery, retained offline names, selected-node recovery without ownership proof, provider choice and compact light/dark100/130/200-percent viewports, and the two real public account mappings. Directory labels never relax the registrar ownership verifier. No partial SDK assembly or new exception.",
+  "basis": "Retain every accepted99 identity, recovery goal, original deadline and actual archive path from its complete Android10/17 packets, including the explicitly reviewed Chat location of StackPublicReadTest. Add shared native directory labels with exact public-key identity, no-navigation transient recovery, retained offline names, selected-node recovery without ownership proof, provider choice and compact light/dark100/130/200-percent viewports, and the two real public account mappings. Directory labels never relax the registrar ownership verifier. No partial SDK assembly or new exception. Two review regressions additionally prove that unavailable proofs cannot delay a next visible batch and that turning off the separate provider preserves the selected node\u2019s offline labels.",
   "baselineIdentitySha256": {
     "10": "d7597dac8aeb8549fc930d459e3ff7a8181cf556c5e926dcd57609cf293ea6d6",
     "17": "4db9a1c6c9b6808e9c50d641fb996ec60938faecad1d1bfcfb720a730f318692"
@@ -2022,6 +2022,18 @@
         "path": "name-directory-choice-ui.txt",
         "testClass": "nl.davidengelen.redsquare.NameDirectoryChoiceTest",
         "test": "theNameProviderChoiceIsReachableAndPersistsWithoutChangingTheContentNode",
+        "occurrences": 1
+      },
+      {
+        "path": "name-directory-isolation-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.NameDirectoryIsolationTest",
+        "test": "disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames",
+        "occurrences": 1
+      },
+      {
+        "path": "name-directory-isolation-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.NameDirectoryIsolationTest",
+        "test": "unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch",
         "occurrences": 1
       },
       {
@@ -5915,6 +5927,18 @@
         "occurrences": 1
       },
       {
+        "path": "name-directory-isolation-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.NameDirectoryIsolationTest",
+        "test": "disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames",
+        "occurrences": 1
+      },
+      {
+        "path": "name-directory-isolation-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.NameDirectoryIsolationTest",
+        "test": "unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch",
+        "occurrences": 1
+      },
+      {
         "path": "name-directory-node-ui.txt",
         "testClass": "nl.davidengelen.redsquare.NameDirectoryNodeTest",
         "test": "aNodeRecoversItsDirectoryNameWithoutClaimingRegisteredOwnership",
@@ -7919,6 +7943,7 @@
     "social/name-directory-cache-evidence.tar",
     "social/name-directory-choice-evidence.tar",
     "social/name-directory-evidence.tar",
+    "social/name-directory-isolation-evidence.tar",
     "social/name-directory-node-evidence.tar",
     "social/name-directory-public-evidence.tar",
     "social/name-directory-recovery-evidence.tar",
@@ -8002,12 +8027,12 @@
   "qualification": "Must be committed before the complete final runs; exact checked-out source and all3partitions required. Focused runs are not acceptance.",
   "expectedRecoveryTotals": {
     "10": {
-      "normalCompletions": 245,
+      "normalCompletions": 246,
       "deliberateInterruptions": 37,
       "continuityRecords": 36
     },
     "17": {
-      "normalCompletions": 246,
+      "normalCompletions": 247,
       "deliberateInterruptions": 37,
       "continuityRecords": 36
     }

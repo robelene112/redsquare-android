@@ -1,0 +1,125 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NameDirectoryIsolationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NameDirectoryIsolationTest:
+INSTRUMENTATION_STATUS: test=unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NameDirectoryIsolationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch$lambda$5(NameDirectoryIsolationTest.kt:34)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.$r8$lambda$bOuZz_mWOS0uy38e3e-gl3x-fcs(Unknown Source:0)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch(NameDirectoryIsolationTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch(nl.davidengelen.redsquare.NameDirectoryIsolationTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch$lambda$5(NameDirectoryIsolationTest.kt:34)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.$r8$lambda$bOuZz_mWOS0uy38e3e-gl3x-fcs(Unknown Source:0)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch(NameDirectoryIsolationTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NameDirectoryIsolationTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NameDirectoryIsolationTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames$lambda$16$lambda$15(NameDirectoryIsolationTest.kt:73)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.$r8$lambda$nwmia-FZCtoFrLKwYyokNedvFBc(Unknown Source:0)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames(NameDirectoryIsolationTest.kt:51)
+
+INSTRUMENTATION_STATUS: stream=
+Error in disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames(nl.davidengelen.redsquare.NameDirectoryIsolationTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames$lambda$16$lambda$15(NameDirectoryIsolationTest.kt:73)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.$r8$lambda$nwmia-FZCtoFrLKwYyokNedvFBc(Unknown Source:0)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames(NameDirectoryIsolationTest.kt:51)
+
+INSTRUMENTATION_STATUS: test=disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.943
+There were 2 failures:
+1) unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch(nl.davidengelen.redsquare.NameDirectoryIsolationTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch$lambda$5(NameDirectoryIsolationTest.kt:34)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.$r8$lambda$bOuZz_mWOS0uy38e3e-gl3x-fcs(Unknown Source:0)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch(NameDirectoryIsolationTest.kt:27)
+2) disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames(nl.davidengelen.redsquare.NameDirectoryIsolationTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames$lambda$16$lambda$15(NameDirectoryIsolationTest.kt:73)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.$r8$lambda$nwmia-FZCtoFrLKwYyokNedvFBc(Unknown Source:0)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NameDirectoryIsolationTest.disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames(NameDirectoryIsolationTest.kt:51)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

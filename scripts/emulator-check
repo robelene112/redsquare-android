@@ -459,6 +459,7 @@ if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
     verify_group_chat_native NameDirectoryCacheTest 180 name-directory-cache name-directory-cache-evidence || name_directory_failed=1
     verify_group_chat_native NameDirectoryNodeTest 180 name-directory-node name-directory-node-evidence || name_directory_failed=1
     verify_group_chat_native NameDirectoryChoiceTest 180 name-directory-choice name-directory-choice-evidence || name_directory_failed=1
+    verify_group_chat_native NameDirectoryIsolationTest 180 name-directory-isolation name-directory-isolation-evidence || name_directory_failed=1
     if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
         verify_group_chat_native NameDirectoryPublicReadTest 180 name-directory-public name-directory-public-evidence || name_directory_failed=1
     fi
@@ -602,6 +603,7 @@ if [[ "$full_social" == true ]]; then
     verify_group_chat_native NameDirectoryCacheTest 180 name-directory-cache name-directory-cache-evidence
     verify_group_chat_native NameDirectoryNodeTest 180 name-directory-node name-directory-node-evidence
     verify_group_chat_native NameDirectoryChoiceTest 180 name-directory-choice name-directory-choice-evidence
+    verify_group_chat_native NameDirectoryIsolationTest 180 name-directory-isolation name-directory-isolation-evidence
     verify_group_chat_native NameDirectoryPublicReadTest 180 name-directory-public name-directory-public-evidence
 fi
 if [[ "$full_social" == true || "${TEST_SCOPE:-full}" == thread-redesign* ]]; then

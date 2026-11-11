@@ -37,7 +37,7 @@ class UsernamePreviewTest {
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         observeMethodBoundary("before-test-method")
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("namerequest.") || it.name.startsWith("namemap.")
+            it.name.startsWith("namerequest.") || it.name.startsWith("namemap.") || it.name.startsWith("displaynames.")
         }?.forEach { check(it.delete()) { "Could not reset emulator username fixtures" } }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }

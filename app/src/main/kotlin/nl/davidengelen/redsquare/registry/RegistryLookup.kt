@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.registry
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import kotlinx.coroutines.yield
+import nl.davidengelen.redsquare.saito.SaitoRegisteredName
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoNameDirectory
 import nl.davidengelen.redsquare.saito.SaitoRegistry
@@ -10,9 +12,14 @@ import java.nio.charset.CodingErrorAction
 
 /** Hints locate records; only the registrar-signed namecheck establishes ownership. */
 internal class RegistryLookup(private val peer: SaitoPeer, private val registrar: String) {
-    suspend fun namecheck(identifier: String) = SaitoRegistry.readNamecheck(response(JsonObject().apply {
-        addProperty("request", "registry namecheck"); addProperty("identifier", identifier)
-    }, awaitRegistrar = true), identifier, registrar)
+    suspend fun namecheck(identifier: String): SaitoRegisteredName? {
+        val text = response(JsonObject().apply {
+            addProperty("request", "registry namecheck"); addProperty("identifier", identifier)
+        }, awaitRegistrar = true)
+        // An eager caller can enqueue the request before yielding ownership work to its dispatcher.
+        yield()
+        return SaitoRegistry.readNamecheck(text, identifier, registrar)
+    }
 
     suspend fun hints(publicKeys: Collection<String>): Map<String, String> {
         require(publicKeys.size in 1..50 && publicKeys.toSet().size == publicKeys.size)

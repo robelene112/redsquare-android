@@ -1,0 +1,38 @@
+{
+  "base": "1f12812635690547656e6373f0a45a5c85542780",
+  "head": "77adbfb3bb5eb1be40e937dd2cc0e50b31313eab",
+  "phase": "Independent read-only source review, before final SDK and beta gates",
+  "spec": {
+    "agent": "names100_spec",
+    "actionableFindings": 2,
+    "findings": [
+      {
+        "severity": "P2",
+        "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/RegisteredIdentity.kt:238",
+        "requirement": "isolate bad/unavailable entries",
+        "finding": "Selected-node display hints wait for all strict namechecks. Four parallel12-second callbacks can delay labels and later batches beyond24seconds. Publish display mappings independently."
+      },
+      {
+        "severity": "P2",
+        "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/DirectoryNameStore.kt:16",
+        "requirement": "retain useful cached names through ordinary navigation/offline reading; make the separate provider dependency truthful",
+        "finding": "Both providers share a namespace containing the optional directory endpoint. Disabling the separate provider selects another cache file and loses selected-node labels while offline."
+      }
+    ],
+    "scope": "No unrequested scope; strict ownership verification and exact signing identity remain intact."
+  },
+  "standards": {
+    "agent": "names100_standards",
+    "actionableFindings": 1,
+    "findings": [
+      {
+        "severity": "P2",
+        "rule": "CODING_STANDARDS.md:12-18",
+        "path": "app/src/main/kotlin/nl/davidengelen/redsquare/registry/RegisteredIdentity.kt:240",
+        "finding": "Other fixtures such as AvatarJourneyFixture and ActivityInboxFixture write the new shared displaynames family without retaining/restoring it. Capture this family centrally or in all affected fixtures."
+      }
+    ],
+    "smellBaseline": "No actionable smell heuristic. Frozen100 identities preserve99 additively, including the documented actual Chat StackPublic archive location."
+  },
+  "disposition": "All three findings accepted. Add actual native isolation regressions, separate provider stores, remove the ownership callback barrier, and preserve the shared cache family in every applicable fixture. Follow-up review and final execution required."
+}

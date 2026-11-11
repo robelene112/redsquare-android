@@ -15,7 +15,7 @@ internal data class RegisteredIdentityLabel(val name: String, val saveError: Boo
     val origin: IdentityNameOrigin = IdentityNameOrigin.REGISTRAR,
     val cached: Boolean = false, val checkedAt: Long? = null)
 private val LocalIdentities = staticCompositionLocalOf<RegisteredIdentities?> { null }
-/** Cached names only remain display identities for one day after the selected backend confirmed them. */
+/** The signed ownership cache is current for one day after the selected backend confirmed it. */
 internal const val REGISTERED_NAME_FRESHNESS_MILLIS = 24 * 60 * 60 * 1000L
 
 internal fun registeredNameIsCurrent(saved: RegisteredNameStore.Saved, backend: SaitoBackend, nowMillis: Long): Boolean =
@@ -76,8 +76,19 @@ private class RegisteredIdentities(
     private val visible = mutableMapOf<String, Int>()
     private val directoryRetry = VisibleNameRetry(scope, { it in visible && it !in labels }, ::requestDirectory)
     private val selectedRetry = VisibleNameRetry(scope, { it in visible && it !in labels }, ::request)
-    private val displayStore = wallet?.let { DirectoryNameStore(context, it.publicKey, backend, registrar,
-        endpoint, directoryEndpoint) }
+    private val displayStores = buildMap {
+        wallet?.publicKey?.let { owner ->
+            put(IdentityNameOrigin.SELECTED_NODE, DirectoryNameStore(context, owner, backend, registrar,
+                endpoint, IdentityNameOrigin.SELECTED_NODE))
+            directoryEndpoint?.let { provider ->
+                put(IdentityNameOrigin.DIRECTORY, DirectoryNameStore(context, owner, backend, registrar,
+                    provider, IdentityNameOrigin.DIRECTORY))
+            }
+        }
+    }
+    private val proofInFlight = mutableSetOf<String>()
+    private val proofLimit = Semaphore(4)
+    private var selectedConnection: SaitoPeer? = null
 
 
     fun close() { scope.cancel(); pending.close(); directoryPending.close() }
@@ -135,6 +146,7 @@ private class RegisteredIdentities(
             if (cached != null) {
                 labels[publicKey] = RegisteredIdentityLabel(cached)
                 inFlight.remove(publicKey)
+                closeSelectedWhenIdle()
             } else {
                 if (!directoryRetry.isScheduled(publicKey)) requestDirectory(publicKey)
                 if (wallet != null) pending.send(publicKey) else inFlight.remove(publicKey)
@@ -143,11 +155,13 @@ private class RegisteredIdentities(
     }
 
     suspend fun discover() = coroutineScope {
-        try {
-            val saved = withContext(Dispatchers.IO) { displayStore?.load().orEmpty() }
-            saved.forEach { showDirectoryLabel(it, cached = true) }
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { /* A disposable display cache never blocks reading or ownership checks. */ }
+        for (store in displayStores.values) {
+            try {
+                val saved = withContext(Dispatchers.IO) { store.load() }
+                saved.forEach { showDirectoryLabel(it, cached = true) }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { /* One unavailable display cache cannot hide the other provider's names. */ }
+        }
         if (directoryEndpoint != null) launch { discoverDirectory() }
         discoverSelected()
     }
@@ -167,7 +181,13 @@ private class RegisteredIdentities(
         if (names.isEmpty()) return
         val now = System.currentTimeMillis()
         val saved = names.map { (key, name) -> DirectoryNameStore.Saved(key, name, origin, now) }
-        try { withContext(Dispatchers.IO) { displayStore?.save(saved) } }
+        try { withContext(Dispatchers.IO) {
+            val commitJob = currentCoroutineContext().job
+            synchronized(SaitoLocalState.lock) {
+                commitJob.ensureActive()
+                displayStores.getValue(origin).save(saved)
+            }
+        } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { /* The reported label remains useful even when its disposable cache cannot be written. */ }
         saved.forEach { showDirectoryLabel(it, cached = false) }
@@ -203,50 +223,77 @@ private class RegisteredIdentities(
     }
 
     private suspend fun discoverSelected() {
-        for (first in pending) {
-            val keys = mutableListOf(first)
-            delay(20) // Gather authors composed in the same frame without blocking rendering.
-            while (keys.size < 50) keys += pending.tryReceive().getOrNull() ?: break
-            val dropped = keys.filter { it !in visible || labels[it]?.saveError == false }
-            dropped.forEach { inFlight.remove(it) }
-            keys.removeAll(dropped.toSet())
-            if (keys.isEmpty()) continue
-            var successfulRead = false
+        try {
+            for (first in pending) {
+                val keys = mutableListOf(first)
+                delay(20)
+                while (keys.size < 50) keys += pending.tryReceive().getOrNull() ?: break
+                val dropped = keys.filter { it !in visible || labels[it]?.saveError == false }
+                dropped.forEach { inFlight.remove(it) }
+                keys.removeAll(dropped.toSet())
+                if (keys.isEmpty()) { closeSelectedWhenIdle(); continue }
+                var successfulRead = false
+                try {
+                    val peer = selectedConnection ?: SaitoPeer(requireNotNull(wallet), endpoint)
+                        .also { selectedConnection = it }
+                    val hints = withContext(Dispatchers.IO) { RegistryLookup(peer, registrar).hints(keys) }
+                    successfulRead = true
+                    // Start ownership requests eagerly, but never await their callbacks to display a map.
+                    // The authenticated connection can serve the next map while these checks are pending.
+                    hints.forEach { (key, name) -> verifyHint(peer, key, name) }
+                    saveDirectoryLabels(hints, IdentityNameOrigin.SELECTED_NODE)
+                } catch (_: TimeoutCancellationException) {
+                    currentCoroutineContext().ensureActive()
+                    selectedConnection?.close(); selectedConnection = null
+                } catch (cancelled: CancellationException) { throw cancelled }
+                catch (_: Exception) { selectedConnection?.close(); selectedConnection = null }
+                finally {
+                    keys.forEach { inFlight.remove(it) }
+                    selectedRetry.afterRead(keys, successfulRead)
+                    closeSelectedWhenIdle()
+                }
+            }
+        } finally { selectedConnection?.close(); selectedConnection = null }
+    }
+
+    private fun verifyHint(peer: SaitoPeer, publicKey: String, name: String) {
+        if (!proofInFlight.add(publicKey)) return
+        scope.launch(Dispatchers.IO, start = CoroutineStart.UNDISPATCHED) {
             try {
-                withContext(Dispatchers.IO) {
-                    SaitoPeer(requireNotNull(wallet), endpoint).use { peer ->
-                        val lookup = RegistryLookup(peer, registrar)
-                        val hints = lookup.hints(keys)
-                        withContext(Dispatchers.Main) { successfulRead = true }
-                        val limit = Semaphore(4)
-                        coroutineScope {
-                            hints.map { (publicKey, name) -> launch {
-                                limit.withPermit {
-                                    try {
-                                        val record = lookup.namecheck(name) ?: return@withPermit
-                                        require(record.publicKey == publicKey && record.active)
-                                        val saveError = try { cache(publicKey).save(record, backend); false }
-                                        catch (cancelled: CancellationException) { throw cancelled }
-                                        catch (_: Exception) { true }
-                                        withContext(Dispatchers.Main) {
-                                            labels[publicKey] = RegisteredIdentityLabel(record.identifier, saveError)
-                                        }
-                                    } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
-                                    catch (cancelled: CancellationException) { throw cancelled }
-                                    catch (_: Exception) { /* A hint is never ownership evidence. */ }
-                                }
-                            } }.joinAll()
+                proofLimit.withPermit {
+                    if (!withContext(Dispatchers.Main.immediate) {
+                        publicKey in visible && labels[publicKey]?.saveError != false
+                    }) return@withPermit
+                    val record = RegistryLookup(peer, registrar).namecheck(name) ?: return@withPermit
+                    require(record.publicKey == publicKey && record.active)
+                    val commitJob = currentCoroutineContext().job
+                    val saveError = try {
+                        synchronized(SaitoLocalState.lock) {
+                            commitJob.ensureActive()
+                            cache(publicKey).save(record, backend)
                         }
-                        withContext(Dispatchers.Main) { saveDirectoryLabels(hints, IdentityNameOrigin.SELECTED_NODE) }
+                        false
+                    }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { true }
+                    withContext(Dispatchers.Main) {
+                        labels[publicKey] = RegisteredIdentityLabel(record.identifier, saveError)
                     }
                 }
             } catch (_: TimeoutCancellationException) { currentCoroutineContext().ensureActive() }
             catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { /* Unavailable discovery preserves cached/generated labels. */ }
-            finally {
-                keys.forEach { inFlight.remove(it) }
-                selectedRetry.afterRead(keys, successfulRead)
-            }
+            catch (_: Exception) { /* Display labels do not become ownership evidence after a failed proof. */ }
+            finally { withContext(NonCancellable + Dispatchers.Main) {
+                proofInFlight.remove(publicKey)
+                closeSelectedWhenIdle()
+            } }
+        }
+    }
+
+    private fun closeSelectedWhenIdle() {
+        if (inFlight.isEmpty() && proofInFlight.isEmpty()) {
+            selectedConnection?.close()
+            selectedConnection = null
         }
     }
 

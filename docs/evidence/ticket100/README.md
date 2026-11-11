@@ -51,9 +51,25 @@ pass. They establish their focused goals, not complete final-source acceptance.
 
 The pre-run100 contract retains the actual accepted99 identity lists and archive
 paths. In particular, StackPublicReadTest stays under Chat, matching the accepted
-raw99 executions and reviewed99 catalog erratum. Six additive native classes bring
-the frozen complete goals to648/649 identities,226 classes,192 archives and245/246
+raw99 executions and reviewed99 catalog erratum. Seven additive native classes bring
+the frozen complete goals to650/651 identities,227 classes,193 archives and246/247
 normal completions. All37 deliberate interruptions,36 continuity records, original
 deadlines, the inherited Android10 Profile assumption and unavailable Chat archive
 remain. The unchanged94 visual/motion/speech validators are reused. No100 result
 has yet been accepted against this complete contract.
+
+Both focused SDK runs on `77adbfb3b` pass all six initial classes, including the
+actual public directory comparison and six compact320dp light/dark text-size
+cells. The actual official map contains both reported names; the owner map is
+empty. These focused passes precede the independent review corrections.
+
+[Initial independent source reviews](source-reviews-first.json) found two Spec
+issues and one Standards issue. Selected-node namechecks blocked display maps,
+the shared cache namespace coupled selected labels to the optional provider, and
+other fixtures did not preserve the new shared cache family. All were accepted.
+Two additive native isolation regressions reproduce the first two defects on
+`5b9948633` in run42995354366, each failing its original5-second goal. The correction
+separates provider stores, multiplexes map reads independently of four bounded
+strict proof requests, and restores the shared cache family centrally. Exact
+registration verification is unchanged. A subsequent review and final-source
+verification remain required.

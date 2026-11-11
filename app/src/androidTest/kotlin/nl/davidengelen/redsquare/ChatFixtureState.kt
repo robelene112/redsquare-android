@@ -7,7 +7,7 @@ import nl.davidengelen.redsquare.feed.PublicStringStore
 /** Preserve declared files and this wallet's Chat alert state; restoration remains independent of identity. */
 internal class ChatFixtureState(private val context: android.content.Context,
     declaredPrefixes: List<String>, owner: String) {
-    private val prefixes = (declaredPrefixes + listOf("chatpush.$owner.", "groupchatpush.$owner.", "avatarprofiles.")).distinct()
+    private val prefixes = (declaredPrefixes + listOf("chatpush.$owner.", "groupchatpush.$owner.", "avatarprofiles.", "displaynames.")).distinct()
     private val files = withStoreLocks {
         context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
             .associate { check(it.isFile); it.name to it.readBytes() }

@@ -10,9 +10,9 @@ import java.security.MessageDigest
 
 /** Last-known directory labels, never a source of registered ownership or wallet identity. */
 internal class DirectoryNameStore(context: Context, owner: String, backend: SaitoBackend,
-    registrar: String, selectedEndpoint: String, private val directoryEndpoint: String?) {
+    registrar: String, providerEndpoint: String, private val origin: IdentityNameOrigin) {
     data class Saved(val key: String, val name: String, val origin: IdentityNameOrigin, val checkedAt: Long)
-    private val namespace = listOf(owner, backend.id, registrar, selectedEndpoint, directoryEndpoint.orEmpty()).joinToString("\n")
+    private val namespace = listOf(owner, backend.id, registrar, providerEndpoint, origin.name).joinToString("\n")
     private val digest = MessageDigest.getInstance("SHA-256").digest(namespace.toByteArray())
         .joinToString("") { "%02x".format(it.toInt() and 255) }
     private val file = EncryptedLocalFile(context, "displaynames.$digest.v1", "redsquare.displaynames.v1", "displaynames.")
@@ -31,9 +31,8 @@ internal class DirectoryNameStore(context: Context, owner: String, backend: Sait
                 val name = text(row, "name")
                 val map = JsonObject().apply { addProperty(key, name) }
                 require(SaitoNameDirectory.readMappings(map.toString(), listOf(key))[key] == name)
-                val origin = IdentityNameOrigin.valueOf(text(row, "origin"))
-                require(origin == IdentityNameOrigin.SELECTED_NODE ||
-                    (origin == IdentityNameOrigin.DIRECTORY && directoryEndpoint != null))
+                val recordedOrigin = IdentityNameOrigin.valueOf(text(row, "origin"))
+                require(recordedOrigin == origin && origin in setOf(IdentityNameOrigin.SELECTED_NODE, IdentityNameOrigin.DIRECTORY))
                 val time = row.get("checkedAt")
                 require(time.isJsonPrimitive && time.asJsonPrimitive.isNumber)
                 val checkedAt = time.asBigDecimal.longValueExact()
@@ -48,9 +47,8 @@ internal class DirectoryNameStore(context: Context, owner: String, backend: Sait
         val existing = try { load() } catch (_: Exception) { emptyList() }
         val merged = existing.associateBy { it.key }.toMutableMap()
         incoming.forEach { next ->
-            val previous = merged[next.key]
-            if (previous?.origin != IdentityNameOrigin.DIRECTORY || next.origin == IdentityNameOrigin.DIRECTORY)
-                merged[next.key] = next
+            require(next.origin == origin)
+            merged[next.key] = next
         }
         val rows = JsonArray().apply {
             merged.values.sortedByDescending { it.checkedAt }.take(LIMIT).forEach { saved ->
