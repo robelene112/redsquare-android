@@ -73,3 +73,10 @@ separates provider stores, multiplexes map reads independently of four bounded
 strict proof requests, and restores the shared cache family centrally. Exact
 registration verification is unchanged. A subsequent review and final-source
 verification remain required.
+
+[Independent follow-up source reviews](source-reviews-final.json) on `6acabb4b3`
+pass both axes with zero actionable findings. They confirm all three original
+findings are resolved; this is source acceptance rather than final execution or
+release acceptance. Strict proof requests remain bounded to four, without blocking
+map display or the next batch. Provider caches are independent, idle/lifecycle
+peers close, and cancellation is checked under the storage lock before commits.

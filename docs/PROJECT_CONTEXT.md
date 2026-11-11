@@ -30,8 +30,12 @@ viewport seams remain authorized; keep original goals and deadlines.
 Actual native RED runs reproduce missing names, no-navigation recovery failure,
 loss on recreation and selected-node recovery failure. The first directory label
 passes Android17 run42991535779; transient recovery passes Android10 run42991531381.
-Bounded encrypted directory cache, provenance and the separate provider preference
-are implemented, with further native checks in progress. Source and evidence are
+Bounded encrypted per-provider directory cache, provenance and the separate provider
+preference are implemented. Both initial focused SDK runs pass, including the actual
+reported public names and six compact viewport cells. Independent source review
+corrections separate proof latency and provider caches and preserve shared fixture
+state. Follow-up Spec and Standards reviews pass on `6acabb4b3`; corrected native
+checks and the original16 Username cases are in progress. Source and evidence are
 recorded in [ticket100](evidence/ticket100/README.md). Complete Android10/17,
 independent reviews, compatible signed update and exact beta verification remain
 required before closing100. Keep #1/#36/#55/#84/#86 open.
