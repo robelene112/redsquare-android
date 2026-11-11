@@ -422,6 +422,11 @@ if [[ "${TEST_SCOPE:-full}" == destination-reveal* ]]; then
     verify_group_chat_native DestinationRevealMotionTest 180 destination-reveal destination-reveal-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == name-directory-isolation* ]]; then
+    verify_group_chat_native NameDirectoryIsolationTest 180 name-directory-isolation name-directory-isolation-evidence
+    printf '%s\n' 'Native display-name isolation only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == name-directory-choice* ]]; then
     verify_group_chat_native NameDirectoryChoiceTest 180 name-directory-choice name-directory-choice-evidence
     printf '%s\n' 'Native name-provider choice and viewport checks only; not complete application acceptance.' > "$evidence/scope.txt"
