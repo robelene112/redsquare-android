@@ -37,6 +37,8 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
     if (session == null) { content(null, {}); return }
     val context = androidx.compose.ui.platform.LocalContext.current
     val scope = rememberCoroutineScope()
+    val focus = androidx.compose.ui.platform.LocalFocusManager.current
+    val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
     val notifications = rememberFileNotificationGate()
     val binding = "${session.owner}:${session.backend.id}:${session.contact}"
     var pickingFor by rememberSaveable(binding) { mutableStateOf<String?>(null) }
@@ -59,7 +61,10 @@ internal fun FileAttachment(session: FileSession?, enabled: Boolean, beforePicke
         if (enabled && ready && !busy && pickingFor == null) scope.launch {
             try {
                 if (beforePicker() && currentEnabled) {
-                    notifications.run { pickingFor = binding; pickerFailed = false; picker.launch(arrayOf("*/*")) }
+                    notifications.run {
+                        focus.clearFocus(); keyboard?.hide()
+                        pickingFor = binding; pickerFailed = false; picker.launch(arrayOf("*/*"))
+                    }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { pickingFor = null; pickerFailed = true }
@@ -84,6 +89,8 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
     var selectedSave by rememberSaveable(session.owner, session.contact, session.backend) { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     val navigation = nl.davidengelen.redsquare.feed.LocalPostNavigation.current
+    val focus = androidx.compose.ui.platform.LocalFocusManager.current
+    val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
     val saveBusy = saving != null || selectedSave != null
     val save = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/octet-stream")) { uri: Uri? ->
         val token = selectedSave; selectedSave = null
@@ -100,7 +107,10 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
             selectedSave = value.token; savingError = false
             scope.launch {
                 try {
-                    if (navigation?.save() != false) save.launch(value.offer.name) else selectedSave = null
+                    if (navigation?.save() != false) {
+                        focus.clearFocus(); keyboard?.hide()
+                        save.launch(value.offer.name)
+                    } else selectedSave = null
                 } catch (cancelled: CancellationException) { selectedSave = null; throw cancelled }
                 catch (_: Exception) { selectedSave = null; savingError = true }
             }
