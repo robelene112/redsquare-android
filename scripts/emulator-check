@@ -422,6 +422,11 @@ if [[ "${TEST_SCOPE:-full}" == destination-reveal* ]]; then
     verify_group_chat_native DestinationRevealMotionTest 180 destination-reveal destination-reveal-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
+    verify_group_chat_native NameDirectoryPreviewTest 180 name-directory name-directory-evidence
+    printf '%s\n' 'Native display-name directory only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == stack-live* ]]; then
     # Collect independent focused failures in one run; every class still must pass.
     stack_native_result=0

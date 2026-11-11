@@ -11,14 +11,15 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-Issue #99 is delivered as signed beta108: genuine native public Stack discovery
-and reading, complete Android 10/17 verification, independent reviews, actual
-signed updates and verified public delivery. Stop after this single ticket.
-Further ticket implementation needs the owner's next request. Historical debug
-design scenes remain separate from ordinary Stack. Preserve explicit selected
-node, shared identity and genuine unfinished native publication/access/payment/
-subscription requirements under #1. Parent #1/#36/#55/#84/#86 remain open.
-See [the handoff](handoffs/IMPLEMENTATION.md) and [evidence](evidence/ticket99/README.md).
+Implement issue #100, robust directory display names and recovery, as one issue
+with compatible beta delivery, then stop. Existing public-protocol/native UI/
+controlled-peer/cache seams are authorized. Keep registration and account-ownership
+verification separate and strict; directory labels never change the signing
+identity. The owner requested actual names rather than intermittent anonymous
+labels. Preserve explicit content-node choice and disclose/control the separate
+Saito name-directory lookup. No live writes, production node/service/provider/
+Play changes or owner-phone QA. Parent #1/#36/#55/#84/#86 remain open.
+Beta108 is the accepted baseline; see the current handoff.
 
 ## Load the real skills
 

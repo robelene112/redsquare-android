@@ -1,5 +1,39 @@
 # Implementation handoff
 
+## Active display-name repair #100
+
+The owner requests robust display of the same public author names shown by
+Saitoverse, one issue and compatible beta delivery, then stop. Implement
+[issue100](https://github.com/robelene112/redsquare-android/issues/100).
+Review base `1f12812635690547656e6373f0a45a5c85542780`; public beta108 remains
+unchanged until a replacement is accepted. Preserve the canonical checkout.
+
+Fresh read-only reproduction: the owner node returns empty key/name maps and
+unanswered namechecks for digirok and CryptoKen. The official node returns both
+exact public-key/name mappings. CryptoKen's current registrar proof verifies;
+digirok's historical cached record fails signature verification, including against
+its historical signer. Do not weaken the registration/ownership verifier or add
+that signer as a shortcut. Pinned official Registry source `e6c937c686495a37d8fc94ecc894189e23a453c3`
+uses key/name maps for browser display independently of ownership verification.
+
+Treat directory display labels separately from authenticated registered ownership.
+Keep the exact signing public key for all identity/actions; disclose the display
+name's directory/cache provenance in identity information. Preserve all existing
+strict registration/availability/ownership paths and verified-name cache. Add
+bounded directory cache/recovery and use the approved official Saito name directory
+for missing names without changing the selected content/Chat node. Provide a
+clear preference for that separate lookup and update draft data-flow information.
+No fabricated names, registrations, live transactions, node/service/provider/Play
+changes or owner-phone QA. Existing native UI, signed peer, cache and reversible
+viewport seams remain authorized; keep original goals and deadlines.
+
+The first native tracer adds a controlled second directory peer while the selected
+node returns no name. It must show the directory label and preserve the exact post
+identity without changing the content backend. Production code is still unchanged;
+compile passes and the actual native RED run is next. Complete Android10/17,
+independent reviews, compatible signed update and exact beta verification remain
+required before closing100. Keep #1/#36/#55/#84/#86 open.
+
 ## Delivered native Stack reading #99
 
 Signed [beta 0.1.108](https://davidengelen.nl/redsquare/) replaces ordinary Stack
