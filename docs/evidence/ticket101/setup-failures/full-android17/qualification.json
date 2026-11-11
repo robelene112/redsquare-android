@@ -1,0 +1,7 @@
+{
+  "result": "NOT_APPLICATION_ACCEPTANCE",
+  "primaryConclusion": "cancelled",
+  "reason": "Hosted dependency provisioning stopped before application build/runtime. Failure or explicit setup-only cancellation retained; no partition contributes acceptance.",
+  "failedJobLogSha256": "045080309053c54f72693a0b048ac9acc251f11806d049f44e54b87099aa3269",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/scroll101/full-android17"
+}

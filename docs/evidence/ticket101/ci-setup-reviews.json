@@ -1,0 +1,15 @@
+{
+  "source": "50c224f8061addd5e484a09ed8b089f7728359d9",
+  "standards": {
+    "agent": "scroll101_standards",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "spec": {
+    "agent": "scroll101_spec",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "summary": "Exact six-line mirror correction preserves APT signatures and test goals. Retained pre-cancellation statuses are setup-only. Candidate110 retains product equivalence. Fresh focused/full/update gates remain required.",
+  "authority": "https://raw.githubusercontent.com/actions/runner-images/main/images/ubuntu/scripts/build/configure-apt-sources.sh"
+}

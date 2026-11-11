@@ -72,3 +72,21 @@ Focused runs43034181461/43034186221 fail before application build/runtime becaus
 the Ubuntu24 runner cannot resolve its package mirror. Their original failures
 are [retained](setup-failures). Same-source, unchanged-goal executions use the
 already supported Ubuntu22 runner pool; failed setup never becomes an app pass.
+
+Complete attempts43034659290/43034665079 and supported-pool attempts43035974534/
+43035978384 contribute no application acceptance. The initial Android10 attempt
+fails dependency setup in all jobs; Android17 has setup failures and one cancelled
+setup job. The remaining supported-pool focused/full and initial update attempts
+are explicitly cancelled while still in dependency setup. Fresh primary metadata
+before cancellation is retained alongside final conclusions. No partial app
+partitions are assembled.
+
+The [reviewed CI correction](ci-setup-reviews.json) removes only the exact failing
+Azure-first mirror line from the hosted image's existing APT mirror list and
+requires nonempty remaining official archives. Package signature validation stays
+intact. GitHub's [official runner setup](https://raw.githubusercontent.com/actions/runner-images/main/images/ubuntu/scripts/build/configure-apt-sources.sh)
+confirms Ubuntu22 and24 share that mirror map. New whole10/17, focused and signed
+update runs execute from`50c224f80`. The [exact source bridge](source-equivalence.json)
+checks every tracked top-level Git object except docs/.github, plus the frozen
+contract/verifier: candidate110's compiled application/build/test/harness inputs
+remain identical. Its compiled-source identity stays`64494ef9e`.
