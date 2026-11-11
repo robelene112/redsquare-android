@@ -1,0 +1,28 @@
+{
+  "reviewedHead": "c6011a3f1bbaba5ea2a266826bca2dcfc4ef92e3",
+  "versionCode": 112,
+  "spec": {
+    "reviewer": "/root/stack102_spec",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "standards": {
+    "reviewer": "/root/stack102_standards",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "independentPublicChecks": {
+    "latest": 200,
+    "immutable": 200,
+    "page": 200,
+    "apk": 200,
+    "manifestAndNotesExact": true,
+    "pageLoadsLatestManifest": true,
+    "apkByteIdentical": true,
+    "bytes": 42683434,
+    "sha256": "6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb",
+    "compiledSource": "0fd2133e78688d89f4ae2671b0d5715eba15e127"
+  },
+  "checked": "Both independently fetched public latest/immutable/page/APK, compared approved metadata/certificate/notes/source and actual downloaded bytes, confirmed maintained qualified two-source/full/erratum/original-failure limits and no post-acceptance product drift. Parents1/36/55/84/86 independently remain open.",
+  "qualification": "Dedicated signed beta delivery only; no owner-phone/OEM/provider/Play/live Saito write or production node operation. Candidate111 superseded. Close102 and stop."
+}

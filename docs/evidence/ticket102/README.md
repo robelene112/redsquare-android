@@ -80,4 +80,5 @@ cause also remains unproved. External originals remain under
 `/mnt/storage/redsquare-android-artifacts/stack102` and are bound by packet hashes.
 
 No owner-phone/OEM, provider, Play, live Saito write or production node operation
-is claimed. Parents1/36/55/84/86 remain open. Final independent packet reviews pass and public delivery is verified. Stop after102.
+is claimed. Parents1/36/55/84/86 remain open. Final independent packet and [public delivery reviews](delivery-reviews.json) pass.
+Public delivery is verified. Issue102 is complete; stop until another issue is requested.
