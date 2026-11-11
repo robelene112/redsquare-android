@@ -20,7 +20,6 @@ class FeedReadingRedesignTest {
         }
         val post = RedSquareFeed.readArchive(rows).posts.single { it.text == "Reference post 10" }
         withAppFrameFixture("feed-reading", "feed-reading-evidence", rows) {
-            try {
             val readyBy = SystemClock.uptimeMillis() + 15_000
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
@@ -38,9 +37,12 @@ class FeedReadingRedesignTest {
             ui.onNodeWithTag("post-card-${post.id.take(12)}").performScrollTo().assertIsDisplayed()
             target.assertIsDisplayed()
             val before = target.fetchSemanticsNode().boundsInRoot.top
-            fun returned() {
+            fun returned(deadline: Long? = null) {
                 ui.revealAppNavigation()
-                ui.waitUntil(15_000) { target.isDisplayed() }
+                val remaining = deadline?.minus(SystemClock.uptimeMillis()) ?: 15_000
+                check(remaining > 0) { "Save and return exceeded the original15-second budget" }
+                ui.waitUntil(remaining) { target.isDisplayed() }
+                if (deadline != null) check(SystemClock.uptimeMillis() <= deadline)
                 assertEquals("The same feed post retains its pixel offset", before, target.fetchSemanticsNode().boundsInRoot.top, 1f)
             }
             target.performTouchInput { click(center) }
@@ -53,35 +55,47 @@ class FeedReadingRedesignTest {
             ui.onNode(hasText("New post") and hasClickAction()).performClick()
             val editor = ui.onNode(hasSetTextAction() and isEnabled())
             ui.waitUntil(15_000) { editor.isDisplayed() }
-            editor.performScrollTo().performTextReplacement("A retained unsent draft from the scrolled feed")
-            val save = ui.onNode(hasText("Save draft") and hasClickAction())
-            var observedAt = 0L
-            var observedCenter = androidx.compose.ui.geometry.Offset.Zero
-            var observedSize = androidx.compose.ui.unit.IntSize.Zero
-            // Android performClick delegates to this same public touch injection and default click.
-            save.performTouchInput {
-                observedCenter = center; observedSize = visibleSize
-                observedAt = SystemClock.elapsedRealtime()
-                click()
+            // A real IME can move the Save target after editor readiness. Observe the
+            // actual input target within the original15-second save/return budget.
+            val saveDeadline = SystemClock.uptimeMillis() + 15_000
+            fun remainingSave(): Long = (saveDeadline - SystemClock.uptimeMillis()).also {
+                check(it > 0) { "Save and return exceeded the original15-second budget" }
             }
-            File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-touch.json").writeText(
-                com.google.gson.JsonObject().apply {
-                    addProperty("observedAt", observedAt)
-                    addProperty("localCenter", observedCenter.toString()); addProperty("visibleSize", observedSize.toString())
-                }.toString())
-            returned()
+            editor.performScrollTo().performClick()
+            editor.performTextReplacement("A retained unsent draft from the scrolled feed")
+            val save = ui.onNode(hasText("Save draft") and hasClickAction() and isEnabled())
+            val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+            var previous: androidx.compose.ui.geometry.Rect? = null
+            var stableSince = 0L
+            val observations = com.google.gson.JsonArray()
+            try {
+                ui.waitUntil(remainingSave()) {
+                    val ime = focusedWindowImeBottom()
+                    val shown = save.isDisplayed()
+                    val bounds = if (shown) save.fetchSemanticsNode().boundsInRoot else null
+                    val now = SystemClock.uptimeMillis()
+                    val usable = ime > 0 && bounds != null && bounds.width > 0 && bounds.height > 0 &&
+                        bounds.top >= 0 && bounds.bottom <= device.displayHeight - ime
+                    if (!usable || bounds != previous) { previous = if (usable) bounds else null; stableSince = now }
+                    if (observations.size() < 64) observations.add(com.google.gson.JsonObject().apply {
+                        addProperty("elapsedMillis", now); addProperty("imeBottom", ime)
+                        addProperty("shown", shown); addProperty("bounds", bounds?.toString())
+                        addProperty("usable", usable)
+                    })
+                    usable && now - stableSince >= 100
+                }
+                remainingSave()
+                save.assertIsDisplayed().assertIsEnabled().performClick()
+                returned(saveDeadline)
+            } finally {
+                runCatching { File(instrumentation.targetContext.cacheDir,
+                    "feed-reading-evidence/save-target-readiness.json").writeText(observations.toString()) }
+            }
             ui.onNode(hasText("New post") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { editor.isDisplayed() }
             editor.assertTextContains("A retained unsent draft from the scrolled feed")
             ui.onNode(hasText("Back") and hasClickAction()).performClick(); returned()
             captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/retained-feed-anchor.png"))
-            } finally {
-                runCatching {
-                    val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
-                    File(instrumentation.targetContext.cacheDir, "feed-reading-evidence/save-transition.log").writeText(
-                        device.executeShellCommand("logcat -d -v brief -s DEBUG-save-9798:D *:S"))
-                }
-            }
         }
     }
 }

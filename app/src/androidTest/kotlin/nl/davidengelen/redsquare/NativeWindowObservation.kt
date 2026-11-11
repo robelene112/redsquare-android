@@ -16,10 +16,13 @@ internal fun nativeWindowNodes(): List<AccessibilityNodeInfo> {
 }
 
 /** The native vertical viewport, distinct from the app's horizontal mode strip. */
-internal fun nativeVerticalScrollBounds(): android.graphics.Rect {
+internal fun nativeVerticalScrollBounds(expectedText: String? = null): android.graphics.Rect {
+    val nodes = nativeWindowNodes()
+    if (expectedText != null && nodes.none { it.isVisibleToUser && it.text?.toString() == expectedText })
+        throw NoSuchElementException("Expected native viewport content is not ready")
     val directions = setOf(AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_UP.id,
         AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_DOWN.id)
-    val viewport = nativeWindowNodes().filter { node ->
+    val viewport = nodes.filter { node ->
         node.isVisibleToUser && node.isScrollable && node.actionList.any { it.id in directions }
     }.single()
     return android.graphics.Rect().apply { viewport.getBoundsInScreen(this) }

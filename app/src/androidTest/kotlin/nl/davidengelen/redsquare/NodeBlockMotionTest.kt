@@ -99,9 +99,20 @@ class NodeBlockMotionTest {
                         val doneBounds = currentWorkingActionBounds("Done")
                         File(folder, "scale-$scale-working-done-target.json").writeText(
                             "{\"left\":${doneBounds.left},\"top\":${doneBounds.top},\"right\":${doneBounds.right},\"bottom\":${doneBounds.bottom}}")
+                        val closeDeadline = SystemClock.elapsedRealtime() + 3_000
+                        fun closeRemaining(): Long = (closeDeadline - SystemClock.elapsedRealtime()).also {
+                            check(it > 0) { "The feed viewport must return within the original3-second dismissal budget" }
+                        }
                         tap(doneBounds)
-                        check(device.wait(Until.gone(By.text("Connection details")), 3_000))
-                        val list = nativeVerticalScrollBounds()
+                        check(device.wait(Until.gone(By.text("Connection details")), closeRemaining()))
+                        var viewport: android.graphics.Rect? = null
+                        while (viewport == null && SystemClock.elapsedRealtime() < closeDeadline) {
+                            viewport = try { nativeVerticalScrollBounds("Reference post 20") }
+                            catch (_: NoSuchElementException) { null }
+                            if (viewport == null) SystemClock.sleep(16)
+                        }
+                        closeRemaining()
+                        val list = requireNotNull(viewport) { "The actual feed viewport must be available after dismissal" }
                         // Stop the physical drag before releasing it into the reading interval.
                         // An ordinary swipe injects a fling, whose native bounds can lag the display.
                         dragToReadingPosition(list)
