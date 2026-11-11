@@ -11,15 +11,13 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-Implement issue #100, robust directory display names and recovery, as one issue
-with compatible beta delivery, then stop. Existing public-protocol/native UI/
-controlled-peer/cache seams are authorized. Keep registration and account-ownership
-verification separate and strict; directory labels never change the signing
-identity. The owner requested actual names rather than intermittent anonymous
-labels. Preserve explicit content-node choice and disclose/control the separate
-Saito name-directory lookup. No live writes, production node/service/provider/
-Play changes or owner-phone QA. Parent #1/#36/#55/#84/#86 remain open.
-Beta108 is the accepted baseline; see the current handoff.
+Issue #100, robust directory display names and recovery, is implemented and
+delivered in verified signed beta 109. Both complete Android 10/17 runs, actual
+signed updates and independent Spec/Standards reviews pass. Stop here until the
+owner requests another issue. Parent #1/#36/#55/#84/#86 remain open.
+See [the current handoff](handoffs/IMPLEMENTATION.md) and
+[qualified evidence](evidence/ticket100/README.md). No production node/service/
+provider/Play changes, live writes or owner-phone QA were part of this issue.
 
 ## Load the real skills
 

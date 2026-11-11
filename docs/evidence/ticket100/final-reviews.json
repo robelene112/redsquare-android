@@ -1,0 +1,46 @@
+{
+  "scope": "Final paired complete native, source, immutable APK and actual signed-update acceptance before promotion",
+  "reviewBase": "1f12812635690547656e6373f0a45a5c85542780",
+  "completeSource": "759f46f7e0be932507a59c7a37d3c9e31b792997",
+  "compiledApkSource": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "completeRuns": {
+    "android10": {
+      "run": 43005859517,
+      "identities": 650,
+      "originalFiles": 931,
+      "normalCompletions": 246
+    },
+    "android17": {
+      "run": 43006404622,
+      "identities": 651,
+      "originalFiles": 941,
+      "normalCompletions": 247
+    }
+  },
+  "eachSdk": {
+    "classes": 227,
+    "archives": 193,
+    "deliberateInterruptions": 37,
+    "continuityRecords": 36
+  },
+  "spec": {
+    "reviewer": "names100_spec",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "standards": {
+    "reviewer": "names100_standards",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "verification": "Unchanged pre-run100 frozen verifier and contract, all three jobs per whole SDK run. Both independent reviewers regenerated exact identities and original hashes, checked primary metadata and source/workflow/partition markers, actual TAR/XML/PNG/capture timings and public maps. No inherited99 identity was removed or partition assembled across runs.",
+  "functionalEvidence": "Both actual official-directory reads resolve digirok@saito and CryptoKen@saito, while the owner maps are empty. Native evidence supports exact public keys, provenance, cache/offline retention, independent provider controls, transient recovery and selected-node preservation under original goals/deadlines. Actual policy focus requests3693/3531ms remain within5000ms with completed owner/official utterances.",
+  "sourceBridge": "Exact222435-record product bridge6ac-to-de0 and222438-record bridge de0-to759, excluding only the two named and reviewed instrumentation corrections. Later changes are documentation/evidence only. APK109 remains42650666bytes SHA2566d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3. Actual signed83-to109 update and binary reviews remain accepted on both SDKs.",
+  "qualifications": [
+    "Android10 retains its single inherited Profile assumption; both SDKs retain the unavailable chat-image-history archive and four inherited failure-capture placeholders.",
+    "The original FastNext five-second Compose assertion passes. Later focused clipped-row/retained FastFirst and full10 anchor captures establish reading-position/frame state, not independent second-label native ink/timing.",
+    "Fresh focused and final complete agreement checkpoints contain no prior submitted receipt. Restoration passes; the retained-receipt correction is established by the original failed checkpoint containing the receipt and the reviewed exact-owner namespace correction.",
+    "Initial complete failures remain failed and do not contribute accepted partitions.",
+    "Public promotion and exact delivery verification are separate remaining gates. No physical/OEM/provider/Play acceptance is claimed; parents1/36/55/84/86 remain open."
+  ]
+}

@@ -66,7 +66,7 @@ productiemodule en wisselt niet stilzwijgend van node.
 
 ## Controle op je Pixel 7
 
-De gewone [beta108](https://davidengelen.nl/redsquare/) staat online. Deze versie
+De gewone [beta109](https://davidengelen.nl/redsquare/) staat online. Deze versie
 herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
 accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
 Na succesvol plaatsen keer je terug naar de feed of conversatie met kort
@@ -82,16 +82,21 @@ Stack toont nu echte openbare artikelen van de gekozen node, met echte auteurs,
 covers, Markdown en offline lezen. Jouw node heeft momenteel geen Stack-archief;
 kies saito.io in Settings voor de beschikbare artikelen. Lokale schrijfconcepten
 blijven bewaard; publiceren gaat voorlopig via de echte Stack-website.
+De naamherkenning gebruikt nu ook de optionele Saito-naamdirectory, met aparte
+caches en automatisch herstel na tijdelijke fouten. De gemelde accounts leveren
+daar digirok@saito en CryptoKen@saito op. Identity details toont de naambron;
+je publieke sleutel en gekozen node blijven behouden. De aparte lookup is uit
+te schakelen onder Settings, Node.
 Herhaald liken heeft geen lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
 
 De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
-van beta83 naar108 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+van beta83 naar109 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
 en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
 ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
 fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint. Gebruik die niet als definitieve meting van beta108. Voor definitieve
+checkpoint. Gebruik die niet als definitieve meting van beta109. Voor definitieve
 fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en

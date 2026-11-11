@@ -1,0 +1,38 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-11-11T12:09:10.138813+00:00",
+  "versionCode": 109,
+  "compiledSource": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "bytes": 42650666,
+  "sha256": "6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3",
+  "manifestExact": true,
+  "notesExact": true,
+  "pageLoadsLatestManifest": true,
+  "responses": {
+    "latest": {
+      "url": "https://davidengelen.nl/redsquare/latest.json",
+      "status": 200,
+      "contentType": "application/json",
+      "transport": "curl"
+    },
+    "immutable": {
+      "url": "https://davidengelen.nl/redsquare/releases/109/manifest.json",
+      "status": 200,
+      "contentType": "application/json",
+      "transport": "curl"
+    },
+    "page": {
+      "url": "https://davidengelen.nl/redsquare/",
+      "status": 200,
+      "contentType": "text/html",
+      "transport": "curl"
+    },
+    "apk": {
+      "url": "https://davidengelen.nl/redsquare/releases/109/redsquare.apk",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "transport": "curl"
+    }
+  },
+  "qualification": "Dedicated static beta delivery only. Physical/OEM/provider/Play acceptance remains open."
+}

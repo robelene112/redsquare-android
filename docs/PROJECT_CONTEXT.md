@@ -1,54 +1,47 @@
 # Red Square Android project context
 
-## Active display-name repair #100
+## Delivered robust display names #100
 
-The owner requests robust display of the same public author names shown by
-Saitoverse, one issue and compatible beta delivery, then stop. Implement
-[issue100](https://github.com/robelene112/redsquare-android/issues/100).
-Review base `1f12812635690547656e6373f0a45a5c85542780`; public beta108 remains
-unchanged until a replacement is accepted. Preserve the canonical checkout.
+Signed [beta 0.1.109](https://davidengelen.nl/redsquare/) resolves available public
+author names across feed, conversations, profiles, activity and Chat. The reported
+keys resolve to digirok@saito and CryptoKen@saito through the official Saito name
+directory. The owner node returned empty reverse maps for both accounts during
+actual read-only comparisons.
 
-Fresh read-only reproduction: the owner node returns empty key/name maps and
-unanswered namechecks for digirok and CryptoKen. The official node returns both
-exact public-key/name mappings. CryptoKen's current registrar proof verifies;
-digirok's historical cached record fails signature verification, including against
-its historical signer. Do not weaken the registration/ownership verifier or add
-that signer as a shortcut. Pinned official Registry source `e6c937c686495a37d8fc94ecc894189e23a453c3`
-uses key/name maps for browser display independently of ownership verification.
+Directory labels are separate from authenticated registered ownership. The app
+retains exact public keys for identity and actions, shows name provenance in
+Identity details, and preserves the strict current-registrar verification and
+verified-name cache. No historical signer was added to trust. The optional
+saito.io directory uses a separate read-only identity and can be disabled under
+Settings, Node without changing the selected content/Chat node. Provider caches
+are independent; visible names retry after transient errors and survive ordinary
+navigation and offline reading. Draft data-flow documentation records the lookup.
 
-Treat directory display labels separately from authenticated registered ownership.
-Keep the exact signing public key for all identity/actions; disclose the display
-name's directory/cache provenance in identity information. Preserve all existing
-strict registration/availability/ownership paths and verified-name cache. Add
-bounded directory cache/recovery and use the approved official Saito name directory
-for missing names without changing the selected content/Chat node. Provide a
-clear preference for that separate lookup and update draft data-flow information.
-No fabricated names, registrations, live transactions, node/service/provider/Play
-changes or owner-phone QA. Existing native UI, signed peer, cache and reversible
-viewport seams remain authorized; keep original goals and deadlines.
-
-Name lookup, exact identity, cached/offline recovery, provider controls, six compact
-viewport cells and actual public names pass focused Android10/17 verification on
-`6acabb4b3`. Original Username/process/Chat identity scopes pass20 goals per SDK.
-Independent source reviews and actual signed83-to109 artifact/update reviews pass.
-APK109 is staged only,42,650,666bytes, SHA256
+Both complete three-part Android 10/17 runs pass on `759f46f7e`: 650/651 frozen
+identities, 227 classes and 193 archives per SDK, with all inherited goals and
+deadlines retained. Both independent final Spec and Standards reviews pass with
+zero actionable findings. Actual signed 83-to-109 updates preserve wallet,
+draft, cached content, preference and separate debug identity on both emulators.
+The immutable APK is 42,650,666 bytes, SHA256
 `6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3`,
-compiled from `de0ae9b60`. Ordinary latest108 remains unchanged.
+compiled from `de0ae9b60`. An exact source bridge retains that APK across two
+reviewed instrumentation-only corrections. Public latest, immutable manifest,
+page, notes and actual downloaded bytes are verified.
 
-Initial complete runs42998622485/42998903591 were cancelled after distinct Wallet
-fixture failures and are not accepted. Native radio classification and prior
-receipt restoration are corrected in instrumentation only. Both independent
-fixture reviews and focused policy/agreement pairs pass. Product/build/workflow/
-host scripts and the frozen650/651-goal contract remain unchanged; the source
-bridge retains the same reviewed APK109. Corrected complete source is `759f46f7e`.
-Fresh whole Android10 run43005859517 and Android17 run43006404622 are in progress,
-all3jobs required per SDK. Source/evidence/qualifications are in [ticket100](evidence/ticket100/README.md).
-Complete final execution, final independent packet reviews and exact public
-promotion remain required before closing100. Keep #1/#36/#55/#84/#86 open.
+The [ticket100 evidence](evidence/ticket100/README.md) retains original failed executions,
+source bridges, complete results and delivery receipts. The inherited Android 10
+Profile assumption, unavailable Chat archive and failure-capture qualifications
+remain explicit. Fresh agreement checkpoints have no prior receipt; its narrow
+restoration correction relies on the original failing checkpoint and source review.
+Later isolation captures preserve the reading anchor; the original five-second
+assertion establishes the next label, without separate native ink/timing proof.
+No physical/OEM/provider/Play acceptance or production node change is claimed.
+Issue #100 is complete. Keep #1/#36/#55/#84/#86 open and stop until another issue
+is requested. Preserve the canonical checkout.
 
 ## Delivered native Stack reading #99
 
-Signed [beta 0.1.108](https://davidengelen.nl/redsquare/) replaces ordinary Stack
+Signed [beta 0.1.108](https://davidengelen.nl/redsquare/releases/108/redsquare.apk) replaces ordinary Stack
 sample stories with genuine signed public articles from the explicitly selected
 node. Real authors, covers and Markdown images, followed authors, My articles,
 bounded history and retained offline reading use the shared wallet and controls.

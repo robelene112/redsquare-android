@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "sdk": "10",
+  "source": "759f46f7e0be932507a59c7a37d3c9e31b792997",
+  "run": "43005859517",
+  "completedIdentities": 650,
+  "recoveryTotals": {
+    "normalCompletions": 246,
+    "deliberateInterruptions": 37,
+    "continuityRecords": 36
+  },
+  "classes": 227,
+  "assumptions": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 193,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/identity100/full-final-android10",
+  "qualification": "Complete primary run, all3partitions. Original raw artifacts retained externally. No partial assembly or physical/provider/store acceptance."
+}
