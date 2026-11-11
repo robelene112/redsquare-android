@@ -63,15 +63,17 @@ let rtc, dc, makingOffer = false, ignored = false, queuedCandidates = [];
 let pendingFile;
 const polite = Host.publicKey() < Host.nativeKey();
 function signal(request, details = {}) { Host.signal(JSON.stringify({request, ...details})); }
-function connection() {
+function connection(initiator = false) {
   if (rtc && ['new','connecting','connected'].includes(rtc.connectionState) && dc.readyState !== 'closed') return;
   if (rtc) rtc.close();
   rtc = new RTCPeerConnection({iceServers:[]});
   dc = rtc.createDataChannel('data-channel', {negotiated:true, id:42});
-  rtc.onicecandidate = e => { if (e.candidate) signal('peer-candidate', {iceCandidate:e.candidate.toJSON()}); };
+  rtc.onicecandidate = e => { if (e.candidate) signal('peer-candidate', {iceCandidate:{
+    candidate:e.candidate.candidate, sdpMid:e.candidate.sdpMid, sdpMLineIndex:e.candidate.sdpMLineIndex}}); };
   rtc.onnegotiationneeded = async () => {
+    if (!initiator) return; // The controlled receiver answers, avoiding an unrelated legacy-WebView rollback dependency.
     try { makingOffer = true; await rtc.setLocalDescription(await rtc.createOffer());
-      signal('peer-description', {description:rtc.localDescription.toJSON()});
+      signal('peer-description', {description:{type:rtc.localDescription.type,sdp:rtc.localDescription.sdp}});
     } catch (e) { Host.failure(String(e)); } finally { makingOffer = false; }
   };
   dc.onopen = () => { Host.opened(); if (pendingFile) { const action = pendingFile; pendingFile = null; action(); } };
@@ -95,7 +97,7 @@ window.nativeSignal = async body => {
       queuedCandidates = [];
       if (description.type === 'offer') {
         await rtc.setLocalDescription(await rtc.createAnswer());
-        signal('peer-description', {description:rtc.localDescription.toJSON()});
+        signal('peer-description', {description:{type:rtc.localDescription.type,sdp:rtc.localDescription.sdp}});
       }
     } else if (body.request === 'peer-candidate' && !ignored) {
       if (rtc.remoteDescription) await rtc.addIceCandidate(body.iceCandidate);
@@ -121,7 +123,7 @@ window.sendFile = (base64, name, id) => {
       bytesPrev:0, timestampPrev:0, byteRateMax:0};
     fss.addFileUploader(file, id);
   };
-  signal('peer-joined'); connection();
+  signal('peer-joined'); connection(true);
   if (dc.readyState === 'open') { const action = pendingFile; pendingFile = null; action(); }
 };
 window.closePeer = () => { if (rtc) rtc.close(); };

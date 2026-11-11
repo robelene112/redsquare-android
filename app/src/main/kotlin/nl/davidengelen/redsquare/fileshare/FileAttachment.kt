@@ -172,7 +172,9 @@ private fun FileTransferCard(value: FileTransfer, session: FileSession, enabled:
                 } else if (value.incoming && value.phase in setOf(FilePhase.COMPLETE, FilePhase.SAVED)) {
                     FilledTonalButton(enabled = enabled, onClick = { onSave(value) }) { Text(stringResource(R.string.fileshare_save)) }
                 } else if (!value.incoming && value.source != null) {
-                    TextButton(enabled = enabled && !busy, onClick = { session.retry(value.token) }) { Text(stringResource(R.string.fileshare_retry)) }
+                    TextButton(enabled = enabled && !busy, onClick = {
+                        notifications.run { scope.launch { if (publishing.beforePublishing()) session.retry(value.token) } }
+                    }) { Text(stringResource(R.string.fileshare_retry)) }
                 }
             }
             notifications.notice()

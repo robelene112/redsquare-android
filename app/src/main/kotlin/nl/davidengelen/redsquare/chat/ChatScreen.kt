@@ -38,6 +38,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.conflate
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
@@ -120,11 +122,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             throw failure // Failed retention must keep the negative acknowledgement.
         }
     var refresh by remember { mutableIntStateOf(0) }
-    LaunchedEffect(wallet.publicKey, backend) {
-        nl.davidengelen.redsquare.fileshare.FileshareRuntime.chatChanges.collect { binding ->
-            if (binding.first == wallet.publicKey && binding.second == backend) refresh++
-        }
-    }
     var hasOlder by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderLoading by remember(wallet, backend, counterparty) { mutableStateOf(false) }
     var olderRequest by remember(wallet, backend, counterparty) { mutableIntStateOf(0) }
@@ -134,6 +131,28 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         counterparty?.let { ChatReactionState(context, wallet, backend, it, endpoint, scope) }
     }
     LaunchedEffect(reactionState) { reactionState?.load() }
+    LaunchedEffect(wallet.publicKey, backend, counterparty) {
+        nl.davidengelen.redsquare.fileshare.FileshareRuntime.chatChanges.filter { change ->
+            change.first == wallet.publicKey && change.second == backend &&
+                (counterparty == null || change.third == counterparty)
+        }.conflate().collect {
+            try {
+                val contact = counterparty
+                if (contact == null) {
+                    val retained = withContext(Dispatchers.IO) { ChatHistoryStore.contacts(context, wallet, backend) }
+                    contacts = (contacts + retained.accounts).distinct()
+                    if (retained.unavailable) contactsFailed = true
+                    if (retained.unreadable) incomplete = true
+                } else {
+                    val retained = withContext(Dispatchers.IO) { ChatHistoryStore(context, wallet, backend, contact).load() }
+                    entries = ChatHistoryStore.merge(entries, retained.entries)
+                    incomplete = incomplete || retained.incomplete
+                    reactionState?.load()
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { if (counterparty == null) contactsFailed = true else cacheFailed = true }
+        }
+    }
     fun close() {
         if (closing || navigation.transitioning) return
         closing = true

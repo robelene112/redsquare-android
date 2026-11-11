@@ -25,7 +25,8 @@ import java.util.concurrent.atomic.AtomicReference
 abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
-    protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false, denyNotifications: Boolean = false) {
+    protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false,
+        denyNotifications: Boolean = false, preparationCancel: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -46,7 +47,7 @@ abstract class FileshareFixture {
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
             relayResponse = { browserRef.get().relay(it) })
         val bytes = ByteArray(150_007) { ((it * 13 + 7) % 251).toByte() }
-        val sourceName = if (unknown) "unknown-source.bin" else "source.bin"
+        val sourceName = if (preparationCancel) "unknown-stalled-source.bin" else if (unknown) "unknown-source.bin" else "source.bin"
         val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$sourceName")
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/saved.bin")
         val draft = "Keep this unsent message"
@@ -75,7 +76,7 @@ abstract class FileshareFixture {
                 FileshareBrowserPeer(wallet, fixture, pin).use { browser ->
                     browserRef.set(browser)
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                        .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint).putExtra("feedDisabled", true)).use {
+                        .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
                         withFailureCapture({ captureNativeScreen(File(evidence, "failure-${incoming}-${cancel}.png")) }) {
                             waitUntil { ui.onAllNodesWithText("Chat").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText("Chat").performClick()
@@ -115,10 +116,37 @@ abstract class FileshareFixture {
                             } else {
                                 ui.onNodeWithContentDescription("Add media").performClick()
                                 ui.onNodeWithText("Send a file").performClick()
+                                if (preparationCancel) {
+                                    waitUntil {
+                                        context.contentResolver.call(source, "status", null, null)?.getBoolean("firstWritten") == true &&
+                                            session!!.preparation.value?.phase == PreparationPhase.PREPARING
+                                    }
+                                    captureNativeScreen(File(evidence, "preparation-active.png"), "Preparing file…")
+                                    ui.onNodeWithText("Cancel").performScrollTo().performClick()
+                                    waitUntil { session!!.preparation.value?.phase == PreparationPhase.CANCELLED }
+                                    context.contentResolver.call(source, "release", null, null)
+                                    waitUntil { !FileshareRuntime.hasLiveWork() }
+                                    waitUntil {
+                                        context.getSystemService(android.app.ActivityManager::class.java).getRunningServices(100)
+                                            .none { it.service.className == FileTransferService::class.java.name }
+                                    }
+                                    assertTrue(fixture.relayedMessages.isEmpty() && fixture.transactions.isEmpty())
+                                    assertTrue(session!!.transfers.value.isEmpty())
+                                    ui.onNodeWithText(draft).assertExists()
+                                    check(context.noBackupFilesDir.listFiles().orEmpty().none {
+                                        it.name.startsWith("fileshare.") && (it.name.endsWith(".part") || it.name.endsWith(".data"))
+                                    })
+                                    captureNativeScreen(File(evidence, "preparation-cancelled.png"), "Transfer cancelled")
+                                    File(evidence, "preparation-cancelled.json").writeText("{\"result\":\"PASS\",\"controlledPipeBlocked\":true,\"terminalCancelled\":true,\"serviceStopped\":true,\"stagingRemoved\":true,\"draftRetained\":true}")
+                                    return@withFailureCapture
+                                }
                                 waitUntil { browser.chunks.get() > 0 && session!!.transfers.value.any { it.phase == FilePhase.SENDING } }
                             }
                             val token = session!!.transfers.value.first().token
                             if (!incoming) session!!.retry(token) // A stale conflicting Retry must not fail live work.
+                            val duringTransfer = PrivateChat.create(author, wallet.publicKey, "Chat still receives during a file transfer", System.currentTimeMillis())
+                            fixture.sendIncoming(duringTransfer.applicationRequest(1).drop(5).toByteArray(), 3103)
+                            waitUntil { ui.onAllNodesWithText("Chat still receives during a file transfer").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             val notifications = context.getSystemService(NotificationManager::class.java)
                             waitUntil { notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID } }
                             captureNativeScreen(File(evidence, "active-${incoming}-${cancel}.png"))
@@ -172,6 +200,7 @@ abstract class FileshareFixture {
             device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
             cleanupAfterTest(primary,
                 { Intents.release() },
+                { if (preparationCancel) context.contentResolver.call(source, "release", null, null) },
                 { context.getSystemService(NotificationManager::class.java).cancel(FileTransferService.NOTIFICATION_ID) },
                 { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(previousBackend) },
                 { files.restoreFiles() }, { files.restorePreferences() },
@@ -196,4 +225,8 @@ class FileshareUnknownSizePreviewTest : FileshareFixture() {
 class FileshareNotificationPreviewTest : FileshareFixture() {
     @Test fun disabledNotificationsExplainTheNeededControlsWithoutStartingATransferOrLosingTheDraft() =
         transfer(incoming = false, denyNotifications = true)
+}
+class FilesharePreparationCancelPreviewTest : FileshareFixture() {
+    @Test fun cancellationDuringStreamingPreparationCannotRestartWorkAndStopsTheForegroundService() =
+        transfer(incoming = false, preparationCancel = true)
 }

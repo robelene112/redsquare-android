@@ -41,7 +41,7 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
                 addJavascriptInterface(Bridge(), "Host")
                 webChromeClient = object : WebChromeClient() {
                     override fun onConsoleMessage(message: ConsoleMessage): Boolean {
-                        if (message.messageLevel() == ConsoleMessage.MessageLevel.ERROR) errors.add(message.message())
+                        if (message.messageLevel() == ConsoleMessage.MessageLevel.ERROR) errors.add("${message.lineNumber()}: ${message.message()}")
                         return true
                     }
                 }

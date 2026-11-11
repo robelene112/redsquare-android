@@ -23,7 +23,7 @@ internal object FileshareRuntime {
     val transfers: StateFlow<List<FileTransfer>> = changes.asStateFlow()
     private val preparingChanges = MutableStateFlow<List<FilePreparation>>(emptyList())
     val preparations = preparingChanges.asStateFlow()
-    val chatChanges = MutableSharedFlow<Pair<String, SaitoBackend>>(extraBufferCapacity = 16)
+    val chatChanges = MutableSharedFlow<Triple<String, SaitoBackend, String?>>(extraBufferCapacity = 16)
     fun session(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String): FileSession {
         require(SaitoWallet.isPublicKey(contact) && contact != wallet.publicKey)
         return sessions.computeIfAbsent("${wallet.publicKey}:${backend.id}:$endpoint:$contact") {
@@ -37,7 +37,7 @@ internal object FileshareRuntime {
     fun cancel(token: String) { sessions.values.forEach { it.cancel(token) } }
     fun stopAll() { sessions.values.forEach { it.interrupt() } }
     @Synchronized fun hasLiveWork() = sessions.values.any { session ->
-        session.transfers.value.any { it.phase.active } || session.preparation.value?.phase == PreparationPhase.PREPARING
+        session.foregroundOwned || session.transfers.value.any { it.phase.active } || session.preparation.value?.phase == PreparationPhase.PREPARING
     }
 }
 
@@ -70,7 +70,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var lastPublication = 0L
     private var checkedRevision = -1L
     private var checkedAt = 0L
-    private var serviceStarted = false
+    @Volatile private var serviceStarted = false
+    val foregroundOwned get() = serviceStarted
     private var observers = 0
     private var loaded = false
     private var watchdog: Job? = null
@@ -258,7 +259,11 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                     activityAt = System.currentTimeMillis()
                     if (activityAt - lastPublication >= 100) {
                         lastPublication = activityAt
-                        preparationState.value = pending.copy(name = filename, bytes = bytes); changed()
+                        preparationState.update { current ->
+                            if (current?.token == pending.token && current.phase == PreparationPhase.PREPARING)
+                                current.copy(name = filename, bytes = bytes) else current
+                        }
+                        changed()
                     }
                 }
                 progress(0)
@@ -295,6 +300,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private fun finishPreparation(phase: PreparationPhase) {
         val pending = preparationState.value ?: return
         if (pending.phase != PreparationPhase.PREPARING) return
+        preparationState.update { current ->
+            if (current?.token == pending.token && current.phase == PreparationPhase.PREPARING) current.copy(phase = phase) else current
+        }
         preparationJob?.cancel(); preparationJob = null
         preparingWork?.let { work ->
             work.cancellation.cancel()
@@ -302,8 +310,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         }
         preparingWork = null
         store.discard(pending.token)
-        val stopped = pending.copy(phase = phase)
-        preparationState.value = stopped; store.savePreparation(stopped); changed()
+        store.savePreparation(pending.copy(phase = phase)); changed()
         if (phase == PreparationPhase.FAILED) error.value = true
         cleanup()
     }
@@ -321,8 +328,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         val connection = SaitoPeer(wallet, endpoint, onIncoming = { bytes ->
             try {
                 if (!receive(bytes)) {
-                    receiveChat(context, wallet, backend, bytes, endpoint)
-                    FileshareRuntime.chatChanges.tryEmit(owner to backend)
+                    val savedContact = receiveChat(context, wallet, backend, bytes, endpoint)
+                    FileshareRuntime.chatChanges.tryEmit(Triple(owner, backend, savedContact))
                 }
                 true
             } catch (_: Exception) { false }

@@ -87,11 +87,13 @@ android {
 
 // Compatibility specimens enter the instrumentation APK only, never the application.
 val fileshareReferenceAssets = layout.buildDirectory.dir("generated/fileshare-reference-assets")
+val fileshareCompiler by configurations.creating
 val prepareFileshareReference by tasks.registering {
     val pins = mapOf(
         "9a4ca7e9442eb5e872168ced361ce741d7d139d7" to "082cd20fd07c76b4cbd43e42ff87d9626bd9631410aa676a5a3b667fc2776406",
         "e6c937c686495a37d8fc94ecc894189e23a453c3" to "1de51975798726b58c00a043cc95cdca9e52c4b85def7d08da5644ee719b238c")
     inputs.property("pins", pins)
+    inputs.property("compiler", "v20240317-ES2018") // Java17-compatible test tool; API29's stock WebView predates optional chaining.
     outputs.dir(fileshareReferenceAssets)
     doLast {
         val directory = fileshareReferenceAssets.get().asFile.apply { mkdirs() }
@@ -99,7 +101,14 @@ val prepareFileshareReference by tasks.registering {
             val bytes = URI("https://raw.githubusercontent.com/SaitoTech/saito/$pin/node/mods/fileshare/fileshare.js")
                 .toURL().openConnection().apply { connectTimeout = 15_000; readTimeout = 15_000 }.getInputStream().use { it.readBytes() }
             check(MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) } == hash)
-            directory.resolve("fileshare-$pin.js").writeBytes(bytes)
+            val original = directory.resolve("fileshare-$pin.raw.js").apply { writeBytes(bytes) }
+            javaexec {
+                classpath = fileshareCompiler
+                mainClass.set("com.google.javascript.jscomp.CommandLineRunner")
+                args("--compilation_level", "WHITESPACE_ONLY", "--language_in", "ECMASCRIPT_NEXT", "--language_out", "ECMASCRIPT_2018",
+                    "--formatting", "PRETTY_PRINT", "--rewrite_polyfills", "false", "--js", original.absolutePath,
+                    "--js_output_file", directory.resolve("fileshare-$pin.js").absolutePath)
+            }.assertNormalExitValue()
         }
     }
 }
@@ -107,6 +116,7 @@ android.sourceSets.getByName("androidTest").assets.srcDir(fileshareReferenceAsse
 tasks.configureEach { if (name == "mergeDebugAndroidTestAssets") dependsOn(prepareFileshareReference) }
 
 dependencies {
+    add(fileshareCompiler.name, "com.google.javascript:closure-compiler:v20240317")
     implementation(project(":core"))
     implementation("io.github.webrtc-sdk:android:150.7871.04")
     // Opt-in diagnostics only; ordinary performance builds retain their release-equivalent inputs.

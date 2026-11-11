@@ -178,6 +178,10 @@ verify_group_chat_native() {
     # Instrumentation can abort when Android itself reports a system crash.
     # Retain the real crash buffer without retrying or accepting the failed class.
     timeout 10 adb logcat -d -b crash -v threadtime > "$evidence/$prefix-failure-crash.txt" 2>&1 || true
+    if [[ "$prefix" == fileshare-* ]]; then
+        timeout 10 adb logcat -d -b main -b system -b events -v threadtime > "$evidence/$prefix-failure-context.txt" 2>&1 || true
+        timeout 10 adb shell dumpsys activity processes > "$evidence/$prefix-failure-processes.txt" 2>&1 || true
+    fi
     return 1
 }
 if [[ "${TEST_SCOPE:-full}" == push-binding-cache-regression* ]]; then
@@ -486,6 +490,7 @@ verify_fileshare() {
     verify_group_chat_native FileshareCancelPreviewTest 180 fileshare-cancel fileshare-evidence
     verify_group_chat_native FileshareUnknownSizePreviewTest 180 fileshare-unknown-size fileshare-evidence
     verify_group_chat_native FileshareNotificationPreviewTest 180 fileshare-notifications fileshare-evidence
+    verify_group_chat_native FilesharePreparationCancelPreviewTest 180 fileshare-preparation-cancel fileshare-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == fileshare* ]]; then
     verify_fileshare

@@ -276,6 +276,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val receiveUpdates=remember(wallet.publicKey,backend){Channel<Unit>(Channel.CONFLATED)}
     val receiveStorageFailed=remember(wallet.publicKey,backend){java.util.concurrent.atomic.AtomicBoolean(false)}
     val receiveStore by rememberUpdatedState(store)
+    LaunchedEffect(wallet.publicKey, backend) {
+        nl.davidengelen.redsquare.fileshare.FileshareRuntime.chatChanges.collect { change ->
+            if (change.first == wallet.publicKey && change.second == backend && change.third == null)
+                receiveUpdates.trySend(Unit)
+        }
+    }
     LaunchedEffect(wallet.publicKey,backend){
         try {
             for(ignored in receiveUpdates){

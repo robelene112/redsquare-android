@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareSendPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FileshareSendPreviewTest:
+INSTRUMENTATION_STATUS: test=aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareSendPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Browser fixture did not initialize: [Uncaught SyntaxError: Unexpected token .]
+	at nl.davidengelen.redsquare.FileshareBrowserPeer.<init>(FileshareBrowserPeer.kt:55)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:75)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareSendPreviewTest.aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff(FilesharePreviewTest.kt:185)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff(nl.davidengelen.redsquare.FileshareSendPreviewTest):
+java.lang.IllegalStateException: Browser fixture did not initialize: [Uncaught SyntaxError: Unexpected token .]
+	at nl.davidengelen.redsquare.FileshareBrowserPeer.<init>(FileshareBrowserPeer.kt:55)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:75)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareSendPreviewTest.aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff(FilesharePreviewTest.kt:185)
+
+INSTRUMENTATION_STATUS: test=aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.315
+There was 1 failure:
+1) aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff(nl.davidengelen.redsquare.FileshareSendPreviewTest)
+java.lang.IllegalStateException: Browser fixture did not initialize: [Uncaught SyntaxError: Unexpected token .]
+	at nl.davidengelen.redsquare.FileshareBrowserPeer.<init>(FileshareBrowserPeer.kt:55)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:75)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareSendPreviewTest.aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff(FilesharePreviewTest.kt:185)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

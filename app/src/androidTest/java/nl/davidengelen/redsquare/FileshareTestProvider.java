@@ -16,6 +16,8 @@ import java.io.FileNotFoundException;
 
 /** Instrumentation APK only. A controlled external document boundary, never packaged in the app. */
 public final class FileshareTestProvider extends ContentProvider {
+    private static volatile java.util.concurrent.CountDownLatch gate = new java.util.concurrent.CountDownLatch(1);
+    private static volatile boolean firstWritten;
     private File file(String name) {
         if (name == null || !name.matches("[a-zA-Z0-9_-]{1,60}\\.bin")) throw new IllegalArgumentException("Invalid synthetic document");
         File directory = new File(getContext().getFilesDir(), "fileshare-test-documents");
@@ -33,7 +35,10 @@ public final class FileshareTestProvider extends ContentProvider {
         return cursor;
     }
     @Override public Bundle call(String method, String name, Bundle extras) {
+        if ("release".equals(method)) { gate.countDown(); return new Bundle(); }
+        if ("status".equals(method)) { Bundle status = new Bundle(); status.putBoolean("firstWritten", firstWritten); return status; }
         if (!"prepare".equals(method)) throw new IllegalArgumentException("Unknown synthetic document action");
+        if (name.startsWith("unknown-stalled")) { gate = new java.util.concurrent.CountDownLatch(1); firstWritten = false; }
         File target = file(name);
         try (FileOutputStream out = new FileOutputStream(target)) { out.write(extras.getByteArray("bytes")); }
         catch (Exception failure) { throw new IllegalStateException(failure); }
@@ -42,6 +47,24 @@ public final class FileshareTestProvider extends ContentProvider {
         return new Bundle();
     }
     @Override public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+        if ("r".equals(mode) && uri.getLastPathSegment().startsWith("unknown-stalled")) {
+            try {
+                final ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
+                final File source = file(uri.getLastPathSegment());
+                new Thread(() -> {
+                    try (java.io.InputStream input = new java.io.FileInputStream(source);
+                         java.io.OutputStream output = new ParcelFileDescriptor.AutoCloseOutputStream(pipe[1])) {
+                        byte[] first = new byte[64256];
+                        int size = input.read(first);
+                        output.write(first, 0, size); output.flush(); firstWritten = true;
+                        gate.await(30, java.util.concurrent.TimeUnit.SECONDS);
+                        byte[] remaining = new byte[8192];
+                        while ((size = input.read(remaining)) > 0) output.write(remaining, 0, size);
+                    } catch (Exception ignored) { /* Cancellation intentionally closes this fixture pipe. */ }
+                }, "controlled-file-provider").start();
+                return pipe[0];
+            } catch (java.io.IOException failure) { throw new FileNotFoundException("Controlled provider unavailable"); }
+        }
         return ParcelFileDescriptor.open(file(uri.getLastPathSegment()), ParcelFileDescriptor.parseMode(mode));
     }
     @Override public int delete(Uri uri, String selection, String[] args) { return file(uri.getLastPathSegment()).delete() ? 1 : 0; }
