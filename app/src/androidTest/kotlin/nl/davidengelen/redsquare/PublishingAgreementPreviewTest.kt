@@ -23,8 +23,13 @@ class PublishingAgreementPreviewTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }
-            ?.forEach { check(it.delete()) }
+        // Match PostDraftStore's ownership while AtomicFile can rename its backup.
+        synchronized(nl.davidengelen.redsquare.saito.SaitoLocalState.lock) {
+            context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") }
+                ?.forEach { file -> check(file.delete()) {
+                    "Could not clear synthetic draft ${file.name}: exists=${file.exists()} directory=${file.isDirectory} writable=${file.canWrite()}"
+                } }
+        }
     }
 
     @Test fun failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried() {
