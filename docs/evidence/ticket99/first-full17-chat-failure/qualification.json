@@ -1,0 +1,9 @@
+{
+  "run": 42963706966,
+  "source": "f7c92f01961c28be567d07c868625d78d1a3ee89",
+  "partition": "chat",
+  "jobConclusion": "failure",
+  "qualification": "Early named-artifact diagnostic from the complete dispatch. Other partitions may still run; this failed Chat partition is never combined into acceptance. Later classes including final Stack grammar did not execute in this partition.",
+  "observed": "NodeBlockPreviewTest.missingInitialMetadataDoesNotInventAZeroHeightOrHideAvailablePosts assumes Block unavailable implies a rendered feed. Actual failure XML shows Loading posts; cache observation already has one authenticated reference row. Metadata and feed application complete independently.",
+  "correction": "Within the existing single15s readiness budget, observe BOTH Block unavailable and actual reference post, then retain the original display/details/noBlock0/noLastCheck assertions. Post-observation wall-clock check preserves the bound. No production, identity, timeout or expectation removed."
+}

@@ -131,7 +131,13 @@ class NodeBlockPreviewTest {
                 nodeBlockApiUrl = "http://127.0.0.1:${node.port}/options") { _ ->
                 ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
                 ui.onNodeWithText("Later").performClick()
-                ui.waitUntil(15_000) { ui.onNodeWithText("Block unavailable").isDisplayed() }
+                val readyDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+                // Node metadata and authenticated feed application finish independently.
+                ui.waitUntil(15_000) {
+                    ui.onNodeWithText("Block unavailable").isDisplayed() &&
+                        ui.onNodeWithText("Native Red Square reference post").isDisplayed()
+                }
+                check(android.os.SystemClock.elapsedRealtime() <= readyDeadline) { "Initial metadata and available posts retain the original fifteen-second goal" }
                 ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                 ui.onNodeWithContentDescription("Connection details").performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Block information unavailable").isDisplayed() }
