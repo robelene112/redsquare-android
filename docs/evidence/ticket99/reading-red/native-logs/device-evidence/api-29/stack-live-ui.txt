@@ -1,0 +1,239 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.StackLivePreviewTest:
+INSTRUMENTATION_STATUS: test=genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Stack design preview' (ignoreCase: false))
+Node found:
+Node #276 at (l=172.0, t=136.0, r=302.0, b=184.0)px
+Focused = 'false'
+IsContainer = 'true'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Stack design preview]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation$lambda$13(StackLivePreviewTest.kt:42)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$ONFPyDvgeJ9f2yFn9kW9XgZnM_Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(StackLivePreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: stream=
+Error in genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(nl.davidengelen.redsquare.StackLivePreviewTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Stack design preview' (ignoreCase: false))
+Node found:
+Node #276 at (l=172.0, t=136.0, r=302.0, b=184.0)px
+Focused = 'false'
+IsContainer = 'true'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Stack design preview]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation$lambda$13(StackLivePreviewTest.kt:42)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$ONFPyDvgeJ9f2yFn9kW9XgZnM_Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(StackLivePreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: test=genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes$lambda$22$lambda$21(StackLivePreviewTest.kt:94)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$YoD7Y6lpCK719tNXXFGhmzU2g5M(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes$lambda$22(StackLivePreviewTest.kt:92)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$w8cqQYqoh7HISlhGGeOJliumdwU(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes(StackLivePreviewTest.kt:87)
+
+INSTRUMENTATION_STATUS: stream=
+Error in liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.StackLivePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes$lambda$22$lambda$21(StackLivePreviewTest.kt:94)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$YoD7Y6lpCK719tNXXFGhmzU2g5M(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes$lambda$22(StackLivePreviewTest.kt:92)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$w8cqQYqoh7HISlhGGeOJliumdwU(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes(StackLivePreviewTest.kt:87)
+
+INSTRUMENTATION_STATUS: test=liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=emptyNodeOffersARealChoiceWithoutInventingStories
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StackLivePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.emptyNodeOffersARealChoiceWithoutInventingStories$lambda$29(StackLivePreviewTest.kt:121)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$lpoI2XHEwAUSEHbrVtGHx4QtH9I(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.emptyNodeOffersARealChoiceWithoutInventingStories(StackLivePreviewTest.kt:115)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emptyNodeOffersARealChoiceWithoutInventingStories(nl.davidengelen.redsquare.StackLivePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.emptyNodeOffersARealChoiceWithoutInventingStories$lambda$29(StackLivePreviewTest.kt:121)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$lpoI2XHEwAUSEHbrVtGHx4QtH9I(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.emptyNodeOffersARealChoiceWithoutInventingStories(StackLivePreviewTest.kt:115)
+
+INSTRUMENTATION_STATUS: test=emptyNodeOffersARealChoiceWithoutInventingStories
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 42.296
+There were 3 failures:
+1) genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(nl.davidengelen.redsquare.StackLivePreviewTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Stack design preview' (ignoreCase: false))
+Node found:
+Node #276 at (l=172.0, t=136.0, r=302.0, b=184.0)px
+Focused = 'false'
+IsContainer = 'true'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Stack design preview]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation$lambda$13(StackLivePreviewTest.kt:42)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$ONFPyDvgeJ9f2yFn9kW9XgZnM_Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.genuineSignedStoryOpensItsAuthorAndSurvivesOfflineRecreation(StackLivePreviewTest.kt:36)
+2) liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.StackLivePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes$lambda$22$lambda$21(StackLivePreviewTest.kt:94)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$YoD7Y6lpCK719tNXXFGhmzU2g5M(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes$lambda$22(StackLivePreviewTest.kt:92)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$w8cqQYqoh7HISlhGGeOJliumdwU(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.liveCardsAndReadingRemainUsableAcrossThemesAndTextSizes(StackLivePreviewTest.kt:87)
+3) emptyNodeOffersARealChoiceWithoutInventingStories(nl.davidengelen.redsquare.StackLivePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.emptyNodeOffersARealChoiceWithoutInventingStories$lambda$29(StackLivePreviewTest.kt:121)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.$r8$lambda$lpoI2XHEwAUSEHbrVtGHx4QtH9I(Unknown Source:0)
+	at nl.davidengelen.redsquare.StackLivePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$21$lambda$20$lambda$19(AppFrameFixture.kt:82)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Q-aTv_gZ-b7jvX3jB95q7wauFp8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:78)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StackLivePreviewTest.emptyNodeOffersARealChoiceWithoutInventingStories(StackLivePreviewTest.kt:115)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1
