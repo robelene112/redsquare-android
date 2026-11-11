@@ -100,7 +100,7 @@ class FeedScrollIoPreviewTest {
                         }.toString())
                 })
             }
-            captureNativeScreen(File(context.cacheDir, "feed-scroll-io-evidence/new-post-while-saving.png"))
+            captureNativeScreen(File(context.cacheDir, "feed-scroll-io-evidence/new-post-after-cache-restoration.png"))
         }
     }
 }

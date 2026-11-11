@@ -117,9 +117,10 @@ internal object SocialActionOperations {
     fun hasWork(owner: String): Boolean = synchronized(SaitoLocalState.lock) {
         active.keys.any { it.owner == owner }
     }
-    fun busy(owner: String, backend: SaitoBackend, key: PostActionKey): Boolean = synchronized(SaitoLocalState.lock) {
+    // Snapshot membership is reactive and safe to read without waiting for durable I/O.
+    // Actual operation claims still serialize with identity changes and journal writes.
+    fun busy(owner: String, backend: SaitoBackend, key: PostActionKey): Boolean =
         active.containsKey(Key(owner, backend, key))
-    }
     fun acquire(owner: String, backend: SaitoBackend, key: PostActionKey, token: Any): Boolean = synchronized(SaitoLocalState.lock) {
         val full = Key(owner, backend, key)
         if (active.containsKey(full)) false else { active[full] = Active(token); true }

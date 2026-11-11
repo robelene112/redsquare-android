@@ -22,9 +22,11 @@ then identifies main-thread monitor contention in SocialActionOperations.busy,
 waiting on SaitoLocalState.lock while a background thread is in FileDescriptor.sync.
 The native FeedScrollIoPreviewTest now reproduces rendering new signed posts
 while an unrelated owned durable transaction remains pending. Its3000ms UI goal
-and8000ms controlled gate are defined before the fix; the actual RED remains
-required. Keep all atomic claims, journal writes and identity checks serialized.
-The ordinary app has not been changed yet. The R8 experiment did not complete
+and8000ms controlled gate were defined before the fix. Old-source run43032048915
+failed the real UI goal at8375ms; its owned worker and files restored cleanly. Keep all atomic claims, journal writes and identity checks serialized.
+The rendering-only status read now uses the reactive SnapshotStateMap directly,
+without the unrelated durable-I/O lock. All operation claims and identity/journal
+mutations remain serialized. Focused green and complete acceptance are pending. The R8 experiment did not complete
 its bounded local build and was removed without claiming a performance result.
 See #101 for acceptance.
 

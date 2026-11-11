@@ -85,10 +85,12 @@ android {
 }
 dependencies {
     implementation(project(":core"))
-    // Composition sections are visible only in the isolated profiling package.
-    add("performanceImplementation", "androidx.compose.runtime:runtime-tracing")
-    add("performanceImplementation", "androidx.tracing:tracing-perfetto:1.0.0")
-    add("performanceImplementation", "androidx.tracing:tracing-perfetto-binary:1.0.0")
+    // Opt-in diagnostics only; ordinary performance builds retain their release-equivalent inputs.
+    if (providers.gradleProperty("scrollCompositionTracing").orNull == "true") {
+        add("performanceImplementation", "androidx.compose.runtime:runtime-tracing")
+        add("performanceImplementation", "androidx.tracing:tracing-perfetto:1.0.1")
+        add("performanceImplementation", "androidx.tracing:tracing-perfetto-binary:1.0.1")
+    }
     implementation("com.squareup.okhttp3:okhttp:5.4.0")
     androidTestImplementation("com.squareup.okhttp3:mockwebserver3:5.4.0")
     implementation("com.google.code.gson:gson:2.12.1")

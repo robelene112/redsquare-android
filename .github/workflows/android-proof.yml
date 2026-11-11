@@ -190,7 +190,7 @@ jobs:
           VERIFICATION_SCOPE: ${{ inputs.scope || 'source' }}
         run: |
           if [[ "$VERIFICATION_SCOPE" == scroll-profile* ]]; then
-            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :app:assemblePerformance
+            ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" -PscrollCompositionTracing=true :app:assemblePerformance
           elif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
             ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance
           else
