@@ -1,0 +1,7 @@
+{
+  "result": "NOT_COMPLETE_ACCEPTANCE",
+  "primaryConclusion": "cancelled",
+  "android10WalletJvmFailure": true,
+  "reason": "Original Android10 Wallet build failed existing verification-observer assertion. Other jobs and Android17 were cancelled before new complete executions at corrected source. No partial job contributes acceptance.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/scroll101/full-mirror-android10"
+}
