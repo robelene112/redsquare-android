@@ -172,6 +172,12 @@ jobs:
           sudo chmod a+rw /dev/kvm
           # This Kotlin/JVM proof does not use the runner's large native SDKs.
           sudo rm -rf /usr/local/lib/android/sdk/ndk
+          # Hosted images share an Azure-first mirror list across Ubuntu versions.
+          # Keep the signed official archives when that mirror cannot resolve.
+          if [[ -f /etc/apt/apt-mirrors.txt ]]; then
+            sudo sed -i '\|^http://azure\.archive\.ubuntu\.com/ubuntu/[[:space:]]|d' /etc/apt/apt-mirrors.txt
+            test -s /etc/apt/apt-mirrors.txt
+          fi
           sudo apt-get update -qq
           TASK_ALSA=libasound2t64
           TASK_GLIB=libglib2.0-0t64
