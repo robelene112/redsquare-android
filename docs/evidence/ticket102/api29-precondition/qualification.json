@@ -1,0 +1,8 @@
+{
+  "run": "43062409635",
+  "source": "d08aa7df522efc4359ca9428e2a786bbf1139dcb",
+  "failedJob": "130668336866",
+  "observed": "API29 native process maxBytes16777216 versus declared memoryClassMiB512. Existing AvatarRecoveryPreviewTest guard failed before fixture writes.",
+  "disposition": "Retain actual failure; cancel remaining incomplete10 jobs, accept no partial result. Fresh complete10 run43066244144 executes all3jobs at exactsame source, with every original assertion/deadline. Original17 continues independently.",
+  "cause": "Unproved. This observation does not establish an app regression or resolve the emulator condition."
+}

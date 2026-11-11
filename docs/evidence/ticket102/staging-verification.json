@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "candidate": 111,
+  "compiledSource": "d08aa7df522efc4359ca9428e2a786bbf1139dcb",
+  "sha256": "22e9fb4e11032aa70560a9e245e6b121494ee3362e6794c0d42a010fbea2c37f",
+  "bytes": 42683434,
+  "publicLatestAfterStage": 110,
+  "qualification": "Actual staged HTTP download matches signed local APK; complete SDK and actual signed update acceptance pending. Initial Python urllib read returned HTTP403; existing curl delivery transport succeeded.",
+  "manifestExact": true,
+  "notesExact": true,
+  "downloadExact": true
+}

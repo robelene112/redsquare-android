@@ -1,0 +1,90 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+> Task :rich-editor-compat:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :rich-editor-compat:preBuild UP-TO-DATE
+> Task :rich-editor-compat:preDebugBuild UP-TO-DATE
+> Task :rich-editor-compat:generateDebugResValues UP-TO-DATE
+> Task :rich-editor-compat:generateDebugResources UP-TO-DATE
+> Task :rich-editor-compat:packageDebugResources UP-TO-DATE
+> Task :rich-editor-compat:parseDebugLocalResources UP-TO-DATE
+> Task :rich-editor-compat:generateDebugRFile UP-TO-DATE
+> Task :rich-editor-compat:compileDebugKotlin UP-TO-DATE
+
+BUILD SUCCESSFUL in 20s
+6 actionable tasks: 6 up-to-date
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:processResources NO-SOURCE
+> Task :core:processTestResources UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :rich-editor-compat:preBuild UP-TO-DATE
+> Task :rich-editor-compat:preDebugBuild UP-TO-DATE
+> Task :rich-editor-compat:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :rich-editor-compat:generateDebugResValues UP-TO-DATE
+> Task :rich-editor-compat:generateDebugResources UP-TO-DATE
+> Task :rich-editor-compat:packageDebugResources UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:mergeDebugResources
+> Task :app:packageDebugResources
+> Task :app:parseDebugLocalResources
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :rich-editor-compat:extractDeepLinksDebug UP-TO-DATE
+> Task :rich-editor-compat:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :rich-editor-compat:compileDebugLibraryResources UP-TO-DATE
+> Task :rich-editor-compat:parseDebugLocalResources UP-TO-DATE
+> Task :rich-editor-compat:generateDebugRFile UP-TO-DATE
+> Task :app:processDebugResources
+> Task :rich-editor-compat:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :rich-editor-compat:compileDebugKotlin UP-TO-DATE
+> Task :rich-editor-compat:javaPreCompileDebug UP-TO-DATE
+> Task :rich-editor-compat:compileDebugJavaWithJavac NO-SOURCE
+> Task :rich-editor-compat:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:processDebugAndroidTestManifest UP-TO-DATE
+> Task :app:generateDebugAndroidTestBuildConfig UP-TO-DATE
+> Task :app:checkDebugAndroidTestAarMetadata UP-TO-DATE
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :app:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugAndroidTestResources UP-TO-DATE
+> Task :app:mergeDebugAndroidTestResources UP-TO-DATE
+> Task :app:processDebugAndroidTestResources UP-TO-DATE
+> Task :core:compileKotlin
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar
+> Task :core:compileTestKotlin
+> Task :app:compileDebugKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :core:test
+
+> Task :app:compileDebugKotlin
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:75:41 'fun rememberTransformableState(onTransformation: (@ParameterName(...) Float, @ParameterName(...) Offset, @ParameterName(...) Float) -> Unit): TransformableState' is deprecated. Prefer remembering a TransformableState with a onTransformation lambda that takes the centroid. This centroid (if specified) is the point at which zooming or rotation should happen around which allows for more natural transformations.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ImageViewer.kt:157:51 'fun rememberTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API that takes a preferred positioning. Please use rememberTooltipPositionProvider with TooltipAnchorPosition.Above if this same behavior is desired.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackEditor.kt:107:21 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/stack/StackLocalEditor.kt:34:21 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+w: file:///workspace/app/src/main/kotlin/nl/davidengelen/redsquare/ui/AppFrame.kt:162:71 'fun rememberPlainTooltipPositionProvider(spacingBetweenTooltipAndAnchor: Dp = ...): PopupPositionProvider' is deprecated. Deprecated in favor of rememberTooltipPositionProvider API.
+
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:compileDebugAndroidTestKotlin
+w: file:///workspace/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt:208:96 'var isChecked: Boolean' is deprecated. Deprecated in Java.
+w: file:///workspace/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt:209:92 'var isChecked: Boolean' is deprecated. Deprecated in Java.
+w: file:///workspace/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt:231:70 'var isChecked: Boolean' is deprecated. Deprecated in Java.
+
+BUILD SUCCESSFUL in 5m 20s
+44 actionable tasks: 13 executed, 31 up-to-date
