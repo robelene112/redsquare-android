@@ -1,6 +1,6 @@
 {
   "baselineSource": "d46cce88b800639ffffe1ae60af5ae509e121676",
-  "basis": "Retain every accepted102 identity, archive, recovery assertion and original deadline, carrying its independently reviewed Stack-link archive catalog correction into this pre-run contract. Add eight native Fileshare classes (send, receive, real notification Cancel, unknown-size document, disabled notifications, preparation Cancel, 320/412dp themes/text) and actual cold-process recovery from seeded encrypted partial state. No partial SDK assembly, live-peer process-death claim, new assumption or weaker inherited validator.",
+  "basis": "Retain every accepted102 identity, archive, recovery assertion and original deadline, carrying its independently reviewed Stack-link archive catalog correction into this pre-run contract. Add eight native Fileshare classes (send, receive, real notification Cancel, unknown-size document, disabled notifications, preparation Cancel, 320/412dp themes/text) and actual cold-process recovery from seeded encrypted partial state. No partial SDK assembly, live-peer process-death claim, new assumption or weaker inherited validator. Add one larger4MiB browser-receive journey per SDK to exercise bounded intake beyond the small-file example, with actual screen-off completion and exact saved bytes. This additive pre-run amendment preserves the initial103 contract in Git and weakens no goal.",
   "baselineIdentitySha256": {
     "10": "d38badbcdefa32e8f008111118eafb4e5a2cc05036011b2698b9d0cd333f7495",
     "17": "7c853fdc618908296de8686da8d5d2f802623f73d2dc8684a43b2fcbc9534a63"
@@ -3978,6 +3978,12 @@
         "path": "fileshare-process/restored.txt",
         "testClass": "nl.davidengelen.redsquare.FileshareProcessRecoveryTest",
         "test": "restoreOriginalEncryptedInstallationFiles",
+        "occurrences": 1
+      },
+      {
+        "path": "fileshare-large-receive-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.FileshareLargeReceivePreviewTest",
+        "test": "aLargerUnpacedBrowserFileCompletesWithScreenOffAndSavesEveryByte",
         "occurrences": 1
       }
     ],
@@ -7959,6 +7965,12 @@
         "testClass": "nl.davidengelen.redsquare.FileshareProcessRecoveryTest",
         "test": "restoreOriginalEncryptedInstallationFiles",
         "occurrences": 1
+      },
+      {
+        "path": "fileshare-large-receive-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.FileshareLargeReceivePreviewTest",
+        "test": "aLargerUnpacedBrowserFileCompletesWithScreenOffAndSavesEveryByte",
+        "occurrences": 1
       }
     ]
   },
@@ -8175,12 +8187,12 @@
   "qualification": "Must be committed before the complete final runs; exact checked-out source and all3partitions required. Focused runs are not acceptance.",
   "expectedRecoveryTotals": {
     "10": {
-      "normalCompletions": 258,
+      "normalCompletions": 259,
       "deliberateInterruptions": 38,
       "continuityRecords": 37
     },
     "17": {
-      "normalCompletions": 259,
+      "normalCompletions": 260,
       "deliberateInterruptions": 38,
       "continuityRecords": 37
     }
@@ -8193,5 +8205,10 @@
     "legacy-visual-errors10.json": "2dfd0e1477f247da6bfb9595acb3ef39cc44dfba8ac5cacd4b4f42b1be65c0d2",
     "legacy-visual-errors17.json": "289e44a0d4d8a367def390d1b9dee41cbb734b636300d181ab01801faa17ea7b"
   },
-  "inheritedContractSha256": "9364a0eebd9181dd61ada2115abeda9b8158065da2c7d46f826b57e6cd45f4c8"
+  "inheritedContractSha256": "9364a0eebd9181dd61ada2115abeda9b8158065da2c7d46f826b57e6cd45f4c8",
+  "supersedesPreRunContract": {
+    "commit": "bc8becd077bb7248c547cbbde7965bf00553a912",
+    "sha256": "276acfe4db4f82b2a42a5b67917626c377f82306c10252582705c98372f1748a",
+    "reason": "Add a 4 MiB unpaced browser-to-native transfer before any complete final run. Every original goal and deadline remains."
+  }
 }

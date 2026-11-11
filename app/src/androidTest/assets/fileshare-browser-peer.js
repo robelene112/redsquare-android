@@ -116,15 +116,20 @@ Object.assign(fss, {app, publicKey:Host.publicKey(), name:'Fileshare', chunkSize
     if (tx.msg.request === 'share file' && holdChunks && chunksSent++ > 0) { heldChunks.push(text); return; }
     dc.send(text);
   }}});
-window.sendFile = (base64, name, id) => {
+function shareFile(file, id) {
   pendingFile = () => {
-    const file = new File([decode(base64)], name, {type:'application/octet-stream'});
     fss.outgoing_files[id] = {recipient:Host.nativeKey(), overlay:new FileShareOverlay(), offset:0,
       bytesPrev:0, timestampPrev:0, byteRateMax:0};
     fss.addFileUploader(file, id);
   };
   signal('peer-joined'); connection(true);
   if (dc.readyState === 'open') { const action = pendingFile; pendingFile = null; action(); }
+}
+window.sendFile = (base64, name, id) => shareFile(new File([decode(base64)], name, {type:'application/octet-stream'}), id);
+window.sendGeneratedFile = (size, name, id) => {
+  const bytes = new Uint8Array(size);
+  for (let i = 0; i < size; i++) bytes[i] = (i * 13 + 7) % 251;
+  shareFile(new File([bytes], name, {type:'application/octet-stream'}), id);
 };
 window.closePeer = () => { if (rtc) rtc.close(); };
 Host.ready();

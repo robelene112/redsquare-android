@@ -26,7 +26,7 @@ abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
     protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false,
-        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null) {
+        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -44,7 +44,13 @@ abstract class FileshareFixture {
         val browserRef = AtomicReference<FileshareBrowserPeer>()
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
             relayResponse = { browserRef.get().relay(it) })
-        val bytes = ByteArray(150_007) { ((it * 13 + 7) % 251).toByte() }
+        if (large && android.os.Build.VERSION.SDK_INT == 29) {
+            val declared = context.getSystemService(android.app.ActivityManager::class.java).memoryClass.toLong() * 1024 * 1024
+            val actual = Runtime.getRuntime().maxMemory()
+            File(evidence, "large-heap-precondition.json").writeText("{\"declaredBytes\":$declared,\"actualBytes\":$actual}")
+            assertEquals("Require actual VM heap parity with Android's declared memory class", declared, actual)
+        }
+        val bytes = ByteArray(if (large) 4_194_317 else 150_007) { ((it * 13 + 7) % 251).toByte() }
         val sourceName = if (preparationCancel) "unknown-stalled-source.bin" else if (unknown) "unknown-source.bin" else "source.bin"
         val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$sourceName")
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/saved.bin")
@@ -59,7 +65,7 @@ abstract class FileshareFixture {
         try {
             files.prepare(); backends.save(SaitoBackend.OWNER); wallets.replace(wallets.loadOrCreate(), wallet)
             if (!permitted && !denyNotifications) device.executeShellCommand("pm grant ${context.packageName} android.permission.POST_NOTIFICATIONS")
-            context.contentResolver.call(source, "prepare", sourceName, Bundle().apply { putByteArray("bytes", bytes) })
+            if (!incoming) context.contentResolver.call(source, "prepare", sourceName, Bundle().apply { putByteArray("bytes", bytes) })
             if (unknown) context.contentResolver.query(source, arrayOf(android.provider.OpenableColumns.SIZE), null, null, null)!!.use {
                 check(it.moveToFirst() && it.isNull(0))
             }
@@ -81,7 +87,8 @@ abstract class FileshareFixture {
                             ui.onNodeWithText("Chat").performClick()
                             waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText(author.publicKey).performClick()
-                            waitUntil { ui.onAllNodesWithText("Message").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                            waitUntil { ui.onAllNodes(hasText("Message") and hasSetTextAction() and isEnabled())
+                                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText("Message").performClick().performTextInput(draft)
                             if (focusedWindowImeBottom() > 0) device.pressBack()
                             session = FileshareRuntime.session(context, wallet, SaitoBackend.OWNER, endpoint, author.publicKey)
@@ -130,7 +137,8 @@ abstract class FileshareFixture {
                             }
                             browser.hold(receipts = !incoming, chunks = incoming)
                             if (incoming) {
-                                browser.send(bytes, "from-browser.bin", "browser103")
+                                if (large) browser.sendGenerated(bytes.size, "from-browser.bin", "browser103")
+                                else browser.send(bytes, "from-browser.bin", "browser103")
                                 waitUntil { ui.onAllNodesWithText("Accept file").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                                 assertTrue(session!!.transfers.value.single().phase == FilePhase.OFFERED)
                                 assertEquals(0L, session!!.transfers.value.single().bytes)
@@ -241,6 +249,10 @@ abstract class FileshareFixture {
                                         waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                                         ui.onNodeWithText(author.publicKey).performClick()
                                         waitUntil { ui.onAllNodesWithText("File saved").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                        ui.waitUntil(15_000) {
+                                            ui.onAllNodes(hasText("Save as…") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
+                                                ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                                        }
                                         ui.onNodeWithText("Save as…").performScrollTo().assertIsDisplayed()
                                             .assertIsEnabled()
                                         // Material paints40dp inside its48dp native touch/accessibility
@@ -263,7 +275,7 @@ abstract class FileshareFixture {
                             assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
                             assertTrue(fixture.transactions.isEmpty()) // No broadcast transaction carries a file.
                             fixture.assertHealthy()
-                            File(evidence, "result-${incoming}-${cancel}-${unknown}.json").writeText(com.google.gson.JsonObject().apply {
+                            File(evidence, "result-${incoming}-${cancel}-${unknown}${if (large) "-large" else ""}.json").writeText(com.google.gson.JsonObject().apply {
                                 addProperty("result", "PASS"); addProperty("incoming", incoming); addProperty("cancel", cancel)
                                 addProperty("sourcePin", pin); addProperty("bytes", bytes.size)
                                 addProperty("sha256", MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) })
@@ -318,4 +330,8 @@ class FileshareNarrowViewportTest : FileshareFixture() {
 class FilesharePixelViewportTest : FileshareFixture() {
     @Test fun receivedFilesAndUnsentDraftsRemainUsableAcrossThemesAndLargeTextAt412dp() =
         transfer(incoming = true, viewportWidth = 412)
+}
+class FileshareLargeReceivePreviewTest : FileshareFixture() {
+    @Test fun aLargerUnpacedBrowserFileCompletesWithScreenOffAndSavesEveryByte() =
+        transfer(incoming = true, large = true)
 }

@@ -110,8 +110,43 @@ daemon disappearance. Docker records an OOM event for the release-only container
 the compile-then-packaging heap lifetime exceeded its2.5GiB limit. Packaging in a
 fresh compiler-free process succeeds in1m29s. The signed-review script now uses
 separate compiler/packaging lifetimes with the exact same reserved version/options.
-No service or memory limit on the VPS is changed. Local originals remain in
-`/tmp/redsquare-fileshare-release*.log`; these failures contribute no acceptance.
+No service or memory limit on the VPS is changed. Local originals are retained in
+external `fileshare103/local-checks`; these failures contribute no acceptance.
+
+## Later native outcomes and additive pre-run amendment
+
+Android17 run43119241646 at `0cf44e7fc` passes the complete focused scope:
+all eight classes, both widths/themes/text matrices and actual distinct-PID
+recovery from seeded encrypted partial state. This is focused acceptance only.
+Android10 at the same source passes the six base cases and the full320dp matrix,
+then catches an asynchronous Back/Home fixture race before412dp configuration.
+The caller now waits for the inbox and Home selection under one15second bound.
+Its later358 run43120670937 reaches412dp but asserts before the draft and its
+Save-as control finish loading. The driver now awaits their enabled/retained
+state before the original visibility/size assertions. Capture10seconds,
+configuration15seconds and per-class180seconds remain unchanged.
+
+Earlier e8 runs43114519958/43115267318 preserve the actual wrong-selector and
+Android10 notification-fixture failures. API29 appops alone did not change the
+manager's notification-enabled preference; the negative case now changes and
+independently restores the actual Android Show notifications switch. The Back
+selector follows its real text label. The40dp paint failure at38d is retained:
+native XML already shows a48dp clickable parent, now measured with the original
+0.5dp tolerance. Actual200% status clipping then led to reserving more file-preview
+space while keeping the complete editable draft. Both source-review axes pass
+these corrections. The earlier fb4 Save-as failure's precise cause remains
+unproved; its original byte, save and draft goals are retained.
+
+Before any complete final run, the initial103 contract is superseded additively
+to require a4MiB unpaced upstream-browser reception, screen-off completion and
+exact saved bytes. The initial contract remains pinned by commit and checksum;
+the new collector requires every initial identity, archive, exception, validator
+and recovery total, adding just one normal class per SDK. New expected10/17:
+663/664identities,239classes,197archives,259/260normal completions,
+38interruptions and37continuity records. Focused `fileshare-large` scopes retain
+the180second class bound and do not replace whole-app acceptance. The browser
+generates the declared fixture bytes locally, avoiding a large Android Binder
+argument while using the same pinned uploader and real WebRTC channel.
 
 ## Verification boundaries
 

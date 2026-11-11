@@ -494,6 +494,7 @@ verify_fileshare() {
     verify_fileshare_case FileshareNarrowViewportTest fileshare-viewport-320
     verify_fileshare_case FilesharePixelViewportTest fileshare-viewport-412
     python3 "$repo_dir/scripts/fileshare-process-check" --evidence "$evidence/fileshare-process"
+    verify_fileshare_case FileshareLargeReceivePreviewTest fileshare-large-receive
 }
 verify_fileshare_case() {
     local case_class=$1 case_prefix=$2 mode=${3:-ordinary} case_exit=0
@@ -522,6 +523,11 @@ print(match.group(1) if match else "default")')
     adb shell appops set nl.davidengelen.redsquare.dev POST_NOTIFICATION "$old_notification_op"
     return "$case_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == fileshare-large* ]]; then
+    verify_fileshare_case FileshareLargeReceivePreviewTest fileshare-large-receive
+    printf '%s\n' 'Large Fileshare controlled interoperability only; not complete application acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == fileshare* ]]; then
     verify_fileshare
     printf '%s\n' 'Fileshare focused verification only; not complete application acceptance.' > "$evidence/scope.txt"

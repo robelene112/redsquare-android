@@ -64,6 +64,9 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
     fun send(bytes: ByteArray, name: String, id: String) {
         evaluate("sendFile(${com.google.gson.JsonPrimitive(Base64.getEncoder().encodeToString(bytes))},${com.google.gson.JsonPrimitive(name)},${com.google.gson.JsonPrimitive(id)})")
     }
+    fun sendGenerated(size: Int, name: String, id: String) {
+        evaluate("sendGeneratedFile($size,${com.google.gson.JsonPrimitive(name)},${com.google.gson.JsonPrimitive(id)})")
+    }
     fun disconnect() = evaluate("closePeer()")
     fun hold(receipts: Boolean, chunks: Boolean) = evaluate("holdTransfer($receipts,$chunks)")
     fun release() = evaluate("releaseTransfer()")

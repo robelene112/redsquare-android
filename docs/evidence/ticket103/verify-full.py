@@ -69,6 +69,18 @@ contract_bytes = git("show", source + ":" + contract_path)
 assert contract_bytes == (packet / "full-contract.json").read_bytes(), "Contract changed after execution"
 assert git("show", source + ":docs/evidence/ticket103/verify-full.py") == Path(__file__).read_bytes(), "Verifier changed after execution"
 contract = json.loads(contract_bytes)
+initial_reference = contract["supersedesPreRunContract"]
+initial_bytes = git("show", initial_reference["commit"] + ":" + contract_path)
+assert hashlib.sha256(initial_bytes).hexdigest() == initial_reference["sha256"]
+initial_contract = json.loads(initial_bytes)
+for platform in ("10", "17"):
+    old_rows = {(r["path"], r["testClass"], r["test"]): r["occurrences"] for r in initial_contract["expected"][platform]}
+    new_rows = {(r["path"], r["testClass"], r["test"]): r["occurrences"] for r in contract["expected"][platform]}
+    assert len(new_rows) == len(old_rows) + 1 and all(new_rows.get(k) == v for k, v in old_rows.items())
+    for key, value in initial_contract["expectedRecoveryTotals"][platform].items():
+        assert contract["expectedRecoveryTotals"][platform][key] == value + (1 if key == "normalCompletions" else 0)
+for key in ("requiredArchivePaths", "allowedAssumption", "inheritedUnavailableArchives", "identityParserSha256", "inheritedValidatorSha256"):
+    assert contract[key] == initial_contract[key], ("Changed initial103 requirement", key)
 baseline_bytes = git("show", source + ":docs/evidence/ticket102/full-contract.json")
 assert hashlib.sha256(baseline_bytes).hexdigest() == contract["inheritedContractSha256"]
 baseline = json.loads(baseline_bytes)
@@ -78,7 +90,7 @@ for platform in ("10", "17"):
     previous = {(r["path"], r["testClass"], r["test"]): r["occurrences"] for r in baseline["expected"][platform]}
     current = {(r["path"], r["testClass"], r["test"]): r["occurrences"] for r in contract["expected"][platform]}
     assert all(current.get(key) == value for key, value in previous.items())
-    assert len(current) == len(previous) + 10
+    assert len(current) == len(previous) + 11
 prior_archives = {p.replace("social/stack-link-evidence.tar", "chat/stack-link-evidence.tar") for p in baseline["requiredArchivePaths"]}
 assert set(contract["requiredArchivePaths"]) == prior_archives | {"chat/fileshare-evidence.tar", "chat/fileshare-process/images.tar"}
 metadata = json.loads(subprocess.check_output([
@@ -233,6 +245,11 @@ with tarfile.open(fileshare_root / "fileshare-evidence.tar") as archive:
                          ("preparation-cancelled.json", ("controlledPipeBlocked", "terminalCancelled", "serviceStopped", "stagingRemoved", "draftRetained"))):
         result = json.loads(file_evidence(name))
         assert result["result"] == "PASS" and all(result[field] is True for field in fields)
+    large = json.loads(file_evidence("result-true-false-false-large.json"))
+    assert large["result"] == "PASS" and large["incoming"] and not large["cancel"]
+    assert large["bytes"] == 4194317 and large["actualWebRtc"] and large["screenOffObserved"]
+    assert large["sourcePin"] == "9a4ca7e9442eb5e872168ced361ce741d7d139d7"
+    assert large["sha256"] == hashlib.sha256(bytes((i * 13 + 7) % 251 for i in range(4194317))).hexdigest()
     for width in (320, 412):
         for scale in (100, 130, 200):
             for theme in ("light", "dark"):
