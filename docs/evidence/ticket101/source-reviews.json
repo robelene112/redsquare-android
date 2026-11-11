@@ -1,0 +1,17 @@
+{
+  "reviewBase": "c8f1654a1",
+  "source": "b381590d60f82d6d4ff0bfbf1f92f44e1ccd1d2c",
+  "standards": {
+    "agent": "scroll101_standards",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "summary": "Read-only rendering membership uses SnapshotStateMap without the disk lock. Claims, identity coordination and durable mutations remain serialized. Native regression owns and independently restores its worker/files; tracing dependencies opt in only. Frozen goals strictly add one regression per SDK."
+  },
+  "spec": {
+    "agent": "scroll101_spec",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "summary": "Actual main-thread trace identifies durable-I/O contention, and old-source native regression fails8375ms under unchanged3000ms goal. Exact additive contract preserves inherited acceptance. Green, comparable diagnostics, whole SDK and signed delivery remain required."
+  },
+  "qualification": "Independent source review only. Runtime and signed-delivery gates remain pending."
+}
