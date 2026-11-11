@@ -46,11 +46,17 @@ class FileTransferService : Service() {
                 delay(1000)
                 if (!FileshareRuntime.hasLiveWork() && android.os.SystemClock.elapsedRealtime() - lastCommandAt >= 2000) {
                     stoppingNormally = true
+                    // Detach before requesting service destruction. Stopping first lets Android
+                    // cancel the still-foreground notification before the detach reaches it.
+                    stopForeground(if (lastToken == null) STOP_FOREGROUND_REMOVE else STOP_FOREGROUND_DETACH)
                     if (stopSelfResult(lastStartId)) {
-                        stopForeground(if (lastToken == null) STOP_FOREGROUND_REMOVE else STOP_FOREGROUND_DETACH)
                         return@launch
                     }
                     stoppingNormally = false
+                    val latest = FileshareRuntime.transfers.value.firstOrNull { it.token == lastToken }
+                    val preparing = FileshareRuntime.preparations.value.firstOrNull { it.token == lastToken }
+                    val alert = latest?.let(::notification) ?: preparing?.let(::notification)
+                    if (alert != null) startForeground(NOTIFICATION_ID, alert, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
                 }
             }
         }

@@ -445,7 +445,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         val generation = channelGeneration
         readJob = scope.launch(Dispatchers.IO) {
             try {
-                val bytes = ByteArray(minOf(Fileshare.CHUNK_BYTES.toLong(), value.offer.size - value.bytes).toInt())
+                // A legacy browser can advertise a 64 KiB SCTP message limit. Base64 inside
+                // the signed JSON envelope expands twice, so 32 KiB leaves room for metadata.
+                val bytes = ByteArray(minOf(32_768L, value.offer.size - value.bytes).toInt())
                 var count = 0
                 while (count < bytes.size) {
                     ensureActive()
