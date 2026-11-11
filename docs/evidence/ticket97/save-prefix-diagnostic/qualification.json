@@ -1,0 +1,9 @@
+{
+  "run": 42926336107,
+  "source": "80ec866e523f5f2aa8cec278e2b030100e6a236c",
+  "scope": "Single Social prefix through FeedReading, diagnostic only",
+  "result": "PASS_SELECTED_PREFIX",
+  "originals": "/mnt/storage/redsquare-android-artifacts/ui9798-save-prefix-raw/diagnostic-save-prefix-android17",
+  "actual": "Save outer bounds moved235px after editor readiness. At356864ms touch was observed, callback356866ms, successful persistence+close356880ms. Original target method passed10.839s.",
+  "qualification": "Successful diagnostic with timing probes only. Does not prove historical cause, fixture-only causation, final17 acceptance or staged107 acceptance. Temporary main probes removed at82c; original failed complete runs remain failed."
+}
