@@ -17,6 +17,16 @@ Android app can support through a compatible native feature.
 A registered name associated with a Saito wallet's public identity, displayed
 in place of its anonymous name. It is distinct from the profile bio or banner.
 
+**Display name**:
+A readable label reported for a public key by a name directory, or retained
+from an earlier lookup. It helps people recognise an account but does not
+change that account’s public-key identity or establish current name ownership.
+
+**Registered username ownership**:
+An active association between a Saito username and a public key established
+by a valid registration-authority signature. It is distinct from a directory’s
+display-name report and from the name someone writes in a post.
+
 **Available chat history**:
 Messages retained on the current device or recoverable from the selected
 backend or compatible peers, which the user's identity can read. Availability
