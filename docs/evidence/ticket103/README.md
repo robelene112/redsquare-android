@@ -80,6 +80,21 @@ backend and draft continuity. It does not claim process interruption of a live
 peer. Device-only encrypted originals and preferences are restored independently.
 Both source-review axes pass the recovery gate; its runtime result remains pending.
 
+## Pre-run complete acceptance contract
+
+[The new contract](full-contract.json) retains all102 identities and their exact
+occurrences, original validators, assumptions and deadlines. The already reviewed
+Stack-link archive path correction is incorporated before these runs;102's frozen
+files stay unchanged. Eight native classes and two normal cold-recovery methods
+add ten identities per SDK. Expected10/17:662/663identities,238classes,197archives,
+258/259normal completions,38deliberate interruptions and37continuity records.
+[The collector](verify-full.py) additionally requires all transfer outcomes,
+notification/preparation assertions,12native viewport cells and distinct-PID
+seeded-state recovery. Both review axes confirm inherited goals are retained.
+The standards reviewer caught a report-label variable shadowing bug, corrected
+and independently confirmed before freezing or starting any complete run.
+Complete final runtime acceptance remains pending.
+
 ## Verification boundaries
 
 Tests use real native screens, Android document-provider/picker boundaries,
