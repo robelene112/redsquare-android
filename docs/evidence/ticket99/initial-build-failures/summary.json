@@ -1,0 +1,10 @@
+{
+  "result": "FAILURE",
+  "runs": [
+    42944960220,
+    42944963662
+  ],
+  "source": "2aacc97c01695590636925f3df90923a3b7848d4",
+  "qualification": "Both initial focused SDK runs failed during mergeDebugResources with duplicate stack_share_article. No native UI execution occurred in these runs. Fixed by reusing the pre-existing resource and keeping new Stack strings in values/stack.xml.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/stack99-first-focused-raw"
+}

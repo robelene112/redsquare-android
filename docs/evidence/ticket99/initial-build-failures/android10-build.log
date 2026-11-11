@@ -1,0 +1,67 @@
+native-proof (all)	Build and verify native sources	﻿2026-11-11T02:18:04.1926931Z ##[group]Run if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1927409Z ^[[36;1mif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then^[[0m
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1928131Z ^[[36;1m  ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance^[[0m
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1928693Z ^[[36;1melse^[[0m
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1929093Z ^[[36;1m  ./gradlew --no-daemon --console=plain -Dorg.gradle.jvmargs="-Xmx3g -Dfile.encoding=UTF-8" :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest^[[0m
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1929511Z ^[[36;1mfi^[[0m
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1944847Z shell: /usr/bin/bash -e {0}
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1945021Z env:
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1945194Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1945466Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1945796Z   MAVEN_ARGS: -ntp
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1945931Z   VERIFICATION_SCOPE: stack-live
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.1946221Z ##[endgroup]
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8211210Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8233213Z Welcome to Gradle 8.11.1!
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8233767Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8234085Z Here are the highlights of this release:
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8234561Z  - Parallel load and store for Configuration Cache
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8235136Z  - Java compilation errors at the end of the build output
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8235639Z  - Consolidated report for warnings and deprecations
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8236119Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8236463Z For more details see https://docs.gradle.org/8.11.1/release-notes.html
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8236866Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:04.8237656Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:05.8197726Z Daemon will be stopped at the end of the build 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:25.7209454Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0207305Z > Task :core:processResources NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0236676Z > Task :core:processTestResources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0260941Z > Task :push-gateway:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0280453Z > Task :push-gateway:processResources NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0281020Z > Task :push-gateway:processTestResources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0323884Z > Task :app:preBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.0352318Z > Task :app:preDebugBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.1223828Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.1246518Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.1253621Z > Task :app:generateDebugBuildConfig FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.1254056Z > Task :rich-editor-compat:preBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.1254448Z > Task :rich-editor-compat:preDebugBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:26.1254830Z > Task :rich-editor-compat:writeDebugAarMetadata
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.4216933Z > Task :app:checkDebugAarMetadata
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.4237434Z > Task :app:generateDebugResValues FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.4240175Z > Task :rich-editor-compat:generateDebugResValues FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.5202388Z > Task :rich-editor-compat:generateDebugResources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.5215913Z > Task :rich-editor-compat:packageDebugResources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.7197065Z > Task :app:mapDebugSourceSetPaths
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:28.7218733Z > Task :app:generateDebugResources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:29.3236609Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:29.3247667Z ERROR: [string/stack_share_article] /home/runner/work/redsquare-android/redsquare-android/app/src/main/res/values/strings.xml [string/stack_share_article] /home/runner/work/redsquare-android/redsquare-android/app/src/main/res/values/stack.xml: Resource and asset merger: Duplicate resources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:29.3286372Z > Task :app:mergeDebugResources FAILED
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0193732Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0200406Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0200989Z > Task :core:compileKotlin
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0201580Z 13 actionable tasks: 10 executed, 3 from cache
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0201891Z FAILURE: Build failed with an exception.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0206449Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0206908Z * What went wrong:
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0207290Z Execution failed for task ':app:mergeDebugResources'.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0208474Z > [string/stack_share_article] /home/runner/work/redsquare-android/redsquare-android/app/src/main/res/values/strings.xml	[string/stack_share_article] /home/runner/work/redsquare-android/redsquare-android/app/src/main/res/values/stack.xml: Error: Duplicate resources
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0209543Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0209792Z * Try:
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0210170Z > Run with --stacktrace option to get the stack trace.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0210645Z > Run with --info or --debug option to get more log output.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0211405Z > Run with --scan to get full insights.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0211831Z > Get more help at https://help.gradle.org.
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0212150Z 
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.0212372Z BUILD FAILED in 31s
+native-proof (all)	Build and verify native sources	2026-11-11T02:18:36.6964217Z ##[error]Process completed with exit code 1.
