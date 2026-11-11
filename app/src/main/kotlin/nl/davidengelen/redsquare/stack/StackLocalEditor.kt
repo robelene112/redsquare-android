@@ -26,7 +26,7 @@ import nl.davidengelen.redsquare.ui.*
 @Composable
 internal fun StackLocalEditor(state: StackLocalDraft, review: Boolean, modifier: Modifier,
     chrome: @Composable (Boolean) -> Unit, onBack: () -> Unit, onReview: () -> Unit,
-    onOpenWeb: () -> Unit, footer: @Composable () -> Unit) {
+    onOpenWeb: () -> Unit, feedback: @Composable (Modifier) -> Unit, footer: @Composable () -> Unit) {
     val scope = rememberCoroutineScope()
     val navigation = requireNotNull(LocalPostNavigation.current)
     val focus = LocalFocusManager.current
@@ -73,7 +73,8 @@ internal fun StackLocalEditor(state: StackLocalDraft, review: Boolean, modifier:
         InlineStatus(if (state.error) stringResource(if (state.ready) R.string.stack_draft_save_failed else R.string.stack_draft_load_failed) else null, StatusTone.ERROR,
                 actionLabel = stringResource(R.string.retry), actionEnabled = !state.saving && !state.loading,
                 onAction = { scope.launch { if (state.ready) state.persist() else state.load() } })
-        Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).testTag("stack-local-editor")
+        Box(Modifier.weight(1f).fillMaxWidth()) {
+        Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).testTag("stack-local-editor")
             .padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             if (!state.ready && state.loading) InlineStatus(stringResource(R.string.stack_draft_loading), StatusTone.WORKING)
             else if (state.ready && review) {
@@ -88,6 +89,8 @@ internal fun StackLocalEditor(state: StackLocalDraft, review: Boolean, modifier:
             } else if (state.ready) StackEditorForm(state.draft, state.visual, state::edit, state::editVisual,
                 { leave(onReview) }, sampleMedia = false, enabled = !state.saving)
             Spacer(Modifier.height(16.dp))
+        }
+        feedback(Modifier.align(Alignment.BottomCenter).padding(AppSpacing.screen))
         }
         if (!keyboardVisible) footer()
     }

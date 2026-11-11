@@ -1,0 +1,9 @@
+{
+  "source": "536830d8e68b0b0cd2628db5c055bc257f76dbf4",
+  "runs": [
+    42957364382,
+    42957367268
+  ],
+  "result": "CANCELLED",
+  "qualification": "Both workflows cancelled before runtime acceptance after local compile and source review established three missing AnnotatedString references. Preserve cancelled conclusions; no native success is claimed. Source repairs and a fresh exact-source pair are required."
+}

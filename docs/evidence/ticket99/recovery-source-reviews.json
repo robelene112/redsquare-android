@@ -1,0 +1,30 @@
+{
+  "source": "536830d8e68b0b0cd2628db5c055bc257f76dbf4",
+  "qualification": "Independent source review, no new runtime acceptance. Fixes are under compilation.",
+  "standards": {
+    "agent": "stack99_standards",
+    "findings": [
+      {
+        "severity": "P2",
+        "description": "Native query can finish after reachability deadline. Recheck elapsed time at successful settled observation."
+      },
+      {
+        "severity": "P2",
+        "description": "Moving action failure after a long article hides feedback. Surface Share/open failure through non-reflowing visible feedback, separate from background library recovery."
+      }
+    ]
+  },
+  "spec": {
+    "agent": "stack99_spec",
+    "findings": [
+      {
+        "severity": "compile blocker",
+        "description": "AnnotatedString import removed while exact Markdown recovery assertions still use it."
+      },
+      {
+        "severity": "P2",
+        "description": "Restored list must await personal-controls readiness as well as cache readiness, otherwise a temporary status-only list can still clamp saved reading offset. Keep personal loading/error/Retry reachable separately."
+      }
+    ]
+  }
+}

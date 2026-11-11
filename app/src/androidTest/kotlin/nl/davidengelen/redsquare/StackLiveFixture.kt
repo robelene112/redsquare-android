@@ -42,7 +42,7 @@ internal fun awaitNativeStackArticleCard(device: androidx.test.uiautomator.UiDev
             addProperty("bounds", bounds?.toShortString()); addProperty("viewport", viewport?.toShortString())
             addProperty("visible", visible); addProperty("settled", visible && bounds == previous)
         })
-        if (visible && bounds == previous) return
+        if (visible && bounds == previous && android.os.SystemClock.elapsedRealtime() <= deadline) return
         if (!visible && viewport != null) {
             val upper = viewport.top + viewport.height() / 5
             val lower = viewport.bottom - viewport.height() / 5

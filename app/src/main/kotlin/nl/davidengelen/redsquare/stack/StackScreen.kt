@@ -60,7 +60,16 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         if (route != path.last()) path = if (path.size < 100) path + route
             else listOf(path.first()) + path.takeLast(98) + route
     }
-    var linkFailed by remember { mutableStateOf(false) }
+    var actionError by remember { mutableStateOf<String?>(null) }
+    val actionFeedback = remember { SnackbarHostState() }
+    val openFailure = stringResource(R.string.stack_link_failed)
+    val shareFailure = stringResource(R.string.stack_share_failed)
+    LaunchedEffect(actionError) {
+        actionError?.let {
+            actionFeedback.showSnackbar(it, withDismissAction = true)
+            actionError = null
+        }
+    }
     var editing by rememberSaveable { mutableStateOf(false) }
     var reviewing by rememberSaveable { mutableStateOf(false) }
     var drafts by rememberSaveable { mutableStateOf(false) }
@@ -87,7 +96,7 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         if (!editing && !reviewing && !(tab == StackTab.ARTICLES && drafts)) library?.start()
     }
     fun open(url: String) {
-        try { uri.openUri(url); linkFailed = false } catch (_: Exception) { linkFailed = true }
+        try { uri.openUri(url); actionError = null } catch (_: Exception) { actionError = openFailure }
     }
     fun select(next: StackTab) {
         scope.launch { navigation.navigate {
@@ -100,6 +109,7 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         StackLocalEditor(localDraft, reviewing, modifier, chrome,
             onBack = { if (reviewing) reviewing = false else editing = false },
             onReview = { reviewing = true }, onOpenWeb = { open("${backend.webUrl}/stack?publish=1") },
+            feedback = { SnackbarHost(actionFeedback, it) },
             footer = { ModuleNavigation(StackTab.entries, tab, enabled = !localDraft.saving, onSelect = ::select) })
         return
     }
@@ -118,7 +128,8 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
         it.author in following?.accounts.orEmpty()
     } else visible
     val route = "${tab.name}:${author.orEmpty()}:${articleAuthor.orEmpty()}:${articleId.orEmpty()}:$latest"
-    val revealTarget = route to (articleId == null || library?.cacheReady == true)
+    val readerReady = library?.cacheReady == true && personal?.ready == true
+    val revealTarget = route to (articleId == null || readerReady)
     val reveal = rememberSingleOwnerRevealState(revealTarget)
     Column(modifier) {
         Box(Modifier.weight(1f)) {
@@ -144,17 +155,21 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                                     .putExtra(Intent.EXTRA_TITLE, selected.title)
                                     .putExtra(Intent.EXTRA_TEXT, SaitoStack.articleUrl(selected, backend))
                                 context.startActivity(Intent.createChooser(share, null).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                            } catch (_: Exception) { linkFailed = true }
+                                actionError = null
+                            } catch (_: Exception) { actionError = shareFailure }
                         }
                     }
                     PullToRefreshBox(library?.loading == true, { scope.launch { library?.load() } }, Modifier.weight(1f)) {
                         // Do not attach an empty temporary list to a restored reading offset.
-                        if (articleId != null && library?.cacheReady != true) {
-                            InlineStatus(stringResource(R.string.stack_loading), StatusTone.WORKING)
+                        if (articleId != null && !readerReady) {
+                            Column(Modifier.fillMaxWidth().padding(AppSpacing.screen)) {
+                                nl.davidengelen.redsquare.moderation.PersonalControlsStatus(personal)
+                                if (library?.cacheReady != true) InlineStatus(stringResource(R.string.stack_loading), StatusTone.WORKING)
+                            }
                         } else LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("stack-live-content").then(anchor),
                             contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             if (!readingArticle) item {
-                                StackLibraryStatus(library, linkFailed) { scope.launch { library?.load() } }
+                                StackLibraryStatus(library) { scope.launch { library?.load() } }
                             }
                             if (articleId != null) {
                                 if (selected != null && personal?.ready == true && !personal.policy.hidesSocial(selected.author)) {
@@ -179,7 +194,7 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                                 }
                                 // Background recovery information follows the saved article, so it never moves reading text.
                                 if (readingArticle) item {
-                                    StackLibraryStatus(library, linkFailed) { scope.launch { library?.load() } }
+                                    StackLibraryStatus(library) { scope.launch { library?.load() } }
                                 }
                             } else {
                                 if (author == null && tab == StackTab.ARTICLES) item {
@@ -253,14 +268,15 @@ internal fun StackScreen(wallet: SaitoWallet?, backend: SaitoBackend, endpoint: 
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(18.dp)) {
                 Icon(painterResource(R.drawable.ic_compose), stringResource(R.string.stack_write_article_live))
             }
+            SnackbarHost(actionFeedback, Modifier.align(Alignment.BottomCenter)
+                .padding(horizontal = AppSpacing.screen, vertical = if (articleId == null) 80.dp else AppSpacing.screen))
         }
         ModuleNavigation(StackTab.entries, tab, enabled = true, onSelect = ::select)
     }
 }
 
 @Composable
-private fun StackLibraryStatus(library: StackLibrary?, linkFailed: Boolean, onRetry: () -> Unit) {
-    InlineStatus(if (linkFailed) stringResource(R.string.stack_link_failed) else null, StatusTone.ERROR)
+private fun StackLibraryStatus(library: StackLibrary?, onRetry: () -> Unit) {
     InlineStatus(if (library?.failed == true) stringResource(R.string.stack_load_failed) else null,
         StatusTone.ERROR, actionLabel = stringResource(R.string.retry), onAction = onRetry)
     InlineStatus(if (library?.cacheWarning == true) stringResource(R.string.stack_cache_warning) else null,
