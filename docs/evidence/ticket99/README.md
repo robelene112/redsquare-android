@@ -46,7 +46,14 @@ explicit debug-only fixture and never provide ordinary production fallback data.
 - Selector-corrected focused runs
   [42953889507](https://github.com/robelene112/redsquare-android/actions/runs/42953889507)
   and [42953892154](https://github.com/robelene112/redsquare-android/actions/runs/42953892154)
-  use `29fba31b6e7c49b2430daae915a522b2be048321`; results are pending.
+  use `29fba31b6e7c49b2430daae915a522b2be048321`. Their new viewport/empty
+  and shared navigation cases pass, but the genuine reader exposes omitted fenced
+  code. [Originals and qualification](fenced-code-failure/summary.json) remain failed.
+- [Subsequent source reviews](fenced-offset-source-reviews.json) found an offset
+  mismatch in the first parser repair. [Corrected source approval](source-reviews-e0f5.json)
+  at `e0f58b25d8dba52fce42951cb976e3a7522f24e8` confirms protected literal code
+  and extraction against its matching parsed source. The unchanged native method
+  now also checks exact indentation and stars. Source-only approval.
 
 Large originals stay under `/mnt/storage/redsquare-android-artifacts` with run
 manifests and completed-download markers. The packet retains exact hashes rather

@@ -1,0 +1,23 @@
+{
+  "source": "e0f58b25d8dba52fce42951cb976e3a7522f24e8",
+  "base": "84c9d9baa",
+  "qualification": "Independent read-only source approval only. Earlier f606 SDK runs do not accept the offset/literal patch; fresh corrected native/full/update/delivery gates remain pending.",
+  "standards": {
+    "agent": "stack99_standards",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "observations": [
+      "Protected AST code ranges remain untouched by prose normalization. All token extraction uses exactly its parsed source; sole internal callback caller is updated consistently.",
+      "Stronger native assertions retain original identity/deadline and exact indentation/stars. Earlier reading-window, image/native-motion, navigation and draft findings remain corrected. No new actionable Fowler smells."
+    ]
+  },
+  "spec": {
+    "agent": "stack99_spec",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "observations": [
+      "Offset mismatch corrected; native regression includes preceding prose indentation and literal code indentation/stars.",
+      "No new scope, waived requirement or native publishing/access/payment/subscription completion claim."
+    ]
+  }
+}
