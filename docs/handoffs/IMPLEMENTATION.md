@@ -11,6 +11,45 @@ streaming encrypted storage, foreground ownership and controlled browser/Android
 proofs are being implemented. No Fileshare runtime or delivery acceptance is
 claimed yet. Public beta112 remains the preceding accepted release.
 
+Current continuation (November11,23:57UTC): sole writer checkout remains
+`/mnt/storage/redsquare-android-artifacts/redesign86`, branch
+`codex/unified-redesign`. Focused Android17 run43119241646 at `0cf44e7fc`
+passes all eight base/viewport classes and seeded-state distinct-PID recovery.
+Android10 passes the six base cases and320dp matrix; later412dp fixture races
+are corrected by awaiting Back/Home and the enabled Save-as/draft state.
+All original goals/deadlines remain. The native48dp target is measured separately
+from Material's40dp paint. Large-text file-preview space is fixed in the product.
+
+The additive pre-full4MiB gate passes Android10 run43121961977 at `725d59e95`
+(4,194,317bytes, SHA25679b7c4a8bc98b1395370fcb9ebe466313f3414167583d01098a4238e810d641b,
+actual512MiB heap parity). Android17 run43121965319 fails the unchanged30second
+completion goal while screen-off; its precise cause is unresolved. Diagnostic
+run43123205607 at `3762f1a80674f74974ffc5ee47683e07e98c2a7c` is active. It adds
+browser-produced/acknowledged chunk counters, failure-state JSON and temporary
+`[DEBUG-fs103-large]` queue/exception probes. Distinguish receiver queue pressure,
+backgrounded test-browser production and storage/protocol errors from actual
+observations before fixing. Remove temporary product probes before final proof.
+The browser peer is instrumentation-only and shares this emulator, not an actual
+independent community device. Exact pinned uploader/real WebRTC are retained.
+
+No complete final103 run, signed candidate or delivery has occurred. The revised
+pre-run contract preserves the initial contract by commit/checksum and adds one
+normal class per SDK:663/664identities,239classes,197archives,259/260normal,
+38interruptions and37continuities. Full collector, source review and acceptance
+qualifications are in `docs/evidence/ticket103`. Raw focused artifacts are outside
+Git under `/mnt/storage/redsquare-android-artifacts/fileshare103`.
+Local release packaging and serial debug lint pass after separating compiler
+lifetimes; earlier Docker OOM failures remain in external `local-checks`.
+The signed review script now warms the selected variant with identical reserved
+version/options before fresh-process packaging. No VPS memory/service limit changed.
+
+Reuse `proof-fileshare103-notification-controls` for branch-scoped build caches.
+Always supply a full40character source SHA, check run metadata and actual
+`proof-source.txt`; abbreviated refs caused checkout failures, never acceptance.
+The current beta/version counter remains112. Finish the large-transfer diagnosis,
+all required native/final regression/update proof and signed beta delivery; do not
+start other tickets or ask the owner to repeat phone testing.
+
 
 
 ## Delivered native Stack links #102
