@@ -1,0 +1,25 @@
+{
+  "base": "84c9d9baa",
+  "source": "b8b642c6c58a19b2f29879e1d66252d4ab90a13d",
+  "qualification": "Independent read-only source approval. Local core/native compilation passes. Earlier focused source374 does not accept this grammar correction; the final complete SDK pair must rerun every original and new case.",
+  "standards": {
+    "agent": "stack99_standards",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "observations": [
+      "Ordinary article reader parses original Markdown without editor prose normalization; observed paragraph-to-code conversion addressed.",
+      "Original one-argument API retains behavior; overload is additive. Matching AST source and literal protections remain.",
+      "Stronger semantic emphasis/code assertions retain all identities/deadlines. No additional actionable smells."
+    ]
+  },
+  "spec": {
+    "agent": "stack99_spec",
+    "result": "PASS",
+    "actionableFindings": 0,
+    "observations": [
+      "Two-space article prose remains a paragraph under original Markdown grammar.",
+      "Existing editor normalization stays intact. Same native method now distinguishes rendered prose emphasis from literal code while retaining code indentation/stars.",
+      "No new scope, removed requirement or broader completion claim."
+    ]
+  }
+}

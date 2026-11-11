@@ -59,6 +59,23 @@ Large originals stay under `/mnt/storage/redsquare-android-artifacts` with run
 manifests and completed-download markers. The packet retains exact hashes rather
 than copying emulator installations or large movies into Git.
 
+## Final-source correction and pending complete verification
+
+Both [focused Android10](focused-android10/summary.json) and
+[focused Android17](focused-android17/summary.json) passed all11 required identities
+at `37425866adf50c7c0f1b17ae5d640ca5c5ed3903`. Original image recordings contain
+9/6 intermediate normal-motion frames and no intermediate zero-motion frames.
+The [independent focused reviews](focused-reviews.json) retain a visual finding:
+the editor's indentation cleanup wrongly turned prose into code.
+
+[Corrected source review](source-reviews-commonmark.json) approves the compatible
+reader grammar correction at `b8b642c6c58a19b2f29879e1d66252d4ab90a13d`.
+The ordinary reader parses the original Markdown while the original editor API
+retains its behavior. The same native method now checks rendered prose emphasis
+as well as literal code. Local core/native compilation passes. Final complete
+SDK runs will rerun every Stack case and all inherited application/public gates;
+the old focused source is not combined into final acceptance.
+
 ## Frozen complete contract
 
 [full-contract.json](full-contract.json) and [verify-full.py](verify-full.py) were
