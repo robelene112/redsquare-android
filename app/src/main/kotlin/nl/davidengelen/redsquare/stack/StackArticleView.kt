@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.stack
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -102,9 +105,11 @@ private class StackArticleImageLoader(private val images: Map<String, String>, p
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { failed = true }
         }
-        val fallback = painterResource(R.drawable.ic_image)
-        val delegate = bitmap?.let { BitmapPainter(it) } ?: fallback
-        val painter = remember(delegate, bounds) { StackReaderPainter(delegate, bounds) }
+        val fallback = painterResource(if (failed) R.drawable.ic_refresh else R.drawable.ic_image)
+        val loaded = remember(bitmap) { bitmap?.let { BitmapPainter(it) } }
+        val opacity = animateFloatAsState(if (bitmap == null) 0f else 1f,
+            tween(nl.davidengelen.redsquare.ui.AppSpacing.transitionMillis, easing = LinearEasing), label = "Stack image")
+        val painter = remember(loaded, fallback, bounds, opacity) { StackReaderPainter(loaded, fallback, bounds, opacity) }
         return ImageData(painter,
             contentDescription = if (bitmap != null) null else stringResource(if (failed) R.string.image_unavailable else R.string.image_loading),
             modifier = if (failed) Modifier.clickable(onClickLabel = stringResource(R.string.retry)) { retry++ } else Modifier)
@@ -112,15 +117,21 @@ private class StackArticleImageLoader(private val images: Map<String, String>, p
 }
 
 /** Stable bounded geometry for loading, error and raster content; all painting preserves aspect ratio. */
-private class StackReaderPainter(private val delegate: Painter,
-    override val intrinsicSize: Size) : Painter() {
+private class StackReaderPainter(private val loaded: Painter?, private val fallback: Painter,
+    override val intrinsicSize: Size, private val opacity: State<Float>) : Painter() {
     override fun DrawScope.onDraw() {
+        paint(fallback, 1f - opacity.value)
+        loaded?.let { paint(it, opacity.value) }
+    }
+
+    private fun DrawScope.paint(delegate: Painter, alpha: Float) {
+        if (alpha <= 0f) return
         val child = delegate.intrinsicSize
         if (child.width <= 0 || child.height <= 0 || !child.width.isFinite() || !child.height.isFinite()) return
         val scale = minOf(size.width / child.width, size.height / child.height)
         val fitted = Size(child.width * scale, child.height * scale)
         translate((size.width - fitted.width) / 2, (size.height - fitted.height) / 2) {
-            with(delegate) { draw(fitted) }
+            with(delegate) { draw(fitted, alpha = alpha) }
         }
     }
 }

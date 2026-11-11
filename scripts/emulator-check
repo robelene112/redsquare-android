@@ -429,6 +429,7 @@ if [[ "${TEST_SCOPE:-full}" == stack-live* ]]; then
     verify_group_chat_native StackLivePreviewTest 180 stack-live stack-live-evidence
     verify_group_chat_native StackReadingRecoveryTest 180 stack-reading stack-reading-evidence
     verify_group_chat_native StackLocalDraftTest 180 stack-draft stack-draft-evidence
+    verify_group_chat_native StackImageMotionTest 180 stack-image-motion stack-image-motion-evidence
     printf '%s\n' 'Real native Stack reading over owned signed Archive fixtures; historical design fixtures are separate. Not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -785,6 +786,7 @@ if [[ "$full_chat" == true ]]; then
     verify_group_chat_native StackLivePreviewTest 180 stack-live stack-live-evidence
     verify_group_chat_native StackReadingRecoveryTest 180 stack-reading stack-reading-evidence
     verify_group_chat_native StackLocalDraftTest 180 stack-draft stack-draft-evidence
+    verify_group_chat_native StackImageMotionTest 180 stack-image-motion stack-image-motion-evidence
 fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
     if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
