@@ -125,6 +125,7 @@ abstract class FileshareFixture {
                                         context.contentResolver.call(source, "status", null, null)?.getBoolean("firstWritten") == true &&
                                             session!!.preparation.value?.phase == PreparationPhase.PREPARING
                                     }
+                                    ui.onNodeWithText("Preparing file…").performScrollTo().assertIsDisplayed()
                                     captureNativeScreen(File(evidence, "preparation-active.png"), "Preparing file…")
                                     ui.onNodeWithText("Cancel").performScrollTo().performClick()
                                     waitUntil { session!!.preparation.value?.phase == PreparationPhase.CANCELLED }
@@ -164,6 +165,8 @@ abstract class FileshareFixture {
                                     // Android can collapse this transfer inside the app's automatic
                                     // notification group. Expand its actual row/group, not a system alert.
                                     var row = device.findObject(androidx.test.uiautomator.By.text("Sending file"))
+                                    if (row == null) device.swipe(device.displayWidth / 2, device.displayHeight * 4 / 5,
+                                        device.displayWidth / 2, device.displayHeight / 3, 12)
                                     while (row != null) {
                                         val expand = row.findObject(androidx.test.uiautomator.By.res("android:id/expand_button").desc("Expand"))
                                         if (expand != null) { expand.click(); break }

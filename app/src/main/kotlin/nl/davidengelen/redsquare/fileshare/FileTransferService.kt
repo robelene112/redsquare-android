@@ -30,6 +30,7 @@ class FileTransferService : Service() {
         val notifications = getSystemService(NotificationManager::class.java)
         notifications.createNotificationChannel(NotificationChannel(CHANNEL, getString(R.string.fileshare_channel), NotificationManager.IMPORTANCE_LOW))
         startForeground(NOTIFICATION_ID, Notification.Builder(this, CHANNEL)
+            .setGroup(CHANNEL)
             .setSmallIcon(R.drawable.ic_file).setContentTitle(getString(R.string.fileshare_connecting))
             .setOngoing(true).setProgress(0, 0, true).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         wake = getSystemService(PowerManager::class.java).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "$packageName:fileshare")
@@ -108,6 +109,7 @@ class FileTransferService : Service() {
             .setData(Uri.Builder().scheme("fileshare-cancel").authority(packageName).appendPath(reference.token).build())
         val cancel = PendingIntent.getService(this, reference.token.hashCode(), cancelIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         return Notification.Builder(this, CHANNEL).setSmallIcon(R.drawable.ic_file)
+            .setGroup(CHANNEL) // Keep live transfer controls separate from grouped Chat alerts.
             .setContentTitle(title)
             .setContentText(getString(R.string.fileshare_notification_detail)) // Keep filenames out of private notifications.
             .setContentIntent(open).setOnlyAlertOnce(true).setOngoing(active).setAutoCancel(!active)
