@@ -24,7 +24,7 @@ class StackDesignMotionTest {
                 frames.add("recording", recording)
                 File(folder, "scale-$scale-$name.json").writeText(frames.toString())
             }
-            withAppFrameFixture("stack-motion-$scale", "stack-design-motion-evidence") { activity ->
+            withAppFrameFixture("stack-motion-$scale", "stack-design-motion-evidence", stackDesignFixture = true) { activity ->
                 click("Later")
                 requireNotNull(device.wait(Until.findObject(By.desc("Switch app: Red Square")), 5_000)).click()
                 click("Stack")

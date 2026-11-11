@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.dp
 internal val StackControlShape = RoundedCornerShape(AppSpacing.controlRadius)
 
 @Composable
-internal fun StackBlockButton(onClick: () -> Unit, modifier: Modifier = Modifier, outlined: Boolean = false,
+internal fun StackBlockButton(onClick: () -> Unit, modifier: Modifier = Modifier, outlined: Boolean = false, enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit) {
     val target = modifier.fillMaxWidth().heightIn(min = 48.dp)
     val padded: @Composable RowScope.() -> Unit = {
         Box(Modifier.padding(vertical = 6.dp)) { Row(content = content) }
     }
-    if (outlined) OutlinedButton(onClick, target, shape = StackControlShape, content = padded)
-    else Button(onClick, target, shape = StackControlShape, content = padded)
+    if (outlined) OutlinedButton(onClick, target, enabled = enabled, shape = StackControlShape, content = padded)
+    else Button(onClick, target, enabled = enabled, shape = StackControlShape, content = padded)
 }

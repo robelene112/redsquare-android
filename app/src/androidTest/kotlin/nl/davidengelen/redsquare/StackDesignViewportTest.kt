@@ -26,7 +26,7 @@ private fun ComposeTestRule.verifyStackDesign(width: Int, scales: List<Float>) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val folderName = "stack-design-$width-evidence"
     val folder = File(instrumentation.targetContext.cacheDir, folderName).apply { mkdirs() }
-    withAppFrameFixture("stack-design-$width", folderName) { activity ->
+    withAppFrameFixture("stack-design-$width", folderName, stackDesignFixture = true) { activity ->
         waitUntil(15_000) { onNodeWithText("Later").isDisplayed() }
         onNodeWithText("Later").performClick()
         fun switch(current: String, next: String) {

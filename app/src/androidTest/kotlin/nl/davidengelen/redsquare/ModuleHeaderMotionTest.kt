@@ -50,7 +50,7 @@ class ModuleHeaderMotionTest {
             observed.add("recording", recording)
             File(folder, "scale-$scale-$name.json").writeText(observed.toString())
         }
-        withAppFrameFixture("header-$scale", "module-header-motion-evidence", rows) { activity ->
+        withAppFrameFixture("header-$scale", "module-header-motion-evidence", rows, stackDesignFixture = true) { activity ->
             check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
             requireNotNull(device.wait(Until.findObject(By.text("Later")), 5_000)).click()
             check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))

@@ -291,7 +291,7 @@ class SocialPushTapPreviewTest {
                             ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
                             ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performClick()
                             ui.waitUntil(5_000) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
-                            ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                            ui.onNodeWithTag("stack-live-content").assertIsDisplayed()
                             // Real incoming references for a different identity or node must not
                             // switch the mounted module, even when no modal blocks navigation.
                             for ((routeOwner, routeBackend) in listOf(contact to SaitoBackend.OWNER,
@@ -308,7 +308,7 @@ class SocialPushTapPreviewTest {
                                     // then require positive observation and the final actual view.
                                     if (ui.onAllNodes(isRoot()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
                                         ui.onNodeWithContentDescription("Switch app: Stack").assertIsDisplayed()
-                                        ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                                        ui.onNodeWithTag("stack-live-content").assertIsDisplayed()
                                         ui.onAllNodesWithText("Conversation").assertCountEquals(0)
                                         observed = true
                                     }
@@ -316,7 +316,7 @@ class SocialPushTapPreviewTest {
                                 } while (android.os.SystemClock.elapsedRealtime() < quietUntil)
                                 check(observed) { "The original2s window must include the actual retained module" }
                                 ui.onNodeWithContentDescription("Switch app: Stack").assertIsDisplayed()
-                                ui.onNodeWithText("Stack design preview").assertIsDisplayed()
+                                ui.onNodeWithTag("stack-live-content").assertIsDisplayed()
                                 ui.onAllNodesWithText("Conversation").assertCountEquals(0)
                             }
                             ui.onNodeWithContentDescription("Connection details").performClick()

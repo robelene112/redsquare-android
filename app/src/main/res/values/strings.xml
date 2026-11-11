@@ -738,7 +738,7 @@
     <string name="apps_title">Your Saito apps</string>
     <string name="apps_summary">One identity. A place for everything.</string>
     <string name="app_redsquare_summary">Posts, conversations and your community</string>
-    <string name="app_stack_summary">Read and write on Saito</string>
+    <string name="app_stack_summary">Discover and read Stack articles</string>
     <string name="account_wallet_summary">Balance, payments and wallet backup</string>
     <string name="settings_account_section">Account</string>
     <string name="settings_app_section">App</string>
@@ -751,4 +751,22 @@
     <string name="activity_filter_all">All</string>
     <string name="activity_filter_mentions">Mentions</string>
     <string name="search_explore">Conversations to explore</string>
+
+    <string name="stack_live_article">Article</string>
+    <string name="stack_share_article">Share article</string>
+    <string name="stack_write_web">Write on Stack</string>
+    <string name="stack_link_failed">Could not open Stack. Try again.</string>
+    <string name="stack_load_failed">Could not refresh articles. Saved articles remain available.</string>
+    <string name="stack_cache_warning">Some articles could not be saved or read. You can still read available articles.</string>
+    <string name="stack_controls_unavailable">Could not load your hidden accounts. Retry to show articles.</string>
+    <string name="stack_article_unavailable">This article is not available from saved history or this node.</string>
+    <string name="stack_open_original">Open original on Stack</string>
+    <string name="stack_follow_failed">Could not load or save followed accounts. Try again.</string>
+    <string name="stack_loading">Loading articles</string>
+    <string name="stack_follow_empty">No available articles from followed accounts yet.</string>
+    <string name="stack_owned_empty">No published articles for this wallet are available from this node.</string>
+    <string name="stack_empty">No Stack articles are available from this node. You can choose another node in Settings.</string>
+    <string name="stack_choose_node">Choose node</string>
+    <string name="stack_load_more">Load more articles</string>
+    <string name="stack_open_web">Open Stack website</string>
 </resources>

@@ -83,6 +83,34 @@ mobile feed access require explicit evidence. Wallet/signature reference tests
 now exist in the native implementation; network/feed interoperability remains
 work for the subsequent tickets.
 
+## Native Stack article integration
+
+Issue #99 replaces ordinary sample article routes with signed public Stack reads.
+Protocol authority: the deployed named public Stack source observed November11
+(SHA256 `1e22660820753d3755593da325dab630dae6e3179fe10e5ec04ce7feb2670f85`),
+the documented owner pin, and official `e6c937c686495a37d8fc94ecc894189e23a453c3`
+`node/mods/stack/stack.js` and `lib/ui/view-post.js`. No runtime/configuration changes.
+
+Use Archive load with `field1=Stack`, `field4=stack:post` and a bounded created-at
+cursor. Ten-row pages account for embedded cover sizes; the existing peer and
+Archive response limits remain unchanged. Authenticate original envelopes before
+reading `module=Stack`, `request=create stack post request`, `data.type=stack_post`.
+An article's `parent_id` identifies a revision's root; author and logical signature
+jointly identify the native article so another signer cannot replace its content.
+Covers may be raw base64, data URIs or imageUrl. Markdown's `stack:image:<id>`
+references resolve only through the signed `images` entries (`id`, `mime`, `data`).
+Restricted messages with access hashes/scripts do not become public articles.
+
+The selected node remains explicit. On November11 the owner endpoint advertised
+no Stack service and returned zero Stack rows. The official endpoint advertised
+Stack and returned10 rows, authenticated by the native decoder as9 logical articles.
+The owner /stack URL returned its public404 page. Empty/unavailable reading must
+not silently change node or substitute sample stories. A real node-setting action
+and original Stack website links let users make their own choice. Real native
+publication/access/payment/subscriptions remain under #1, not this reading slice.
+Historical preview/editor tests opt into an explicit debug-only design fixture;
+real module reading has separate native controlled-peer and public-read checks.
+
 ## Android GIF configuration
 
 The Posts integration reads optional Gradle properties

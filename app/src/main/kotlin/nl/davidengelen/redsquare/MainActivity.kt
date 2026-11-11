@@ -85,6 +85,7 @@ import nl.davidengelen.redsquare.ui.NodeConnectionDetails
 import nl.davidengelen.redsquare.ui.SingleOwnerReveal
 import nl.davidengelen.redsquare.ui.AppModule
 import nl.davidengelen.redsquare.stack.StackReviewScreen
+import nl.davidengelen.redsquare.stack.StackScreen
 import nl.davidengelen.redsquare.ui.AppHeader
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.CompactBackupNotice
@@ -431,10 +432,21 @@ class MainActivity : ComponentActivity() {
                                     SingleOwnerReveal(module, Modifier.weight(1f)) {
                                         moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") {
                                             if (module == AppModule.STACK) {
-                                                StackReviewScreen(Modifier.fillMaxSize(), chrome) {
-                                                    address?.let { owner ->
-                                                        nl.davidengelen.redsquare.ui.StackPreviewAuthor(owner, selected,
-                                                            RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, selected)))
+                                                if (BuildConfig.DEBUG && intent.getBooleanExtra("stackDesignFixture", false)) {
+                                                    StackReviewScreen(Modifier.fillMaxSize(), chrome) {
+                                                        address?.let { owner ->
+                                                            nl.davidengelen.redsquare.ui.StackPreviewAuthor(owner, selected,
+                                                                RegistryAuthority.fromIntent(intent, FeedEndpoints.fromIntent(intent, selected)))
+                                                        }
+                                                    }
+                                                } else {
+                                                    val stackEndpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                    CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, stackEndpoint)) {
+                                                        RegisteredIdentityScope(wallet, stackEndpoint, selected) {
+                                                            StackScreen(wallet, selected, stackEndpoint, Modifier.fillMaxSize(), chrome) {
+                                                                settingsCategory = "node"; settingsOpen = true
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             } else {

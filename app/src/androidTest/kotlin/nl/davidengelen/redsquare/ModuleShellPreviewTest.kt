@@ -15,7 +15,7 @@ class ModuleShellPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
     @Test fun modulePickerAndAccountMenuKeepTheRealFeedAndWallet() =
-        withAppFrameFixture("module-account", "module-shell-evidence") { activity ->
+        withAppFrameFixture("module-account", "module-shell-evidence", stackDesignFixture = true) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.onNodeWithContentDescription("Switch app: Red Square").assertIsDisplayed().assertHasClickAction().performClick()
             ui.onNode(hasText("Red Square") and isSelected()).assertIsDisplayed()
@@ -58,7 +58,7 @@ class ModuleShellPreviewTest {
         val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
             com.google.gson.JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
         }
-        withAppFrameFixture("module-retention", "module-shell-evidence", rows) { activity ->
+        withAppFrameFixture("module-retention", "module-shell-evidence", rows, stackDesignFixture = true) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 20").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNodeWithTag("feed-post-list").performScrollToNode(hasText("Reference post 05"))
