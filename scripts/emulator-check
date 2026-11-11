@@ -491,6 +491,9 @@ verify_fileshare() {
     verify_fileshare_case FileshareUnknownSizePreviewTest fileshare-unknown-size
     verify_fileshare_case FileshareNotificationPreviewTest fileshare-notifications denied
     verify_fileshare_case FilesharePreparationCancelPreviewTest fileshare-preparation-cancel
+    verify_fileshare_case FileshareNarrowViewportTest fileshare-viewport-320
+    verify_fileshare_case FilesharePixelViewportTest fileshare-viewport-412
+    python3 "$repo_dir/scripts/fileshare-process-check" --evidence "$evidence/fileshare-process"
 }
 verify_fileshare_case() {
     local case_class=$1 case_prefix=$2 mode=${3:-ordinary} case_exit=0

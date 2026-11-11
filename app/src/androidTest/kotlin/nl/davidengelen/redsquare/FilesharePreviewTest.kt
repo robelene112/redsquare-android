@@ -13,6 +13,7 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.fileshare.*
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -26,7 +27,7 @@ abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
     protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false,
-        denyNotifications: Boolean = false, preparationCancel: Boolean = false) {
+        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -74,7 +75,7 @@ abstract class FileshareFixture {
                 FileshareBrowserPeer(wallet, fixture, pin).use { browser ->
                     browserRef.set(browser)
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                        .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
+                        .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
                         withFailureCapture({ captureNativeScreen(File(evidence, "failure-${incoming}-${cancel}.png")) }) {
                             waitUntil { ui.onAllNodesWithText("Chat").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText("Chat").performClick()
@@ -158,7 +159,19 @@ abstract class FileshareFixture {
                             if (cancel) {
                                 device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
                                 device.openNotification()
-                                check(device.wait(androidx.test.uiautomator.Until.hasObject(androidx.test.uiautomator.By.text("Cancel")), 5000))
+                                val deadline = android.os.SystemClock.uptimeMillis() + 5000
+                                while (!device.hasObject(androidx.test.uiautomator.By.text("Cancel")) && android.os.SystemClock.uptimeMillis() < deadline) {
+                                    // Android can collapse this transfer inside the app's automatic
+                                    // notification group. Expand its actual row/group, not a system alert.
+                                    var row = device.findObject(androidx.test.uiautomator.By.text("Sending file"))
+                                    while (row != null) {
+                                        val expand = row.findObject(androidx.test.uiautomator.By.res("android:id/expand_button").desc("Expand"))
+                                        if (expand != null) { expand.click(); break }
+                                        row = row.parent
+                                    }
+                                    Thread.sleep(100)
+                                }
+                                check(device.hasObject(androidx.test.uiautomator.By.text("Cancel")))
                                 device.findObject(androidx.test.uiautomator.By.text("Cancel")).click()
                                 waitUntil { session!!.transfers.value.any { it.token == token && it.phase == FilePhase.CANCELLED } }
                                 assertNull(browser.received.get())
@@ -181,6 +194,21 @@ abstract class FileshareFixture {
                                 assertArrayEquals(bytes, context.contentResolver.openInputStream(destination)!!.use { it.readBytes() })
                                 ui.onNodeWithText(draft).assertExists()
                                 captureNativeScreen(File(evidence, "saved.png"), "File saved")
+                                viewportWidth?.let { width ->
+                                    val folder = File(evidence, "viewport-$width").apply { mkdirs() }
+                                    ui.withPostViewports(activity, folder, "fileshare", widthDp = width) { cell, _ ->
+                                        ui.onNodeWithText("Chat").performClick()
+                                        waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                        ui.onNodeWithText(author.publicKey).performClick()
+                                        waitUntil { ui.onAllNodesWithText("File saved").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                        ui.onNodeWithText("Save as…").performScrollTo().assertIsDisplayed()
+                                            .assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+                                        ui.onNodeWithText(draft).assertExists()
+                                        captureNativeScreen(File(folder, "$cell-saved.png"), "File saved")
+                                        ui.onNodeWithContentDescription("Back").performClick()
+                                        ui.onNodeWithText("Home").performClick()
+                                    }
+                                }
                             }
                             assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
                             assertTrue(fixture.transactions.isEmpty()) // No broadcast transaction carries a file.
@@ -231,4 +259,12 @@ class FileshareNotificationPreviewTest : FileshareFixture() {
 class FilesharePreparationCancelPreviewTest : FileshareFixture() {
     @Test fun cancellationDuringStreamingPreparationCannotRestartWorkAndStopsTheForegroundService() =
         transfer(incoming = false, preparationCancel = true)
+}
+class FileshareNarrowViewportTest : FileshareFixture() {
+    @Test fun receivedFilesAndUnsentDraftsRemainUsableAcrossThemesAndLargeTextAt320dp() =
+        transfer(incoming = true, viewportWidth = 320)
+}
+class FilesharePixelViewportTest : FileshareFixture() {
+    @Test fun receivedFilesAndUnsentDraftsRemainUsableAcrossThemesAndLargeTextAt412dp() =
+        transfer(incoming = true, viewportWidth = 412)
 }

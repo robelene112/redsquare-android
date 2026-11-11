@@ -53,6 +53,33 @@ Retry, Save-as draft persistence and refreshed same-owner Chat metadata. This is
 source review only. Debug-only exception class/stack diagnostics now distinguish
 the unresolved pre-first-chunk failure without logging payloads or keys.
 
+At `e2022d9e6`, Android10 run43106273681 identifies the actual first-chunk
+failure in `SaitoFileChannel.send`. The double-base64 frame is larger than the
+legacy browser's64KiB SCTP limit; outgoing raw chunks are reduced to32KiB while
+incoming upstream64,256byte chunks remain accepted. Android17 run43106277923
+matches all outgoing bytes with the screen off, then fails finding the retained
+notification. The event log shows Android cancelling9103 when service stop
+precedes detach. The fix detaches before stop and restores foreground ownership
+if a newer pending service command prevents stopping. Both source-review axes
+pass this delta.
+
+The first dispatches43107699514/43107703659 fail checkout because the provided
+source ref was abbreviated. They contribute no app evidence. Correct full-SHA
+runs43107923946(Android10)/43107928034(Android17) at `168b508e9` both pass the
+original Send and Receive classes, including exact bytes, screen-off continuation,
+notification return, Save as and draft retention. Both then fail the unchanged
+five-second notification Cancel goal: native captures show the transfer collapsed
+inside Android's app notification group. The driver now expands that actual
+transfer row/group within the original deadline before clicking Cancel.
+
+Additional native gates cover320/412dp, both themes and100/130/200% text for the
+received-file action and retained draft. A separate actual distinct-PID recovery
+gate seeds encrypted partial storage, kills the process, then requires native
+Interrupted, no Save as/retransmission, removed partial bytes and exact wallet,
+backend and draft continuity. It does not claim process interruption of a live
+peer. Device-only encrypted originals and preferences are restored independently.
+Both source-review axes pass the recovery gate; its runtime result remains pending.
+
 ## Verification boundaries
 
 Tests use real native screens, Android document-provider/picker boundaries,

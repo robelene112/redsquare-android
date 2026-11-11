@@ -90,8 +90,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val task = scope.launch(start = CoroutineStart.LAZY) {
                     try { event() }
                     catch (_: CancellationException) { /* An explicit Cancel preempts connection/request waits. */ }
-                    catch (failure: Exception) {
-                        diagnose("operation", failure)
+                    catch (_: Exception) {
                         error.value = true
                         try {
                             if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
@@ -292,8 +291,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 }) throw IllegalStateException("Transfer queue full")
                 retainedSource = null // The serialized controller now owns the opened source.
             } catch (_: CancellationException) { retainedSource?.close() }
-            catch (failure: Exception) {
-                diagnose("preparation", failure)
+            catch (_: Exception) {
                 retainedSource?.close()
                 post { if (preparationState.value?.token == pending.token) finishPreparation(PreparationPhase.FAILED) }
             } finally { work.input = null }
@@ -463,18 +461,13 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                         Fileshare.Chunk(value.offer, value.bytes, sendingIndex, bytes), System.currentTimeMillis()))
                 }
             } catch (_: CancellationException) { }
-            catch (failure: Exception) {
-                diagnose("read", failure)
+            catch (_: Exception) {
                 post { if (generation == channelGeneration) end(FilePhase.FAILED) }
             }
         }
     }
     private fun update(value: FileTransfer) {
         store.save(value); publish(value); activityAt = System.currentTimeMillis()
-    }
-    private fun diagnose(stage: String, failure: Exception) {
-        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.w("FileshareDiagnostic",
-            "$stage: ${failure.javaClass.simpleName}; ${failure.stackTrace.take(6).joinToString("; ")}")
     }
     private fun sendChannel(transaction: SaitoTransaction) {
         val frame = transaction.envelope()
