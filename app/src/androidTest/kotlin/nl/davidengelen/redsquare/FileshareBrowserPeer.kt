@@ -13,6 +13,8 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 
 /** Real WebView RTC and actual pinned Fileshare bodies. No production app WebView or public connection. */
 @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
@@ -23,6 +25,9 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
     val received = AtomicReference<ByteArray?>()
     val open = CountDownLatch(1)
     val chunks = AtomicInteger()
+    val signedChunks = AtomicInteger()
+    val acknowledgedChunk = AtomicLong()
+    val uploadReadFinished = AtomicBoolean()
     private val ready = CountDownLatch(1)
     private val sequence = AtomicInteger(1000)
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -80,11 +85,13 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
         @JavascriptInterface fun ready() { ready.countDown() }
         @JavascriptInterface fun opened() { open.countDown() }
         @JavascriptInterface fun failure(message: String) { errors.add(message) }
-        @JavascriptInterface fun sent() { }
+        @JavascriptInterface fun sent() { uploadReadFinished.set(true) }
         @JavascriptInterface fun chunkReceived() { chunks.incrementAndGet() }
         @JavascriptInterface fun complete(base64: String) { received.set(Base64.getDecoder().decode(base64)) }
         @JavascriptInterface fun sign(body: String, unsigned: Boolean): String {
-            val transaction = SaitoTransaction.create(wallet, JsonParser.parseString(body).asJsonObject,
+            val message = JsonParser.parseString(body).asJsonObject
+            if (message.get("module")?.asString == "Fileshare" && message.get("request")?.asString == "share file") signedChunks.incrementAndGet()
+            val transaction = SaitoTransaction.create(wallet, message,
                 System.currentTimeMillis(), listOf(owner.publicKey))
             if (!unsigned) return transaction.envelope()
             val envelope = JsonParser.parseString(transaction.envelope()).asJsonObject
@@ -95,6 +102,8 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
         @JavascriptInterface fun inspect(envelope: String): String {
             val signed = SaitoEnvelope.decode(envelope)
             check(signed.author == owner.publicKey && wallet.publicKey in signed.recipients)
+            if (signed.body.get("request")?.asString == "read receipt")
+                acknowledgedChunk.accumulateAndGet(signed.body.getAsJsonObject("data").get("chunk_id").asLong, ::maxOf)
             return JsonObject().apply {
                 addProperty("author", signed.author); add("body", signed.body)
                 add("recipients", com.google.gson.JsonArray().apply { signed.recipients.forEach { add(it) } })

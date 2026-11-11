@@ -82,7 +82,22 @@ abstract class FileshareFixture {
                     browserRef.set(browser)
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
-                        withFailureCapture({ captureNativeScreen(File(evidence, "failure-${incoming}-${cancel}.png")) }) {
+                        withFailureCapture({
+                            File(evidence, "failure-state-${incoming}-${cancel}.json").writeText(com.google.gson.JsonObject().apply {
+                                addProperty("liveWork", FileshareRuntime.hasLiveWork())
+                                addProperty("screenOn", device.isScreenOn)
+                                addProperty("browserSignedChunks", browser.signedChunks.get())
+                                addProperty("browserAcknowledgedChunk", browser.acknowledgedChunk.get())
+                                addProperty("browserReadFinished", browser.uploadReadFinished.get())
+                                addProperty("browserErrors", browser.errors.size)
+                                add("transfers", com.google.gson.JsonArray().apply { session?.transfers?.value?.forEach { value ->
+                                    add(com.google.gson.JsonObject().apply {
+                                        addProperty("phase", value.phase.name); addProperty("bytes", value.bytes); addProperty("size", value.offer.size)
+                                    })
+                                } })
+                            }.toString())
+                            captureNativeScreen(File(evidence, "failure-${incoming}-${cancel}.png"))
+                        }) {
                             waitUntil { ui.onAllNodesWithText("Chat").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             ui.onNodeWithText("Chat").performClick()
                             waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

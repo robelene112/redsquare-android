@@ -90,7 +90,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val task = scope.launch(start = CoroutineStart.LAZY) {
                     try { event() }
                     catch (_: CancellationException) { /* An explicit Cancel preempts connection/request waits. */ }
-                    catch (_: Exception) {
+                    catch (failure: Exception) {
+                        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.w("FileshareDiagnostic",
+                            "[DEBUG-fs103-large] ${failure.javaClass.simpleName}; ${failure.stackTrace.take(4).joinToString("; ")}")
                         error.value = true
                         try {
                             if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
@@ -509,5 +511,11 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         post { if (current?.token == token && current?.phase == FilePhase.COMPLETE) cleanup() }
     } }
     companion object { private val PREPARATION_IO = Dispatchers.IO.limitedParallelism(2) }
-    private fun post(event: suspend () -> Unit): Boolean = events.trySend(event).isSuccess.also { if (!it) overflow = true }
+    private fun post(event: suspend () -> Unit): Boolean = events.trySend(event).isSuccess.also {
+        if (!it) {
+            if (!overflow && nl.davidengelen.redsquare.BuildConfig.DEBUG)
+                android.util.Log.w("FileshareDiagnostic", "[DEBUG-fs103-large] event buffer full")
+            overflow = true
+        }
+    }
 }
