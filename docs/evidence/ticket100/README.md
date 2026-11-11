@@ -80,3 +80,43 @@ findings are resolved; this is source acceptance rather than final execution or
 release acceptance. Strict proof requests remain bounded to four, without blocking
 map display or the next batch. Provider caches are independent, idle/lifecycle
 peers close, and cancellation is checked under the storage lock before commits.
+
+## Actual signed candidate and update gates
+
+Candidate109 is compiled from `de0ae9b60`,42,650,666bytes, SHA256
+`6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3`.
+The immutable downloaded candidate matches. The established certificate, ordinary
+package, min29/target36, nondebuggable/nonprofileable manifest and byte-identical
+bundled editor license are verified. [Both independent artifact/update reviews](update109-reviews.json)
+pass with no findings. Actual signed83-to109 runs42999467936 and42999472049
+preserve wallet identity, separate debug identity, exact unsent draft, cached post
+and Light preference through update/cold launch, with clean restoration.
+This is staged-candidate acceptance only. Ordinary latest108 remains unchanged.
+
+## Full-run fixture corrections
+
+Initial complete runs42998622485 and42998903591 are **not accepted**. Both were
+cancelled after Wallet failures; their failed jobs, originals and distinct reasons
+remain under [initial failures](initial-complete-failures). No other partitions
+from those executions contribute to acceptance.
+
+Android17's policy observer incorrectly counted the new switch as a third radio.
+The correction requires an actual RadioButton indicator while retaining the exact
+two-radio assertion, selected states, domain containment, native TalkBack focus/
+speech and original5/10-second bounds. Focused runs43003184581 and43003188572 pass.
+Android10's process-restoration allowlist omitted a prior snapshotted submission
+receipt after preparation removed it from the active directory. The correction
+admits only saved names matching the existing exact owner/backend/128hex receipt
+pattern. Other allowlists, saved-file/distinct guards, worker cancellation,
+identity/backend/digest checks and deadlines remain. Focused agreement runs
+43004209675 and43004214747 pass27 identities each. Their fresh focused installations
+have no prior submitted receipt, a limitation retained in their summaries; the
+initial failing checkpoint and narrow namespace review establish the correction.
+
+[Both independent fixture reviews](fixture-correction-reviews.json) pass, and the
+[exact source bridge](fixture-source-equivalence.json) proves that only these two
+instrumentation files differ between APK/update source `de0ae9b60` and corrected
+full source `759f46f7e`. Product/core/build/workflow/host scripts and the pre-run
+contract are unchanged, so the same APK109 and signed-update gates remain valid.
+Fresh whole Android10 run43005859517 and Android17 run43006404622 are in progress.
+Every original goal remains required; no partial SDK assembly is accepted.

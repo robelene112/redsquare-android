@@ -1,0 +1,24 @@
+{
+  "source": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "scope": "Actual immutable APK109 and signed83-to109 update gates only",
+  "runs": {
+    "android10": 42999467936,
+    "android17": 42999472049
+  },
+  "apk": {
+    "bytes": 42650666,
+    "sha256": "6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3"
+  },
+  "spec": {
+    "reviewer": "names100_spec",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "standards": {
+    "reviewer": "names100_standards",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "checked": "Both independent reviewers checked actual binary and downloaded bytes, established signing certificate, package/version/min29/target36/no-debug/no-profile/backupfalse, editorlicense exactbytes, source bridge, whole70/72-file original inventories, actual logs and wallet/native PNG/XML/TAR with4 ordinary/2 debug/3 local-work observations. Exact draft/cachepostauthor/date/Light and wallet continuity persist; restoration failures[].",
+  "qualification": "Emulator artifact/update gates accepted, not complete application or public promotion. APK unchanged through two named instrumentation-only corrections; ordinarylatest108 remains. Physical/OEM/provider/Play acceptance remains open."
+}

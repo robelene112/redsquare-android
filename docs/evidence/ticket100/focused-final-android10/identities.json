@@ -1,0 +1,50 @@
+[
+  {
+    "path": "name-directory-cache-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryCacheTest",
+    "test": "aDirectoryNameSurvivesRecreationWhileItsProviderIsUnavailable",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-choice-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryChoiceTest",
+    "test": "theNameProviderChoiceIsReachableAndPersistsWithoutChangingTheContentNode",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-isolation-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryIsolationTest",
+    "test": "disablingTheExtraProviderKeepsTheSelectedNodesOfflineNames",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-isolation-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryIsolationTest",
+    "test": "unavailableProofsDoNotDelayNamesOrTheNextVisibleBatch",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-node-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryNodeTest",
+    "test": "aNodeRecoversItsDirectoryNameWithoutClaimingRegisteredOwnership",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-public-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryPublicReadTest",
+    "test": "approvedNodesExposeTheReportedPublicNamesWithoutRegisteringOrChangingIdentity",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-recovery-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryRecoveryTest",
+    "test": "aTransientDirectoryFailureRecoversWhileTheSamePostRemainsVisible",
+    "occurrences": 1
+  },
+  {
+    "path": "name-directory-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.NameDirectoryPreviewTest",
+    "test": "aMissingNodeNameUsesThePublicDirectoryWithoutChangingThePostIdentity",
+    "occurrences": 1
+  }
+]

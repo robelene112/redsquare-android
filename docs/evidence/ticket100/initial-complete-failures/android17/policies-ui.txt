@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PolicyCenterPreviewTest:
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The node settings expose exactly two focusable radio choices expected:<2> but was:<3>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18$lambda$17(PolicyCenterPreviewTest.kt:181)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$_CwFmIubGWWNCOj_uqk2YJfKjY0(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: stream=
+Error in draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest):
+java.lang.AssertionError: The node settings expose exactly two focusable radio choices expected:<2> but was:<3>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18$lambda$17(PolicyCenterPreviewTest.kt:181)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$_CwFmIubGWWNCOj_uqk2YJfKjY0(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.911
+There was 1 failure:
+1) draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest)
+java.lang.AssertionError: The node settings expose exactly two focusable radio choices expected:<2> but was:<3>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18$lambda$17(PolicyCenterPreviewTest.kt:181)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$_CwFmIubGWWNCOj_uqk2YJfKjY0(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$20$lambda$19$lambda$18(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$WyK-AjVaFP13sgZmLazq7zyX05U(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,21 @@
+{
+  "base": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "correctedFixtureSource": "759f46f7e0be932507a59c7a37d3c9e31b792997",
+  "changedOnly": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublishingProcessRecoveryTest.kt"
+  ],
+  "radio": {
+    "source": "f2f854496b61bf619861a19d225fb333350c12d9",
+    "spec": "PASS, 0 findings",
+    "standards": "PASS, 0 findings",
+    "checked": "All radio rows counted by real widget indicator regardless oflabel; exact count2,domain containment,selectedstates,TalkBack focus/speech and5/10s budgets unchanged."
+  },
+  "receipt": {
+    "source": "759f46f7e0be932507a59c7a37d3c9e31b792997",
+    "spec": "PASS, 0 findings",
+    "standards": "PASS, 0 findings",
+    "checked": "Only saved receipts matching exact validated owner,owner backend,128hex andv1 optionalbak/new forms added to fixture restore allowlist. Othernames still requireoriginalallowlist, distinctlist andexistingbackup. Worker cancellation,5s bounds,identity/backend/digest assertions unchanged."
+  },
+  "qualification": "Both axes independently reviewed each correction. APK109, product/core/build/workflow/scripts/frozen contract are unchanged. Focused corrections and fresh whole10/17 runs still required. Initial runs are notaccepted."
+}

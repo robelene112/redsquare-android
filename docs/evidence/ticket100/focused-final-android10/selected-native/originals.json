@@ -1,0 +1,74 @@
+{
+  "profile-name.png": {
+    "archive": "name-directory-evidence.tar",
+    "member": "name-directory-evidence/profile-name.png",
+    "bytes": 37912,
+    "sha256": "a1b9bfcfc02ba396bb95d880e649c9bc4e160ddfbca6d1c73787afea09c32694"
+  },
+  "profile-name.xml": {
+    "archive": "name-directory-evidence.tar",
+    "member": "name-directory-evidence/profile-name.xml",
+    "bytes": 19363,
+    "sha256": "fb6872aadbc841beff196d5e2599ed890d10f405c38673fa728b0869ba4d7c6b"
+  },
+  "saved-profile-name.png": {
+    "archive": "name-directory-cache-evidence.tar",
+    "member": "name-directory-cache-evidence/saved-profile-name.png",
+    "bytes": 36967,
+    "sha256": "afbaac3831302687d64b3d3cc05f70071225a1e895a6dc27cb7803955f8e5319"
+  },
+  "saved-profile-name.xml": {
+    "archive": "name-directory-cache-evidence.tar",
+    "member": "name-directory-cache-evidence/saved-profile-name.xml",
+    "bytes": 20732,
+    "sha256": "a4a5ba24fb2ff45194074dddc7a759f07b599e040ffc14f4cda9ad50722704f0"
+  },
+  "next-batch.png": {
+    "archive": "name-directory-isolation-evidence.tar",
+    "member": "name-directory-isolation-evidence/next-batch.png",
+    "bytes": 31856,
+    "sha256": "a96cff3d25fe5020ee9e2101820a156db90ced3c7d7df6d84364a6b5b6ef8c18"
+  },
+  "next-batch.xml": {
+    "archive": "name-directory-isolation-evidence.tar",
+    "member": "name-directory-isolation-evidence/next-batch.xml",
+    "bytes": 66051,
+    "sha256": "f7dc5a8ac563b66ec7038baacce3d9a894c29028dd1344cfa28c2429374799b5"
+  },
+  "selected-offline.png": {
+    "archive": "name-directory-isolation-evidence.tar",
+    "member": "name-directory-isolation-evidence/selected-offline.png",
+    "bytes": 37505,
+    "sha256": "6f89215ca17520f2cc9011f936eddec5bdf40ab43f55eee4ba215fbd3e6309f7"
+  },
+  "selected-offline.xml": {
+    "archive": "name-directory-isolation-evidence.tar",
+    "member": "name-directory-isolation-evidence/selected-offline.xml",
+    "bytes": 20727,
+    "sha256": "dcfbdb0071c1e7f585a7838b1b6c8bafe5376a5cc0ea04d5c86f523c617dbbfb"
+  },
+  "name-directory-320-font100-dark-enabled.png": {
+    "archive": "name-directory-choice-evidence.tar",
+    "member": "name-directory-choice-evidence/name-directory-320-font100-dark-enabled.png",
+    "bytes": 25507,
+    "sha256": "b02a4ecad62cce43702e1957511a14c632eb78acd5e4a2cda44c6d87293a88ac"
+  },
+  "name-directory-320-font100-dark-enabled.xml": {
+    "archive": "name-directory-choice-evidence.tar",
+    "member": "name-directory-choice-evidence/name-directory-320-font100-dark-enabled.xml",
+    "bytes": 24635,
+    "sha256": "06e0432246689fc8a075b70d0374ff277136b5113d1edb167a7406cd36a0898c"
+  },
+  "name-directory-320-font200-light-disabled.png": {
+    "archive": "name-directory-choice-evidence.tar",
+    "member": "name-directory-choice-evidence/name-directory-320-font200-light-disabled.png",
+    "bytes": 41269,
+    "sha256": "9cb585073b7b7d2eaa79345b21df5b9803fc7abfaaf05c6f2c9d35252c9f669a"
+  },
+  "name-directory-320-font200-light-disabled.xml": {
+    "archive": "name-directory-choice-evidence.tar",
+    "member": "name-directory-choice-evidence/name-directory-320-font200-light-disabled.xml",
+    "bytes": 24635,
+    "sha256": "42c4c9c87d876d4f2c25b3f768540ebdc4258171c85bf921fd1862cee0f8fbc8"
+  }
+}

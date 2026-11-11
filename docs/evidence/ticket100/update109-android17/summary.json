@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "sdk": "17",
+  "run": "42999472049",
+  "source": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "versions": [
+    83,
+    109
+  ],
+  "downloadedCandidateBytes": 42650666,
+  "downloadedCandidateSha256": "6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3",
+  "originalFiles": 72,
+  "qualification": "Actual signed update, same ordinary identity, unchanged debug identity, exact unsent draft, cached post and Light preference across update and cold launch. Disposable emulators only; complete application and publication gates are separate.",
+  "inventoryScope": "Every original file in the complete named workflow artifact, including source/workflow markers, native and JVM/build evidence."
+}

@@ -1,0 +1,134 @@
+{
+  "device-abi.txt": {
+    "bytes": 7,
+    "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+  },
+  "emulator-capacity.txt": {
+    "bytes": 64,
+    "sha256": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97"
+  },
+  "emulator-online-cpus.txt": {
+    "bytes": 2,
+    "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+  },
+  "emulator.log": {
+    "bytes": 10692,
+    "sha256": "6d3c0e8a9bdab669972eefe98a75eeb9c8c8edb48768cae7fb139ef546a900e5"
+  },
+  "name-directory-cache-evidence.tar": {
+    "bytes": 66048,
+    "sha256": "d4cb1e73661aca2ac993df5bc462c5fd7454022f7df32c151c1699e825d4331e"
+  },
+  "name-directory-cache-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-cache-ui.txt": {
+    "bytes": 833,
+    "sha256": "8430b8fe44980f6ff22a7a658d5c50c8ed52d959f81c230c4a75d31192e9b3c1"
+  },
+  "name-directory-choice-evidence.tar": {
+    "bytes": 756224,
+    "sha256": "435f73bc9d44ea8f005cf2187e5c40cd20ad20788623d5b028443df2976f8def"
+  },
+  "name-directory-choice-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-choice-ui.txt": {
+    "bytes": 858,
+    "sha256": "1b5c4d594d731e4fe76e18a99eec29c60db77cd07aac82bb5ea265657af3a0b2"
+  },
+  "name-directory-evidence.tar": {
+    "bytes": 66560,
+    "sha256": "922706790837a011565a7cd9b9e78774a85fddfe60caa12d8887db280b8c2a38"
+  },
+  "name-directory-isolation-evidence.tar": {
+    "bytes": 173568,
+    "sha256": "2dd003988beb5752eca95b6ef40e27274241acd9faac43731c5c905bdb45e0dd"
+  },
+  "name-directory-isolation-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-isolation-ui.txt": {
+    "bytes": 1528,
+    "sha256": "a9fde3824d35dcd62b4caecbbe84fc88a9b5f3ef12a1d4ed64bed643dc2b4b2e"
+  },
+  "name-directory-node-evidence.tar": {
+    "bytes": 66560,
+    "sha256": "b1f809695ada95556c71d73776e7d90bc78a7b43074c534f66a9aeb756f8dd2f"
+  },
+  "name-directory-node-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-node-ui.txt": {
+    "bytes": 833,
+    "sha256": "d8845408c130058ca3841bda1839839831e6b0dbc3fc61d04a49e75bf2e598c0"
+  },
+  "name-directory-public-evidence.tar": {
+    "bytes": 2560,
+    "sha256": "1696af92592841fa9bca43d09446ea0fbb77a8aeb9b5089ab3576cee8b0d5a99"
+  },
+  "name-directory-public-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-public-ui.txt": {
+    "bytes": 879,
+    "sha256": "14d706022474eecc13938a34e9edb650a98a20a097472409d5179d506ae0687a"
+  },
+  "name-directory-recovery-evidence.tar": {
+    "bytes": 66560,
+    "sha256": "599c47a799662d4ea5a21f83c557af51a7557cbe315860fab9d4c30d7a880473"
+  },
+  "name-directory-recovery-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-recovery-ui.txt": {
+    "bytes": 848,
+    "sha256": "e3e92f62edcdd5589a856634474aaed1b980dc7c55d56c819ab990bd85d73ccb"
+  },
+  "name-directory-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "name-directory-ui.txt": {
+    "bytes": 853,
+    "sha256": "bf3b6ef90daa9b2dd0ed04ff64bc2f24fe87ad9f5d9fc073965514ab67425d72"
+  },
+  "page-size.txt": {
+    "bytes": 5,
+    "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+  },
+  "requested-page-size.txt": {
+    "bytes": 8,
+    "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+  },
+  "scope.txt": {
+    "bytes": 73,
+    "sha256": "fbe7f573feb9bd3f1241288f26a3f2f5e2df195ac72d5c50642a34d448fb1f2a"
+  },
+  "system-build.txt": {
+    "bytes": 85,
+    "sha256": "c48dc581bd2abfaa3f122516d4d554c23b64a2ae633ecdde68fc16be6b7b7afd"
+  },
+  "system-image.properties": {
+    "bytes": 359,
+    "sha256": "1f50787fdc2c40508ba14e4bfb1e402c8a71bf435a59f9301e0f841807a07f8e"
+  },
+  "system-image.txt": {
+    "bytes": 46,
+    "sha256": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b"
+  },
+  "wellbeing-disable.txt": {
+    "bytes": 67,
+    "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+  },
+  "wellbeing-disabled-package.txt": {
+    "bytes": 42,
+    "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+  }
+}

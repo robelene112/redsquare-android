@@ -27,18 +27,24 @@ No fabricated names, registrations, live transactions, node/service/provider/Pla
 changes or owner-phone QA. Existing native UI, signed peer, cache and reversible
 viewport seams remain authorized; keep original goals and deadlines.
 
-Actual native RED runs reproduce missing names, no-navigation recovery failure,
-loss on recreation and selected-node recovery failure. The first directory label
-passes Android17 run42991535779; transient recovery passes Android10 run42991531381.
-Bounded encrypted per-provider directory cache, provenance and the separate provider
-preference are implemented. Both initial focused SDK runs pass, including the actual
-reported public names and six compact viewport cells. Independent source review
-corrections separate proof latency and provider caches and preserve shared fixture
-state. Follow-up Spec and Standards reviews pass on `6acabb4b3`; corrected native
-checks and the original16 Username cases are in progress. Source and evidence are
-recorded in [ticket100](../evidence/ticket100/README.md). Complete Android10/17,
-independent reviews, compatible signed update and exact beta verification remain
-required before closing100. Keep #1/#36/#55/#84/#86 open.
+Name lookup, exact identity, cached/offline recovery, provider controls, six compact
+viewport cells and actual public names pass focused Android10/17 verification on
+`6acabb4b3`. Original Username/process/Chat identity scopes pass20 goals per SDK.
+Independent source reviews and actual signed83-to109 artifact/update reviews pass.
+APK109 is staged only,42,650,666bytes, SHA256
+`6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3`,
+compiled from `de0ae9b60`. Ordinary latest108 remains unchanged.
+
+Initial complete runs42998622485/42998903591 were cancelled after distinct Wallet
+fixture failures and are not accepted. Native radio classification and prior
+receipt restoration are corrected in instrumentation only. Both independent
+fixture reviews and focused policy/agreement pairs pass. Product/build/workflow/
+host scripts and the frozen650/651-goal contract remain unchanged; the source
+bridge retains the same reviewed APK109. Corrected complete source is `759f46f7e`.
+Fresh whole Android10 run43005859517 and Android17 run43006404622 are in progress,
+all3jobs required per SDK. Source/evidence/qualifications are in [ticket100](../evidence/ticket100/README.md).
+Complete final execution, final independent packet reviews and exact public
+promotion remain required before closing100. Keep #1/#36/#55/#84/#86 open.
 
 ## Delivered native Stack reading #99
 

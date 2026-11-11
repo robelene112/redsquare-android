@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "phase": "Immutable candidate only, ordinary latest108 unchanged",
+  "checkedAt": 1794391023,
+  "manifest": {
+    "versionCode": 109,
+    "versionName": "0.1.109",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3",
+    "commit": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/109/redsquare.apk",
+    "notes": "More reliable display names across feed, conversations, profiles, activity and Chat, with offline caching and automatic recovery. Identity details show the name source. Control the optional saito.io lookup in Settings, Node."
+  },
+  "apkBytes": 42650666,
+  "downloadSha256": "6d3a7cb431815c6338f5bd84fca633ccd10f258bcf3653241e74ee0910a5fdb3",
+  "latestVersionCode": 108
+}

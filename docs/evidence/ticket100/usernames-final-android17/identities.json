@@ -1,0 +1,122 @@
+[
+  {
+    "path": "chat-identity-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatIdentityPreviewTest",
+    "test": "cachedNamesMustBeFreshAndCheckedByTheSelectedBackend",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-identity-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatIdentityPreviewTest",
+    "test": "groupChatShowsLongVerifiedNameAndExactIdentityFromCachedMessagesOffline",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-identity-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatIdentityPreviewTest",
+    "test": "privateChatShowsLongVerifiedNameAndExactIdentityAfterGoingOffline",
+    "occurrences": 1
+  },
+  {
+    "path": "username-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernameProcessRecoveryTest",
+    "test": "coldRegistrationReconcilesReadOnlyBeforeAnExactExplicitRetry",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aPendingNameStaysWithItsWalletAndBackendThroughActualReplacement",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aRequestIsSavedBeforeSendingAndUnreadableRecoveryNeverReplaysIt",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "anUnsavedVerifiedOwnNameIsNeverOfferedForRegistrationAgain",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "importingAWalletDiscoversItsExistingNameWithoutRegisteringAgain",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "losingARegistrationRaceNeverNamesTheWrongWalletOrResendsItsRequest",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "settingsDiscoversAnExistingUsernameWithoutOpeningTheFeedOrProfile",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "settingsVerifiesTheLateRegistrarProofAfterAnEarlyFallback",
+    "occurrences": 1
+  },
+  {
+    "path": "username-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.UsernamePreviewTest",
+    "test": "walletReplacementKeepsTheVerifiedNameWithItsOutgoingIdentity",
+    "occurrences": 1
+  }
+]

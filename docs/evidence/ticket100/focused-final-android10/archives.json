@@ -1,0 +1,37 @@
+{
+  "name-directory-cache-evidence.tar": {
+    "bytes": 64000,
+    "sha256": "8874fc8e65f7a59bba80850d35463067c4c28ae895c4075c63334750aa7bd977",
+    "members": 6
+  },
+  "name-directory-choice-evidence.tar": {
+    "bytes": 742400,
+    "sha256": "777d67d7bf6254eee93b8bf8795860fe9e8a2fd460e8a1da111d943e339c4a4e",
+    "members": 37
+  },
+  "name-directory-evidence.tar": {
+    "bytes": 63488,
+    "sha256": "11890957c37cd75f77d130d2b33c1470b4dd371307c9d22d593c202cd2110a10",
+    "members": 6
+  },
+  "name-directory-isolation-evidence.tar": {
+    "bytes": 166400,
+    "sha256": "5930fccdac3412cadcda6e40cc4f96a269f7f53c549784f30770121e8c258e95",
+    "members": 10
+  },
+  "name-directory-node-evidence.tar": {
+    "bytes": 64000,
+    "sha256": "210cde283c5e9f1e2a0ec81d7cd778e259c57ee35dd3a4a39fec667ad08b55ed",
+    "members": 6
+  },
+  "name-directory-public-evidence.tar": {
+    "bytes": 2560,
+    "sha256": "4240b354fc167713c443aa37825898a9c96cd5be35a6842aca3be7c68bce876d",
+    "members": 2
+  },
+  "name-directory-recovery-evidence.tar": {
+    "bytes": 64000,
+    "sha256": "5858a0584b2a702b7385416b6ed6af865523738693d51d6fd2c34ce127a13844",
+    "members": 6
+  }
+}

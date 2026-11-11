@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "compiledAndUpdateSource": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "correctedCompleteSource": "759f46f7e0be932507a59c7a37d3c9e31b792997",
+  "changedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublishingProcessRecoveryTest.kt"
+  ],
+  "unchangedModeTypeObjectPathRecords": 222438,
+  "unchangedRecordSha256": "255cec701cfbe6069f0efa9862bb5d8b21277c539347e610bbbf65143d70f0f5",
+  "qualification": "Exactly two independently reviewed native fixture observers/restoration allowlists changed. Product, core, build/toolchain, workflow, host harness scripts and frozen contract are byte-identical. Every existing assertion and deadline is retained. No initial failed partition is accepted."
+}

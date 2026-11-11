@@ -1,0 +1,8 @@
+[
+  {
+    "path": "policies-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PolicyCenterPreviewTest",
+    "test": "draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork",
+    "occurrences": 1
+  }
+]

@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=restoreOriginalEncryptedInstallationFiles
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ProcessFixtureFilesKt.restoreProcessFixtureFiles(ProcessFixtureFiles.kt:35)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.restoreOriginalEncryptedInstallationFiles$lambda$25(PublishingProcessRecoveryTest.kt:145)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.$r8$lambda$clwjZmKsnEAz4k67QWZnkLXSGBw(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.restoreOriginalEncryptedInstallationFiles(PublishingProcessRecoveryTest.kt:129)
+
+INSTRUMENTATION_STATUS: stream=
+Error in restoreOriginalEncryptedInstallationFiles(nl.davidengelen.redsquare.PublishingProcessRecoveryTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ProcessFixtureFilesKt.restoreProcessFixtureFiles(ProcessFixtureFiles.kt:35)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.restoreOriginalEncryptedInstallationFiles$lambda$25(PublishingProcessRecoveryTest.kt:145)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.$r8$lambda$clwjZmKsnEAz4k67QWZnkLXSGBw(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.restoreOriginalEncryptedInstallationFiles(PublishingProcessRecoveryTest.kt:129)
+
+INSTRUMENTATION_STATUS: test=restoreOriginalEncryptedInstallationFiles
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.261
+There was 1 failure:
+1) restoreOriginalEncryptedInstallationFiles(nl.davidengelen.redsquare.PublishingProcessRecoveryTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ProcessFixtureFilesKt.restoreProcessFixtureFiles(ProcessFixtureFiles.kt:35)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.restoreOriginalEncryptedInstallationFiles$lambda$25(PublishingProcessRecoveryTest.kt:145)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.$r8$lambda$clwjZmKsnEAz4k67QWZnkLXSGBw(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+	at nl.davidengelen.redsquare.PublishingProcessRecoveryTest.restoreOriginalEncryptedInstallationFiles(PublishingProcessRecoveryTest.kt:129)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

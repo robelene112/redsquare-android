@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "reviewedAndFocusedSource": "6acabb4b3e914a2ed6182be0b42b82e24f04b7e8",
+  "completeAndApkSource": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "changedPaths": [
+    "docs/PROJECT_CONTEXT.md",
+    "docs/evidence/ticket100/README.md",
+    "docs/evidence/ticket100/source-reviews-final.json",
+    "docs/handoffs/IMPLEMENTATION.md",
+    "docs/research/PLAY_DATA_INVENTORY_2026_10_15.md"
+  ],
+  "unchangedModeTypeObjectPathRecords": 222435,
+  "unchangedRecordSha256": "5051bcc3a9a17fe84ffdc88d79990c4d68446d2b8e7a3029ef76462a1895a43a",
+  "qualification": "Every other tracked file has identical mode/type/object/path. Product, core, build, workflow and native/host harnesses are unchanged; differences are maintained documentation and review evidence only."
+}

@@ -1,0 +1,7 @@
+{
+  "result": "NOT ACCEPTED",
+  "run": "42998622485",
+  "source": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "reason": "Process recovery continuity passes, but restoration rejects a previously snapshotted exact-owner submission receipt that no longer appears in the active-directory enumeration.",
+  "disposition": "Whole run cancelled after Wallet failure; failed job and originals retained. No partitions are used in later acceptance. Fresh complete SDK runs required."
+}

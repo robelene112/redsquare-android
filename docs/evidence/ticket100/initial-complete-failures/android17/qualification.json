@@ -1,0 +1,7 @@
+{
+  "result": "NOT ACCEPTED",
+  "run": "42998903591",
+  "source": "de0ae9b60bda478f624cecc14f2f25d74fca12f0",
+  "reason": "The observer counts the separate new switch as a third radio choice. Actual native tree has two RadioButton indicators and a separate switch; originalexact2radio goal is preserved by a type-based observer correction.",
+  "disposition": "Whole run cancelled after Wallet failure; failed job and originals retained. No partitions are used in later acceptance. Fresh complete SDK runs required."
+}
