@@ -17,5 +17,17 @@
     ],
     "remainingActionableFindings": 0,
     "scope": "Independent read-only source review through60ade34fb; runtime acceptance pending."
+  },
+  "additionalImageRetryFixReview": {
+    "source": "ff747eff58d1064e9b877b8d840ce1b86c2358cb",
+    "spec": {
+      "reviewer": "/root/stack102_spec",
+      "actionableFindings": 0
+    },
+    "standards": {
+      "reviewer": "/root/stack102_standards",
+      "actionableFindings": 0
+    },
+    "qualification": "Independent read-only source review. Native bothSDK confirmation retained separately; full acceptance pending. Compiled0fd differs only by proof documentation."
   }
 }

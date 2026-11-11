@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "versionCode": 112,
+  "source": "0fd2133e78688d89f4ae2671b0d5715eba15e127",
+  "bytes": 42683434,
+  "sha256": "6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb",
+  "manifestExact": true,
+  "notesExact": true,
+  "downloadExact": true,
+  "publicLatestAfterStage": 110,
+  "qualification": "Candidate111 is superseded, never promote it. Candidate112 is staged only; focused17, complete bothSDK and exact signed update acceptance pending.",
+  "packageChecks": {
+    "applicationId": "nl.davidengelen.redsquare",
+    "minSdk": 29,
+    "targetSdk": 36,
+    "debuggable": false,
+    "profileable": false,
+    "allowBackup": false,
+    "establishedCertificate": true
+  }
+}

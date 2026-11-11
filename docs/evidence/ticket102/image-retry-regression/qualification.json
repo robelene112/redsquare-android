@@ -14,5 +14,17 @@
       "actionableFindings": 0
     }
   },
-  "qualification": "Actual RED retained; focused normal/zero motion proof on both SDKs pending. Original full17 remaining jobs and secondoldsourcefull10 cancelled, no partial result accepted. Candidate111 now superseded and must never be promoted; fresh signed112/fullboth/updateboth required."
+  "qualification": "Actual RED retained. Focused normal/zero motion, original request/caption goals, no external intent and physical loaded-image navigation pass on both SDKs. Full application and candidate112 delivery acceptance pending. Never promote superseded111.",
+  "focusedConfirmation": {
+    "10": {
+      "run": "43068297828",
+      "source": "ff747eff58d1064e9b877b8d840ce1b86c2358cb",
+      "result": "PASS"
+    },
+    "17": {
+      "run": "43069632746",
+      "source": "0fd2133e78688d89f4ae2671b0d5715eba15e127",
+      "result": "PASS"
+    }
+  }
 }

@@ -74,3 +74,24 @@ Focused dual-SDK normal/zero motion confirmation is pending in43068297828.
 The remaining old17 and second10 jobs are cancelled after this product fix.
 No partial full results contribute acceptance. Candidate111 is now superseded:
 **never promote111**. Fresh signed112, full10/17 and exact update checks are needed.
+
+
+The corrected image Retry journey now passes on both SDKs at its original native
+seam:43068297828(Android10,17.913s) and43069632746(Android17,28.608s). Both
+normal/zero-motion observations retain the original two-request and caption
+requirements; the added checks reject browser intents and physically open the
+linked article from the loaded image. Native captures and original hashes are
+under image-retry-regression/green-android10 and green-android17. The initial
+Android10-only focused execution was explicitly distinguished from the later17
+confirmation. These remain focused, not complete application acceptance.
+
+Fresh candidate112 is compiled from`0fd2133e78688d89f4ae2671b0d5715eba15e127`,
+42,683,434bytes, SHA256
+`6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb`.
+The established certificate, ordinary package, min29/target36, nondebuggable,
+nonprofileable and disabled backup settings are verified. [Staging112](staging112-verification.json)
+checks exact manifest, notes and actual downloaded bytes while latest stays110.
+Actual signed83-to112 updates43069542086/43069547302 pass on that same source,
+including exact draft, offline post, Light preference, wallet and distinct debug
+identity after cold launch. Fresh complete3part runs43069527048/43069531194
+are executing at that same source. Full acceptance and public promotion pending.
