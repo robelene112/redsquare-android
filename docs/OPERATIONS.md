@@ -127,6 +127,36 @@ Markdown and opens the selected Stack website with the browser wallet; it does n
 claim a native broadcast, purchase or entitlement. Native publication/access remains
 under #1. The prior disposable design draft had no on-disk format to migrate.
 
+### Native Stack reading links102
+
+Approved public `/stack`, `/stack/<author>` and `/stack/<author>/<signature>` URLs
+use the native reader through `StackLink` and the app URI handler. The signed post
+URL is the destination; unsigned preview hints cannot retarget it. Other hosts,
+unsupported URLs and explicit website publication/access/Open original actions
+retain the external browser path. Markdown reading links inherit the native handler;
+deliberate website actions use `LocalExternalUriHandler` to avoid routing loops.
+
+An exact article read uses Archive `sig`, the requested `field2` author, the existing
+Stack fields and `limit=1`. Authenticate the envelope and match its author/revision to the URL before
+collapsing logical revisions. Do not substitute the newest story or depend on the
+newest discovery page containing the requested revision. Unavailable/rejected
+articles retain Retry and the original signed URL for an explicit website action.
+
+The URL's approved node is temporary, visible reading context. It does not write
+the saved node choice. Entry scope also records the current wallet and saved node;
+changing either invalidates that context. Retained module state restores the
+originating feed/thread/profile when leaving the link reader. Ordinary Stack
+module state is separate from this one active linked scene.
+
+The linked reading window is one bounded file per wallet/node, identified by its
+exact target in metadata. Opening many URLs must not create one file or retained
+scene per article. General author windows/cursors remain separate. Cancelled
+readers check coroutine ownership under the shared public-store lock before
+committing, so an old link cannot replace a newer reading window after navigation.
+While a link image is unavailable/loading, its input guard preserves child Retry
+and scrolling and prevents repeated Retry taps from activating the parent card;
+the loaded image remains a normal way to open the article.
+
 ## Android GIF configuration
 
 The Posts integration reads optional Gradle properties

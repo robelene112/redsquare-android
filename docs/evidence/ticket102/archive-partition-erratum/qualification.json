@@ -1,0 +1,11 @@
+{
+  "expectedPath": "social/stack-link-evidence.tar",
+  "actualPath": "chat/stack-link-evidence.tar",
+  "expectedAndActualArchiveCounts": 195,
+  "unchangedInheritedArchivePaths": 194,
+  "originalContractSha256": "9364a0eebd9181dd61ada2115abeda9b8158065da2c7d46f826b57e6cd45f4c8",
+  "originalVerifierSha256": "dc73ab5f3c4f4249b1f2f8e7ba9fcea3739dcab6d6f8c0fb089c37e905e42341",
+  "adapterSha256": "b78fd66dc83b1f2f04e1c16db2faa2ef73cbb8103252b8586694edf146296c0f",
+  "basis": "The pre-run harness places StackLinkPreviewTest in full_chat beside the existing module/Stack classes. The new expected archive was mistakenly assigned to Social. Every native identity/recovery assertion passed before the original archive-set assertion. All194 inherited paths exist and the sole new archive exists underChat with original native PASS and article/return captures.",
+  "qualification": "Proposed explicit post-run one-path catalog erratum, following reviewed ticket99 procedure. Frozen verifier/contract remain byte-identical, raw paths never move, all goals/deadlines/content/recovery/legacy checks remain mandatory. Original verifier failure retained. Independent review and adapter execution pending; do not describe as unchanged-verifier PASS."
+}

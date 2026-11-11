@@ -95,3 +95,21 @@ Actual signed83-to112 updates43069542086/43069547302 pass on that same source,
 including exact draft, offline post, Light preference, wallet and distinct debug
 identity after cold launch. Fresh complete3part runs43069527048/43069531194
 are executing at that same source. Full acceptance and public promotion pending.
+
+
+The next complete10 run43069527048 fails only its initial agreement class cleanup
+hook after all three native publication-policy journeys finished. The remaining10
+jobs are cancelled; no partial SDK result is accepted. The [fixture source bridge](agreement-cleanup-fixture/source-equivalence.json)
+retains the exact failure, unknown original file/cause, unchanged application and
+byte-identical native test bodies. Fix8612758a2 serializes the same hard draft
+cleanup with PostDraftStore writes and adds failure diagnostics. Both independent
+source reviews pass. Focused existing agreement/recovery run43073403669 passes;
+its original first three methods finish in17.083s. Repetition does not establish
+the original deletion failure cause.
+
+Fresh complete10 run43073588639 executes all3jobs at8612758a2. The retained
+complete17 run43069531194 continues at0fd2133e7 with identical production and
+native goals. The candidate112 artifact and signed-update receipts remain exact.
+The accepted per-SDK fixture correction requires both entire SDK results and the
+unchanged frozen catalog; no standalone job or partial assembly can satisfy it.
+Complete17 Wallet is successful at18:12UTC; Chat/Social and fresh10 remain pending.

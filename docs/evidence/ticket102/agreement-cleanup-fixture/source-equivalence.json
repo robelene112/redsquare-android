@@ -1,0 +1,31 @@
+{
+  "compiledSource": "0fd2133e78688d89f4ae2671b0d5715eba15e127",
+  "verificationSource10": "8612758a28cfe9c8b64abe90b77fa84eee85d9b9",
+  "verificationSource17": "0fd2133e78688d89f4ae2671b0d5715eba15e127",
+  "candidate": 112,
+  "sha256": "6ba40a6b25f83e204339e570a2149931470183baed5f0f9b1ef675d007b0b4cb",
+  "productionAndOtherTrackedFilesUnchanged": true,
+  "onlyNonDocumentationChange": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublishingAgreementPreviewTest.kt",
+  "nativeTestBodiesByteIdentical": true,
+  "fixtureBeforeSha256": "e77e0de470ce26cb8a604f55e0dbf2bb6cb1cb78b8b6c4056e63444fab664412",
+  "fixtureAfterSha256": "e78398182947b7d9f3c58deceaf2ba117a64e4693d375da43af183272b7a6a2d",
+  "originalFailure": "43069527048 Walletjob130693334798: resetSyntheticDrafts check(file.delete) fails after the third full native journey; original file identity/precise cause unknown.",
+  "fix": "Same hard cleanup and debug/emulator guards run under existing PostDraftStore SaitoLocalState.lock; failure diagnostics added. No application change or deadline/goal relaxation.",
+  "qualification": "Source bridge only. Old10 failed/cancelled, no partial acceptance. Fresh full10 all3jobs43073588639 and retained full17 all3jobs43069531194 must independently pass complete frozen goals. This does not prove the original race cause. Candidate112 remains staged only.",
+  "reviews": {
+    "spec": {
+      "reviewer": "/root/stack102_spec",
+      "actionableFindings": 0
+    },
+    "standards": {
+      "reviewer": "/root/stack102_standards",
+      "actionableFindings": 0
+    }
+  },
+  "focusedConfirmation": {
+    "run": "43073403669",
+    "source": "8612758a28cfe9c8b64abe90b77fa84eee85d9b9",
+    "result": "PASS",
+    "qualification": "Entire existing agreement/recovery scope passes with hard cleanup unchanged. Repetition does not prove the original deletion failure cause."
+  }
+}
