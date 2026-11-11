@@ -2,6 +2,7 @@
 set -euo pipefail
 repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
 artifact="$repo_dir/app/build/outputs/apk/debug/app-debug.apk"
+if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then artifact="$repo_dir/app/build/outputs/apk/performance/app-performance-unsigned.apk"; fi
 if [[ ! -f "$artifact" ]]; then echo 'Build the diagnostic APK first' >&2; exit 2; fi
 evidence="$repo_dir/.scratch/device-evidence/api-$TEST_DEVICE_API"
 mkdir -p "$evidence"
@@ -96,14 +97,15 @@ adb shell wm dismiss-keyguard
 for setting in window_animation_scale transition_animation_scale animator_duration_scale; do
     adb shell settings put global "$setting" 0
 done
-adb install -r "$artifact"
-adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then
     [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]] || { echo 'Scroll diagnostics require explicit public-feed read permission' >&2; exit 2; }
     python3 "$repo_dir/scripts/scroll-performance-check" --evidence "$evidence/scroll-profile"
     printf '%s\n' 'Release-equivalent scroll diagnostics only; no complete or physical performance acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
+
+adb install -r "$artifact"
+adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 if [[ "${TEST_SCOPE:-full}" == candidate-update* ]]; then
     [[ "${TEST_CANDIDATE_VERSION:-}" =~ ^[0-9]+$ ]] && ((10#$TEST_CANDIDATE_VERSION > 83)) || {
         echo 'Require an immutable signed candidate newer than beta83' >&2; exit 2;

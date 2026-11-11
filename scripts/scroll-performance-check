@@ -132,7 +132,7 @@ try:
         adb("shell", "settings", "put", "global", key, "1")
     for trial in range(3):
         snapshot(f"trial-{trial}-before")
-        remote = f"/data/local/tmp/redsquare-scroll-{trial}.perfetto-trace"
+        remote = f"/data/misc/perfetto-traces/redsquare-scroll-{trial}.perfetto-trace"
         config = '''buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 duration_ms: 30000
 data_sources { config { name: "linux.ftrace" ftrace_config {
