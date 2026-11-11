@@ -34,12 +34,12 @@ assertions and the30-second bound. Local focused proof passes. No gateway
 production change or new signing version is needed.
 
 Fresh whole Android10/17 runs43040719802/43040725444 execute from`75920db2d`.
-They must match the unchanged pre-run101 contract:651/652 identities,228classes,
+Both match the unchanged pre-run101 contract:651/652 identities,228classes,
 194archives,247/248normal completions,37deliberate interruptions and36continuity
 records, retaining all inherited qualifications. Earlier failed/cancelled runs
 contribute no complete acceptance. See the ticket101 packet for originals and
-exact source bridges. Full results, final evidence review and public promotion
-are pending. No owner-phone QA, live writes, node/provider/Play change or other
+exact source bridges. Both complete runs and the frozen verification pass. Final evidence review
+and public promotion are pending. No owner-phone QA, live writes, node/provider/Play change or other
 issue work. Keep #1/#36/#55/#84/#86 open; stop after101. Canonical checkout stays.
 
 ## Delivered robust display names #100

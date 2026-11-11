@@ -127,3 +127,13 @@ old full jobs are cancelled and contribute no partial acceptance. Fresh whole
 10/17 runs43040719802/43040725444 execute from`75920db2d`, with an
 [exact product and fixture bridge](fixture-source-equivalence.json) to the same
 compiled candidate110. Complete execution and final delivery remain pending.
+
+Both final complete runs now pass on exact`75920db2d63eff0d3cc5b2e621609c5bd13349ac`:
+[Android10](full-final-android10/summary.json),43040719802, and
+[Android17](full-final-android17/summary.json),43040725444. Each succeeds in all
+three primary jobs. The unchanged pre-run frozen verifier accepts651/652
+identities,228classes,194archives,247/248normal completions,37deliberate
+interruptions and36continuity records. The inherited API29 Profile assumption,
+unavailable Chat archive and four failure-capture qualifications remain explicit.
+No partial jobs, new exception or weakened deadline contributes acceptance.
+Final independent evidence review and public promotion remain pending.
