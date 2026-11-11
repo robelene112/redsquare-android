@@ -225,8 +225,17 @@ abstract class FileshareFixture {
                                 captureNativeScreen(File(evidence, "saved.png"), "File saved")
                                 viewportWidth?.let { width ->
                                     val folder = File(evidence, "viewport-$width").apply { mkdirs() }
-                                    ui.onNodeWithText("Back").performClick()
-                                    ui.onNodeWithText("Home").performClick()
+                                    fun returnHome() {
+                                        val deadline = android.os.SystemClock.uptimeMillis() + 15_000
+                                        fun remaining() = (deadline - android.os.SystemClock.uptimeMillis()).coerceAtLeast(1)
+                                        ui.onNodeWithText("Back").performClick()
+                                        ui.waitUntil(remaining()) {
+                                            ui.onAllNodesWithText("New chat").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                                        }
+                                        ui.onNodeWithText("Home").performClick()
+                                        ui.waitUntil(remaining()) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                                    }
+                                    returnHome()
                                     ui.withPostViewports(activity, folder, "fileshare", widthDp = width) { cell, _ ->
                                         ui.onNodeWithText("Chat").performClick()
                                         waitUntil { ui.onAllNodesWithText(author.publicKey).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -247,8 +256,7 @@ abstract class FileshareFixture {
                                         }.toString())
                                         ui.onNodeWithText(draft).assertExists()
                                         captureNativeScreen(File(folder, "$cell-saved.png"), "File saved")
-                                        ui.onNodeWithText("Back").performClick()
-                                        ui.onNodeWithText("Home").performClick()
+                                        returnHome()
                                     }
                                 }
                             }
