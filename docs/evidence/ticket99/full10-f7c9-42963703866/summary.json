@@ -1,0 +1,60 @@
+{
+  "result": "PASS",
+  "sdk": "10",
+  "source": "f7c92f01961c28be567d07c868625d78d1a3ee89",
+  "run": "42963703866",
+  "completedIdentities": 642,
+  "recoveryTotals": {
+    "normalCompletions": 239,
+    "deliberateInterruptions": 37,
+    "continuityRecords": 36
+  },
+  "classes": 220,
+  "assumptions": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 186,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/stack99-acceptance-raw/full-android10",
+  "qualification": "Frozen goals verified with independently reviewed archive-partition catalog erratum. Complete original three-part SDK execution; original raw artifact paths retained. No partial assembly or physical/provider/store acceptance.",
+  "verification": "frozen-goals-with-archive-partition-erratum",
+  "archivePartitionErratum": {
+    "expectedPath": "wallet/stack-public-evidence.tar",
+    "actualPath": "chat/stack-public-evidence.tar",
+    "correctedExpectedPath": "chat/stack-public-evidence.tar",
+    "preservedInheritedArchivePaths": 181,
+    "unchangedOtherCurrentArchivePaths": 185,
+    "originalVerifierSha256": "2543eeaef87047deb0498de7f124ef48ed819e1e19bc7113ee221ec70ba6e651",
+    "originalContractSha256": "1b44806255cddd5aa88772632c681cd39313fcb6ff8b5d60fb816f4f94464d6d",
+    "adapterSha256": "30c7c82ac8a91563260a7b3ab3ebf1d53f2e84574a06ac02e9d33c7d88f8c2bf",
+    "actualArchiveSha256": "e07225dd6f936cef6a3058c4b5d8d80a57581de9e6112cbaf08ca15e0ead93ef",
+    "publicReadiness": [
+      {
+        "backend": "owner",
+        "rows": 0,
+        "authenticatedArticles": 0,
+        "ignored": 0,
+        "checkedAt": 1794378263264,
+        "writes": 0
+      },
+      {
+        "backend": "official",
+        "rows": 10,
+        "authenticatedArticles": 9,
+        "ignored": 0,
+        "checkedAt": 1794378265305,
+        "writes": 0
+      }
+    ],
+    "qualification": "Post-run catalog correction only. Original files, identities, deadlines, assumptions, archive count, recovery and inherited validators are unchanged. No partition assembly or omitted runtime goal."
+  }
+}

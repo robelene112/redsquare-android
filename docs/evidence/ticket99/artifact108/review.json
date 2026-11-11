@@ -1,0 +1,21 @@
+{
+  "scope": "Independent actual binary and artifact claims gate only",
+  "result": "PASS",
+  "source": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+  "versionCode": 108,
+  "bytes": 42581034,
+  "sha256": "720b6d129afa1fa1e42a57ce1aeee2377d5c7a22d12f414d531e317f1b19772e",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "spec": {
+    "reviewer": "stack99_spec",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "standards": {
+    "reviewer": "stack99_standards",
+    "result": "PASS",
+    "actionableFindings": []
+  },
+  "checked": "Both independently inspected actual APK. Established signing certificate/package, version108, min29/target36, nondebuggable/no profileable. Standards inspected actual DEX: REVIEW_BUILD=true; push and Posts/Chat GIF provider configuration disabled, DEBUG=false, no stackDesignFixture extra. Actual ordinary Stack route calls StackScreen, not StackReviewScreen. Packaged editor license byte-identical to source/107. Notes truthfully qualify explicit selected node, local drafts and browser publication; no native entitlement/payment claim.",
+  "qualification": "Candidate preparation/staging is permitted separately from promotion. Full native SDK, actual signed update and exact public promotion remain independent pending gates. Does not establish physical/OEM/provider/Play acceptance."
+}

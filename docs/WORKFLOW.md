@@ -11,15 +11,14 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner requested replacing Stack's preview stories with genuine Stack articles.
-Implement issue #99, one sequential native discovery/reading slice and compatible
-beta delivery, then stop. Existing shared wallet/backend, native UI/controlled
-peer, signed-envelope and reversible viewport seams are authorized. Historical
-Stack design fixtures remain separately labelled and never accept live features.
-The approved public endpoints may be read without posting or changing node state.
-Preserve explicit node choice and genuine remaining first-release publishing/access
-criteria under #1. Beta107 and completed #97/#98 remain accepted history.
-See [the handoff](handoffs/IMPLEMENTATION.md). Parent #1/#36/#55/#84/#86 stay open.
+Issue #99 is delivered as signed beta108: genuine native public Stack discovery
+and reading, complete Android 10/17 verification, independent reviews, actual
+signed updates and verified public delivery. Stop after this single ticket.
+Further ticket implementation needs the owner's next request. Historical debug
+design scenes remain separate from ordinary Stack. Preserve explicit selected
+node, shared identity and genuine unfinished native publication/access/payment/
+subscription requirements under #1. Parent #1/#36/#55/#84/#86 remain open.
+See [the handoff](handoffs/IMPLEMENTATION.md) and [evidence](evidence/ticket99/README.md).
 
 ## Load the real skills
 
@@ -120,6 +119,16 @@ placeholder values and controlled fixtures never satisfy it.
 Issue36 and parent specification1 stay open until their real release criteria
 are met. This staging keeps independent app work moving while preserving the
 complete first-release scope and the established production boundaries.
+
+### Observing hosted proof runs
+
+Check the background monitor's liveness and the age of saved status files.
+Confirm progress with fresh primary workflow metadata before reporting a long
+wait. If the monitor exits or its snapshot stops updating, use a fresh
+`gh run view <id> --repo robelene112/redsquare-android --json status,conclusion,jobs`
+or the primary API, and resume complete artifact collection. Record a local
+monitor failure separately from the actual GitHub Actions conclusion. Preserve
+original logs and every application assertion and deadline.
 
 ### Implementation steps
 

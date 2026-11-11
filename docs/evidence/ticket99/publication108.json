@@ -1,0 +1,55 @@
+{
+  "result": "PASS",
+  "verifiedAt": "2026-11-11T07:28:26.452977+00:00",
+  "publicManifest": {
+    "versionCode": 108,
+    "versionName": "0.1.108",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "720b6d129afa1fa1e42a57ce1aeee2377d5c7a22d12f414d531e317f1b19772e",
+    "commit": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/108/redsquare.apk",
+    "notes": "Stack now reads genuine public articles from the selected node, with real authors, covers and Markdown images. Read saved articles offline, follow authors, browse available history and keep local visual or Markdown drafts. Choose saito.io in Settings for the currently available public Stack archive; the davidengelen node currently has no Stack articles. Publication review opens the actual Stack website with the browser wallet. Native Stack publication, subscriber access and payments remain in development. Android beta; install over the existing app to retain local data."
+  },
+  "downloadedApk": {
+    "bytes": 42581034,
+    "sha256": "720b6d129afa1fa1e42a57ce1aeee2377d5c7a22d12f414d531e317f1b19772e",
+    "retainedExternalPath": "/mnt/storage/redsquare-android-artifacts/stack99-public108-verified.apk"
+  },
+  "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+  "httpResponses": {
+    "https://davidengelen.nl/redsquare/releases/108/manifest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/108/manifest.json"
+    },
+    "https://davidengelen.nl/redsquare/latest.json": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/latest.json"
+    },
+    "https://davidengelen.nl/redsquare/": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/"
+    },
+    "https://davidengelen.nl/redsquare/releases/108/redsquare.apk": {
+      "status": 200,
+      "finalUrl": "https://davidengelen.nl/redsquare/releases/108/redsquare.apk"
+    }
+  },
+  "completeRuns": [
+    {
+      "scope": "full-android10",
+      "run": 42963703866,
+      "testedSource": "f7c92f01961c28be567d07c868625d78d1a3ee89",
+      "workflowSource": "f7c92f01961c28be567d07c868625d78d1a3ee89"
+    },
+    {
+      "scope": "full-android17",
+      "run": 42966576451,
+      "testedSource": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+      "workflowSource": "706833f8fa332fb56e1d55e8a04839348a4ff2d0"
+    }
+  ],
+  "compiledApkSource": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+  "qualification": "Actual signed ordinary beta108 delivery for issue99, following complete native SDK and signed-update gates. Does not establish physical/OEM/provider/Play or native Stack publishing/access/payment/subscription acceptance."
+}

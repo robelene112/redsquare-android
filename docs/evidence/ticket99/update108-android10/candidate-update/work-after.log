@@ -1,0 +1,25 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReviewUpdateUiObserver:
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: reviewWorkObservation={"phase":"verify","appearance":"LIGHT","cachedPost":{"caption":"quote from the guy who regularly beats me in TS ","author":"nb19qEBVVeRaG6XpsnKWx2WQ5q2DBsYTVKMBRqbMK4jD","published":"Published 11\/11\/26 5:00 AM"},"draft":"Redesign update check. This is an unsent local draft.","draftRemainsUnsent":true,"offlineCacheRequired":true}
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.533
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1

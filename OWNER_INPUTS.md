@@ -56,9 +56,17 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 | Firebase/GCP-project en juiste Android-appassociaties | Open, bestaande vraag. | Echte achtergrondmeldingen onder #36 (SOCIAL_PUSH, PRIVATE_PUSH en GROUP_PUSH), na afgeronde native #32/#33/#34. Applicatie-ID, Firebase-app/project/sender en resolver moeten bij elkaar passen. Geen service-accountbestanden in Git. |
 | Werkelijke hosting en inrichting van de pushgateway | Nog te regelen binnen afgesproken beheerprocedure. | Publiek bereikbare HTTPS-resolver, afzender en echte gesloten-appbezorging. De agent kan de code en beheerinstructies verder voorbereiden. |
 
+## Optioneel: Stack op je eigen node
+
+Op 11 november bood jouw node geen Stack-archief aan. Voor deze beta is geen
+beheeractie nodig: via de expliciet gekozen node saito.io zijn echte openbare
+artikelen beschikbaar. Als je Stack ook op jouw eigen node wilt aanbieden,
+volgt daarvoor apart de bestaande beheerprocedure. De app activeert geen
+productiemodule en wisselt niet stilzwijgend van node.
+
 ## Controle op je Pixel 7
 
-De gewone [beta107](https://davidengelen.nl/redsquare/) staat online. Deze versie
+De gewone [beta108](https://davidengelen.nl/redsquare/) staat online. Deze versie
 herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
 accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
 Na succesvol plaatsen keer je terug naar de feed of conversatie met kort
@@ -70,17 +78,20 @@ schrijfveld bereikbaar.
 De feedmelding staat nu bovenaan onder de tabbladen, ook tijdens verder lezen.
 Berichten eronder blijven aanklikbaar. De profieluitleg gebruikt een neutraal
 informatie-icoon en "History may be limited", met Details voor de toelichting.
-Stack blijft herkenbaar een lokale ontwerppreview. Herhaald liken heeft geen
-lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
+Stack toont nu echte openbare artikelen van de gekozen node, met echte auteurs,
+covers, Markdown en offline lezen. Jouw node heeft momenteel geen Stack-archief;
+kies saito.io in Settings voor de beschikbare artikelen. Lokale schrijfconcepten
+blijven bewaard; publiceren gaat voorlopig via de echte Stack-website.
+Herhaald liken heeft geen lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
 
 De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
-van beta83 naar107 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+van beta83 naar108 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
 en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
 ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
 fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint. Gebruik die niet als definitieve meting van beta107. Voor definitieve
+checkpoint. Gebruik die niet als definitieve meting van beta108. Voor definitieve
 fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en

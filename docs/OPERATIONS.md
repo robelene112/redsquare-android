@@ -85,6 +85,11 @@ work for the subsequent tickets.
 
 ## Native Stack article integration
 
+Signed beta108 delivers the ordinary native public-reading route. Complete
+Android 10/17, independent packet reviews, actual signed updates and exact public
+delivery pass; see [ticket99 evidence](evidence/ticket99/README.md). Historical
+design fixtures do not accept live behavior. No production node was modified.
+
 Issue #99 replaces ordinary sample article routes with signed public Stack reads.
 Protocol authority: the deployed named public Stack source observed November11
 (SHA256 `1e22660820753d3755593da325dab630dae6e3179fe10e5ec04ce7feb2670f85`),

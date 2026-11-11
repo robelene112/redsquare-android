@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "scope": "Actual signed83-to108 in-place emulator update",
+  "run": 42969210675,
+  "source": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+  "originals": "/mnt/storage/redsquare-android-artifacts/stack99-update-raw/candidate-update-android17",
+  "qualification": "Original native update/isolation gate passes. Independent actual packet reviews are separate. Does not establish full application, physical/OEM/provider/Play or public promotion acceptance."
+}

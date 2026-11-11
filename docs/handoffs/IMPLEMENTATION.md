@@ -1,25 +1,46 @@
 # Implementation handoff
 
-## Active Stack integration #99
+## Delivered native Stack reading #99
 
-The owner requested genuine Saito Stack articles in place of the installed design
-preview. Implement [issue99](https://github.com/robelene112/redsquare-android/issues/99)
-as one sequential native discovery/reading slice, then compatible beta delivery
-and stop. Review base `84c9d9baa`; public beta107 remains the accepted baseline.
-Use the shared wallet and explicitly selected node, authentic signed public Stack
-articles, real authors/covers/Markdown, retained public cache and truthful states.
-Never fall back to sample stories or simulate access/publication. Existing native
-public-envelope, controlled peer and reversible viewport seams remain authorized.
-Historical design fixtures are explicitly debug-only and do not accept live Stack.
+Signed [beta 0.1.108](https://davidengelen.nl/redsquare/) replaces ordinary Stack
+sample stories with genuine signed public articles from the explicitly selected
+node. Real authors, covers and Markdown images, followed authors, My articles,
+bounded history and retained offline reading use the shared wallet and controls.
+Local visual/Markdown drafts are durable; review copies Markdown and opens the
+actual Stack website with its browser wallet. Native publication, restricted
+access, payments and subscriptions remain first-release work under #1.
 
-Read-only observation on November11: the owner node does not advertise Stack and
-returns an empty Stack archive; saito.io advertises Stack and returned10 rows,
-which the native decoder authenticates as9 logical articles. Preserve explicit
-node choice. Do not silently change backends or enable a production node module.
-Native publishing/access/payment/subscriptions remain genuine first-release work
-under1; this ticket replaces the sample article experience, not those wider gates.
-No owner setup/phone QA or live writes are needed. Complete native10/17, actual
-signed update and verified beta delivery remain required before closure.
+The owner node currently has no Stack archive; choose saito.io in Settings for
+its available public articles. Native read-only checks exercise both approved
+backends without substituting data, switching nodes silently or publishing.
+Historical design fixtures are debug-only, separate from the ordinary route.
+
+Complete Android 10 [42963703866](https://github.com/robelene112/redsquare-android/actions/runs/42963703866)
+and Android 17 [42966576451](https://github.com/robelene112/redsquare-android/actions/runs/42966576451)
+pass all three partitions. Frozen goals are verified with an independently
+reviewed archive-partition catalog erratum: 642/643 identities, 220 classes,
+186 archives, 239/240 normal completions, 37 deliberate interruptions and 36
+continuity records. Only the inherited API29 Profile assumption remains.
+The inherited unavailable Chat archive and failure-only captures remain qualified.
+Both independent final reviews and actual signed 83-to-108 update gates pass.
+Public immutable/latest manifests, page and downloaded APK match exactly.
+
+Complete Android 10 source is `f7c92f01961c28be567d07c868625d78d1a3ee89`.
+Complete Android 17 and compiled APK source are `706833f8fa332fb56e1d55e8a04839348a4ff2d0`.
+The fixture-only rule retains the complete Android 10 run with exact product/core/build/
+workflow/harness equality and a fresh whole Android 17 run. One test readiness wait changed
+within its original budget. No partitions from different SDK runs are assembled;
+the early failed Android 17 run remains failed and its underlying cause is unproved.
+
+APK: 42,581,034 bytes, SHA256
+`720b6d129afa1fa1e42a57ce1aeee2377d5c7a22d12f414d531e317f1b19772e`.
+The established package/certificate and min29/target36 remain unchanged.
+See [original evidence, qualifications and reviews](../evidence/ticket99/README.md).
+This completes only #99; stop. Parent #1/#36/#55/#84/#86 stay open.
+Physical/OEM/provider/Play acceptance remains under #36 and OWNER_INPUTS.md.
+No owner-phone QA, production-node/service changes or owner-wallet operations
+were performed. Source checkout remains the isolated codex/unified-redesign
+worktree; preserve the canonical checkout.
 
 ## Delivered UI fixes #97 and #98
 
@@ -158,23 +179,30 @@ production nodes and services remain untouched. Issue #94 is the previous accept
 
 - Sole implementation checkout: `/mnt/storage/redsquare-android-artifacts/redesign86`,
   branch `codex/unified-redesign`. Preserve canonical `/home/david/projects/redsquare-android`.
-- External original artifact root: `/mnt/storage/redsquare-android-artifacts`.
-- Accepted pair manifest: `ui9798-accepted-full-runs.json`. Actual originals:
-  `feed97-final-full-raw/full-android10` (source/workflow `8ab10cdd0`) and
-  `ui9798-fixture-final-full-raw/full-android17` (source/workflow `82c01e74d`).
-  Both are complete three-job SDK executions; no fragments are combined.
-- `feed97-full-runs.json`, `feed97-final-full-runs.json`, and
-  `ui9798-retry-full17-runs.json` retain earlier execution history, including unsuccessful runs.
-  The old `ui9798-final-full-runs.json` is an unsuccessful intended pair, not acceptance.
-- Compiled APK source stays `8ab10cdd0`. `fixture-source-equivalence.json` records
-  exact production/core/toolchain equality with final fixture source `82c01e74d`.
-  Temporary main probes are removed. Do not mistake diagnostic prefixes for full acceptance.
-- Actual signed 83-to-107 updates: `ui9798-update-runs.json`; originals under
-  `ui9798-update-raw/candidate-update` and `candidate-update-android17`.
-- Published artifact: `.scratch/review-builds/107`; exact notes: `ui9798-release-notes.txt`.
-  Do not rebuild/reserve another version for these completed fixes or promote 106.
-- Frozen verifiers, independent final reviews, native updates, binary gate and exact
-  public 107 checks pass. Close only #97 and #98, then stop.
-- Parents #1/#36/#55/#84/#86 and owner/provider/physical/Play gates remain open.
-  No further owner QA is needed for these development checks.
-- Read current context, workflow, operations and tracker before a future task.
+- Public immutable candidate108 is the delivered ordinary beta. Artifact:
+  `.scratch/review-builds/108`; exact notes: external `stack99-release-notes.txt`.
+  Do not reserve, rebuild or promote another version for completed99.
+- Compiled APK source/tag: `706833f8fa332fb56e1d55e8a04839348a4ff2d0`, `proof-stack99-feed-ready`.
+  Later commits retain evidence/documentation only. Product/core/build/workflow/
+  harness objects match both complete-run sources under the reviewed fixture rule.
+- Accepted whole-SDK manifest: external `stack99-accepted-full-runs.json`.
+  Complete Android 10: `42963703866` at `f7c92f01961c28be567d07c868625d78d1a3ee89`,
+  originals `stack99-acceptance-raw/full-android10`.
+  Complete Android 17: `42966576451` at `706833f8fa332fb56e1d55e8a04839348a4ff2d0`,
+  originals `stack99-fixture-full17-raw/full-android17`.
+  No partitions from separate dispatches are assembled.
+- Frozen contract/verifier stay unchanged. Use the explicitly reviewed
+  `docs/evidence/ticket99/verify-archive-partition-erratum.py` for its one-path
+  expected catalog correction, and preserve the original collector failures.
+  Report frozen goals verified with archive-partition catalog erratum, never an
+  unchanged-verifier PASS. All identities/recovery/archives/inherited validators
+  still pass. See the exact summaries and reviews in99's evidence packet.
+- Actual signed 83-to-108 updates: external `stack99-update-runs.json`,
+  runs 42969207984/42969210675. Originals `stack99-update-raw/candidate-update`
+  and `stack99-update-raw/candidate-update-android17`. Both reviews pass.
+- Exact immutable/latest manifests, public page and downloaded APK are verified.
+  The original failed full17 source f7 run42963706966 remains failed; its passing
+  Social/Wallet partitions are not reused. Fixture source 706 has its own complete17 run.
+- This completes99 only. Stop. Parent issues #1/#36/#55/#84/#86 and physical/provider/Play gates
+  remain open. Native publication/access/payment/subscriptions remain under #1.
+  No further owner QA or node/service operation is needed for this reading slice.

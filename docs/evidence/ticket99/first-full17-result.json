@@ -1,0 +1,25 @@
+{
+  "run": 42963706966,
+  "source": "f7c92f01961c28be567d07c868625d78d1a3ee89",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "name": "native-proof (social)",
+      "conclusion": "success",
+      "databaseId": 130335940176
+    },
+    {
+      "name": "native-proof (chat)",
+      "conclusion": "failure",
+      "databaseId": 130335940457
+    },
+    {
+      "name": "native-proof (wallet)",
+      "conclusion": "success",
+      "databaseId": 130335940560
+    }
+  ],
+  "completeOriginals": "/mnt/storage/redsquare-android-artifacts/stack99-acceptance-raw/full-android17",
+  "namedFailurePacket": "first-full17-chat-failure",
+  "qualification": "Whole initial SDK dispatch failed in early NodeBlockPreviewTest. Social and Wallet succeeded, but no partition is reused for acceptance. The subsequent whole replacement17 must pass every partition and frozen goal. Underlying original failure cause remains unproved."
+}

@@ -1,0 +1,27 @@
+{
+  "run": 42966576451,
+  "source": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+  "monitorExitCode": 143,
+  "lastStatusFileModifiedAt": "2026-11-11T06:44:35.828634+00:00",
+  "previousRecordedStatus": "in_progress",
+  "freshStatus": "completed",
+  "freshConclusion": "success",
+  "freshJobs": [
+    {
+      "name": "native-proof (chat)",
+      "conclusion": "success",
+      "completedAt": "2026-11-11T06:49:52Z"
+    },
+    {
+      "name": "native-proof (social)",
+      "conclusion": "success",
+      "completedAt": "2026-11-11T06:43:19Z"
+    },
+    {
+      "name": "native-proof (wallet)",
+      "conclusion": "success",
+      "completedAt": "2026-11-11T06:08:46Z"
+    }
+  ],
+  "qualification": "The local background monitor ended with143 and left a stale in-progress status file. A fresh primary API request and normal gh run view confirm complete success. The cause of monitor termination is unproved; this was not a workflow or application failure."
+}

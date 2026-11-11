@@ -1,0 +1,15 @@
+{
+  "baselineSource": "f7c92f01961c28be567d07c868625d78d1a3ee89",
+  "fixtureSource": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+  "comparison": "git ls-tree -r -z, complete tracked file records (mode, type and object ID); directory trees excluded",
+  "baselineTrackedFileRecords": 222250,
+  "fixtureTrackedFileRecords": 222252,
+  "identicalTrackedFileRecords": 222249,
+  "changedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/NodeBlockPreviewTest.kt",
+    "docs/evidence/ticket99/first-full17-chat-failure/original-SHA256.json",
+    "docs/evidence/ticket99/first-full17-chat-failure/qualification.json"
+  ],
+  "result": "PASS",
+  "qualification": "Only one native test readiness wait and qualified evidence differ. All other tracked file mode/type/blob records are identical, including product/core/toolchain/workflow/harness and the frozen contract/verifier. Runtime acceptance requires one whole successful SDK execution per version, no partition assembly."
+}

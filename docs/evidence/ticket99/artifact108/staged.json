@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "immutableManifest": {
+    "versionCode": 108,
+    "versionName": "0.1.108",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "720b6d129afa1fa1e42a57ce1aeee2377d5c7a22d12f414d531e317f1b19772e",
+    "commit": "706833f8fa332fb56e1d55e8a04839348a4ff2d0",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/108/redsquare.apk",
+    "notes": "Stack now reads genuine public articles from the selected node, with real authors, covers and Markdown images. Read saved articles offline, follow authors, browse available history and keep local visual or Markdown drafts. Choose saito.io in Settings for the currently available public Stack archive; the davidengelen node currently has no Stack articles. Publication review opens the actual Stack website with the browser wallet. Native Stack publication, subscriber access and payments remain in development. Android beta; install over the existing app to retain local data."
+  },
+  "ordinaryLatestVersionAfterStaging": 107,
+  "qualification": "Immutable candidate staging only; no promotion or full/runtime/update acceptance claimed."
+}

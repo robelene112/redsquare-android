@@ -5,11 +5,11 @@ Review base: `84c9d9baa`, the accepted beta107 checkpoint.
 
 ## Current status
 
-Implementation and independent source review are complete. Native acceptance,
-complete application verification, signed-update checks and beta delivery are
-pending. Public beta107 remains unchanged. This packet must not be read as
-acceptance of the broader native Stack publisher, access, payment or subscription
-requirements under1.
+Signed [beta0.1.108](https://davidengelen.nl/redsquare/) delivers issue99.
+Complete Android 10/17, independent final reviews, actual signed 83-to-108 updates,
+binary verification and exact public delivery pass. This accepts native public
+discovery/reading and durable local drafts. Broader native Stack publication,
+restricted access, payments and subscriptions remain under #1.
 
 The ordinary Stack module now reads authenticated public Stack envelopes from
 the explicitly selected node. Real title, excerpt, author, date, cover and
@@ -59,7 +59,7 @@ Large originals stay under `/mnt/storage/redsquare-android-artifacts` with run
 manifests and completed-download markers. The packet retains exact hashes rather
 than copying emulator installations or large movies into Git.
 
-## Final-source correction and pending complete verification
+## Final-source correction and complete verification
 
 Both [focused Android10](focused-android10/summary.json) and
 [focused Android17](focused-android17/summary.json) passed all11 required identities
@@ -73,7 +73,7 @@ reader grammar correction at `b8b642c6c58a19b2f29879e1d66252d4ab90a13d`.
 The ordinary reader parses the original Markdown while the original editor API
 retains its behavior. The same native method now checks rendered prose emphasis
 as well as literal code. Local core/native compilation passes. Final complete
-SDK runs will rerun every Stack case and all inherited application/public gates;
+SDK runs reran every Stack case and all inherited application/public gates;
 the old focused source is not combined into final acceptance.
 
 ## Frozen complete contract
@@ -93,3 +93,53 @@ archive; saito.io supplied10 rows authenticated as9 logical articles. The app
 preserves node choice instead of substituting another node. No owner wallet,
 node/service configuration, provider, Play or physical-phone operation is part of
 this development slice. Parent1/36/55/84/86 remain open.
+
+## Accepted complete SDK pair and signed beta108
+
+- [Complete Android 10](full10-f7c9-42963703866/summary.json), run
+  [42963703866](https://github.com/robelene112/redsquare-android/actions/runs/42963703866),
+  source `f7c92f01961c28be567d07c868625d78d1a3ee89`.
+- [Complete Android 17](full17-7068-42966576451/summary.json), run
+  [42966576451](https://github.com/robelene112/redsquare-android/actions/runs/42966576451),
+  source `706833f8fa332fb56e1d55e8a04839348a4ff2d0`, also the compiled APK source.
+- Both complete three-job SDK executions pass. Frozen goals are verified with
+  the independently reviewed one-path archive-partition catalog erratum:
+  642/643 identities, 220 classes, 186 archives, 239/240 normal completions,
+  37 deliberate interruptions and 36 continuity records. Only the inherited
+  API29 Profile assumption remains, with inherited missing captures/archive
+  explicitly preserved. No partial partition assembly or new exception.
+- [Exact source equivalence](fixture-source-equivalence.json) and
+  [independent fixture/packet source review](fixture-source-reviews.json):
+  222249 unchanged complete tracked-file mode/type/OID records. One readiness
+  wait changed; product/core/build/workflow/harness/contracts are identical.
+  Complete Android 10 is retained under the documented fixture-only rule; whole Android 17 reruns
+  every goal. The early Android 17 Chat failure remains qualified in
+  [its original packet](first-full17-chat-failure/qualification.json).
+- The [reviewed catalog erratum](archive-partition-erratum/source-reviews.json)
+  and [explicit adapter](verify-archive-partition-erratum.py) preserve the original
+  frozen files. The harness actually runs StackPublicReadTest in Chat; its new
+  archive was mistakenly catalogued under Wallet. Original collector failures
+  remain preserved. Only that expected path changes in memory, with all 181
+  inherited archive paths and 185 other current-contract paths intact. Actual
+  raw files never move. This is not an unchanged-verifier PASS or a runtime
+  exemption. Every remaining frozen identity, recovery, archive-content and
+  inherited visual/motion check completes on each whole SDK execution.
+- [Final independent complete-packet reviews](final-reviews.json),
+  [actual binary review](artifact108/review.json),
+  [immutable staging](artifact108/staged.json),
+  [actual signed-update reviews](update108-reviews.json) and
+  [exact public verification](publication108.json) all pass.
+  Update originals remain in [Android 10](update108-android10/qualification.json)
+  and [Android 17](update108-android17/qualification.json).
+
+The actual APK is 42,581,034 bytes, SHA256
+`720b6d129afa1fa1e42a57ce1aeee2377d5c7a22d12f414d531e317f1b19772e`.
+Its established package/certificate, min29/target36 and packaged editor license
+are verified. Candidate108 was signed/staged and update-tested while complete
+suites ran; ordinary latest107 stayed unchanged until all gates passed, then the
+exact same immutable candidate was promoted. No replacement rebuild was used.
+
+The selected node remains explicit. The owner node currently serves no Stack
+archive; saito.io supplies genuine public articles. No native publication,
+entitlement, payment, physical/OEM/provider/Play acceptance or owner-wallet/node
+operation is claimed. This completes only #99; parent issues #1/#36/#55/#84/#86 stay open.
