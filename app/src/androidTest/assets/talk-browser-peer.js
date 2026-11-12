@@ -67,7 +67,7 @@ app.connection.on('relay-send-message', async value => {
   const tx = new FixtureTransaction();
   for (const key of (Array.isArray(value.recipient) ? value.recipient : [value.recipient])) tx.addTo(key);
   tx.msg = {module:'Relay', request:value.request, data:value.data}; await tx.sign();
-  Host.relay(tx.serialize_to_web(app));
+  Host.relay(Host.invitation(tx.serialize_to_web(app)));
 });
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const canvas = document.createElement('canvas'); canvas.width = 640; canvas.height = 480;

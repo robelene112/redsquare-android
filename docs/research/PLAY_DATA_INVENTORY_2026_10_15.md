@@ -152,3 +152,49 @@ chosen provider. Cancelling or removing local work cannot recall exported or
 recipient copies. Android foreground progress is a local notification, without
 an FCM subscription for file delivery. Final retention, operator relationships,
 provider declarations and real-device/network qualifications remain pending under #36.
+
+## Native Saito Talk, November 12 development addendum (#104)
+
+This describes the implemented native source under active issue104, before its
+complete verification and beta delivery. It supersedes the older snapshot's
+absence of microphone/camera permissions for this feature only. It is not a
+completed Play declaration, provider-retention audit or physical-device result.
+
+[TalkCapture](../../app/src/main/kotlin/nl/davidengelen/redsquare/talk/TalkCapture.kt)
+uses Android microphone and optional camera capture after an explicit start/join
+or answer and the corresponding runtime permissions. Native WebRTC carries live
+audio/video over DTLS/SRTP peer connections, directly or through configured TURN
+traversal. The implementation does not record media or create transcript files.
+Camera transmission is silenced when the app leaves the foreground and capture
+is paused; accepted voice continues under the microphone foreground service.
+Ending or invalidating the active identity/node releases that call's media.
+
+[TalkRuntime](../../app/src/main/kotlin/nl/davidengelen/redsquare/talk/TalkRuntime.kt)
+and [SharedRtcPeer](../../app/src/main/kotlin/nl/davidengelen/redsquare/saito/SharedRtcPeer.kt)
+share peer ownership with Fileshare. Signed invitation/room/control/SDP/ICE
+messages expose public routing keys, room identifiers, participants and connection
+metadata to their addressed peers and the approved Relay nodes used for delivery.
+The selected node and official fallback are distinct from an invitation's origin;
+opening an approved link does not replace the saved node. TURN servers can receive
+network and traffic metadata. These paths do not demonstrate provider retention
+or deletion agreements. Native call signalling uses Relay, without deliberately
+broadcasting microphone/camera media or call-control transactions to the chain.
+Existing browser participants can have their own network/onchain behavior.
+
+[TalkScreen](../../app/src/main/kotlin/nl/davidengelen/redsquare/talk/TalkScreen.kt)
+previews an invitation without capture. Room links are bearer invitations;
+copy/share deliberately exports the room identifier, host, known public peers and
+origin to the system clipboard or chosen Android share target. Anyone with the
+invitation can request entry. The current module does not implement a durable
+call-history/recording store or automatic process recovery. Saved Activity
+navigation can retain the prejoin URL. Local diagnostics report a stage and error
+class, without deliberately logging media content or full signalling payloads.
+
+[TalkService](../../app/src/main/kotlin/nl/davidengelen/redsquare/talk/TalkService.kt)
+uses microphone/camera foreground-service types, local ongoing notifications,
+audio focus and a bounded renewable wake lock for a user-started active call.
+Return/hang-up actions bind the exact call token, wallet public key and saved
+node. Bluetooth-connect permission is optional for selecting actual communication
+devices; this does not introduce a contacts/address-book import. Closed/killed-app
+incoming delivery has no new provider configuration or reliability claim here.
+Provider, Play and physical/OEM qualifications remain pending under36.

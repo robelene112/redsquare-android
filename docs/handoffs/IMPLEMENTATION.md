@@ -41,8 +41,21 @@ and fails the real-frame assertion. Earlier43193926943 instead failed fixture
 startup and is not counted as camera RED. Provisioning-only failures/cancellations
 and original routing/core failures remain external with their actual outcomes.
 
-The next owned browser fixture executes hash-checked Videocall, StreamManager,
-dialer and Stun bodies in test-only real WebViews. It uses controlled canvas and
+The owned browser fixture executes hash-checked Videocall, StreamManager,
+dialer and Stun bodies. Original43209750140 failed when the test renderer reassigned
+an identical MediaStream and aborted play(); test-only4a4fc2276 removes that reload.
+Next43210867584 reaches actual media tracks but Android ends the call after the
+co-located WebView requests media audio focus. Original system lines46014/46027
+explicitly bind Chromium's request to TalkService's focus-loss callback. This is
+a fixture collision with the native call, not audio/video acceptance.
+
+Browser peers now move to separate owned host Chromium through HTTP/CDP system
+adapters. scripts/talk-browser-reference records the actual browser version,
+forwards only loopback test ports, blocks page requests outside the owned fixture
+and restores its process/profile/ports. It leaves the native focus behavior and
+all decoded-pixel/PCM/three-party assertions unchanged. The original legacy
+Android WebView remains in place for inherited tests. Browser UI/wallet/network
+boundaries are adapted; the four pinned module bodies are unchanged. It uses controlled canvas and
 WebAudio inputs plus a debug/emulator-only PCM hook after real AudioRecord.read.
 Actual codecs, DTLS/RTP, remote pixels and PCM must be observed before claiming
 media interoperability. Framework/wallet serialization and owned Relay are

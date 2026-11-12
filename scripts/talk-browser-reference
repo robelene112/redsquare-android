@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Run a native Talk proof against real, separate host Chromium peers. No production browser is used.
+set -euo pipefail
+[[ $# == 1 ]] || { echo 'Usage: talk-browser-reference evidence-directory' >&2; exit 2; }
+proof_browser_evidence=$1
+mkdir -p "$proof_browser_evidence"
+command -v google-chrome >/dev/null
+command -v curl >/dev/null
+[[ "$(adb get-serialno)" == emulator-* ]]
+[[ -z "$(adb forward --list | awk '$2 == "tcp:19004" {print}')" ]]
+[[ -z "$(adb reverse --list | awk '$2 == "tcp:9222" {print}')" ]]
+! curl -fsS --max-time 1 http://127.0.0.1:9222/json/version >/dev/null 2>&1
+proof_browser_profile=$(mktemp -d)
+proof_browser_pid=
+proof_browser_parent=$PPID
+cleanup_browser() {
+    adb forward --remove tcp:19004 >/dev/null 2>&1 || true
+    adb reverse --remove tcp:9222 >/dev/null 2>&1 || true
+    if [[ -n "$proof_browser_pid" ]]; then
+        kill "$proof_browser_pid" 2>/dev/null || true
+        wait "$proof_browser_pid" 2>/dev/null || true
+    fi
+    rm -rf -- "$proof_browser_profile"
+}
+trap cleanup_browser EXIT INT TERM
+google-chrome --version > "$proof_browser_evidence/chromium-version.txt"
+google-chrome --headless=new --mute-audio --no-sandbox --disable-dev-shm-usage --no-first-run --no-default-browser-check \
+    --disable-background-networking --disable-component-update --disable-sync --disable-features=WebRtcHideLocalIpsWithMdns \
+    --autoplay-policy=no-user-gesture-required --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222 \
+    --user-data-dir="$proof_browser_profile" --no-startup-window > "$proof_browser_evidence/chromium.log" 2>&1 &
+proof_browser_pid=$!
+for proof_browser_attempt in {1..50}; do
+    if curl -fsS --max-time 1 http://127.0.0.1:9222/json/version > "$proof_browser_evidence/devtools-version.json"; then break; fi
+    kill -0 "$proof_browser_pid"
+    sleep 0.1
+done
+curl -fsS --max-time 1 http://127.0.0.1:9222/json/version >/dev/null
+adb reverse tcp:9222 tcp:9222
+adb forward tcp:19004 tcp:19004
+printf '%s\n' 'ready' > "$proof_browser_evidence/ready"
+# The parent runs the unchanged bounded native class, then removes this marker.
+while [[ -e "$proof_browser_evidence/ready" ]]; do
+    kill -0 "$proof_browser_pid"
+    kill -0 "$proof_browser_parent"
+    sleep 0.2
+done

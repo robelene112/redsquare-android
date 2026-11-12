@@ -202,8 +202,31 @@ verify_talk_capture_native() {
     done
     return "$proof_result"
 }
+# Browser peers run outside Android so their WebAudio cannot steal the call's audio focus.
+verify_talk_browser_native() {
+    local test_class=$1 prefix=$2 browser_runner result=0 browser_ready=false
+    local folder="$evidence/$prefix-browser"
+    mkdir -p "$folder"
+    "$repo_dir/scripts/talk-browser-reference" "$folder" &
+    browser_runner=$!
+    for browser_poll in {1..100}; do
+        if [[ -f "$folder/ready" ]]; then browser_ready=true; break; fi
+        if ! kill -0 "$browser_runner" 2>/dev/null; then break; fi
+        sleep 0.1
+    done
+    if [[ "$browser_ready" == true ]]; then
+        if verify_talk_capture_native "$test_class" "$prefix"; then result=0; else result=$?; fi
+    else result=1; fi
+    rm -f -- "$folder/ready"
+    if ! wait "$browser_runner"; then result=1; fi
+    return "$result"
+}
 if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == talk-direct* ]]; then
+    verify_talk_browser_native TalkDirectPreviewTest talk-direct
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-invitation* ]]; then
@@ -211,7 +234,7 @@ if [[ "${TEST_SCOPE:-full}" == talk-invitation* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-media* ]]; then
-    verify_talk_capture_native TalkMediaPreviewTest talk-media
+    verify_talk_browser_native TalkMediaPreviewTest talk-media
     exit
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-capture* ]]; then
