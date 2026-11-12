@@ -55,6 +55,16 @@ class ChatMixedReceptionPreviewTest {
                 .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/failure.png"))}) {
+                    ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
+                    ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
+                    ui.onNode(hasText("Saito Talk") and hasClickAction()).performClick()
+                    val ready = "Ready for incoming calls while this app is open."
+                    wait(ready)
+                    ui.onNodeWithText(ready).performScrollTo().assertIsDisplayed()
+                    val accountConnections = peer.authenticatedConnectionIds
+                    check(accountConnections.isNotEmpty())
+                    ui.onNodeWithContentDescription("Switch app: Saito Talk").performClick()
+                    ui.onNode(hasText("Red Square") and hasClickAction()).performClick()
                     waitEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                     wait("Groups");ui.onNodeWithText("Groups").performClick()
                     wait("Foreground group");ui.onNodeWithText("Foreground group").performClick()
@@ -89,10 +99,32 @@ class ChatMixedReceptionPreviewTest {
                         captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/private-retained-in-groups.png"),"Received a signed group invitation.")
                     }
                     val oldConnections=peer.authenticatedConnectionIds
+                    val groupConnections=oldConnections-accountConnections
+                    check(groupConnections.isNotEmpty())
                     ui.onNodeWithText("Back").performClick();wait("Create group")
                     ui.onNodeWithText("Back").performClick();wait("New chat")
-                    ui.waitUntil(15_000){val current=peer.authenticatedConnectionIds
-                        current.intersect(oldConnections).isEmpty()&&current.any{it !in oldConnections}}
+                    val handoverDeadline=android.os.SystemClock.elapsedRealtime()+15_000
+                    val privateBytes=privateMessage.applicationRequest(1).let{it.copyOfRange(5,it.size)}
+                    var probeAt=0L
+                    val probeTargets=mutableSetOf<Int>()
+                    ui.waitUntil(15_000){
+                        val current=peer.authenticatedConnectionIds
+                        check(current.containsAll(accountConnections)) { "The observed Talk account connection changed" }
+                        val fresh=current-oldConnections
+                        val now=android.os.SystemClock.elapsedRealtime()
+                        if(current.intersect(groupConnections).isEmpty()&&fresh.isNotEmpty()&&now-probeAt>=200) {
+                            probeTargets.addAll(peer.sendIncomingTo(fresh,privateBytes,899));probeAt=now
+                        }
+                        current.intersect(groupConnections).isEmpty()&&fresh.isNotEmpty()&&
+                            peer.incomingAcknowledgements.any{it[0]==13.toByte()&&ByteBuffer.wrap(it,1,4).int==899}
+                    }
+                    check(android.os.SystemClock.elapsedRealtime()<=handoverDeadline)
+                    check(probeTargets.isNotEmpty()&&probeTargets.intersect(oldConnections).isEmpty())
+                    File(context.cacheDir,"chat-mixed-evidence/connection-handover.json").writeText(
+                        com.google.gson.Gson().toJson(mapOf("account" to accountConnections,"old" to oldConnections,
+                            "group" to groupConnections,"after" to peer.authenticatedConnectionIds,
+                            "privateProbeTargets" to probeTargets,"privateProbeAcknowledged" to true)))
+                    check(ChatHistoryStore(context,fixture,backend,admin.publicKey).load().entries.single().envelope==privateMessage.envelope())
                     val unfinished=File(context.noBackupFilesDir,"${bases[1]}.new")
                     val faultBytes=byteArrayOf(1,2,3)
                     synchronized(SaitoLocalState.lock){check(!unfinished.exists());unfinished.writeBytes(faultBytes)}

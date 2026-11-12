@@ -85,6 +85,16 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         authenticatedSockets.forEach { it.send(frame) }
     }
 
+    /** Deliver an unchanged wire frame only to the positively identified test sockets. */
+    fun sendIncomingTo(ids: Set<Int>, transaction: ByteArray, requestId: Int): Set<Int> {
+        require(requestId > 0)
+        incomingRequestIds.add(requestId)
+        val frame = (byteArrayOf(12) + ByteBuffer.allocate(4).putInt(requestId).array() + transaction).toByteString()
+        return authenticatedSockets.mapNotNull { socket ->
+            connectionIds[socket]?.takeIf { it in ids && socket.send(frame) }
+        }.toSet()
+    }
+
     /** Interrupt only this isolated server's authenticated sockets. */
     fun disconnectAuthenticatedSockets():Set<Int> {
         val sockets=authenticatedSockets.toList()
