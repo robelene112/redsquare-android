@@ -362,13 +362,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val inbox = incomingFrames
                 if (generation != channelGeneration) return@message
                 if (inbox != null) {
-                    if (inbox.append(text)) post {
-                        while (generation == channelGeneration && incomingFrames === inbox) {
-                            currentCoroutineContext().ensureActive()
-                            val frame = inbox.next() ?: break
-                            handle(Fileshare.direct(frame, contact, owner))
-                        }
-                    }
+                    if (inbox.append(text)) post { drainInbox(inbox, generation) }
                 } else post { if (generation == channelGeneration) handle(Fileshare.direct(text, contact, owner)) }
             }, failed = { post { if (generation == channelGeneration && rtc != null) end(FilePhase.INTERRUPTED) } },
             useTraversal = !nl.davidengelen.redsquare.BuildConfig.DEBUG || endpoint == backend.peerUrl)
@@ -377,6 +371,17 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             signal("peer-joined", JsonObject())
             requireNotNull(rtc).offer()
         }
+    }
+
+    private suspend fun drainInbox(inbox: FileTransferStore.FrameInbox, generation: Long) {
+        repeat(4) {
+            currentCoroutineContext().ensureActive()
+            if (generation != channelGeneration || incomingFrames !== inbox) return
+            val frame = inbox.next() ?: return
+            handle(Fileshare.direct(frame, contact, owner))
+        }
+        // Let queued controls and the watchdog run even while the browser keeps sending.
+        post { drainInbox(inbox, generation) }
     }
 
     private suspend fun signal(request: String, data: JsonObject) {
