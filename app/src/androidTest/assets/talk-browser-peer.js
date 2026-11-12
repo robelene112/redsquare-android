@@ -87,6 +87,7 @@ Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {value:async const
   }
   return stream;
 }});
+app.connection.on('peer-toggle-audio-status', value => Host.peerAudio(value.public_key, value.enabled));
 app.connection.on('videocall-stream', (peer, stream) => {
   if (!stream || peer === 'local') return;
   let video = document.getElementById('remote-' + peer);

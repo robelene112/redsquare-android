@@ -15,6 +15,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     private val colour: String, private val frequency: Int, private val send: (String) -> Unit) : Closeable {
     val errors = CopyOnWriteArrayList<String>()
     val captures = AtomicInteger()
+    val microphones = ConcurrentHashMap<String, Boolean>()
     data class Media(val width: Int, val height: Int, val nonBlack: Int, val rms: Double)
     val media = ConcurrentHashMap<String, Media>()
     private val ready = CountDownLatch(1)
@@ -73,6 +74,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
             "frequency" -> bridge.frequency()
             "ready" -> { bridge.ready(); null }
             "captured" -> { bridge.captured(); null }
+            "peerAudio" -> { microphones[args[0].asString] = args[1].asBoolean; null }
             "failure" -> { bridge.failure(args[0].asString); null }
             "media" -> { bridge.media(args[0].asString,args[1].asInt,args[2].asInt,args[3].asInt,args[4].asDouble); null }
             "sign" -> bridge.sign(args[0].asString,args[1].asString,args[2].asLong)

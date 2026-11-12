@@ -8,6 +8,12 @@ import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -116,8 +122,11 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
 
 @Composable internal fun TalkActiveBar(owner: String?, backend: SaitoBackend?, onOpen: () -> Unit) {
     val live by TalkRuntime.call.collectAsState()
-    val call = live?.takeIf { it.owner == owner && it.savedBackend == backend && it.phase.started } ?: return
-    Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = RoundedCornerShape(14.dp),
+    val call = live?.takeIf { it.owner == owner && it.savedBackend == backend }
+    AnimatedVisibility(visible = call?.phase?.started == true,
+        enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
+        exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
+    if (call != null) Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = RoundedCornerShape(14.dp),
         modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 4.dp)) {
         Row(Modifier.padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             TextButton(onClick = onOpen, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
@@ -127,6 +136,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             }
             FrameIconButton(R.drawable.ic_call_end, stringResource(R.string.talk_end), onClick = { TalkRuntime.end(call.token) })
         }
+    }
     }
 }
 
@@ -201,12 +211,16 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 item {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = microphone, onCheckedChange = { microphone = it })
+                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
+                        value = microphone, role = Role.Checkbox, onValueChange = { microphone = it }),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = microphone, onCheckedChange = null)
                         Text(stringResource(R.string.talk_start_microphone))
                     }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = camera, onCheckedChange = { camera = it })
+                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
+                        value = camera, role = Role.Checkbox, onValueChange = { camera = it }),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = camera, onCheckedChange = null)
                         Text(stringResource(R.string.talk_start_camera))
                     }
                     gate.notice()
