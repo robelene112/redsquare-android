@@ -10,6 +10,45 @@ verification, independent reviews and signed beta. Review base is
 Existing JVM protocol, native Android and controlled browser-peer seams are reused;
 routine tests/emulators remain delegated, without repeated owner phone QA.
 
+Current checkpoint, November12 at14:21UTC (not release acceptance):
+
+- Sourcea5165efd0 runs aggregate Talk10/17 in43236312266/43236317715.
+  Previous02ba aggregate43234024293/43234029519 stopped before instrumentation:
+  the permission helper required a runtime-permission row on a fresh install.
+  The new helper records original/restored package dumps, accepts an absent
+  runtime row only with the actual requested permission declaration and no
+  unrecognized grant row, and checks API29 USER_FIXED before any mutation.
+- Busy-invitation43231125992 and aggregate17 43232461522 fail at the same
+  Return-to-call five-second visible-heading goal. The original screenshot/XML
+  show the correct active call but the preview scroll offset retained. a5165
+  gives each preview/active/home reading destination its own keyed list state;
+  the original assertion/deadline stays unchanged.
+- Shared-peer bootstrapdf692 and SDK callback IO1ee793 fix actual Fileshare
+  routing/lock ownership. Independent Standards review of02ba finds the SDK
+  signalling-thread lock cycle removed. Actual coexistence43233358322 passes:
+  three-party tracks,150007 exact file bytes after blocking the other participant,
+  then encrypted Chat retention over the remaining live connection.
+  Held-toggle and held-roster Mute both pass43233369413; inherited4MiB actual
+  Fileshare receive17 passes43233364112. Original failures remain external.
+- Direct43223814229/43225598378, full pinned-five-body three-party media
+  43228242540, actual Chat audio/video+draft43227659474, twelve active viewport
+  cells43227664038, dial outcomes43225021875, ownership43223294314, process loss
+  43223288398 and actual permission denial/retry17 43229545239 pass as focused
+  checkpoints. Their sources precede current fixes; none substitutes for final
+  complete SDK acceptance.
+- The dual-camera goal now demands an actual native front/back switch and fresh
+  frames. All Talk/full scopes explicitly expose both emulator cameras. Separate
+  single-camera43232003407 passes with no Switch button. Earlier43230533033
+  lacked a second camera and remains failed. The original focus notification
+  race43231998797 now observes actual posting under the original5s bound.
+- Additive104 contract/collector are prepared under docs/evidence/ticket104 and
+  undergoing independent review before freezing and final full runs.103 files
+  remain unchanged. Required new counts:24 identities,15 classes/archives,
+ 16 normal completions plus one deliberate interruption/continuity. Complete
+  SDK goals are687/688 identities,254classes,212archives,275/276normal,39 deliberate
+  interruptions and38continuities. No104 complete run, signed beta or release
+  acceptance yet. Public beta remains116. Continue104 through delivery.
+
 Official source pin e6c937c686495a37d8fc94ecc894189e23a453c3 remains the
 protocol authority. Native room/link, signed versus legacy invitation, roster,
 large Chat ownership and per-peer Stun JVM checks pass. The shared native RTC

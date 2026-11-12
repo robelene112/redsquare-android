@@ -216,7 +216,7 @@ text=sys.stdin.read()
 rows=re.findall(r"android.permission.RECORD_AUDIO: granted=(?:true|false), flags=\[([^]]*)\]",text)
 if rows:
     assert len(rows)==1, "Require exactly one microphone runtime permission"
-    print(rows[0])
+    print(rows[0].strip())
 else:
     # A newly installed package has no runtime state until its first permission action.
     # Accept that default only when the actual package declares the permission.
