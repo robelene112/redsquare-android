@@ -101,7 +101,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val task = scope.launch(start = CoroutineStart.LAZY) {
                     try { event() }
                     catch (_: CancellationException) { /* An explicit Cancel preempts connection/request waits. */ }
-                    catch (_: Exception) {
+                    catch (failure: Exception) {
+                        if (nl.davidengelen.redsquare.BuildConfig.DEBUG && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+                            android.util.Log.w("File104Probe", "File event failed", failure)
                         error.value = true
                         try {
                             if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
@@ -424,6 +426,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
 
     private suspend fun handle(message: Fileshare.Message) {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG && android.os.Build.HARDWARE in listOf("ranchu", "goldfish") &&
+            message.request in setOf("peer-joined", "peer-description", "query file permission"))
+            android.util.Log.d("File104Probe", "handle:${message.request} open=$open rtc=${rtc?.connected} observers=$observers")
         assertSelected()
         when (message.request) {
             "peer-joined" -> { if (observers > 0 || serviceStarted) connect(initiator = false) }
