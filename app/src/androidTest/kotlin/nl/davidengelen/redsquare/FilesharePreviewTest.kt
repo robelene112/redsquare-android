@@ -257,7 +257,11 @@ abstract class FileshareFixture {
                                         .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
                                 }
                                 alert.notification.contentIntent.send()
-                                waitUntil { ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                waitUntil {
+                                    ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
+                                        ui.onAllNodes(hasText("Save as…") and isEnabled())
+                                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                                }
                                 ui.onAllNodesWithText(context.getString(nl.davidengelen.redsquare.R.string.social_push_open_failed)).assertCountEquals(0)
                             }
                             captureNativeScreen(File(evidence, "complete-${incoming}-${cancel}.png"), label)
