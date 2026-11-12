@@ -81,34 +81,7 @@ class UsernamePreviewTest {
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-shared-name-failure.png") }) {
                     waitForEnabled("New post")
-                    val archiveWall = android.os.SystemClock.elapsedRealtime()
-                    val archiveClock = ui.mainClock.currentTime
-                    try { peer.assertRequestObserved() }
-                    catch (original: Throwable) {
-                        val receipt = JsonObject().apply {
-                            addProperty("blockedMillis", android.os.SystemClock.elapsedRealtime() - archiveWall)
-                            addProperty("clockBefore", archiveClock)
-                            addProperty("clockAfterBlock", ui.mainClock.currentTime)
-                            addProperty("requestsAfterBlock", peer.requests.get())
-                            addProperty("connectionsAfterBlock", peer.connectionAttempts.get())
-                            addProperty("challengesAfterBlock", peer.servedChallenges.get())
-                            addProperty("authenticatedAfterBlock", peer.clientKeys.size)
-                        }
-                        try {
-                            ui.mainClock.advanceTimeByFrame()
-                            receipt.addProperty("clockAfterFrame", ui.mainClock.currentTime)
-                            ui.waitUntil(5_000) { peer.requests.get() > 0 }
-                        } catch (diagnostic: Throwable) {
-                            receipt.addProperty("diagnosticError", diagnostic.javaClass.simpleName)
-                        } finally {
-                            receipt.addProperty("requestsAfterFrame", peer.requests.get())
-                            receipt.addProperty("diagnosticMillis", android.os.SystemClock.elapsedRealtime() - archiveWall)
-                            java.io.File(context.cacheDir, "username-evidence/archive-clock-diagnostic.json").apply {
-                                parentFile!!.mkdirs(); writeText(receipt.toString())
-                            }
-                        }
-                        throw original
-                    }
+                    ui.waitUntil(5_000) { peer.assertHealthy(); peer.requests.get() > 0 }
                     ui.waitForRefreshableContent(20_000) // Archive observation precedes signed post parsing and publication.
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(text))
