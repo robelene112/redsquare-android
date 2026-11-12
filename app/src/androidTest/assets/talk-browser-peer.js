@@ -114,6 +114,11 @@ window.joinRoom = async (room, video) => {
   emit('start-stun-call');
 };
 window.dialNative = async room => { talk.room_obj = room; talk.dialer.render(Host.nativeKey(), true); document.getElementById('startcall').click(); };
+window.sendOwnedFrame = envelope => {
+  const tx = new FixtureTransaction(); tx.deserialize_from_web(app, envelope);
+  if (!tx.isFrom(app.publicKey)) throw Error('Owned frame signer mismatch');
+  stun.sendTransaction(Host.nativeKey(), tx);
+};
 window.answer = () => document.getElementById('answercall').click();
 window.decline = () => document.getElementById('rejectcall').click();
 window.leave = () => emit('stun-disconnect');

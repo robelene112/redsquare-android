@@ -57,6 +57,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     fun receive(envelope: String) = evaluate("nativeEnvelope(${JsonPrimitive(envelope)})")
     fun join(room: TalkRoom, video: Boolean = true) = evaluate("joinRoom(${room.json()},$video)")
     fun dial(room: TalkRoom) = evaluate("dialNative(${room.json()})")
+    fun sendFrame(envelope: String) = evaluate("sendOwnedFrame(${JsonPrimitive(envelope)})")
     fun answer() = evaluate("answer()")
     fun decline() = evaluate("decline()")
     fun leave() = evaluate("leave()")
@@ -108,7 +109,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
             SaitoTransaction.create(wallet, JsonParser.parseString(body).asJsonObject, timestamp,
                 JsonParser.parseString(recipients).asJsonArray.map { it.asString }.distinct()).envelope()
         fun inspect(envelope: String): String {
-            val value = SaitoEnvelope.decode(envelope)
+            val value = SaitoEnvelope.decodePayload(envelope)
             check(wallet.publicKey in value.recipients || value.author == wallet.publicKey)
             return JsonObject().apply {
                 addProperty("author", value.author); add("body", value.body); addProperty("signature", value.id)
