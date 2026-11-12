@@ -169,16 +169,21 @@ class AndroidWalletStore(context: Context, private val directorySync: (FileDescr
 
     private fun readSavedWallet(key: SecretKey, source: AtomicFile = file): SaitoWallet {
         val envelope = source.openRead().use { input ->
-            val buffer = ByteArray(MAX_ENVELOPE_BYTES + 1)
+            // The limit is a validation bound, not the allocation size for every
+            // authority check. Use the opened file's bounded size and require EOF
+            // so a short or concurrently enlarged envelope still fails closed.
+            val expectedSize = input.channel.size()
+            require(expectedSize in 30L..MAX_ENVELOPE_BYTES.toLong()) { "Invalid wallet storage" }
+            val buffer = ByteArray(expectedSize.toInt())
             var size = 0
             while (size < buffer.size) {
                 val count = input.read(buffer, size, buffer.size - size)
                 if (count < 0) break
                 size += count
             }
-            require(size in 30..MAX_ENVELOPE_BYTES) { "Invalid wallet storage" }
+            require(size == buffer.size && input.read() == -1) { "Invalid wallet storage" }
             input.fd.sync()
-            buffer.copyOf(size)
+            buffer
         }
         require(envelope[0] == 1.toByte()) { "Unsupported wallet storage" }
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
