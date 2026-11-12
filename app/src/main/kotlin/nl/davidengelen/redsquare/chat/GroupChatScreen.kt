@@ -56,7 +56,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val personal = LocalPersonalControls.current
     val store = remember(wallet,backend) { GroupChatStore(context,wallet,backend) }
     var entries by remember(wallet.publicKey,backend) { mutableStateOf<List<GroupChatStore.Entry>>(emptyList()) }
-    var selected by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
+    var selected by androidx.compose.runtime.saveable.rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var identityAuthor by remember(wallet.publicKey,backend) { mutableStateOf<String?>(null) }
     var loaded by remember(store) { mutableStateOf(false) }
     val publication = remember(wallet.publicKey,backend) { Mutex() }

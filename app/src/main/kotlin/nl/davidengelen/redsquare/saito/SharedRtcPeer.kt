@@ -150,7 +150,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 post {
                     remoteTracks.addIfAbsent(track)
                     if (authenticated) leases.filter { it.active.get() && it.callbacks.media }.forEach { lease ->
-                        lease.callbacks.validate(); track.setEnabled(true); lease.callbacks.track(track)
+                        withLease(lease) { track.setEnabled(true); lease.callbacks.track(track) }
                     }
                 }
             }
@@ -188,14 +188,14 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 } catch (_: Exception) { post { fail() }; return }
                 // File frames go straight to their encrypted disk inbox, not through the control queue.
                 for (lease in leases.filter { it.active.get() }) {
-                    try {
-                        lease.callbacks.validate()
-                        val handled = RealtimeIncoming.receiveDirect(wallet.publicKey, lease.endpoint, remote, text)
-                        if (handled != null || lease.callbacks.data(text)) return
-                    } catch (_: Exception) { post { fail() }; return }
+                    val handled = withLease(lease) {
+                        val routed = RealtimeIncoming.receiveDirect(wallet.publicKey, lease.endpoint, remote, text)
+                        routed != null || lease.callbacks.data(text)
+                    }
+                    if (handled == true) return
                 }
-                leases.firstOrNull { it.active.get() }?.let { lease ->
-                    try { lease.callbacks.validate(); lease.callbacks.otherData(text) } catch (_: Exception) { post { fail() } }
+                for (lease in leases.filter { it.active.get() }) {
+                    if (withLease(lease) { lease.callbacks.otherData(text) } == true) return
                 }
             }
         })
@@ -231,8 +231,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         lease.network = Closeable { registrations.forEach { it.close() } }
         post {
             if (lease.active.get() && connected) {
-                callbacks.validate(); callbacks.opened()
-                if (callbacks.media) remoteTracks.forEach { it.setEnabled(true); callbacks.track(it) }
+                withLease(lease) {
+                    callbacks.opened()
+                    if (callbacks.media) remoteTracks.forEach { it.setEnabled(true); callbacks.track(it) }
+                }
             }
         }
         return lease
@@ -248,7 +250,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private suspend fun command(lease: RtcLease, operation: suspend () -> Unit) {
         val done = CompletableDeferred<Unit>()
         check(post {
-            try { check(lease.active.get()); lease.callbacks.validate(); operation(); done.complete(Unit) }
+            if (withLease(lease) { Unit } == null) {
+                done.completeExceptionally(IllegalStateException("Peer owner is no longer active")); return@post
+            }
+            try { operation(); done.complete(Unit) }
             catch (failure: Exception) { done.completeExceptionally(failure); throw failure }
         })
         withTimeout(16_000) { done.await() }
@@ -256,13 +261,13 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
 
     fun media(lease: RtcLease, audio: AudioTrack?, video: VideoTrack?, stream: String) { post {
         if (!lease.active.get()) return@post
-        lease.callbacks.validate()
+        if (withLease(lease) { Unit } == null) return@post
         val desired = listOfNotNull(audio, video)
         val removedTracks = senders.keys.filter { it !in desired }
         val addedTracks = desired.filter { it !in senders }
         removedTracks.forEach { track -> senders.remove(track)?.let { connection.removeTrack(it) } }
         addedTracks.forEach { track -> senders[track] = connection.addTrack(track, listOf(stream)) }
-        if (authenticated) remoteTracks.forEach { it.setEnabled(true); lease.callbacks.track(it) }
+        if (authenticated) withLease(lease) { remoteTracks.forEach { it.setEnabled(true); lease.callbacks.track(it) } }
         if (removedTracks.isNotEmpty() || addedTracks.isNotEmpty()) {
             needsNegotiation = true; negotiateIfNeeded()
         }
@@ -353,7 +358,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         val transaction = Stun.signal(wallet, remote, request, body, System.currentTimeMillis())
         var sent = false
         leases.filter { it.active.get() }.forEach { lease ->
-            try { lease.callbacks.validate(); lease.callbacks.signal(transaction); sent = true } catch (_: Exception) { }
+            if (withLease(lease) { lease.callbacks.signal(transaction); true } == true) sent = true
         }
         check(sent)
     }
@@ -361,8 +366,23 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private fun publishOpen() {
         if (!authenticated || channel.state() != DataChannel.State.OPEN || connected) return
         connected = true
-        leases.filter { it.active.get() }.forEach { lease -> lease.callbacks.validate(); lease.callbacks.opened() }
+        leases.filter { it.active.get() }.forEach { lease -> withLease(lease) { lease.callbacks.opened() } }
     }
+    /** An obsolete feature owner releases only its lease, never another feature's transport. */
+    private inline fun <T> withLease(lease: RtcLease, action: () -> T): T? {
+        if (!lease.active.get()) return null
+        return try {
+            lease.callbacks.validate()
+            if (lease.active.get()) action() else null
+        } catch (_: Exception) {
+            if (lease.active.get()) {
+                lease.close()
+                runCatching { lease.callbacks.failed() }
+            }
+            null
+        }
+    }
+
     private fun remember(id: String): Boolean {
         if (!seen.add(id)) return false
         if (seen.size > 256) seen.remove(seen.first())

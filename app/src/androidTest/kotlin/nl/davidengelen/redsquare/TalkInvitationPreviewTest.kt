@@ -14,6 +14,26 @@ class TalkInvitationPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
     @Test fun aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode() = invitation(320)
     @Test fun aWideInvitationPreviewsWithoutCaptureOrChangingTheNode() = invitation(412)
+    @Test fun aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val caller = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val link = TalkLink(SaitoBackend.OFFICIAL, TalkRoom(caller, caller)).url()
+        withAppFrameFixture("talk-external-invitation", "talk-invitation-evidence") { activity ->
+            ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            // Ordinary implicit VIEW action constrained to this installed test package.
+            // Android verified/default association with third-party domains is a separate36 qualification.
+            val external = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(link))
+                .addCategory(android.content.Intent.CATEGORY_BROWSABLE).setPackage(context.packageName)
+            assertNotNull(context.packageManager.resolveActivity(external, android.content.pm.PackageManager.MATCH_DEFAULT_ONLY))
+            activity.onActivity { it.startActivity(external) }
+            ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
+            ui.onNodeWithText("Ready to join?").assertExists()
+            assertTrue(TalkRuntime.call.value?.phase?.live != true)
+            assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+            captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/implicit-view-prejoin.png"))
+        }
+    }
     private fun invitation(width: Int) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val room = TalkRoom(SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey,

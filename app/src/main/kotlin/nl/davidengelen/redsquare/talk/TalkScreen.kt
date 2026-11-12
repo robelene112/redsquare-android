@@ -357,7 +357,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
         track.addSink(renderer)
         onDispose { runCatching { track.removeSink(renderer) }; renderer.release() }
     }
-    AndroidView(factory = { renderer }, modifier = Modifier.fillMaxSize())
+    AndroidView(factory = { renderer }, update = { it.setMirror(mirror) }, modifier = Modifier.fillMaxSize())
 }
 
 internal fun callPhaseLabel(phase: CallPhase): Int = when (phase) {

@@ -58,8 +58,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         onEnable = { withContext(Dispatchers.IO) {
             nl.davidengelen.redsquare.notifications.ChatPushSettings(promptContext, wallet.publicKey).setEnabled(true)
         } })
-    var groupDestination by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
-    var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
+    var groupDestination by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
+    var reviewingGroups by rememberSaveable(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
     SingleOwnerReveal(reviewingGroups, modifier) {
     if (reviewingGroups) {
         GroupChatScreen(wallet,endpoint,backend,Modifier.fillMaxSize(),onWalletMetadata,groupDestination, onInitialDestinationClosed) {
@@ -79,7 +79,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var contacts by remember(wallet.publicKey, backend) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var contactsReady by remember(wallet.publicKey, backend) { mutableStateOf(false) }
-    var counterparty by remember(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    var counterparty by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(initialContact) }
     val fileSession = remember(wallet.publicKey, backend, endpoint, counterparty) {
         counterparty?.let { nl.davidengelen.redsquare.fileshare.FileshareRuntime.session(context, wallet, backend, endpoint, it) }
     }

@@ -19,7 +19,7 @@ class TalkActiveViewportTest {
     @Test fun videoCallControlsStayVisibleAndReachableAt412dpAcrossThemesAndLargeText() = active(412)
     private fun active(width: Int) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        withAppFrameFixture("talk-active-$width", "talk-active-evidence") { activity ->
+        withAppFrameFixture("talk-active-$width", "talk-active-evidence", advertisedServices = "archive||;relay||") { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             val wallet = AndroidWalletStore(context).loadExisting()
