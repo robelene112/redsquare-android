@@ -41,13 +41,51 @@ internal fun chooseTestBackup(device: UiDevice, name: String) {
         operateSystemControl(device, By.desc("Show roots")) { click() }
     }
     val rootsDrawer = By.res(Pattern.compile(".*:id/roots_list"))
-    val root = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title").hasAncestor(rootsDrawer)
-    operateSystemControl(device, root) { click() }
+    clickTestBackupRoot()
     // The selected provider remains in the toolbar after the drawer closes.
     check(device.wait(Until.gone(rootsDrawer), 10_000))
     operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
     operateSystemControl(device, By.res("android", "button1")
         .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
+}
+
+/** Use the real clickable provider row, rather than a coordinate tap on its text leaf. */
+private fun clickTestBackupRoot() {
+    val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
+    val deadline = SystemClock.uptimeMillis() + 20_000 // Original provider-control budget.
+    fun find(root: AccessibilityNodeInfo): AccessibilityNodeInfo? {
+        var remaining = 512
+        fun visit(node: AccessibilityNodeInfo, inRoots: Boolean): AccessibilityNodeInfo? {
+            if (remaining-- <= 0) return null
+            val inside = inRoots || node.viewIdResourceName?.endsWith(":id/roots_list") == true
+            val provider = node.packageName?.toString()
+            if (inside && node.isVisibleToUser && node.text?.toString() == ExportTestDocumentsProvider.TITLE &&
+                node.viewIdResourceName == "android:id/title" &&
+                provider in setOf("com.android.documentsui", "com.google.android.documentsui")) {
+                var action: AccessibilityNodeInfo? = node
+                while (action != null && action.viewIdResourceName?.endsWith(":id/roots_list") != true) {
+                    if (action.isVisibleToUser && action.isEnabled && action.isClickable) return action
+                    action = action.parent
+                }
+            }
+            for (index in 0 until node.childCount) {
+                val child = node.getChild(index) ?: continue
+                visit(child, inside)?.let { return it }
+            }
+            return null
+        }
+        return visit(root, false)
+    }
+    while (SystemClock.uptimeMillis() < deadline) {
+        automation.rootInActiveWindow?.let(::find)?.let { row ->
+            check(SystemClock.uptimeMillis() < deadline) { "Provider lookup exceeded its original budget" }
+            check(row.performAction(AccessibilityNodeInfo.ACTION_CLICK)) { "Provider row rejected native Click" }
+            check(SystemClock.uptimeMillis() <= deadline) { "Provider selection exceeded its original budget" }
+            return
+        }
+        SystemClock.sleep(50)
+    }
+    error("Test backup provider row unavailable within its original budget")
 }
 
 internal fun enterRealSystemPin(device: UiDevice, pin: String = EXPORT_TEST_PIN) {
