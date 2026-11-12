@@ -155,6 +155,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+            if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.i("SocialRouteProbe",
+                "[DEBUG-fs103-social] guard ready=${state.ready} saving=${state.saving} sending=${state.sending} images=${state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()}")
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
                 state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()) false
             else {
