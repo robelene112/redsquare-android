@@ -24,7 +24,7 @@ class TalkDialPreviewTest {
         val wallets = AndroidWalletStore(context); val previous = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context); val previousBackend = backends.load()
         val files = ChatFixtureState(context, listOf("chatwork."), owner.publicKey)
-        val reads = AtomicInteger(); RtcPlatform.audioInputForTest { _, _, _, _, _ -> reads.incrementAndGet() }
+        val reads = AtomicInteger(); RtcPlatform.audioInputForTest { _, _, _, _ -> reads.incrementAndGet() }
         val evidence = File(context.cacheDir, "talk-dial-evidence").apply { mkdirs() }
         var account: TalkAccount? = null; var token: String? = null; var primary: Throwable? = null
         fun await(label: String, limit: Long = 5000, goal: () -> Boolean) {
