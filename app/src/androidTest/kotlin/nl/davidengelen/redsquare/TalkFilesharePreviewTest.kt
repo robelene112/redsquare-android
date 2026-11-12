@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import android.os.SystemClock
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -33,6 +35,8 @@ class TalkFilesharePreviewTest {
         val files = ChatFixtureState(context, listOf("fileshare.", "chat.", "chatwork.", "personal.${owner.publicKey}."), owner.publicKey)
         val browsers = ConcurrentHashMap<String, TalkBrowserPeer>(); val sequence = AtomicInteger(9000)
         val evidence = File(context.cacheDir, "talk-fileshare-evidence").apply { mkdirs() }
+        val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/talk-complete.bin")
+        context.contentResolver.call(destination, "prepare", "talk-complete.bin", Bundle().apply { putByteArray("bytes", byteArrayOf()) })
         var account: TalkAccount? = null; var session: FileSession? = null; var token: String? = null; var primary: Throwable? = null
         lateinit var fixture: ControlledFeedPeer
         fun route(envelope: String) {
@@ -101,15 +105,26 @@ class TalkFilesharePreviewTest {
                                 val complete = requireNotNull(session?.transfers?.value?.single())
                                 val received = FileTransferStore(context, owner.publicKey, SaitoBackend.OWNER, aliceWallet.publicKey).openPrepared(complete).use { it.readBytes() }
                                 assertArrayEquals(data, received)
+                                assertTrue(runBlocking { requireNotNull(session).export(transferToken, destination) })
+                                await("Actual exported file reaches Saved") { session?.transfers?.value?.singleOrNull()?.phase == FilePhase.SAVED }
+                                assertArrayEquals(data, context.contentResolver.openInputStream(destination)!!.use { it.readBytes() })
                                 // A visible conversation still owns delivery after the transfer's
                                 // 1500ms receipt grace. Cross it before exercising actual Chat.
                                 Thread.sleep(2_000)
+                                assertFalse("Completed export releases foreground transfer ownership", requireNotNull(session).foregroundOwned)
+                                val receipts = alice.fileReceiptCount(offer.id, 3)
+                                chunk(Fileshare.CHUNK_BYTES * 2, 3)
+                                await("An exact final chunk after Saved still receives its real data-channel ACK") { alice.fileReceiptCount(offer.id, 3) > receipts }
+                                assertEquals(FilePhase.SAVED, session?.transfers?.value?.singleOrNull()?.phase)
                                 val message = "Private Chat survives the retired call owner"
                                 alice.sendFrame(PrivateChat.create(aliceWallet, owner.publicKey, message, System.currentTimeMillis()).envelope())
                                 await("Actual encrypted private Chat still retains over the shared peer") {
                                     ChatHistoryStore(context, owner, SaitoBackend.OWNER, aliceWallet.publicKey).load().entries.any { it.message.text == message }
                                 }
                                 captureNativeScreen(File(evidence, "file-and-chat-retained.png"))
+                                requireNotNull(session).detach()
+                                await("Leaving completed Chat releases conversation delivery") { session?.ownsDelivery == false }
+                                File(evidence, "completion.json").writeText("{\"savedExactBytes\":true,\"foregroundReleased\":true,\"duplicateFinalAckAfterSaved\":true,\"savedStateRetained\":true,\"chatAfterGrace\":true,\"lastDetachReleasesDelivery\":true}")
                                 File(evidence, "coexistence.json").writeText("{\"actualThreePartyTracks\":true,\"actualNativeFileSession\":true,\"fileBytes\":${data.size},\"exactFileBytes\":true,\"blockedDifferentPeer\":true,\"privateChatRetainedAfterCall\":true,\"wireInputs\":\"verified-native-codecs\",\"transport\":\"pinned-upstream-Stun\"}")
                             }
                         }
@@ -120,7 +135,7 @@ class TalkFilesharePreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             session?.interrupt(); session?.detach(); token?.let(TalkRuntime::end); account?.detach(); TalkRuntime.visibility(false); Thread.sleep(300)
-            cleanupAfterTest(primary, { files.restoreFiles() }, { files.restorePreferences() }, { wallets.replace(wallets.loadOrCreate(), previous) },
+            cleanupAfterTest(primary, { context.contentResolver.delete(destination, null, null) }, { files.restoreFiles() }, { files.restorePreferences() }, { wallets.replace(wallets.loadOrCreate(), previous) },
                 { backends.save(previousBackend) }, { context.stopService(Intent(context, TalkService::class.java)) },
                 { context.stopService(Intent(context, FileTransferService::class.java)) })
         }

@@ -17,6 +17,8 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     val diagnostics = CopyOnWriteArrayList<String>()
     val captures = AtomicInteger()
     val ringing = AtomicBoolean()
+    private val receipts = ConcurrentHashMap<Pair<String, Long>, AtomicInteger>()
+    fun fileReceiptCount(id: String, index: Long) = receipts[id to index]?.get() ?: 0
     val microphones = ConcurrentHashMap<String, Boolean>()
     val audioBytes = ConcurrentHashMap<String, Long>()
     data class Media(val width: Int, val height: Int, val nonBlack: Int, val rms: Double)
@@ -111,6 +113,13 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
         fun inspect(envelope: String): String {
             val value = SaitoEnvelope.decodePayload(envelope)
             check(wallet.publicKey in value.recipients || value.author == wallet.publicKey)
+            if (value.author == owner.publicKey && value.body.isJsonObject) {
+                val body = value.body.asJsonObject
+                if (body.get("module") == JsonPrimitive("Fileshare") && body.get("request") == JsonPrimitive("read receipt")) {
+                    val data = body.getAsJsonObject("data")
+                    receipts.computeIfAbsent(data.get("id").asString to data.get("chunk_id").asLong) { AtomicInteger() }.incrementAndGet()
+                }
+            }
             return JsonObject().apply {
                 addProperty("author", value.author); add("body", value.body); addProperty("signature", value.id)
                 addProperty("timestamp", value.createdAt)
