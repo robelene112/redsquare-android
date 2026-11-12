@@ -94,7 +94,11 @@ app.connection.on('videocall-stream', (peer, stream) => {
   if (!stream || peer === 'local') return;
   let video = document.getElementById('remote-' + peer);
   if (!video) { video = document.createElement('video'); video.id = 'remote-' + peer; video.muted = true; video.autoplay = true; document.body.appendChild(video); }
-  video.srcObject = stream; video.play().catch(e => Host.failure(String(e)));
+  // Audio and video arrive as separate track events on the same MediaStream.
+  // Reassigning that identical source aborts the outstanding play() request.
+  if (video.srcObject !== stream) {
+    video.srcObject = stream; video.play().catch(e => Host.failure(String(e)));
+  }
   const audio = stream.getAudioTracks()[0];
   if (audio && !video.analysis) {
     const analyser = audioContext.createAnalyser(); analyser.fftSize = 1024;
