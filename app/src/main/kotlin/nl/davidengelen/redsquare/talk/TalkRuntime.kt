@@ -29,7 +29,8 @@ internal data class TalkCall(val token: String, val owner: String, val savedBack
     val link: TalkLink, val direct: String?, val incoming: Boolean, val phase: CallPhase,
     val participants: List<CallParticipant> = emptyList(), val microphone: Boolean = true,
     val camera: Boolean = false, val cameraPaused: Boolean = false, val localVideo: VideoTrack? = null,
-    val since: Long = 0)
+    val since: Long = 0, val cameraUnavailable: Boolean = false, val frontCamera: Boolean = true,
+    val invitationAt: Long = System.currentTimeMillis())
 
 /** Process ownership is independent of a screen. Only a user-started call holds background ownership. */
 internal object TalkRuntime {
@@ -65,7 +66,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private val hooks = mutableListOf<Closeable>()
     private val leases = mutableMapOf<String, RtcLease>()
     private val seen = LinkedHashSet<String>()
-    private val retired = LinkedHashSet<String>()
+    private val retired = LinkedHashMap<String, Long>()
     private val pendingPeers = ConcurrentHashMap.newKeySet<String>()
     private var observers = 0
     @Volatile private var closed = false
@@ -77,6 +78,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private var waitingRoomProof = false
     private var accepted = false
     private var connectingMedia = false
+    private var authority: Closeable? = null
     private var changedAt = System.currentTimeMillis()
     private var latestWallet = wallet
     private val routes = if (BuildConfig.DEBUG && endpoint != backend.peerUrl) listOf(endpoint)
@@ -103,11 +105,21 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 post {
                     if (current?.phase?.live == true) {
                         guard()
+                        capture?.let { devices ->
+                            val call = current
+                            if (call != null && devices.cameraFailed && call.camera) {
+                                devices.controls(call.microphone, false)
+                                publish(call.copy(camera = false, cameraUnavailable = true))
+                            } else if (call != null && call.frontCamera != devices.front) publish(call.copy(frontCamera = devices.front))
+                        }
                         val elapsed = System.currentTimeMillis() - changedAt
                         when {
-                            current?.phase in setOf(CallPhase.VERIFYING, CallPhase.INCOMING, CallPhase.DIALING) && elapsed > 45_000 -> finish(CallPhase.NO_ANSWER)
+                            current?.phase in setOf(CallPhase.VERIFYING, CallPhase.INCOMING) && elapsed > 25_000 ->
+                                current?.let { stopRequested = Stop(it.token, CallPhase.NO_ANSWER) }
+                            current?.phase == CallPhase.DIALING && elapsed > 45_000 ->
+                                current?.let { stopRequested = Stop(it.token, CallPhase.NO_ANSWER) }
                             current?.phase == CallPhase.JOINING && elapsed > 40_000 && leases.isNotEmpty() -> finish(CallPhase.UNAVAILABLE)
-                            accepted && !TalkCapture.permitted(context, camera = false) -> finish(CallPhase.INTERRUPTED)
+                            accepted && (!TalkCapture.permitted(context, camera = false) || !TalkService.available(context)) -> finish(CallPhase.INTERRUPTED)
                         }
                     }
                 }
@@ -122,10 +134,8 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         post {
         capture?.visible(TalkRuntime.visible)
         current?.takeIf { it.phase.started }?.let { publish(it.copy(cameraPaused = it.camera && !TalkRuntime.visible)) }
-        if (!TalkRuntime.visible && current?.phase?.started != true) {
-            if (current?.phase?.live == true) finish(CallPhase.INTERRUPTED)
-            closeNetwork()
-        } else if (TalkRuntime.visible || current?.phase?.started == true) connect()
+        if (!TalkRuntime.visible && current?.phase?.live != true) closeNetwork()
+        else if (TalkRuntime.visible || current?.phase?.live == true) connect()
     } }
 
     private fun guard(peer: String? = null) = synchronized(SaitoLocalState.lock) {
@@ -133,7 +143,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         check(selected.publicKey == wallet.publicKey && AndroidBackendStore(context).load() == backend)
         val policy = AndroidPersonalControls(context, wallet.publicKey).load()
         check(peer == null || !policy.hidesIncomingChat(peer))
-        current?.participants?.forEach { check(!policy.hidesIncomingChat(it.key)) }
+        current?.takeIf { it.phase.live }?.participants?.forEach { check(!policy.hidesIncomingChat(it.key)) }
         latestWallet = selected
     }
 
@@ -217,7 +227,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         val call = current
         if (request == TalkDial.REQUEST.wire) {
             val room = requireNotNull(message.room)
-            if (room.id in retired) return
+            if (message.createdAt <= (retired[room.id] ?: -1L)) return
             if (call?.link?.room?.id == room.id && call.direct == message.sender && call.incoming) return
             if (TalkRuntime.call.value?.phase?.live == true || call?.phase?.live == true || !TalkRuntime.visible) {
                 if (message.identityVerified) send(TalkProtocol.invite(wallet, message.sender, room, TalkDial.REJECT, now()))
@@ -225,13 +235,15 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             }
             val pending = TalkCall(UUID.randomUUID().toString(), wallet.publicKey, backend, TalkLink(backend, room),
                 message.sender, true, if (message.identityVerified) CallPhase.INCOMING else CallPhase.VERIFYING,
-                listOf(CallParticipant(message.sender, camera = room.mode == TalkMode.VIDEO)))
+                listOf(CallParticipant(message.sender, camera = room.mode == TalkMode.VIDEO)), invitationAt = message.createdAt)
             accepted = false; waitingRoomProof = !message.identityVerified
             if (!claim(pending)) return
             changedAt = now()
             // Legacy unsigned Relay claims must prove a signed SDP and DTLS connection before ringing.
+            // Upstream starts with a three-second dial timeout. Acknowledge
+            // availability before cold SDK/ICE work, without trusting the claim or capturing media.
+            send(TalkProtocol.invite(wallet, message.sender, room, TalkDial.PING, now()))
             acquire(message.sender, media = false, offer = true)
-            if (message.identityVerified) send(TalkProtocol.invite(wallet, message.sender, room, TalkDial.PING, now()))
             return
         }
         if (call == null || !call.phase.live || message.roomId != call.link.room.id) return
@@ -276,7 +288,8 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             "call-list-response" -> {
                 if (call.direct != null && peer != call.direct) return
                 if (call.direct == null && peer != call.link.room.host && !member && peer !in call.link.room.peers) return
-                message.body.getAsJsonArray("call_list").map { it.asString }.filter { it != wallet.publicKey }.forEach {
+                message.body.getAsJsonArray("call_list").map { it.asString }
+                    .filter { it != wallet.publicKey && (call.direct == null || it == call.direct) }.forEach {
                     addParticipant(it); acquire(it, media = true, offer = true)
                 }
             }
@@ -335,7 +348,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                     if (call.phase == CallPhase.VERIFYING && call.direct == peer) {
                         publish(call.copy(phase = CallPhase.INCOMING)); changedAt = now()
                         send(TalkProtocol.invite(wallet, peer, call.link.room, TalkDial.PING, now()))
-                    } else if (accepted) publish(call.copy(phase = CallPhase.ACTIVE, since = call.since.takeIf { it > 0 } ?: now(),
+                    } else if (accepted && !waitingRoomProof && media) publish(call.copy(phase = CallPhase.ACTIVE, since = call.since.takeIf { it > 0 } ?: now(),
                         participants = call.participants.map { if (it.key == peer) it.copy(connected = true) else it }))
                 } }, failed = { post {
                     if (current?.token == token && current?.phase?.live == true) {
@@ -370,7 +383,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         val result = CompletableDeferred<Boolean>()
         if (!post {
             guard(direct)
-            if (TalkRuntime.call.value?.phase?.live == true || !TalkRuntime.visible || !TalkCapture.permitted(context, camera)) {
+            if (TalkRuntime.call.value?.phase?.live == true || !TalkRuntime.visible || !TalkCapture.permitted(context, camera) || !TalkService.available(context)) {
                 result.complete(false); return@post
             }
             val call = TalkCall(UUID.randomUUID().toString(), wallet.publicKey, backend, link, direct, false,
@@ -395,7 +408,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         val result = CompletableDeferred<Boolean>()
         if (!post {
             val call = current
-            if (call?.token != token || call.phase != CallPhase.INCOMING || !TalkRuntime.visible || !TalkCapture.permitted(context, camera)) {
+            if (call?.token != token || call.phase != CallPhase.INCOMING || !TalkRuntime.visible || !TalkCapture.permitted(context, camera) || !TalkService.available(context)) {
                 result.complete(false); return@post
             }
             try {
@@ -424,10 +437,26 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         connectingMedia = true
         try {
             val call = requireNotNull(current); guard()
-            capture = TalkCapture(context, call.microphone, call.camera)
+            authority = SaitoLocalState.observeAuthority {
+                capture?.silence()
+                post {
+                    try {
+                        guard()
+                        current?.takeIf { it.token == call.token && it.phase.started && stopRequested == null }?.let {
+                            capture?.controls(it.microphone, it.camera)
+                            capture?.visible(TalkRuntime.visible)
+                        }
+                    } catch (_: Exception) { finish(CallPhase.INTERRUPTED) }
+                }
+            }
+            capture = TalkCapture(context, call.microphone, call.camera) {
+                guard()
+                check(current?.token == call.token && accepted && stopRequested?.token != call.token)
+            }
             currentCoroutineContext().ensureActive()
             capture?.visible(TalkRuntime.visible)
-            publish(call.copy(localVideo = capture?.video, cameraPaused = call.camera && !TalkRuntime.visible))
+            publish(call.copy(localVideo = capture?.video, frontCamera = capture?.front ?: true,
+                cameraPaused = call.camera && !TalkRuntime.visible))
             if (call.direct != null) acquire(call.direct, media = true, offer = true)
             send(TalkProtocol.enter(wallet, call.link.room, now()))
             call.link.room.peers.filter { it != wallet.publicKey }.forEach { addParticipant(it); acquire(it, media = true, offer = true) }
@@ -442,9 +471,18 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         if (call.token != token || !call.phase.started) return@post
         guard()
         if (camera == true && (!TalkRuntime.visible || !TalkCapture.permitted(context, true))) return@post
-        capture?.controls(microphone ?: call.microphone, camera ?: call.camera)
+        try { capture?.controls(microphone ?: call.microphone, camera ?: call.camera) }
+        catch (failure: Exception) {
+            if (camera == true && TalkCapture.permitted(context, false)) {
+                capture?.controls(microphone ?: call.microphone, false)
+                publish(call.copy(camera = false, cameraUnavailable = true)); TalkRuntime.record("camera", failure)
+                return@post
+            }
+            throw failure
+        }
         publish(call.copy(microphone = microphone ?: call.microphone, camera = camera ?: call.camera,
-            localVideo = capture?.video, cameraPaused = (camera ?: call.camera) && !TalkRuntime.visible))
+            localVideo = capture?.video, cameraUnavailable = false,
+            cameraPaused = (camera ?: call.camera) && !TalkRuntime.visible))
         leases.values.filter { it.callbacks.media }.forEach { lease -> capture?.let { lease.media(it.audio, it.video, call.link.room.id) } }
         if (!accepted) return@post
         microphone?.let { send(TalkProtocol.event(wallet, call.link.room, "toggle-audio", call.participants.map { it.key }, now(), it)) }
@@ -454,14 +492,14 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     fun end(token: String) {
         val call = current ?: return
         if (call.token != token || !call.phase.live) return
-        capture?.silence()
         stopRequested = Stop(token, if (call.incoming && !accepted) CallPhase.DECLINED else CallPhase.ENDED)
+        capture?.silence()
         operation?.cancel(); post { }
     }
     fun interrupt() {
         val call = current ?: return
         if (!call.phase.live) return
-        capture?.silence(); stopRequested = Stop(call.token, CallPhase.INTERRUPTED)
+        stopRequested = Stop(call.token, CallPhase.INTERRUPTED); capture?.silence()
         operation?.cancel(); post { }
     }
     private suspend fun applyStop() {
@@ -475,20 +513,36 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 guard()
                 if (call.direct != null && call.phase in setOf(CallPhase.INCOMING, CallPhase.DIALING))
                     send(TalkProtocol.invite(wallet, call.direct, call.link.room,
-                        if (call.incoming) TalkDial.REJECT else TalkDial.CANCEL, now()))
-                else if (wasAccepted) send(TalkProtocol.event(wallet, call.link.room, "peer-left", call.participants.map { it.key }, now()))
+                        if (call.incoming) TalkDial.REJECT else TalkDial.CANCEL, now()), allowEnded = true)
+                else if (wasAccepted) send(TalkProtocol.event(wallet, call.link.room, "peer-left", call.participants.map { it.key }, now()), allowEnded = true)
             }
         } catch (_: Exception) { }
         closeIfIdle()
     }
 
-    private suspend fun send(transaction: SaitoTransaction) {
+    private suspend fun send(transaction: SaitoTransaction, allowEnded: Boolean = false) {
         guard()
-        val outcomes = sockets.values.map { socket -> scope.async {
-            runCatching { socket.request(Fileshare.relay(transaction), beforeSend = { guard() }) }
-        } }.awaitAll()
-        check(outcomes.any { it.isSuccess }) { "No Talk relay accepted the signal" }
+        val token = current?.token
+        val targets = sockets.values.toList()
+        check(targets.isNotEmpty()) { "No Talk relay is connected" }
+        val results = Channel<Boolean>(targets.size)
+        // Fan out the same signature. A slow secondary route must not hold up
+        // control feedback on a healthy one, and it still gets its own attempt.
+        targets.forEach { socket -> scope.launch {
+            val accepted = runCatching {
+                socket.request(Fileshare.relay(transaction), beforeSend = {
+                    guard()
+                    if (token != null) check(current?.token == token && (allowEnded || current?.phase?.live == true))
+                })
+            }.isSuccess
+            results.trySend(accepted)
+        } }
+        try {
+            repeat(targets.size) { if (results.receive()) return }
+            error("No Talk relay accepted the signal")
+        } finally { results.close() }
     }
+
     private fun claim(call: TalkCall): Boolean {
         while (true) {
             val previous = TalkRuntime.call.value
@@ -503,10 +557,12 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private fun finish(phase: CallPhase, deferIdle: Boolean = false) {
         val call = current
         accepted = false
+        authority?.close(); authority = null
         leases.values.forEach { it.close() }; leases.clear(); pendingPeers.clear()
         capture?.close(); capture = null
         if (call != null && call.phase.live) {
-            retired.add(call.link.room.id); if (retired.size > 128) retired.remove(retired.first())
+            retired[call.link.room.id] = call.invitationAt
+            if (retired.size > 128) retired.remove(retired.keys.first())
             publish(call.copy(phase = phase, localVideo = null, participants = call.participants.map { it.copy(video = null, connected = false) }))
         }
         if (!deferIdle) closeIfIdle()
@@ -516,7 +572,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         sockets.values.forEach { it.close() }; sockets.clear(); online.value = false
     }
     private fun closeIfIdle() {
-        if (current?.phase?.started == true) return
+        if (current?.phase?.live == true) return
         if (!TalkRuntime.visible) closeNetwork()
         if (observers == 0) {
             closeNetwork(); closed = true; events.close(); TalkRuntime.remove(this); scope.cancel()

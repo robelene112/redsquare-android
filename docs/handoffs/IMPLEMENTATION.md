@@ -74,8 +74,8 @@ accepts and verifies Talk originals too; the stricter real-frame goal remains.
 
 Current source adds native Talk picker/home, prejoin, incoming dialog, private
 Chat actions, exact active-call return, controls/output choices and module/draft
-navigation. It is not delivered: TalkCapture remains the intentional empty
-runtime RED seam. Do not ship it. All-core and Kotlin UI compilation have passed
+navigation. That source retained an empty TalkCapture for the runtime RED;
+the latest local SDK capture replacement below is awaiting acceptance. It is not delivered. All-core and Kotlin UI compilation have passed
 at the last checks, with subsequent small delivery/fixture changes awaiting the
 next source build. Call controls now preempt blocked waits on End; legacy unsigned
 ACCEPT waits for a signed message confirming the same room before capture.
@@ -85,6 +85,39 @@ reach its live session through a Talk/temporary socket. No actual native audio,
 video, group-call, permission/service or UI acceptance is claimed by these checks.
 Temporary UI working copies, upstream source and original evidence remain under
 /mnt/storage/redsquare-android-artifacts/talk-native, outside Git.
+
+Latest104: sourcee6e72a163b45c68b48cdc5c44f81eafefacf02a3 produced the intended
+actual-camera RED in43196697626: room startup succeeded, owned fixture healthy,
+phaseJOINING/no localVideo, and the actual-frame assertion at63 failed. The real
+SDK camera/audio track capture is now implemented locally, with Camera2/Camera1
+fallback, visibility pause/resume and explicit teardown, awaiting native GREEN.
+Current changes also add synchronous authority-observer silencing before wallet/
+node/policy writes, with exact call consent revalidated before enabling tracks.
+
+Other e6e native runs exposed two real narrow regressions: routing1743196702044
+sent while the controlled server had not yet consumed the final auth frame
+(client services readiness is earlier); Fileshare1043196706534 timed out at
+File saved after the deliberately delayed draft return. Original screenshot
+showed the Save action enabled while the draft was disabled. The existing Save
+callback abandoned on navigation.save(false) instead of awaiting draft readiness.
+The fix awaitsSettled and gives preparing-to-save feedback. Receiver/ACK bounds,
+full real file/save scenario and thirty-second goal remain unchanged. New focused
+fileshare-receive scopes isolate that original class. Routing now requires actual
+server authentication before sending, retaining both five-second delivery/ACK
+bounds. These fixes are not yet accepted; rerun them and the complete paths.
+Latest1743196711207 also failed; its artifacts still need collection/inspection.
+All original attempted runs and source distinctions remain external in talk-native.
+
+Uncommitted secondary changes: call control send returns on the first successful
+Relay while the same signature still fans out; shared media attachment changes
+only when track objects change (mute no longer recreates every sender); basic
+Talk page/participant animation; video-player audio is paused during a call;
+camera availability/front-facing state and same-room redial timestamp handling.
+Code remains WIP, no media transport/group/UI/service/beta acceptance. Continue
+native direct/three-party actual RTP and rendering with owned browser peers using
+pinned upstream Stun/StreamManager/dialer/Videocall bodies. Do not count connection
+state alone. Native voice must survive screen-off and camera must pause; exact
+notification return/end and process interruption need proof. No104 beta exists.
 
 ## Delivered native Fileshare #103
 

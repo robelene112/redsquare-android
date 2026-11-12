@@ -31,6 +31,7 @@ class TalkRoutingPreviewTest {
             try {
                 SaitoPeer(owner, endpoint, onIncoming = { chat.incrementAndGet(); chatDelivered.countDown(); true }).use { peer ->
                     assertEquals(setOf("archive", "relay"), peer.services())
+                    awaitAuthentication(fixture)
                     val room = TalkRoom(caller.publicKey, caller.publicKey)
                     val transaction = TalkProtocol.invite(caller, owner.publicKey, room, TalkDial.REQUEST, 100)
                         .applicationRequest(1).drop(5).toByteArray()
@@ -64,6 +65,7 @@ class TalkRoutingPreviewTest {
                 RealtimeIncoming.register(owner.publicKey, endpoint) { false }.use {
                     SaitoPeer(owner, endpoint, onIncoming = { fallback.incrementAndGet(); true }).use { peer ->
                         peer.services()
+                        awaitAuthentication(fixture)
                         val caller = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
                         fixture.sendIncoming(TalkProtocol.invite(caller, owner.publicKey,
                             TalkRoom(caller.publicKey, caller.publicKey), TalkDial.REQUEST, 100).applicationRequest(1).drop(5).toByteArray())
@@ -76,6 +78,14 @@ class TalkRoutingPreviewTest {
             }
             fixture.assertHealthy()
         }
+    }
+
+    /** Client service discovery can complete before the server consumes the final handshake frame. */
+    private fun awaitAuthentication(fixture: ControlledFeedPeer) {
+        val deadline = android.os.SystemClock.elapsedRealtime() + 5_000
+        while (fixture.authenticatedConnectionIds.isEmpty() && android.os.SystemClock.elapsedRealtime() < deadline)
+            Thread.sleep(20)
+        assertTrue("The owned server has verified the actual client handshake", fixture.authenticatedConnectionIds.isNotEmpty())
     }
 
     private fun awaitAcknowledgements(fixture: ControlledFeedPeer, count: Int) {

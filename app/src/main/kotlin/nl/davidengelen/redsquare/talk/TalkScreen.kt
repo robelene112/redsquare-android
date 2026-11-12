@@ -48,13 +48,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val context = LocalContext.current
     var pending by remember { mutableStateOf<Pair<Boolean, () -> Unit>?>(null) }
     var denied by remember { mutableStateOf(false) }
-    fun available(camera: Boolean): Boolean {
-        TalkService.channel(context)
-        val notifications = context.getSystemService(NotificationManager::class.java)
-        return TalkCapture.permitted(context, camera) && notifications.areNotificationsEnabled() &&
-            notifications.getNotificationChannel(TalkService.CHANNEL)?.importance != NotificationManager.IMPORTANCE_NONE &&
-            (Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED)
-    }
+    fun available(camera: Boolean): Boolean = TalkCapture.permitted(context, camera) && TalkService.available(context)
+
     val scope = rememberCoroutineScope()
     val lifecycle = androidx.lifecycle.compose.LocalLifecycleOwner.current.lifecycle
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
@@ -155,7 +150,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     var copied by remember(call?.token) { mutableStateOf(false) }
     Column(Modifier.fillMaxSize()) {
         chrome(false)
-        LazyColumn(Modifier.weight(1f).fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen),
+        SingleOwnerReveal(if (call?.phase?.started == true) "${call.token}:active" else entry?.url ?: "calls-home", Modifier.weight(1f).fillMaxWidth()) {
+        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item { Text(stringResource(R.string.talk_calls), style = MaterialTheme.typography.headlineMedium) }
             if (call?.phase?.live == true && call.phase !in setOf(CallPhase.INCOMING, CallPhase.VERIFYING)) {
@@ -167,9 +163,10 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     }
                 }
                 item { TalkVideoTile(wallet.publicKey, stringResource(R.string.talk_you), call.localVideo,
-                    call.microphone, call.camera && !call.cameraPaused, connected = true, mirror = true) }
+                    call.microphone, call.camera && !call.cameraPaused, connected = true, mirror = call.frontCamera) }
                 items(call.participants, key = { it.key }) { peer ->
-                    TalkVideoTile(peer.key, registeredIdentity(peer.key).name, peer.video, peer.microphone, peer.camera, peer.connected)
+                    TalkVideoTile(peer.key, registeredIdentity(peer.key).name, peer.video, peer.microphone, peer.camera, peer.connected,
+                        modifier = Modifier.animateItem())
                 }
                 if (call.participants.isEmpty()) item {
                     Text(stringResource(R.string.talk_waiting), color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -204,6 +201,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         TalkAudioRouteButton()
                     }
                     if (call.cameraPaused) Text(stringResource(R.string.talk_camera_paused), style = MaterialTheme.typography.bodySmall)
+                    InlineStatus(if (call.cameraUnavailable) stringResource(R.string.talk_camera_unavailable) else null, StatusTone.INFO)
                     gate.notice()
                 }
             } else if (link != null && entry != null) {
@@ -211,6 +209,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     Text(stringResource(if (entry.direct != null) R.string.talk_ready_direct else R.string.talk_ready_room),
                         style = MaterialTheme.typography.titleLarge)
                     entry.direct?.let { Text(registeredIdentity(it).name, style = MaterialTheme.typography.titleMedium) }
+                        ?: Text(stringResource(R.string.talk_host, registeredIdentity(link.room.host).name),
+                            style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.talk_network, link.backend.domain), style = MaterialTheme.typography.bodySmall)
                     Text(stringResource(R.string.talk_prejoin_privacy), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
@@ -231,7 +231,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         gate.run(camera) {
                             starting = true; failed = false
                             scope.launch {
-                                if (account.start(link, entry.direct, camera, microphone)) onEntry(null) else failed = true
+                                if (account.start(if (entry.direct == null) link else link.copy(room = link.room.copy(
+                                        mode = if (camera) TalkMode.VIDEO else TalkMode.VOICE)), entry.direct, camera, microphone)) onEntry(null) else failed = true
                                 starting = false
                             }
                         }
@@ -275,6 +276,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                 }
             }
         }
+        }
         if (call?.phase?.started == true) Button(onClick = { TalkRuntime.end(call.token) },
             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp).heightIn(min = 52.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error, contentColor = MaterialTheme.colorScheme.onError)) {
@@ -285,8 +287,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
 }
 
 @Composable private fun TalkVideoTile(publicKey: String, name: String, video: VideoTrack?, microphone: Boolean,
-    camera: Boolean, connected: Boolean, mirror: Boolean = false) {
-    Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerHigh) {
+    camera: Boolean, connected: Boolean, mirror: Boolean = false, modifier: Modifier = Modifier) {
+    Surface(modifier = modifier, shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerHigh) {
         Column {
             Box(Modifier.fillMaxWidth().aspectRatio(4f / 3f).clip(RoundedCornerShape(20.dp)), contentAlignment = Alignment.Center) {
                 if (video != null && camera && connected) key(video) { TalkVideo(video, mirror) }

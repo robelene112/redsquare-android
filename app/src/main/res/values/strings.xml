@@ -836,7 +836,7 @@
     <string name="talk_verifying">Checking invitation…</string>
     <string name="talk_dialing">Calling…</string>
     <string name="talk_ended">Call ended</string>
-    <string name="talk_declined">Call declined</string>
+    <string name="talk_declined">Call not answered</string>
     <string name="talk_no_answer">No answer</string>
     <string name="talk_interrupted">Call interrupted. Start a new call to reconnect.</string>
     <string name="talk_unavailable">The call could not connect. You can try again.</string>
@@ -849,4 +849,8 @@
     <string name="talk_audio_call">Audio call</string>
     <string name="talk_video_call">Video call</string>
     <string name="talk_calls">Calls</string>
+    <string name="talk_video_during_call">Video playback is paused during your call.</string>
+    <string name="talk_camera_unavailable">Camera unavailable. Your audio call can continue.</string>
+    <string name="talk_host">Hosted by %1$s</string>
+    <string name="fileshare_prepare_save">Preparing to save…</string>
 </resources>

@@ -107,6 +107,7 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
             selectedSave = value.token; savingError = false
             scope.launch {
                 try {
+                    navigation?.awaitSettled()
                     if (navigation?.save() != false) {
                         focus.clearFocus(); keyboard?.hide()
                         save.launch(value.offer.name)
@@ -117,6 +118,8 @@ private fun FileTransferPanel(session: FileSession, enabled: Boolean) {
         }
     }
     Column(Modifier.animateContentSize()) {
+        InlineStatus(if (selectedSave != null && saving == null) stringResource(R.string.fileshare_prepare_save) else null,
+            StatusTone.WORKING)
         preparation?.let { pending ->
             Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surfaceContainer) {
                 Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {

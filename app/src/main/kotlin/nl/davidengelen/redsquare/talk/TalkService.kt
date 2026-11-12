@@ -122,6 +122,14 @@ class TalkService : Service() {
         const val ID = 9104
         private const val END = "nl.davidengelen.redsquare.talk.END"
         private val ready = java.util.concurrent.ConcurrentHashMap<String, CompletableDeferred<Unit>>()
+        fun available(context: android.content.Context): Boolean {
+            channel(context)
+            val manager = context.getSystemService(NotificationManager::class.java)
+            return manager.areNotificationsEnabled() &&
+                manager.getNotificationChannel(CHANNEL)?.importance != NotificationManager.IMPORTANCE_NONE &&
+                (Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) ==
+                    android.content.pm.PackageManager.PERMISSION_GRANTED)
+        }
         fun prepare(token: String) { ready[token] = CompletableDeferred() }
         suspend fun awaitReady(token: String) { withTimeout(8_000) { requireNotNull(ready[token]).await() } }
         fun channel(context: android.content.Context) {

@@ -372,7 +372,7 @@ class MainActivity : ComponentActivity() {
                     if (wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
                     else { talkDraft = link?.let { TalkDraft(it.url(), owner = owner, savedBackend = node) }; stackLinkEntry = null; module = AppModule.TALK; true }
                 }
-                if (moved) talkUris.value = null
+                talkUris.value = null
                 moduleSwitchFailed = !moved
             }
             val launchTalk: (String, TalkMode) -> Unit = { peer, mode ->

@@ -101,7 +101,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private var needsNegotiation = false
     private val pendingCandidates = mutableListOf<IceCandidate>()
     private val seen = LinkedHashSet<String>()
-    private val senders = mutableListOf<RtpSender>()
+    private val senders = mutableMapOf<MediaStreamTrack, RtpSender>()
     private val remoteTracks = CopyOnWriteArrayList<MediaStreamTrack>()
     @Volatile private var authenticated = false
     @Volatile var connected = false
@@ -243,10 +243,15 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     fun media(lease: RtcLease, audio: AudioTrack?, video: VideoTrack?, stream: String) { post {
         if (!lease.active.get()) return@post
         lease.callbacks.validate()
-        senders.forEach { connection.removeTrack(it) }; senders.clear()
-        listOfNotNull(audio, video).forEach { senders.add(connection.addTrack(it, listOf(stream))) }
+        val desired = listOfNotNull(audio, video)
+        val removedTracks = senders.keys.filter { it !in desired }
+        val addedTracks = desired.filter { it !in senders }
+        removedTracks.forEach { track -> senders.remove(track)?.let { connection.removeTrack(it) } }
+        addedTracks.forEach { track -> senders[track] = connection.addTrack(track, listOf(stream)) }
         if (authenticated) remoteTracks.forEach { it.setEnabled(true); lease.callbacks.track(it) }
-        needsNegotiation = true; negotiateIfNeeded()
+        if (removedTracks.isNotEmpty() || addedTracks.isNotEmpty()) {
+            needsNegotiation = true; negotiateIfNeeded()
+        }
     } }
 
     fun send(envelope: String) {
@@ -261,7 +266,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         leases.remove(lease)
         post {
             if (lease.callbacks.media) {
-                senders.forEach { connection.removeTrack(it) }; senders.clear()
+                senders.values.forEach { connection.removeTrack(it) }; senders.clear()
                 needsNegotiation = true
             }
             if (leases.none { it.active.get() }) dispose() else negotiateIfNeeded()

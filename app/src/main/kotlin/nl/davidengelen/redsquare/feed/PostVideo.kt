@@ -37,13 +37,15 @@ private val videoSelectionSaver = listSaver<VideoSelection?, String>(
     }
 )
 
-private val LocalVideoPlayback = staticCompositionLocalOf<(YouTubeVideo, SaitoBackend) -> Unit> {
+private val LocalVideoPlayback = staticCompositionLocalOf<(YouTubeVideo, SaitoBackend) -> Boolean> {
     { _, _ -> error("Video playback requires its feature host") }
 }
 
 /** Keep public selection above lazy rows and backend-specific navigation state. */
 @Composable
 internal fun VideoPlaybackHost(owner: String?, backend: SaitoBackend?, content: @Composable () -> Unit) {
+    val call by nl.davidengelen.redsquare.talk.TalkRuntime.call.collectAsState()
+    val calling = call?.let { it.owner == owner && it.savedBackend == backend && it.phase.started } == true
     var selection by rememberSaveable(stateSaver = videoSelectionSaver) { mutableStateOf<VideoSelection?>(null) }
     LaunchedEffect(owner, backend) {
         selection?.let { selected ->
@@ -53,8 +55,10 @@ internal fun VideoPlaybackHost(owner: String?, backend: SaitoBackend?, content: 
             }
         }
     }
+    LaunchedEffect(calling) { if (calling) selection = null }
     CompositionLocalProvider(LocalVideoPlayback provides { video, selectedBackend ->
-        if (selectedBackend == backend) selection = VideoSelection(owner, selectedBackend, video)
+        if (calling || selectedBackend != backend) false
+        else { selection = VideoSelection(owner, selectedBackend, video); true }
     }) { content() }
     selection?.takeIf { it.owner == owner && it.backend == backend }?.let { selected ->
         VideoDialog(selected.video) { selection = null }
@@ -65,11 +69,14 @@ internal fun VideoPlaybackHost(owner: String?, backend: SaitoBackend?, content: 
 internal fun PostVideo(post: FeedPost, backend: SaitoBackend) {
     val video = remember(post.text, post.link) { RedSquareVideo.youtube(post.text, post.link) } ?: return
     val open = LocalVideoPlayback.current
+    var callNotice by remember(video) { mutableStateOf(false) }
     OutlinedCard(Modifier.fillMaxWidth()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(stringResource(R.string.video_provider), Modifier.padding(vertical = 12.dp))
-            TextButton(onClick = { open(video, backend) }) { Text(stringResource(R.string.video_watch)) }
+            TextButton(onClick = { callNotice = !open(video, backend) }) { Text(stringResource(R.string.video_watch)) }
         }
+        nl.davidengelen.redsquare.ui.InlineStatus(if (callNotice) stringResource(R.string.talk_video_during_call) else null,
+            nl.davidengelen.redsquare.ui.StatusTone.INFO)
     }
 }
 

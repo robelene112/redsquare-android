@@ -202,6 +202,10 @@ verify_talk_capture_native() {
     done
     return "$proof_result"
 }
+if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
+    verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == talk-capture* ]]; then
     verify_talk_capture_native
     exit 0
