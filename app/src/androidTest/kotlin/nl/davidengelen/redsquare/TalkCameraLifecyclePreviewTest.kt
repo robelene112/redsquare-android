@@ -68,6 +68,16 @@ class TalkCameraLifecyclePreviewTest {
                                 }
                                 File(evidence, "video-services.txt").writeText(services)
                             }
+                            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                                androidx.test.uiautomator.By.text("Return to call")), 5000)).click()
+                            val firstCamera = requireNotNull(TalkRuntime.call.value).frontCamera
+                            val beforeSwitch = frames.get()
+                            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                                androidx.test.uiautomator.By.text("Switch camera")), 5000)).click()
+                            await("The actual Switch camera button changes camera and resumes frames") {
+                                TalkRuntime.call.value?.frontCamera != firstCamera && frames.get() >= beforeSwitch + 3
+                            }
+                            captureNativeScreen(File(evidence, "switched-camera.png"))
                             device.pressHome()
                             await("Camera is paused outside the visible app") { TalkRuntime.call.value?.cameraPaused == true }
                             Thread.sleep(200)
@@ -86,7 +96,7 @@ class TalkCameraLifecyclePreviewTest {
                             captureNativeScreen(File(evidence, "resumed-call.png"))
                             TalkRuntime.end(requireNotNull(token))
                             await("End releases camera") { TalkRuntime.call.value?.phase == CallPhase.ENDED && TalkRuntime.call.value?.localVideo == null }
-                            File(evidence, "camera.txt").writeText("startedAsVoice=true\nvideoEnabled=true\nactualFrames=${frames.get()}\nbackgroundCameraPaused=true\nscreenOffCallRetained=true\nexactNotificationReturn=true\nresumedCameraFrames=true\n")
+                            File(evidence, "camera.txt").writeText("startedAsVoice=true\nvideoEnabled=true\nactualNativeCameraSwitch=true\nactualFrames=${frames.get()}\nbackgroundCameraPaused=true\nscreenOffCallRetained=true\nexactNotificationReturn=true\nresumedCameraFrames=true\n")
                         } finally { runCatching { track.removeSink(sink) } }
                     }
                 }
