@@ -34,6 +34,41 @@ class TalkInvitationPreviewTest {
             captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/implicit-view-prejoin.png"))
         }
     }
+    @Test fun anotherInvitationPreviewsWithoutReplacingTheActiveCall() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        withAppFrameFixture("talk-busy-invitation", "talk-invitation-evidence", advertisedServices = "archive||;relay||") { activity ->
+            var token: String? = null
+            var account: nl.davidengelen.redsquare.talk.TalkAccount? = null
+            try {
+                ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                val wallet = AndroidWalletStore(context).loadExisting()
+                var endpoint: String? = null
+                activity.onActivity { endpoint = it.intent.getStringExtra("feedPeerUrl") }
+                account = TalkRuntime.account(context, wallet, SaitoBackend.OWNER, requireNotNull(endpoint)).also { it.attach() }
+                assertTrue(kotlinx.coroutines.runBlocking { requireNotNull(account).start(TalkLink(SaitoBackend.OWNER,
+                    TalkRoom(SaitoWallet.create().publicKey, wallet.publicKey)), null, false, false) })
+                token = requireNotNull(TalkRuntime.call.value).token
+                val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+                val link = TalkLink(SaitoBackend.OFFICIAL, TalkRoom(SaitoWallet.create().publicKey, other)).url()
+                activity.onActivity { it.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(link))
+                    .setPackage(context.packageName)) }
+                ui.waitUntil(5000) { ui.onNodeWithText("Ready to join?").isDisplayed() }
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Join room") and hasClickAction())
+                ui.onNode(hasText("Join room") and hasClickAction()).assertIsNotEnabled()
+                ui.onNodeWithText(context.getString(R.string.talk_other_call_active)).assertExists()
+                assertEquals(token, TalkRuntime.call.value?.token)
+                assertFalse(requireNotNull(TalkRuntime.call.value).camera)
+                assertFalse(requireNotNull(TalkRuntime.call.value).microphone)
+                assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/busy-prejoin.png"))
+                ui.onNode(hasText("Return to call") and hasClickAction()).performClick()
+                ui.waitUntil(5000) { ui.onNodeWithText("Call network: saito.davidengelen.nl").isDisplayed() }
+                ui.onNode(hasText("End call") and hasClickAction()).performClick()
+                ui.waitUntil(5000) { TalkRuntime.call.value?.phase == nl.davidengelen.redsquare.talk.CallPhase.ENDED }
+            } finally { token?.let(TalkRuntime::end); account?.detach() }
+        }
+    }
     private fun invitation(width: Int) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val room = TalkRoom(SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey,

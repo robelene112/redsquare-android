@@ -47,7 +47,7 @@ class TalkPermissionPreviewTest {
                 assertEquals(PackageManager.PERMISSION_DENIED, context.checkSelfPermission(Manifest.permission.RECORD_AUDIO))
                 captureNativeScreen(File(context.cacheDir, "talk-permission-evidence/denied-without-capture.png"))
                 join()
-                requireNotNull(device.wait(Until.findObject(By.res(Pattern.compile(".*:id/permission_allow_foreground_only_button"))), 5000)).click()
+                requireNotNull(device.wait(Until.findObject(By.res(Pattern.compile(".*:id/permission_allow(_foreground_only)?_button"))), 5000)).click()
                 ui.waitUntil(10_000) { TalkRuntime.call.value?.localVideo != null }
                 val call = requireNotNull(TalkRuntime.call.value).also { token = it.token }
                 assertTrue(call.phase.started)

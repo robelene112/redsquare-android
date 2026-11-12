@@ -854,4 +854,6 @@
     <string name="talk_camera_unavailable">Camera unavailable. Your audio call can continue.</string>
     <string name="talk_host">Hosted by %1$s</string>
     <string name="fileshare_prepare_save">Preparing to save…</string>
+    <string name="talk_other_call_active">Another call is active. End it before joining this room.</string>
+    <string name="talk_other_call_privacy">Opening this invitation does not join it. Your current call continues.</string>
 </resources>

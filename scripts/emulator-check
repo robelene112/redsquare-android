@@ -294,7 +294,7 @@ if [[ "${TEST_SCOPE:-full}" == talk-direct* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-invitation* ]]; then
-    verify_group_chat_native TalkInvitationPreviewTest 180 talk-invitation talk-invitation-evidence
+    verify_talk_capture_native TalkInvitationPreviewTest talk-invitation
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-media* ]]; then
@@ -613,7 +613,7 @@ verify_talk() {
     verify_talk_permissions_native
     verify_group_chat_native TalkRoutingPreviewTest 180 talk-routing talk-routing-evidence
     verify_talk_capture_native TalkCapturePreviewTest talk-capture
-    verify_group_chat_native TalkInvitationPreviewTest 180 talk-invitation talk-invitation-evidence
+    verify_talk_capture_native TalkInvitationPreviewTest talk-invitation
     verify_talk_browser_native TalkChatPreviewTest talk-chat
     verify_talk_browser_native TalkDirectPreviewTest talk-direct
     verify_talk_browser_native TalkMediaPreviewTest talk-media
@@ -626,6 +626,11 @@ verify_talk() {
     verify_talk_browser_native TalkFilesharePreviewTest talk-fileshare
     python3 "$repo_dir/scripts/talk-process-check" --evidence "$evidence/talk-process"
 }
+
+if [[ "${TEST_SCOPE:-full}" == talk || "${TEST_SCOPE:-full}" == talk-android17 ]]; then
+    verify_talk
+    exit 0
+fi
 
 verify_fileshare() {
     verify_fileshare_case FileshareSendPreviewTest fileshare-send

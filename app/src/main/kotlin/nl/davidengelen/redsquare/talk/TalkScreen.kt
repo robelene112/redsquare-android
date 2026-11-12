@@ -169,6 +169,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val online by account.online.collectAsState()
     val gate = rememberTalkPermissionGate()
     val link = remember(entry?.url) { entry?.let { TalkLink.parse(it.url) } }
+    val showingInvitation = link != null && entry != null
     var camera by remember(entry?.url) { mutableStateOf(link?.room?.mode != TalkMode.VOICE) }
     var microphone by remember(entry?.url) { mutableStateOf(true) }
     var starting by remember { mutableStateOf(false) }
@@ -180,11 +181,11 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     var copied by remember(call?.token) { mutableStateOf(false) }
     Column(Modifier.fillMaxSize()) {
         chrome(false)
-        SingleOwnerReveal(if (call?.phase?.started == true) "${call.token}:active" else entry?.url ?: "calls-home", Modifier.weight(1f).fillMaxWidth()) {
+        SingleOwnerReveal(entry?.url ?: if (call?.phase?.live == true) "${call.token}:active" else "calls-home", Modifier.weight(1f).fillMaxWidth()) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item { Text(stringResource(R.string.talk_calls), style = MaterialTheme.typography.headlineMedium) }
-            if (call?.phase?.live == true && call.phase !in setOf(CallPhase.INCOMING, CallPhase.VERIFYING)) {
+            if (call?.phase?.live == true && call.phase != CallPhase.INCOMING && !showingInvitation) {
                 item {
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         call.direct?.let { Text(registeredIdentity(it).name, style = MaterialTheme.typography.titleLarge) }
@@ -226,7 +227,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         ?: Text(stringResource(R.string.talk_host, registeredIdentity(link.room.host).name),
                             style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.talk_network, link.backend.domain), style = MaterialTheme.typography.bodySmall)
-                    Text(stringResource(R.string.talk_prejoin_privacy), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(if (call?.phase?.live == true) R.string.talk_other_call_privacy else R.string.talk_prejoin_privacy),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (entry.direct == null) Text(stringResource(R.string.talk_room_link_privacy),
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
@@ -244,10 +246,11 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         Text(stringResource(R.string.talk_start_camera))
                     }
                     gate.notice()
+                    InlineStatus(if (call?.phase?.live == true) stringResource(R.string.talk_other_call_active) else null, StatusTone.INFO)
                     InlineStatus(if (failed) stringResource(R.string.talk_start_failed) else null, StatusTone.ERROR)
                 }
                 item {
-                    Button(enabled = !starting, onClick = {
+                    Button(enabled = !starting && call?.phase?.live != true, onClick = {
                         gate.run(camera) {
                             starting = true; failed = false
                             scope.launch {
@@ -297,7 +300,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             }
         }
         }
-        if (call?.phase?.started == true) {
+        if (call?.phase?.started == true && !showingInvitation) {
             HorizontalDivider()
             Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -321,7 +324,9 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     gate.notice()
             }
         }
-        if (call?.phase?.started == true) Button(onClick = { TalkRuntime.end(call.token) },
+        if (showingInvitation && call?.phase?.live == true) TextButton(onClick = { onEntry(null) },
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_return)) }
+        if (call?.phase?.live == true) Button(onClick = { TalkRuntime.end(call.token) },
             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp).heightIn(min = 52.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error, contentColor = MaterialTheme.colorScheme.onError)) {
             Icon(painterResource(R.drawable.ic_call_end), null, Modifier.size(22.dp)); Spacer(Modifier.width(8.dp))
