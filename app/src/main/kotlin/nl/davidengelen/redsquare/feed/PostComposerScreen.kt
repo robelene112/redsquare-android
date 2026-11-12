@@ -156,13 +156,16 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val save: suspend () -> Boolean = { state.persist() }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.i("SocialRouteProbe",
-                "[DEBUG-fs103-social] guard ready=${state.ready} saving=${state.saving} sending=${state.sending} images=${state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()}")
+                "[DEBUG-fs103-social] guard current=${navigation.saveCurrent === save} ready=${state.ready} saving=${state.saving} sending=${state.sending} images=${state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()}")
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
                 state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()) false
             else {
                 state.saving = true
                 try {
-                    if (state.persist() && navigation.saveCurrent === save) commit() else false
+                    val retained = state.persist()
+                    if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.i("SocialRouteProbe",
+                        "[DEBUG-fs103-social] persisted=$retained current=${navigation.saveCurrent === save}")
+                    if (retained && navigation.saveCurrent === save) commit() else false
                 } finally { state.saving = false }
             }
         }
