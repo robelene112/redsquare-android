@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "observedAt": "2026-11-12T05:09:42.194295+00:00",
+  "versionCode": 116,
+  "source": "0e7249cba0209c61a33e91f76245ae45fabac621",
+  "verificationSource17": "f01ae5654e2b01ef40321ab440664c57fe40edda",
+  "bytes": 91442703,
+  "sha256": "3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64",
+  "publicLatestEqualsImmutableEqualsBuild": true,
+  "notesExact": true,
+  "pageEqualsMaintainedTemplate": true,
+  "pageSha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+  "establishedCertificate": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "qualification": "Actual public latest, immutable manifest, maintained download page and downloaded APK. Physical/OEM, live community-peer/NAT and Play/provider acceptance remain separate."
+}

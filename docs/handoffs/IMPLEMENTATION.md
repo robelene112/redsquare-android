@@ -1,101 +1,50 @@
 # Implementation handoff
 
-## Active Fileshare #103
+## Delivered native Fileshare #103
 
-Owner authorized native Fileshare in private Chat, continuing after background /
-screen-off with Android progress and Cancel. Implement only103 to completion,
-including proof/reviews/signed beta. No repeated owner phone QA or routine approval.
-No production node/provider/Play operation or public Saito write is authorized.
-Keep parents1/36/55/84/86 open. Stop after103 delivery until another issue is asked.
-Review base `d46cce88b800639ffffe1ae60af5ae509e121676`.
+[Signed beta0.1.116](https://davidengelen.nl/redsquare/) is public. Private Chat
+supports native compatible live files: system picker, explicit acceptance,
+progress, exact Cancel, background/screen-off notification and Save as. Both peers
+must be online; no offline delivery or transparent process-death recovery claim.
 
-Current continuation (November12,05:02UTC): sole writer checkout
-`/mnt/storage/redsquare-android-artifacts/redesign86`, branch codex/unified-redesign.
-Review base d46cce88b800639ffffe1ae60af5ae509e121676. Product/build source remains
-`0e7249cba0209c61a33e91f76245ae45fabac621`. Final17/proof ref is test-only
-`f01ae5654e2b01ef40321ab440664c57fe40edda`. Exactly three AndroidTest fixtures
-(PolicyCenter, SocialPushTap, PostComposerFocus) differ, no production/build/harness
-or other tests change. Both independent source reviews PASS all deltas. Bridge
-includes exact diff/hashes, original native failures, focused confirmations and
-honest qualifications. Original composer transition timing remains unproved.
+Review base d46cce88b800639ffffe1ae60af5ae509e121676. Compiled product/source
+0e7249cba0209c61a33e91f76245ae45fabac621; verification17 is test-only
+f01ae5654e2b01ef40321ab440664c57fe40edda. Exactly PolicyCenter, SocialPushTap
+and PostComposerFocus AndroidTest observations differ. Production/build/harness/
+other tests are byte-identical, all original assertions/bounds retained. Original
+composer transition cause remains unproved; failed/cancelled runs stay retained.
 
-Both final COMPLETE3-job SDKs and unchanged frozen collector now PASS:
--10 run43140879123 at0e,663identities/239classes/197archives/259normal.
--17 run43150151913 atf01,664identities/239classes/197archives/260normal.
-Both38intentional interruptions and37continuities. Original inherited exceptions
-retained. Packets full-final-android10/17, raw final-full10-43140879123 and
-final-full17-43150151913 externally. Monitor60861 completed successfully.
-No partial SDK assembly. Old17 runs43140880842/43146631213 failed/cancelled and
-remain unaccepted, originals retained under test-fixture-bridge. Wrong-source-ref
-43149420522 cancelled, no app proof. All three correction focused scopes PASS.
+Both complete3-job SDKs and UNCHANGED frozen collector PASS:
+10 run43140879123,663identities/239classes/197archives/259normal;
+17 run43150151913,664identities/239classes/197archives/260normal.
+Both38intentional interruptions/37continuities, with inherited qualifications.
+Both independent final acceptance reviews verify1,938 complete originals and96
+signed83-to116 update originals. Focused proofs cover all nine file classes,
+12viewport cells,4MiB exact unpaced browser bytes, real screen-off and seeded
+separate-PID recovery. Browser class bodies/native fixture signer are controlled;
+not a fully initialized community webapp or live-peer process-death experiment.
 
-Final focused Fileshare10/17 runs43140624246/43140626648 at0e both SUCCESS:
-all nine classes,12viewport cells, actual seeded distinct-PID recovery and4MiB.
-Signed83-to116 updates43142255518/43142257865 both PASS, preserving wallet,
-exact draft, offline cached post, Light preference and separate debug identity.
-Their48 originals perSDK are indexed/copied. Staged116 actual public bytes,
-manifest/notes/certificate/package/release flags PASS, no browser fixtures in APK.
+Actual signed updates retain wallet, exact draft/cache/preference and debug
+isolation. Candidate116 is91,442,703bytes, SHA256
+`3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64`.
+Public latest/immutable manifest/notes/page/download match at05:09UTC November12.
+Delivery receipt: docs/evidence/ticket103/delivery116/verification.json.
+Both postpublication independent delta reviews PASS at05:12UTC, recorded in
+delivery116/reviews.json. Issue103 implementation, acceptance and delivery are complete. Never promote
+113/114/115. No new candidate build is required for docs/test-only changes.
 
-Signed candidate116 at0e:91,442,703bytes,
-SHA256 `3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64`.
-Public stable latest REMAINS112. Candidate116 has NOT been promoted. Never
-promote113/114/115, all superseded. Counter116 reserved, no new rebuild needed
-for test-only changes. Task branch origin pushed through docs308d5cd72, working
-changes now update complete17 status. Final doc/evidence commit/push still needed.
+Sole writer checkout /mnt/storage/redsquare-android-artifacts/redesign86, task
+branch codex/unified-redesign. Implementation/evidence and final closeout receipts are on this branch; the
+final closeout documentation commit is current HEAD. Raw artifacts stay external under
+/mnt/storage/redsquare-android-artifacts/fileshare103. Canonical checkout and
+unrelated work preserved. Monitoring sessions are completed, no build/test active.
 
-NEXT: independent Standards/Spec final ACCEPTANCE packet reviews on complete data
-(reuse agents fileshare103_standards/spec). Verify raw SHA indexes and source bridge,
-all qualifications; fix findings. After both PASS, promote exact staged116 using
-scripts/review-publish .scratch/review-builds/116 --promote and EXACT external
-release-notes116.txt text (Python subprocess args). Then run external
-verify-delivery116.py (expects full17f01): actual latest/immutable/page/download
-proof. Source preconditions require both full PASS and actual update PASS.
-Review resulting delivery packet with both axes, update README/project context/
-workflow/OWNER_INPUTS and handoff, retain live ARM/OEM/NAT/full-community-peer
-qualifications under parent36, commit/push final docs, close103 only after actual
-delivery, keep1/36/55/84/86 OPEN, stop. Do not ask owner for ordinary phone testing.
-No node/provider/Play/public Saito writes or new module work.
-
-## Diagnoses and corrections within103
-
-- Android17 unpaced browser4MiB failed controller Channel32 overflow in43123205607
-  at3762:47produced,6acknowledged chunks,385536bytes FAILED.54 adds bounded encrypted
-  ephemeral disk inbox; ac4 yields four-frame batches,57db closes old inbox before
-  a new offer during ACK grace. Large17 gate43125121863 passes66chunks/exactbytes.
-- Combined build at419 fails test lint model generated-assets dependency.199 exact
-  task edge proves insufficient at b318's lint analysis consumer. c950 uses typed
-  Android generated-source producer wiring. All final full-source graphs still
-  must pass. Local lint has a confirmed Docker2.5GiB OOM, preserved externally;
-  hosted c950 full graphs pass. No host/service memory limit changed.
-- C950 full10 run43128152234 fails Stack social notification return (original15s)
-  and ActivityInbox click while native screenshot shows Loading notifications.
-  Original failure packets retained. Activity fix e0 awaits header AND actual
-  clickable event within same15s. Standalone module/all12/predecessor probes pass;
-  precise original full notification refusal was not instrumented.
-- Controlled Post3s RED43137287550 at8fcff reproduces resolved/current=true,
-  guard ready=false/opened=false, then ready=true without retry. a829 adds owned
-  loadingCurrent/awaitSettled to navigation and all notification branches.
-- Spec reviewer identifies private Chat gap. Controlled Chat RED43139422867 at3a
-  preserves original offscreen/notification flow, then recreates actual Chat,
-  observes disabled Message, sends same PendingIntent during3s load and finds
-  the false-error banner.0e registers owned loading/error callbacks for private
-  Chat, Group, Author, Profile, Stack editors and waits before module routing.
-  Both independent review axes close the finding; focused0e both SDKs PASS.
-
-C950 old complete17 run43128154836 SUCCESS passes frozen collector at
-baseline-c950-android17:664identities,239classes,197archives,260normal,
-38interruptions,37continuities. It is baseline ONLY, not acceptance of0e/116.
-Raw external baseline-full17-43128154836 is retained. Do not combine it with a
-new10 run. Required final0e runs, exact116 updates and final independent packet
-reviews remain, then promote exact116, verify public delivery, update release
-checklist/owner docs/contexts, close103 and stop. No physical/OEM/live TURN or
-fully initialized community browser proof is claimed by owned fixtures.
-
-All raw/local-check artifacts are external under
-`/mnt/storage/redsquare-android-artifacts/fileshare103`. Always dispatch full40char
-source SHA; abbreviated checkout failures never contribute proof. Preserve the
-canonical checkout and unrelated work. Keep actual failed results and original
-bounds; do not replace tests with owner phone requests.
+FILESHARE_LIVE is retained unchecked under36 and OWNER_INPUTS; the exact parent
+row is preserved in release36-qualification.json. Close103 with the final proof
+reference after pushing this closeout. Keep1/36/55/84/86 OPEN. STOP until owner
+requests another ticket. No node/provider/Play operation or public Saito write.
+Do not ask owner to repeat ordinary phone QA. The maintained data-flow inventory
+has a dated Fileshare addendum; final operator/retention/declarations stay under36.
 
 ## Delivered native Stack links #102
 

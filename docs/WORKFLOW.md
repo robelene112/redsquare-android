@@ -11,18 +11,23 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner requested Fileshare after beta112 and explicitly approved background
-and screen-off continuation with an Android progress notification and Cancel.
-Implement [issue103](https://github.com/robelene112/redsquare-android/issues/103)
-as one complete private-Chat feature, using the existing native protocol/user-flow
-verification boundaries and controlled WebRTC browser peers. No community recipient
-or public Saito write is needed. The owner has delegated routine test decisions
-and emulator work; do not ask for repeated phone testing or routine permissions.
+Native Fileshare [issue103](https://github.com/robelene112/redsquare-android/issues/103)
+is delivered in signed beta116. The owner's request covered native private-Chat
+files, accepted/started background and screen-off continuation, Android progress
+and Cancel, complete verification/reviews and beta delivery. Both complete SDKs,
+exact signed updates and the independently reviewed fixture-only source bridge
+are recorded in [the packet](evidence/ticket103/README.md). Preserve original
+failed runs and inherited evidence qualifications.
+
+Stop after103. Keep #1/#36/#55/#84/#86 open. Real device/OEM, live selected-node
+Relay/Stun/traversal and fully initialized community-peer qualifications remain
+under#36 alongside provider/Play prerequisites. Do not ask the owner to repeat
+ordinary emulator/development tests. No node/provider/Play operation, public
+Saito write or additional module ticket is authorized by this completed slice.
 
 The preceding issue102 is delivered in signed beta112. Preserve its accepted
-full-run catalog erratum and fixture-only source bridge. Keep #1/#36/#55/#84/#86
-open. No node, provider or Play operation is authorized. Work remains sequential;
-Fileshare does not authorize starting other module tickets.
+full-run catalog erratum and fixture-only source bridge. Work stays sequential;
+start a new implementation only when the owner asks for another ticket.
 
 ## Load the real skills
 

@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "versionCode": 116,
+  "compiledSource": "0e7249cba0209c61a33e91f76245ae45fabac621",
+  "bytes": 91442703,
+  "sha256": "3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64",
+  "standards": {
+    "agent": "/root/fileshare103_standards",
+    "result": "PASS",
+    "observedAt": "2026-11-12T05:12:07Z",
+    "actionableFindings": 0
+  },
+  "spec": {
+    "agent": "/root/fileshare103_spec",
+    "result": "PASS",
+    "observedAt": "2026-11-12T05:12:16Z",
+    "actionableFindings": 0
+  },
+  "qualification": "Both axes independently GET latest/immutable/page and actual APK after promotion: exact116 manifests/notes/template/bytes, same verified signing identity. No product change. Final docs/data-flow and preserved release36 qualifications reviewed. Physical/OEM/live community/NAT/provider/Play remain outside this proof."
+}

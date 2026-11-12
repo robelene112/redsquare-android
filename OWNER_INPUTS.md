@@ -1,6 +1,6 @@
 # Nog nodig van David
 
-Bijgewerkt: 11 november 2026. Dit is het centrale overzicht voor jouw bijdragen
+Bijgewerkt: 12 november 2026. Dit is het centrale overzicht voor jouw bijdragen
 aan de eerste release. Werk dit document bij zodra iets geregeld is. De agent
 houdt de status bij en gaat ondertussen verder met herkenbare placeholders en
 concepten. Een placeholder geldt nooit als een afgeronde integratie, geldende
@@ -55,6 +55,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 | Geautoriseerde Android Giphy-configuratie voor Posts en Chat | Open, bestaande vraag. Gescheiden configuratie per integratie/variant. | Echte zoekresultaten, selecteren, attributie en providercontrole onder #36 (GIPHY_POSTS en GIPHY_CHAT), na afgeronde native #16/#31. Geen browserkey lenen; sleutels alleen via de private configuratieroute in `docs/OPERATIONS.md`. |
 | Firebase/GCP-project en juiste Android-appassociaties | Open, bestaande vraag. | Echte achtergrondmeldingen onder #36 (SOCIAL_PUSH, PRIVATE_PUSH en GROUP_PUSH), na afgeronde native #32/#33/#34. Applicatie-ID, Firebase-app/project/sender en resolver moeten bij elkaar passen. Geen service-accountbestanden in Git. |
 | Werkelijke hosting en inrichting van de pushgateway | Nog te regelen binnen afgesproken beheerprocedure. | Publiek bereikbare HTTPS-resolver, afzender en echte gesloten-appbezorging. De agent kan de code en beheerinstructies verder voorbereiden. |
+| Fileshare op echte toestellen en netwerken | Native en gecontroleerde Android10/17-/browsercontroles zijn afgerond in beta116. Aanvullende praktijkkwalificatie blijft geparkeerd. | #36 (FILESHARE_LIVE): echte ARM/OEM-toestellen, gekozen-node Relay/Stun, TURN/NAT en een volledig geïnitialiseerde communityclient. Dit vraagt nu geen herhaling van gewone ontwikkeltests op jouw telefoon; eventuele node- of providerwijzigingen volgen apart de beheerprocedure. |
 
 ## Optioneel: Stack op je eigen node
 
@@ -64,9 +65,9 @@ artikelen beschikbaar. Als je Stack ook op jouw eigen node wilt aanbieden,
 volgt daarvoor apart de bestaande beheerprocedure. De app activeert geen
 productiemodule en wisselt niet stilzwijgend van node.
 
-## Controle op je Pixel 7
+## Beschikbare beta en latere toestelcontroles
 
-De gewone [beta110](https://davidengelen.nl/redsquare/) staat online. Deze versie
+De gewone [beta116](https://davidengelen.nl/redsquare/) staat online. Deze versie
 herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
 accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
 Na succesvol plaatsen keer je terug naar de feed of conversatie met kort
@@ -87,6 +88,14 @@ caches en automatisch herstel na tijdelijke fouten. De gemelde accounts leveren
 daar digirok@saito en CryptoKen@saito op. Identity details toont de naambron;
 je publieke sleutel en gekozen node blijven behouden. De aparte lookup is uit
 te schakelen onder Settings, Node.
+Stack-links openen nu het echte artikel of auteursprofiel binnen de app. De
+zichtbare URL-bron overschrijft jouw gekozen node niet; Back keert terug naar
+het oorspronkelijke bericht en de leespositie.
+Fileshare is beschikbaar via privéchat: kies een bestand, laat de ontvanger
+expliciet accepteren en volg de voortgang. Tijdens een lopende overdracht werken
+achtergrond, scherm uit en annuleren via de Android-melding. Ontvangen bestanden
+sla je zelf op met Save as. Beide gebruikers moeten online zijn; er is geen
+wachtende offline bestandsbezorging. Onderbrekingen worden eerlijk weergegeven.
 Herhaald liken heeft geen lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
 Bij snel scrollen wacht het tekenen van postacties niet meer op achtergrondopslag.
 De gerichte regressie en de complete controles zijn op beide emulators geslaagd.
@@ -94,13 +103,13 @@ Dit verhelpt een gemeten blokkade; het bewijst nog geen algemene prestatiewinst
 op fysieke toestellen.
 
 De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
-van beta83 naar110 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+van beta83 naar116 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
 en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
 ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
 fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint. Gebruik die niet als definitieve meting van beta110. Voor definitieve
+checkpoint. Gebruik die niet als definitieve meting van beta116. Voor definitieve
 fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en

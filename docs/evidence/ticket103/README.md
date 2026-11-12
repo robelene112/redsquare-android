@@ -1,35 +1,48 @@
-# Native Fileshare103, verified candidate116
+# Native Fileshare103, delivered in beta116
 
-The owner approved live Fileshare in private Chat and continuing accepted/started
-work in the background and with the screen off, with an Android progress
-notification and exact-transfer Cancel. Both complete SDK runs, exact signed updates and both independent final packet
-reviews pass. Exact promotion and postpublication verification remain pending. Public beta112 remains the accepted channel.
+[Signed beta0.1.116](https://davidengelen.nl/redsquare/) adds live file sharing in
+private Chat: system document picker, explicit incoming acceptance, progress,
+exact Cancel, background/screen-off continuation and received-file Save as.
+Both peers must be online. Interrupted work is reported honestly; this does not
+promise offline delivery or transparent process-death continuation.
 
-## Current acceptance status, November12
+## Complete acceptance and actual delivery
 
-Product source `0e7249cba0209c61a33e91f76245ae45fabac621` is compiled into
-staged signed candidate116. The public stable channel remains112. Exact public
-candidate bytes/signature/package flags pass, and actual83-to116 signed updates
-pass on Android10/17, preserving wallet, exact draft, cached post, Light preference
-and separate debug identity. Both final focused Fileshare scopes pass at0e:
-nine native transfer/control/viewport classes,12viewport cells,4MiB unpaced
-browser intake with screen-off exact bytes and distinct-PID seeded recovery.
+The unchanged pre-run frozen collector accepts both complete three-job SDK runs:
+10 run43140879123 at compiled source0e7249cba0209c61a33e91f76245ae45fabac621,
+663identities;17 run43150151913 at test-onlyf01ae5654e2b01ef40321ab440664c57fe40edda,
+664identities. Each has239classes,197archives,38deliberate interruptions and
+37continuity records, with259/260normal completions. Both independent final
+acceptance reviews verify all1,938 indexed originals and the96 signed-update
+originals. Inherited API29 Profile assumption, unavailable Chat archive and four
+missing failure-capture qualifications remain explicit in the frozen contract.
+No partial SDK assembly or new exception is used.
 
-Complete10 run43140879123 at0e passes the frozen collector:663identities,
-239classes,197archives,259normal completions,38intentional interruptions and
-37continuity records, with inherited qualifications retained. Failed/cancelled17
-runs43140880842 and43146631213 remain unaccepted. The [test-only bridge](test-fixture-bridge/source-equivalence.json)
-records original failures, native captures, byte-identical production and three
-independently reviewed corrections under the original budgets. All three focused
-confirmations pass. The original composer disappearance timing remains unproved.
+The [source bridge](test-fixture-bridge/source-equivalence.json) changes exactly
+three AndroidTest fixtures while production/build/harness/all other tests remain
+byte-identical. Original failed/cancelled runs, native captures and focused
+confirmations are retained. The original composer transition timing remains
+unproved. All nine final Fileshare classes,12viewport cells, actual background/
+screen-off outcomes,4MiB exact browser bytes and distinct-PID seeded recovery pass.
+The fixture uses pinned browser class bodies and a published unsafe native signer,
+with independent wallet vectors separately verified. It is not a fully initialized
+community web app or a live interrupted peer process.
 
-Complete17 run43150151913 at test-onlyf01 passes the same frozen collector:
-664identities,239classes,197archives,260normal completions,38intentional
-interruptions and37continuity records. The supported Ubuntu22 host pool uses the
-same Android17 x86_64 image and native goals. Both entire SDKs pass; no partial
-SDK assembly is used. The exact three-file test-only source bridge preserves the
-compiled0e product and candidate116. Both independent final packet reviews pass. Actual
-promotion/delivery verification remains pending. Public latest is still112.
+Actual signed83-to116 updates on both SDKs preserve wallet, exact draft, cached
+post, Light preference and separate debug identity. Candidate116 is91,442,703bytes,
+SHA256 `3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64`,
+with the established signing certificate, ordinary package and release flags.
+[Both acceptance reviews](acceptance-reviews.json) pass. Actual public latest,
+immutable manifest, exact notes, maintained download page and downloaded APK match
+at05:09UTC November12; [delivery receipts](delivery116/verification.json) record
+those observations. Both [independent postpublication delta reviews](delivery116/reviews.json) pass.
+Candidates113/114/115 remain superseded and must never be promoted.
+
+Physical ARM/OEM, selected-node Relay/Stun and real-network traversal, fully
+initialized community-client interoperability, provider and Play qualifications
+remain open under#36. No production node/provider operation, public Saito write
+or owner phone acceptance is claimed. Keep parents1/36/55/84/86 open and stop
+until another issue is requested. Issue103 is complete.
 
 The following sections preserve the historical diagnosis; their pending statements
 refer to those earlier checkpoints. Candidate113/114/115 are superseded.

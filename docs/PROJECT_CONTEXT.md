@@ -1,16 +1,36 @@
 # Red Square Android project context
 
-## Active Fileshare #103
+## Delivered native Fileshare #103
 
-The owner approved native Fileshare in private Chat, including continuing live
-transfers outside the app and with the screen off, with Android progress and
-Cancel. [Issue103](https://github.com/robelene112/redsquare-android/issues/103)
-is the only active implementation. Review base is `d46cce88b` on
-`codex/unified-redesign`; preserve the canonical checkout. Native protocol,
-streaming encrypted storage, foreground ownership and controlled browser/Android
-proofs are being implemented. No Fileshare runtime or delivery acceptance is
-claimed yet. Public beta112 remains the preceding accepted release.
+[Signed beta0.1.116](https://davidengelen.nl/redsquare/) adds live file sharing in
+private Chat through the system picker, explicit incoming acceptance, progress,
+Cancel and Save as. Accepted/started transfers continue in the background and
+with the screen off under an Android foreground notification. Both peers must be
+online; interruption is honest, without offline delivery or transparent process
+recovery. File bytes use WebRTC rather than the public blockchain or Chat Archive.
 
+Both complete three-job SDK runs43140879123/43150151913 pass the unchanged frozen
+collector:663/664identities,239classes and197archives perSDK,259/260normal
+completions,38intentional interruptions and37continuities. Both independent
+acceptance reviews verify1,938 indexed complete originals and96 signed-update
+originals. Exact83-to116 updates preserve wallet, draft, cache, preference and
+debug isolation. Existing evidence qualifications remain explicit.
+
+Compiled source0e7249cba is production-equivalent to verification17f01ae5654:
+exactly three independently reviewed AndroidTest observations change under their
+original bounds. Original failures remain retained; the earlier composer
+transition timing is unproved. The [ticket103 packet](evidence/ticket103/README.md)
+records controlled browser interoperability,4MiB bytes,12viewport cells and
+seeded distinct-PID interruption, with their precise limits. The dated data-flow
+inventory records document providers, encrypted local retention, WebRTC/Relay/
+traversal metadata and plaintext user exports.
+
+Public latest, immutable manifest, page, notes and downloaded91,442,703byte APK
+match at05:09UTC November12, SHA256
+`3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64`.
+Physical/OEM, real community-client/NAT, provider and Play acceptance remain open
+under#36. No node/provider operation, public Saito write or owner phone check is
+claimed. Keep1/36/55/84/86 open and stop after103 until another ticket is requested.
 
 
 ## Telegram Desktop performance reference
