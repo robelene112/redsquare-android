@@ -332,7 +332,7 @@ class WalletImportPreviewTest {
     @Test fun diagnosticRepeatedActivationKeepsTheOriginalAssertionBounds() {
         val record = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
             "wallet-import-evidence/diagnostic-repeat.txt").apply { parentFile!!.mkdirs() }
-        repeat(2) { iteration ->
+        repeat(4) { iteration ->
             record.appendText("start=$iteration\n")
             explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers()
             record.appendText("passed=$iteration\n")
@@ -409,6 +409,8 @@ class WalletImportPreviewTest {
                     ui.closeWalletOverview()
                     ui.waitUntil(15_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
                     ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
+                    File(context.cacheDir, "wallet-import-evidence/activation-keyboard-pass.txt").writeText(
+                        nl.davidengelen.redsquare.ui.KeyboardVisibilityProbe.snapshot())
                     captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-owner-feed-visible.png"))
                     scenario.recreate()
                     ui.openWallet()
@@ -464,6 +466,8 @@ class WalletImportPreviewTest {
 
     /** Failure-only observation. Never refresh, recreate or dismiss the failed window. */
     private fun captureActivationWindow(folder: File) {
+        File(folder, "activation-keyboard-probe.txt").writeText(
+            nl.davidengelen.redsquare.ui.KeyboardVisibilityProbe.snapshot())
         val main = android.os.Looper.getMainLooper()
         File(folder, "activation-main-thread.txt").writeText("state=${main.thread.state}\n" +
             main.thread.stackTrace.joinToString("\n"))
