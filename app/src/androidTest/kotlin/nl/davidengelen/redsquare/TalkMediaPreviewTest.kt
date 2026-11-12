@@ -147,13 +147,16 @@ class TalkMediaPreviewTest {
                                     await("Three actual native participants connected", 30_000) {
                                         TalkRuntime.call.value?.participants?.count { it.connected && it.video != null && it.audio != null } == 2
                                     }
-                                    await("Official browser peers complete the three-party mesh", 30_000) {
-                                        carol.media[owner.publicKey]?.rms?.let { it > 0.01 } == true &&
-                                            carol.media[alice.wallet.publicKey]?.rms?.let { it > 0.01 } == true &&
-                                            alice.media[carol.wallet.publicKey]?.rms?.let { it > 0.01 } == true
+                                    var decodedMesh: Map<String, Map<String, TalkBrowserPeer.Media>>? = null
+                                    await("Official browser peers decode audio and video on every three-party mesh leg", 30_000) {
+                                        val observed = mapOf("alice" to alice.media.toMap(), "carol" to carol.media.toMap())
+                                        val complete = observed.values.all { peers -> peers.size == 2 && peers.values.all {
+                                            it.width >= 320 && it.nonBlack > 500 && it.rms > 0.01
+                                        } }
+                                        if (complete) decodedMesh = observed
+                                        complete
                                     }
-                                    File(evidence, "mesh.json").writeText(com.google.gson.Gson().toJson(mapOf(
-                                        "alice" to alice.media.toMap(), "carol" to carol.media.toMap())))
+                                    File(evidence, "mesh.json").writeText(com.google.gson.Gson().toJson(requireNotNull(decodedMesh)))
                                     device.findObject(androidx.test.uiautomator.By.text("Return to call"))?.click()
                                     requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
                                         androidx.test.uiautomator.By.text("End call")), 5000))
