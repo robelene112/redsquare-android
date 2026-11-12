@@ -331,10 +331,17 @@ class SocialPushTapPreviewTest {
                         assertEquals(SocialPushResult.PUBLISHED, runBlocking(Dispatchers.IO) {
                             SocialPush.receive(context, payload, endpoint, 1700000001000, fixtureRegistrar = username)
                         })
+                        // notify() returns before Android necessarily exposes the alert.
+                        // Observe publication and its shade row within the original10s budget.
+                        val alertBy = android.os.SystemClock.elapsedRealtime() + 10_000
+                        while (manager.activeNotifications.none { (it.tag to it.id) !in priorAlerts } &&
+                            android.os.SystemClock.elapsedRealtime() < alertBy) android.os.SystemClock.sleep(25)
                         val published = manager.activeNotifications.single { (it.tag to it.id) !in priorAlerts }
                         assertEquals(if (mention) "mentions" else "replies", published.notification.channelId)
                         assertTrue(device.openNotification())
-                        val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), 10_000))
+                        val alertRemaining = alertBy - android.os.SystemClock.elapsedRealtime()
+                        check(alertRemaining > 0) { "Publication and shade row share the original10s budget" }
+                        val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), alertRemaining))
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), alertText)
                         val stackArrivalBy = android.os.SystemClock.elapsedRealtime() + 15_000
                         alert.click()
