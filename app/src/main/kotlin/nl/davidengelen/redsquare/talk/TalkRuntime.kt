@@ -237,7 +237,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             val pending = TalkCall(UUID.randomUUID().toString(), wallet.publicKey, backend, TalkLink(backend, room),
                 message.sender, true, if (message.identityVerified) CallPhase.INCOMING else CallPhase.VERIFYING,
                 listOf(CallParticipant(message.sender, camera = room.mode == TalkMode.VIDEO)), invitationAt = message.createdAt)
-            accepted = false; waitingRoomProof = !message.identityVerified
+            accepted = false; waitingRoomProof = message.signature == null
             if (!claim(pending)) return
             changedAt = now()
             // Legacy unsigned Relay claims must prove a signed SDP and DTLS connection before ringing.
@@ -267,7 +267,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 TalkDial.CANCEL.wire -> finish(CallPhase.ENDED)
                 TalkDial.REJECT.wire -> finish(CallPhase.DECLINED)
                 TalkDial.ACCEPT.wire -> if (!call.incoming && call.phase == CallPhase.DIALING) {
-                    accepted = true; waitingRoomProof = !message.identityVerified
+                    accepted = true; waitingRoomProof = message.signature == null
                     publish(call.copy(phase = CallPhase.JOINING)); changedAt = now()
                     if (!waitingRoomProof) startMedia() else requestRoomProof(requireNotNull(current))
                 }
@@ -350,8 +350,14 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                     if (call.phase == CallPhase.VERIFYING && call.direct == peer) {
                         publish(call.copy(phase = CallPhase.INCOMING)); changedAt = now()
                         send(TalkProtocol.invite(wallet, peer, call.link.room, TalkDial.PING, now()))
-                    } else if (accepted && !waitingRoomProof && media) publish(call.copy(phase = CallPhase.ACTIVE, since = call.since.takeIf { it > 0 } ?: now(),
-                        participants = call.participants.map { if (it.key == peer) it.copy(connected = true) else it }))
+                    } else if (accepted && !waitingRoomProof && media) {
+                        publish(call.copy(phase = CallPhase.ACTIVE, since = call.since.takeIf { it > 0 } ?: now(),
+                            participants = call.participants.map { if (it.key == peer) it.copy(connected = true) else it }))
+                        // A newly connected participant needs the current choices, including
+                        // a microphone/camera deliberately disabled before joining.
+                        send(TalkProtocol.event(wallet, call.link.room, "toggle-audio", listOf(peer), now(), call.microphone))
+                        send(TalkProtocol.event(wallet, call.link.room, "toggle-video", listOf(peer), now(), call.camera && !call.cameraPaused))
+                    }
                 } }, failed = { post {
                     if (current?.token == token && current?.phase?.live == true) {
                         leases.remove(peer)?.close()

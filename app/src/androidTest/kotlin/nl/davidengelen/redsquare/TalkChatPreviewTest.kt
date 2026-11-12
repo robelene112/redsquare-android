@@ -73,7 +73,7 @@ class TalkChatPreviewTest {
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
                         withFailureCapture({
-                            File(evidence, "failure-$video.txt").writeText("${TalkRuntime.call.value}\n${peer.errors}\nmedia=${peer.media}\n")
+                            File(evidence, "failure-$video.txt").writeText("${TalkRuntime.call.value}\n${peer.errors}\nmedia=${peer.media}\ndiagnostics=${peer.diagnostics}\n")
                             captureNativeScreen(File(evidence, "failure-$video.png"))
                         }) {
                             await("Chat navigation ready", 15_000) { ui.onNodeWithText("Chat").isDisplayed() }
@@ -82,7 +82,9 @@ class TalkChatPreviewTest {
                             ui.onNodeWithText(caller.publicKey).performClick()
                             await("Private composer ready", 15_000) { ui.onNode(hasText("Message") and hasSetTextAction() and isEnabled()).isDisplayed() }
                             ui.onNode(hasText("Message") and hasSetTextAction()).performClick().performTextInput(draft)
-                            if (focusedWindowImeBottom() > 0) device.pressBack()
+                            await("Actual message keyboard is shown") { focusedWindowImeBottom() > 0 }
+                            device.pressBack()
+                            await("Actual message keyboard has closed") { focusedWindowImeBottom() == 0 }
                             ui.onNodeWithText(if (video) "Video call" else "Audio call").assertIsDisplayed().performClick()
                             await("Native direct prejoin") { ui.onNodeWithText("Ready to call?").isDisplayed() }
                             assertTrue(TalkRuntime.call.value?.phase?.live != true)

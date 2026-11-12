@@ -87,12 +87,30 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
 
 @Composable internal fun TalkIncomingDialog(account: TalkAccount?, owner: String?, backend: SaitoBackend?, onAccepted: () -> Unit) {
     val live by TalkRuntime.call.collectAsState()
+    // Answer changes INCOMING to JOINING before its suspend function completes.
+    // Keep navigation ownership outside the disappearing dialog's composition.
+    val scope = rememberCoroutineScope()
+    val latestOwner by rememberUpdatedState(owner)
+    val latestBackend by rememberUpdatedState(backend)
+    val latestAccount by rememberUpdatedState(account)
+    val latestAccepted by rememberUpdatedState(onAccepted)
     val call = live?.takeIf { it.owner == owner && it.savedBackend == backend && it.phase == CallPhase.INCOMING } ?: return
     if (account == null) return
-    val scope = rememberCoroutineScope()
     val gate = rememberTalkPermissionGate()
     var accepting by remember(call.token) { mutableStateOf(false) }
     val name = registeredIdentity(requireNotNull(call.direct)).name
+    fun answer(camera: Boolean) {
+        accepting = true
+        scope.launch {
+            try {
+                if (account.accept(call.token, camera)) {
+                    val active = TalkRuntime.call.value
+                    if (latestAccount === account && latestOwner == call.owner && latestBackend == call.savedBackend &&
+                        active?.token == call.token && active.phase.started) latestAccepted()
+                }
+            } finally { accepting = false }
+        }
+    }
     AlertDialog(onDismissRequest = { TalkRuntime.end(call.token) },
         icon = { Icon(painterResource(R.drawable.ic_phone), null) },
         title = { Text(stringResource(R.string.talk_incoming)) },
@@ -104,13 +122,12 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             Column {
                 Button(enabled = !accepting, modifier = Modifier.heightIn(min = 48.dp), onClick = {
                     gate.run(call.link.room.mode == TalkMode.VIDEO) {
-                        accepting = true
-                        scope.launch { if (account.accept(call.token, call.link.room.mode == TalkMode.VIDEO)) onAccepted(); accepting = false }
+                        answer(call.link.room.mode == TalkMode.VIDEO)
                     }
                 }) { Text(stringResource(R.string.talk_accept)) }
                 if (call.link.room.mode == TalkMode.VIDEO) TextButton(enabled = !accepting,
                     modifier = Modifier.heightIn(min = 48.dp), onClick = {
-                        gate.run(false) { accepting = true; scope.launch { if (account.accept(call.token, false)) onAccepted(); accepting = false } }
+                        gate.run(false) { answer(false) }
                     }) { Text(stringResource(R.string.talk_audio_only)) }
             }
         }, dismissButton = {
