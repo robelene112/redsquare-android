@@ -92,6 +92,9 @@ abstract class FileshareFixture {
                                 addProperty("browserAcknowledgedChunk", browser.acknowledgedChunk.get())
                                 addProperty("browserReadFinished", browser.uploadReadFinished.get())
                                 addProperty("browserErrors", browser.errors.size)
+                                addProperty("authenticatedSockets", fixture.authenticatedConnectionIds.size)
+                                addProperty("incomingAcknowledgements", fixture.incomingAcknowledgements.size)
+                                addProperty("relayedMessages", fixture.relayedMessages.size)
                                 add("transfers", com.google.gson.JsonArray().apply { session?.transfers?.value?.forEach { value ->
                                     add(com.google.gson.JsonObject().apply {
                                         addProperty("phase", value.phase.name); addProperty("bytes", value.bytes); addProperty("size", value.offer.size)
@@ -152,6 +155,8 @@ abstract class FileshareFixture {
                                 File(evidence, "notifications-disabled.json").writeText("{\"result\":\"PASS\",\"actualAppOpDenied\":true,\"noTransferStarted\":true,\"draftRetained\":true}")
                                 return@withFailureCapture
                             }
+                            // A ready composer/session is local state, not a completed Relay handshake.
+                            waitUntil { fixture.authenticatedConnectionIds.isNotEmpty() }
                             browser.hold(receipts = !incoming, chunks = incoming)
                             if (incoming) {
                                 if (large) browser.sendGenerated(bytes.size, "from-browser.bin", "browser103")
