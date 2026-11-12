@@ -85,6 +85,7 @@ class TalkChatPreviewTest {
                             await("Actual message keyboard is shown") { focusedWindowImeBottom() > 0 }
                             device.pressBack()
                             await("Actual message keyboard has closed") { focusedWindowImeBottom() == 0 }
+                            ui.onNodeWithText("Call options").assertIsDisplayed().performClick()
                             ui.onNodeWithText(if (video) "Video call" else "Audio call").assertIsDisplayed().performClick()
                             await("Native direct prejoin") { ui.onNodeWithText("Ready to call?").isDisplayed() }
                             assertTrue(TalkRuntime.call.value?.phase?.live != true)

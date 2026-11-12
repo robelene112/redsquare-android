@@ -356,6 +356,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
+        val callAction = nl.davidengelen.redsquare.talk.LocalTalkLaunch.current
+        var callOptions by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
         Row(verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back),
                 enabled = !closing && !navigation.transitioning, onClick = { close() })
@@ -371,16 +373,20 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 modifier = Modifier.semantics { contentDescription = detailsLabel }) {
                 Icon(painterResource(R.drawable.ic_info), contentDescription = null, modifier = Modifier.size(22.dp))
             } else TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
-        }
-        val callAction = nl.davidengelen.redsquare.talk.LocalTalkLaunch.current
-        if (counterparty != null && callAction != null && !keyboardVisible) Row(Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End)) {
-            FrameIconButton(R.drawable.ic_phone, stringResource(R.string.talk_audio_call),
-                enabled = !navigation.transitioning && !closing,
-                onClick = { counterparty?.let { callAction(it, TalkMode.VOICE) } })
-            FrameIconButton(R.drawable.ic_video, stringResource(R.string.talk_video_call),
-                enabled = !navigation.transitioning && !closing,
-                onClick = { counterparty?.let { callAction(it, TalkMode.VIDEO) } })
+            if (counterparty != null && callAction != null && !keyboardVisible) Box {
+                FrameIconButton(R.drawable.ic_phone, stringResource(R.string.talk_call_options),
+                    enabled = !navigation.transitioning && !closing, onClick = { callOptions = true })
+                DropdownMenu(expanded = callOptions, onDismissRequest = { callOptions = false }) {
+                    DropdownMenuItem(text = { Text(stringResource(R.string.talk_audio_call)) },
+                        leadingIcon = { Icon(painterResource(R.drawable.ic_phone), null) },
+                        enabled = !navigation.transitioning && !closing,
+                        onClick = { callOptions = false; counterparty?.let { callAction(it, TalkMode.VOICE) } })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.talk_video_call)) },
+                        leadingIcon = { Icon(painterResource(R.drawable.ic_video), null) },
+                        enabled = !navigation.transitioning && !closing,
+                        onClick = { callOptions = false; counterparty?.let { callAction(it, TalkMode.VIDEO) } })
+                }
+            }
         }
         if (counterparty == null) Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
