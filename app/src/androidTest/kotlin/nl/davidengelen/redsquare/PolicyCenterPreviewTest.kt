@@ -151,7 +151,16 @@ class PolicyCenterPreviewTest {
                         ui.waitForAccountMenu(20_000)
                         // Retain only this window's initial TalkBack handoff.
                         device.executeShellCommand("logcat -c")
-                        ui.openSettings()
+                        val settingsBy = android.os.SystemClock.elapsedRealtime() + 5_000
+                        ui.openAccountMenu()
+                        val settingsAction = hasText("Settings") and hasClickAction() and
+                            hasAnyAncestor(isPopup() or isDialog())
+                        waitFor((settingsBy - android.os.SystemClock.elapsedRealtime()).also {
+                            check(it > 0) { "The Account popup and Settings action share the original5s" }
+                        }) { ui.onNode(settingsAction).isDisplayed() }
+                        ui.onNode(settingsAction).assertIsDisplayed().assertIsEnabled()
+                        click(automation, "Settings")
+                        check(android.os.SystemClock.elapsedRealtime() <= settingsBy)
                         waitFor("Node")
                         // Use the real accessibility action in this TalkBack-owned journey.
                         // A coordinate sampled before its window/focus handoff can hit Appearance.
