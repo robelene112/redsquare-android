@@ -55,6 +55,7 @@ abstract class FileshareFixture {
         val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$sourceName")
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/saved.bin")
         val draft = "Keep this unsent message"
+        val delayedChatReturn = incoming && !cancel && !unknown && !denyNotifications && !preparationCancel && viewportWidth == null && !large
         var session: FileSession? = null
         var restoreLegacyNotifications: (() -> Unit)? = null
         var primary: Throwable? = null
@@ -81,7 +82,8 @@ abstract class FileshareFixture {
                 FileshareBrowserPeer(wallet, fixture, pin).use { browser ->
                     browserRef.set(browser)
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                        .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
+                        .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)
+                        .putExtra("chatDraftLoadFixtureDelayMs", if (delayedChatReturn) 3000L else 0L)).use { activity ->
                         withFailureCapture({
                             File(evidence, "failure-state-${incoming}-${cancel}.json").writeText(com.google.gson.JsonObject().apply {
                                 addProperty("liveWork", FileshareRuntime.hasLiveWork())
@@ -239,6 +241,16 @@ abstract class FileshareFixture {
                             waitUntil { ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             val label = if (cancel) "Transfer cancelled" else if (incoming) "File received" else "File sent"
                             waitUntil { ui.onAllNodesWithText(label).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                            if (delayedChatReturn) {
+                                activity.recreate()
+                                ui.waitUntil(15_000) {
+                                    ui.onAllNodes(hasText("Message") and !isEnabled())
+                                        .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                                }
+                                alert.notification.contentIntent.send()
+                                waitUntil { ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                ui.onAllNodesWithText(context.getString(nl.davidengelen.redsquare.R.string.social_push_open_failed)).assertCountEquals(0)
+                            }
                             captureNativeScreen(File(evidence, "complete-${incoming}-${cancel}.png"), label)
                             if (incoming && !cancel) {
                                 ui.onNodeWithText("Save as…").performScrollTo().performClick()

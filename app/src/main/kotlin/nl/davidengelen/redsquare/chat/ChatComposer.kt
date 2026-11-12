@@ -93,6 +93,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     }
     LaunchedEffect(work) {
         try {
+            if (nl.davidengelen.redsquare.BuildConfig.DEBUG &&
+                android.os.Build.HARDWARE in listOf("ranchu", "goldfish")) {
+                val delay = activity.intent.getLongExtra("chatDraftLoadFixtureDelayMs", 0).coerceIn(0, 5000)
+                if (delay > 0) kotlinx.coroutines.delay(delay)
+            }
             writes.withLock {
                 saved = withContext(Dispatchers.IO) { work.load() }
                 changeText(if (saved.frozen) saved.draft else memory.text ?: saved.draft)
