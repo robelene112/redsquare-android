@@ -113,7 +113,10 @@ val prepareFileshareReference by tasks.registering {
     }
 }
 android.sourceSets.getByName("androidTest").assets.srcDir(fileshareReferenceAssets)
-tasks.configureEach { if (name == "mergeDebugAndroidTestAssets") dependsOn(prepareFileshareReference) }
+tasks.configureEach {
+    if (name == "mergeDebugAndroidTestAssets" || name == "generateDebugAndroidTestLintModel")
+        dependsOn(prepareFileshareReference)
+}
 
 dependencies {
     add(fileshareCompiler.name, "com.google.javascript:closure-compiler:v20240317")
