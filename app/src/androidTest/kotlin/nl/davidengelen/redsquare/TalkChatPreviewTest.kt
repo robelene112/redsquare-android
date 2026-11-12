@@ -27,7 +27,9 @@ class TalkChatPreviewTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val caller = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        // Exercise both initial Stun roles without adding another call: audio waits
+        // for the lower browser peer, video is initiated by the lower native peer.
+        val caller = SaitoWallet.fromPrivateKey("0".repeat(63) + if (video) "3" else "1")
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").withChatContact(caller.publicKey)
         val wallets = AndroidWalletStore(context); val previous = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context); val previousBackend = backends.load()
@@ -98,6 +100,11 @@ class TalkChatPreviewTest {
                             await("The accepted call decodes real native PCM at the peer", 25_000) {
                                 TalkRuntime.call.value?.phase == CallPhase.ACTIVE &&
                                     peer.media[owner.publicKey]?.let { it.rms > 0.01 && (!video || it.width >= 320 && it.nonBlack > 500) } == true
+                            }
+                            if (video) {
+                                assertTrue(owner.publicKey < caller.publicKey)
+                                assertEquals("The higher-key browser initially answers the native offer",
+                                    "Submitting SDP (answer)", peer.diagnostics.firstOrNull { it.startsWith("Submitting SDP (") })
                             }
                             assertEquals(video, TalkRuntime.call.value?.camera)
                             assertEquals(!video, TalkRuntime.call.value?.localVideo == null)
