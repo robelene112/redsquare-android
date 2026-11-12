@@ -1049,6 +1049,7 @@ if [[ "${TEST_SCOPE:-full}" == module-push* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == social-push* ]]; then
+    if [[ "${TEST_SCOPE:-full}" == social-push ]]; then verify_fileshare; fi
     verify_social_push
     printf '%s\n' 'Injected social wake-up transport only; no FCM, closed-app public delivery or full acceptance.' > "$evidence/scope.txt"
     exit 0
