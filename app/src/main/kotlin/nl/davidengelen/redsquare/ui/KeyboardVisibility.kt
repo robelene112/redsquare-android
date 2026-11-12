@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalDensity
 @Composable
 internal fun keyboardOccupiesWindow(): Boolean {
     val visible = WindowInsets.isImeVisible
-    val bottom = WindowInsets.ime.getBottom(LocalDensity.current)
+    val bottom = if (visible) null else WindowInsets.ime.getBottom(LocalDensity.current)
     val view = androidx.compose.ui.platform.LocalView.current
     androidx.compose.runtime.SideEffect {
         if (nl.davidengelen.redsquare.BuildConfig.DEBUG) {
@@ -24,7 +24,7 @@ internal fun keyboardOccupiesWindow(): Boolean {
                     "nativeBottom=${native?.getInsets(ime)?.bottom}")
         }
     }
-    return visible || bottom > 0
+    return visible || requireNotNull(bottom) > 0
 }
 
 /** TEMPORARY diagnosis only. Remove before final source; no input or identity values retained. */
