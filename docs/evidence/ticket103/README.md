@@ -1,9 +1,9 @@
-# Native Fileshare103, implementation in progress
+# Native Fileshare103, verified candidate116
 
 The owner approved live Fileshare in private Chat and continuing accepted/started
 work in the background and with the screen off, with an Android progress
-notification and exact-transfer Cancel. No Fileshare runtime or beta acceptance
-is claimed yet. Public beta112 remains the previous accepted release.
+notification and exact-transfer Cancel. Both complete SDK runs, exact signed updates and both independent final packet
+reviews pass. Exact promotion and postpublication verification remain pending. Public beta112 remains the accepted channel.
 
 ## Current acceptance status, November12
 
@@ -23,10 +23,13 @@ records original failures, native captures, byte-identical production and three
 independently reviewed corrections under the original budgets. All three focused
 confirmations pass. The original composer disappearance timing remains unproved.
 
-Final whole17 run43150151913 at test-onlyf01 is active on the supported Ubuntu22
-host pool (same Android17 x86_64 image and frozen native goals). Whole17 success
-and final packet reviews remain required. Public beta112 is unchanged. No partial
-SDK assembly is accepted.
+Complete17 run43150151913 at test-onlyf01 passes the same frozen collector:
+664identities,239classes,197archives,260normal completions,38intentional
+interruptions and37continuity records. The supported Ubuntu22 host pool uses the
+same Android17 x86_64 image and native goals. Both entire SDKs pass; no partial
+SDK assembly is used. The exact three-file test-only source bridge preserves the
+compiled0e product and candidate116. Both independent final packet reviews pass. Actual
+promotion/delivery verification remains pending. Public latest is still112.
 
 The following sections preserve the historical diagnosis; their pending statements
 refer to those earlier checkpoints. Candidate113/114/115 are superseded.

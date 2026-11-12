@@ -122,3 +122,33 @@ completion process, response timeframe, justified retention schedule, production
 log/backup behavior and Play's classification of this transferable network
 identity. No contact address, processing deadline or legal retention basis has
 been invented. #36 remains open; this proposal performs no deletion or submission.
+
+
+## Native Fileshare, November 12 addendum (#103)
+
+Private Chat can select arbitrary nonempty documents through Android's system
+picker. A selected source or Save-as destination may belong to a cloud document
+provider. [FileshareRuntime](../../app/src/main/kotlin/nl/davidengelen/redsquare/fileshare/FileshareRuntime.kt)
+requires explicit incoming acceptance. The offered filename, MIME type and size
+are shared with the recipient; [Fileshare](../../core/src/main/kotlin/nl/davidengelen/redsquare/saito/Fileshare.kt)
+and signed SDP/ICE signalling use the selected Saito peer. File bytes travel over
+the live WebRTC DTLS data channel, without a Chat Archive upload or blockchain
+broadcast. This is live two-peer delivery, without automatic offline queuing.
+
+[SaitoFileChannel](../../app/src/main/kotlin/nl/davidengelen/redsquare/fileshare/SaitoFileChannel.kt)
+uses the pinned upstream Saito TURN configuration at `stun-sf.saito.io`,
+`stun-sg.saito.io` and `stun-de.saito.io` on port 3478. Signalling and traversal
+operators can observe relevant public identities, session/network metadata,
+IP addresses, timing and traffic volume. TURN can relay encrypted channel traffic;
+these paths do not establish anonymity, provider retention or a legal operator role.
+
+[FileTransferStore](../../app/src/main/kotlin/nl/davidengelen/redsquare/fileshare/FileTransferStore.kt)
+keeps wallet/backend/contact-scoped metadata and streaming encrypted staging,
+queued frames and received bytes in `noBackupFilesDir`. Cancellation and
+interruption recovery remove partial/spooled data; completed encrypted copies and
+metadata are retained, including after Save as, without a demonstrated timed expiry
+or account-wide deletion sweep. Save as writes a plaintext copy to the deliberately
+chosen provider. Cancelling or removing local work cannot recall exported or
+recipient copies. Android foreground progress is a local notification, without
+an FCM subscription for file delivery. Final retention, operator relationships,
+provider declarations and real-device/network qualifications remain pending under #36.

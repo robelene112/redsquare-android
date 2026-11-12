@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "observedAt": "2026-11-12T05:09:11.244041+00:00",
+  "reviewBase": "d46cce88b800639ffffe1ae60af5ae509e121676",
+  "compiledSource": "0e7249cba0209c61a33e91f76245ae45fabac621",
+  "verificationSources": {
+    "10": "0e7249cba0209c61a33e91f76245ae45fabac621",
+    "17": "f01ae5654e2b01ef40321ab440664c57fe40edda"
+  },
+  "completeRuns": {
+    "10": "43140879123",
+    "17": "43150151913"
+  },
+  "indexedCompleteOriginalsVerified": 1938,
+  "indexedSignedUpdateOriginalsVerified": 96,
+  "standards": {
+    "agent": "/root/fileshare103_standards",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "spec": {
+    "agent": "/root/fileshare103_spec",
+    "result": "PASS",
+    "actionableFindings": 0
+  },
+  "candidate": 116,
+  "sha256": "3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64",
+  "qualification": "Both axes independently verified complete originals, frozen goals, exactly three test-only fixture changes, actual Fileshare outcomes, inherited exceptions, signed updates and exact staged candidate. Data-flow addendum reviewed. Accepted for promotion, actual postpublication verification remains separate."
+}

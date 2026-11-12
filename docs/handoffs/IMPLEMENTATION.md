@@ -9,63 +9,52 @@ No production node/provider/Play operation or public Saito write is authorized.
 Keep parents1/36/55/84/86 open. Stop after103 delivery until another issue is asked.
 Review base `d46cce88b800639ffffe1ae60af5ae509e121676`.
 
-Current continuation (November12, fixture corrections pending runtime): sole writer checkout
+Current continuation (November12,05:02UTC): sole writer checkout
 `/mnt/storage/redsquare-android-artifacts/redesign86`, branch codex/unified-redesign.
-Product/build source remains `0e7249cba0209c61a33e91f76245ae45fabac621`.
-HEAD/proof-fileshare103-notification-controls is now test-only
-`f01ae5654e2b01ef40321ab440664c57fe40edda`: only PolicyCenterPreviewTest,
-SocialPushTapPreviewTest and PostComposerFocusPreviewTest differ from compiled source. Both independent source
-reviews PASS all three test-only deltas. Exact diff/hashes and retained original failures
-are in evidence/ticket103/test-fixture-bridge. No production change.
-Origin task branch last pushed1e4d19bc6, push final task branch later.
+Review base d46cce88b800639ffffe1ae60af5ae509e121676. Product/build source remains
+`0e7249cba0209c61a33e91f76245ae45fabac621`. Final17/proof ref is test-only
+`f01ae5654e2b01ef40321ab440664c57fe40edda`. Exactly three AndroidTest fixtures
+(PolicyCenter, SocialPushTap, PostComposerFocus) differ, no production/build/harness
+or other tests change. Both independent source reviews PASS all deltas. Bridge
+includes exact diff/hashes, original native failures, focused confirmations and
+honest qualifications. Original composer transition timing remains unproved.
 
-Complete Android10 run43140879123 at0e SUCCESS, frozen collector PASS at
-full-final-android10:663identities/239classes/197archives/259normal/38interruptions/37continuities.
-Complete17 run43140880842 at0e has failed Wallet (Policy Settings popup handoff)
-and Chat (SocialPushTap immediate active-notification query); Social remains active.
-Never count the failed SDK as acceptance or assemble partial runs.
-Policy fix1e0 waits visible/enabled Settings then actual accessibility click within
-original shared5s. Social fixdcdd awaits active Android alert AND shade row within
-original10s, keeping all real tap/channel/cold/draft/arrival goals.
-Focused policies17 run43145434785 at1e0 and social-push17 run43145670449 atdcdd
-both SUCCESS. Final whole3-job full17dcdd43146631213 FAILED Social at PostComposerFocus line35
-immediately after typing, before its original explicit IME wait. Native dark320/
-font130 capture shows IME+header but missing field; previous Light has IME+hidden
-header+visible field. Precise original transition timing remains unproved.
-Other two17 runners were still in APT setup and were cancelled as superseded.
-f01 moves the same10s IME budget before geometry, actual clickfocus BEFORE typing,
-requires nativeIME AND displayededitor, records initial/settled metrics, and keeps
-all writing order/attachment/48dpSend/exactdraft/return assertions. Both reviews
-PASS this test-only delta. Targeted composer-focus17 run43149455501 SUCCESS: both themes130% text pass in
-original10s, with readiness metrics retained. Initial field visible in both cells,
-so precise original disappearance cause is still unproved. Current final whole17
-is43150151913 atf01, on existing supported runner_os=ubuntu-22.04 (default24 had
-two setup jobs still in APT step at25minutes when superseded; no setup failure
-cause is claimed). Same Android17 x86_64/native goals and all3jobs required.
-Wrong-source-ref43149420522 cancelled, no acceptance. Always get actual fullSHA.
-Full10 has passed and been collected, never rerun it for these test-only changes.
-External watch-complete.py and verify-delivery116.py must use17 run43150151913
-and sourcef01. Old monitor82589 exited at old17 failure, not active. New full-final17
-must still pass frozen collector. Final packet reviews and promotion remain.
-No waiver or repeated owner phone QA.
+Both final COMPLETE3-job SDKs and unchanged frozen collector now PASS:
+-10 run43140879123 at0e,663identities/239classes/197archives/259normal.
+-17 run43150151913 atf01,664identities/239classes/197archives/260normal.
+Both38intentional interruptions and37continuities. Original inherited exceptions
+retained. Packets full-final-android10/17, raw final-full10-43140879123 and
+final-full17-43150151913 externally. Monitor60861 completed successfully.
+No partial SDK assembly. Old17 runs43140880842/43146631213 failed/cancelled and
+remain unaccepted, originals retained under test-fixture-bridge. Wrong-source-ref
+43149420522 cancelled, no app proof. All three correction focused scopes PASS.
 
 Final focused Fileshare10/17 runs43140624246/43140626648 at0e both SUCCESS:
 all nine classes,12viewport cells, actual seeded distinct-PID recovery and4MiB.
-Retained focused-final-android10/17 packets. Earlier Post3s and Chat3s controlled
-reds are retained; both independent reviews PASS owned loading guard correction0e.
-Temporary product diagnostics removed; only bounded debug/emulator load fixtures.
+Signed83-to116 updates43142255518/43142257865 both PASS, preserving wallet,
+exact draft, offline cached post, Light preference and separate debug identity.
+Their48 originals perSDK are indexed/copied. Staged116 actual public bytes,
+manifest/notes/certificate/package/release flags PASS, no browser fixtures in APK.
 
-Signed candidate116 is built/staged at exact0e,91,442,703bytes,
+Signed candidate116 at0e:91,442,703bytes,
 SHA256 `3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64`.
-Public download/manifest/notes/bytes/certificate/package/release flags PASS;
-production APK excludes browser Fileshare fixtures. Actual83-to116 updates
-43142255518/43142257865 both PASS (four wallet observations, exact draft,
-offline cached post, Light preference and separate debug identity). Retained
-update116-android10/17 packets and candidate116/staging116 checks.
-Stable latest remains112, reserved counter116. Never promote113/114/115.
-No116 promotion yet. Final full/packet review required before ordinary publish.
-External release-notes116.txt holds exact notes; verify-candidate.py accepts116,
-full0eSHA and notes path. verify-update.py expects116/0e.
+Public stable latest REMAINS112. Candidate116 has NOT been promoted. Never
+promote113/114/115, all superseded. Counter116 reserved, no new rebuild needed
+for test-only changes. Task branch origin pushed through docs308d5cd72, working
+changes now update complete17 status. Final doc/evidence commit/push still needed.
+
+NEXT: independent Standards/Spec final ACCEPTANCE packet reviews on complete data
+(reuse agents fileshare103_standards/spec). Verify raw SHA indexes and source bridge,
+all qualifications; fix findings. After both PASS, promote exact staged116 using
+scripts/review-publish .scratch/review-builds/116 --promote and EXACT external
+release-notes116.txt text (Python subprocess args). Then run external
+verify-delivery116.py (expects full17f01): actual latest/immutable/page/download
+proof. Source preconditions require both full PASS and actual update PASS.
+Review resulting delivery packet with both axes, update README/project context/
+workflow/OWNER_INPUTS and handoff, retain live ARM/OEM/NAT/full-community-peer
+qualifications under parent36, commit/push final docs, close103 only after actual
+delivery, keep1/36/55/84/86 OPEN, stop. Do not ask owner for ordinary phone testing.
+No node/provider/Play/public Saito writes or new module work.
 
 ## Diagnoses and corrections within103
 

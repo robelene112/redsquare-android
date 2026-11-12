@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "sdk": "17",
+  "source": "f01ae5654e2b01ef40321ab440664c57fe40edda",
+  "run": "43150151913",
+  "completedIdentities": 664,
+  "recoveryTotals": {
+    "normalCompletions": 260,
+    "deliberateInterruptions": 38,
+    "continuityRecords": 37
+  },
+  "classes": 239,
+  "assumptions": [],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 197,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/fileshare103/final-full17-43150151913",
+  "qualification": "Complete primary run, all3partitions. Original raw artifacts retained externally. No partial assembly or physical/provider/store acceptance."
+}
