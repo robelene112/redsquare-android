@@ -61,8 +61,13 @@ class ChatMixedReceptionPreviewTest {
                     val ready = "Ready for incoming calls while this app is open."
                     wait(ready)
                     ui.onNodeWithText(ready).performScrollTo().assertIsDisplayed()
-                    val accountConnections = peer.authenticatedConnectionIds
-                    check(accountConnections.isNotEmpty())
+                    var accountConnections = emptySet<Int>()
+                    ui.waitUntil(15_000) {
+                        val current = peer.authenticatedConnectionIds
+                        if (current.size == 1 && ui.onNodeWithText(ready).isDisplayed()) {
+                            accountConnections = current; true
+                        } else false
+                    }
                     ui.onNodeWithContentDescription("Switch app: Saito Talk").performClick()
                     ui.onNode(hasText("Red Square") and hasClickAction()).performClick()
                     waitEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
