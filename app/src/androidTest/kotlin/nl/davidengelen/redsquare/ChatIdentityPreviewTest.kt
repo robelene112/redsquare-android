@@ -118,8 +118,8 @@ class ChatIdentityPreviewTest {
                         scenario.recreate()
                         waitForEnabled("Chat")
                         selectChatTab()
-                        waitForText(displayName)
-                        ui.onNodeWithText(displayName).performClick()
+                        // The selected conversation now survives Activity recreation.
+                        // Verify its cached content directly, without reopening a list row.
                         waitForText("Verified private identity preview")
                         ui.onNodeWithContentDescription("View identity details for $displayName").performClick()
                         ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
@@ -203,11 +203,8 @@ class ChatIdentityPreviewTest {
                         scenario.recreate()
                         waitForEnabled("Chat")
                         selectChatTab()
-                        waitForText("Groups")
-                        ui.onNodeWithText("Groups").performClick()
-                        waitForText("Group messages are unencrypted.")
-                        ui.waitUntil(20_000) { ui.onAllNodes(groupRow, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNode(groupRow, useUnmergedTree = true).performClick()
+                        // Group selection is restored too. The same signed message and
+                        // verified author must be readable in the retained destination.
                         waitForText("Verified cached group identity preview")
                         waitForText(displayName)
                         ui.onNodeWithText(displayName).assertIsDisplayed()
