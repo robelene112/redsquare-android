@@ -245,7 +245,11 @@ abstract class FileshareFixture {
                             alert.notification.contentIntent.send() // Actual retained destination URI and Android PendingIntent.
                             waitUntil { ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             val label = if (cancel) "Transfer cancelled" else if (incoming) "File received" else "File sent"
-                            waitUntil { ui.onAllNodesWithText(label).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                            waitUntil {
+                                ui.onAllNodesWithText(label).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
+                                    (!(incoming && !cancel) || ui.onAllNodes(hasText("Save as…") and isEnabled())
+                                        .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+                            }
                             if (delayedChatReturn) {
                                 activity.recreate()
                                 ui.waitUntil(15_000) {
@@ -258,7 +262,7 @@ abstract class FileshareFixture {
                             }
                             captureNativeScreen(File(evidence, "complete-${incoming}-${cancel}.png"), label)
                             if (incoming && !cancel) {
-                                ui.onNodeWithText("Save as…").performScrollTo().performClick()
+                                ui.onNodeWithText("Save as…").performScrollTo().assertIsEnabled().performClick()
                                 waitUntil { ui.onAllNodesWithText("File saved").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                                 assertArrayEquals(bytes, context.contentResolver.openInputStream(destination)!!.use { it.readBytes() })
                                 ui.onNodeWithText(draft).assertExists()
