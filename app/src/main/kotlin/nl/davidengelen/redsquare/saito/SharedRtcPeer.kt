@@ -132,6 +132,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             sdpSemantics = PeerConnection.SdpSemantics.UNIFIED_PLAN
         }, object : PeerConnection.Observer {
             override fun onIceCandidate(candidate: IceCandidate) { post {
+                probe("local candidate mid=${candidate.sdpMid}")
                 signal("peer-candidate", com.google.gson.JsonObject().apply {
                     add("iceCandidate", com.google.gson.JsonObject().apply {
                         addProperty("candidate", candidate.sdp); addProperty("sdpMid", candidate.sdpMid)
@@ -140,6 +141,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 })
             } }
             override fun onConnectionChange(state: PeerConnection.PeerConnectionState) {
+                probe("connection=$state")
                 if (state in setOf(PeerConnection.PeerConnectionState.FAILED, PeerConnection.PeerConnectionState.CLOSED)) post { fail() }
             }
             override fun onSignalingChange(state: PeerConnection.SignalingState) {
@@ -156,9 +158,9 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                     }
                 }
             }
-            override fun onIceConnectionChange(state: PeerConnection.IceConnectionState) {}
+            override fun onIceConnectionChange(state: PeerConnection.IceConnectionState) { probe("ice=$state") }
             override fun onIceConnectionReceivingChange(receiving: Boolean) {}
-            override fun onIceGatheringChange(state: PeerConnection.IceGatheringState) {}
+            override fun onIceGatheringChange(state: PeerConnection.IceGatheringState) { probe("gathering=$state") }
             override fun onIceCandidatesRemoved(candidates: Array<out IceCandidate>) {}
             override fun onAddStream(stream: MediaStream) {}
             override fun onRemoveStream(stream: MediaStream) {}
@@ -318,13 +320,15 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 val sdp = description.get("sdp").asString
                 require(sdp.length in 1..65_536)
                 val collision = type == "offer" && (makingOffer || connection.signalingState() != PeerConnection.SignalingState.STABLE)
+                probe("remote $type collision=$collision making=$makingOffer state=${connection.signalingState()} sdp=${iceIds(sdp)}")
                 ignoredOffer = collision && wallet.publicKey >= remote
-                if (ignoredOffer) return
+                if (ignoredOffer) { probe("ignored remote offer"); return }
                 if (collision) setDescription(SessionDescription(SessionDescription.Type.ROLLBACK, ""), true)
                 started = true
                 setDescription(SessionDescription(SessionDescription.Type.fromCanonicalForm(type), sdp), false)
                 authenticated = true // Callers admit only the exact counterparty's signed Stun description.
-                pendingCandidates.forEach { connection.addIceCandidate(it) }; pendingCandidates.clear()
+                probe("apply queued candidates=${pendingCandidates.size}")
+                pendingCandidates.forEach { probe("candidate applied=${connection.addIceCandidate(it)}") }; pendingCandidates.clear()
                 if (type == "offer") {
                     initialOffer?.cancel(); initialOffer = null
                     val answer = createDescription(answer = true)
@@ -339,6 +343,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 val index = data.get("sdpMLineIndex").asInt
                 require(candidate.length <= 4096 && (mid?.length ?: 0) <= 256 && index in 0..31)
                 val ice = IceCandidate(mid, index, candidate)
+                probe("remote candidate mid=$mid ignored=$ignoredOffer remoteSet=${connection.remoteDescription != null}")
                 // Candidates can overtake the accepted answer after glare. Dropping
                 // everything while ignoring an offer also discards that answer's
                 // valid candidates. Apply the bounded queue once its SDP arrives;
@@ -368,11 +373,20 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         } finally { makingOffer = false }
     }
 
-    private fun sendDescription(description: SessionDescription) = signal("peer-description", com.google.gson.JsonObject().apply {
+    private fun sendDescription(description: SessionDescription) {
+        probe("local ${description.type} sdp=${iceIds(description.description)}")
+        signal("peer-description", com.google.gson.JsonObject().apply {
         add("description", com.google.gson.JsonObject().apply {
             addProperty("type", description.type.canonicalForm()); addProperty("sdp", description.description)
         })
     })
+
+    }
+
+    private fun probe(event: String) {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("Talk104Probe", "${wallet.publicKey.takeLast(4)}:${remote.takeLast(4)} $event")
+    }
+    private fun iceIds(sdp: String): String = Regex("a=ice-ufrag:([^\\r\\n]+)").findAll(sdp).map { it.groupValues[1] }.distinct().joinToString(",")
 
     private fun signal(request: String, body: com.google.gson.JsonObject) {
         // Each route carries the same signature, so upstream Stun deduplicates multiple sockets/nodes.
