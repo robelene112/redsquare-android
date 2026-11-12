@@ -225,6 +225,10 @@ if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == talk-active* ]]; then
+    verify_talk_capture_native TalkActiveViewportTest talk-active
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == talk-ownership* ]]; then
     verify_talk_capture_native TalkOwnershipPreviewTest talk-ownership
     exit 0
