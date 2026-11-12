@@ -143,9 +143,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 if (state in setOf(PeerConnection.PeerConnectionState.FAILED, PeerConnection.PeerConnectionState.CLOSED)) post { fail() }
             }
             override fun onSignalingChange(state: PeerConnection.SignalingState) {
+                probe("signaling:$state")
                 if (state == PeerConnection.SignalingState.STABLE) post { negotiateIfNeeded() }
             }
-            override fun onRenegotiationNeeded() { post { needsNegotiation = true; negotiateIfNeeded() } }
+            override fun onRenegotiationNeeded() { probe("negotiation-needed"); post { needsNegotiation = true; negotiateIfNeeded() } }
             override fun onTrack(transceiver: RtpTransceiver) {
                 val track = transceiver.receiver.track() ?: return
                 track.setEnabled(false)
@@ -156,7 +157,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                     }
                 }
             }
-            override fun onIceConnectionChange(state: PeerConnection.IceConnectionState) {}
+            override fun onIceConnectionChange(state: PeerConnection.IceConnectionState) { probe("ice:$state") }
             override fun onIceConnectionReceivingChange(receiving: Boolean) {}
             override fun onIceGatheringChange(state: PeerConnection.IceGatheringState) {}
             override fun onIceCandidatesRemoved(candidates: Array<out IceCandidate>) {}
@@ -317,9 +318,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 require(type in setOf("offer", "answer"))
                 val sdp = description.get("sdp").asString
                 require(sdp.length in 1..65_536)
+                probe("receive:$type localIce=${connection.localDescription?.description?.lineSequence()?.firstOrNull { it.startsWith("a=ice-ufrag:") }} remoteIce=${sdp.lineSequence().firstOrNull { it.startsWith("a=ice-ufrag:") }}")
                 val collision = type == "offer" && (makingOffer || connection.signalingState() != PeerConnection.SignalingState.STABLE)
                 ignoredOffer = collision && wallet.publicKey >= remote
-                if (ignoredOffer) return
+                if (ignoredOffer) { probe("ignore-collision"); return }
                 if (collision) setDescription(SessionDescription(SessionDescription.Type.ROLLBACK, ""), true)
                 started = true
                 setDescription(SessionDescription(SessionDescription.Type.fromCanonicalForm(type), sdp), false)
@@ -357,6 +359,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             }
             return
         }
+        probe("offer initialReleased=$initialOfferReleased tracks=${senders.size}")
         needsNegotiation = false; makingOffer = true
         try {
             val description = createDescription()
@@ -427,6 +430,11 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         remoteTracks.forEach { runCatching { it.setEnabled(false) } }; remoteTracks.clear()
         connection.close(); connection.dispose()
         removed(this); events.close(); scope.cancel()
+    }
+
+    private fun probe(event: String) {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG)
+            android.util.Log.d("Talk104Probe", "${wallet.publicKey.take(6)}:${remote.take(6)} $event")
     }
 
     private suspend fun createDescription(answer: Boolean = false): SessionDescription = suspendCancellableCoroutine { next ->

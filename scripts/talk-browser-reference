@@ -17,14 +17,21 @@ cleanup_browser() {
     adb forward --remove tcp:19004 >/dev/null 2>&1 || true
     adb reverse --remove tcp:9222 >/dev/null 2>&1 || true
     if [[ -n "$proof_browser_pid" ]]; then
-        kill "$proof_browser_pid" 2>/dev/null || true
+        # Chrome's descendants can still write their profile after the launcher
+        # exits. Own a separate process group and reap it before deleting data.
+        kill -- "-$proof_browser_pid" 2>/dev/null || true
         wait "$proof_browser_pid" 2>/dev/null || true
+        for proof_browser_stop in {1..50}; do
+            if ! kill -0 -- "-$proof_browser_pid" 2>/dev/null; then break; fi
+            sleep 0.1
+        done
+        kill -KILL -- "-$proof_browser_pid" 2>/dev/null || true
     fi
     rm -rf -- "$proof_browser_profile"
 }
 trap cleanup_browser EXIT INT TERM
 google-chrome --version > "$proof_browser_evidence/chromium-version.txt"
-google-chrome --headless=new --mute-audio --no-sandbox --disable-dev-shm-usage --no-first-run --no-default-browser-check \
+setsid google-chrome --headless=new --mute-audio --no-sandbox --disable-dev-shm-usage --no-first-run --no-default-browser-check \
     --disable-background-networking --disable-component-update --disable-sync --disable-features=WebRtcHideLocalIpsWithMdns \
     --autoplay-policy=no-user-gesture-required --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222 \
     --user-data-dir="$proof_browser_profile" --no-startup-window > "$proof_browser_evidence/chromium.log" 2>&1 &
