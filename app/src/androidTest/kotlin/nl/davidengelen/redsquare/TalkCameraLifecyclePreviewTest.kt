@@ -70,13 +70,21 @@ class TalkCameraLifecyclePreviewTest {
                             }
                             requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
                                 androidx.test.uiautomator.By.text("Return to call")), 5000)).click()
+                            val cameraCount = context.getSystemService(android.hardware.camera2.CameraManager::class.java).cameraIdList.size
                             val firstCamera = requireNotNull(TalkRuntime.call.value).frontCamera
                             val beforeSwitch = frames.get()
-                            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
-                                androidx.test.uiautomator.By.text("Switch camera")), 5000)).click()
-                            await("The actual Switch camera button changes camera and resumes frames") {
-                                TalkRuntime.call.value?.frontCamera != firstCamera && frames.get() >= beforeSwitch + 3
+                            if (cameraCount > 1) {
+                                assertTrue(requireNotNull(TalkRuntime.call.value).canSwitchCamera)
+                                requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                                    androidx.test.uiautomator.By.text("Switch camera")), 5000)).click()
+                                await("The actual Switch camera button changes camera and resumes frames") {
+                                    TalkRuntime.call.value?.frontCamera != firstCamera && frames.get() >= beforeSwitch + 3
+                                }
+                            } else {
+                                assertFalse(requireNotNull(TalkRuntime.call.value).canSwitchCamera)
+                                assertNull("A one-camera device has no unusable switch action", device.findObject(androidx.test.uiautomator.By.text("Switch camera")))
                             }
+                            File(evidence, "camera-switch.json").writeText("{\"cameraCount\":$cameraCount,\"switched\":${cameraCount > 1},\"beforeFront\":$firstCamera,\"afterFront\":${TalkRuntime.call.value?.frontCamera},\"beforeFrames\":$beforeSwitch,\"afterFrames\":${frames.get()}}")
                             captureNativeScreen(File(evidence, "switched-camera.png"))
                             device.pressHome()
                             await("Camera is paused outside the visible app") { TalkRuntime.call.value?.cameraPaused == true }
@@ -96,7 +104,7 @@ class TalkCameraLifecyclePreviewTest {
                             captureNativeScreen(File(evidence, "resumed-call.png"))
                             TalkRuntime.end(requireNotNull(token))
                             await("End releases camera") { TalkRuntime.call.value?.phase == CallPhase.ENDED && TalkRuntime.call.value?.localVideo == null }
-                            File(evidence, "camera.txt").writeText("startedAsVoice=true\nvideoEnabled=true\nactualNativeCameraSwitch=true\nactualFrames=${frames.get()}\nbackgroundCameraPaused=true\nscreenOffCallRetained=true\nexactNotificationReturn=true\nresumedCameraFrames=true\n")
+                            File(evidence, "camera.txt").writeText("startedAsVoice=true\nvideoEnabled=true\nactualNativeCameraSwitch=${cameraCount > 1}\nactualFrames=${frames.get()}\nbackgroundCameraPaused=true\nscreenOffCallRetained=true\nexactNotificationReturn=true\nresumedCameraFrames=true\n")
                         } finally { runCatching { track.removeSink(sink) } }
                     }
                 }

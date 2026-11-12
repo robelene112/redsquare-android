@@ -30,6 +30,10 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
     private var closed = false
     @Volatile var cameraFailed = false
         private set
+    @Volatile var canSwitch = false
+        private set
+    @Volatile var switchFailed = false
+        private set
     @Volatile var front = true
         private set
 
@@ -75,6 +79,7 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
         if (capturer == null) {
             check(permitted(context, camera = true))
             val enumerator: CameraEnumerator = if (Camera2Enumerator.isSupported(context)) Camera2Enumerator(context) else Camera1Enumerator(false)
+            canSwitch = enumerator.deviceNames.size > 1
             val device = enumerator.deviceNames.firstOrNull { enumerator.isFrontFacing(it) }
                 ?: enumerator.deviceNames.firstOrNull() ?: error("No camera is available")
             front = enumerator.isFrontFacing(device)
@@ -99,9 +104,10 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
         synchronized(lock) { check(!closed); enable() }
     }
     fun switchCamera() {
-        if (!closed && recording) capturer?.switchCamera(object : CameraVideoCapturer.CameraSwitchHandler {
+        switchFailed = false
+        if (!closed && recording && canSwitch) capturer?.switchCamera(object : CameraVideoCapturer.CameraSwitchHandler {
             override fun onCameraSwitchDone(isFrontCamera: Boolean) { front = isFrontCamera }
-            override fun onCameraSwitchError(description: String) { TalkRuntime.record("camera-switch", IllegalStateException("Camera switch unavailable")) }
+            override fun onCameraSwitchError(description: String) { switchFailed = true; TalkRuntime.record("camera-switch", IllegalStateException("Camera switch unavailable")) }
         })
     }
     override fun close() {

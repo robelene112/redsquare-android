@@ -30,7 +30,8 @@ internal data class TalkCall(val token: String, val owner: String, val savedBack
     val participants: List<CallParticipant> = emptyList(), val microphone: Boolean = true,
     val camera: Boolean = false, val cameraPaused: Boolean = false, val localVideo: VideoTrack? = null,
     val since: Long = 0, val cameraUnavailable: Boolean = false, val frontCamera: Boolean = true,
-    val invitationAt: Long = System.currentTimeMillis())
+    val invitationAt: Long = System.currentTimeMillis(), val canSwitchCamera: Boolean = false,
+    val cameraSwitchUnavailable: Boolean = false)
 
 /** Process ownership is independent of a screen. Only a user-started call holds background ownership. */
 internal object TalkRuntime {
@@ -150,7 +151,8 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                                 requested.update { if (it?.token == call.token) it.copy(camera = false) else it }
                                 TalkRuntime.choices.value = requested.value
                                 publish(call.copy(camera = false, cameraUnavailable = true))
-                            } else if (call != null && call.frontCamera != devices.front) publish(call.copy(frontCamera = devices.front))
+                            } else if (call != null && (call.frontCamera != devices.front || call.cameraSwitchUnavailable != devices.switchFailed))
+                                publish(call.copy(frontCamera = devices.front, cameraSwitchUnavailable = devices.switchFailed))
                         }
                         val elapsed = System.currentTimeMillis() - changedAt
                         when {
@@ -175,7 +177,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         capture?.visible(TalkRuntime.visible)
         current?.takeIf { it.phase.started }?.let { active ->
             val previousVideo = active.localVideo
-            publish(active.copy(localVideo = capture?.video, cameraPaused = active.camera && !TalkRuntime.visible))
+            publish(active.copy(localVideo = capture?.video, canSwitchCamera = capture?.canSwitch == true, cameraPaused = active.camera && !TalkRuntime.visible))
             if (capture?.video !== previousVideo) leases.values.filter { it.callbacks.media }.forEach { lease ->
                 capture?.let { lease.media(it.audio, it.video, active.link.room.id) }
             }
@@ -532,7 +534,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             capture?.controls(desired.microphone, desired.camera)
             currentCoroutineContext().ensureActive()
             capture?.visible(TalkRuntime.visible)
-            publish(call.copy(localVideo = capture?.video, frontCamera = capture?.front ?: true,
+            publish(call.copy(localVideo = capture?.video, frontCamera = capture?.front ?: true, canSwitchCamera = capture?.canSwitch == true,
                 cameraPaused = call.camera && !TalkRuntime.visible))
             if (call.direct != null) acquire(call.direct, media = true, offer = true)
             send(TalkProtocol.enter(wallet, call.link.room, now()))
@@ -580,7 +582,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             throw failure
         }
         publish(call.copy(microphone = microphone, camera = camera,
-            localVideo = capture?.video, cameraUnavailable = false,
+            localVideo = capture?.video, canSwitchCamera = capture?.canSwitch == true, cameraUnavailable = false,
             cameraPaused = camera && !TalkRuntime.visible))
         leases.values.filter { it.callbacks.media }.forEach { lease -> capture?.let { lease.media(it.audio, it.video, call.link.room.id) } }
         if (!accepted) return@post

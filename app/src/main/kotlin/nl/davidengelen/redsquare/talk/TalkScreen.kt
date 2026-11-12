@@ -315,12 +315,16 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         }, label = { Text(stringResource(if (desired?.camera ?: call.camera) R.string.talk_camera_off else R.string.talk_camera_on)) },
                             leadingIcon = { Icon(painterResource(R.drawable.ic_video), null, Modifier.size(20.dp)) },
                             modifier = Modifier.heightIn(min = 48.dp))
-                        if (call.camera) OutlinedButton(onClick = { TalkRuntime.switchCamera(call.token) },
+                        if (call.camera && call.canSwitchCamera) OutlinedButton(onClick = { TalkRuntime.switchCamera(call.token) },
                             modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_switch_camera)) }
                         TalkAudioRouteButton()
                     }
                     if (call.cameraPaused) Text(stringResource(R.string.talk_camera_paused), style = MaterialTheme.typography.bodySmall)
-                    InlineStatus(if (call.cameraUnavailable) stringResource(R.string.talk_camera_unavailable) else null, StatusTone.INFO)
+                    InlineStatus(when {
+                        call.cameraUnavailable -> stringResource(R.string.talk_camera_unavailable)
+                        call.cameraSwitchUnavailable -> stringResource(R.string.talk_camera_switch_failed)
+                        else -> null
+                    }, StatusTone.INFO)
                     gate.notice()
             }
         }
