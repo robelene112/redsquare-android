@@ -328,6 +328,17 @@ class WalletImportPreviewTest {
         }
     }
 
+    /** Temporary diagnosis only; never complete acceptance or a changed production path. */
+    @Test fun diagnosticRepeatedActivationKeepsTheOriginalAssertionBounds() {
+        val record = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+            "wallet-import-evidence/diagnostic-repeat.txt").apply { parentFile!!.mkdirs() }
+        repeat(2) { iteration ->
+            record.appendText("start=$iteration\n")
+            explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers()
+            record.appendText("passed=$iteration\n")
+        }
+    }
+
     @Test fun explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
