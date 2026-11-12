@@ -14,7 +14,9 @@ import java.util.concurrent.atomic.*
 internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: SaitoWallet,
     private val colour: String, private val frequency: Int, private val send: (String) -> Unit) : Closeable {
     val errors = CopyOnWriteArrayList<String>()
+    val diagnostics = CopyOnWriteArrayList<String>()
     val captures = AtomicInteger()
+    val ringing = AtomicBoolean()
     val microphones = ConcurrentHashMap<String, Boolean>()
     val audioBytes = ConcurrentHashMap<String, Long>()
     data class Media(val width: Int, val height: Int, val nonBlack: Int, val rms: Double)
@@ -75,6 +77,8 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
             "frequency" -> bridge.frequency()
             "ready" -> { bridge.ready(); null }
             "captured" -> { bridge.captured(); null }
+            "ringing" -> { ringing.set(args[0].asBoolean); null }
+            "diagnostic" -> { if (diagnostics.size < 256) diagnostics.add(args[0].asString); null }
             "peerAudio" -> { microphones[args[0].asString] = args[1].asBoolean; null }
             "audioBytes" -> { audioBytes[args[0].asString] = args[1].asLong; null }
             "failure" -> { bridge.failure(args[0].asString); null }

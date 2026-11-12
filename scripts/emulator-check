@@ -209,7 +209,7 @@ verify_talk_browser_native() {
     mkdir -p "$folder"
     "$repo_dir/scripts/talk-browser-reference" "$folder" &
     browser_runner=$!
-    for browser_poll in {1..100}; do
+    for browser_poll in {1..300}; do
         if [[ -f "$folder/ready" ]]; then browser_ready=true; break; fi
         if ! kill -0 "$browser_runner" 2>/dev/null; then break; fi
         sleep 0.1
@@ -223,6 +223,10 @@ verify_talk_browser_native() {
 }
 if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == talk-chat* ]]; then
+    verify_talk_browser_native TalkChatPreviewTest talk-chat
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-controls* ]]; then

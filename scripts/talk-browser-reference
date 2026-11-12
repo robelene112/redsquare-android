@@ -29,7 +29,7 @@ google-chrome --headless=new --mute-audio --no-sandbox --disable-dev-shm-usage -
     --autoplay-policy=no-user-gesture-required --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222 \
     --user-data-dir="$proof_browser_profile" --no-startup-window > "$proof_browser_evidence/chromium.log" 2>&1 &
 proof_browser_pid=$!
-for proof_browser_attempt in {1..50}; do
+for proof_browser_attempt in {1..200}; do
     if curl -fsS --max-time 1 http://127.0.0.1:9222/json/version > "$proof_browser_evidence/devtools-version.json"; then break; fi
     kill -0 "$proof_browser_pid"
     sleep 0.1

@@ -32,7 +32,7 @@ class FixtureTransaction {
 const Transaction = FixtureTransaction;
 const saito = {default:{transaction:FixtureTransaction}};
 class SaitoOverlay {
-  show(html) { document.getElementById('dialer').innerHTML = html; }
+  show(html) { document.getElementById('dialer').innerHTML = html; Host.ringing(!!document.getElementById('answercall')); }
   blockClose() {} remove() { document.getElementById('dialer').innerHTML = ''; }
 }
 class SaitoUser { render() {} }
@@ -87,6 +87,7 @@ Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {value:async const
   }
   return stream;
 }});
+app.connection.on('stun-diagnostic', (peer, message) => Host.diagnostic(message));
 app.connection.on('peer-toggle-audio-status', value => Host.peerAudio(value.public_key, value.enabled));
 app.connection.on('videocall-stream', (peer, stream) => {
   if (!stream || peer === 'local') return;
@@ -128,11 +129,13 @@ setInterval(async () => {
     } catch (error) { if (pc.connectionState !== 'closed') Host.failure(String(error)); }
   }
   for (const video of document.querySelectorAll('video')) {
-    if (video.readyState < 2) continue;
-    const sample = document.createElement('canvas'); sample.width = 8; sample.height = 8;
-    const context = sample.getContext('2d'); context.drawImage(video,0,0,8,8);
-    const data = context.getImageData(0,0,8,8).data;
-    let nonBlack = 0; for (let i=0;i<data.length;i+=4) nonBlack += data[i]+data[i+1]+data[i+2];
+    let nonBlack = 0;
+    if (video.readyState >= 2 && video.videoWidth > 0) {
+      const sample = document.createElement('canvas'); sample.width = 8; sample.height = 8;
+      const context = sample.getContext('2d'); context.drawImage(video,0,0,8,8);
+      const data = context.getImageData(0,0,8,8).data;
+      for (let i=0;i<data.length;i+=4) nonBlack += data[i]+data[i+1]+data[i+2];
+    }
     let rms = 0;
     if (video.analysis) { const pcm = new Float32Array(1024); video.analysis.getFloatTimeDomainData(pcm); rms = Math.sqrt(pcm.reduce((v,a) => v+a*a,0)/pcm.length); }
     Host.media(video.id.slice(7), video.videoWidth, video.videoHeight, nonBlack, rms);

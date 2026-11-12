@@ -65,7 +65,7 @@ class TalkDirectPreviewTest {
                     }).use { peer ->
                         browser.set(peer)
                         withFailureCapture({
-                            File(evidence, "failure-state.txt").writeText("${TalkRuntime.call.value}\n${TalkRuntime.diagnostic.value}\n${peer.errors}\nmedia=${peer.media}\ncaptures=${peer.captures}")
+                            File(evidence, "failure-state.txt").writeText("${TalkRuntime.call.value}\n${TalkRuntime.diagnostic.value}\n${peer.errors}\nmedia=${peer.media}\ncaptures=${peer.captures}\ndiagnostics=${peer.diagnostics}")
                             captureNativeScreen(File(evidence, "failure.png"))
                         }) {
                             peer.dial(TalkRoom(SaitoWallet.create().publicKey, caller.publicKey))
