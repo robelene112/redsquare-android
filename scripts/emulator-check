@@ -202,6 +202,29 @@ verify_talk_capture_native() {
     done
     return "$proof_result"
 }
+# Only the new permission journey starts with a denied microphone. Restore grants and user flags.
+verify_talk_permissions_native() {
+    local previous_permissions permission result=0 old_microphone_flags
+    previous_permissions=$(adb shell dumpsys package nl.davidengelen.redsquare.dev)
+    old_microphone_flags=$(printf '%s' "$previous_permissions" | python3 -c 'import re,sys; text=sys.stdin.read(); row=re.search(r"android.permission.RECORD_AUDIO: granted=(?:true|false), flags=\[([^]]*)\]",text); assert row, "Require the original microphone permission flags"; print(row.group(1))')
+    for permission in CAMERA POST_NOTIFICATIONS; do
+        if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
+        adb shell pm grant nl.davidengelen.redsquare.dev "android.permission.$permission"
+    done
+    adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO
+    adb shell pm clear-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-set user-fixed
+    if verify_group_chat_native TalkPermissionPreviewTest 180 talk-permission talk-permission-evidence; then result=0; else result=$?; fi
+    for permission in RECORD_AUDIO CAMERA POST_NOTIFICATIONS; do
+        if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
+        if [[ "$previous_permissions" == *"android.permission.$permission: granted=true"* ]]; then
+            adb shell pm grant nl.davidengelen.redsquare.dev "android.permission.$permission"
+        else adb shell pm revoke nl.davidengelen.redsquare.dev "android.permission.$permission"; fi
+    done
+    adb shell pm clear-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-set user-fixed
+    if [[ "$old_microphone_flags" == *USER_SET* ]]; then adb shell pm set-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-set; fi
+    if [[ "$old_microphone_flags" == *USER_FIXED* ]]; then adb shell pm set-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-fixed; fi
+    return "$result"
+}
 # Browser peers run outside Android so their WebAudio cannot steal the call's audio focus.
 verify_talk_browser_native() {
     local test_class=$1 prefix=$2 browser_runner result=0 browser_ready=false
@@ -223,6 +246,10 @@ verify_talk_browser_native() {
 }
 if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == talk-permission* ]]; then
+    verify_talk_permissions_native
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-fileshare* ]]; then
@@ -583,6 +610,7 @@ if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
     exit 0
 fi
 verify_talk() {
+    verify_talk_permissions_native
     verify_group_chat_native TalkRoutingPreviewTest 180 talk-routing talk-routing-evidence
     verify_talk_capture_native TalkCapturePreviewTest talk-capture
     verify_group_chat_native TalkInvitationPreviewTest 180 talk-invitation talk-invitation-evidence
