@@ -176,6 +176,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     var joinText by remember { mutableStateOf("") }
     var joinError by remember { mutableStateOf(false) }
     val clipboard = LocalClipboardManager.current
+    val shareInvitationLabel = stringResource(R.string.talk_share_invite)
     var copied by remember(call?.token) { mutableStateOf(false) }
     Column(Modifier.fillMaxSize()) {
         chrome(false)
@@ -214,7 +215,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     TextButton(onClick = {
                         val room = call.link.room.copy(peers = (call.participants.map { it.key } + wallet.publicKey).distinct())
                         context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
-                            .putExtra(Intent.EXTRA_TEXT, TalkLink(call.link.backend, room).url()), context.getString(R.string.talk_share_invite)))
+                            .putExtra(Intent.EXTRA_TEXT, TalkLink(call.link.backend, room).url()), shareInvitationLabel))
                     }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_share_invite)) }
                 }
             } else if (link != null && entry != null) {
