@@ -34,6 +34,17 @@ Talk; Fileshare's former independent factory/connection is replaced by a data-on
 lease. These transport changes still require Android10/17 routing and Fileshare
 regression evidence, and no call/media acceptance is claimed yet.
 
+Foundation source70489f496cd9e9d5c3873ed5dfa44eee94f53b75 is in four focused
+runs43190475289/43190479978 (routing10/17) and43190483847/43190488265
+(Fileshare10/17). At09:36UTC all remained in runner SDK preparation, with no app
+result yet. Native TalkAccount/foreground ownership and an actual-camera tracer
+are now being built; TalkCapture is deliberately empty for that runtime RED,
+NOT a delivered feature or release candidate. Do not ship that stub. UI work is
+still external temporary source. Next proof source skips APT refresh only when
+every required runtime library is actually installed, records their versions,
+and bounds genuine missing-library provisioning without changing native goals.
+
+
 
 The current writable checkout stays
 `/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.

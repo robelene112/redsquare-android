@@ -184,6 +184,28 @@ verify_group_chat_native() {
     fi
     return 1
 }
+# Snapshot permissions outside instrumentation so revocation cannot kill its own test process.
+verify_talk_capture_native() {
+    local permission proof_result
+    local original_permissions
+    original_permissions=$(adb shell dumpsys package nl.davidengelen.redsquare.dev)
+    for permission in RECORD_AUDIO CAMERA POST_NOTIFICATIONS; do
+        if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
+        adb shell pm grant nl.davidengelen.redsquare.dev "android.permission.$permission"
+    done
+    if verify_group_chat_native TalkCapturePreviewTest 180 talk-capture talk-capture-evidence; then proof_result=0; else proof_result=$?; fi
+    for permission in RECORD_AUDIO CAMERA POST_NOTIFICATIONS; do
+        if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
+        if [[ "$original_permissions" != *"android.permission.$permission: granted=true"* ]]; then
+            adb shell pm revoke nl.davidengelen.redsquare.dev "android.permission.$permission"
+        fi
+    done
+    return "$proof_result"
+}
+if [[ "${TEST_SCOPE:-full}" == talk-capture* ]]; then
+    verify_talk_capture_native
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == talk-routing* ]]; then
     verify_group_chat_native TalkRoutingPreviewTest 180 talk-routing talk-routing-evidence
     exit 0

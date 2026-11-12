@@ -48,6 +48,21 @@ object TalkProtocol {
         }
     }
 
+    fun event(wallet: SaitoWallet, room: TalkRoom, request: String, peers: List<String>, now: Long,
+        enabled: Boolean? = null): SaitoTransaction {
+        require(request in setOf("peer-joined", "peer-left", "toggle-audio", "toggle-video"))
+        if (request.startsWith("toggle-")) require(enabled != null)
+        val body = JsonObject().apply {
+            addProperty("module", if (request == "peer-left") "Stun" else "Videocall")
+            addProperty("request", request); addProperty("call_id", room.id)
+            if (enabled != null) add("data", JsonObject().apply {
+                addProperty("public_key", wallet.publicKey); addProperty("enabled", enabled)
+            })
+        }
+        require(peers.size <= TalkRoom.MAX_PEERS && peers.all(SaitoWallet::isPublicKey))
+        return SaitoTransaction.create(wallet, body, now, peers)
+    }
+
     private fun roomTransaction(wallet: SaitoWallet, roomId: String, request: String, recipients: List<String>,
         now: Long, content: JsonObject.() -> Unit = {}): SaitoTransaction {
         require(SaitoWallet.isPublicKey(roomId) && recipients.size <= TalkRoom.MAX_PEERS + 2 &&
