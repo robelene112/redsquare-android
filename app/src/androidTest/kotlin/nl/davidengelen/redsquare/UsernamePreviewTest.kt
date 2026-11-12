@@ -186,6 +186,18 @@ class UsernamePreviewTest {
         val peer = discoveryPeer(incoming) { reference.getAsJsonArray("rows").toString() }
         val balanceServer = zeroBalanceServer()
         var primary: Throwable? = null
+        var beforeImportClients = emptyList<String>()
+        fun captureAuthentication() {
+            val requests = peer.authenticatedRegistryQueries
+            val receipt = JsonObject().apply {
+                add("beforeImportClientKeys", com.google.gson.Gson().toJsonTree(beforeImportClients))
+                add("allClientKeys", com.google.gson.Gson().toJsonTree(peer.clientKeys.toList()))
+                add("registryRequests", com.google.gson.Gson().toJsonTree(requests))
+            }
+            java.io.File(context.cacheDir, "username-evidence/import-authentication.json").apply {
+                parentFile!!.mkdirs(); writeText(receipt.toString())
+            }
+        }
         try {
             peer.start().use { server ->
                 launchActivity(Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
@@ -193,11 +205,13 @@ class UsernamePreviewTest {
                     .putExtra("feedDisabled", true)
                     .putExtra("usernameFixtureRegistrar", true)
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")).use { scenario ->
-                    withFailureCapture({ capture("username-named-import-failure.png") }) {
+                    withFailureCapture({ captureAuthentication(); capture("username-named-import-failure.png") }) {
                         ui.waitForAccountMenu(20_000)
                         ui.openWallet()
                         assertEquals(outgoing.publicKey, displayedWalletAddress(ui))
                         assertTrue("No feed/profile may seed the incoming name before import", peer.registryQueries.isEmpty())
+                        beforeImportClients = peer.clientKeys.toList()
+                        assertTrue(beforeImportClients.all { it == outgoing.publicKey })
                         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                         observePhase("wallet-picker") { chooseWalletImport(ui, filename, incoming) }
                         waitForText("Node reports zero SAITO")
@@ -231,7 +245,13 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Back").performClick()
                         ui.openWallet()
                         assertEquals(incoming, displayedWalletAddress(ui))
-                        assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == incoming })
+                        // Talk may authenticate the outgoing wallet before import. Attribute
+                        // every Registry request to its own verified socket instead of
+                        // treating unrelated pre-import handshakes as Registry use.
+                        val registryRequests = peer.authenticatedRegistryQueries
+                        assertTrue(registryRequests.isNotEmpty() && registryRequests.all { it.authenticatedKey == incoming })
+                        assertTrue(peer.clientKeys.contains(incoming))
+                        captureAuthentication()
                         assertTrue("Import and name recovery must never register again", peer.transactions.isEmpty())
                         peer.assertHealthy()
                     }

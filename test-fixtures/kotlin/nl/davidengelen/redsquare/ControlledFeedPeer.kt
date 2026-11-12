@@ -64,7 +64,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val reports = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     val relayRecipients = java.util.concurrent.CopyOnWriteArrayList<List<String>>()
     val relayedMessages = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
-    val registryQueries = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
+    data class AuthenticatedRegistryQuery(val authenticatedKey: String, val query: com.google.gson.JsonObject)
+    private val registryRequests = java.util.concurrent.CopyOnWriteArrayList<AuthenticatedRegistryQuery>()
+    val authenticatedRegistryQueries get() = registryRequests.toList()
+    val registryQueries get() = registryRequests.map { it.query }
     @Volatile var incomingTransaction: ByteArray? = null
     val incomingAcknowledgements = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
     private val authenticatedSockets = java.util.concurrent.CopyOnWriteArrayList<WebSocket>()
@@ -107,6 +110,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
 
     private fun response() = MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
         private var authenticated = false
+        private var authenticatedKey = ""
         private var interrupted = false
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
             authenticatedSockets.remove(webSocket)
@@ -159,6 +163,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         }
                         val answer = frame.copyOfRange(34, 98).joinToString("") { "%02x".format(it) }
                         require(SaitoWallet.verify(counter, answer, clientKey))
+                        authenticatedKey = clientKey
                         clientKeys.add(clientKey)
                         authenticated = true
                         connectionIds.computeIfAbsent(webSocket){connectionSequence.incrementAndGet()}
@@ -236,7 +241,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 }
                                 else -> error("Unexpected Registry request")
                             }
-                            registryQueries.add(criteria.deepCopy())
+                            registryRequests.add(AuthenticatedRegistryQuery(authenticatedKey, criteria.deepCopy()))
                             val response = registryResponse?.invoke(criteria) ?:
                                 if (criteria.get("request").asString == "registry query") "{}" else "{\"err\":\"no response\"}"
                             val prefix = byteArrayOf(13) + frame.copyOfRange(1, 5)
