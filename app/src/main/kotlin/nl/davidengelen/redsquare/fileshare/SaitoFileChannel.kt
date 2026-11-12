@@ -12,7 +12,7 @@ internal class SaitoFileChannel(context: Context, wallet: SaitoWallet, backend: 
     otherData: (String) -> Boolean, useTraversal: Boolean = true) : Closeable {
     private val lease = SharedRtcPeers.acquire(context, wallet, backend.id, contact, endpoint, useTraversal,
         RtcCallbacks(validate = validate, signal = signal, opened = opened, failed = failed,
-            data = { envelope ->
+            stageData = { envelope ->
                 if (Fileshare.ownsDirectFrame(envelope)) { message(envelope); true } else false
             }, otherData = otherData))
     val connected get() = lease.connected

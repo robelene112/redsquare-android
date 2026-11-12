@@ -36,7 +36,8 @@ internal data class RtcCallbacks(
     val signal: (SaitoTransaction) -> Unit,
     val opened: () -> Unit,
     val failed: () -> Unit,
-    val data: (String) -> Boolean = { false },
+    // SDK-safe encrypted staging only: no application/authority lock or RTC call.
+    val stageData: ((String) -> Boolean)? = null,
     val otherData: (String) -> Boolean = { false },
     val track: (MediaStreamTrack) -> Unit = {},
     val media: Boolean = false
@@ -117,6 +118,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private val seen = LinkedHashSet<String>()
     private val senders = mutableMapOf<MediaStreamTrack, RtpSender>()
     private val remoteTracks = CopyOnWriteArrayList<MediaStreamTrack>()
+    private val queuedDataBytes = java.util.concurrent.atomic.AtomicInteger()
     @Volatile private var authenticated = false
     @Volatile var connected = false
         private set
@@ -176,27 +178,25 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 if (buffer.binary || buffer.data.remaining() !in 1..(4 * SaitoTransaction.MAX_MESSAGE_BYTES)) {
                     post { fail() }; return
                 }
-                val text = ByteArray(buffer.data.remaining()).also(buffer.data::get).toString(Charsets.UTF_8)
+                val size = buffer.data.remaining()
+                val text = ByteArray(size).also(buffer.data::get).toString(Charsets.UTF_8)
                 if (!authenticated || closing.get()) return
-                try {
-                    val signal = Stun.read(text, remote, wallet.publicKey)
-                    val request = signal?.body?.get("request")?.asString
-                    if (signal != null && request in setOf("peer-joined", "peer-description", "peer-candidate")) {
-                        post { if (remember(signal.id)) receiveSignal(requireNotNull(request), signal.body) }
-                        return
-                    }
-                } catch (_: Exception) { post { fail() }; return }
-                // File frames go straight to their encrypted disk inbox, not through the control queue.
+                // Active Fileshare frames stage into their existing encrypted bounded
+                // inbox without waiting for authority/Chat or the control actor.
                 for (lease in leases.filter { it.active.get() }) {
-                    val handled = withLease(lease) {
-                        val routed = RealtimeIncoming.receiveDirect(wallet.publicKey, lease.endpoint, remote, text)
-                        routed != null || lease.callbacks.data(text)
-                    }
-                    if (handled == true) return
+                    try { if (lease.callbacks.stageData?.invoke(text) == true) return }
+                    catch (_: Exception) { post { rejectLease(lease) }; return }
                 }
-                for (lease in leases.filter { it.active.get() }) {
-                    if (withLease(lease) { lease.callbacks.otherData(text) } == true) return
+                // SDK callbacks use the signaling thread. App guards can wait for a
+                // wallet/policy writer which itself waits for track.setEnabled, so
+                // all guarded routing/retention runs on the ordered IO actor instead.
+                if (queuedDataBytes.addAndGet(size) > 8 * 1024 * 1024) {
+                    queuedDataBytes.addAndGet(-size); post { fail() }; return
                 }
+                if (!post {
+                    try { deliver(text) }
+                    finally { queuedDataBytes.addAndGet(-size) }
+                }) queuedDataBytes.addAndGet(-size)
             }
         })
         scope.launch {
@@ -205,6 +205,23 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 try { withTimeout(15_000) { event() } }
                 catch (_: Exception) { fail() }
             }
+        }
+    }
+
+    private suspend fun deliver(text: String) {
+        val signal = Stun.read(text, remote, wallet.publicKey)
+        val request = signal?.body?.get("request")?.asString
+        if (signal != null && request in setOf("peer-joined", "peer-description", "peer-candidate")) {
+            if (remember(signal.id)) receiveSignal(requireNotNull(request), signal.body)
+            return
+        }
+        // Registered feature receivers own their own admission. An expired call
+        // lease must not swallow a visible conversation's initial file control.
+        for (lease in leases.filter { it.active.get() }) {
+            if (RealtimeIncoming.receiveDirect(wallet.publicKey, lease.endpoint, remote, text) != null) return
+        }
+        for (lease in leases.filter { it.active.get() }) {
+            if (withLease(lease) { lease.callbacks.otherData(text) } == true) return
         }
     }
 
@@ -375,11 +392,15 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
             lease.callbacks.validate()
             if (lease.active.get()) action() else null
         } catch (_: Exception) {
-            if (lease.active.get()) {
-                lease.close()
-                runCatching { lease.callbacks.failed() }
-            }
+            rejectLease(lease)
             null
+        }
+    }
+
+    private fun rejectLease(lease: RtcLease) {
+        if (lease.active.get()) {
+            lease.close()
+            runCatching { lease.callbacks.failed() }
         }
     }
 
