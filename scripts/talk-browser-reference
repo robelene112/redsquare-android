@@ -20,12 +20,12 @@ cleanup_browser() {
         # Chrome's descendants can still write their profile after the launcher
         # exits. Own a separate process group and reap it before deleting data.
         kill -- "-$proof_browser_pid" 2>/dev/null || true
-        wait "$proof_browser_pid" 2>/dev/null || true
         for proof_browser_stop in {1..50}; do
             if ! kill -0 -- "-$proof_browser_pid" 2>/dev/null; then break; fi
             sleep 0.1
         done
         kill -KILL -- "-$proof_browser_pid" 2>/dev/null || true
+        wait "$proof_browser_pid" 2>/dev/null || true
     fi
     rm -rf -- "$proof_browser_profile"
 }
