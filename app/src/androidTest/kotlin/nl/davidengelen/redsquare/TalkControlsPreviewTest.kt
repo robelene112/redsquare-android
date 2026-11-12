@@ -19,7 +19,9 @@ import kotlin.math.*
 
 /** Actual peer PCM and native button input while an owned Relay request remains blocked. */
 class TalkControlsPreviewTest {
-    @Test fun microphoneChoiceReachesThePeerAndMuteSilencesActualRtpEvenWhileRelayIsWaiting() {
+    @Test fun microphoneChoiceReachesThePeerAndMuteSilencesActualRtpEvenWhileRelayIsWaiting() = controls(false)
+    @Test fun aWaitingRoomRosterAcknowledgementCannotDelayNativeMute() = controls(true)
+    private fun controls(roster: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -33,7 +35,7 @@ class TalkControlsPreviewTest {
         val evidence = File(context.cacheDir, "talk-controls-evidence").apply { mkdirs() }
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = { inner ->
             val envelope = SaitoEnvelope.fromSignedJson(inner); val signed = SaitoEnvelope.decode(envelope)
-            if (hold.get() && signed.body.get("request")?.asString == "toggle-video") {
+            if (hold.get() && signed.body.get("request")?.asString == if (roster) "call-list-response" else "toggle-video") {
                 entered.countDown(); check(release.await(15, TimeUnit.SECONDS))
             }
             if (caller.publicKey in signed.recipients) browser.get().receive(envelope)
@@ -63,8 +65,8 @@ class TalkControlsPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
                     withFailureCapture({
-                        File(evidence, "failure-state.txt").writeText("${TalkRuntime.call.value}\n${browser.get()?.microphones}\n${browser.get()?.media}\n${browser.get()?.errors}\nreads=${reads.get()} relayHeld=${hold.get()}")
-                        captureNativeScreen(File(evidence, "failure.png"))
+                        File(evidence, "failure-state-$roster.txt").writeText("${TalkRuntime.call.value}\n${browser.get()?.microphones}\n${browser.get()?.media}\n${browser.get()?.errors}\nreads=${reads.get()} relayHeld=${hold.get()}")
+                        captureNativeScreen(File(evidence, "failure-$roster.png"))
                     }) {
                         TalkRuntime.visibility(true)
                         account = TalkRuntime.account(context, owner, SaitoBackend.OWNER, endpoint).also { it.attach() }
@@ -91,16 +93,20 @@ class TalkControlsPreviewTest {
                             requireNotNull(device.wait(Until.findObject(By.text("Unmute")), 5000)).click()
                             await("Native Unmute supplies real received PCM") { peer.media[owner.publicKey]?.rms?.let { it > 0.01 } == true && reads.get() > 10 }
                             hold.set(true)
-                            TalkRuntime.controls(requireNotNull(token), camera = false)
+                            if (roster) {
+                                val newcomer = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+                                val request = TalkProtocol.enter(newcomer, room, System.currentTimeMillis()).applicationRequest(1)
+                                fixture.sendIncoming(request.copyOfRange(5, request.size), sequence.incrementAndGet())
+                            } else TalkRuntime.controls(requireNotNull(token), camera = false)
                             assertTrue("Owned Relay control is actually held", entered.await(5, TimeUnit.SECONDS))
                             requireNotNull(device.wait(Until.findObject(By.text("Mute")), 5000)).click()
                             await("Mute silences media without waiting for Relay", 3000) { peer.media[owner.publicKey]?.rms?.let { it < 0.003 } == true }
-                            captureNativeScreen(File(evidence, "muted-with-relay-held.png"))
+                            captureNativeScreen(File(evidence, "muted-with-relay-held-$roster.png"))
                             hold.set(false); release.countDown()
                             await("Muted choice remains after the request completes") { TalkRuntime.call.value?.microphone == false }
                             TalkRuntime.end(requireNotNull(token))
                             await("Call ended") { TalkRuntime.call.value?.phase == CallPhase.ENDED }
-                            File(evidence, "controls.txt").writeText("initialMutedMetadata=true\nactualSilentRtp=true\nnativeUnmuteReceivedPcm=true\nrelayActuallyBlocked=true\nnativeMuteSilencesWithin3000ms=true\n")
+                            File(evidence, "controls-$roster.txt").writeText("initialMutedMetadata=true\nactualSilentRtp=true\nnativeUnmuteReceivedPcm=true\nrelayActuallyBlocked=true\nnativeMuteSilencesWithin3000ms=true\n")
                         }
                     }
                 }
