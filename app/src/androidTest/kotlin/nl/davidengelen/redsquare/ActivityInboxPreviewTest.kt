@@ -34,7 +34,10 @@ class ActivityInboxPreviewTest {
             ui.onAllNodesWithText("Unread").assertCountEquals(0)
             captureNativeScreen(File(folder, "activity-marked-read.png"))
             activity.recreate()
-            ui.waitUntil(15_000) { ui.onNodeWithText("No unread activity").isDisplayed() }
+            ui.waitUntil(15_000) {
+                ui.onNodeWithText("No unread activity").isDisplayed() &&
+                    ui.onNode(hasText("Liked your post") and hasClickAction()).isDisplayed()
+            }
             ui.onAllNodesWithText("Unread").assertCountEquals(0)
             ui.onNode(hasText("Liked your post") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
