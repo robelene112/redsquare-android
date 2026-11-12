@@ -1,5 +1,41 @@
 # Implementation handoff
 
+## Active native Saito Talk #104
+
+The owner requested Talk after Fileshare116 and explicitly chose BOTH direct
+Chat audio/video calls and group rooms with invitation links. Implement only
+[issue104](https://github.com/robelene112/redsquare-android/issues/104) to complete
+verification, independent reviews and signed beta. Review base is
+`c02fa1e3fb795b7e252f0973235bfc852ec891b4`. Keep parents1/36/55/84/86 open.
+Existing JVM protocol, native Android and controlled browser-peer seams are reused;
+routine tests/emulators remain delegated, without repeated owner phone QA.
+
+Official source pin e6c937c686495a37d8fc94ecc894189e23a453c3: Videocall, dialer,
+StreamManager, Stun and Relay. Pinned Videocall.generateCallLink was independently
+executed in Node24 to create the literal native-talk-reference.json fixture.
+Room-link, signed/legacy invitation and room roster RED/GREEN cycles observed;
+all three targeted Talk JVM tests PASS. Native TalkRoutingPreviewTest now covers
+actual authenticated socket routing and negative acknowledgements. Its new
+RealtimeIncoming registration is deliberately not wired to SaitoPeer yet: run
+talk-routing Android10 to observe the behavior RED, then wire and rerun.
+No native Talk media exists yet. Legacy unsigned Relay invitations must
+remain claims until actual signed-SDP/DTLS peer authentication; they do not
+implicitly authorize capture. Talk and Fileshare need shared peer ownership and
+message routing because upstream Stun owns one connection per counterparty.
+No Talk audio/video runtime or release acceptance is claimed yet.
+
+The current writable checkout stays
+`/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.
+Temporary source and logs are external under
+`/mnt/storage/redsquare-android-artifacts/talk-native`. Canonical checkout and
+unrelated work remain preserved. No node/provider/Play operation, public Saito
+write or community recipient is authorized. Closed/killed-app push and physical/
+live-network qualifications stay separate under36. Voice continues for an active
+call in background/screen-off; camera pauses when not visible. Recording,
+transcription, scheduling, livestreaming and local screen broadcast are not part
+of the approved direct/group-call slice.
+
+
 ## Delivered native Fileshare #103
 
 [Signed beta0.1.116](https://davidengelen.nl/redsquare/) is public. Private Chat

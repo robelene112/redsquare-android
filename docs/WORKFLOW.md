@@ -11,6 +11,16 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
+The owner now requested native Saito Talk and explicitly approved direct audio/
+video calls AND group rooms/invitation links. [Issue104](https://github.com/robelene112/redsquare-android/issues/104)
+is the single active implementation, review base c02fa1e3fb795b7e252f0973235bfc852ec891b4.
+The prior stop-after103 instruction is superseded for104 only. Reuse existing
+protocol/native/controlled-peer seams with actual media evidence; ordinary
+emulator choices are delegated. Finish code, checks, reviews and signed beta,
+then stop after104. Keep1/36/55/84/86 open; no node/provider/Play operation or
+public Saito development write is authorized.
+
+
 Native Fileshare [issue103](https://github.com/robelene112/redsquare-android/issues/103)
 is delivered in signed beta116. The owner's request covered native private-Chat
 files, accepted/started background and screen-off continuation, Android progress
@@ -19,7 +29,7 @@ exact signed updates and the independently reviewed fixture-only source bridge
 are recorded in [the packet](evidence/ticket103/README.md). Preserve original
 failed runs and inherited evidence qualifications.
 
-Stop after103. Keep #1/#36/#55/#84/#86 open. Real device/OEM, live selected-node
+Historical103 boundary: stop after103 until the next owner request. Keep #1/#36/#55/#84/#86 open. Real device/OEM, live selected-node
 Relay/Stun/traversal and fully initialized community-peer qualifications remain
 under#36 alongside provider/Play prerequisites. Do not ask the owner to repeat
 ordinary emulator/development tests. No node/provider/Play operation, public

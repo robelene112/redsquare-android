@@ -184,6 +184,10 @@ verify_group_chat_native() {
     fi
     return 1
 }
+if [[ "${TEST_SCOPE:-full}" == talk-routing* ]]; then
+    verify_group_chat_native TalkRoutingPreviewTest 180 talk-routing talk-routing-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == push-binding-cache-regression* ]]; then
     [[ "$(timeout 15 adb get-serialno)" == emulator-* ]] || { echo 'A disposable emulator is required' >&2; exit 2; }
     binding_api="$(timeout 15 adb shell getprop ro.build.version.sdk | tr -d '\r')"
