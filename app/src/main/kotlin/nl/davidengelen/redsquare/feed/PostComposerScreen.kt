@@ -136,7 +136,15 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             selectedImages = emptyList()
         }
     }
-    LaunchedEffect(state, state.reload) { state.load() }
+    // Instrumentation can hold the actual draft-loading phase on an emulator.
+    // The ordinary app always uses its real storage timing.
+    val fixtureLoadDelay = if (nl.davidengelen.redsquare.BuildConfig.DEBUG &&
+        android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        activity.intent.getLongExtra("postDraftLoadFixtureDelayMs", 0).coerceIn(0, 1000) else 0
+    LaunchedEffect(state, state.reload) {
+        if (fixtureLoadDelay > 0) kotlinx.coroutines.delay(fixtureLoadDelay)
+        state.load()
+    }
     LaunchedEffect(state, state.queued, state.queueSaved, state.sending) {
         if (state.queued && state.queueSaved && !state.sending) {
             try { withContext(Dispatchers.IO) { PostQueueScheduling.enqueue(context, owner, backend, endpoint) } }

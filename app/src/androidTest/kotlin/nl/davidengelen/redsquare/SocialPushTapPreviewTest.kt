@@ -204,7 +204,8 @@ class SocialPushTapPreviewTest {
                 }
                 // The cold case has no MainActivity. Instrumentation/fixture transport remains alive.
                 val scenario = if (cold) null else ActivityScenario.launch<MainActivity>(
-                    Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint))
+                    Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint)
+                        .putExtra("postDraftLoadFixtureDelayMs", if (stack) 500L else 0L))
                 scenario.use {
                     withFailureCapture({
                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-failure.png"))
