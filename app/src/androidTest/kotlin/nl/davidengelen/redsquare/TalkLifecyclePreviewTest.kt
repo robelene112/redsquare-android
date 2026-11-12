@@ -48,7 +48,9 @@ class TalkLifecyclePreviewTest {
                         assertTrue(runBlocking { requireNotNull(account).start(TalkLink(SaitoBackend.OWNER, room), null, false, true) })
                         token = requireNotNull(TalkRuntime.call.value).token
                         assertEquals(AudioManager.MODE_IN_COMMUNICATION, audio.mode)
-                        assertTrue(context.getSystemService(android.app.NotificationManager::class.java).activeNotifications.any { it.id == TalkService.ID })
+                        await("Android has posted the foreground call controls") {
+                            context.getSystemService(android.app.NotificationManager::class.java).activeNotifications.any { it.id == TalkService.ID }
+                        }
                         assertEquals(AudioManager.AUDIOFOCUS_REQUEST_GRANTED, audio.requestAudioFocus(competingFocus))
                         await("Audio focus loss is reported as an interruption") { TalkRuntime.call.value?.phase == CallPhase.INTERRUPTED }
                         await("Native audio mode restored") { audio.mode == mode }
