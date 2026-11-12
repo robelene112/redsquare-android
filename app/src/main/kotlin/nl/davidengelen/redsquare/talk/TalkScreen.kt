@@ -18,6 +18,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -179,10 +180,13 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val clipboard = LocalClipboardManager.current
     val shareInvitationLabel = stringResource(R.string.talk_share_invite)
     var copied by remember(call?.token) { mutableStateOf(false) }
+    val destination = entry?.url ?: if (call?.phase?.live == true) "${call.token}:active" else "calls-home"
+    // A preview and the active call are different reading destinations.
+    val listState = key(destination) { rememberLazyListState() }
     Column(Modifier.fillMaxSize()) {
         chrome(false)
-        SingleOwnerReveal(entry?.url ?: if (call?.phase?.live == true) "${call.token}:active" else "calls-home", Modifier.weight(1f).fillMaxWidth()) {
-        LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen),
+        SingleOwnerReveal(destination, Modifier.weight(1f).fillMaxWidth()) {
+        LazyColumn(Modifier.fillMaxSize(), state = listState, contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item { Text(stringResource(R.string.talk_calls), style = MaterialTheme.typography.headlineMedium) }
             if (call?.phase?.live == true && call.phase != CallPhase.INCOMING && !showingInvitation) {

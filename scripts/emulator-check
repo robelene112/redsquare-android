@@ -210,10 +210,28 @@ verify_talk_capture_native() {
 }
 # Only the new permission journey starts with a denied microphone. Restore grants and supported user flags.
 # API29 lacks the later per-package flag shell commands; retain both flag observations explicitly.
+microphone_permission_flags() {
+    python3 -c 'import re,sys
+text=sys.stdin.read()
+rows=re.findall(r"android.permission.RECORD_AUDIO: granted=(?:true|false), flags=\[([^]]*)\]",text)
+if rows:
+    assert len(rows)==1, "Require exactly one microphone runtime permission"
+    print(rows[0])
+else:
+    # A newly installed package has no runtime state until its first permission action.
+    # Accept that default only when the actual package declares the permission.
+    assert re.search(r"^\s+android.permission.RECORD_AUDIO\s*$",text,re.M), "Require the declared microphone permission"
+    assert not re.search(r"android.permission.RECORD_AUDIO: granted=",text), "Unrecognized runtime permission format"
+    print("")'
+}
 verify_talk_permissions_native() {
     local previous_permissions permission result=0 old_microphone_flags
     previous_permissions=$(adb shell dumpsys package nl.davidengelen.redsquare.dev)
-    old_microphone_flags=$(printf '%s' "$previous_permissions" | python3 -c 'import re,sys; text=sys.stdin.read(); row=re.search(r"android.permission.RECORD_AUDIO: granted=(?:true|false), flags=\[([^]]*)\]",text); assert row, "Require the original microphone permission flags"; print(row.group(1))')
+    printf '%s\n' "$previous_permissions" > "$evidence/talk-permission-original-package.txt"
+    old_microphone_flags=$(printf '%s' "$previous_permissions" | microphone_permission_flags)
+    if [[ "$TEST_DEVICE_API" == 29 && "$old_microphone_flags" == *USER_FIXED* ]]; then
+        echo 'An isolated API29 fixture with an unfixed microphone permission is required' >&2; return 1
+    fi
     for permission in CAMERA POST_NOTIFICATIONS; do
         if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
         adb shell pm grant nl.davidengelen.redsquare.dev "android.permission.$permission"
@@ -221,8 +239,6 @@ verify_talk_permissions_native() {
     adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO
     if [[ "$TEST_DEVICE_API" != 29 ]]; then
         adb shell pm clear-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-set user-fixed
-    else
-        [[ "$old_microphone_flags" != *USER_FIXED* ]] || { echo 'An isolated API29 fixture with an unfixed microphone permission is required' >&2; return 1; }
     fi
     printf '%s\n' "$old_microphone_flags" > "$evidence/talk-permission-original-flags.txt"
     if verify_group_chat_native TalkPermissionPreviewTest 180 talk-permission talk-permission-evidence; then result=0; else result=$?; fi
@@ -237,7 +253,8 @@ verify_talk_permissions_native() {
         if [[ "$old_microphone_flags" == *USER_SET* ]]; then adb shell pm set-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-set; fi
         if [[ "$old_microphone_flags" == *USER_FIXED* ]]; then adb shell pm set-permission-flags nl.davidengelen.redsquare.dev android.permission.RECORD_AUDIO user-fixed; fi
     fi
-    adb shell dumpsys package nl.davidengelen.redsquare.dev | python3 -c 'import re,sys; row=re.search(r"android.permission.RECORD_AUDIO: granted=(?:true|false), flags=\[([^]]*)\]",sys.stdin.read()); assert row; print(row.group(1))' > "$evidence/talk-permission-restored-flags.txt"
+    adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/talk-permission-restored-package.txt"
+    microphone_permission_flags < "$evidence/talk-permission-restored-package.txt" > "$evidence/talk-permission-restored-flags.txt"
     return "$result"
 }
 # Browser peers run outside Android so their WebAudio cannot steal the call's audio focus.
