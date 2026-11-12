@@ -10,6 +10,61 @@ verification, independent reviews and signed beta. Review base is
 Existing JVM protocol, native Android and controlled browser-peer seams are reused;
 routine tests/emulators remain delegated, without repeated owner phone QA.
 
+Current checkpoint, November12 at14:49UTC (not release acceptance):
+
+- Exact direct-Chat audio AND video journeys now PASS on10 in43239654847 and17
+  in43239660656 at656171ae1. Actual decoded PCM/video, native Start/End/Speaker,
+  exact conversation and unsent draft retention pass under the original25s goal.
+  Both originals/logs are downloaded. Reordered ICE candidate retention is the
+  single production behavior change from the red diagnostic source.
+- Temporary Talk104Probe code is removed before the new final source commit.
+  Chrome cleanup's initial wait-before-escalation P2 is fixedcb1f72d12 and the
+  Standards reviewer confirms TERM/poll5s/KILL/reap order. SDK generation comment
+  no longer claims all unknown candidates are rejected. Spec delta review finds
+  no actionable requirement defect. Final source/evidence reviews still required.
+- The next full10/17 and aggregate Talk10/17 runs use this cleaned source with
+  the unchanged pre-run78d29df48 contract/collector. Their run IDs and the new
+  signed candidate118 will be recorded next. Public remains116.117 is superseded.
+
+Current checkpoint, November12 at14:41UTC (not release acceptance):
+
+- Source656171ae1 runs exact direct-Chat10/17 journeys43239654847/43239660656.
+  It changes only candidate retention across ignored SDP offers, after the
+  actual native diagnostics below. Temporary Talk104Probe logs in SharedRtcPeer
+  MUST be removed before final build/acceptance. Final independent delta reviews
+  are requested from the existing Standards/Spec reviewers.
+- a516 aggregate10/17 43236312266/43236317715 both pass permission, capture,
+  routing and invitation (including busy return), then fail actual direct Chat
+  PCM within25s.10 fails video;17 fails audio. Originalcaptures show JOINING,
+  real tracks but no actual transport PCM. Originals/logs retained externally.
+- Diagnostic sourcef940b5565 in43238236355/43238241471 reproduces audio failure
+  on bothSDKs.17 original native trace: offer14:38:35.359, ignored browser offer
+  35.899, answer39.339; ICE remains CHECKING. Source drops every candidate while
+  ignoredOffer, including answer-generation candidates that overtake SDP.
+  Fix656 validates/retains a bounded128-candidate queue until accepted SDP, then
+  uses the accepted SDP/ICE credentials for connectivity. Original25s goal is unchanged.
+- Stronger group mesh source0bf7368d2 in43236537892 actually PASSes native JUnit
+  with all4browsermeshlegs decoded (width320/480, nonBlack18k+, RMS>.06), but the
+  workflow FAILs afterward because rm raced Chrome's surviving profile writers.
+  f940 starts owned Chrome with setsid, terminates/reaps its entire process group
+  before deleting that unique temporary profile. It does not waive test goals.
+- Pre-run contract/collector are FROZEN at78d29df48f6e54b7f9515929ca7a8d34b4d3b741.
+  Both independent source-review axes report0remaining findings at that source.
+  Full10/17 43236585970/43236591741 were cancelled after the newer direct-call
+  defect required a product change. Preserve their primary pre-cancel snapshots,
+  logs/originals and cancellation outcome; they provide no complete acceptance.
+  Rerun both complete three-job SDKs on the final corrected source, using the
+  unchanged frozen104goals. Do not assemble partial partitions.
+- Signed candidate117 is built locally from78d29df48, SHA256
+  e518c2314a80e26466fdcd15c114f31e546e535d74b877d747f387462f995df6.
+  It is NOT staged or promoted and is now superseded by the product correction.
+  Never promote117. Public beta remains116. Next corrected build reserves118
+  (recheck shared counter). Build117 log/artifact are retained.
+- PacketREADME and the truthful Play permission/data-flow addendum are currently
+  uncommitted. README records source review only, not complete/delivery acceptance.
+  Finish implementation, exact proofs, signed update, independent evidence review,
+  public byte/manifest checks, commit/push and close104. Keep1/36/55/84/86 open.
+
 Current checkpoint, November12 at14:21UTC (not release acceptance):
 
 - Sourcea5165efd0 runs aggregate Talk10/17 in43236312266/43236317715.
