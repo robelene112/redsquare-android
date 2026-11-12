@@ -116,6 +116,31 @@ class TalkMediaPreviewTest {
                                 await("Actual red browser frames decoded natively") { frames.get() >= 5 && colour.get() }
                                 await("Actual browser PCM decoded natively") { audio.get() }
                                 await("Actual native camera and PCM decoded in browser") { alice.media[owner.publicKey]?.let { it.width >= 320 && it.nonBlack > 500 && it.rms > 0.01 } == true }
+                                val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                                val beforeBackground = alice.audioBytes[owner.publicKey] ?: 0L
+                                device.pressHome(); device.sleep()
+                                assertFalse(device.isScreenOn)
+                                await("Background camera is paused while the real call stays active", 5000) {
+                                    TalkRuntime.call.value?.let { it.phase == CallPhase.ACTIVE && it.cameraPaused } == true
+                                }
+                                Thread.sleep(1500) // Observe actual screen-off transport, not a transition snapshot.
+                                await("Fresh audio RTP and decoded PCM continue with the screen off", 5000) {
+                                    (alice.audioBytes[owner.publicKey] ?: 0) > beforeBackground + 1000 &&
+                                        alice.media[owner.publicKey]?.rms?.let { it > 0.01 } == true
+                                }
+                                val notification = requireNotNull(context.getSystemService(android.app.NotificationManager::class.java)
+                                    .activeNotifications.singleOrNull { it.id == TalkService.ID })
+                                device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
+                                notification.notification.contentIntent.send()
+                                await("Exact notification returns to the active call and resumes video", 5000) {
+                                    TalkRuntime.call.value?.let { it.token == token && it.phase == CallPhase.ACTIVE && !it.cameraPaused } == true && TalkRuntime.visible
+                                }
+                                File(evidence, "background-audio.json").writeText(com.google.gson.JsonObject().apply {
+                                    addProperty("beforeBytes", beforeBackground)
+                                    addProperty("afterBytes", alice.audioBytes[owner.publicKey])
+                                    addProperty("decodedRms", alice.media[owner.publicKey]?.rms)
+                                    addProperty("screenOff", true); addProperty("notificationReturn", true)
+                                }.toString())
                                 TalkBrowserPeer(SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), owner, "#20d030", 880, ::route).use { carol ->
                                     browsers[carol.wallet.publicKey] = carol
                                     carol.join(room)
@@ -129,10 +154,7 @@ class TalkMediaPreviewTest {
                                     }
                                     File(evidence, "mesh.json").writeText(com.google.gson.Gson().toJson(mapOf(
                                         "alice" to alice.media.toMap(), "carol" to carol.media.toMap())))
-                                    val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
-                                    val returnToCall = requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
-                                        androidx.test.uiautomator.By.text("Return to call")), 5000))
-                                    returnToCall.click()
+                                    device.findObject(androidx.test.uiautomator.By.text("Return to call"))?.click()
                                     requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
                                         androidx.test.uiautomator.By.text("End call")), 5000))
                                     captureNativeScreen(File(evidence, "three-party-native.png"))

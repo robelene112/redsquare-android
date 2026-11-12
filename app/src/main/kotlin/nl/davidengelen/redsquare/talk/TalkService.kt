@@ -29,12 +29,15 @@ class TalkService : Service() {
         super.onCreate()
         channel(this)
     }
+    private var ownership: Job? = null
+    private var audioOwned = false
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == END) {
             val call = TalkRuntime.call.value
             if (call != null && intent.data?.scheme == "talk-end" && intent.data?.authority == packageName &&
-                intent.data?.lastPathSegment == call?.token && intent.getStringExtra("owner") == call.owner &&
+                intent.data?.lastPathSegment == call.token && intent.getStringExtra("owner") == call.owner &&
                 intent.getStringExtra("backend") == call.savedBackend.id) TalkRuntime.end(call.token)
+            if (token == null) stopSelf(startId)
             return START_NOT_STICKY
         }
         val call = TalkRuntime.call.value
@@ -42,50 +45,76 @@ class TalkService : Service() {
             stopSelf(startId); return START_NOT_STICKY
         }
         if (token == call.token) return START_NOT_STICKY
+        releaseOwnership()
         token = call.token; normal = false
-        val alert = notification(call)
-        if (Build.VERSION.SDK_INT >= 30) startForeground(ID, alert, ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
-            if (call.camera) ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA else 0)
-        else startForeground(ID, alert)
+        val ownedToken = call.token
         try {
+            val alert = notification(call)
+            if (Build.VERSION.SDK_INT >= 30) startForeground(ID, alert, ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
+                if (call.camera) ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA else 0)
+            else startForeground(ID, alert)
             val manager = getSystemService(AudioManager::class.java)
-            oldMode = manager.mode; oldSpeaker = manager.isSpeakerphoneOn
+            oldMode = manager.mode; oldSpeaker = manager.isSpeakerphoneOn; audioOwned = true
             focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
                 .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
                 .setOnAudioFocusChangeListener { change ->
                     if (change in setOf(AudioManager.AUDIOFOCUS_LOSS, AudioManager.AUDIOFOCUS_LOSS_TRANSIENT))
-                        TalkRuntime.interrupt(call.token)
+                        TalkRuntime.interrupt(ownedToken)
                 }.build()
             check(manager.requestAudioFocus(requireNotNull(focus)) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
             manager.mode = AudioManager.MODE_IN_COMMUNICATION
-            // Keep a connected headset/system route. Video defaults to speaker only without one.
             if (manager.getDevices(AudioManager.GET_DEVICES_OUTPUTS).none { it.type in setOf(
                     android.media.AudioDeviceInfo.TYPE_WIRED_HEADPHONES, android.media.AudioDeviceInfo.TYPE_WIRED_HEADSET,
                     android.media.AudioDeviceInfo.TYPE_BLUETOOTH_SCO, android.media.AudioDeviceInfo.TYPE_USB_HEADSET) })
                 manager.isSpeakerphoneOn = call.camera
             wake = getSystemService(PowerManager::class.java).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "$packageName:talk")
                 .apply { setReferenceCounted(false); acquire(10 * 60_000L) }
-            ready[call.token]?.complete(Unit)
-            scope.launch {
-                while (isActive) {
-                    delay(60_000); if (TalkRuntime.call.value?.token == token && TalkRuntime.call.value?.phase?.started == true)
-                        wake?.acquire(10 * 60_000L)
+            ready[ownedToken]?.complete(Unit)
+            ownership = scope.launch {
+                launch {
+                    while (isActive) {
+                        delay(60_000)
+                        if (token == ownedToken && TalkRuntime.call.value?.token == ownedToken &&
+                            TalkRuntime.call.value?.phase?.started == true) wake?.acquire(10 * 60_000L)
+                    }
                 }
-            }
-            scope.launch {
                 TalkRuntime.call.collectLatest { updated ->
-                    if (updated == null || updated.token != token || !updated.phase.started) {
-                        normal = true; stopForeground(STOP_FOREGROUND_REMOVE); stopSelf()
-                    } else getSystemService(NotificationManager::class.java).notify(ID, notification(updated))
+                    // A newer call can be claimed before its start command arrives.
+                    // An older observer must never stop that newer service ownership.
+                    if (token != ownedToken || updated?.token != ownedToken) return@collectLatest
+                    if (!updated.phase.started) {
+                        normal = true; stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
+                    } else try {
+                        val notification = notification(updated)
+                        if (Build.VERSION.SDK_INT >= 30 && updated.camera && TalkRuntime.visible &&
+                            getForegroundServiceType() and ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA == 0) {
+                            startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
+                                ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA)
+                        } else getSystemService(NotificationManager::class.java).notify(ID, notification)
+                    } catch (failure: Exception) {
+                        TalkRuntime.record("call-service", failure)
+                        TalkRuntime.interrupt(ownedToken); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
+                    }
                 }
             }
         } catch (failure: Exception) {
             TalkRuntime.record("call-audio", failure)
-            ready[call.token]?.completeExceptionally(IllegalStateException("Call audio unavailable"))
-            TalkRuntime.interrupt(call.token); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
+            ready[ownedToken]?.completeExceptionally(IllegalStateException("Call audio unavailable"))
+            TalkRuntime.interrupt(ownedToken); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
         }
         return START_NOT_STICKY
+    }
+    private fun releaseOwnership() {
+        ownership?.cancel(); ownership = null
+        val manager = getSystemService(AudioManager::class.java)
+        focus?.let { manager.abandonAudioFocusRequest(it) }; focus = null
+        if (audioOwned) {
+            if (Build.VERSION.SDK_INT >= 31) manager.clearCommunicationDevice()
+            manager.isSpeakerphoneOn = oldSpeaker; manager.mode = oldMode; audioOwned = false
+        }
+        wake?.takeIf { it.isHeld }?.release(); wake = null
+        token?.let { ready.remove(it)?.cancel() }
     }
     private fun notification(call: TalkCall): Notification {
         val returnToCall = Intent(this, MainActivity::class.java)
@@ -107,14 +136,7 @@ class TalkService : Service() {
     }
     override fun onDestroy() {
         if (!normal) token?.let { TalkRuntime.interrupt(it) }
-        val manager = getSystemService(AudioManager::class.java)
-        focus?.let { manager.abandonAudioFocusRequest(it) }
-        if (token != null) {
-            if (Build.VERSION.SDK_INT >= 31) manager.clearCommunicationDevice()
-            manager.isSpeakerphoneOn = oldSpeaker; manager.mode = oldMode
-        }
-        wake?.takeIf { it.isHeld }?.release(); scope.cancel()
-        token?.let { ready.remove(it)?.cancel() }
+        releaseOwnership(); token = null; scope.cancel()
         super.onDestroy()
     }
     companion object {

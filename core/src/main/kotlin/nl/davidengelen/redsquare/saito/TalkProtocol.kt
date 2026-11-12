@@ -24,7 +24,7 @@ object TalkProtocol {
     const val MAX_MESSAGE_BYTES = 128 * 1024
     private val roomRequests = setOf("call-list-request", "call-list-response", "peer-joined", "peer-left",
         "peer-kicked", "peer-kick-broadcast", "toggle-audio", "toggle-video", "screen-share-start",
-        "screen-share-stop", "broadcast-call-list")
+        "screen-share-stop", "broadcast-call-list", "toggle-transcription")
     private val stunRequests = setOf("peer-joined", "peer-left", "peer-description", "peer-candidate", "peer-kicked", "peer-kick-broadcast")
 
     fun invite(wallet: SaitoWallet, peer: String, room: TalkRoom, command: TalkDial, now: Long): SaitoTransaction {

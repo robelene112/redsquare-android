@@ -120,6 +120,13 @@ window.toggleAudio = () => emit('stun-toggle-audio');
 window.toggleVideo = () => emit('stun-toggle-video');
 window.closeFixture = () => { if (talk.streams) talk.streams.leaveCall(); for (const pc of stun.peers.values()) pc.close(); audioContext.close(); };
 setInterval(async () => {
+  for (const [peer, pc] of stun.peers) {
+    try {
+      const reports = await pc.getStats(); let bytes = 0;
+      for (const report of reports.values()) if (report.type === 'inbound-rtp' && report.kind === 'audio') bytes += report.bytesReceived || 0;
+      Host.audioBytes(peer, bytes);
+    } catch (error) { if (pc.connectionState !== 'closed') Host.failure(String(error)); }
+  }
   for (const video of document.querySelectorAll('video')) {
     if (video.readyState < 2) continue;
     const sample = document.createElement('canvas'); sample.width = 8; sample.height = 8;

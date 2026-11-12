@@ -60,7 +60,7 @@ class TalkCameraLifecyclePreviewTest {
                                 var services = ""
                                 await("Foreground ownership includes the enabled camera") {
                                     services = device.executeShellCommand("dumpsys activity services ${context.packageName}")
-                                    Regex("foregroundServiceType=(0x[0-9a-fA-F]+|[0-9]+)").findAll(services).any {
+                                    Regex("(?:foregroundServiceType|types)=(0x[0-9a-fA-F]+|[0-9]+)").findAll(services).any {
                                         val value = it.groupValues[1]
                                         val type = if (value.startsWith("0x")) value.drop(2).toInt(16) else value.toInt()
                                         type and android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA != 0
@@ -75,7 +75,7 @@ class TalkCameraLifecyclePreviewTest {
                             device.sleep(); Thread.sleep(600)
                             assertEquals("Paused camera supplies no new frames", pausedFrames, frames.get())
                             assertTrue(requireNotNull(TalkRuntime.call.value).phase.started)
-                            device.wakeUp()
+                            device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
                             val alert = requireNotNull(context.getSystemService(android.app.NotificationManager::class.java)
                                 .activeNotifications.singleOrNull { it.id == TalkService.ID })
                             alert.notification.contentIntent.send()

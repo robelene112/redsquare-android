@@ -230,6 +230,7 @@ if [[ "${TEST_SCOPE:-full}" == talk-controls* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-camera-lifecycle* ]]; then
+    verify_talk_capture_native TalkLifecyclePreviewTest talk-lifecycle
     verify_talk_capture_native TalkCameraLifecyclePreviewTest talk-camera-lifecycle
     exit 0
 fi

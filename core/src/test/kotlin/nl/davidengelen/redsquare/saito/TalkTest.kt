@@ -94,4 +94,19 @@ class TalkTest {
         val scoped = TalkProtocol.event(alice, room, "peer-left", listOf(bob.publicKey), 101)
         assertEquals(room.id, requireNotNull(TalkProtocol.read(scoped.envelope(), bob.publicKey)).roomId)
     }
+    @Test fun aPeerTranscriptionStatusDoesNotFallThroughToChat() {
+        val alice = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val bob = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        // StreamManager.broadcastTranscriptionStatus sends this even with transcription disabled.
+        val status = SaitoTransaction.create(alice, com.google.gson.JsonObject().apply {
+            addProperty("module", "Videocall"); addProperty("request", "toggle-transcription")
+            addProperty("call_id", alice.publicKey)
+            add("data", com.google.gson.JsonObject().apply {
+                addProperty("public_key", alice.publicKey); addProperty("enabled", false)
+            })
+        }, 100, listOf(bob.publicKey))
+        val message = requireNotNull(TalkProtocol.read(status.envelope(), bob.publicKey))
+        assertEquals("toggle-transcription", message.request)
+        assertTrue(message.identityVerified)
+    }
 }

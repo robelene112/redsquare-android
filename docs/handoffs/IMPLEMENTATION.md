@@ -55,12 +55,65 @@ forwards only loopback test ports, blocks page requests outside the owned fixtur
 and restores its process/profile/ports. It leaves the native focus behavior and
 all decoded-pixel/PCM/three-party assertions unchanged. The original legacy
 Android WebView remains in place for inherited tests. Browser UI/wallet/network
-boundaries are adapted; the four pinned module bodies are unchanged. It uses controlled canvas and
+boundaries are adapted; the pinned module bodies are unchanged. It uses controlled canvas and
 WebAudio inputs plus a debug/emulator-only PCM hook after real AudioRecord.read.
 Actual codecs, DTLS/RTP, remote pixels and PCM must be observed before claiming
 media interoperability. Framework/wallet serialization and owned Relay are
 explicit adaptations; no public development writes or physical microphone/
 speaker quality claims. No new complete-verification catalog is frozen yet.
+
+At12:39UTC the current implementation checkpoint is NOT beta acceptance:
+
+- Host-Chromium media43212543563 at ab38c11f6 passes real native red-peer pixels,
+  decoded peer PCM,2648 actual AudioRecord reads, the three-party decoded mesh
+  and participant departure. The test-only framework Relay adapter was still used.
+  Exact Chrome156.0.8078.79 and original65 native frames are retained externally.
+- Source43bb22d61 adds the actual fifth pinned Relay body, its original repeat
+  constants and real preference for an existing data channel. It preserves the
+  raw hash-checked source; only the framework json-bigint import is removed for
+  the test compiler, with ordinary JSON adequate for these bounded zero-value
+  payloads. Unsigned dial bytes have the original recipient-only output shape.
+- Complete12-cell invitation17 proof43212552487 passes at ab38c11f6. Earlier
+  invitation10/17 runs43210912738/43210916395 failed at200% because the test searched
+  an uncomposed lazy Join button. Container scrolling now reveals the same48dp
+  action under unchanged bounds. Android10 still needs the corrected proof.
+- Actual audio-focus interruption RED43213078788 at a029c2d91 observed ENDED.
+  Exact-token interruption43bb22d61 passes43216238462 with restored audio mode
+  and removed foreground notification.
+- Camera lifecycle43216243444 at43bb22d61 reaches real camera frames after a
+  voice start, then fails the camera foreground-type goal. Its original dumpsys
+  explicitly has types=0x00000080 (microphone only). The observer now accepts that
+  actual types field as well as foregroundServiceType, without changing the
+  required camera bit or five-second goal. Dynamic service-type upgrade, scoped
+  collector/wake ownership and async error handling are being verified next.
+- Direct43216228620 is a genuine JOINING timeout after Answer, with no capture
+  or fixture error. The original caller addresses its own initial room-entry to
+  itself, so native now retries a signed entry addressed to the exact counterpart
+  after the upstream dialer's one-second startup. A verified same-room roster
+  response can prove membership before capture. Identity/room gates stay strict.
+- Real-Relay group43216233590 fails when native participants disappear after
+  additional controls move to the data channel. StreamManager always emits a
+  toggle-transcription status, even with recording disabled. A new core RED
+  confirms Talk failed to own that message, allowing the Chat fallback to dispose
+  the peer. The parser now consumes/ignores that status without implementing local
+  transcription. All seven Talk JVM checks and all-core tests pass locally.
+- The separate bare-Stun departure ownership RED and GREEN are retained. Only
+  room-scoped departures belong to Talk; an unscoped transport departure stays
+  owned by the shared transport/Fileshare path.
+- New actual-PCM microphone controls proof43218475707 was cancelled during source
+  build, before device execution, because its underlying peer-control routing was
+  already known broken. Its primary snapshot/log remain external. Rerun it after
+  the underlying connection correction, preserving its initially-muted metadata,
+  real UI Unmute and three-second Mute-under-held-Relay goals.
+
+The next media revision also observes fresh inbound audio RTP/decoded PCM during
+real Home and screen-off, exact notification return, resumed camera and a native
+three-party UI capture. The camera-only lifecycle proof is not substituted for
+that real background voice evidence. No104 full catalog is frozen, independent
+reviews are not started and no104 beta has been built/published. Remaining work
+includes the other direct/UI/control/error paths, shared Chat/File continuity,
+process-loss behavior, complete Android10/17, reviews and signed delivery. Keep
+inherited frozen103 goals and deadlines intact. Continue104 to completion.
 
 The current writable checkout stays
 `/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.

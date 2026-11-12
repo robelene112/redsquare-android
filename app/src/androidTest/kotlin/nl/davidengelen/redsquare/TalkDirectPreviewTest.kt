@@ -74,10 +74,14 @@ class TalkDirectPreviewTest {
                             assertEquals(caller.publicKey, TalkRuntime.call.value?.direct)
                             assertNull(TalkRuntime.call.value?.localVideo)
                             assertEquals("The browser has not captured before consent", 0, peer.captures.get())
-                            assertTrue(runBlocking { requireNotNull(account).accept(requireNotNull(token), camera = false) })
+                            val device = androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                            requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                                androidx.test.uiautomator.By.text("Answer with audio")), 5000)).click()
                             await("Accepted native audio-only call connects", 25_000) {
                                 TalkRuntime.call.value?.let { it.phase == CallPhase.ACTIVE && it.participants.singleOrNull()?.let { p -> p.audio != null && p.video != null } == true } == true
                             }
+                            assertTrue("Answer opens the native call screen", device.wait(androidx.test.uiautomator.Until.hasObject(
+                                androidx.test.uiautomator.By.desc("Switch app: Saito Talk")), 5000))
                             assertFalse(requireNotNull(TalkRuntime.call.value).camera)
                             assertNull(TalkRuntime.call.value?.localVideo)
                             val frames = AtomicInteger()

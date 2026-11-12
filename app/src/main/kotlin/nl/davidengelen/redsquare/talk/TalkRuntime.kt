@@ -78,6 +78,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private var waitingRoomProof = false
     private var accepted = false
     private var connectingMedia = false
+    private var roomProof: Job? = null
     private var authority: Closeable? = null
     private var changedAt = System.currentTimeMillis()
     private var latestWallet = wallet
@@ -258,6 +259,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 if (!call.incoming && call.phase == CallPhase.DIALING && request == TalkDial.ACCEPT.wire) {
                     accepted = true; waitingRoomProof = true
                     publish(call.copy(phase = CallPhase.JOINING)); changedAt = now()
+                    requestRoomProof(requireNotNull(current))
                 }
                 return
             }
@@ -267,14 +269,14 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 TalkDial.ACCEPT.wire -> if (!call.incoming && call.phase == CallPhase.DIALING) {
                     accepted = true; waitingRoomProof = !message.identityVerified
                     publish(call.copy(phase = CallPhase.JOINING)); changedAt = now()
-                    if (!waitingRoomProof) startMedia()
+                    if (!waitingRoomProof) startMedia() else requestRoomProof(requireNotNull(current))
                 }
             }
             return
         }
         if (!accepted || !authenticated) return
         if (waitingRoomProof) {
-            if (!message.identityVerified || peer != call.direct || request !in setOf("call-list-request", "peer-joined")) return
+            if (!message.identityVerified || peer != call.direct || request !in setOf("call-list-request", "call-list-response", "peer-joined")) return
             waitingRoomProof = false; startMedia()
         }
         when (request) {
@@ -420,12 +422,28 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 publish(call.copy(phase = CallPhase.JOINING, camera = camera)); changedAt = now()
                 startService(requireNotNull(current))
                 send(TalkProtocol.invite(wallet, requireNotNull(call.direct), call.link.room, TalkDial.ACCEPT, now()))
-                if (!waitingRoomProof) startMedia()
+                if (!waitingRoomProof) startMedia() else requestRoomProof(requireNotNull(current))
                 result.complete(true)
             } catch (cancelled: CancellationException) { result.complete(false); throw cancelled }
             catch (failure: Exception) { TalkRuntime.record("answer", failure); finish(CallPhase.UNAVAILABLE); result.complete(false) }
         }) return false
         return withTimeoutOrNull(25_000) { result.await() } ?: false
+    }
+
+    private fun requestRoomProof(call: TalkCall) {
+        roomProof?.cancel()
+        roomProof = scope.launch {
+            // The official dialer starts StreamManager one second after ACCEPT.
+            // An earlier entry can be discarded until have_joined_room is set.
+            repeat(20) { attempt ->
+                delay(if (attempt == 0) 1250 else 2000)
+                post {
+                    val active = current
+                    if (active?.token == call.token && active.phase == CallPhase.JOINING && accepted && waitingRoomProof)
+                        send(TalkProtocol.enter(wallet, active.link.room.copy(peers = listOfNotNull(active.direct)), now()))
+                }
+            }
+        }
     }
 
     private suspend fun startService(call: TalkCall) {
@@ -439,6 +457,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private suspend fun startMedia() {
         if (connectingMedia || !accepted) return
         connectingMedia = true
+        roomProof?.cancel(); roomProof = null
         try {
             val call = requireNotNull(current); guard()
             authority = SaitoLocalState.observeAuthority {
@@ -561,6 +580,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private fun finish(phase: CallPhase, deferIdle: Boolean = false) {
         val call = current
         accepted = false
+        roomProof?.cancel(); roomProof = null
         authority?.close(); authority = null
         leases.values.forEach { it.close() }; leases.clear(); pendingPeers.clear()
         capture?.close(); capture = null
