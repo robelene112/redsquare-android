@@ -197,7 +197,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         if (fileReference != null) {
             tapFailed = false
             try {
-                snapshotFlow { formNavigation.transitioning }.first { !it }
+                formNavigation.awaitSettled()
                 val opened = formNavigation.navigate {
                     val permitted = withContext(Dispatchers.IO) { fileReference.canOpen(context) }
                     if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) false
@@ -223,7 +223,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     return@LaunchedEffect
                 }
                 // A restarted effect can arrive before the cancelled attempt's finally releases navigation.
-                snapshotFlow { formNavigation.transitioning }.first { !it }
+                formNavigation.awaitSettled()
                 currentCoroutineContext().ensureActive()
                 if (!routes.current(delivery)) return@LaunchedEffect
                 chatRouteObservation("entry busy=" + formNavigation.transitioning +
@@ -257,26 +257,22 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
         val reference = NotificationRoutes.socialReference(delivery) ?: return@LaunchedEffect
         tapFailed = false
-        fun observeSocial(stage: String) {
-            if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.i("SocialRouteProbe",
-                "[DEBUG-fs103-social] $stage busy=${formNavigation.transitioning} current=${routes.current(delivery)}")
-        }
         try {
             if (reference.owner != currentWallet.publicKey || reference.backend != backend) {
-                observeSocial("binding refused")
                 tapFailed = true
                 return@LaunchedEffect
             }
+            formNavigation.awaitSettled()
+            currentCoroutineContext().ensureActive()
+            if (!routes.current(delivery)) return@LaunchedEffect
             val target = SocialPush.resolveTap(context, reference, endpoint,
                 fixtureRegistrar = registrar != SaitoRegistry.REGISTRAR)
-            observeSocial("resolved=${target != null}")
             if (target == null || !routes.current(delivery)) { tapFailed = true; return@LaunchedEffect }
             val opened = formNavigation.navigate {
                 currentCoroutineContext().ensureActive()
                 if (!routes.current(delivery) || !allowPushRoute || personal.saving || personal.hidesPosts(target.author)) false
                 else {
                     val permitted = withContext(Dispatchers.IO) { SocialPush.canOpen(context, reference, target) }
-                    observeSocial("permitted=$permitted")
                     currentCoroutineContext().ensureActive()
                     if (!permitted || !routes.current(delivery) || personal.saving || personal.hidesPosts(target.author)) false
                     else {
@@ -287,10 +283,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     }
                 }
             }
-            observeSocial("opened=$opened")
             tapFailed = !opened
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (failure: Exception) { observeSocial("exception=${failure.javaClass.simpleName}"); tapFailed = true }
+        catch (_: Exception) { tapFailed = true }
     }
     LaunchedEffect(cache) {
         val saved = withContext(Dispatchers.IO) { cache.load() }

@@ -136,18 +136,13 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             selectedImages = emptyList()
         }
     }
-    // Instrumentation can hold the actual draft-loading phase on an emulator.
-    // The ordinary app always uses its real storage timing.
+    // Exercise real loading-state recovery without changing ordinary app timing.
     val fixtureLoadDelay = if (nl.davidengelen.redsquare.BuildConfig.DEBUG &&
         android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         activity.intent.getLongExtra("postDraftLoadFixtureDelayMs", 0).coerceIn(0, 5000) else 0
     LaunchedEffect(state, state.reload) {
-        if (fixtureLoadDelay > 0) {
-            android.util.Log.i("SocialRouteProbe", "[DEBUG-fs103-social] draft load delay=$fixtureLoadDelay ready=${state.ready}")
-            kotlinx.coroutines.delay(fixtureLoadDelay)
-        }
+        if (fixtureLoadDelay > 0) kotlinx.coroutines.delay(fixtureLoadDelay)
         state.load()
-        if (fixtureLoadDelay > 0) android.util.Log.i("SocialRouteProbe", "[DEBUG-fs103-social] draft loaded ready=${state.ready}")
     }
     LaunchedEffect(state, state.queued, state.queueSaved, state.sending) {
         if (state.queued && state.queueSaved && !state.sending) {
@@ -166,26 +161,24 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
+        val loading: () -> Boolean = { !state.ready && !state.error }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
-            if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.i("SocialRouteProbe",
-                "[DEBUG-fs103-social] guard current=${navigation.saveCurrent === save} ready=${state.ready} saving=${state.saving} sending=${state.sending} images=${state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()}")
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
                 state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()) false
             else {
                 state.saving = true
                 try {
-                    val retained = state.persist()
-                    if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.i("SocialRouteProbe",
-                        "[DEBUG-fs103-social] persisted=$retained current=${navigation.saveCurrent === save}")
-                    if (retained && navigation.saveCurrent === save) commit() else false
+                    if (state.persist() && navigation.saveCurrent === save) commit() else false
                 } finally { state.saving = false }
             }
         }
         navigation.saveCurrent = save
         navigation.guardedCurrent = guarded
+        navigation.loadingCurrent = loading
         onDispose {
             if (navigation.saveCurrent === save) navigation.saveCurrent = null
             if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+            if (navigation.loadingCurrent === loading) navigation.loadingCurrent = null
         }
     }
     with(state) {
