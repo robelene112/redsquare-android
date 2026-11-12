@@ -80,15 +80,18 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     }
     DisposableEffect(work, navigation) {
         val save: suspend () -> Boolean = { persist() }
+        val loading: () -> Boolean = { !ready && !failed }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (navigation.saveCurrent !== save || !ready || sending || preparingPhoto) false
             else if (persist() && navigation.saveCurrent === save) commit() else false
         }
         navigation.saveCurrent = save
         navigation.guardedCurrent = guarded
+        navigation.loadingCurrent = loading
         onDispose {
             if (navigation.saveCurrent === save) navigation.saveCurrent = null
             if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+            if (navigation.loadingCurrent === loading) navigation.loadingCurrent = null
         }
     }
     LaunchedEffect(work) {

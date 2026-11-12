@@ -400,7 +400,7 @@ class MainActivity : ComponentActivity() {
                     val delivery = pendingModuleRoute ?: return@LaunchedEffect
                     if (module != AppModule.STACK || !featureUnobstructed ||
                         !NotificationRoutes.targetsScope(delivery, address, backend)) return@LaunchedEffect
-                    snapshotFlow { postNavigation.transitioning }.first { !it }
+                    postNavigation.awaitSettled()
                     if (!notificationRoutes.current(delivery)) return@LaunchedEffect
                     // Mount the existing destination owner. It alone resolves/verifies/consumes
                     // this delivery, preserving policy, exact-target and draft-save checks.

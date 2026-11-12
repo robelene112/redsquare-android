@@ -180,6 +180,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     var leaving by remember(selected) { mutableStateOf(false) }
     var inviting by remember(selected) { mutableStateOf(false) }
     DisposableEffect(store,selected,navigation) {
+        val loading:()->Boolean={ !readFailed && (!loaded || (selected!=null&&!draftReady&&!draftFailed)) }
         val save:suspend()->Boolean={
             savingForNavigation=true
             try{persistDraft()}finally{savingForNavigation=false}
@@ -196,9 +197,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
         navigation.saveCurrent=save
         navigation.guardedCurrent=guarded
+        navigation.loadingCurrent=loading
         onDispose{
             if(navigation.saveCurrent===save)navigation.saveCurrent=null
             if(navigation.guardedCurrent===guarded)navigation.guardedCurrent=null
+            if(navigation.loadingCurrent===loading)navigation.loadingCurrent=null
         }
     }
     fun back() {

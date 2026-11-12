@@ -37,6 +37,7 @@ internal fun StackLocalEditor(state: StackLocalDraft, review: Boolean, modifier:
         snapshotFlow { state.draft }.debounce(600).collect { state.autosave() }
     }
     DisposableEffect(state, navigation) {
+        val loading: () -> Boolean = { !state.ready && !state.error }
         val save: suspend () -> Boolean = {
             focus.clearFocus(); keyboard?.hide()
             state.persist()
@@ -50,9 +51,11 @@ internal fun StackLocalEditor(state: StackLocalDraft, review: Boolean, modifier:
         }
         navigation.saveCurrent = save
         navigation.guardedCurrent = guarded
+        navigation.loadingCurrent = loading
         onDispose {
             if (navigation.saveCurrent === save) navigation.saveCurrent = null
             if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+            if (navigation.loadingCurrent === loading) navigation.loadingCurrent = null
         }
     }
     fun leave(action: () -> Unit) {
