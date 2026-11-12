@@ -153,13 +153,21 @@ class PolicyCenterPreviewTest {
                         device.executeShellCommand("logcat -c")
                         val settingsBy = android.os.SystemClock.elapsedRealtime() + 5_000
                         ui.openAccountMenu()
-                        val settingsAction = hasText("Settings") and hasClickAction() and
-                            hasAnyAncestor(isPopup() or isDialog())
+                        var settingsAction: android.view.accessibility.AccessibilityNodeInfo? = null
                         waitFor((settingsBy - android.os.SystemClock.elapsedRealtime()).also {
                             check(it > 0) { "The Account popup and Settings action share the original5s" }
-                        }) { ui.onNode(settingsAction).isDisplayed() }
-                        ui.onNode(settingsAction).assertIsDisplayed().assertIsEnabled()
-                        click(automation, "Settings")
+                        }) {
+                            settingsAction = appRoots(automation).firstNotNullOfOrNull { root ->
+                                if (visibleTextNode(root, "Account") == null) null else {
+                                    var target = visibleTextNode(root, "Settings")
+                                    while (target != null && !target.isClickable) target = target.parent
+                                    target?.takeIf { it.isVisibleToUser && it.isEnabled && it.isClickable }
+                                }
+                            }
+                            settingsAction != null
+                        }
+                        check(requireNotNull(settingsAction).performAction(
+                            android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK))
                         check(android.os.SystemClock.elapsedRealtime() <= settingsBy)
                         waitFor("Node")
                         // Use the real accessibility action in this TalkBack-owned journey.
