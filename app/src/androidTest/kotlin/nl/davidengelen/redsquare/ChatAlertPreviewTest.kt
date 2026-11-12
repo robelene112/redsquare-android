@@ -227,10 +227,22 @@ class ChatAlertPreviewTest {
                                 capture("group-cold-official-work-retained")
                             }
                             if (cold) {
-                                click(hasText("Back"))
-                                recreateCurrentActivity()
-                                ui.waitUntil(20_000) { displayed(hasText("Groups") and hasClickAction()) }
+                                val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                                fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+                                    check(it > 0) { "Completed Back and consumed notification exceeded 20000 ms" }
+                                }
+                                val back = hasText("Back") and hasClickAction() and isEnabled()
+                                val normalList = hasText("Groups") and hasClickAction()
+                                ui.waitUntil(remaining()) { displayed(back) }
+                                ui.onNode(back).performClick()
+                                ui.waitUntil(remaining()) { displayed(normalList) }
+                                val previous = activeMainActivities().single()
+                                instrumentation.runOnMainSync { previous.recreate() }
+                                ui.waitUntil(remaining()) {
+                                    activeMainActivities().singleOrNull()?.let { it !== previous } == true && displayed(normalList)
+                                }
                                 ui.onAllNodesWithText(incomingText).assertCountEquals(0)
+                                check(android.os.SystemClock.elapsedRealtime() <= deadline)
                                 capture("$capturePrefix-consumed")
                             }
                             if (groupAlert && !cold) {
