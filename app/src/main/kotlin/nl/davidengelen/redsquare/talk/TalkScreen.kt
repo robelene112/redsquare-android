@@ -164,6 +164,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val scope = rememberCoroutineScope()
     val live by TalkRuntime.call.collectAsState()
     val call = live?.takeIf { it.owner == wallet.publicKey && it.savedBackend == backend }
+    val requested by TalkRuntime.choices.collectAsState()
+    val desired = requested?.takeIf { it.token == call?.token }
     val online by account.online.collectAsState()
     val gate = rememberTalkPermissionGate()
     val link = remember(entry?.url) { entry?.let { TalkLink.parse(it.url) } }
@@ -298,14 +300,15 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             HorizontalDivider()
             Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(selected = !call.microphone, onClick = { TalkRuntime.controls(call.token, microphone = !call.microphone) },
-                            label = { Text(stringResource(if (call.microphone) R.string.talk_mute else R.string.talk_unmute)) },
+                        FilterChip(selected = !(desired?.microphone ?: call.microphone), onClick = {
+                            TalkRuntime.controls(call.token, microphone = !(desired?.microphone ?: call.microphone)) },
+                            label = { Text(stringResource(if (desired?.microphone ?: call.microphone) R.string.talk_mute else R.string.talk_unmute)) },
                             leadingIcon = { Icon(painterResource(R.drawable.ic_microphone), null, Modifier.size(20.dp)) },
                             modifier = Modifier.heightIn(min = 48.dp))
-                        FilterChip(selected = call.camera, onClick = {
-                            if (call.camera) TalkRuntime.controls(call.token, camera = false)
+                        FilterChip(selected = desired?.camera ?: call.camera, onClick = {
+                            if (desired?.camera ?: call.camera) TalkRuntime.controls(call.token, camera = false)
                             else gate.run(true) { TalkRuntime.controls(call.token, camera = true) }
-                        }, label = { Text(stringResource(if (call.camera) R.string.talk_camera_off else R.string.talk_camera_on)) },
+                        }, label = { Text(stringResource(if (desired?.camera ?: call.camera) R.string.talk_camera_off else R.string.talk_camera_on)) },
                             leadingIcon = { Icon(painterResource(R.drawable.ic_video), null, Modifier.size(20.dp)) },
                             modifier = Modifier.heightIn(min = 48.dp))
                         if (call.camera) OutlinedButton(onClick = { TalkRuntime.switchCamera(call.token) },

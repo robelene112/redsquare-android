@@ -13,7 +13,8 @@ import java.util.UUID
  * Tracks belong to this call, while the shared factory/connections outlive individual screens.
  */
 internal class TalkCapture(private val context: Context, microphone: Boolean, camera: Boolean,
-    private val authorize: () -> Unit) : Closeable {
+    private val authorize: () -> Unit, private val microphoneAllowed: () -> Boolean = { true },
+    private val cameraAllowed: () -> Boolean = { true }) : Closeable {
     private val factory = RtcPlatform.factory(context)
     private val lock = Any()
     private val audioSource: AudioSource
@@ -40,7 +41,7 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
         })
         audio = factory.createAudioTrack("talk-audio-${UUID.randomUUID()}", audioSource)
         try {
-            authorized { audio.setEnabled(microphone) }
+            authorized { audio.setEnabled(microphone && microphoneAllowed()) }
             if (camera) camera(showing)
         }
         catch (failure: Exception) { close(); throw failure }
@@ -50,6 +51,7 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
     fun silence() = synchronized(lock) {
         if (!closed) { audio.setEnabled(false); video?.setEnabled(false) }
     }
+    fun silenceAudio() = synchronized(lock) { if (!closed) audio.setEnabled(false) }
     fun silenceVideo() = synchronized(lock) { if (!closed) video?.setEnabled(false) }
 
     fun visible(value: Boolean) {
@@ -59,10 +61,11 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
     }
     fun controls(microphone: Boolean, camera: Boolean) {
         check(permitted(context, camera))
-        authorized { audio.setEnabled(microphone); cameraWanted = camera }
-        camera(camera && showing)
+        authorized { audio.setEnabled(microphone && microphoneAllowed()); cameraWanted = camera }
+        camera(camera && showing && cameraAllowed())
     }
-    private fun camera(enabled: Boolean) {
+    private fun camera(requested: Boolean) {
+        val enabled = requested && cameraAllowed() && TalkRuntime.visible
         if (closed) return
         if (!enabled) {
             silenceVideo()
@@ -89,7 +92,7 @@ internal class TalkCapture(private val context: Context, microphone: Boolean, ca
         }
         check(!cameraFailed)
         if (!recording) { requireNotNull(capturer).startCapture(640, 480, 24); recording = true }
-        authorized { video?.setEnabled(true) }
+        authorized { video?.setEnabled(cameraAllowed() && TalkRuntime.visible) }
     }
     private inline fun authorized(enable: () -> Unit) = synchronized(SaitoLocalState.lock) {
         authorize()
