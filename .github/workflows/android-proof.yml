@@ -168,10 +168,19 @@ jobs:
             redsquare-gradle-tasks-v1-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}-
       - name: Check runner SDK and acceleration
         run: |
+          echo 'SDK preparation: verify KVM and runner disk'
           test -c /dev/kvm
-          sudo chmod a+rw /dev/kvm
-          # This Kotlin/JVM proof does not use the runner's large native SDKs.
-          sudo rm -rf /usr/local/lib/android/sdk/ndk
+          sudo timeout 30 chmod a+rw /dev/kvm
+          df -h /
+          TASK_FREE_BYTES=$(df -PB1 / | awk 'NR == 2 { print $4 }')
+          # Native Kotlin proofs do not use the NDK. Remove it only when its
+          # space is needed, with a visible bounded preparation step.
+          if (( TASK_FREE_BYTES < 8 * 1024 * 1024 * 1024 )); then
+            echo 'SDK preparation: reclaim unused NDK space'
+            sudo timeout 180 rm -rf /usr/local/lib/android/sdk/ndk
+            df -h /
+          fi
+          echo 'SDK preparation: verify installed runtime libraries'
           # Hosted probes found Ubuntu-domain DNS unavailable, while this Ubuntu
           # mirror resolves for both runner and APT users. Keep original fallbacks
           # and Ubuntu signature verification; only prefer the reachable mirror.
@@ -195,12 +204,15 @@ jobs:
           done
           # Reuse verified installed runtime libraries. A new emulator proof does
           # not require refreshing unrelated APT repositories on every hosted VM.
+          printf 'SDK preparation: missing runtime libraries: %s\n' "${TASK_MISSING[*]}"
           if (( ${#TASK_MISSING[@]} )); then
             sudo timeout 300 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update -qq
             sudo timeout 300 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install -y --no-install-recommends "${TASK_MISSING[@]}"
           fi
           dpkg-query -W -f='${binary:Package} ${Version} ${db:Status-Status}\n' "${TASK_LIBRARIES[@]}"
+          echo 'SDK preparation: install pinned Android tools'
           scripts/ci-android-setup
+          echo 'SDK preparation: report Java and emulator'
           java -version
           "$ANDROID_HOME/emulator/emulator" -version
       - name: Build and verify native sources
