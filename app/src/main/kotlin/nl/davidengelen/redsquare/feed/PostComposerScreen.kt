@@ -140,10 +140,14 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     // The ordinary app always uses its real storage timing.
     val fixtureLoadDelay = if (nl.davidengelen.redsquare.BuildConfig.DEBUG &&
         android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        activity.intent.getLongExtra("postDraftLoadFixtureDelayMs", 0).coerceIn(0, 1000) else 0
+        activity.intent.getLongExtra("postDraftLoadFixtureDelayMs", 0).coerceIn(0, 5000) else 0
     LaunchedEffect(state, state.reload) {
-        if (fixtureLoadDelay > 0) kotlinx.coroutines.delay(fixtureLoadDelay)
+        if (fixtureLoadDelay > 0) {
+            android.util.Log.i("SocialRouteProbe", "[DEBUG-fs103-social] draft load delay=$fixtureLoadDelay ready=${state.ready}")
+            kotlinx.coroutines.delay(fixtureLoadDelay)
+        }
         state.load()
+        if (fixtureLoadDelay > 0) android.util.Log.i("SocialRouteProbe", "[DEBUG-fs103-social] draft loaded ready=${state.ready}")
     }
     LaunchedEffect(state, state.queued, state.queueSaved, state.sending) {
         if (state.queued && state.queueSaved && !state.sending) {
