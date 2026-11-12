@@ -387,12 +387,11 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                     sendChannel(Fileshare.offer(wallet, contact, value.offer, System.currentTimeMillis()))
                     update(value.copy(phase = FilePhase.WAITING))
                 }
-            } }, message = message@{ text ->
-                val inbox = incomingFrames
+            } }, stageData = { text -> stageIncoming(text, generation) }, message = message@{ text ->
                 if (generation != channelGeneration) return@message
-                if (inbox != null) {
-                    if (inbox.append(text)) post { drainInbox(inbox, generation) }
-                } else post { if (generation == channelGeneration) handle(Fileshare.direct(text, contact, owner)) }
+                if (!stageIncoming(text, generation)) post {
+                    if (generation == channelGeneration) handle(Fileshare.direct(text, contact, owner))
+                }
             }, failed = { post { if (generation == channelGeneration && rtc != null) end(FilePhase.INTERRUPTED) } },
             otherData = { envelope ->
                 assertSelected()
@@ -406,6 +405,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             signal("peer-joined", JsonObject())
             requireNotNull(rtc).offer()
         }
+    }
+
+    /** SDK-safe staging exists only after explicit acceptance creates this inbox. */
+    private fun stageIncoming(text: String, generation: Long): Boolean {
+        if (generation != channelGeneration) return false
+        val inbox = incomingFrames ?: return false
+        if (inbox.append(text)) post { drainInbox(inbox, generation) }
+        return true
     }
 
     private suspend fun drainInbox(inbox: FileTransferStore.FrameInbox, generation: Long) {
