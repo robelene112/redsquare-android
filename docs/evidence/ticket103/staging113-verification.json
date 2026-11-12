@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "versionCode": 113,
+  "source": "41968921e23ef3e2dcfad8fe77c5015d198c652b",
+  "bytes": 91442703,
+  "sha256": "d54320803dffce72545e61bfa85a7e3be9f8abf34a019ae458abbe3da75029d5",
+  "manifestExact": true,
+  "notesExact": true,
+  "downloadExact": true,
+  "publicLatestAfterStage": 112,
+  "packageChecks": {
+    "applicationId": "nl.davidengelen.redsquare",
+    "minSdk": 29,
+    "targetSdk": 36,
+    "debuggable": false,
+    "profileable": false,
+    "allowBackup": false,
+    "establishedCertificate": true
+  },
+  "qualification": "Superseded staged-only candidate113. Never promote113. Final full verification needs the corrected Gradle test-model dependency and a new exact-source signed candidate.",
+  "initialRequest": "Python urllib returned HTTP403. Standard curl GET succeeded; precise cause unproved."
+}

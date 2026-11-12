@@ -167,6 +167,17 @@ and57db13f69 closes the old inbox when a new offer replaces a completed transfer
 during its ACK grace period. Both independent source-review axes pass these fixes.
 Final source runtime, complete regression and signed delivery remain pending.
 
+Initial fix gate43125121863 at54b2ee076 passes on Android17:66chunks,
+4,194,317bytes with the independent expected SHA256 above, real WebRTC and
+screen-off completion. Complete attempts43125831570/43125834511 at41968921e
+fail before device execution:the generated browser-reference output is consumed
+by generateDebugAndroidTestLintModel without its producer dependency.199a45ea0
+declares that dependency alongside the existing test-assets task. Both review
+axes pass this bounded build correction; original contract/goals remain unchanged.
+Staged candidate113 at41968921e is superseded and must never be promoted.
+Its exact public bytes/signature/package checks remain in staging113-verification;
+the replacement candidate must use the corrected complete-test source.
+
 ## Verification boundaries
 
 Tests use real native screens, Android document-provider/picker boundaries,

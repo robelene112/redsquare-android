@@ -48,7 +48,15 @@ version/options before fresh-process packaging. No VPS memory/service limit chan
 Reuse `proof-fileshare103-notification-controls` for branch-scoped build caches.
 Always supply a full40character source SHA, check run metadata and actual
 `proof-source.txt`; abbreviated refs caused checkout failures, never acceptance.
-The current beta/version counter remains112. Finish the large-transfer verification,
+The initial large fix passes Android17 run43125121863 with66chunks and exact
+4,194,317bytes while screen-off. Initial full runs43125831570/43125834511 at419
+fail the combined build before device work:the test lint model lacked a declared
+dependency on generated Fileshare references.199a45ea0 fixes the exact task edge;
+both review axes pass. Original contract/identities/deadlines are unchanged.
+Candidate113419 is staged-only and superseded; never promote it. Its public
+download/signature/package match passed. Build the next exact-source candidate
+and rerun complete10/17 plus real signed-update gates. Local counter is113;
+the public beta remains112. Finish the large-transfer verification,
 all required native/final regression/update proof and signed beta delivery; do not
 start other tickets or ask the owner to repeat phone testing.
 
