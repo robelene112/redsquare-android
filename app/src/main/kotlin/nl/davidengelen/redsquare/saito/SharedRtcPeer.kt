@@ -111,6 +111,8 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private var ignoredOffer = false
     private var started = false
     private var needsNegotiation = false
+    private var initialOffer: Job? = null
+    private var initialOfferReleased = false
     private val pendingCandidates = mutableListOf<IceCandidate>()
     private val seen = LinkedHashSet<String>()
     private val senders = mutableMapOf<MediaStreamTrack, RtpSender>()
@@ -302,6 +304,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 authenticated = true // Callers admit only the exact counterparty's signed Stun description.
                 pendingCandidates.forEach { connection.addIceCandidate(it) }; pendingCandidates.clear()
                 if (type == "offer") {
+                    initialOffer?.cancel(); initialOffer = null
                     val answer = createDescription(answer = true)
                     setDescription(answer, true); sendDescription(answer)
                 }
@@ -322,6 +325,16 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
 
     private suspend fun negotiateIfNeeded() {
         if (!started || !needsNegotiation || makingOffer || connection.signalingState() != PeerConnection.SignalingState.STABLE) return
+        // Match upstream Stun's initial lower-key-first negotiation. Immediate
+        // simultaneous offers can roll back Chrome's unfinished ICE gathering.
+        // The higher key retains the same bounded1500ms single-initiator fallback.
+        if (wallet.publicKey > remote && connection.remoteDescription == null && !initialOfferReleased) {
+            if (initialOffer == null) initialOffer = scope.launch {
+                delay(1500)
+                post { initialOffer = null; initialOfferReleased = true; negotiateIfNeeded() }
+            }
+            return
+        }
         needsNegotiation = false; makingOffer = true
         try {
             val description = createDescription()

@@ -24,7 +24,23 @@ import nl.davidengelen.redsquare.ui.*
     var open by remember { mutableStateOf(false) }
     var revision by remember { mutableIntStateOf(0) }
     var failed by remember { mutableStateOf(false) }
-    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { open = true; revision++ }
+    val live by TalkRuntime.call.collectAsState()
+    var pending by remember { mutableStateOf<Pair<String, Int>?>(null) }
+    fun select(device: AudioDeviceInfo): Boolean = Build.VERSION.SDK_INT >= 31 &&
+        runCatching { audio.setCommunicationDevice(device) }.getOrDefault(false)
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        val choice = pending; pending = null
+        val call = TalkRuntime.call.value
+        if (choice != null && call?.token == choice.first && call.phase.started && Build.VERSION.SDK_INT >= 31) {
+            val device = runCatching { audio.availableCommunicationDevices.firstOrNull { it.id == choice.second } }.getOrNull()
+            if (granted && device != null && select(device)) open = false else failed = true
+            revision++
+        }
+    }
+    LaunchedEffect(live?.token, live?.phase?.started) {
+        if (live?.phase?.started != true) { open = false; pending = null }
+        if (pending?.first != live?.token) pending = null
+    }
     DisposableEffect(audio) {
         val callback = object : android.media.AudioDeviceCallback() {
             override fun onAudioDevicesAdded(addedDevices: Array<out AudioDeviceInfo>) { revision++ }
@@ -35,9 +51,7 @@ import nl.davidengelen.redsquare.ui.*
     }
     OutlinedButton(modifier = Modifier.heightIn(min = 48.dp), onClick = {
         failed = false
-        if (Build.VERSION.SDK_INT >= 31 && context.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED)
-            permission.launch(Manifest.permission.BLUETOOTH_CONNECT)
-        else { open = true; revision++ }
+        open = true; revision++
     }) { Text(stringResource(R.string.talk_audio_output)) }
     DesignSheet(open, stringResource(R.string.talk_audio_output), { open = false }) { firstAction ->
         InlineStatus(if (failed) stringResource(R.string.talk_audio_output_failed) else null, StatusTone.INFO)
@@ -54,7 +68,12 @@ import nl.davidengelen.redsquare.ui.*
                     modifier = if (index == 0) firstAction else Modifier, onClick = {
                         val call = TalkRuntime.call.value
                         if (call?.phase?.started == true) {
-                            if (runCatching { audio.setCommunicationDevice(device) }.getOrDefault(false)) { open = false; revision++ }
+                            val bluetooth = device.type in setOf(AudioDeviceInfo.TYPE_BLUETOOTH_SCO,
+                                AudioDeviceInfo.TYPE_BLE_HEADSET, AudioDeviceInfo.TYPE_BLE_SPEAKER)
+                            if (bluetooth && context.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                                pending = call.token to device.id
+                                permission.launch(Manifest.permission.BLUETOOTH_CONNECT)
+                            } else if (select(device)) { open = false; revision++ }
                             else failed = true
                         } else open = false
                     })
