@@ -395,9 +395,26 @@ class WalletImportPreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     captureFeedEvidence("wallet-import-evidence/activated-wallet.png")
+                    // Require the actual parent window, never the same header in a closing wallet dialog.
+                    // One original fifteen-second budget includes dismissal, draw settlement and visibility.
+                    val parentBy = SystemClock.elapsedRealtime() + 15_000
+                    fun parentRemaining(): Long = (parentBy - SystemClock.elapsedRealtime()).also {
+                        check(it > 0) { "Wallet dismissal and parent header exceeded fifteen seconds" }
+                    }
                     ui.closeWalletOverview()
-                    ui.waitUntil(15_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
+                    val parentFocused = java.util.concurrent.atomic.AtomicBoolean()
+                    val walletTitle = hasText("Wallet") and hasAnyAncestor(isDialog()) and
+                        SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsProperties.Heading)
+                    ui.waitUntil(parentRemaining()) {
+                        scenario.onActivity { parentFocused.set(it.window.decorView.hasWindowFocus()) }
+                        parentFocused.get() && !device.hasObject(By.pkg(context.packageName).text("Close wallet")) &&
+                            ui.onAllNodes(walletTitle).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                    }
+                    ui.waitForIdle()
+                    parentRemaining()
+                    ui.waitUntil(parentRemaining()) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
                     ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
+                    parentRemaining()
                     captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-owner-feed-visible.png"))
                     scenario.recreate()
                     ui.openWallet()
