@@ -68,6 +68,9 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private val seen = LinkedHashSet<String>()
     private val retired = LinkedHashMap<String, Long>()
     private val pendingPeers = ConcurrentHashMap.newKeySet<String>()
+    private data class MediaChoice(val token: String, val transaction: SaitoTransaction)
+    private val mediaChoices = ConcurrentHashMap<String, MediaChoice>()
+    private val mediaChoiceWake = Channel<Unit>(Channel.CONFLATED)
     private var observers = 0
     @Volatile private var closed = false
     @Volatile private var current: TalkCall? = null
@@ -88,6 +91,24 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     val failed = MutableStateFlow(false)
 
     init {
+        // Device controls must never wait for a Relay acknowledgement. Retain only
+        // the newest advertised choice per participant/control while a route waits.
+        scope.launch {
+            for (wake in mediaChoiceWake) {
+                while (mediaChoices.isNotEmpty()) {
+                    val next = mediaChoices.entries.firstOrNull() ?: break
+                    val choice = next.value
+                    if (!mediaChoices.remove(next.key, choice)) continue
+                    if (current?.let { it.token == choice.token && it.phase.started } != true) continue
+                    try { withTimeout(5000) { send(choice.transaction, expectedToken = choice.token) } }
+                    catch (failure: Exception) {
+                        if (failure is CancellationException && !isActive) throw failure
+                        if (current?.token == choice.token && current?.phase?.started == true)
+                            TalkRuntime.record("media-choice", failure)
+                    }
+                }
+            }
+        }
         scope.launch {
             for (event in events) {
                 applyStop()
@@ -355,8 +376,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                             participants = call.participants.map { if (it.key == peer) it.copy(connected = true) else it }))
                         // A newly connected participant needs the current choices, including
                         // a microphone/camera deliberately disabled before joining.
-                        send(TalkProtocol.event(wallet, call.link.room, "toggle-audio", listOf(peer), now(), call.microphone))
-                        send(TalkProtocol.event(wallet, call.link.room, "toggle-video", listOf(peer), now(), call.camera && !call.cameraPaused))
+                        advertiseChoices(requireNotNull(current), listOf(peer))
                     }
                 } }, failed = { post {
                     if (current?.token == token && current?.phase?.live == true) {
@@ -514,8 +534,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
             cameraPaused = (camera ?: call.camera) && !TalkRuntime.visible))
         leases.values.filter { it.callbacks.media }.forEach { lease -> capture?.let { lease.media(it.audio, it.video, call.link.room.id) } }
         if (!accepted) return@post
-        microphone?.let { send(TalkProtocol.event(wallet, call.link.room, "toggle-audio", call.participants.map { it.key }, now(), it)) }
-        camera?.let { send(TalkProtocol.event(wallet, call.link.room, "toggle-video", call.participants.map { it.key }, now(), it)) }
+        advertiseChoices(requireNotNull(current), call.participants.map { it.key })
     } }
     fun switchCamera(token: String) { post { if (current?.token == token && accepted && TalkRuntime.visible) capture?.switchCamera() } }
     fun end(token: String) {
@@ -549,9 +568,22 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         closeIfIdle()
     }
 
-    private suspend fun send(transaction: SaitoTransaction, allowEnded: Boolean = false) {
+    private fun advertiseChoices(call: TalkCall, peers: List<String>) {
+        for (peer in peers) {
+            for ((request, enabled) in listOf("toggle-audio" to call.microphone,
+                    "toggle-video" to (call.camera && !call.cameraPaused))) {
+                val key = "${call.token}:$peer:$request"
+                mediaChoices[key] = MediaChoice(call.token,
+                    TalkProtocol.event(wallet, call.link.room, request, listOf(peer), now(), enabled))
+            }
+        }
+        mediaChoiceWake.trySend(Unit)
+    }
+
+    private suspend fun send(transaction: SaitoTransaction, allowEnded: Boolean = false, expectedToken: String? = current?.token) {
         guard()
-        val token = current?.token
+        val token = expectedToken
+        if (token != null) check(current?.token == token && (allowEnded || current?.phase?.live == true))
         val targets = sockets.values.toList()
         check(targets.isNotEmpty()) { "No Talk relay is connected" }
         val results = Channel<Boolean>(targets.size)
@@ -586,6 +618,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private fun finish(phase: CallPhase, deferIdle: Boolean = false) {
         val call = current
         accepted = false
+        mediaChoices.clear()
         roomProof?.cancel(); roomProof = null
         authority?.close(); authority = null
         leases.values.forEach { it.close() }; leases.clear(); pendingPeers.clear()
