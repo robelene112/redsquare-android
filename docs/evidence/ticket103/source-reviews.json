@@ -1,7 +1,7 @@
 {
   "result": "PASS",
   "reviewBase": "d46cce88b800639ffffe1ae60af5ae509e121676",
-  "latestReviewedSource": "c9501442d94773df8c5cb30a756f2cbfb33c178c",
+  "latestReviewedSource": "f01ae5654e2b01ef40321ab440664c57fe40edda",
   "standards": {
     "agent": "/root/fileshare103_standards",
     "result": "PASS",
@@ -17,12 +17,20 @@
         "fix": "57db13f69 closes old inbox before replacing current token"
       }
     ],
-    "latestDelta": "c9501442d uses typed @OutputDirectory and Android generated-source task-provider wiring only for debug instrumentation assets; no actionable defect."
+    "latestDelta": "PASS: third composer fixture focuses before typing and moves existing10s IME budget before geometry; original visibility/order/48dpSend/draft assertions retained. Original failure cause not proved."
   },
   "spec": {
     "agent": "/root/fileshare103_spec",
     "result": "PASS",
-    "latestDelta": "c9501442d preserves pins, generation behavior, runtime assertions and every acceptance goal."
+    "latestDelta": "PASS: third composer fixture focuses before typing and moves existing10s IME budget before geometry; original visibility/order/48dpSend/draft assertions retained. Original failure cause not proved.",
+    "resolvedFindings": [
+      {
+        "source": "a829895fcc3c8ca94d911dfd6b4d56d0f89b4f5f",
+        "finding": "Private Chat loading was absent from notification wait",
+        "red": "43139422867",
+        "fix": "0e7249cba registers owned loading state and preserves current draft before notification return"
+      }
+    ]
   },
-  "qualification": "Independent source reviews only. Final complete runtime, replacement signed-candidate update and delivery packet reviews remain pending."
+  "qualification": "Independent source reviews only. Exact116 signed-update checks now pass on both SDKs; final complete runtime and final acceptance/delivery packet reviews remain pending."
 }

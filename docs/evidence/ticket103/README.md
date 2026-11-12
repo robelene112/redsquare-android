@@ -5,6 +5,32 @@ work in the background and with the screen off, with an Android progress
 notification and exact-transfer Cancel. No Fileshare runtime or beta acceptance
 is claimed yet. Public beta112 remains the previous accepted release.
 
+## Current acceptance status, November12
+
+Product source `0e7249cba0209c61a33e91f76245ae45fabac621` is compiled into
+staged signed candidate116. The public stable channel remains112. Exact public
+candidate bytes/signature/package flags pass, and actual83-to116 signed updates
+pass on Android10/17, preserving wallet, exact draft, cached post, Light preference
+and separate debug identity. Both final focused Fileshare scopes pass at0e:
+nine native transfer/control/viewport classes,12viewport cells,4MiB unpaced
+browser intake with screen-off exact bytes and distinct-PID seeded recovery.
+
+Complete10 run43140879123 at0e passes the frozen collector:663identities,
+239classes,197archives,259normal completions,38intentional interruptions and
+37continuity records, with inherited qualifications retained. Failed/cancelled17
+runs43140880842 and43146631213 remain unaccepted. The [test-only bridge](test-fixture-bridge/source-equivalence.json)
+records original failures, native captures, byte-identical production and three
+independently reviewed corrections under the original budgets. All three focused
+confirmations pass. The original composer disappearance timing remains unproved.
+
+Final whole17 run43150151913 at test-onlyf01 is active on the supported Ubuntu22
+host pool (same Android17 x86_64 image and frozen native goals). Whole17 success
+and final packet reviews remain required. Public beta112 is unchanged. No partial
+SDK assembly is accepted.
+
+The following sections preserve the historical diagnosis; their pending statements
+refer to those earlier checkpoints. Candidate113/114/115 are superseded.
+
 ## Implementation and review
 
 Review base `d46cce88b800639ffffe1ae60af5ae509e121676`. Initial implementation

@@ -1,0 +1,8 @@
+{
+  "result": "FAILED",
+  "run": "43128152234",
+  "source": "c9501442d94773df8c5cb30a756f2cbfb33c178c",
+  "diagnosis": "After recreate the header already says No unread activity while the actual native list still says Loading notifications. Driver clicked absent event.",
+  "fix": "e0c38241a waits for header AND actual clickable event inside original15s; original read/author/target assertions retained.",
+  "focusedPass": "43136989421"
+}

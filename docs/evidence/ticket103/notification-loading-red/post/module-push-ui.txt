@@ -1,0 +1,59 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushTapPreviewTest:
+INSTRUMENTATION_STATUS: test=aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14874 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:564)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$26$lambda$25$lambda$24(SocialPushTapPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$cD1iELVpJSZnUZkHj2H_03AdPL0(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:210)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost(SocialPushTapPreviewTest.kt:60)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost(nl.davidengelen.redsquare.SocialPushTapPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14874 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:564)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$26$lambda$25$lambda$24(SocialPushTapPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$cD1iELVpJSZnUZkHj2H_03AdPL0(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:210)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost(SocialPushTapPreviewTest.kt:60)
+
+INSTRUMENTATION_STATUS: test=aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 29.6
+There was 1 failure:
+1) aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost(nl.davidengelen.redsquare.SocialPushTapPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 14874 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:564)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$26$lambda$25$lambda$24(SocialPushTapPreviewTest.kt:354)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$cD1iELVpJSZnUZkHj2H_03AdPL0(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:210)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.aReplyTapReturnsFromStackAfterConnectionDetailsCloseAndKeepsTheSavedPost(SocialPushTapPreviewTest.kt:60)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

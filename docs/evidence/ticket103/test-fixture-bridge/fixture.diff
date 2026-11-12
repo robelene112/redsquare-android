@@ -1,0 +1,98 @@
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt
+index 029571cba..b25e4d24d 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt
+@@ -151,7 +151,16 @@ class PolicyCenterPreviewTest {
+                         ui.waitForAccountMenu(20_000)
+                         // Retain only this window's initial TalkBack handoff.
+                         device.executeShellCommand("logcat -c")
+-                        ui.openSettings()
++                        val settingsBy = android.os.SystemClock.elapsedRealtime() + 5_000
++                        ui.openAccountMenu()
++                        val settingsAction = hasText("Settings") and hasClickAction() and
++                            hasAnyAncestor(isPopup() or isDialog())
++                        waitFor((settingsBy - android.os.SystemClock.elapsedRealtime()).also {
++                            check(it > 0) { "The Account popup and Settings action share the original5s" }
++                        }) { ui.onNode(settingsAction).isDisplayed() }
++                        ui.onNode(settingsAction).assertIsDisplayed().assertIsEnabled()
++                        click(automation, "Settings")
++                        check(android.os.SystemClock.elapsedRealtime() <= settingsBy)
+                         waitFor("Node")
+                         // Use the real accessibility action in this TalkBack-owned journey.
+                         // A coordinate sampled before its window/focus handoff can hit Appearance.
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostComposerFocusPreviewTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostComposerFocusPreviewTest.kt
+index e6bd49efd..a1fa83e2e 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostComposerFocusPreviewTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostComposerFocusPreviewTest.kt
+@@ -31,7 +31,31 @@ class PostComposerFocusPreviewTest {
+                 ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                 val editor = hasSetTextAction() and isEnabled()
+                 ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
++                fun keyboardVisible(): Boolean {
++                    var visible = false
++                    activity.onActivity { screen ->
++                        visible = ViewCompat.getRootWindowInsets(screen.window.decorView)
++                            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
++                    }
++                    return visible
++                }
++                // Focus before typing, as a user does. Observe writing geometry after
++                // the real IME handoff within its original10s, rather than an interim resize.
++                val imeStarted = android.os.SystemClock.elapsedRealtime()
++                ui.onNode(editor).performClick()
+                 ui.onNode(editor).performTextReplacement(draft)
++                val writingArrival = JsonObject().apply {
++                    addProperty("initialEditorDisplayed", ui.onNode(editor).isDisplayed())
++                    addProperty("initialPlatformImeVisible", keyboardVisible())
++                }
++                val remaining = 10_000 - (android.os.SystemClock.elapsedRealtime() - imeStarted)
++                check(remaining > 0) { "Writing and keyboard observation share the original10s" }
++                ui.waitUntil(remaining) { keyboardVisible() && ui.onNode(editor).isDisplayed() }
++                File(folder, "$label-writing-ready.json").writeText(writingArrival.apply {
++                    addProperty("settledEditorDisplayed", ui.onNode(editor).isDisplayed())
++                    addProperty("settledPlatformImeVisible", keyboardVisible())
++                    addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - imeStarted)
++                }.toString())
+                 val writingNode = ui.onNode(editor).assertIsDisplayed().fetchSemanticsNode()
+                 val attachmentNode = ui.onNode(hasText("Add images") and hasClickAction())
+                     .assertIsDisplayed().fetchSemanticsNode()
+@@ -53,16 +77,6 @@ class PostComposerFocusPreviewTest {
+                 }.toString())
+                 if (writingBounds.bottom > attachmentBounds.top) hierarchyProblems += label
+ 
+-                fun keyboardVisible(): Boolean {
+-                    var visible = false
+-                    activity.onActivity { screen ->
+-                        visible = ViewCompat.getRootWindowInsets(screen.window.decorView)
+-                            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
+-                    }
+-                    return visible
+-                }
+-                ui.onNode(editor).performClick()
+-                ui.waitUntil(10_000) { keyboardVisible() }
+                 ui.onNode(editor).assertEditableTextEquals(draft).assertIsDisplayed()
+                 ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).assertIsDisplayed()
+                 var sendTarget = requireNotNull(device.findObject(By.text("Send")))
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt
+index 2d94f73f2..74528f100 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt
+@@ -331,10 +331,17 @@ class SocialPushTapPreviewTest {
+                         assertEquals(SocialPushResult.PUBLISHED, runBlocking(Dispatchers.IO) {
+                             SocialPush.receive(context, payload, endpoint, 1700000001000, fixtureRegistrar = username)
+                         })
++                        // notify() returns before Android necessarily exposes the alert.
++                        // Observe publication and its shade row within the original10s budget.
++                        val alertBy = android.os.SystemClock.elapsedRealtime() + 10_000
++                        while (manager.activeNotifications.none { (it.tag to it.id) !in priorAlerts } &&
++                            android.os.SystemClock.elapsedRealtime() < alertBy) android.os.SystemClock.sleep(25)
+                         val published = manager.activeNotifications.single { (it.tag to it.id) !in priorAlerts }
+                         assertEquals(if (mention) "mentions" else "replies", published.notification.channelId)
+                         assertTrue(device.openNotification())
+-                        val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), 10_000))
++                        val alertRemaining = alertBy - android.os.SystemClock.elapsedRealtime()
++                        check(alertRemaining > 0) { "Publication and shade row share the original10s budget" }
++                        val alert = requireNotNull(device.wait(Until.findObject(By.text(alertText)), alertRemaining))
+                         captureNativeScreen(File(context.cacheDir, "social-push-evidence/$capturePrefix-alert.png"), alertText)
+                         val stackArrivalBy = android.os.SystemClock.elapsedRealtime() + 15_000
+                         alert.click()

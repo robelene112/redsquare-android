@@ -1,0 +1,25 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReviewUpdateUiObserver:
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: reviewWorkObservation={"phase":"prepare","appearance":"LIGHT","cachedPost":{"caption":"What the actual fuck.","author":"qo23BB7kGZMp8bcXu7YhWupNAD61gWHC3UdFYGBsW7mN","published":"Published 11\/11\/26 8:00 PM"},"draft":"Redesign update check. This is an unsent local draft.","draftRemainsUnsent":true,"offlineCacheRequired":false}
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.641
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1

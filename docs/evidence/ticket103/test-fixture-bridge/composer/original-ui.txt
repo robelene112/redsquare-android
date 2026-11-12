@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostComposerFocusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostComposerFocusPreviewTest:
+INSTRUMENTATION_STATUS: test=writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostComposerFocusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with (SetText is defined) && (is enabled) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15$lambda$14(PostComposerFocusPreviewTest.kt:35)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$VqGSYZUcB2l52CMqbSAzB_LBSTM(PostComposerFocusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15(PostComposerFocusPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$pjqyRjHiGPV49ZXEDSjlJ4mjF_M(PostComposerFocusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(nl.davidengelen.redsquare.PostComposerFocusPreviewTest):
+java.lang.AssertionError: Assert failed: The component with (SetText is defined) && (is enabled) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15$lambda$14(PostComposerFocusPreviewTest.kt:35)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$VqGSYZUcB2l52CMqbSAzB_LBSTM(PostComposerFocusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15(PostComposerFocusPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$pjqyRjHiGPV49ZXEDSjlJ4mjF_M(PostComposerFocusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.452
+There was 1 failure:
+1) writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(nl.davidengelen.redsquare.PostComposerFocusPreviewTest)
+java.lang.AssertionError: Assert failed: The component with (SetText is defined) && (is enabled) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15$lambda$14(PostComposerFocusPreviewTest.kt:35)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$VqGSYZUcB2l52CMqbSAzB_LBSTM(PostComposerFocusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$12(PostViewportFixture.kt:83)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$Nl7dFwy0wzwEt3JWj9_r5XF99Z4(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:65)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard$lambda$15(PostComposerFocusPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.$r8$lambda$pjqyRjHiGPV49ZXEDSjlJ4mjF_M(PostComposerFocusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:83)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:26)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareReceivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FileshareReceivePreviewTest:
+INSTRUMENTATION_STATUS: test=anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareReceivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Could not open this notification here. Your current work is still here. Check the selected wallet and node, then try again.' (ignoreCase: false))
+Node found:
+Node #911 at (l=18.0, t=136.0, r=302.0, b=194.0)px
+Text = '[Could not open this notification here. Your current work is still here. Check the selected wallet and node, then try again.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$61$lambda$60$lambda$59$lambda$58(FilesharePreviewTest.kt:252)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$A5EBJ7AWdGh82AfePRaeadVsSEc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda31.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:87)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareReceivePreviewTest.anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(FilesharePreviewTest.kt:342)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(nl.davidengelen.redsquare.FileshareReceivePreviewTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Could not open this notification here. Your current work is still here. Check the selected wallet and node, then try again.' (ignoreCase: false))
+Node found:
+Node #911 at (l=18.0, t=136.0, r=302.0, b=194.0)px
+Text = '[Could not open this notification here. Your current work is still here. Check the selected wallet and node, then try again.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$61$lambda$60$lambda$59$lambda$58(FilesharePreviewTest.kt:252)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$A5EBJ7AWdGh82AfePRaeadVsSEc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda31.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:87)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareReceivePreviewTest.anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(FilesharePreviewTest.kt:342)
+
+INSTRUMENTATION_STATUS: test=anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.272
+There was 1 failure:
+1) anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(nl.davidengelen.redsquare.FileshareReceivePreviewTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Text + InputText + EditableText contains 'Could not open this notification here. Your current work is still here. Check the selected wallet and node, then try again.' (ignoreCase: false))
+Node found:
+Node #911 at (l=18.0, t=136.0, r=302.0, b=194.0)px
+Text = '[Could not open this notification here. Your current work is still here. Check the selected wallet and node, then try again.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 2 siblings
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:282)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$61$lambda$60$lambda$59$lambda$58(FilesharePreviewTest.kt:252)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$A5EBJ7AWdGh82AfePRaeadVsSEc(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda31.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:87)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareReceivePreviewTest.anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(FilesharePreviewTest.kt:342)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

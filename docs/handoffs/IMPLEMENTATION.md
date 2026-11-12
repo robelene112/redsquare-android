@@ -2,59 +2,111 @@
 
 ## Active Fileshare #103
 
-The owner approved native Fileshare in private Chat, including continuing live
-transfers outside the app and with the screen off, with Android progress and
-Cancel. [Issue103](https://github.com/robelene112/redsquare-android/issues/103)
-is the only active implementation. Review base is `d46cce88b` on
-`codex/unified-redesign`; preserve the canonical checkout and parents1/36/55/84/86.
-No node/provider/Play operation or public Saito write is authorized or needed.
-Do not ask the owner to repeat routine phone checks.
+Owner authorized native Fileshare in private Chat, continuing after background /
+screen-off with Android progress and Cancel. Implement only103 to completion,
+including proof/reviews/signed beta. No repeated owner phone QA or routine approval.
+No production node/provider/Play operation or public Saito write is authorized.
+Keep parents1/36/55/84/86 open. Stop after103 delivery until another issue is asked.
+Review base `d46cce88b800639ffffe1ae60af5ae509e121676`.
 
-Current continuation (November12,00:55UTC): sole writer checkout remains
-`/mnt/storage/redsquare-android-artifacts/redesign86`. Final product/build source
-is `c9501442d94773df8c5cb30a756f2cbfb33c178c`. Both independent review axes pass.
-Full10 run43128152234 and full17 run43128154836 are active on that same source.
-All six full build/lint graphs pass, including Release/Performance and both lints;
-all six partitions are now running actual native tests. No complete103 acceptance
-yet. Frozen collector/contract remain unchanged at663/664identities,239classes,
-197archives,259/260normal completions,38interruptions and37continuities.
+Current continuation (November12, fixture corrections pending runtime): sole writer checkout
+`/mnt/storage/redsquare-android-artifacts/redesign86`, branch codex/unified-redesign.
+Product/build source remains `0e7249cba0209c61a33e91f76245ae45fabac621`.
+HEAD/proof-fileshare103-notification-controls is now test-only
+`f01ae5654e2b01ef40321ab440664c57fe40edda`: only PolicyCenterPreviewTest,
+SocialPushTapPreviewTest and PostComposerFocusPreviewTest differ from compiled source. Both independent source
+reviews PASS all three test-only deltas. Exact diff/hashes and retained original failures
+are in evidence/ticket103/test-fixture-bridge. No production change.
+Origin task branch last pushed1e4d19bc6, push final task branch later.
 
-Signed candidate115 is built/staged at that exact source,91,442,703bytes,
-SHA256 `9b39b1b8ec6cc0b44424f7a1f556bc7aa16659824d59a2167661184d92b32e23`.
-Public download, exact manifest/notes/bytes, established certificate, ordinary
-package and release flags pass. Browser Fileshare specimens are absent from the
-production APK. Public latest remains112; local reserved counter is115.
-Candidate113 is superseded/staged-only and must never be promoted;114 is local-only
-and superseded. Real candidate115 updates10/17 runs43130114371/43130116663 pass. Both downloaded
-packets validate exact candidate bytes, all four wallet observations, distinct debug
-identity, exact draft/cache/Light preference through cold launch and restoration.
-Retained originals/checksums are under evidence/ticket103/update115-android10/17.
-No115 promotion or issue closure yet.
+Complete Android10 run43140879123 at0e SUCCESS, frozen collector PASS at
+full-final-android10:663identities/239classes/197archives/259normal/38interruptions/37continuities.
+Complete17 run43140880842 at0e has failed Wallet (Policy Settings popup handoff)
+and Chat (SocialPushTap immediate active-notification query); Social remains active.
+Never count the failed SDK as acceptance or assemble partial runs.
+Policy fix1e0 waits visible/enabled Settings then actual accessibility click within
+original shared5s. Social fixdcdd awaits active Android alert AND shade row within
+original10s, keeping all real tap/channel/cold/draft/arrival goals.
+Focused policies17 run43145434785 at1e0 and social-push17 run43145670449 atdcdd
+both SUCCESS. Final whole3-job full17dcdd43146631213 FAILED Social at PostComposerFocus line35
+immediately after typing, before its original explicit IME wait. Native dark320/
+font130 capture shows IME+header but missing field; previous Light has IME+hidden
+header+visible field. Precise original transition timing remains unproved.
+Other two17 runners were still in APT setup and were cancelled as superseded.
+f01 moves the same10s IME budget before geometry, actual clickfocus BEFORE typing,
+requires nativeIME AND displayededitor, records initial/settled metrics, and keeps
+all writing order/attachment/48dpSend/exactdraft/return assertions. Both reviews
+PASS this test-only delta. Targeted composer-focus17 run43149455501 SUCCESS: both themes130% text pass in
+original10s, with readiness metrics retained. Initial field visible in both cells,
+so precise original disappearance cause is still unproved. Current final whole17
+is43150151913 atf01, on existing supported runner_os=ubuntu-22.04 (default24 had
+two setup jobs still in APT step at25minutes when superseded; no setup failure
+cause is claimed). Same Android17 x86_64/native goals and all3jobs required.
+Wrong-source-ref43149420522 cancelled, no acceptance. Always get actual fullSHA.
+Full10 has passed and been collected, never rerun it for these test-only changes.
+External watch-complete.py and verify-delivery116.py must use17 run43150151913
+and sourcef01. Old monitor82589 exited at old17 failure, not active. New full-final17
+must still pass frozen collector. Final packet reviews and promotion remain.
+No waiver or repeated owner phone QA.
 
-The initial4MiB browser-to-native gate passes10 at725 and complete focused10
-run43123971475 at e157 passes all nine classes plus seeded distinct-PID recovery.
-Initial17 diagnostic43123205607 at3762 confirms Channel32 overflow after47produced,
-6acknowledged chunks and385536bytes.54b2ee076 adds an encrypted ephemeral accepted
-frame inbox; its unchanged large17 gate43125121863 passes66chunks/exact4,194,317bytes
-while screen-off. ac4dc5dce yields four-frame batches to watchdog/controls;
-57db13f69 releases the old inbox before a new offer during ACK grace. Temporary
-product probes are removed. The process fixture seeds an encrypted queued frame
-and requires its cold removal, without claiming live-peer process-death recovery.
+Final focused Fileshare10/17 runs43140624246/43140626648 at0e both SUCCESS:
+all nine classes,12viewport cells, actual seeded distinct-PID recovery and4MiB.
+Retained focused-final-android10/17 packets. Earlier Post3s and Chat3s controlled
+reds are retained; both independent reviews PASS owned loading guard correction0e.
+Temporary product diagnostics removed; only bounded debug/emulator load fixtures.
 
-First full419 runs43125831570/43125834511 fail the generated-assets test lint model
-dependency.199's exact-task edge is insufficient: b318 runs43126969246/43126971037
-reach the second lint analysis consumer, fail and are superseded/cancelled.
-c950 fixes producer wiring through the typed Android generated-source API. A local
-lint attempt then hits the actual2.5GiB Docker OOM limit; hosted full source graphs
-pass. Retain originals under external fileshare103/local-checks and failed-full
-directories. No test/goal/deadline or original qualification was loosened.
+Signed candidate116 is built/staged at exact0e,91,442,703bytes,
+SHA256 `3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64`.
+Public download/manifest/notes/bytes/certificate/package/release flags PASS;
+production APK excludes browser Fileshare fixtures. Actual83-to116 updates
+43142255518/43142257865 both PASS (four wallet observations, exact draft,
+offline cached post, Light preference and separate debug identity). Retained
+update116-android10/17 packets and candidate116/staging116 checks.
+Stable latest remains112, reserved counter116. Never promote113/114/115.
+No116 promotion yet. Final full/packet review required before ordinary publish.
+External release-notes116.txt holds exact notes; verify-candidate.py accepts116,
+full0eSHA and notes path. verify-update.py expects116/0e.
 
-Raw artifacts remain outside Git under
-`/mnt/storage/redsquare-android-artifacts/fileshare103`. Reuse proof branch
-`proof-fileshare103-notification-controls`; always dispatch a full40character
-source SHA and check actual proof-source.txt. Finish full packet validation,
-source-consistent signed-update acceptance and independent final packet reviews,
-then promote the exact staged115, verify public delivery, close103 and stop.
+## Diagnoses and corrections within103
+
+- Android17 unpaced browser4MiB failed controller Channel32 overflow in43123205607
+  at3762:47produced,6acknowledged chunks,385536bytes FAILED.54 adds bounded encrypted
+  ephemeral disk inbox; ac4 yields four-frame batches,57db closes old inbox before
+  a new offer during ACK grace. Large17 gate43125121863 passes66chunks/exactbytes.
+- Combined build at419 fails test lint model generated-assets dependency.199 exact
+  task edge proves insufficient at b318's lint analysis consumer. c950 uses typed
+  Android generated-source producer wiring. All final full-source graphs still
+  must pass. Local lint has a confirmed Docker2.5GiB OOM, preserved externally;
+  hosted c950 full graphs pass. No host/service memory limit changed.
+- C950 full10 run43128152234 fails Stack social notification return (original15s)
+  and ActivityInbox click while native screenshot shows Loading notifications.
+  Original failure packets retained. Activity fix e0 awaits header AND actual
+  clickable event within same15s. Standalone module/all12/predecessor probes pass;
+  precise original full notification refusal was not instrumented.
+- Controlled Post3s RED43137287550 at8fcff reproduces resolved/current=true,
+  guard ready=false/opened=false, then ready=true without retry. a829 adds owned
+  loadingCurrent/awaitSettled to navigation and all notification branches.
+- Spec reviewer identifies private Chat gap. Controlled Chat RED43139422867 at3a
+  preserves original offscreen/notification flow, then recreates actual Chat,
+  observes disabled Message, sends same PendingIntent during3s load and finds
+  the false-error banner.0e registers owned loading/error callbacks for private
+  Chat, Group, Author, Profile, Stack editors and waits before module routing.
+  Both independent review axes close the finding; focused0e both SDKs PASS.
+
+C950 old complete17 run43128154836 SUCCESS passes frozen collector at
+baseline-c950-android17:664identities,239classes,197archives,260normal,
+38interruptions,37continuities. It is baseline ONLY, not acceptance of0e/116.
+Raw external baseline-full17-43128154836 is retained. Do not combine it with a
+new10 run. Required final0e runs, exact116 updates and final independent packet
+reviews remain, then promote exact116, verify public delivery, update release
+checklist/owner docs/contexts, close103 and stop. No physical/OEM/live TURN or
+fully initialized community browser proof is claimed by owned fixtures.
+
+All raw/local-check artifacts are external under
+`/mnt/storage/redsquare-android-artifacts/fileshare103`. Always dispatch full40char
+source SHA; abbreviated checkout failures never contribute proof. Preserve the
+canonical checkout and unrelated work. Keep actual failed results and original
+bounds; do not replace tests with owner phone requests.
 
 ## Delivered native Stack links #102
 

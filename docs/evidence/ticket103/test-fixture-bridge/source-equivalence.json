@@ -1,0 +1,75 @@
+{
+  "compiledSource": "0e7249cba0209c61a33e91f76245ae45fabac621",
+  "verificationSource17": "f01ae5654e2b01ef40321ab440664c57fe40edda",
+  "candidate": 116,
+  "sha256": "3e412f1f4564a4c42b5996d32a44017c34c54c516412bc6f6cdd0d9092077e64",
+  "onlyChangedTrackedFiles": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostComposerFocusPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt"
+  ],
+  "productionBuildHarnessAndAllOtherTestsByteIdentical": true,
+  "originalFailures": {
+    "wallet": "43140880842: PolicyCenter Settings is transiently not displayed during Account popup handoff; later native failure capture shows the visible Settings row.",
+    "chat": "43140880842: SocialPushTap COLD_MENTION immediate activeNotifications.single finds no new Android alert after notify returns; failure is before shade opening. Exact original timing is not recorded.",
+    "composer": "43146631213 Social: immediate post-replacement editor visibility fails during native IME with header still visible. Previous Light observation has visible editor and hidden header. Exact original transition timing remains unproved."
+  },
+  "corrections": {
+    "wallet": "Observe displayed/enabled Settings and activate actual accessibility ACTION_CLICK under original shared five-second bound. All following TalkBack focus/speech/policy/draft checks unchanged.",
+    "chat": "Observe asynchronous active alert and actual shade row under shared original ten-second budget; preserve single/channel/tap/cold/draft and original15second arrival/180second class goals.",
+    "composer": "Explicit actual field focus before typing; observe platform IME AND visible editor within the original10s keyboard budget, moved before writing geometry. All geometry/order/full48dpSend/return-draft assertions retained. Targeted runtime pending. Both independent source reviews PASS; precise original transition timing remains unproved."
+  },
+  "reviewedSource": "f01ae5654e2b01ef40321ab440664c57fe40edda",
+  "reviews": {
+    "standards": {
+      "agent": "/root/fileshare103_standards",
+      "result": "PASS"
+    },
+    "spec": {
+      "agent": "/root/fileshare103_spec",
+      "result": "PASS"
+    }
+  },
+  "qualification": "Complete10 passes the frozen collector. Final complete17 and final acceptance packet reviews remain pending. All failed/cancelled runs keep their actual outcomes; no partial SDK acceptance.",
+  "files": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+      "compiled": "a1d2377012e555ac288ae858430af072b5c134b156106f12609594c5907c25d0",
+      "verification17": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostComposerFocusPreviewTest.kt": {
+      "compiled": "b01c4319d6bc59e9b7b832288aea1d5d3f8f26d94eddf8ebcc5803a20a74ba97",
+      "verification17": "391c57885e9f4a9a46b703122c3229a2b71ed67a704ef5cc0862a932af02ad3c"
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt": {
+      "compiled": "587edaf4f047b33e0687f6f2ae1d9c90129439b3197bd81f5cdc7254c52d58e6",
+      "verification17": "496902ab54b2c5c7529efb8ec6e8962c60f44e40a093a44838f6cc799e096574"
+    }
+  },
+  "focusedConfirmation": {
+    "wallet": {
+      "run": "43145434785",
+      "source": "1e0acca2f882315334cf5e73ed35199c583ad9b7",
+      "result": "PASS",
+      "originalFiles": 64
+    },
+    "chat": {
+      "run": "43145670449",
+      "source": "dcdd38fe8b811048a5937b879d2c9accb3cc091d",
+      "result": "PASS",
+      "actualTapTests": 12,
+      "originalFiles": 59
+    },
+    "composer": {
+      "run": "43149455501",
+      "source": "f01ae5654e2b01ef40321ab440664c57fe40edda",
+      "result": "PASS",
+      "originalFiles": 52,
+      "qualification": "Both theme cells pass within existing10s, actual IME+editor then unchanged geometry/actions/draft. Initial editor was visible in this run; precise original failure cause remains unproved."
+    }
+  },
+  "dispatchOrderReview": "Standards review: overlapping final17 dispatch and existing final10 is allowed. Acceptance still requires both complete SDK successes, unchanged goals and exact production equivalence; reassess if10 fails.",
+  "verificationRun10": "43140879123",
+  "verificationSource10": "0e7249cba0209c61a33e91f76245ae45fabac621",
+  "verificationRun17": "43150151913",
+  "verification17Runner": "ubuntu-22.04 existing supported alternate host pool; same Android17 x86_64 image, goals, class and job bounds."
+}
