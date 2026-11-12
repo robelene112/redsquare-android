@@ -36,8 +36,16 @@ class TalkActiveViewportTest {
                 activity.onActivity { it.startActivity(Intent(it, MainActivity::class.java).setData(uri)
                     .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)) }
                 ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
+                fun home() {
+                    ui.onNodeWithContentDescription("Switch app: Saito Talk").performClick()
+                    ui.onNode(hasText("Red Square") and hasClickAction()).performClick()
+                    ui.waitUntil(5000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                }
+                home()
                 val folder = File(context.cacheDir, "talk-active-evidence").apply { mkdirs() }
                 ui.withPostViewports(activity, folder, "active-$width", widthDp = width) { label, theme ->
+                    ui.onNodeWithText("Return to call").performClick()
+                    ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
                     for (text in listOf("Mute", "Camera off", "Switch camera", "Audio output", "End call")) {
                         val node = ui.onNode(hasText(text) and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()
                         assertTrue("$text remains a48dp action in $label", node.boundsInRoot.height / context.resources.displayMetrics.density >= 48f)
@@ -45,8 +53,9 @@ class TalkActiveViewportTest {
                     assertEquals(call.token, TalkRuntime.call.value?.token)
                     assertTrue(requireNotNull(TalkRuntime.call.value).phase.started)
                     captureNativeScreen(File(folder, "$label-active.png"))
+                    home()
                 }
-                ui.onNode(hasText("End call") and hasClickAction()).performClick()
+                TalkRuntime.end(call.token)
                 ui.waitUntil(5000) { TalkRuntime.call.value?.phase == CallPhase.ENDED }
             } finally { token?.let(TalkRuntime::end); account.detach() }
         }

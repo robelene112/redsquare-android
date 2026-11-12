@@ -62,6 +62,48 @@ media interoperability. Framework/wallet serialization and owned Relay are
 explicit adaptations; no public development writes or physical microphone/
 speaker quality claims. No new complete-verification catalog is frozen yet.
 
+At13:17UTC checkpoint (still not beta acceptance):
+
+- ba04b1909 direct43222645648 authenticates, connects and receives actual tracks,
+  then REDs at Answer navigation. The dialog's scoped coroutine was cancelled on
+  the INCOMING-to-JOINING composition change. b123b6723 hoists navigation ownership
+  and guards late callbacks by current account/owner/backend/token.
+  Actual direct UI/media43223814229 now PASSes that fix.
+- acbcbc108 process43223288398 PASSes actual camera frames+foreground ownership,
+  deliberate Process.killProcess, distinct cold PID, stale-return feedback without
+  capture/signalling restart and exact encrypted wallet/unsent-draft continuity.
+  acbcbc108 ownership43223294314 PASSes2 methods: stale versus current immutable
+  notification Hang up and synchronous track silence on wallet/node/block writes.
+- Controls43222650857 is actual RED: initially muted RTP is silent but browser
+  microphone metadata is missing. b123 sends initial choices after media lease open.
+  Controls43223823558 then REDs at actual received PCM after native Mute while an
+  owned Relay toggle waits. Source dd9307f04 moves advertised choices to a separate,
+  bounded/coalesced sender; local capture/control state no longer awaits its ACK.
+  Per-call transmission guards prevent delayed choices crossing to a newer call.
+  Proof43225393901 is pending, with the original3-second mute goal unchanged.
+- Chat43222641692: audio JOINING/zero received PCM; video observer failed before
+  call input because it inspected the IME before it appeared. The observer now
+  waits for actual keyboard shown/closed, with unchanged5-second observations.
+  Chat43223818863 at b123 still REDs audio after25s, while video reaches real
+  decoded PCM/pixels then REDs at the unrelated Bluetooth permission dialog.
+  No audio correctness acceptance is inferred from that video's media success.
+- The browser diagnostics in the second audio RED show colliding initial offers,
+  rollback and no completed ICE gathering. Source36baa02bb mirrors pinned Stun's
+  lower-key-first initial negotiation with the same1500ms higher-key fallback.
+  It also requests Bluetooth only when an actual Bluetooth output is selected;
+  Phone/Speaker choices no longer request that permission. Chat43225592893,
+  direct43225598378 and group/media43225603649 are pending on36baa02bb.
+- Active viewport43224249811 failed in the inherited HOME-specific fixture's
+  readiness observer while Talk was selected. The new class now returns Home
+  between cells and uses actual Return to call within each cell; no inherited
+  observer,15s budget,48dp or12-cell theme/font goals are changed.
+- Dial-outcome43224537409 failed compilation (test PCM callback arity5 versus4),
+  not device behavior. The corrected84ed3ec96 source runs43225021875, pending.
+  Local corrected AndroidTest compilation passes. All originals remain external.
+- Complete104 frozen catalog/full10+17, final independent reviews, concurrent
+  Chat/Fileshare media evidence and signed beta remain required. No104 release
+  packet exists yet. Current public beta remains116; do not close104 yet.
+
 At13:01UTC checkpoint (not release acceptance):
 
 - Source1f30b89ad passes actual fifth-body Relay three-party media43220990390,
