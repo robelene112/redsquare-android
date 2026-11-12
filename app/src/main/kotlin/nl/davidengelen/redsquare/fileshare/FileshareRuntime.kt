@@ -348,8 +348,13 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             post { if (peer === connection) end(FilePhase.INTERRUPTED) }
         }
         val generation = ++channelGeneration
-        rtc = SaitoFileChannel(context, polite = owner < contact,
-            signal = { request, data -> post { if (generation == channelGeneration) signal(request, data) } },
+        rtc = SaitoFileChannel(context, wallet, backend, endpoint, contact, validate = ::assertSelected,
+            signal = { transaction -> post {
+                if (generation == channelGeneration) {
+                    assertSelected()
+                    requireNotNull(peer).request(Fileshare.relay(transaction), beforeSend = { assertSelected() })
+                }
+            } },
             opened = { post {
                 if (generation != channelGeneration) return@post
                 open = true; activityAt = System.currentTimeMillis()
@@ -365,7 +370,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                     if (inbox.append(text)) post { drainInbox(inbox, generation) }
                 } else post { if (generation == channelGeneration) handle(Fileshare.direct(text, contact, owner)) }
             }, failed = { post { if (generation == channelGeneration && rtc != null) end(FilePhase.INTERRUPTED) } },
-            useTraversal = !nl.davidengelen.redsquare.BuildConfig.DEBUG || endpoint == backend.peerUrl)
+            otherData = { envelope ->
+                assertSelected()
+                val signed = SaitoEnvelope.decodePayload(envelope)
+                check(signed.author == contact && owner in signed.recipients)
+                val saved = nl.davidengelen.redsquare.chat.receiveChatEnvelope(context, chatWallet, backend, envelope, endpoint)
+                FileshareRuntime.chatChanges.tryEmit(Triple(owner, backend, saved))
+                true
+            }, useTraversal = !nl.davidengelen.redsquare.BuildConfig.DEBUG || endpoint == backend.peerUrl)
         startWatchdog()
         if (initiator) {
             signal("peer-joined", JsonObject())

@@ -25,7 +25,7 @@ object TalkProtocol {
     private val roomRequests = setOf("call-list-request", "call-list-response", "peer-joined", "peer-left",
         "peer-kicked", "peer-kick-broadcast", "toggle-audio", "toggle-video", "screen-share-start",
         "screen-share-stop", "broadcast-call-list")
-    private val stunRequests = setOf("peer-joined", "peer-left", "peer-description", "peer-candidate", "peer-kicked")
+    private val stunRequests = setOf("peer-joined", "peer-left", "peer-description", "peer-candidate", "peer-kicked", "peer-kick-broadcast")
 
     fun invite(wallet: SaitoWallet, peer: String, room: TalkRoom, command: TalkDial, now: Long): SaitoTransaction {
         require(SaitoWallet.isPublicKey(peer) && peer != wallet.publicKey)
@@ -62,10 +62,10 @@ object TalkProtocol {
         read(SaitoEnvelope.unverifiedNetworkEnvelope(bytes), owner)
 
     fun read(envelope: String, owner: String, authenticatedPeer: String? = null): TalkMessage? {
-        require(envelope.length <= 3 * MAX_MESSAGE_BYTES && SaitoWallet.isPublicKey(owner))
+        require(SaitoWallet.isPublicKey(owner))
+        if (envelope.length > 3 * MAX_MESSAGE_BYTES) return null // Large Chat/images belong to their original receiver.
         val outer = JsonParser.parseString(envelope).asJsonObject
         val bytes = Base64.getDecoder().decode(TalkRoom.string(outer, "m"))
-        require(bytes.size <= MAX_MESSAGE_BYTES)
         val body = JsonParser.parseString(Charsets.UTF_8.newDecoder().decode(ByteBuffer.wrap(bytes)).toString())
         if (!body.isJsonObject) return null // Ordinary encrypted Chat stays owned by Chat.
         val content = body.asJsonObject
@@ -78,6 +78,7 @@ object TalkProtocol {
             else -> false
         }
         if (!relevant) return null
+        require(bytes.size <= MAX_MESSAGE_BYTES)
         val binary = Base64.getDecoder().decode(TalkRoom.string(outer, "t"))
         require(binary.size >= 152)
         val signed = binary.copyOfRange(16, 80).any { it != 0.toByte() }

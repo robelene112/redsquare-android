@@ -51,10 +51,15 @@ object Fileshare {
 
     fun signal(wallet: SaitoWallet, peer: String, request: String, details: JsonObject, now: Long): SaitoTransaction {
         require(request in setOf("peer-joined", "peer-left", "peer-description", "peer-candidate"))
-        return SaitoTransaction.create(wallet, details.deepCopy().apply {
-            addProperty("module", "Stun"); addProperty("request", request)
-        }, now, listOf(peer))
+        return Stun.signal(wallet, peer, request, details, now)
     }
+
+    /** Ownership only; direct() still authenticates/validates the selected frame before it is used. */
+    fun ownsDirectFrame(envelope: String): Boolean = runCatching {
+        val body = rawBody(envelope)
+        body.get("module")?.asString == "Fileshare" || body.get("module")?.asString == "Relay" &&
+            body.get("request")?.asString in controls
+    }.getOrDefault(false)
 
     fun chunk(wallet: SaitoWallet, peer: String, chunk: Chunk, now: Long): SaitoTransaction {
         require(chunk.bytes.size in 1..CHUNK_BYTES && chunk.offset >= 0 && chunk.index > 0)

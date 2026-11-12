@@ -15,6 +15,35 @@ internal object RealtimeIncoming {
         val active = AtomicBoolean(true)
     }
     private val receivers = ConcurrentHashMap<Address, CopyOnWriteArrayList<Receiver>>()
+    private class DirectReceiver(val callback: (String, String) -> Boolean?) {
+        val active = AtomicBoolean(true)
+    }
+    private val direct = ConcurrentHashMap<Address, CopyOnWriteArrayList<DirectReceiver>>()
+
+    fun registerDirect(owner: String, endpoint: String, callback: (String, String) -> Boolean?): Closeable {
+        require(SaitoWallet.isPublicKey(owner))
+        val address = Address(owner, endpoint)
+        val receiver = DirectReceiver(callback)
+        direct.compute(address) { _, previous ->
+            (previous ?: CopyOnWriteArrayList<DirectReceiver>()).apply { add(receiver) }
+        }
+        return Closeable {
+            receiver.active.set(false)
+            direct.computeIfPresent(address) { _, entries ->
+                entries.remove(receiver); entries.takeUnless { it.isEmpty() }
+            }
+        }
+    }
+
+    /** Called only by the connection whose signed SDP and DTLS established this exact peer. */
+    fun receiveDirect(owner: String, endpoint: String, peer: String, envelope: String): Boolean? {
+        for (receiver in direct[Address(owner, endpoint)].orEmpty()) {
+            if (!receiver.active.get()) continue
+            val accepted = try { receiver.callback(peer, envelope) } catch (_: Exception) { false }
+            if (accepted != null) return accepted
+        }
+        return null
+    }
 
     fun register(owner: String, endpoint: String, callback: (ByteArray) -> Boolean?): Closeable {
         require(SaitoWallet.isPublicKey(owner))

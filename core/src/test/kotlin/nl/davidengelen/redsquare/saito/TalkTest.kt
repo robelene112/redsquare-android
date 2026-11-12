@@ -62,4 +62,27 @@ class TalkTest {
         assertTrue(entry.recipients.containsAll(listOf(room.id, host.publicKey)))
     }
 
+    @Test fun largeEncryptedChatAndFileshareFramesRemainOwnedByTheirOriginalFeatures() {
+        val alice = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val bob = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val opaqueChat = SaitoTransaction.createEncrypted(alice, "a".repeat(400_000), 300, bob.publicKey)
+        assertNull(TalkProtocol.read(opaqueChat.envelope(), bob.publicKey))
+        val file = Fileshare.offer(alice, bob.publicKey, Fileshare.Offer("file123", "notes.txt", 5, "text/plain"), 301)
+        assertNull(TalkProtocol.read(file.envelope(), bob.publicKey))
+    }
+
+    @Test fun signallingForAnotherRoomParticipantDoesNotGetRejectedByTheFirstPeer() {
+        val alice = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val bob = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val signal = Stun.signal(alice, bob.publicKey, "peer-joined", com.google.gson.JsonObject(), 400)
+        val bytes = signal.applicationRequest(1).drop(5).toByteArray()
+        assertNull(Stun.network(bytes, other.publicKey, bob.publicKey))
+        assertEquals(alice.publicKey, requireNotNull(Stun.network(bytes, alice.publicKey, bob.publicKey)).author)
+        val unsigned = JsonParser.parseString(signal.envelope()).asJsonObject
+        val header = java.util.Base64.getDecoder().decode(unsigned.get("t").asString).apply { fill(0, 16, 80) }
+        unsigned.addProperty("t", java.util.Base64.getEncoder().encodeToString(header))
+        assertThrows(IllegalArgumentException::class.java) { Stun.read(unsigned.toString(), alice.publicKey, bob.publicKey) }
+    }
+
 }

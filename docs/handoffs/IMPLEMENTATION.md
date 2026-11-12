@@ -24,6 +24,17 @@ implicitly authorize capture. Talk and Fileshare need shared peer ownership and
 message routing because upstream Stun owns one connection per counterparty.
 No Talk audio/video runtime or release acceptance is claimed yet.
 
+The five Talk JVM checks now pass, including ownership of large encrypted Chat
+and per-participant Stun routing (both meaningful failing assertions retained in
+the external talk-native logs before fixes). All-core tests and Android Kotlin
+compilation pass locally. Native socket-routing RED run43186947399 observed both
+wrong Chat fallback and wrong success ACK before SaitoPeer's scoped dispatch was
+wired. SharedRtcPeers now leases one signed-SDP/DTLS connection to Fileshare and
+Talk; Fileshare's former independent factory/connection is replaced by a data-only
+lease. These transport changes still require Android10/17 routing and Fileshare
+regression evidence, and no call/media acceptance is claimed yet.
+
+
 The current writable checkout stays
 `/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.
 Temporary source and logs are external under

@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicBoolean
 
 /** One authenticated peer session. Request identities never cross a connection. */
-class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
+class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
     private val onIncoming: ((ByteArray) -> Boolean)? = null) : Closeable {
     class RequestError : IOException("Peer returned a request error")
     private val ready = CompletableDeferred<Unit>()
@@ -85,7 +85,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
                     }
                     12 -> {
                         require(frame.size >= 5)
-                        if (!ready.isCompleted || ready.isCancelled || disconnected.get() || onIncoming == null) return
+                        if (!ready.isCompleted || ready.isCancelled || disconnected.get() || !hasIncomingReceiver()) return
                         val accepted = acceptIncoming(frame.copyOfRange(5, frame.size))
                         val acknowledgement = if (accepted) "{\"err\":\"\",\"success\":1}" else
                             "{\"err\":\"Message not accepted\",\"success\":0}"
@@ -93,7 +93,7 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
                             frame.copyOfRange(1, 5) + acknowledgement.toByteArray(Charsets.UTF_8))
                     }
                     4 -> {
-                        if (!ready.isCompleted || ready.isCancelled || disconnected.get() || onIncoming == null) return
+                        if (!ready.isCompleted || ready.isCancelled || disconnected.get() || !hasIncomingReceiver()) return
                         acceptIncoming(frame.copyOfRange(1, frame.size))
                     }
                     13, 14 -> {
@@ -198,8 +198,10 @@ class SaitoPeer(private val wallet: SaitoWallet, endpoint: String,
     }
 
     /** The feature handler authenticates the original message and persists it before accepting. */
+    private fun hasIncomingReceiver() = onIncoming != null || RealtimeIncoming.hasReceiver(wallet.publicKey, endpoint)
+
     private fun acceptIncoming(transaction: ByteArray): Boolean = try {
-        requireNotNull(onIncoming).invoke(transaction)
+        RealtimeIncoming.receive(wallet.publicKey, endpoint, transaction) ?: onIncoming?.invoke(transaction) ?: false
     } catch (_: Exception) { false }
 
     /** Suspend while a feature receives on this authenticated connection. */

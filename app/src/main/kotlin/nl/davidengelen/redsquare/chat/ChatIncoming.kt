@@ -11,6 +11,12 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
     bytes: ByteArray, endpoint: String = backend.peerUrl): String? {
     val envelope = try { GroupChat.originalEnvelope(bytes) }
         catch (_: IllegalArgumentException) { PrivateChat.originalEnvelope(bytes) }
+    return receiveChatEnvelope(context, wallet, backend, envelope, endpoint)
+}
+
+/** Direct DTLS messages use the same authenticated retention and notification policy as server delivery. */
+internal fun receiveChatEnvelope(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    envelope: String, endpoint: String): String? {
     val signed = SaitoEnvelope.decodePayload(envelope)
     if (signed.body.isJsonObject) {
         val body = signed.body.asJsonObject
