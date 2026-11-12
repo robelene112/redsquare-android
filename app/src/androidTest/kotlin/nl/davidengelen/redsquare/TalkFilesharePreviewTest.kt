@@ -64,7 +64,7 @@ class TalkFilesharePreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
                     withFailureCapture({
-                        File(evidence, "failure-state.txt").writeText("${TalkRuntime.call.value}\n${session?.transfers?.value}\n${browsers.values.map { it.errors }}")
+                        File(evidence, "failure-state.txt").writeText("${TalkRuntime.call.value}\n${session?.transfers?.value} ready=${session?.ready?.value} attached=${session?.ownsDelivery} error=${session?.error?.value}\n${browsers.values.map { it.errors }}")
                         captureNativeScreen(File(evidence, "failure.png"))
                     }) {
                         TalkRuntime.visibility(true)
@@ -81,7 +81,8 @@ class TalkFilesharePreviewTest {
                                 session = FileshareRuntime.session(context, owner, SaitoBackend.OWNER, endpoint, aliceWallet.publicKey).also { it.attach() }
                                 val data = ByteArray(150007) { ((it * 13 + 7) % 251).toByte() }
                                 val offer = Fileshare.Offer("call104file", "during-call.bin", data.size.toLong(), "application/octet-stream")
-                                route(Fileshare.offer(aliceWallet, owner.publicKey, offer, System.currentTimeMillis()).envelope())
+                                await("The native private conversation owns delivery") { session?.ownsDelivery == true && session?.ready?.value == true }
+                                alice.sendFrame(Fileshare.offer(aliceWallet, owner.publicKey, offer, System.currentTimeMillis()).envelope())
                                 await("An actual native incoming file is offered") { session?.transfers?.value?.singleOrNull()?.phase == FilePhase.OFFERED }
                                 val transferToken = requireNotNull(session?.transfers?.value?.single()).token
                                 requireNotNull(session).accept(transferToken)
