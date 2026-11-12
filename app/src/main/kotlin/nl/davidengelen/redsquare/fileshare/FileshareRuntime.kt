@@ -378,11 +378,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             }, failed = { post { if (generation == channelGeneration && rtc != null) end(FilePhase.INTERRUPTED) } },
             otherData = { envelope ->
                 assertSelected()
-                val signed = SaitoEnvelope.decodePayload(envelope)
-                check(signed.author == contact && owner in signed.recipients)
-                val saved = nl.davidengelen.redsquare.chat.receiveChatEnvelope(context, chatWallet, backend, envelope, endpoint)
-                FileshareRuntime.chatChanges.tryEmit(Triple(owner, backend, saved))
-                true
+                nl.davidengelen.redsquare.chat.receiveBoundChat(context, chatWallet, backend, endpoint, contact, envelope)
             }, useTraversal = !nl.davidengelen.redsquare.BuildConfig.DEBUG || endpoint == backend.peerUrl)
         startWatchdog()
         if (initiator) {

@@ -582,6 +582,23 @@ if [[ "${TEST_SCOPE:-full}" == name-directory* ]]; then
     printf '%s\n' 'Native display-name directory only; not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_talk() {
+    verify_group_chat_native TalkRoutingPreviewTest 180 talk-routing talk-routing-evidence
+    verify_talk_capture_native TalkCapturePreviewTest talk-capture
+    verify_group_chat_native TalkInvitationPreviewTest 180 talk-invitation talk-invitation-evidence
+    verify_talk_browser_native TalkChatPreviewTest talk-chat
+    verify_talk_browser_native TalkDirectPreviewTest talk-direct
+    verify_talk_browser_native TalkMediaPreviewTest talk-media
+    verify_talk_browser_native TalkControlsPreviewTest talk-controls
+    verify_talk_capture_native TalkLifecyclePreviewTest talk-lifecycle
+    verify_talk_capture_native TalkCameraLifecyclePreviewTest talk-camera-lifecycle
+    verify_talk_capture_native TalkOwnershipPreviewTest talk-ownership
+    verify_talk_capture_native TalkDialPreviewTest talk-dial
+    verify_talk_capture_native TalkActiveViewportTest talk-active
+    verify_talk_browser_native TalkFilesharePreviewTest talk-fileshare
+    python3 "$repo_dir/scripts/talk-process-check" --evidence "$evidence/talk-process"
+}
+
 verify_fileshare() {
     verify_fileshare_case FileshareSendPreviewTest fileshare-send
     verify_fileshare_case FileshareReceivePreviewTest fileshare-receive
@@ -996,6 +1013,7 @@ if [[ "${TEST_SCOPE:-full}" == module-shell* ]]; then
 fi
 if [[ "$full_chat" == true ]]; then
     verify_fileshare
+    verify_talk
     verify_group_chat_native ChatGroupingPreviewTest 180 chat-grouping chat-grouping-evidence
     verify_group_chat_native GroupChatGroupingPreviewTest 180 group-chat-grouping group-chat-grouping-evidence
     verify_group_chat_native PrivateGroupingNarrowTest 180 chat-grouping-private-320 chat-grouping-private-320-evidence

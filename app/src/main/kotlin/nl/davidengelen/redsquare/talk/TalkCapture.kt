@@ -14,7 +14,7 @@ import java.util.UUID
  */
 internal class TalkCapture(private val context: Context, microphone: Boolean, camera: Boolean,
     private val authorize: () -> Unit, private val microphoneAllowed: () -> Boolean = { true },
-    private val cameraAllowed: () -> Boolean = { true }) : Closeable {
+    private val cameraAllowed: () -> Boolean = { true }, val token: String) : Closeable {
     private val factory = RtcPlatform.factory(context)
     private val lock = Any()
     private val audioSource: AudioSource

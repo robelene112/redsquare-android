@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.*
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.chat.receiveChat
-import nl.davidengelen.redsquare.chat.receiveChatEnvelope
 import nl.davidengelen.redsquare.fileshare.FileshareRuntime
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.saito.*
@@ -148,6 +147,8 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                             val call = current
                             if (call != null && devices.cameraFailed && call.camera) {
                                 devices.controls(call.microphone, false)
+                                requested.update { if (it?.token == call.token) it.copy(camera = false) else it }
+                                TalkRuntime.choices.value = requested.value
                                 publish(call.copy(camera = false, cameraUnavailable = true))
                             } else if (call != null && call.frontCamera != devices.front) publish(call.copy(frontCamera = devices.front))
                         }
@@ -409,10 +410,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                     }
                 } }, otherData = { envelope ->
                     guard(peer)
-                    val signed = SaitoEnvelope.decodePayload(envelope)
-                    check(signed.author == peer && wallet.publicKey in signed.recipients)
-                    val saved = receiveChatEnvelope(context, latestWallet, backend, envelope, endpoint)
-                    FileshareRuntime.chatChanges.tryEmit(Triple(wallet.publicKey, backend, saved)); true
+                    nl.davidengelen.redsquare.chat.receiveBoundChat(context, latestWallet, backend, endpoint, peer, envelope)
                 }, track = { track -> post {
                     if (current?.token == token && accepted) publish(requireNotNull(current).copy(participants =
                         requireNotNull(current).participants.map { if (it.key != peer) it else when (track) {
@@ -529,7 +527,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                 guard()
                 check(current?.token == call.token && accepted && stopRequested?.token != call.token)
             }, microphoneAllowed = { requested.value?.let { it.token == call.token && it.microphone } == true },
-                cameraAllowed = { requested.value?.let { it.token == call.token && it.camera } == true && TalkRuntime.visible })
+                cameraAllowed = { requested.value?.let { it.token == call.token && it.camera } == true && TalkRuntime.visible }, token = call.token)
             val desired = requireNotNull(requested.value).takeIf { it.token == call.token } ?: error("Call choices expired")
             capture?.controls(desired.microphone, desired.camera)
             currentCoroutineContext().ensureActive()
@@ -546,13 +544,13 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     }
 
     fun controls(token: String, microphone: Boolean?, camera: Boolean?) {
-        val devices = capture
         while (true) {
             val desired = requested.value ?: return
             if (desired.token != token || current?.let { it.token == token && it.phase.started } != true) return
             val updated = desired.copy(microphone = microphone ?: desired.microphone, camera = camera ?: desired.camera)
             if (requested.compareAndSet(desired, updated)) {
                 TalkRuntime.choices.value = updated
+                val devices = capture?.takeIf { it.token == token }
                 if (microphone == false) devices?.silenceAudio()
                 if (camera == false) devices?.silenceVideo()
                 break

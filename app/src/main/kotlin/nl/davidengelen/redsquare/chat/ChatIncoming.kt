@@ -14,6 +14,16 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
     return receiveChatEnvelope(context, wallet, backend, envelope, endpoint)
 }
 
+/** Both realtime features bind this frame to the exact peer before ordinary Chat retention. */
+internal fun receiveBoundChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    endpoint: String, peer: String, envelope: String): Boolean {
+    val signed = SaitoEnvelope.decodePayload(envelope)
+    check(signed.author == peer && wallet.publicKey in signed.recipients)
+    val saved = receiveChatEnvelope(context, wallet, backend, envelope, endpoint)
+    nl.davidengelen.redsquare.fileshare.FileshareRuntime.chatChanges.tryEmit(Triple(wallet.publicKey, backend, saved))
+    return true
+}
+
 /** Direct DTLS messages use the same authenticated retention and notification policy as server delivery. */
 internal fun receiveChatEnvelope(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     envelope: String, endpoint: String): String? {
