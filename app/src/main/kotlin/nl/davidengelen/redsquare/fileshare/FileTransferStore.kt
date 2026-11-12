@@ -19,6 +19,7 @@ import javax.crypto.spec.GCMParameterSpec
 internal enum class FilePhase {
     CONNECTING, WAITING, OFFERED, SENDING, RECEIVING, COMPLETE, SAVED, DECLINED, CANCELLED, INTERRUPTED, FAILED;
     val active get() = this in setOf(CONNECTING, WAITING, SENDING, RECEIVING)
+    val delivered get() = this == COMPLETE || this == SAVED
 }
 
 internal enum class PreparationPhase { PREPARING, CANCELLED, INTERRUPTED, FAILED }

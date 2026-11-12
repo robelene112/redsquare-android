@@ -112,6 +112,7 @@ class TalkFilesharePreviewTest {
                                 // 1500ms receipt grace. Cross it before exercising actual Chat.
                                 Thread.sleep(2_000)
                                 assertFalse("Completed export releases foreground transfer ownership", requireNotNull(session).foregroundOwned)
+                                await("Initial final-chunk receipt arrives before testing its duplicate") { alice.fileReceiptCount(offer.id, 3) > 0 }
                                 val receipts = alice.fileReceiptCount(offer.id, 3)
                                 chunk(Fileshare.CHUNK_BYTES * 2, 3)
                                 await("An exact final chunk after Saved still receives its real data-channel ACK") { alice.fileReceiptCount(offer.id, 3) > receipts }

@@ -71,7 +71,9 @@ function connection(initiator = false) {
   rtc.onicecandidate = e => { if (e.candidate) signal('peer-candidate', {iceCandidate:{
     candidate:e.candidate.candidate, sdpMid:e.candidate.sdpMid, sdpMLineIndex:e.candidate.sdpMLineIndex}}); };
   rtc.onnegotiationneeded = async () => {
-    if (!initiator) return; // The controlled receiver answers, avoiding an unrelated legacy-WebView rollback dependency.
+    // Match pinned Stun: a lower-key receiver also starts negotiated-channel setup.
+    // File direction does not determine the SDP offerer.
+    if (!initiator && !polite) return;
     try { makingOffer = true; await rtc.setLocalDescription(await rtc.createOffer());
       signal('peer-description', {description:{type:rtc.localDescription.type,sdp:rtc.localDescription.sdp}});
     } catch (e) { Host.failure(String(e)); } finally { makingOffer = false; }

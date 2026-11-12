@@ -87,7 +87,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     val ownsDelivery get() = observers > 0 || serviceStarted
     private var loaded = false
     private var watchdog: Job? = null
-    private var completedConversation = false
+    private var completedTransferToken: String? = null
     @Volatile private var operation: Job? = null
     private var readJob: Job? = null
     @Volatile private var channelGeneration = 0L
@@ -165,7 +165,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     fun attach() { post { observers++ } }
     fun detach() { post {
         observers = maxOf(0, observers - 1)
-        if (observers == 0 && completedConversation && current?.phase == FilePhase.COMPLETE &&
+        if (observers == 0 && current?.let { it.token == completedTransferToken && it.phase.delivered } == true &&
             preparationState.value?.phase != PreparationPhase.PREPARING) cleanup()
     } }
     @Synchronized fun send(uri: Uri) {
@@ -471,12 +471,12 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             }
             "share file" -> {
                 val value = current ?: return
-                if (!value.incoming || value.phase !in setOf(FilePhase.RECEIVING, FilePhase.COMPLETE)) return
+                if (!value.incoming || (value.phase != FilePhase.RECEIVING && !value.phase.delivered)) return
                 val chunk = Fileshare.readChunk(message.data)
                 val target = requireNotNull(receiver)
                 val complete = target.append(chunk) { requireNotNull(spool).append(it) }
                 activityAt = System.currentTimeMillis()
-                if (complete && value.phase != FilePhase.COMPLETE) {
+                if (complete && value.phase == FilePhase.RECEIVING) {
                     requireNotNull(spool).finish(); spool = null
                     update(value.copy(phase = FilePhase.COMPLETE, bytes = target.received))
                 } else publishProgress(value.copy(bytes = target.received))
@@ -564,7 +564,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
     private fun cleanup() {
         current?.takeIf { !it.incoming }?.let { store.discard(it.token) }
-        completedConversation = false
+        completedTransferToken = null
         channelGeneration++; watchdog?.cancel(); watchdog = null
         readJob?.cancel(); readJob = null
         val oldInbox = incomingFrames; incomingFrames = null; oldInbox?.close()
@@ -587,12 +587,12 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         val oldInbox = incomingFrames; incomingFrames = null; oldInbox?.close()
         source?.close(); source = null; spool?.close(); spool = null
         sendingIndex = 0; sendingBytes = 0; serviceStarted = false
-        completedConversation = true
+        completedTransferToken = current?.token
         changed()
     }
     private fun finishLater(token: String) { scope.launch {
         delay(1500)
-        post { if (current?.token == token && current?.phase == FilePhase.COMPLETE) finishDelivery() }
+        post { if (current?.token == token && current?.phase?.delivered == true) finishDelivery() }
     } }
     companion object { private val PREPARATION_IO = Dispatchers.IO.limitedParallelism(2) }
     private fun post(event: suspend () -> Unit): Boolean = events.trySend(event).isSuccess.also {
