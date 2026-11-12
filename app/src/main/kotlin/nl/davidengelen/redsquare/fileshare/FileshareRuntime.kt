@@ -64,6 +64,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var source: InputStream? = null
     private var spool: FileTransferStore.Spool? = null
     private var receiver: Fileshare.Receiver? = null
+    @Volatile private var incomingFrames: FileTransferStore.FrameInbox? = null
     private var sendingIndex = 0L
     private var sendingBytes = 0
     @Volatile private var activityAt = System.currentTimeMillis()
@@ -78,7 +79,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var watchdog: Job? = null
     @Volatile private var operation: Job? = null
     private var readJob: Job? = null
-    private var channelGeneration = 0L
+    @Volatile private var channelGeneration = 0L
     private val seenSignals = LinkedHashSet<String>()
     @Volatile private var overflow = false
     val ready = MutableStateFlow(false)
@@ -90,9 +91,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val task = scope.launch(start = CoroutineStart.LAZY) {
                     try { event() }
                     catch (_: CancellationException) { /* An explicit Cancel preempts connection/request waits. */ }
-                    catch (failure: Exception) {
-                        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.w("FileshareDiagnostic",
-                            "[DEBUG-fs103-large] ${failure.javaClass.simpleName}; ${failure.stackTrace.take(4).joinToString("; ")}")
+                    catch (_: Exception) {
                         error.value = true
                         try {
                             if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.FAILED)
@@ -110,6 +109,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         }
         post {
             val retained = store.load().map { value ->
+                store.discardInbox(value.token)
                 if (value.phase.active || value.phase == FilePhase.OFFERED) {
                     store.discard(value.token)
                     value.copy(phase = FilePhase.INTERRUPTED).also(store::save)
@@ -193,6 +193,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             serviceStarted = true
             update(value.copy(phase = FilePhase.RECEIVING))
             spool = store.begin(value); receiver = Fileshare.Receiver(value.offer)
+            incomingFrames = store.inbox(requireNotNull(current))
             sendControl("grant file permission", value.offer.id)
         }
     }
@@ -357,8 +358,18 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                     sendChannel(Fileshare.offer(wallet, contact, value.offer, System.currentTimeMillis()))
                     update(value.copy(phase = FilePhase.WAITING))
                 }
-            } }, message = { text ->
-                if (!post { if (generation == channelGeneration) handle(Fileshare.direct(text, contact, owner)) }) interrupt()
+            } }, message = message@{ text ->
+                val inbox = incomingFrames
+                if (generation != channelGeneration) return@message
+                if (inbox != null) {
+                    if (inbox.append(text)) post {
+                        while (generation == channelGeneration && incomingFrames === inbox) {
+                            currentCoroutineContext().ensureActive()
+                            val frame = inbox.next() ?: break
+                            handle(Fileshare.direct(frame, contact, owner))
+                        }
+                    }
+                } else post { if (generation == channelGeneration) handle(Fileshare.direct(text, contact, owner)) }
             }, failed = { post { if (generation == channelGeneration && rtc != null) end(FilePhase.INTERRUPTED) } },
             useTraversal = !nl.davidengelen.redsquare.BuildConfig.DEBUG || endpoint == backend.peerUrl)
         startWatchdog()
@@ -499,6 +510,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         current?.takeIf { !it.incoming }?.let { store.discard(it.token) }
         channelGeneration++; watchdog?.cancel(); watchdog = null
         readJob?.cancel(); readJob = null
+        val oldInbox = incomingFrames; incomingFrames = null; oldInbox?.close()
         open = false; serviceStarted = false
         val oldRtc = rtc; rtc = null
         val oldPeer = peer; peer = null
@@ -512,10 +524,6 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     } }
     companion object { private val PREPARATION_IO = Dispatchers.IO.limitedParallelism(2) }
     private fun post(event: suspend () -> Unit): Boolean = events.trySend(event).isSuccess.also {
-        if (!it) {
-            if (!overflow && nl.davidengelen.redsquare.BuildConfig.DEBUG)
-                android.util.Log.w("FileshareDiagnostic", "[DEBUG-fs103-large] event buffer full")
-            overflow = true
-        }
+        if (!it) overflow = true
     }
 }

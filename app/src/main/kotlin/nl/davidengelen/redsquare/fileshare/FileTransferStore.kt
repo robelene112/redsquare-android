@@ -114,9 +114,90 @@ internal class FileTransferStore(private val context: Context, private val owner
         }
     }
     fun discard(token: String) {
-        for (suffix in listOf("part", "data")) {
+        for (suffix in listOf("part", "data", "inbox")) {
             val target = file(token, suffix)
             check(!target.exists() || target.delete())
+        }
+    }
+
+    fun discardInbox(token: String) {
+        val target = file(token, "inbox")
+        check(!target.exists() || target.delete())
+    }
+
+    fun inbox(value: FileTransfer): FrameInbox {
+        require(value.incoming && value.phase == FilePhase.RECEIVING)
+        return FrameInbox(value.token, value.offer.size * 3 + Fileshare.MAX_FRAME_BYTES * 2L)
+    }
+
+    /**
+     * Upstream browsers send without waiting for receipts. Keep their ordered frames on
+     * encrypted temporary storage instead of retaining one controller event per chunk.
+     * The RTC callback never waits for the controller or holds the Chat/wallet lock.
+     */
+    inner class FrameInbox(private val token: String, private val maximum: Long) : Closeable {
+        private val target = file(token, "inbox")
+        private val secret = key(create = true, context)
+        private val storage = RandomAccessFile(target, "rw").apply { setLength(0) }
+        private var readAt = 0L
+        private var written = 0L
+        private var sequence = 0L
+        private var nextRead = 0L
+        private var scheduled = false
+        private var closed = false
+        private var failure: Exception? = null
+
+        /** Returns true only when the controller needs a new drain event. */
+        @Synchronized fun append(text: String): Boolean {
+            if (closed) return false
+            if (failure == null) try {
+                val bytes = text.toByteArray(Charsets.UTF_8)
+                require(bytes.size in 1..Fileshare.MAX_FRAME_BYTES)
+                val recordSize = bytes.size + 32L
+                check(written <= maximum - recordSize && target.parentFile!!.usableSpace > recordSize + 1024 * 1024)
+                val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
+                    init(Cipher.ENCRYPT_MODE, secret)
+                    updateAAD(frameAad(sequence, bytes.size))
+                }
+                storage.seek(written)
+                storage.writeInt(bytes.size); storage.write(cipher.iv); storage.write(cipher.doFinal(bytes))
+                written += recordSize; sequence++
+            } catch (problem: Exception) { failure = problem }
+            if (scheduled) return false
+            scheduled = true
+            return true
+        }
+
+        /** Releases the queue lock before the caller validates or sends an RTC receipt. */
+        @Synchronized fun next(): String? {
+            if (closed) return null
+            failure?.let { throw it }
+            if (readAt == written) {
+                storage.setLength(0); readAt = 0; written = 0; scheduled = false
+                return null
+            }
+            storage.seek(readAt)
+            val length = storage.readInt()
+            require(length in 1..Fileshare.MAX_FRAME_BYTES && length + 32L <= written - readAt)
+            val iv = ByteArray(12).also(storage::readFully)
+            val encrypted = ByteArray(length + 16).also(storage::readFully)
+            val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
+                init(Cipher.DECRYPT_MODE, secret, GCMParameterSpec(128, iv))
+                updateAAD(frameAad(nextRead, length))
+            }
+            val bytes = cipher.doFinal(encrypted)
+            readAt += length + 32L; nextRead++
+            return bytes.toString(Charsets.UTF_8)
+        }
+
+        private fun frameAad(index: Long, length: Int) = aad(token) + "inbox".toByteArray(Charsets.UTF_8) +
+            ByteBuffer.allocate(12).putLong(index).putInt(length).array()
+
+        @Synchronized override fun close() {
+            if (!closed) {
+                closed = true
+                try { storage.close() } finally { check(!target.exists() || target.delete()) }
+            }
         }
     }
 

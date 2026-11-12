@@ -70,6 +70,7 @@ class FileshareProcessRecoveryTest {
             Fileshare.Offer("process103", "interrupted-note.bin", 1024, "application/octet-stream"), true, FilePhase.RECEIVING, 32)
         store.save(value)
         store.begin(value).append(ByteArray(32) { 7 }) // Deliberately unclosed when Android kills this process.
+        store.inbox(value).append("interrupted encrypted receive frame")
         check(context.noBackupFilesDir.listFiles().orEmpty().any { it.name.startsWith("fileshare.") && it.name.endsWith(".part") })
         row.addProperty("phase", "pending"); write(row)
         Process.killProcess(Process.myPid())
@@ -98,7 +99,7 @@ class FileshareProcessRecoveryTest {
                     assertEquals(FilePhase.INTERRUPTED, session.transfers.value.single { value -> value.token == token }.phase)
                     assertFalse(FileshareRuntime.hasLiveWork())
                     assertTrue(context.noBackupFilesDir.listFiles().orEmpty().none { file ->
-                        file.name.startsWith("fileshare.") && (file.name.endsWith(".part") || file.name.endsWith(".data"))
+                        file.name.startsWith("fileshare.") && (file.name.endsWith(".part") || file.name.endsWith(".data") || file.name.endsWith(".inbox"))
                     })
                     assertEquals(row.get("walletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
                     assertEquals(backend, AndroidBackendStore(context).load())
