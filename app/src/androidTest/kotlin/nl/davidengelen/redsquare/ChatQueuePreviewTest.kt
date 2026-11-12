@@ -285,7 +285,7 @@ class ChatQueuePreviewTest {
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-scope-backend-paused.png"))
                             ui.openSettings();waitFor("Node")
                             ui.onNodeWithText("Node").performScrollTo().performClick()
-                            ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick();open()
+                            ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick();restored()
                         }
                         if(cancel) {
                             ui.waitUntil(20_000){peer.requests.get()>0}
@@ -619,7 +619,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                                 check(nl.davidengelen.redsquare.chat.ChatWorkStore.hasWork(context,wallet,SaitoBackend.OWNER))
                                 captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-identity-paused.png"))
                                 wallets.replace(replacement,wallet)
-                                scenario.recreate();open()
+                                scenario.recreate();restored()
                             }
                             if(switchBackend) {
                                 android.os.SystemClock.sleep(7_000)
@@ -634,7 +634,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()}
                             check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==originalCandidate.envelope())
-                            if(switchBackend){waitFor(contact);ui.onNodeWithText(contact).performClick()}
+                            if(switchBackend)ui.assertRestoredConversation(contact)
                             else if(!switchIdentity)scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
                             waitFor("Forwarded. Delivery is not confirmed.")
                             check(peer.transactions.size==1&&peer.relayedMessages.size==1)
