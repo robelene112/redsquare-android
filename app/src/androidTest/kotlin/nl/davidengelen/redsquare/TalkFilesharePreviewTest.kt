@@ -101,6 +101,9 @@ class TalkFilesharePreviewTest {
                                 val complete = requireNotNull(session?.transfers?.value?.single())
                                 val received = FileTransferStore(context, owner.publicKey, SaitoBackend.OWNER, aliceWallet.publicKey).openPrepared(complete).use { it.readBytes() }
                                 assertArrayEquals(data, received)
+                                // A visible conversation still owns delivery after the transfer's
+                                // 1500ms receipt grace. Cross it before exercising actual Chat.
+                                Thread.sleep(2_000)
                                 val message = "Private Chat survives the retired call owner"
                                 alice.sendFrame(PrivateChat.create(aliceWallet, owner.publicKey, message, System.currentTimeMillis()).envelope())
                                 await("Actual encrypted private Chat still retains over the shared peer") {
