@@ -362,11 +362,6 @@ class WalletImportPreviewTest {
                         { File(evidence.apply { mkdirs() }, "activation-failure-state.txt").writeText(
                             "selectedBackend=${backends.load().id}\n") },
                         { captureActivationWindow(evidence) },
-                        { File(evidence, "activation-failure-semantics.txt").writeText(
-                            "clockBefore=${ui.mainClock.currentTime} autoAdvance=${ui.mainClock.autoAdvance}\n" +
-                                ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = 14) +
-                                "\nclockAfter=${ui.mainClock.currentTime}\n") },
-                        { captureNativeScreen(File(evidence, "activation-after-diagnostic.png")) },
                         { File(evidence, "activation-app-logcat.txt").writeText(device.executeShellCommand(
                             "timeout 3 logcat -d -v threadtime --pid=${android.os.Process.myPid()} -t 300")) })
                 }) {
@@ -483,20 +478,6 @@ class WalletImportPreviewTest {
                 val ime = androidx.core.view.WindowInsetsCompat.Type.ime()
                 val bars = androidx.core.view.WindowInsetsCompat.Type.systemBars()
                 val content = activity.findViewById<android.view.ViewGroup>(android.R.id.content)
-                val hierarchy = StringBuilder()
-                fun describe(view: android.view.View, depth: Int) {
-                    if (depth > 10 || hierarchy.length > 48_000) return
-                    hierarchy.append("  ".repeat(depth)).append(view.javaClass.name)
-                        .append(" size=${view.width}x${view.height} measured=${view.measuredWidth}x${view.measuredHeight}")
-                        .append(" xy=${view.x},${view.y} alpha=${view.alpha} visibility=${view.visibility}")
-                        .append(" shown=${view.isShown} attached=${view.isAttachedToWindow} layoutRequested=${view.isLayoutRequested}")
-                        .append(" drawingTime=${view.drawingTime}\n")
-                    if (view is androidx.compose.ui.platform.AbstractComposeView)
-                        hierarchy.append("  ".repeat(depth + 1)).append("hasComposition=${view.hasComposition}\n")
-                    if (view is android.view.ViewGroup) for (index in 0 until view.childCount) describe(view.getChildAt(index), depth + 1)
-                }
-                describe(decor, 0)
-                File(folder, "activation-native-view-tree.txt").writeText(hierarchy.toString())
                 listOf("activity=${activity.javaClass.name}@${System.identityHashCode(activity)}",
                     "changingConfigurations=${activity.isChangingConfigurations} finishing=${activity.isFinishing} destroyed=${activity.isDestroyed}",
                     "windowFocus=${decor.hasWindowFocus()} attached=${decor.isAttachedToWindow} shown=${decor.isShown}",
