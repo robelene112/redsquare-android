@@ -225,6 +225,14 @@ if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == talk-ownership* ]]; then
+    verify_talk_capture_native TalkOwnershipPreviewTest talk-ownership
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == talk-process* ]]; then
+    python3 "$repo_dir/scripts/talk-process-check" --evidence "$evidence/talk-process"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == talk-chat* ]]; then
     verify_talk_browser_native TalkChatPreviewTest talk-chat
     exit 0

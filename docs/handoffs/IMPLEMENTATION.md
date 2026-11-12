@@ -62,6 +62,29 @@ media interoperability. Framework/wallet serialization and owned Relay are
 explicit adaptations; no public development writes or physical microphone/
 speaker quality claims. No new complete-verification catalog is frozen yet.
 
+At13:01UTC checkpoint (not release acceptance):
+
+- Source1f30b89ad passes actual fifth-body Relay three-party media43220990390,
+  including native decoded peer pixels/PCM, actual AudioRecord-input PCM at both
+  browsers, screen-off received audio growth and exact notification return.
+- The same source passes43220994020: original audio-focus interruption and actual
+  dynamic microphone+camera foreground ownership, hardware-camera pause outside
+  visibility, screen-off call retention and notification camera resumption.
+- Direct43220985761 fails before Answer at VERIFYING. No browser errors or capture
+  occurred. This differs from the earlier JOINING failure; do not infer its cause.
+  Test-only upstream Stun diagnostics are now observed in ba04b1909. Original
+  identity/DTLS gate and20-second ringing deadline remain unchanged.
+- Controls43220998200 failed before instrumentation: isolated Chrome's DevTools
+  became available just after its five-second startup window. Retained original
+  chromium.log shows that timing. Only external fixture startup now allows20s;
+  class180s, initial-mute metadata5s and held-Relay mute3s goals stay unchanged.
+- ba04b1909 actual Chat audio/video button, media, output and unsent-draft journeys
+  run43222641692; direct diagnostics43222645648 and controls43222650857 are pending.
+- Added real-process-loss/stale-return and native notification/authority ownership
+  journeys reuse existing seams. Their focused proofs, complete104 catalog,
+  independent reviews and beta delivery are still pending. Local AndroidTest
+  compilation for the process-loss addition passes; no device acceptance implied.
+
 At12:39UTC the current implementation checkpoint is NOT beta acceptance:
 
 - Host-Chromium media43212543563 at ab38c11f6 passes real native red-peer pixels,
