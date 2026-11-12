@@ -6,61 +6,55 @@ The owner approved native Fileshare in private Chat, including continuing live
 transfers outside the app and with the screen off, with Android progress and
 Cancel. [Issue103](https://github.com/robelene112/redsquare-android/issues/103)
 is the only active implementation. Review base is `d46cce88b` on
-`codex/unified-redesign`; preserve the canonical checkout. Native protocol,
-streaming encrypted storage, foreground ownership and controlled browser/Android
-proofs are being implemented. No Fileshare runtime or delivery acceptance is
-claimed yet. Public beta112 remains the preceding accepted release.
+`codex/unified-redesign`; preserve the canonical checkout and parents1/36/55/84/86.
+No node/provider/Play operation or public Saito write is authorized or needed.
+Do not ask the owner to repeat routine phone checks.
 
-Current continuation (November12,00:12UTC): sole writer checkout remains
-`/mnt/storage/redsquare-android-artifacts/redesign86`, branch
-`codex/unified-redesign`. Focused Android17 run43119241646 at `0cf44e7fc`
-passes all eight base/viewport classes and seeded-state distinct-PID recovery.
-Android10 complete focused run43123971475 at `e1576a8ec` passes all nine classes,
-both viewport matrices, seeded-state recovery and the large-transfer gate.
-All original goals/deadlines remain. The native48dp target is measured separately
-from Material's40dp paint. Large-text file-preview space is fixed in the product.
+Current continuation (November12,00:55UTC): sole writer checkout remains
+`/mnt/storage/redsquare-android-artifacts/redesign86`. Final product/build source
+is `c9501442d94773df8c5cb30a756f2cbfb33c178c`. Both independent review axes pass.
+Full10 run43128152234 and full17 run43128154836 are active on that same source.
+All six full build/lint graphs pass, including Release/Performance and both lints;
+all six partitions are now running actual native tests. No complete103 acceptance
+yet. Frozen collector/contract remain unchanged at663/664identities,239classes,
+197archives,259/260normal completions,38interruptions and37continuities.
 
-The additive pre-full4MiB gate passes Android10 run43121961977 at `725d59e95`
-(4,194,317bytes, SHA25679b7c4a8bc98b1395370fcb9ebe466313f3414167583d01098a4238e810d641b,
-actual512MiB heap parity). Android17 run43121965319 fails the unchanged30second
-completion goal while screen-off. Diagnostic run43123205607 at `3762f1a80`
-confirms controller event-buffer overflow:47produced chunks,6acknowledged,
-385536received bytes and FAILED, with an explicit buffer-full log. Source
-`54b2ee076` adds an encrypted accepted-frame disk inbox and removes the temporary
-product probes. Its unchanged large gate43125121863 is active. Subsequent
-`ac4dc5dce` batches four frames per controller event so watchdog/control work runs;
-`57db13f69` closes a completed inbox before a subsequent offer replaces its token.
-Both independent review axes pass the fixes; final runtime proof remains pending.
-The browser peer is instrumentation-only and shares this emulator, not an actual
-independent community device. Exact pinned uploader/real WebRTC are retained.
+Signed candidate115 is built/staged at that exact source,91,442,703bytes,
+SHA256 `9b39b1b8ec6cc0b44424f7a1f556bc7aa16659824d59a2167661184d92b32e23`.
+Public download, exact manifest/notes/bytes, established certificate, ordinary
+package and release flags pass. Browser Fileshare specimens are absent from the
+production APK. Public latest remains112; local reserved counter is115.
+Candidate113 is superseded/staged-only and must never be promoted;114 is local-only
+and superseded. Real candidate115 updates10/17 runs43130114371/43130116663 pass. Both downloaded
+packets validate exact candidate bytes, all four wallet observations, distinct debug
+identity, exact draft/cache/Light preference through cold launch and restoration.
+Retained originals/checksums are under evidence/ticket103/update115-android10/17.
+No115 promotion or issue closure yet.
 
-No complete final103 run, signed candidate or delivery has occurred. The revised
-pre-run contract preserves the initial contract by commit/checksum and adds one
-normal class per SDK:663/664identities,239classes,197archives,259/260normal,
-38interruptions and37continuities. Full collector, source review and acceptance
-qualifications are in `docs/evidence/ticket103`. Raw focused artifacts are outside
-Git under `/mnt/storage/redsquare-android-artifacts/fileshare103`.
-Local release packaging and serial debug lint pass after separating compiler
-lifetimes; earlier Docker OOM failures remain in external `local-checks`.
-The signed review script now warms the selected variant with identical reserved
-version/options before fresh-process packaging. No VPS memory/service limit changed.
+The initial4MiB browser-to-native gate passes10 at725 and complete focused10
+run43123971475 at e157 passes all nine classes plus seeded distinct-PID recovery.
+Initial17 diagnostic43123205607 at3762 confirms Channel32 overflow after47produced,
+6acknowledged chunks and385536bytes.54b2ee076 adds an encrypted ephemeral accepted
+frame inbox; its unchanged large17 gate43125121863 passes66chunks/exact4,194,317bytes
+while screen-off. ac4dc5dce yields four-frame batches to watchdog/controls;
+57db13f69 releases the old inbox before a new offer during ACK grace. Temporary
+product probes are removed. The process fixture seeds an encrypted queued frame
+and requires its cold removal, without claiming live-peer process-death recovery.
 
-Reuse `proof-fileshare103-notification-controls` for branch-scoped build caches.
-Always supply a full40character source SHA, check run metadata and actual
-`proof-source.txt`; abbreviated refs caused checkout failures, never acceptance.
-The initial large fix passes Android17 run43125121863 with66chunks and exact
-4,194,317bytes while screen-off. Initial full runs43125831570/43125834511 at419
-fail the combined build before device work:the test lint model lacked a declared
-dependency on generated Fileshare references.199a45ea0 fixes the exact task edge;
-both review axes pass. Original contract/identities/deadlines are unchanged.
-Candidate113419 is staged-only and superseded; never promote it. Its public
-download/signature/package match passed. Build the next exact-source candidate
-and rerun complete10/17 plus real signed-update gates. Local counter is113;
-the public beta remains112. Finish the large-transfer verification,
-all required native/final regression/update proof and signed beta delivery; do not
-start other tickets or ask the owner to repeat phone testing.
+First full419 runs43125831570/43125834511 fail the generated-assets test lint model
+dependency.199's exact-task edge is insufficient: b318 runs43126969246/43126971037
+reach the second lint analysis consumer, fail and are superseded/cancelled.
+c950 fixes producer wiring through the typed Android generated-source API. A local
+lint attempt then hits the actual2.5GiB Docker OOM limit; hosted full source graphs
+pass. Retain originals under external fileshare103/local-checks and failed-full
+directories. No test/goal/deadline or original qualification was loosened.
 
-
+Raw artifacts remain outside Git under
+`/mnt/storage/redsquare-android-artifacts/fileshare103`. Reuse proof branch
+`proof-fileshare103-notification-controls`; always dispatch a full40character
+source SHA and check actual proof-source.txt. Finish full packet validation,
+source-consistent signed-update acceptance and independent final packet reviews,
+then promote the exact staged115, verify public delivery, close103 and stop.
 
 ## Delivered native Stack links #102
 

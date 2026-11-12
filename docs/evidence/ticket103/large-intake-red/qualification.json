@@ -1,0 +1,10 @@
+{
+  "run": "43123205607",
+  "source": "3762f1a80674f74974ffc5ee47683e07e98c2a7c",
+  "result": "FAILED",
+  "goal": "Original30second completion while screen off",
+  "diagnosis": "Accepted incoming chunks overflow controller Channel32. Browser stops after native closes the channel.",
+  "originalContextSha256": "6a1025b9f77074a4700317821082333add0ff015bc8b2fd61483f5963874fc68",
+  "originalContextPath": "/mnt/storage/redsquare-android-artifacts/fileshare103/large-43123205607/.scratch/device-evidence/api-37.0/fileshare-large-receive-failure-context.txt",
+  "qualification": "Actual failed native goal, not an exception or accepted outcome. Temporary product probes removed in54b2ee076."
+}
