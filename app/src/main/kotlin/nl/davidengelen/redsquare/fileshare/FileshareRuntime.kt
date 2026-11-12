@@ -87,6 +87,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     val ownsDelivery get() = observers > 0 || serviceStarted
     private var loaded = false
     private var watchdog: Job? = null
+    private var completedConversation = false
     @Volatile private var operation: Job? = null
     private var readJob: Job? = null
     @Volatile private var channelGeneration = 0L
@@ -147,13 +148,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                         if (!FileshareNotifications.available(context) || System.currentTimeMillis() - activityAt > 60_000)
                             finishPreparation(PreparationPhase.INTERRUPTED)
                     }
+                    if (rtc != null && observers > 0) assertSelected()
                     val value = current
                     if (value != null && (value.phase.active || value.phase == FilePhase.OFFERED)) {
                         assertSelected()
                         if (value.phase.active && !FileshareNotifications.available(context)) end(FilePhase.INTERRUPTED)
                         val bound = if (value.phase in setOf(FilePhase.WAITING, FilePhase.OFFERED)) 120_000 else 60_000
                         if (System.currentTimeMillis() - activityAt > bound) end(FilePhase.INTERRUPTED)
-                    } else if (rtc != null && System.currentTimeMillis() - activityAt > 30_000) cleanup()
+                    } else if (rtc != null && observers == 0 && System.currentTimeMillis() - activityAt > 30_000) cleanup()
                     if (observers == 0 && current?.phase == FilePhase.OFFERED) end(FilePhase.DECLINED)
                 }
             }
@@ -161,7 +163,11 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
 
     fun attach() { post { observers++ } }
-    fun detach() { post { observers = maxOf(0, observers - 1) } }
+    fun detach() { post {
+        observers = maxOf(0, observers - 1)
+        if (observers == 0 && completedConversation && current?.phase == FilePhase.COMPLETE &&
+            preparationState.value?.phase != PreparationPhase.PREPARING) cleanup()
+    } }
     @Synchronized fun send(uri: Uri) {
         if (!ready.value || state.value.any { it.phase.active || it.phase == FilePhase.OFFERED } ||
             preparationState.value?.phase == PreparationPhase.PREPARING) return
@@ -488,7 +494,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 val updated = value.copy(bytes = value.bytes + sendingBytes)
                 sendingBytes = 0
                 if (updated.bytes == updated.offer.size) {
-                    update(updated.copy(phase = FilePhase.COMPLETE)); cleanup()
+                    update(updated.copy(phase = FilePhase.COMPLETE)); finishDelivery()
                 } else { publishProgress(updated); sendNext() }
             }
         }
@@ -557,8 +563,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         cleanup()
     }
     private fun cleanup() {
-        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("Talk104Probe", "file cleanup phase=${current?.phase} observers=$observers rtc=${rtc != null}")
         current?.takeIf { !it.incoming }?.let { store.discard(it.token) }
+        completedConversation = false
         channelGeneration++; watchdog?.cancel(); watchdog = null
         readJob?.cancel(); readJob = null
         val oldInbox = incomingFrames; incomingFrames = null; oldInbox?.close()
@@ -569,9 +575,24 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         sendingIndex = 0; sendingBytes = 0
         oldRtc?.close(); oldPeer?.close()
     }
+    /** A completed transfer releases foreground/streaming resources, while its
+     * visible conversation still owns authenticated Chat delivery on this peer.
+     * The receiver retains only its last chunk hash for idempotent final ACKs.
+     */
+    private fun finishDelivery() {
+        if (observers == 0) { cleanup(); return }
+        assertSelected()
+        current?.takeIf { !it.incoming }?.let { store.discard(it.token) }
+        readJob?.cancel(); readJob = null
+        val oldInbox = incomingFrames; incomingFrames = null; oldInbox?.close()
+        source?.close(); source = null; spool?.close(); spool = null
+        sendingIndex = 0; sendingBytes = 0; serviceStarted = false
+        completedConversation = true
+        changed()
+    }
     private fun finishLater(token: String) { scope.launch {
         delay(1500)
-        post { if (current?.token == token && current?.phase == FilePhase.COMPLETE) cleanup() }
+        post { if (current?.token == token && current?.phase == FilePhase.COMPLETE) finishDelivery() }
     } }
     companion object { private val PREPARATION_IO = Dispatchers.IO.limitedParallelism(2) }
     private fun post(event: suspend () -> Unit): Boolean = events.trySend(event).isSuccess.also {

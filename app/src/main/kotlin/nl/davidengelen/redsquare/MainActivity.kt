@@ -461,11 +461,6 @@ class MainActivity : ComponentActivity() {
                     !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
                     !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
                     !savingBackend && !walletImport.busy && !walletExport.busy
-                if (BuildConfig.DEBUG && intent.getBooleanExtra("feedDisabled", false)) {
-                    androidx.compose.runtime.SideEffect {
-                        android.util.Log.d("Talk104Insets", "keyboard=$keyboardVisible walletOpen=$walletOpen walletReady=${address != null} unobstructed=$featureUnobstructed")
-                    }
-                }
                 val pendingModuleRoute by notificationRoutes.pending.collectAsState()
                 LaunchedEffect(module, pendingModuleRoute, address, backend, featureUnobstructed) {
                     val delivery = pendingModuleRoute ?: return@LaunchedEffect
