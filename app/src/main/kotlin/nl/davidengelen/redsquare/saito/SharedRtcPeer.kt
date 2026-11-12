@@ -334,14 +334,18 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 }
                 publishOpen()
             }
-            "peer-candidate" -> if (!ignoredOffer) {
+            "peer-candidate" -> {
                 val data = body.getAsJsonObject("iceCandidate") ?: return
                 val candidate = data.get("candidate").asString
                 val mid = data.get("sdpMid")?.takeUnless { it.isJsonNull }?.asString
                 val index = data.get("sdpMLineIndex").asInt
                 require(candidate.length <= 4096 && (mid?.length ?: 0) <= 256 && index in 0..31)
                 val ice = IceCandidate(mid, index, candidate)
-                if (connection.remoteDescription == null) { require(pendingCandidates.size < 128); pendingCandidates.add(ice) }
+                // Candidates can overtake the accepted answer after glare. Dropping
+                // everything while ignoring an offer also discards that answer's
+                // valid candidates. Apply the bounded queue once its SDP arrives;
+                // WebRTC rejects candidates for an obsolete ICE generation.
+                if (ignoredOffer || connection.remoteDescription == null) { require(pendingCandidates.size < 128); pendingCandidates.add(ice) }
                 else connection.addIceCandidate(ice)
             }
         }
