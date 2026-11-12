@@ -80,7 +80,8 @@ class TalkService : Service() {
                     } else getSystemService(NotificationManager::class.java).notify(ID, notification(updated))
                 }
             }
-        } catch (_: Exception) {
+        } catch (failure: Exception) {
+            TalkRuntime.record("call-audio", failure)
             ready[call.token]?.completeExceptionally(IllegalStateException("Call audio unavailable"))
             TalkRuntime.interrupt(); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf()
         }

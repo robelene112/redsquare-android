@@ -18,14 +18,14 @@ internal object SharedRtcPeers {
     private val peers = ConcurrentHashMap<String, SharedRtcPeer>()
 
     @Synchronized fun acquire(context: Context, wallet: SaitoWallet, nodeScope: String, peer: String,
-        endpoint: String, traversal: Boolean, callbacks: RtcCallbacks): RtcLease {
+        endpoint: String, traversal: Boolean, callbacks: RtcCallbacks, additionalEndpoints: List<String> = emptyList()): RtcLease {
         require(SaitoWallet.isPublicKey(peer) && peer != wallet.publicKey)
         val key = "${context.packageName}:${wallet.publicKey}:$nodeScope:$peer"
         while (true) {
             val entry = peers.computeIfAbsent(key) {
                 SharedRtcPeer(context.applicationContext, wallet, peer, traversal) { closed -> peers.remove(key, closed) }
             }
-            entry.acquire(endpoint, callbacks)?.let { return it }
+            entry.acquire(endpoint, callbacks, additionalEndpoints)?.let { return it }
             peers.remove(key, entry)
         }
     }
@@ -49,7 +49,7 @@ internal class RtcLease internal constructor(internal val entry: SharedRtcPeer,
     internal var network: Closeable? = null
     val connected get() = active.get() && entry.connected
     suspend fun offer() = entry.offer(this)
-    suspend fun receive(request: String, body: com.google.gson.JsonObject) = entry.receive(this, request, body)
+    suspend fun receive(request: String, body: com.google.gson.JsonObject, signature: String? = null) = entry.receive(this, request, body, signature)
     fun send(envelope: String) { check(active.get()); callbacks.validate(); entry.send(envelope) }
     fun media(audio: AudioTrack?, video: VideoTrack?, stream: String) {
         check(callbacks.media && active.get())
@@ -194,7 +194,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         }
     }
 
-    @Synchronized fun acquire(endpoint: String, callbacks: RtcCallbacks): RtcLease? {
+    @Synchronized fun acquire(endpoint: String, callbacks: RtcCallbacks, additionalEndpoints: List<String>): RtcLease? {
         if (closing.get()) return null
         try { callbacks.validate() }
         catch (failure: Exception) {
@@ -203,15 +203,18 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         }
         val lease = RtcLease(this, endpoint, callbacks)
         leases.add(lease)
-        lease.network = RealtimeIncoming.register(wallet.publicKey, endpoint) { bytes ->
-            val message = Stun.network(bytes, remote, wallet.publicKey) ?: return@register null
-            if (message.body.get("request").asString !in setOf("peer-joined", "peer-description", "peer-candidate")) return@register null
-            callbacks.validate()
-            if (!lease.active.get()) return@register null
-            post {
-                if (leases.any { it.active.get() } && remember(message.id)) receiveSignal(message.body.get("request").asString, message.body)
+        val registrations = (listOf(endpoint) + additionalEndpoints).distinct().map { route ->
+            RealtimeIncoming.register(wallet.publicKey, route) { bytes ->
+                val message = Stun.network(bytes, remote, wallet.publicKey) ?: return@register null
+                if (message.body.get("request").asString !in setOf("peer-joined", "peer-description", "peer-candidate")) return@register null
+                if (!lease.active.get()) return@register null
+                try { callbacks.validate() } catch (_: Exception) { lease.close(); return@register null }
+                post {
+                    if (leases.any { it.active.get() } && remember(message.id)) receiveSignal(message.body.get("request").asString, message.body)
+                }
             }
         }
+        lease.network = Closeable { registrations.forEach { it.close() } }
         post {
             if (lease.active.get() && connected) {
                 callbacks.validate(); callbacks.opened()
@@ -224,8 +227,8 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     suspend fun offer(lease: RtcLease) = command(lease) {
         started = true; needsNegotiation = true; negotiateIfNeeded()
     }
-    suspend fun receive(lease: RtcLease, request: String, body: com.google.gson.JsonObject) = command(lease) {
-        receiveSignal(request, body)
+    suspend fun receive(lease: RtcLease, request: String, body: com.google.gson.JsonObject, signature: String?) = command(lease) {
+        if (signature == null || remember(signature)) receiveSignal(request, body)
     }
 
     private suspend fun command(lease: RtcLease, operation: suspend () -> Unit) {
@@ -319,7 +322,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         // Each route carries the same signature, so upstream Stun deduplicates multiple sockets/nodes.
         val transaction = Stun.signal(wallet, remote, request, body, System.currentTimeMillis())
         var sent = false
-        leases.filter { it.active.get() }.distinctBy { it.endpoint }.forEach { lease ->
+        leases.filter { it.active.get() }.forEach { lease ->
             try { lease.callbacks.validate(); lease.callbacks.signal(transaction); sent = true } catch (_: Exception) { }
         }
         check(sent)

@@ -58,6 +58,34 @@ transcription, scheduling, livestreaming and local screen broadcast are not part
 of the approved direct/group-call slice.
 
 
+
+104 checkpoint: foundational source70489f496cd9e9d5c3873ed5dfa44eee94f53b75
+passes actual Android10 socket routing (43193138260,2methods) and all nine
+Android17 Fileshare classes (43193151814, including4MiB, background/screen-off,
+Cancel, permission denial and both viewport matrices). Original four runs were
+cancelled during SDK preparation with primary status snapshots and complete logs
+retained externally. Replacements43193142930/43193147347 and capture43193047771
+failed SDK provisioning, not app assertions. Updated workflow0bce10722 makes
+optional NDK cleanup bounded/space-dependent and exposes preparation stages;
+43193926943 actually reached native capture testing with compiled source de7dab4c.
+That run failed at room startup because the owned ControlledFeedPeer only
+understood Stun/File/Chat Relay originals, not signed Videocall. The fixture now
+accepts and verifies Talk originals too; the stricter real-frame goal remains.
+
+Current source adds native Talk picker/home, prejoin, incoming dialog, private
+Chat actions, exact active-call return, controls/output choices and module/draft
+navigation. It is not delivered: TalkCapture remains the intentional empty
+runtime RED seam. Do not ship it. All-core and Kotlin UI compilation have passed
+at the last checks, with subsequent small delivery/fixture changes awaiting the
+next source build. Call controls now preempt blocked waits on End; legacy unsigned
+ACCEPT waits for a signed message confirming the same room before capture.
+Initial signed Stun frames are staged behind cold invitation/join initialization,
+with shared signature deduplication and route hooks. File signalling can also
+reach its live session through a Talk/temporary socket. No actual native audio,
+video, group-call, permission/service or UI acceptance is claimed by these checks.
+Temporary UI working copies, upstream source and original evidence remain under
+/mnt/storage/redsquare-android-artifacts/talk-native, outside Git.
+
 ## Delivered native Fileshare #103
 
 [Signed beta0.1.116](https://davidengelen.nl/redsquare/) is public. Private Chat

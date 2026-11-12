@@ -16,6 +16,7 @@ internal class TalkCapture(context: Context, microphone: Boolean, camera: Boolea
     fun controls(microphone: Boolean, camera: Boolean) {}
     fun switchCamera() {}
     fun silence() {}
+    fun silenceVideo() {}
     override fun close() {}
     companion object {
         fun permitted(context: Context, camera: Boolean): Boolean =

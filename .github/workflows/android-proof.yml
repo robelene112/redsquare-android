@@ -206,8 +206,12 @@ jobs:
           # not require refreshing unrelated APT repositories on every hosted VM.
           printf 'SDK preparation: missing runtime libraries: %s\n' "${TASK_MISSING[*]}"
           if (( ${#TASK_MISSING[@]} )); then
-            sudo timeout 300 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update -qq
-            sudo timeout 300 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install -y --no-install-recommends "${TASK_MISSING[@]}"
+            # The runner image normally already has signed package metadata.
+            # Try the required packages before refreshing unrelated repositories.
+            if ! sudo timeout 180 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install -y --no-install-recommends "${TASK_MISSING[@]}"; then
+              sudo timeout 300 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update -qq
+              sudo timeout 300 apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 install -y --no-install-recommends "${TASK_MISSING[@]}"
+            fi
           fi
           dpkg-query -W -f='${binary:Package} ${Version} ${db:Status-Status}\n' "${TASK_LIBRARIES[@]}"
           echo 'SDK preparation: install pinned Android tools'

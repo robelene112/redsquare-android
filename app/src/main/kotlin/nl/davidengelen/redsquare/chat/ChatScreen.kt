@@ -372,6 +372,19 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 Icon(painterResource(R.drawable.ic_info), contentDescription = null, modifier = Modifier.size(22.dp))
             } else TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
         }
+        val callAction = nl.davidengelen.redsquare.talk.LocalTalkLaunch.current
+        if (counterparty != null && callAction != null && !keyboardVisible) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(onClick = { counterparty?.let { callAction(it, TalkMode.VOICE) } },
+                enabled = !navigation.transitioning && !closing, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
+                Icon(painterResource(R.drawable.ic_phone), null, Modifier.size(20.dp)); Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.talk_audio_call))
+            }
+            OutlinedButton(onClick = { counterparty?.let { callAction(it, TalkMode.VIDEO) } },
+                enabled = !navigation.transitioning && !closing, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
+                Icon(painterResource(R.drawable.ic_video), null, Modifier.size(20.dp)); Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.talk_video_call))
+            }
+        }
         if (counterparty == null) Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
         val statusLabel = stringResource(R.string.chat_status)

@@ -3,6 +3,10 @@ package nl.davidengelen.redsquare
 import nl.davidengelen.redsquare.media.LocalGiphyConfiguration
 import nl.davidengelen.redsquare.media.GiphyConfiguration
 
+import nl.davidengelen.redsquare.talk.*
+import nl.davidengelen.redsquare.saito.TalkMode
+import nl.davidengelen.redsquare.saito.TalkRoom
+import nl.davidengelen.redsquare.saito.TalkLink
 import android.os.Bundle
 import android.content.Intent
 import android.net.Uri
@@ -105,10 +109,14 @@ class MainActivity : ComponentActivity() {
             nl.davidengelen.redsquare.notifications.NotificationRoutes::class.java]
     }
 
+    private val talkUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
+    private fun isTalkUri(uri: Uri?): Boolean = uri != null &&
+        (uri.scheme == "redsquare-talk" || TalkLink.parse(uri.toString()) != null)
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
-        notificationRoutes.enqueue(intent.data)
+        if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.enqueue(intent.data)
     }
 
     private var videoDiagnostics: VideoDiagnostics? = null
@@ -134,7 +142,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalLayoutApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        notificationRoutes.initialize(intent.data)
+        if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
@@ -172,6 +180,8 @@ class MainActivity : ComponentActivity() {
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             val settingsStates = rememberSaveableStateHolder()
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
+            var talkDraft by rememberSaveable { mutableStateOf<TalkDraft?>(null) }
+            var talkReturnExpired by remember { mutableStateOf(false) }
             var stackLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StackLinkEntry?>(null) }
             var stackLinkRequest by remember { mutableStateOf(0L) }
             var moduleSwitchFailed by remember { mutableStateOf(false) }
@@ -325,6 +335,61 @@ class MainActivity : ComponentActivity() {
                 if (address != null && backendReady && backend != null && stackLinkEntry?.let {
                     it.owner != address || it.savedBackend != backend } == true) stackLinkEntry = null
             }
+            val talkWallet = wallet
+            val talkBackend = backend
+            val talkEndpoint = talkBackend?.let { FeedEndpoints.fromIntent(intent, it) }
+            val talkAccount = remember(address, talkBackend, talkEndpoint) {
+                if (talkWallet != null && talkBackend != null && talkEndpoint != null)
+                    TalkRuntime.account(applicationContext, talkWallet, talkBackend, talkEndpoint) else null
+            }
+            DisposableEffect(talkAccount) {
+                val observer = LifecycleEventObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_RESUME) TalkRuntime.visibility(true)
+                    if (event == Lifecycle.Event.ON_PAUSE) TalkRuntime.visibility(false)
+                }
+                lifecycle.addObserver(observer)
+                TalkRuntime.visibility(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
+                talkAccount?.attach()
+                onDispose { lifecycle.removeObserver(observer); talkAccount?.detach() }
+            }
+            LaunchedEffect(address, talkBackend) {
+                if (address != null && talkBackend != null && talkDraft?.let {
+                    it.owner != address || it.savedBackend != talkBackend } == true) talkDraft = null
+            }
+            val pendingTalkUri by talkUris.collectAsState()
+            LaunchedEffect(pendingTalkUri, address, talkBackend) {
+                val uri = pendingTalkUri ?: return@LaunchedEffect
+                val owner = address ?: return@LaunchedEffect
+                val node = talkBackend ?: return@LaunchedEffect
+                postNavigation.awaitSettled()
+                val link = TalkLink.parse(uri.toString())
+                val active = TalkRuntime.call.value
+                val exactCall = uri.scheme == "redsquare-talk" && uri.host == "call" &&
+                    uri.pathSegments.singleOrNull() == active?.token && uri.getQueryParameter("owner") == owner &&
+                    uri.getQueryParameter("backend") == node.id && active != null && active.owner == owner && active.savedBackend == node && active.phase.live
+                if (link == null && !exactCall) { talkReturnExpired = true; talkUris.value = null; return@LaunchedEffect }
+                val moved = postNavigation.navigate {
+                    if (wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
+                    else { talkDraft = link?.let { TalkDraft(it.url(), owner = owner, savedBackend = node) }; stackLinkEntry = null; module = AppModule.TALK; true }
+                }
+                if (moved) talkUris.value = null
+                moduleSwitchFailed = !moved
+            }
+            val launchTalk: (String, TalkMode) -> Unit = { peer, mode ->
+                val owner = address
+                val node = backend
+                if (owner != null && node != null) scope.launch {
+                    val draft = withContext(Dispatchers.IO) {
+                        TalkDraft(TalkLink(node, TalkRoom(SaitoWallet.create().publicKey, owner, mode = mode)).url(), peer, owner, node)
+                    }
+                    postNavigation.awaitSettled()
+                    val moved = postNavigation.navigate {
+                        if (wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
+                        else { talkDraft = draft; stackLinkEntry = null; module = AppModule.TALK; true }
+                    }
+                    moduleSwitchFailed = !moved
+                }
+            }
             val linkedStack = stackLinkEntry?.takeIf {
                 module == AppModule.STACK && it.owner == address && it.savedBackend == backend
             }
@@ -333,6 +398,7 @@ class MainActivity : ComponentActivity() {
             val readingUri = remember(externalUri) {
                 object : androidx.compose.ui.platform.UriHandler {
                     override fun openUri(uri: String) {
+                        if (TalkLink.parse(uri) != null) { talkUris.value = Uri.parse(uri); return }
                         val target = nl.davidengelen.redsquare.saito.StackLink.parse(uri)
                         if (target == null) { externalUri.openUri(uri); return }
                         val owner = wallet?.publicKey ?: return
@@ -360,7 +426,7 @@ class MainActivity : ComponentActivity() {
             RedSquareTheme(this@MainActivity, appearance) {
                 nl.davidengelen.redsquare.feed.ProfileAvatarScope(wallet, backend,
                     backend?.let { FeedEndpoints.fromIntent(intent, it) }) {
-                CompositionLocalProvider(LocalPublishingAgreement provides publishingAgreement,
+                CompositionLocalProvider(LocalTalkLaunch provides launchTalk, LocalPublishingAgreement provides publishingAgreement,
                     androidx.compose.ui.platform.LocalUriHandler provides readingUri,
                     nl.davidengelen.redsquare.ui.LocalExternalUriHandler provides externalUri,
                     LocalVideoFixture provides VideoFixture.fromIntent(intent),
@@ -398,17 +464,25 @@ class MainActivity : ComponentActivity() {
                 val pendingModuleRoute by notificationRoutes.pending.collectAsState()
                 LaunchedEffect(module, pendingModuleRoute, address, backend, featureUnobstructed) {
                     val delivery = pendingModuleRoute ?: return@LaunchedEffect
-                    if (module != AppModule.STACK || !featureUnobstructed ||
+                    if (module == AppModule.RED_SQUARE || !featureUnobstructed ||
                         !NotificationRoutes.targetsScope(delivery, address, backend)) return@LaunchedEffect
                     postNavigation.awaitSettled()
                     if (!notificationRoutes.current(delivery)) return@LaunchedEffect
                     // Mount the existing destination owner. It alone resolves/verifies/consumes
                     // this delivery, preserving policy, exact-target and draft-save checks.
                     val moved = postNavigation.navigate {
-                        if (module != AppModule.STACK || !notificationRoutes.current(delivery)) false
+                        if (module == AppModule.RED_SQUARE || !notificationRoutes.current(delivery)) false
                         else { module = AppModule.RED_SQUARE; true }
                     }
                     moduleSwitchFailed = !moved
+                }
+                if (featureUnobstructed && talkWallet != null && talkBackend != null && talkEndpoint != null) {
+                    CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, talkEndpoint)) {
+                        RegisteredIdentityScope(talkWallet, talkEndpoint, talkBackend,
+                            RegistryAuthority.directoryPeer(intent, talkEndpoint).takeIf { nameDirectoryEnabled == true }) {
+                            TalkIncomingDialog(talkAccount, address, backend) { selectModule(AppModule.TALK) { talkDraft = null } }
+                        }
+                    }
                 }
                 Surface(Modifier.fillMaxSize()) {
                     fun closeWallet() {
@@ -440,6 +514,8 @@ class MainActivity : ComponentActivity() {
                     }
                     val chrome: @Composable (Boolean) -> Unit = { isHome ->
                         appHeader()
+                        if (module != AppModule.TALK) TalkActiveBar(address, backend) { selectModule(AppModule.TALK) { talkDraft = null } }
+                        InlineStatus(if (talkReturnExpired) stringResource(R.string.talk_return_expired) else null, StatusTone.INFO)
                         if (updateAvailable && !keyboardVisible) {
                             Text(stringResource(R.string.preview_update_available))
                             TextButton(onClick = {
@@ -479,7 +555,20 @@ class MainActivity : ComponentActivity() {
                                     val moduleStates = rememberSaveableStateHolder()
                                     SingleOwnerReveal(linkedStack?.target ?: module, Modifier.weight(1f)) {
                                         val renderModule: @Composable () -> Unit = {
-                                            if (module == AppModule.STACK) {
+                                            if (module == AppModule.TALK) {
+                                                val currentWallet = wallet
+                                                if (currentWallet != null && talkAccount != null) {
+                                                    val endpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                    CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, endpoint)) {
+                                                        RegisteredIdentityScope(currentWallet, endpoint, selected,
+                                                            RegistryAuthority.directoryPeer(intent, endpoint).takeIf { nameDirectoryEnabled == true }) {
+                                                            TalkScreen(currentWallet, selected, talkAccount, talkDraft?.takeIf {
+                                                                it.owner == currentWallet.publicKey && it.savedBackend == selected },
+                                                                onEntry = { talkDraft = it }, chrome = chrome)
+                                                        }
+                                                    }
+                                                } else chrome(false)
+                                            } else if (module == AppModule.STACK) {
                                                 if (linkedStack == null && BuildConfig.DEBUG && intent.getBooleanExtra("stackDesignFixture", false)) {
                                                     StackReviewScreen(Modifier.fillMaxSize(), chrome) {
                                                         address?.let { owner ->

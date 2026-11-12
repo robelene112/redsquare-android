@@ -16,7 +16,7 @@ internal class SaitoFileChannel(context: Context, wallet: SaitoWallet, backend: 
                 if (Fileshare.ownsDirectFrame(envelope)) { message(envelope); true } else false
             }, otherData = otherData))
     suspend fun offer() = lease.offer()
-    suspend fun receive(request: String, body: JsonObject) = lease.receive(request, body)
+    suspend fun receive(request: String, body: JsonObject, signature: String? = null) = lease.receive(request, body, signature)
     fun send(text: String) = lease.send(text)
     override fun close() = lease.close()
 }

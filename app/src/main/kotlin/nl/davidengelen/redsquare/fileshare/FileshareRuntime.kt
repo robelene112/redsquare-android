@@ -34,6 +34,11 @@ internal object FileshareRuntime {
         changes.value = sessions.values.flatMap { it.transfers.value }.sortedByDescending { it.createdAt }
         preparingChanges.value = sessions.values.mapNotNull { it.preparation.value }
     }
+    /** Initial file signalling can land on Talk's or a temporary Archive socket too. */
+    fun receive(owner: String, backend: SaitoBackend, endpoint: String, bytes: ByteArray): Boolean {
+        return sessions.values.filter { it.owner == owner && it.backend == backend && it.endpoint == endpoint && it.ownsDelivery }
+            .any { session -> runCatching { session.receive(bytes) }.getOrDefault(false) }
+    }
     fun cancel(token: String) { sessions.values.forEach { it.cancel(token) } }
     fun stopAll() { sessions.values.forEach { it.interrupt() } }
     @Synchronized fun hasLiveWork() = sessions.values.any { session ->
@@ -74,7 +79,8 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     @Volatile private var chatWallet = wallet
     @Volatile private var serviceStarted = false
     val foregroundOwned get() = serviceStarted
-    private var observers = 0
+    @Volatile private var observers = 0
+    val ownsDelivery get() = observers > 0 || serviceStarted
     private var loaded = false
     private var watchdog: Job? = null
     @Volatile private var operation: Job? = null
@@ -408,7 +414,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             "peer-joined" -> { if (observers > 0 || serviceStarted) connect(initiator = false) }
             "peer-description", "peer-candidate" -> {
                 if (rtc == null && (observers > 0 || serviceStarted)) connect(initiator = false)
-                rtc?.receive(message.request, message.body)
+                rtc?.receive(message.request, message.body, message.id)
             }
             "peer-left" -> end(FilePhase.INTERRUPTED)
             "query file permission" -> {

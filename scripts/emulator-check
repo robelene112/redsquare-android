@@ -178,7 +178,7 @@ verify_group_chat_native() {
     # Instrumentation can abort when Android itself reports a system crash.
     # Retain the real crash buffer without retrying or accepting the failed class.
     timeout 10 adb logcat -d -b crash -v threadtime > "$evidence/$prefix-failure-crash.txt" 2>&1 || true
-    if [[ "$prefix" == fileshare-* ]]; then
+    if [[ "$prefix" == fileshare-* || "$prefix" == talk-* ]]; then
         timeout 10 adb logcat -d -b main -b system -b events -v threadtime > "$evidence/$prefix-failure-context.txt" 2>&1 || true
         timeout 10 adb shell dumpsys activity processes > "$evidence/$prefix-failure-processes.txt" 2>&1 || true
     fi

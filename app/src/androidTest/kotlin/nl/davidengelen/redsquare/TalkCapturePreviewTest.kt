@@ -38,8 +38,10 @@ class TalkCapturePreviewTest {
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
                     withFailureCapture({
                         File(evidence, "failure-state.txt").writeText(TalkRuntime.call.value?.let {
-                            "phase=${it.phase} localVideo=${it.localVideo != null}"
+                            "phase=${it.phase} localVideo=${it.localVideo != null} diagnostic=${TalkRuntime.diagnostic.value}"
                         } ?: "no call")
+                        File(evidence, "fixture-health.txt").writeText(runCatching { fixture.assertHealthy(); "healthy" }
+                            .getOrElse { it.toString() })
                         captureNativeScreen(File(evidence, "failure.png"))
                     }) {
                         TalkRuntime.visibility(true)

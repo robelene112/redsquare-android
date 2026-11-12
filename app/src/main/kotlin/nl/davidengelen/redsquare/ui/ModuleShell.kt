@@ -34,7 +34,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.ProfileAvatar
 
 internal enum class AppModule(val title: Int) {
-    RED_SQUARE(R.string.app_name), STACK(R.string.stack_title)
+    RED_SQUARE(R.string.app_name), STACK(R.string.stack_title), TALK(R.string.talk_title)
 }
 
 /** Shared account navigation over the real installation, never a preview wallet. */
@@ -78,14 +78,14 @@ internal fun AppHeader(node: String?, owner: String?, module: AppModule, walletE
                                 Surface(shape = RoundedCornerShape(12.dp), color = if (target == AppModule.RED_SQUARE)
                                     MaterialTheme.colorScheme.primary else Color(0xffa7c9ff)) {
                                     Box(Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                                        Icon(painterResource(if (target == AppModule.RED_SQUARE) R.drawable.ic_home else R.drawable.ic_article),
+                                        Icon(painterResource(if (target == AppModule.RED_SQUARE) R.drawable.ic_home else if (target == AppModule.STACK) R.drawable.ic_article else R.drawable.ic_video),
                                             null, Modifier.size(22.dp), tint = if (target == AppModule.RED_SQUARE)
                                                 MaterialTheme.colorScheme.onPrimary else Color(0xff122344))
                                     }
                                 }
                                 Column(Modifier.weight(1f)) {
                                     Text(stringResource(target.title), style = MaterialTheme.typography.titleMedium)
-                                    Text(stringResource(if (target == AppModule.RED_SQUARE) R.string.app_redsquare_summary else R.string.app_stack_summary),
+                                    Text(stringResource(if (target == AppModule.RED_SQUARE) R.string.app_redsquare_summary else if (target == AppModule.STACK) R.string.app_stack_summary else R.string.app_talk_summary),
                                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
                                 Icon(painterResource(if (module == target) R.drawable.ic_check else R.drawable.ic_forward), null, Modifier.size(22.dp))

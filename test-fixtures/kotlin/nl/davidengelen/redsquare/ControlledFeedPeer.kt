@@ -192,7 +192,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         if (body.get("request").asString == "relay peer message") {
                             val relay = JsonParser.parseString(String(java.util.Base64.getDecoder().decode(
                                 criteria.get("buffer").asString), Charsets.UTF_8)).asJsonObject
-                            val original = if (relay.get("module").asString == "Stun" ||
+                            val original = if (relay.get("module").asString in setOf("Stun", "Videocall") ||
+                                (relay.get("module").asString == "Relay" && relay.get("request").asString in setOf(
+                                    "stun-connection-request", "stun-connection-request-cancel", "stun-connection-accepted",
+                                    "stun-connection-rejected", "stun-connection-ping")) ||
                                 (relay.get("module").asString == "Relay" && relay.get("request").asString in setOf(
                                     "query file permission", "grant file permission", "deny file permission", "stop file transfer")) ||
                                 (relay.get("module").asString == "Chat" && relay.get("request").asString == "chat group")) {
