@@ -211,6 +211,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     }
 
     private suspend fun deliver(text: String) {
+        probe("deliver bytes=${text.length} leases=${leases.count { it.active.get() }}")
         val signal = Stun.read(text, remote, wallet.publicKey)
         val request = signal?.body?.get("request")?.asString
         if (signal != null && request in setOf("peer-joined", "peer-description", "peer-candidate")) {
@@ -220,10 +221,13 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
         // Registered feature receivers own their own admission. An expired call
         // lease must not swallow a visible conversation's initial file control.
         for (lease in leases.filter { it.active.get() }) {
-            if (RealtimeIncoming.receiveDirect(wallet.publicKey, lease.endpoint, remote, text) != null) return
+            val result = RealtimeIncoming.receiveDirect(wallet.publicKey, lease.endpoint, remote, text)
+            if (result != null) { probe("feature result=$result"); return }
         }
         for (lease in leases.filter { it.active.get() }) {
-            if (withLease(lease) { lease.callbacks.otherData(text) } == true) return
+            val result = withLease(lease) { lease.callbacks.otherData(text) }
+            probe("otherData media=${lease.callbacks.media} result=$result")
+            if (result == true) return
         }
     }
 
@@ -439,6 +443,7 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     }
     private fun dispose() {
         if (!closing.compareAndSet(false, true)) return
+        probe("dispose peers=${leases.size}")
         connected = false
         leases.forEach { it.active.set(false); it.network?.close() }; leases.clear()
         channel.unregisterObserver(); channel.close(); channel.dispose()

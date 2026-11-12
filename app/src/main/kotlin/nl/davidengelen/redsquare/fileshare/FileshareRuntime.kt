@@ -557,6 +557,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         cleanup()
     }
     private fun cleanup() {
+        if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("Talk104Probe", "file cleanup phase=${current?.phase} observers=$observers rtc=${rtc != null}")
         current?.takeIf { !it.incoming }?.let { store.discard(it.token) }
         channelGeneration++; watchdog?.cancel(); watchdog = null
         readJob?.cancel(); readJob = null
