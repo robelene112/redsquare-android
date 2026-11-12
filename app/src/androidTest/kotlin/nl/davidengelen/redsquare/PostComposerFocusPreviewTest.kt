@@ -31,7 +31,31 @@ class PostComposerFocusPreviewTest {
                 ui.onNode(hasText("New post") and hasClickAction()).performClick()
                 val editor = hasSetTextAction() and isEnabled()
                 ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
+                fun keyboardVisible(): Boolean {
+                    var visible = false
+                    activity.onActivity { screen ->
+                        visible = ViewCompat.getRootWindowInsets(screen.window.decorView)
+                            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
+                    }
+                    return visible
+                }
+                // Focus before typing, as a user does. Observe writing geometry after
+                // the real IME handoff within its original10s, rather than an interim resize.
+                val imeStarted = android.os.SystemClock.elapsedRealtime()
+                ui.onNode(editor).performClick()
                 ui.onNode(editor).performTextReplacement(draft)
+                val writingArrival = JsonObject().apply {
+                    addProperty("initialEditorDisplayed", ui.onNode(editor).isDisplayed())
+                    addProperty("initialPlatformImeVisible", keyboardVisible())
+                }
+                val remaining = 10_000 - (android.os.SystemClock.elapsedRealtime() - imeStarted)
+                check(remaining > 0) { "Writing and keyboard observation share the original10s" }
+                ui.waitUntil(remaining) { keyboardVisible() && ui.onNode(editor).isDisplayed() }
+                File(folder, "$label-writing-ready.json").writeText(writingArrival.apply {
+                    addProperty("settledEditorDisplayed", ui.onNode(editor).isDisplayed())
+                    addProperty("settledPlatformImeVisible", keyboardVisible())
+                    addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - imeStarted)
+                }.toString())
                 val writingNode = ui.onNode(editor).assertIsDisplayed().fetchSemanticsNode()
                 val attachmentNode = ui.onNode(hasText("Add images") and hasClickAction())
                     .assertIsDisplayed().fetchSemanticsNode()
@@ -53,16 +77,6 @@ class PostComposerFocusPreviewTest {
                 }.toString())
                 if (writingBounds.bottom > attachmentBounds.top) hierarchyProblems += label
 
-                fun keyboardVisible(): Boolean {
-                    var visible = false
-                    activity.onActivity { screen ->
-                        visible = ViewCompat.getRootWindowInsets(screen.window.decorView)
-                            ?.isVisible(WindowInsetsCompat.Type.ime()) == true
-                    }
-                    return visible
-                }
-                ui.onNode(editor).performClick()
-                ui.waitUntil(10_000) { keyboardVisible() }
                 ui.onNode(editor).assertEditableTextEquals(draft).assertIsDisplayed()
                 ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).assertIsDisplayed()
                 var sendTarget = requireNotNull(device.findObject(By.text("Send")))
