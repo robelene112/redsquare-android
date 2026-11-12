@@ -15,6 +15,7 @@ internal class SaitoFileChannel(context: Context, wallet: SaitoWallet, backend: 
             data = { envelope ->
                 if (Fileshare.ownsDirectFrame(envelope)) { message(envelope); true } else false
             }, otherData = otherData))
+    val connected get() = lease.connected
     suspend fun offer() = lease.offer()
     suspend fun receive(request: String, body: JsonObject, signature: String? = null) = lease.receive(request, body, signature)
     fun send(text: String) = lease.send(text)

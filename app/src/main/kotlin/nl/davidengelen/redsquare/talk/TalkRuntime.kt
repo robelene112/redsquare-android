@@ -232,6 +232,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         receiveMessage(TalkProtocol.network(bytes, wallet.publicKey), boundPeer)
     private fun receiveEnvelope(envelope: String, boundPeer: String): Boolean? =
         receiveMessage(TalkProtocol.read(envelope, wallet.publicKey, boundPeer), boundPeer)
+            ?: FileshareRuntime.receiveDirect(wallet.publicKey, backend, endpoint, boundPeer, envelope)
     private fun receiveMessage(message: TalkMessage?, boundPeer: String?): Boolean? {
         message ?: return null
         if (message.sender == wallet.publicKey) return true

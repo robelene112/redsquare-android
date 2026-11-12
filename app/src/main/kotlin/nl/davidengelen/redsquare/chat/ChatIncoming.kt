@@ -19,6 +19,7 @@ internal fun receiveBoundChat(context: Context, wallet: SaitoWallet, backend: Sa
     endpoint: String, peer: String, envelope: String): Boolean {
     val signed = SaitoEnvelope.decodePayload(envelope)
     check(signed.author == peer && wallet.publicKey in signed.recipients)
+    if (signed.body.isJsonObject && signed.body.asJsonObject.get("module") != com.google.gson.JsonPrimitive("Chat")) return false
     val saved = receiveChatEnvelope(context, wallet, backend, envelope, endpoint)
     nl.davidengelen.redsquare.fileshare.FileshareRuntime.chatChanges.tryEmit(Triple(wallet.publicKey, backend, saved))
     return true

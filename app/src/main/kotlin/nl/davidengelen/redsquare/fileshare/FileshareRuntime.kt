@@ -39,6 +39,10 @@ internal object FileshareRuntime {
         return sessions.values.filter { it.owner == owner && it.backend == backend && it.endpoint == endpoint && it.ownsDelivery }
             .any { session -> runCatching { session.receive(bytes) }.getOrDefault(false) }
     }
+    /** Bootstrap a known visible conversation on a DTLS peer already owned by Talk. */
+    fun receiveDirect(owner: String, backend: SaitoBackend, endpoint: String, contact: String, envelope: String): Boolean? =
+        sessions.values.firstOrNull { it.owner == owner && it.backend == backend && it.endpoint == endpoint &&
+            it.contact == contact && it.ownsDelivery }?.receiveDirect(envelope)
     fun cancel(token: String) { sessions.values.forEach { it.cancel(token) } }
     fun stopAll() { sessions.values.forEach { it.interrupt() } }
     @Synchronized fun hasLiveWork() = sessions.values.any { session ->
@@ -63,7 +67,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var preparationJob: Job? = null
     private val store = FileTransferStore(context, owner, backend, contact)
     private var current: FileTransfer? = null
-    private var rtc: SaitoFileChannel? = null
+    @Volatile private var rtc: SaitoFileChannel? = null
     private var peer: SaitoPeer? = null
     private var open = false
     private var source: InputStream? = null
@@ -184,6 +188,18 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         message.id?.let { seenSignals.add(it) }
         if (seenSignals.size > 256) seenSignals.remove(seenSignals.first())
         return true
+    }
+
+    /** Only initial controls bootstrap here. Active file frames keep their encrypted streaming inbox. */
+    fun receiveDirect(envelope: String): Boolean? {
+        if (rtc != null || !ownsDelivery || !Fileshare.ownsDirectFrame(envelope)) return null
+        val message = Fileshare.direct(envelope, contact, owner)
+        if (message.body.get("module")?.asString != "Relay") return null
+        return post {
+            assertSelected()
+            if (rtc == null) connect(initiator = false)
+            handle(message)
+        }
     }
 
     fun accept(token: String) {
@@ -380,6 +396,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 assertSelected()
                 nl.davidengelen.redsquare.chat.receiveBoundChat(context, chatWallet, backend, endpoint, contact, envelope)
             }, useTraversal = !nl.davidengelen.redsquare.BuildConfig.DEBUG || endpoint == backend.peerUrl)
+        // A lease on an existing Talk peer is authenticated/open before its queued
+        // opened callback executes. Initial file permission controls can use it now.
+        open = requireNotNull(rtc).connected
         startWatchdog()
         if (initiator) {
             signal("peer-joined", JsonObject())
@@ -414,6 +433,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             }
             "peer-left" -> end(FilePhase.INTERRUPTED)
             "query file permission" -> {
+                if (rtc == null && ownsDelivery) connect(initiator = false)
                 check(open)
                 val offer = Fileshare.readOffer(message.data)
                 if (current?.offer?.id == offer.id) return
