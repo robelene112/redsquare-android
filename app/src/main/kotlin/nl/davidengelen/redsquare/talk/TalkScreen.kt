@@ -174,6 +174,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     Text(stringResource(R.string.talk_waiting), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 if (call.direct == null) item {
+                    Text(stringResource(R.string.talk_room_link_privacy), style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                     OutlinedButton(onClick = {
                         val room = call.link.room.copy(peers = (call.participants.map { it.key } + wallet.publicKey).distinct())
                         clipboard.setText(AnnotatedString(TalkLink(call.link.backend, room).url())); copied = true
@@ -195,6 +197,8 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                             style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.talk_network, link.backend.domain), style = MaterialTheme.typography.bodySmall)
                     Text(stringResource(R.string.talk_prejoin_privacy), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    if (entry.direct == null) Text(stringResource(R.string.talk_room_link_privacy),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 item {
                     Row(verticalAlignment = Alignment.CenterVertically) {

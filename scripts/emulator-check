@@ -206,6 +206,10 @@ if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == talk-invitation* ]]; then
+    verify_group_chat_native TalkInvitationPreviewTest 180 talk-invitation talk-invitation-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == talk-media* ]]; then
     verify_talk_capture_native TalkMediaPreviewTest talk-media
     exit
