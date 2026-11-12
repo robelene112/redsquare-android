@@ -625,9 +625,9 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             }
                             ui.waitForRefreshableContent(15_000)
                             waitForEnabled("Like")
-                            peer.sendIncoming(packet(0))
+                            peer.sendIncoming(packet(0), requestId = 7800)
                             waitFor("1 like")
-                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 7800 } }
                             ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             ui.withMessageAction("Like") { assertIsEnabled() } // The contact's like does not select our Like.
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-like.png"), text)
@@ -637,22 +637,24 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitFor(context.getString(R.string.chat_load_error))
                             waitFor("1 like")
                             ui.waitForRefreshableContent(15_000)
-                            val acknowledgements = peer.incomingAcknowledgements.size
-                            peer.sendIncoming(packet(0))
-                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements }
-                            check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
+                            peer.sendIncoming(packet(0), requestId = 7801)
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any {
+                                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 7801
+                            } }
                             ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-like-duplicate.png"), text)
-                            peer.sendIncoming(packet(1))
-                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements + 1 }
-                            check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
+                            peer.sendIncoming(packet(1), requestId = 7802)
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any {
+                                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 7802
+                            } }
                             ui.waitUntil(5_000) {
                                 ui.onAllNodesWithText("1 like").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
                             }
                             ui.onAllNodesWithText("1 like").assertCountEquals(0)
-                            peer.sendIncoming(packet(1))
-                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements + 2 }
-                            check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
+                            peer.sendIncoming(packet(1), requestId = 7803)
+                            ui.waitUntil(5_000) { peer.incomingAcknowledgements.any {
+                                it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 7803
+                            } }
                             ui.onAllNodesWithText("1 like").assertCountEquals(0)
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-unlike-duplicate.png"), text)
                             scenario.recreate()
