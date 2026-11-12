@@ -395,6 +395,27 @@ class WalletImportPreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet imported")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     captureFeedEvidence("wallet-import-evidence/activated-wallet.png")
+                    // TEMPORARY controlled hypothesis, not a claim about the original failure.
+                    // Dispatch the stale event to the actual native parent while its dialog owns focus.
+                    scenario.onActivity { activity ->
+                        val root = activity.findViewById<android.view.ViewGroup>(android.R.id.content).getChildAt(0)
+                        val current = requireNotNull(root.rootWindowInsets)
+                        val ime = androidx.core.view.WindowInsetsCompat.Type.ime()
+                        check(!requireNotNull(androidx.core.view.ViewCompat.getRootWindowInsets(root)).isVisible(ime))
+                        val builder = android.view.WindowInsets.Builder(current)
+                        if (android.os.Build.VERSION.SDK_INT >= 30) {
+                            builder.setInsets(android.view.WindowInsets.Type.ime(), android.graphics.Insets.of(0, 0, 0, 206))
+                                .setVisible(android.view.WindowInsets.Type.ime(), true)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            builder.setSystemWindowInsets(android.graphics.Insets.of(current.systemWindowInsetLeft,
+                                current.systemWindowInsetTop, current.systemWindowInsetRight, 206))
+                        }
+                        root.dispatchApplyWindowInsets(builder.build())
+                    }
+                    ui.waitForIdle()
+                    File(context.cacheDir, "wallet-import-evidence/activation-stale-insets-injected.txt").writeText(
+                        nl.davidengelen.redsquare.ui.KeyboardVisibilityProbe.snapshot())
                     ui.closeWalletOverview()
                     ui.waitUntil(15_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
                     ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
