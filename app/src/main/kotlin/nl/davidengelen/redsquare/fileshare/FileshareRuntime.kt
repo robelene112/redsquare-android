@@ -406,6 +406,10 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                 if (observers == 0 || current?.phase?.active == true || current?.phase == FilePhase.OFFERED || preparationState.value?.phase == PreparationPhase.PREPARING) {
                     sendControl("deny file permission", offer.id); return
                 }
+                // A new offer can arrive during the completed transfer's ACK grace period.
+                // Its token replaces current, so the old delayed cleanup will no longer run.
+                val previousInbox = incomingFrames; incomingFrames = null; previousInbox?.close()
+                receiver = null; serviceStarted = false
                 update(FileTransfer(UUID.randomUUID().toString(), owner, backend, contact, endpoint,
                     offer, true, FilePhase.OFFERED))
             }
