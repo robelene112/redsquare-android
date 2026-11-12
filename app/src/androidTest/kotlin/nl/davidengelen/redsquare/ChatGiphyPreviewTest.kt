@@ -137,6 +137,18 @@ class ChatGiphyPreviewTest {
                                 ui.waitUntil(20_000) { if (queued) displayed(hasText("Queued"))
                                     else displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
                             }
+                            fun recreateAndObserve(activity: ActivityScenario<MainActivity>, queued: Boolean = false) {
+                                val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                                fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+                                    check(it > 0) { "Restored GIF conversation exceeded 20000 ms" }
+                                }
+                                val before = reads.get()
+                                activity.recreate()
+                                ui.assertRestoredConversation(if (group) groupId else contact, group, remaining())
+                                ui.waitUntil(remaining()) { if (queued) displayed(hasText("Queued"))
+                                    else displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
+                                check(android.os.SystemClock.elapsedRealtime() <= deadline)
+                            }
                             fun assertDraft() {
                                 val target = hasSetTextAction() and isEnabled() and SemanticsMatcher("Exact authored Chat text") {
                                     it.config.getOrNull(SemanticsProperties.EditableText)?.text == draft
@@ -228,7 +240,7 @@ class ChatGiphyPreviewTest {
                                             val original = queuedOriginal()
                                             assertAnimation(); credits("$prefix-queued-credits")
                                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
-                                            fresh.recreate(); open(queued = true)
+                                            recreateAndObserve(fresh, queued = true)
                                             check(queuedOriginal().envelope() == original.envelope())
                                             val cancel = hasText("Cancel queued message") and hasClickAction() and isEnabled()
                                             ui.waitUntil(20_000) { displayed(cancel) }; ui.onNode(cancel).performClick()
@@ -245,7 +257,7 @@ class ChatGiphyPreviewTest {
                                                 })
                                             }
                                             peer.rejectNewConnections = false
-                                            fresh.recreate(); open(); assertDraft(); assertAnimation()
+                                            recreateAndObserve(fresh); assertDraft(); assertAnimation()
                                             credits("$prefix-online-unsent")
                                             val quietUntil = android.os.SystemClock.elapsedRealtime() + 2_000
                                             ui.waitUntil(3_000) { android.os.SystemClock.elapsedRealtime() >= quietUntil }
@@ -298,8 +310,17 @@ class ChatGiphyPreviewTest {
                             }
                             ui.onNodeWithText("Close GIF search").performClick()
                             assertDraft()
+                            val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                            fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+                                check(it > 0) { "Closed GIF conversation recreation exceeded 20000 ms" }
+                            }
                             ui.onNode(hasText("Back") and hasClickAction()).performClick()
-                            scenario.recreate(); open(); assertDraft()
+                            val normalList = hasText("Groups") and hasClickAction()
+                            ui.waitUntil(remaining()) { displayed(normalList) }
+                            scenario.recreate()
+                            ui.waitUntil(remaining()) { displayed(normalList) }
+                            check(android.os.SystemClock.elapsedRealtime() <= deadline)
+                            open(); assertDraft()
                             assertEquals(2, provider.requestCount)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
                             check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == backend)

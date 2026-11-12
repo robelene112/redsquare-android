@@ -124,6 +124,10 @@ class ChatQueuePreviewTest {
                         clickWhenReady(name)
                         ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
                     }
+                    fun restored() {
+                        ui.assertRestoredConversation(key.publicKey, group = true)
+                        ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
+                    }
                     open()
                     ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
@@ -140,7 +144,7 @@ class ChatQueuePreviewTest {
                         }
                         val peer=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"[]"})
                         peer.start(port).use {
-                            scenario.recreate();open()
+                            scenario.recreate();restored()
                             ui.waitUntil(20_000){displayed(hasSetTextAction() and isEnabled())}
                             ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                             ui.waitUntil(20_000){peer.requests.get()>0}
@@ -219,7 +223,7 @@ class ChatQueuePreviewTest {
                         check(alternate.transactions.isEmpty()&&alternate.relayedMessages.isEmpty())
                     }
                     checkpoint("before-recreation")
-                    scenario.recreate();open();waitFor("Queued")
+                    scenario.recreate();restored();waitFor("Queued")
                     val queued=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate
                     if(cancel) {
                         val warnings=listOf(R.string.group_history_error,R.string.group_live_error)
@@ -244,7 +248,7 @@ class ChatQueuePreviewTest {
                             addProperty("group_id",key.publicKey);addProperty("member_id",wallet.publicKey)
                         }
                         store.receive(SaitoTransaction.create(other,body,1700000123402,listOf(key.publicKey)).envelope())
-                        scenario.recreate();open();waitFor("Queued")
+                        scenario.recreate();restored();waitFor("Queued")
                         check(requireNotNull(store.load(key.publicKey)).group.memberRoles[wallet.publicKey]==ChatGroupRole.REMOVED)
                     } else if(scoped) {
                         wallets.replace(wallet,replacement);scenario.recreate()
@@ -313,7 +317,7 @@ class ChatQueuePreviewTest {
                             val saved=requireNotNull(store.load(key.publicKey))
                             check(saved.candidate?.envelope()==queued.envelope()&&saved.messages.single().id==queued.id)
                             check(saved.creationKey?.exportJson()==key.exportJson()&&archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
-                            scenario.recreate();open();observeAvailableGroupStatus("recreated")
+                            scenario.recreate();restored();observeAvailableGroupStatus("recreated")
                             check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()&&store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED}
@@ -462,12 +466,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
             val intent=Intent(context,MainActivity::class.java).putExtra("feedPeerUrl","ws://127.0.0.1:$port/wsopen")
             ActivityScenario.launch<MainActivity>(Intent(intent).putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${alternateServer.port}/wsopen")).use{scenario->
                 withFailureCapture({captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-failure.png"))}) {
-                    fun open(queued:Boolean=false){
-                        val chat=hasText("Chat") and hasClickAction() and isEnabled()
-                        ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
-                        if(!displayed(hasText("Groups")))ui.onNode(chat).assertIsDisplayed().assertIsEnabled().performClick()
-                        waitFor("Groups")
-                        clickWhenReady(contact)
+                    fun observeWork(queued:Boolean) {
                         if(cancel&&queued) {
                             ui.withConversationControl(contact) { assertIsDisplayed() }
                             ui.waitUntil(20_000){
@@ -476,6 +475,18 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                                     retained.transaction?.let{PrivateChat.read(wallet,it.envelope(),contact).text==text}==true
                             }
                         } else ui.waitUntil(20_000){displayed(hasText("Message"))||displayed(hasText("Queued"))}
+                    }
+                    fun open(queued:Boolean=false){
+                        val chat=hasText("Chat") and hasClickAction() and isEnabled()
+                        ui.waitUntil(20_000){displayed(hasText("Groups"))||displayed(chat)}
+                        if(!displayed(hasText("Groups")))ui.onNode(chat).assertIsDisplayed().assertIsEnabled().performClick()
+                        waitFor("Groups")
+                        clickWhenReady(contact)
+                        observeWork(queued)
+                    }
+                    fun restored(queued:Boolean=false) {
+                        ui.assertRestoredConversation(contact)
+                        observeWork(queued)
                     }
                     open()
                     ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(text)
@@ -491,7 +502,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-storage-refused.png"))
                         }
                         peer.start(port).use {
-                            scenario.recreate();open()
+                            scenario.recreate();restored()
                             ui.onNode(hasSetTextAction() and isEnabled()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(text)))
                             ui.waitUntil(20_000){peer.requests.get()>0}
                             android.os.SystemClock.sleep(6_000)
@@ -524,7 +535,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                     }
                     waitFor("Queued")
                     captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/private-$label-queued.png"))
-                    scenario.recreate();open(queued=cancel)
+                    scenario.recreate();restored(queued=cancel)
                     waitFor("Queued")
                     val cancellation=if(cancel)physicalChatAction(scenario,"reopened",kind="private") else null
                     val originalCandidate=requireNotNull(nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load().transaction)
@@ -596,7 +607,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                             if(wrongArchive)ui.onAllNodesWithText(automaticError).assertCountEquals(0)
                             check(archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
                             check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
-                            scenario.recreate();open()
+                            scenario.recreate();restored()
                             waitFor("Available on this node. Delivery is not confirmed.")
                             check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {

@@ -122,6 +122,21 @@ class ChatImagesPreviewTest {
                                 else displayed(hasSetTextAction() and isEnabled()) && reads.get() > before
                             }
                         }
+                        fun recreateAndObserve(queued: Boolean = false, afterRecreate: () -> Unit = {}) {
+                            val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                            fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+                                check(it > 0) { "Restored photo conversation exceeded 20000 ms" }
+                            }
+                            val before = reads.get()
+                            scenario.recreate()
+                            afterRecreate()
+                            ui.assertRestoredConversation(if (group) groupId else contact, group, remaining())
+                            ui.waitUntil(remaining()) {
+                                if (queued) displayed(hasText("Queued"))
+                                else displayed(hasSetTextAction() and isEnabled()) && reads.get() > before
+                            }
+                            check(android.os.SystemClock.elapsedRealtime() <= deadline)
+                        }
                         fun assertRedRaster(target: SemanticsMatcher) {
                             val bitmap = ui.onNode(target).assertIsDisplayed().captureToImage().asAndroidBitmap()
                             assertEquals(0xffdc1e28.toInt(), bitmap.getPixel(bitmap.width / 2, bitmap.height / 2))
@@ -208,7 +223,7 @@ class ChatImagesPreviewTest {
                                 trace("draft-durable-capture-enter")
                                 capture("$prefix-text-durably-retained")
                                 trace("draft-durable-capture-return")
-                                scenario.recreate(); trace("recreated"); open(); assertDraft()
+                                recreateAndObserve { trace("recreated") }; assertDraft()
                                 trace("reopened-capture-enter")
                                 capture("$prefix-text-reopened")
                                 trace("reopened-capture-return")
@@ -267,7 +282,7 @@ class ChatImagesPreviewTest {
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                     capture("$prefix-photo-selected-unsent")
                                     ui.onNode(hasText("Back") and hasClickAction()).performClick()
-                                    open(); scenario.recreate(); open()
+                                    open(); recreateAndObserve()
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                     capture("$prefix-photo-draft-reopened")
@@ -293,7 +308,7 @@ class ChatImagesPreviewTest {
                                         check(queuedText == originalDraft)
                                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                         capture("$prefix-photo-queued")
-                                        scenario.recreate(); open(queued = true)
+                                        recreateAndObserve(queued = true)
                                         check(queuedOriginal().envelope() == candidate.envelope())
                                         val cancel = hasText("Cancel queued message") and hasClickAction() and isEnabled()
                                         ui.waitUntil(20_000) { displayed(cancel) }; ui.onNode(cancel).performClick()
@@ -306,7 +321,7 @@ class ChatImagesPreviewTest {
                                         } else check(work.load().let { it.transaction == null && it.draft == originalDraft })
                                         capture("$prefix-photo-restored-after-cancel")
                                         peer.rejectNewConnections = false
-                                        scenario.recreate(); open()
+                                        recreateAndObserve()
                                         assertPreparedPhoto(); assertDraft()
                                         val quietUntil = android.os.SystemClock.elapsedRealtime() + 2_000
                                         ui.waitUntil(3_000) { android.os.SystemClock.elapsedRealtime() >= quietUntil }
@@ -357,7 +372,7 @@ class ChatImagesPreviewTest {
                         assertRedRaster(isDialog())
                         capture("$prefix-photo-expanded")
                         ui.onNodeWithText("Close image").performClick()
-                        scenario.recreate(); open()
+                        recreateAndObserve()
                         photo(); assertDraft(); capture("$prefix-photo-cached-after-reopening")
                         assertIdentityAndOutgoing(0)
                     }

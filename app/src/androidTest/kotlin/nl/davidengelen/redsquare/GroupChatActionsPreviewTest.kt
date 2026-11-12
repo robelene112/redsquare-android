@@ -99,7 +99,7 @@ class GroupChatActionsPreviewTest {
                         check(peer.relayRecipients.single()==listOf(fixture.publicKey,admin.publicKey))
                         ui.onNodeWithText("Remove reply").assertDoesNotExist()
                         phase("first-original-verified")
-                        scenario.recreate();open()
+                        scenario.recreate();ui.assertRestoredConversation(key.publicKey, group = true, timeoutMillis = 15_000)
                         ui.waitUntil(15_000) {
                             runCatching {
                                 ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))

@@ -247,7 +247,7 @@ class GroupChatPreviewTest {
                             check(restored.group.memberRoles[known.admin]==ChatGroupRole.ADMIN)
                             check(updated.exportJson()==fixture.withNamedChatGroup(known.id,known.name).exportJson())
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/known-rejoined.png"),known.name)
-                            scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick();waitFor(known.name)
+                            scenario.recreate();ui.assertRestoredConversation(known.id, group = true, timeoutMillis = 15_000);waitFor(known.name)
                             check(peer.transactions.size==1 && peer.relayedMessages.size==1)
                             peer.assertHealthy();return@withFailureCapture
                         }
@@ -273,8 +273,7 @@ class GroupChatPreviewTest {
                             check(backup.getAsJsonObject("chat").getAsJsonArray("groups").any{it.asString==checkpointKey.publicKey})
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/retry-uncertain.png"),"Submitted. Delivery is not confirmed.")
                             scenario.recreate()
-                            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
-                            waitFor("Recovered group");ui.onNodeWithText("Recovered group").performClick()
+                            ui.assertRestoredConversation(checkpointKey.publicKey, group = true, timeoutMillis = 15_000)
                             ui.waitForGroupStatus("Submitted. Delivery is not confirmed.")
                             check(peer.transactions.size==1 && peer.relayedMessages.isEmpty())
                             val recovered=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,updated,SaitoBackend.OWNER).load(checkpointKey.publicKey))
@@ -288,7 +287,7 @@ class GroupChatPreviewTest {
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==checkpoint.envelope())
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/retry-forwarded.png"),"Forwarded. Delivery is not confirmed.")
                             scenario.recreate()
-                            waitFor("Groups");ui.onNodeWithText("Groups").performClick();waitFor("Recovered group")
+                            ui.assertRestoredConversation(checkpointKey.publicKey, group = true, timeoutMillis = 15_000);waitFor("Recovered group")
                             check(peer.transactions.size==2 && peer.relayedMessages.size==1)
                             check(store.loadExisting().exportJson()==updated.exportJson())
                             check(AndroidBackendStore(context).load()==SaitoBackend.OWNER)
@@ -464,12 +463,10 @@ class GroupChatPreviewTest {
                                 check(peer.transactions.size==2 && peer.relayedMessages.size==2)
                             }
                             scenario.recreate()
-                            waitFor("Groups")
-                            ui.onNodeWithText("Groups").performClick()
+                            ui.assertRestoredConversation(invitation.id, group = true, timeoutMillis = 15_000)
                             waitFor(invitation.name)
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined-reopened.png"),invitation.name)
                             if(paginating){
-                                ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
                                 for(text in (if(rejectedPage) emptyList() else listOf("Recent group message 0","Recent group message 49"))+listOf("Ancient live group message","Available older group message"))waitForGroupMessage(text)
                                 val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
                                 check(saved.messages.size==(if(rejectedPage) 2 else 52) && olderReads.get()==1)
@@ -477,7 +474,6 @@ class GroupChatPreviewTest {
                                 captureNativeScreen(File(context.cacheDir,if(rejectedPage) "group-chat-evidence/rejected-page-cached.png" else "group-chat-evidence/pagination-cached.png"),"Available older group message")
                             }
                             if(messaging){
-                                ui.onNodeWithText(invitation.name).assertIsDisplayed().performClick()
                                 if(drafting)assertRestoredGroupDraft()
                                 for(text in listOf(requireNotNull(messageReference).get("text").asString,"Native group hello","Live group message")){
                                     waitForGroupMessage(text)
@@ -553,12 +549,10 @@ class GroupChatPreviewTest {
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left.png"),"You have left this group.")
                         }
                         scenario.recreate()
-                        waitFor("Groups")
-                        ui.onNodeWithText("Groups").performClick()
+                        ui.assertRestoredConversation(group.id, group = true, timeoutMillis = 15_000)
                         waitFor("Beta crew")
                         captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reopened.png"),"Beta crew")
                         if(leaving){
-                            ui.onNodeWithText("Beta crew").assertIsDisplayed().performClick()
                             waitFor("You have left this group.")
                             ui.withConversationControl("Invite") { assertDoesNotExist() }
                             val restored=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(group.id))
@@ -768,7 +762,7 @@ class GroupChatPreviewTest {
                                 watch.get("identifier").asString=="Incoming beta group"
                             }.getOrDefault(false)}
                             scenario.recreate()
-                            waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                            waitFor("Create group")
                             waitFor(group.name)
                             check(discoveryReads.get()>0)
                             waitFor(unavailable.publicKey)
@@ -796,8 +790,7 @@ class GroupChatPreviewTest {
                         deliver(message)
                         if(personalPolicy){
                             // Reload the positively acknowledged cached message before checking its visibility.
-                            scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
-                            waitFor(group.name);ui.onNodeWithText(group.name).performClick()
+                            scenario.recreate();ui.assertRestoredConversation(group.id, group = true, timeoutMillis = 15_000)
                             ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size==1}
                             ui.withConversationDetails {
                                 ui.onNodeWithText("Received a signed group invitation.").performScrollTo().assertIsDisplayed()
@@ -807,8 +800,7 @@ class GroupChatPreviewTest {
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/personal-${activeBackend.id}-blocked.png"),"Received a signed group invitation.")
                             }
                             controls.save(controls.load(),PersonalPolicy(muted=setOf(admin.publicKey)))
-                            scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
-                            waitFor(group.name);ui.onNodeWithText(group.name).performClick()
+                            scenario.recreate();ui.assertRestoredConversation(group.id, group = true, timeoutMillis = 15_000)
                         }
                         waitForGroupMessage("Live incoming group history")
                         if(storageFault)ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
@@ -863,7 +855,7 @@ class GroupChatPreviewTest {
                         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
                         ui.onNodeWithText("Back").assertIsDisplayed().performClick()
                         waitFor("Create group")
-                        scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
+                        scenario.recreate();waitFor("Create group")
                         waitFor(group.name);ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         waitForGroupMessage("Live incoming group history")
                         assertRestoredGroupDraft("Keep incoming group draft")

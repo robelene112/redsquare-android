@@ -92,6 +92,31 @@ internal fun ComposeTestRule.withConversationControl(text: String, action: Seman
         control.action()
     }
 
+/** Require the restored destination itself, without navigating through a list. */
+internal fun ComposeTestRule.assertRestoredConversation(identity: String, group: Boolean = false,
+    timeoutMillis: Long = 20_000) {
+    val deadline = android.os.SystemClock.elapsedRealtime() + timeoutMillis
+    fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+        check(it > 0) { "Restored conversation identity exceeded $timeoutMillis ms" }
+    }
+    val opener = hasContentDescription("Conversation details") and hasClickAction() and isEnabled()
+    waitUntil(remaining()) { onNode(opener).isDisplayed() }
+    onNode(opener).performClick()
+    val identityInDialog = hasText(identity) and hasAnyAncestor(isDialog())
+    waitUntil(remaining()) {
+        onAllNodes(identityInDialog).fetchSemanticsNodes(atLeastOneRootRequired = false).size == 1
+    }
+    onNode(identityInDialog).performScrollTo().assertIsDisplayed()
+    onNode(hasText(if (group) "Group messages are unencrypted." else "Private messages are encrypted.") and
+        hasAnyAncestor(isDialog())).assertExists()
+    onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+    waitUntil(remaining()) { onAllNodes(isDialog()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+    val instrumentation = InstrumentationRegistry.getInstrumentation()
+    check(UiDevice.getInstance(instrumentation).wait(Until.gone(
+        By.pkg(instrumentation.targetContext.packageName).text("Conversation details")), remaining()))
+    check(android.os.SystemClock.elapsedRealtime() <= deadline)
+}
+
 private fun SemanticsNodeInteraction.fetchSemanticsNodesOrEmpty() =
     runCatching { listOf(fetchSemanticsNode()) }.getOrDefault(emptyList())
 

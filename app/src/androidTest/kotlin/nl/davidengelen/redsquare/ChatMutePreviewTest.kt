@@ -79,6 +79,17 @@ class ChatMutePreviewTest {
                             click(hasText(contact))
                             ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > 0 }
                         }
+                        fun recreateAndObserve() {
+                            val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                            fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+                                check(it > 0) { "Restored mute conversation exceeded 20000 ms" }
+                            }
+                            val before = reads.get()
+                            scenario.recreate()
+                            ui.assertRestoredConversation(contact, group = false, timeoutMillis = remaining())
+                            ui.waitUntil(remaining()) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
+                            check(android.os.SystemClock.elapsedRealtime() <= deadline)
+                        }
                         open()
                         if (alert) {
                             peer.sendIncoming(incoming)
@@ -104,7 +115,7 @@ class ChatMutePreviewTest {
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
                         alerts.assertSilence()
                         capture("$prefix-muted-incoming-readable")
-                        scenario.recreate(); open()
+                        recreateAndObserve()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
                         showMessage(text)
                         ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
@@ -117,7 +128,7 @@ class ChatMutePreviewTest {
                             val freshText = "Private mute remains after a failed save"
                             val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
                             val fresh = PrivateChat.create(sender, wallet.publicKey, freshText, 1700000080100)
-                            assertFailedUnmuteRecovers(scenario, { open() }, alerts, peer,
+                            assertFailedUnmuteRecovers(scenario, { recreateAndObserve() }, alerts, peer,
                                 FixtureIncoming(fresh.applicationRequest(1).drop(5).toByteArray(), freshText), prefix)
                             ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
@@ -206,6 +217,17 @@ class ChatMutePreviewTest {
                             click(hasText("Groups")); click(hasText(name))
                             ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > 0 }
                         }
+                        fun recreateAndObserve() {
+                            val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                            fun remaining(): Long = (deadline - android.os.SystemClock.elapsedRealtime()).also {
+                                check(it > 0) { "Restored mute conversation exceeded 20000 ms" }
+                            }
+                            val before = reads.get()
+                            scenario.recreate()
+                            ui.assertRestoredConversation(id, group = true, timeoutMillis = remaining())
+                            ui.waitUntil(remaining()) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
+                            check(android.os.SystemClock.elapsedRealtime() <= deadline)
+                        }
                         open()
                         if (alert) {
                             peer.sendIncoming(incoming)
@@ -227,7 +249,7 @@ class ChatMutePreviewTest {
                             .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
                         alerts.assertSilence()
                         capture("$prefix-muted-incoming-readable")
-                        scenario.recreate(); open()
+                        recreateAndObserve()
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
                         showMessage(text)
                         ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled() and
@@ -237,7 +259,7 @@ class ChatMutePreviewTest {
                         if (case == ConversationCase.FAILED_UNMUTE) {
                             val freshText = "Group mute remains after a failed save"
                             val fresh = GroupChat.message(admin, GroupChat.readCreation(creation.envelope()), freshText, 1700000123500)
-                            assertFailedUnmuteRecovers(scenario, { open() }, alerts, peer,
+                            assertFailedUnmuteRecovers(scenario, { recreateAndObserve() }, alerts, peer,
                                 FixtureIncoming(fresh.applicationRequest(1).drop(5).toByteArray(), freshText), prefix)
                             ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
                                 .assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
@@ -449,7 +471,7 @@ class ChatMutePreviewTest {
         verifyGenericNotification(alerts, "Private chats", "private-repaired-policy-new-alert")
     }
 
-    private fun assertFailedUnmuteRecovers(scenario: ActivityScenario<MainActivity>, reopen: () -> Unit,
+    private fun assertFailedUnmuteRecovers(scenario: ActivityScenario<MainActivity>, recreateAndObserve: () -> Unit,
         alerts: FixtureAlerts, peer: ControlledFeedPeer, fresh: FixtureIncoming, prefix: String) {
         scenario.onActivity { it.intent.putExtra("personalCommitSyncUnavailable", true) }
         click(hasContentDescription("Unmute conversation")); click(hasText("Unmute"))
@@ -462,7 +484,7 @@ class ChatMutePreviewTest {
         showMessage(fresh.text)
         alerts.assertSilence()
         capture("$prefix-save-failed-choice-retained")
-        scenario.recreate(); reopen()
+        recreateAndObserve()
         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
         showMessage(fresh.text)
         alerts.assertSilence()
