@@ -66,6 +66,12 @@ internal class RtcLease internal constructor(internal val entry: SharedRtcPeer,
 /** The shared factory is initialized lazily by an actual connection, with no capture until tracks are attached. */
 internal object RtcPlatform {
     private var initialized = false
+    @Volatile private var audioFixture: ((ByteBuffer, Int, Int, Int) -> Unit)? = null
+    /** Controlled device input after real AudioRecord.read, before the actual codec pipeline. */
+    fun audioInputForTest(input: ((ByteBuffer, Int, Int, Int) -> Unit)?) {
+        check(nl.davidengelen.redsquare.BuildConfig.DEBUG && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        audioFixture = input
+    }
     private var current: PeerConnectionFactory? = null
     private var egl: EglBase? = null
     @Synchronized fun factory(context: Context): PeerConnectionFactory {
@@ -75,10 +81,16 @@ internal object RtcPlatform {
             initialized = true
         }
         val graphics = EglBase.create().also { egl = it }
+        val audio = org.webrtc.audio.JavaAudioDeviceModule.builder(context)
+            .setAudioBufferCallback { buffer, format, channels, rate, bytes, timestamp ->
+                if (nl.davidengelen.redsquare.BuildConfig.DEBUG) audioFixture?.invoke(buffer, channels, rate, bytes)
+                timestamp
+            }.createAudioDeviceModule()
         return PeerConnectionFactory.builder()
+            .setAudioDeviceModule(audio)
             .setVideoEncoderFactory(DefaultVideoEncoderFactory(graphics.eglBaseContext, true, true))
             .setVideoDecoderFactory(DefaultVideoDecoderFactory(graphics.eglBaseContext))
-            .createPeerConnectionFactory().also { current = it }
+            .createPeerConnectionFactory().also { current = it; audio.release() }
     }
     @Synchronized fun graphics(context: Context): EglBase.Context {
         factory(context)

@@ -193,7 +193,7 @@ verify_talk_capture_native() {
         if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
         adb shell pm grant nl.davidengelen.redsquare.dev "android.permission.$permission"
     done
-    if verify_group_chat_native TalkCapturePreviewTest 180 talk-capture talk-capture-evidence; then proof_result=0; else proof_result=$?; fi
+    if verify_group_chat_native "${1:-TalkCapturePreviewTest}" 180 "${2:-talk-capture}" "${2:-talk-capture}-evidence"; then proof_result=0; else proof_result=$?; fi
     for permission in RECORD_AUDIO CAMERA POST_NOTIFICATIONS; do
         if [[ "$permission" == POST_NOTIFICATIONS && "$TEST_DEVICE_API" == 29 ]]; then continue; fi
         if [[ "$original_permissions" != *"android.permission.$permission: granted=true"* ]]; then
@@ -205,6 +205,10 @@ verify_talk_capture_native() {
 if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
     exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == talk-media* ]]; then
+    verify_talk_capture_native TalkMediaPreviewTest talk-media
+    exit
 fi
 if [[ "${TEST_SCOPE:-full}" == talk-capture* ]]; then
     verify_talk_capture_native

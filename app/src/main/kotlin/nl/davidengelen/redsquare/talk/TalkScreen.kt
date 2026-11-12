@@ -157,17 +157,19 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             if (call?.phase?.live == true && call.phase !in setOf(CallPhase.INCOMING, CallPhase.VERIFYING)) {
                 item {
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(stringResource(callPhaseLabel(call.phase)), style = MaterialTheme.typography.titleLarge)
+                        call.direct?.let { Text(registeredIdentity(it).name, style = MaterialTheme.typography.titleLarge) }
+                        Text(stringResource(callPhaseLabel(call.phase)), style = MaterialTheme.typography.titleMedium)
                         Text(stringResource(R.string.talk_network, call.link.backend.domain), style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
-                item { TalkVideoTile(wallet.publicKey, stringResource(R.string.talk_you), call.localVideo,
-                    call.microphone, call.camera && !call.cameraPaused, connected = true, mirror = call.frontCamera) }
                 items(call.participants, key = { it.key }) { peer ->
                     TalkVideoTile(peer.key, registeredIdentity(peer.key).name, peer.video, peer.microphone, peer.camera, peer.connected,
                         modifier = Modifier.animateItem())
                 }
+                item { TalkVideoTile(wallet.publicKey, stringResource(R.string.talk_you), call.localVideo,
+                    call.microphone, call.camera && !call.cameraPaused, connected = true, mirror = call.frontCamera,
+                    modifier = Modifier.widthIn(max = 240.dp)) }
                 if (call.participants.isEmpty()) item {
                     Text(stringResource(R.string.talk_waiting), color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
@@ -183,26 +185,6 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                         context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
                             .putExtra(Intent.EXTRA_TEXT, TalkLink(call.link.backend, room).url()), context.getString(R.string.talk_share_invite)))
                     }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_share_invite)) }
-                }
-                item {
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(selected = !call.microphone, onClick = { TalkRuntime.controls(call.token, microphone = !call.microphone) },
-                            label = { Text(stringResource(if (call.microphone) R.string.talk_mute else R.string.talk_unmute)) },
-                            leadingIcon = { Icon(painterResource(R.drawable.ic_microphone), null, Modifier.size(20.dp)) },
-                            modifier = Modifier.heightIn(min = 48.dp))
-                        FilterChip(selected = call.camera, onClick = {
-                            if (call.camera) TalkRuntime.controls(call.token, camera = false)
-                            else gate.run(true) { TalkRuntime.controls(call.token, camera = true) }
-                        }, label = { Text(stringResource(if (call.camera) R.string.talk_camera_off else R.string.talk_camera_on)) },
-                            leadingIcon = { Icon(painterResource(R.drawable.ic_video), null, Modifier.size(20.dp)) },
-                            modifier = Modifier.heightIn(min = 48.dp))
-                        if (call.camera) OutlinedButton(onClick = { TalkRuntime.switchCamera(call.token) },
-                            modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_switch_camera)) }
-                        TalkAudioRouteButton()
-                    }
-                    if (call.cameraPaused) Text(stringResource(R.string.talk_camera_paused), style = MaterialTheme.typography.bodySmall)
-                    InlineStatus(if (call.cameraUnavailable) stringResource(R.string.talk_camera_unavailable) else null, StatusTone.INFO)
-                    gate.notice()
                 }
             } else if (link != null && entry != null) {
                 item {
@@ -276,6 +258,29 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                 }
             }
         }
+        }
+        if (call?.phase?.started == true) {
+            HorizontalDivider()
+            Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        FilterChip(selected = !call.microphone, onClick = { TalkRuntime.controls(call.token, microphone = !call.microphone) },
+                            label = { Text(stringResource(if (call.microphone) R.string.talk_mute else R.string.talk_unmute)) },
+                            leadingIcon = { Icon(painterResource(R.drawable.ic_microphone), null, Modifier.size(20.dp)) },
+                            modifier = Modifier.heightIn(min = 48.dp))
+                        FilterChip(selected = call.camera, onClick = {
+                            if (call.camera) TalkRuntime.controls(call.token, camera = false)
+                            else gate.run(true) { TalkRuntime.controls(call.token, camera = true) }
+                        }, label = { Text(stringResource(if (call.camera) R.string.talk_camera_off else R.string.talk_camera_on)) },
+                            leadingIcon = { Icon(painterResource(R.drawable.ic_video), null, Modifier.size(20.dp)) },
+                            modifier = Modifier.heightIn(min = 48.dp))
+                        if (call.camera) OutlinedButton(onClick = { TalkRuntime.switchCamera(call.token) },
+                            modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.talk_switch_camera)) }
+                        TalkAudioRouteButton()
+                    }
+                    if (call.cameraPaused) Text(stringResource(R.string.talk_camera_paused), style = MaterialTheme.typography.bodySmall)
+                    InlineStatus(if (call.cameraUnavailable) stringResource(R.string.talk_camera_unavailable) else null, StatusTone.INFO)
+                    gate.notice()
+            }
         }
         if (call?.phase?.started == true) Button(onClick = { TalkRuntime.end(call.token) },
             modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp).heightIn(min = 52.dp),

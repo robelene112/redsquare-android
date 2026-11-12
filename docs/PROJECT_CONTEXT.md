@@ -17,7 +17,9 @@ First room-link RED then GREEN observed. Legacy unsigned Relay invitations must
 remain claims until actual signed-SDP/DTLS peer authentication; they do not
 implicitly authorize capture. Talk and Fileshare need shared peer ownership and
 message routing because upstream Stun owns one connection per counterparty.
-No Talk audio/video runtime or release acceptance is claimed yet.
+Native Talk runtime/UI/capture now exists and focused camera/routing checks pass.
+Direct/three-party media, complete verification/reviews and beta delivery remain
+pending, as recorded in the current handoff. No Talk release acceptance is claimed.
 
 The current writable checkout stays
 `/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.

@@ -116,9 +116,37 @@ val prepareFileshareReference by tasks.registering(PrepareFileshareReference::cl
         }
     }
 }
+// Exact official Talk bodies, transpiled only for API29's test WebView.
+val prepareTalkReference by tasks.registering(PrepareFileshareReference::class) {
+    val pin = "e6c937c686495a37d8fc94ecc894189e23a453c3"
+    val specimens = mapOf(
+        "videocall.js" to ("videocall/videocall.js" to "305f6518e0e8c3a367afd5399703058772ea92b8a3d51ca2a9c0b2318c70b1da"),
+        "stun.js" to ("stun/stun.js" to "2f88fddd36bb62a2f6a2ba15d6fd051e3b069a6601b9097b5f5ef3662e6e1f4e"),
+        "StreamManager.js" to ("videocall/lib/StreamManager.js" to "e6e6bdec29471f5b97e7e3fb2f41a032d41fced3a357a430d0c94e7559e2f063"),
+        "dialer.js" to ("videocall/lib/components/dialer.js" to "fa9fa84fa3727102e05c392987a3ee7851254eaf0901e60c9da6bbc40bbffe24"))
+    inputs.property("pin", pin); inputs.property("specimens", specimens)
+    inputs.property("compiler", "v20240317-ES2018")
+    doLast {
+        val directory = outputDirectory.get().asFile.apply { mkdirs() }
+        specimens.forEach { (name, source) ->
+            val bytes = URI("https://raw.githubusercontent.com/SaitoTech/saito/$pin/node/mods/${source.first}")
+                .toURL().openConnection().apply { connectTimeout = 15_000; readTimeout = 15_000 }.getInputStream().use { it.readBytes() }
+            check(MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) } == source.second)
+            val original = directory.resolve("talk-$name.raw.js").apply { writeBytes(bytes) }
+            javaexec {
+                classpath = fileshareCompiler
+                mainClass.set("com.google.javascript.jscomp.CommandLineRunner")
+                args("--compilation_level", "WHITESPACE_ONLY", "--language_in", "ECMASCRIPT_NEXT", "--language_out", "ECMASCRIPT_2018",
+                    "--formatting", "PRETTY_PRINT", "--rewrite_polyfills", "false", "--js", original.absolutePath,
+                    "--js_output_file", directory.resolve("talk-$name").absolutePath)
+            }.assertNormalExitValue()
+        }
+    }
+}
 // Preserve producer dependencies for every asset consumer, including both lint tasks.
 androidComponents.onVariants(androidComponents.selector().withBuildType("debug")) { variant ->
     variant.androidTest?.sources?.assets?.addGeneratedSourceDirectory(prepareFileshareReference) { it.outputDirectory }
+    variant.androidTest?.sources?.assets?.addGeneratedSourceDirectory(prepareTalkReference) { it.outputDirectory }
 }
 
 dependencies {

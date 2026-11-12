@@ -24,7 +24,7 @@ internal enum class CallPhase {
     val started get() = this in setOf(DIALING, JOINING, ACTIVE)
 }
 internal data class CallParticipant(val key: String, val connected: Boolean = false,
-    val microphone: Boolean = true, val camera: Boolean = true, val video: VideoTrack? = null)
+    val microphone: Boolean = true, val camera: Boolean = true, val video: VideoTrack? = null, val audio: org.webrtc.AudioTrack? = null)
 internal data class TalkCall(val token: String, val owner: String, val savedBackend: SaitoBackend,
     val link: TalkLink, val direct: String?, val incoming: Boolean, val phase: CallPhase,
     val participants: List<CallParticipant> = emptyList(), val microphone: Boolean = true,
@@ -362,9 +362,13 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
                     check(signed.author == peer && wallet.publicKey in signed.recipients)
                     val saved = receiveChatEnvelope(context, latestWallet, backend, envelope, endpoint)
                     FileshareRuntime.chatChanges.tryEmit(Triple(wallet.publicKey, backend, saved)); true
-                }, track = { track -> if (track is VideoTrack) post {
+                }, track = { track -> post {
                     if (current?.token == token && accepted) publish(requireNotNull(current).copy(participants =
-                        requireNotNull(current).participants.map { if (it.key == peer) it.copy(video = track) else it }))
+                        requireNotNull(current).participants.map { if (it.key != peer) it else when (track) {
+                            is VideoTrack -> it.copy(video = track)
+                            is org.webrtc.AudioTrack -> it.copy(audio = track)
+                            else -> it
+                        } }))
                 } }, media = media), additionalEndpoints = routes.filter { it != route })
         leases[peer] = lease
         previous?.close()
@@ -563,7 +567,7 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         if (call != null && call.phase.live) {
             retired[call.link.room.id] = call.invitationAt
             if (retired.size > 128) retired.remove(retired.keys.first())
-            publish(call.copy(phase = phase, localVideo = null, participants = call.participants.map { it.copy(video = null, connected = false) }))
+            publish(call.copy(phase = phase, localVideo = null, participants = call.participants.map { it.copy(video = null, audio = null, connected = false) }))
         }
         if (!deferIdle) closeIfIdle()
     }

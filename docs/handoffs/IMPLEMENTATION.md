@@ -10,41 +10,44 @@ verification, independent reviews and signed beta. Review base is
 Existing JVM protocol, native Android and controlled browser-peer seams are reused;
 routine tests/emulators remain delegated, without repeated owner phone QA.
 
-Official source pin e6c937c686495a37d8fc94ecc894189e23a453c3: Videocall, dialer,
-StreamManager, Stun and Relay. Pinned Videocall.generateCallLink was independently
-executed in Node24 to create the literal native-talk-reference.json fixture.
-Room-link, signed/legacy invitation and room roster RED/GREEN cycles observed;
-all three targeted Talk JVM tests PASS. Native TalkRoutingPreviewTest now covers
-actual authenticated socket routing and negative acknowledgements. Its new
-RealtimeIncoming registration is deliberately not wired to SaitoPeer yet: run
-talk-routing Android10 to observe the behavior RED, then wire and rerun.
-No native Talk media exists yet. Legacy unsigned Relay invitations must
-remain claims until actual signed-SDP/DTLS peer authentication; they do not
-implicitly authorize capture. Talk and Fileshare need shared peer ownership and
-message routing because upstream Stun owns one connection per counterparty.
-No Talk audio/video runtime or release acceptance is claimed yet.
+Official source pin e6c937c686495a37d8fc94ecc894189e23a453c3 remains the
+protocol authority. Native room/link, signed versus legacy invitation, roster,
+large Chat ownership and per-peer Stun JVM checks pass. The shared native RTC
+transport leases one signed-SDP/DTLS/data connection to Talk and Fileshare.
+Scoped delivery, native permission/prejoin/call UI, actual camera/microphone
+capture and foreground ownership are implemented, but full Talk acceptance and
+beta delivery are NOT complete. Do not ship until actual direct/three-party
+media, lifecycle/UI checks, complete suites and independent reviews finish.
 
-The five Talk JVM checks now pass, including ownership of large encrypted Chat
-and per-participant Stun routing (both meaningful failing assertions retained in
-the external talk-native logs before fixes). All-core tests and Android Kotlin
-compilation pass locally. Native socket-routing RED run43186947399 observed both
-wrong Chat fallback and wrong success ACK before SaitoPeer's scoped dispatch was
-wired. SharedRtcPeers now leases one signed-SDP/DTLS connection to Fileshare and
-Talk; Fileshare's former independent factory/connection is replaced by a data-only
-lease. These transport changes still require Android10/17 routing and Fileshare
-regression evidence, and no call/media acceptance is claimed yet.
+Focused source af09bd98f2b3bac60ff6cd504cab3ece0cf265e8 passes camera capture
+on Android10/17 in43205786682/43205791014, routing17 in43205795687 and the original
+Fileshare incoming screen-off/exact-save journey on10 in43205800172. Routing10
+and all nine Fileshare17 classes already passed at70489f496 in43193138260 and
+43193151814, before the later runtime/UI/capture changes. These are focused
+checkpoints, not final-source full acceptance. Originals are external in the
+established talk-native directory, including proof-source metadata.
 
-Foundation source70489f496cd9e9d5c3873ed5dfa44eee94f53b75 is in four focused
-runs43190475289/43190479978 (routing10/17) and43190483847/43190488265
-(Fileshare10/17). At09:36UTC all remained in runner SDK preparation, with no app
-result yet. Native TalkAccount/foreground ownership and an actual-camera tracer
-are now being built; TalkCapture is deliberately empty for that runtime RED,
-NOT a delivered feature or release candidate. Do not ship that stub. UI work is
-still external temporary source. Next proof source skips APT refresh only when
-every required runtime library is actually installed, records their versions,
-and bounds genuine missing-library provisioning without changing native goals.
+Original43205804682 fails before Accept file, with no transfer/browser error.
+Its test sent the initial Stun frame without requiring a completed owned Relay
+handshake. Test-only4e8310d06 adds that precondition inside the original30second
+readiness helper plus failure-only socket/ACK/Relay observations. Fresh43207787145
+passes on17 without changing the original transfer, screen-off, byte/save or
+runtime deadlines. A later pass alone does not measure the precise original
+race. The earlier failed Save draft handoff led to waiting for actual navigation
+readiness before launching Save as; that product correction remains present.
 
+Actual camera RED43196697626 at e6e72a163 reaches JOINING with localVideo=false
+and fails the real-frame assertion. Earlier43193926943 instead failed fixture
+startup and is not counted as camera RED. Provisioning-only failures/cancellations
+and original routing/core failures remain external with their actual outcomes.
 
+The next owned browser fixture executes hash-checked Videocall, StreamManager,
+dialer and Stun bodies in test-only real WebViews. It uses controlled canvas and
+WebAudio inputs plus a debug/emulator-only PCM hook after real AudioRecord.read.
+Actual codecs, DTLS/RTP, remote pixels and PCM must be observed before claiming
+media interoperability. Framework/wallet serialization and owned Relay are
+explicit adaptations; no public development writes or physical microphone/
+speaker quality claims. No new complete-verification catalog is frozen yet.
 
 The current writable checkout stays
 `/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.
