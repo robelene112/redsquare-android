@@ -148,6 +148,25 @@ the180second class bound and do not replace whole-app acceptance. The browser
 generates the declared fixture bytes locally, avoiding a large Android Binder
 argument while using the same pinned uploader and real WebRTC channel.
 
+## Unpaced intake diagnosis and fix
+
+Android10 complete focused run43123971475 at `e1576a8ec` passes all nine classes,
+the12viewport cells and distinct-PID seeded recovery. Android17's unchanged4MiB
+goal fails in43121965319. Diagnostic43123205607 at `3762f1a80` proves controller
+buffer overflow:47browser-produced chunks,6acknowledged,385536received bytes,
+FAILED and an explicit buffer-full log. The sender stops after the channel closes;
+the observations do not support browser background pausing as the primary cause.
+
+Source54b2ee076 replaces per-chunk controller events after Accept with an
+encrypted ephemeral disk inbox, bounded frame/disk sizes and coalesced draining.
+Its initial unchanged Android17 large gate is43125121863. Temporary product logs
+are removed. Recovery now seeds an encrypted queued frame and requires its
+removal alongside partial content. Review identified two additional lifetime
+issues:ac4dc5dce batches four frames before yielding to pending watchdog/controls,
+and57db13f69 closes the old inbox when a new offer replaces a completed transfer
+during its ACK grace period. Both independent source-review axes pass these fixes.
+Final source runtime, complete regression and signed delivery remain pending.
+
 ## Verification boundaries
 
 Tests use real native screens, Android document-provider/picker boundaries,

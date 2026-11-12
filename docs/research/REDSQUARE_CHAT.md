@@ -179,7 +179,13 @@ offline delivery or transparent process-death continuation is promised.
 Incoming files require acceptance and stream into independent AEAD-encrypted
 chunks in device-only storage. Authenticated lengths/offsets and metadata bind
 chunks to their owner/node/contact/transfer; Save as decrypts bounded chunks only
-after complete receipt. Ordinary selection/policy mutations invalidate the live
+after complete receipt. Accepted data-channel frames first enter a bounded,
+encrypted temporary disk inbox because the upstream browser uploader does not
+wait for receipts. Four-frame controller batches preserve ordered validation
+while letting watchdog and user controls run. The RTC callback holds neither the
+controller nor shared Chat/wallet lock while appending. Terminal cleanup and cold
+recovery delete this transport buffer; completed content remains available to
+Save as. Ordinary selection/policy mutations invalidate the live
 authority cache before committing, with revalidation under the same enqueue lock.
 The file name is display metadata, never a storage path. Controlled fixtures must
 observe real data channels, final bytes, background/screen-off behavior, notification
