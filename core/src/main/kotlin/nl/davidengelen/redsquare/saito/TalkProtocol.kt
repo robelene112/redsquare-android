@@ -89,7 +89,7 @@ object TalkProtocol {
         val relevant = when (module) {
             "Relay" -> TalkDial.entries.any { it.wire == request }
             "Videocall" -> request in roomRequests
-            "Stun" -> request in stunRequests
+            "Stun" -> request in stunRequests && (request in setOf("peer-joined", "peer-description", "peer-candidate") || content.has("call_id"))
             else -> false
         }
         if (!relevant) return null

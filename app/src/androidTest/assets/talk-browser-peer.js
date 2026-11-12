@@ -12,6 +12,7 @@ class ModTemplate {
 }
 class FixtureTransaction {
   constructor() { this.msg = {}; this.from = [{publicKey:Host.publicKey()}]; this.to = []; this.timestamp = Date.now(); }
+  addFrom(key) { this.from = [{publicKey:key}]; }
   addTo(key) { if (!this.isTo(key)) this.to.push({publicKey:key}); }
   isTo(key) { return this.to.some(v => v.publicKey === key); }
   isFrom(key) { return this.from.some(v => v.publicKey === key); }
@@ -20,7 +21,8 @@ class FixtureTransaction {
     this.serialized = Host.sign(JSON.stringify(this.msg), JSON.stringify(this.to.map(v => v.publicKey)), this.timestamp);
     this.signature = JSON.parse(Host.inspect(this.serialized)).signature;
   }
-  serialize_to_web() { return this.serialized; }
+  toJson() { return this.serialized || Host.unsigned(JSON.stringify(this.msg), JSON.stringify(this.to.map(v => v.publicKey)), this.timestamp); }
+  serialize_to_web() { return this.toJson(); }
   deserialize_from_web(app, envelope) {
     const value = JSON.parse(Host.inspect(envelope));
     this.msg = value.body; this.from = [{publicKey:value.author}]; this.to = value.recipients.map(publicKey => ({publicKey}));
@@ -55,20 +57,15 @@ const app = {
   browser:{returnURLParameter:() => '', lockNavigation() {}, unlockNavigation() {}, formatTime:() => ({minutes:0,seconds:0})},
   crypto:{stringToBase64:text => btoa(text), base64ToString:text => atob(text)},
   storage:{saveOptions() {}},
-  network:{propagateTransaction() {}}, // Public/onchain propagation deliberately disabled.
-  modules:{returnFirstRespondTo:() => stun.respondTo('peer-manager'),
+  network:{propagateTransaction() {}, async getPeers() { return [{publicKey:Host.relayKey(),status:'connected'}]; },
+    sendRequestAsTransaction(request, transaction) { if (request !== 'relay peer message') throw Error('Unexpected owned RPC'); Host.relay(transaction); }}, // Public/onchain propagation deliberately disabled.
+  modules:{returnFirstRespondTo:() => stun.respondTo('peer-manager'), returnModulesRespondingTo:() => [stun],
     async handlePeerTransaction(tx) { await talk.handlePeerTransaction(app, tx); await stun.handlePeerTransaction(app, tx); }}
 };
 // INSERT_PINNED_CLASSES
 const stun = new Stun(app); stun.servers = [];
+const relay = new Relay(app);
 const talk = new Videocall(app);
-app.connection.on('relay-transaction', tx => Host.relay(tx.serialize_to_web(app)));
-app.connection.on('relay-send-message', async value => {
-  const tx = new FixtureTransaction();
-  for (const key of (Array.isArray(value.recipient) ? value.recipient : [value.recipient])) tx.addTo(key);
-  tx.msg = {module:'Relay', request:value.request, data:value.data}; await tx.sign();
-  Host.relay(Host.invitation(tx.serialize_to_web(app)));
-});
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const canvas = document.createElement('canvas'); canvas.width = 640; canvas.height = 480;
 const paint = canvas.getContext('2d'); let tick = 0;
@@ -133,4 +130,4 @@ setInterval(async () => {
     Host.media(video.id.slice(7), video.videoWidth, video.videoHeight, nonBlack, rms);
   }
 }, 200);
-(async () => { await talk.initialize(app); Host.ready(); })();
+(async () => { await relay.initialize(app); await talk.initialize(app); Host.ready(); })();

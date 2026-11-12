@@ -49,7 +49,7 @@ internal object TalkRuntime {
         }
     fun end(token: String) { accounts.values.forEach { it.end(token) } }
     fun visibility(value: Boolean) { visible = value; accounts.values.forEach { it.visibility() } }
-    fun interrupt() { accounts.values.forEach { it.interrupt() } }
+    fun interrupt(token: String? = null) { accounts.values.forEach { it.interrupt(token) } }
     fun controls(token: String, microphone: Boolean? = null, camera: Boolean? = null) {
         accounts.values.forEach { it.controls(token, microphone, camera) }
     }
@@ -500,9 +500,9 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
         capture?.silence()
         operation?.cancel(); post { }
     }
-    fun interrupt() {
+    fun interrupt(token: String? = null) {
         val call = current ?: return
-        if (!call.phase.live) return
+        if (!call.phase.live || token != null && call.token != token) return
         stopRequested = Stop(call.token, CallPhase.INTERRUPTED); capture?.silence()
         operation?.cancel(); post { }
     }

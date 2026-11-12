@@ -12,8 +12,7 @@ import java.util.concurrent.atomic.*
 
 /** Exact official module bodies in a separate real Chromium, with owned Relay and controlled inputs. */
 internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: SaitoWallet,
-    private val colour: String, private val frequency: Int, private val send: (String) -> Unit,
-    private val legacyInvitations: Boolean = false) : Closeable {
+    private val colour: String, private val frequency: Int, private val send: (String) -> Unit) : Closeable {
     val errors = CopyOnWriteArrayList<String>()
     val captures = AtomicInteger()
     data class Media(val width: Int, val height: Int, val nonBlack: Int, val rms: Double)
@@ -27,10 +26,12 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     init {
         fun body(name: String, className: String): String {
             val source = instrumentation.context.assets.open("talk-$name").bufferedReader().use { it.readText() }
-            return source.substring(source.indexOf("class $className"), source.lastIndexOf("module.exports"))
+            val constants = if (className == "Relay") source.substring(source.indexOf("const RELAY_REPEAT_WINDOW_MS"),
+                source.indexOf("class Relay")) else ""
+            return constants + source.substring(source.indexOf("class $className"), source.lastIndexOf("module.exports"))
         }
         val classes = body("stun.js", "Stun") + body("dialer.js", "Dialer") + "\nconst DialingInterface = Dialer;\n" +
-            body("StreamManager.js", "StreamManager") + body("videocall.js", "Videocall")
+            body("StreamManager.js", "StreamManager") + body("videocall.js", "Videocall") + body("relay.js", "Relay")
         val source = instrumentation.context.assets.open("talk-browser-peer.js").bufferedReader().use { it.readText() }
             .replace("// INSERT_PINNED_CLASSES", classes)
         val host = """
@@ -67,6 +68,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
         val value: Any? = when (body.get("method").asString) {
             "publicKey" -> bridge.publicKey()
             "nativeKey" -> bridge.nativeKey()
+            "relayKey" -> bridge.relayKey()
             "colour" -> bridge.colour()
             "frequency" -> bridge.frequency()
             "ready" -> { bridge.ready(); null }
@@ -75,7 +77,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
             "media" -> { bridge.media(args[0].asString,args[1].asInt,args[2].asInt,args[3].asInt,args[4].asDouble); null }
             "sign" -> bridge.sign(args[0].asString,args[1].asString,args[2].asLong)
             "inspect" -> bridge.inspect(args[0].asString)
-            "invitation" -> bridge.invitation(args[0].asString)
+            "unsigned" -> bridge.unsigned(args[0].asString,args[1].asString,args[2].asLong)
             "relay" -> { bridge.relay(args[0].asString); null }
             else -> error("Unknown owned fixture method")
         }
@@ -85,6 +87,7 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
     inner class Bridge {
         fun publicKey() = wallet.publicKey
         fun nativeKey() = owner.publicKey
+        fun relayKey() = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
         fun colour() = colour
         fun frequency() = frequency
         fun ready() { ready.countDown() }
@@ -105,11 +108,16 @@ internal class TalkBrowserPeer(val wallet: SaitoWallet, private val owner: Saito
                 add("recipients", JsonArray().apply { value.recipients.forEach { add(it) } })
             }.toString()
         }
-        fun invitation(envelope: String): String {
-            if (!legacyInvitations) return envelope
-            val value = JsonParser.parseString(envelope).asJsonObject
-            val header = java.util.Base64.getDecoder().decode(value.get("t").asString).apply { fill(0, 16, 80) }
-            value.addProperty("t", java.util.Base64.getEncoder().encodeToString(header))
+        fun unsigned(body: String, recipients: String, timestamp: Long): String {
+            val value = JsonParser.parseString(sign(body, recipients, timestamp)).asJsonObject
+            val header = java.util.Base64.getDecoder().decode(value.get("t").asString)
+            val data = java.nio.ByteBuffer.wrap(header)
+            val ownOutput = 93 + 59 * data.getInt(0)
+            // Relay.createRelayTransaction adds only its addressed peers, without a wallet change output.
+            val detached = header.copyOfRange(0, ownOutput) + header.copyOfRange(ownOutput + 59, header.size)
+            java.nio.ByteBuffer.wrap(detached).putInt(4, data.getInt(4) - 1)
+            detached.fill(0, 16, 80)
+            value.addProperty("t", java.util.Base64.getEncoder().encodeToString(detached))
             return value.toString()
         }
         fun relay(envelope: String) { send(envelope) }

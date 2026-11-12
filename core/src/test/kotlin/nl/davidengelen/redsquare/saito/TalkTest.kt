@@ -85,4 +85,13 @@ class TalkTest {
         assertThrows(IllegalArgumentException::class.java) { Stun.read(unsigned.toString(), alice.publicKey, bob.publicKey) }
     }
 
+    @Test fun aStandaloneStunDepartureStaysOwnedByTheSharedTransport() {
+        val alice = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
+        val bob = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val departure = Stun.signal(alice, bob.publicKey, "peer-left", com.google.gson.JsonObject(), 100)
+        assertNull(TalkProtocol.read(departure.envelope(), bob.publicKey))
+        val room = TalkRoom(alice.publicKey, alice.publicKey)
+        val scoped = TalkProtocol.event(alice, room, "peer-left", listOf(bob.publicKey), 101)
+        assertEquals(room.id, requireNotNull(TalkProtocol.read(scoped.envelope(), bob.publicKey)).roomId)
+    }
 }

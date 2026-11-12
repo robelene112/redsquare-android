@@ -51,15 +51,18 @@ class TalkDirectPreviewTest {
                     TalkRuntime.visibility(true)
                     account = TalkRuntime.account(context, owner, SaitoBackend.OWNER, endpoint).also { it.attach() }
                     await("Relay authenticated", 5000) { fixture.authenticatedConnectionIds.isNotEmpty() }
-                    TalkBrowserPeer(caller, owner, "#e02020", 660, { envelope ->
-                        val message = requireNotNull(TalkProtocol.read(envelope, owner.publicKey))
-                        check(message.sender == caller.publicKey)
+                    TalkBrowserPeer(caller, owner, "#e02020", 660, send@{ envelope ->
+                        val signed = runCatching { SaitoEnvelope.decode(envelope) }.getOrNull()
+                        if (signed != null) {
+                            check(signed.author == caller.publicKey)
+                            if (owner.publicKey !in signed.recipients) return@send
+                        } else check(requireNotNull(TalkProtocol.read(envelope, owner.publicKey)).sender == caller.publicKey)
                         val value = JsonParser.parseString(envelope).asJsonObject
                         val header = Base64.getDecoder().decode(value.get("t").asString)
                         val body = Base64.getDecoder().decode(value.get("m").asString)
                         ByteBuffer.wrap(header).putInt(8, body.size)
                         fixture.sendIncoming(header + body, sequence.incrementAndGet())
-                    }, legacyInvitations = true).use { peer ->
+                    }).use { peer ->
                         browser.set(peer)
                         withFailureCapture({
                             File(evidence, "failure-state.txt").writeText("${TalkRuntime.call.value}\n${TalkRuntime.diagnostic.value}\n${peer.errors}\nmedia=${peer.media}\ncaptures=${peer.captures}")

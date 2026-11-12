@@ -127,6 +127,15 @@ class TalkMediaPreviewTest {
                                             carol.media[alice.wallet.publicKey]?.rms?.let { it > 0.01 } == true &&
                                             alice.media[carol.wallet.publicKey]?.rms?.let { it > 0.01 } == true
                                     }
+                                    File(evidence, "mesh.json").writeText(com.google.gson.Gson().toJson(mapOf(
+                                        "alice" to alice.media.toMap(), "carol" to carol.media.toMap())))
+                                    val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                                    val returnToCall = requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                                        androidx.test.uiautomator.By.text("Return to call")), 5000))
+                                    returnToCall.click()
+                                    requireNotNull(device.wait(androidx.test.uiautomator.Until.findObject(
+                                        androidx.test.uiautomator.By.text("End call")), 5000))
+                                    captureNativeScreen(File(evidence, "three-party-native.png"))
                                     carol.leave()
                                     await("A leaving participant is removed", 5000) { TalkRuntime.call.value?.participants?.size == 1 }
                                     browsers.remove(carol.wallet.publicKey)

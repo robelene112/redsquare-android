@@ -225,6 +225,10 @@ if [[ "${TEST_SCOPE:-full}" == fileshare-receive* ]]; then
     verify_group_chat_native FileshareReceivePreviewTest 180 fileshare-receive fileshare-evidence
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == talk-camera-lifecycle* ]]; then
+    verify_talk_capture_native TalkCameraLifecyclePreviewTest talk-camera-lifecycle
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == talk-lifecycle* ]]; then
     verify_talk_capture_native TalkLifecyclePreviewTest talk-lifecycle
     exit 0

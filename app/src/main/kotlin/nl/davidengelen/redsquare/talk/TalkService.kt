@@ -42,7 +42,7 @@ class TalkService : Service() {
             stopSelf(startId); return START_NOT_STICKY
         }
         if (token == call.token) return START_NOT_STICKY
-        token = call.token
+        token = call.token; normal = false
         val alert = notification(call)
         if (Build.VERSION.SDK_INT >= 30) startForeground(ID, alert, ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE or
             if (call.camera) ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA else 0)
@@ -55,7 +55,7 @@ class TalkService : Service() {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
                 .setOnAudioFocusChangeListener { change ->
                     if (change in setOf(AudioManager.AUDIOFOCUS_LOSS, AudioManager.AUDIOFOCUS_LOSS_TRANSIENT))
-                        token?.let { TalkRuntime.end(it) }
+                        TalkRuntime.interrupt(call.token)
                 }.build()
             check(manager.requestAudioFocus(requireNotNull(focus)) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
             manager.mode = AudioManager.MODE_IN_COMMUNICATION
@@ -83,7 +83,7 @@ class TalkService : Service() {
         } catch (failure: Exception) {
             TalkRuntime.record("call-audio", failure)
             ready[call.token]?.completeExceptionally(IllegalStateException("Call audio unavailable"))
-            TalkRuntime.interrupt(); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf()
+            TalkRuntime.interrupt(call.token); stopForeground(STOP_FOREGROUND_REMOVE); stopSelf(startId)
         }
         return START_NOT_STICKY
     }
@@ -106,7 +106,7 @@ class TalkService : Service() {
             .addAction(Notification.Action.Builder(null, getString(R.string.talk_end), hangup).build()).build()
     }
     override fun onDestroy() {
-        if (!normal) token?.let { TalkRuntime.end(it) }
+        if (!normal) token?.let { TalkRuntime.interrupt(it) }
         val manager = getSystemService(AudioManager::class.java)
         focus?.let { manager.abandonAudioFocusRequest(it) }
         if (token != null) {
