@@ -112,8 +112,6 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
     private var ignoredOffer = false
     private var started = false
     private var needsNegotiation = false
-    private var initialOffer: Job? = null
-    private var initialOfferReleased = false
     private val pendingCandidates = mutableListOf<IceCandidate>()
     private val seen = LinkedHashSet<String>()
     private val senders = mutableMapOf<MediaStreamTrack, RtpSender>()
@@ -334,7 +332,6 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
                 probe("apply queued candidates=${pendingCandidates.size}")
                 pendingCandidates.forEach { probe("candidate applied=${connection.addIceCandidate(it)}") }; pendingCandidates.clear()
                 if (type == "offer") {
-                    initialOffer?.cancel(); initialOffer = null
                     val answer = createDescription(answer = true)
                     setDescription(answer, true); sendDescription(answer)
                 }
@@ -360,16 +357,10 @@ internal class SharedRtcPeer(context: Context, private val wallet: SaitoWallet, 
 
     private suspend fun negotiateIfNeeded() {
         if (!started || !needsNegotiation || makingOffer || connection.signalingState() != PeerConnection.SignalingState.STABLE) return
-        // Match upstream Stun's initial lower-key-first negotiation. Immediate
-        // simultaneous offers can roll back Chrome's unfinished ICE gathering.
-        // The higher key retains the same bounded1500ms single-initiator fallback.
-        if (wallet.publicKey > remote && connection.remoteDescription == null && !initialOfferReleased) {
-            if (initialOffer == null) initialOffer = scope.launch {
-                delay(1500)
-                post { initialOffer = null; initialOfferReleased = true; negotiateIfNeeded() }
-            }
-            return
-        }
+        // The lower key starts a fresh Stun connection. A local fallback timer can
+        // collide with its delayed offer and roll back unfinished browser ICE.
+        // Keep local media changes pending until that signed offer is answered.
+        if (wallet.publicKey > remote && connection.remoteDescription == null) return
         needsNegotiation = false; makingOffer = true
         try {
             val description = createDescription()
