@@ -15,6 +15,10 @@ import androidx.test.uiautomator.UiDevice
 internal fun ComposeTestRule.reviewVaultFile(scene: VaultReadingScene, name: String, bytes: ByteArray) {
     val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$name")
     scene.context.contentResolver.call(source, "prepare", name, Bundle().apply { putByteArray("bytes", bytes) })
+    reviewPreparedVaultFile(scene, name, source)
+}
+
+internal fun ComposeTestRule.reviewPreparedVaultFile(scene: VaultReadingScene, name: String, source: Uri) {
     Intents.intending(hasAction(Intent.ACTION_OPEN_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(
         Activity.RESULT_OK, Intent().setData(source).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
     openNativeVault()

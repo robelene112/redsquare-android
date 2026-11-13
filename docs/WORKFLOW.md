@@ -168,6 +168,7 @@ original logs and every application assertion and deadline.
 2. Record the starting commit as the review base. Use the current working branch
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`.
+   `vault-upload-large` and Android17 add VaultUploadLargePreviewTest at the existing native document/peer/PIN seam, under its own180second class bound. The full4MiB upload has a new60s completion goal; small-file25s and all inherited goals remain. Full Wallet retains it additively.
    `vault-upload-recovery` and Android17 add VaultUploadRecoveryPreviewTest at the owned native peer/document/system-PIN seam. Its180second class covers delayed node ownership without retransmission and authenticated rejection recovery with the exact original mint/file. Full Wallet retains it additively.
    `vault-share` and its Android17 variant add VaultSharePreviewTest at the existing native Intent/document-provider seam, under its own180second class bound and additively in full Wallet. Sharing never grants publication or replaces the original launch endpoints.
    `composer-quote` and its Android17 variant isolate the existing quote
