@@ -27,6 +27,19 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
+## Active upload/key slice #107
+
+#106 is closed after exact-source Android10/17 focused acceptance and independent
+source/evidence reviews. Its packet is [ticket106](../evidence/ticket106/README.md).
+#107 is claimed. Review base:8570655b69ab4d1b5aeb98f7ae68bdaa71d1e3f4.
+The isolated saito-wasm0.3.15 wallet factory now supplies an independent standard
+mint, exact file binding,1SAITO deposit/change and broadcast-hop reference. Native
+small/4MiB byte/signature comparisons and all158 core tests pass. Generic Normal
+restoration and its envelope bound stay strict. The new Android upload-review
+tracer is committed before its UI exists. Do not call this completed upload or
+minting integration. Continue #107 through its native/background/recovery checks,
+then108–115. No Vault/Store beta is built or published; public beta127 remains.
+
 ## Delivered native Saito Talk #104
 
 [Signed beta 0.1.127](https://davidengelen.nl/redsquare/) adds direct audio/video
