@@ -11,11 +11,23 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
+The owner approved the combined Vault/Store scope in
+[specification #105](https://github.com/robelene112/redsquare-android/issues/105). Both grills are complete.
+The spec is published and the ten-ticket vertical breakdown is prepared for the
+owner's granularity/dependency review required by to-tickets. Publish the agreed
+tickets with native sub-issue/dependency relationships after that review.
+Implementation has not started. Use Vault as the shared file/key/rental basis
+and deliver one combined completed beta, preserving the spec's full payment and
+native UX scope and the existing agent-owned verification/operational boundaries.
+The earlier stop-after-104 limit is superseded only for this newly requested
+Vault/Store trajectory. Keep other parent/release gates open.
+
 Native Saito Talk [104](https://github.com/robelene112/redsquare-android/issues/104)
 is delivered in signed beta 127: direct Chat audio/video and group rooms/links.
 Complete Android 10/17 checks, signed updates, independent reviews and actual
 public delivery checks pass. See [the packet](evidence/ticket104/README.md).
-Stop after #104, keep #1/#36/#55/#84/#86 open. Real device/live-service/default HTTPS
+Historical Talk boundary: stop after #104 until the next owner request; keep
+#1/#36/#55/#84/#86 open. Real device/live-service/default HTTPS
 qualifications remain unchecked as TALK_LIVE under #36. No node/provider/Play
 operation or public Saito development write is authorized. Ordinary phone QA
 remains delegated to the agent.

@@ -1,5 +1,30 @@
 # Implementation handoff
 
+## Current planning: combined Vault and Store #105
+
+The owner approved both completed grills and the shared scope on 2026-11-13.
+[Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
+ready-for-agent. Ten complete vertical ticket drafts and the dependency graph
+are prepared under /mnt/storage/redsquare-android-artifacts/vault-store-planning,
+outside Git. Await the owner's breakdown/granularity review before publishing
+implementation tickets; do not confuse draft numbers 1-10 with tracker IDs.
+Use the spec as the canonical feature scope. No implementation has started and
+no additional beta has been built or published. The delivered baseline remains
+beta 127 with Talk #104 complete.
+
+Vault is first as the file/key/rental foundation, then integrated Store flows,
+with one combined completed signed beta. Buying/selling, renting/renting out,
+new image/file creation, all offered payment methods, native links and unsent
+seller Chat drafts are included. Vault also stands alone with standard/custom/
+rental access, Advanced source/witness editing, explicit offline files and
+Android Share. Official storage compatibility is accepted, with provider-visible
+content and no promise to recall downloaded copies. Reuse the existing native,
+pinned-protocol, owned-reference/provider and signed-update testing boundaries;
+do not ask the owner to repeat development phone QA. No new production node,
+public Saito financial write, community recipient or provider/Play operation is
+authorized. Other parent and real-release prerequisites remain open.
+
+
 ## Delivered native Saito Talk #104
 
 [Signed beta 0.1.127](https://davidengelen.nl/redsquare/) adds direct audio/video

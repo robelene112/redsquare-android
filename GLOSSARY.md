@@ -36,3 +36,35 @@ does not imply permanent storage or complete recovery on another device.
 A selected node's reported block height and block time, paired with when the app
 checked that information. It describes that node's report, rather than a global
 network lag estimate or the completeness of post history.
+
+
+## Vault and Store
+
+**Vault file**:
+A file retained by a Vault storage service whose retrieval is governed by an
+access contract. The remote file, its access key and a local copy are distinct.
+
+**Vault access key**:
+A Saito NFT associated with a Vault file's access contract. Holding a key grants
+the rights established by that contract, not an unconditional promise of access.
+
+**Rental master key**:
+A Vault key used to establish compatible temporary access under a rental
+contract. It is distinct from the renter's received entitlement.
+
+**Rental entitlement**:
+A temporary right to access a specified file under the rental contract's
+identity, duration and other conditions. Expiry does not recall downloaded copies.
+
+**Offline copy**:
+A file copy deliberately retained on the current device for disconnected use.
+Removing it does not remove the remotely retained Vault file or transfer a key.
+
+**Store listing**:
+An offer of an identified item or access right, with a seller, price and terms.
+An offer's existence does not establish its current availability or fulfilment.
+
+**Store order**:
+The record of a buyer's intended purchase or rental and its payment and
+fulfilment progress. A submitted payment is distinct from delivered ownership
+or access.

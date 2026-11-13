@@ -1,5 +1,29 @@
 # Red Square Android project context
 
+## Approved next scope: native Vault and Store
+
+[Specification #105](https://github.com/robelene112/redsquare-android/issues/105) records the owner's completed
+Store and Vault grills on 2026-11-13. Deliver both together in one signed beta,
+with Vault providing the file/key/rental foundation. Store includes buying,
+selling, rentals, new image/file items, all actually offered payment methods,
+orders and seller contact through an unsent Chat draft. Its navigation is
+Discover, Orders, My store. Vault is independently accessible, with official
+standard/custom/rental keys, Advanced script/witness editing, explicit offline
+copies/storage management and Android Share to Vault.
+
+Follow the official interoperable protocol and accurate provider-visible storage
+semantics, rather than claiming end-to-end encryption or recall of downloaded
+copies. All categories remain visible with honest browser-only compatibility.
+Ordinary native/protocol/owned-peer/update testing remains agent-owned. One
+combined beta follows complete integration and independent reviews, not a partial
+catalogue or payment placeholder.
+
+The spec is published; ten vertical implementation tickets are drafted outside
+Git and await owner granularity/dependency review before tracker publication.
+No Vault/Store implementation or new beta is claimed. Beta 127 and completed
+Talk #104 remain the delivered baseline. Existing parent/release gates stay open.
+
+
 ## Delivered native Saito Talk #104
 
 [Signed beta 0.1.127](https://davidengelen.nl/redsquare/) adds direct audio/video
