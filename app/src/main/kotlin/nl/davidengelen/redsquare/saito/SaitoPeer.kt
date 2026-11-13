@@ -83,8 +83,16 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         return requestFrame(beforeSend, frame = transaction::applicationRequest)
     }
 
+    /** One explicitly prepared Vault upload. Other feature callback budgets stay unchanged. */
+    suspend fun requestVaultUpload(plan: SaitoVaultMint, beforeSend: () -> Unit): ByteArray =
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            require(plan.author == wallet.publicKey)
+            val transaction = plan.uploadRequest(wallet, System.currentTimeMillis())
+            requestFrame(beforeSend, timeoutMillis = 90_000, frame = transaction::applicationRequest)
+        }
+
     private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, awaitRegistryCallback: Boolean = false,
-        frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
+        timeoutMillis: Long = 12_000, frame: (Int) -> ByteArray): ByteArray = withTimeout(timeoutMillis) {
         authenticate()
         val index = nextRequestIndex.updateAndGet { previous ->
             if (previous == Int.MAX_VALUE) throw IOException("Peer request identities exhausted")

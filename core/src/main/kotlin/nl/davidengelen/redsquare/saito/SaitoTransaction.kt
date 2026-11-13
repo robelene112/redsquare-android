@@ -87,6 +87,10 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         internal fun fromFundedBytes(bytes: ByteArray): SaitoTransaction =
             SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decode(it.envelope()) }
 
+        /** Only the strict Vault candidate reader admits retained Bound bytes. */
+        internal fun fromVaultMintBytes(bytes: ByteArray): SaitoTransaction =
+            SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decodeBound(it.envelope()) }
+
         fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction =
             createWithOutputs(wallet, body, timestamp, (listOf(wallet.publicKey) + recipients).distinct())
 

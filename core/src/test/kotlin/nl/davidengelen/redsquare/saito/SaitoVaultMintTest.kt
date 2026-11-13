@@ -49,4 +49,18 @@ class SaitoVaultMintTest {
         assertThrows(IllegalArgumentException::class.java) { SaitoEnvelope.decode(upload.envelope()) }
     }
 
+    @Test fun aRetainedCandidateRecoversTheExactMintAndItsReservedInputs() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-vault-mint-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val encoded = vector.getAsJsonObject("mint").get("networkBase64").asString
+        val candidate = SaitoVaultMint.readCandidate(encoded)
+        assertEquals(encoded, candidate.transaction.encoded())
+        assertEquals(vector.get("owner").asString, candidate.author)
+        assertEquals(vector.get("nftId").asString, candidate.nftId)
+        assertEquals(vector.getAsJsonObject("file").get("id").asString, candidate.fileId)
+        assertEquals(vector.get("name").asString, candidate.name)
+        assertEquals(listOf(SaitoBalanceSnapshot.Slip(BigInteger("2000001"), BigInteger("3"), 0, BigInteger("200000000"), 0)), candidate.inputs)
+        assertThrows(IllegalArgumentException::class.java) { SaitoTransaction.restore(encoded) }
+    }
+
 }

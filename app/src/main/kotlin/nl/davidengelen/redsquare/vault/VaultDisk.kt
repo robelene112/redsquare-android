@@ -92,7 +92,7 @@ internal class VaultDisk(private val context: Context, owner: String, backend: S
     private fun readRecord(stem: String): VaultFile {
         val info = readInfo("$stem.info")
         val copy = metadata(info)
-        require(stem == "export" || stem == "copy.${copy.fileId}")
+        require(stem in setOf("export", "draft") || stem == "copy.${copy.fileId}")
         val bytes = ByteArray(copy.size)
         var offset = 0
         for (name in parts(stem, info)) {
@@ -153,6 +153,12 @@ internal class VaultDisk(private val context: Context, owner: String, backend: S
         }
         encrypted("keys").save(EncryptedLocalFile.Contents(1, rows.toString()))
     }
+
+    /** A reviewed local source has a content digest, not remote access authority. */
+    fun saveDraft(file: VaultFile) = synchronized(lock) { writeRecord("draft", file) }
+    fun draft(): VaultFile? = synchronized(lock) { if (exists("draft.info")) readRecord("draft") else null }
+    fun hasDraftData(): Boolean = synchronized(lock) { exists("draft.info") || dataNames("draft").isNotEmpty() }
+    fun discardDraft() = synchronized(lock) { removeRecord("draft") }
 
     fun prepareExport(file: VaultFile) = synchronized(lock) { writeRecord("export", file) }
     fun export(): VaultFile? = synchronized(lock) {

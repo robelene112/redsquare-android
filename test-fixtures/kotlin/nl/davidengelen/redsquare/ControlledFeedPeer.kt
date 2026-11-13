@@ -27,6 +27,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val onArchiveResponse: ((com.google.gson.JsonObject, String, Boolean) -> Unit)? = null,
     private val relayResponseExecutor: java.util.concurrent.Executor? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
+    @Volatile var vaultUploadResponseExecutor: java.util.concurrent.Executor? = null
+    @Volatile var vaultUploadResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
+    val vaultUploads = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
     @Volatile var vaultResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultRequests = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
     @Volatile var registryFallbackBeforeNamecheck = false
@@ -140,6 +143,36 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         return server
     }
 
+    /** Independent strict zero-fund RPC decoding for the bounded large Vault test route. */
+    private fun verifyVaultUpload(frame: ByteArray, author: String): nl.davidengelen.redsquare.saito.SignedSaitoMessage {
+        val wire = frame.copyOfRange(5, frame.size)
+        require(wire.size in 211..(8 * 1024 * 1024 + 211))
+        val header = ByteBuffer.wrap(wire)
+        require(header.getInt(0) == 1 && header.getInt(4) == 1 && header.getInt(12) == 0 &&
+            header.getInt(88) == 1 && wire[92] == 0.toByte() && header.getLong(80) >= 0)
+        val length = header.getInt(8)
+        require(length > 0 && wire.size == 211 + length)
+        val message = wire.copyOfRange(211, wire.size)
+        val body = JsonParser.parseString(message.decodeToString()).asJsonObject
+        require(body.keySet() == setOf("request", "data") && body.get("request").asString == "vault add file")
+        val nested = body.get("data").asString
+        val file = SaitoEnvelope.decode(nested)
+        require(file.author == author && file.body.get("request").asString == "vault add file")
+        val nestedHeader = java.util.Base64.getDecoder().decode(JsonParser.parseString(nested).asJsonObject.get("t").asString)
+        val point = nestedHeader.copyOfRange(93, 126)
+        val preimage = ByteBuffer.allocate(102 + length).putLong(header.getLong(80))
+        repeat(2) { index ->
+            val offset = 93 + 59 * index
+            require(wire.copyOfRange(offset, offset + 33).contentEquals(point))
+            require(wire.copyOfRange(offset + 33, offset + 59).all { it == 0.toByte() })
+            preimage.put(wire, offset, 41).put(wire, offset + 57, 2)
+        }
+        preimage.putInt(1).putInt(0).put(message)
+        val signature = wire.copyOfRange(16, 80).joinToString("") { "%02x".format(it) }
+        require(SaitoWallet.verify(preimage.array(), signature, author))
+        return nl.davidengelen.redsquare.saito.SignedSaitoMessage(signature, author, header.getLong(80), body, listOf(author))
+    }
+
     private fun response() = MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
         private var authenticated = false
         private var authenticatedKey = ""
@@ -238,6 +271,19 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val outputs = ByteBuffer.wrap(frame, 9, 4).int
                         val offset = 5 + 93 + 59 * (inputs + outputs)
                         val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
+                        if (body.get("request").asString == "vault add file") {
+                            val signed = verifyVaultUpload(frame, requireNotNull(authenticatedKey))
+                            vaultUploads.add(signed)
+                            val respond = Runnable {
+                                try {
+                                    val response = requireNotNull(vaultUploadResponse)(signed)
+                                    check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                                } catch (problem: Throwable) { recordFailure(problem) }
+                            }
+                            val executor = vaultUploadResponseExecutor
+                            if (executor == null) respond.run() else executor.execute(respond)
+                            return
+                        }
                         val criteria = body.getAsJsonObject("data")
                         if (body.get("request").asString == "vault access file") {
                             val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))

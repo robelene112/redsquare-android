@@ -896,4 +896,20 @@
     <string name="vault_offline_save_failed">Could not save the offline copy. The download succeeded. Check available storage or remove an offline copy, then try again.</string>
     <string name="vault_local_file_failed">Could not open the saved copy. You can remove it and download the file again when access is available.</string>
     <string name="vault_previous_files">Previous files</string>
+    <string name="vault_upload_file">Upload file</string>
+    <string name="vault_review_upload">Review upload</string>
+    <string name="vault_preparing_file">Preparing your file</string>
+    <string name="vault_standard_key">Standard key</string>
+    <string name="vault_standard_key_description">The holder of this key can retrieve your file from the selected Vault service.</string>
+    <string name="vault_key_deposit">Key deposit</string>
+    <string name="vault_deposit_description">This amount stays with the key. It is separate from a transaction fee and is not freely spendable while attached to the key.</string>
+    <string name="vault_upload_privacy">The storage operator can read this file. Vault access keys do not provide end-to-end encryption. Nothing is uploaded just by selecting a file.</string>
+    <string name="vault_discard_file">Discard file</string>
+    <string name="vault_cancel_reading">Cancel reading</string>
+    <string name="vault_source_cancelled">File preparation stopped. Nothing was uploaded.</string>
+    <string name="vault_source_unavailable">Could not read this file. Choose it again or try another file provider.</string>
+    <string name="vault_source_too_large">Choose a file of 4 MiB or less.</string>
+    <string name="vault_draft_unavailable">This prepared file could not be read. Discard it and choose the file again.</string>
+    <string name="vault_draft_remove_failed">Could not remove this prepared file. Check device storage and try again.</string>
+    <string name="vault_source_save_failed">Could not prepare this file. Check your device storage, then discard it or try again.</string>
 </resources>

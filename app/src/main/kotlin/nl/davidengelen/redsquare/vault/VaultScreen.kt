@@ -47,6 +47,19 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val header = rememberReadingHeaderState(true, list)
     val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
 
+    val uploads = remember(wallet.publicKey, backend) { VaultUploads.session(context, wallet.publicKey, backend) }
+    val uploadView by uploads.state.collectAsState()
+    LaunchedEffect(uploads) { uploads.load() }
+    val pickUpload = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let(uploads::prepare)
+    }
+    if (uploadView.phase != VaultUploadPhase.FILES) {
+        SingleOwnerReveal(uploadView.phase, modifier) {
+            VaultUploadReview(uploadView, Modifier.fillMaxSize(), chrome, uploads::discard, uploads::cancelPreparation)
+        }
+        return
+    }
+
     val exportDocument = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         scope.launch {
             busy = true; error = null; feedback = null
@@ -151,6 +164,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             InlineStatus(if (busy || exporting) stringResource(R.string.vault_working) else null, StatusTone.WORKING)
             InlineStatus(feedback?.let { stringResource(it) }, StatusTone.SUCCESS)
             InlineStatus(error?.let { stringResource(it) }, StatusTone.ERROR)
+            InlineStatus(uploadView.problem?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(library.problem?.let { stringResource(if (it == VaultProblem.SERVICE_UNAVAILABLE)
                 R.string.vault_service_unavailable else R.string.vault_connection_failed) },
                 StatusTone.NEUTRAL, actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
@@ -183,6 +197,10 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         LazyColumn(Modifier.fillMaxSize().then(anchor).testTag("vault-files"),
             state = list, contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            item("upload") {
+                FilledTonalButton(onClick = { pickUpload.launch(arrayOf("*/*")) }, enabled = enabled,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_upload_file)) }
+            }
             if (visible.isEmpty() && !library.loading) item("empty") {
                 Text(stringResource(if (library.problem != null) R.string.vault_saved_only
                     else if (offlineOnly) R.string.vault_no_offline else R.string.vault_empty),

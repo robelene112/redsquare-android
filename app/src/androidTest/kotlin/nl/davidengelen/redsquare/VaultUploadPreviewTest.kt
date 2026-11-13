@@ -30,6 +30,7 @@ class VaultUploadPreviewTest {
             Intents.intending(hasAction(Intent.ACTION_OPEN_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(
                 Activity.RESULT_OK, Intent().setData(source).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
             ui.openNativeVault()
+            ui.waitUntil(5_000) { ui.onNode(hasText("Upload file") and isEnabled()).isDisplayed() }
             ui.onNodeWithText("Upload file").assertIsDisplayed().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Review upload").isDisplayed() }
             ui.onNodeWithText("vault-upload.bin").assertIsDisplayed()
