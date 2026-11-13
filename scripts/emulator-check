@@ -738,6 +738,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-completed-cleanup* ]]; then
+    verify_group_chat_native VaultCompletedCleanupPreviewTest 180 vault-completed-cleanup vault-completed-cleanup-evidence
+    printf '%s\n' 'Completed native upload journal with actual incomplete encrypted source metadata and a fresh runtime, without retransmission.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-funding-race* ]]; then
     verify_group_chat_native VaultFundingRacePreviewTest 180 vault-funding-race vault-funding-race-evidence
     printf '%s\n' 'Native device-authentication race with actual wallet-wide reservation, provably-unsent Vault recovery and retained other payment.' > "$evidence/scope.txt"
@@ -798,6 +803,7 @@ if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence
+    verify_group_chat_native VaultCompletedCleanupPreviewTest 180 vault-completed-cleanup vault-completed-cleanup-evidence
     verify_group_chat_native VaultFundingRacePreviewTest 180 vault-funding-race vault-funding-race-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
@@ -1263,6 +1269,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence
+    verify_group_chat_native VaultCompletedCleanupPreviewTest 180 vault-completed-cleanup vault-completed-cleanup-evidence
     verify_group_chat_native VaultFundingRacePreviewTest 180 vault-funding-race vault-funding-race-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
