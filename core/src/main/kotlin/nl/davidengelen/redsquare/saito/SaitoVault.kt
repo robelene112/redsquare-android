@@ -1,0 +1,123 @@
+package nl.davidengelen.redsquare.saito
+
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import java.math.BigInteger
+import java.nio.ByteBuffer
+import java.util.Base64
+import org.bouncycastle.crypto.digests.Blake3Digest
+
+class VaultKey internal constructor(val holding: SaitoNft, val name: String, val fileId: String,
+    val envelope: String, val customScript: String?)
+
+class VaultFile internal constructor(val id: String, val name: String, val mime: String, bytes: ByteArray) {
+    private val content = bytes.copyOf()
+    val bytes: ByteArray get() = content.copyOf()
+    val size: Int get() = content.size
+}
+
+/** Official standard Vault access. Advanced and rental contracts are admitted by their own later flows. */
+object SaitoVault {
+    private val signature = Regex("[0-9a-f]{128}")
+    private val mime = Regex("[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+")
+    // Bounded to fit both the signed peer response and the existing encrypted local-file format.
+    const val MAX_FILE_BYTES = 3 * 1024 * 1024
+
+    fun readKey(holding: SaitoNft, envelope: String): VaultKey {
+        require(holding.type == "vault-nft-key")
+        val signed = SaitoEnvelope.decodeBound(envelope)
+        require(signed.body.get("module")?.asString == "Vault" && signed.body.get("request")?.asString == "mint-vault-key")
+        val detached = Base64.getDecoder().decode(JsonParser.parseString(envelope).asJsonObject.get("t").asString)
+        val header = ByteBuffer.wrap(detached)
+        val inputs = header.getInt(0)
+        val outputs = header.getInt(4)
+        fun row(index: Int): SaitoNft.Row {
+            val start = 93 + 59 * (inputs + index)
+            return SaitoNft.Row(Base58.encode(detached.copyOfRange(start, start + 33)),
+                SaitoBalanceSnapshot.Slip(BigInteger(1, detached.copyOfRange(start + 41, start + 49)),
+                    BigInteger(1, detached.copyOfRange(start + 49, start + 57)), detached[start + 57].toInt() and 255,
+                    BigInteger(1, detached.copyOfRange(start + 33, start + 41)), detached[start + 58].toInt() and 255))
+        }
+        require((0 until (outputs - 2).coerceAtLeast(0)).any { index ->
+            try {
+                val tuple = SaitoNft.fromSnapshot(row(index + 1), row(index), row(index + 2))
+                tuple.id == holding.id && tuple.creator == holding.creator
+            } catch (_: Exception) { false }
+        }) { "Metadata does not describe this key" }
+        val data = signed.body.getAsJsonObject("data")
+        val fileId = data.string("file_id").also { require(signature.matches(it)) }
+        val name = data.string("filename").also { require(it.isNotBlank() && it.length <= 1024) }
+        val custom = data.get("file_access_script")?.takeUnless { it.isJsonNull }?.let {
+            if (it.isJsonPrimitive && it.asJsonPrimitive.isString) it.asString else it.toString()
+        }
+        return VaultKey(holding, name, fileId, envelope, custom)
+    }
+
+    fun archiveRequest(holding: SaitoNft): String = JsonObject().apply {
+        addProperty("request", "archive")
+        add("data", JsonObject().apply {
+            addProperty("request", "load"); addProperty("field4", holding.id); addProperty("limit", 10)
+        })
+    }.toString()
+
+    fun readKeyArchive(holding: SaitoNft, response: String): VaultKey? =
+        readArchiveRows(response, { readKey(holding, it) }, { true }, { it.fileId }).entries.singleOrNull()
+
+    fun access(wallet: SaitoWallet, key: VaultKey, timestamp: Long): SaitoTransaction {
+        require(wallet.publicKey == key.holding.owner && key.customScript == null)
+        val witness = key.holding.witnesses
+        val script = JsonObject().apply {
+            addProperty("op", "CHECKOWNNFT"); addProperty("nftid", key.holding.id)
+            add("witness", JsonObject().apply {
+                addProperty("utxokey1", witness[0]); addProperty("utxokey2", witness[1]); addProperty("utxokey3", witness[2])
+            })
+        }
+        // Rust Script::hash strips witness recursively and sorts object keys.
+        val commitment = JsonObject().apply { addProperty("nftid", key.holding.id); addProperty("op", "CHECKOWNNFT") }
+            .toString().toByteArray(Charsets.UTF_8)
+        val hash = ByteArray(32).also { digest ->
+            Blake3Digest(256).apply { update(commitment, 0, commitment.size); doFinal(digest, 0) }
+        }.joinToString("") { "%02x".format(it) }
+        return SaitoTransaction.create(wallet, JsonObject().apply {
+            addProperty("request", "vault access file")
+            add("data", JsonObject().apply {
+                addProperty("request", "vault access file"); addProperty("access_script", script.toString()); addProperty("access_hash", hash)
+                add("data", JsonObject().apply { addProperty("file_id", key.fileId) })
+            })
+        }, timestamp)
+    }
+
+    fun readFile(key: VaultKey, response: String): VaultFile {
+        require(response.toByteArray().size <= 16 * 1024 * 1024)
+        val result = JsonParser.parseString(response).asJsonObject
+        require(result.get("status")?.asString == "success") { "Vault did not authorise file access" }
+        val candidates = result.getAsJsonArray("txs").also { require(it.size() in 1..10) }
+        val matched = candidates.mapNotNull { candidate ->
+            try {
+                val envelope = if (candidate.isJsonPrimitive && candidate.asJsonPrimitive.isString) candidate.asString
+                    else if (candidate.isJsonObject && candidate.asJsonObject.has("tx")) candidate.asJsonObject.string("tx")
+                    else candidate.toString()
+                SaitoEnvelope.decode(envelope).takeIf { it.id == key.fileId && it.author == key.holding.creator }
+            } catch (_: Exception) { null }
+        }.distinctBy { it.id }.singleOrNull() ?: throw IllegalArgumentException("The requested signed file is unavailable")
+        require(matched.body.get("request")?.asString == "vault add file")
+        val data = matched.body.getAsJsonObject("data")
+        val name = data.string("name").also { require(it.isNotBlank() && it.length <= 1024) }
+        val encoded = data.string("file")
+        val comma = encoded.indexOf(',').also { require(it in 12..200) }
+        val header = encoded.substring(0, comma)
+        require(header.startsWith("data:") && header.endsWith(";base64"))
+        val contentType = header.substring(5, header.length - 7).also { require(mime.matches(it)) }
+        val base64 = encoded.substring(comma + 1)
+        require(base64.length <= (MAX_FILE_BYTES + 2) / 3 * 4)
+        val bytes = Base64.getDecoder().decode(base64)
+        require(bytes.size <= MAX_FILE_BYTES && Base64.getEncoder().encodeToString(bytes) == base64)
+        return VaultFile(key.fileId, name, contentType, bytes)
+    }
+
+    private fun JsonObject.string(name: String): String {
+        val value = get(name)?.takeIf { it.isJsonPrimitive }?.asJsonPrimitive
+        require(value?.isString == true)
+        return value.asString
+    }
+}

@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 
 import com.google.gson.JsonParser
 import mockwebserver3.MockResponse
@@ -26,6 +27,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val onArchiveResponse: ((com.google.gson.JsonObject, String, Boolean) -> Unit)? = null,
     private val relayResponseExecutor: java.util.concurrent.Executor? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
+    @Volatile var vaultResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
+    val vaultRequests = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
     @Volatile var registryFallbackBeforeNamecheck = false
     val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
     @Volatile var disconnectAfterTransaction = false
@@ -236,6 +239,15 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         val offset = 5 + 93 + 59 * (inputs + outputs)
                         val body = JsonParser.parseString(String(frame, offset, bodyLength, Charsets.UTF_8)).asJsonObject
                         val criteria = body.getAsJsonObject("data")
+                        if (body.get("request").asString == "vault access file") {
+                            val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                            val signed = SaitoEnvelope.decode(original.envelope())
+                            require(signed.author == authenticatedKey)
+                            vaultRequests.add(signed)
+                            val response = requireNotNull(vaultResponse)(signed)
+                            check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            return
+                        }
                         if (body.get("request").asString == "relay peer message") {
                             val relay = JsonParser.parseString(String(java.util.Base64.getDecoder().decode(
                                 criteria.get("buffer").asString), Charsets.UTF_8)).asJsonObject

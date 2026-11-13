@@ -4,12 +4,14 @@
 
 The owner approved both completed grills and the shared scope on 2026-11-13.
 [Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
-ready-for-agent. Ten complete vertical ticket drafts and the dependency graph
-are prepared under /mnt/storage/redsquare-android-artifacts/vault-store-planning,
-outside Git. Await the owner's breakdown/granularity review before publishing
-implementation tickets; do not confuse draft numbers 1-10 with tracker IDs.
-Use the spec as the canonical feature scope. No implementation has started and
-no additional beta has been built or published. The delivered baseline remains
+ready-for-agent. The owner approved the ten-ticket breakdown and requested
+the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
+edges are published and verified. #106 is claimed and active, review base
+e290c5bdc185ff212e5b691c3cfa91d5a0c40c33. Continue the approved ready frontier
+through the combined beta without per-ticket implementation questions.
+Source snapshots, publication receipts and working material remain external
+under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
+the canonical scope. No additional beta has been built or published. The delivered baseline remains
 beta 127 with Talk #104 complete.
 
 Vault is first as the file/key/rental foundation, then integrated Store flows,

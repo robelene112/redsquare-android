@@ -100,7 +100,16 @@ object SaitoEnvelope {
     }
 
     /** Chat encrypts before signing: authenticate the JSON string before any decryption. */
-    fun decodePayload(envelope: String): VerifiedSaitoPayload {
+    fun decodePayload(envelope: String): VerifiedSaitoPayload = decodeTypedPayload(envelope, 0)
+
+    /** Bound NFT metadata has its own admission path; ordinary application readers remain Normal-only. */
+    internal fun decodeBound(envelope: String): SignedSaitoMessage {
+        val signed = decodeTypedPayload(envelope, 8)
+        require(signed.body.isJsonObject)
+        return SignedSaitoMessage(signed.id, signed.author, signed.createdAt, signed.body.asJsonObject, signed.recipients)
+    }
+
+    private fun decodeTypedPayload(envelope: String, transactionType: Int): VerifiedSaitoPayload {
         require(envelope.toByteArray(Charsets.UTF_8).size <= 8 * 1024 * 1024)
         val outer = gson.fromJson(envelope, JsonObject::class.java)
         val binary = Base64.getDecoder().decode(outer.get("t").asString)
@@ -115,8 +124,13 @@ object SaitoEnvelope {
         require(binary.size.toLong() == 93L + 59L * (inputs + outputs) + 130L * hops)
         val signature = binary.copyOfRange(16, 80).joinToString("") { "%02x".format(it) }
         val timestamp = header.getLong(80)
-        require(timestamp >= 0 && binary[92] == 0.toByte())
-        val author = Base58.encode(binary.copyOfRange(93, 126))
+        require(timestamp >= 0 && binary[92] == transactionType.toByte())
+        // A Bound tuple starts with creator metadata; its middle slip identifies the spending owner.
+        val authorIndex = if (transactionType == 8) (0 until inputs).firstOrNull {
+            (binary[93 + it * 59 + 58].toInt() and 255) != 9
+        } ?: throw IllegalArgumentException("Missing NFT signing owner") else 0
+        val authorStart = 93 + authorIndex * 59
+        val author = Base58.encode(binary.copyOfRange(authorStart, authorStart + 33))
         require(SaitoWallet.verify(saitoTransactionPreimage(binary, message), signature, author)) { "Invalid transaction signature" }
         val utf8 = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
             .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(message)).toString()

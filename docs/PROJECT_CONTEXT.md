@@ -18,10 +18,13 @@ Ordinary native/protocol/owned-peer/update testing remains agent-owned. One
 combined beta follows complete integration and independent reviews, not a partial
 catalogue or payment placeholder.
 
-The spec is published; ten vertical implementation tickets are drafted outside
-Git and await owner granularity/dependency review before tracker publication.
-No Vault/Store implementation or new beta is claimed. Beta 127 and completed
-Talk #104 remain the delivered baseline. Existing parent/release gates stay open.
+The owner approved all ten tickets and requested the complete build on
+2026-11-13. Native sub-issues #106–#115 and their dependency edges are published
+and verified. Work starts at #106, existing Vault keys/file access/offline copies;
+review base e290c5bdc185ff212e5b691c3cfa91d5a0c40c33. Continue through every ready
+slice to the combined beta without repeated implementation confirmations. Beta
+127 remains the delivered baseline until actual combined delivery. Existing
+parent/release gates stay open.
 
 
 ## Delivered native Saito Talk #104

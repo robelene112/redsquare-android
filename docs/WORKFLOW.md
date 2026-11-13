@@ -13,10 +13,11 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 The owner approved the combined Vault/Store scope in
 [specification #105](https://github.com/robelene112/redsquare-android/issues/105). Both grills are complete.
-The spec is published and the ten-ticket vertical breakdown is prepared for the
-owner's granularity/dependency review required by to-tickets. Publish the agreed
-tickets with native sub-issue/dependency relationships after that review.
-Implementation has not started. Use Vault as the shared file/key/rental basis
+The owner approved the breakdown and requested the full build on 2026-11-13.
+All ten tickets #106–#115 are published as native sub-issues with verified blocking
+edges. Implement the ready frontier through the combined beta without another
+per-ticket owner confirmation. First active slice: #106, review base
+e290c5bdc185ff212e5b691c3cfa91d5a0c40c33. Use Vault as the shared file/key/rental basis
 and deliver one combined completed beta, preserving the spec's full payment and
 native UX scope and the existing agent-owned verification/operational boundaries.
 The earlier stop-after-104 limit is superseded only for this newly requested

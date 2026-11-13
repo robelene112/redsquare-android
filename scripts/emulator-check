@@ -722,6 +722,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-reading* ]]; then
+    verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
+    printf '%s\n' 'Native Vault existing-key/read/offline/document journeys over owned signed peer fixtures. Independent WASM protocol references, not live provider or physical-device acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == stack-live* ]]; then
     # Collect independent focused failures in one run; every class still must pass.
     stack_native_result=0
@@ -1164,6 +1169,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
     verify_agreement
 fi
 verify_policies() {
