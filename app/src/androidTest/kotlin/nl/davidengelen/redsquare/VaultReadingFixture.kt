@@ -70,7 +70,12 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
             }
             balance.start(InetAddress.getByName("127.0.0.1"), 0)
             lateinit var referencePeer: ControlledFeedPeer
-            withAppFrameFixture("vault-$name", evidence.name, expectedTransactionCount = expectedMintCount, preserveVault = preserveVault, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
+            withAppFrameFixture("vault-$name", evidence.name, expectedTransactionCount = expectedMintCount, preserveVault = preserveVault, beforeStateRestore = { endpoint ->
+                cleanupAfterTest(null, { kotlinx.coroutines.runBlocking {
+                    nl.davidengelen.redsquare.vault.VaultUploads.closeAndJoin(fixture.publicKey,
+                        nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, endpoint)
+                } }, { minted?.close() })
+            }, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
                 advertisedServices = services, configurePeer = { peer ->
                     referencePeer = peer
                     minted?.connect(peer)

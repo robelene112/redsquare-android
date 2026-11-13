@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 
 /** Read-only frame peer and declared local state, restored after the Activity closes. No recomposer replacement. */
-internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, giphyFixtureUrl: String? = null, stackDesignFixture: Boolean = false, nameDirectoryPeerUrl: String? = null, advertisedServices: String? = null, expectedTransactionCount: Int = 0, preserveVault: Boolean = false, block: (ActivityScenario<MainActivity>) -> Unit) {
+internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, giphyFixtureUrl: String? = null, stackDesignFixture: Boolean = false, nameDirectoryPeerUrl: String? = null, advertisedServices: String? = null, expectedTransactionCount: Int = 0, preserveVault: Boolean = false, beforeStateRestore: (String) -> Unit = {}, block: (ActivityScenario<MainActivity>) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -59,6 +59,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
         File(context.cacheDir, evidenceFolder).apply { mkdirs() }.resolve("$name-$stage-cache.json").writeText(output.toString())
     }
     var primary: Throwable? = null
+    var ownedEndpoint: String? = null
     try {
         cacheObservation("before-prepare")
         retained.prepare()
@@ -66,6 +67,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
         check(reminder.edit().putBoolean("hidden:${wallet.publicKey}", false).commit())
         backends.save(SaitoBackend.OWNER)
         peer.start().use { server ->
+            ownedEndpoint = "ws://127.0.0.1:${server.port}/wsopen"
             val launchIntent = Intent(context, MainActivity::class.java).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", registryResponse != null)
@@ -90,7 +92,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
         }
     } catch (failure: Throwable) { primary = failure; throw failure }
     finally {
-        cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() },
+        cleanupAfterTest(primary, { ownedEndpoint?.let(beforeStateRestore) }, { retained.restoreFiles() }, { retained.restorePreferences() },
             { backends.save(originalBackend); check(backends.load() == originalBackend) },
             { check(wallets.loadExisting().exportJson() == wallet.exportJson()) })
     }

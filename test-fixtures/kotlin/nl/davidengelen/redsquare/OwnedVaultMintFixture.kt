@@ -19,6 +19,7 @@ internal class OwnedVaultMintFixture(private val reference: JsonObject, private 
     val confirm: AtomicBoolean, private val prior: SaitoVaultMint.Candidate? = null) : AutoCloseable {
     private var peer: ControlledFeedPeer? = null
     private val workers = Executors.newSingleThreadExecutor()
+    private val closed = AtomicBoolean(false)
     private val files = ConcurrentHashMap<String, String>()
     val rejectUpload = AtomicBoolean(false)
     @Volatile var availableNolan: Long = 200_000_000
@@ -95,6 +96,7 @@ internal class OwnedVaultMintFixture(private val reference: JsonObject, private 
         return Base64.getDecoder().decode(uri.substringAfter(','))
     }
     override fun close() {
+        if (!closed.compareAndSet(false, true)) return
         uploadGate?.countDown(); workers.shutdownNow()
         check(workers.awaitTermination(10, TimeUnit.SECONDS))
     }
