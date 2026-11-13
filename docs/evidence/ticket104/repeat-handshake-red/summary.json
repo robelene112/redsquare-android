@@ -1,0 +1,30 @@
+{
+  "source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "run": "43354455129",
+  "sdk": "10",
+  "originalFailure": "RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed: A slow peer handshake has not received Likes yet",
+  "nativeClassDurationSeconds": 4.731,
+  "qualification": "Original assertions prove transmitted Likes despite the intended withheld-handshake precondition. Late-only gating cannot control already authenticated pooled routes. Exact original socket reuse was not recorded. Test-only correction must positively retire old routes and observe a fresh held entry while preserving original UI/transmission bounds. No old partition reuse.",
+  "focusedOriginalReproduction": {
+    "run": "43358125924",
+    "source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+    "result": "SAME_ASSERTION_FAILURE",
+    "nativeClassSeconds": 8.002
+  },
+  "wholeRunDisposition": {
+    "10": {
+      "run": "43354455129",
+      "result": "DELIBERATELY_CANCELLED",
+      "social": "failure",
+      "wallet": "success",
+      "chat": "cancelled"
+    },
+    "17": {
+      "run": "43354458096",
+      "result": "DELIBERATELY_CANCELLED",
+      "social": "cancelled",
+      "wallet": "success",
+      "chat": "cancelled"
+    }
+  }
+}

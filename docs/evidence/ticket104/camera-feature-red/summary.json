@@ -1,0 +1,14 @@
+{
+  "source": "f68544a23cff97fc717109ef44e3fea049d3f411",
+  "candidate": 124,
+  "observation": "Actual aapt badging declares android.hardware.camera required and implied by CAMERA permission despite camera.any optional.",
+  "original": "../candidate124/package.txt",
+  "correction": "b73f91c722b8996278f90028939c6c2af02d72c8",
+  "fix": "Explicitly declare camera and camera.autofocus optional. Camera.any and microphone were already optional.",
+  "authority": "https://developer.android.com/guide/topics/manifest/uses-feature-element",
+  "review": {
+    "spec": "One finding corrected by exactly two manifest declarations; no remaining source findings.",
+    "standards": "Independently confirmed exact optional declarations. Earlier packaging review missed the implication; corrected package still requires actual aapt verification."
+  },
+  "runtime": "No runtime or permission changes; fresh exact-source complete runs and candidate125 still required."
+}

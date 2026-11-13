@@ -1,0 +1,11 @@
+{
+  "versionCode": 126,
+  "versionName": "0.1.126",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02",
+  "commit": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/126/redsquare.apk",
+  "notes": "Native Saito Talk: audio/video calls from private Chat, group rooms with invitation links, microphone/camera controls, camera switching and audio output. Active calls have Android return and hang-up controls. Voice continues in the background; camera pauses while the app is hidden. Calls need online peers and do not survive app process termination. Uses the existing wallet and native app navigation. Improves reliability when switching nodes and saving received files. Improves connection reliability when browsing, publishing and calling at the same time."
+}

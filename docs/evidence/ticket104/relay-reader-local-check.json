@@ -1,0 +1,8 @@
+{
+  "source": "96c71daec98336457721a189b3423019d9b74410",
+  "coreTests": 150,
+  "coreResult": "PASS",
+  "androidAppAndTestCompilation": "PASS",
+  "logSha256": "f148729481a8e2df2480f397ed269dfaed72c44098b23204a3b64ad0a3b3207a",
+  "qualification": "Corrected compile preserves existing trailing archiveResponse lambda. First local compile argument-binding failure is retained separately."
+}

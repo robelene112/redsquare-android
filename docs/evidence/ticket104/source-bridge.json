@@ -1,0 +1,1432 @@
+{
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "android10Source": "96c71daec98336457721a189b3423019d9b74410",
+  "android17Source": "96c71daec98336457721a189b3423019d9b74410",
+  "candidate": 127,
+  "staticBridgeAcceptance": "PASS",
+  "completeAcceptance": "PASS",
+  "changedPaths": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt",
+      "before": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "e8fe9d55401de61a9196f59ab6f955f52107fceb"
+      },
+      "after": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "87f0fc4e180f15370a86a92df1b6531913fb0330"
+      }
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RepeatLikePreviewTest.kt",
+      "before": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "c4e737c95b1d6100ffaa9c8e57c1bf573ba596bc"
+      },
+      "after": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "ec7965f741fa8b13d5451c17d09983a6d1886f27"
+      }
+    },
+    {
+      "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SharedNodeConnectionTest.kt",
+      "before": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "5dd5e7107b963f4250ba90c8d73326ac6d059157"
+      },
+      "after": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "1d1a318f5554144fbb4c3d8c750fa7e3d41a1475"
+      }
+    },
+    {
+      "path": "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt",
+      "before": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "00a51788ca74cd330533553cb79df9b5ff36f247"
+      },
+      "after": {
+        "mode": "100644",
+        "kind": "blob",
+        "object": "227ba2823a652c5441838d44a13438ce6142a111"
+      }
+    }
+  ],
+  "unchangedGitEntries": 223477,
+  "unchangedTreeSha256": "25bb7204098b4ae4059d9daff856a303b38c5a718f9fb9ef34f4bbce3c6c2ce5",
+  "canonicalFormat": "Sorted path order, UTF8 mode SP kind SP object TAB path LF, excluding the four changed paths.",
+  "qualification": "Exactly4test/fixture paths differ. All production/resources/build/harness/frozen/other entries identical; shared fixtures confined to test sources. 127APK and83-to127 updates remain compiled3ad. New complete SDKs required, no old partial reuse.",
+  "historicalSupersededSourceBridges": {
+    "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+    "android10Source": "e03163425f9cf3bc4d45865d0da8035e47023ba4",
+    "android17Source": "e03163425f9cf3bc4d45865d0da8035e47023ba4",
+    "candidate": 127,
+    "staticBridgeAcceptance": "PASS",
+    "completeAcceptance": "PENDING",
+    "changedPaths": [
+      {
+        "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RepeatLikePreviewTest.kt",
+        "before": {
+          "mode": "100644",
+          "kind": "blob",
+          "object": "c4e737c95b1d6100ffaa9c8e57c1bf573ba596bc"
+        },
+        "after": {
+          "mode": "100644",
+          "kind": "blob",
+          "object": "ec7965f741fa8b13d5451c17d09983a6d1886f27"
+        }
+      },
+      {
+        "path": "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt",
+        "before": {
+          "mode": "100644",
+          "kind": "blob",
+          "object": "00a51788ca74cd330533553cb79df9b5ff36f247"
+        },
+        "after": {
+          "mode": "100644",
+          "kind": "blob",
+          "object": "efe3174e03acb0d77c8a7a3e68f9034483818ff0"
+        }
+      }
+    ],
+    "unchangedGitEntries": 223479,
+    "unchangedTreeSha256": "c7ab9c80413d070a49d19f4c130c27a1ddff33916d5f4c2ca98a0ddf95a76c0a",
+    "canonicalFormat": "Sorted path order, UTF8 mode SP kind SP object TAB path LF, excluding the two changed paths.",
+    "qualification": "Exactly two test/fixture paths differ. All production, resources, build, harness, frozen contracts/validators and other Git tree entries identical. Candidate127 APK and signed83-to127 update evidence remain exact compiled3ad. New whole SDKs required, no old partition reuse.",
+    "historicalSupersededSourceBridges": {
+      "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+      "android10Source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+      "android17Source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+      "candidate": 127,
+      "staticBridgeAcceptance": "PASS_IDENTICAL_SOURCE",
+      "completeAcceptance": "PENDING",
+      "changedPaths": [],
+      "qualification": "Candidate127 and both whole SDKs use the exact same source. Historical fixture-only equivalence is retained below and not reused as current runtime acceptance.",
+      "historicalSuperseded126Bridge": {
+        "compiledSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+        "android10Source": "d09cc1588fb3de3e010d46e1e130760df769bdb0",
+        "android17Source": "d09cc1588fb3de3e010d46e1e130760df769bdb0",
+        "candidate": 126,
+        "staticBridgeAcceptance": "PASS",
+        "completeAcceptance": "PENDING",
+        "changedPaths": [
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityAvailabilityTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "2159433ae2f1392c20f7cdbcbc9b2c4f82770460"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "5ede1de6916ab2b2c238bed7b39c7a07ddc45b19"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityGroupingPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "5276b09db9b58408c42c4aea196981943b7ed8f0"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "d6144dcfa7e1f50b7d82cc542196f40527a74e92"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityInboxRevisionTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "5ccaf2b0410e0ced0b6f03eac0fd76cfc742a4be"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "2bc71a195c8b45443dfb19a4e7dc015d1b7e13b5"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityInboxStateTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "04a18cfaa8a067ac413d98b807ae2d61f7d6779f"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "bfb59662157cf1d05ab0d1698d3bea44c1498587"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/AppFrameReadingPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "ab81e3d00db38d53f06647f2c655333b3a23d1ac"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "977c56991fbc00ffa36c7b7f506b0670c387b007"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/AvatarIdentityJourneyTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "ea5284e25afe4373aa0750881d3b3fa9d10e3198"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "2c4d3b3362fd77946682fd8f0b5e807af7727f92"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "b6fb39f24b40ef3891cb519ffc491d988be895c8"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "feaa566c0df488d5923341a1610ecc56ad2c633a"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "a90e708143ca2e7334773662da7e5aac6178b519"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "8a1b5b7b840e8d16cfc71ec0039deb082902a2bf"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatIdentityPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "86fae80ff05bb19b61a272907c19a69e1d38b38a"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "443c27088f5ac027fa1d278ff0c13b3d7daac000"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "0067b4f8db0722d3a6ccaf93074e24a45f01e795"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "d16fa0355ce0c379c3afe2738610f1eb31eb8020"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationHeaderPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "58d865e0a13ae45635eb07e947b10903fc31107a"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "db030ee5445e8443001db3f82f36825659dbbdb3"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationHeaderViewportTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "891c2ccecbae882b1c67ee21327b68987fc9bd61"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "35383e8b4131c5804e8001f4817c2ae6179af23c"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FeedRefreshRedesignTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "46eb6a60b88b7c9f62f6512889af6099f9251fbc"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "c04587c343dbce3011d05800311746399a099f55"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/LikeWalletImportPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "63a6a424f41daf20fcf8c56bceca7da10b71aba9"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "d00eb344301310c93cbb5c866938c62d95283039"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "65607af2f4fed75fd0e4c1be87c39418257bb776"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "ed67add9ab01a872ee8f9e71b0b517ea4982bf03"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostProcessRecoveryTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "90a5c00d670685dc63849c4aa00573f5782a1acf"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "17e144710d66273787732486a83455980e5629df"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostReceiptObstacle.kt",
+            "before": null,
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "64ce6e06a894341fc45bbf84af67ebc38d0f6eb2"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PostSubmissionPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "ad0482e9036f6435ad710d60cff21250694f3e01"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "e99bd41fb17b03c15f2e76dc4a68989d288ac8ae"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StatusMotionPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "bdc6d433ce33f46ea878644e374ed3a2efe62543"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "66b139993a5854e45a8f7d03b1858c54b49e7655"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StatusRecoveryPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "da308af5a9c1e2b9bbf2c704a7a174e0621e44fa"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "21849fabb0182b7b85f5b5727660834f0366dd37"
+            }
+          },
+          {
+            "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/TalkBackStatusPreviewTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "3ac18a9dcebe40f29626e3f5a508816cc51ae4ae"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "57c8c7a1569ec781390ff7ad9b91e4e5896a6780"
+            }
+          },
+          {
+            "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/ControlledNodeOutageTest.kt",
+            "before": null,
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "4fbe709b14fb6d1b111733a24fd895a9e343e01c"
+            }
+          },
+          {
+            "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/SharedNodeConnectionTest.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "7bdbef3463bf2930e02e246365cbcd0d050ca9e4"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "5dd5e7107b963f4250ba90c8d73326ac6d059157"
+            }
+          },
+          {
+            "path": "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt",
+            "before": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "ee58658dc121f0667eb2042e5089dca99f5628d7"
+            },
+            "after": {
+              "mode": "100644",
+              "kind": "blob",
+              "object": "00a51788ca74cd330533553cb79df9b5ff36f247"
+            }
+          }
+        ],
+        "unchangedEntries": 223457,
+        "unchangedEntryDigestSha256": "78a15d0c1553619c0566dbcfb7145415abf2c73d4ba552b87d7337bf6be7ddaa",
+        "digestFormat": "Sorted UTF-8 Git tree entries: mode SP type SP object TAB path LF, excluding the listed changed paths.",
+        "testOnlyBoundary": "21 AndroidTest paths including one helper,2coreTest,1shared test fixture. All production/resources/build/harness/frozen inputs unchanged.",
+        "shippingApk": {
+          "versionCode": 126,
+          "versionName": "0.1.126",
+          "applicationId": "nl.davidengelen.redsquare",
+          "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+          "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02",
+          "commit": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+          "variant": "release",
+          "bytes": 91852583,
+          "status": "STAGED_PACKAGE_UPDATE_PASS_COMPLETE_RUNTIME_PENDING"
+        },
+        "signedUpdateRuns": {
+          "10": "43339605112",
+          "17": "43339604818"
+        },
+        "fullRuns": {},
+        "focusedRuns": {
+          "posting-android17": "43348826004",
+          "quotes-android17": "43348825612"
+        },
+        "qualification": "Native pre-receipt failure now uses an exact valid retained original and an owned storage obstacle, with positive storage-error state. Actual Archive12s timeout remains native; actual shared write-pressure and sole-owner close failures are verified at the host binary seam without claiming exact12s expiry. Same native identities, deadlines and before/after process windows remain. Both fresh whole SDKs required.",
+        "historical570Bridge": {
+          "compiledSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+          "android10Source": "57039b817eef50d1a52a4ae28b0d0b8db5543245",
+          "android17Source": "57039b817eef50d1a52a4ae28b0d0b8db5543245",
+          "candidate": 126,
+          "staticBridgeAcceptance": "PASS",
+          "completeAcceptance": "PENDING",
+          "changedPaths": [
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityAvailabilityTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "2159433ae2f1392c20f7cdbcbc9b2c4f82770460"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "5ede1de6916ab2b2c238bed7b39c7a07ddc45b19"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityGroupingPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "5276b09db9b58408c42c4aea196981943b7ed8f0"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "d6144dcfa7e1f50b7d82cc542196f40527a74e92"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityInboxRevisionTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "5ccaf2b0410e0ced0b6f03eac0fd76cfc742a4be"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "2bc71a195c8b45443dfb19a4e7dc015d1b7e13b5"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ActivityInboxStateTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "04a18cfaa8a067ac413d98b807ae2d61f7d6779f"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "bfb59662157cf1d05ab0d1698d3bea44c1498587"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/AppFrameReadingPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "ab81e3d00db38d53f06647f2c655333b3a23d1ac"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "977c56991fbc00ffa36c7b7f506b0670c387b007"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/AvatarIdentityJourneyTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "ea5284e25afe4373aa0750881d3b3fa9d10e3198"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "2c4d3b3362fd77946682fd8f0b5e807af7727f92"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "b6fb39f24b40ef3891cb519ffc491d988be895c8"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "feaa566c0df488d5923341a1610ecc56ad2c633a"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "a90e708143ca2e7334773662da7e5aac6178b519"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "8a1b5b7b840e8d16cfc71ec0039deb082902a2bf"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatIdentityPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "86fae80ff05bb19b61a272907c19a69e1d38b38a"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "443c27088f5ac027fa1d278ff0c13b3d7daac000"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "0067b4f8db0722d3a6ccaf93074e24a45f01e795"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "d16fa0355ce0c379c3afe2738610f1eb31eb8020"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationHeaderPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "58d865e0a13ae45635eb07e947b10903fc31107a"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "db030ee5445e8443001db3f82f36825659dbbdb3"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationHeaderViewportTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "891c2ccecbae882b1c67ee21327b68987fc9bd61"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "35383e8b4131c5804e8001f4817c2ae6179af23c"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FeedRefreshRedesignTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "46eb6a60b88b7c9f62f6512889af6099f9251fbc"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "c04587c343dbce3011d05800311746399a099f55"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/LikeWalletImportPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "63a6a424f41daf20fcf8c56bceca7da10b71aba9"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "d00eb344301310c93cbb5c866938c62d95283039"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "65607af2f4fed75fd0e4c1be87c39418257bb776"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "ed67add9ab01a872ee8f9e71b0b517ea4982bf03"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StatusMotionPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "bdc6d433ce33f46ea878644e374ed3a2efe62543"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "66b139993a5854e45a8f7d03b1858c54b49e7655"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StatusRecoveryPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "da308af5a9c1e2b9bbf2c704a7a174e0621e44fa"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "21849fabb0182b7b85f5b5727660834f0366dd37"
+              }
+            },
+            {
+              "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/TalkBackStatusPreviewTest.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "3ac18a9dcebe40f29626e3f5a508816cc51ae4ae"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "57c8c7a1569ec781390ff7ad9b91e4e5896a6780"
+              }
+            },
+            {
+              "path": "core/src/test/kotlin/nl/davidengelen/redsquare/saito/ControlledNodeOutageTest.kt",
+              "before": null,
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "4fbe709b14fb6d1b111733a24fd895a9e343e01c"
+              }
+            },
+            {
+              "path": "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt",
+              "before": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "ee58658dc121f0667eb2042e5089dca99f5628d7"
+              },
+              "after": {
+                "mode": "100644",
+                "kind": "blob",
+                "object": "00a51788ca74cd330533553cb79df9b5ff36f247"
+              }
+            }
+          ],
+          "unchangedEntries": 223460,
+          "unchangedEntryDigestSha256": "a0bceb3060ad6ed2b12daea0fbc8d0bfaad7e1c987aeaa8f14dd38d98981fb13",
+          "digestFormat": "Sorted UTF-8 Git tree entries: mode SP type SP object TAB path LF, excluding the listed changed paths.",
+          "testOnlyBoundary": "18 app.androidTest files, one core.test file and shared controlled fixture included only by core.test/app.androidTest. No product/resources/build/harness/frozen inputs change.",
+          "shippingApk": {
+            "versionCode": 126,
+            "versionName": "0.1.126",
+            "applicationId": "nl.davidengelen.redsquare",
+            "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+            "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02",
+            "commit": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+            "variant": "release",
+            "bytes": 91852583,
+            "status": "STAGED_PACKAGE_UPDATE_PASS_COMPLETE_RUNTIME_PENDING"
+          },
+          "signedUpdateRuns": {
+            "10": "43339605112",
+            "17": "43339604818"
+          },
+          "fullRuns": {
+            "10": "43342777699",
+            "17": "43342777620"
+          },
+          "qualification": "New whole SDKs required after fixing actual outage setup. Original20s/15s error/cache/retry/draft/viewport/speech/publication goals remain; no partial run reuse. The admitted unfinished-handshake test does not claim positive observation of entering its held wait.",
+          "historicalBeforeOutageCorrection": {
+            "compiledSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+            "candidate": 126,
+            "android10Source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+            "android17Source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+            "fullRuns": {
+              "10": "43338625252",
+              "17": "43338624958"
+            },
+            "staticBridgeAcceptance": "PENDING_ORIGINAL_PROOF_SOURCE_FILES",
+            "completeAcceptance": "PENDING",
+            "shippingApk": {
+              "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+              "version": 126,
+              "bytes": 91852583,
+              "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02",
+              "status": "STAGED_ONLY"
+            },
+            "qualification": "Both entire SDKs must verify the new production source. No59a/6df or125 continuation. Exact source references are identical, actual run proof-source records and final full indexes remain pending.",
+            "historicalSuperseded125Bridge": {
+              "compiledSource": "b73f91c722b8996278f90028939c6c2af02d72c8",
+              "android10Source": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+              "android17Source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+              "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true,
+              "goals": "Same5s validated Archive request from same boundary, shared20s completedBack/recreation, original15/20s exact restored private conversation public key or groupID/privacy observation. Cached/decrypted content, drafts, attachment bytes/attribution, queues/originals/reactions/membership/publication and class limits retained. Fresh-read counters snapshot before recreation. No conditional fallback/list navigation for retained conversations; actual initial-list paths retained; returning to a previously open original backend/wallet now positively verifies its exact restored key/group ID and privacy. MixedChat now positively isolates the native online Talk baseline, requires nonempty group-owner retirement and a stable baseline, then targets only fresh IDs with existing signed private packet899 and requires actualpositiveACK within same15s, preserving all rawhistory/state/storage/publication checks. Reactions use unique7800-7803 and actualmatchingpositiveACK within each original5s; earlier/globalcounts cannot satisfy laterdeliveries. SDK17 PolicyCenteruses actualnativeAccountSettingsaction instead ofComposeancestor classification, same5s frombeforeopenAccountMenu andallfollowingactualspeech/focus/restorationunchanged. Both new SDK runs use the reviewed native observer. All three Queue scope returns now require exact retained identity/privacy instead of obsolete list reopening. No content, envelope, raw/Relay, no-reroute, silence, class or deadline goal changes. Final10 Wallet: shared15s fromBEFOREClose includes actual parent focus, nativeCloseWalletabsence, ComposeWalletheadingabsence, draw/idle settlement and actualNodevisibility. Post-settlement/assert checks prohibit latepass. All identity/import/recreation/backend/publication/class goals retained. Original blankcause UNPROVED. Final652 removes all temporary probes; deltafromfocusedf20 is failure-only diagnostic removal. DocumentsUI backupRoot selection now scopes exactTitle/package/rootslist, resolves visibleenabledclickableancestor and performs one checked nativeACTION_CLICK within SAMEoriginal20s includingpre/postdeadlinechecks. Original10sDrawerGone, Save, realPIN, import/bytes/identity and allclass/publicationgoals remain. No UI state injection or productchange.",
+              "originalFailures": [
+                "43280399158 Social missing5s Archive observation, precise cause unproved.",
+                "43280399158/43280072408 ChatAlertcold Back/recreate list wait misses20s. Source exposes save/navigation race opportunity; precise original scheduling unmeasured.",
+                "43294192369 focusedgroup17 ChatMixed misses global-all-sockets-retired15s; passiveTalkowner is legitimate. Ownership-isolated targeted probe awaits runtimeproof.",
+                "43299720884 WalletPolicyCenter158 missesSettingsComposeancestor condition duringTalkBackwindowhandoff. OriginalpostfailureNativeAXAccount/Settingsactionable, exacttimingunproved.",
+                "43299716009 whole10: Social/Wallet success, ChatQueue13 tests/3 obsolete original-scope return list expectations at288/622/637. Original PNG/XML show retained conversations and exact forwarded text; no alternate-node sends. Whole SDK failed, no partition reuse. Fresh17/8d43303350569 cancelled on the known shared observer mismatch; original artifacts retained.",
+                "43313830745 whole10 Wallet activation394 blank afterClose; actual import/address passed. Original cause remains unproved. Parent latercancelled bydiagnostic concurrency; otherpartitions never accepted. Observer now identifies actual parent, excluding duplicateDialogheader, within shared original15s. All temporary experiments removed.",
+                "Focused17 f20 43329715447 fails chooseTestBackup47 BEFOREimport/parentobserver. Original nativeDrawer XML shows exact title visible/nonclickable and nearest row visible/enabled/clickable. New6df clicks native ancestor once within SAME20s, retains10sDrawerGone andSave/PIN/import/content/signature/goals. Originaltap timing/causeunproved. Focused10f20PASS7."
+              ],
+              "focusedEvidence": {
+                "unchangedLatch": "43287998717 PASS16, intermittency only, no cause diagnosis",
+                "correctedLatch": "43289666321 PASS16",
+                "correctedChatAlerts10": "43291066454 PASS11",
+                "correctedChatAlerts17": "43291070810 PASS11",
+                "restoredPrivate10": "43294187854 PASS onba0d",
+                "targetedGroupUI17": "43297122996 PASS onb2: Talk1 retained,Group7 retired,newPrivate10 ACK899",
+                "chatActions10": "43298064463 PASS onf114",
+                "chatActions17": "43298069047 PASS onf114",
+                "policies17": "43302149232 PASS on8d",
+                "policies10": "43302155333 PASS on8d",
+                "groupUI10": "43299725726 PASS onf114",
+                "queues10": "43311911975 PASS13 at59a",
+                "queues17": "43311912743 PASS13 at59a"
+              },
+              "sourceReviews": {
+                "standards": "0 findings/waivers for the three-line59a Queue correction and remaining scope-return audit. Original signatures, queue ownership, silence/no-reroute, exact transmissions, identity/privacy and deadlines preserved. Runtime pending.",
+                "spec": "0 findings/waivers for the three-line59a Queue correction and remaining scope-return audit. Original signatures, queue ownership, silence/no-reroute, exact transmissions, identity/privacy and deadlines preserved. Runtime pending."
+              },
+              "completeAcceptance": "PENDING focused imports and newwhole10 at6df, retainedwhole17/59a plus finalindependentreviews",
+              "shippingApk": "Candidate125 exactb73 APK unchanged. No tracked production/resource/build input differs; no dynamic Git SHA enters app BuildConfig.",
+              "testFixtureBuildBoundary": {
+                "core": "sourceSets.test kotlin sourceDir test-fixtures/kotlin",
+                "app": "androidTest.java sourceDir test-fixtures/kotlin",
+                "shippingMainSourceIncludesFixture": false
+              },
+              "focusedPending": {
+                "10": "43331694541",
+                "17": "43331694551"
+              },
+              "fullRuns": {
+                "17": "43313830991"
+              },
+              "staticBridgeAcceptance": "PASS",
+              "staticBridgeReview": {
+                "standards": "Independent16/14 inventories verified:10/6df has16 paths,32 hashes,223460 identical other Git entries and2d737c37 LFtree digest;17/59a has14 paths,28 hashes,223462 entries,f3d85107 digest. Union16 exact. Main/resources/build/harness/frozen/other tests and125APK unchanged, fixtures test-only. All4 picker originals byte-exact to tar/text/ZIP. Source0/waivers0; originalblankcause/oldtap timingunproved. Complete10/final index reviews pending.",
+                "spec": "Independent16/14 inventories verified:10/6df has16 paths,32 hashes,223460 identical other Git entries and2d737c37 LFtree digest;17/59a has14 paths,28 hashes,223462 entries,f3d85107 digest. Union16 exact. Main/resources/build/harness/frozen/other tests and125APK unchanged, fixtures test-only. All4 picker originals byte-exact to tar/text/ZIP. Source0/waivers0; originalblankcause/oldtap timingunproved. Complete10/final index reviews pending."
+              },
+              "perSdk": {
+                "10": {
+                  "source": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+                  "changedFileCount": 16,
+                  "changedFiles": {
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                      "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                      "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                      "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                      "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                      "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                      "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                      "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                      "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                      "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                      "verificationFileSha256": "14bee1df475845a4418cf4a84c7d332a5010b65d49330f0b908b8d0d53e49386"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                      "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                      "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                      "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                      "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                      "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                      "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                      "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                      "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292",
+                      "verificationFileSha256": "a5a36b0b0c12a494d345ce147ff29e2380fcfbc4f78f167c965972ab44b07bd8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                      "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                      "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                      "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletExportSystemControls.kt": {
+                      "compiledSourceFileSha256": "2c3976fc0f1a5994673435adc8dac24acabe4b6a1e86e3d8c4f6e307de0e0e53",
+                      "verificationFileSha256": "cf449fe3d2cf8860297efb0b2c62721b183daa7aab9f8aad260b82f88e0df08a"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt": {
+                      "compiledSourceFileSha256": "daa58bcfd7c3764a14715058316f9636d9b99c7f85702e60be1196d98297d6dc",
+                      "verificationFileSha256": "aeaba467e02683d47cfc583c906f55ee6764743eb48fbc76dd14bf057ddff3a8"
+                    },
+                    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                      "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                      "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                    }
+                  },
+                  "unchangedTrackedFiles": 223460,
+                  "nonObserverTreeSha256": "2d737c3788609689b4c44f597f52f2875a58135aca770452905e89ab85d1e816",
+                  "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+                },
+                "17": {
+                  "source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+                  "changedFiles": {
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                      "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                      "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                      "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                      "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                      "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                      "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                      "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                      "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                      "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                      "verificationFileSha256": "14bee1df475845a4418cf4a84c7d332a5010b65d49330f0b908b8d0d53e49386"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                      "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                      "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                      "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                      "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                      "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                      "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                      "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                      "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292",
+                      "verificationFileSha256": "a5a36b0b0c12a494d345ce147ff29e2380fcfbc4f78f167c965972ab44b07bd8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                      "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                      "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                      "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                    },
+                    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                      "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                      "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                    }
+                  },
+                  "changedFileCount": 14,
+                  "unchangedTrackedFiles": 223462,
+                  "nonObserverTreeSha256": "f3d85107290f475a9ec4a163b0fcf5dc8f89b0d300dbfc5eb5b5addd26eb6431",
+                  "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+                }
+              },
+              "changedPathsUnion": [
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletExportSystemControls.kt",
+                "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt",
+                "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt"
+              ],
+              "fixtureOnlySdkContinuation": "Retain whole17/59a only: Spec independently verified its original activation-owner-feed-visible PNG/XML show actual unobscured parent header/Node/backup prompt, noWalletdialog. Full17 frozen collectorPASS688/254/212/276+39+38. Fresh whole10/652 mandatory; no partition/tail assembly. Production/build/harness/goals unchanged.",
+              "previousStaticBridge": {
+                "android10Source": "f114bd7fed739f8a50fff7f86a518f1a0ae12476",
+                "android17Source": "8d112ac63ee3582d1373389df0c3512936d25617",
+                "perSdk": {
+                  "10": {
+                    "source": "f114bd7fed739f8a50fff7f86a518f1a0ae12476",
+                    "changedFiles": {
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                        "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                        "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                        "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                        "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                        "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                        "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                        "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                        "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                        "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                        "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                        "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                        "verificationFileSha256": "6020b557a0e35594393f4ca18bcc545b02e5d9e7095d38164cf33eca2d098567"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                        "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                        "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                        "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                        "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                        "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                        "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                        "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                        "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                        "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                        "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                        "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                        "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                      },
+                      "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                        "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                        "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                      }
+                    },
+                    "changedFileCount": 13,
+                    "unchangedTrackedFiles": 223463,
+                    "nonObserverTreeSha256": "3957f7f279904cd0b250bf1b6e5ce5dd5617f6a10d91b3cc3b67717dbb7a44fd",
+                    "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+                  },
+                  "17": {
+                    "source": "8d112ac63ee3582d1373389df0c3512936d25617",
+                    "changedFiles": {
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                        "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                        "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                        "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                        "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                        "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                        "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                        "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                        "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                        "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                        "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                        "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                        "verificationFileSha256": "6020b557a0e35594393f4ca18bcc545b02e5d9e7095d38164cf33eca2d098567"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                        "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                        "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                        "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                        "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                        "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                        "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                        "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                        "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+                        "compiledSourceFileSha256": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292",
+                        "verificationFileSha256": "a5a36b0b0c12a494d345ce147ff29e2380fcfbc4f78f167c965972ab44b07bd8"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                        "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                        "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                      },
+                      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                        "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                        "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                      },
+                      "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                        "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                        "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                      }
+                    },
+                    "changedFileCount": 14,
+                    "unchangedTrackedFiles": 223462,
+                    "nonObserverTreeSha256": "f3d85107290f475a9ec4a163b0fcf5dc8f89b0d300dbfc5eb5b5addd26eb6431",
+                    "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+                  }
+                },
+                "staticBridgeReview": {
+                  "standards": "Independent13/14 pathinventories,26/28filehashes,223463/223462remainingGitentries andbothtreeSHAsmatch.14-pathunionexact; all5indexedpolicyred filesmatchtar/raw/ZIPoriginals.0findings. CompleteSDKacceptancepending.",
+                  "spec": "Independentlyverified13/14old/newfilehashpairs, bothcanonicaltrees/union/buildboundaries andunchanged125APK.5policyoriginalsbyte-exact; originaltimingqualifiedunproved.0findings, completeSDKacceptancepending."
+                }
+              },
+              "treeDigestAlgorithm": "SHA256 of unchanged git ls-tree -r rows in original Git order, separated and terminated by LF.",
+              "failedFocusedStarts": {
+                "runs": [
+                  "43311483002",
+                  "43311482602"
+                ],
+                "cause": "Agent mistakenly passed abbreviated59a84de8b to actions/checkout; it searched nonexistent matching heads/tags. Both failed before build/device tests. Original full logs retained. Fresh dispatches use exact40-character SHA."
+              },
+              "prior59aStaticBridge": {
+                "10": {
+                  "source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+                  "changedFiles": {
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                      "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                      "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                      "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                      "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                      "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                      "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                      "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                      "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                      "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                      "verificationFileSha256": "14bee1df475845a4418cf4a84c7d332a5010b65d49330f0b908b8d0d53e49386"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                      "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                      "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                      "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                      "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                      "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                      "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                      "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                      "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292",
+                      "verificationFileSha256": "a5a36b0b0c12a494d345ce147ff29e2380fcfbc4f78f167c965972ab44b07bd8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                      "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                      "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                      "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                    },
+                    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                      "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                      "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                    }
+                  },
+                  "changedFileCount": 14,
+                  "unchangedTrackedFiles": 223462,
+                  "nonObserverTreeSha256": "f3d85107290f475a9ec4a163b0fcf5dc8f89b0d300dbfc5eb5b5addd26eb6431",
+                  "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+                },
+                "17": {
+                  "source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+                  "changedFiles": {
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                      "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                      "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                      "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                      "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                      "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                      "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                      "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                      "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                      "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                      "verificationFileSha256": "14bee1df475845a4418cf4a84c7d332a5010b65d49330f0b908b8d0d53e49386"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                      "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                      "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                      "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                      "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                      "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                      "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                      "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                      "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+                      "compiledSourceFileSha256": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292",
+                      "verificationFileSha256": "a5a36b0b0c12a494d345ce147ff29e2380fcfbc4f78f167c965972ab44b07bd8"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                      "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                      "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                    },
+                    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                      "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                      "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                    },
+                    "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                      "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                      "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                    }
+                  },
+                  "changedFileCount": 14,
+                  "unchangedTrackedFiles": 223462,
+                  "nonObserverTreeSha256": "f3d85107290f475a9ec4a163b0fcf5dc8f89b0d300dbfc5eb5b5addd26eb6431",
+                  "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+                }
+              },
+              "prior652StaticBridge10": {
+                "source": "65297555e9fc3420dac08777269d3cf93d3a8da8",
+                "changedFiles": {
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatAlertPreviewTest.kt": {
+                    "compiledSourceFileSha256": "0e11dc8cffcbaf05d25a5a2acbc9fa6bfaa7c6082918b75d541510b1ce2f994f",
+                    "verificationFileSha256": "dea534fc70a1c82a4e76933b707eae5f2b2275c97a4e4c78048e46bc4bef7b4c"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatGiphyPreviewTest.kt": {
+                    "compiledSourceFileSha256": "5fa5102c1e4b96fe9b2e33ccdf6a8b9c2154b861162ecc727697de64f092c870",
+                    "verificationFileSha256": "5015d2bfe0114987b03cc0e7a45669daf91b6a6a3130a875278604034c61d2c3"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt": {
+                    "compiledSourceFileSha256": "fb3073b4c94f75642296614f2bd4b8f2e950738d12b5ad4c192216ee71118c0f",
+                    "verificationFileSha256": "d3d78811f0ee87075176d31dae100e3c3407c0874f20d616843df31f439d347b"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMixedReceptionPreviewTest.kt": {
+                    "compiledSourceFileSha256": "6683df5e05d0000524e5f08093f38025e831927fac696fe472840b32841c1bf1",
+                    "verificationFileSha256": "34093918bac6337c889ff7b249d74025d62886dcac5e49c516557501504e9424"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatMutePreviewTest.kt": {
+                    "compiledSourceFileSha256": "3f620ea1e0d9aa5fec25b5a9a81f7e9394b5816a8f864f9ad038e79a29b7f296",
+                    "verificationFileSha256": "82d9c70b6a840bace8ae207525f7dc802f99a9d615425f2329a964f00d7e37d8"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatQueuePreviewTest.kt": {
+                    "compiledSourceFileSha256": "c399f249d830dcbdb0cb45f23f6d9f425148094a0cbe568076db65b45b4e8994",
+                    "verificationFileSha256": "14bee1df475845a4418cf4a84c7d332a5010b65d49330f0b908b8d0d53e49386"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt": {
+                    "compiledSourceFileSha256": "3820c45e9cb474c09baa83add7d5c90771b9fe86c2be5b781f53290a153a5c3c",
+                    "verificationFileSha256": "4ffc0ecdaab5eabc3ed2ec3966b08064762b2fe89894b0018edf07c9fb629d48"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupAdminPreviewTest.kt": {
+                    "compiledSourceFileSha256": "8deb06f3262bb34c6c4c9b13b4f0b1109aa82eddafa43760b477dcfabbe78fe9",
+                    "verificationFileSha256": "4064f8e479180535e8c9673a78ef56021c6062c80b0b3865f6098c03598c54ef"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatActionsPreviewTest.kt": {
+                    "compiledSourceFileSha256": "42b4fe73e768e5e96027c1275107de51de10ae82f7ecdc5ce7258ee7a5115442",
+                    "verificationFileSha256": "0cb80bda4e2e11a92b8e3c26677306dc5dca6ee5d1b8df22d22e1c7414223fe7"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt": {
+                    "compiledSourceFileSha256": "4dd03be859eb005102b28a224711222a58c4968b30f2f0c624947291315b5ac6",
+                    "verificationFileSha256": "48002b59732f421c0829048e7729cf0f4ad2d6ddac33af6c4e932f8cdb13f774"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt": {
+                    "compiledSourceFileSha256": "6f88e87388f83fa71074183fc1518846ff9278dac327c4072ca610bbc6522292",
+                    "verificationFileSha256": "a5a36b0b0c12a494d345ce147ff29e2380fcfbc4f78f167c965972ab44b07bd8"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt": {
+                    "compiledSourceFileSha256": "84daa0f466e9c98326503fce0d60aa859b56fa2066887e689fab7d5bdd441eb7",
+                    "verificationFileSha256": "9ed62f0f9c9d51598ef97e1800f6277daa6073b82aca85472ae07d7e7b3a3ad5"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UsernamePreviewTest.kt": {
+                    "compiledSourceFileSha256": "3909623dc299894f6fe7f0d6c0b4a2f91890d2affa435598e47684ed1e8fc41c",
+                    "verificationFileSha256": "dc43b4fa88307ccfbac6e366725a9f34d59981182707e55c133e13e649c97701"
+                  },
+                  "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt": {
+                    "compiledSourceFileSha256": "daa58bcfd7c3764a14715058316f9636d9b99c7f85702e60be1196d98297d6dc",
+                    "verificationFileSha256": "aeaba467e02683d47cfc583c906f55ee6764743eb48fbc76dd14bf057ddff3a8"
+                  },
+                  "test-fixtures/kotlin/nl/davidengelen/redsquare/ControlledFeedPeer.kt": {
+                    "compiledSourceFileSha256": "6e256aa7a9116e43f7c050356f77c259bc9f7a8f1d426a435c33f9e74a185b45",
+                    "verificationFileSha256": "4d68a7363cdb112531c7073fa537d1b9fc931b318acd67edebc2f712a1bd6cd2"
+                  }
+                },
+                "changedFileCount": 15,
+                "unchangedTrackedFiles": 223461,
+                "nonObserverTreeSha256": "7eade24fdbc14aa7fe6d1b5aee28310303acff58617b5ac5b5c72bad71dafeff",
+                "productionBuildHarnessFrozenAndOtherTestsByteIdentical": true
+              },
+              "currentReleaseStatus": "PENDING_COMPLETE_SHARED_NODE_RUNTIME",
+              "supersededByRequiredProductionChange": {
+                "baseline": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+                "reason": "Pinned Saito module callback routing uses latest socket per authenticated public key; separate same-wallet feature sockets are incompatible. Candidate125 must not be promoted. Both new whole SDKs and a new signed candidate are required.",
+                "qualification": "This is not evidence of the cause of the earlier intermittent blank wallet."
+              },
+              "currentSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+              "currentRuntimeSources": {
+                "10": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+                "17": "6857e7c6c65eec61d017cf74b3655a9fb67c347c"
+              },
+              "currentRuntimeRuns": {
+                "10": "43338625252",
+                "17": "43338624958"
+              },
+              "currentCandidate": {
+                "version": 126,
+                "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+                "status": "STAGED_PACKAGE_PASS_RUNTIME_PENDING",
+                "stageReceipt": "stage126-verification.json",
+                "bytes": 91852583,
+                "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02"
+              },
+              "currentUpdateRuns": {
+                "10": "43339605112",
+                "17": "43339604818"
+              }
+            }
+          },
+          "staticBridgeReview": {
+            "standards": {
+              "agent": "talk104_standards_review",
+              "result": "PASS",
+              "findings": 0,
+              "qualification": "Exact20 paths/39 objects,223460 identical entries and sorted LF digest reproduced. Only tests/fixture changed; no goals or deadline waivers. Complete SDK acceptance remains pending."
+            },
+            "spec": {
+              "agent": "talk104_spec_review",
+              "result": "PASS",
+              "findings": 0,
+              "qualification": "Exact20 paths/39 objects,223460 identical entries and sorted LF digest reproduced. Only tests/fixture changed; no goals or deadline waivers. Complete SDK acceptance remains pending."
+            }
+          }
+        },
+        "staticBridgeReview": {
+          "standards": {
+            "agent": "talk104_standards_review",
+            "result": "PASS",
+            "findings": 0,
+            "scope": "All24 paths/46 objects,223457 identical entries and LF digest independently reproduced. Product/build/harness/frozen inputs unchanged.149 core plus final native compilation PASS. Precise storage/transport/native Archive timeout distinctions retained."
+          },
+          "spec": {
+            "agent": "talk104_spec_review",
+            "result": "PASS",
+            "findings": 0,
+            "scope": "All24 paths/46 objects,223457 identical entries and LF digest independently reproduced. Product/build/harness/frozen inputs unchanged.149 core plus final native compilation PASS. Precise storage/transport/native Archive timeout distinctions retained."
+          }
+        },
+        "currentReleaseStatus": "PENDING_NEW_PRODUCT_NATIVE_AND_SIGNED_ACCEPTANCE",
+        "requiredProductionChange": "Passive store-change reload erases the failed receipt operation error. Original native diagnostic43351151183 confirms retained original/no receipt/Check status. Current product correction requires a new candidate, both new whole SDKs and new signed updates;126 must not promote.",
+        "currentProductSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+        "currentCandidate": {
+          "version": 127,
+          "status": "BUILDING",
+          "source": "3ad638b33be448a2672f7907590c8971a8ba774c"
+        },
+        "currentFocusedRuns": {
+          "posting-android17": "43352878837",
+          "quotes-android17": "43352878739"
+        },
+        "errorOwnershipFixSourceReviews": {
+          "standards": {
+            "agent": "talk104_standards_review",
+            "result": "PASS",
+            "findings": 0,
+            "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+          },
+          "spec": {
+            "agent": "talk104_spec_review",
+            "result": "PASS",
+            "findings": 0,
+            "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+          }
+        }
+      }
+    },
+    "independentReviews": {
+      "standards": {
+        "agent": "talk104_standards_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Exact2paths/4objects and223479 identical remaining Git entries; canonical LFdigest reproduced. Production/resources/build/harness/frozen/other tests identical; fixture test-only. Local149core andapp/testcompile log hash verified;127 publicbytes/hash unchanged. Focused/whole runtime acceptance remains pending."
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Exact2paths/4objects and223479 identical remaining Git entries; canonical LFdigest reproduced. Production/resources/build/harness/frozen/other tests identical; fixture test-only. Local149core andapp/testcompile log hash verified;127 publicbytes/hash unchanged. Focused/whole runtime acceptance remains pending."
+      }
+    }
+  },
+  "independentReviews": {
+    "standards": {
+      "agent": "talk104_standards_review",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "Exact4paths/8objects;223477 other entries identical and canonicalLFdigest reproduced. FinalExecutor parameter precedes lastarchiveResponse. Product/resources/build/harness/frozen/other tests unchanged, fixtures test-only.150core0fail/errors/skips andactualapp/testcompile loghash verified.127APK bytes/hash exact; focused/whole pending."
+    },
+    "spec": {
+      "agent": "talk104_spec_review",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "Exact4paths/8objects;223477 other entries identical and canonicalLFdigest reproduced. FinalExecutor parameter precedes lastarchiveResponse. Product/resources/build/harness/frozen/other tests unchanged, fixtures test-only.150core0fail/errors/skips andactualapp/testcompile loghash verified.127APK bytes/hash exact; focused/whole pending."
+    }
+  }
+}

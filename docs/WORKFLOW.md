@@ -11,15 +11,14 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution authorization
 
-The owner now requested native Saito Talk and explicitly approved direct audio/
-video calls AND group rooms/invitation links. [Issue104](https://github.com/robelene112/redsquare-android/issues/104)
-is the single active implementation, review base c02fa1e3fb795b7e252f0973235bfc852ec891b4.
-The prior stop-after103 instruction is superseded for104 only. Reuse existing
-protocol/native/controlled-peer seams with actual media evidence; ordinary
-emulator choices are delegated. Finish code, checks, reviews and signed beta,
-then stop after104. Keep1/36/55/84/86 open; no node/provider/Play operation or
-public Saito development write is authorized.
-
+Native Saito Talk [104](https://github.com/robelene112/redsquare-android/issues/104)
+is delivered in signed beta 127: direct Chat audio/video and group rooms/links.
+Complete Android 10/17 checks, signed updates, independent reviews and actual
+public delivery checks pass. See [the packet](evidence/ticket104/README.md).
+Stop after #104, keep #1/#36/#55/#84/#86 open. Real device/live-service/default HTTPS
+qualifications remain unchecked as TALK_LIVE under #36. No node/provider/Play
+operation or public Saito development write is authorized. Ordinary phone QA
+remains delegated to the agent.
 
 Native Fileshare [issue103](https://github.com/robelene112/redsquare-android/issues/103)
 is delivered in signed beta116. The owner's request covered native private-Chat

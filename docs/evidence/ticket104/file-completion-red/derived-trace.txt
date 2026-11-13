@@ -1,0 +1,68 @@
+11-12 17:01:12.720  3485  3516 D Talk104Probe: efSU:vkoR remote offer collision=false making=false state=STABLE sdp=W8gl
+11-12 17:01:12.731  3485  3516 D Talk104Probe: efSU:vkoR apply queued candidates=0
+11-12 17:01:12.742  3485  3516 D Talk104Probe: efSU:vkoR local ANSWER sdp=Q8b0
+11-12 17:01:12.756  3485  3623 D Talk104Probe: efSU:vkoR gathering=GATHERING
+11-12 17:01:12.828  3485  3567 D Talk104Probe: efSU:vkoR local OFFER sdp=Q8b0
+11-12 17:01:12.870  3485  3567 D Talk104Probe: efSU:vkoR local candidate mid=0
+11-12 17:01:12.891  3485  3623 D Talk104Probe: efSU:vkoR gathering=COMPLETE
+11-12 17:01:12.893  3485  3567 D Talk104Probe: efSU:vkoR local candidate mid=0
+11-12 17:01:12.918  3485  3567 D Talk104Probe: efSU:vkoR local candidate mid=0
+11-12 17:01:12.944  3485  3567 D Talk104Probe: efSU:vkoR local candidate mid=0
+11-12 17:01:12.996  3485  3567 D Talk104Probe: efSU:vkoR local candidate mid=0
+11-12 17:01:15.930  3485  3567 D Talk104Probe: efSU:vkoR remote candidate mid=0 ignored=false remoteSet=true
+11-12 17:01:15.932  3485  3623 D Talk104Probe: efSU:vkoR connection=CONNECTING
+11-12 17:01:15.932  3485  3623 D Talk104Probe: efSU:vkoR ice=CHECKING
+11-12 17:01:16.002  3485  3623 D Talk104Probe: efSU:vkoR connection=CONNECTED
+11-12 17:01:16.003  3485  3623 D Talk104Probe: efSU:vkoR ice=CONNECTED
+11-12 17:01:16.356  3485  3568 D Talk104Probe: efSU:vkoR remote answer collision=false making=false state=HAVE_LOCAL_OFFER sdp=W8gl
+11-12 17:01:16.510  3485  3568 D Talk104Probe: efSU:vkoR apply queued candidates=0
+11-12 17:01:16.516  3485  3568 D Talk104Probe: efSU:vkoR local OFFER sdp=Q8b0
+11-12 17:01:18.514  3485  3517 D Talk104Probe: efSU:vkoR deliver bytes=640 leases=1
+11-12 17:01:18.543  3485  3517 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:18.543  3485  3517 D Talk104Probe: efSU:vkoR deliver bytes=640 leases=1
+11-12 17:01:18.570  3485  3517 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:18.571  3485  3517 D Talk104Probe: efSU:vkoR deliver bytes=572 leases=1
+11-12 17:01:18.593  3485  3517 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:18.595  3485  3517 D Talk104Probe: efSU:vkoR deliver bytes=628 leases=1
+11-12 17:01:18.611  3485  3517 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:19.366  3485  3517 D Talk104Probe: efSU:vkoR deliver bytes=5632 leases=1
+11-12 17:01:19.370  3485  3517 D Talk104Probe: efSU:vkoR remote answer collision=false making=false state=HAVE_LOCAL_OFFER sdp=W8gl
+11-12 17:01:19.374  3485  3517 D Talk104Probe: efSU:vkoR apply queued candidates=0
+11-12 17:01:21.455  3485  3568 D Talk104Probe: efSU:cXEx remote offer collision=false making=false state=STABLE sdp=pJYw
+11-12 17:01:21.476  3485  3568 D Talk104Probe: efSU:cXEx apply queued candidates=0
+11-12 17:01:21.485  3485  3517 D Talk104Probe: efSU:cXEx local ANSWER sdp=67pJ
+11-12 17:01:21.486  3485  3623 D Talk104Probe: efSU:cXEx gathering=GATHERING
+11-12 17:01:21.610  3485  3580 D Talk104Probe: efSU:cXEx local OFFER sdp=67pJ
+11-12 17:01:21.611  3485  3623 D Talk104Probe: efSU:cXEx gathering=COMPLETE
+11-12 17:01:21.638  3485  3580 D Talk104Probe: efSU:cXEx local candidate mid=0
+11-12 17:01:21.708  3485  3580 D Talk104Probe: efSU:cXEx local candidate mid=0
+11-12 17:01:21.771  3485  3580 D Talk104Probe: efSU:cXEx local candidate mid=0
+11-12 17:01:21.800  3485  3580 D Talk104Probe: efSU:cXEx local candidate mid=0
+11-12 17:01:23.965  3485  3567 D Talk104Probe: efSU:vkoR deliver bytes=788 leases=1
+11-12 17:01:23.977  3485  3567 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:24.353  3485  3580 D Talk104Probe: efSU:cXEx remote candidate mid=0 ignored=false remoteSet=true
+11-12 17:01:24.358  3485  3623 D Talk104Probe: efSU:cXEx connection=CONNECTING
+11-12 17:01:24.358  3485  3623 D Talk104Probe: efSU:cXEx ice=CHECKING
+11-12 17:01:24.408  3485  3623 D Talk104Probe: efSU:cXEx connection=CONNECTED
+11-12 17:01:24.409  3485  3623 D Talk104Probe: efSU:cXEx ice=CONNECTED
+11-12 17:01:24.730  3485  3581 D Talk104Probe: efSU:cXEx remote candidate mid=1 ignored=false remoteSet=true
+11-12 17:01:24.765  3485  3568 D Talk104Probe: efSU:vkoR deliver bytes=672 leases=1
+11-12 17:01:24.769  3485  3568 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:25.148  3485  3517 D Talk104Probe: efSU:cXEx remote candidate mid=2 ignored=false remoteSet=true
+11-12 17:01:25.488  3485  3516 D Talk104Probe: efSU:vkoR local OFFER sdp=Q8b0
+11-12 17:01:25.494  3485  3580 D Talk104Probe: efSU:cXEx dispose peers=0
+11-12 17:01:25.498  3485  3623 D Talk104Probe: efSU:cXEx ice=CLOSED
+11-12 17:01:25.498  3485  3623 D Talk104Probe: efSU:cXEx connection=CLOSED
+11-12 17:01:27.294  3485  3580 D Talk104Probe: efSU:vkoR deliver bytes=720 leases=1
+11-12 17:01:27.325  3485  3580 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:27.344  3485  3580 D Talk104Probe: efSU:vkoR deliver bytes=720 leases=1
+11-12 17:01:27.365  3485  3580 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:27.393  3485  3567 D Talk104Probe: efSU:vkoR deliver bytes=652 leases=1
+11-12 17:01:27.418  3485  3567 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:27.443  3485  3580 D Talk104Probe: efSU:vkoR deliver bytes=788 leases=1
+11-12 17:01:27.457  3485  3580 D Talk104Probe: efSU:vkoR feature result=true
+11-12 17:01:27.656  3485  3568 D Talk104Probe: file cleanup phase=COMPLETE observers=1 rtc=true
+11-12 17:01:27.659  3485  3568 D Talk104Probe: efSU:vkoR dispose peers=0
+11-12 17:01:27.668  3485  3623 D Talk104Probe: efSU:vkoR ice=CLOSED
+11-12 17:01:27.668  3485  3623 D Talk104Probe: efSU:vkoR connection=CLOSED
+11-12 17:01:34.363  3485  3517 D Talk104Probe: file cleanup phase=COMPLETE observers=1 rtc=false

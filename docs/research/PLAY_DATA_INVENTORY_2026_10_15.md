@@ -155,8 +155,8 @@ provider declarations and real-device/network qualifications remain pending unde
 
 ## Native Saito Talk, November 12 development addendum (#104)
 
-This describes the implemented native source under active issue104, before its
-complete verification and beta delivery. It supersedes the older snapshot's
+This describes native Saito Talk delivered in signed beta 127 under issue104,
+with complete owned-seam evidence and explicit physical/live-service qualifications. It supersedes the older snapshot's
 absence of microphone/camera permissions for this feature only. It is not a
 completed Play declaration, provider-retention audit or physical-device result.
 

@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkFilesharePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkFilesharePreviewTest:
+INSTRUMENTATION_STATUS: test=blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkFilesharePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Completed export releases foreground transfer ownership
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$lambda$32$lambda$31$lambda$30(TalkFilesharePreviewTest.kt:114)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.$r8$lambda$OwEmS_WNliSGsv6DPrSYlJmEgIw(TalkFilesharePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(TalkFilesharePreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: stream=
+Error in blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(nl.davidengelen.redsquare.TalkFilesharePreviewTest):
+java.lang.AssertionError: Completed export releases foreground transfer ownership
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$lambda$32$lambda$31$lambda$30(TalkFilesharePreviewTest.kt:114)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.$r8$lambda$OwEmS_WNliSGsv6DPrSYlJmEgIw(TalkFilesharePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(TalkFilesharePreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: test=blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 25.892
+There was 1 failure:
+1) blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(nl.davidengelen.redsquare.TalkFilesharePreviewTest)
+java.lang.AssertionError: Completed export releases foreground transfer ownership
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$lambda$32$lambda$31$lambda$30(TalkFilesharePreviewTest.kt:114)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.$r8$lambda$OwEmS_WNliSGsv6DPrSYlJmEgIw(TalkFilesharePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(TalkFilesharePreviewTest.kt:70)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,15 @@
+{
+  "compiledSource": "b73f91c722b8996278f90028939c6c2af02d72c8",
+  "runs": {
+    "10": "43280399158",
+    "17": "43280072408"
+  },
+  "observation": "Both original ChatAlert coldOfficial cases miss Groups after Back immediately followed by recreation, at original20s observation. Native captures retain the editing conversation and exact draft. Earlier notification destination/recreation and membership-refusal assertions passed.",
+  "causeQualification": "Source Back saves asynchronously before clearing selected contact. Precise scheduling of these executions remains unmeasured; retained conversation alone is not proof of notification replay.",
+  "correction": "a0288d74ddbc3703c8a36474ee83c0320f46487d waits for completed Back/list before recreation, all activation/settlement/replacement/final-list-and-absence assertions inside ONE original20000ms monotonic budget. No added fresh helper budget.",
+  "reviews": {
+    "standards": "0 findings or waiver, exact implemented sharedbudget.",
+    "spec": "0 findings or waiver, consumednotification goal retained."
+  },
+  "acceptance": "Both corrected focused and fresh complete SDKs remain pending. Original failed runs do not count."
+}

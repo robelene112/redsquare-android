@@ -157,6 +157,59 @@ While a link image is unavailable/loading, its input guard preserves child Retry
 and scrolling and prevents repeated Retry taps from activating the parent card;
 the loaded image remains a normal way to open the article.
 
+## Native Saito Talk
+
+Issue104 adds native direct Chat audio/video and Talk rooms. The compatibility
+pin is official Saito `e6c937c686495a37d8fc94ecc894189e23a453c3`, using Videocall,
+StreamManager, dialer, Stun and Relay. Protocol/source hashes, actual media tests,
+release state and qualifications are in [the evidence packet](evidence/ticket104/README.md).
+
+Talk shares one `SharedRtcPeer` per wallet/backend/counterparty with Chat and
+Fileshare. Negotiated ordered data-channel42 and independent media/file leases
+must retain coherent SDP and routing. Local capture controls cannot wait for a
+Relay acknowledgement. Wallet/node/block changes invalidate their exact call;
+notification actions require its current token. Process loss interrupts the call.
+An unsigned invitation alone authorizes neither identity nor capture. Signed
+signalling, the actual DTLS peer, room membership, permission and explicit consent
+precede transmitted media. Voice continues under an ongoing foreground service;
+camera pauses while the app is not visible.
+
+Node transport ownership is separate from WebRTC ownership. `SaitoPeer` shares
+one authenticated physical socket per wallet and exact endpoint; disposing one
+feature releases only its lease. Pinned Saito module callbacks look up the latest
+socket by public key, so separate same-wallet feature sockets can misroute replies.
+Request IDs use one positive process-wide namespace without reset or wrap across
+reconnects. Random initialization reduces, without guaranteeing, uniqueness
+across separate process starts. Receiver callbacks and publication drain also
+retain independent feature ownership.
+
+At the controlled-peer seam, use `goOffline()` to establish an actual outage:
+it rejects new upgrades and retires admitted sockets, including incomplete
+handshakes. `rejectNewConnections=true` alone intentionally leaves an existing
+connection usable. Preserve all inherited outage/recovery assertions and bounds.
+
+Controlled Relay callbacks run on the WebSocket reader by default. When a test
+holds a Relay reply while requiring incoming acknowledgements on that same
+connection, supply an owned `relayResponseExecutor` so only the reply waits.
+Release its gate and verify executor termination before restoring wallet/files;
+worker validation failures must reach fixture health. Keep the original deadlines
+and require the exact incoming request ID. A delayed-handshake test must first
+retire already authenticated routes and positively observe a fresh held handshake.
+
+Approved `/videocall` HTTPS links and the native return route open prejoin.
+Opening a link does not change the saved node. Package-directed intent evidence
+does not establish default association with a third-party HTTPS domain.
+Native camera.any, back-camera, autofocus and microphone features are explicitly
+optional. Preserve these declarations: CAMERA permission otherwise implies a
+required back-camera feature during package filtering. Actual built `aapt dump
+badging` must show all four as non-required.
+
+Owned Android/browser tests do not establish live selected-node Relay/Stun,
+TURN/NAT, fully initialized community-client behavior or physical ARM/OEM media
+quality. Keep these qualifications under open36, alongside existing provider,
+closed-app push and Play gates. This feature authorizes no production node or
+provider changes. See [the data inventory](research/PLAY_DATA_INVENTORY_2026_10_15.md#native-saito-talk-november-12-development-addendum-104).
+
 ## Android GIF configuration
 
 The Posts integration reads optional Gradle properties

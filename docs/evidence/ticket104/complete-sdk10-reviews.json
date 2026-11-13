@@ -1,0 +1,33 @@
+{
+  "source": "96c71daec98336457721a189b3423019d9b74410",
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "sdk": "10",
+  "run": "43370655497",
+  "result": "PASS",
+  "indexedOriginals": 1036,
+  "rawZipFiles": 1153,
+  "archives": 212,
+  "pngs": 5424,
+  "xmls": 2617,
+  "identities": 687,
+  "classes": 254,
+  "normalCompletions": 275,
+  "deliberateInterruptions": 39,
+  "continuityRecords": 38,
+  "coreTestsPerPartition": 150,
+  "axes": {
+    "standards": {
+      "agent": "talk104_standards_review",
+      "result": "PASS",
+      "findings": 0,
+      "report": "Every indexed original/raw file matches all3 originalZIPs, hashes/CRCs. Frozen counts/validators reproduced. Media/control/lifecycle andactualmesh/PCM/screenoff/mute/camera/ownership/processloss evidence pass. Six-field saved completion, imported Registry per-query identity, physical1 retained/group9 retired/private12 actualaccepted899 targetingphysical1 all verified. Prior127package/updates and4pathbridge remainvalid."
+    },
+    "spec": {
+      "agent": "talk104_spec_review",
+      "result": "PASS",
+      "findings": 0,
+      "report": "Every indexed original/raw file matches all3 originalZIPs, hashes/CRCs. Frozen counts/validators reproduced. Media/control/lifecycle andactualmesh/PCM/screenoff/mute/camera/ownership/processloss evidence pass. Six-field saved completion, imported Registry per-query identity, physical1 retained/group9 retired/private12 actualaccepted899 targetingphysical1 all verified. Prior127package/updates and4pathbridge remainvalid."
+    }
+  },
+  "qualification": "Only current wholeAndroid10 accepted. API29Profileassumption, unavailableChatarchive,4inheritedmissingfailurecaptures andpermission-shell limitation preserved. Android17complete andcombinedacceptance/promotion remainPENDING."
+}

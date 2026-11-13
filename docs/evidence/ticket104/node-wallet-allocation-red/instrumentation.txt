@@ -1,0 +1,195 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockBoundaryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NodeBlockBoundaryTest:
+INSTRUMENTATION_STATUS: test=aNewBlockDoesNotFinishAPendingFeedRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockBoundaryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNewBlockDoesNotFinishAPendingFeedRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockBoundaryTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NodeBlockBoundaryTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 356360 free bytes and 348KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+	at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+	at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockBoundaryTest.changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(NodeBlockBoundaryTest.kt:54)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 2605456 free bytes and 2544KB until OOM, target footprint 16777216, growth limit 16777216
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+		at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26(AppFrameFixture.kt:95)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JEObGL4scTM-0k6S7OujzKgbv94(Unknown Source:0)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:93)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+		at nl.davidengelen.redsquare.NodeBlockBoundaryTest.changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(NodeBlockBoundaryTest.kt:54)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 817424 free bytes and 798KB until OOM, target footprint 16777216, growth limit 16777216
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 2677760 free bytes and 2615KB until OOM, target footprint 16777216, growth limit 16777216
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 1066864 free bytes and 1041KB until OOM, target footprint 16777216, growth limit 16777216
+
+INSTRUMENTATION_STATUS: stream=
+Error in changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(nl.davidengelen.redsquare.NodeBlockBoundaryTest):
+java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 356360 free bytes and 348KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+	at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+	at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockBoundaryTest.changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(NodeBlockBoundaryTest.kt:54)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 2605456 free bytes and 2544KB until OOM, target footprint 16777216, growth limit 16777216
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+		at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26(AppFrameFixture.kt:95)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JEObGL4scTM-0k6S7OujzKgbv94(Unknown Source:0)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:93)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+		at nl.davidengelen.redsquare.NodeBlockBoundaryTest.changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(NodeBlockBoundaryTest.kt:54)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 817424 free bytes and 798KB until OOM, target footprint 16777216, growth limit 16777216
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 2677760 free bytes and 2615KB until OOM, target footprint 16777216, growth limit 16777216
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 1066864 free bytes and 1041KB until OOM, target footprint 16777216, growth limit 16777216
+
+INSTRUMENTATION_STATUS: test=changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.309
+There was 1 failure:
+1) changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(nl.davidengelen.redsquare.NodeBlockBoundaryTest)
+java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 356360 free bytes and 348KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+	at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+	at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$22$lambda$21$lambda$20(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JPQAavGhcaXe8OdaLHgC-OJrvjY(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:79)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NodeBlockBoundaryTest.changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight(NodeBlockBoundaryTest.kt:54)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 2605456 free bytes and 2544KB until OOM, target footprint 16777216, growth limit 16777216
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+		at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26(AppFrameFixture.kt:95)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$JEObGL4scTM-0k6S7OujzKgbv94(Unknown Source:0)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+		at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:93)
+		... 66 more
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 817424 free bytes and 798KB until OOM, target footprint 16777216, growth limit 16777216
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+		at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+		at nl.davidengelen.redsquare.talk.TalkAccount.guard(TalkRuntime.kt:190)
+		at nl.davidengelen.redsquare.talk.TalkAccount.guard$default(TalkRuntime.kt:189)
+		at nl.davidengelen.redsquare.talk.TalkAccount.connect(TalkRuntime.kt:200)
+		at nl.davidengelen.redsquare.talk.TalkAccount.access$connect(TalkRuntime.kt:63)
+		at nl.davidengelen.redsquare.talk.TalkAccount$visibility$1.invokeSuspend(TalkRuntime.kt:186)
+		at nl.davidengelen.redsquare.talk.TalkAccount$visibility$1.invoke(Unknown Source:8)
+		at nl.davidengelen.redsquare.talk.TalkAccount$visibility$1.invoke(Unknown Source:2)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invokeSuspend(TalkRuntime.kt:133)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invoke(Unknown Source:8)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invoke(Unknown Source:4)
+		at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+		at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturnIgnoreTimeout(Undispatched.kt:50)
+		at kotlinx.coroutines.TimeoutKt.setupTimeout(Timeout.kt:149)
+		at kotlinx.coroutines.TimeoutKt.withTimeout(Timeout.kt:44)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1.invokeSuspend(TalkRuntime.kt:133)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+		at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+		at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 2677760 free bytes and 2615KB until OOM, target footprint 16777216, growth limit 16777216
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+		at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+		at nl.davidengelen.redsquare.talk.TalkAccount.guard(TalkRuntime.kt:190)
+		at nl.davidengelen.redsquare.talk.TalkAccount.guard$default(TalkRuntime.kt:189)
+		at nl.davidengelen.redsquare.talk.TalkAccount.connect(TalkRuntime.kt:200)
+		at nl.davidengelen.redsquare.talk.TalkAccount.access$connect(TalkRuntime.kt:63)
+		at nl.davidengelen.redsquare.talk.TalkAccount$visibility$1.invokeSuspend(TalkRuntime.kt:186)
+		at nl.davidengelen.redsquare.talk.TalkAccount$visibility$1.invoke(Unknown Source:8)
+		at nl.davidengelen.redsquare.talk.TalkAccount$visibility$1.invoke(Unknown Source:2)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invokeSuspend(TalkRuntime.kt:133)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invoke(Unknown Source:8)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invoke(Unknown Source:4)
+		at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+		at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturnIgnoreTimeout(Undispatched.kt:50)
+		at kotlinx.coroutines.TimeoutKt.setupTimeout(Timeout.kt:149)
+		at kotlinx.coroutines.TimeoutKt.withTimeout(Timeout.kt:44)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1.invokeSuspend(TalkRuntime.kt:133)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+		at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+		at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+	Suppressed: java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 1066864 free bytes and 1041KB until OOM, target footprint 16777216, growth limit 16777216
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet(AndroidWalletStore.kt:172)
+		at nl.davidengelen.redsquare.AndroidWalletStore.readSavedWallet$default(AndroidWalletStore.kt:170)
+		at nl.davidengelen.redsquare.AndroidWalletStore.loadExisting(AndroidWalletStore.kt:90)
+		at nl.davidengelen.redsquare.talk.TalkAccount.guard(TalkRuntime.kt:190)
+		at nl.davidengelen.redsquare.talk.TalkAccount.guard$default(TalkRuntime.kt:189)
+		at nl.davidengelen.redsquare.talk.TalkAccount.connect(TalkRuntime.kt:200)
+		at nl.davidengelen.redsquare.talk.TalkAccount.access$connect(TalkRuntime.kt:63)
+		at nl.davidengelen.redsquare.talk.TalkAccount$attach$1.invokeSuspend(TalkRuntime.kt:172)
+		at nl.davidengelen.redsquare.talk.TalkAccount$attach$1.invoke(Unknown Source:8)
+		at nl.davidengelen.redsquare.talk.TalkAccount$attach$1.invoke(Unknown Source:2)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invokeSuspend(TalkRuntime.kt:133)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invoke(Unknown Source:8)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1$1.invoke(Unknown Source:4)
+		at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+		at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturnIgnoreTimeout(Undispatched.kt:50)
+		at kotlinx.coroutines.TimeoutKt.setupTimeout(Timeout.kt:149)
+		at kotlinx.coroutines.TimeoutKt.withTimeout(Timeout.kt:44)
+		at nl.davidengelen.redsquare.talk.TalkAccount$3$task$1.invokeSuspend(TalkRuntime.kt:133)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+		at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+		at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+		at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

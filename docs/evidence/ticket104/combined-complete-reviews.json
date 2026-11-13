@@ -1,0 +1,41 @@
+{
+  "source": "96c71daec98336457721a189b3423019d9b74410",
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "candidate": 127,
+  "result": "PASS",
+  "sdk17": {
+    "run": "43370658411",
+    "identities": 688,
+    "classes": 254,
+    "archives": 212,
+    "normalCompletions": 276,
+    "deliberateInterruptions": 39,
+    "continuityRecords": 38,
+    "indexedOriginals": 1046,
+    "rawZipFiles": 1163,
+    "pngs": 6035,
+    "xmls": 2618,
+    "assumptions": []
+  },
+  "combined": {
+    "indexedCompleteOriginals": 2082,
+    "indexedSignedUpdateOriginals": 96,
+    "identities": 1375,
+    "coreTestsPerPartition": 150
+  },
+  "axes": {
+    "standards": {
+      "agent": "talk104_standards_review",
+      "result": "PASS",
+      "findings": 0,
+      "report": "Android17 everyindexed/raw/ZIP/archive integrity and frozen goals verified at96c; four decodedmedia legs/PCM/controls/background/screenoff/camera/foreground/processloss pass. Completion6true, importedRegistryauth and physical1/group10/private13 actualaccepted899 targetingphysical1 verified. Combined with prior10clearance:2082complete originals plus96signedupdates. Fourpathbridge/candidate127bytes/establishedsignature unchanged, no goalwaivers."
+    },
+    "spec": {
+      "agent": "talk104_spec_review",
+      "result": "PASS",
+      "findings": 0,
+      "report": "Android17 everyindexed/raw/ZIP/archive integrity and frozen goals verified at96c; four decodedmedia legs/PCM/controls/background/screenoff/camera/foreground/processloss pass. Completion6true, importedRegistryauth and physical1/group10/private13 actualaccepted899 targetingphysical1 verified. Combined with prior10clearance:2082complete originals plus96signedupdates. Fourpathbridge/candidate127bytes/establishedsignature unchanged, no goalwaivers."
+    }
+  },
+  "qualification": "Inherited unavailablearchive/fourmissingfailurecapture patterns perSDK,10Profileassumption/API29permission-shell andcontrolleddevice/media/realprovider/HTTPS qualifications retained. Public promotion/delivery remain separate."
+}

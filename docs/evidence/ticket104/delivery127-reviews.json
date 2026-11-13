@@ -1,0 +1,19 @@
+{
+  "versionCode": 127,
+  "source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "observedAt": "2026-11-13T06:57:30.772244+00:00",
+  "publicLatest": 127,
+  "standards": {
+    "agent": "talk104_standards_review",
+    "result": "PASS",
+    "findings": 0,
+    "report": "Fresh HTTPS latest/immutablemanifest/notes/page match actual127 receipts. Retained actualcurl HTTPdownload verified independently:91852583bytes,exactSHA,establishedsigner,min29target36,4optionalfeatures,releaseflags,fixture/probeabsence. Used retainedHTTPdownload; no secondfulldownload claimed."
+  },
+  "spec": {
+    "agent": "talk104_spec_review",
+    "result": "PASS",
+    "findings": 0,
+    "report": "Fresh cachebusted latest127/immutablemanifest/notes andpublicpage match source/checksum/APKURL. Retained actualHTTPAPK byteidenticaltostage,exact91852583/SHA/signature/package/hardware/flags verified independently. No secondfulldownload claimed."
+  },
+  "qualification": "Actualpublicdeliverycleared. Developmentbranchpush and104trackercloseout remainseparate."
+}

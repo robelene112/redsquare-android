@@ -1,0 +1,179 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletImportPreviewTest:
+INSTRUMENTATION_STATUS: test=explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.WalletExportSystemControlsKt.chooseTestBackup(WalletExportSystemControls.kt:47)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$47(WalletImportPreviewTest.kt:377)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$br5QzEH4PsCzjSmW9ogrlCkRHH0(WalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda37.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:358)
+	Suppressed: java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+		at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+		at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:98)
+		at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+		at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+		at androidx.compose.ui.test.OutputKt.printToString(Output.kt:87)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$34$lambda$31(WalletImportPreviewTest.kt:367)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$XHOcL8hfu9ZpsGpMOgAPL-mD7sY(WalletImportPreviewTest.kt:0)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$34(WalletImportPreviewTest.kt:360)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$PN_Ae9KfgVVWMFJ50r8MlH-AMTQ(WalletImportPreviewTest.kt:0)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda36.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:78)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:358)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(nl.davidengelen.redsquare.WalletImportPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.WalletExportSystemControlsKt.chooseTestBackup(WalletExportSystemControls.kt:47)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$47(WalletImportPreviewTest.kt:377)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$br5QzEH4PsCzjSmW9ogrlCkRHH0(WalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda37.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:358)
+	Suppressed: java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+		at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+		at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:98)
+		at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+		at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+		at androidx.compose.ui.test.OutputKt.printToString(Output.kt:87)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$34$lambda$31(WalletImportPreviewTest.kt:367)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$XHOcL8hfu9ZpsGpMOgAPL-mD7sY(WalletImportPreviewTest.kt:0)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$34(WalletImportPreviewTest.kt:360)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$PN_Ae9KfgVVWMFJ50r8MlH-AMTQ(WalletImportPreviewTest.kt:0)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda36.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:78)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:358)
+
+INSTRUMENTATION_STATUS: test=explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacementRequiresANewBackupBoundToTheCurrentSelection
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replacementRequiresANewBackupBoundToTheCurrentSelection
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 183.285
+There was 1 failure:
+1) explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(nl.davidengelen.redsquare.WalletImportPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.WalletExportSystemControlsKt.chooseTestBackup(WalletExportSystemControls.kt:47)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$47(WalletImportPreviewTest.kt:377)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$br5QzEH4PsCzjSmW9ogrlCkRHH0(WalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda37.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:358)
+	Suppressed: java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+		at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+		at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:98)
+		at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+		at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+		at androidx.compose.ui.test.OutputKt.printToString(Output.kt:87)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$34$lambda$31(WalletImportPreviewTest.kt:367)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$XHOcL8hfu9ZpsGpMOgAPL-mD7sY(WalletImportPreviewTest.kt:0)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeTestCleanupKt.cleanupAfterTest(NativeTestCleanup.kt:7)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers$lambda$48$lambda$34(WalletImportPreviewTest.kt:360)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest.$r8$lambda$PN_Ae9KfgVVWMFJ50r8MlH-AMTQ(WalletImportPreviewTest.kt:0)
+		at nl.davidengelen.redsquare.WalletImportPreviewTest$$ExternalSyntheticLambda36.invoke(D8$$SyntheticClass:0)
+		at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:78)
+		... 65 more
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

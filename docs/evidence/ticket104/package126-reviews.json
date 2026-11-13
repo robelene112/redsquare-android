@@ -1,0 +1,18 @@
+{
+  "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+  "candidate": 126,
+  "stageReceipt": "stage126-verification.json",
+  "standards": {
+    "agent": "talk104_standards_review",
+    "result": "PASS",
+    "findings": 0,
+    "report": "Actual downloaded APK hash/size, established signature, identity/version/SDK/permissions and optional hardware match packet. No browser fixtures, test classes, temporary probes, debug/profile or backup flags. Local review bundle, immutable manifest/source/notes match."
+  },
+  "spec": {
+    "agent": "talk104_spec_review",
+    "result": "PASS",
+    "findings": 0,
+    "report": "Retained actual public APK matches local signed artifact. Independent apksigner/aapt/apkanalyzer outputs match packet byte for byte; Talk permissions/service types and four optional hardware declarations clear. Fresh curl manifest/notes/source and latest116 verified. No second full APK download; actual original download verified independently."
+  },
+  "qualification": "Package clearance only. Complete native SDKs, actual signed updates and public promotion/delivery remain pending."
+}

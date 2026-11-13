@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "sdk": "17",
+  "run": "43271443640",
+  "source": "2f0a6699be2ba7b4f39b031367e239b86f6cca2a",
+  "versions": [
+    83,
+    123
+  ],
+  "downloadedCandidateBytes": 91836199,
+  "downloadedCandidateSha256": "35ea382b8d15d5c7301069658c685764f16ca2f366d4f28d6e5410a803042645",
+  "originalFiles": 48,
+  "qualification": "Actual signed update preserves ordinary wallet, separate unchanged debug identity, exact unsent draft, cached post and Light preference through update/cold launch. Disposable emulator; complete application and promotion gates remain separate. Historical superseded candidate123 only; the wallet-allocation correction requires candidate124 and its own updates."
+}

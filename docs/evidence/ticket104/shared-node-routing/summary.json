@@ -1,0 +1,36 @@
+{
+  "result": "HOST_CORE_PASS_NATIVE_PENDING",
+  "baseline": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+  "hostRegressionTests": 8,
+  "hostCoreTests": 145,
+  "hostFailures": 0,
+  "testingBoundary": "Actual SaitoPeer, signing and binary loopback WebSocket with latest-public-key callback routing; Android logging/BuildConfig only are host shims.",
+  "redQualification": "The original shared-route red fails after the awaited first reply cannot return; cleanup surfaces PeerDisconnected. The callback route is directly represented in the fixture. Other reds are missing second receiver and unrelated queued-write timeout. No original blank-wallet cause claim.",
+  "sourceReviews": {
+    "standards": {
+      "findings": 0,
+      "reviewer": "talk104_standards_review"
+    },
+    "spec": {
+      "findings": 0,
+      "reviewer": "talk104_spec_review"
+    }
+  },
+  "nativeGoals": "Original15s, actualACK899, retired group owners, stable Talk owner, exact fresh private owner acceptance and stable physical route. Actual targeted physical sockets and successful owners are distinct in the receipt.",
+  "completeSdkAcceptance": false,
+  "signedCandidateAcceptance": false,
+  "files": {
+    "shared-node-green.xml": "60bc45bbecacdce8a93b469f761356263c710d7678e3f423372440792a100e9a",
+    "shared-node-delivery-red.xml": "281682056e420f45d72da527a47a402907f3edd8acb7333a67165fb78698bc04",
+    "shared-node-drain-red.xml": "dd896b5a2dceca68366048ece5073b8a1d7fe02833c40dcfb2c8b427277c254f",
+    "shared-node-original-red.xml": "7bd83c1566cc1f9bbd4359f5d37423ab7fea38e62b67a0db75f8bd58e73078f2",
+    "shared-node-reconnect-red.xml": "e888b2df257e17d9fc640044a22a175b20feb49918904c109d1b2620c63722e2"
+  },
+  "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+  "wholeSdkRuns": {
+    "10": "43338625252",
+    "17": "43338624958"
+  },
+  "wholeSdkResult": "PENDING",
+  "reconnectCorrection": "One process-wide positive atomic request namespace, nonwrapping exhaustion. Random initial seed reduces but does not eliminate cross-process collisions. Deterministic real-wire red returned old feed payload to replacement request; corrected test passes."
+}

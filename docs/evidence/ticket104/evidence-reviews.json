@@ -1,0 +1,245 @@
+{
+  "source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "candidate": 127,
+  "runtimeSources": {
+    "10": "96c71daec98336457721a189b3423019d9b74410",
+    "17": "96c71daec98336457721a189b3423019d9b74410"
+  },
+  "signedUpdateRuns": {
+    "10": "43353792636",
+    "17": "43353792670"
+  },
+  "completeRuntimeAcceptance": "PASS",
+  "publicDelivery": "PASS",
+  "axes": {
+    "standards": {
+      "agent": "talk104_standards_review",
+      "source": "PASS",
+      "hostEvidence": "PASS",
+      "package": "PASS",
+      "completeSdkEvidence": "PASS",
+      "signedUpdateEvidence": "PASS",
+      "delivery": "PASS",
+      "staticSourceBridge": "PASS",
+      "signedUpdateFindings": 0,
+      "reviewedUpdateOriginals": 96,
+      "focusedRecovery": "PASS",
+      "packageUpdateReport": "package-update127-reviews.json",
+      "staticBridgeFindings": 0,
+      "focusedHandshake": "PASS",
+      "focusedHandshakeFindings": 0,
+      "focusedRelayReader": "PASS",
+      "focusedRelayReaderFindings": 0,
+      "completeAndroid10Evidence": "PASS",
+      "completeAndroid10Findings": 0,
+      "completeSdkFindings": 0,
+      "reviewedCompleteOriginals": 2082,
+      "completeEvidenceReport": "combined-complete-reviews.json",
+      "deliveryFindings": 0
+    },
+    "spec": {
+      "agent": "talk104_spec_review",
+      "source": "PASS",
+      "hostEvidence": "PASS",
+      "package": "PASS",
+      "completeSdkEvidence": "PASS",
+      "signedUpdateEvidence": "PASS",
+      "delivery": "PASS",
+      "staticSourceBridge": "PASS",
+      "signedUpdateFindings": 0,
+      "reviewedUpdateOriginals": 96,
+      "focusedRecovery": "PASS",
+      "packageUpdateReport": "package-update127-reviews.json",
+      "staticBridgeFindings": 0,
+      "focusedHandshake": "PASS",
+      "focusedHandshakeFindings": 0,
+      "focusedRelayReader": "PASS",
+      "focusedRelayReaderFindings": 0,
+      "completeAndroid10Evidence": "PASS",
+      "completeAndroid10Findings": 0,
+      "completeSdkFindings": 0,
+      "reviewedCompleteOriginals": 2082,
+      "completeEvidenceReport": "combined-complete-reviews.json",
+      "deliveryFindings": 0
+    }
+  },
+  "qualification": "Current127actualpublicdelivery, whole96c Android10/17 frozencompleteindexes,2082indexedcomplete originals,96signedupdate originals andbothindependentreviewsPASS. Compiled3ad differs onlybyreviewed4test/fixture paths. Historicalfailuresretain originaloutcomes; physical/live-service/association/provider/Play gates remainopen under36.",
+  "historicalSuperseded126EvidenceReviews": {
+    "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+    "compiledSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+    "candidate": 126,
+    "runtimeSources": {
+      "10": "d09cc1588fb3de3e010d46e1e130760df769bdb0",
+      "17": "d09cc1588fb3de3e010d46e1e130760df769bdb0"
+    },
+    "runtimeRuns": {},
+    "signedUpdateRuns": {
+      "10": "43339605112",
+      "17": "43339604818"
+    },
+    "completeRuntimeAcceptance": "PENDING",
+    "publicDelivery": "PENDING",
+    "axes": {
+      "standards": {
+        "agent": "talk104_standards_review",
+        "source": "PASS",
+        "hostEvidence": "PASS",
+        "package": "PASS",
+        "completeSdkEvidence": "PENDING",
+        "signedUpdateEvidence": "PASS",
+        "delivery": "PENDING",
+        "staticSourceBridge": "PASS"
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "source": "PASS",
+        "hostEvidence": "PASS",
+        "package": "PASS",
+        "completeSdkEvidence": "PENDING",
+        "signedUpdateEvidence": "PASS",
+        "delivery": "PENDING",
+        "staticSourceBridge": "PASS"
+      }
+    },
+    "qualification": "Every current acceptance remains distinct. Earlier receipts below are historical and cannot satisfy new source runtime or candidate126 updates.",
+    "historicalSuperseded125EvidenceReviews": {
+      "source": "b73f91c722b8996278f90028939c6c2af02d72c8",
+      "candidate": 125,
+      "completeRuntimeAcceptance": "PENDING",
+      "publicDelivery": "PENDING",
+      "axes": {
+        "standards": {
+          "agent": "talk104_standards_review",
+          "packaging": "PASS",
+          "packagingFindings": 0,
+          "signedUpdates": "PASS",
+          "signedUpdateFindings": 0,
+          "reviewedUpdateOriginals": 96,
+          "report": "Independently verified candidate125 public APK bytes/hash/established signature and package. All four camera/microphone features are optional. Both exact83-to125 signed updates pass; all96 original hashes match raw/tar/ZIP, native captures support retained exact unsent draft/cache/Light state, unchanged ordinary wallet and distinct debug identity, and empty restoration failures. Complete runtime and public promotion remain separate pending gates.",
+          "staticBridge": "PASS",
+          "staticBridgeFindings": 0,
+          "staticBridgeReport": "Independent16/14 inventories verified:10/6df has16 paths,32 hashes,223460 identical other Git entries and2d737c37 LFtree digest;17/59a has14 paths,28 hashes,223462 entries,f3d85107 digest. Union16 exact. Main/resources/build/harness/frozen/other tests and125APK unchanged, fixtures test-only. All4 picker originals byte-exact to tar/text/ZIP. Source0/waivers0; originalblankcause/oldtap timingunproved. Complete10/final index reviews pending.",
+          "historicalStaticBridgeReport": "PerSDK13/14file hashes,223463/223462remainingGitentries andcanonicaltreehashes independentlyreproduced. Production/build/harness/frozenidenticalto125b73. All5Policyredoriginalsbyte-exact; originaltimingunproved.0remainingfindings. CompleteSDKruntimeacceptancepending."
+        },
+        "spec": {
+          "agent": "talk104_spec_review",
+          "packaging": "PASS",
+          "packagingFindings": 0,
+          "signedUpdates": "PASS",
+          "signedUpdateFindings": 0,
+          "reviewedUpdateOriginals": 96,
+          "report": "Independently verified candidate125 public APK bytes/hash/established signature and package. All four camera/microphone features are optional. Both exact83-to125 signed updates pass; all96 original hashes match raw/tar/ZIP, native captures support retained exact unsent draft/cache/Light state, unchanged ordinary wallet and distinct debug identity, and empty restoration failures. Complete runtime and public promotion remain separate pending gates.",
+          "staticBridge": "PASS",
+          "staticBridgeFindings": 0,
+          "staticBridgeReport": "Independent16/14 inventories verified:10/6df has16 paths,32 hashes,223460 identical other Git entries and2d737c37 LFtree digest;17/59a has14 paths,28 hashes,223462 entries,f3d85107 digest. Union16 exact. Main/resources/build/harness/frozen/other tests and125APK unchanged, fixtures test-only. All4 picker originals byte-exact to tar/text/ZIP. Source0/waivers0; originalblankcause/oldtap timingunproved. Complete10/final index reviews pending.",
+          "historicalStaticBridgeReport": "PerSDK13/14file hashes,223463/223462remainingGitentries andcanonicaltreehashes independentlyreproduced. Production/build/harness/frozenidenticalto125b73. All5Policyredoriginalsbyte-exact; originaltimingunproved.0remainingfindings. CompleteSDKruntimeacceptancepending."
+        }
+      },
+      "compiledSource": "b73f91c722b8996278f90028939c6c2af02d72c8",
+      "runtimeSources": {
+        "10": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+        "17": "59a84de8b8ea74614a7ef391fb8867d2a5313021"
+      },
+      "runtimeRuns": {
+        "17": "43313830991"
+      },
+      "staticBridgeAcceptance": "PASS",
+      "currentReleaseStatus": "PENDING_COMPLETE_SHARED_NODE_RUNTIME",
+      "supersededByRequiredProductionChange": {
+        "baseline": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+        "reason": "Pinned Saito module callback routing uses latest socket per authenticated public key; separate same-wallet feature sockets are incompatible. Candidate125 must not be promoted. Both new whole SDKs and a new signed candidate are required.",
+        "qualification": "This is not evidence of the cause of the earlier intermittent blank wallet."
+      },
+      "currentSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+      "currentRuntimeSources": {
+        "10": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+        "17": "6857e7c6c65eec61d017cf74b3655a9fb67c347c"
+      },
+      "currentRuntimeRuns": {
+        "10": "43338625252",
+        "17": "43338624958"
+      },
+      "currentCandidate": {
+        "version": 126,
+        "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+        "status": "STAGED_PACKAGE_PASS_RUNTIME_PENDING",
+        "stageReceipt": "stage126-verification.json",
+        "bytes": 91852583,
+        "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02"
+      },
+      "currentUpdateRuns": {
+        "10": "43339605112",
+        "17": "43339604818"
+      }
+    },
+    "supersededWholeRuns685": {
+      "10": "43338625252",
+      "17": "43338624958"
+    },
+    "staticBridgeAcceptance": "PASS",
+    "signedUpdateReviewScope": "Both reviewers verified all96 indexed originals against raw/tar and actual ZIPs. Wallet/draft/cache/Light, distinct debug identity and empty restoration failures pass on both SDKs; no full application acceptance inferred.",
+    "supersededWholeRuns570": {
+      "10": "43342777699",
+      "17": "43342777620"
+    },
+    "focusedRuns": {
+      "posting-android17": "43348826004",
+      "quotes-android17": "43348825612"
+    },
+    "currentReleaseStatus": "PENDING_NEW_PRODUCT_NATIVE_AND_SIGNED_ACCEPTANCE",
+    "requiredProductionChange": "Passive store-change reload erases the failed receipt operation error. Original native diagnostic43351151183 confirms retained original/no receipt/Check status. Current product correction requires a new candidate, both new whole SDKs and new signed updates;126 must not promote.",
+    "currentProductSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+    "currentCandidate": {
+      "version": 127,
+      "status": "BUILDING",
+      "source": "3ad638b33be448a2672f7907590c8971a8ba774c"
+    },
+    "currentFocusedRuns": {
+      "posting-android17": "43352878837",
+      "quotes-android17": "43352878739"
+    },
+    "errorOwnershipFixSourceReviews": {
+      "standards": {
+        "agent": "talk104_standards_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+      }
+    }
+  },
+  "supersededWholeRuns3ad": {
+    "10": "43354455129",
+    "17": "43354458096"
+  },
+  "currentReleaseStatus": "DELIVERED127_PENDING_FINAL_GIT_AND_TRACKER",
+  "focusedHandshakeRuns": {
+    "10": "43358964615",
+    "17": "43358967566"
+  },
+  "staticBridgeAcceptance": "PASS",
+  "focusedHandshakeAcceptance": "PASS",
+  "supersededWholeRunsE031": {
+    "10": "43359790533",
+    "17": "43359793356"
+  },
+  "runtimeRuns": {
+    "10": "43370655497",
+    "17": "43370658411"
+  },
+  "focusedRelayReaderRuns": {
+    "10": "43369612136",
+    "17": "43369614803"
+  },
+  "focusedRelayReaderAcceptance": "PASS",
+  "perSdkAcceptance": {
+    "10": "PASS",
+    "17": "PASS"
+  }
+}

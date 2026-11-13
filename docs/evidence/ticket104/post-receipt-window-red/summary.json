@@ -1,0 +1,28 @@
+{
+  "productSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+  "fixtureSource": "d09cc1588fb3de3e010d46e1e130760df769bdb0",
+  "originalFailedRuns": {
+    "10": "43342777699",
+    "17": "43342777620"
+  },
+  "originalFailure": "Before-receipt checkpoint expectedfalse but wastrue after withholding a nonexistent per-feature Close. Both complete runs deliberately stopped; no partial reuse. Wallet partitions passed, not full acceptance.",
+  "correction": "Native pre-receipt failure now uses an exact valid retained original and an owned storage obstacle, with positive storage-error state. Actual Archive12s timeout remains native; actual shared write-pressure and sole-owner close failures are verified at the host binary seam without claiming exact12s expiry. Same native identities, deadlines and before/after process windows remain. Both fresh whole SDKs required.",
+  "hostCoreTests": 149,
+  "hostFailures": 0,
+  "nativeCompilation": "PASS",
+  "sourceReviews": {
+    "standards": {
+      "findings": 0
+    },
+    "spec": {
+      "findings": 0
+    }
+  },
+  "qualification": "Initial native obstacle phase is storage failure, not transport timeout. Two newly authored exact12s host expectations were invalid because underlying transport disconnected around10s; retained XML is not evidence of a production bug. Corrected host tests require real>=9s stall/failure within configured12s wrapper plus1s observation margin. Actual native Archive timeout still requires>=11s. Focused/native full acceptance pending.",
+  "files": {
+    "host-transport-bounds-green.xml": "ebef3e53eaaae1a733c4ca2b51ccfa1e49e1c7fa04611e07b4e1a7016867d1f7",
+    "invalid-exact12-test-expectation.xml": "6ca2964471fe4dc4a71801b25eebfff5f4bf66f340d8401fe31f35c865ad06c9",
+    "original-17-before-receipt.txt": "c6596580a7ccda3337b5d293bff9054c02b2979991fd11531733bdbc58b9b8c6",
+    "original-10-before-receipt.txt": "0c5550349e0d28e3ae7ee794483d0194f12b762686221123ee32812699ab4cbe"
+  }
+}

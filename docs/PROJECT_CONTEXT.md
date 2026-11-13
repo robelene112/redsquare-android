@@ -1,37 +1,61 @@
 # Red Square Android project context
 
-## Active native Saito Talk #104
+## Delivered native Saito Talk #104
 
-The owner requested Talk after Fileshare116 and explicitly chose BOTH direct
-Chat audio/video calls and group rooms with invitation links. Implement only
-[issue104](https://github.com/robelene112/redsquare-android/issues/104) to complete
-verification, independent reviews and signed beta. Review base is
-`c02fa1e3fb795b7e252f0973235bfc852ec891b4`. Keep parents1/36/55/84/86 open.
-Existing JVM protocol, native Android and controlled browser-peer seams are reused;
-routine tests/emulators remain delegated, without repeated owner phone QA.
+[Signed beta 0.1.127](https://davidengelen.nl/redsquare/) adds direct audio/video
+calls from private Chat and group rooms with invitation links. It supports
+three-party media, participant changes, microphone/camera controls, camera
+switching and audio output. Active calls have Android return/hang-up controls.
+Voice continues in background and with the screen off; camera pauses outside
+visibility. Process loss interrupts the call. Wallet, node, drafts, Chat,
+Fileshare and native navigation are preserved.
 
-Official source pin e6c937c686495a37d8fc94ecc894189e23a453c3: Videocall, dialer,
-StreamManager, Stun and Relay. Pinned Videocall.generateCallLink was independently
-executed in Node24 to create the literal native-talk-reference.json fixture.
-First room-link RED then GREEN observed. Legacy unsigned Relay invitations must
-remain claims until actual signed-SDP/DTLS peer authentication; they do not
-implicitly authorize capture. Talk and Fileshare need shared peer ownership and
-message routing because upstream Stun owns one connection per counterparty.
-Native Talk runtime/UI/capture now exists and focused camera/routing checks pass.
-Direct/three-party media, complete verification/reviews and beta delivery remain
-pending, as recorded in the current handoff. No Talk release acceptance is claimed.
+Compiled product/signed APK and update evidence use
+`3ad638b33be448a2672f7907590c8971a8ba774c`. Complete verification uses
+`96c71daec98336457721a189b3423019d9b74410`. Exactly four test/fixture files
+differ; all 223,477
+other Git entries, product/resources/build/harness/frozen inputs are identical.
+Independent static reviews reproduce the canonical LFdigest. The test correction
+positively retires old routes and observes a fresh held handshake while 7 likes
+are displayed and 0 frames sent, preserving the 2-second immediate-count and
+20-second transmission goals. A held Relay reply also leaves the reader free
+for exact ACK8810 within the original 5 seconds, retaining the 15-second gate and
+private reaction/forwarded-state assertions. Owned reply workers release and
+terminate before local state restoration. All 150 core tests pass. Original
+negative results stay retained without reusing successful partial partitions.
+Android 10 run 43370655497 passes 687 identities/275 normal
+completions; Android 17 run 43370658411 passes 688/276. Each verifies 254 classes,
+212 archives, 39 deliberate interruptions and 38 continuity records using the
+unchanged frozen collector. Independent Standards/Spec reviews report zero
+remaining findings and accept 2082 complete indexed originals plus 96
+signed 83-to127 update originals. Inherited API29 Profile assumption, unavailable
+Chat archive, four missing failure-only captures and API29 permission-shell
+qualification remain explicit. No partial SDK assembly or goal/deadline waiver.
 
-The current writable checkout stays
-`/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.
-Temporary source and logs are external under
-`/mnt/storage/redsquare-android-artifacts/talk-native`. Canonical checkout and
-unrelated work remain preserved. No node/provider/Play operation, public Saito
-write or community recipient is authorized. Closed/killed-app push and physical/
-live-network qualifications stay separate under36. Voice continues for an active
-call in background/screen-off; camera pauses when not visible. Recording,
-transcription, scheduling, livestreaming and local screen broadcast are not part
-of the approved direct/group-call slice.
+Pinned Saito callback routing now uses one authenticated physical node connection
+per wallet/exact endpoint with independent feature lifetimes and process-wide
+positive nonwrapping request IDs. Random seeding reduces, without guaranteeing,
+cross-process uniqueness. Passive saved-work observations retain unresolved
+posting errors until verified durable progress. Native positive error/Retry,
+exact original recovery and real before/after receipt process loss pass.
+Original failed/cancelled evidence is retained; the earlier blank-wallet cause
+remains unproved.
 
+Actual public 91,852,583-byte APK SHA256:
+`adb4b1a58c03e399f08107f0a6add82985d23df720a4c7900812417bd4fc1b1b`.
+Established signer, optional camera/microphone hardware, exact public latest,
+manifest, notes, page and downloaded bytes/signature pass independent delivery
+reviews. Candidates 117–126 are superseded; 121 has no package.
+
+Owned peers execute pinned official Saito bodies with explicit adapters and actual
+transport/media observations. Real ARM/OEM audio/video quality, selected-node
+Relay/Stun, real TURN/NAT, fully initialized community frontends and default
+third-party HTTPS association remain OPEN as TALK_LIVE under #36. Provider, Play
+and closed-app gates stay open. No node/provider/Play operation, public Saito
+write or repeated owner-phone development QA is claimed. Keep #1/#36/#55/#84/#86 open
+and stop after #104.
+
+[Evidence packet](evidence/ticket104/README.md).
 
 ## Delivered native Fileshare #103
 

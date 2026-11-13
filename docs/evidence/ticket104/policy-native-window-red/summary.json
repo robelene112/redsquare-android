@@ -1,0 +1,15 @@
+{
+  "run": "43299720884",
+  "partition": "wallet",
+  "source": "f114bd7fed739f8a50fff7f86a518f1a0ae12476",
+  "test": "PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork",
+  "failure": "Accessibility condition did not complete at158, Settings Compose popup/dialog observer after openAccountMenu returned.",
+  "capturedObservation": "Postfailure nativeAccountsheet has visibleSettingsleaf with enabledvisibleclickableparent, plus a separateDragHandletooltipwindow. Capturednativecontrol availability does not prove exactoriginalhandoff timing.",
+  "correction": "8d112ac63ee3582d1373389df0c3512936d25617 observes app-owned nativeAccountroot and actualSettings ancestor, performsAccessibilityACTION_CLICK inside SAME5s deadline begunbeforeopenAccountMenu. No freshlookupbudget. AllfollowingactualTTS/focus/Node/state/publication/restorationgoalsunchanged.",
+  "sourceReviews": {
+    "standards": "0 findings/waivers",
+    "spec": "0 findings/waivers"
+  },
+  "runtime": "Focusedpolicies10/17 pending, thenfreshwhole17. Originalfailure remainsfailed; oldwhole10 mayretainoriginalPolicyobserver ifitactuallypasses aswholeSDK.",
+  "runtimeUpdate": "Focused policies43302149232/43302155333 PASS on8d. Original whole10/f114 later fails three separate Queue observations; no SDK acceptance. Both new whole SDKs must include the native Policy observer."
+}

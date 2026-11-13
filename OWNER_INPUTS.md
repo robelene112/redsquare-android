@@ -1,6 +1,6 @@
 # Nog nodig van David
 
-Bijgewerkt: 12 november 2026. Dit is het centrale overzicht voor jouw bijdragen
+Bijgewerkt: 13 november 2026. Dit is het centrale overzicht voor jouw bijdragen
 aan de eerste release. Werk dit document bij zodra iets geregeld is. De agent
 houdt de status bij en gaat ondertussen verder met herkenbare placeholders en
 concepten. Een placeholder geldt nooit als een afgeronde integratie, geldende
@@ -56,6 +56,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 | Firebase/GCP-project en juiste Android-appassociaties | Open, bestaande vraag. | Echte achtergrondmeldingen onder #36 (SOCIAL_PUSH, PRIVATE_PUSH en GROUP_PUSH), na afgeronde native #32/#33/#34. Applicatie-ID, Firebase-app/project/sender en resolver moeten bij elkaar passen. Geen service-accountbestanden in Git. |
 | Werkelijke hosting en inrichting van de pushgateway | Nog te regelen binnen afgesproken beheerprocedure. | Publiek bereikbare HTTPS-resolver, afzender en echte gesloten-appbezorging. De agent kan de code en beheerinstructies verder voorbereiden. |
 | Fileshare op echte toestellen en netwerken | Native en gecontroleerde Android10/17-/browsercontroles zijn afgerond in beta116. Aanvullende praktijkkwalificatie blijft geparkeerd. | #36 (FILESHARE_LIVE): echte ARM/OEM-toestellen, gekozen-node Relay/Stun, TURN/NAT en een volledig geïnitialiseerde communityclient. Dit vraagt nu geen herhaling van gewone ontwikkeltests op jouw telefoon; eventuele node- of providerwijzigingen volgen apart de beheerprocedure. |
+| Saito Talk op echte toestellen en netwerken | Native implementatie en gecontroleerde Android10/17-/browsercontroles zijn afgerond in beta 127. De aanvullende praktijkkwalificatie blijft open onder #36. | TALK_LIVE: echte ARM/OEM-toestellen en audio-/videokwaliteit, gekozen-node Relay/Stun, TURN/NAT en een volledig geïnitialiseerde communityclient. De normale verwerking van HTTPS-links door externe apps vraagt echte domeinassociatie. Gecontroleerde Android-/browserpeers bewijzen dit niet. Er wordt geen betrouwbare inkomende oproep beloofd wanneer de app beëindigd is. Je hoeft gewone ontwikkeltests nu niet op je telefoon te herhalen; node-/providerwijzigingen blijven apart geautoriseerd. |
 
 ## Optioneel: Stack op je eigen node
 
@@ -67,7 +68,7 @@ productiemodule en wisselt niet stilzwijgend van node.
 
 ## Beschikbare beta en latere toestelcontroles
 
-De gewone [beta116](https://davidengelen.nl/redsquare/) staat online. Deze versie
+De gewone [beta 127](https://davidengelen.nl/redsquare/) staat online. Deze versie
 herstelt het goedgekeurde prototype in de echte app, met de modulekiezer,
 accounttoegang, compactere postacties, profielen, chat en gegroepeerde activiteit.
 Na succesvol plaatsen keer je terug naar de feed of conversatie met kort
@@ -96,6 +97,12 @@ expliciet accepteren en volg de voortgang. Tijdens een lopende overdracht werken
 achtergrond, scherm uit en annuleren via de Android-melding. Ontvangen bestanden
 sla je zelf op met Save as. Beide gebruikers moeten online zijn; er is geen
 wachtende offline bestandsbezorging. Onderbrekingen worden eerlijk weergegeven.
+Saito Talk biedt Audio call en Video call in privéchat en groepsgesprekken via
+de modulekiezer. Een uitnodiging openen start geen microfoon of camera;
+starten/aannemen vraagt toestemming. Stemgeluid loopt door in de achtergrond en
+met scherm uit; camera pauzeert buiten zicht. Procesbeëindiging onderbreekt de
+oproep. De gecontroleerde tests vervangen geen fysieke beeld-/geluidskwaliteit
+of echte netwerk-/communityclientkwalificatie.
 Herhaald liken heeft geen lokale limiet van twee per seconde en wacht niet op bevestiging in de interface.
 Bij snel scrollen wacht het tekenen van postacties niet meer op achtergrondopslag.
 De gerichte regressie en de complete controles zijn op beide emulators geslaagd.
@@ -103,13 +110,13 @@ Dit verhelpt een gemeten blokkade; het bewijst nog geen algemene prestatiewinst
 op fysieke toestellen.
 
 De complete Android 10- en 17-emulatorcontroles en de echte ondertekende update
-van beta83 naar116 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
+van beta 83 naar 127 zijn geslaagd. Wallet, concepten, gecachte inhoud, voorkeuren
 en scheiding van de debug-app zijn daarbij gecontroleerd. Je hoeft deze gewone
 ontwikkelcontroles niet op je eigen telefoon te herhalen. Dat bewijst nog geen
 fysieke Pixel-prestaties of echte providerbezorging.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint. Gebruik die niet als definitieve meting van beta116. Voor definitieve
+checkpoint. Gebruik die niet als definitieve meting van beta 127. Voor definitieve
 fysieke prestatiemetingen levert de agent later een passende aparte timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en

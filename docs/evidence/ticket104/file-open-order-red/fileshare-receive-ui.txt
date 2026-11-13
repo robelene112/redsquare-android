@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareReceivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.FileshareReceivePreviewTest:
+INSTRUMENTATION_STATUS: test=anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.FileshareReceivePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil(FilesharePreviewTest.kt:62)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$62$lambda$61$lambda$60$lambda$59(FilesharePreviewTest.kt:168)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$YMt3gRLlUZn4x0zbQjtwMIA1Gao(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:87)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareReceivePreviewTest.anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(FilesharePreviewTest.kt:359)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(nl.davidengelen.redsquare.FileshareReceivePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil(FilesharePreviewTest.kt:62)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$62$lambda$61$lambda$60$lambda$59(FilesharePreviewTest.kt:168)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$YMt3gRLlUZn4x0zbQjtwMIA1Gao(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:87)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareReceivePreviewTest.anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(FilesharePreviewTest.kt:359)
+
+INSTRUMENTATION_STATUS: test=anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.382
+There was 1 failure:
+1) anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(nl.davidengelen.redsquare.FileshareReceivePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$waitUntil(FilesharePreviewTest.kt:62)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$lambda$62$lambda$61$lambda$60$lambda$59(FilesharePreviewTest.kt:168)
+	at nl.davidengelen.redsquare.FileshareFixture.$r8$lambda$YMt3gRLlUZn4x0zbQjtwMIA1Gao(Unknown Source:0)
+	at nl.davidengelen.redsquare.FileshareFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer(FilesharePreviewTest.kt:87)
+	at nl.davidengelen.redsquare.FileshareFixture.transfer$default(FilesharePreviewTest.kt:28)
+	at nl.davidengelen.redsquare.FileshareReceivePreviewTest.anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes(FilesharePreviewTest.kt:359)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

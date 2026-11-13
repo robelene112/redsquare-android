@@ -1,0 +1,50 @@
+{
+  "run": "43313830745",
+  "source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+  "sdk": "10",
+  "partition": "wallet",
+  "test": "WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+  "failedAt": 394,
+  "result": "FAIL",
+  "observed": "Wallet imported and exact incoming address assertions passed. After actual Close wallet, Node header misses original15s. Original PNG/XML blank; Activity resumed, attached/shown320x640, noIME, main nativePollOnce. Original cause UNPROVED.",
+  "diagnosticSource": "29aab431c954491a160dfd0a37792db78487dcfc",
+  "diagnosticRun": "43317223388",
+  "diagnostic": "Failure-only native View geometry/alpha/hasComposition, then explicit semantics/clock and separately named after-diagnostic capture. Original PNG/XML precede these; any later Compose synchronization cannot replace original evidence. Original15s/assertions/rethrow retained; remove temporary probes before final.",
+  "diagnosticReviews": {
+    "standards": "0 findings",
+    "spec": "0 findings; nine extracted original members byte-exact"
+  },
+  "originals": 10,
+  "completeAcceptance": "Whole10 failed; no partial acceptance. Whole17/59a may remain eligible only if production/goals unchanged.",
+  "diagnosticFirstResult": "43317223388 PASS7 on29a. Failure-only diagnostics did not execute; this proves intermittency only, not a cause.",
+  "diagnosticRepeatSource": "2ffbd04e64f1cc3c65b91bd5e808ddca7671b53e",
+  "diagnosticRepeatRun": "43318550816",
+  "diagnosticRepeat": "Temporary additional test invokes the unchanged original activation journey twice, retaining each original assertion/deadline/cleanup and original300s class ceiling. Eight test identities instead of7, explicitly diagnostic and never complete acceptance. Remove all temporary probe/repeat edits before final.",
+  "diagnosticRepeatResult": "43318550816 PASS8 on2ff,199.223s. Added diagnostic repeat performed2 full original activation journeys in addition to the original method. No original failure occurred, so failure-only native/Compose probes did not execute. Intermittency only; no cause established.",
+  "imeDiagnosticSource": "dcaf4cdf020a24dca58cc124a6979f6e8619dd3c",
+  "imeDiagnostic": "Temporary KeyboardVisibility SideEffect records bounded debug-only composed/native IME visibility/bottom per native View, with no input/identity values or changed return decision. Original assertion bounds remain. Diagnostic repeat now4 iterations under unchanged300s ceiling. Both this main-source probe and all temporary test probes MUST be removed before final production/source equivalence. Successful observations do not establish a cause.",
+  "imeDiagnosticRun": "43320170301",
+  "imeDiagnosticReviews": {
+    "standards": "0 actionable findings for temporary use only; changes timing/read dependencies, no equivalence or cause proved. Bounded128View entries/256 samples without input or identity data. Remove probes.",
+    "spec": "0 findings for temporary use. Original capture/assertion ordering/deadlines unchanged. Composed/native readings non-atomic; passing diagnostics prove no cause or complete acceptance. Remove probes."
+  },
+  "imeDiagnosticResult": "43320170301 overallFAIL: WalletImportPreviewTest PASS8/245.605s, four extra activation journeys all passed. No original activation failure captured; retained successful trace has zero composed/native visibility disagreements. Separate WalletImportRiskPreviewTest fails native file selection at133; this is NOT the original blank reproduction, and its cause is unproved. All original artifacts/logs retained.",
+  "partitionDiagnosticSource": "605b539af81b9ad543956c5abf46a7f6b4de5977",
+  "partitionDiagnostics": [
+    "43322089027",
+    "43322307228",
+    "43322307145"
+  ],
+  "partitionDiagnostic": "Three independent full Wallet-partition diagnostic runs on separate proof refs, all at same605. Original seven WalletImport identities restored; temporary repeat removed. Probe preserves original IME short-circuit (no bottom read when visible); bounded SideEffect tracing remains. Entire pre-import sequence retained for reproduction, never complete SDK acceptance. All temporary main/test probes must be removed before final.",
+  "originalParentOutcome": "43313830745 ultimately CANCELLED with Wallet alreadyFAILED; later same-ref full-android10 diagnostic dispatch automatically cancelled remaining Chat/Social via existing workflow concurrency. All original ZIPs and full log retained. No old10 acceptance.",
+  "partitionDiagnosticResults": {
+    "43322089027": "OverallFAIL only OwnerLiveFeedTest Refresh readiness69/10s after owned WalletImportPASS7/201.004s. This is not original blank reproduction. Raw cat-error placeholders for missing live-wallet captures remain exact; no image substitution.",
+    "43322307228": "PASS entire diagnostic Wallet partition; original seven import identities retained. No failure probes executed.",
+    "43322307145": "PASS entire diagnostic Wallet partition; original seven import identities retained. No failure probes executed."
+  },
+  "controlledInsetSource": "30a3ef2284d0ad7fa1510b0af413b1ff77e583f2",
+  "controlledInsetRun": "43326937631",
+  "controlledInset": "Induced stale native inset event before actual wallet close, after actual imported status/address. API30+ explicit ime; API29 general system-bottom206 approximates IME-like geometry. Physical rootIME initiallyfalse. Deliberately changed input; never ordinary behavior/equivalence/original-cause proof. Verify actual Compose consumption and dialog focus premise from retained trace. Both temporary-review axes0 with these qualifications. Original15s remains; all temporary probes/injection must be removed for final unless separately reviewed as a meaningful stronger regression.",
+  "controlledInsetResult": "43326937631 PASS7/161.579s. Actual Main Compose consumed synthetic event: visible=true at41234ms with nativefalse/bottom0, then visible=false/bottom0 at41272ms, while Main focusfalse both times. Marker after waitForIdle already has restoredfalse, before actual Close. No persistent bad condition at closure, no blank reproduced. This does not establish original cause; no production fix justified. Temporary main/injection/repeat/pass probes removed next, retaining only failure-time29a diagnostics for the high-fidelity replicas.",
+  "controlledInsetQualification": "Source30a has deliberately changed input and temporary main instrumentation; its success is not ordinary acceptance or production equivalence."
+}

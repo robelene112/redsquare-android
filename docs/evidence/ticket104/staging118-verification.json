@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "observedAt": "2026-11-12T14:56:35.366852+00:00",
+  "versionCode": 118,
+  "source": "dc70d31dbe30a9652705403a875e6f4c0988dbad",
+  "bytes": 91836199,
+  "sha256": "e9c8cd8b88b1d7955c63b32c62526d11dc281ee5134176b712e7fed08ec6e275",
+  "manifestExact": true,
+  "notesExact": true,
+  "downloadExact": true,
+  "publicLatestAfterStage": 116,
+  "httpClient": "curl",
+  "packageChecks": {
+    "applicationId": "nl.davidengelen.redsquare",
+    "minSdk": 29,
+    "targetSdk": 36,
+    "debuggable": false,
+    "profileable": false,
+    "allowBackup": false,
+    "establishedCertificate": true,
+    "talkRuntimePermissionsDeclared": true,
+    "browserFixturesAbsent": true
+  },
+  "qualification": "Staged candidate only. Complete runtime and signed-update acceptance remain separate. Initial Python urllib request received403; standard curl public requests return200. The provider cause is unproved; no website configuration was changed."
+}

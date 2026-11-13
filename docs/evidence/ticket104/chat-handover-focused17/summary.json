@@ -1,0 +1,26 @@
+{
+  "run": "43297122996",
+  "source": "b2bd497ec7b126af44dc9a94b375dffd0781966b",
+  "result": "PASS",
+  "observed": {
+    "account": [
+      1
+    ],
+    "old": [
+      1,
+      7
+    ],
+    "group": [
+      7
+    ],
+    "after": [
+      1,
+      10
+    ],
+    "privateProbeTargets": [
+      10
+    ],
+    "privateProbeAcknowledged": true
+  },
+  "qualification": "ActualnativeTalkbaseline, groupretirement andfresh-targetpositiveACK899 atsame15s, originalprivateenvelope retainedsingle. Focusedownedpeer proof only, notcompleteSDK orliveclient acceptance."
+}

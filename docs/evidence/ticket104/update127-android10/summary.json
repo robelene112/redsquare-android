@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "sdk": "10",
+  "run": "43353792636",
+  "source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "versions": [
+    83,
+    127
+  ],
+  "downloadedCandidateBytes": 91852583,
+  "downloadedCandidateSha256": "adb4b1a58c03e399f08107f0a6add82985d23df720a4c7900812417bd4fc1b1b",
+  "originalFiles": 48,
+  "qualification": "Actual signed update preserves ordinary wallet, separate unchanged debug identity, exact unsent draft, cached post and Light preference through update/cold launch. Disposable emulator; complete application and promotion gates remain separate."
+}

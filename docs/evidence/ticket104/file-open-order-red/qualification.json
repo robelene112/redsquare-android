@@ -1,0 +1,8 @@
+{
+  "result": "FAIL",
+  "run": "43249572322",
+  "source": "72a116741449dbfeb758b53f0af10f2e6b6bf99f",
+  "observed": "At15:42:20.049 query file permission enters FileSession with open=false, rtc.connected=true and observers=1; check(open) throws before retaining the offer. Browser data channel is actually open, session ready/owning/error true. Later RTC description rejection follows cleanup and is not classified as a separate cause.",
+  "correction": "332dd427e routes initial file controls through the existing shared IO queue behind OPEN; only a matching-generation established encrypted inbox stages on SDK. Stream drain/authentication and original deadlines remain.",
+  "acceptance": "Diagnostic reproduction establishes this OPEN-publication race. Earlier missing-offer executions are consistent but their exact individual timing was not recorded. Corrected native and final complete proof still required."
+}

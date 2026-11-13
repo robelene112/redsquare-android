@@ -1,0 +1,15 @@
+{
+  "version": 123,
+  "httpStatus": 200,
+  "url": "https://davidengelen.nl/redsquare/releases/123/redsquare.apk",
+  "headers": {
+    "Content-Length": "91836199",
+    "Content-Range": null,
+    "Content-Encoding": null,
+    "Content-Type": "application/octet-stream",
+    "ETag": "\"6af5f92c-5794f27\""
+  },
+  "bytes": 91836199,
+  "sha256": "35ea382b8d15d5c7301069658c685764f16ca2f366d4f28d6e5410a803042645",
+  "expectedSha256": "35ea382b8d15d5c7301069658c685764f16ca2f366d4f28d6e5410a803042645"
+}

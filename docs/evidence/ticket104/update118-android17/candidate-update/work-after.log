@@ -1,0 +1,25 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ReviewUpdateUiObserver:
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: reviewWorkObservation={"phase":"verify","appearance":"LIGHT","cachedPost":{"caption":"Btw if anyone wants to give LA LAKERS theme a try, let me know, and I'll send you a NFT ;)","author":"22jWAzPBoAqn9hUsec9UydbXvaj862qB6q4mBpa9Bex4P","published":"Published 11\/12\/26 9:40 AM"},"draft":"Redesign update check. This is an unsent local draft.","draftRemainsUnsent":true,"offlineCacheRequired":true}
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ReviewUpdateUiObserver
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=observeRetainedLocalWorkAndPreferences
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.616
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1

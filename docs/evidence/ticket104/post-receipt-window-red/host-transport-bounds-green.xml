@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-13T01:50:09" hostname="e27ea93594b2" time="24.22">
+  <properties/>
+  <testcase name="registeredFeatureRejectionIsTerminalButOrdinaryObserverFailureIsIsolated" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="1.991"/>
+  <testcase name="solePublisherReportsCloseFailureWithinItsDrainBound" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="10.038"/>
+  <testcase name="finishingPublisherDoesNotWaitForAnotherFeaturesLaterBlockedWrites" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.353"/>
+  <testcase name="sharedDeliveryNotifiesBothFeaturesOnceAndRetiringOneKeepsTheOtherAlive" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.237"/>
+  <testcase name="closingAFeatureCancelsOnlyItsPendingRequestAndLateReplyCannotStealAnotherReply" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.158"/>
+  <testcase name="disconnectedOwnersCannotDisposeTheReplacementConnection" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.201"/>
+  <testcase name="concurrentFeatureRequestsReceiveTheirOwnRepliesThroughSaitosPublicKeyRoute" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.146"/>
+  <testcase name="walletsAndExactEndpointsKeepIndependentAuthenticatedRoutes" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.353"/>
+  <testcase name="sharedPublisherReportsWriteFailureWithinItsDrainBound" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="10.541"/>
+  <testcase name="aLateCallbackFromBeforeReconnectCannotAnswerANewRequest" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="0.197"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

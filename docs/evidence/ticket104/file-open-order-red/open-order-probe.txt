@@ -1,0 +1,23 @@
+11-12 15:42:19.586  3428  3626 D File104Probe: handle:peer-joined open=false rtc=null observers=1
+11-12 15:42:19.805  3428  3626 D File104Probe: handle:peer-description open=false rtc=false observers=1
+11-12 15:42:20.049  3428  3626 D File104Probe: handle:query file permission open=false rtc=true observers=1
+11-12 15:42:20.050  3428  3626 W File104Probe: File event failed
+11-12 15:42:20.050  3428  3626 W File104Probe: java.lang.IllegalStateException: Check failed.
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.fileshare.FileSession.handle(FileshareRuntime.kt:442)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.fileshare.FileSession.access$handle(FileshareRuntime.kt:53)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.fileshare.FileSession$connect$6$2.invokeSuspend(FileshareRuntime.kt:395)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.fileshare.FileSession$connect$6$2.invoke(Unknown Source:8)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.fileshare.FileSession$connect$6$2.invoke(Unknown Source:2)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.fileshare.FileSession$1$task$1.invokeSuspend(FileshareRuntime.kt:102)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+11-12 15:42:20.050  3428  3626 W File104Probe: 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+11-12 15:42:20.070  3428  3626 D File104Probe: handle:peer-description open=false rtc=null observers=1
+11-12 15:42:20.134  3428  3626 W File104Probe: File event failed
+11-12 15:42:20.134  3428  3626 W File104Probe: java.lang.IllegalStateException: RTC description rejected
+11-12 15:42:20.134  3428  3626 W File104Probe: 	at nl.davidengelen.redsquare.saito.SharedRtcPeer$setDescription$2$observer$1.onSetFailure(SharedRtcPeer.kt:448)

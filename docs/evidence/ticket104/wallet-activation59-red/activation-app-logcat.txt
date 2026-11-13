@@ -1,0 +1,232 @@
+--------- beginning of main
+11-12 22:00:36.574 14539 14539 I n.redsquare.de: Late-enabling -Xcheck:jni
+11-12 22:00:36.581 14539 14539 E n.redsquare.de: Unknown bits set in runtime_flags: 0x8000
+11-12 22:00:36.582 14539 14539 W n.redsquare.de: Unexpected CPU variant for X86 using defaults: x86_64
+--------- beginning of system
+11-12 22:00:36.608 14539 14539 W ActivityThread: Package uses different ABI(s) than its instrumentation: package[nl.davidengelen.redsquare.dev]: x86_64, null instrumentation[nl.davidengelen.redsquare.dev.test]: null, null
+11-12 22:00:36.610 14539 14539 I n.redsquare.de: The ClassLoaderContext is a special shared library.
+11-12 22:00:36.610 14539 14539 I n.redsquare.de: The ClassLoaderContext is a special shared library.
+11-12 22:00:36.611 14539 14539 W n.redsquare.de: ClassLoaderContext classpath size mismatch. expected=0, found=2 (PCL[]{PCL[/system/framework/android.test.mock.jar*3601177991]{PCL[/system/framework/android.test.base.jar*1299883780]}#PCL[/system/framework/android.test.runner.jar*3312018701]{PCL[/system/framework/android.test.base.jar*1299883780]#PCL[/system/framework/android.test.mock.jar*3601177991]{PCL[/system/framework/android.test.base.jar*1299883780]}}} | PCL[/system/framework/android.test.runner.jar*3312018701:/system/framework/android.test.mock.jar*3601177991])
+11-12 22:00:36.611 14539 14539 W n.redsquare.de: Found duplicate classes, falling back to extracting from APK : /data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk
+11-12 22:00:36.611 14539 14539 W n.redsquare.de: NOTE: This wastes RAM and hurts startup performance.
+11-12 22:00:36.611 14539 14539 W n.redsquare.de: Found duplicated class when checking oat files: 'Ljunit/runner/BaseTestRunner;' in /data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk and /system/framework/android.test.runner.jar
+11-12 22:00:36.611 14539 14539 W n.redsquare.de: 
+11-12 22:00:36.707 14539 14539 W n.redsquare.de: ClassLoaderContext classpath size mismatch. expected=0, found=6 (PCL[] | PCL[/system/framework/android.test.runner.jar*3312018701:/system/framework/android.test.mock.jar*3601177991:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk*195228051:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes2.dex*4121092945:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes3.dex*1424977288:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes4.dex*2354237732])
+11-12 22:00:36.738 14539 14539 I n.redsquare.de: The ClassLoaderContext is a special shared library.
+11-12 22:00:36.738 14539 14539 I n.redsquare.de: The ClassLoaderContext is a special shared library.
+11-12 22:00:36.739 14539 14539 W n.redsquare.de: ClassLoaderContext classpath size mismatch. expected=0, found=2 (PCL[]{PCL[/system/framework/android.test.mock.jar*3601177991]{PCL[/system/framework/android.test.base.jar*1299883780]}#PCL[/system/framework/android.test.runner.jar*3312018701]{PCL[/system/framework/android.test.base.jar*1299883780]#PCL[/system/framework/android.test.mock.jar*3601177991]{PCL[/system/framework/android.test.base.jar*1299883780]}}} | PCL[/system/framework/android.test.runner.jar*3312018701:/system/framework/android.test.mock.jar*3601177991];PCL[/system/framework/android.test.runner.jar*3312018701:/system/framework/android.test.mock.jar*3601177991:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk*195228051:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes2.dex*4121092945:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes3.dex*1424977288:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes4.dex*2354
+11-12 22:00:36.740 14539 14539 W n.redsquare.de: Found duplicate classes, falling back to extracting from APK : /data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk
+11-12 22:00:36.740 14539 14539 W n.redsquare.de: NOTE: This wastes RAM and hurts startup performance.
+11-12 22:00:36.740 14539 14539 W n.redsquare.de: Found duplicated class when checking oat files: 'Landroidx/compose/ui/test/AbstractMainTestClock$$ExternalSyntheticLambda0;' in /data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk and /data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk
+11-12 22:00:36.740 14539 14539 W n.redsquare.de: 
+11-12 22:00:36.834 14539 14539 W n.redsquare.de: ClassLoaderContext classpath size mismatch. expected=0, found=6 (PCL[] | PCL[/system/framework/android.test.runner.jar*3312018701:/system/framework/android.test.mock.jar*3601177991:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk*195228051:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes2.dex*4121092945:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes3.dex*1424977288:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes4.dex*2354237732];PCL[/system/framework/android.test.runner.jar*3312018701:/system/framework/android.test.mock.jar*3601177991:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk*195228051:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes2.dex*4121092945:/data/app/nl.davidengelen.redsquare.dev.test-FATIUIK4QXcxOBLFGWsR8g==/base.apk!classes3.dex*1424977288:/data/app/nl.davidengelen.redsquare.dev.
+11-12 22:00:36.834 14539 14539 W n.redsquare.de: Found duplicate classes, falling back to extracting from APK : /data/app/nl.davidengelen.redsquare.dev-rYaPMsA7cQlCHP10at__0A==/base.apk
+11-12 22:00:36.835 14539 14539 W n.redsquare.de: NOTE: This wastes RAM and hurts startup performance.
+11-12 22:00:36.835 14539 14539 W n.redsquare.de: Found duplicated class when checking oat files: 'L_COROUTINE/ArtificialStackFrames;' in /data/app/nl.davidengelen.redsquare.dev-rYaPMsA7cQlCHP10at__0A==/base.apk and /data/app/nl.davidengelen.redsquare.dev-rYaPMsA7cQlCHP10at__0A==/base.apk
+11-12 22:00:36.835 14539 14539 W n.redsquare.de: 
+11-12 22:00:37.313 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/app/Instrumentation;->execStartActivity(Landroid/content/Context;Landroid/os/IBinder;Landroid/os/IBinder;Landroid/app/Activity;Landroid/content/Intent;ILandroid/os/Bundle;)Landroid/app/Instrumentation$ActivityResult; (greylist, linking, allowed)
+11-12 22:00:37.313 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/app/Instrumentation;->execStartActivity(Landroid/content/Context;Landroid/os/IBinder;Landroid/os/IBinder;Ljava/lang/String;Landroid/content/Intent;ILandroid/os/Bundle;)Landroid/app/Instrumentation$ActivityResult; (greylist, linking, allowed)
+11-12 22:00:37.318 14539 14539 I AndroidJUnitRunner: newApplication nl.davidengelen.redsquare.RedSquareApplication
+11-12 22:00:37.325 14539 14539 D WM-WrkMgrInitializer: Initializing WorkManager with default configuration.
+11-12 22:00:37.341 14539 14539 D WM-Schedulers: Created SystemJobScheduler and enabled SystemJobService
+11-12 22:00:37.344 14539 14558 D WM-ForceStopRunnable: The default process name was not specified.
+11-12 22:00:37.345 14539 14558 D WM-ForceStopRunnable: Performing cleanup operations.
+11-12 22:00:37.366 14539 14539 I AndroidJUnitRunner: onCreate Bundle[mParcelledData.dataSize=128]
+11-12 22:00:37.368 14539 14539 D AndroidJUnitRunner: Use the raw file system for managing file I/O.
+11-12 22:00:37.369 14539 14558 D WM-ForceStopRunnable: Application was force-stopped, rescheduling.
+11-12 22:00:37.381 14539 14539 V TestEventClient: No service name argument was given (testDiscoveryService, testRunEventService or orchestratorService)
+11-12 22:00:37.387 14539 14560 D AndroidJUnitRunner: onStart is called.
+11-12 22:00:37.421 14539 14560 I TestRunner: run started: 7 tests
+11-12 22:00:37.423 14539 14560 I TestRunner: started: explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(nl.davidengelen.redsquare.WalletImportPreviewTest)
+11-12 22:00:37.481 14539 14560 W n.redsquare.de: Accessing hidden method Landroid/os/Trace;->setAppTracingAllowed(Z)V (greylist, reflection, allowed)
+11-12 22:00:37.481 14539 14560 I Tracing : Tracer added: class androidx.test.platform.tracing.AndroidXTracer
+11-12 22:00:37.505 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (greylist, reflection, allowed)
+11-12 22:00:37.505 14539 14539 W n.redsquare.de: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (greylist, reflection, allowed)
+11-12 22:00:37.505 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (greylist, reflection, allowed)
+11-12 22:00:37.508 14539 14560 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@c5745e7]
+11-12 22:00:37.516 14539 14560 I UiDevice: Creating a new instance, old instance exists: false
+11-12 22:00:37.525 14539 14560 D UiDevice: Setting accessibility service flags: 65618
+11-12 22:00:37.542 14539 14560 D UiDevice: Executing shell command: locksettings set-pin --user 0 246813
+11-12 22:00:37.877 14539 14560 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+11-12 22:00:37.903 14539 14539 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@bad0adf
+11-12 22:00:37.913 14539 14591 D libEGL  : Emulator has host GPU support, qemu.gles is set to 1.
+11-12 22:00:37.921 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: PRE_ON_CREATE
+11-12 22:00:37.922 14539 14539 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+11-12 22:00:37.930 14539 14591 W libc    : Unable to set property "qemu.gles" to "1": connection failed; errno=13 (Permission denied)
+11-12 22:00:37.934 14539 14591 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+11-12 22:00:37.935 14539 14591 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-12 22:00:37.936 14539 14591 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-12 22:00:37.910 14539 14539 W RenderThread: type=1400 audit(0.0:179): avc: denied { write } for name="property_service" dev="tmpfs" ino=6617 scontext=u:r:untrusted_app:s0:c116,c256,c512,c768 tcontext=u:object_r:property_socket:s0 tclass=sock_file permissive=0 app=nl.davidengelen.redsquare.dev
+11-12 22:00:38.043 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: CREATED
+11-12 22:00:38.043 14539 14539 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:38.053 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STARTED
+11-12 22:00:38.054 14539 14539 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:38.055 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESUMED
+11-12 22:00:38.055 14539 14539 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:38.156 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/view/View;->getViewRootImpl()Landroid/view/ViewRootImpl; (greylist, reflection, allowed)
+11-12 22:00:38.156 14539 14539 W n.redsquare.de: Accessing hidden field Landroid/view/View$AttachInfo;->mVisibleInsets:Landroid/graphics/Rect; (greylist, reflection, allowed)
+11-12 22:00:38.156 14539 14539 W n.redsquare.de: Accessing hidden field Landroid/view/ViewRootImpl;->mAttachInfo:Landroid/view/View$AttachInfo; (greylist, reflection, allowed)
+11-12 22:00:38.156 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/os/SystemProperties;->addChangeCallback(Ljava/lang/Runnable;)V (greylist, reflection, allowed)
+11-12 22:00:38.183 14539 14539 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+11-12 22:00:38.273 14539 14589 D HostConnection: HostConnection::get() New Host Connection established 0x6fff579ed060, tid 14589
+11-12 22:00:38.273 14539 14589 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_sync_buffer_data ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+11-12 22:00:38.277 14539 14589 D EGL_emulation: eglCreateContext: 0x6fff57a31960: maj 3 min 0 rcv 3
+11-12 22:00:38.277 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:38.288 14539 14589 W Gralloc3: mapper 3.x is not supported
+11-12 22:00:38.295 14539 14589 D HostConnection: createUnique: call
+11-12 22:00:38.295 14539 14589 D HostConnection: HostConnection::get() New Host Connection established 0x6fff57a31aa0, tid 14589
+11-12 22:00:38.295 14539 14589 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_sync_buffer_data ANDROID_EMU_hwc_color_transform GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+11-12 22:00:38.341 14539 14589 D eglCodecCommon: allocate: Ask for block of size 0x1000
+11-12 22:00:38.341 14539 14589 D eglCodecCommon: allocate: ioctl allocate returned offset 0x3fff20000 size 0x2000
+11-12 22:00:38.346 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:38.970 14539 14550 I n.redsquare.de: Background young concurrent copying GC freed 59971(8787KB) AllocSpace objects, 4(80KB) LOS objects, 53% free, 5249KB/11MB, paused 574us total 388.605ms
+11-12 22:00:39.497 14539 14589 I OpenGLRenderer: Davey! duration=998ms; Flags=0, IntendedVsync=446917834730, Vsync=447034501392, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=447044068600, AnimationStart=447044150080, PerformTraversalsStart=447044335380, DrawStart=447044517810, SyncQueued=447051636920, SyncStart=447051740450, IssueDrawCommandsStart=447051808900, SwapBuffers=447881338250, FrameCompleted=447916218070, DequeueBufferDuration=254000, QueueBufferDuration=531000, 
+11-12 22:00:39.636 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:40.044 14539 14550 I n.redsquare.de: Background concurrent copying GC freed 153093(6202KB) AllocSpace objects, 0(0B) LOS objects, 49% free, 4749KB/9498KB, paused 626us total 178.711ms
+11-12 22:00:40.063 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:40.202 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:40.277 14539 14545 I n.redsquare.de: Compiler allocated 5123KB to compile void nl.davidengelen.redsquare.MainActivity$onCreate$1.invoke(androidx.compose.runtime.Composer, int)
+11-12 22:00:40.310 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:40.321 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:40.459 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:40.517 14539 14550 I n.redsquare.de: Background young concurrent copying GC freed 49032(2068KB) AllocSpace objects, 1(2052KB) LOS objects, 35% free, 6132KB/9498KB, paused 533us total 152.787ms
+11-12 22:00:40.753 14539 14539 W n.redsquare.de: Accessing hidden method Landroid/view/ViewTreeObserver;->dispatchOnScrollChanged()V (greylist, reflection, allowed)
+11-12 22:00:40.877 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: PAUSED
+11-12 22:00:40.877 14539 14539 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:40.884 14539 14605 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:40.889 14539 14606 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:40.889 14539 14560 D UiDevice: Waiting 15000ms for SearchCondition[hasObject=BySelector [RES='\Qandroid:id/title\E']].
+11-12 22:00:40.889 14539 14560 D UiDevice: Searching for node with selector: BySelector [RES='\Qandroid:id/title\E'].
+11-12 22:00:41.008 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:41.077 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STOPPED
+11-12 22:00:41.077 14539 14539 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:41.839 14539 14560 D UiDevice: Retrieving node with selector: BySelector [DESC='\QShow roots\E'].
+11-12 22:00:41.862 14539 14560 W n.redsquare.de: Accessing hidden method Landroid/view/MotionEvent;->setDisplayId(I)V (greylist, reflection, allowed)
+11-12 22:00:41.863 14539 14560 D UiDevice: Waiting 1000ms for SearchCondition[findObject=BySelector [DESC='\QShow roots\E']].
+11-12 22:00:41.863 14539 14560 D UiDevice: Retrieving node with selector: BySelector [DESC='\QShow roots\E'].
+11-12 22:00:41.882 14539 14560 D UiObject2: Clicking on (36, 56).
+11-12 22:00:41.925 14539 14560 W GestureController: Gestures took longer than expected (41ms >> 16ms), device might be in a busy state.
+11-12 22:00:41.925 14539 14560 D UiDevice: Waiting 1000ms for SearchCondition[findObject=BySelector [RES='\Qandroid:id/title\E', TEXT='\QRed Square test backups\E', ANCESTOR='[RES='.*:id/roots_list']']].
+11-12 22:00:41.925 14539 14560 D UiDevice: Retrieving node with selector: BySelector [RES='\Qandroid:id/title\E', TEXT='\QRed Square test backups\E', ANCESTOR='[RES='.*:id/roots_list']'].
+11-12 22:00:42.855 14539 14560 D UiObject2: Clicking on (164, 188).
+11-12 22:00:42.855 14539 14560 W UiObject2: Clicking on non-clickable object: android.view.accessibility.AccessibilityNodeInfo@c74fe; boundsInParent: Rect(0, 0 - 200, 19); boundsInScreen: Rect(64, 179 - 264, 198); packageName: com.android.documentsui; className: android.widget.TextView; text: Red Square test backups; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: android:id/title; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:42.893 14539 14560 W GestureController: Gestures took longer than expected (38ms >> 16ms), device might be in a busy state.
+11-12 22:00:42.893 14539 14560 D UiDevice: Waiting 10000ms for SearchCondition[gone=BySelector [RES='.*:id/roots_list']].
+11-12 22:00:42.894 14539 14560 D UiDevice: Searching for node with selector: BySelector [RES='.*:id/roots_list'].
+11-12 22:00:43.027 14539 14647 D ProfileInstaller: Installing profile for nl.davidengelen.redsquare.dev
+11-12 22:00:43.880 14539 14560 D UiDevice: Waiting 1000ms for SearchCondition[findObject=BySelector [CLASS='\Qandroid.widget.EditText\E', RES='\Qandroid:id/title\E']].
+11-12 22:00:43.880 14539 14560 D UiDevice: Retrieving node with selector: BySelector [CLASS='\Qandroid.widget.EditText\E', RES='\Qandroid:id/title\E'].
+11-12 22:00:43.902 14539 14560 D UiObject2: Setting text to 'activation-original-d1aa5097-4f75-4b7c-8d14-45c8c19a5a76.json'.
+11-12 22:00:43.908 14539 14560 D UiDevice: Waiting 1000ms for SearchCondition[findObject=BySelector [PKG='com\.(?:android|google\.android)\.documentsui', RES='\Qandroid:id/button1\E', ENABLED='true']].
+11-12 22:00:43.908 14539 14560 D UiDevice: Retrieving node with selector: BySelector [PKG='com\.(?:android|google\.android)\.documentsui', RES='\Qandroid:id/button1\E', ENABLED='true'].
+11-12 22:00:44.665 14539 14560 D UiObject2: Clicking on (262, 370).
+11-12 22:00:44.714 14539 14560 W GestureController: Gestures took longer than expected (49ms >> 16ms), device might be in a busy state.
+11-12 22:00:44.714 14539 14560 D UiDevice: Retrieving node with selector: BySelector [RES='(?:com\.android\.settings:id/password_entry|com\.android\.systemui:id/lockPassword)'].
+11-12 22:00:44.761 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESTARTED
+11-12 22:00:44.761 14539 14539 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:44.762 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STARTED
+11-12 22:00:44.762 14539 14539 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:44.777 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESUMED
+11-12 22:00:44.777 14539 14539 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:44.806 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:44.845 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:44.858 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: PAUSED
+11-12 22:00:44.858 14539 14539 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:44.881 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:44.905 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:44.913 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:44.943 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:44.982 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@bc850; boundsInParent: Rect(0, 0 - 320, 124); boundsInScreen: Rect(0, 24 - 320, 148); packageName: com.android.documentsui; className: android.widget.LinearLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/app_bar; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:44.982 14539 14560 W ByMatcher: Skipping null child (0 of 1)
+11-12 22:00:44.984 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@cad4d; boundsInParent: Rect(0, 0 - 132, 132); boundsInScreen: Rect(24, 152 - 156, 284); packageName: com.android.documentsui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/thumbnail; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:44.984 14539 14560 W ByMatcher: Skipping null child (0 of 2)
+11-12 22:00:44.984 14539 14560 W ByMatcher: Skipping null child (1 of 2)
+11-12 22:00:44.992 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@cc3d3; boundsInParent: Rect(0, 0 - 50, 52); boundsInScreen: Rect(24, 284 - 74, 336); packageName: com.android.documentsui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/icon; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:44.993 14539 14560 W ByMatcher: Skipping null child (0 of 2)
+11-12 22:00:44.994 14539 14560 W ByMatcher: Skipping null child (1 of 2)
+11-12 22:00:44.994 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@cc012; boundsInParent: Rect(0, 0 - 132, 52); boundsInScreen: Rect(24, 284 - 156, 336); packageName: com.android.documentsui; className: android.widget.LinearLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/nameplate; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:44.994 14539 14560 W ByMatcher: Skipping null child (1 of 2)
+11-12 22:00:44.995 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@ce1db; boundsInParent: Rect(0, 0 - 136, 188); boundsInScreen: Rect(162, 150 - 298, 338); packageName: com.android.documentsui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/item_root; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_LONG_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null, AccessibilityAction: ACTION_CLICK - null]
+11-12 22:00:44.995 14539 14560 W ByMatcher: Skipping null child (0 of 2)
+11-12 22:00:44.995 14539 14560 W ByMatcher: Skipping null child (1 of 2)
+11-12 22:00:44.995 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@d68ff; boundsInParent: Rect(0, 0 - 136, 188); boundsInScreen: Rect(162, 342 - 298, 530); packageName: com.android.documentsui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/item_root; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_LONG_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null, AccessibilityAction: ACTION_CLICK - null]
+11-12 22:00:44.995 14539 14560 W ByMatcher: Skipping null child (0 of 2)
+11-12 22:00:44.995 14539 14560 W ByMatcher: Skipping null child (1 of 2)
+11-12 22:00:44.996 14539 14560 W ByMatcher: Node returned null child: android.view.accessibility.AccessibilityNodeInfo@80006eca; boundsInParent: Rect(0, 0 - 320, 640); boundsInScreen: Rect(0, 0 - 320, 640); packageName: com.android.documentsui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:44.996 14539 14560 W ByMatcher: Skipping null child (1 of 2)
+11-12 22:00:45.060 14539 14606 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:45.097 14539 14605 W RedSquarePeer: Connection failed (IOException, HTTP 0)
+11-12 22:00:45.105 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:45.128 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STOPPED
+11-12 22:00:45.128 14539 14539 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:45.258 14539 14560 D UiDevice: Node not found with selector: BySelector [RES='(?:com\.android\.settings:id/password_entry|com\.android\.systemui:id/lockPassword)'].
+11-12 22:00:45.259 14539 14560 D UiDevice: Retrieving node with selector: BySelector [CLASS='\Qandroid.widget.EditText\E', PKG='\Qcom.android.systemui\E'].
+11-12 22:00:45.912 14539 14560 D UiDevice: Node not found with selector: BySelector [CLASS='\Qandroid.widget.EditText\E', PKG='\Qcom.android.systemui\E'].
+11-12 22:00:45.912 14539 14560 D UiDevice: Retrieving node with selector: BySelector [TEXT='\QUse PIN\E'].
+11-12 22:00:45.925 14539 14560 D UiDevice: Node not found with selector: BySelector [TEXT='\QUse PIN\E'].
+11-12 22:00:45.926 14539 14560 D UiDevice: Retrieving node with selector: BySelector [PKG='\Qcom.android.systemui\E', RES='\Qcred_pin_pad\E'].
+11-12 22:00:45.936 14539 14560 D UiDevice: Node not found with selector: BySelector [PKG='\Qcom.android.systemui\E', RES='\Qcred_pin_pad\E'].
+11-12 22:00:46.036 14539 14560 D UiDevice: Retrieving node with selector: BySelector [RES='(?:com\.android\.settings:id/password_entry|com\.android\.systemui:id/lockPassword)'].
+11-12 22:00:46.052 14539 14560 D UiObject2: Setting text to '246813'.
+11-12 22:00:46.056 14539 14560 D UiDevice: Pressing keycodes [66] with modifier 0.
+11-12 22:00:46.148 14539 14558 W ParcelFileDescriptor: Peer didn't provide a comm channel; unable to check for errors
+11-12 22:00:46.155 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESTARTED
+11-12 22:00:46.155 14539 14539 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:46.156 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STARTED
+11-12 22:00:46.156 14539 14539 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:46.157 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESUMED
+11-12 22:00:46.157 14539 14539 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:46.164 14539 14558 W ParcelFileDescriptor: Peer didn't provide a comm channel; unable to check for errors
+11-12 22:00:46.199 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:46.227 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:46.466 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:46.689 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:46.760 14539 14589 I chatty  : uid=10116(nl.davidengelen.redsquare.dev) RenderThread identical 6 lines
+11-12 22:00:46.809 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:46.935 14539 14560 D UiDevice: Dumping window hierarchy to /data/user/0/nl.davidengelen.redsquare.dev/cache/wallet-import-evidence/activation-import-entry.xml.
+11-12 22:00:47.115 14539 14560 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@3fe968; boundsInParent: Rect(0, 0 - 0, 24); boundsInScreen: Rect(160, 0 - 160, 24); packageName: com.android.systemui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.systemui:id/centered_icon_area; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:47.115 14539 14560 D UiDevice: Taking screenshot (scale=1.000000, quality=90) and storing at /data/user/0/nl.davidengelen.redsquare.dev/cache/wallet-import-evidence/activation-import-entry.png.
+11-12 22:00:47.247 14539 14560 D UiDevice: Searching for node with selector: BySelector [RES='\Qandroid:id/title\E', TEXT='\QRed Square test backups\E'].
+11-12 22:00:47.261 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: PAUSED
+11-12 22:00:47.261 14539 14539 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:47.263 14539 14605 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:47.264 14539 14606 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:47.390 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:47.418 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STOPPED
+11-12 22:00:47.419 14539 14539 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:48.099 14539 14560 D UiDevice: Searching for node with selector: BySelector [TEXT='\QRed Square test backups\E'].
+11-12 22:00:48.109 14539 14560 D UiDevice: Waiting 2000ms for SearchCondition[hasObject=BySelector [TEXT='\Qreference-import.json\E']].
+11-12 22:00:48.109 14539 14560 D UiDevice: Searching for node with selector: BySelector [TEXT='\Qreference-import.json\E'].
+11-12 22:00:49.998 14539 14560 I chatty  : uid=10116(nl.davidengelen.redsquare.dev) roidJUnitRunner identical 17 lines
+11-12 22:00:50.110 14539 14560 D UiDevice: Searching for node with selector: BySelector [TEXT='\Qreference-import.json\E'].
+11-12 22:00:50.145 14539 14560 D UiScrollable: Scrolling UiSelector[TEXT=reference-import.json] into view.
+11-12 22:00:50.154 14539 14560 I QueryController: Matched selector: UiSelector[SCROLLABLE=true] <<==>> [android.view.accessibility.AccessibilityNodeInfo@f90d5; boundsInParent: Rect(0, 0 - 320, 676); boundsInScreen: Rect(0, 24 - 320, 640); packageName: com.android.documentsui; className: androidx.recyclerview.widget.RecyclerView; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/dir_list; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: true; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SCROLL_FORWARD - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]]
+11-12 22:00:50.155 14539 14560 D UiScrollable: Scrolling backward from (160, 85) to (160, 579) in 55 steps.
+11-12 22:00:53.002 14539 14560 W InteractionController: Timed out waiting 1000ms for command and events.
+11-12 22:00:53.027 14539 14560 I QueryController: Matched selector: UiSelector[SCROLLABLE=true] <<==>> [android.view.accessibility.AccessibilityNodeInfo@f90d5; boundsInParent: Rect(0, 0 - 320, 676); boundsInScreen: Rect(0, 24 - 320, 640); packageName: com.android.documentsui; className: androidx.recyclerview.widget.RecyclerView; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.documentsui:id/dir_list; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: true; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SCROLL_FORWARD - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]]
+11-12 22:00:53.028 14539 14560 D UiScrollable: Scrolling forward from (160, 579) to (160, 85) in 55 steps.
+11-12 22:00:54.892 14539 14560 I QueryController: Matched selector: UiSelector[SCROLLABLE=true, CHILD=UiSelector[TEXT=reference-import.json]] <<==>> [android.view.accessibility.AccessibilityNodeInfo@10d76c; boundsInParent: Rect(0, 0 - 70, 19); boundsInScreen: Rect(74, 400 - 144, 419); packageName: com.android.documentsui; className: android.widget.TextView; text: reference-import.json; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: android:id/title; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]]
+11-12 22:00:54.892 14539 14560 D UiDevice: Waiting 10000ms for SearchCondition[findObject=BySelector [TEXT='\Qreference-import.json\E']].
+11-12 22:00:54.893 14539 14560 D UiDevice: Retrieving node with selector: BySelector [TEXT='\Qreference-import.json\E'].
+11-12 22:00:54.905 14539 14560 D UiObject2: Clicking on (109, 409).
+11-12 22:00:54.906 14539 14560 W UiObject2: Clicking on non-clickable object: android.view.accessibility.AccessibilityNodeInfo@10d76c; boundsInParent: Rect(0, 0 - 70, 19); boundsInScreen: Rect(74, 400 - 144, 419); packageName: com.android.documentsui; className: android.widget.TextView; text: reference-import.json; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: android:id/title; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: true; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:00:54.944 14539 14560 W GestureController: Gestures took longer than expected (38ms >> 16ms), device might be in a busy state.
+11-12 22:00:54.959 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESTARTED
+11-12 22:00:54.960 14539 14539 V ActivityScenario: Update currentActivityStage to RESTARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:54.961 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: STARTED
+11-12 22:00:54.961 14539 14539 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:54.963 14539 14539 D LifecycleMonitor: Lifecycle status change: nl.davidengelen.redsquare.MainActivity@bd72aad in: RESUMED
+11-12 22:00:54.963 14539 14539 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=nl.davidengelen.redsquare.MainActivity@bd72aad
+11-12 22:00:55.005 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:55.009 14539 14558 W ParcelFileDescriptor: Peer didn't provide a comm channel; unable to check for errors
+11-12 22:00:55.020 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:55.135 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:00:55.228 14539 14550 I n.redsquare.de: Background concurrent copying GC freed 39070(1648KB) AllocSpace objects, 1(20KB) LOS objects, 32% free, 12MB/18MB, paused 472us total 232.647ms
+11-12 22:00:55.959 14539 14605 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:55.960 14539 14606 W RedSquarePeer: Connection failed (SocketException, HTTP 0)
+11-12 22:00:56.360 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:01:11.328 14539 14560 D UiDevice: Dumping window hierarchy to /data/user/0/nl.davidengelen.redsquare.dev/cache/wallet-import-evidence/activation-first-failure.xml.
+11-12 22:01:11.352 14539 14589 D EGL_emulation: eglMakeCurrent: 0x6fff57a31960: ver 3 0 (tinfo 0x6fff57a3bac0)
+11-12 22:01:11.363 14539 14560 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@3fe968; boundsInParent: Rect(0, 0 - 0, 24); boundsInScreen: Rect(160, 0 - 160, 24); packageName: com.android.systemui; className: android.widget.FrameLayout; text: null; error: null; maxTextLength: -1; contentDescription: null; tooltipText: null; viewIdResName: com.android.systemui:id/centered_icon_area; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]
+11-12 22:01:11.363 14539 14560 D UiDevice: Taking screenshot (scale=1.000000, quality=90) and storing at /data/user/0/nl.davidengelen.redsquare.dev/cache/wallet-import-evidence/activation-first-failure.png.
+11-12 22:01:11.382 14539 14560 D UiDevice: Executing shell command: timeout 3 logcat -d -v threadtime --pid=14539 -t 300

@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "run": "43287998717",
+  "source": "e963da67c4552f2be7715661a6b6bbadf016800f",
+  "tests": 16,
+  "originalFiveSecondBlockingWaitRetained": true,
+  "failureOnlyDiagnosticNotEntered": true,
+  "conclusion": "Intermittency observed. This successful focused run does not prove the original failure cause and does not accept the complete SDK.",
+  "correction": "8ac4ef1aa replaces only the original5s observer with a same-boundary Compose-aware5s request/health predicate. No production change or deadline waiver."
+}

@@ -1,0 +1,8 @@
+{
+  "result": "FAIL",
+  "run": "43245872231",
+  "source": "af920bb8fc29e08028615a0099fa9683dfc71794",
+  "observation": "Native complete observation has disabled clickable Save as parent before the test click; transfer is COMPLETE150007, actual browser acknowledges3/3 without errors. The existing explicit delayed Chat recreation can retain cached labels before export becomes enabled. Screenshot/hierarchy are separate observations.",
+  "correction": "b43/64 strengthen existing30s readiness predicates, including after explicit recreation, to require the enabled export action. FileSaved30s assertion, native capture10s,48dp,12cells,180s and exact exported-byte goals remain.",
+  "acceptance": "Later focused and final complete corrected-source proof required. No production change for this observation."
+}

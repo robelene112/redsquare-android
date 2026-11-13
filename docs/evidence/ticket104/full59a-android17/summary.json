@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "sdk": "17",
+  "source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+  "run": "43313830991",
+  "completedIdentities": 688,
+  "recoveryTotals": {
+    "normalCompletions": 276,
+    "deliberateInterruptions": 39,
+    "continuityRecords": 38
+  },
+  "classes": 254,
+  "assumptions": [],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 212,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/talk-native/raw-43313830991",
+  "qualification": "Complete primary run, all3partitions. Original raw artifacts retained externally. No partial assembly or physical/provider/store acceptance."
+}

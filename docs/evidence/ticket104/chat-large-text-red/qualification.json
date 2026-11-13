@@ -1,0 +1,11 @@
+{
+  "result": "FAIL",
+  "run": "43241223579",
+  "source": "dc70d31dbe30a9652705403a875e6f4c0988dbad",
+  "testClass": "FileshareNarrowViewportTest",
+  "cell": "320dp/font200/light",
+  "originalGoal": "File saved exact native visible text inside ten seconds, with Save as enabled/48dp and the unsent draft retained. Class180s and original viewport goals unchanged.",
+  "observation": "The native screen shows new Audio/Video call text wrapping across multiple lines inside tall pills, leaving a very small message viewport. Save as is visible after scroll; File saved is not. Screenshot/hierarchy are separate observations.",
+  "correction": "af920bb8f replaces only new call row with standard48dp icon buttons and unchanged spoken labels. db61738be keeps the existing semantic-text test selector. No inherited test/deadline/collector is weakened.",
+  "acceptance": "Focused and complete corrected-source outcomes remain pending. Candidate118 must never be promoted."
+}

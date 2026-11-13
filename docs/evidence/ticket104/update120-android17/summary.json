@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "sdk": "17",
+  "run": "43254001890",
+  "source": "99a9bec07e8cca720e40c51d52cef1b6289728a8",
+  "versions": [
+    83,
+    120
+  ],
+  "downloadedCandidateBytes": 91836199,
+  "downloadedCandidateSha256": "d4fb7d2c4edf2bd9514c60c8f8677466f774f291d21c06d8f6d0cb6e675445af",
+  "originalFiles": 48,
+  "qualification": "Actual signed update preserves ordinary wallet, separate unchanged debug identity, exact unsent draft, cached post and Light preference through update/cold launch. Disposable emulator. Historical superseded candidate120 only; final121 requires its own update and application acceptance."
+}

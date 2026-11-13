@@ -1,0 +1,9 @@
+{
+  "result": "FAIL",
+  "run": "43266182753",
+  "source": "11a3a15f6",
+  "reproduction": "Same actual three-party call/FileSession; verify150007bytes, export through real ContentResolver, observeSAVED, cross existing1500ms receipt grace by2s. Foreground ownership remains true.",
+  "originalArchive": "/mnt/storage/redsquare-android-artifacts/talk-native/raw-43266182753/android-native-proof/.scratch/device-evidence/api-37.0/talk-fileshare-evidence.tar",
+  "originalArchiveSha256": "063f6290ba2f528a22869ed423203ac65f77e757da6f5b1c98ba02dd63599e3a",
+  "qualification": "Strengthens existing coexistence test within original180s class and original5s Chat goal. Later Saved/ACK/Chat checks have not executed in this failed run."
+}

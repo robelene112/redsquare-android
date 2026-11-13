@@ -1,0 +1,34 @@
+{
+  "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+  "run": "43338624958",
+  "partition": "social",
+  "result": "FAILED_ORIGINAL_OUTAGE_DRIVER",
+  "failures": [
+    "ConversationHeaderPreviewTest:95",
+    "ConversationHeaderViewportFixture:160 pixel",
+    "ConversationHeaderViewportFixture:160 narrow"
+  ],
+  "originalBoundsMillis": 20000,
+  "qualification": "Rejection of future upgrades did not interrupt an admitted pooled socket. Original failure XML/PNG shows the normal cached conversation without the required outage error. This is a fixture setup defect, not proof of a product refresh defect. Existing error/cache/retry/draft/viewport/publication and deadline goals remain required. The admitted incomplete-handshake check does not claim positive observation of entering its held wait.",
+  "files": {
+    "before-cleanup-failure.png": "7b339eb656cf4cf261a843c16f6665259b27795d2be18ec5d23ead40454ad5fb",
+    "before-cleanup-failure.xml": "238d72c8b1757f6547b6f1e437055d16c7693fc1070299f8ae1e5e2bb7f36927",
+    "combined-recovery-failure.xml": "238d72c8b1757f6547b6f1e437055d16c7693fc1070299f8ae1e5e2bb7f36927",
+    "conversation-narrow-ui.txt": "66364b4e6a05ddc5e19d15a46f12839bca98456aa759ccefdf37a423d8d4cbbd",
+    "outage-driver-green.xml": "77d6e19987b4fd5646b91e3131c0f87ce04bb1a3bbaf16803fc34efff26bf8a1",
+    "conversation-pixel-ui.txt": "6af91141079e8726e22756db64b9f1895bbd1d3a196dec495bfde2c12e57aa13",
+    "conversation-header-ui.txt": "5ee4ae656ade768f806933c781b296efdb85932ef9765de5e606ed4751a614eb"
+  },
+  "correctedFixtureSource": "57039b817eef50d1a52a4ae28b0d0b8db5543245",
+  "hostCoreTests": 147,
+  "newOutageDriverTests": 2,
+  "localAppAndTestCompilation": "PASS",
+  "sourceReviews": {
+    "standards": {
+      "findings": 0
+    },
+    "spec": {
+      "findings": 0
+    }
+  }
+}

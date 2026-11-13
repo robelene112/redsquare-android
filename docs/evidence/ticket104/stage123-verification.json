@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "observedAt": "2026-11-12T17:36:48.367701+00:00",
+  "mode": "stage",
+  "versionCode": 123,
+  "source": "2f0a6699be2ba7b4f39b031367e239b86f6cca2a",
+  "bytes": 91836199,
+  "sha256": "35ea382b8d15d5c7301069658c685764f16ca2f366d4f28d6e5410a803042645",
+  "manifestExact": true,
+  "notesExact": true,
+  "downloadExact": true,
+  "downloadedApkSignatureVerified": true,
+  "publicLatest": 116,
+  "httpClient": "curl",
+  "packageChecks": {
+    "applicationId": "nl.davidengelen.redsquare",
+    "minSdk": 29,
+    "targetSdk": 36,
+    "debuggable": false,
+    "profileable": false,
+    "allowBackup": false,
+    "establishedCertificate": true,
+    "talkRuntimePermissionsDeclared": true,
+    "browserFixturesAbsent": true
+  },
+  "qualification": "Exact public artifact/package/manifest/signature verification; runtime and real device/provider/Play acceptance remain distinct."
+}

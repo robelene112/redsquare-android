@@ -1,0 +1,19 @@
+{
+  "run": "43329715447",
+  "source": "f20b41b4eb664b6f52c726763b9bdabb6fd7e33b",
+  "result": "FAIL",
+  "sdk": "17",
+  "stage": "chooseTestBackup47, before actual import/parent observation",
+  "observed": "Drawer remains open, Downloads selected. Exact provider title is visible and nonclickable; nearest provider row is visible/enabled/clickable. Main has0 resumedActivities because external DocumentsUI owns focus. This is not the original blank parent failure.",
+  "correctionSource": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+  "correction": "Actual native ancestor ACTION_CLICK once. Same original20s lookup/action, checkedbefore/after, same10s DrawerGone. AllSave/PIN/import/bytes/identity/publication/class goals retained. Precise oldtap timing/causeunproved.",
+  "sourceReviews": {
+    "standards": "0 findings/waivers",
+    "spec": "0 findings/waivers; retained whole17 already completed actual export/import, continuation conditional on finalbridge/complete-indexreview"
+  },
+  "focusedRuns": {
+    "10": "43331694541",
+    "17": "43331694551"
+  },
+  "originals": 4
+}

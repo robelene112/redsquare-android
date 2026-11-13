@@ -1,0 +1,59 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkFilesharePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkFilesharePreviewTest:
+INSTRUMENTATION_STATUS: test=blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkFilesharePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Actual encrypted private Chat still retains over the shared peer: INTERRUPTED, files=[FileTransfer(token=7ddfe3ee-b647-4f77-8bb5-398c0855a870, owner=pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU, backend=OWNER, contact=jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, endpoint=ws://127.0.0.1:36437/wsopen, offer=Offer(id=call104file, name=during-call.bin, size=150007, type=application/octet-stream), incoming=true, phase=COMPLETE, bytes=150007, createdAt=1794502884811, source=null)]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$await(TalkFilesharePreviewTest.kt:58)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$await$default(TalkFilesharePreviewTest.kt:52)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$lambda$27$lambda$26$lambda$25(TalkFilesharePreviewTest.kt:109)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.$r8$lambda$YPPxHPFJTXE9tsCHhCsA6xDvseE(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(TalkFilesharePreviewTest.kt:66)
+
+INSTRUMENTATION_STATUS: stream=
+Error in blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(nl.davidengelen.redsquare.TalkFilesharePreviewTest):
+java.lang.AssertionError: Actual encrypted private Chat still retains over the shared peer: INTERRUPTED, files=[FileTransfer(token=7ddfe3ee-b647-4f77-8bb5-398c0855a870, owner=pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU, backend=OWNER, contact=jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, endpoint=ws://127.0.0.1:36437/wsopen, offer=Offer(id=call104file, name=during-call.bin, size=150007, type=application/octet-stream), incoming=true, phase=COMPLETE, bytes=150007, createdAt=1794502884811, source=null)]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$await(TalkFilesharePreviewTest.kt:58)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$await$default(TalkFilesharePreviewTest.kt:52)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$lambda$27$lambda$26$lambda$25(TalkFilesharePreviewTest.kt:109)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.$r8$lambda$YPPxHPFJTXE9tsCHhCsA6xDvseE(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(TalkFilesharePreviewTest.kt:66)
+
+INSTRUMENTATION_STATUS: test=blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.597
+There was 1 failure:
+1) blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(nl.davidengelen.redsquare.TalkFilesharePreviewTest)
+java.lang.AssertionError: Actual encrypted private Chat still retains over the shared peer: INTERRUPTED, files=[FileTransfer(token=7ddfe3ee-b647-4f77-8bb5-398c0855a870, owner=pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU, backend=OWNER, contact=jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR, endpoint=ws://127.0.0.1:36437/wsopen, offer=Offer(id=call104file, name=during-call.bin, size=150007, type=application/octet-stream), incoming=true, phase=COMPLETE, bytes=150007, createdAt=1794502884811, source=null)]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$await(TalkFilesharePreviewTest.kt:58)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$await$default(TalkFilesharePreviewTest.kt:52)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat$lambda$27$lambda$26$lambda$25(TalkFilesharePreviewTest.kt:109)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.$r8$lambda$YPPxHPFJTXE9tsCHhCsA6xDvseE(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkFilesharePreviewTest.blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat(TalkFilesharePreviewTest.kt:66)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

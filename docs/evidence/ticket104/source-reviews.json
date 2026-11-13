@@ -1,0 +1,242 @@
+{
+  "base": "c02fa1e3fb795b7e252f0973235bfc852ec891b4",
+  "source": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "scope": "Full production review and subsequent error-ownership correction, with fixture changes preserving original goals/deadlines. Native acceptance and delivery remain separate.",
+  "standards": {
+    "agent": "talk104_standards_review",
+    "result": "PASS",
+    "findings": 0,
+    "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+  },
+  "spec": {
+    "agent": "talk104_spec_review",
+    "result": "PASS",
+    "findings": 0,
+    "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+  },
+  "historicalSourceReviews": {
+    "base": "c02fa1e3fb795b7e252f0973235bfc852ec891b4",
+    "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+    "compiledSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+    "scope": "Original complete production review plus independently reviewed corrections through shared node ownership and reconnect namespace. Source and host/package clearance only; native/update/delivery pending.",
+    "standards": {
+      "findings": 0,
+      "agent": "talk104_standards_review",
+      "scope": "Current working source, shared socket/index namespace, independent owner release, callback fanout and caller-prefix drain. Exact899 native successful-owner attribution reviewed; no goal/deadline waiver.",
+      "reconnectCorrection": "0 findings. Process-wide positive IDs never wrap/reset. Exact held-old/replacement callbacks regression directly exercises latest-public-key routing. Across-process random-seed qualification retained."
+    },
+    "spec": {
+      "findings": 0,
+      "agent": "talk104_spec_review",
+      "scope": "Current working source. Original P1 fixed; receiver fanout, own-prefix drain and exact899 fresh private callback observation address review P2 findings. Runtime/package/delivery not accepted.",
+      "reconnectCorrection": "0 findings. Process-wide positive IDs never wrap/reset. Exact held-old/replacement callbacks regression directly exercises latest-public-key routing. Across-process random-seed qualification retained."
+    },
+    "hostEvidenceReviews": {
+      "standards": {
+        "findings": 0,
+        "result": "PASS"
+      },
+      "spec": {
+        "findings": 0,
+        "result": "PASS"
+      },
+      "scope": "All5 hashes, four original red XMLs, eight green regressions and145 core tests independently verified. No proof of earlier blank-wallet cause."
+    },
+    "verificationSources": {
+      "10": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+      "17": "6857e7c6c65eec61d017cf74b3655a9fb67c347c"
+    },
+    "historicalSuperseded125Reviews": {
+      "base": "c02fa1e3fb795b7e252f0973235bfc852ec891b4",
+      "source": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+      "scope": "Fullproductionthroughcompiledb73,13-fileSDK10f114 observerbridge and14-fileSDK178d bridge. Bothsourceaxes0; complete perSDK/runtime/bridge/publicdelivery acceptancepending.",
+      "standards": {
+        "agent": "talk104_standards_review",
+        "result": "PASS",
+        "findings": 0,
+        "report": "No remaining hard violations or material baseline smells. Exact call/lease/transfer tokens preserve authority and isolate release. Guarded routing and Chat retention run off the SDK signalling thread; encrypted-inbox staging keeps its bounds and initial controls follow OPEN. Lower-key rendezvous removes the unconditional initial-offer race. Transfer cleanup releases streaming and foreground work while visible Chat retains delivery; COMPLETE/SAVED share a predicate, late final chunks ACK idempotently without reopening/downgrading Saved, and an exact completed transfer token governs last-detach cleanup. The header menu preserves controls/labels without extra height. Registry requests and their verified socket keys share one record while generic history remains. Fixture Stun initiation follows upstream lower-key behavior; native-offerer coverage is strengthened. All original deadlines and frozen104/103 contracts/collectors are unchanged. Production diagnostic probes are absent. The final ChatIdentity test delta independently preserves exact cached-message/name/key/offline/zero-publication goals and original20s bounds in the intentionally restored destination. Initial list navigation remains covered. No conditional fallback or source change. Independently reviewed wallet-reader correction uses the opened descriptor actual bounded size, exact read and EOF while preserving original min/max limits, synchronization, version/authentication/decryption/wiping and recovery semantics. No heap or deadline change. Source clearance0findings; fixed-source runtime/candidate124 acceptance pending. Independently reviewed b73f91c72: exactly two optional camera/autofocus feature declarations correct the candidate124 implied back-camera requirement without changing call runtime or permissions. No remaining source findings; actual candidate125 package and full evidence remain pending. Final8ac netdiff is exactly one AndroidTest observer line: same-boundary Compose-aware5000ms real request/health observation replaces external blocking latch. All other Git objects are identical; temporary diagnostics removed. Original failure cause remains unproved. No deadline or assertion-goal waiver. Sourcebridge acceptance still requires successful complete SDKs. Finalba0d exactnetdelta fromcompiledb73 is11AndroidTestfiles. Exact restoredkey/groupID/privacy throughactualDetails and nativewindowdismissal replaces obsolete listreopening; knownlist/scope-reset paths retained. Freshread counters precede recreation. Original content/draft/bytes/GIFcredits/queue/reaction/membership/transmission and15/20s/class goals retained. Username5s andChatAlertsingle20s retained. All otherGitobjects identical. No sourcefindings or waiver; actualcompleteacceptance remains pending. Finalf114 net13testfiles only. MixedChat proves passiveTalk baseline throughnativeUI, retains it whilederivingnonemptyGroupIDs; allgroupIDsretire andonlyfreshIDs receiveexistingpacket899 withactualACKwithinoriginal15s. SourcepairedtestfixturetargetsnetworkIDswithoutchangingdefaultbroadcast/rawhistory. Reactions7800-7803eachmatchactualpositiveACKwithinoriginal5s, fixingglobalthresholdP2. AllotherGitobjectsidentical. Source0; runtime/bridgepending. SDK17exact8d PolicyCenteraddsoneobserverfile: nativeappAccountroot+visibleSettings\u2192enabledvisibleclickableancestor ACTION_CLICK insideSAME5s frombeforeAccountopen, no freshlookupbudget/fallback. AllsubsequentNode/TTS/focus/radio/restoration/publicationgoalsunchanged. Originaltimingunproved.0sourcefindings/waivers. SDK10f114canretainoriginalobserveronlyifitsWHOLErunpasses; both exactcompleteSDKs+sourceequivalence stillrequired. Current59a has only three additional observations in the already-changed ChatQueue fixture: original backend/wallet returns now assert exact saved key/group ID and privacy directly. Both axes report zero findings or waivers; all raw/Relay/signature/queue/no-reroute/content goals and deadlines remain. Remaining-pattern audit found no further concrete mismatch. Earlier per-SDK source continuation is superseded: both fresh whole SDKs must verify59a."
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "result": "PASS",
+        "findings": 0,
+        "report": "No actionable remaining source findings. Direct private-Chat audio/video and group room/invitation flows preserve consent, identity/node scope, controls, navigation, draft and shared File/Chat ownership. Initial lower-key rendezvous addresses measured glare while video explicitly checks actual native initial-offerer coverage. Exact completed-transfer ownership fixes sequential incoming receipt grace; Saved cleanup and duplicate ACK preserve file state and foreground release. Registry attribution checks the verified socket of every query/namecheck without deleting legitimate pre-import Talk authentication or weakening discovery/proof/recreation/no-registration goals. Controlled Fileshare Stun adapter correction retains signed byte/background/receipt goals and is not described as full upstream Stun execution. No scope creep or changed frozen goal/deadline. Runtime/update/public delivery acceptance remains separate. The final ChatIdentity test delta independently preserves exact cached-message/name/key/offline/zero-publication goals and original20s bounds in the intentionally restored destination. Initial list navigation remains covered. No conditional fallback or source change. Independently reviewed wallet-reader correction uses the opened descriptor actual bounded size, exact read and EOF while preserving original min/max limits, synchronization, version/authentication/decryption/wiping and recovery semantics. No heap or deadline change. Source clearance0findings; fixed-source runtime/candidate124 acceptance pending. Independently reviewed b73f91c72: exactly two optional camera/autofocus feature declarations correct the candidate124 implied back-camera requirement without changing call runtime or permissions. No remaining source findings; actual candidate125 package and full evidence remain pending. Final8ac netdiff is exactly one AndroidTest observer line: same-boundary Compose-aware5000ms real request/health observation replaces external blocking latch. All other Git objects are identical; temporary diagnostics removed. Original failure cause remains unproved. No deadline or assertion-goal waiver. Sourcebridge acceptance still requires successful complete SDKs. Finalba0d exactnetdelta fromcompiledb73 is11AndroidTestfiles. Exact restoredkey/groupID/privacy throughactualDetails and nativewindowdismissal replaces obsolete listreopening; knownlist/scope-reset paths retained. Freshread counters precede recreation. Original content/draft/bytes/GIFcredits/queue/reaction/membership/transmission and15/20s/class goals retained. Username5s andChatAlertsingle20s retained. All otherGitobjects identical. No sourcefindings or waiver; actualcompleteacceptance remains pending. Finalf114 net13testfiles only. MixedChat proves passiveTalk baseline throughnativeUI, retains it whilederivingnonemptyGroupIDs; allgroupIDsretire andonlyfreshIDs receiveexistingpacket899 withactualACKwithinoriginal15s. SourcepairedtestfixturetargetsnetworkIDswithoutchangingdefaultbroadcast/rawhistory. Reactions7800-7803eachmatchactualpositiveACKwithinoriginal5s, fixingglobalthresholdP2. AllotherGitobjectsidentical. Source0; runtime/bridgepending. SDK17exact8d PolicyCenteraddsoneobserverfile: nativeappAccountroot+visibleSettings\u2192enabledvisibleclickableancestor ACTION_CLICK insideSAME5s frombeforeAccountopen, no freshlookupbudget/fallback. AllsubsequentNode/TTS/focus/radio/restoration/publicationgoalsunchanged. Originaltimingunproved.0sourcefindings/waivers. SDK10f114canretainoriginalobserveronlyifitsWHOLErunpasses; both exactcompleteSDKs+sourceequivalence stillrequired. Current59a has only three additional observations in the already-changed ChatQueue fixture: original backend/wallet returns now assert exact saved key/group ID and privacy directly. Both axes report zero findings or waivers; all raw/Relay/signature/queue/no-reroute/content goals and deadlines remain. Remaining-pattern audit found no further concrete mismatch. Earlier per-SDK source continuation is superseded: both fresh whole SDKs must verify59a."
+      },
+      "compiledSource": "b73f91c722b8996278f90028939c6c2af02d72c8",
+      "verificationSources": {
+        "10": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+        "17": "59a84de8b8ea74614a7ef391fb8867d2a5313021"
+      },
+      "subsequentDeltaReviews": [
+        {
+          "source": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+          "change": "Three ChatQueue original-scope returns observe exact retained conversations. All original raw/Relay/signature/queue/no-reroute/content/goals/deadlines remain.",
+          "standards": {
+            "findings": 0,
+            "report": "Three-line correction preserves scope isolation and exact-send goals; all6 PNG/XML files verified against native tar originals. Remaining scope-return audit found no further concrete mismatch."
+          },
+          "spec": {
+            "findings": 0,
+            "report": "Matches104 conversation preservation across original backend/wallet return. Three native capture pairs and group queued-ID/history/no-alternate-send checkpoint support the obsolete observation correction. No further concrete scope-return mismatch. Runtime pending."
+          }
+        },
+        {
+          "source": "65297555e9fc3420dac08777269d3cf93d3a8da8",
+          "focusedSource": "f20b41b4eb664b6f52c726763b9bdabb6fd7e33b",
+          "change": "Single15s Wallet parent-window observer, all temporary diagnostics removed. No product change.",
+          "standards": {
+            "findings": 0,
+            "report": "Nativeparentfocus, nativeCloseabsence andComposeWalletheadingabsence distinguish duplicateDialogheader. Dismissal/idle/draw/Node share original15s frombeforeClose, post-checks preventlatepass. Original goals unchanged, originalblankcauseunproved."
+          },
+          "spec": {
+            "findings": 0,
+            "report": "No goalwaiver. Independently verified retained17 original parent PNG/XML: real unobscuredHeader/Node/backup, noWalletDialog. Fixture-only perSDK continuation conditional on finalcompleteindexes. Exact15/14staticbridge inventories and failure-only removal verified."
+          }
+        },
+        {
+          "source": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+          "change": "Native DocumentsUI provider row action,16-file10 bridge;14-file17 retained.",
+          "standards": {
+            "findings": 0,
+            "report": "Exact title/package/roots, closest visible enabled clickable ancestor, one checked ACTION_CLICK. Original20s lookup/action and10s DrawerGone preserved with pre/postchecks. No main code/state injection or waiver; original tap timing unproved."
+          },
+          "spec": {
+            "findings": 0,
+            "report": "Original Save/PIN/import/bytes/identity/goals retained. Whole17 already completed actual export/import. PerSDK continuation conditional on final indexes. Exact16/14inventories,32/28hashes,unchangedtrees and125APK verified;4 picker originals byte-exact."
+          }
+        }
+      ],
+      "verificationSource": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+      "currentReleaseStatus": "PENDING_COMPLETE_SHARED_NODE_RUNTIME",
+      "supersededByRequiredProductionChange": {
+        "baseline": "6df3f790c33a8b0310054d2abd4a69be3952a036",
+        "reason": "Pinned Saito module callback routing uses latest socket per authenticated public key; separate same-wallet feature sockets are incompatible. Candidate125 must not be promoted. Both new whole SDKs and a new signed candidate are required.",
+        "qualification": "This is not evidence of the cause of the earlier intermittent blank wallet."
+      },
+      "sharedNodeCorrectionReviews": {
+        "standards": {
+          "findings": 0,
+          "agent": "talk104_standards_review",
+          "scope": "Current working source, shared socket/index namespace, independent owner release, callback fanout and caller-prefix drain. Exact899 native successful-owner attribution reviewed; no goal/deadline waiver.",
+          "reconnectCorrection": "0 findings. Process-wide positive IDs never wrap/reset. Exact held-old/replacement callbacks regression directly exercises latest-public-key routing. Across-process random-seed qualification retained."
+        },
+        "spec": {
+          "findings": 0,
+          "agent": "talk104_spec_review",
+          "scope": "Current working source. Original P1 fixed; receiver fanout, own-prefix drain and exact899 fresh private callback observation address review P2 findings. Runtime/package/delivery not accepted.",
+          "reconnectCorrection": "0 findings. Process-wide positive IDs never wrap/reset. Exact held-old/replacement callbacks regression directly exercises latest-public-key routing. Across-process random-seed qualification retained."
+        },
+        "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c"
+      },
+      "currentSource": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+      "currentRuntimeSources": {
+        "10": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+        "17": "6857e7c6c65eec61d017cf74b3655a9fb67c347c"
+      },
+      "currentRuntimeRuns": {
+        "10": "43338625252",
+        "17": "43338624958"
+      },
+      "currentCandidate": {
+        "version": 126,
+        "source": "6857e7c6c65eec61d017cf74b3655a9fb67c347c",
+        "status": "STAGED_PACKAGE_PASS_RUNTIME_PENDING",
+        "stageReceipt": "stage126-verification.json",
+        "bytes": 91852583,
+        "sha256": "2342251ba6771851a941f9403f4a23d1ca217c660934059fa5379ba105bfcf02"
+      },
+      "currentUpdateRuns": {
+        "10": "43339605112",
+        "17": "43339604818"
+      }
+    },
+    "fixtureSource": "d09cc1588fb3de3e010d46e1e130760df769bdb0",
+    "fixtureDeltaReviews": {
+      "standards": {
+        "agent": "talk104_standards_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Actual outage operation at22 native sites across18 files, keeping existing assertions/retry/cache/draft/viewport/speech/publication and15/20s goals. Shared fixture handles already admitted and newly admitted sockets; production/build/harness/frozen inputs unchanged."
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Actual outage operation at22 native sites across18 files, keeping existing assertions/retry/cache/draft/viewport/speech/publication and15/20s goals. Shared fixture handles already admitted and newly admitted sockets; production/build/harness/frozen inputs unchanged."
+      }
+    },
+    "receiptWindowDeltaReviews": {
+      "standards": {
+        "agent": "talk104_standards_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Exact retained original, actual native Send saved post and observed bytes, positive storage-error/Retry, no network error, exact owned-marker cleanup and cold reconciliation. Same10s/20s bounds, normal new-UI signing after-receipt. Real native Archive timeout and host close/write-pressure failure remain separate. No production changes or goal waiver; focused/whole acceptance pending."
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Exact retained original, actual native Send saved post and observed bytes, positive storage-error/Retry, no network error, exact owned-marker cleanup and cold reconciliation. Same10s/20s bounds, normal new-UI signing after-receipt. Real native Archive timeout and host close/write-pressure failure remain separate. No production changes or goal waiver; focused/whole acceptance pending."
+      }
+    },
+    "currentReleaseStatus": "PENDING_NEW_PRODUCT_NATIVE_AND_SIGNED_ACCEPTANCE",
+    "requiredProductionChange": "Passive store-change reload erases the failed receipt operation error. Original native diagnostic43351151183 confirms retained original/no receipt/Check status. Current product correction requires a new candidate, both new whole SDKs and new signed updates;126 must not promote.",
+    "currentProductSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+    "currentCandidate": {
+      "version": 127,
+      "status": "BUILDING",
+      "source": "3ad638b33be448a2672f7907590c8971a8ba774c"
+    },
+    "currentFocusedRuns": {
+      "posting-android17": "43352878837",
+      "quotes-android17": "43352878739"
+    },
+    "errorOwnershipFixSourceReviews": {
+      "standards": {
+        "agent": "talk104_standards_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+      },
+      "spec": {
+        "agent": "talk104_spec_review",
+        "result": "PASS",
+        "findings": 0,
+        "scope": "Passive read cannot erase active operation error without durable progress; read/apply and checkStatus serialized, busy operation rejects stale observation. No concrete lock cycle. Native original-first red retained; fixed runtime acceptance pending."
+      }
+    }
+  },
+  "fixtureSource": "96c71daec98336457721a189b3423019d9b74410",
+  "heldHandshakeDeltaReviews": {
+    "standards": {
+      "agent": "talk104_standards_review",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "Actual2-file fixture patch. Nonempty exact prior authentication retired; fresh gate entry required in SAME2s alongside7likes. Enabledheart/0frames/releasefinally/3in20s and15s gate retained. Setupbounded5s. No product/harness/frozen change or goal waiver. Corrected focused/whole runtime pending."
+    },
+    "spec": {
+      "agent": "talk104_spec_review",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "Actual2-file fixture patch. Nonempty exact prior authentication retired; fresh gate entry required in SAME2s alongside7likes. Enabledheart/0frames/releasefinally/3in20s and15s gate retained. Setupbounded5s. No product/harness/frozen change or goal waiver. Corrected focused/whole runtime pending."
+    }
+  },
+  "relayReaderDeltaReviews": {
+    "standards": {
+      "agent": "talk104_standards_review",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "OptionalownedExecutor preserves reader whileholding exact Relay reply. Original15s gate and5s ACK/UI goals unchanged; exactfresh ACK8810. Common health captures async errors. Release/shutdown/join beforewallet/filesrestore viafailureaggregator. Actualwire RED5.929s\u2192GREEN0.93s. Constructororder preserves trailingarchive lambda; whole acceptance pending."
+    },
+    "spec": {
+      "agent": "talk104_spec_review",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "OptionalownedExecutor preserves reader whileholding exact Relay reply. Original15s gate and5s ACK/UI goals unchanged; exactfresh ACK8810. Common health captures async errors. Release/shutdown/join beforewallet/filesrestore viafailureaggregator. Actualwire RED5.929s\u2192GREEN0.93s. Constructororder preserves trailingarchive lambda; whole acceptance pending."
+    }
+  },
+  "currentReleaseStatus": "DELIVERED127",
+  "completeRuntimeAcceptance": "PASS",
+  "publicDelivery": "PASS"
+}

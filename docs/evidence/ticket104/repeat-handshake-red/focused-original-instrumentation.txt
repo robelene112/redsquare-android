@@ -1,0 +1,91 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RepeatLikePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.RepeatLikePreviewTest:
+INSTRUMENTATION_STATUS: test=rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RepeatLikePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: A slow peer handshake has not received Likes yet
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed$lambda$12$lambda$11(RepeatLikePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$RdvykkYDJBaeWbHxz9Tp2Ps1Cvk(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikeActivity$lambda$18$lambda$17(RepeatLikePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$k92Wkb41C8QsJPoBsCx9ThqHmco(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikeActivity(RepeatLikePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed$lambda$12(RepeatLikePreviewTest.kt:64)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$T1l3RXzJ4mlUmfzUPnNhn3Zib-c(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikes(RepeatLikePreviewTest.kt:98)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed(RepeatLikePreviewTest.kt:63)
+
+INSTRUMENTATION_STATUS: stream=
+Error in rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed(nl.davidengelen.redsquare.RepeatLikePreviewTest):
+java.lang.AssertionError: A slow peer handshake has not received Likes yet
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed$lambda$12$lambda$11(RepeatLikePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$RdvykkYDJBaeWbHxz9Tp2Ps1Cvk(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikeActivity$lambda$18$lambda$17(RepeatLikePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$k92Wkb41C8QsJPoBsCx9ThqHmco(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikeActivity(RepeatLikePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed$lambda$12(RepeatLikePreviewTest.kt:64)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$T1l3RXzJ4mlUmfzUPnNhn3Zib-c(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikes(RepeatLikePreviewTest.kt:98)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed(RepeatLikePreviewTest.kt:63)
+
+INSTRUMENTATION_STATUS: test=rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RepeatLikePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rapidLikesDispatchIndependentlyAndUpdateTheCountImmediately
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RepeatLikePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rapidLikesDispatchIndependentlyAndUpdateTheCountImmediately
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.002
+There was 1 failure:
+1) rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed(nl.davidengelen.redsquare.RepeatLikePreviewTest)
+java.lang.AssertionError: A slow peer handshake has not received Likes yet
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed$lambda$12$lambda$11(RepeatLikePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$RdvykkYDJBaeWbHxz9Tp2Ps1Cvk(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikeActivity$lambda$18$lambda$17(RepeatLikePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$k92Wkb41C8QsJPoBsCx9ThqHmco(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikeActivity(RepeatLikePreviewTest.kt:104)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed$lambda$12(RepeatLikePreviewTest.kt:64)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$T1l3RXzJ4mlUmfzUPnNhn3Zib-c(Unknown Source:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.withLikes(RepeatLikePreviewTest.kt:98)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed(RepeatLikePreviewTest.kt:63)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PolicyCenterPreviewTest:
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PolicyCenterPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.waitFor(NativeTalkBackObservation.kt:200)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$24$lambda$23$lambda$22$lambda$21(PolicyCenterPreviewTest.kt:158)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$MZw-iOpVSLNTjvTPvXXXfZmtsBY(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$24$lambda$23$lambda$22(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$pftN-AXMSnc84E1og9XJjOhK9hw(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: stream=
+Error in draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest):
+java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.waitFor(NativeTalkBackObservation.kt:200)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$24$lambda$23$lambda$22$lambda$21(PolicyCenterPreviewTest.kt:158)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$MZw-iOpVSLNTjvTPvXXXfZmtsBY(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$24$lambda$23$lambda$22(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$pftN-AXMSnc84E1og9XJjOhK9hw(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+INSTRUMENTATION_STATUS: test=draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 28.739
+There was 1 failure:
+1) draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(nl.davidengelen.redsquare.PolicyCenterPreviewTest)
+java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.waitFor(NativeTalkBackObservation.kt:200)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$24$lambda$23$lambda$22$lambda$21(PolicyCenterPreviewTest.kt:158)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$MZw-iOpVSLNTjvTPvXXXfZmtsBY(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork$lambda$24$lambda$23$lambda$22(PolicyCenterPreviewTest.kt:149)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.$r8$lambda$pftN-AXMSnc84E1og9XJjOhK9hw(PolicyCenterPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.PolicyCenterPreviewTest.draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork(PolicyCenterPreviewTest.kt:40)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

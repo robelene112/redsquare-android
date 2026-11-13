@@ -1,0 +1,25 @@
+{
+  "source": "4e7e34ef0f24734f4d75705fa027686832a2b5bb",
+  "run": "43351151183",
+  "result": "FAILED_STORAGE_ERROR_OWNERSHIP",
+  "captureOrder": "Native PNG/XML first at original failure before Activity cleanup; public receipt/store facts read only afterward.",
+  "nativeObservation": "Check status, original read-only text, no storage error/Retry.",
+  "afterCaptureFacts": "Exact seeded original retained; hasReceiptfalse;1broadcast. Connections0 is a later snapshot and not claimed as the cause.",
+  "sourceCause": "PostDraftStore.claim emits change; passive observer waits for sendingfalse then load clears operation error without repairing receipt.",
+  "correctionSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "correction": "Separate passive observation from explicit load; serialize read/apply and status checking with writes, retain operation error absent verified progress, discard observations crossing a new user operation.",
+  "sourceReviews": {
+    "standards": {
+      "findings": 0
+    },
+    "spec": {
+      "findings": 0
+    }
+  },
+  "runtimeAcceptance": "PENDING",
+  "qualification": "Known product change supersedes126. New signed candidate, focused checks, both new whole SDKs and fresh signed updates required.",
+  "files": {
+    "original.xml": "d81088ffda9a203d53c6e4c8f5cc713a48f214017416475f45893b24aa6849cb",
+    "original-instrumentation.txt": "891e7bfd2ca165c494ae5559b8012a9b3d73b8976d0692db1e25575ad1cc9768"
+  }
+}

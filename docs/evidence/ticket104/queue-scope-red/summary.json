@@ -1,0 +1,47 @@
+{
+  "run": "43299716009",
+  "source": "f114bd7fed739f8a50fff7f86a518f1a0ae12476",
+  "result": "FAIL",
+  "class": "ChatQueuePreviewTest",
+  "tests": 13,
+  "failures": 3,
+  "failedTests": [
+    "aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting",
+    "aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting",
+    "replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns"
+  ],
+  "failedLines": [
+    288,
+    637,
+    622
+  ],
+  "observed": "All three fail on old list-navigation observations after the original scope returns. Original PNG/XML show the original conversation and exact forwarded message. Group checkpoint shows the original queued signature in history; no alternate raw/Relay sends. Do not infer unmeasured asynchronous timing.",
+  "correction": "Observe the exact retained public key/group ID and privacy in the existing conversation, within the existing 20-second helper limits. Preserve all queue, store, no-reroute, exact-envelope, transmission-count, class and publication assertions.",
+  "originals": 25,
+  "provenance": "Exact native tar members and instrumentation/crash files from the original Chat artifact; original ZIP and full workflow log retained externally. Complete SDK acceptance failed; no partition reuse.",
+  "correctionSource": "59a84de8b8ea74614a7ef391fb8867d2a5313021",
+  "sourceReviews": {
+    "standards": "0 findings/waivers",
+    "spec": "0 findings/waivers"
+  },
+  "focusedRuns": {
+    "10": "43311911975",
+    "17": "43311912743"
+  },
+  "failedFocusedStarts": {
+    "runs": [
+      "43311483002",
+      "43311482602"
+    ],
+    "cause": "Agent mistakenly passed abbreviated59a84de8b to actions/checkout; it searched nonexistent matching heads/tags. Both failed before build/device tests. Original full logs retained. Fresh dispatches use exact40-character SHA."
+  },
+  "otherSdkOriginal": {
+    "run": "43299720884",
+    "source": "f114bd7fed739f8a50fff7f86a518f1a0ae12476",
+    "result": "FAIL",
+    "tests": 13,
+    "failures": 3,
+    "observation": "Same three ChatQueue failures at288/622/637. All3 artifacts, originalZIPs and complete workflow log retained externally. Other Chat classes pass. Wallet has the separate known Policy observer failure; no complete acceptance."
+  },
+  "focusedResult": "PASS both exact59a scopes,13 ChatQueue tests each, including all three formerly failed cases. Original raw artifacts/ZIPs retained. Full SDK acceptance remains pending."
+}

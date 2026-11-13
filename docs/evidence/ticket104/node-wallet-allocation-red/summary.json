@@ -1,0 +1,11 @@
+{
+  "result": "FAIL",
+  "run": "43270054004",
+  "source": "2f0a6699be2ba7b4f39b031367e239b86f6cca2a",
+  "test": "NodeBlockBoundaryTest.changingNodesCancelsTheOldReadAndNeverReusesAnotherNodesHeight",
+  "measuredFailure": "OutOfMemoryError allocating5242928bytes, growthlimit16777216. Stack includesAndroidWalletStore.readSavedWallet andTalkAccount.guard/connect/visibility.",
+  "original": "/mnt/storage/redsquare-android-artifacts/talk-native/raw-43270054004/android-native-proof-chat/.scratch/device-evidence/api-29/node-boundary-ui.txt",
+  "sha256": "7b3071d3c77ea896a8b6efbdbf96b9e4e424aaeb3d7025f145d12a3f45bb8760",
+  "correction": "Allocate the opened file bounded actual size, retain original size limits/exactEOF/sync/crypto/recovery. Heap and test deadlines unchanged.",
+  "qualification": "Whole-run acceptance fails; remaining primary partitions continue. Candidate123 is superseded, despite both signed-update passes. Fixed-source focused and complete proof remain pending."
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-11-13T04:51:15" hostname="f746efd4b0f3" time="5.929">
+  <properties/>
+  <testcase name="aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="5.929">
+    <failure message="kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 5000 ms" type="kotlinx.coroutines.TimeoutCancellationException">kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 5000 ms
+	at _COROUTINE._BOUNDARY._(CoroutineDebugging.kt:42)
+	at nl.davidengelen.redsquare.saito.SharedNodeConnectionTest$aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket$1$1$2$3.invokeSuspend(SharedNodeConnectionTest.kt:56)
+	at nl.davidengelen.redsquare.saito.SharedNodeConnectionTest$aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket$1.invokeSuspend(SharedNodeConnectionTest.kt:53)
+Caused by: kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 5000 ms
+	at kotlinx.coroutines.TimeoutKt.TimeoutCancellationException(Timeout.kt:189)
+	at kotlinx.coroutines.TimeoutCoroutine.run(Timeout.kt:157)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedRunnableTask.run(EventLoop.common.kt:505)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.DefaultExecutor.run(DefaultExecutor.kt:105)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

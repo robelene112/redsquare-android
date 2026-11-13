@@ -1,0 +1,14 @@
+{
+  "source": "b73f91c722b8996278f90028939c6c2af02d72c8",
+  "run": "43280399158",
+  "partition": "social",
+  "primaryJob": "failure",
+  "test": "aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply",
+  "failure": "Archive request was not observed",
+  "originalObservationMillis": 5000,
+  "enabledAtMillis": 1963789,
+  "methodFinishedAtMillis": 1969127,
+  "capture": "Empty feed with New post enabled.",
+  "diagnosis": "Pending measured diagnostic43287998717. External latch/Compose-clock starvation plausible, not yet proven. No correction, retry-for-green or deadline change accepted.",
+  "otherPartitions": "Wallet passed; Chat still runs. Primary run cannot count as complete acceptance."
+}

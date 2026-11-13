@@ -4,6 +4,10 @@ Native Kotlin Android client for Saito's Red Square. First-release behavior is
 defined in [specification #1](https://github.com/robelene112/redsquare-android/issues/1).
 Implementation is sequential across its 35 dependency-linked tickets.
 
+[Beta 127](https://davidengelen.nl/redsquare/) includes native Saito Talk for
+private-Chat audio/video calls and group rooms/invitation links, alongside Stack
+and Fileshare. [Evidence and remaining qualifications](docs/evidence/ticket104/README.md).
+
 ## Build
 
 Docker is the only required host tool for the reproducible build. The build

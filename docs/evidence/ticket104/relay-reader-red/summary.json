@@ -1,0 +1,32 @@
+{
+  "source": "e03163425f9cf3bc4d45865d0da8035e47023ba4",
+  "wholeRuns": {
+    "10": "43359790533",
+    "17": "43359793356"
+  },
+  "result": "BOTH_WHOLE_FAILED_CHAT_CONCURRENT_ACK",
+  "failedNativeBoundary": "PrivateChatHistoryFixture690: incoming ACK while reaction Relay response held; original5s",
+  "otherWholePartitions": "BothSDK Social andWallet pass, not complete SDK acceptance. No successful partial reuse.",
+  "qualification": "OriginalUI/protocol outcome retained. Controlled synchronous onMessage waits15s in relayResponse while test waits5s for an ACK queued to the same reader. Test-only response concurrency correction is under diagnosis/review. Candidate127 remains staged and unpromoted.",
+  "focusedReproduction": {
+    "run": "43367369337",
+    "sdk": "17",
+    "result": "SAME_690_FAILURE"
+  },
+  "hostReproduction": {
+    "before": {
+      "file": "host-original.xml",
+      "tests": 1,
+      "failures": 1,
+      "seconds": 5.929,
+      "site": "ACK8810 wait afterincomingcallback completed"
+    },
+    "after": {
+      "file": "host-corrected.xml",
+      "tests": 1,
+      "failures": 0,
+      "seconds": 0.93
+    },
+    "qualification": "New working regression against the unchanged e031 fixture before/after opt-in response concurrency. Not a production transport defect claim."
+  }
+}

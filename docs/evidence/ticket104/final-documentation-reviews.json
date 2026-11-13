@@ -1,0 +1,18 @@
+{
+  "candidate": 127,
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "verificationSource": "96c71daec98336457721a189b3423019d9b74410",
+  "standards": {
+    "agent": "talk104_standards_review",
+    "result": "PASS",
+    "findings": 0,
+    "scope": "All8maintaineddocs/current127/source/counts/qualifications matchaccepted evidence. Actual36TALK_LIVE remainsunchecked,onlythatrowchanged;otherbodyhashpreserved. Push/closurependingnotclaimed."
+  },
+  "spec": {
+    "agent": "talk104_spec_review",
+    "result": "PASS",
+    "findings": 0,
+    "correctedFinding": "Historicalpendingrows explicitlylabelledasstatusatthattime; latestRelayrowstatesfinal96c native/fullpasses. Originalnegativeoutcomes preserved. Allotherdocs/currentcounts/qualifications match."
+  },
+  "qualification": "Finaldocumentationclearance. Actualdevelopmentbranchpush/104closure still require successful execution."
+}

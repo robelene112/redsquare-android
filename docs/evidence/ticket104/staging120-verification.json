@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "observedAt": "2026-11-12T16:00:48.282889+00:00",
+  "versionCode": 120,
+  "source": "99a9bec07e8cca720e40c51d52cef1b6289728a8",
+  "bytes": 91836199,
+  "sha256": "d4fb7d2c4edf2bd9514c60c8f8677466f774f291d21c06d8f6d0cb6e675445af",
+  "manifestExact": true,
+  "notesExact": true,
+  "downloadExact": true,
+  "publicLatestAfterStage": 116,
+  "httpClient": "curl",
+  "packageChecks": {
+    "applicationId": "nl.davidengelen.redsquare",
+    "minSdk": 29,
+    "targetSdk": 36,
+    "debuggable": false,
+    "profileable": false,
+    "allowBackup": false,
+    "establishedCertificate": true,
+    "talkRuntimePermissionsDeclared": true,
+    "browserFixturesAbsent": true
+  },
+  "qualification": "Staged candidate only. Complete runtime and signed-update acceptance remain separate."
+}

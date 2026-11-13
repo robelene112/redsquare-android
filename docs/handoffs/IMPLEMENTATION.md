@@ -1,351 +1,65 @@
 # Implementation handoff
 
-## Active native Saito Talk #104
+## Delivered native Saito Talk #104
 
-The owner requested Talk after Fileshare116 and explicitly chose BOTH direct
-Chat audio/video calls and group rooms with invitation links. Implement only
-[issue104](https://github.com/robelene112/redsquare-android/issues/104) to complete
-verification, independent reviews and signed beta. Review base is
-`c02fa1e3fb795b7e252f0973235bfc852ec891b4`. Keep parents1/36/55/84/86 open.
-Existing JVM protocol, native Android and controlled browser-peer seams are reused;
-routine tests/emulators remain delegated, without repeated owner phone QA.
+[Signed beta 0.1.127](https://davidengelen.nl/redsquare/) adds direct audio/video
+calls from private Chat and group rooms with invitation links. It supports
+three-party media, participant changes, microphone/camera controls, camera
+switching and audio output. Active calls have Android return/hang-up controls.
+Voice continues in background and with the screen off; camera pauses outside
+visibility. Process loss interrupts the call. Wallet, node, drafts, Chat,
+Fileshare and native navigation are preserved.
 
-Current checkpoint, November12 at14:49UTC (not release acceptance):
+Compiled product/signed APK and update evidence use
+`3ad638b33be448a2672f7907590c8971a8ba774c`. Complete verification uses
+`96c71daec98336457721a189b3423019d9b74410`. Exactly four test/fixture files
+differ; all 223,477
+other Git entries, product/resources/build/harness/frozen inputs are identical.
+Independent static reviews reproduce the canonical LFdigest. The test correction
+positively retires old routes and observes a fresh held handshake while 7 likes
+are displayed and 0 frames sent, preserving the 2-second immediate-count and
+20-second transmission goals. A held Relay reply also leaves the reader free
+for exact ACK8810 within the original 5 seconds, retaining the 15-second gate and
+private reaction/forwarded-state assertions. Owned reply workers release and
+terminate before local state restoration. All 150 core tests pass. Original
+negative results stay retained without reusing successful partial partitions.
+Android 10 run 43370655497 passes 687 identities/275 normal
+completions; Android 17 run 43370658411 passes 688/276. Each verifies 254 classes,
+212 archives, 39 deliberate interruptions and 38 continuity records using the
+unchanged frozen collector. Independent Standards/Spec reviews report zero
+remaining findings and accept 2082 complete indexed originals plus 96
+signed 83-to127 update originals. Inherited API29 Profile assumption, unavailable
+Chat archive, four missing failure-only captures and API29 permission-shell
+qualification remain explicit. No partial SDK assembly or goal/deadline waiver.
 
-- Exact direct-Chat audio AND video journeys now PASS on10 in43239654847 and17
-  in43239660656 at656171ae1. Actual decoded PCM/video, native Start/End/Speaker,
-  exact conversation and unsent draft retention pass under the original25s goal.
-  Both originals/logs are downloaded. Reordered ICE candidate retention is the
-  single production behavior change from the red diagnostic source.
-- Temporary Talk104Probe code is removed before the new final source commit.
-  Chrome cleanup's initial wait-before-escalation P2 is fixedcb1f72d12 and the
-  Standards reviewer confirms TERM/poll5s/KILL/reap order. SDK generation comment
-  no longer claims all unknown candidates are rejected. Spec delta review finds
-  no actionable requirement defect. Final source/evidence reviews still required.
-- The next full10/17 and aggregate Talk10/17 runs use this cleaned source with
-  the unchanged pre-run78d29df48 contract/collector. Their run IDs and the new
-  signed candidate118 will be recorded next. Public remains116.117 is superseded.
+Pinned Saito callback routing now uses one authenticated physical node connection
+per wallet/exact endpoint with independent feature lifetimes and process-wide
+positive nonwrapping request IDs. Random seeding reduces, without guaranteeing,
+cross-process uniqueness. Passive saved-work observations retain unresolved
+posting errors until verified durable progress. Native positive error/Retry,
+exact original recovery and real before/after receipt process loss pass.
+Original failed/cancelled evidence is retained; the earlier blank-wallet cause
+remains unproved.
 
-Current checkpoint, November12 at14:41UTC (not release acceptance):
+Actual public 91,852,583-byte APK SHA256:
+`adb4b1a58c03e399f08107f0a6add82985d23df720a4c7900812417bd4fc1b1b`.
+Established signer, optional camera/microphone hardware, exact public latest,
+manifest, notes, page and downloaded bytes/signature pass independent delivery
+reviews. Candidates 117–126 are superseded; 121 has no package.
 
-- Source656171ae1 runs exact direct-Chat10/17 journeys43239654847/43239660656.
-  It changes only candidate retention across ignored SDP offers, after the
-  actual native diagnostics below. Temporary Talk104Probe logs in SharedRtcPeer
-  MUST be removed before final build/acceptance. Final independent delta reviews
-  are requested from the existing Standards/Spec reviewers.
-- a516 aggregate10/17 43236312266/43236317715 both pass permission, capture,
-  routing and invitation (including busy return), then fail actual direct Chat
-  PCM within25s.10 fails video;17 fails audio. Originalcaptures show JOINING,
-  real tracks but no actual transport PCM. Originals/logs retained externally.
-- Diagnostic sourcef940b5565 in43238236355/43238241471 reproduces audio failure
-  on bothSDKs.17 original native trace: offer14:38:35.359, ignored browser offer
-  35.899, answer39.339; ICE remains CHECKING. Source drops every candidate while
-  ignoredOffer, including answer-generation candidates that overtake SDP.
-  Fix656 validates/retains a bounded128-candidate queue until accepted SDP, then
-  uses the accepted SDP/ICE credentials for connectivity. Original25s goal is unchanged.
-- Stronger group mesh source0bf7368d2 in43236537892 actually PASSes native JUnit
-  with all4browsermeshlegs decoded (width320/480, nonBlack18k+, RMS>.06), but the
-  workflow FAILs afterward because rm raced Chrome's surviving profile writers.
-  f940 starts owned Chrome with setsid, terminates/reaps its entire process group
-  before deleting that unique temporary profile. It does not waive test goals.
-- Pre-run contract/collector are FROZEN at78d29df48f6e54b7f9515929ca7a8d34b4d3b741.
-  Both independent source-review axes report0remaining findings at that source.
-  Full10/17 43236585970/43236591741 were cancelled after the newer direct-call
-  defect required a product change. Preserve their primary pre-cancel snapshots,
-  logs/originals and cancellation outcome; they provide no complete acceptance.
-  Rerun both complete three-job SDKs on the final corrected source, using the
-  unchanged frozen104goals. Do not assemble partial partitions.
-- Signed candidate117 is built locally from78d29df48, SHA256
-  e518c2314a80e26466fdcd15c114f31e546e535d74b877d747f387462f995df6.
-  It is NOT staged or promoted and is now superseded by the product correction.
-  Never promote117. Public beta remains116. Next corrected build reserves118
-  (recheck shared counter). Build117 log/artifact are retained.
-- PacketREADME and the truthful Play permission/data-flow addendum are currently
-  uncommitted. README records source review only, not complete/delivery acceptance.
-  Finish implementation, exact proofs, signed update, independent evidence review,
-  public byte/manifest checks, commit/push and close104. Keep1/36/55/84/86 open.
+Owned peers execute pinned official Saito bodies with explicit adapters and actual
+transport/media observations. Real ARM/OEM audio/video quality, selected-node
+Relay/Stun, real TURN/NAT, fully initialized community frontends and default
+third-party HTTPS association remain OPEN as TALK_LIVE under #36. Provider, Play
+and closed-app gates stay open. No node/provider/Play operation, public Saito
+write or repeated owner-phone development QA is claimed. Keep #1/#36/#55/#84/#86 open
+and stop after #104.
 
-Current checkpoint, November12 at14:21UTC (not release acceptance):
-
-- Sourcea5165efd0 runs aggregate Talk10/17 in43236312266/43236317715.
-  Previous02ba aggregate43234024293/43234029519 stopped before instrumentation:
-  the permission helper required a runtime-permission row on a fresh install.
-  The new helper records original/restored package dumps, accepts an absent
-  runtime row only with the actual requested permission declaration and no
-  unrecognized grant row, and checks API29 USER_FIXED before any mutation.
-- Busy-invitation43231125992 and aggregate17 43232461522 fail at the same
-  Return-to-call five-second visible-heading goal. The original screenshot/XML
-  show the correct active call but the preview scroll offset retained. a5165
-  gives each preview/active/home reading destination its own keyed list state;
-  the original assertion/deadline stays unchanged.
-- Shared-peer bootstrapdf692 and SDK callback IO1ee793 fix actual Fileshare
-  routing/lock ownership. Independent Standards review of02ba finds the SDK
-  signalling-thread lock cycle removed. Actual coexistence43233358322 passes:
-  three-party tracks,150007 exact file bytes after blocking the other participant,
-  then encrypted Chat retention over the remaining live connection.
-  Held-toggle and held-roster Mute both pass43233369413; inherited4MiB actual
-  Fileshare receive17 passes43233364112. Original failures remain external.
-- Direct43223814229/43225598378, full pinned-five-body three-party media
-  43228242540, actual Chat audio/video+draft43227659474, twelve active viewport
-  cells43227664038, dial outcomes43225021875, ownership43223294314, process loss
-  43223288398 and actual permission denial/retry17 43229545239 pass as focused
-  checkpoints. Their sources precede current fixes; none substitutes for final
-  complete SDK acceptance.
-- The dual-camera goal now demands an actual native front/back switch and fresh
-  frames. All Talk/full scopes explicitly expose both emulator cameras. Separate
-  single-camera43232003407 passes with no Switch button. Earlier43230533033
-  lacked a second camera and remains failed. The original focus notification
-  race43231998797 now observes actual posting under the original5s bound.
-- Additive104 contract/collector are prepared under docs/evidence/ticket104 and
-  undergoing independent review before freezing and final full runs.103 files
-  remain unchanged. Required new counts:24 identities,15 classes/archives,
- 16 normal completions plus one deliberate interruption/continuity. Complete
-  SDK goals are687/688 identities,254classes,212archives,275/276normal,39 deliberate
-  interruptions and38continuities. No104 complete run, signed beta or release
-  acceptance yet. Public beta remains116. Continue104 through delivery.
-
-Official source pin e6c937c686495a37d8fc94ecc894189e23a453c3 remains the
-protocol authority. Native room/link, signed versus legacy invitation, roster,
-large Chat ownership and per-peer Stun JVM checks pass. The shared native RTC
-transport leases one signed-SDP/DTLS/data connection to Talk and Fileshare.
-Scoped delivery, native permission/prejoin/call UI, actual camera/microphone
-capture and foreground ownership are implemented, but full Talk acceptance and
-beta delivery are NOT complete. Do not ship until actual direct/three-party
-media, lifecycle/UI checks, complete suites and independent reviews finish.
-
-Focused source af09bd98f2b3bac60ff6cd504cab3ece0cf265e8 passes camera capture
-on Android10/17 in43205786682/43205791014, routing17 in43205795687 and the original
-Fileshare incoming screen-off/exact-save journey on10 in43205800172. Routing10
-and all nine Fileshare17 classes already passed at70489f496 in43193138260 and
-43193151814, before the later runtime/UI/capture changes. These are focused
-checkpoints, not final-source full acceptance. Originals are external in the
-established talk-native directory, including proof-source metadata.
-
-Original43205804682 fails before Accept file, with no transfer/browser error.
-Its test sent the initial Stun frame without requiring a completed owned Relay
-handshake. Test-only4e8310d06 adds that precondition inside the original30second
-readiness helper plus failure-only socket/ACK/Relay observations. Fresh43207787145
-passes on17 without changing the original transfer, screen-off, byte/save or
-runtime deadlines. A later pass alone does not measure the precise original
-race. The earlier failed Save draft handoff led to waiting for actual navigation
-readiness before launching Save as; that product correction remains present.
-
-Actual camera RED43196697626 at e6e72a163 reaches JOINING with localVideo=false
-and fails the real-frame assertion. Earlier43193926943 instead failed fixture
-startup and is not counted as camera RED. Provisioning-only failures/cancellations
-and original routing/core failures remain external with their actual outcomes.
-
-The owned browser fixture executes hash-checked Videocall, StreamManager,
-dialer and Stun bodies. Original43209750140 failed when the test renderer reassigned
-an identical MediaStream and aborted play(); test-only4a4fc2276 removes that reload.
-Next43210867584 reaches actual media tracks but Android ends the call after the
-co-located WebView requests media audio focus. Original system lines46014/46027
-explicitly bind Chromium's request to TalkService's focus-loss callback. This is
-a fixture collision with the native call, not audio/video acceptance.
-
-Browser peers now move to separate owned host Chromium through HTTP/CDP system
-adapters. scripts/talk-browser-reference records the actual browser version,
-forwards only loopback test ports, blocks page requests outside the owned fixture
-and restores its process/profile/ports. It leaves the native focus behavior and
-all decoded-pixel/PCM/three-party assertions unchanged. The original legacy
-Android WebView remains in place for inherited tests. Browser UI/wallet/network
-boundaries are adapted; the pinned module bodies are unchanged. It uses controlled canvas and
-WebAudio inputs plus a debug/emulator-only PCM hook after real AudioRecord.read.
-Actual codecs, DTLS/RTP, remote pixels and PCM must be observed before claiming
-media interoperability. Framework/wallet serialization and owned Relay are
-explicit adaptations; no public development writes or physical microphone/
-speaker quality claims. No new complete-verification catalog is frozen yet.
-
-At13:17UTC checkpoint (still not beta acceptance):
-
-- ba04b1909 direct43222645648 authenticates, connects and receives actual tracks,
-  then REDs at Answer navigation. The dialog's scoped coroutine was cancelled on
-  the INCOMING-to-JOINING composition change. b123b6723 hoists navigation ownership
-  and guards late callbacks by current account/owner/backend/token.
-  Actual direct UI/media43223814229 now PASSes that fix.
-- acbcbc108 process43223288398 PASSes actual camera frames+foreground ownership,
-  deliberate Process.killProcess, distinct cold PID, stale-return feedback without
-  capture/signalling restart and exact encrypted wallet/unsent-draft continuity.
-  acbcbc108 ownership43223294314 PASSes2 methods: stale versus current immutable
-  notification Hang up and synchronous track silence on wallet/node/block writes.
-- Controls43222650857 is actual RED: initially muted RTP is silent but browser
-  microphone metadata is missing. b123 sends initial choices after media lease open.
-  Controls43223823558 then REDs at actual received PCM after native Mute while an
-  owned Relay toggle waits. Source dd9307f04 moves advertised choices to a separate,
-  bounded/coalesced sender; local capture/control state no longer awaits its ACK.
-  Per-call transmission guards prevent delayed choices crossing to a newer call.
-  Proof43225393901 is pending, with the original3-second mute goal unchanged.
-- Chat43222641692: audio JOINING/zero received PCM; video observer failed before
-  call input because it inspected the IME before it appeared. The observer now
-  waits for actual keyboard shown/closed, with unchanged5-second observations.
-  Chat43223818863 at b123 still REDs audio after25s, while video reaches real
-  decoded PCM/pixels then REDs at the unrelated Bluetooth permission dialog.
-  No audio correctness acceptance is inferred from that video's media success.
-- The browser diagnostics in the second audio RED show colliding initial offers,
-  rollback and no completed ICE gathering. Source36baa02bb mirrors pinned Stun's
-  lower-key-first initial negotiation with the same1500ms higher-key fallback.
-  It also requests Bluetooth only when an actual Bluetooth output is selected;
-  Phone/Speaker choices no longer request that permission. Chat43225592893,
-  direct43225598378 and group/media43225603649 are pending on36baa02bb.
-- Active viewport43224249811 failed in the inherited HOME-specific fixture's
-  readiness observer while Talk was selected. The new class now returns Home
-  between cells and uses actual Return to call within each cell; no inherited
-  observer,15s budget,48dp or12-cell theme/font goals are changed.
-- Dial-outcome43224537409 failed compilation (test PCM callback arity5 versus4),
-  not device behavior. The corrected84ed3ec96 source runs43225021875, pending.
-  Local corrected AndroidTest compilation passes. All originals remain external.
-- Complete104 frozen catalog/full10+17, final independent reviews, concurrent
-  Chat/Fileshare media evidence and signed beta remain required. No104 release
-  packet exists yet. Current public beta remains116; do not close104 yet.
-
-At13:01UTC checkpoint (not release acceptance):
-
-- Source1f30b89ad passes actual fifth-body Relay three-party media43220990390,
-  including native decoded peer pixels/PCM, actual AudioRecord-input PCM at both
-  browsers, screen-off received audio growth and exact notification return.
-- The same source passes43220994020: original audio-focus interruption and actual
-  dynamic microphone+camera foreground ownership, hardware-camera pause outside
-  visibility, screen-off call retention and notification camera resumption.
-- Direct43220985761 fails before Answer at VERIFYING. No browser errors or capture
-  occurred. This differs from the earlier JOINING failure; do not infer its cause.
-  Test-only upstream Stun diagnostics are now observed in ba04b1909. Original
-  identity/DTLS gate and20-second ringing deadline remain unchanged.
-- Controls43220998200 failed before instrumentation: isolated Chrome's DevTools
-  became available just after its five-second startup window. Retained original
-  chromium.log shows that timing. Only external fixture startup now allows20s;
-  class180s, initial-mute metadata5s and held-Relay mute3s goals stay unchanged.
-- ba04b1909 actual Chat audio/video button, media, output and unsent-draft journeys
-  run43222641692; direct diagnostics43222645648 and controls43222650857 are pending.
-- Added real-process-loss/stale-return and native notification/authority ownership
-  journeys reuse existing seams. Their focused proofs, complete104 catalog,
-  independent reviews and beta delivery are still pending. Local AndroidTest
-  compilation for the process-loss addition passes; no device acceptance implied.
-
-At12:39UTC the current implementation checkpoint is NOT beta acceptance:
-
-- Host-Chromium media43212543563 at ab38c11f6 passes real native red-peer pixels,
-  decoded peer PCM,2648 actual AudioRecord reads, the three-party decoded mesh
-  and participant departure. The test-only framework Relay adapter was still used.
-  Exact Chrome156.0.8078.79 and original65 native frames are retained externally.
-- Source43bb22d61 adds the actual fifth pinned Relay body, its original repeat
-  constants and real preference for an existing data channel. It preserves the
-  raw hash-checked source; only the framework json-bigint import is removed for
-  the test compiler, with ordinary JSON adequate for these bounded zero-value
-  payloads. Unsigned dial bytes have the original recipient-only output shape.
-- Complete12-cell invitation17 proof43212552487 passes at ab38c11f6. Earlier
-  invitation10/17 runs43210912738/43210916395 failed at200% because the test searched
-  an uncomposed lazy Join button. Container scrolling now reveals the same48dp
-  action under unchanged bounds. Android10 still needs the corrected proof.
-- Actual audio-focus interruption RED43213078788 at a029c2d91 observed ENDED.
-  Exact-token interruption43bb22d61 passes43216238462 with restored audio mode
-  and removed foreground notification.
-- Camera lifecycle43216243444 at43bb22d61 reaches real camera frames after a
-  voice start, then fails the camera foreground-type goal. Its original dumpsys
-  explicitly has types=0x00000080 (microphone only). The observer now accepts that
-  actual types field as well as foregroundServiceType, without changing the
-  required camera bit or five-second goal. Dynamic service-type upgrade, scoped
-  collector/wake ownership and async error handling are being verified next.
-- Direct43216228620 is a genuine JOINING timeout after Answer, with no capture
-  or fixture error. The original caller addresses its own initial room-entry to
-  itself, so native now retries a signed entry addressed to the exact counterpart
-  after the upstream dialer's one-second startup. A verified same-room roster
-  response can prove membership before capture. Identity/room gates stay strict.
-- Real-Relay group43216233590 fails when native participants disappear after
-  additional controls move to the data channel. StreamManager always emits a
-  toggle-transcription status, even with recording disabled. A new core RED
-  confirms Talk failed to own that message, allowing the Chat fallback to dispose
-  the peer. The parser now consumes/ignores that status without implementing local
-  transcription. All seven Talk JVM checks and all-core tests pass locally.
-- The separate bare-Stun departure ownership RED and GREEN are retained. Only
-  room-scoped departures belong to Talk; an unscoped transport departure stays
-  owned by the shared transport/Fileshare path.
-- New actual-PCM microphone controls proof43218475707 was cancelled during source
-  build, before device execution, because its underlying peer-control routing was
-  already known broken. Its primary snapshot/log remain external. Rerun it after
-  the underlying connection correction, preserving its initially-muted metadata,
-  real UI Unmute and three-second Mute-under-held-Relay goals.
-
-The next media revision also observes fresh inbound audio RTP/decoded PCM during
-real Home and screen-off, exact notification return, resumed camera and a native
-three-party UI capture. The camera-only lifecycle proof is not substituted for
-that real background voice evidence. No104 full catalog is frozen, independent
-reviews are not started and no104 beta has been built/published. Remaining work
-includes the other direct/UI/control/error paths, shared Chat/File continuity,
-process-loss behavior, complete Android10/17, reviews and signed delivery. Keep
-inherited frozen103 goals and deadlines intact. Continue104 to completion.
-
-The current writable checkout stays
-`/mnt/storage/redsquare-android-artifacts/redesign86`, codex/unified-redesign.
-Temporary source and logs are external under
-`/mnt/storage/redsquare-android-artifacts/talk-native`. Canonical checkout and
-unrelated work remain preserved. No node/provider/Play operation, public Saito
-write or community recipient is authorized. Closed/killed-app push and physical/
-live-network qualifications stay separate under36. Voice continues for an active
-call in background/screen-off; camera pauses when not visible. Recording,
-transcription, scheduling, livestreaming and local screen broadcast are not part
-of the approved direct/group-call slice.
-
-
-
-104 checkpoint: foundational source70489f496cd9e9d5c3873ed5dfa44eee94f53b75
-passes actual Android10 socket routing (43193138260,2methods) and all nine
-Android17 Fileshare classes (43193151814, including4MiB, background/screen-off,
-Cancel, permission denial and both viewport matrices). Original four runs were
-cancelled during SDK preparation with primary status snapshots and complete logs
-retained externally. Replacements43193142930/43193147347 and capture43193047771
-failed SDK provisioning, not app assertions. Updated workflow0bce10722 makes
-optional NDK cleanup bounded/space-dependent and exposes preparation stages;
-43193926943 actually reached native capture testing with compiled source de7dab4c.
-That run failed at room startup because the owned ControlledFeedPeer only
-understood Stun/File/Chat Relay originals, not signed Videocall. The fixture now
-accepts and verifies Talk originals too; the stricter real-frame goal remains.
-
-Current source adds native Talk picker/home, prejoin, incoming dialog, private
-Chat actions, exact active-call return, controls/output choices and module/draft
-navigation. That source retained an empty TalkCapture for the runtime RED;
-the latest local SDK capture replacement below is awaiting acceptance. It is not delivered. All-core and Kotlin UI compilation have passed
-at the last checks, with subsequent small delivery/fixture changes awaiting the
-next source build. Call controls now preempt blocked waits on End; legacy unsigned
-ACCEPT waits for a signed message confirming the same room before capture.
-Initial signed Stun frames are staged behind cold invitation/join initialization,
-with shared signature deduplication and route hooks. File signalling can also
-reach its live session through a Talk/temporary socket. No actual native audio,
-video, group-call, permission/service or UI acceptance is claimed by these checks.
-Temporary UI working copies, upstream source and original evidence remain under
-/mnt/storage/redsquare-android-artifacts/talk-native, outside Git.
-
-Latest104: sourcee6e72a163b45c68b48cdc5c44f81eafefacf02a3 produced the intended
-actual-camera RED in43196697626: room startup succeeded, owned fixture healthy,
-phaseJOINING/no localVideo, and the actual-frame assertion at63 failed. The real
-SDK camera/audio track capture is now implemented locally, with Camera2/Camera1
-fallback, visibility pause/resume and explicit teardown, awaiting native GREEN.
-Current changes also add synchronous authority-observer silencing before wallet/
-node/policy writes, with exact call consent revalidated before enabling tracks.
-
-Other e6e native runs exposed two real narrow regressions: routing1743196702044
-sent while the controlled server had not yet consumed the final auth frame
-(client services readiness is earlier); Fileshare1043196706534 timed out at
-File saved after the deliberately delayed draft return. Original screenshot
-showed the Save action enabled while the draft was disabled. The existing Save
-callback abandoned on navigation.save(false) instead of awaiting draft readiness.
-The fix awaitsSettled and gives preparing-to-save feedback. Receiver/ACK bounds,
-full real file/save scenario and thirty-second goal remain unchanged. New focused
-fileshare-receive scopes isolate that original class. Routing now requires actual
-server authentication before sending, retaining both five-second delivery/ACK
-bounds. These fixes are not yet accepted; rerun them and the complete paths.
-Latest1743196711207 also failed; its artifacts still need collection/inspection.
-All original attempted runs and source distinctions remain external in talk-native.
-
-Uncommitted secondary changes: call control send returns on the first successful
-Relay while the same signature still fans out; shared media attachment changes
-only when track objects change (mute no longer recreates every sender); basic
-Talk page/participant animation; video-player audio is paused during a call;
-camera availability/front-facing state and same-room redial timestamp handling.
-Code remains WIP, no media transport/group/UI/service/beta acceptance. Continue
-native direct/three-party actual RTP and rendering with owned browser peers using
-pinned upstream Stun/StreamManager/dialer/Videocall bodies. Do not count connection
-state alone. Native voice must survive screen-off and camera must pause; exact
-notification return/end and process interruption need proof. No104 beta exists.
+Review base c02fa1e3fb795b7e252f0973235bfc852ec891b4.
+Sole writer /mnt/storage/redsquare-android-artifacts/redesign86 on
+codex/unified-redesign. Canonical checkout and unrelated work preserved.
+Raw originals and helpers are external under talk-native. Final Git push and
+tracker closure require actual success, not this document. Stop after #104.
 
 ## Delivered native Fileshare #103
 
