@@ -118,5 +118,113 @@
     "zipEntries": 61,
     "captureMembers": 5,
     "allExtractedMembersByteExact": true
+  },
+  {
+    "run": 43464152245,
+    "source": "ddc58d929500cf768500ec22b789cb84010fda5a",
+    "conclusion": "failure",
+    "artifactId": 14058510838,
+    "zipSha256": "7a8ab61b00f2c3462690d4c9eda071a0c29e64fd4faacc16bda34251ed72c3ce",
+    "zipEntries": 72,
+    "captureMembers": 99,
+    "allExtractedMembersByteExact": true
+  },
+  {
+    "run": 43464157912,
+    "source": "ddc58d929500cf768500ec22b789cb84010fda5a",
+    "conclusion": "failure",
+    "artifactId": 14057379332,
+    "zipSha256": "6f55a234f8476fe243f312e6db810900fb68376228b2e35d4a714b032a4385cd",
+    "zipEntries": 88,
+    "captureMembers": 159,
+    "allExtractedMembersByteExact": true
+  },
+  {
+    "run": 43465646030,
+    "source": "4f1c884019db047f45846fb044ecdc259cdb7728",
+    "conclusion": "success",
+    "artifactId": 14058012330,
+    "zipSha256": "4c3ddd6d208da6e13a3d57cda0fed40de19babef1ce3202255add6819b9a0b2a",
+    "zipEntries": 58,
+    "captureMembers": 7,
+    "allExtractedMembersByteExact": true
+  },
+  {
+    "run": 43465879771,
+    "source": "f9225502dab0f2a204534160e8c7282400557ff3",
+    "conclusion": "success",
+    "artifactId": 14058652910,
+    "zipSha256": "60685c0f1f69493e31c40e840483fae34e64906cc93829ebd4fbbddc982a4c52",
+    "zipEntries": 58,
+    "captureMembers": 26,
+    "allExtractedMembersByteExact": true
+  },
+  {
+    "run": 43466897529,
+    "source": "f9225502dab0f2a204534160e8c7282400557ff3",
+    "conclusion": "success",
+    "artifactId": 14058519224,
+    "zipSha256": "e31f802d0524260e47011de49efab74b3d33f6a1d6b0608306aae400fe22962d",
+    "zipEntries": 101,
+    "captureMembers": 186,
+    "allExtractedMembersByteExact": true,
+    "nativeClasses": {
+      "vault-upload-background-ui.txt": 1,
+      "vault-upload-large-ui.txt": 1,
+      "vault-completed-cleanup-ui.txt": 1,
+      "vault-upload-ui.txt": 1,
+      "vault-upload-cancel-ui.txt": 1,
+      "vault-upload-recovery-ui.txt": 4,
+      "vault-minting-ui.txt": 1,
+      "vault-provider-ui.txt": 3,
+      "vault-share-ui.txt": 1,
+      "vault-funding-ui.txt": 1,
+      "vault-upload-viewport-ui.txt": 1,
+      "vault-funding-race-ui.txt": 1
+    },
+    "nativeTests": 17,
+    "actualProcessPhases": 3,
+    "processIds": [
+      3431,
+      3983
+    ],
+    "fourMiBUpload": {
+      "bytes": 4194304,
+      "sha256": "575f42009c28a230e4326c31b94954d2ec21c1a860cc14f40f045301c06eca45"
+    }
+  },
+  {
+    "run": 43466903331,
+    "source": "f9225502dab0f2a204534160e8c7282400557ff3",
+    "conclusion": "success",
+    "artifactId": 14060110291,
+    "zipSha256": "b063f141af3593ae62f9c63f61e9a98fd577e4042541ce43be229081acfa4c98",
+    "zipEntries": 103,
+    "captureMembers": 186,
+    "allExtractedMembersByteExact": true,
+    "nativeClasses": {
+      "vault-upload-background-ui.txt": 1,
+      "vault-upload-large-ui.txt": 1,
+      "vault-completed-cleanup-ui.txt": 1,
+      "vault-upload-ui.txt": 1,
+      "vault-upload-cancel-ui.txt": 1,
+      "vault-upload-recovery-ui.txt": 4,
+      "vault-minting-ui.txt": 1,
+      "vault-provider-ui.txt": 3,
+      "vault-share-ui.txt": 1,
+      "vault-funding-ui.txt": 1,
+      "vault-upload-viewport-ui.txt": 1,
+      "vault-funding-race-ui.txt": 1
+    },
+    "nativeTests": 17,
+    "actualProcessPhases": 3,
+    "processIds": [
+      2798,
+      4334
+    ],
+    "fourMiBUpload": {
+      "bytes": 4194304,
+      "sha256": "575f42009c28a230e4326c31b94954d2ec21c1a860cc14f40f045301c06eca45"
+    }
   }
 ]

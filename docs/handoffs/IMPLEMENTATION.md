@@ -6,8 +6,8 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 [Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
-edges are published and verified. #106 is implemented and verified on both SDKs; next is #107. Reading review base
-e290c5bdc185ff212e5b691c3cfa91d5a0c40c33. Continue the approved ready frontier
+edges are published and verified. #106 and #107 are implemented and verified on both SDKs. Next is #108, advanced
+access rules, permanent transfer and rental-master keys. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -27,18 +27,26 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active upload/key slice #107
+## Completed upload/key slice #107, next #108
 
-#106 is closed after exact-source Android10/17 focused acceptance and independent
-source/evidence reviews. Its packet is [ticket106](../evidence/ticket106/README.md).
-#107 is claimed. Review base:8570655b69ab4d1b5aeb98f7ae68bdaa71d1e3f4.
-The isolated saito-wasm0.3.15 wallet factory now supplies an independent standard
-mint, exact file binding,1SAITO deposit/change and broadcast-hop reference. Native
-small/4MiB byte/signature comparisons and all158 core tests pass. Generic Normal
-restoration and its envelope bound stay strict. The new Android upload-review
-tracer is committed before its UI exists. Do not call this completed upload or
-minting integration. Continue #107 through its native/background/recovery checks,
-then108–115. No Vault/Store beta is built or published; public beta127 remains.
+#106 and #107 have complete focused Android10/17 acceptance and independent
+reviews. See [106](../evidence/ticket106/README.md) and
+[107](../evidence/ticket107/README.md). Final107proof source:
+`f9225502dab0f2a204534160e8c7282400557ff3`; runs43466897529/43466903331.
+Each includes17native cases in12classes,12viewport cells and the three-phase
+real-process protocol. All160core tests and affected import/Talk/Chat/Fileshare
+regressions pass. Both review axes report0remaining findings. Preserve original
+failed runs and their exact qualifications, particularly real Android10 keyguard
+handling and retained Offline-filter observations. The native file cap is4MiB;
+WASM factory compatibility is not a funded consensus mint or real provider proof.
+
+Continue108–115 sequentially without another owner confirmation. #108 starts at
+the107closure commit. Ticket115 must append all new106/107classes/process gates
+to its frozen full catalogue, preserve inherited deadlines/outputs, and perform
+complete final shared-source application and signed update/public delivery proofs.
+No Vault/Store beta is built or published; public beta127 remains. VAULT_LIVE
+stays unchecked in36/OWNER_INPUTS.md. Do not activate providers or spend public
+funds to replace controlled verification.
 
 ## Delivered native Saito Talk #104
 

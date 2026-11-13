@@ -1,10 +1,25 @@
 # Vault upload and recovery, ticket107
 
-**In progress.** This packet records focused observations, not completion of107
-or combined beta acceptance. Beta127 remains delivered. Specification105 and
-issue107 retain Share, background/screen-off, interruption, error and recovery
-requirements. Independent review fixes are complete; both complete post-fix SDK
-checks remain pending.
+**Development slice complete.** Native picker/Share review, standard key creation,
+exact-file upload, independent delivery facts, background/screen-off progress,
+safe cancellation and recoverable original operations are implemented and verified.
+Beta127 remains delivered; the one combined Vault/Store beta belongs to115.
+
+Both complete focused upload runs use
+`f9225502dab0f2a204534160e8c7282400557ff3`:
+
+| SDK | Complete run | Result |
+| --- | --- | --- |
+| Android10 | [43466897529](https://github.com/robelene112/redsquare-android/actions/runs/43466897529) | All17native cases in12classes, all12viewport cells, three-phase actual-process protocol pass. |
+| Android17 | [43466903331](https://github.com/robelene112/redsquare-android/actions/runs/43466903331) | The same complete scope passes. |
+
+The exact artifact digests, class counts and distinct process IDs are retained in
+[focused-runs.json](focused-runs.json). All101/103ZIP members and186capture members
+per SDK are byte-exact, with the recorded proof source verified. No successful
+subset is assembled into either acceptance run. All160core tests pass.
+Independent Standards and Spec reviews have0remaining findings, including their
+final fixture-delta checks. Product source is unchanged from reviewed3687f079.
+
 Review base: `8570655b69ab4d1b5aeb98f7ae68bdaa71d1e3f4`.
 
 ## Independent reference and owned native upload
@@ -266,11 +281,27 @@ filter is retained, chooses All files and requires the completed remote file
 within the same total15s return goal. No offline copy is invented and the
 failed complete run remains negative.
 
-## Remaining acceptance
+Corrected Android10 background run43465646030 passes on
+`4f1c884019db047f45846fb044ecdc259cdb7728`, including real device unlock inside
+the original total return goal. Corrected Android17 recovery run43465879771
+passes all4cases on`f9225502dab0f2a204534160e8c7282400557ff3`, including all
+independent facts, retained rejection/ownership, library Offline navigation and
+original-key/exact-file recovery. Both independent final delta reviews report
+0remaining findings and confirm unchanged production source and original goals.
+Representative actual320dp/200percent cost and action PNGs were visually
+inspected in both themes, as were the waiting and rejected-file views. New
+complete Android10/17 upload runs43466897529/43466903331 use that same final
+source. Their complete primary conclusions and byte-exact originals are now
+verified above; those complete results supersede no original negative record.
 
-Complete Share/provider failures, delayed/rejected delivery, background/screen-off
-and actual process-loss recovery, viewport/motion and affected wallet/Chat/Talk/
-Fileshare checks. Review the complete107diff on Standards and Spec independently
-before closing it. Final ticket115 owns the combined signed beta and full-run
-catalogue. No live provider activation, real funds or public Saito write is
-performed by these controlled proofs.
+## Remaining trajectory and real-service qualification
+
+Continue108–115 sequentially under the existing owner authorization. Ticket115
+owns the complete application/frozen-catalogue expansion, final motion and signed
+in-place update/public delivery proofs. Append all new106/107native classes and
+process phases to its full catalogue while retaining every inherited gate.
+These controlled results establish compatible wallet-factory/protocol behavior,
+not a funded consensus mint, actual production-provider acceptance or ARM/OEM
+qualification. VAULT_LIVE remains unchecked under36 and OWNER_INPUTS.md. No live
+provider activation, real funds or public Saito write was performed. Existing
+parent/release gates remain open.

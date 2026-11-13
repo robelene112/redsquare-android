@@ -16,8 +16,9 @@ The owner approved the combined Vault/Store scope in
 The owner approved the breakdown and requested the full build on 2026-11-13.
 All ten tickets #106–#115 are published as native sub-issues with verified blocking
 edges. Implement the ready frontier through the combined beta without another
-per-ticket owner confirmation. Reading slice #106 is verified on both SDKs. Next: #107. Reading review base
-e290c5bdc185ff212e5b691c3cfa91d5a0c40c33. Use Vault as the shared file/key/rental basis
+per-ticket owner confirmation. Reading #106 and upload/recovery #107 are verified on both SDKs. Next: #108,
+advanced access rules, permanent transfer and rental-master keys. See
+[107 evidence](evidence/ticket107/README.md). Use Vault as the shared file/key/rental basis
 and deliver one combined completed beta, preserving the spec's full payment and
 native UX scope and the existing agent-owned verification/operational boundaries.
 The earlier stop-after-104 limit is superseded only for this newly requested
