@@ -56,11 +56,12 @@ async function message(owner,body,time){
  const largeUpload=await message(owner,{request:'vault add file',data:largeFile.envelope},timestamp+1n);
  const large={size:largeBytes.length,name:'Large upload.bin',mime:'application/octet-stream',contentsSha256:crypto.createHash('sha256').update(largeBytes).digest('hex'),fileSignature:largeFile.id,mint:envelope(largeMint),uploadSignature:largeUpload.id,uploadWireSha256:crypto.createHash('sha256').update(Buffer.from(largeUpload.networkBase64,'base64')).digest('hex')};
  const advanced=[];
- for (const type of ['custom','rental']) {
+ for (const type of ['custom','rental','large-custom']) {
   await wallet.reset(true);
   const available=new wasm.WasmWalletSlip();available.set_utxokey(utxo.toString('hex'));available.set_amount(200000000n);available.set_block_id(2000001n);available.set_tx_ordinal(3n);available.set_slip_index(0);available.set_slip_type(0);available.set_lc(true);available.set_spent(false);await wallet.add_slip(available);
-  const rules=require(path.join(source,'node/mods/vault/lib/contracts/'+type+'.js'));
-  const access=type==='rental'?rules.build({creator_publickey:owner}):rules.script;
+  const rules=require(path.join(source,'node/mods/vault/lib/contracts/'+(type==='large-custom'?'custom':type)+'.js'));
+  const access=type==='rental'?rules.build({creator_publickey:owner}):{...rules.script};
+  if(type==='large-custom')access.padding='x'.repeat(65200);
   const nftType=type==='rental'?'vault-nft-rental':'vault-nft-key';
   const metadata={module:'Vault',request:'mint-vault-key',data:{link:'https://saito.io/vault',filename:name,file_id:''}};
   const key=await wallet.createBoundTransaction(1n,100000000n,Buffer.from(JSON.stringify(metadata)),0n,owner,nftType);

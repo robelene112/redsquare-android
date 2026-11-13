@@ -72,7 +72,8 @@ class SaitoVaultMint private constructor(val author: String, val nftId: String, 
         fun readCandidate(encoded: String): Candidate {
             require(encoded.length <= 128 * 1024)
             val bytes = Base64.getDecoder().decode(encoded)
-            require(Base64.getEncoder().encodeToString(bytes) == encoded && bytes.size in 330..64 * 1024)
+            // The 64 KiB script shares this candidate with signed metadata and up to 254 inputs.
+            require(Base64.getEncoder().encodeToString(bytes) == encoded && bytes.size in 330..96 * 1024)
             val header = ByteBuffer.wrap(bytes)
             val inputCount = header.getInt(0); val outputCount = header.getInt(4)
             require(inputCount in 1..254 && outputCount in 3..4 && header.getInt(12) == 0 &&
