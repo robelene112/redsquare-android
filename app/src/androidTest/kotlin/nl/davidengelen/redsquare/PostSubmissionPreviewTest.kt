@@ -98,35 +98,50 @@ class PostSubmissionPreviewTest {
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("postdraft.", "feed."), wallet.publicKey)
+        val store = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
+        val body = "Recover the original after a transport timeout"
+        val original = nl.davidengelen.redsquare.saito.SaitoTransaction.create(wallet,
+            nl.davidengelen.redsquare.saito.RedSquarePosts.message(body), System.currentTimeMillis())
+        var obstacle: PostReceiptObstacle? = null
         val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
         val expose = java.util.concurrent.atomic.AtomicBoolean(false)
         val peer = ControlledFeedPeer("[]", archiveResponse = { query ->
             if (expose.get() && query.has("sig")) indexed.get()?.takeIf { it.get("sig").asString == query.get("sig").asString }
                 ?.let { "[$it]" } ?: "[]" else "[]"
         }, onTransaction = { indexed.set(postingArchiveRow(postingTransaction(it))) })
-            .apply { withholdCloseReplies = true }
+
         var primary: Throwable? = null
         try {
             retained.prepare()
             backends.save(SaitoBackend.OWNER)
+            store.save(nl.davidengelen.redsquare.feed.PostDraftStore.Saved(body, original))
+            obstacle = PostReceiptObstacle.create(context, wallet.publicKey, original.id)
             peer.start().use { server ->
-                try {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir, "post-submission-evidence/timeout-failure.png")) }) {
                         ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
                         ui.onNode(hasText("New post") and hasClickAction()).performClick()
-                        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
-                        ui.onNode(hasSetTextAction()).performTextReplacement("Recover the original after a transport timeout")
-                        ui.onNodeWithText("Send").performClick()
+                        ui.waitUntil(10_000) { ui.onNodeWithText(body).isDisplayed() &&
+                            ui.onAllNodes(hasText(context.getString(R.string.post_send_saved)) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        ui.onNodeWithText(body).assertIsDisplayed()
+                        ui.onNodeWithText(context.getString(R.string.post_send_saved)).performScrollTo().assertIsDisplayed().performClick()
                         ui.waitUntil(10_000) { peer.transactions.size == 1 }
                         val candidate = postingTransaction(peer.transactions.single())
-                        ui.waitUntil(20_000) { ui.onNode(hasText("Retry") and isEnabled()).isDisplayed() }
+                        assertEquals(original.encoded(), candidate.encoded())
+                        val failedBy = android.os.SystemClock.elapsedRealtime() + 20_000
+                        ui.waitUntil(20_000) { ui.onNode(hasText("Retry") and isEnabled()).isDisplayed() &&
+                            ui.onAllNodesWithText(context.getString(R.string.post_draft_error))
+                                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        ui.onNodeWithText(context.getString(R.string.post_draft_error)).performScrollTo().assertIsDisplayed()
+                        ui.onNodeWithText(context.getString(R.string.post_network_error)).assertDoesNotExist()
+                        check(android.os.SystemClock.elapsedRealtime() <= failedBy)
                         val saved = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
                         assertEquals(candidate.encoded(), saved.load().transaction?.encoded())
                         org.junit.Assert.assertFalse(saved.hasSubmission(candidate.id))
-                        peer.withholdCloseReplies = false
-                        peer.releaseWithheldCloseReplies()
+                        // Shared local drain already completed. This first failure is the real
+                        // receipt-write obstacle, not a nonexistent per-feature Close ACK.
+                        obstacle!!.close(); obstacle = null
                         // A withheld Archive reply deterministically reaches
                         // SaitoPeer's coroutine deadline rather than a socket
                         // close/ping race. It must leave Retry usable too.
@@ -149,10 +164,9 @@ class PostSubmissionPreviewTest {
                         peer.assertHealthy()
                     }
                 }
-                } finally { peer.releaseWithheldCloseReplies() }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
-        finally { cleanupAfterTest(primary, {
+        finally { cleanupAfterTest(primary, { obstacle?.close() }, {
             peer.transactions.firstOrNull()?.let { androidx.work.WorkManager.getInstance(context)
                 .cancelUniqueWork("post:${postingTransaction(it).id}").result.get() }
         }, { retained.restoreFiles() }, { retained.restorePreferences() }, { backends.save(originalBackend) }) }

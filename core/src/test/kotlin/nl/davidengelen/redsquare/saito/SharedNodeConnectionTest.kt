@@ -174,6 +174,48 @@ class SharedNodeConnectionTest {
         }
     }
 
+    @Test fun sharedPublisherReportsWriteFailureWithinItsDrainBound() = runBlocking {
+        Node().use { node ->
+            SaitoPeer(wallet, node.endpoint).use { chat ->
+                SaitoPeer(wallet, node.endpoint).use { publisher ->
+                    val blocked = async { runCatching { chat.request("block".toByteArray()) } }
+                    withTimeout(5_000) { node.blockReceived.await() }
+                    val writes = (1..2).map { async(start = CoroutineStart.UNDISPATCHED) {
+                        runCatching { publisher.request(ByteArray(5 * 1024 * 1024) { 120 }) }
+                    } }
+                    try {
+                        val started = System.nanoTime()
+                        val result = withTimeout(15_000) { runCatching { publisher.finishBroadcast() } }
+                        assertTrue(result.exceptionOrNull() is java.io.IOException || result.exceptionOrNull() is TimeoutCancellationException)
+                        val elapsed = System.nanoTime() - started
+                        assertTrue("Exercise real write pressure before the transport/deadline failure", elapsed >= 9_000_000_000L)
+                        assertTrue("The drain cannot exceed its twelve-second bound", elapsed < 13_000_000_000L)
+                    } finally {
+                        node.unblock(); blocked.cancelAndJoin(); writes.forEach { it.cancelAndJoin() }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun solePublisherReportsCloseFailureWithinItsDrainBound() = runBlocking {
+        Node().use { node ->
+            SaitoPeer(wallet, node.endpoint).use { publisher ->
+                publisher.request("ready".toByteArray())
+                node.withholdCloseReplies = true
+                val started = System.nanoTime()
+                val finishing = async { runCatching { publisher.finishBroadcast() } }
+                withTimeout(5_000) { node.closeRequested.await() }
+                val result = withTimeout(15_000) { finishing.await() }
+                assertTrue(result.exceptionOrNull() is java.io.IOException || result.exceptionOrNull() is TimeoutCancellationException)
+                val elapsed = System.nanoTime() - started
+                assertTrue("Exercise the real withheld-close timeout", elapsed >= 9_000_000_000L)
+                assertTrue("The close cannot exceed its twelve-second bound", elapsed < 13_000_000_000L)
+                node.withholdCloseReplies = false
+            }
+        }
+    }
+
     /** Same callback address as pinned Saito: authenticated public key, then message index.
      * Holding a reply does not block the socket reader or the next request.
      */
@@ -187,6 +229,8 @@ class SharedNodeConnectionTest {
         val replacementReceived = CompletableDeferred<Unit>()
         val feedReceived = CompletableDeferred<Unit>()
         val blockReceived = CompletableDeferred<Unit>()
+        @Volatile var withholdCloseReplies = false
+        val closeRequested = CompletableDeferred<Unit>()
         private val releaseBlock = java.util.concurrent.CountDownLatch(1)
         val acknowledgements = kotlinx.coroutines.channels.Channel<ByteArray>(kotlinx.coroutines.channels.Channel.UNLIMITED)
         val endpoint: String
@@ -216,13 +260,16 @@ class SharedNodeConnectionTest {
                                         replacementHeld = key to index; replacementReceived.complete(Unit)
                                     } else if (body == "block") {
                                         blockReceived.complete(Unit)
-                                        check(releaseBlock.await(10, java.util.concurrent.TimeUnit.SECONDS))
+                                        check(releaseBlock.await(20, java.util.concurrent.TimeUnit.SECONDS))
                                         reply(key, index, body)
                                     } else reply(key, index, body)
                                 }
                             }
                         }
-                        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { webSocket.close(code, null) }
+                        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                            closeRequested.complete(Unit)
+                            if (!withholdCloseReplies) webSocket.close(code, null)
+                        }
                     }).build()
             }
             server.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
