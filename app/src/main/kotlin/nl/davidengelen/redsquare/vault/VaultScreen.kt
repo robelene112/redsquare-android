@@ -65,7 +65,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = R.string.vault_save_failed }
             finally {
-                try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() } }
+                try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
                 catch (_: Exception) { warning = R.string.vault_export_cleanup }
                 exporting = false; busy = false; library.refreshLocal()
             }
@@ -73,7 +73,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     }
     LaunchedEffect(library) {
         if (!exporting) {
-            try { withContext(Dispatchers.IO) { library.disk.finishExport() } }
+            try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { warning = R.string.vault_export_cleanup }
         }
@@ -127,7 +127,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             catch (_: Exception) { exporting = false; error = R.string.vault_access_failed }
             finally {
                 if (!exporting) {
-                    try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() } }
+                    try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
                     catch (_: Exception) { warning = R.string.vault_export_cleanup }
                     library.refreshLocal()
                 }
@@ -157,12 +157,18 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             InlineStatus(if (library.storageWarning) stringResource(R.string.vault_storage_warning)
                 else warning?.let { stringResource(it) }, StatusTone.WARNING,
                 actionLabel = if (warning == R.string.vault_export_cleanup) stringResource(R.string.vault_clear_temporary) else null,
-                onAction = { scope.launch {
-                    try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
-                    catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { warning = R.string.vault_export_cleanup }
-                    library.refreshLocal()
-                } })
+                actionEnabled = enabled,
+                onAction = {
+                    if (!busy && !exporting) {
+                        busy = true
+                        scope.launch {
+                            try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
+                            catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { warning = R.string.vault_export_cleanup }
+                            finally { busy = false; library.refreshLocal() }
+                        }
+                    }
+                })
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(offlineOnly.not(), { offlineOnly = false }, { Text(stringResource(R.string.vault_all_files)) },
                     modifier = Modifier.heightIn(min = 48.dp))
