@@ -78,4 +78,14 @@ const customRequest=transaction({request:'vault access file',data:{request:'vaul
  access_hash:customHash,data:{file_id:customFile.id}}},0,two,[slip(owner,0n,0)],[slip(owner,0n,0)]);
 const custom={name:customName,script:JSON.stringify(customRule),witnessInputs:'[{"input":"hello"}]',hash:customHash,file:customFile,key:customKey,request:customRequest,timestamp:'1700000999000'};
 const result={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:wasmVersion,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Owned synthetic identities and signed fixture tuples. Independently executed WASM serialisation/signatures/script hash/UTXO decoding; not a live consensus mint.'},creator,owner,id,type:'vault-nft-key',snapshot:`1700001000000-2000003-${'ab'.repeat(32)}.snap\n${rows.join('\n')}\n`,snapshotTotal:'50000000',quantity:'2',deposit:'100000000',script,scriptHash:hash,fileContentsBase64:file.toString('base64'),file:fileTx,key:nftTx,missingCommitmentFile,missingCommitmentKey,parameterFile,parameterKey,inventory,large,custom};
-fs.writeFileSync(path.resolve(process.argv[4]),JSON.stringify(result,null,2)+'\n');console.log('WASM reference complete:',result.authority.saitoWasm,id,hash);
+(async()=>{
+ result.custom.decisions=[];
+ for(const input of ['wrong','hello']) {
+  const script={...customRule,witness:{input}};
+  const accepted=await wasm.evaluate_script(JSON.stringify(script));
+  if(accepted!==(input==='hello'?1:0))throw Error('Unexpected independent CHECKHASH decision');
+  result.custom.decisions.push({input,accepted});
+ }
+ fs.writeFileSync(path.resolve(process.argv[4]),JSON.stringify(result,null,2)+'\n');
+ console.log('WASM reference complete:',result.authority.saitoWasm,id,hash);
+})().catch(error=>{console.error(error);process.exitCode=1});

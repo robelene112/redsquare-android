@@ -24,12 +24,12 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 })
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
     val originalReference = instrumentation.context.assets.open("native-vault-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
-    val vector = if (large) vaultLargeReference(originalReference) else originalReference
+    val vector = if (large) vaultLargeReference(originalReference) else if (custom) vaultCustomReference(originalReference) else originalReference
     val wallets = AndroidWalletStore(context)
     val original = wallets.loadOrCreate()
     val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.
@@ -79,11 +79,21 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                 advertisedServices = services, configurePeer = { peer ->
                     referencePeer = peer
                     minted?.connect(peer)
-                    if (minted == null) peer.vaultResponse = { signed ->
+                    if (minted == null) peer.vaultResponse = accessResponse@ { signed ->
                         val data = signed.body.getAsJsonObject("data")
                         val selected = inventoryRows.single { it.getAsJsonObject("file").get("id").asString == data.getAsJsonObject("data").get("file_id").asString }
                         assertEquals(selected.get("scriptHash").asString, data.get("access_hash").asString)
-                        assertEquals(selected.getAsJsonObject("script"), JsonParser.parseString(data.get("access_script").asString))
+                        val submitted = JsonParser.parseString(data.get("access_script").asString).asJsonObject
+                        if (custom) {
+                            val locking = submitted.deepCopy().apply { remove("witness") }
+                            assertEquals(selected.getAsJsonObject("script"), locking)
+                            val input = submitted.getAsJsonObject("witness").get("input").asString
+                            val decision = requireNotNull(selected.getAsJsonObject("custom").getAsJsonArray("decisions")
+                                .map { it.asJsonObject }.singleOrNull { it.get("input").asString == input }) {
+                                "An unplanned custom input reached the owned reference provider"
+                            }
+                            if (decision.get("accepted").asInt != 1) return@accessResponse "{\"status\":\"err\",\"err\":\"access_denied_script_failed\"}"
+                        } else assertEquals(selected.getAsJsonObject("script"), submitted)
                         JsonObject().apply {
                             addProperty("status", "success")
                             add("txs", com.google.gson.JsonArray().apply { add(selected.getAsJsonObject("file").get("envelope").asString) })
