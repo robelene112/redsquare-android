@@ -39,11 +39,20 @@ internal class VaultUploadSession(private val context: Context, private val wall
         mutable.value = mutable.value.copy(phase = VaultUploadPhase.LOADING)
         job = scope.launch {
             try {
-                val file = withContext(Dispatchers.IO) {
-                    disk.draft().also { check(it != null || !disk.hasDraftData()) }
-                }
                 val record = withContext(Dispatchers.IO) { store.read() }
+                // The operation journal survives source cleanup. In particular a completed
+                // upload must not require already deleted source chunks to reopen.
+                var sourceUnavailable = false
+                val file = if (record?.complete == true) null else withContext(Dispatchers.IO) {
+                    try { disk.draft().also { check(it != null || !disk.hasDraftData()) } }
+                    catch (failure: Exception) {
+                        if (record == null) throw failure
+                        sourceUnavailable = true
+                        null
+                    }
+                }
                 mutable.value = reviewed(file).copy(record = record,
+                    problem = if (sourceUnavailable) R.string.vault_draft_unavailable else null,
                     phase = when { record?.complete == true -> VaultUploadPhase.COMPLETE
                         record != null && (record.mayHaveSent || record.uploaded) -> VaultUploadPhase.WAITING
                         else -> if (file == null) VaultUploadPhase.FILES else VaultUploadPhase.REVIEW })
@@ -243,7 +252,15 @@ internal class VaultUploadSession(private val context: Context, private val wall
     fun backToFiles() {
         if (job?.isCompleted == false || mutable.value.phase != VaultUploadPhase.COMPLETE) return
         job = scope.launch {
-            try { withContext(Dispatchers.IO) { store.remove() }; mutable.value = VaultUploadView() }
+            try {
+                withContext(Dispatchers.IO) {
+                    // Retain the completed journal until source cleanup has finished, so an
+                    // interrupted cleanup can always return here without another publication.
+                    disk.discardDraft()
+                    store.remove()
+                }
+                mutable.value = VaultUploadView()
+            }
             catch (_: Exception) { mutable.value = mutable.value.copy(problem = R.string.vault_draft_remove_failed) }
         }
     }
