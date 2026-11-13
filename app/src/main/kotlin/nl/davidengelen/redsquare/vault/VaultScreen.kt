@@ -62,15 +62,23 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                     }
                     feedback = R.string.vault_file_saved
                 }
-                try { withContext(Dispatchers.IO) { library.disk.finishExport() } }
-                catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { warning = R.string.vault_export_cleanup }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = R.string.vault_save_failed }
-            finally { exporting = false; busy = false; library.refreshLocal() }
+            finally {
+                try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() } }
+                catch (_: Exception) { warning = R.string.vault_export_cleanup }
+                exporting = false; busy = false; library.refreshLocal()
+            }
         }
     }
-    LaunchedEffect(library) { library.load(page); if (library.problem == null) page = library.page }
+    LaunchedEffect(library) {
+        if (!exporting) {
+            try { withContext(Dispatchers.IO) { library.disk.finishExport() } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { warning = R.string.vault_export_cleanup }
+        }
+        library.load(page); if (library.problem == null) page = library.page
+    }
     fun loadPage(target: Int) {
         scope.launch {
             library.load(target)
@@ -104,16 +112,27 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         scope.launch {
             try {
                 val file = library.download(entry)
-                withContext(Dispatchers.IO) { currentCoroutineContext().ensureActive(); library.disk.prepareExport(file) }
+                try { withContext(Dispatchers.IO) { currentCoroutineContext().ensureActive(); library.disk.prepareExport(file) } }
+                catch (cancelled: CancellationException) { throw cancelled }
+                catch (failure: Exception) { throw VaultLocalFailure(failure) }
                 library.refreshLocal()
                 exporting = true
-                exportDocument.launch(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
-                    .setType(file.mime).putExtra(Intent.EXTRA_TITLE,
-                        file.name.substringAfterLast('/').substringAfterLast('\\').ifBlank { "Vault file" }))
+                try {
+                    exportDocument.launch(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
+                        .setType(file.mime).putExtra(Intent.EXTRA_TITLE,
+                            file.name.substringAfterLast('/').substringAfterLast('\\').ifBlank { "Vault file" }))
+                } catch (_: Exception) { exporting = false; error = R.string.vault_save_failed }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: VaultLocalFailure) { exporting = false; error = R.string.vault_local_file_failed }
+            catch (_: VaultLocalFailure) { exporting = false; error = R.string.vault_export_prepare_failed }
             catch (_: Exception) { exporting = false; error = R.string.vault_access_failed }
-            finally { busy = false }
+            finally {
+                if (!exporting) {
+                    try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() } }
+                    catch (_: Exception) { warning = R.string.vault_export_cleanup }
+                    library.refreshLocal()
+                }
+                busy = false
+            }
         }
     }
     val enabled = !busy && !exporting
@@ -136,7 +155,14 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 R.string.vault_service_unavailable else R.string.vault_connection_failed) },
                 StatusTone.NEUTRAL, actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
             InlineStatus(if (library.storageWarning) stringResource(R.string.vault_storage_warning)
-                else warning?.let { stringResource(it) }, StatusTone.WARNING)
+                else warning?.let { stringResource(it) }, StatusTone.WARNING,
+                actionLabel = if (warning == R.string.vault_export_cleanup) stringResource(R.string.vault_clear_temporary) else null,
+                onAction = { scope.launch {
+                    try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { warning = R.string.vault_export_cleanup }
+                    library.refreshLocal()
+                } })
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(offlineOnly.not(), { offlineOnly = false }, { Text(stringResource(R.string.vault_all_files)) },
                     modifier = Modifier.heightIn(min = 48.dp))
@@ -147,7 +173,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp, bottom = 12.dp))
         }
-        LazyColumn(Modifier.weight(1f).fillMaxWidth().then(anchor).testTag("vault-files"),
+        SingleOwnerReveal(Triple(offlineOnly to library.loading, library.page, visible.map { it.token }), Modifier.weight(1f)) {
+        LazyColumn(Modifier.fillMaxSize().then(anchor).testTag("vault-files"),
             state = list, contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             if (visible.isEmpty() && !library.loading) item("empty") {
@@ -196,6 +223,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             }
         }
+    }
     }
     if (privacyOpen) AlertDialog(onDismissRequest = { privacyOpen = false }, title = { Text(stringResource(R.string.vault_about)) },
         text = { Text(stringResource(R.string.vault_privacy)) },

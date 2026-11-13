@@ -109,10 +109,10 @@ object SaitoVault {
         val data = matched.body.getAsJsonObject("data")
         val name = data.string("name").also { require(it.isNotBlank() && it.length <= 1024) }
         val encoded = data.string("file")
-        val comma = encoded.indexOf(',').also { require(it in 12..200) }
+        val comma = encoded.indexOf(',').also { require(it in 12..4096) }
         val header = encoded.substring(0, comma)
         require(header.startsWith("data:") && header.endsWith(";base64"))
-        val contentType = header.substring(5, header.length - 7).also { require(mime.matches(it)) }
+        val contentType = header.substring(5, header.length - 7).substringBefore(';').also { require(mime.matches(it)) }
         val base64 = encoded.substring(comma + 1)
         require(base64.length <= (MAX_FILE_BYTES + 2) / 3 * 4)
         val bytes = Base64.getDecoder().decode(base64)

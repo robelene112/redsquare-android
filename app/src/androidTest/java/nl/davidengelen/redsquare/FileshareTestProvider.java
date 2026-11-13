@@ -47,6 +47,8 @@ public final class FileshareTestProvider extends ContentProvider {
         return new Bundle();
     }
     @Override public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+        if (mode.contains("w") && "vault-write-fails.bin".equals(uri.getLastPathSegment()))
+            throw new FileNotFoundException("Controlled Vault export failure");
         if ("r".equals(mode) && uri.getLastPathSegment().startsWith("unknown-stalled")) {
             try {
                 final ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();

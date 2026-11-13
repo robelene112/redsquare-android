@@ -878,6 +878,8 @@
     <string name="vault_storage_warning">Some local Vault data needs attention. Existing files were retained.</string>
     <string name="vault_all_files">All files</string>
     <string name="vault_offline">Offline</string>
+    <string name="vault_export_prepare_failed">Could not prepare this file for export. Check your device storage and try again.</string>
+    <string name="vault_clear_temporary">Clear temporary file</string>
     <string name="vault_storage_used">Saved for this node: %1$s</string>
     <string name="vault_saved_only">Connect to refresh files and access keys from your Vault.</string>
     <string name="vault_no_offline">No offline copies yet. Choose Keep offline on a file to save it here.</string>

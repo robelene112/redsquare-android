@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -34,7 +34,8 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     val original = wallets.loadOrCreate()
     val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.
     assertEquals(vector.get("owner").asString, fixture.publicKey)
-    val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/vault-saved.bin")
+    val document = if (failedExport) "vault-write-fails.bin" else "vault-saved.bin"
+    val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$document")
     val evidence = File(context.cacheDir, captureFolder).apply { mkdirs() }
     val inventoryRows = if (inventory) vector.getAsJsonArray("inventory").map { it.asJsonObject }
         else listOf(vector)
@@ -43,7 +44,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     var intentsStarted = false
     try {
         wallets.replace(original, fixture)
-        context.contentResolver.call(destination, "prepare", "vault-saved.bin", Bundle().apply { putByteArray("bytes", byteArrayOf()) })
+        context.contentResolver.call(destination, "prepare", document, Bundle().apply { putByteArray("bytes", byteArrayOf()) })
         Intents.init(); intentsStarted = true
         Intents.intending(hasAction(Intent.ACTION_CREATE_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(Activity.RESULT_OK,
             Intent().setData(destination).addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)))
@@ -83,8 +84,10 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     finally {
         cleanupAfterTest(failure, { if (intentsStarted) Intents.release() }, {
             val current = wallets.loadExisting()
-            if (current.exportJson() == fixture.exportJson()) wallets.replace(current, original)
+            val fixturePreserved = current.exportJson() == fixture.exportJson()
+            if (current.exportJson() != original.exportJson()) wallets.replace(current, original)
             check(wallets.loadExisting().exportJson() == original.exportJson())
+            check(fixturePreserved) { "Vault journey changed the active fixture identity or options" }
         })
     }
 }

@@ -64,4 +64,37 @@ class VaultRecoveryPreviewTest {
             captureNativeScreen(File(scene.evidence, "storage-failure.png"))
         } finally { check(fault.isDirectory && fault.listFiles().orEmpty().isEmpty() && fault.delete()) }
     }
+    @Test fun aFailedDocumentExportClearsTemporaryBytesAndKeepsTheOfflineCopy() =
+        withVaultReadingFixture("export-failure", captureFolder = "vault-recovery-evidence", failedExport = true) { scene ->
+            ui.openNativeVault()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Field notes.txt").isDisplayed() }
+            ui.onNodeWithText("Keep offline").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
+            fun storageText() = ui.onNodeWithText("Saved for this node:", substring = true)
+                .fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString { it.text }
+            val before = storageText()
+            ui.onNodeWithText("Save as…").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Could not save this file.", substring = true).isDisplayed() }
+            ui.waitUntil(10_000) { storageText() == before }
+            ui.onNodeWithText("Available offline").assertIsDisplayed()
+            ui.onAllNodesWithText("File saved").assertCountEquals(0)
+            captureNativeScreen(File(scene.evidence, "export-failure-cleared.png"))
+        }
+
+    @Test fun localExportStagingFailureExplainsDeviceStorageAndLeavesTheKeyUsable() =
+        withVaultReadingFixture("export-staging", captureFolder = "vault-recovery-evidence") { scene ->
+            ui.openNativeVault()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Field notes.txt").isDisplayed() }
+            val owner = scene.reference.get("owner").asString
+            val fault = File(scene.context.noBackupFilesDir, "vault.$owner.${SaitoBackend.OWNER.id}.export.info")
+            check(fault.mkdir())
+            try {
+                ui.onNodeWithText("Save as…").performScrollTo().performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Could not prepare this file for export.", substring = true).isDisplayed() }
+                ui.onNodeWithText("Keep offline").assertIsEnabled()
+                ui.onAllNodesWithText("Could not access this file.", substring = true).assertCountEquals(0)
+                captureNativeScreen(File(scene.evidence, "export-staging-failure.png"))
+            } finally { if (fault.exists()) check(fault.isDirectory && fault.listFiles().orEmpty().isEmpty() && fault.delete()) }
+        }
+
 }

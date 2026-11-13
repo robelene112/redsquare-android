@@ -69,4 +69,19 @@ class SaitoVaultTest {
             java.security.MessageDigest.getInstance("SHA-256").digest(file.bytes).joinToString("") { "%02x".format(it) })
     }
 
+    @Test fun officialNamedDataUrisExportWithTheirMimeEssenceAndExactContents() {
+        val vector = reference()
+        val holding = SaitoBalanceSnapshot.parse(vector.get("snapshot").asString.toByteArray(),
+            vector.get("owner").asString, 1700001000000L).nfts.single()
+        val key = SaitoVault.readKey(holding, vector.getAsJsonObject("parameterKey").get("envelope").asString)
+        val response = com.google.gson.JsonObject().apply {
+            addProperty("status", "success")
+            add("txs", com.google.gson.JsonArray().apply { add(vector.getAsJsonObject("parameterFile").get("envelope").asString) })
+        }
+        val file = SaitoVault.readFile(key, response.toString())
+        assertEquals("Field notes.json", file.name)
+        assertEquals("application/json", file.mime)
+        assertArrayEquals(java.util.Base64.getDecoder().decode(vector.get("fileContentsBase64").asString), file.bytes)
+    }
+
 }
