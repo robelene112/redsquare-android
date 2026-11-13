@@ -94,6 +94,8 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                     try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount })) }
                     catch (problem: Throwable) {
                         File(evidence, "$name-original-failure.txt").writeText(problem.stackTraceToString())
+                        File(evidence, "$name-vault-diagnostic.txt").writeText(androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                            .executeShellCommand("logcat -d -s VaultUpload:W"))
                         throw problem
                     }
                     finally {

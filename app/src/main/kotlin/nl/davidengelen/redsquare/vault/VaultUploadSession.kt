@@ -122,6 +122,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
             } catch (failure: Exception) {
                 // Closing a provider pipe may report IOException or OperationCanceledException
                 // before withContext propagates coroutine cancellation. It is still a user stop.
+                android.util.Log.w("VaultUpload", "[DEBUG-vault107] source failure active=${currentCoroutineContext().isActive} child=${System.identityHashCode(currentCoroutineContext().job)} field=${System.identityHashCode(job)} type=${failure.javaClass.name}")
                 if (!currentCoroutineContext().isActive) restoreCancelledPreparation(previous, written, prior)
                 else mutable.value = if (failure is DraftStorageFailure)
                     VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_source_save_failed)
@@ -144,6 +145,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
 
     fun cancelPreparation() {
         if (mutable.value.phase != VaultUploadPhase.PREPARING) return
+        android.util.Log.w("VaultUpload", "[DEBUG-vault107] cancel phase=${mutable.value.phase} active=${job?.isActive} completed=${job?.isCompleted} field=${System.identityHashCode(job)}")
         job?.cancel()
         val reading = source
         val cancellation = sourceCancellation
