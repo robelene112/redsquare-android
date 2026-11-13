@@ -246,6 +246,18 @@ internal class VaultUploadSession(private val context: Context, private val wall
         }
     }
 
+    /** End an explicitly owned runtime before its captured storage is restored. */
+    suspend fun closeAndJoin() = withContext(Dispatchers.Main.immediate) {
+        epoch.incrementAndGet()
+        job?.cancel(); transfer.cancel()
+        val reading = source; val cancellation = sourceCancellation
+        withContext(Dispatchers.IO) {
+            runCatching { cancellation?.cancel() }
+            runCatching { reading?.close() }
+        }
+        scope.coroutineContext.job.cancelAndJoin()
+    }
+
     private fun problem(failure: Exception) = when (failure) {
         is VaultInsufficientFunds -> R.string.vault_insufficient_funds
         is VaultFundingChanged -> R.string.vault_funding_changed
@@ -284,6 +296,10 @@ internal object VaultUploads {
             VaultUploadPhase.CHECKING, VaultUploadPhase.AUTHORIZING)
     }
     @Synchronized fun active(): List<VaultUploadSession> = sessions.values.filter { it.state.value.phase == VaultUploadPhase.SENDING }
+    suspend fun closeAndJoin(owner: String, backend: SaitoBackend, endpoint: String) {
+        val owned = synchronized(this) { sessions.remove(Identity(owner, backend, endpoint)) }
+        owned?.closeAndJoin()
+    }
     @Synchronized fun session(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String,
         balances: WalletBalances): VaultUploadSession = sessions.getOrPut(Identity(wallet.publicKey, backend, endpoint)) {
         VaultUploadSession(context.applicationContext, wallet, backend, endpoint, balances)

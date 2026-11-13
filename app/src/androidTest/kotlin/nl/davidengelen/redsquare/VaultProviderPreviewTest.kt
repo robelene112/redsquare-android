@@ -70,4 +70,40 @@ class VaultProviderPreviewTest {
             ui.onAllNodesWithText("Create key and upload").assertCountEquals(0)
             captureNativeScreen(File(scene.evidence, "revoked-grant-read-error-before-write.png"))
         }
+
+    @Test fun anAbortedNativeFixtureStopsItsConsumerBeforeRestoringCapturedState() {
+        val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+        val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/unknown-stalled-aborted.bin")
+        val owner = nl.davidengelen.redsquare.saito.SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
+        val sentinel = IllegalStateException("Controlled fixture interruption before provider completion")
+        var endpoint: String? = null
+        try {
+            try {
+                withVaultReadingFixture("aborted-provider", captureFolder = "vault-provider-evidence") { scene ->
+                    scene.activity.onActivity { endpoint = it.intent.getStringExtra("feedPeerUrl") }
+                    context.contentResolver.call(source, "prepare", "unknown-stalled-aborted.bin", Bundle().apply {
+                        putByteArray("bytes", ByteArray(256 * 1024) { 41 })
+                    })
+                    Intents.intending(hasAction(Intent.ACTION_OPEN_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(
+                        Activity.RESULT_OK, Intent().setData(source).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
+                    ui.openNativeVault()
+                    ui.waitUntil(5_000) { ui.onNodeWithText("Upload file").isDisplayed() }
+                    ui.onNodeWithText("Upload file").performClick()
+                    ui.waitUntil(5_000) { context.contentResolver.call(source, "status", null, null)?.getBoolean("firstWritten") == true }
+                    assertTrue(nl.davidengelen.redsquare.vault.VaultUploads.hasPreparation(owner))
+                    throw sentinel
+                }
+                fail("The controlled original failure must propagate")
+            } catch (failure: IllegalStateException) { assertSame(sentinel, failure) }
+            assertFalse("Captured state must not be restored while its Vault consumer remains active",
+                nl.davidengelen.redsquare.vault.VaultUploads.hasPreparation(owner))
+        } finally {
+            endpoint?.let { address -> kotlinx.coroutines.runBlocking {
+                nl.davidengelen.redsquare.vault.VaultUploads.closeAndJoin(owner, nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, address)
+            } }
+            context.contentResolver.call(source, "release", null, null)
+            ui.waitUntil(5_000) { context.contentResolver.call(source, "status", null, null)?.getInt("activeWorkers") == 0 }
+        }
+    }
+
 }
