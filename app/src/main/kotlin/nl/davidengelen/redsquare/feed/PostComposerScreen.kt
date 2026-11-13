@@ -155,7 +155,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         PostDraftStore.changes.collect {
             if (state.transaction != null) {
                 snapshotFlow { !state.sending && !state.saving }.first { it }
-                state.load()
+                state.observeSavedWork()
             }
         }
     }

@@ -61,16 +61,23 @@ internal class PostComposerState(
     val locallySaved: Boolean get() = savedContent?.let {
         it.text == text && it.images == images && it.gifAttributions == gifAttributions
     } == true
-    suspend fun load() {
+    /** Initial entry or an explicit retry may resolve a previous loading failure. */
+    suspend fun load() = writes.withLock { readSavedWork(passive = false) }
+
+    /** A storage notification is not a successful retry of a failed operation. */
+    suspend fun observeSavedWork() = writes.withLock {
+        if (!sending && !saving) readSavedWork(passive = true)
+    }
+
+    private suspend fun readSavedWork(passive: Boolean) {
         try {
             var saved = withContext(Dispatchers.IO) { store.load() }
+            var reconciled = false
             // Reconcile a legacy attempt on entry, not after every local
-            // delivery change: an unsolicited read must not occupy the
-            // original while the user deliberately retries this session.
-            // Durable availability still allows a failed receipt save to heal.
+            // notification. Durable availability can still heal its receipt.
             if (saved.transaction != null && !saved.queued && (!ready || saved.available)) {
                 val candidate = requireNotNull(saved.transaction)
-                val reconciled = try {
+                reconciled = try {
                     if (saved.available) {
                         try { withContext(NonCancellable + Dispatchers.IO) { store.markSubmitted(candidate.id) } }
                         catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
@@ -83,17 +90,17 @@ internal class PostComposerState(
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (failure: DraftPersistenceFailure) { throw failure }
                 catch (_: Exception) { checkError = true; false }
-                if (reconciled) {
-                    memory.clearSubmitted()
-                    submitted = true
-                    saved = withContext(Dispatchers.IO) { store.load() }
-                }
             }
             val handedOff = (transaction?.id ?: memory.transactionId)?.let { id ->
                 withContext(Dispatchers.IO) { store.hasSubmission(id) }
             } == true
-            if (handedOff) {
-                if (ready && transaction != null) submitted = true
+            if (reconciled || handedOff) saved = withContext(Dispatchers.IO) { store.load() }
+            // A user operation can set its busy flag while this read is suspended.
+            // Its write waits for this mutex, so discard the observation before it
+            // can overwrite the new operation's state or consume its error.
+            if (passive && (sending || saving)) return
+            if (reconciled || handedOff) {
+                if (reconciled || (ready && transaction != null)) submitted = true
                 memory.clearSubmitted()
             }
             savedContent = saved
@@ -110,9 +117,9 @@ internal class PostComposerState(
             queueSaved = saved.queued
             available = saved.available
             ready = true
-            error = false
+            if (!passive || reconciled || handedOff) error = false
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { error = true }
+        catch (_: Exception) { if (!passive || (!sending && !saving)) error = true }
     }
     private suspend fun reconcile(candidate: SaitoTransaction, content: String): Boolean = withContext(Dispatchers.IO) {
         var confirmed = false
@@ -138,9 +145,11 @@ internal class PostComposerState(
         checkError = false
         scope.launch {
             try {
-                if (reconcile(candidate, text)) {
-                    memory.clearSubmitted()
-                    submitted = true
+                writes.withLock {
+                    if (reconcile(candidate, text)) {
+                        memory.clearSubmitted()
+                        submitted = true
+                    }
                 }
             } catch (timeout: TimeoutCancellationException) {
                 currentCoroutineContext().ensureActive()
