@@ -722,6 +722,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-provider* ]]; then
+    verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
+    printf '%s\n' 'Native delayed Share provider cancellation and actual revoked Android URI grant, without publishing.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload-large* ]]; then
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence
     printf '%s\n' 'Full4MiB native reviewed and authenticated upload over the owned peer and actual Android document provider.' > "$evidence/scope.txt"
@@ -744,6 +749,7 @@ if [[ "${TEST_SCOPE:-full}" == vault-minting* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
+    verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence
@@ -1203,6 +1209,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
+    verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence

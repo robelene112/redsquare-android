@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 public final class FileshareTestProvider extends ContentProvider {
     private static volatile java.util.concurrent.CountDownLatch gate = new java.util.concurrent.CountDownLatch(1);
     private static volatile boolean firstWritten;
+    private static final java.util.concurrent.atomic.AtomicInteger activeWorkers = new java.util.concurrent.atomic.AtomicInteger();
     private File file(String name) {
         if (name == null || !name.matches("[a-zA-Z0-9_-]{1,60}\\.bin")) throw new IllegalArgumentException("Invalid synthetic document");
         File directory = new File(getContext().getFilesDir(), "fileshare-test-documents");
@@ -36,7 +37,13 @@ public final class FileshareTestProvider extends ContentProvider {
     }
     @Override public Bundle call(String method, String name, Bundle extras) {
         if ("release".equals(method)) { gate.countDown(); return new Bundle(); }
-        if ("status".equals(method)) { Bundle status = new Bundle(); status.putBoolean("firstWritten", firstWritten); return status; }
+        if ("status".equals(method)) { Bundle status = new Bundle(); status.putBoolean("firstWritten", firstWritten); status.putInt("activeWorkers", activeWorkers.get()); return status; }
+        if ("revoke".equals(method)) {
+            file(name);
+            Uri uri = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/" + name);
+            getContext().revokeUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            return new Bundle();
+        }
         if (!"prepare".equals(method)) throw new IllegalArgumentException("Unknown synthetic document action");
         if (name.startsWith("unknown-stalled")) { gate = new java.util.concurrent.CountDownLatch(1); firstWritten = false; }
         File target = file(name);
@@ -53,6 +60,7 @@ public final class FileshareTestProvider extends ContentProvider {
             try {
                 final ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
                 final File source = file(uri.getLastPathSegment());
+                activeWorkers.incrementAndGet();
                 new Thread(() -> {
                     try (java.io.InputStream input = new java.io.FileInputStream(source);
                          java.io.OutputStream output = new ParcelFileDescriptor.AutoCloseOutputStream(pipe[1])) {
@@ -63,6 +71,7 @@ public final class FileshareTestProvider extends ContentProvider {
                         byte[] remaining = new byte[8192];
                         while ((size = input.read(remaining)) > 0) output.write(remaining, 0, size);
                     } catch (Exception ignored) { /* Cancellation intentionally closes this fixture pipe. */ }
+                    finally { activeWorkers.decrementAndGet(); }
                 }, "controlled-file-provider").start();
                 return pipe[0];
             } catch (java.io.IOException failure) { throw new FileNotFoundException("Controlled provider unavailable"); }
