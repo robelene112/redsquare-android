@@ -35,7 +35,11 @@ const fileHash = wasm.get_script_hash(JSON.stringify(fileScript));
 const payload = {name:'Field notes.txt',file:'data:text/plain;base64,'+file.toString('base64')};
 const fileTx=transaction({request:'vault add file',access_script:JSON.stringify(fileScript),access_hash:fileHash,data:payload},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
 const missingCommitmentFile=transaction({request:'vault add file',data:payload},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
-function keyFor(fileId, address=metadataAddress, name='Field notes.txt') { return transaction({module:'Vault',request:'mint-vault-key',data:{link:'https://saito.io/vault',filename:name,file_id:fileId}},8,one,[slip(creator,200000000n,0,0,2000001n,3n)],[slip(creator,2n,9),slip(owner,100000000n,0,1),slip(address,0n,9,2),slip(creator,100000000n,0,3)]); }
+function keyFor(fileId, address=metadataAddress, name='Field notes.txt', accessScript=null) {
+ const data={link:'https://saito.io/vault',filename:name,file_id:fileId};
+ if(accessScript!==null)data.file_access_script=accessScript;
+ return transaction({module:'Vault',request:'mint-vault-key',data},8,one,[slip(creator,200000000n,0,0,2000001n,3n)],[slip(creator,2n,9),slip(owner,100000000n,0,1),slip(address,0n,9,2),slip(creator,100000000n,0,3)]);
+}
 const nftTx=keyFor(fileTx.id),missingCommitmentKey=keyFor(missingCommitmentFile.id);
 const parameterFile=transaction({request:'vault add file',access_script:JSON.stringify(fileScript),access_hash:fileHash,
  data:{name:'Field notes.json',file:'data:application/json;name=Field%20notes.json;base64,'+file.toString('base64')}},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
@@ -64,5 +68,14 @@ const largeEnvelope=JSON.parse(largeFile.envelope);
 const large={size:largeBytes.length,name:largeName,mime:largeMime,sha256:crypto.createHash('sha256').update(largeBytes).digest('hex'),
  fileSignature:largeFile.id,detached:largeEnvelope.t,opt:largeEnvelope.opt,key:keyFor(largeFile.id,metadataAddress,largeName),
  accessScript:JSON.stringify(fileScript),accessHash:fileHash};
-const result={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:wasmVersion,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Owned synthetic identities and signed fixture tuples. Independently executed WASM serialisation/signatures/script hash/UTXO decoding; not a live consensus mint.'},creator,owner,id,type:'vault-nft-key',snapshot:`1700001000000-2000003-${'ab'.repeat(32)}.snap\n${rows.join('\n')}\n`,snapshotTotal:'50000000',quantity:'2',deposit:'100000000',script,scriptHash:hash,fileContentsBase64:file.toString('base64'),file:fileTx,key:nftTx,missingCommitmentFile,missingCommitmentKey,parameterFile,parameterKey,inventory,large};
+const customRule={op:'CHECKHASH',hash:wasm.hash(Buffer.from('hello'))};
+const customWitness={...customRule,witness:{input:'hello'}};
+const customHash=wasm.get_script_hash(JSON.stringify(customRule)),customName='Custom field notes.txt';
+const customFile=transaction({request:'vault add file',access_script:JSON.stringify(customRule),access_hash:customHash,
+ data:{name:customName,file:'data:text/plain;base64,'+file.toString('base64')}},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
+const customKey=keyFor(customFile.id,metadataAddress,customName,JSON.stringify(customRule));
+const customRequest=transaction({request:'vault access file',data:{request:'vault access file',access_script:JSON.stringify(customWitness),
+ access_hash:customHash,data:{file_id:customFile.id}}},0,two,[slip(owner,0n,0)],[slip(owner,0n,0)]);
+const custom={name:customName,script:JSON.stringify(customRule),witnessInputs:'[{"input":"hello"}]',hash:customHash,file:customFile,key:customKey,request:customRequest,timestamp:'1700000999000'};
+const result={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:wasmVersion,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Owned synthetic identities and signed fixture tuples. Independently executed WASM serialisation/signatures/script hash/UTXO decoding; not a live consensus mint.'},creator,owner,id,type:'vault-nft-key',snapshot:`1700001000000-2000003-${'ab'.repeat(32)}.snap\n${rows.join('\n')}\n`,snapshotTotal:'50000000',quantity:'2',deposit:'100000000',script,scriptHash:hash,fileContentsBase64:file.toString('base64'),file:fileTx,key:nftTx,missingCommitmentFile,missingCommitmentKey,parameterFile,parameterKey,inventory,large,custom};
 fs.writeFileSync(path.resolve(process.argv[4]),JSON.stringify(result,null,2)+'\n');console.log('WASM reference complete:',result.authority.saitoWasm,id,hash);

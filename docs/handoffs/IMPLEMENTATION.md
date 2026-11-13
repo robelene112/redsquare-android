@@ -48,6 +48,24 @@ No Vault/Store beta is built or published; public beta127 remains. VAULT_LIVE
 stays unchecked in36/OWNER_INPUTS.md. Do not activate providers or spend public
 funds to replace controlled verification.
 
+## Active advanced Vault slice #108
+
+#107 is closed and #108 is claimed. Review base:
+`acf61b62e5370afa7afc16bc6e2eeabc82db1422`. Continue108–115, one ticket at a time,
+then the one combined beta under the existing owner authorization.
+`SaitoAccessScript` and `SaitoVaultRules` now match pinned WASM0.3.15 script hashes,
+Rust numeric JSON identity, witness merging and creator/renter/expiry presets.
+Four focused public core tests pass; advanced native UI, custom retrieval,
+permanent transfer, rental-master upload and complete108acceptance are not done.
+Red/green originals and the public deployed-bundle comparison are external in
+`/mnt/storage/redsquare-android-artifacts/vault-store-planning` (`*108*`).
+The read-only public bundle1794546696 has SHA256
+`bde5468da85e77160e832cc398a0d4c449a29258d8c613e73bb7e6a7f54d6e14`.
+Its isolated Custom/Rental/Loan contract factories match the pinned builders;
+this is not backend authorization or a fully initialized community-client proof.
+Jackson-core2.23.0 supplies shortest float digits for Rust-compatible script
+commitments on JVM17/Android; existing protocol dependencies remain pinned.
+
 ## Delivered native Saito Talk #104
 
 [Signed beta 0.1.127](https://davidengelen.nl/redsquare/) adds direct audio/video
