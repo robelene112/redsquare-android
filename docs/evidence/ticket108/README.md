@@ -37,8 +37,21 @@ byte-exact. This is a complete three-case diagnostic, not whole-ticket acceptanc
 
 The permanent transfer review tracer fails on missing **Transfer key** in
 [43491190725](https://github.com/robelene112/redsquare-android/actions/runs/43491190725),
-source `6cc37e56cca856fff937c26f91fafa775a58d276`. The implementation and actual
-send/reconciliation still need their native verification.
+source `6cc37e56cca856fff937c26f91fafa775a58d276`. The four-case advanced diagnostic then passes on both SDKs at
+`73f8b694e0d04258ff1b06cc4e2bf295f82e6dc3`:
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43493658324)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43493652504).
+It includes whole-quantity/deposit/recipient review, closing and reopening the
+reserved candidate, and explicit disposal of an unsent candidate without a
+broadcast. The original rendered review was inspected. Actual authenticated
+send/reconciliation is not accepted by that review-only journey.
+
+The next native tracer uses the real Android credential prompt, an owned peer
+that receives the signed transfer and disconnects, Activity recreation, and a
+read-only recovery check. Its synthetic block re-leafs the received payload and
+retimes the independently verified WASM block layout with a published fixture
+creator. It is a controlled selected-node observation, not funded consensus or
+production-provider acceptance. Verification is pending.
 
 Independent `saito-wasm@0.3.15` vectors pin upstream
 `0db0062d873369dc013046ed77c97410b5683b64`. They cover script commitments,

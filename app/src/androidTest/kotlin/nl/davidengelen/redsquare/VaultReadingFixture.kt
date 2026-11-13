@@ -21,15 +21,20 @@ import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicBoolean
 
 internal data class VaultReadingScene(val activity: ActivityScenario<MainActivity>, val peer: ControlledFeedPeer,
-    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 })
+    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
     val originalReference = instrumentation.context.assets.open("native-vault-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
     val vector = if (large) vaultLargeReference(originalReference) else if (custom) vaultCustomReference(originalReference) else originalReference
+    val transferred = if (keyTransfer) {
+        val transferReference = instrumentation.context.assets.open("native-vault-transfer-reference.json").reader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        OwnedVaultKeyTransferFixture(vector, transferReference)
+    } else null
     val wallets = AndroidWalletStore(context)
     val original = wallets.loadOrCreate()
     val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.
@@ -60,6 +65,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
             balance.dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
                     minted?.let { return it.response(request.target) }
+                    transferred?.let { return it.response(request.target) }
                     if (request.target != "/balance/${fixture.publicKey}") return MockResponse(code = 404)
                     val originalSnapshot = vector.get("snapshot").asString
                     val ordinary = originalSnapshot.lines().take(2).joinToString("\n") + "\n"
@@ -79,6 +85,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                 advertisedServices = services, configurePeer = { peer ->
                     referencePeer = peer
                     minted?.connect(peer)
+                    transferred?.connect(peer)
                     if (minted == null) peer.vaultResponse = accessResponse@ { signed ->
                         val data = signed.body.getAsJsonObject("data")
                         val selected = inventoryRows.single { it.getAsJsonObject("file").get("id").asString == data.getAsJsonObject("data").get("file_id").asString }
@@ -106,7 +113,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                     else "[]"
                     }
                 }) { activity ->
-                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount })) }
+                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount }, transferred)) }
                     catch (problem: Throwable) {
                         File(evidence, "$name-original-failure.txt").writeText(problem.stackTraceToString())
                         throw problem
