@@ -1,0 +1,81 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "saitoWasm": "0.3.15",
+    "sourceHashes": {
+      "node/mods/store/lib/transactions.js": "8e7b0c29f8bc1e8e0ede4e966d9fe5c5d385ca00b0f18c31f0304db56a7af8b3",
+      "node/mods/store/lib/scripting.js": "917f112d52fd81fc5c6508cc5c1467ffa1df73cd8d12db06982d328b63bc18ff",
+      "node/mods/store/lib/helpers.js": "a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce",
+      "node/mods/store/lib/summary.js": "e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a"
+    },
+    "qualification": "Actual isolated Store createListAssetTransaction, script/helpers and Summary serializer, actual WASM wallet.createNFTTransaction. Wallet wrapper and standard no-hook adapters are not a full frontend or funded consensus listing."
+  },
+  "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "store": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+  "nftId": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+  "timestamp": "1700002001000",
+  "listing": {
+    "id": "70615522ec2fe7cf75540266d478400a789a9d32d1b876f8e25248c362b9a3102829f9aef1acfde2cbe7666e1df727baac60fec6ec938f5222f4168444227aa1",
+    "networkBase64": "AAAABAAAAAQAAAO5AAAAAHBhVSLsL+fPdVQCZtR4QAp4mp0y0bh2+OJSSMNiuaMQKCn5rvGs/eLL52ZuHfcnuqxg/sbsk49SIvQWhEQieqEAAAGL0APwaAAAAAEIAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAIAAAAAAB6EggAAAAAAAAAIAAkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAHoSCAAAAAAAAAAgBAAIRERERERERERERERERERERdmF1bHQtbmZ0LWtleQAAAAAAAAAAAAAAAAAAAAAehIIAAAAAAAAACAIJAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQCSlB6r3myGadlkegH8fWW5cQ9qQAFKvgs40J4cdMXjJgAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAhERERERERERERERERERERF2YXVsdC1uZnQta2V5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAHsibW9kdWxlIjoiU3RvcmUiLCJkYXRhIjp7ImxpbmsiOiJodHRwczovL3NhaXRvLmlvL3ZhdWx0IiwiZmlsZW5hbWUiOiJGaWVsZCBub3Rlcy50eHQiLCJmaWxlX2lkIjoiYmIyNTNhNWRlY2U1ZmY5NzQxMmMzYTM1NTRmZGRiYjE0NWEzZjNiNmNlMTZiMTI5ZGUxOTJhNGExNWMzODIxYjIxNWE4Yzk2OTUyYTFlOGNhMjg1ZjExODJkMWY3OGZhODJmNzE2MzIzNTg2OWNhMmEwNzIzN2UxOTYyOGJmMTkiLCJpbWFnZSI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBQXdBQUFBSUNBSUFBQUJDaG9tbUFBQUFFVWxFUVZSNG5HTzRJNmRCRURHTUtnSUFKMWxzd2ZTZEwrVUFBQUFBU1VWT1JLNUNZSUk9In0sInJlcXVlc3QiOiJsaXN0LWFzc2V0IiwiYWNjZXNzX3NjcmlwdCI6IntcIm9wXCI6XCJDSEVDS01VTFRJU0lHXCIsXCJtXCI6MSxcInB1YmxpY2tleXNcIjpbXCJwbmNTanNmdGRtc3BlZFhnbUNra0hMUkNlYWsxMmV4MldWcm5lMnFkZWZTVVwiLFwidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXhcIl0sXCJtc2dcIjpcInR4LmZyb20ucDJzaC51dHhvc2V0X2tleVwifSIsImFjY2Vzc19oYXNoIjoiOTI5NDFlYWJkZTZjODY2OWQ5NjQ3YTAxZmM3ZDY1Yjk3MTBmNmE0MDAxNGFiZTBiMzhkMDllMWM3NGM1ZTMyNiIsInAyc2hfYWRkcmVzcyI6IjAwOTI5NDFlYWJkZTZjODY2OWQ5NjQ3YTAxZmM3ZDY1Yjk3MTBmNmE0MDAxNGFiZTBiMzhkMDllMWM3NGM1ZTMyNiIsImxpc3RpbmciOnsidGl0bGUiOiJJbGx1c3RyYXRlZCBmaWVsZCBub3RlcyBhY2Nlc3Mga2V5IiwiZGVzY3JpcHRpb24iOiJPcmlnaW5hbCBjcmVhdG9yLWF1dGhlbnRpY2F0ZWQgZmllbGQgbm90ZXMuIiwiY2F0ZWdvcnkiOiJBY2Nlc3MgS2V5cyIsInByaWNlIjoiMi41IiwicXVhbnRpdHlfdG90YWwiOjIsInF1YW50aXR5X2F2YWlsYWJsZSI6Mn19",
+    "envelope": "{\"t\":\"AAAABAAAAAQAAAAAAAAAAHBhVSLsL+fPdVQCZtR4QAp4mp0y0bh2+OJSSMNiuaMQKCn5rvGs/eLL52ZuHfcnuqxg/sbsk49SIvQWhEQieqEAAAGL0APwaAAAAAEIAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAIAAAAAAB6EggAAAAAAAAAIAAkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAHoSCAAAAAAAAAAgBAAIRERERERERERERERERERERdmF1bHQtbmZ0LWtleQAAAAAAAAAAAAAAAAAAAAAehIIAAAAAAAAACAIJAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQCSlB6r3myGadlkegH8fWW5cQ9qQAFKvgs40J4cdMXjJgAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAhERERERERERERERERERERF2YXVsdC1uZnQta2V5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA==\",\"m\":\"eyJtb2R1bGUiOiJTdG9yZSIsImRhdGEiOnsibGluayI6Imh0dHBzOi8vc2FpdG8uaW8vdmF1bHQiLCJmaWxlbmFtZSI6IkZpZWxkIG5vdGVzLnR4dCIsImZpbGVfaWQiOiJiYjI1M2E1ZGVjZTVmZjk3NDEyYzNhMzU1NGZkZGJiMTQ1YTNmM2I2Y2UxNmIxMjlkZTE5MmE0YTE1YzM4MjFiMjE1YThjOTY5NTJhMWU4Y2EyODVmMTE4MmQxZjc4ZmE4MmY3MTYzMjM1ODY5Y2EyYTA3MjM3ZTE5NjI4YmYxOSIsImltYWdlIjoiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFBd0FBQUFJQ0FJQUFBQkNob21tQUFBQUVVbEVRVlI0bkdPNEk2ZEJFREdNS2dJQUoxbHN3ZlNkTCtVQUFBQUFTVVZPUks1Q1lJST0ifSwicmVxdWVzdCI6Imxpc3QtYXNzZXQiLCJhY2Nlc3Nfc2NyaXB0Ijoie1wib3BcIjpcIkNIRUNLTVVMVElTSUdcIixcIm1cIjoxLFwicHVibGlja2V5c1wiOltcInBuY1Nqc2Z0ZG1zcGVkWGdtQ2trSExSQ2VhazEyZXgyV1ZybmUycWRlZlNVXCIsXCJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeFwiXSxcIm1zZ1wiOlwidHguZnJvbS5wMnNoLnV0eG9zZXRfa2V5XCJ9IiwiYWNjZXNzX2hhc2giOiI5Mjk0MWVhYmRlNmM4NjY5ZDk2NDdhMDFmYzdkNjViOTcxMGY2YTQwMDE0YWJlMGIzOGQwOWUxYzc0YzVlMzI2IiwicDJzaF9hZGRyZXNzIjoiMDA5Mjk0MWVhYmRlNmM4NjY5ZDk2NDdhMDFmYzdkNjViOTcxMGY2YTQwMDE0YWJlMGIzOGQwOWUxYzc0YzVlMzI2IiwibGlzdGluZyI6eyJ0aXRsZSI6IklsbHVzdHJhdGVkIGZpZWxkIG5vdGVzIGFjY2VzcyBrZXkiLCJkZXNjcmlwdGlvbiI6Ik9yaWdpbmFsIGNyZWF0b3ItYXV0aGVudGljYXRlZCBmaWVsZCBub3Rlcy4iLCJjYXRlZ29yeSI6IkFjY2VzcyBLZXlzIiwicHJpY2UiOiIyLjUiLCJxdWFudGl0eV90b3RhbCI6MiwicXVhbnRpdHlfYXZhaWxhYmxlIjoyfX0=\",\"opt\":\"e30=\"}"
+  },
+  "body": {
+    "module": "Store",
+    "data": {
+      "link": "https://saito.io/vault",
+      "filename": "Field notes.txt",
+      "file_id": "bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19",
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII="
+    },
+    "request": "list-asset",
+    "access_script": "{\"op\":\"CHECKMULTISIG\",\"m\":1,\"publickeys\":[\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\",\"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx\"],\"msg\":\"tx.from.p2sh.utxoset_key\"}",
+    "access_hash": "92941eabde6c8669d9647a01fc7d65b9710f6a40014abe0b38d09e1c74c5e326",
+    "p2sh_address": "0092941eabde6c8669d9647a01fc7d65b9710f6a40014abe0b38d09e1c74c5e326",
+    "listing": {
+      "title": "Illustrated field notes access key",
+      "description": "Original creator-authenticated field notes.",
+      "category": "Access Keys",
+      "price": "2.5",
+      "quantity_total": 2,
+      "quantity_available": 2
+    }
+  },
+  "page": {
+    "listings": [
+      {
+        "nft_id": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+        "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "category": "Access Keys",
+        "title": "Illustrated field notes access key",
+        "description": "Original creator-authenticated field notes.",
+        "listing_signature": "70615522ec2fe7cf75540266d478400a789a9d32d1b876f8e25248c362b9a3102829f9aef1acfde2cbe7666e1df727baac60fec6ec938f5222f4168444227aa1",
+        "price": 250000000,
+        "web3_ticker": "",
+        "web3_amount": "",
+        "quantity_total": 2,
+        "quantity_available": 2,
+        "status": 1,
+        "created_at": 1700002001000,
+        "updated_at": 1700002001000,
+        "subtitle": "",
+        "note": "",
+        "buyer": "",
+        "quantity_sold": 0,
+        "sold_at": 0,
+        "approved": 1,
+        "risk": ""
+      }
+    ],
+    "public_key": "",
+    "category": "",
+    "pagination": {
+      "offset": 0,
+      "page": 1,
+      "page_size": 24,
+      "total": 1,
+      "total_pages": 1,
+      "has_next": false,
+      "has_previous": false
+    }
+  }
+}

@@ -112,6 +112,7 @@ class MainActivity : ComponentActivity() {
     private val incomingVaultFiles by lazy {
         androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.vault.VaultIncomingFiles::class.java]
     }
+    private val storeUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
     private val talkUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
     private fun isTalkUri(uri: Uri?): Boolean = uri != null &&
         (uri.scheme == "redsquare-talk" || TalkLink.parse(uri.toString()) != null)
@@ -120,7 +121,8 @@ class MainActivity : ComponentActivity() {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
         if (incomingVaultFiles.receive(this, intent)) return
-        if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.enqueue(intent.data)
+        if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) storeUris.value = intent.data
+        else if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.enqueue(intent.data)
     }
 
     private var videoDiagnostics: VideoDiagnostics? = null
@@ -147,7 +149,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) incomingVaultFiles.receive(this, intent)
-        if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.initialize(intent.data)
+        if (nl.davidengelen.redsquare.saito.StoreLink.parse(intent.data?.toString().orEmpty()) != null) {
+            if (savedInstanceState == null) storeUris.value = intent.data
+        } else if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
@@ -188,6 +192,8 @@ class MainActivity : ComponentActivity() {
             var talkDraft by rememberSaveable { mutableStateOf<TalkDraft?>(null) }
             var talkReturnExpired by remember { mutableStateOf(false) }
             var stackLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StackLinkEntry?>(null) }
+            var storeLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StoreLinkEntry?>(null) }
+            var storeConversation by remember { mutableStateOf(false) }
             var stackLinkRequest by remember { mutableStateOf(0L) }
             var moduleSwitchFailed by remember { mutableStateOf(false) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
@@ -202,9 +208,9 @@ class MainActivity : ComponentActivity() {
             }
             val postNavigation = remember { PostNavigation() }
             fun selectModule(selected: AppModule, onSelected: () -> Unit = {}) {
-                if (selected == module && stackLinkEntry == null) onSelected()
+                if (selected == module && stackLinkEntry == null && storeLinkEntry == null) onSelected()
                 else scope.launch {
-                    val moved = postNavigation.navigate { stackLinkEntry = null; module = selected; onSelected(); true }
+                    val moved = postNavigation.navigate { stackLinkEntry = null; storeLinkEntry = null; module = selected; onSelected(); true }
                     moduleSwitchFailed = !moved
                 }
             }
@@ -414,14 +420,21 @@ class MainActivity : ComponentActivity() {
             val linkedStack = stackLinkEntry?.takeIf {
                 module == AppModule.STACK && it.owner == address && it.savedBackend == backend
             }
-            val visibleBackend = linkedStack?.target?.backend ?: backend
+            val linkedStore = storeLinkEntry?.takeIf {
+                module == AppModule.STORE && it.owner == address && it.savedBackend == backend
+            }
+            val visibleBackend = if (storeConversation && module == AppModule.STORE) backend else linkedStore?.target?.backend ?: linkedStack?.target?.backend ?: backend
+            LaunchedEffect(address, backend) {
+                if (storeLinkEntry?.let { it.owner != address || it.savedBackend != backend } == true) storeLinkEntry = null
+            }
             val externalUri = androidx.compose.ui.platform.LocalUriHandler.current
             val readingUri = remember(externalUri) {
                 object : androidx.compose.ui.platform.UriHandler {
                     override fun openUri(uri: String) {
                         if (TalkLink.parse(uri) != null) { talkUris.value = Uri.parse(uri); return }
+                        val storeTarget = nl.davidengelen.redsquare.saito.StoreLink.parse(uri)
                         val target = nl.davidengelen.redsquare.saito.StackLink.parse(uri)
-                        if (target == null) { externalUri.openUri(uri); return }
+                        if (target == null && storeTarget == null) { externalUri.openUri(uri); return }
                         val owner = wallet?.publicKey ?: return
                         val savedNode = backend ?: return
                         val request = ++stackLinkRequest
@@ -433,8 +446,16 @@ class MainActivity : ComponentActivity() {
                                 if (wallet?.publicKey != owner || backend != savedNode || savingBackend ||
                                     walletImport.busy || walletExport.busy) false
                                 else {
-                                    stackLinkEntry = nl.davidengelen.redsquare.ui.StackLinkEntry(target, owner, savedNode, uri)
-                                    module = AppModule.STACK
+                                    if (storeTarget != null) {
+                                        val previous = storeLinkEntry
+                                        storeLinkEntry = nl.davidengelen.redsquare.ui.StoreLinkEntry(storeTarget, owner, savedNode,
+                                            previous?.origin ?: module, previous?.originStack ?: stackLinkEntry)
+                                        module = AppModule.STORE
+                                    } else {
+                                        storeLinkEntry = null
+                                        stackLinkEntry = nl.davidengelen.redsquare.ui.StackLinkEntry(requireNotNull(target), owner, savedNode, uri)
+                                        module = AppModule.STACK
+                                    }
                                     settingsOpen = false; settingsCategory = null
                                     true
                                 }
@@ -443,6 +464,13 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+            }
+            val pendingStoreUri by storeUris.collectAsState()
+            LaunchedEffect(pendingStoreUri, address, backend, savingBackend, walletImport.busy, walletExport.busy) {
+                val uri = pendingStoreUri ?: return@LaunchedEffect
+                if (address == null || backend == null || savingBackend || walletImport.busy || walletExport.busy) return@LaunchedEffect
+                readingUri.openUri(uri.toString())
+                storeUris.value = null
             }
             RedSquareTheme(this@MainActivity, appearance) {
                 nl.davidengelen.redsquare.feed.ProfileAvatarScope(wallet, backend,
@@ -574,18 +602,46 @@ class MainActivity : ComponentActivity() {
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
                                     val moduleStates = rememberSaveableStateHolder()
-                                    SingleOwnerReveal(linkedStack?.target ?: module, Modifier.weight(1f)) {
+                                    SingleOwnerReveal(linkedStore?.target ?: linkedStack?.target ?: module, Modifier.weight(1f)) {
+                                        val updateWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit = { previous, updated ->
+                                            check(wallet === previous && updated.publicKey == previous.publicKey)
+                                            withContext(NonCancellable) {
+                                                val result = withContext(Dispatchers.IO) {
+                                                    val store = AndroidWalletStore(applicationContext)
+                                                    try { store.replace(previous, updated) to true }
+                                                    catch (_: Exception) {
+                                                        val restored = try { store.loadExisting() } catch (_: Exception) { null }
+                                                        restored to false
+                                                    }
+                                                }
+                                                if (wallet === previous) { wallet = result.first; failed = result.first == null }
+                                                check(result.second) { "Could not save wallet metadata" }
+                                            }
+                                        }
                                         val renderModule: @Composable () -> Unit = {
                                             if (module == AppModule.STORE) {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null) key(currentWallet.publicKey, selected) {
-                                                    val storeEndpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                    val storeNode = linkedStore?.target?.backend ?: selected
+                                                    val storeEndpoint = FeedEndpoints.fromIntent(intent, storeNode)
                                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, storeEndpoint)) {
-                                                        RegisteredIdentityScope(currentWallet, storeEndpoint, selected,
+                                                        RegisteredIdentityScope(currentWallet, storeEndpoint, storeNode,
                                                             RegistryAuthority.directoryPeer(intent, storeEndpoint).takeIf { nameDirectoryEnabled == true }) {
-                                                            nl.davidengelen.redsquare.store.StoreScreen(currentWallet, selected, storeEndpoint,
-                                                                Modifier.fillMaxSize(), chrome) {
+                                                            nl.davidengelen.redsquare.store.StoreScreen(currentWallet, storeNode, storeEndpoint,
+                                                                Modifier.fillMaxSize(), chrome, entry = linkedStore?.target,
+                                                                onExitLink = if (linkedStore != null) ({
+                                                                    scope.launch {
+                                                                        val moved = postNavigation.navigate {
+                                                                            val origin = storeLinkEntry
+                                                                            if (origin == null || origin.owner != wallet?.publicKey || origin.savedBackend != backend) false
+                                                                            else { module = origin.origin; stackLinkEntry = origin.originStack; storeLinkEntry = null; true }
+                                                                        }
+                                                                        moduleSwitchFailed = !moved
+                                                                    }
+                                                                }) else null, chatBackend = selected,
+                                                                chatEndpoint = FeedEndpoints.fromIntent(intent, selected),
+                                                                onChatVisibility = { storeConversation = it }, onWalletMetadata = updateWalletMetadata) {
                                                                 settingsCategory = "node"; settingsOpen = true
                                                             }
                                                         }
@@ -649,29 +705,14 @@ class MainActivity : ComponentActivity() {
                                                             allowPushRoute = featureUnobstructed,
                                                             chrome = chrome,
                                                             canReportDrawn = featureUnobstructed && !postNavigation.transitioning,
-                                                            onWalletMetadata = { previous, updated ->
-                                                                check(wallet === previous && updated.publicKey == previous.publicKey)
-                                                                withContext(NonCancellable) {
-                                                                    val result = withContext(Dispatchers.IO) {
-                                                                        val store = AndroidWalletStore(applicationContext)
-                                                                        try { store.replace(previous, updated) to true }
-                                                                        catch (_: Exception) {
-                                                                            val restored = try { store.loadExisting() } catch (_: Exception) { null }
-                                                                            restored to false
-                                                                        }
-                                                                    }
-                                                                    if (wallet === previous) {
-                                                                        wallet = result.first
-                                                                        failed = result.first == null
-                                                                    }
-                                                                    check(result.second) { "Could not save wallet metadata" }
-                                                                }
-                                                        }) { reportFullyDrawn() }
+                                                            onWalletMetadata = updateWalletMetadata
+                                                        ) { reportFullyDrawn() }
                                                     }
                                                 }
                                             }
                                         }
-                                        if (linkedStack != null) key(linkedStack.target) { renderModule() }
+                                        if (linkedStore != null) key(linkedStore.target) { renderModule() }
+                                        else if (linkedStack != null) key(linkedStack.target) { renderModule() }
                                         else moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") { renderModule() }
                                     }
                                 }

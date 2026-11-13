@@ -91,4 +91,15 @@ class SaitoStoreTest {
         assertEquals("${SaitoBackend.OWNER.webUrl}/store/${offer.seller}/${offer.nftId}", target.url())
     }
 
+    @Test fun productMediaComesFromTheActualSignedListingAndNeverAnUnsignedSummaryHint() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-image-listing-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val summary = SaitoStore.readCatalogue(vector.get("page").toString()).items.single()
+        val product = requireNotNull(SaitoStore.readListing(summary, vector.getAsJsonObject("listing").get("envelope").asString))
+        assertEquals("Illustrated field notes access key", product.title)
+        assertEquals(vector.getAsJsonObject("body").getAsJsonObject("data").get("image").asString, product.image)
+        assertTrue(requireNotNull(product.image).startsWith("data:image/png;base64,"))
+        assertFalse(product.browserOnly)
+    }
+
 }

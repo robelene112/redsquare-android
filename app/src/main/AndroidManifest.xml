@@ -51,6 +51,17 @@
                 <data android:path="/videocall" />
                 <data android:path="/videocall/" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" />
+                <data android:scheme="http" />
+                <data android:host="saito.io" />
+                <data android:host="saito.davidengelen.nl" />
+                <data android:path="/store" />
+                <data android:pathPrefix="/store/" />
+            </intent-filter>
         </activity>
     </application>
 </manifest>

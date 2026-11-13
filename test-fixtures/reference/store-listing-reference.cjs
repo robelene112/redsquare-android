@@ -1,6 +1,7 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(process.argv.length!==6)throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&process.argv[6]!=='--image'))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+const illustrated=process.argv[6]==='--image';
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -23,7 +24,7 @@ const globals={console:consoleAdapter,createListingScript};
 globals.slipPublicKey=vm.runInNewContext('('+fn('helpers','slipPublicKey')+')',globals);
 const factory=vm.runInNewContext(fn('transactions','p2shPaymentRecipient')+'\n({'+method('transactions','createListAssetTransaction')+'})',globals).createListAssetTransaction;
 const source=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-reference.json'),'utf8'));
-const scalar='0'.repeat(63)+'2',timestamp=1700002000000n;
+const scalar='0'.repeat(63)+'2',timestamp=illustrated?1700002001000n:1700002000000n;
 const forbidden=()=>{throw Error('Reference must not use a network')};
 global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=>{},append_value:()=>{},flush_data:()=>{},ensure_directory_exists:()=>{},load_block_file_list:async()=>[],is_existing_file:async()=>false,remove_value:async()=>{},load_wallet:()=>{},save_wallet:()=>{},load_blockchain:()=>{},save_blockchain:()=>{},emit_interface_event:()=>{},connect_to_peer:forbidden,send_message_by_peer_id:forbidden,send_message:forbidden,send_message_to_all:forbidden};
 function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.readUInt32BE(0)+wire.readUInt32BE(4)),detached=Buffer.from(wire.subarray(0,offset));detached.writeUInt32BE(0,8);return {id:tx.signature,networkBase64:wire.toString('base64'),envelope:JSON.stringify({t:detached.toString('base64'),m:wire.subarray(offset).toString('base64'),opt:Buffer.from('{}').toString('base64')})}}
@@ -32,12 +33,13 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const wallet=await wasm.get_wallet(),seller=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3'),w=source.script.witness;
  await wallet.add_nft(w.utxokey1,w.utxokey2,w.utxokey3,source.id,source.key.id,'vault-nft-key');
  const txmsg=JSON.parse(Buffer.from(JSON.parse(source.key.envelope).m,'base64').toString());
+ if(illustrated)txmsg.data.image=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-images-reference.json'),'utf8')).images.red;
  const nft={id:source.id,amount:2,tx:{},txmsg,returnType:()=> 'vault-nft-key',modifyBeforeSend:async tx=>tx};
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>seller,createNFTTransaction:async(nft,recipient,amount,fee,deposit,msg)=>{
   const merged=Object.assign(msg,nft.txmsg||{}),native=await wallet.createNFTTransaction(recipient,BigInt(amount),nft.id,fee,deposit,Buffer.from(JSON.stringify(merged)));
   return {msg:merged,native,sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=timestamp;await native.sign();this.signature=native.signature}};
  }}};
- const listing={title:'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:'2.5',quantity_total:2,quantity_available:2};
+ const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:'2.5',quantity_total:2,quantity_available:2};
  const created=await factory.call({app,store_public_key:store},nft,listing);
  const signed=envelope(created.native);
  const summarySource=text('summary'),tree=acorn.parse(summarySource,{ecmaVersion:'latest'}),klass=tree.body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Summary');

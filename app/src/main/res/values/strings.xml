@@ -1027,4 +1027,21 @@
     <string name="store_category_access">Access Keys</string>
     <string name="store_category_merchandise">Merchandise</string>
     <string name="store_category_other">Other</string>
+    <string name="store_seller_store">Seller’s store</string>
+    <string name="store_product">Product</string>
+    <string name="store_loading_product">Loading product…</string>
+    <string name="store_offer_unavailable">This offer is no longer available on this node.</string>
+    <string name="store_by_seller">By %1$s</string>
+    <string name="store_stock_report">Availability reported by %1$s. Rechecked before checkout.</string>
+    <string name="store_original_unavailable">The original signed offer is unavailable here. Try refreshing or open the website.</string>
+    <string name="store_browser_compatibility">This item runs in a compatible Saito browser client. It does not run inside this Android app.</string>
+    <string name="store_contact_failed">Could not open the seller conversation. Your existing drafts are safe. Try again.</string>
+    <string name="store_message_seller">Message seller</string>
+    <string name="store_opening_chat">Opening conversation…</string>
+    <string name="store_open_website">Open on website</string>
+    <string name="store_offer_reference">Offer reference</string>
+    <string name="store_seller_key">Seller public key</string>
+    <string name="store_existing_draft">Your existing message is kept. You can add this product reference before sending.</string>
+    <string name="store_add_reference">Add product reference</string>
+    <string name="post_open_store">Open in Store</string>
 </resources>

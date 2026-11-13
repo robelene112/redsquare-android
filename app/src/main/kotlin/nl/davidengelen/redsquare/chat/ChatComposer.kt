@@ -44,7 +44,7 @@ internal class ChatReplyActions {
 @Composable
 internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String,
     permitted: Boolean, replies: ChatReplyActions, onOutgoing: (String) -> Unit, modifier: Modifier = Modifier,
-    fileSession: nl.davidengelen.redsquare.fileshare.FileSession? = null,
+    fileSession: nl.davidengelen.redsquare.fileshare.FileSession? = null, initialDraft: String? = null,
     onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
@@ -104,6 +104,10 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             writes.withLock {
                 saved = withContext(Dispatchers.IO) { work.load() }
                 changeText(if (saved.frozen) saved.draft else memory.text ?: saved.draft)
+                if (!saved.frozen && text.isBlank() && !initialDraft.isNullOrBlank()) {
+                    saved = withContext(NonCancellable + Dispatchers.IO) { work.assertSelected(); work.saveDraft(initialDraft) }
+                    changeText(saved.draft)
+                }
                 saved.transaction?.takeIf{saved.status!=ChatWorkStore.Status.QUEUED}?.let { candidate ->
                     onHistory(withContext(Dispatchers.IO) { history.save(listOf(candidate.envelope())).entries })
                 }
@@ -247,6 +251,12 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                     filePanel()
                     publishingNotice()
                     status()
+                    if (!initialDraft.isNullOrBlank() && !text.contains(initialDraft)) {
+                        Text(stringResource(R.string.store_existing_draft), style = MaterialTheme.typography.bodySmall)
+                        TextButton(enabled = editable && photo == null, onClick = {
+                            if (!navigation.transitioning) changeText(text.trimEnd() + "\n\n" + initialDraft)
+                        }) { Text(stringResource(R.string.store_add_reference)) }
+                    }
                     if (quote != null) {
                         Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
                         TextButton(enabled = editable, onClick = { if (!navigation.transitioning) changeText(body) }) {

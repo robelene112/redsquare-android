@@ -78,7 +78,7 @@ object SaitoStore {
 
     fun listingRequest(target: StoreLink): String {
         require(target.signature != null || (target.seller != null && target.nftId != null))
-        require(StoreLink.parse(target.url()) == target)
+        require(StoreLink.parse(target.url()) == target.copy(category = ""))
         return JsonObject().apply {
             addProperty("request", "load-listing")
             add("data", JsonObject().apply {
@@ -128,9 +128,9 @@ object SaitoStore {
         require(text(body, "public_key", 128) == query.seller.orEmpty() &&
             text(body, "category", 64) == query.category?.wire.orEmpty())
         val pagination = body.getAsJsonObject("pagination")
-        val offset = unsigned(pagination.get("offset")).intValueExact()
-        val size = unsigned(pagination.get("page_size")).intValueExact().also { require(it in 1..48) }
-        val total = unsigned(pagination.get("total")).intValueExact()
+        val offset = pageInteger(pagination.get("offset"))
+        val size = pageInteger(pagination.get("page_size")).also { require(it in 1..48) }
+        val total = pageInteger(pagination.get("total"))
         val next = pagination.get("has_next").let { require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean); it.asBoolean }
         val nextOffset = if (next) Math.addExact(offset, size).also { require(it < total) } else null
         val rows = body.getAsJsonArray("listings").also { require(it.size() <= size) }
@@ -185,6 +185,8 @@ object SaitoStore {
         require(value.isJsonPrimitive && (value.asJsonPrimitive.isNumber || value.asJsonPrimitive.isString) && value.asString.length <= 80)
         return value.asString.toBigDecimal().also { require(it.signum() >= 0 && it.precision() <= 40 && it.scale() in -24..24) }
     }
+    private fun pageInteger(value: JsonElement): Int = unsigned(value).also { require(it.bitLength() <= 31) }.toInt()
+
     private fun unsigned(value: JsonElement): BigInteger = decimal(value).toBigIntegerExact().also { require(it.bitLength() <= 64) }
 
     private fun row(bytes: ByteArray, index: Int): SaitoNft.Row {

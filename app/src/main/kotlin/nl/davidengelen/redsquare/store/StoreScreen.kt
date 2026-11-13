@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
 import nl.davidengelen.redsquare.R
@@ -19,6 +20,62 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.ui.*
 import java.io.IOException
+
+/** Reading destinations keep each catalogue anchor and return through their actual origin. */
+@Composable
+internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
+    chrome: @Composable (Boolean) -> Unit, entry: StoreLink? = null, onExitLink: (() -> Unit)? = null,
+    chatBackend: SaitoBackend = backend, chatEndpoint: String = endpoint, onChatVisibility: (Boolean) -> Unit = {},
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onNodeSettings: () -> Unit) {
+    var path by rememberSaveable(backend, entry) { mutableStateOf(arrayListOf(entry ?: StoreLink(backend))) }
+    val states = androidx.compose.runtime.saveable.rememberSaveableStateHolder()
+    var contact by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
+    DisposableEffect(contact != null) {
+        onChatVisibility(contact != null)
+        onDispose { onChatVisibility(false) }
+    }
+    var reference by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+    var contactFailed by remember { mutableStateOf(false) }
+    var preparingContact by remember { mutableStateOf(false) }
+    fun back() { if (path.size > 1) path = ArrayList(path.dropLast(1)) else onExitLink?.invoke() }
+    val canBack = path.size > 1 || onExitLink != null
+    androidx.activity.compose.BackHandler(contact == null && canBack) { back() }
+    SingleOwnerReveal(contact ?: path.last(), modifier) {
+        val seller = contact
+        if (seller != null) {
+            Column(Modifier.fillMaxSize()) {
+                chrome(false)
+                nl.davidengelen.redsquare.chat.ChatScreen(wallet, chatEndpoint, chatBackend, Modifier.weight(1f),
+                    onWalletMetadata, initialContact = seller, initialDraft = reference,
+                    onInitialDestinationClosed = { contact = null; reference = null }) { contact = null; reference = null }
+            }
+        } else {
+            val target = path.last()
+            if (target.nftId != null || target.signature != null) {
+                StoreProductScreen(wallet, backend, endpoint, target, Modifier.fillMaxSize(), chrome,
+                    onBack = { back() }, onSeller = { path = ArrayList(path + StoreLink(backend, it)) },
+                    contactFailed = contactFailed, preparingContact = preparingContact, onMessage = { product ->
+                        if (!preparingContact) {
+                            preparingContact = true; contactFailed = false
+                            scope.launch {
+                                try {
+                                    nl.davidengelen.redsquare.chat.retainChatContact(wallet, product.seller, onWalletMetadata)
+                                    reference = product.title + "\n" + StoreLink(backend, product.seller, product.nftId).url()
+                                    contact = product.seller
+                                } catch (cancelled: CancellationException) { throw cancelled }
+                                catch (_: Exception) { contactFailed = true }
+                                finally { preparingContact = false }
+                            }
+                        }
+                    }, onNodeSettings = onNodeSettings)
+            } else states.SaveableStateProvider(target.url()) {
+                StoreCatalogueScreen(wallet, backend, endpoint, Modifier.fillMaxSize(), chrome, target,
+                    if (canBack) ({ back() }) else null, { path = ArrayList(path + it) }, onNodeSettings)
+            }
+        }
+    }
+}
 
 private enum class StoreTab(override val label: Int, override val icon: Int) : ModuleDestination {
     DISCOVER(R.string.store_discover, R.drawable.ic_globe),
@@ -34,16 +91,17 @@ private data class StoreBrowseView(val query: StoreQuery? = null, val page: Stor
 /** Selected-node public reading. Each replacement owns its result; cancellation never clears a newer load. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
-    chrome: @Composable (Boolean) -> Unit, onNodeSettings: () -> Unit) {
+private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
+    chrome: @Composable (Boolean) -> Unit, target: StoreLink,
+    onBack: (() -> Unit)?, onOpen: (StoreLink) -> Unit, onNodeSettings: () -> Unit) {
     var tab by rememberSaveable { mutableStateOf(StoreTab.DISCOVER) }
-    var category by rememberSaveable { mutableStateOf<StoreCategory?>(null) }
+    var category by rememberSaveable { mutableStateOf<StoreCategory?>(StoreCategory.entries.find { it.wire == target.category }) }
     var offset by rememberSaveable { mutableIntStateOf(0) }
     var categoriesOpen by remember { mutableStateOf(false) }
     var retry by remember { mutableIntStateOf(0) }
     val list = rememberLazyListState()
     val scope = rememberCoroutineScope()
-    val query = StoreQuery(if (tab == StoreTab.MINE) wallet.publicKey else null, category, offset)
+    val query = StoreQuery(if (tab == StoreTab.MINE) wallet.publicKey else target.seller, category, offset)
     var loaded by remember(wallet.publicKey, backend, endpoint) { mutableStateOf(StoreBrowseView()) }
     LaunchedEffect(wallet.publicKey, backend, endpoint, query, tab, retry) {
         if (tab == StoreTab.ORDERS) return@LaunchedEffect
@@ -72,10 +130,11 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         scope.launch { list.scrollToItem(0) }
     }
     Column(modifier) {
-        chrome(false)
+        chrome(list.firstVisibleItemIndex > 0)
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            Text(stringResource(tab.label), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
+            if (onBack != null) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { onBack() }
+            Text(if (target.seller != null) stringResource(R.string.store_seller_store) else stringResource(tab.label), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             if (tab != StoreTab.ORDERS) FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
         }
         if (tab == StoreTab.ORDERS) {
@@ -106,7 +165,9 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                         Text(stringResource(if (page.ignored > 0) R.string.store_unreadable_items else R.string.store_empty),
                             Modifier.padding(vertical = 24.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    items(page?.items.orEmpty(), key = { it.signature }) { offer -> StoreOfferCard(offer) }
+                    items(page?.items.orEmpty(), key = { it.signature }) { offer -> StoreOfferCard(offer) {
+                        onOpen(StoreLink(backend, offer.seller, offer.nftId))
+                    } }
                     if (page != null && (page.nextOffset != null || page.offset > 0)) item("pages") {
                         FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             if (page.offset > 0) OutlinedButton(enabled = !view.loading, modifier = Modifier.heightIn(min = 48.dp), onClick = {
@@ -125,21 +186,22 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         }
     }
     DesignSheet(categoriesOpen, stringResource(R.string.store_categories), { categoriesOpen = false }) { firstAction ->
-        TextButton(onClick = { selectCategory(null) }, modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) {
+        TextButton(onClick = { selectCategory(null) }, modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp).semantics { selected = category == null }) {
             Text(stringResource(R.string.store_all_categories))
         }
         StoreCategory.entries.forEach { choice ->
             val label = stringResource(choice.caption)
             val accessible = stringResource(R.string.store_filter_category, label)
             TextButton(onClick = { selectCategory(choice) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
-                .semantics { contentDescription = accessible }) { Text(label) }
+                .semantics { contentDescription = accessible; selected = category == choice }) { Text(label) }
         }
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun StoreOfferCard(offer: StoreSummary) {
-    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+private fun StoreOfferCard(offer: StoreSummary, onClick: () -> Unit) {
+    Surface(onClick = onClick,shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
         Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(offer.category.caption), style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary)
@@ -156,7 +218,7 @@ private fun StoreOfferCard(offer: StoreSummary) {
     }
 }
 
-private val StoreCategory.caption: Int get() = when (this) {
+internal val StoreCategory.caption: Int get() = when (this) {
     StoreCategory.APPS -> R.string.store_category_apps
     StoreCategory.EXTENSIONS -> R.string.store_category_extensions
     StoreCategory.THEMES -> R.string.store_category_themes

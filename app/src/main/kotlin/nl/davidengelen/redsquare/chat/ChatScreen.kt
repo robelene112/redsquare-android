@@ -51,7 +51,7 @@ import nl.davidengelen.redsquare.saito.*
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, onInitialDestinationClosed: () -> Unit = {},
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, initialDraft: String? = null, onInitialDestinationClosed: () -> Unit = {},
     onBack: () -> Unit) {
     val promptContext = LocalContext.current.applicationContext
     nl.davidengelen.redsquare.NotificationPermissionPrompt(detail = R.string.chat_background_offer_detail,
@@ -552,7 +552,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     }
                 }, composer = { composerModifier ->
                     ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies,
-                        fileSession = fileSession,
+                        fileSession = fileSession, initialDraft = initialDraft.takeIf { contact == initialContact },
                         onOutgoing = { id -> outgoingRequest = ConversationMessageRequest(id, (outgoingRequest?.attempt ?: 0) + 1) }, modifier = composerModifier) { saved ->
                         entries = ChatHistoryStore.merge(entries, saved)
                     }
