@@ -88,4 +88,31 @@ class VaultUploadRecoveryPreviewTest {
         }
     }
 
+
+    @Test fun unavailableDeviceAuthenticationDoesNotPublishAndCanRecoverInTheSameReview() {
+        val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val keyguard = context.getSystemService(android.app.KeyguardManager::class.java)
+        val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+        check(!keyguard.isDeviceSecure)
+        try {
+            withVaultReadingFixture("authentication-unavailable", captureFolder = "vault-upload-recovery-evidence", retainTransfers = true, minting = true) { scene ->
+                val bytes = "Keep this reviewed file while device authentication is unavailable".toByteArray()
+                ui.reviewVaultFile(scene, "vault-auth.bin", bytes)
+                ui.waitUntil(15_000) { ui.onNodeWithText("Device authentication could not start. Try again.").isDisplayed() }
+                assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
+                captureNativeScreen(File(scene.evidence, "authentication-unavailable-no-publication.png"))
+                device.executeShellCommand("locksettings set-pin --user 0 $EXPORT_TEST_PIN")
+                ui.onNodeWithText("Create key and upload").performScrollTo().performClick()
+                enterRealSystemPin(device)
+                ui.waitUntil(25_000) { ui.onNodeWithText("Upload complete").isDisplayed() }
+                assertEquals(1, scene.peer.transactions.size); assertEquals(1, scene.peer.vaultUploads.size)
+                assertArrayEquals(bytes, requireNotNull(scene.mint).storedContents())
+                captureNativeScreen(File(scene.evidence, "same-review-authentication-now-available.png"))
+                ui.onNodeWithText("Back to files").performScrollTo().performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("vault-auth.bin").isDisplayed() }
+            }
+        } finally { if (keyguard.isDeviceSecure) device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
+    }
+
 }
