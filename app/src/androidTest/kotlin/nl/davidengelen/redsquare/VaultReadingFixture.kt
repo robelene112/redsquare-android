@@ -21,7 +21,7 @@ import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicBoolean
 
 internal data class VaultReadingScene(val activity: ActivityScenario<MainActivity>, val peer: ControlledFeedPeer,
-    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null)
+    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 })
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
 internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, block: (VaultReadingScene) -> Unit) {
@@ -91,7 +91,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                     else "[]"
                     }
                 }) { activity ->
-                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted)) }
+                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount })) }
                     finally {
                         if (minted != null) File(evidence, "owned-protocol-facts.json").writeText(JsonObject().apply {
                             addProperty("mintFrames", referencePeer.transactions.size)

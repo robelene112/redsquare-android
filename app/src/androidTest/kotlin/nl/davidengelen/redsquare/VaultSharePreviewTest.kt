@@ -38,9 +38,10 @@ class VaultSharePreviewTest {
             ui.waitUntil(10_000) { ui.onNodeWithText("Your files").isDisplayed() }
             val refresh = (hasContentDescription("Refresh Vault") or hasText("Refresh Vault")) and isEnabled()
             ui.waitUntil(5_000) { ui.onNode(refresh).isDisplayed() }
-            val requestsBeforeRefresh = scene.peer.requests.get()
+            val requestsBeforeRefresh = scene.balanceRequests()
             ui.onNode(refresh).performClick()
-            ui.waitUntil(5_000) { scene.peer.requests.get() > requestsBeforeRefresh }
+            ui.waitUntil(5_000) { scene.balanceRequests() > requestsBeforeRefresh }
+            ui.waitUntil(5_000) { ui.onNode(refresh).isDisplayed() && ui.onNodeWithText("Field notes.txt").isDisplayed() }
             scene.peer.assertHealthy()
             captureNativeScreen(File(scene.evidence, "shared-review-discarded-original-node-refreshed.png"))
             assertTrue(scene.peer.transactions.isEmpty())

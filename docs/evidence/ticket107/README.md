@@ -59,6 +59,14 @@ owned-peer request within5s; the original15s Share goal and180s class remain.
 It also checks Android's public Share-target resolution. This partial failure is
 not used as completed Share acceptance.
 
+Run43437450439 on `d33c0dc9f76c55f461311f8a3610cf89f0e9b7cc` passes
+Share resolution, review, no-write, discard and enabled Refresh, then fails the
+new5s archive-counter assertion. Its screenshot shows the resolved original key.
+Vault refresh always reads the selected node's balance, while Archive metadata
+can already be cached. The follow-up observes the real owned HTTP balance
+request and the settled original file entry under5s bounds. This corrects the
+observation; all original Share, identity, no-write and class goals remain.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off
