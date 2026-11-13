@@ -67,6 +67,16 @@ can already be cached. The follow-up observes the real owned HTTP balance
 request and the settled original file entry under5s bounds. This corrects the
 observation; all original Share, identity, no-write and class goals remain.
 
+Run43438340933 on `9641ab5c1bd57a49348e5eaa9cd5e7231f0eeee4` passes
+the actual grant revocation and recoverable read-error case. Its delayed-provider
+case reads bytes, navigates between modules and cancels without publishing, but
+reports a read error instead of the required stopped message. Android pipe closure
+can surface IOException before coroutine cancellation reaches the caller. The
+fix classifies an exception in an already-cancelled preparation as cancellation,
+retains the original rollback and preserves real read/storage errors. New work
+also waits for the previous job to finish, including cancellation cleanup.
+The complete provider class must pass together before acceptance.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

@@ -35,7 +35,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
     @Volatile private var sourceCancellation: android.os.CancellationSignal? = null
 
     fun load() {
-        if (job?.isActive == true || mutable.value.phase != VaultUploadPhase.FILES) return
+        if (job?.isCompleted == false || mutable.value.phase != VaultUploadPhase.FILES) return
         mutable.value = mutable.value.copy(phase = VaultUploadPhase.LOADING)
         job = scope.launch {
             try {
@@ -60,7 +60,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
     }
 
     fun prepare(uri: Uri) {
-        if (job?.isActive == true || mutable.value.record != null) return
+        if (job?.isCompleted == false || mutable.value.record != null) return
         val prior = mutable.value
         val readingSignal = android.os.CancellationSignal().also { sourceCancellation = it }
         mutable.value = VaultUploadView(VaultUploadPhase.PREPARING)
@@ -118,21 +118,27 @@ internal class VaultUploadSession(private val context: Context, private val wall
                 }
                 mutable.value = reviewed(file)
             } catch (cancelled: CancellationException) {
-                try {
-                    withContext(NonCancellable + Dispatchers.IO) {
-                        if (written != null && disk.draft()?.id == written) {
-                            previous?.let { disk.saveDraft(it) } ?: disk.discardDraft()
-                        }
-                    }
-                    mutable.value = prior.copy(problem = R.string.vault_source_cancelled)
-                } catch (_: Exception) {
-                    mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable)
-                }
+                restoreCancelledPreparation(previous, written, prior)
             } catch (failure: Exception) {
-                mutable.value = if (failure is DraftStorageFailure)
+                // Closing a provider pipe may report IOException or OperationCanceledException
+                // before withContext propagates coroutine cancellation. It is still a user stop.
+                if (!currentCoroutineContext().isActive) restoreCancelledPreparation(previous, written, prior)
+                else mutable.value = if (failure is DraftStorageFailure)
                     VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_source_save_failed)
                     else prior.copy(problem = if (failure is FileTooLarge) R.string.vault_source_too_large else R.string.vault_source_unavailable)
             } finally { source = null; sourceCancellation = null; timeout.cancel() }
+        }
+    }
+
+    private suspend fun restoreCancelledPreparation(previous: VaultFile?, written: String?, prior: VaultUploadView) {
+        try {
+            withContext(NonCancellable + Dispatchers.IO) {
+                if (written != null && disk.draft()?.id == written)
+                    previous?.let { disk.saveDraft(it) } ?: disk.discardDraft()
+            }
+            mutable.value = prior.copy(problem = R.string.vault_source_cancelled)
+        } catch (_: Exception) {
+            mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable)
         }
     }
 
@@ -149,7 +155,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
 
     /** Preflight creates and retains one exact candidate before asking the system to authorize it. */
     fun requestAuthorization(ready: (VaultUploadRecord, Long) -> Unit) {
-        if (job?.isActive == true) return
+        if (job?.isCompleted == false) return
         val token = epoch.incrementAndGet()
         val prior = mutable.value
         mutable.value = prior.copy(phase = VaultUploadPhase.CHECKING, problem = null)
@@ -203,7 +209,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
     }
 
     fun checkOwnership() {
-        if (job?.isActive == true) return
+        if (job?.isCompleted == false) return
         val record = mutable.value.record ?: return
         val token = epoch.incrementAndGet()
         mutable.value = mutable.value.copy(phase = VaultUploadPhase.CHECKING, problem = null)
@@ -218,7 +224,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
     }
 
     fun backToFiles() {
-        if (job?.isActive == true || mutable.value.phase != VaultUploadPhase.COMPLETE) return
+        if (job?.isCompleted == false || mutable.value.phase != VaultUploadPhase.COMPLETE) return
         job = scope.launch {
             try { withContext(Dispatchers.IO) { store.remove() }; mutable.value = VaultUploadView() }
             catch (_: Exception) { mutable.value = mutable.value.copy(problem = R.string.vault_draft_remove_failed) }
@@ -233,7 +239,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
     }
 
     fun discard() {
-        if (job?.isActive == true) return
+        if (job?.isCompleted == false) return
         val prior = mutable.value
         mutable.value = prior.copy(phase = VaultUploadPhase.LOADING)
         job = scope.launch {
