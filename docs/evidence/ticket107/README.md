@@ -138,6 +138,14 @@ the false corrupt-draft result. All temporary `[DEBUG-vault107]` product probes
 and their dedicated log collection are removed after this verification. Original
 failed artifacts and the source-only original-Throwable capture remain retained.
 
+Run43445182955 on `1e3d029a1ae26ca2f3eabbabf835b3d127aaa597` fails at
+the second viewport cell: the review correctly retains its scroll position after
+module/theme changes, so its heading is above the visible viewport. The original
+XML shows the reachable deposit, fee and actions. The corrected test waits for
+the actual review, explicitly scrolls to its heading and verifies it is displayed
+within one original15s deadline. All12cells, fonts/themes, costs, action48dp and
+no-publication assertions and the180s class bound remain required.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

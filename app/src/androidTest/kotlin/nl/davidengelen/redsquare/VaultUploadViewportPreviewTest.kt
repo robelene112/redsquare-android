@@ -31,7 +31,11 @@ class VaultUploadViewportPreviewTest {
                 ui.switchStackModule("Vault", "Red Square")
                 ui.withPostViewports(scene.activity, scene.evidence, "vault-upload-$width", listOf(1f, 1.3f, 2f), width) { label, _ ->
                     ui.switchStackModule("Red Square", "Vault", scrollTarget = true)
-                    ui.waitUntil(15_000) { ui.onNodeWithText("Review upload").isDisplayed() }
+                    val reviewDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+                    fun remaining() = (reviewDeadline - android.os.SystemClock.elapsedRealtime()).also { check(it > 0) }
+                    ui.waitUntil(remaining()) { ui.onAllNodesWithText("Review upload").fetchSemanticsNodes(atLeastOneRootRequired = false).size == 1 }
+                    ui.onNodeWithText("Review upload").performScrollTo()
+                    ui.waitUntil(remaining()) { ui.onNodeWithText("Review upload").isDisplayed() }
                     ui.onNodeWithText(name).performScrollTo().assertIsDisplayed()
                     ui.onNodeWithText("1 SAITO").performScrollTo().assertIsDisplayed()
                     ui.onNodeWithText("Network fee: 0 SAITO").performScrollTo().assertIsDisplayed()
