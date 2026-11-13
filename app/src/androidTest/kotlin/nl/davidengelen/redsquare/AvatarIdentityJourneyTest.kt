@@ -49,7 +49,7 @@ class AvatarIdentityJourneyTest {
         response.set(profile(author, red, 10))
         refresh()
         assertPicture(authorRow(author.publicKey), red)
-        peer.rejectNewConnections = true
+        peer.goOffline()
         activity.recreate()
         ui.waitUntil(15_000) { ui.onNodeWithText("Shared avatar journey").isDisplayed() }
         assertPicture(authorRow(author.publicKey), red)

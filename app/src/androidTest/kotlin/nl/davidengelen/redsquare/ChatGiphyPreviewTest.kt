@@ -233,7 +233,7 @@ class ChatGiphyPreviewTest {
                                                     check(PrivateChat.read(wallet, it.envelope(), contact).text == expected)
                                                 }
                                             }
-                                            peer.rejectNewConnections = true; peer.disconnectAuthenticatedSockets()
+                                            peer.goOffline()
                                             ui.waitUntil(20_000) { peer.authenticatedConnectionIds.isEmpty() }
                                             ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                             ui.waitUntil(20_000) { displayed(hasText("Queued")) }

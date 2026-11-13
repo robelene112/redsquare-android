@@ -86,7 +86,7 @@ class AppFrameReadingPreviewTest {
             assertReadingPosition(before)
             capture("scrolled-feed-after-recreation.png")
             ui.waitUntil(5_000) { ui.refreshableContentReady() }
-            peer.rejectNewConnections = true
+            peer.goOffline()
             ui.refreshKeepingReadingPosition()
             assertOutageDetails()
             assertReadingPosition(before)

@@ -73,7 +73,7 @@ class LikeWalletImportPreviewTest {
                             waitFor("4 likes")
                             ui.clickVisiblePostContent("Native Red Square reference post")
                             waitFor("Conversation")
-                            if (pending) peer.rejectNewConnections = true
+                            if (pending) peer.goOffline()
                             ui.clickVisiblePostContent("Like")
                             if (pending) {
                                 Thread.sleep(500)

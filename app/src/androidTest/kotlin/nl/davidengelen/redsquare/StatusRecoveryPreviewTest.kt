@@ -27,7 +27,7 @@ class StatusRecoveryPreviewTest {
             val before = ui.onNodeWithText("Reference post 05").fetchSemanticsNode().boundsInRoot.top
             capture("reading-before-outage.png")
             ui.waitUntil(5_000) { ui.refreshableContentReady() }
-            peer.rejectNewConnections = true
+            peer.goOffline()
             ui.refreshKeepingReadingPosition()
             ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() }
             ui.onNodeWithText("Details").assertHasClickAction().performClick()
@@ -52,7 +52,7 @@ class StatusRecoveryPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.waitUntil(5_000) { ui.refreshableContentReady() }
-            peer.rejectNewConnections = true
+            peer.goOffline()
             ui.refreshKeepingReadingPosition()
             ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() }
             ui.onNodeWithContentDescription("Details: Node unavailable").performClick()

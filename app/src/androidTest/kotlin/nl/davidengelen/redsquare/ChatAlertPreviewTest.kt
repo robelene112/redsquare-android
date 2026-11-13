@@ -152,7 +152,7 @@ class ChatAlertPreviewTest {
                             assertFalse(policy.hidesSocial(sender.publicKey))
                             assertFalse((if (groupAlert) groupKey else PrivateChat.conversationId(wallet.publicKey,
                                 sender.publicKey)) in policy.mutedConversations)
-                            if (groupAlert) peer.rejectNewConnections = true // The selected backend becomes unavailable.
+                            if (groupAlert) peer.goOffline() // The selected backend becomes unavailable.
                         } else peer.sendIncoming(bytes, requestId = 801)
                         ui.waitUntil(20_000) {
                             (cold || peer.incomingAcknowledgements.any {

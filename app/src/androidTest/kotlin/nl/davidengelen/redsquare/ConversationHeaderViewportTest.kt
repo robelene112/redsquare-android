@@ -155,7 +155,7 @@ internal class ConversationHeaderViewportFixture(private val ui: ComposeTestRule
                 editor.assertTextContains(draft)
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithTag("conversation-post-list").isDisplayed() && ui.refreshableContentReady() }
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 ui.refreshVisibleView()
                 ui.waitUntil(20_000) { ui.onNodeWithText("Could not refresh replies").isDisplayed() }
                 val retry = ui.onNode(hasText("Retry") and hasClickAction() and hasAnyAncestor(hasTestTag("conversation-status")))

@@ -81,8 +81,7 @@ class PolicyCenterPreviewTest {
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.onNodeWithText("Done").performClick()
                         if (theme == "Dark") {
-                            peer.rejectNewConnections = true
-                            peer.disconnectAuthenticatedSockets()
+                            peer.goOffline()
                         }
                         center()
                         capture("${theme.lowercase()}-overview.png")

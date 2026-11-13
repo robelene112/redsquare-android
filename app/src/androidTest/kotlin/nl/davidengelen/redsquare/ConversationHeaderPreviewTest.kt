@@ -90,7 +90,7 @@ class ConversationHeaderPreviewTest {
                 ui.onNodeWithTag("conversation-post-list").performScrollToNode(hasText("Native Red Square reference post"))
                 ui.onNodeWithText("Native Red Square reference post", useUnmergedTree = true).assertIsDisplayed()
                 ui.onNodeWithText("Parent post unavailable").assertDoesNotExist()
-                requireNotNull(peer).rejectNewConnections = true
+                requireNotNull(peer).goOffline()
                 ui.refreshVisibleView()
                 ui.waitUntil(20_000) { ui.onNodeWithText("Could not refresh replies").isDisplayed() }
                 ui.onNodeWithContentDescription(context.getString(R.string.status_details_for, "Could not refresh replies")).performClick()

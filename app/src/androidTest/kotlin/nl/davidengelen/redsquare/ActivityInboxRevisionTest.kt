@@ -54,7 +54,7 @@ class ActivityInboxRevisionTest {
             ui.onAllNodesWithText(original.text).assertCountEquals(0)
             ui.onAllNodesWithText(revisedText).assertCountEquals(0)
             captureNativeScreen(File(folder, "learned-deletion.png"), "Post preview unavailable")
-            peer.rejectNewConnections = true
+            peer.goOffline()
             activity.recreate()
             ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
             ui.onNodeWithText("Post preview unavailable").assertIsDisplayed()

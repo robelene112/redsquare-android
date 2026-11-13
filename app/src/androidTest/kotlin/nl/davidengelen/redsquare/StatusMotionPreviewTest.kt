@@ -62,7 +62,7 @@ class StatusMotionPreviewTest {
                 check(device.wait(Until.hasObject(By.text("Later")), 15_000))
                 device.findObject(By.text("Later")).click()
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 refreshNativeContent(instrumentation.uiAutomation)
                 check(device.wait(Until.hasObject(By.text("Node unavailable")), 20_000))
                 captureNativeScreen(File(folder, "$name-outage.png"))

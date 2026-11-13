@@ -297,8 +297,7 @@ class ChatImagesPreviewTest {
                                             check(it.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
                                             requireNotNull(it.transaction)
                                         }
-                                        peer.rejectNewConnections = true
-                                        peer.disconnectAuthenticatedSockets()
+                                        peer.goOffline()
                                         ui.waitUntil(20_000) { peer.authenticatedConnectionIds.isEmpty() }
                                         ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                         ui.waitUntil(20_000) { displayed(hasText("Queued")) }

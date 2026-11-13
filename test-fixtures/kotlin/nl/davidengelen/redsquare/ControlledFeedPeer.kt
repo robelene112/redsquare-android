@@ -49,7 +49,12 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var withholdArchiveReply = false
     @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
     @Volatile var reportReplyIsError = false
+    @Volatile private var offline = false
     @Volatile var rejectNewConnections = false
+        set(value) {
+            if (!value) offline = false
+            field = value
+        }
     @Volatile var rejectionDelayMillis = 0L
     @Volatile var withholdHandshakeReplies = false
     private val releaseHandshakeReplies = CountDownLatch(1)
@@ -70,10 +75,12 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     val registryQueries get() = registryRequests.map { it.query }
     @Volatile var incomingTransaction: ByteArray? = null
     val incomingAcknowledgements = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
+    private val openSockets = java.util.concurrent.CopyOnWriteArrayList<WebSocket>()
     private val authenticatedSockets = java.util.concurrent.CopyOnWriteArrayList<WebSocket>()
     private val connectionSequence=java.util.concurrent.atomic.AtomicInteger()
     private val connectionIds=java.util.concurrent.ConcurrentHashMap<WebSocket,Int>()
     private val incomingRequestIds=java.util.concurrent.ConcurrentHashMap.newKeySet<Int>().apply{add(777)}
+    val admittedConnectionCount: Int get() = openSockets.size
     val authenticatedConnectionIds:Set<Int> get()=authenticatedSockets.mapNotNull{connectionIds[it]}.toSet()
     @Volatile private var failure: Throwable? = null
 
@@ -93,6 +100,16 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         return authenticatedSockets.mapNotNull { socket ->
             connectionIds[socket]?.takeIf { it in ids && socket.send(frame) }
         }.toSet()
+    }
+
+    /** Actual owned outage: reject new upgrades and stop already admitted transports.
+     * New-upgrade-only rejection remains separately available. Setting it false
+     * restores service for the existing recovery controls in native fixtures.
+     */
+    fun goOffline() {
+        offline = true
+        rejectNewConnections = true
+        openSockets.toList().forEach { it.close(1001, "Controlled node outage") }
     }
 
     /** Interrupt only this isolated server's authenticated sockets. */
@@ -122,7 +139,12 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         private var authenticated = false
         private var authenticatedKey = ""
         private var interrupted = false
+        override fun onOpen(webSocket: WebSocket, response: okhttp3.Response) {
+            openSockets.addIfAbsent(webSocket)
+            if (offline) webSocket.close(1001, "Controlled node outage")
+        }
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+            openSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
             val withheld = synchronized(closeRepliesLock) {
@@ -134,16 +156,20 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
             if (!withheld) webSocket.close(code, reason)
         }
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+            openSockets.remove(webSocket)
             withheldClosingSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
         }
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
+            openSockets.remove(webSocket)
             withheldClosingSockets.remove(webSocket)
             authenticatedSockets.remove(webSocket)
             connectionIds.remove(webSocket)
         }
         override fun onMessage(webSocket: WebSocket, bytes: okio.ByteString) {
+            openSockets.addIfAbsent(webSocket)
+            if (offline) { webSocket.close(1001, "Controlled node outage"); return }
             try {
                 val frame = bytes.toByteArray()
                 when (frame[0].toInt()) {
@@ -154,6 +180,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                     1 -> {
                         require(frame.size == 33)
                         if (withholdHandshakeReplies) check(releaseHandshakeReplies.await(15, TimeUnit.SECONDS))
+                        if (offline) { webSocket.close(1001, "Controlled node outage"); return }
                         val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         val signature = peer.sign(frame.copyOfRange(1, 33)).chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         if (webSocket.send((byteArrayOf(2) + key + signature + counter).toByteString())) {

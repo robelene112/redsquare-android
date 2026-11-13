@@ -132,7 +132,7 @@ class FeedRefreshRedesignTest {
                 captureNativeScreen(File(context.cacheDir, "feed-refresh-evidence/results-applied.png"))
                 assertRefreshFeedbackAtTop("results-applied")
                 ui.waitUntil(5_000) { ui.refreshableContentReady() }
-                peer.rejectNewConnections = true; peer.rejectionDelayMillis = 2_000
+                peer.goOffline(); peer.rejectionDelayMillis = 2_000
                 ui.pullToRefresh("feed-post-list")
                 ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() && ui.refreshableContentReady() }
                 ui.onNodeWithText("Feed updated.").assertDoesNotExist()

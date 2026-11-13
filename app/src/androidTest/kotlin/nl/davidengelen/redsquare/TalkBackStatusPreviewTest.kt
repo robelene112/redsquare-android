@@ -40,7 +40,7 @@ class TalkBackStatusPreviewTest {
                 waitFor(5_000) { focusedText(automation) == "Reference post 20" }
                 SystemClock.sleep(1_000) // A quiet baseline after the deliberate focus announcement.
                 device.executeShellCommand("logcat -c")
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 refreshNativeContent(automation)
                 check(device.wait(Until.hasObject(By.text("Node unavailable")), 20_000))
                 waitFor(10_000) { fragments(device, "Node unavailable").isNotEmpty() }

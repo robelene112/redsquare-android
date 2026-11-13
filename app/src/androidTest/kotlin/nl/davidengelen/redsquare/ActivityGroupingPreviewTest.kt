@@ -73,7 +73,7 @@ class ActivityGroupingPreviewTest {
             ui.onAllNodesWithText("Unread").assertCountEquals(0)
             activity.recreate()
             ui.waitUntil(15_000) { ui.refreshableContentReady() && ui.onNodeWithText("No unread activity").isDisplayed() }
-            peer.rejectNewConnections = true
+            peer.goOffline()
             ui.refreshVisibleView()
             ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
             ui.onNodeWithText("No unread activity").assertIsDisplayed()

@@ -22,7 +22,7 @@ abstract class ActivityAvailabilityFixture(private val widthDp: Int) {
         withActivityInbox("availability", emptyList(), evidenceFolder = "activity-availability-evidence") { activity, peer ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.withPostViewports(activity, folder, "availability", scales = listOf(1f, 1.3f, 2f), widthDp = widthDp) { label, _ ->
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Activity unavailable").isDisplayed() }
                 ui.onAllNodesWithText(empty).assertCountEquals(0)
@@ -59,7 +59,7 @@ abstract class ActivityAvailabilityFixture(private val widthDp: Int) {
                 if (ui.onNode(hasText("Mark as read") and isEnabled()).isDisplayed()) ui.onNodeWithText("Mark as read").performClick()
                 else androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
                 ui.waitUntil(15_000) { ui.onNodeWithText("No unread activity").isDisplayed() }
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 ui.refreshVisibleView()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
                 ui.onNodeWithText("In available history").assertIsDisplayed()

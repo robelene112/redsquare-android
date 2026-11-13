@@ -114,7 +114,7 @@ class ChatIdentityPreviewTest {
                         capture("private-chat-online.png", displayName)
 
                         // A new Activity must use the verified local name and cached message without a node.
-                        peer.rejectNewConnections = true
+                        peer.goOffline()
                         scenario.recreate()
                         waitForEnabled("Chat")
                         selectChatTab()
@@ -199,7 +199,7 @@ class ChatIdentityPreviewTest {
                         assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
 
                         // Cached signed group content and its verified local name remain readable offline.
-                        peer.rejectNewConnections = true
+                        peer.goOffline()
                         scenario.recreate()
                         waitForEnabled("Chat")
                         selectChatTab()

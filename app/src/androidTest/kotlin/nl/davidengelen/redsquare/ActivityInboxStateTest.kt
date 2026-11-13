@@ -38,7 +38,7 @@ class ActivityInboxStateTest {
                 ui.waitUntil(15_000) { ui.onNodeWithText(empty).isDisplayed() }
                 ui.onNodeWithText("No unread activity").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-empty.png"), empty)
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 ui.refreshVisibleView()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
                 val details = context.getString(R.string.status_details_for, "Could not refresh activity.")
@@ -70,7 +70,7 @@ class ActivityInboxStateTest {
                     ui.onNodeWithText("Post preview unavailable").isDisplayed() }
                 ui.onNodeWithText("Post preview unavailable").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-missing-preview.png"), "Liked a post")
-                peer.rejectNewConnections = true
+                peer.goOffline()
                 ui.refreshVisibleView()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Could not refresh activity.").isDisplayed() }
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Liked a post"))
