@@ -24,4 +24,15 @@ class SaitoAccessScriptTest {
                 SaitoAccessScript.parse(row.get("source").asString).hash)
         }
     }
+
+    @Test fun suppliedWitnessInputsMergeThroughTheOfficialLogicalPathsWithoutChangingAccessRules() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-vault-access-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        reference.getAsJsonArray("witnessCases").forEach { value ->
+            val row = value.asJsonObject
+            val script = SaitoAccessScript.parse(row.get("source").asString).withWitnesses(row.get("inputs").asString)
+            assertEquals(JsonParser.parseString(row.get("merged").asString), JsonParser.parseString(script.source))
+            assertEquals(row.get("hash").asString, script.hash)
+        }
+    }
 }

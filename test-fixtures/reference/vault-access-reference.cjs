@@ -33,7 +33,17 @@ const numericScripts = numbers.map(value => {
   const source = '{"op":"CHECKFIELD","field":"context.value","operator":"==","value":' + value + '}';
   return {name: value, source, hash: wasm.get_script_hash(source)};
 });
+const witnessCases = [
+  [custom, [{input: 'hello'}]],
+  [{op: 'AND', args: [{...custom, witness: {input: 'keep existing'}}, {...custom}, {op: 'CHECKSENDER', publickey: creator}]},
+    [{input: 'next slot'}, {proof: 'sender slot'}]],
+  [{op: 'NOT', args: [{...custom, witness: {}}, {...custom}]}, [{input: 'first child only'}, {input: 'unused'}]],
+  [{op: 'OR', args: [{...custom}, {op: 'FUTURE_OPCODE', args: [{...custom}]}]}, [null, {input: 'outer unknown rule'}, {input: 'unused'}]]
+].map(([script, witnesses]) => {
+  const source = JSON.stringify(script), inputs = JSON.stringify(witnesses);
+  return {source, inputs, merged: wasm.merge_witness(source, inputs), hash: wasm.get_script_hash(source)};
+});
 const output = {authority: {source: '0db0062d873369dc013046ed77c97410b5683b64', saitoWasm: '0.3.15', sourceHashes: hashes,
-  qualification: 'Actual WASM script commitments and pinned contract builders; no live provider or consensus authorization.'}, creator, renter, scripts, numericScripts};
+  qualification: 'Actual WASM script commitments/witness merging and pinned contract builders; no live provider or consensus authorization.'}, creator, renter, scripts, numericScripts, witnessCases};
 fs.writeFileSync(path.resolve(process.argv[4]), JSON.stringify(output, null, 2) + '\n');
 console.log('Independent Vault access commitments generated:', scripts.length);

@@ -7,7 +7,7 @@
       "node/mods/vault/lib/contracts/rental.js": "c0385317ee08e703bd17b9a9655c142bf1179f3336cd98485a95b792abc3b8e8",
       "node/mods/vault/lib/contracts/loan.js": "870877c0cb6b5926023a9e3e624ebee35cbdb12c82bec9a3eb4fb19aff328156"
     },
-    "qualification": "Actual WASM script commitments and pinned contract builders; no live provider or consensus authorization."
+    "qualification": "Actual WASM script commitments/witness merging and pinned contract builders; no live provider or consensus authorization."
   },
   "creator": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
   "renter": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
@@ -118,6 +118,32 @@
       "name": "-9223372036854775809",
       "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":-9223372036854775809}",
       "hash": "04f2e1c1a7ed789e5f58b78f95d4fb4afb842af239f7d2d85d42e98ee0da8f5c"
+    }
+  ],
+  "witnessCases": [
+    {
+      "source": "{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\"}",
+      "inputs": "[{\"input\":\"hello\"}]",
+      "merged": "{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\",\"witness\":{\"input\":\"hello\"}}",
+      "hash": "c117b84c5953bd7c4dd4af859815de81b87ae54e4d7fbec50d6ef54cf7033d24"
+    },
+    {
+      "source": "{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"witness\":{\"input\":\"keep existing\"}},{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\"},{\"op\":\"CHECKSENDER\",\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\"}]}",
+      "inputs": "[{\"input\":\"next slot\"},{\"proof\":\"sender slot\"}]",
+      "merged": "{\"args\":[{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\",\"witness\":{\"input\":\"keep existing\"}},{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\",\"witness\":{\"input\":\"next slot\"}},{\"op\":\"CHECKSENDER\",\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\",\"witness\":{\"proof\":\"sender slot\"}}],\"op\":\"AND\"}",
+      "hash": "323a52ba1f93843fec67ee1a1efd3055e9d9022700fef52a88de0d299242558a"
+    },
+    {
+      "source": "{\"op\":\"NOT\",\"args\":[{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"witness\":{}},{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\"}]}",
+      "inputs": "[{\"input\":\"first child only\"},{\"input\":\"unused\"}]",
+      "merged": "{\"args\":[{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\",\"witness\":{\"input\":\"first child only\"}},{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\"}],\"op\":\"NOT\"}",
+      "hash": "40d5643a3bcca276b0a04d2b98aac5cf797f77e6127c33597e4ddde023fcccd3"
+    },
+    {
+      "source": "{\"op\":\"OR\",\"args\":[{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\"},{\"op\":\"FUTURE_OPCODE\",\"args\":[{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\"}]}]}",
+      "inputs": "[null,{\"input\":\"outer unknown rule\"},{\"input\":\"unused\"}]",
+      "merged": "{\"args\":[{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\"},{\"args\":[{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\"}],\"op\":\"FUTURE_OPCODE\",\"witness\":{\"input\":\"outer unknown rule\"}}],\"op\":\"OR\"}",
+      "hash": "d4941f01ac79defd72a4dede6c1609fbb8257b4082fd66f07d6f28798412219a"
     }
   ]
 }
