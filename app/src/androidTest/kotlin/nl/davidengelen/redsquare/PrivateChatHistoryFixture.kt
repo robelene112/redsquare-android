@@ -174,7 +174,11 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         val reactionRelayEntered = java.util.concurrent.CountDownLatch(1)
         val reactionRelayRelease = java.util.concurrent.CountDownLatch(1)
         val delayedReaction = java.util.concurrent.atomic.AtomicBoolean(false)
-        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = { original ->
+        val reactionReplyExecutor = if (concurrentLike) java.util.concurrent.Executors.newSingleThreadExecutor {
+            Thread(it, "controlled-chat-reaction-reply").apply { isDaemon = true }
+        } else null
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||",
+            relayResponseExecutor = reactionReplyExecutor, relayResponse = { original ->
             if (liking) {
                 val signed = SaitoEnvelope.decodePayload(SaitoEnvelope.fromSignedJson(original))
                 check(signed.author == wallet.publicKey)
@@ -685,9 +689,11 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                                         .asJsonObject.getAsJsonObject("signedInner"))
                                 }
                                 peer.sendIncoming(SaitoWire.applicationRequest(counterpart, relay.toString().toByteArray(Charsets.UTF_8),
-                                    1, 1700000080100L).drop(5).toByteArray())
+                                    1, 1700000080100L).drop(5).toByteArray(), requestId = 8810)
                                 waitFor(initialCount)
-                                ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
+                                ui.waitUntil(5_000) { peer.incomingAcknowledgements.any {
+                                    it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 8810
+                                } }
                                 ui.onNodeWithText(context.getString(R.string.chat_reaction_submitted)).assertIsDisplayed()
                                 captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-submitted.png"), text)
                                 reactionRelayRelease.countDown()
@@ -1154,6 +1160,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         } catch (failure: Throwable) { primaryFailure = failure; throw failure }
         finally {
             reactionRelayRelease.countDown()
+            reactionReplyExecutor?.shutdown()
             // Activity is closed before restoring the original opaque wallet and each exact fixture file.
             var cleanupFailure: Throwable? = null
             fun restore(step: () -> Unit) {
@@ -1161,6 +1168,13 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                     if (primaryFailure != null) primaryFailure!!.addSuppressed(failure)
                     else if (cleanupFailure == null) cleanupFailure = failure
                     else cleanupFailure!!.addSuppressed(failure)
+                }
+            }
+            restore {
+                reactionReplyExecutor?.let { executor ->
+                    try { check(executor.awaitTermination(5, java.util.concurrent.TimeUnit.SECONDS)) }
+                    finally { executor.shutdownNow() }
+                    peer.assertHealthy()
                 }
             }
             restore {

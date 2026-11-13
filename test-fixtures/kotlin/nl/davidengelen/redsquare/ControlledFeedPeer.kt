@@ -24,6 +24,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val relayResponse: ((com.google.gson.JsonObject) -> String)? = null,
     private val advertisedServices: String? = null,
     private val onArchiveResponse: ((com.google.gson.JsonObject, String, Boolean) -> Unit)? = null,
+    private val relayResponseExecutor: java.util.concurrent.Executor? = null,
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var registryFallbackBeforeNamecheck = false
     val registryFallbackPairsSent = java.util.concurrent.atomic.AtomicInteger()
@@ -253,8 +254,15 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             }
                             relayRecipients.add(criteria.getAsJsonArray("to").map{it.asJsonObject.get("publicKey").asString})
                             relayedMessages.add(original.deepCopy())
-                            val response = relayResponse?.invoke(original) ?: "{\"err\":\"\",\"success\":1}"
-                            webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                            // A held RPC reply must not hold the reader needed for incoming ACKs.
+                            // The opting-in fixture owns and terminates its response executor.
+                            val respond = Runnable {
+                                try {
+                                    val response = relayResponse?.invoke(original) ?: "{\"err\":\"\",\"success\":1}"
+                                    webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                                } catch (problem: Throwable) { recordFailure(problem) }
+                            }
+                            if (relayResponseExecutor == null) respond.run() else relayResponseExecutor.execute(respond)
                             return
                         }
                         if (body.get("request").asString == "flag tweet") {
@@ -333,10 +341,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         received.countDown()
                     }
                 }
-            } catch (problem: Throwable) { failure = problem; received.countDown() }
+            } catch (problem: Throwable) { recordFailure(problem) }
         }
     }).build()
 
+    private fun recordFailure(problem: Throwable) { failure = problem; received.countDown() }
     fun assertRequestObserved() { assertTrue("Archive request was not observed", received.await(5, TimeUnit.SECONDS)); assertHealthy() }
     fun assertHealthy() { failure?.let { throw AssertionError("Controlled peer rejected the request", it) } }
 }

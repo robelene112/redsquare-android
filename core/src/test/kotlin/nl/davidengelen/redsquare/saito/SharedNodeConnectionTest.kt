@@ -9,6 +9,8 @@ import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert.*
 import org.junit.Test
+import nl.davidengelen.redsquare.ControlledFeedPeer
+import com.google.gson.JsonObject
 import java.io.Closeable
 import java.nio.ByteBuffer
 import java.util.concurrent.ConcurrentHashMap
@@ -16,6 +18,59 @@ import java.util.concurrent.ConcurrentHashMap
 class SharedNodeConnectionTest {
     // Public, deterministic test identities only.
     private val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+
+    @Test fun aHeldRelayReplyDoesNotBlockAnIncomingAcknowledgementOnTheSharedSocket() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val incoming = CompletableDeferred<Unit>()
+        val replies = java.util.concurrent.Executors.newSingleThreadExecutor()
+        val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponseExecutor = replies, relayResponse = {
+            entered.countDown()
+            check(release.await(15, java.util.concurrent.TimeUnit.SECONDS))
+            "{\"err\":\"\",\"success\":1}"
+        })
+        val contact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val original = PrivateChat.create(wallet, contact, "Held Relay reply", 1700000000000L)
+        val relay = SaitoTransaction.create(wallet, JsonObject().apply {
+            addProperty("module", "Relay"); addProperty("request", "chat relay")
+            add("data", original.signedJson())
+        }, 1700000000001L, listOf(contact))
+        val request = JsonObject().apply {
+            addProperty("request", "relay peer message"); add("data", relay.signedJson())
+        }.toString().toByteArray()
+        try {
+            fixture.start().use { server ->
+                SaitoPeer(wallet, "ws://127.0.0.1:${server.port}/wsopen", {
+                    assertEquals("Incoming while Relay waits", it.decodeToString())
+                    incoming.complete(Unit)
+                    true
+                }).use { receiver ->
+                    receiver.services()
+                    val waiting = async { receiver.request(request).decodeToString() }
+                    try {
+                        assertTrue(withContext(Dispatchers.IO) { entered.await(5, java.util.concurrent.TimeUnit.SECONDS) })
+                        fixture.sendIncoming("Incoming while Relay waits".toByteArray(), requestId = 8810)
+                        withTimeout(5_000) { incoming.await() }
+                        withTimeout(5_000) {
+                            while (fixture.incomingAcknowledgements.none {
+                                it[0] == 13.toByte() && ByteBuffer.wrap(it, 1, 4).int == 8810
+                            }) delay(10)
+                        }
+                        assertFalse("The Relay response is still deliberately held", waiting.isCompleted)
+                    } finally {
+                        release.countDown()
+                    }
+                    assertEquals("{\"err\":\"\",\"success\":1}", withTimeout(5_000) { waiting.await() })
+                    fixture.assertHealthy()
+                }
+            }
+        } finally {
+            release.countDown()
+            replies.shutdown()
+            try { assertTrue(replies.awaitTermination(5, java.util.concurrent.TimeUnit.SECONDS)) }
+            finally { replies.shutdownNow() }
+        }
+    }
 
     @Test fun concurrentFeatureRequestsReceiveTheirOwnRepliesThroughSaitosPublicKeyRoute() = runBlocking {
         Node().use { node ->
