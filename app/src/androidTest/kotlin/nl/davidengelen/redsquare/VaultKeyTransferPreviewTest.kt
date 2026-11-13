@@ -4,6 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -96,6 +97,47 @@ class VaultKeyTransferPreviewTest {
             }
             assertTrue(scene.peer.vaultRequests.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
             captureNativeScreen(File(scene.evidence, "moved-key-has-no-current-access-control.png"))
+        }
+    }
+
+    @Test fun accountOrNodeChangesDuringRealAuthenticationKeepTheOriginalTransferUnsent() = withVaultDeviceCredential { device ->
+        for (change in listOf("account", "node")) {
+            withVaultReadingFixture("key-transfer-$change-change", captureFolder = "vault-key-transfer-evidence",
+                retainTransfers = true) { scene ->
+                val wallets = AndroidWalletStore(scene.context)
+                val originalWallet = wallets.loadExisting()
+                val backends = AndroidBackendStore(scene.context)
+                val vector = InstrumentationRegistry.getInstrumentation().context.assets.open("native-vault-transfer-reference.json")
+                    .reader().use { JsonParser.parseReader(it).asJsonObject }
+                ui.openNativeVault()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Field notes.txt").isDisplayed() }
+                ui.onNodeWithText("Transfer key").performScrollTo().performClick()
+                ui.waitUntil(5_000) { ui.onNode(hasText("Permanent transfer") and isHeading()).isDisplayed() }
+                ui.onNodeWithText("Recipient public key").performScrollTo().performTextReplacement(vector.get("recipient").asString)
+                ui.onNodeWithText("Review transfer").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Whole key: 2").isDisplayed() }
+                ui.onNodeWithText("Transfer permanently").performClick()
+                waitForSystemPin(device)
+                try {
+                    if (change == "account") wallets.replace(originalWallet, SaitoWallet.fromPrivateKey("0".repeat(63) + "3"))
+                    else backends.save(SaitoBackend.OFFICIAL)
+                    enterRealSystemPin(device)
+                    ui.waitUntil(15_000) {
+                        ui.onNodeWithText("Account or node changed. Return to the original account and node before continuing.").isDisplayed()
+                    }
+                    assertTrue("Obsolete authority cannot send the retained key", scene.peer.transactions.isEmpty())
+                    captureNativeScreen(File(scene.evidence, "$change-change-prevents-key-submission.png"))
+                } finally {
+                    val current = wallets.loadExisting()
+                    if (current.exportJson() != originalWallet.exportJson()) wallets.replace(current, originalWallet)
+                    if (backends.load() != SaitoBackend.OWNER) backends.save(SaitoBackend.OWNER)
+                }
+                ui.onNodeWithText("Discard transfer").performClick()
+                ui.waitUntil(5_000) {
+                    ui.onAllNodes(hasText("Permanent transfer") and isHeading()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
+                }
+                assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
+            }
         }
     }
 
