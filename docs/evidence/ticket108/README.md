@@ -51,7 +51,23 @@ that receives the signed transfer and disconnects, Activity recreation, and a
 read-only recovery check. Its synthetic block re-leafs the received payload and
 retimes the independently verified WASM block layout with a published fixture
 creator. It is a controlled selected-node observation, not funded consensus or
-production-provider acceptance. Verification is pending.
+production-provider acceptance. Both cases in that class pass on
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43496017808)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43496013421)
+at `48c79b2e899d6f0442c395c33336dad877fdb1ca` (same product source as73f8b694e).
+Exactly one received signed transfer is retained across recreation and then
+recognized in the supplied selected-chain block by read-only checking. The old
+current-access control disappears afterwards.
+
+The next authentication-context tracer fails at
+[43498122200](https://github.com/robelene112/redsquare-android/actions/runs/43498122200),
+source `6c945c2f72b12f7c8b774b67926382af8c802792`: changing account during the real
+PIN prompt produces a generic ownership warning instead of explaining the
+changed account/node. The other two native cases still pass. The correction uses
+a distinct context-change outcome, preserves the retained candidate and exposes
+actual unreadable transfer storage at the library instead of enabling a new
+financial action against unknown reservations. Both context variants still need
+the corrected native run.
 
 Independent `saito-wasm@0.3.15` vectors pin upstream
 `0db0062d873369dc013046ed77c97410b5683b64`. They cover script commitments,

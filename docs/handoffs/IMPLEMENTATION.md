@@ -53,15 +53,23 @@ funds to replace controlled verification.
 #107 is closed and #108 is claimed. Review base:
 `acf61b62e5370afa7afc16bc6e2eeabc82db1422`. Continue108–115, one ticket at a time,
 then the one combined beta under the existing owner authorization.
-`SaitoAccessScript` and `SaitoVaultRules` now match pinned WASM0.3.15 script hashes,
-Rust numeric JSON identity, witness merging and creator/renter/expiry presets.
-The first custom-read/correction/offline/export journey passes on both SDKs at
-`fbfdc0da1a0f20e38c524feacd76d6bc77b98c50`. Native access-preset review is under
-verification at `586a6db22079daddd9989f946e2297efbf139c5c`. Independent custom/rental
-mint and whole-key transfer vectors pass focused core checks. The exact-transfer
-full-block/input-coordinate proof also passes in the working tree. Complete
-permanent-transfer recovery/UI and rental path/delegation handling remain;
-ticket108 is not accepted. See `docs/evidence/ticket108/README.md`.
+`SaitoAccessScript`, `SaitoVaultRules` and `SaitoNftTransfer` match independent
+WASM0.3.15 commitments, numeric identity, witness merging, rental presets,
+custom/rental mints and whole-key transfer/block vectors. Twelve focused core
+cases pass; the complete core suite still needs its end-of108 run.
+The three-case custom-access/preset/reservation diagnostic passes both SDKs at
+`cfb23950d209d886a1e868ff40424d4eca5639e6`. The expanded four-case diagnostic,
+including permanent review/reopen/discard, passes both at
+`73f8b694e0d04258ff1b06cc4e2bf295f82e6dc3`. The two-case permanent-transfer class
+then passes actual Android PIN, received transfer/lost answer, recreation,
+read-only exact inclusion and disappearance of current access controls on both
+SDKs at `48c79b2e899d6f0442c395c33336dad877fdb1ca` (same product source).
+Evidence and qualifications live in `docs/evidence/ticket108/README.md`.
+The next tracer checks account/node changes during authentication, including an
+accurate explanation. Complete it, then implement/verify the remaining rental
+path/grant foundation and native rental-master mint flow, complete viewport and
+inherited read/upload regressions, and run independent108 reviews. This is not
+whole-ticket acceptance. Continue all108–115 and the combined beta as authorized.
 Red/green originals and the public deployed-bundle comparison are external in
 `/mnt/storage/redsquare-android-artifacts/vault-store-planning` (`*108*`).
 The read-only public bundle1794546696 has SHA256

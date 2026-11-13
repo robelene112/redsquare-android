@@ -997,4 +997,5 @@
     <string name="vault_key_check_failed">Could not verify this transfer on its node. Try checking again.</string>
     <string name="vault_key_ownership_changed">Could not send this transfer. Current key ownership may have changed. Check the transfer before retrying.</string>
     <string name="vault_key_waiting_detail">The original transfer may have been submitted. Check it before retrying; the same signed transfer is retained.</string>
+    <string name="vault_key_context_changed">Account or node changed. Return to the original account and node before continuing.</string>
 </resources>

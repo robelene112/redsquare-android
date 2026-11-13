@@ -31,7 +31,8 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
 
     private fun current(token: Long) {
         check(!closed && revision == token && !activity.isFinishing && !activity.isDestroyed)
-        check(AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey && AndroidBackendStore(context).load() == backend)
+        if (AndroidWalletStore(context).loadExisting().publicKey != wallet.publicKey || AndroidBackendStore(context).load() != backend)
+            throw ContextChanged()
     }
     private fun fresh(transfer: SaitoNftTransfer) {
         val holding = requireNotNull(balances.read(backend, wallet.publicKey)).nfts.singleOrNull {
@@ -46,7 +47,11 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
         job = scope.launch {
             try { records = withContext(Dispatchers.IO) { current(token); store.pendingKeys() } }
             catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { if (revision == token) problem = R.string.vault_key_storage_failed }
+            catch (failure: Exception) {
+                if (revision == token) {
+                    records = emptyList(); inclusions = emptyMap(); problem = explained(failure, R.string.vault_key_storage_failed)
+                }
+            }
             finally { if (revision == token) busy = false }
         }
     }
@@ -76,7 +81,7 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
                 }
                 if (revision == token) { records = result.second; ready(result.first.transaction.id) }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { if (revision == token) problem = R.string.vault_key_review_failed }
+            catch (failure: Exception) { if (revision == token) problem = explained(failure, R.string.vault_key_review_failed) }
             finally { if (revision == token) busy = false }
         }
     }
@@ -93,7 +98,7 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
                 }
                 if (revision == token) { records = retained; busy = false; done() }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { if (revision == token) problem = R.string.vault_key_storage_failed }
+            catch (failure: Exception) { if (revision == token) problem = explained(failure, R.string.vault_key_storage_failed) }
             finally { if (revision == token) busy = false }
         }
     }
@@ -107,7 +112,7 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
                 val inclusion = withContext(Dispatchers.IO) { current(token); balances.observeKeyTransfer(backend, record.transfer) }
                 if (revision == token && inclusion != null) inclusions = inclusions + (record.transfer.transaction.id to inclusion)
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { if (revision == token) problem = R.string.vault_key_check_failed }
+            catch (failure: Exception) { if (revision == token) problem = explained(failure, R.string.vault_key_check_failed) }
             finally { if (revision == token) busy = false }
         }
     }
@@ -171,11 +176,12 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
                     result.second?.let { inclusions = inclusions + (record.transfer.transaction.id to it) }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) {
+            catch (failure: Exception) {
                 val retained = withContext(NonCancellable + Dispatchers.IO) { runCatching { store.pendingKeys() }.getOrNull() }
                 if (revision == token) {
                     retained?.let { records = it }
-                    problem = if (retained == null) R.string.vault_key_storage_failed
+                    problem = if (failure is ContextChanged) R.string.vault_key_context_changed
+                        else if (retained == null) R.string.vault_key_storage_failed
                         else if (retained.any { it.transfer.transaction.id == record.transfer.transaction.id && it.mayHaveSent })
                             R.string.vault_key_waiting_detail else R.string.vault_key_ownership_changed
                 }
@@ -206,4 +212,8 @@ internal class VaultKeyTransfers(private val activity: Activity, private val wal
         cancellation?.cancel(); cancellation = null
         job?.cancel(); peer?.close(); peer = null
     }
+    private class ContextChanged : IllegalStateException()
+    private fun explained(failure: Exception, fallback: Int) =
+        if (failure is ContextChanged) R.string.vault_key_context_changed else fallback
+
 }

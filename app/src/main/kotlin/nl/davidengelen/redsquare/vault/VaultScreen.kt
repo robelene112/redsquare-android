@@ -185,7 +185,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             Text(stringResource(R.string.vault_files), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             FrameIconButton(R.drawable.ic_info, stringResource(R.string.vault_about)) { privacyOpen = true }
             FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.vault_refresh), enabled && !library.loading) {
-                scope.launch { feedback = null; error = null; library.load(page); if (library.problem == null) page = library.page }
+                scope.launch { feedback = null; error = null; keyTransfers.load(); library.load(page); if (library.problem == null) page = library.page }
             }
         }
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
@@ -194,6 +194,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             InlineStatus(feedback?.let { stringResource(it) }, StatusTone.SUCCESS)
             InlineStatus(error?.takeIf { accessToken == null }?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(uploadView.problem?.let { stringResource(it) }, StatusTone.ERROR)
+            InlineStatus(keyTransfers.problem?.takeIf { transferSelection == null }?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(library.problem?.let { stringResource(if (it == VaultProblem.SERVICE_UNAVAILABLE)
                 R.string.vault_service_unavailable else R.string.vault_connection_failed) },
                 StatusTone.NEUTRAL, actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
@@ -276,7 +277,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             entry.key?.let { key ->
                                 val reserved = keyTransfers.records.any { it.transfer.holding.witnesses == key.holding.witnesses }
                                 OutlinedButton(onClick = { transferRecipient = ""; transferSelection = "draft:${key.holding.id}" },
-                                    enabled = enabled && !keyTransfers.busy && !reserved, modifier = Modifier.heightIn(min = 48.dp)) {
+                                    enabled = enabled && !keyTransfers.busy && keyTransfers.problem != R.string.vault_key_storage_failed && !reserved, modifier = Modifier.heightIn(min = 48.dp)) {
                                     Text(stringResource(R.string.vault_key_transfer))
                                 }
                             }
