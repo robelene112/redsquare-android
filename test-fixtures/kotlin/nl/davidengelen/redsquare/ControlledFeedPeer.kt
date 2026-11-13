@@ -58,6 +58,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var rejectionDelayMillis = 0L
     @Volatile var withholdHandshakeReplies = false
     private val releaseHandshakeReplies = CountDownLatch(1)
+    val heldHandshakeEntries = java.util.concurrent.atomic.AtomicInteger()
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -179,7 +180,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                     }
                     1 -> {
                         require(frame.size == 33)
-                        if (withholdHandshakeReplies) check(releaseHandshakeReplies.await(15, TimeUnit.SECONDS))
+                        if (withholdHandshakeReplies && releaseHandshakeReplies.count > 0L) {
+                            heldHandshakeEntries.incrementAndGet()
+                            check(releaseHandshakeReplies.await(15, TimeUnit.SECONDS))
+                        }
                         if (offline) { webSocket.close(1001, "Controlled node outage"); return }
                         val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         val signature = peer.sign(frame.copyOfRange(1, 33)).chunked(2).map { it.toInt(16).toByte() }.toByteArray()

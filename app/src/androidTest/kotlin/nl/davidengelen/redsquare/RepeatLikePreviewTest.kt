@@ -63,16 +63,34 @@ class RepeatLikePreviewTest {
         withLikes(likeNode) { peer, intent ->
             withLikeActivity(intent, "slow-peer") {
                 waitFor("4 likes")
+                val previousConnections = peer.authenticatedConnectionIds
+                assertTrue("The loaded feed has authenticated with the controlled peer", previousConnections.isNotEmpty())
+                val heldBeforeRetirement = peer.heldHandshakeEntries.get()
                 peer.withholdHandshakeReplies = true
                 try {
+                    // Account Talk may retain the authenticated physical connection.
+                    // Retire that route before testing a genuinely held handshake.
+                    peer.goOffline()
+                    ui.waitUntil(5_000) { previousConnections.intersect(peer.authenticatedConnectionIds).isEmpty() }
+                    val heldAfterRetirement = peer.heldHandshakeEntries.get()
+                    peer.rejectNewConnections = false
                     ui.clickVisiblePostContent("Like")
                     ui.clickVisiblePostContent("Like")
                     ui.clickVisiblePostContent("Like")
-                    ui.waitUntil(2_000) { ui.onNodeWithText("7 likes").isDisplayed() }
+                    ui.waitUntil(2_000) {
+                        ui.onNodeWithText("7 likes").isDisplayed() &&
+                            peer.heldHandshakeEntries.get() > heldAfterRetirement
+                    }
                     ui.onNodeWithText("7 likes").assertIsDisplayed()
                     ui.onNode(likePostAction()).assertIsEnabled()
                     assertTrue("A slow peer handshake has not received Likes yet", peer.transactions.isEmpty())
+                    captureFeedEvidence("repeat-like-evidence/slow-peer-held.png")
+                    File(context.cacheDir, "repeat-like-evidence/held-handshake.txt").writeText(
+                        "retired=$previousConnections\nheldBeforeRetirement=$heldBeforeRetirement\n" +
+                            "heldAfterRetirement=$heldAfterRetirement\nheldAfterLikes=${peer.heldHandshakeEntries.get()}\n" +
+                            "likes=7\ntransmitted=${peer.transactions.size}\n")
                 } finally {
+                    peer.rejectNewConnections = false
                     peer.releaseWithheldHandshakeReplies()
                 }
                 ui.waitUntil(20_000) { peer.transactions.size == 3 }
