@@ -25,7 +25,10 @@ class VaultRulesViewportPreviewTest {
             onNodeWithText("Upload file").performClick()
             waitUntil(15_000) { onNodeWithText("Review upload").isDisplayed() }
         }) { scene, label ->
-            waitUntil(15_000) { onNodeWithText("Review upload").isDisplayed() }
+            waitUntil(15_000) {
+                onAllNodesWithText("Review upload").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            }
+            onNodeWithText("Review upload").performScrollTo().assertIsDisplayed()
             onNodeWithText("Change access rules").performScrollTo().performClick()
             waitUntil(5_000) { onNodeWithText("File access rules").isDisplayed() }
             onNode(hasText("Rental master key") and hasClickAction()).performScrollTo().assertHeightIsAtLeast(48.dp).performClick()

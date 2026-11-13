@@ -58,19 +58,23 @@ internal fun VaultRulesDialog(creator: String, initial: VaultDraftRules, saving:
                         }, { Text(stringResource(choice.label)) }, enabled = !busy, modifier = Modifier.heightIn(min = 48.dp))
                     }
                 }
-                Text(stringResource(mode.explanation), style = MaterialTheme.typography.bodyLarge)
-                InlineStatus(if (validation) stringResource(R.string.vault_rules_invalid)
-                    else problem?.let { stringResource(it) }, StatusTone.ERROR)
-                if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
-                if (mode == VaultRuleMode.CUSTOM) {
-                    OutlinedTextField(source, { if (it.length <= 64 * 1024) { source = it; validation = false } },
-                        label = { Text(stringResource(R.string.vault_access_script)) }, enabled = !busy,
-                        modifier = Modifier.fillMaxWidth(), minLines = 5, maxLines = 12,
-                        textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace))
-                    Text(stringResource(R.string.vault_rules_public), style = MaterialTheme.typography.bodySmall)
+                SingleOwnerReveal(mode) {
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        Text(stringResource(mode.explanation), style = MaterialTheme.typography.bodyLarge)
+                        InlineStatus(if (validation) stringResource(R.string.vault_rules_invalid)
+                            else problem?.let { stringResource(it) }, StatusTone.ERROR)
+                        if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+                        if (mode == VaultRuleMode.CUSTOM) {
+                            OutlinedTextField(source, { if (it.length <= 64 * 1024) { source = it; validation = false } },
+                                label = { Text(stringResource(R.string.vault_access_script)) }, enabled = !busy,
+                                modifier = Modifier.fillMaxWidth(), minLines = 5, maxLines = 12,
+                                textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace))
+                            Text(stringResource(R.string.vault_rules_public), style = MaterialTheme.typography.bodySmall)
+                        }
+                        Text(stringResource(R.string.vault_copies_cannot_recall), style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 }
-                Text(stringResource(R.string.vault_copies_cannot_recall), style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }, confirmButton = {
             Button(enabled = !busy, modifier = Modifier.heightIn(min = 48.dp), onClick = {
