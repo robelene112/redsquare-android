@@ -176,6 +176,45 @@ These partial runs are failures, not accepted whole-ticket or inherited-suite
 proofs. `deec03d01` also gives rule-mode content the shared interruptible reveal;
 zero-motion test contexts still render immediately.
 
+The corrected complete three-class viewport sweep passes at
+`deec03d01f089cc674b9cd5364094a22cc5da542` on
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43509898149)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43509902592).
+Each has12configuration receipts,12observed zero-scale contexts and24screenshots
+per dialog,72screenshots per OS. The complete original66/68ZIP and249capture
+members are exact. Native transfer and Advanced large-text result images were
+inspected; complete controlled viewport coverage does not establish phone/OEM
+performance or the production motion factory. Both independent follow-up review
+axes report0remaining findings at `ee6becb73`; see [reviews.json](reviews.json).
+Complete inherited+advanced runs43510828545/43510832543 at that source are pending.
+
+The complete23-class/37-case run at `ee6becb73` passes on
+[Android17](https://github.com/robelene112/redsquare-android/actions/runs/43510832543),
+including both rental-master methods, three permanent-transfer methods, all
+inherited read/upload classes and the three-phase actual-process protocol.
+All140ZIP and583capture members are exact. The same-source
+[Android10 run](https://github.com/robelene112/redsquare-android/actions/runs/43510828545)
+fails in the final access-editor viewport cell412dp/200percent/Dark: the actual
+library becomes empty with no loading indicator or error. Its105ZIP and264capture
+members are exact, and the original screenshot was inspected. The separate
+passing viewport sweep does not replace this complete-run failure.
+
+A suspected cancellation race remains: upload loading/preparation changes the
+library effect while discovery still owns its loading flag. A replacement call
+can return early before cancellation finishes, leaving no active discovery.
+A second custom-access native case at `1df3e2f735beaa4d6afd3a607cc4fdb11892e95c`
+holds the owned balance response while actual document preparation starts and is
+cancelled, then requires the existing key and a new read within15s. Its actual red
+[43512925833](https://github.com/robelene112/redsquare-android/actions/runs/43512925833)
+times out at the original15s key-return goal after actual cancellation, while the
+original wrong-input/correction/offline case passes. The original empty-library
+screenshot and60ZIP/15capture members are exact. `e7f4a5d93` removes the early
+loading return so a replacement takes its own generation while predecessor IO
+finishes. All old generation/result/finally guards remain. Both independent
+follow-ups report0findings on this delta; native complete runs43513916895 and
+43513920607 at `e7f4a5d93cb8205d658e1d461f25b1a04863c47d` are pending.
+108 stays open.
+
 ## Remaining before closure
 
 Complete the native rental-master and dialog viewport runs, exercise any uncovered

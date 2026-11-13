@@ -53,31 +53,57 @@ funds to replace controlled verification.
 #107 is closed and #108 is claimed. Review base:
 `acf61b62e5370afa7afc16bc6e2eeabc82db1422`. Continue108–115, one ticket at a time,
 then the one combined beta under the existing owner authorization.
-`SaitoAccessScript`, `SaitoVaultRules` and `SaitoNftTransfer` match independent
-WASM0.3.15 commitments, numeric identity, witness merging, rental presets,
-custom/rental mints and whole-key transfer/block vectors. Twelve focused core
-cases pass; the complete core suite still needs its end-of108 run.
-The three-case custom-access/preset/reservation diagnostic passes both SDKs at
-`cfb23950d209d886a1e868ff40424d4eca5639e6`. The expanded four-case diagnostic,
-including permanent review/reopen/discard, passes both at
-`73f8b694e0d04258ff1b06cc4e2bf295f82e6dc3`. The two-case permanent-transfer class
-then passes actual Android PIN, received transfer/lost answer, recreation,
-read-only exact inclusion and disappearance of current access controls on both
-SDKs at `48c79b2e899d6f0442c395c33336dad877fdb1ca` (same product source).
-Evidence and qualifications live in `docs/evidence/ticket108/README.md`.
-The next tracer checks account/node changes during authentication, including an
-accurate explanation. Complete it, then implement/verify the remaining rental
-path/grant foundation and native rental-master mint flow, complete viewport and
-inherited read/upload regressions, and run independent108 reviews. This is not
-whole-ticket acceptance. Continue all108–115 and the combined beta as authorized.
-Red/green originals and the public deployed-bundle comparison are external in
+`SaitoAccessScript`, `SaitoVaultRules`, `SaitoVaultRental` and
+`SaitoNftTransfer` match independent WASM0.3.15 script/numeric/witness,
+custom/rental mint, signed path/first-renter/expiry and whole-key transfer vectors.
+Source `ee6becb73d8c4e973f890c0f30c87e967f954a87` includes the review fixes:
+full-size custom candidate recovery, official new output numbering for held
+input tuples3/4/5, immutable original rules in lost-upload-answer recovery,
+no duplicate full Wallet invocations, and shared rule-mode reveal.
+
+Both SDKs pass the complete three-case permanent-transfer class at `d10dfa8c`.
+Both pass the ordinary native rental-master mint/upload/read/export at `4f48e33f`.
+The broad `84f115aeb` runs preserve prior upload subset/process passes and all12
+access-editor viewport cells, then fail the rules tracer when its retained page
+title is scrolled offscreen at320dp/200percent/Dark. The correction scrolls the
+existing title into view within the original15s. Native viewport-only runs
+43509898149/43509902592 at `deec03d01` are pending. Compose viewport contexts
+explicitly supply scale0 to the test recomposer with actual settings0; this is
+not independent proof of the production window-motion factory.
+
+Independent reviews at84f115 find one Standards duplication heuristic and two
+Spec defects. The actual WASM offset tuple refines the transfer finding: candidate
+outputs reset indices0/1/2, so fix native creation/restoration, not block matching.
+The native rental lost-answer red43509120606 at3eca times out at the unchanged15s
+completion goal while ordinary rental creation passes. Corrected complete
+inherited+advanced runs43510828545/43510832543 at ee6 and both review follow-ups
+are pending. All172core tests passed before the last review fixes; focused exact
+transfer/restore/inclusion/tampered-input cases pass afterwards. The hosted builds
+for complete native proof also rerun all core cases. No partial successful tail
+counts as ticket acceptance. Continue108 to complete native proof, reviews and
+closure, then109–115 sequentially and one combined beta.
+
+Update after complete runs:43510832543 passes all23classes/37cases plus actual
+process recovery on17 at ee6.43510828545 fails10's final access viewport cell:
+library unexpectedly empty, with no loading/error. Suspect load cancellation vs
+`if (loading) return` dropping its replacement effect. New public native
+provider/balance-gate tracer is committed at1df3e2f735beaa4d6afd3a607cc4fdb11892e95c,
+run43512925833 fails the key-return15s goal after actual file cancellation,
+while the original custom-access case passes. The original empty-library image
+was inspected. Productfix e7f4a5d93cb8205d658e1d461f25b1a04863c47d removes only the
+early loading return, preserving all generation/result/finally guards. Both
+review follow-ups find0; main compiles. Complete new runs43513916895/43513920607
+are pending. Do not close108 or reuse the older passing17/viewport tails as whole
+acceptance. Continue all109–115 and combined beta after108 is actually complete.
+
+All original failed runs and exact qualifications are retained in
+`docs/evidence/ticket108/README.md` and the external
 `/mnt/storage/redsquare-android-artifacts/vault-store-planning` (`*108*`).
-The read-only public bundle1794546696 has SHA256
-`bde5468da85e77160e832cc398a0d4c449a29258d8c613e73bb7e6a7f54d6e14`.
-Its isolated Custom/Rental/Loan contract factories match the pinned builders;
-this is not backend authorization or a fully initialized community-client proof.
-Jackson-core2.23.0 supplies shortest float digits for Rust-compatible script
-commitments on JVM17/Android; existing protocol dependencies remain pinned.
+Public beta127 remains.115 must append all106/107/108classes/process identities
+to its frozen catalogue before the final shared-source all-app and signed-update
+proofs. The pinned public contract factories and isolated official Store/Vault
+builders are not a fully initialized community client or actual provider proof.
+Jackson-core2.23.0 supplies Rust-compatible shortest float identity on JVM/Android.
 
 ## Delivered native Saito Talk #104
 
