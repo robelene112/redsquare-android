@@ -21,8 +21,8 @@ class VaultUploadCancellationPreviewTest {
     @Test fun notificationCancellationKeepsTheOriginalAndReadOnlyCheckCanVerifyALostUploadReply() = withVaultDeviceCredential { device ->
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val granted = Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-        if (!granted) device.executeShellCommand("pm grant ${context.packageName} android.permission.POST_NOTIFICATIONS")
-        try {
+        check(granted) { "The host must grant and restore notification permission outside instrumentation" }
+        run {
             withVaultReadingFixture("cancel-lost-reply", captureFolder = "vault-upload-cancellation-evidence", retainTransfers = true, minting = true) { scene ->
                 val server = requireNotNull(scene.mint)
                 val gate = CountDownLatch(1).also { server.uploadGate = it }
@@ -58,8 +58,6 @@ class VaultUploadCancellationPreviewTest {
                     ui.waitUntil(15_000) { ui.onNodeWithText("vault-cancelled.bin").isDisplayed() }
                 } finally { gate.countDown() }
             }
-        } finally {
-            if (!granted) device.executeShellCommand("pm revoke ${context.packageName} android.permission.POST_NOTIFICATIONS")
         }
     }
 }

@@ -22,8 +22,8 @@ class VaultUploadBackgroundPreviewTest {
     @Test fun anAuthenticatedUploadContinuesAcrossModuleHomeAndActualScreenOffAndReturnsCompleted() = withVaultDeviceCredential { device ->
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val granted = Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-        if (!granted) device.executeShellCommand("pm grant ${context.packageName} android.permission.POST_NOTIFICATIONS")
-        try {
+        check(granted) { "The host must grant and restore notification permission outside instrumentation" }
+        run {
             withVaultReadingFixture("background-upload", captureFolder = "vault-upload-background-evidence", retainTransfers = true, minting = true) { scene ->
                 val gate = CountDownLatch(1).also { requireNotNull(scene.mint).uploadGate = it }
                 val bytes = "Complete this same Vault upload while the phone screen is off".toByteArray()
@@ -72,8 +72,6 @@ class VaultUploadBackgroundPreviewTest {
                     ui.waitUntil(15_000) { ui.onNodeWithText("vault-background.bin").isDisplayed() }
                 } finally { gate.countDown(); device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard") }
             }
-        } finally {
-            if (!granted) device.executeShellCommand("pm revoke ${context.packageName} android.permission.POST_NOTIFICATIONS")
         }
     }
 }

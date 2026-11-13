@@ -77,6 +77,15 @@ retains the original rollback and preserves real read/storage errors. New work
 also waits for the previous job to finish, including cancellation cleanup.
 The complete provider class must pass together before acceptance.
 
+Run43439448284 on `d577a425f11ece0a77f30e38352a843015e5c48f` reaches
+the actual notification Stop, retains one mint/one upload, and its later failure
+capture shows Waiting after the availability check. Its instrumentation result
+is masked by test cleanup: revoking POST_NOTIFICATIONS from inside the target
+process kills that process. It is not accepted as a product crash or completed
+cancellation proof. The follow-up restores permission from the host after the
+unchanged native class returns and retains the original Throwable before fixture
+cleanup. It must reproduce the exact failure before any lost-reply product fix.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

@@ -190,6 +190,22 @@ verify_group_chat_native() {
     fi
     return 1
 }
+# Native Vault foreground proofs own only notification permission. Restore it after
+# instrumentation has returned, because revoking a runtime grant kills that process.
+verify_vault_notification_native() {
+    local original_permissions proof_result
+    original_permissions=$(adb shell dumpsys package nl.davidengelen.redsquare.dev)
+    printf '%s\n' "$original_permissions" > "$evidence/$3-original-permissions.txt"
+    if [[ "$TEST_DEVICE_API" != 29 ]]; then
+        adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+    fi
+    if verify_group_chat_native "$@"; then proof_result=0; else proof_result=$?; fi
+    if [[ "$TEST_DEVICE_API" != 29 && "$original_permissions" != *"android.permission.POST_NOTIFICATIONS: granted=true"* ]]; then
+        adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS
+    fi
+    adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/$3-restored-permissions.txt"
+    return "$proof_result"
+}
 # Snapshot permissions outside instrumentation so revocation cannot kill its own test process.
 verify_talk_capture_native() {
     local permission proof_result
@@ -723,12 +739,12 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
 fi
 
 if [[ "${TEST_SCOPE:-full}" == vault-upload-background* ]]; then
-    verify_group_chat_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
+    verify_vault_notification_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
     printf '%s\n' 'Actual Android foreground notification, module/Home navigation and fresh upload ownership IO with the display off.' > "$evidence/scope.txt"
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload-cancel* ]]; then
-    verify_group_chat_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
+    verify_vault_notification_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
     printf '%s\n' 'Actual Android foreground notification cancellation and authenticated read-only recovery of a lost upload reply.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -759,8 +775,8 @@ if [[ "${TEST_SCOPE:-full}" == vault-minting* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
-    verify_group_chat_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
-    verify_group_chat_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
+    verify_vault_notification_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
+    verify_vault_notification_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
     verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
@@ -1221,8 +1237,8 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
-    verify_group_chat_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
-    verify_group_chat_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
+    verify_vault_notification_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
+    verify_vault_notification_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
     verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence

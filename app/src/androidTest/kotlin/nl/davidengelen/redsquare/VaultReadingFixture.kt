@@ -92,6 +92,10 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                     }
                 }) { activity ->
                     try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount })) }
+                    catch (problem: Throwable) {
+                        File(evidence, "$name-original-failure.txt").writeText(problem.stackTraceToString())
+                        throw problem
+                    }
                     finally {
                         if (minted != null) File(evidence, "owned-protocol-facts.json").writeText(JsonObject().apply {
                             addProperty("mintFrames", referencePeer.transactions.size)
