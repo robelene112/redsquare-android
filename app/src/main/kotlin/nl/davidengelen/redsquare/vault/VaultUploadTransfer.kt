@@ -29,10 +29,10 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
     fun restorePlan(record: VaultUploadRecord, file: VaultFile): SaitoVaultMint {
         require(file.size == record.size)
         return SaitoVaultMint.create(wallet, record.candidate.inputs, record.candidate.name, record.mime, file.bytes,
-            record.candidate.timestamp).also { require(it.mint.encoded() == record.candidate.transaction.encoded()) }
+            record.candidate.timestamp, record.candidate.accessScript, record.candidate.keyType == "vault-nft-rental").also { require(it.mint.encoded() == record.candidate.transaction.encoded()) }
     }
 
-    suspend fun prepare(file: VaultFile, guard: () -> Unit): VaultUploadRecord = withContext(Dispatchers.IO) {
+    suspend fun prepare(file: VaultFile, rules: VaultDraftRules = VaultDraftRules(), guard: () -> Unit): VaultUploadRecord = withContext(Dispatchers.IO) {
         current(); currentCoroutineContext().ensureActive()
         SaitoPeer(wallet, endpoint).use { if ("vault" !in it.services()) throw VaultServiceMissing() }
         val saved = store.read()
@@ -47,7 +47,8 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
             if (total >= SaitoVaultMint.DEPOSIT) false else { total += input.amount; true }
         }
         if (total < SaitoVaultMint.DEPOSIT) throw VaultInsufficientFunds()
-        val plan = SaitoVaultMint.create(wallet, chosen, file.name, file.mime, file.bytes, System.currentTimeMillis())
+        val plan = SaitoVaultMint.create(wallet, chosen, file.name, file.mime, file.bytes, System.currentTimeMillis(),
+            rules.script(wallet.publicKey), rules.mode == VaultRuleMode.RENTAL)
         val record = VaultUploadRecord(SaitoVaultMint.readCandidate(plan.mint.encoded()), file.mime, file.size)
         currentCoroutineContext().ensureActive(); current()
         store.save(record, guard)

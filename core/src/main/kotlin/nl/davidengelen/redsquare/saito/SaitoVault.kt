@@ -29,7 +29,7 @@ object SaitoVault {
     const val MAX_FILE_BYTES = 4 * 1024 * 1024
 
     fun readKey(holding: SaitoNft, envelope: String): VaultKey {
-        require(holding.type in setOf("vault", "vault-nft-key"))
+        require(holding.type in setOf("vault", "vault-nft-key", "vault-nft-rental"))
         require(envelope.toByteArray(Charsets.UTF_8).size <= 128 * 1024) { "Unsupported Vault key metadata size" }
         val signed = SaitoEnvelope.decodeBound(envelope)
         require(signed.body.get("module")?.asString == "Vault" && signed.body.get("request")?.asString == "mint-vault-key")

@@ -961,4 +961,16 @@
     <string name="vault_no_network_fee">Network fee: 0 SAITO</string>
     <string name="vault_share_unavailable">Share a single file or image to review it in Vault.</string>
     <string name="vault_share_existing_work">Finish or discard your current upload before sharing another file.</string>
+    <string name="vault_rental_key">Rental master key</string>
+    <string name="vault_rental_key_description">Keeps the creator in the access rules and supports temporary rentals through Store. During a confirmed rental, the renter has access until expiry; the creator regains access after expiry. Moving the master key does not rewrite these rules.</string>
+    <string name="vault_advanced">Advanced</string>
+    <string name="vault_advanced_description">The storage service evaluates these rules. Holding the key alone may not grant access. Unsupported rules can prevent retrieval; the app cannot promise they will work.</string>
+    <string name="vault_file_rules">File access rules</string>
+    <string name="vault_close_rules">Close file access rules</string>
+    <string name="vault_change_rules">Change access rules</string>
+    <string name="vault_use_rules">Use these rules</string>
+    <string name="vault_rules_invalid">Enter a valid JSON access script.</string>
+    <string name="vault_rules_save_failed">Could not save these rules. Try again before creating the key.</string>
+    <string name="vault_rules_public">These rules become public key metadata. Put no passwords or private inputs here. Unlock inputs are supplied separately when accessing a file.</string>
+    <string name="vault_copies_cannot_recall">The storage operator can read this file. Access changes cannot recall a copy someone has already downloaded or exported.</string>
 </resources>

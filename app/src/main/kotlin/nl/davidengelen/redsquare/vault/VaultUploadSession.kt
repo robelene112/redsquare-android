@@ -18,7 +18,7 @@ internal enum class VaultUploadPhase { FILES, LOADING, PREPARING, REVIEW, CHECKI
 internal data class VaultUploadFile(val name: String, val mime: String, val size: Int)
 internal data class VaultUploadView(val phase: VaultUploadPhase = VaultUploadPhase.FILES,
     val file: VaultUploadFile? = null, val bytesRead: Long = 0, val problem: Int? = null,
-    val step: VaultSendStep? = null, val record: VaultUploadRecord? = null, val inLibrary: Boolean = false) {
+    val rules: VaultDraftRules = VaultDraftRules(), val step: VaultSendStep? = null, val record: VaultUploadRecord? = null, val inLibrary: Boolean = false) {
     val showingFiles: Boolean get() = phase == VaultUploadPhase.FILES || inLibrary
 }
 
@@ -53,7 +53,9 @@ internal class VaultUploadSession(private val context: Context, private val wall
                         null
                     }
                 }
-                mutable.value = reviewed(file).copy(record = record, inLibrary = mutable.value.inLibrary,
+                val rules = record?.let { VaultDraftRules.from(it.candidate) }
+                    ?: file?.let { withContext(Dispatchers.IO) { disk.draftRules(it.id) } } ?: VaultDraftRules()
+                mutable.value = reviewed(file).copy(rules = rules, record = record, inLibrary = mutable.value.inLibrary,
                     problem = if (sourceUnavailable) R.string.vault_draft_unavailable else null,
                     phase = when { record?.complete == true -> VaultUploadPhase.COMPLETE
                         record != null && (record.mayHaveSent || record.uploaded) -> VaultUploadPhase.WAITING
@@ -182,6 +184,24 @@ internal class VaultUploadSession(private val context: Context, private val wall
         }
     }
 
+    fun changeRules(rules: VaultDraftRules, applied: () -> Unit) {
+        if (job?.isCompleted == false || mutable.value.phase != VaultUploadPhase.REVIEW || mutable.value.record != null) return
+        val prior = mutable.value
+        mutable.value = prior.copy(phase = VaultUploadPhase.CHECKING, problem = null)
+        job = scope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    rules.script(wallet.publicKey)
+                    val file = requireNotNull(disk.draft())
+                    disk.saveDraftRules(file.id, rules)
+                }
+                mutable.value = prior.copy(rules = rules, problem = null)
+                applied()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { mutable.value = prior.copy(problem = R.string.vault_rules_save_failed) }
+        }
+    }
+
     /** Preflight creates and retains one exact candidate before asking the system to authorize it. */
     fun requestAuthorization(ready: (VaultUploadRecord, Long) -> Unit) {
         if (job?.isCompleted == false) return
@@ -191,7 +211,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
         job = scope.launch {
             try {
                 val file = withContext(Dispatchers.IO) { requireNotNull(disk.draft()) }
-                val record = transfer.prepare(file) { require(epoch.get() == token) }
+                val record = transfer.prepare(file, prior.rules) { require(epoch.get() == token) }
                 mutable.value = prior.copy(phase = VaultUploadPhase.AUTHORIZING, record = record, problem = null)
                 ready(record, token)
             } catch (cancelled: CancellationException) { throw cancelled }

@@ -45,7 +45,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             catch (_: Exception) { storageWarning = true }
             val result = withContext(Dispatchers.IO) {
                 val observed = balances.read(backend, wallet.publicKey) ?: throw IOException("Vault ownership unavailable")
-                val holdings = observed.nfts.filter { it.type in setOf("vault", "vault-nft-key") }.distinctBy { it.id }.sortedBy { it.id }
+                val holdings = observed.nfts.filter { it.type in setOf("vault", "vault-nft-key", "vault-nft-rental") }.distinctBy { it.id }.sortedBy { it.id }
                 val selectedPage = requestedPage.coerceAtMost(((holdings.size - 1).coerceAtLeast(0)) / PAGE_SIZE)
                 val pageHoldings = holdings.drop(selectedPage * PAGE_SIZE).take(PAGE_SIZE)
                 val cached = try { disk.keys() } catch (_: Exception) { emptyMap() }

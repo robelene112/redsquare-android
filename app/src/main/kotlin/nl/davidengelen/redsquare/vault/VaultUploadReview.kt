@@ -5,7 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
@@ -16,7 +17,8 @@ import nl.davidengelen.redsquare.ui.*
 
 @Composable
 internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDiscard: () -> Unit, onCancel: () -> Unit,
-    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit, onLibrary: () -> Unit) {
+    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit, onLibrary: () -> Unit, creator: String, onRules: (VaultDraftRules, () -> Unit) -> Unit) {
+    var rulesOpen by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     val working = view.phase in setOf(VaultUploadPhase.LOADING, VaultUploadPhase.PREPARING, VaultUploadPhase.CHECKING,
         VaultUploadPhase.AUTHORIZING, VaultUploadPhase.SENDING)
@@ -62,8 +64,11 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
                     }
                 }
                 if (view.phase == VaultUploadPhase.REVIEW && view.file != null) {
-                    Text(stringResource(R.string.vault_standard_key), style = MaterialTheme.typography.titleMedium)
-                    Text(stringResource(R.string.vault_standard_key_description), style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(view.rules.mode.label), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(view.rules.mode.explanation), style = MaterialTheme.typography.bodyMedium)
+                    if (view.record == null) OutlinedButton(onClick = { rulesOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.vault_change_rules))
+                    }
                     Text(stringResource(R.string.vault_key_deposit), style = MaterialTheme.typography.labelLarge)
                     Text("1 SAITO", style = MaterialTheme.typography.headlineSmall)
                     Text(stringResource(R.string.vault_no_network_fee), style = MaterialTheme.typography.labelLarge)
@@ -108,4 +113,7 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
             }
         }
     }
+    if (rulesOpen) VaultRulesDialog(creator, view.rules, working, view.problem,
+        onDismiss = { rulesOpen = false }, onApply = onRules)
+
 }

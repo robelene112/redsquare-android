@@ -4,6 +4,9 @@ import com.google.gson.JsonParser
 
 /** Official Vault constitutions. Building a rule does not establish present access. */
 object SaitoVaultRules {
+    fun custom(): SaitoAccessScript = SaitoAccessScript.parse(
+        """{"op":"CHECKHASH","hash":"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2"}""")
+
     fun rental(creator: String): SaitoAccessScript = SaitoAccessScript.parse(template("rental", creator))
 
     fun loan(creator: String, renter: String, expiresAt: Long): SaitoAccessScript {

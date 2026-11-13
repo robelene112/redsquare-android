@@ -171,7 +171,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             SingleOwnerReveal(uploadView.phase, Modifier.weight(1f)) {
                 VaultUploadReview(uploadView, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,
                     authorization::request, uploads::cancelSending, uploads::checkOwnership, uploads::backToFiles,
-                    { authorization.close(); uploads.showFiles() })
+                    { authorization.close(); uploads.showFiles() }, wallet.publicKey, uploads::changeRules)
             }
         } else {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalAlignment = Alignment.CenterVertically) {

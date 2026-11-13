@@ -155,10 +155,29 @@ internal class VaultDisk(private val context: Context, owner: String, backend: S
     }
 
     /** A reviewed local source has a content digest, not remote access authority. */
-    fun saveDraft(file: VaultFile) = synchronized(lock) { writeRecord("draft", file) }
+    fun saveDraft(file: VaultFile) = synchronized(lock) {
+        val cleanup = writeRecord("draft", file)
+        saveDraftRules(file.id, VaultDraftRules())
+        cleanup
+    }
+    fun saveDraftRules(fileId: String, rules: VaultDraftRules) = synchronized(lock) {
+        checkId(fileId)
+        require(readInfo("draft.info").get("id").asString == fileId)
+        val row = JsonObject().apply {
+            addProperty("file", fileId); addProperty("mode", rules.mode.name); addProperty("source", rules.source)
+        }
+        encrypted("draft.rules").save(EncryptedLocalFile.Contents(1, row.toString()))
+    }
+    fun draftRules(fileId: String): VaultDraftRules = synchronized(lock) {
+        val saved = encrypted("draft.rules").load() ?: return@synchronized VaultDraftRules()
+        require(saved.version == 1.toByte())
+        val row = JsonParser.parseString(saved.text).asJsonObject
+        require(row.get("file").asString == fileId)
+        VaultDraftRules(VaultRuleMode.valueOf(row.get("mode").asString), row.get("source").asString)
+    }
     fun draft(): VaultFile? = synchronized(lock) { if (exists("draft.info")) readRecord("draft") else null }
     fun hasDraftData(): Boolean = synchronized(lock) { exists("draft.info") || dataNames("draft").isNotEmpty() }
-    fun discardDraft() = synchronized(lock) { removeRecord("draft") }
+    fun discardDraft() = synchronized(lock) { removeRecord("draft"); erase("draft.rules") }
 
     fun prepareExport(file: VaultFile) = synchronized(lock) { writeRecord("export", file) }
     fun export(): VaultFile? = synchronized(lock) {

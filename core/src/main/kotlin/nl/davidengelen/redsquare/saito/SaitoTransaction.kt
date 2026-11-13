@@ -127,14 +127,21 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
                     if (change.signum() > 0) listOf(OwnedSlip(wallet.publicKey, zero.copy(index = 3, amount = change))) else emptyList()
                 }
             return createSigned(wallet, body, timestamp, inputs.map { OwnedSlip(wallet.publicKey, it) }, outputs,
-                transactionType = 8, metadataSlot = inputs.size + 2)
+                transactionType = 8, metadataSlots = setOf(inputs.size + 2))
+        }
+
+        internal fun createNftTransfer(wallet: SaitoWallet, body: JsonObject, timestamp: Long,
+            inputs: List<OwnedSlip>, outputs: List<OwnedSlip>): SaitoTransaction {
+            require(inputs.size == 3 && outputs.size == 3 && inputs[1].owner == wallet.publicKey)
+            return createSigned(wallet, body, timestamp, inputs, outputs, transactionType = 8, metadataSlots = setOf(2, 5))
         }
 
         private fun createSigned(wallet: SaitoWallet, body: JsonElement, timestamp: Long,
             inputs: List<OwnedSlip>, outputs: List<OwnedSlip>, transactionType: Int = 0,
-            messageLimit: Int = MAX_MESSAGE_BYTES, metadataSlot: Int? = null): SaitoTransaction {
+            messageLimit: Int = MAX_MESSAGE_BYTES, metadataSlots: Set<Int> = emptySet()): SaitoTransaction {
             require(timestamp >= 0)
-            require(inputs.size in 1..255 && outputs.size in 0..255 && inputs.first().owner == wallet.publicKey)
+            require(inputs.size in 1..255 && outputs.size in 0..255)
+            require((if (transactionType == 8) inputs.firstOrNull { it.slip.type != 9 } else inputs.first())?.owner == wallet.publicKey)
             val message = try {
                 val encoded = Charsets.UTF_8.newEncoder()
                     .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
@@ -144,7 +151,7 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
             } catch (_: java.nio.charset.CharacterCodingException) { throw InvalidMessage() }
             if (message.size > messageLimit) throw InvalidMessage()
             val slips = (inputs + outputs).mapIndexed { index, owned ->
-                if (index == metadataSlot) require(transactionType == 8 && owned.slip.type == 9 &&
+                if (index in metadataSlots) require(transactionType == 8 && owned.slip.type == 9 &&
                     owned.slip.amount.signum() == 0 && Base58.decode(owned.owner).size == 33)
                 else require(SaitoWallet.isPublicKey(owned.owner))
                 val slip = owned.slip
