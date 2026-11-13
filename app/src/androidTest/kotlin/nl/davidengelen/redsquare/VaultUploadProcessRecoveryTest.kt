@@ -127,14 +127,18 @@ class VaultUploadProcessRecoveryTest {
     @Test fun restoreOriginalEncryptedInstallationFiles() {
         if (!checkpoint.exists()) return
         val row = read()
-        restoreProcessFixtureFiles(context, originals, names() + row.getAsJsonArray("savedFiles").map { it.asString }, row.getAsJsonArray("savedFiles"))
-        row.getAsJsonArray("preferences").forEach { entry ->
-            val pref = entry.asJsonObject; val name = pref.get("name").asString; val key = pref.get("key").asString
-            check(name to key in preferences())
-            check(context.getSharedPreferences(name, 0).edit().apply {
-                if (pref.has("value")) putBoolean(key, pref.get("value").asBoolean) else remove(key)
-            }.commit())
+        val preferenceCleanup: List<() -> Unit> = row.getAsJsonArray("preferences").map { entry ->
+            {
+                val pref = entry.asJsonObject; val name = pref.get("name").asString; val key = pref.get("key").asString
+                check(name to key in preferences())
+                check(context.getSharedPreferences(name, 0).edit().apply {
+                    if (pref.has("value")) putBoolean(key, pref.get("value").asBoolean) else remove(key)
+                }.commit())
+            }
         }
+        cleanupAfterTest(null, {
+            restoreProcessFixtureFiles(context, originals, names() + row.getAsJsonArray("savedFiles").map { it.asString }, row.getAsJsonArray("savedFiles"))
+        }, *preferenceCleanup.toTypedArray())
         assertEquals(row.get("originalWalletDigest").asString, walletDigest())
         assertEquals(row.get("originalBackend").asString, AndroidBackendStore(context).load().id)
         assertFalse(context.getSystemService(KeyguardManager::class.java).isDeviceSecure)
