@@ -106,6 +106,16 @@ the real display remains noninteractive while balance requests advance6to7,
 with one mint/one upload; native Complete and Files return pass after waking.
 Both original masked permission-cleanup runs remain retained.
 
+Run43442291181 on `ee7e4b6aeecc46af172f26f86bd05c54fd2e80ea` remains
+negative under the same10s goal. Its original XML shows Review with a false
+unreadable-draft message after Stop, rather than a demonstrated still-running
+read. The diagnostic records an active preparation at the actual Stop. Cleanup
+had protected only its IO block: returning to the cancelled caller could throw
+before updating the UI and be misclassified as a corrupt draft. The next fix
+protects the complete rollback/status update with NonCancellable. Polling alone
+is not accepted as the established cause or fix. Diagnostic run43442181449 was
+superseded/cancelled by the workflow concurrency group and supplies no acceptance.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

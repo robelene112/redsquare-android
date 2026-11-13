@@ -140,17 +140,22 @@ internal class VaultUploadSession(private val context: Context, private val wall
         }
     }
 
-    private suspend fun restoreCancelledPreparation(previous: VaultFile?, written: String?, prior: VaultUploadView) {
-        try {
-            withContext(NonCancellable + Dispatchers.IO) {
-                if (written != null && disk.draft()?.id == written)
-                    previous?.let { disk.saveDraft(it) } ?: disk.discardDraft()
+    private suspend fun restoreCancelledPreparation(previous: VaultFile?, written: String?, prior: VaultUploadView) =
+        withContext(NonCancellable) {
+            try {
+                withContext(Dispatchers.IO) {
+                    if (written != null && disk.draft()?.id == written)
+                        previous?.let { disk.saveDraft(it) } ?: disk.discardDraft()
+                }
+                // The return from IO and this status update also belong to cancellation cleanup.
+                // Switching back to a cancelled caller must not turn a successful rollback into
+                // an apparent corrupt-draft failure.
+                mutable.value = prior.copy(problem = R.string.vault_source_cancelled)
+            } catch (failure: Exception) {
+                android.util.Log.w("VaultUpload", "[DEBUG-vault107] rollback failure type=${failure.javaClass.name}")
+                mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable)
             }
-            mutable.value = prior.copy(problem = R.string.vault_source_cancelled)
-        } catch (_: Exception) {
-            mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable)
         }
-    }
 
     fun cancelPreparation() {
         if (mutable.value.phase != VaultUploadPhase.PREPARING) return
