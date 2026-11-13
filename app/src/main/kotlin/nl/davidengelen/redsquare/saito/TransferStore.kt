@@ -11,6 +11,7 @@ class TransferStore(private val context: Context, private val author: String) {
     init { require(SaitoWallet.isPublicKey(author)) }
     data class Pending(val backend: SaitoBackend, val payment: SaitoPayment,
         val lastInclusion: SaitoPaymentChain.Inclusion? = null)
+    data class PendingMint(val backend: SaitoBackend, val candidate: SaitoVaultMint.Candidate)
     private val name = "transfer.$author"
     private fun file(suffix: String) = EncryptedLocalFile(context, "$name.$suffix",
         "redsquare-transfers-v1", "transfer.")
@@ -43,9 +44,58 @@ class TransferStore(private val context: Context, private val author: String) {
         }
     }
 
-    fun available(slips: List<SaitoBalanceSnapshot.Slip>): List<SaitoBalanceSnapshot.Slip> {
-        val reserved = pending().flatMap { it.payment.inputs }.map { Triple(it.block, it.ordinal, it.index) }.toSet()
-        return slips.filter { Triple(it.block, it.ordinal, it.index) !in reserved }
+    fun available(slips: List<SaitoBalanceSnapshot.Slip>): List<SaitoBalanceSnapshot.Slip> = synchronized(SaitoLocalState.lock) {
+        val reserved = reservedLocations()
+        slips.filter { Triple(it.block, it.ordinal, it.index) !in reserved }
+    }
+
+    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty()
+
+    fun pendingMints(): List<PendingMint> = synchronized(SaitoLocalState.lock) {
+        if (!exists("mint-reservations") && !exists("mint-reservations-guard")) return@synchronized emptyList()
+        val guard = requireNotNull(file("mint-reservations-guard").load())
+        require(guard.version == 1.toByte() && guard.text == author)
+        val contents = requireNotNull(file("mint-reservations").load())
+        require(contents.version == 1.toByte())
+        val rows = JsonParser.parseString(contents.text).asJsonArray
+        require(rows.size() in 1..100)
+        val ids = HashSet<String>()
+        val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
+        rows.map { element ->
+            val row = element.asJsonObject
+            require(row.keySet() == setOf("backend", "candidate") && row.entrySet().all { it.value.isJsonPrimitive && it.value.asJsonPrimitive.isString })
+            val backend = requireNotNull(SaitoBackend.entries.find { it.id == row.get("backend").asString })
+            val candidate = SaitoVaultMint.readCandidate(row.get("candidate").asString)
+            require(candidate.author == author && ids.add(candidate.transaction.id))
+            require(candidate.inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
+            PendingMint(backend, candidate)
+        }
+    }
+
+    /** The same exact candidate is retryable; reservations never move to a different signature or node. */
+    fun reserveMint(backend: SaitoBackend, candidate: SaitoVaultMint.Candidate) = synchronized(SaitoLocalState.lock) {
+        require(candidate.author == author)
+        val previous = pendingMints()
+        val reserved = reservedLocations()
+        previous.firstOrNull { it.candidate.transaction.id == candidate.transaction.id }?.let {
+            require(it.backend == backend && it.candidate.transaction.encoded() == candidate.transaction.encoded())
+            return@synchronized
+        }
+        require(previous.size < 100 && candidate.inputs.none { Triple(it.block, it.ordinal, it.index) in reserved })
+        val next = previous + PendingMint(backend, candidate)
+        val rows = JsonArray().apply { next.forEach { record -> add(JsonObject().apply {
+            addProperty("backend", record.backend.id); addProperty("candidate", record.candidate.transaction.encoded())
+        }) } }
+        file("mint-reservations").save(EncryptedLocalFile.Contents(1, rows.toString()))
+        if (!exists("mint-reservations-guard")) file("mint-reservations-guard").save(EncryptedLocalFile.Contents(1, author))
+        check(pendingMints().map { it.backend to it.candidate.transaction.encoded() } == next.map { it.backend to it.candidate.transaction.encoded() })
+    }
+
+    private fun reservedLocations(): Set<Triple<BigInteger, BigInteger, Int>> {
+        val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
+        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs }
+        require(inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
+        return locations
     }
 
     /** Called under the shared physical-send lock. Every saved candidate remains reserved. */
@@ -53,7 +103,7 @@ class TransferStore(private val context: Context, private val author: String) {
         require(payment.author == author)
         val prior = pending()
         require(prior.size < 100 && prior.none { it.payment.transaction.id == payment.transaction.id })
-        val locations = prior.flatMap { it.payment.inputs }.map { Triple(it.block, it.ordinal, it.index) }.toSet()
+        val locations = reservedLocations()
         require(payment.inputs.none { Triple(it.block, it.ordinal, it.index) in locations })
         save(prior + Pending(backend, payment))
     }

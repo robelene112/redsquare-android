@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.compose.ui.test.*
+import androidx.compose.ui.graphics.toPixelMap
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
@@ -38,6 +40,15 @@ class VaultUploadPreviewTest {
             ui.onNodeWithText("1 SAITO").assertIsDisplayed()
             assertTrue(scene.peer.transactions.isEmpty())
             assertTrue(scene.peer.vaultRequests.isEmpty())
+            // Observe settled native ink, separately from the unchanged file/review assertions.
+            ui.waitUntil(5_000) {
+                val pixels = ui.onNodeWithContentDescription("Switch app: Vault").captureToImage().toPixelMap()
+                var low = 1f; var high = 0f
+                for (y in 0 until pixels.height) for (x in 0 until pixels.width) {
+                    val light = pixels[x, y].luminance(); low = minOf(low, light); high = maxOf(high, light)
+                }
+                high - low > 0.35f
+            }
             captureNativeScreen(File(scene.evidence, "review-before-submission.png"))
             ui.onNodeWithText("Discard file").performScrollTo().performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText("Your files").isDisplayed() }

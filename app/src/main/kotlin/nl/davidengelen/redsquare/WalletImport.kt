@@ -135,13 +135,16 @@ class WalletImport(
                         .decode(ByteBuffer.wrap(buffer, 0, size)).toString()
                     var nativeWork = try {
                         nl.davidengelen.redsquare.saito.TransferStore(activity.applicationContext,
-                            operation.original.publicKey).pending().isNotEmpty() ||
+                            operation.original.publicKey).hasWork() ||
+                            nl.davidengelen.redsquare.vault.VaultUploads.hasPreparation(operation.original.publicKey) ||
                             nl.davidengelen.redsquare.feed.SocialActionJournal.hasWork(activity.applicationContext,
                                 operation.original.publicKey) || SaitoBackend.entries.any { backend ->
                             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
                                 operation.original.publicKey, backend).isNotEmpty() ||
                                 nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,
                                     operation.original.publicKey, backend).load().hasWork ||
+                                nl.davidengelen.redsquare.vault.VaultDisk(activity.applicationContext,
+                                    operation.original.publicKey, backend).let { it.hasDraftData() || it.copies().items.isNotEmpty() } ||
                                 nl.davidengelen.redsquare.chat.ChatWorkStore.hasWork(activity.applicationContext,
                                     operation.original, backend) ||
                                 nl.davidengelen.redsquare.chat.ChatReactionStore.hasWork(activity.applicationContext,
@@ -238,15 +241,21 @@ class WalletImport(
                 cancel(); activating = false; return@launch
             }
             if (!view.sameIdentity) {
-                val socialWork = withContext(Dispatchers.IO) {
-                    try { nl.davidengelen.redsquare.feed.SocialActionJournal.hasWork(
-                        activity.applicationContext, selected.original.publicKey) }
-                    catch (_: Exception) { true }
+                val retainedWork = withContext(Dispatchers.IO) {
+                    try {
+                        nl.davidengelen.redsquare.feed.SocialActionJournal.hasWork(activity.applicationContext, selected.original.publicKey) ||
+                            nl.davidengelen.redsquare.saito.TransferStore(activity.applicationContext, selected.original.publicKey).hasWork() ||
+                            nl.davidengelen.redsquare.vault.VaultUploads.hasPreparation(selected.original.publicKey) ||
+                            SaitoBackend.entries.any { backend ->
+                                nl.davidengelen.redsquare.vault.VaultDisk(activity.applicationContext, selected.original.publicKey, backend)
+                                    .let { it.hasDraftData() || it.copies().items.isNotEmpty() }
+                            }
+                    } catch (_: Exception) { true }
                 }
                 if (candidate !== selected || currentWallet() !== selected.original || currentBackend() != selected.backend) {
                     cancel(); activating = false; return@launch
                 }
-                if (socialWork && !selected.risks.pendingWork) {
+                if (retainedWork && !selected.risks.pendingWork) {
                     selected.risks = selected.risks.copy(pendingWork = true)
                     preview = preview?.copy(risks = selected.risks, acknowledged = false)
                     message = R.string.wallet_import_work_changed

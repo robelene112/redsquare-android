@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -42,8 +42,14 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     val ownsKey = AtomicBoolean(true)
     var failure: Throwable? = null
     var intentsStarted = false
+    var transfers: ChatFixtureState? = null
     try {
         wallets.replace(original, fixture)
+        if (retainTransfers) {
+            val retained = ChatFixtureState(context, listOf("transfer.${fixture.publicKey}."), fixture.publicKey)
+            transfers = retained
+            retained.prepare()
+        }
         context.contentResolver.call(destination, "prepare", document, Bundle().apply { putByteArray("bytes", byteArrayOf()) })
         Intents.init(); intentsStarted = true
         Intents.intending(hasAction(Intent.ACTION_CREATE_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(Activity.RESULT_OK,
@@ -82,7 +88,8 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
         }
     } catch (problem: Throwable) { failure = problem; throw problem }
     finally {
-        cleanupAfterTest(failure, { if (intentsStarted) Intents.release() }, {
+        cleanupAfterTest(failure, { if (intentsStarted) Intents.release() },
+            { transfers?.restoreFiles() }, { transfers?.restorePreferences() }, {
             val current = wallets.loadExisting()
             val fixturePreserved = current.exportJson() == fixture.exportJson()
             if (current.exportJson() != original.exportJson()) wallets.replace(current, original)

@@ -150,6 +150,9 @@ internal class VaultUploadSession(private val context: Context, owner: String, b
 /** Models are shared across module switches. Files remain encrypted and scoped on disk. */
 internal object VaultUploads {
     private val sessions = linkedMapOf<Pair<String, SaitoBackend>, VaultUploadSession>()
-    fun session(context: Context, owner: String, backend: SaitoBackend): VaultUploadSession =
+    @Synchronized fun hasPreparation(owner: String): Boolean = sessions.any {
+        it.key.first == owner && it.value.state.value.phase == VaultUploadPhase.PREPARING
+    }
+    @Synchronized fun session(context: Context, owner: String, backend: SaitoBackend): VaultUploadSession =
         sessions.getOrPut(owner to backend) { VaultUploadSession(context.applicationContext, owner, backend) }
 }
