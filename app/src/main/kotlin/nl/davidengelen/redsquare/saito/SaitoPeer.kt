@@ -86,8 +86,10 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
     private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, awaitRegistryCallback: Boolean = false,
         frame: (Int) -> ByteArray): ByteArray = withTimeout(12_000) {
         authenticate()
-        val index = connection.nextIndex.incrementAndGet()
-        require(index > 0)
+        val index = nextRequestIndex.updateAndGet { previous ->
+            if (previous == Int.MAX_VALUE) throw IOException("Peer request identities exhausted")
+            previous + 1
+        }
         val response = CompletableDeferred<ByteArray>()
         val request = Connection.PendingRequest(this@SaitoPeer, response, awaitRegistryCallback)
         try {
@@ -192,7 +194,6 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         val leases = java.util.concurrent.CopyOnWriteArrayList<SaitoPeer>()
         class PendingRequest(val owner: SaitoPeer, val response: CompletableDeferred<ByteArray>, val awaitRegistryCallback: Boolean)
         val pending = ConcurrentHashMap<Int, PendingRequest>()
-        val nextIndex = AtomicInteger(0)
         private val challenges = mutableListOf(randomNonce())
         var identifiedKey: String? = null
         lateinit var socket: WebSocket
@@ -347,6 +348,10 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         private val poolLock = Any()
         private val connections = mutableMapOf<Address, Connection>()
         private val nextLease = AtomicInteger()
+        // Node callbacks address the latest socket by public key even after reconnect.
+        // Never reuse an index during this process; a random seed also reduces, but
+        // cannot eliminate, stale-callback collisions across separate process starts.
+        private val nextRequestIndex = AtomicInteger(SecureRandom().nextInt(1 shl 30))
 
         /** Ownership diagnostic for native resource-handover proofs, never a transport selector. */
         internal fun incomingLeaseIds(owner: String, endpoint: String): Set<Int> = synchronized(poolLock) {

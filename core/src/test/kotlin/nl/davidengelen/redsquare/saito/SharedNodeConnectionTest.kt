@@ -154,6 +154,26 @@ class SharedNodeConnectionTest {
         }
     }
 
+    @Test fun aLateCallbackFromBeforeReconnectCannotAnswerANewRequest() = runBlocking {
+        Node().use { node ->
+            SaitoPeer(wallet, node.endpoint).use { first ->
+                val old = async { runCatching { first.request("feed".toByteArray()) } }
+                withTimeout(5_000) { node.feedReceived.await() }
+                node.disconnect(wallet.publicKey)
+                withTimeout(5_000) { first.awaitDisconnection() }
+                assertTrue(old.await().isFailure)
+                SaitoPeer(wallet, node.endpoint).use { replacement ->
+                    val fresh = async { replacement.request("replacement-held".toByteArray()).decodeToString() }
+                    withTimeout(5_000) { node.replacementReceived.await() }
+                    // The node addresses both callbacks by the same key. Old reply arrives first.
+                    node.releaseFeed()
+                    node.releaseReplacement()
+                    assertEquals("replacement-held", withTimeout(5_000) { fresh.await() })
+                }
+            }
+        }
+    }
+
     /** Same callback address as pinned Saito: authenticated public key, then message index.
      * Holding a reply does not block the socket reader or the next request.
      */
@@ -163,6 +183,8 @@ class SharedNodeConnectionTest {
         private val nonce = ByteArray(32) { 7 }
         private val peers = ConcurrentHashMap<String, WebSocket>()
         private var held: Pair<String, Int>? = null
+        private var replacementHeld: Pair<String, Int>? = null
+        val replacementReceived = CompletableDeferred<Unit>()
         val feedReceived = CompletableDeferred<Unit>()
         val blockReceived = CompletableDeferred<Unit>()
         private val releaseBlock = java.util.concurrent.CountDownLatch(1)
@@ -190,7 +212,9 @@ class SharedNodeConnectionTest {
                                     val outputs = ByteBuffer.wrap(frame, 9, 4).int
                                     val body = frame.copyOfRange(5 + 93 + 59 * (inputs + outputs), frame.size).decodeToString()
                                     if (body == "feed") { held = key to index; feedReceived.complete(Unit) }
-                                    else if (body == "block") {
+                                    else if (body == "replacement-held") {
+                                        replacementHeld = key to index; replacementReceived.complete(Unit)
+                                    } else if (body == "block") {
                                         blockReceived.complete(Unit)
                                         check(releaseBlock.await(10, java.util.concurrent.TimeUnit.SECONDS))
                                         reply(key, index, body)
@@ -212,6 +236,7 @@ class SharedNodeConnectionTest {
             check(requireNotNull(peers[key]).send((byteArrayOf(12) + ByteBuffer.allocate(4).putInt(index).array() +
                 body.toByteArray()).toByteString()))
         }
+        fun releaseReplacement() { val (key, index) = requireNotNull(replacementHeld); reply(key, index, "replacement-held") }
         fun releaseFeed() { val (key, index) = requireNotNull(held); reply(key, index, "feed") }
         fun disconnect(key: String) { check(requireNotNull(peers[key]).close(1001, "Owned test disconnect")) }
         fun unblock() { releaseBlock.countDown() }
