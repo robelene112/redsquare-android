@@ -1,6 +1,6 @@
 {
-  "preliminary": true,
-  "qualification": "Owned native peer/document journeys and independently generated WASM protocol vectors. Ticket108 is not complete; no new beta or production provider acceptance.",
+  "preliminary": false,
+  "qualification": "Complete ticket108 controlled Android10/17 native development acceptance at one product snapshot, with independent WASM vectors and static reviews. Public beta127 unchanged; combined beta/full-app delivery remains115. Not real provider, funded consensus or physical/OEM acceptance.",
   "runs": [
     {
       "run": 43479123027,
@@ -291,6 +291,42 @@
       "zipEntries": 60,
       "captureMembers": 15,
       "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43513916895,
+      "source": "e7f4a5d93cb8205d658e1d461f25b1a04863c47d",
+      "conclusion": "success",
+      "artifactId": 14080038390,
+      "zipSha256": "8ac2aaf1cf8b655f9a25ebf3ad454ad6e6072ccfd4363315669e07d1b4407200",
+      "zipEntries": 138,
+      "captureMembers": 587,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43513920607,
+      "source": "e7f4a5d93cb8205d658e1d461f25b1a04863c47d",
+      "conclusion": "success",
+      "artifactId": 14080987382,
+      "zipSha256": "567ff750d53499ca8650e7d0bc0c5bd774fd9f81ac36c715d813b859d19b8bfe",
+      "zipEntries": 140,
+      "captureMembers": 587,
+      "allExtractedMembersByteExact": true
     }
-  ]
+  ],
+  "acceptedRuns": [
+    43513916895,
+    43513920607
+  ],
+  "acceptedSource": "e7f4a5d93cb8205d658e1d461f25b1a04863c47d",
+  "perOs": {
+    "nativeClasses": 23,
+    "nativeCases": 38,
+    "advancedDialogCells": 36,
+    "coreCases": 172,
+    "coreFailures": 0,
+    "coreIgnored": 0,
+    "processPhases": 3,
+    "distinctProcessRecovery": true,
+    "exactOriginalCandidateAndFile": true
+  }
 }

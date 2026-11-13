@@ -1,8 +1,24 @@
 # Vault access and ownership, ticket108
 
-**In progress.** Ticket108 remains open. The signed combined beta belongs to115;
-public beta127 has not changed. Review base is
+**Development slice complete.** The accepted product snapshot is
+`e7f4a5d93cb8205d658e1d461f25b1a04863c47d`, review base
 `acf61b62e5370afa7afc16bc6e2eeabc82db1422`.
+The complete same-source runs pass on
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43513916895)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43513920607).
+Each includes23native classes/38cases,36advanced dialog cells, inherited
+read/upload/viewport classes and the3-phase actual-process protocol. Different
+process IDs recover the exact original candidate/file without a second mint.
+All172core tests pass with0ignored. Original ZIPs138/140 and587capture members
+per OS are byte-exact. [Run receipts](focused-runs.json) retain every failure.
+Both independent review axes have0remaining findings, including the final
+cancellation delta; see [reviews](reviews.json). No partial/tail assembly is used.
+
+The next ticket is109, Store catalogue, native links and unsent Chat drafts.
+One combined signed beta/full-app proof belongs to115; public beta127 is unchanged.
+Actual storage-provider/funded-chain/permanent-transfer/rental and ARM/OEM/
+fully initialized community-client qualification stays OPEN as VAULT_LIVE in36
+and OWNER_INPUTS.md. Isolated WASM/owned peers do not satisfy those live gates.
 
 ## Confirmed slices
 
@@ -215,10 +231,11 @@ follow-ups report0findings on this delta; native complete runs43513916895 and
 43513920607 at `e7f4a5d93cb8205d658e1d461f25b1a04863c47d` are pending.
 108 stays open.
 
-## Remaining before closure
+## Next boundary
 
-Complete the native rental-master and dialog viewport runs, exercise any uncovered
-compatibility limits, and preserve current access observations. Complete native
-coverage on both SDKs, inherited upload/read regressions, viewport checks and
-independent Standards/Spec review. Update115's frozen catalogue additively before
-its full-app proof. No partial successful tail counts as ticket acceptance.
+Continue109–115 sequentially under the existing owner authorization.115 must
+append all106/107/108classes and process identities, including the second
+rental-master and discovery-restart methods, to its frozen full catalogue before
+complete shared-source application/signed-update/public delivery proof.
+Store checkout and rental fulfilment remain114. Preserve all original failures,
+deadlines, current-owner checks and operational qualifications.

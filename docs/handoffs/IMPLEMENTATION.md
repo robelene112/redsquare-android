@@ -6,8 +6,8 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 [Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
-edges are published and verified. #106 and #107 are implemented and verified on both SDKs. Next is #108, advanced
-access rules, permanent transfer and rental-master keys. Continue the approved ready frontier
+edges are published and verified. #106–#108 are implemented and verified on both SDKs. Next is #109, Store
+catalogue, native links and unsent seller Chat drafts. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -27,7 +27,7 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Completed upload/key slice #107, next #108
+## Completed upload/key slice #107
 
 #106 and #107 have complete focused Android10/17 acceptance and independent
 reviews. See [106](../evidence/ticket106/README.md) and
@@ -40,70 +40,42 @@ failed runs and their exact qualifications, particularly real Android10 keyguard
 handling and retained Offline-filter observations. The native file cap is4MiB;
 WASM factory compatibility is not a funded consensus mint or real provider proof.
 
-Continue108–115 sequentially without another owner confirmation. #108 starts at
-the107closure commit. Ticket115 must append all new106/107classes/process gates
+Continue109–115 sequentially without another owner confirmation. #108 used the
+107closure commit as its review base. Ticket115 must append all new106/107/108classes/process gates
 to its frozen full catalogue, preserve inherited deadlines/outputs, and perform
 complete final shared-source application and signed update/public delivery proofs.
 No Vault/Store beta is built or published; public beta127 remains. VAULT_LIVE
 stays unchecked in36/OWNER_INPUTS.md. Do not activate providers or spend public
 funds to replace controlled verification.
 
-## Active advanced Vault slice #108
+## Completed advanced Vault slice #108, next #109
 
-#107 is closed and #108 is claimed. Review base:
-`acf61b62e5370afa7afc16bc6e2eeabc82db1422`. Continue108–115, one ticket at a time,
-then the one combined beta under the existing owner authorization.
-`SaitoAccessScript`, `SaitoVaultRules`, `SaitoVaultRental` and
-`SaitoNftTransfer` match independent WASM0.3.15 script/numeric/witness,
-custom/rental mint, signed path/first-renter/expiry and whole-key transfer vectors.
-Source `ee6becb73d8c4e973f890c0f30c87e967f954a87` includes the review fixes:
-full-size custom candidate recovery, official new output numbering for held
-input tuples3/4/5, immutable original rules in lost-upload-answer recovery,
-no duplicate full Wallet invocations, and shared rule-mode reveal.
+#108 complete product source:`e7f4a5d93cb8205d658e1d461f25b1a04863c47d`;
+review base:`acf61b62e5370afa7afc16bc6e2eeabc82db1422`.
+Both complete same-source runs43513916895/43513920607 pass23native classes,
+38cases,36advanced dialog cells, inherited106/107read/upload cases and3-phase
+actual-process recovery. Distinct PIDs retain the original candidate/file.
+All172core cases pass, no ignored tests. Both review axes report0remaining
+findings. No partial/tail assembly. See [108packet](../evidence/ticket108/README.md).
 
-Both SDKs pass the complete three-case permanent-transfer class at `d10dfa8c`.
-Both pass the ordinary native rental-master mint/upload/read/export at `4f48e33f`.
-The broad `84f115aeb` runs preserve prior upload subset/process passes and all12
-access-editor viewport cells, then fail the rules tracer when its retained page
-title is scrolled offscreen at320dp/200percent/Dark. The correction scrolls the
-existing title into view within the original15s. Native viewport-only runs
-43509898149/43509902592 at `deec03d01` are pending. Compose viewport contexts
-explicitly supply scale0 to the test recomposer with actual settings0; this is
-not independent proof of the production window-motion factory.
+Implemented: strict compatible custom source/witness editor and native presets;
+whole-key permanent transfer/reservation/PIN/original retry/exact inclusion;
+creator-bound rental-master mint/read and signed path/first-renter/expiry/loan
+foundation. Independent WASM vectors verify numeric/script commitments and
+standard/custom/rental mint and transfer compatibility. Review/native regressions
+fix full-size custom candidate recovery, official output numbering0/1/2 for
+held tuples3/4/5, lost custom/rental upload-answer reads, duplicate Wallet test
+calls, retained title reachability, and cancellation dropping replacement file
+discovery. All original failed runs and qualifications remain retained.
 
-Independent reviews at84f115 find one Standards duplication heuristic and two
-Spec defects. The actual WASM offset tuple refines the transfer finding: candidate
-outputs reset indices0/1/2, so fix native creation/restoration, not block matching.
-The native rental lost-answer red43509120606 at3eca times out at the unchanged15s
-completion goal while ordinary rental creation passes. Corrected complete
-inherited+advanced runs43510828545/43510832543 at ee6 and both review follow-ups
-are pending. All172core tests passed before the last review fixes; focused exact
-transfer/restore/inclusion/tampered-input cases pass afterwards. The hosted builds
-for complete native proof also rerun all core cases. No partial successful tail
-counts as ticket acceptance. Continue108 to complete native proof, reviews and
-closure, then109–115 sequentially and one combined beta.
-
-Update after complete runs:43510832543 passes all23classes/37cases plus actual
-process recovery on17 at ee6.43510828545 fails10's final access viewport cell:
-library unexpectedly empty, with no loading/error. Suspect load cancellation vs
-`if (loading) return` dropping its replacement effect. New public native
-provider/balance-gate tracer is committed at1df3e2f735beaa4d6afd3a607cc4fdb11892e95c,
-run43512925833 fails the key-return15s goal after actual file cancellation,
-while the original custom-access case passes. The original empty-library image
-was inspected. Productfix e7f4a5d93cb8205d658e1d461f25b1a04863c47d removes only the
-early loading return, preserving all generation/result/finally guards. Both
-review follow-ups find0; main compiles. Complete new runs43513916895/43513920607
-are pending. Do not close108 or reuse the older passing17/viewport tails as whole
-acceptance. Continue all109–115 and combined beta after108 is actually complete.
-
-All original failed runs and exact qualifications are retained in
-`docs/evidence/ticket108/README.md` and the external
-`/mnt/storage/redsquare-android-artifacts/vault-store-planning` (`*108*`).
-Public beta127 remains.115 must append all106/107/108classes/process identities
-to its frozen catalogue before the final shared-source all-app and signed-update
-proofs. The pinned public contract factories and isolated official Store/Vault
-builders are not a fully initialized community client or actual provider proof.
-Jackson-core2.23.0 supplies Rust-compatible shortest float identity on JVM/Android.
+Continue109–115 sequentially without another confirmation, then one combined
+signed beta. Public beta127 remains; none built/published for Vault/Store yet.
+115 must append all106/107/108classes/process methods to its frozen catalogue,
+including both rental-master and discovery-restart methods, before complete
+shared-source application, signed-update and public delivery verification.
+VAULT_LIVE in36/OWNER_INPUTS remains unchecked for actual provider/funded chain,
+permanent transfer/rental, ARM/OEM and fully initialized community-client results.
+Do not activate nodes/providers or spend public funds. Keep1/36/55/84/86 open.
 
 ## Delivered native Saito Talk #104
 
