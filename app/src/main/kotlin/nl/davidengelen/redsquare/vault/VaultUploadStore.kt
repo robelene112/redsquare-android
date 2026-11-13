@@ -10,7 +10,8 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 
 internal data class VaultUploadRecord(val candidate: SaitoVaultMint.Candidate, val mime: String, val size: Int,
-    val mayHaveSent: Boolean = false, val uploaded: Boolean = false, val owned: Boolean = false) {
+    val mayHaveSent: Boolean = false, val uploaded: Boolean = false, val owned: Boolean = false,
+    val submitted: Boolean = false, val rejected: Boolean = false) {
     val complete: Boolean get() = uploaded && owned
 }
 
@@ -23,30 +24,35 @@ internal class VaultUploadStore(private val context: Context, private val owner:
         if (!hasWork()) return@synchronized null
         val saved = requireNotNull(encrypted().load()).also { require(it.version == 1.toByte()) }
         val row = JsonParser.parseString(saved.text).asJsonObject
-        require(row.keySet() == setOf("candidate", "mime", "size", "mayHaveSent", "uploaded", "owned"))
+        val required = setOf("candidate", "mime", "size", "mayHaveSent", "uploaded", "owned")
+        require(row.keySet().containsAll(required) && (row.keySet() - required).all { it in setOf("submitted", "rejected") })
         val candidate = SaitoVaultMint.readCandidate(row.get("candidate").asString)
         require(candidate.author == owner)
         val mime = row.get("mime").asString.also { require(it.matches(Regex("[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+"))) }
         val size = row.get("size").asInt.also { require(it in 0..SaitoVault.MAX_FILE_BYTES) }
-        fun flag(name: String) = row.get(name).asJsonPrimitive.also { require(it.isBoolean) }.asBoolean
-        VaultUploadRecord(candidate, mime, size, flag("mayHaveSent"), flag("uploaded"), flag("owned"))
+        fun flag(name: String) = row.get(name)?.asJsonPrimitive?.also { require(it.isBoolean) }?.asBoolean ?: false
+        VaultUploadRecord(candidate, mime, size, flag("mayHaveSent"), flag("uploaded"), flag("owned"), flag("submitted"), flag("rejected"))
     }
     fun save(record: VaultUploadRecord, guard: () -> Unit = {}): VaultUploadRecord = synchronized(SaitoLocalState.lock) {
         require(record.candidate.author == owner)
         guard()
         val prior = read()
         require(prior == null || prior.candidate.transaction.encoded() == record.candidate.transaction.encoded())
+        val accepted = record.uploaded || prior?.uploaded == true
         val retained = record.copy(mayHaveSent = record.mayHaveSent || prior?.mayHaveSent == true,
-            uploaded = record.uploaded || prior?.uploaded == true)
+            uploaded = accepted, submitted = record.submitted || prior?.submitted == true,
+            rejected = !accepted && (record.rejected || prior?.rejected == true))
         val row = JsonObject().apply {
             addProperty("candidate", retained.candidate.transaction.encoded()); addProperty("mime", retained.mime); addProperty("size", retained.size)
             addProperty("mayHaveSent", retained.mayHaveSent); addProperty("uploaded", retained.uploaded); addProperty("owned", retained.owned)
+            addProperty("submitted", retained.submitted); addProperty("rejected", retained.rejected)
         }
         encrypted().save(EncryptedLocalFile.Contents(1, row.toString()))
         requireNotNull(read()).also { written ->
             check(written.candidate.transaction.encoded() == retained.candidate.transaction.encoded() &&
                 written.mime == retained.mime && written.size == retained.size && written.mayHaveSent == retained.mayHaveSent &&
-                written.uploaded == retained.uploaded && written.owned == retained.owned)
+                written.uploaded == retained.uploaded && written.owned == retained.owned &&
+                written.submitted == retained.submitted && written.rejected == retained.rejected)
         }
     }
     fun remove() = synchronized(SaitoLocalState.lock) {

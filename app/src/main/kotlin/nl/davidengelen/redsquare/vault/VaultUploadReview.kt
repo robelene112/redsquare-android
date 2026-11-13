@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -15,7 +16,7 @@ import nl.davidengelen.redsquare.ui.*
 
 @Composable
 internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDiscard: () -> Unit, onCancel: () -> Unit,
-    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit) {
+    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit, onLibrary: () -> Unit) {
     val context = LocalContext.current
     val working = view.phase in setOf(VaultUploadPhase.LOADING, VaultUploadPhase.PREPARING, VaultUploadPhase.CHECKING,
         VaultUploadPhase.AUTHORIZING, VaultUploadPhase.SENDING)
@@ -35,7 +36,10 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
     }
     Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Column(Modifier.padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text(stringResource(title), style = MaterialTheme.typography.headlineSmall)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FrameIconButton(R.drawable.ic_back, stringResource(R.string.vault_show_files), onClick = onLibrary)
+                Text(stringResource(title), style = MaterialTheme.typography.headlineSmall)
+            }
             InlineStatus(view.problem?.let { stringResource(it) }, StatusTone.ERROR)
             if (working) {
                 LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -49,7 +53,7 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
                     Text(stringResource(R.string.vault_stop_upload))
                 }
             }
-            view.file?.let { file ->
+            (view.file ?: view.record?.let { VaultUploadFile(it.candidate.name, it.mime, it.size) })?.let { file ->
                 Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
                     Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(file.name, style = MaterialTheme.typography.titleLarge)
@@ -57,7 +61,7 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
-                if (view.phase == VaultUploadPhase.REVIEW) {
+                if (view.phase == VaultUploadPhase.REVIEW && view.file != null) {
                     Text(stringResource(R.string.vault_standard_key), style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.vault_standard_key_description), style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.vault_key_deposit), style = MaterialTheme.typography.labelLarge)
@@ -68,6 +72,17 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Button(onClick = onSubmit, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                         Text(stringResource(R.string.vault_create_upload))
+                    }
+                }
+            }
+            if (view.phase in setOf(VaultUploadPhase.WAITING, VaultUploadPhase.COMPLETE)) view.record?.let { record ->
+                Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                    Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(stringResource(if (record.submitted) R.string.vault_key_submitted else if (record.mayHaveSent)
+                            R.string.vault_key_submission_unverified else R.string.vault_key_not_submitted))
+                        Text(stringResource(if (record.uploaded) R.string.vault_file_accepted else if (record.rejected)
+                            R.string.vault_file_rejected else R.string.vault_file_unverified))
+                        Text(stringResource(if (record.owned) R.string.vault_key_owned else R.string.vault_key_not_observed))
                     }
                 }
             }

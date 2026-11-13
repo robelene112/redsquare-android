@@ -183,6 +183,38 @@ are valid while partial file/guard loss remains a recovery barrier. Cancellation
 loads the durable record and updates status inside NonCancellable cleanup so it
 cannot overwrite a sent record with the stale pre-authentication copy.
 
+Additional review tracers retain the original failures:
+- Run43455007997 (`2c77e0db049e5eaac59ed208623a9da8706833cf`)
+  fails the aborted-provider assertion because the process-owned consumer remains
+  active when fixture restoration begins. The fix explicitly cancels and joins
+  the exact owned runtime and independently closes controlled workers before
+  restoring captured files. Original assertions and180s class bound remain.
+- Run43455975730 (`635c8e8a796160d2a9e47316998821ecf68bb0b1`)
+  fails its15s completed-recovery goal with the exact old encrypted descriptor
+  restored after successful source-chunk cleanup. Journal-first recovery and
+  cleanup-before-journal-removal address this independently of distinct-PID proof.
+- Run43455975798 on that same source passes the complete Android10 background
+  class after the test waits for return readiness within the existing combined
+  15s goal. It does not replace a complete same-source SDK run.
+- Recovery tracer43460569923 on
+  `fa79ece6841fe4b9e1bd8a58d8d565590b92b9ce` adds explicit submitted/file/ownership
+  facts, retained rejection after failed read-only access, and return to the
+  independently usable library. It fails two cases because the submission and
+  rejection facts are absent, with the other two cases passing. The subsequent test-only correction uses the
+  existing FrameIconButton text semantics for its library button. Dispatch
+  43460548670 used an incorrect source ref and was superseded before proof;
+  it supplies no runtime acceptance.
+
+The three focused corrected classes pass on
+`dd4e31db0db9364a2a87fabd9a8871637bd0d374`: provider3cases43460440877,
+funding race43460450350 and completed-source cleanup43460445974. The original
+ZIP digests and every extracted capture member were independently compared.
+The remaining facts/library correction preserves accepted/submitted history,
+records explicit provider rejection until actual file acceptance, persists
+observed ownership before a potentially failing file read, and allows library
+navigation without releasing or resending retained work. These focused passes
+are not a completed SDK acceptance run.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

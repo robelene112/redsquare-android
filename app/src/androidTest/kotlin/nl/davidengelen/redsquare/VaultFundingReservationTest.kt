@@ -31,6 +31,21 @@ class VaultFundingReservationTest {
             assertThrows(IllegalArgumentException::class.java) {
                 reopened.reserveMint(SaitoBackend.OFFICIAL, SaitoVaultMint.readCandidate(other.mint.encoded()))
             }
+            assertThrows(IllegalStateException::class.java) {
+                reopened.releaseUnsubmittedMint(SaitoBackend.OWNER, candidate) { error("Not proven unsent") }
+            }
+            assertThrows(IllegalArgumentException::class.java) {
+                reopened.releaseUnsubmittedMint(SaitoBackend.OFFICIAL, candidate) { }
+            }
+            assertTrue(reopened.available(candidate.inputs).isEmpty())
+            reopened.releaseUnsubmittedMint(SaitoBackend.OWNER, candidate) { }
+            val released = TransferStore(scene.context, wallet.publicKey)
+            assertTrue(released.pendingMints().isEmpty())
+            assertEquals(candidate.inputs, released.available(candidate.inputs))
+            released.reserve(SaitoBackend.OFFICIAL, payment)
+            val paymentRetained = TransferStore(scene.context, wallet.publicKey)
+            assertEquals(payment.transaction.encoded(), paymentRetained.pending().single().payment.transaction.encoded())
+            assertTrue(paymentRetained.available(candidate.inputs).isEmpty())
             assertTrue(scene.peer.transactions.isEmpty())
             assertTrue(scene.peer.vaultUploads.isEmpty())
         }

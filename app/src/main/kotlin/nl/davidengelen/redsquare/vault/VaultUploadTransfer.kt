@@ -13,6 +13,7 @@ internal enum class VaultSendStep { KEY, FILE, OWNERSHIP }
 internal class VaultInsufficientFunds : IOException()
 internal class VaultFundingChanged : IOException()
 internal class VaultServiceMissing : IOException()
+internal class VaultUploadRejected : IOException()
 
 /** Compatible mint/upload transitions; callbacks are observed facts, not implicit mint confirmation. */
 internal class VaultUploadTransfer(private val context: Context, private val wallet: SaitoWallet,
@@ -57,8 +58,10 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
         current(); currentCoroutineContext().ensureActive()
         val snapshot = balances.read(backend, wallet.publicKey) ?: throw IOException("Ownership unavailable")
         val holding = snapshot.nfts.firstOrNull { it.id == record.candidate.nftId && it.creator == wallet.publicKey }
-        var observed = record.copy(owned = holding != null)
-        if (holding != null && !record.uploaded) {
+        currentCoroutineContext().ensureActive(); current(); guard()
+        // Ownership is independently useful even when the subsequent file read fails.
+        var observed = store.save(record.copy(owned = holding != null), guard)
+        if (holding != null && !observed.uploaded) {
             val key = SaitoVault.readKey(holding, record.candidate.transaction.envelope())
             val operation = currentCoroutineContext().job
             val response = withPeer { peer ->
@@ -73,7 +76,7 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
             observed = observed.copy(uploaded = true)
         }
         currentCoroutineContext().ensureActive(); current(); guard()
-        store.save(observed, guard)
+        observed = store.save(observed, guard)
         if (observed.complete && holding != null) {
             disk.saveKeys(listOf(SaitoVault.readKey(holding, record.candidate.transaction.envelope())))
             disk.discardDraft()
@@ -91,6 +94,7 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
         fun admit() { operation.ensureActive(); current(); guard() }
         val snapshot = balances.read(backend, wallet.publicKey) ?: throw IOException("Ownership unavailable")
         val owned = snapshot.nfts.any { it.id == record.candidate.nftId && it.creator == wallet.publicKey }
+        saved = store.save(saved.copy(owned = owned), ::admit)
         if (!owned) {
             val funding = balances.funding(backend, wallet.publicKey) ?: throw IOException("Funding unavailable")
             val eligible = record.candidate.inputs.all { it in funding.eligible }
@@ -111,16 +115,19 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
                     // file RPC must own a fresh lease, while other features retain their leases.
                     peer.finishBroadcast()
                 }
+                saved = store.save(saved.copy(submitted = true), ::admit)
             }
         }
         if (!saved.uploaded) {
             onStep(VaultSendStep.FILE)
             val response = withPeer { peer -> peer.requestVaultUpload(plan, ::admit) }
             val result = JsonParser.parseString(response.decodeToString()).asJsonObject
-            require(result.get("status")?.asString == "success" && result.get("err")?.asString.orEmpty().isEmpty())
             admit()
-            saved = saved.copy(uploaded = true)
-            store.save(saved, ::admit)
+            if (result.get("status")?.asString != "success" || result.get("err")?.asString.orEmpty().isNotEmpty()) {
+                store.save(saved.copy(rejected = true), ::admit)
+                throw VaultUploadRejected()
+            }
+            saved = store.save(saved.copy(uploaded = true), ::admit)
         }
         onStep(VaultSendStep.OWNERSHIP)
         check(saved, ::admit)

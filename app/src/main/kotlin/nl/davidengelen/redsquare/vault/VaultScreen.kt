@@ -46,10 +46,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     var warning by remember { mutableStateOf<Int?>(null) }
     val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(context, wallet, backend, endpoint, balances) }
     val uploadView by uploads.state.collectAsState()
-    val authorization = remember(uploads, context) { VaultUploadAuthorization(context as Activity, uploads) }
-    DisposableEffect(authorization) { onDispose { authorization.close() } }
     val list = rememberLazyListState()
-    val header = rememberReadingHeaderState(uploadView.phase == VaultUploadPhase.FILES, list)
+    val header = rememberReadingHeaderState(uploadView.showingFiles, list)
     val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
 
     LaunchedEffect(uploads) { uploads.load() }
@@ -83,8 +81,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             }
         }
     }
-    LaunchedEffect(library, uploadView.phase == VaultUploadPhase.FILES) {
-        if (uploadView.phase != VaultUploadPhase.FILES) return@LaunchedEffect
+    LaunchedEffect(library, uploadView.showingFiles, uploadView.record?.complete == true) {
+        if (!uploadView.showingFiles) return@LaunchedEffect
         if (!exporting) {
             try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
             catch (cancelled: CancellationException) { throw cancelled }
@@ -152,10 +150,15 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val visible = library.entries.filter { !offlineOnly || it.copy != null }
     Column(modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(false) }
-        if (uploadView.phase != VaultUploadPhase.FILES) {
+        SingleOwnerReveal(uploadView.showingFiles, Modifier.weight(1f)) {
+        Column(Modifier.fillMaxSize()) {
+        if (!uploadView.showingFiles) {
+            val authorization = remember(uploads, context) { VaultUploadAuthorization(context as Activity, uploads) }
+            DisposableEffect(authorization) { onDispose { authorization.close() } }
             SingleOwnerReveal(uploadView.phase, Modifier.weight(1f)) {
                 VaultUploadReview(uploadView, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,
-                    authorization::request, uploads::cancelSending, uploads::checkOwnership, uploads::backToFiles)
+                    authorization::request, uploads::cancelSending, uploads::checkOwnership, uploads::backToFiles,
+                    { authorization.close(); uploads.showFiles() })
             }
         } else {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalAlignment = Alignment.CenterVertically) {
@@ -204,7 +207,19 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             state = list, contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item("upload") {
-                FilledTonalButton(onClick = { pickUpload.launch(arrayOf("*/*")) }, enabled = enabled,
+                if (uploadView.phase != VaultUploadPhase.FILES) {
+                    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                        Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(uploadView.file?.name ?: uploadView.record?.candidate?.name ?: stringResource(R.string.vault_upload_file),
+                                style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(R.string.vault_retained_upload), style = MaterialTheme.typography.bodyMedium)
+                            FilledTonalButton(onClick = uploads::showUpload, modifier = Modifier.heightIn(min = 48.dp)) {
+                                Text(stringResource(R.string.vault_open_upload))
+                            }
+                        }
+                    }
+                }
+                FilledTonalButton(onClick = { pickUpload.launch(arrayOf("*/*")) }, enabled = enabled && uploadView.phase == VaultUploadPhase.FILES,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_upload_file)) }
             }
             if (visible.isEmpty() && !library.loading) item("empty") {
@@ -253,6 +268,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             }
         }
+    }
+    }
     }
     }
     }

@@ -924,6 +924,17 @@
     <string name="vault_funding_changed">The reviewed funds are no longer available. Nothing else was sent.</string>
     <string name="vault_upload_interrupted">Upload paused. Your file and original key are saved. Check availability before retrying.</string>
     <string name="vault_upload_waiting">Waiting for availability</string>
+    <string name="vault_key_submitted">Key transaction submitted</string>
+    <string name="vault_key_submission_unverified">Key submission not yet verified</string>
+    <string name="vault_key_not_submitted">Key transaction not submitted</string>
+    <string name="vault_file_accepted">File accepted by this node</string>
+    <string name="vault_file_rejected">This node rejected the file. Your original key and file are retained.</string>
+    <string name="vault_file_unverified">File acceptance not yet verified</string>
+    <string name="vault_key_owned">Key ownership verified</string>
+    <string name="vault_key_not_observed">Key ownership not yet observed</string>
+    <string name="vault_retained_upload">Your upload is retained. You can use your other files while it waits.</string>
+    <string name="vault_open_upload">Open upload</string>
+    <string name="vault_show_files">Show files</string>
     <string name="vault_upload_waiting_detail">The key and file are checked separately. Retry uses the original key.</string>
     <string name="vault_upload_complete">Upload complete</string>
     <string name="vault_upload_complete_detail">The file was accepted and its access key is available on this node.</string>

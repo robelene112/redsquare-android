@@ -18,7 +18,9 @@ internal enum class VaultUploadPhase { FILES, LOADING, PREPARING, REVIEW, CHECKI
 internal data class VaultUploadFile(val name: String, val mime: String, val size: Int)
 internal data class VaultUploadView(val phase: VaultUploadPhase = VaultUploadPhase.FILES,
     val file: VaultUploadFile? = null, val bytesRead: Long = 0, val problem: Int? = null,
-    val step: VaultSendStep? = null, val record: VaultUploadRecord? = null)
+    val step: VaultSendStep? = null, val record: VaultUploadRecord? = null, val inLibrary: Boolean = false) {
+    val showingFiles: Boolean get() = phase == VaultUploadPhase.FILES || inLibrary
+}
 
 /** Process-owned preparation; only explicit future submission can publish a reviewed file. */
 internal class VaultUploadSession(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend,
@@ -51,10 +53,11 @@ internal class VaultUploadSession(private val context: Context, private val wall
                         null
                     }
                 }
-                mutable.value = reviewed(file).copy(record = record,
+                mutable.value = reviewed(file).copy(record = record, inLibrary = mutable.value.inLibrary,
                     problem = if (sourceUnavailable) R.string.vault_draft_unavailable else null,
                     phase = when { record?.complete == true -> VaultUploadPhase.COMPLETE
                         record != null && (record.mayHaveSent || record.uploaded) -> VaultUploadPhase.WAITING
+                        record != null -> VaultUploadPhase.REVIEW
                         else -> if (file == null) VaultUploadPhase.FILES else VaultUploadPhase.REVIEW })
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable) }
@@ -69,7 +72,8 @@ internal class VaultUploadSession(private val context: Context, private val wall
     }
 
     fun prepare(uri: Uri) {
-        if (job?.isCompleted == false || mutable.value.record != null) return
+        if (job?.isCompleted == false || mutable.value.record != null || mutable.value.file != null ||
+            mutable.value.phase != VaultUploadPhase.FILES) return
         val prior = mutable.value
         val readingSignal = android.os.CancellationSignal().also { sourceCancellation = it }
         mutable.value = VaultUploadView(VaultUploadPhase.PREPARING)
@@ -134,7 +138,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
                         currentCoroutineContext().ensureActive()
                     }
                 }
-                mutable.value = reviewed(file)
+                mutable.value = reviewed(file).copy(inLibrary = mutable.value.inLibrary)
             } catch (cancelled: CancellationException) {
                 restoreCancelledPreparation(previous, written, prior)
             } catch (failure: Exception) {
@@ -142,8 +146,10 @@ internal class VaultUploadSession(private val context: Context, private val wall
                 // before withContext propagates coroutine cancellation. It is still a user stop.
                 if (!currentCoroutineContext().isActive) restoreCancelledPreparation(previous, written, prior)
                 else mutable.value = if (failure is DraftStorageFailure)
-                    VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_source_save_failed)
-                    else prior.copy(problem = if (failure is FileTooLarge) R.string.vault_source_too_large else R.string.vault_source_unavailable)
+                    VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_source_save_failed,
+                        inLibrary = mutable.value.inLibrary)
+                    else prior.copy(inLibrary = mutable.value.inLibrary,
+                        problem = if (failure is FileTooLarge) R.string.vault_source_too_large else R.string.vault_source_unavailable)
             } finally { source = null; sourceCancellation = null; timeout.cancel() }
         }
     }
@@ -158,9 +164,10 @@ internal class VaultUploadSession(private val context: Context, private val wall
                 // The return from IO and this status update also belong to cancellation cleanup.
                 // Switching back to a cancelled caller must not turn a successful rollback into
                 // an apparent corrupt-draft failure.
-                mutable.value = prior.copy(problem = R.string.vault_source_cancelled)
+                mutable.value = prior.copy(inLibrary = mutable.value.inLibrary, problem = R.string.vault_source_cancelled)
             } catch (failure: Exception) {
-                mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable)
+                mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable,
+                    inLibrary = mutable.value.inLibrary)
             }
         }
 
@@ -245,7 +252,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
                 mutable.value = mutable.value.copy(record = result,
                     phase = if (result.complete) VaultUploadPhase.COMPLETE else VaultUploadPhase.WAITING)
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Exception) { mutable.value = mutable.value.copy(phase = VaultUploadPhase.WAITING, problem = problem(failure)) }
+            catch (failure: Exception) { interrupted(problem(failure)) }
         }
     }
 
@@ -264,6 +271,16 @@ internal class VaultUploadSession(private val context: Context, private val wall
             catch (_: Exception) { mutable.value = mutable.value.copy(problem = R.string.vault_draft_remove_failed) }
         }
     }
+
+    fun showFiles() {
+        if (mutable.value.phase == VaultUploadPhase.CHECKING) {
+            epoch.incrementAndGet(); job?.cancel()
+            mutable.value = mutable.value.copy(phase = if (mutable.value.record?.mayHaveSent == true ||
+                mutable.value.record?.uploaded == true) VaultUploadPhase.WAITING else VaultUploadPhase.REVIEW)
+        }
+        mutable.value = mutable.value.copy(inLibrary = true)
+    }
+    fun showUpload() { mutable.value = mutable.value.copy(inLibrary = false) }
 
     /** End an explicitly owned runtime before its captured storage is restored. */
     suspend fun closeAndJoin() = withContext(Dispatchers.Main.immediate) {
