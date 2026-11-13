@@ -561,3 +561,5 @@ also180s. It requires completed English engine synthesis and native focus,
 not a semantics-only or physical-audibility claim. Complete Social includes
 keyboard testing; complete Chat retains the actual TalkBack group. Existing
 classes, identities, assertions, deadlines and tool/engine pins remain required.
+
+Ticket #108 adds focused `vault-rule-review` and `vault-rule-review-android17` scopes for the existing owned document intake/review journey with access presets and source validation. They keep its 180-second class limit and 5/15-second state deadlines. The complete upload scope retains the same case. These are isolated provider/peer checks, not public upload acceptance.

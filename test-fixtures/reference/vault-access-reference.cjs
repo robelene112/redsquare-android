@@ -28,7 +28,7 @@ const scripts = [
 // Keep the editor's original JSON spelling. JSON.stringify would erase the Rust
 // distinction between integer and floating numbers before it reaches the oracle.
 const numbers = ['1', '1.0', '1e2', '100.0', '1e7', '1e16', '0.000001', '1e-7', '-0', '-0.0',
-  '0e0', '1e23', '1.2345678901234567', '18446744073709551615', '18446744073709551616', '-9223372036854775809'];
+  '0e0', '1e23', '1.2345678901234567', '18446744073709551615', '18446744073709551616', '-9223372036854775809', '5e-324', '1e-323', '4.9e-324', '9.9e-324'];
 const numericScripts = numbers.map(value => {
   const source = '{"op":"CHECKFIELD","field":"context.value","operator":"==","value":' + value + '}';
   return {name: value, source, hash: wasm.get_script_hash(source)};

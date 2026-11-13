@@ -738,6 +738,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-rule-review* ]]; then
+    verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
+    printf '%s\n' 'Native Vault access preset/source review before publication; owned document fixtures only.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-custom-access* ]]; then
     verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
     printf '%s\n' 'Native custom access over independent WASM witness decisions and signed owned key/file/document fixtures; no public writes.' > "$evidence/scope.txt"

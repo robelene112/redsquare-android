@@ -13,6 +13,19 @@ import com.fasterxml.jackson.core.io.schubfach.DoubleToDecimal
 
 /** A bounded script commitment, never evidence that its access conditions are satisfied. */
 class SaitoAccessScript private constructor(val source: String, val hash: String) {
+    /** Public locking metadata never contains private unlock inputs. */
+    fun withoutWitnesses(): SaitoAccessScript {
+        val json = readJson(source)
+        fun clear(node: JsonElement) {
+            if (node.isJsonObject) {
+                node.asJsonObject.remove("witness")
+                node.asJsonObject.entrySet().forEach { clear(it.value) }
+            } else if (node.isJsonArray) node.asJsonArray.forEach(::clear)
+        }
+        clear(json)
+        return parse(json.toString())
+    }
+
     fun withWitnesses(inputs: String): SaitoAccessScript {
         val script = readJson(source)
         val supplied = readJson(inputs)
@@ -95,7 +108,12 @@ class SaitoAccessScript private constructor(val source: String, val hash: String
             val value = raw.toDouble()
             require(value.isFinite()) { "Access script number is outside the supported JSON range" }
             if (value == 0.0) return if (java.lang.Double.doubleToRawLongBits(value) < 0) "-0.0" else "0.0"
-            val decimal = BigDecimal(DoubleToDecimal.toString(value)).stripTrailingZeros()
+            val formatted = BigDecimal(DoubleToDecimal.toString(value)).stripTrailingZeros()
+            // Java requires two significant digits even when Rust can round-trip
+            // with one (notably subnormal doubles). Prefer that shorter spelling
+            // only when it describes the exact same floating-point value.
+            val single = formatted.round(java.math.MathContext(1, java.math.RoundingMode.HALF_EVEN))
+            val decimal = if (single.toDouble().toBits() == value.toBits()) single.stripTrailingZeros() else formatted
             val exponent = decimal.precision() - decimal.scale() - 1
             if (exponent in -5..15) return decimal.toPlainString() + if (decimal.scale() <= 0) ".0" else ""
             val digits = decimal.unscaledValue().abs().toString()

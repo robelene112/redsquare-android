@@ -63,4 +63,28 @@ class SaitoVaultMintTest {
         assertThrows(IllegalArgumentException::class.java) { SaitoTransaction.restore(encoded) }
     }
 
+    @Test fun customAndRentalKeysBindTheirOriginalRulesToIndependentWalletMints() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-vault-mint-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
+        val inputs = vector.getAsJsonArray("inputs").map { value -> value.asJsonObject.let {
+            SaitoBalanceSnapshot.Slip(BigInteger(it.get("block").asString), BigInteger(it.get("ordinal").asString),
+                it.get("index").asInt, BigInteger(it.get("amount").asString), it.get("type").asInt)
+        } }
+        vector.getAsJsonArray("advanced").forEach { value ->
+            val row = value.asJsonObject
+            val script = SaitoAccessScript.parse(row.get("accessSource").asString)
+            val plan = SaitoVaultMint.create(wallet, inputs, vector.get("name").asString, vector.get("mime").asString,
+                Base64.getDecoder().decode(vector.get("contentsBase64").asString), vector.get("timestamp").asLong,
+                script, row.get("type").asString == "rental")
+            assertEquals(row.get("nftId").asString, plan.nftId)
+            assertEquals(row.getAsJsonObject("file").get("networkBase64").asString, plan.file.encoded())
+            assertEquals(row.getAsJsonObject("mint").get("networkBase64").asString, plan.mint.encoded())
+            val retained = SaitoVaultMint.readCandidate(plan.mint.encoded())
+            assertEquals(script.hash, requireNotNull(retained.accessScript).hash)
+            assertEquals(row.get("nftType").asString, retained.keyType)
+            assertThrows(IllegalArgumentException::class.java) { SaitoTransaction.restore(plan.mint.encoded()) }
+        }
+    }
+
 }

@@ -35,7 +35,22 @@ class VaultUploadPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Review upload").isDisplayed() }
             ui.onNodeWithText("vault-upload.bin").assertIsDisplayed()
             ui.onNodeWithText("Standard key").assertIsDisplayed()
-            ui.onNodeWithText("1 SAITO").assertIsDisplayed()
+            ui.onNodeWithText("Change access rules").performScrollTo().performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("File access rules").isDisplayed() }
+            ui.onNodeWithText("Rental master key").performScrollTo().performClick()
+            ui.onNodeWithText("Use these rules").performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Review upload").isDisplayed() }
+            ui.onNodeWithText("Rental master key").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("Change access rules").performScrollTo().performClick()
+            ui.onNodeWithText("Advanced").performScrollTo().performClick()
+            ui.onNodeWithText("Access script").performScrollTo().performTextReplacement("not valid JSON")
+            ui.onNodeWithText("Use these rules").performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Enter a valid JSON access script.").isDisplayed() }
+            assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
+            ui.onNodeWithText("Standard key").performScrollTo().performClick()
+            ui.onNodeWithText("Use these rules").performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Review upload").isDisplayed() }
+            ui.onNodeWithText("1 SAITO").performScrollTo().assertIsDisplayed()
             assertTrue(scene.peer.transactions.isEmpty())
             assertTrue(scene.peer.vaultRequests.isEmpty())
             // Observe settled native ink, separately from the unchanged file/review assertions.

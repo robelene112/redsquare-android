@@ -53,6 +53,22 @@ async function message(owner,body,time){
  largeMint.data=Buffer.from(JSON.stringify({...body,data:{...body.data,filename:'Large upload.bin',file_id:largeFile.id}}));await largeMint.sign();
  const largeUpload=await message(owner,{request:'vault add file',data:largeFile.envelope},timestamp+1n);
  const large={size:largeBytes.length,name:'Large upload.bin',mime:'application/octet-stream',contentsSha256:crypto.createHash('sha256').update(largeBytes).digest('hex'),fileSignature:largeFile.id,mint:envelope(largeMint),uploadSignature:largeUpload.id,uploadWireSha256:crypto.createHash('sha256').update(Buffer.from(largeUpload.networkBase64,'base64')).digest('hex')};
- const output={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Actual isolated WASM wallet mint factory and signing; synthetic disposable inputs, no consensus mint or provider write.'},owner,destination,mintBroadcastBase64,nftId:id,name,mime,contentsBase64:bytes.toString('base64'),timestamp:String(timestamp),deposit:'100000000',inputs:[{block:'2000001',ordinal:'3',index:0,amount:'200000000',type:0}],file,mint:envelope(mint),upload,large};
+ const advanced=[];
+ for (const type of ['custom','rental']) {
+  await wallet.reset(true);
+  const available=new wasm.WasmWalletSlip();available.set_utxokey(utxo.toString('hex'));available.set_amount(200000000n);available.set_block_id(2000001n);available.set_tx_ordinal(3n);available.set_slip_index(0);available.set_slip_type(0);available.set_lc(true);available.set_spent(false);await wallet.add_slip(available);
+  const rules=require(path.join(source,'node/mods/vault/lib/contracts/'+type+'.js'));
+  const access=type==='rental'?rules.build({creator_publickey:owner}):rules.script;
+  const nftType=type==='rental'?'vault-nft-rental':'vault-nft-key';
+  const metadata={module:'Vault',request:'mint-vault-key',data:{link:'https://saito.io/vault',filename:name,file_id:''}};
+  const key=await wallet.createBoundTransaction(1n,100000000n,Buffer.from(JSON.stringify(metadata)),0n,owner,nftType);
+  const keyWire=Buffer.from(key.serialize()), keyOffset=93+59*keyWire.readUInt32BE(0)+118;
+  const nftId=keyWire.subarray(keyOffset,keyOffset+33).toString('hex');
+  const file=await message(owner,{request:'vault add file',access_script:JSON.stringify(access),access_hash:wasm.get_script_hash(JSON.stringify(access)),data:{file:`data:${mime};base64,${bytes.toString('base64')}`,name}},timestamp);
+  metadata.data.file_id=file.id;metadata.data.file_access_script=access;
+  key.timestamp=timestamp;key.data=Buffer.from(JSON.stringify(metadata));await key.sign();
+  advanced.push({type,nftType,nftId,accessSource:JSON.stringify(access),file,mint:envelope(key)});
+ }
+ const output={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Actual isolated WASM wallet mint factory and signing; synthetic disposable inputs, no consensus mint or provider write.'},owner,destination,mintBroadcastBase64,nftId:id,name,mime,contentsBase64:bytes.toString('base64'),timestamp:String(timestamp),deposit:'100000000',inputs:[{block:'2000001',ordinal:'3',index:0,amount:'200000000',type:0}],file,mint:envelope(mint),upload,large,advanced};
  fs.writeFileSync(path.resolve(process.argv[4]),JSON.stringify(output,null,2)+'\n');console.log('Independent Vault mint reference generated',id);
 })().catch(error=>{console.error(error);process.exitCode=1});

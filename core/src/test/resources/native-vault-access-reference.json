@@ -118,6 +118,26 @@
       "name": "-9223372036854775809",
       "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":-9223372036854775809}",
       "hash": "04f2e1c1a7ed789e5f58b78f95d4fb4afb842af239f7d2d85d42e98ee0da8f5c"
+    },
+    {
+      "name": "5e-324",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":5e-324}",
+      "hash": "ab00a7ad2b99fd1da3af1edcc51d6de053b9fd8ffc84af3f81d58ba22f66a5c0"
+    },
+    {
+      "name": "1e-323",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1e-323}",
+      "hash": "219a38bb0a2ca133ffaee5a67537c758dd18058850168ee382e766eed38072cf"
+    },
+    {
+      "name": "4.9e-324",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":4.9e-324}",
+      "hash": "ab00a7ad2b99fd1da3af1edcc51d6de053b9fd8ffc84af3f81d58ba22f66a5c0"
+    },
+    {
+      "name": "9.9e-324",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":9.9e-324}",
+      "hash": "219a38bb0a2ca133ffaee5a67537c758dd18058850168ee382e766eed38072cf"
     }
   ],
   "witnessCases": [

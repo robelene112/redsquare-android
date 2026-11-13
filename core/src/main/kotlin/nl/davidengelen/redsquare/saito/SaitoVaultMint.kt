@@ -4,7 +4,6 @@ import com.google.gson.JsonObject
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.util.Base64
-import org.bouncycastle.crypto.digests.Blake3Digest
 
 /** One exact file/key binding. Transmission and current funding/ownership observations remain caller-owned. */
 class SaitoVaultMint private constructor(val author: String, val nftId: String, val file: SaitoTransaction,
@@ -20,14 +19,16 @@ class SaitoVaultMint private constructor(val author: String, val nftId: String, 
     }
 
     class Candidate internal constructor(val transaction: SaitoTransaction, val author: String, val nftId: String,
-        val fileId: String, val name: String, inputs: List<SaitoBalanceSnapshot.Slip>, val timestamp: Long) {
+        val fileId: String, val name: String, inputs: List<SaitoBalanceSnapshot.Slip>, val timestamp: Long,
+        val accessScript: SaitoAccessScript?, val keyType: String) {
         val inputs: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(inputs.toList())
     }
 
     companion object {
         val DEPOSIT: BigInteger = BigInteger("100000000")
         fun create(wallet: SaitoWallet, inputs: List<SaitoBalanceSnapshot.Slip>, name: String,
-            mime: String, bytes: ByteArray, timestamp: Long): SaitoVaultMint {
+            mime: String, bytes: ByteArray, timestamp: Long, accessScript: SaitoAccessScript? = null,
+            rental: Boolean = false): SaitoVaultMint {
             require(inputs.size in 1..254 && name.isNotBlank() && name.length <= 1024 && timestamp >= 0)
             require(mime.matches(Regex("[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+")) && bytes.size <= SaitoVault.MAX_FILE_BYTES)
             val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
@@ -39,20 +40,19 @@ class SaitoVaultMint private constructor(val author: String, val nftId: String, 
                 total += it.amount; require(total.bitLength() <= 64)
             }
             require(total >= DEPOSIT) { "Insufficient SAITO for the Vault key deposit" }
+            val custom = accessScript?.withoutWitnesses()
+            require(!rental || custom?.hash == SaitoVaultRules.rental(wallet.publicKey).hash) { "Rental keys use the bound official master rules" }
+            val keyType = if (rental) "vault-nft-rental" else "vault-nft-key"
             val source = inputs.first()
             val id = ByteBuffer.allocate(33).putLong(source.block.toLong()).putLong(source.ordinal.toLong())
-                .put(source.index.toByte()).put("vault-nft-key".toByteArray(Charsets.UTF_8)).array().hex()
-            val script = JsonObject().apply {
+                .put(source.index.toByte()).put(keyType.toByteArray(Charsets.UTF_8)).array().hex()
+            val script = custom?.let { com.google.gson.JsonParser.parseString(it.source).asJsonObject } ?: JsonObject().apply {
                 addProperty("op", "CHECKOWNNFT"); addProperty("nftid", id)
                 add("witness", JsonObject().apply {
                     addProperty("utxokey1", ""); addProperty("utxokey2", ""); addProperty("utxokey3", "")
                 })
             }
-            val commitment = JsonObject().apply { addProperty("nftid", id); addProperty("op", "CHECKOWNNFT") }
-                .toString().toByteArray(Charsets.UTF_8)
-            val hash = ByteArray(32).also { digest ->
-                Blake3Digest(256).apply { update(commitment, 0, commitment.size); doFinal(digest, 0) }
-            }.hex()
+            val hash = SaitoAccessScript.parse(script.toString()).hash
             val file = SaitoTransaction.createVaultMessage(wallet, JsonObject().apply {
                 addProperty("request", "vault add file"); addProperty("access_script", script.toString()); addProperty("access_hash", hash)
                 add("data", JsonObject().apply {
@@ -63,11 +63,12 @@ class SaitoVaultMint private constructor(val author: String, val nftId: String, 
                 addProperty("module", "Vault"); addProperty("request", "mint-vault-key")
                 add("data", JsonObject().apply {
                     addProperty("link", "https://saito.io/vault"); addProperty("filename", name); addProperty("file_id", file.id)
+                    custom?.let { add("file_access_script", com.google.gson.JsonParser.parseString(it.source)) }
                 })
             }, timestamp, inputs, id, DEPOSIT)
             return SaitoVaultMint(wallet.publicKey, id, file, mint, inputs, timestamp)
         }
-        /** Authenticate the exact standard self-mint before accepting its retained reservation. */
+        /** Authenticate one exact self-mint and its original access rules before restoring its reservation. */
         fun readCandidate(encoded: String): Candidate {
             require(encoded.length <= 128 * 1024)
             val bytes = Base64.getDecoder().decode(encoded)
@@ -97,9 +98,10 @@ class SaitoVaultMint private constructor(val author: String, val nftId: String, 
                 require(it.position.block.signum() == 0 && it.position.ordinal.signum() == 0 && it.position.index == index)
             } }
             val holding = SaitoNft.fromSnapshot(outputs[1], outputs[0], outputs[2])
+            require(holding.type in setOf("vault-nft-key", "vault-nft-rental"))
             val first = inputs.first()
             val expectedId = ByteBuffer.allocate(33).putLong(first.block.toLong()).putLong(first.ordinal.toLong())
-                .put(first.index.toByte()).put("vault-nft-key".toByteArray(Charsets.UTF_8)).array().hex()
+                .put(first.index.toByte()).put(holding.type.toByteArray(Charsets.UTF_8)).array().hex()
             require(holding.owner == signed.author && holding.creator == signed.author && holding.quantity == BigInteger.ONE &&
                 holding.deposit == DEPOSIT && holding.id == expectedId && outputs[1].position.type == 0)
             val change = total - DEPOSIT
@@ -109,10 +111,16 @@ class SaitoVaultMint private constructor(val author: String, val nftId: String, 
             require(body.keySet() == setOf("module", "request", "data") && body.get("module").asString == "Vault" &&
                 body.get("request").asString == "mint-vault-key")
             val data = body.getAsJsonObject("data")
-            require(data.keySet() == setOf("link", "filename", "file_id") && data.get("link").asString == "https://saito.io/vault")
+            require(data.keySet().containsAll(setOf("link", "filename", "file_id")) &&
+                (data.keySet() - setOf("link", "filename", "file_id")).all { it == "file_access_script" } &&
+                data.get("link").asString == "https://saito.io/vault")
+            val custom = data.get("file_access_script")?.let { value ->
+                SaitoAccessScript.parse(if (value.isJsonPrimitive && value.asJsonPrimitive.isString) value.asString else value.toString())
+            }
+            require(holding.type != "vault-nft-rental" || custom?.hash == SaitoVaultRules.rental(signed.author).hash)
             val fileId = data.get("file_id").asString.also { require(it.matches(Regex("[0-9a-f]{128}"))) }
             val name = data.get("filename").asString.also { require(it.isNotBlank() && it.length <= 1024) }
-            return Candidate(transaction, signed.author, holding.id, fileId, name, inputs, signed.createdAt)
+            return Candidate(transaction, signed.author, holding.id, fileId, name, inputs, signed.createdAt, custom, holding.type)
         }
 
         private fun ByteArray.hex() = joinToString("") { "%02x".format(it) }
