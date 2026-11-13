@@ -41,4 +41,32 @@ class SaitoStoreTest {
         assertEquals(0, page.ignored)
     }
 
+
+    @Test fun productDetailsBindTheOriginalSignedSellerAssetAndTerms() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-listing-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val offer = SaitoStore.readCatalogue(vector.get("page").toString()).items.single()
+        val envelope = vector.getAsJsonObject("listing").get("envelope").asString
+        val product = SaitoStore.readListing(offer, envelope)
+        assertNotNull(product)
+        requireNotNull(product)
+        assertEquals(offer.nftId, product.nftId); assertEquals(offer.seller, product.seller)
+        assertEquals(offer.signature, product.signature)
+        assertEquals("Field notes access key", product.title)
+        assertEquals("Original creator-authenticated field notes.", product.description)
+        assertEquals(StoreCategory.ACCESS, product.category)
+        assertEquals(0, java.math.BigDecimal("2.5").compareTo(requireNotNull(product.price).amount))
+        assertEquals(java.math.BigInteger("2"), product.quantity)
+        assertEquals("vault-nft-key", product.assetType)
+        assertEquals(envelope, product.envelope)
+        assertNull(SaitoStore.readListing(offer.copy(seller = vector.get("store").asString), envelope))
+        assertNull(SaitoStore.readListing(offer.copy(signature = "a".repeat(128)), envelope))
+        assertNull(SaitoStore.readListing(offer.copy(nftId = "1".repeat(66)), envelope))
+        val altered = JsonParser.parseString(envelope).asJsonObject
+        val bytes = java.util.Base64.getDecoder().decode(altered.get("m").asString)
+        val metadata = String(bytes, Charsets.UTF_8).replace("Field notes access key", "Another offer")
+        altered.addProperty("m", java.util.Base64.getEncoder().encodeToString(metadata.toByteArray()))
+        assertNull(SaitoStore.readListing(offer, altered.toString()))
+    }
+
 }

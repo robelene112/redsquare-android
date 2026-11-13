@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
 import java.math.BigInteger
 import java.math.BigDecimal
+import java.nio.ByteBuffer
+import java.util.Base64
 
 enum class StoreStock(val wire: String) { ACTIVE("active"), SOLD("sold") }
 data class StoreQuery(val seller: String? = null, val category: StoreCategory? = null,
@@ -16,8 +18,61 @@ data class StoreSummary(val nftId: String, val seller: String, val signature: St
     val title: String, val description: String, val price: StorePrice?, val available: BigInteger, val total: BigInteger)
 data class StorePage(val items: List<StoreSummary>, val offset: Int, val total: Int, val nextOffset: Int?, val ignored: Int)
 
+data class StoreProduct(val nftId: String, val seller: String, val signature: String, val title: String,
+    val description: String, val category: StoreCategory, val price: StorePrice?, val quantity: BigInteger,
+    val assetType: String, val envelope: String)
+
 /** Bounded Store reading; financial/listing submission contracts are separate explicit operations. */
 object SaitoStore {
+    /** Authenticate original terms, not current unspent custody, Store acceptance or delivery. */
+    fun readListing(summary: StoreSummary, envelope: String): StoreProduct? = runCatching {
+        val signed = SaitoEnvelope.decodeBound(envelope)
+        require(signed.id == summary.signature && signed.author == summary.seller)
+        val body = signed.body
+        require(text(body, "module", 64) == "Store" && text(body, "request", 64) == "list-asset")
+        val bytes = Base64.getDecoder().decode(gson.fromJson(envelope, JsonObject::class.java).get("t").asString)
+        val inputs = ByteBuffer.wrap(bytes).getInt(0)
+        val outputs = ByteBuffer.wrap(bytes).getInt(4)
+        val source = (0 until (inputs - 2).coerceAtLeast(0)).mapNotNull { index ->
+            val before = row(bytes, index); val middle = row(bytes, index + 1); val after = row(bytes, index + 2)
+            if (before.position.type != 9 || after.position.type != 9 || middle.position.type !in setOf(0, 1)) null
+            else SaitoNft.fromSnapshot(middle, before, after)
+        }
+        require(source.isNotEmpty() && source.all { it.id == summary.nftId && it.owner == signed.author } &&
+            source.map { it.creator }.distinct().size == 1 && source.map { it.type }.distinct().size == 1)
+        val script = SaitoAccessScript.parse(text(body, "access_script", 64 * 1024))
+        require(text(body, "access_hash", 64) == script.hash)
+        val custody = "00" + script.hash
+        require(text(body, "p2sh_address", 66) == custody)
+        val asset = source.first()
+        var listed = BigInteger.ZERO
+        for (index in inputs until (inputs + outputs - 2).coerceAtLeast(inputs)) {
+            val before = row(bytes, index); val middle = row(bytes, index + 1); val after = row(bytes, index + 2)
+            if (before.position.type != 9 || after.position.type != 9 || middle.position.type !in setOf(0, 1)) continue
+            val id = Base58.decode(after.publicKey).joinToString("") { "%02x".format(it) }
+            if (id == summary.nftId && Base58.decode(middle.publicKey).joinToString("") { "%02x".format(it) } == custody) {
+                require(before.publicKey == asset.creator)
+                listed += before.position.amount
+            }
+        }
+        val listing = body.getAsJsonObject("listing")
+        val quantity = unsigned(listing.get("quantity_total"))
+        require(quantity.signum() > 0 && listed == quantity && quantity <= source.fold(BigInteger.ZERO) { sum, nft -> sum + nft.quantity })
+        val category = StoreCategory.entries.firstOrNull { it.wire == text(listing, "category", 64) }
+            ?: StoreCategory.forType(asset.type)
+        val ticker = text(listing, "web3_ticker", 16).uppercase(java.util.Locale.ROOT).ifEmpty { "SAITO" }
+        require(ticker.matches(Regex("[A-Z0-9][A-Z0-9._-]{0,15}")))
+        val amount = if (ticker == "SAITO") (listing.get("price") ?: body.get("price"))?.let {
+            decimal(it).also { value ->
+                require(value.multiply(BigDecimal("100000000")).toBigIntegerExact().bitLength() <= 64)
+            }
+        } else listing.get("web3_amount")?.let(::decimal)
+        StoreProduct(asset.id, signed.author, signed.id,
+            text(listing, "title", 10_000).ifBlank { text(body, "title", 10_000) },
+            text(listing, "description", 200_000).ifBlank { text(body, "description", 200_000) }, category,
+            amount?.takeIf { it.signum() > 0 }?.let { StorePrice(ticker, it) }, quantity, asset.type, envelope)
+    }.getOrNull()
+
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     /** Current catalogue/stock is the selected Store's report, not signed ownership or fulfilment. */
@@ -85,4 +140,11 @@ object SaitoStore {
         return value.asString.toBigDecimal().also { require(it.signum() >= 0 && it.precision() <= 40 && it.scale() in -24..24) }
     }
     private fun unsigned(value: JsonElement): BigInteger = decimal(value).toBigIntegerExact().also { require(it.bitLength() <= 64) }
+
+    private fun row(bytes: ByteArray, index: Int): SaitoNft.Row {
+        val offset = 93 + index * 59
+        return SaitoNft.Row(Base58.encode(bytes.copyOfRange(offset, offset + 33)), SaitoBalanceSnapshot.Slip(
+            BigInteger(1, bytes.copyOfRange(offset + 41, offset + 49)), BigInteger(1, bytes.copyOfRange(offset + 49, offset + 57)),
+            bytes[offset + 57].toInt() and 255, BigInteger(1, bytes.copyOfRange(offset + 33, offset + 41)), bytes[offset + 58].toInt() and 255))
+    }
 }
