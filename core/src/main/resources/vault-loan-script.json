@@ -1,0 +1,35 @@
+{
+  "op": "OR",
+  "args": [
+    {
+      "op": "AND",
+      "args": [
+        {
+          "op": "CHECKSENDER",
+          "publickey": "LOAN_RENTER_PLACEHOLDER"
+        },
+        {
+          "op": "CHECKFIELD",
+          "field": "NOW",
+          "operator": "<",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "op": "AND",
+      "args": [
+        {
+          "op": "CHECKSENDER",
+          "publickey": "CREATOR_PUBLICKEY_PLACEHOLDER"
+        },
+        {
+          "op": "CHECKFIELD",
+          "field": "NOW",
+          "operator": ">",
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

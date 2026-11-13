@@ -1,0 +1,119 @@
+{
+  "op": "OR",
+  "args": [
+    {
+      "op": "CHECKSENDER",
+      "publickey": "CREATOR_PUBLICKEY_PLACEHOLDER"
+    },
+    {
+      "op": "AND",
+      "args": [
+        {
+          "op": "CHECKPATHHOP",
+          "selector": "FIRST",
+          "where": [
+            {
+              "field": "value.delegated",
+              "operator": "==",
+              "value": 0
+            }
+          ],
+          "publickey": "CREATOR_PUBLICKEY_PLACEHOLDER",
+          "hash": ""
+        },
+        {
+          "op": "AND",
+          "args": [
+            {
+              "op": "SETFIELD",
+              "reference": "context.loan_script",
+              "value": {
+                "op": "OR",
+                "args": [
+                  {
+                    "op": "AND",
+                    "args": [
+                      {
+                        "op": "CHECKSENDER",
+                        "publickey": "LOAN_RENTER_PLACEHOLDER"
+                      },
+                      {
+                        "op": "CHECKFIELD",
+                        "field": "NOW",
+                        "operator": "<",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  {
+                    "op": "AND",
+                    "args": [
+                      {
+                        "op": "CHECKSENDER",
+                        "publickey": "CREATOR_PUBLICKEY_PLACEHOLDER"
+                      },
+                      {
+                        "op": "CHECKFIELD",
+                        "field": "NOW",
+                        "operator": ">",
+                        "value": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "op": "SETFIELD",
+              "reference": "context.loan_script.args[0].args[0].publickey",
+              "value": "__opcodes.checkpathhop.hop.to"
+            },
+            {
+              "op": "SETFIELD",
+              "reference": "context.loan_script.args[0].args[1].value",
+              "value": "__opcodes.checkpathhop.hop.value.expires_at"
+            },
+            {
+              "op": "SETFIELD",
+              "reference": "context.loan_script.args[1].args[1].value",
+              "value": "__opcodes.checkpathhop.hop.value.expires_at"
+            },
+            {
+              "op": "SCRIPTHASH",
+              "source": "context.loan_script",
+              "into": "hash"
+            },
+            {
+              "op": "CHECKFIELD",
+              "field": "db.type",
+              "operator": "==",
+              "value": "UPDATE"
+            },
+            {
+              "op": "CHECKKEY",
+              "field": "db",
+              "operator": "==",
+              "key": "owner"
+            },
+            {
+              "op": "CHECKKEY",
+              "field": "db",
+              "operator": "IN",
+              "key": [
+                "type",
+                "owner",
+                "updated_at"
+              ]
+            },
+            {
+              "op": "CHECKFIELD",
+              "field": "db.owner",
+              "operator": "==",
+              "value": "__opcodes.scripthash.hash"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
