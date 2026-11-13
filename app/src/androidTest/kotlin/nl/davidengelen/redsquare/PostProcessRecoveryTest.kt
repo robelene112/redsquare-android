@@ -55,7 +55,7 @@ class PostProcessRecoveryTest {
         prepare()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") || it.name.startsWith("feed.") }
             ?.forEach { check(it.delete()) }
-        val wallet = AndroidWalletStore(context).loadExisting()
+        val wallet = AndroidWalletStore(context).loadOrCreate()
         val quoted = if (quote) RedSquareFeed.readArchive("[${root()}]").posts.single() else null
         val seeded = if (!committedReceipt) nl.davidengelen.redsquare.saito.SaitoTransaction.create(wallet,
             nl.davidengelen.redsquare.saito.RedSquarePosts.message(body, quote = quoted), System.currentTimeMillis(),
@@ -80,6 +80,26 @@ class PostProcessRecoveryTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    withFailureCapture({
+                        // Native capture precedes any storage/Compose diagnostic reads.
+                        val folder = File(context.cacheDir, "post-process-evidence")
+                        captureNativeScreen(File(folder, "original-window-failure.png"))
+                        val native = File(folder, "original-window-failure.xml").readText()
+                        val retained = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey,
+                            SaitoBackend.OWNER, quote = quoted).load()
+                        val details = JsonObject().apply {
+                            addProperty("candidate", seeded?.id)
+                            addProperty("retained", retained.transaction?.id)
+                            addProperty("hasReceipt", seeded?.let { nl.davidengelen.redsquare.feed.PostDraftStore(context,
+                                wallet.publicKey, SaitoBackend.OWNER).hasSubmission(it.id) })
+                            addProperty("broadcasts", peer.transactions.size)
+                            addProperty("connections", peer.authenticatedConnectionIds.size)
+                            addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+                        }
+                        InstrumentationRegistry.getInstrumentation().sendStatus(0, android.os.Bundle().apply {
+                            putString("stream", "\nPOST_WINDOW_ORIGINAL_NATIVE_XML\n$native\nPOST_WINDOW_AFTER_CAPTURE_STATE\n$details\n")
+                        })
+                    }) {
                     waitFor("New post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     openComposer()
@@ -120,6 +140,7 @@ class PostProcessRecoveryTest {
                     }
                     Process.killProcess(Process.myPid())
                     error("Expected process termination")
+                    }
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
