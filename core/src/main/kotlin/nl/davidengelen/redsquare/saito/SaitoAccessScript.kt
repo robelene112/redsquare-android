@@ -13,15 +13,38 @@ import com.fasterxml.jackson.core.io.schubfach.DoubleToDecimal
 
 /** A bounded script commitment, never evidence that its access conditions are satisfied. */
 class SaitoAccessScript private constructor(val source: String, val hash: String) {
+    fun withWitnesses(inputs: String): SaitoAccessScript {
+        val script = readJson(source)
+        val supplied = readJson(inputs)
+        require(supplied.isJsonArray && supplied.asJsonArray.size() <= 512) { "Witness inputs must be a bounded JSON array" }
+        val witnesses = supplied.asJsonArray
+        var next = 0
+        fun merge(node: JsonElement, depth: Int) {
+            require(depth <= 32) { "Access script is too complex" }
+            if (node.isJsonObject) {
+                val objectNode = node.asJsonObject
+                val opcode = objectNode.get("op")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }
+                    ?.asString?.uppercase(java.util.Locale.ROOT)
+                if (opcode in setOf("AND", "OR", "NOT")) {
+                    objectNode.get("args")?.takeIf { it.isJsonArray }?.asJsonArray?.let { args ->
+                        if (opcode == "NOT") args.firstOrNull()?.let { merge(it, depth + 1) }
+                        else args.forEach { merge(it, depth + 1) }
+                    }
+                    return
+                }
+                objectNode.get("witness")?.takeIf { it.isJsonObject && it.asJsonObject.size() > 0 }?.let { return }
+            }
+            if (next >= witnesses.size()) return
+            val witness = witnesses[next++]
+            if (witness.isJsonObject && node.isJsonObject) node.asJsonObject.add("witness", witness.deepCopy())
+        }
+        merge(script, 0)
+        return parse(script.toString())
+    }
+
     companion object {
         fun parse(source: String): SaitoAccessScript {
-            require(source.toByteArray(Charsets.UTF_8).size <= 64 * 1024) { "Access script is too large" }
-            val json = try {
-                JsonReader(StringReader(source)).use { reader ->
-                    reader.strictness = Strictness.STRICT
-                    JsonParser.parseReader(reader).also { require(reader.peek() == JsonToken.END_DOCUMENT) }
-                }
-            } catch (_: Exception) { throw IllegalArgumentException("Invalid access script JSON") }
+            val json = readJson(source)
             require(json.isJsonObject && json.asJsonObject.get("op")?.let {
                 it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString.isNotBlank() && it.asString.length <= 64
             } == true) { "An access script needs an opcode" }
@@ -46,6 +69,16 @@ class SaitoAccessScript private constructor(val source: String, val hash: String
             val digest = ByteArray(32)
             Blake3Digest(256).apply { update(bytes, 0, bytes.size); doFinal(digest, 0) }
             return SaitoAccessScript(source, digest.joinToString("") { "%02x".format(it) })
+        }
+
+        private fun readJson(source: String): JsonElement {
+            require(source.toByteArray(Charsets.UTF_8).size <= 64 * 1024) { "Access script is too large" }
+            return try {
+                JsonReader(StringReader(source)).use { reader ->
+                    reader.strictness = Strictness.STRICT
+                    JsonParser.parseReader(reader).also { require(reader.peek() == JsonToken.END_DOCUMENT) }
+                }
+            } catch (_: Exception) { throw IllegalArgumentException("Invalid access script JSON") }
         }
 
         private val integer = Regex("-?(0|[1-9][0-9]*)")
