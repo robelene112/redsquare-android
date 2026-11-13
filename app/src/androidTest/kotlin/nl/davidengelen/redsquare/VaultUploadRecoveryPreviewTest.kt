@@ -20,7 +20,15 @@ class VaultUploadRecoveryPreviewTest {
             assertEquals(1, scene.peer.transactions.size)
             assertEquals(1, scene.peer.vaultUploads.size)
             assertArrayEquals(bytes, requireNotNull(scene.mint).storedContents())
+            ui.onNodeWithText("Key transaction submitted").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("File accepted by this node").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("Key ownership not yet observed").performScrollTo().assertIsDisplayed()
             captureNativeScreen(File(scene.evidence, "file-accepted-key-still-unobserved.png"))
+            ui.onNodeWithContentDescription("Back to files").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Files").isDisplayed() }
+            ui.onNodeWithText("Offline").performClick()
+            ui.onNodeWithText("Open upload").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Waiting for availability").isDisplayed() }
             scene.ownsKey.set(true)
             ui.onNodeWithText("Check availability").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Upload complete").isDisplayed() }
@@ -43,6 +51,12 @@ class VaultUploadRecoveryPreviewTest {
             assertEquals(1, scene.peer.transactions.size)
             assertEquals(1, scene.peer.vaultUploads.size)
             val originalMint = scene.peer.transactions.single().copyOf()
+            ui.onNodeWithText("This node rejected the file. Your original key and file are retained.").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("Check availability").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Waiting for availability").isDisplayed() }
+            ui.onNodeWithText("Key ownership verified").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("This node rejected the file. Your original key and file are retained.").performScrollTo().assertIsDisplayed()
+            assertEquals("A failed read-only check must not retry a rejected upload", 1, scene.peer.vaultUploads.size)
             captureNativeScreen(File(scene.evidence, "upload-refused-original-key-retained.png"))
             server.rejectUpload.set(false)
             ui.onNodeWithText("Retry original upload").performScrollTo().performClick()
