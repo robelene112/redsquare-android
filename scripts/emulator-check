@@ -722,6 +722,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-upload-recovery* ]]; then
+    verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
+    printf '%s\n' 'Controlled native delayed ownership and rejected-file retry, preserving the original key and file.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-share* ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
     printf '%s\n' 'Native Android Share intake over an owned document provider, before any financial or upload write.' > "$evidence/scope.txt"
@@ -735,6 +740,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
+    verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     printf '%s\n' 'Native Vault upload review over an owned Android document provider. No public writes or real provider acceptance.' > "$evidence/scope.txt"
@@ -1192,6 +1198,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
+    verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
