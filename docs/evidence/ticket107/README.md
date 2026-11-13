@@ -86,6 +86,15 @@ cancellation proof. The follow-up restores permission from the host after the
 unchanged native class returns and retains the original Throwable before fixture
 cleanup. It must reproduce the exact failure before any lost-reply product fix.
 
+Run43439824727 on `ce6db2fc1dca7990784cc766fa969181c9381a3b` remains
+negative: the delayed-provider case now exceeds the original10s return-to-Files
+goal. Exception classification alone is insufficient. A bounded100ms readiness
+poll outside the InputStream read/close monitor is the next tested change, with
+cancellation checked before reading. The stopped-provider goal, joined worker
+cleanup, real revoked-grant case and180s class bound remain unchanged.
+Diagnostic prefix `[DEBUG-vault107]` is temporary and must be removed after the
+exact boundary is verified. Do not count a hypothesis as the established cause.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

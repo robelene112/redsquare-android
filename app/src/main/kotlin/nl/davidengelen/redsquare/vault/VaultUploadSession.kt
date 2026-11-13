@@ -91,7 +91,16 @@ internal class VaultUploadSession(private val context: Context, private val wall
                     requireNotNull(resolver.openAssetFileDescriptor(uri, "r", readingSignal)).use { descriptor ->
                     descriptor.createInputStream().also { source = it }.use { input ->
                         val buffer = ByteArray(64 * 1024)
+                        val readiness = android.system.StructPollfd().apply {
+                            fd = descriptor.parcelFileDescriptor.fileDescriptor
+                            events = (android.system.OsConstants.POLLIN or android.system.OsConstants.POLLHUP or
+                                android.system.OsConstants.POLLERR).toShort()
+                        }
                         while (true) {
+                            currentCoroutineContext().ensureActive()
+                            // Provider pipes may stay open indefinitely without another byte. Poll
+                            // outside InputStream's read/close monitor so a stop stays cooperative.
+                            if (android.system.Os.poll(arrayOf(readiness), 100) == 0) continue
                             currentCoroutineContext().ensureActive()
                             val count = input.read(buffer)
                             if (count < 0) break
