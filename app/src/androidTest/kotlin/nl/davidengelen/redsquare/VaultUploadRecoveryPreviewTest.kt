@@ -24,7 +24,7 @@ class VaultUploadRecoveryPreviewTest {
             ui.onNodeWithText("File accepted by this node").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Key ownership not yet observed").performScrollTo().assertIsDisplayed()
             captureNativeScreen(File(scene.evidence, "file-accepted-key-still-unobserved.png"))
-            ui.onNodeWithContentDescription("Back to files").performScrollTo().performClick()
+            ui.onNodeWithText("Show files").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Files").isDisplayed() }
             ui.onNodeWithText("Offline").performClick()
             ui.onNodeWithText("Open upload").performScrollTo().performClick()
