@@ -7,6 +7,7 @@ import java.util.Base64
 /** One whole Vault key and its locked deposit. No partial transfer or implicit temporary access. */
 class SaitoNftTransfer private constructor(val transaction: SaitoTransaction, val holding: SaitoNft,
     val key: VaultKey, val recipient: String, val timestamp: Long) {
+    val inputs: List<SaitoBalanceSnapshot.Slip> get() = holding.positions
     val author: String get() = holding.owner
     companion object {
         fun create(wallet: SaitoWallet, key: VaultKey, recipient: String, timestamp: Long): SaitoNftTransfer {

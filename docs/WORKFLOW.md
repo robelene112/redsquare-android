@@ -563,3 +563,5 @@ keyboard testing; complete Chat retains the actual TalkBack group. Existing
 classes, identities, assertions, deadlines and tool/engine pins remain required.
 
 Ticket #108 adds focused `vault-rule-review` and `vault-rule-review-android17` scopes for the existing owned document intake/review journey with access presets and source validation. They keep its 180-second class limit and 5/15-second state deadlines. The complete upload scope retains the same case. These are isolated provider/peer checks, not public upload acceptance.
+
+Ticket #108 adds `vault-key-reservation` and `vault-key-reservation-android17` for the native encrypted whole-key reservation, reopening, uncertainty and node-isolation boundary. The 180-second native case uses existing owned peer/document/account fixtures and performs no public writes. The ordinary wallet scope includes this case additively;115 must freeze the expanded catalogue before its full-app proof.

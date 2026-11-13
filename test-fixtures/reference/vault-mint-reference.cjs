@@ -3,6 +3,8 @@ const fs = require('fs'), path = require('path'), crypto = require('crypto');
 if (process.argv.length !== 5) throw Error('Usage: node vault-mint-reference.cjs reference-runtime pinned-source-root output');
 const runtime=path.resolve(process.argv[2]), source=path.resolve(process.argv[3]);
 const hashes={
+ 'node/mods/vault/lib/contracts/custom.js':'e16a289d21a55e0c82a150a00319603bdd2298a9dae086316e71c833a1d95a82',
+ 'node/mods/vault/lib/contracts/rental.js':'c0385317ee08e703bd17b9a9655c142bf1179f3336cd98485a95b792abc3b8e8',
  'node/mods/vault/lib/contracts/default.js':'cb33a91e94c0aad86ed6078c1547e3a36dff88ef1e6b65166fe3e9d0d980da58',
  'node/mods/vault/lib/ui/overlays/file-upload.js':'f4d8761d55e2415238d999992016ddec38a108fc89459b8aa1af4056b3c74aeb',
  'node/mods/vault/lib/transactions/add-file.js':'bca07d28003e32d148fbdf0f8422f635e634453cfd6047b3e698fcaaca5893f9',

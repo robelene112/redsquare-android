@@ -39,4 +39,23 @@ class SaitoNftTransferTest {
             SaitoNftTransfer.create(SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), key, vector.get("recipient").asString, 1700001000001L)
         }
     }
+    @Test fun onlyTheExactTransferWithItsOriginalInputsCanBeObservedOnTheSelectedChain() {
+        val vector = resource("native-vault-transfer-reference")
+        val row = vector.getAsJsonObject("block")
+        val transfer = SaitoNftTransfer.restore(vector.getAsJsonObject("transfer").get("networkBase64").asString)
+        val bytes = java.util.Base64.getDecoder().decode(row.get("fullBase64").asString)
+        val block = SaitoFullBlock.parse(bytes)
+        assertEquals(row.get("hash").asString, block.hash)
+        assertTrue(block.contains(transfer))
+        val changed = SaitoFullBlock.parse(java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString))
+        assertEquals(block.hash, changed.hash)
+        assertFalse(changed.contains(transfer))
+        val text = "${row.get("timestamp").asString}-${row.get("height").asString}-${block.hash}.snap\n"
+        val snapshot = SaitoBalanceSnapshot.parse(text.toByteArray(), transfer.author, row.get("timestamp").asLong)
+        val observed = SaitoPaymentChain.observe(transfer, snapshot) { hash -> if (hash == block.hash) bytes else null }
+        assertEquals(block.hash, requireNotNull(observed).hash)
+        assertNull(SaitoPaymentChain.observe(transfer, snapshot) { null })
+        assertNull(SaitoPaymentChain.observe(transfer, snapshot) { java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString) })
+    }
+
 }

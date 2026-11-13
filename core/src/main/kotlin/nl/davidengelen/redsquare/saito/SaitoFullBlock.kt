@@ -36,6 +36,25 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
         }
     }
 
+    /** Bound transfers retain their original output placeholders until block assignment. */
+    fun contains(transfer: SaitoNftTransfer): Boolean {
+        val candidate = Base64.getDecoder().decode(transfer.transaction.encoded())
+        return transactions.withIndex().any { (ordinal, wire) ->
+            if (wire[92] != 8.toByte() || u32(wire, 0) != 3L || u32(wire, 4) != 3L ||
+                u32(wire, 88) != 1L || !wire.copyOfRange(16, 80).contentEquals(candidate.copyOfRange(16, 80))) return@any false
+            val unrouted = wire.copyOf(93 + 6 * 59 + u32(wire, 8).toInt())
+            ByteBuffer.wrap(unrouted).putInt(12, 0)
+            for (index in 0..2) {
+                val offset = 93 + (3 + index) * 59
+                if (u64(wire, offset + 41) != height || u64(wire, offset + 49) != BigInteger.valueOf(ordinal.toLong()) ||
+                    wire[offset + 57].toInt() != index) return@any false
+                candidate.copyInto(unrouted, offset + 41, offset + 41, offset + 57)
+            }
+            if (!unrouted.contentEquals(candidate)) return@any false
+            SaitoNftTransfer.restore(Base64.getEncoder().encodeToString(unrouted)).transaction.encoded() == transfer.transaction.encoded()
+        }
+    }
+
     /** Supported original signed JSON-object messages; opaque/system/encrypted payloads are not application objects. */
     fun applicationMessages(): List<SignedSaitoMessage> = transactions.mapNotNull { wire ->
         if (wire[92] != 0.toByte()) return@mapNotNull null

@@ -19,7 +19,12 @@ internal class VaultLocalFailure(cause: Exception) : IOException(cause)
 /** Native read/offline state. Cached metadata never grants current network access. */
 internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend,
     private val endpoint: String, private val balances: WalletBalances) {
-    val disk = VaultDisk(context.applicationContext, wallet.publicKey, backend)
+    private val application = context.applicationContext
+    val disk = VaultDisk(application, wallet.publicKey, backend)
+    private fun current() = synchronized(SaitoLocalState.lock) {
+        check(nl.davidengelen.redsquare.AndroidWalletStore(application).loadExisting().publicKey == wallet.publicKey &&
+            AndroidBackendStore(application).load() == backend) { "The selected account or node changed" }
+    }
     var entries by mutableStateOf<List<VaultEntry>>(emptyList()); private set
     var loading by mutableStateOf(false); private set
     var problem by mutableStateOf<VaultProblem?>(null); private set
@@ -92,6 +97,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
         }
         val selected = requireNotNull(entry.key)
         return withContext(Dispatchers.IO) {
+            current()
             val current = balances.read(backend, wallet.publicKey) ?: throw IOException("Current ownership unavailable")
             val holding = current.nfts.firstOrNull { it.id == selected.holding.id && it.creator == selected.holding.creator }
                 ?: throw IOException("This key is no longer held by this account")
@@ -99,7 +105,8 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             val job = currentCoroutineContext().job
             SaitoPeer(wallet, endpoint).use { peer ->
                 require("vault" in peer.services())
-                val response = peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis(), supplied)) { job.ensureActive() }
+                val response = peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis(), supplied)) { job.ensureActive(); current() }
+                job.ensureActive(); current()
                 SaitoVault.readFile(key, response.decodeToString())
             }
         }

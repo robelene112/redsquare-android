@@ -12,6 +12,7 @@ class TransferStore(private val context: Context, private val author: String) {
     data class Pending(val backend: SaitoBackend, val payment: SaitoPayment,
         val lastInclusion: SaitoPaymentChain.Inclusion? = null)
     data class PendingMint(val backend: SaitoBackend, val candidate: SaitoVaultMint.Candidate)
+    data class PendingKey(val backend: SaitoBackend, val transfer: SaitoNftTransfer, val mayHaveSent: Boolean = false)
     private val name = "transfer.$author"
     private fun file(suffix: String) = EncryptedLocalFile(context, "$name.$suffix",
         "redsquare-transfers-v1", "transfer.")
@@ -49,7 +50,7 @@ class TransferStore(private val context: Context, private val author: String) {
         slips.filter { Triple(it.block, it.ordinal, it.index) !in reserved }
     }
 
-    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty()
+    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty() || pendingKeys().isNotEmpty()
 
     fun pendingMints(): List<PendingMint> = synchronized(SaitoLocalState.lock) {
         if (!exists("mint-reservations") && !exists("mint-reservations-guard")) return@synchronized emptyList()
@@ -107,9 +108,78 @@ class TransferStore(private val context: Context, private val author: String) {
         check(pendingMints().map { it.backend to it.candidate.transaction.encoded() } == next.map { it.backend to it.candidate.transaction.encoded() })
     }
 
+    fun pendingKeys(): List<PendingKey> = synchronized(SaitoLocalState.lock) {
+        if (!exists("key-reservations") && !exists("key-reservations-guard")) return@synchronized emptyList()
+        val guard = requireNotNull(file("key-reservations-guard").load())
+        require(guard.version == 1.toByte() && guard.text == author)
+        val contents = requireNotNull(file("key-reservations").load())
+        require(contents.version == 1.toByte())
+        val rows = JsonParser.parseString(contents.text).asJsonArray
+        require(rows.size() in 0..100)
+        val signatures = HashSet<String>()
+        val positions = HashSet<Triple<BigInteger, BigInteger, Int>>()
+        rows.map { element ->
+            val row = element.asJsonObject
+            require(row.keySet() == setOf("backend", "candidate", "mayHaveSent"))
+            require(row.get("backend").asJsonPrimitive.isString && row.get("candidate").asJsonPrimitive.isString &&
+                row.get("mayHaveSent").asJsonPrimitive.isBoolean)
+            val backend = requireNotNull(SaitoBackend.entries.find { it.id == row.get("backend").asString })
+            val transfer = SaitoNftTransfer.restore(row.get("candidate").asString)
+            require(transfer.author == author && signatures.add(transfer.transaction.id))
+            require(transfer.inputs.all { positions.add(Triple(it.block, it.ordinal, it.index)) })
+            PendingKey(backend, transfer, row.get("mayHaveSent").asBoolean)
+        }
+    }
+
+    fun availableKeys(keys: List<SaitoNft>): List<SaitoNft> = synchronized(SaitoLocalState.lock) {
+        val reserved = reservedLocations()
+        keys.filter { it.owner == author && it.positions.none { row -> Triple(row.block, row.ordinal, row.index) in reserved } }
+    }
+
+    fun reserveKey(backend: SaitoBackend, transfer: SaitoNftTransfer) = synchronized(SaitoLocalState.lock) {
+        require(transfer.author == author)
+        val prior = pendingKeys()
+        prior.firstOrNull { it.transfer.transaction.id == transfer.transaction.id }?.let {
+            require(it.backend == backend && it.transfer.transaction.encoded() == transfer.transaction.encoded())
+            return@synchronized
+        }
+        val reserved = reservedLocations()
+        require(prior.size < 100 && transfer.inputs.none { Triple(it.block, it.ordinal, it.index) in reserved })
+        saveKeys(prior + PendingKey(backend, transfer))
+    }
+
+    /** Commit uncertainty before the physical write; this fact never resets on retry. */
+    fun markKeyMayHaveSent(backend: SaitoBackend, transfer: SaitoNftTransfer) = synchronized(SaitoLocalState.lock) {
+        val prior = pendingKeys()
+        val row = prior.single { it.transfer.transaction.id == transfer.transaction.id }
+        require(row.backend == backend && row.transfer.author == author && row.transfer.transaction.encoded() == transfer.transaction.encoded())
+        saveKeys(prior.map { if (it.transfer.transaction.id == transfer.transaction.id) it.copy(mayHaveSent = true) else it })
+    }
+
+    fun releaseUnsubmittedKey(backend: SaitoBackend, transfer: SaitoNftTransfer, verifyNeverSubmitted: () -> Unit) =
+        synchronized(SaitoLocalState.lock) {
+            require(transfer.author == author)
+            verifyNeverSubmitted()
+            val prior = pendingKeys()
+            val row = prior.single { it.transfer.transaction.id == transfer.transaction.id }
+            require(row.backend == backend && row.transfer.transaction.encoded() == transfer.transaction.encoded() && !row.mayHaveSent)
+            saveKeys(prior.filterNot { it.transfer.transaction.id == transfer.transaction.id })
+        }
+
+    private fun saveKeys(records: List<PendingKey>) {
+        val rows = JsonArray().apply { records.forEach { record -> add(JsonObject().apply {
+            addProperty("backend", record.backend.id); addProperty("candidate", record.transfer.transaction.encoded())
+            addProperty("mayHaveSent", record.mayHaveSent)
+        }) } }
+        file("key-reservations").save(EncryptedLocalFile.Contents(1, rows.toString()))
+        if (!exists("key-reservations-guard")) file("key-reservations-guard").save(EncryptedLocalFile.Contents(1, author))
+        check(pendingKeys().map { Triple(it.backend, it.transfer.transaction.encoded(), it.mayHaveSent) } ==
+            records.map { Triple(it.backend, it.transfer.transaction.encoded(), it.mayHaveSent) })
+    }
+
     private fun reservedLocations(): Set<Triple<BigInteger, BigInteger, Int>> {
         val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
-        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs }
+        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs } + pendingKeys().flatMap { it.transfer.inputs }
         require(inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
         return locations
     }

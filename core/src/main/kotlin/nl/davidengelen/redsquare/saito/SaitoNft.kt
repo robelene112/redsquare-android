@@ -6,7 +6,8 @@ import java.nio.charset.CodingErrorAction
 
 /** An unspent NFT tuple reported by the selected node, not independent consensus proof. */
 class SaitoNft private constructor(val id: String, val creator: String, val owner: String,
-    val quantity: BigInteger, val deposit: BigInteger, val type: String, witnesses: List<String>) {
+    val quantity: BigInteger, val deposit: BigInteger, val type: String, witnesses: List<String>, positions: List<SaitoBalanceSnapshot.Slip>) {
+    val positions: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(positions.toList())
     val witnesses: List<String> = java.util.Collections.unmodifiableList(witnesses.toList())
 
     internal data class Row(val publicKey: String, val position: SaitoBalanceSnapshot.Slip) {
@@ -32,7 +33,7 @@ class SaitoNft private constructor(val id: String, val creator: String, val owne
                 .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(typeBytes)).toString()
             require(type.isNotBlank() && type.none { it.isISOControl() })
             return SaitoNft(metadata.joinToString("") { "%02x".format(it) }, before.publicKey, middle.publicKey,
-                before.position.amount, owner.amount, type, listOf(before.utxoKey(), middle.utxoKey(), after.utxoKey()))
+                before.position.amount, owner.amount, type, listOf(before.utxoKey(), middle.utxoKey(), after.utxoKey()), listOf(before.position, middle.position, after.position))
         }
     }
 }

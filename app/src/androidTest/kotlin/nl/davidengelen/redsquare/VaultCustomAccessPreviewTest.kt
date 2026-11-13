@@ -17,6 +17,22 @@ class VaultCustomAccessPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Custom field notes.txt").isDisplayed() }
             ui.onNodeWithText("Access file").performScrollTo().assertIsEnabled().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("File access").isDisplayed() }
+            ui.onNodeWithText("Access script").performScrollTo().performTextReplacement("not JSON")
+            ui.onNodeWithText("Keep offline").performClick()
+            val invalid = "Check the script and unlock inputs. The JSON or its values are not supported."
+            ui.waitUntil(5_000) { ui.onNodeWithText(invalid).isDisplayed() }
+            assertTrue(scene.peer.vaultRequests.isEmpty())
+            // A valid floating literal exercises the Android-compatible formatter,
+            // then must be refused because these rules change the original commitment.
+            val altered = scene.reference.getAsJsonObject("script").deepCopy().apply {
+                remove("witness"); add("editorNumber", com.google.gson.JsonParser.parseString("1e2"))
+            }.toString()
+            ui.onNodeWithText("Access script").performScrollTo().performTextReplacement(altered)
+            ui.onNodeWithText("Keep offline").performClick()
+            val changed = "These rules do not match this file. Restore the original script."
+            ui.waitUntil(5_000) { ui.onNodeWithText(changed).isDisplayed() }
+            assertTrue(scene.peer.vaultRequests.isEmpty())
+            ui.onNodeWithText("Restore original script").performScrollTo().performClick()
             ui.onNodeWithText("Unlock inputs").performScrollTo().performTextReplacement("[{\"input\":\"wrong\"}]")
             ui.onNodeWithText("Keep offline").assertIsDisplayed().performClick()
             val denied = "Could not verify access. Check your inputs and this node, then try again."

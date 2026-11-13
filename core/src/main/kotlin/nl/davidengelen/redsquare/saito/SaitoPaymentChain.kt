@@ -35,6 +35,19 @@ object SaitoPaymentChain {
         return result
     }
 
+    fun observe(transfer: SaitoNftTransfer, snapshot: SaitoBalanceSnapshot,
+        fetchBlock: (String) -> ByteArray?): Inclusion? {
+        require(snapshot.publicKey == transfer.author)
+        var result: Inclusion? = null
+        walk(snapshot, fetchBlock) { block ->
+            if (!block.contains(transfer)) false else {
+                result = Inclusion(block.height, block.hash, snapshot.height, snapshot.blockHash, snapshot.timestamp)
+                true
+            }
+        }
+        return result
+    }
+
     /** A shared verified prefix only. Callers separately decide inclusion or displacement. */
     private fun walk(snapshot: SaitoBalanceSnapshot, fetchBlock: (String) -> ByteArray?,
         stopOn: (SaitoFullBlock) -> Boolean) {

@@ -1,0 +1,66 @@
+{
+  "preliminary": true,
+  "qualification": "Owned native peer/document journeys and independently generated WASM protocol vectors. Ticket108 is not complete; no new beta or production provider acceptance.",
+  "runs": [
+    {
+      "run": 43479123027,
+      "source": "ada5407d17a2d2e1535f7f5bb7c20aa9403fe7b0",
+      "conclusion": "failure",
+      "artifactId": 14064647933,
+      "zipSha256": "7221904184edf42f2d2cfde52b28cc4a643b114ee5d755eb2884763b08c9794d",
+      "zipEntries": 60,
+      "captureMembers": 7,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43483542857,
+      "source": "fbfdc0da1a0f20e38c524feacd76d6bc77b98c50",
+      "conclusion": "success",
+      "artifactId": 14065883591,
+      "zipSha256": "5fb3d60fc237b2e30ba20d25a28cc42f89dd8f4401355ead5f90a3e312fcb1a7",
+      "zipEntries": 60,
+      "captureMembers": 9,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43484168280,
+      "source": "fbfdc0da1a0f20e38c524feacd76d6bc77b98c50",
+      "conclusion": "success",
+      "artifactId": 14066972038,
+      "zipSha256": "e43941d9ada511aba7daead66cf18afa7f9079ef7ef360a5600461dcec5b023a",
+      "zipEntries": 58,
+      "captureMembers": 9,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43484668804,
+      "source": "2fb7b5522a474274e2d0bceaae595f84318602a1",
+      "conclusion": "failure",
+      "artifactId": 14068095362,
+      "zipSha256": "b99d84d4cbd13134f7aaa3cb19d00fc382bf7fc78cf1755f58052786be52984b",
+      "zipEntries": 60,
+      "captureMembers": 7,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43486418905,
+      "source": "586a6db22079daddd9989f946e2297efbf139c5c",
+      "conclusion": "success",
+      "artifactId": 14068286666,
+      "zipSha256": "978be7c31b59ef0ffea479af25f46f6b6574e7ef1ca296d337a024eee0c0afff",
+      "zipEntries": 61,
+      "captureMembers": 7,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43487982290,
+      "source": "586a6db22079daddd9989f946e2297efbf139c5c",
+      "conclusion": "failure",
+      "artifactId": 14067534985,
+      "zipSha256": "582f8a923e79152f6902b7746587b9a1d0b48282bb8881f4e9afc7829bb9243b",
+      "zipEntries": 59,
+      "captureMembers": 7,
+      "allExtractedMembersByteExact": true
+    }
+  ]
+}

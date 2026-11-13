@@ -37,24 +37,36 @@ class VaultUploadPreviewTest {
             ui.onNodeWithText("Standard key").assertIsDisplayed()
             ui.onNodeWithText("Change access rules").performScrollTo().performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("File access rules").isDisplayed() }
-            ui.onNodeWithText("Rental master key").performScrollTo().performClick()
+            ui.onNode(hasText("Rental master key") and hasClickAction()).performScrollTo().performClick()
+            ui.onNode(hasText("Rental master key") and hasClickAction()).assertIsSelected()
+            captureNativeScreen(File(scene.evidence, "rental-rules-selected.png"))
             ui.onNodeWithText("Use these rules").performClick()
-            ui.waitUntil(5_000) { ui.onNodeWithText("Review upload").isDisplayed() }
+            ui.waitUntil(5_000) {
+                ui.onAllNodesWithText("File access rules").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() &&
+                    ui.onNodeWithText("Review upload").isDisplayed()
+            }
             ui.onNodeWithText("Rental master key").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Change access rules").performScrollTo().performClick()
-            ui.onNodeWithText("Advanced").performScrollTo().performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("File access rules").isDisplayed() }
+            ui.onNode(hasText("Advanced") and hasClickAction()).performScrollTo().performClick()
             ui.onNodeWithText("Access script").performScrollTo().performTextReplacement("not valid JSON")
             ui.onNodeWithText("Use these rules").performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("Enter a valid JSON access script.").isDisplayed() }
             assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
-            ui.onNodeWithText("Standard key").performScrollTo().performClick()
+            captureNativeScreen(File(scene.evidence, "invalid-advanced-source-retained.png"))
+            ui.onNode(hasText("Standard key") and hasClickAction()).performScrollTo().performClick()
+            ui.onNode(hasText("Standard key") and hasClickAction()).assertIsSelected()
             ui.onNodeWithText("Use these rules").performClick()
-            ui.waitUntil(5_000) { ui.onNodeWithText("Review upload").isDisplayed() }
+            ui.waitUntil(5_000) {
+                ui.onAllNodesWithText("File access rules").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() &&
+                    ui.onNodeWithText("Review upload").isDisplayed()
+            }
             ui.onNodeWithText("1 SAITO").performScrollTo().assertIsDisplayed()
             assertTrue(scene.peer.transactions.isEmpty())
             assertTrue(scene.peer.vaultRequests.isEmpty())
             // Observe settled native ink, separately from the unchanged file/review assertions.
             ui.waitUntil(5_000) {
+                if (!ui.onNodeWithContentDescription("Switch app: Vault").isDisplayed()) return@waitUntil false
                 val bounds = ui.onNodeWithContentDescription("Switch app: Vault").fetchSemanticsNode().boundsInRoot
                 val bitmap = requireNotNull(InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
                 try {

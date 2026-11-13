@@ -55,8 +55,13 @@ funds to replace controlled verification.
 then the one combined beta under the existing owner authorization.
 `SaitoAccessScript` and `SaitoVaultRules` now match pinned WASM0.3.15 script hashes,
 Rust numeric JSON identity, witness merging and creator/renter/expiry presets.
-Four focused public core tests pass; advanced native UI, custom retrieval,
-permanent transfer, rental-master upload and complete108acceptance are not done.
+The first custom-read/correction/offline/export journey passes on both SDKs at
+`fbfdc0da1a0f20e38c524feacd76d6bc77b98c50`. Native access-preset review is under
+verification at `586a6db22079daddd9989f946e2297efbf139c5c`. Independent custom/rental
+mint and whole-key transfer vectors pass focused core checks. The exact-transfer
+full-block/input-coordinate proof also passes in the working tree. Complete
+permanent-transfer recovery/UI and rental path/delegation handling remain;
+ticket108 is not accepted. See `docs/evidence/ticket108/README.md`.
 Red/green originals and the public deployed-bundle comparison are external in
 `/mnt/storage/redsquare-android-artifacts/vault-store-planning` (`*108*`).
 The read-only public bundle1794546696 has SHA256

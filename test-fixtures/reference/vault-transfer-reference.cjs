@@ -21,11 +21,6 @@ function envelope(tx){
  const detached=Buffer.from(wire.subarray(0,offset));detached.writeUInt32BE(0,8);
  return {id:tx.signature,networkBase64:wire.toString('base64'),envelope:JSON.stringify({t:detached.toString('base64'),m:wire.subarray(offset).toString('base64'),opt:Buffer.from('{}').toString('base64')})};
 }
-async function message(owner,body,time){
- const tx=new wasm.WasmTransaction();tx.timestamp=time;tx.txs_replacements=1;tx.type=0;tx.data=Buffer.from(JSON.stringify(body));
- for(const direction of ['add_from_slip','add_to_slip']){const s=new wasm.WasmSlip();s.public_key=owner;s.amount=0n;s.slip_type=0;tx[direction](s)}
- await tx.sign();return envelope(tx);
-}
 
 (async()=>{
  await wasm.initialize(JSON.stringify({server:{host:'127.0.0.1',port:0,protocol:'http',endpoint:{host:'127.0.0.1',port:0,protocol:'http'},verification_threads:1,channel_size:100,stat_timer_in_ms:5000,reconnection_wait_time:1000,thread_sleep_time_in_ms:10,block_fetch_batch_size:1},peers:[],spv_mode:true,browser_mode:true,consensus:{genesis_period:100000,heartbeat_interval:30000,prune_after_blocks:100,max_staker_recursions:1}}),scalar,0,1n,false);
@@ -38,6 +33,19 @@ const metadata=JSON.parse(Buffer.from(original.m,'base64').toString('utf8'));
 const transfer=await wallet.createSendBoundTransaction(2n,w.utxokey1,w.utxokey2,w.utxokey3,recipient,Buffer.from(JSON.stringify(metadata)));
 transfer.timestamp=1700001000001n;transfer.txs_replacements=1;await transfer.sign();
 const wire=Buffer.from(transfer.serialize()),n=wire.readUInt32BE(0),m=wire.readUInt32BE(4);
-fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated wallet createSendBoundTransaction, whole quantity/deposit; no chain inclusion or public transmission.'},owner:await wallet.get_public_key(),recipient,timestamp:'1700001000001',holding:vector.script.witness,key:vector.key,transfer:envelope(transfer)},null,2)+'\n');
+// The independent WASM block serializer assigns the actual output coordinates.
+transfer.generate_hash_for_signature();
+const header=Buffer.alloc(389);header.writeUInt32BE(1,0);header.writeBigUInt64BE(2000003n,4);header.writeBigUInt64BE(1700001005000n,12);
+Buffer.alloc(32,0xab).copy(header,20);Buffer.from(base58.decode(recipient)).copy(header,52);
+Buffer.from(transfer.get_hash_for_signature()).copy(header,85);
+const preimage=Buffer.concat([header.subarray(4,117),header.subarray(181,213),header.subarray(221,285)]);
+Buffer.from(wasm.sign_buffer(preimage,'0'.repeat(63)+'3'),'hex').copy(header,117);
+const block=new wasm.WasmBlock();if(block.deserialize(Buffer.concat([header,wire]))!=='')throw Error('Block did not decode');
+const full=Buffer.from(block.serialize());const again=new wasm.WasmBlock();if(again.deserialize(full)!==''||!Buffer.from(again.serialize()).equals(full))throw Error('Block did not round trip');
+if(again.transactions[0].signature!==transfer.signature)throw Error('Different included transfer');
+const changed=Buffer.from(full);changed.writeBigUInt64BE(2000001n,389+93+41);
+const altered=new wasm.WasmBlock();if(altered.deserialize(changed)!==''||altered.hash!==again.hash)throw Error('Unexpected coordinate mutation');
+const blockReference={hash:again.hash,height:'2000003',timestamp:'1700001005000',fullBase64:full.toString('base64'),changedInputBase64:changed.toString('base64')};
+fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated wallet createSendBoundTransaction, whole quantity/deposit; no chain inclusion or public transmission.'},owner:await wallet.get_public_key(),recipient,timestamp:'1700001000001',holding:vector.script.witness,block:blockReference,key:vector.key,transfer:envelope(transfer)},null,2)+'\n');
 console.log('Independent whole-key transfer reference generated');
 })().catch(error=>{console.error(error);process.exitCode=1});

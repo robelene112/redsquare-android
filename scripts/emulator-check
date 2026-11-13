@@ -738,6 +738,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-key-reservation* ]]; then
+    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
+    printf '%s\n' 'Owned Android encrypted whole-key reservation/reopen and uncertainty across node changes. No public transfers.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-rule-review* ]]; then
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     printf '%s\n' 'Native Vault access preset/source review before publication; owned document fixtures only.' > "$evidence/scope.txt"
@@ -1270,6 +1275,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
     python3 "$repo_dir/scripts/vault-upload-process-check" --evidence "$evidence/vault-upload-process"
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
@@ -1299,6 +1305,7 @@ if [[ "${TEST_SCOPE:-full}" == policies* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_policies
 fi
 verify_publisher_routes() {
@@ -1315,6 +1322,7 @@ if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_publisher_routes
 fi
 verify_social_push() {
