@@ -212,10 +212,12 @@ internal class VaultUploadSession(private val context: Context, private val wall
         }
     }
 
-    private suspend fun interrupted(problem: Int = R.string.vault_upload_interrupted) {
-        val record = try { withContext(NonCancellable + Dispatchers.IO) { store.read() } } catch (_: Exception) { null }
-        mutable.value = mutable.value.copy(phase = VaultUploadPhase.WAITING, record = record ?: mutable.value.record,
-            step = null, problem = problem)
+    private suspend fun interrupted(problem: Int = R.string.vault_upload_interrupted) = withContext(NonCancellable) {
+        val record = try { withContext(Dispatchers.IO) { store.read() } } catch (_: Exception) { null }
+        val retained = record ?: mutable.value.record
+        val unsent = retained != null && !retained.mayHaveSent && !retained.uploaded && !retained.owned
+        mutable.value = mutable.value.copy(phase = if (unsent) VaultUploadPhase.REVIEW else VaultUploadPhase.WAITING,
+            record = retained, step = null, problem = problem)
     }
 
     fun cancelSending() {
@@ -271,11 +273,7 @@ internal class VaultUploadSession(private val context: Context, private val wall
         mutable.value = prior.copy(phase = VaultUploadPhase.LOADING)
         job = scope.launch {
             try {
-                withContext(Dispatchers.IO) {
-                    val record = store.read()
-                    require(record?.mayHaveSent != true && record?.uploaded != true)
-                    disk.discardDraft(); store.remove()
-                }
+                transfer.discardUnsubmitted()
                 mutable.value = VaultUploadView()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.value = prior.copy(problem = R.string.vault_draft_remove_failed) }

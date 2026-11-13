@@ -58,7 +58,7 @@ class TransferStore(private val context: Context, private val author: String) {
         val contents = requireNotNull(file("mint-reservations").load())
         require(contents.version == 1.toByte())
         val rows = JsonParser.parseString(contents.text).asJsonArray
-        require(rows.size() in 1..100)
+        require(rows.size() in 0..100)
         val ids = HashSet<String>()
         val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
         rows.map { element ->
@@ -88,6 +88,22 @@ class TransferStore(private val context: Context, private val author: String) {
         }) } }
         file("mint-reservations").save(EncryptedLocalFile.Contents(1, rows.toString()))
         if (!exists("mint-reservations-guard")) file("mint-reservations-guard").save(EncryptedLocalFile.Contents(1, author))
+        check(pendingMints().map { it.backend to it.candidate.transaction.encoded() } == next.map { it.backend to it.candidate.transaction.encoded() })
+    }
+
+    /** Release only a caller-verified never-submitted mint, under the physical-send lock. */
+    fun releaseUnsubmittedMint(backend: SaitoBackend, candidate: SaitoVaultMint.Candidate,
+        verifyNeverSubmitted: () -> Unit) = synchronized(SaitoLocalState.lock) {
+        require(candidate.author == author)
+        verifyNeverSubmitted()
+        val previous = pendingMints()
+        val retained = previous.firstOrNull { it.candidate.transaction.id == candidate.transaction.id } ?: return@synchronized
+        require(retained.backend == backend && retained.candidate.transaction.encoded() == candidate.transaction.encoded())
+        val next = previous.filterNot { it.candidate.transaction.id == candidate.transaction.id }
+        val rows = JsonArray().apply { next.forEach { record -> add(JsonObject().apply {
+            addProperty("backend", record.backend.id); addProperty("candidate", record.candidate.transaction.encoded())
+        }) } }
+        file("mint-reservations").save(EncryptedLocalFile.Contents(1, rows.toString()))
         check(pendingMints().map { it.backend to it.candidate.transaction.encoded() } == next.map { it.backend to it.candidate.transaction.encoded() })
     }
 

@@ -101,9 +101,11 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
                     peer.submit(plan.mint) {
                         admit()
                         require(store.read()?.candidate?.transaction?.encoded() == record.candidate.transaction.encoded())
-                        saved = saved.copy(mayHaveSent = true)
-                        store.save(saved, ::admit)
+                        val original = reservations.pendingMints().firstOrNull { it.candidate.transaction.id == record.candidate.transaction.id }
+                        if (original == null && reservations.available(record.candidate.inputs).size != record.candidate.inputs.size)
+                            throw VaultFundingChanged()
                         reservations.reserveMint(backend, record.candidate)
+                        saved = store.save(saved.copy(mayHaveSent = true), ::admit)
                     }
                     // A sole connection is gracefully closed by finishBroadcast. The subsequent
                     // file RPC must own a fresh lease, while other features retain their leases.
@@ -122,6 +124,20 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
         }
         onStep(VaultSendStep.OWNERSHIP)
         check(saved, ::admit)
+    }
+
+    suspend fun discardUnsubmitted() = withContext(Dispatchers.IO) {
+        synchronized(SaitoLocalState.lock) {
+            val record = store.read()
+            require(record?.mayHaveSent != true && record?.uploaded != true && record?.owned != true)
+            record?.let { unsent -> reservations.releaseUnsubmittedMint(backend, unsent.candidate) {
+                val current = requireNotNull(store.read())
+                require(current.candidate.transaction.encoded() == unsent.candidate.transaction.encoded() &&
+                    !current.mayHaveSent && !current.uploaded && !current.owned)
+            } }
+            store.remove()
+        }
+        disk.discardDraft()
     }
 
     private suspend fun <T> withPeer(block: suspend (SaitoPeer) -> T): T =

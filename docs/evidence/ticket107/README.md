@@ -172,6 +172,17 @@ consumer quiescence before captured-state restore) and3Spec findings (funding
 race uncertainty, interrupted completed-source cleanup and separate visible
 facts/provider rejection). These remain open until fixed and re-reviewed.
 
+Review finding1 now has a native red tracer: run43454335901 on
+`812fa1c5580028a2929c2dc1beba4e04da282e7f` reserves the same input for another
+payment during real Vault PIN authentication and fails the required15s unsent
+recovery. The fix validates/reserves the exact mint before recording uncertainty,
+preserves monotonic uncertainty/file-acceptance facts, and retains genuinely
+unsent review/discard. Only a journal-verified never-submitted mint reservation
+can be released; other payment/mint records remain. Empty committed mint ledgers
+are valid while partial file/guard loss remains a recovery barrier. Cancellation
+loads the durable record and updates status inside NonCancellable cleanup so it
+cannot overwrite a sent record with the stale pre-authentication copy.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

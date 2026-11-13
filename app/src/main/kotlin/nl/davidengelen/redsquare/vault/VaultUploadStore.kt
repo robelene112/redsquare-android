@@ -31,17 +31,23 @@ internal class VaultUploadStore(private val context: Context, private val owner:
         fun flag(name: String) = row.get(name).asJsonPrimitive.also { require(it.isBoolean) }.asBoolean
         VaultUploadRecord(candidate, mime, size, flag("mayHaveSent"), flag("uploaded"), flag("owned"))
     }
-    fun save(record: VaultUploadRecord, guard: () -> Unit = {}) = synchronized(SaitoLocalState.lock) {
+    fun save(record: VaultUploadRecord, guard: () -> Unit = {}): VaultUploadRecord = synchronized(SaitoLocalState.lock) {
         require(record.candidate.author == owner)
         guard()
+        val prior = read()
+        require(prior == null || prior.candidate.transaction.encoded() == record.candidate.transaction.encoded())
+        val retained = record.copy(mayHaveSent = record.mayHaveSent || prior?.mayHaveSent == true,
+            uploaded = record.uploaded || prior?.uploaded == true)
         val row = JsonObject().apply {
-            addProperty("candidate", record.candidate.transaction.encoded()); addProperty("mime", record.mime); addProperty("size", record.size)
-            addProperty("mayHaveSent", record.mayHaveSent); addProperty("uploaded", record.uploaded); addProperty("owned", record.owned)
+            addProperty("candidate", retained.candidate.transaction.encoded()); addProperty("mime", retained.mime); addProperty("size", retained.size)
+            addProperty("mayHaveSent", retained.mayHaveSent); addProperty("uploaded", retained.uploaded); addProperty("owned", retained.owned)
         }
         encrypted().save(EncryptedLocalFile.Contents(1, row.toString()))
-        check(read()?.let { it.candidate.transaction.encoded() == record.candidate.transaction.encoded() &&
-            it.mime == record.mime && it.size == record.size && it.mayHaveSent == record.mayHaveSent &&
-            it.uploaded == record.uploaded && it.owned == record.owned } == true)
+        requireNotNull(read()).also { written ->
+            check(written.candidate.transaction.encoded() == retained.candidate.transaction.encoded() &&
+                written.mime == retained.mime && written.size == retained.size && written.mayHaveSent == retained.mayHaveSent &&
+                written.uploaded == retained.uploaded && written.owned == retained.owned)
+        }
     }
     fun remove() = synchronized(SaitoLocalState.lock) {
         AtomicFile(File(context.noBackupFilesDir, name)).delete(); check(!hasWork())
