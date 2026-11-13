@@ -738,6 +738,13 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-advanced* ]]; then
+    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
+    verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
+    verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
+    printf '%s\n' 'Focused advanced Vault cases over owned peers, document fixtures and encrypted Android state. Not complete ticket108 or provider acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-key-reservation* ]]; then
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     printf '%s\n' 'Owned Android encrypted whole-key reservation/reopen and uncertainty across node changes. No public transfers.' > "$evidence/scope.txt"
