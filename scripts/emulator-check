@@ -738,6 +738,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-upload-process* ]]; then
+    python3 "$repo_dir/scripts/vault-upload-process-check" --evidence "$evidence/vault-upload-process"
+    printf '%s\n' 'Actual native Vault pending-send process loss and cold fresh-auth original-file retry, with exact installation restoration.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload-background* ]]; then
     verify_vault_notification_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
     printf '%s\n' 'Actual Android foreground notification, module/Home navigation and fresh upload ownership IO with the display off.' > "$evidence/scope.txt"
@@ -774,6 +779,7 @@ if [[ "${TEST_SCOPE:-full}" == vault-minting* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
+    python3 "$repo_dir/scripts/vault-upload-process-check" --evidence "$evidence/vault-upload-process"
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
     verify_vault_notification_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
     verify_vault_notification_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
@@ -1236,6 +1242,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    python3 "$repo_dir/scripts/vault-upload-process-check" --evidence "$evidence/vault-upload-process"
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
     verify_vault_notification_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
     verify_vault_notification_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence

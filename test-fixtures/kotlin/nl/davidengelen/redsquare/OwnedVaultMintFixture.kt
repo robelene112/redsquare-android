@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /** Disposable public protocol model. Mint shape/identity comes from the independent WASM wallet reference. */
 internal class OwnedVaultMintFixture(private val reference: JsonObject, private val owner: String,
-    val confirm: AtomicBoolean) : AutoCloseable {
+    val confirm: AtomicBoolean, private val prior: SaitoVaultMint.Candidate? = null) : AutoCloseable {
     private var peer: ControlledFeedPeer? = null
     private val workers = Executors.newSingleThreadExecutor()
     private val files = ConcurrentHashMap<String, String>()
@@ -68,7 +68,7 @@ internal class OwnedVaultMintFixture(private val reference: JsonObject, private 
                 require(it.inputs.single().amount == BigInteger("200000000"))
             }
         }
-    }
+    } ?: prior?.also { require(it.author == owner && it.nftId == id) }
 
     fun snapshot(): String {
         val minted = confirm.get() && candidate() != null

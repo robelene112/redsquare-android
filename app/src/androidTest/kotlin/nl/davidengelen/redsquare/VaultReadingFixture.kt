@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 })
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -44,7 +44,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     var intentsStarted = false
     var transfers: ChatFixtureState? = null
     val minted = if (minting) OwnedVaultMintFixture(instrumentation.context.assets.open("native-vault-mint-reference.json")
-        .reader().use { JsonParser.parseReader(it).asJsonObject }, fixture.publicKey, ownsKey) else null
+        .reader().use { JsonParser.parseReader(it).asJsonObject }, fixture.publicKey, ownsKey, priorMint?.let(nl.davidengelen.redsquare.saito.SaitoVaultMint::readCandidate)) else null
     try {
         wallets.replace(original, fixture)
         if (retainTransfers) {
@@ -70,7 +70,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
             }
             balance.start(InetAddress.getByName("127.0.0.1"), 0)
             lateinit var referencePeer: ControlledFeedPeer
-            withAppFrameFixture("vault-$name", evidence.name, expectedTransactionCount = expectedMintCount, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
+            withAppFrameFixture("vault-$name", evidence.name, expectedTransactionCount = expectedMintCount, preserveVault = preserveVault, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
                 advertisedServices = services, configurePeer = { peer ->
                     referencePeer = peer
                     minted?.connect(peer)
