@@ -68,3 +68,12 @@ An offer's existence does not establish its current availability or fulfilment.
 The record of a buyer's intended purchase or rental and its payment and
 fulfilment progress. A submitted payment is distinct from delivered ownership
 or access.
+
+**NFT holding observation**:
+A selected node's report of an unspent NFT tuple and its current owner. The tuple
+contains creator/quantity metadata, a normal owner/deposit slip and an identifier
+metadata slip. It is a node observation, not independent consensus verification.
+
+**NFT deposit**:
+SAITO retained in the NFT's normal owner slip. It is distinct from the key's
+quantity, a transaction fee and freely spendable wallet balance.

@@ -20,7 +20,7 @@ catalogue or payment placeholder.
 
 The owner approved all ten tickets and requested the complete build on
 2026-11-13. Native sub-issues #106–#115 and their dependency edges are published
-and verified. Work starts at #106, existing Vault keys/file access/offline copies;
+and verified. Reading slice #106 is verified on both SDKs. Next is #107, upload/key creation/Share;
 review base e290c5bdc185ff212e5b691c3cfa91d5a0c40c33. Continue through every ready
 slice to the combined beta without repeated implementation confirmations. Beta
 127 remains the delivered baseline until actual combined delivery. Existing
