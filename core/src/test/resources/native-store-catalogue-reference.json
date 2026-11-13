@@ -1,0 +1,233 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "sourceHashes": {
+      "node/mods/store/store.js": "5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f",
+      "node/mods/store/lib/categories.js": "54aa22f5b282a2564b9f38bd598c3b383eba034be3cd692ac33f98a0d76aeb9d",
+      "node/mods/store/lib/ui/browse-listings.js": "c3d52169e4fd27423c0e40e3c6c812d83833dbc2aec54a2b4b30c8946fb93b00"
+    },
+    "deployedBundleSha256": "bde5468da85e77160e832cc398a0d4c449a29258d8c613e73bb7e6a7f54d6e14",
+    "qualification": "Actual isolated pinned and deployed route bodies agree; actual pinned browse builder captures request bodies. Network/Summary adapters are not a full initialized frontend or signed listing/consensus proof."
+  },
+  "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "nftId": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+  "signature": "ed80ffeba22eef29bd1f8eb757fa32276b751e4de810b7b9fec7639a999eedca104bc9b63358549272e4e62d4875174f01d16b2473f74c9dd3deb8cf8fcbec53",
+  "categories": [
+    "Apps & Games",
+    "Extensions",
+    "Themes",
+    "Image NFTs",
+    "Tokens",
+    "Access Keys",
+    "Merchandise",
+    "Other"
+  ],
+  "routes": [
+    {
+      "url": "https://saito.io/store",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": ""
+      }
+    },
+    {
+      "url": "https://saito.io/store/pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "expected": {
+        "publicKey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "admin": false,
+        "moderate": false,
+        "category": ""
+      }
+    },
+    {
+      "url": "https://saito.davidengelen.nl/store/pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU/02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+      "expected": {
+        "publicKey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "admin": false,
+        "moderate": false,
+        "category": "",
+        "nft_id": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000"
+      }
+    },
+    {
+      "url": "https://saito.io/store/listing/ed80ffeba22eef29bd1f8eb757fa32276b751e4de810b7b9fec7639a999eedca104bc9b63358549272e4e62d4875174f01d16b2473f74c9dd3deb8cf8fcbec53",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "",
+        "signature": "ed80ffeba22eef29bd1f8eb757fa32276b751e4de810b7b9fec7639a999eedca104bc9b63358549272e4e62d4875174f01d16b2473f74c9dd3deb8cf8fcbec53"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=image",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Image NFTs"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=token",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Tokens"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=css",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Themes"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=js",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Extensions"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=stack",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Apps & Games"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=nwasm-nft-mod",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Apps & Games"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=saito-app",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Apps & Games"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=vault-nft-key",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Access Keys"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=vault-nft-rental",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Access Keys"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=store-nft-rental",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Access Keys"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=text",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Other"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=json",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Other"
+      }
+    },
+    {
+      "url": "https://saito.io/store?type=unknown",
+      "expected": {
+        "publicKey": "",
+        "admin": false,
+        "moderate": false,
+        "category": "Other"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "options": {},
+      "request": "load-listings",
+      "data": {
+        "module": "Store",
+        "public_key": "",
+        "category": "",
+        "offset": 0,
+        "page_size": 24,
+        "status": "active"
+      },
+      "peer": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    },
+    {
+      "options": {
+        "public_key": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "category": "Access Keys",
+        "offset": 24,
+        "page_size": 24
+      },
+      "request": "load-listings",
+      "data": {
+        "module": "Store",
+        "public_key": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "category": "Access Keys",
+        "offset": 24,
+        "page_size": 24,
+        "status": "active"
+      },
+      "peer": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    },
+    {
+      "options": {
+        "category": "Image NFTs",
+        "offset": 48,
+        "page_size": 999,
+        "status": "sold"
+      },
+      "request": "load-listings",
+      "data": {
+        "module": "Store",
+        "public_key": "",
+        "category": "Image NFTs",
+        "offset": 48,
+        "page_size": 48,
+        "status": "sold"
+      },
+      "peer": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    }
+  ]
+}
