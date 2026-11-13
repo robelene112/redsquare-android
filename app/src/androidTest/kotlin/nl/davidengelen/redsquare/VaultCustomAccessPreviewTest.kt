@@ -78,6 +78,7 @@ class VaultCustomAccessPreviewTest {
                 ui.waitUntil(5_000) { resolver.call(source, "status", name, null)?.getBoolean("firstWritten") == true }
                 ui.onNodeWithText("Cancel reading").performScrollTo().performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Your files").isDisplayed() }
+                ui.waitForIdle()
                 reply.countDown()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Custom field notes.txt").isDisplayed() }
                 assertTrue(scene.balanceRequests() >= 2)
