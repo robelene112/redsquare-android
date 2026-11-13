@@ -1,0 +1,17 @@
+{
+  "preliminary": true,
+  "reviewBase": "4c6a2d91a69e14ce4468a15a6ced737945771d7a",
+  "qualification": "Ticket109 is not complete. Independent isolated official/deployed route and browser read bodies, actual isolated listing builder and WASM wallet; not a fully initialized community frontend, funded listing or live provider acceptance. Public beta127 unchanged.",
+  "runs": [
+    {
+      "run": 43522227534,
+      "source": "3467d479d1090c5c23ea14c1187c64da60cb0716",
+      "conclusion": "failure",
+      "artifactId": 14083772069,
+      "zipSha256": "f19a8698cb84ba09d2c25d4565ab0c151b0f5fb87339d3ebe3964720d287e0b2",
+      "zipEntries": 64,
+      "captureMembers": 6,
+      "allExtractedMembersByteExact": true
+    }
+  ]
+}

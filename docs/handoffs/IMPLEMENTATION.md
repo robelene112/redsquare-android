@@ -40,12 +40,14 @@ terms; it is not current chain/stock/delivery proof. Actual isolated Store build
 a normal zero slip; never assume the transfer-only3/3shape. Its P2SH output is
 00+scriptHash, not an ordinary ECDSA key.
 
-No native Store UI exists yet. The first native catalogue/category tracer and
+The first native Store catalogue/category tracer and
 owned read RPC fixture are committed at3467d479d1090c5c23ea14c1187c64da60cb0716.
-Main and AndroidTest compile. Scope `store-catalogue-android17` run43522227534 is pending;
-expect first red on missing Store picker item. Retrieve its actual run status
-and preserve complete original failure before implementing the real native
-Discover/Orders/My store module. ControlledFeedPeer.storeResponse handles only
+Main and AndroidTest compile at that tracer source. Actual red43522227534 fails
+on the missing Store picker item within5s; original drawer screenshot/64ZIP/
+6captures are exact and176core tests pass. Native Store picker and first genuine
+Discover/Orders/My store shell are now implemented in the working tree; main
+compiles, updated AndroidTest compilation is pending. Run the corrected native
+tracer and inspect original rendered output before expanding the remaining UI. ControlledFeedPeer.storeResponse handles only
 three explicit Store read requests, preserving every older default. Native test
 requires genuine signed-reference offer title/price, all8accessible categories,
 actual filtered RPC and no publication/node change. Full Wallet includes it once.

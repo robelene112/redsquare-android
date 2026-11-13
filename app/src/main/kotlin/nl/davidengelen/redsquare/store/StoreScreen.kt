@@ -1,0 +1,168 @@
+package nl.davidengelen.redsquare.store
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.*
+import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.ui.*
+import java.io.IOException
+
+private enum class StoreTab(override val label: Int, override val icon: Int) : ModuleDestination {
+    DISCOVER(R.string.store_discover, R.drawable.ic_globe),
+    ORDERS(R.string.store_orders, R.drawable.ic_article),
+    MINE(R.string.store_my_store, R.drawable.ic_store);
+    override val caption get() = label
+}
+private enum class StoreReadProblem { CONNECTION, MISSING_SERVICE }
+private class StoreServiceMissing : IOException()
+private data class StoreBrowseView(val query: StoreQuery? = null, val page: StorePage? = null,
+    val loading: Boolean = false, val problem: StoreReadProblem? = null)
+
+/** Selected-node public reading. Each replacement owns its result; cancellation never clears a newer load. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
+    chrome: @Composable (Boolean) -> Unit, onNodeSettings: () -> Unit) {
+    var tab by rememberSaveable { mutableStateOf(StoreTab.DISCOVER) }
+    var category by rememberSaveable { mutableStateOf<StoreCategory?>(null) }
+    var offset by rememberSaveable { mutableIntStateOf(0) }
+    var categoriesOpen by remember { mutableStateOf(false) }
+    var retry by remember { mutableIntStateOf(0) }
+    val list = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+    val query = StoreQuery(if (tab == StoreTab.MINE) wallet.publicKey else null, category, offset)
+    var loaded by remember(wallet.publicKey, backend, endpoint) { mutableStateOf(StoreBrowseView()) }
+    LaunchedEffect(wallet.publicKey, backend, endpoint, query, tab, retry) {
+        if (tab == StoreTab.ORDERS) return@LaunchedEffect
+        val previous = loaded.page.takeIf { loaded.query == query }
+        loaded = StoreBrowseView(query, previous, loading = true)
+        try {
+            val page = withContext(Dispatchers.IO) {
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    if ("Store" !in peer.services()) throw StoreServiceMissing()
+                    val response = peer.request(SaitoStore.catalogueRequest(query).toByteArray())
+                    SaitoStore.readCatalogue(response.decodeToString(), query)
+                }
+            }
+            currentCoroutineContext().ensureActive()
+            loaded = StoreBrowseView(query, page)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (failure: Exception) {
+            currentCoroutineContext().ensureActive()
+            loaded = StoreBrowseView(query, previous, problem = if (failure is StoreServiceMissing)
+                StoreReadProblem.MISSING_SERVICE else StoreReadProblem.CONNECTION)
+        }
+    }
+    val view = loaded.takeIf { it.query == query } ?: StoreBrowseView(query, loading = true)
+    fun selectCategory(next: StoreCategory?) {
+        category = next; offset = 0; categoriesOpen = false
+        scope.launch { list.scrollToItem(0) }
+    }
+    Column(modifier) {
+        chrome(false)
+        Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
+            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            Text(stringResource(tab.label), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
+            if (tab != StoreTab.ORDERS) FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
+        }
+        if (tab == StoreTab.ORDERS) {
+            Column(Modifier.weight(1f).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(R.string.store_orders_unavailable), style = MaterialTheme.typography.bodyLarge)
+                Text(stringResource(R.string.store_orders_description), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        } else {
+            Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = { categoriesOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(category?.let { stringResource(it.caption) } ?: stringResource(R.string.store_all_categories))
+                    Spacer(Modifier.width(8.dp)); Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
+                }
+                InlineStatus(if (view.loading) stringResource(R.string.store_loading) else null, StatusTone.WORKING)
+                InlineStatus(view.problem?.let { stringResource(if (it == StoreReadProblem.MISSING_SERVICE)
+                    R.string.store_service_unavailable else R.string.store_load_failed) },
+                    if (view.problem == StoreReadProblem.MISSING_SERVICE) StatusTone.NEUTRAL else StatusTone.ERROR,
+                    actionLabel = stringResource(if (view.problem == StoreReadProblem.MISSING_SERVICE) R.string.vault_choose_node else R.string.retry),
+                    onAction = { if (view.problem == StoreReadProblem.MISSING_SERVICE) onNodeSettings() else retry++ })
+                InlineStatus(if ((view.page?.ignored ?: 0) > 0) stringResource(R.string.store_unreadable_items) else null, StatusTone.NEUTRAL)
+            }
+            SingleOwnerReveal(query to view.page?.items?.map { it.signature }, Modifier.weight(1f)) {
+                LazyColumn(Modifier.fillMaxSize(), state = list,
+                    contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    val page = view.page
+                    if (page != null && page.items.isEmpty() && !view.loading && view.problem == null) item("empty") {
+                        Text(stringResource(if (page.ignored > 0) R.string.store_unreadable_items else R.string.store_empty),
+                            Modifier.padding(vertical = 24.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    items(page?.items.orEmpty(), key = { it.signature }) { offer -> StoreOfferCard(offer) }
+                    if (page != null && (page.nextOffset != null || page.offset > 0)) item("pages") {
+                        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            if (page.offset > 0) OutlinedButton(enabled = !view.loading, modifier = Modifier.heightIn(min = 48.dp), onClick = {
+                                offset = (page.offset - 24).coerceAtLeast(0); scope.launch { list.scrollToItem(0) }
+                            }) { Text(stringResource(R.string.store_previous)) }
+                            page.nextOffset?.let { next -> Button(enabled = !view.loading, modifier = Modifier.heightIn(min = 48.dp), onClick = {
+                                offset = next; scope.launch { list.scrollToItem(0) }
+                            }) { Text(stringResource(R.string.store_more)) } }
+                        }
+                    }
+                }
+            }
+        }
+        ModuleNavigation(StoreTab.entries, tab, enabled = true) { next ->
+            if (next != tab) { tab = next; offset = 0; scope.launch { list.scrollToItem(0) } }
+        }
+    }
+    DesignSheet(categoriesOpen, stringResource(R.string.store_categories), { categoriesOpen = false }) { firstAction ->
+        TextButton(onClick = { selectCategory(null) }, modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) {
+            Text(stringResource(R.string.store_all_categories))
+        }
+        StoreCategory.entries.forEach { choice ->
+            val label = stringResource(choice.caption)
+            val accessible = stringResource(R.string.store_filter_category, label)
+            TextButton(onClick = { selectCategory(choice) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                .semantics { contentDescription = accessible }) { Text(label) }
+        }
+    }
+}
+
+@Composable
+private fun StoreOfferCard(offer: StoreSummary) {
+    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+        Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(stringResource(offer.category.caption), style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary)
+            Text(offer.title.ifBlank { stringResource(R.string.store_untitled) }, style = MaterialTheme.typography.titleLarge)
+            Text(registeredIdentity(offer.seller).name, style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text(offer.price?.let { "${it.amount.stripTrailingZeros().toPlainString()} ${it.currency}" }
+                    ?: stringResource(R.string.store_price_unavailable), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.store_quantity_available, offer.available.toString()),
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+private val StoreCategory.caption: Int get() = when (this) {
+    StoreCategory.APPS -> R.string.store_category_apps
+    StoreCategory.EXTENSIONS -> R.string.store_category_extensions
+    StoreCategory.THEMES -> R.string.store_category_themes
+    StoreCategory.IMAGES -> R.string.store_category_images
+    StoreCategory.TOKENS -> R.string.store_category_tokens
+    StoreCategory.ACCESS -> R.string.store_category_access
+    StoreCategory.MERCHANDISE -> R.string.store_category_merchandise
+    StoreCategory.OTHER -> R.string.store_category_other
+}

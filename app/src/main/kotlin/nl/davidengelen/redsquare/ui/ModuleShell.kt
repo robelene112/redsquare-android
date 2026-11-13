@@ -37,7 +37,8 @@ internal enum class AppModule(val title: Int, val icon: Int, val summary: Int) {
     RED_SQUARE(R.string.app_name, R.drawable.ic_home, R.string.app_redsquare_summary),
     STACK(R.string.stack_title, R.drawable.ic_article, R.string.app_stack_summary),
     TALK(R.string.talk_title, R.drawable.ic_video, R.string.app_talk_summary),
-    VAULT(R.string.vault_title, R.drawable.ic_vault, R.string.app_vault_summary)
+    VAULT(R.string.vault_title, R.drawable.ic_vault, R.string.app_vault_summary),
+    STORE(R.string.store_title, R.drawable.ic_store, R.string.app_store_summary)
 }
 
 /** Shared account navigation over the real installation, never a preview wallet. */

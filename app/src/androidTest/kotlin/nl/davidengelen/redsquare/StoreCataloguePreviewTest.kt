@@ -40,8 +40,10 @@ class StoreCataloguePreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
-            ui.waitUntil(5_000) { ui.onNodeWithText("Store").isDisplayed() }
-            ui.onNodeWithText("Store").performScrollTo().performClick()
+            ui.waitUntil(5_000) {
+                ui.onAllNodesWithText("Store").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            }
+            ui.onNodeWithText("Store").performScrollTo().assertIsDisplayed().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
             ui.onNodeWithText("2.5 SAITO").assertIsDisplayed()
             ui.onNodeWithText("All categories").performClick()

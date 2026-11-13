@@ -576,7 +576,22 @@ class MainActivity : ComponentActivity() {
                                     val moduleStates = rememberSaveableStateHolder()
                                     SingleOwnerReveal(linkedStack?.target ?: module, Modifier.weight(1f)) {
                                         val renderModule: @Composable () -> Unit = {
-                                            if (module == AppModule.VAULT) {
+                                            if (module == AppModule.STORE) {
+                                                val currentWallet = wallet
+                                                if (currentWallet != null) key(currentWallet.publicKey, selected) {
+                                                    val storeEndpoint = FeedEndpoints.fromIntent(intent, selected)
+                                                    CompositionLocalProvider(LocalPostNavigation provides postNavigation,
+                                                        LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, storeEndpoint)) {
+                                                        RegisteredIdentityScope(currentWallet, storeEndpoint, selected,
+                                                            RegistryAuthority.directoryPeer(intent, storeEndpoint).takeIf { nameDirectoryEnabled == true }) {
+                                                            nl.davidengelen.redsquare.store.StoreScreen(currentWallet, selected, storeEndpoint,
+                                                                Modifier.fillMaxSize(), chrome) {
+                                                                settingsCategory = "node"; settingsOpen = true
+                                                            }
+                                                        }
+                                                    }
+                                                } else chrome(false)
+                                            } else if (module == AppModule.VAULT) {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null) key(currentWallet.publicKey, selected) {
                                                     nl.davidengelen.redsquare.vault.VaultScreen(currentWallet, selected,
