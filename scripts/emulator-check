@@ -722,6 +722,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-upload-background* ]]; then
+    verify_group_chat_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
+    printf '%s\n' 'Actual Android foreground notification, module/Home navigation and fresh upload ownership IO with the display off.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload-cancel* ]]; then
     verify_group_chat_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
     printf '%s\n' 'Actual Android foreground notification cancellation and authenticated read-only recovery of a lost upload reply.' > "$evidence/scope.txt"
@@ -754,6 +759,7 @@ if [[ "${TEST_SCOPE:-full}" == vault-minting* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
+    verify_group_chat_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
     verify_group_chat_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
     verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
@@ -1215,6 +1221,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native VaultSharePreviewTest 180 vault-share vault-share-evidence
+    verify_group_chat_native VaultUploadBackgroundPreviewTest 180 vault-upload-background vault-upload-background-evidence
     verify_group_chat_native VaultUploadCancellationPreviewTest 180 vault-upload-cancel vault-upload-cancellation-evidence
     verify_group_chat_native VaultProviderPreviewTest 180 vault-provider vault-provider-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
