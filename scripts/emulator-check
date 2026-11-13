@@ -738,6 +738,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-funding-race* ]]; then
+    verify_group_chat_native VaultFundingRacePreviewTest 180 vault-funding-race vault-funding-race-evidence
+    printf '%s\n' 'Native device-authentication race with actual wallet-wide reservation, provably-unsent Vault recovery and retained other payment.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload-viewport* ]]; then
     verify_group_chat_native VaultUploadViewportPreviewTest 180 vault-upload-viewport vault-upload-viewport-evidence
     printf '%s\n' 'Native Vault upload review in12 actual width/font/theme configurations, without submitting.' > "$evidence/scope.txt"
@@ -793,6 +798,7 @@ if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence
+    verify_group_chat_native VaultFundingRacePreviewTest 180 vault-funding-race vault-funding-race-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     printf '%s\n' 'Native Vault upload review over an owned Android document provider. No public writes or real provider acceptance.' > "$evidence/scope.txt"
@@ -1257,6 +1263,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultUploadRecoveryPreviewTest 180 vault-upload-recovery vault-upload-recovery-evidence
     verify_group_chat_native VaultUploadLargePreviewTest 180 vault-upload-large vault-upload-large-evidence
+    verify_group_chat_native VaultFundingRacePreviewTest 180 vault-funding-race vault-funding-race-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
