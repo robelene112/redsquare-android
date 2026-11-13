@@ -61,11 +61,14 @@ class ChatMixedReceptionPreviewTest {
                     val ready = "Ready for incoming calls while this app is open."
                     wait(ready)
                     ui.onNodeWithText(ready).performScrollTo().assertIsDisplayed()
+                    val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+                    fun incomingOwners() = SaitoPeer.incomingLeaseIds(fixture.publicKey, endpoint)
                     var accountConnections = emptySet<Int>()
+                    var physicalAccount = emptySet<Int>()
                     ui.waitUntil(15_000) {
-                        val current = peer.authenticatedConnectionIds
-                        if (current.size == 1 && ui.onNodeWithText(ready).isDisplayed()) {
-                            accountConnections = current; true
+                        val current = incomingOwners()
+                        if (current.size == 1 && peer.authenticatedConnectionIds.size == 1 && ui.onNodeWithText(ready).isDisplayed()) {
+                            accountConnections = current; physicalAccount = peer.authenticatedConnectionIds; true
                         } else false
                     }
                     ui.onNodeWithContentDescription("Switch app: Saito Talk").performClick()
@@ -103,7 +106,8 @@ class ChatMixedReceptionPreviewTest {
                         ui.onNodeWithText("Received a signed group invitation.").performScrollTo().assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/private-retained-in-groups.png"),"Received a signed group invitation.")
                     }
-                    val oldConnections=peer.authenticatedConnectionIds
+                    // Feature ownership changes while pinned Saito requires one physical public-key route.
+                    val oldConnections=incomingOwners()
                     val groupConnections=oldConnections-accountConnections
                     check(groupConnections.isNotEmpty())
                     ui.onNodeWithText("Back").performClick();wait("Create group")
@@ -112,23 +116,29 @@ class ChatMixedReceptionPreviewTest {
                     val privateBytes=privateMessage.applicationRequest(1).let{it.copyOfRange(5,it.size)}
                     var probeAt=0L
                     val probeTargets=mutableSetOf<Int>()
+                    var freshProbeOwners=emptySet<Int>()
                     ui.waitUntil(15_000){
-                        val current=peer.authenticatedConnectionIds
-                        check(current.containsAll(accountConnections)) { "The observed Talk account connection changed" }
+                        val current=incomingOwners()
+                        check(current.containsAll(accountConnections)) { "The observed Talk account ownership changed" }
+                        check(peer.authenticatedConnectionIds == physicalAccount) { "The shared node transport changed during feature handover" }
                         val fresh=current-oldConnections
                         val now=android.os.SystemClock.elapsedRealtime()
                         if(current.intersect(groupConnections).isEmpty()&&fresh.isNotEmpty()&&now-probeAt>=200) {
-                            probeTargets.addAll(peer.sendIncomingTo(fresh,privateBytes,899));probeAt=now
+                            probeTargets.addAll(peer.sendIncomingTo(physicalAccount,privateBytes,899))
+                            probeAt=now
                         }
-                        current.intersect(groupConnections).isEmpty()&&fresh.isNotEmpty()&&
+                        freshProbeOwners = SaitoPeer.acceptedIncomingLeaseIds(fixture.publicKey, endpoint, 899).intersect(fresh)
+                        current.intersect(groupConnections).isEmpty()&&fresh.isNotEmpty()&&freshProbeOwners.isNotEmpty()&&
                             peer.incomingAcknowledgements.any{it[0]==13.toByte()&&ByteBuffer.wrap(it,1,4).int==899}
                     }
                     check(android.os.SystemClock.elapsedRealtime()<=handoverDeadline)
-                    check(probeTargets.isNotEmpty()&&probeTargets.intersect(oldConnections).isEmpty())
+                    check(probeTargets == physicalAccount)
+                    check(freshProbeOwners.isNotEmpty() && freshProbeOwners.intersect(oldConnections).isEmpty())
                     File(context.cacheDir,"chat-mixed-evidence/connection-handover.json").writeText(
-                        com.google.gson.Gson().toJson(mapOf("account" to accountConnections,"old" to oldConnections,
-                            "group" to groupConnections,"after" to peer.authenticatedConnectionIds,
-                            "privateProbeTargets" to probeTargets,"privateProbeAcknowledged" to true)))
+                        com.google.gson.Gson().toJson(mapOf("ownershipKind" to "feature-lease", "physicalBefore" to physicalAccount,
+                            "physicalAfter" to peer.authenticatedConnectionIds, "account" to accountConnections,"old" to oldConnections,
+                            "group" to groupConnections,"after" to incomingOwners(),
+                            "privateProbeTargets" to probeTargets,"privateProbeAcceptedOwners" to freshProbeOwners,"privateProbeAcknowledged" to true)))
                     check(ChatHistoryStore(context,fixture,backend,admin.publicKey).load().entries.single().envelope==privateMessage.envelope())
                     val unfinished=File(context.noBackupFilesDir,"${bases[1]}.new")
                     val faultBytes=byteArrayOf(1,2,3)
