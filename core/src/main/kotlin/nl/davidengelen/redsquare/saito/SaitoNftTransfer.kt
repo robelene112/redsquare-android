@@ -14,7 +14,7 @@ class SaitoNftTransfer private constructor(val transaction: SaitoTransaction, va
             require(key.holding.owner == wallet.publicKey && SaitoWallet.isPublicKey(recipient) && recipient != wallet.publicKey)
             val inputs = key.holding.witnesses.map(::witnessRow)
             val outputs = inputs.mapIndexed { index, row ->
-                SaitoTransaction.OwnedSlip(if (index == 1) recipient else row.publicKey, row.position)
+                SaitoTransaction.OwnedSlip(if (index == 1) recipient else row.publicKey, row.position.copy(index = index))
             }
             val body = SaitoEnvelope.decodeBound(key.envelope).body
             val transaction = SaitoTransaction.createNftTransfer(wallet, body, timestamp,
@@ -36,7 +36,8 @@ class SaitoNftTransfer private constructor(val transaction: SaitoTransaction, va
             val holding = SaitoNft.fromSnapshot(row(1), row(0), row(2))
             require(holding.owner == signed.author && row(1).position.block.signum() > 0)
             val target = SaitoNft.fromSnapshot(row(4), row(3), row(5))
-            require(row(0) == row(3) && row(2) == row(5) && row(1).position == row(4).position &&
+            require(row(0).publicKey == row(3).publicKey && row(2).publicKey == row(5).publicKey &&
+                (0..2).all { row(it).position.copy(index = it) == row(it + 3).position } &&
                 target.id == holding.id && target.owner != holding.owner)
             // The signed metadata still binds the exact creator, file and rules.
             val key = SaitoVault.readKey(holding, transaction.envelope())

@@ -9,21 +9,27 @@ class SaitoNftTransferTest {
         .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
 
     @Test fun permanentTransferMovesTheEntireIndependentNftTupleAndLockedDeposit() {
-        val source = resource("native-vault-reference")
-        val vector = resource("native-vault-transfer-reference")
-        val holding = SaitoBalanceSnapshot.parse(source.get("snapshot").asString.toByteArray(),
-            source.get("owner").asString, 1700001000000L).nfts.single()
-        val key = SaitoVault.readKey(holding, source.getAsJsonObject("key").get("envelope").asString)
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Published unsafe identity only.
-        val transfer = SaitoNftTransfer.create(wallet, key, vector.get("recipient").asString, vector.get("timestamp").asLong)
-        assertEquals(vector.getAsJsonObject("transfer").get("networkBase64").asString, transfer.transaction.encoded())
-        assertEquals(holding.quantity, transfer.holding.quantity)
-        assertEquals(holding.deposit, transfer.holding.deposit)
-        assertEquals(holding.witnesses, transfer.holding.witnesses)
-        val retained = SaitoNftTransfer.restore(transfer.transaction.encoded())
-        assertEquals(transfer.transaction.encoded(), retained.transaction.encoded())
-        assertEquals(vector.get("recipient").asString, retained.recipient)
-        assertThrows(IllegalArgumentException::class.java) { SaitoTransaction.restore(transfer.transaction.encoded()) }
+        for (name in listOf("native-vault-transfer-reference", "native-vault-transfer-offset-reference")) {
+            val source = resource("native-vault-reference")
+            val vector = resource(name)
+            val snapshot = source.get("snapshot").asString.let {
+                if (name.endsWith("offset-reference")) it.replace("2000002 8 0 ", "2000002 8 3 ")
+                    .replace("2000002 8 1 ", "2000002 8 4 ").replace("2000002 8 2 ", "2000002 8 5 ") else it
+            }
+            val holding = SaitoBalanceSnapshot.parse(snapshot.toByteArray(),
+                source.get("owner").asString, 1700001000000L).nfts.single()
+            val key = SaitoVault.readKey(holding, source.getAsJsonObject("key").get("envelope").asString)
+            val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Published unsafe identity only.
+            val transfer = SaitoNftTransfer.create(wallet, key, vector.get("recipient").asString, vector.get("timestamp").asLong)
+            assertEquals(vector.getAsJsonObject("transfer").get("networkBase64").asString, transfer.transaction.encoded())
+            assertEquals(holding.quantity, transfer.holding.quantity)
+            assertEquals(holding.deposit, transfer.holding.deposit)
+            assertEquals(holding.witnesses, transfer.holding.witnesses)
+            val retained = SaitoNftTransfer.restore(transfer.transaction.encoded())
+            assertEquals(transfer.transaction.encoded(), retained.transaction.encoded())
+            assertEquals(vector.get("recipient").asString, retained.recipient)
+            assertThrows(IllegalArgumentException::class.java) { SaitoTransaction.restore(transfer.transaction.encoded()) }
+        }
     }
 
     @Test fun transferRequiresTheActualCurrentOwnerAndAnotherValidRecipient() {
@@ -42,21 +48,21 @@ class SaitoNftTransferTest {
     @Test fun onlyTheExactTransferWithItsOriginalInputsCanBeObservedOnTheSelectedChain() {
         for (name in listOf("native-vault-transfer-reference", "native-vault-transfer-offset-reference")) {
             val vector = resource(name)
-        val row = vector.getAsJsonObject("block")
-        val transfer = SaitoNftTransfer.restore(vector.getAsJsonObject("transfer").get("networkBase64").asString)
-        val bytes = java.util.Base64.getDecoder().decode(row.get("fullBase64").asString)
-        val block = SaitoFullBlock.parse(bytes)
-        assertEquals(row.get("hash").asString, block.hash)
-        assertTrue(block.contains(transfer))
-        val changed = SaitoFullBlock.parse(java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString))
-        assertEquals(block.hash, changed.hash)
-        assertFalse(changed.contains(transfer))
-        val text = "${row.get("timestamp").asString}-${row.get("height").asString}-${block.hash}.snap\n"
-        val snapshot = SaitoBalanceSnapshot.parse(text.toByteArray(), transfer.author, row.get("timestamp").asLong)
-        val observed = SaitoPaymentChain.observe(transfer, snapshot) { hash -> if (hash == block.hash) bytes else null }
-        assertEquals(block.hash, requireNotNull(observed).hash)
-        assertNull(SaitoPaymentChain.observe(transfer, snapshot) { null })
-        assertNull(SaitoPaymentChain.observe(transfer, snapshot) { java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString) })
+            val row = vector.getAsJsonObject("block")
+            val transfer = SaitoNftTransfer.restore(vector.getAsJsonObject("transfer").get("networkBase64").asString)
+            val bytes = java.util.Base64.getDecoder().decode(row.get("fullBase64").asString)
+            val block = SaitoFullBlock.parse(bytes)
+            assertEquals(row.get("hash").asString, block.hash)
+            assertTrue(block.contains(transfer))
+            val changed = SaitoFullBlock.parse(java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString))
+            assertEquals(block.hash, changed.hash)
+            assertFalse(changed.contains(transfer))
+            val text = "${row.get("timestamp").asString}-${row.get("height").asString}-${block.hash}.snap\n"
+            val snapshot = SaitoBalanceSnapshot.parse(text.toByteArray(), transfer.author, row.get("timestamp").asLong)
+            val observed = SaitoPaymentChain.observe(transfer, snapshot) { hash -> if (hash == block.hash) bytes else null }
+            assertEquals(block.hash, requireNotNull(observed).hash)
+            assertNull(SaitoPaymentChain.observe(transfer, snapshot) { null })
+            assertNull(SaitoPaymentChain.observe(transfer, snapshot) { java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString) })
         }
     }
 
