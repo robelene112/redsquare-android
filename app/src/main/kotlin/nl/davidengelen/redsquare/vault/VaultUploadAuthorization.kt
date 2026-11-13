@@ -30,10 +30,19 @@ internal class VaultUploadAuthorization(private val activity: Activity, private 
                     }
                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                         if (activeToken != token) return
-                        activeToken = null; cancellation = null; session.authorizationCancelled(token)
+                        activeToken = null; cancellation = null
+                        if (errorCode == BiometricPrompt.BIOMETRIC_ERROR_CANCELED || errorCode == BiometricPrompt.BIOMETRIC_ERROR_USER_CANCELED)
+                            session.authorizationCancelled(token)
+                        else session.authorizationUnavailable(token)
                     }
                 })
-            } catch (_: Exception) { close() }
+            } catch (_: Exception) {
+                if (activeToken == token) {
+                    activeToken = null; cancellation = null
+                    runCatching { signal.cancel() }
+                    session.authorizationUnavailable(token)
+                }
+            }
         }
     }
     fun close() {

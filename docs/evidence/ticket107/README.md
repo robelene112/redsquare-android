@@ -146,6 +146,17 @@ the actual review, explicitly scrolls to its heading and verifies it is displaye
 within one original15s deadline. All12cells, fonts/themes, costs, action48dp and
 no-publication assertions and the180s class bound remain required.
 
+Run43447023227 on `28da880654a780d6393ff132d43aba138ca66569` passes the
+complete notification-cancellation/read-only lost-reply class, including the
+exact deliberately failed reply enqueue, one original mint/upload, authenticated
+remote-file bytes and Files return. No transport validation is waived.
+Run43447023974 on the same source retains the existing3recovery passes but fails
+the new fourth case within its15s goal: unavailable device authentication is
+mislabelled as user cancellation. The fix distinguishes actual user cancellation
+from unavailable authentication and leaves the visible review controller retryable
+when prompt setup throws. The complete4case class, including recovery after real
+screen-lock setup, must pass under its unchanged180s class bound.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

@@ -183,10 +183,12 @@ internal class VaultUploadSession(private val context: Context, private val wall
         }
     }
 
-    fun authorizationCancelled(token: Long) {
+    fun authorizationCancelled(token: Long) = authorizationStopped(token, R.string.vault_authorization_cancelled)
+    fun authorizationUnavailable(token: Long) = authorizationStopped(token, R.string.wallet_auth_unavailable)
+    private fun authorizationStopped(token: Long, problem: Int) {
         if (epoch.compareAndSet(token, token + 1) && mutable.value.phase == VaultUploadPhase.AUTHORIZING)
             mutable.value = mutable.value.copy(phase = if (mutable.value.record?.mayHaveSent == true || mutable.value.record?.uploaded == true)
-                VaultUploadPhase.WAITING else VaultUploadPhase.REVIEW, problem = R.string.vault_authorization_cancelled)
+                VaultUploadPhase.WAITING else VaultUploadPhase.REVIEW, problem = problem)
     }
 
     fun send(record: VaultUploadRecord, token: Long) {
