@@ -62,10 +62,15 @@ class VaultUploadBackgroundPreviewTest {
                     // lock screen does not masquerade as another upload authorization.
                     device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
                     device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
+                    val returnDeadline = SystemClock.elapsedRealtime() + 15_000
+                    fun remaining() = (returnDeadline - SystemClock.elapsedRealtime()).also { check(it > 0) }
                     context.startActivity(Intent(context, MainActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+                    ui.waitUntil(remaining()) {
+                        ui.onAllNodesWithContentDescription("Switch app: Red Square").fetchSemanticsNodes(atLeastOneRootRequired = false).size == 1
+                    }
                     ui.switchStackModule("Red Square", "Vault", scrollTarget = true)
-                    ui.waitUntil(15_000) { ui.onNodeWithText("Upload complete").isDisplayed() }
+                    ui.waitUntil(remaining()) { ui.onNodeWithText("Upload complete").isDisplayed() }
                     assertEquals(1, scene.peer.transactions.size); assertEquals(1, scene.peer.vaultUploads.size)
                     captureNativeScreen(File(scene.evidence, "completed-after-actual-background-and-screen-off.png"))
                     ui.onNodeWithText("Back to files").performScrollTo().performClick()

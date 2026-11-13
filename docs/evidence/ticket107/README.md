@@ -157,6 +157,21 @@ from unavailable authentication and leaves the visible review controller retryab
 when prompt setup throws. The complete4case class, including recovery after real
 screen-lock setup, must pass under its unchanged180s class bound.
 
+Complete focused Android17 run43449106813 on
+`a792fee256ff6453cd05903c9a5802a6ee12e016` passes the full then-declared107
+scope: actual process loss/restore, Share, all12upload viewport cells, background,
+cancellation/lost reply, provider, picker, all4recovery cases,4MiB upload,
+reservation and mint. All97ZIP entries and166capture members are byte-exact.
+The same-source Android10 run43449107346 fails after real screen-off progress:
+the test attempts module navigation before any Compose hierarchy is registered
+on returning from Home. Its original15s completed-return goal is retained as one
+combined readiness/navigation/completion deadline. That failed SDK run and its
+successful subsets are not assembled into complete acceptance.
+Independent source reviews at that snapshot report1Standards finding (fixture
+consumer quiescence before captured-state restore) and3Spec findings (funding
+race uncertainty, interrupted completed-source cleanup and separate visible
+facts/provider rejection). These remain open until fixed and re-reviewed.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off
