@@ -168,6 +168,7 @@ original logs and every application assertion and deadline.
 2. Record the starting commit as the review base. Use the current working branch
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`.
+   `vault-share` and its Android17 variant add VaultSharePreviewTest at the existing native Intent/document-provider seam, under its own180second class bound and additively in full Wallet. Sharing never grants publication or replaces the original launch endpoints.
    `composer-quote` and its Android17 variant isolate the existing quote
    publishing journey under its unchanged180second class bound. Full and
    complete publishing scopes retain it. Failure/pass observations record
