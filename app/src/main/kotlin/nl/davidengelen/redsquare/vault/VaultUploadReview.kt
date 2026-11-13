@@ -14,35 +14,79 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.*
 
 @Composable
-internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDiscard: () -> Unit, onCancel: () -> Unit) {
+internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDiscard: () -> Unit, onCancel: () -> Unit,
+    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit) {
     val context = LocalContext.current
+    val working = view.phase in setOf(VaultUploadPhase.LOADING, VaultUploadPhase.PREPARING, VaultUploadPhase.CHECKING,
+        VaultUploadPhase.AUTHORIZING, VaultUploadPhase.SENDING)
+    val title = when (view.phase) {
+        VaultUploadPhase.COMPLETE -> R.string.vault_upload_complete
+        VaultUploadPhase.WAITING -> R.string.vault_upload_waiting
+        VaultUploadPhase.SENDING -> when (view.step) {
+            VaultSendStep.KEY -> R.string.vault_sending_key
+            VaultSendStep.FILE -> R.string.vault_sending_file
+            VaultSendStep.OWNERSHIP -> R.string.vault_checking_key
+            null -> R.string.vault_upload_sending
+        }
+        VaultUploadPhase.CHECKING -> R.string.vault_checking_upload
+        VaultUploadPhase.AUTHORIZING -> R.string.vault_authorize_upload
+        VaultUploadPhase.PREPARING, VaultUploadPhase.LOADING -> R.string.vault_preparing_file
+        else -> R.string.vault_review_upload
+    }
     Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Column(Modifier.padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text(stringResource(if (view.phase == VaultUploadPhase.REVIEW) R.string.vault_review_upload else R.string.vault_preparing_file),
-                style = MaterialTheme.typography.headlineSmall)
+            Text(stringResource(title), style = MaterialTheme.typography.headlineSmall)
             InlineStatus(view.problem?.let { stringResource(it) }, StatusTone.ERROR)
-            if (view.phase != VaultUploadPhase.REVIEW) {
+            if (working) {
                 LinearProgressIndicator(Modifier.fillMaxWidth())
-                Text(Formatter.formatShortFileSize(context, view.bytesRead), style = MaterialTheme.typography.bodyMedium)
-                if (view.phase == VaultUploadPhase.PREPARING) TextButton(onClick = onCancel,
-                    modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_cancel_reading)) }
-            } else {
-                view.file?.let { file ->
-                    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                        Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(file.name, style = MaterialTheme.typography.titleLarge)
-                            Text("${Formatter.formatShortFileSize(context, file.size.toLong())} · ${file.mime}",
-                                style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
+                if (view.phase == VaultUploadPhase.PREPARING) {
+                    Text(Formatter.formatShortFileSize(context, view.bytesRead), style = MaterialTheme.typography.bodyMedium)
+                    TextButton(onClick = onCancel, modifier = Modifier.heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.vault_cancel_reading))
                     }
+                }
+                if (view.phase == VaultUploadPhase.SENDING) TextButton(onClick = onStop, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.vault_stop_upload))
+                }
+            }
+            view.file?.let { file ->
+                Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                    Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(file.name, style = MaterialTheme.typography.titleLarge)
+                        Text("${Formatter.formatShortFileSize(context, file.size.toLong())} · ${file.mime}",
+                            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                if (view.phase == VaultUploadPhase.REVIEW) {
                     Text(stringResource(R.string.vault_standard_key), style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.vault_standard_key_description), style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.vault_key_deposit), style = MaterialTheme.typography.labelLarge)
                     Text("1 SAITO", style = MaterialTheme.typography.headlineSmall)
+                    Text(stringResource(R.string.vault_no_network_fee), style = MaterialTheme.typography.labelLarge)
                     Text(stringResource(R.string.vault_deposit_description), style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.vault_upload_privacy), style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Button(onClick = onSubmit, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.vault_create_upload))
+                    }
                 }
+            }
+            if (view.phase == VaultUploadPhase.COMPLETE) {
+                Text(stringResource(R.string.vault_upload_complete_detail), style = MaterialTheme.typography.bodyMedium)
+                Button(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.vault_back_to_files))
+                }
+            }
+            if (view.phase == VaultUploadPhase.WAITING) {
+                Text(stringResource(R.string.vault_upload_waiting_detail), style = MaterialTheme.typography.bodyMedium)
+                Button(onClick = onCheck, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), enabled = view.record != null) {
+                    Text(stringResource(R.string.vault_check_upload))
+                }
+                if (view.file != null) OutlinedButton(onClick = onSubmit, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.vault_retry_upload))
+                }
+            }
+            if (view.phase == VaultUploadPhase.REVIEW && view.record?.mayHaveSent != true && view.record?.uploaded != true) {
                 OutlinedButton(onClick = onDiscard, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.vault_discard_file))
                 }

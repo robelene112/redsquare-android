@@ -43,8 +43,10 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     var feedback by remember { mutableStateOf<Int?>(null) }
     var error by remember { mutableStateOf<Int?>(null) }
     var warning by remember { mutableStateOf<Int?>(null) }
-    val uploads = remember(wallet.publicKey, backend) { VaultUploads.session(context, wallet.publicKey, backend) }
+    val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(context, wallet, backend, endpoint, balances) }
     val uploadView by uploads.state.collectAsState()
+    val authorization = remember(uploads, context) { VaultUploadAuthorization(context as Activity, uploads) }
+    DisposableEffect(authorization) { onDispose { authorization.close() } }
     val list = rememberLazyListState()
     val header = rememberReadingHeaderState(uploadView.phase == VaultUploadPhase.FILES, list)
     val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
@@ -77,7 +79,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             }
         }
     }
-    LaunchedEffect(library) {
+    LaunchedEffect(library, uploadView.phase == VaultUploadPhase.FILES) {
+        if (uploadView.phase != VaultUploadPhase.FILES) return@LaunchedEffect
         if (!exporting) {
             try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
             catch (cancelled: CancellationException) { throw cancelled }
@@ -147,7 +150,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         ReadingHeader(header) { chrome(false) }
         if (uploadView.phase != VaultUploadPhase.FILES) {
             SingleOwnerReveal(uploadView.phase, Modifier.weight(1f)) {
-                VaultUploadReview(uploadView, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation)
+                VaultUploadReview(uploadView, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,
+                    authorization::request, uploads::cancelSending, uploads::checkOwnership, uploads::backToFiles)
             }
         } else {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalAlignment = Alignment.CenterVertically) {

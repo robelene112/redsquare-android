@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.vault
 
 import android.content.Context
+import android.content.Intent
+import nl.davidengelen.redsquare.WalletBalances
 import android.net.Uri
 import android.provider.OpenableColumns
 import kotlinx.coroutines.*
@@ -12,15 +14,20 @@ import java.io.InputStream
 import java.security.MessageDigest
 import java.util.Locale
 
-internal enum class VaultUploadPhase { FILES, LOADING, PREPARING, REVIEW }
+internal enum class VaultUploadPhase { FILES, LOADING, PREPARING, REVIEW, CHECKING, AUTHORIZING, SENDING, WAITING, COMPLETE }
 internal data class VaultUploadFile(val name: String, val mime: String, val size: Int)
 internal data class VaultUploadView(val phase: VaultUploadPhase = VaultUploadPhase.FILES,
-    val file: VaultUploadFile? = null, val bytesRead: Long = 0, val problem: Int? = null)
+    val file: VaultUploadFile? = null, val bytesRead: Long = 0, val problem: Int? = null,
+    val step: VaultSendStep? = null, val record: VaultUploadRecord? = null)
 
 /** Process-owned preparation; only explicit future submission can publish a reviewed file. */
-internal class VaultUploadSession(private val context: Context, owner: String, backend: SaitoBackend) {
+internal class VaultUploadSession(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend,
+    private val endpoint: String, balances: WalletBalances) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private val disk = VaultDisk(context.applicationContext, owner, backend)
+    private val disk = VaultDisk(context.applicationContext, wallet.publicKey, backend)
+    private val store = VaultUploadStore(context, wallet.publicKey, backend)
+    private val transfer = VaultUploadTransfer(context, wallet, backend, endpoint, balances)
+    private val epoch = java.util.concurrent.atomic.AtomicLong()
     private val mutable = MutableStateFlow(VaultUploadView())
     val state: StateFlow<VaultUploadView> = mutable.asStateFlow()
     private var job: Job? = null
@@ -28,21 +35,25 @@ internal class VaultUploadSession(private val context: Context, owner: String, b
     @Volatile private var sourceCancellation: android.os.CancellationSignal? = null
 
     fun load() {
-        if (job?.isActive == true) return
+        if (job?.isActive == true || mutable.value.phase != VaultUploadPhase.FILES) return
         mutable.value = mutable.value.copy(phase = VaultUploadPhase.LOADING)
         job = scope.launch {
             try {
                 val file = withContext(Dispatchers.IO) {
                     disk.draft().also { check(it != null || !disk.hasDraftData()) }
                 }
-                mutable.value = reviewed(file)
+                val record = withContext(Dispatchers.IO) { store.read() }
+                mutable.value = reviewed(file).copy(record = record,
+                    phase = when { record?.complete == true -> VaultUploadPhase.COMPLETE
+                        record != null && (record.mayHaveSent || record.uploaded) -> VaultUploadPhase.WAITING
+                        else -> if (file == null) VaultUploadPhase.FILES else VaultUploadPhase.REVIEW })
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.value = VaultUploadView(VaultUploadPhase.REVIEW, problem = R.string.vault_draft_unavailable) }
         }
     }
 
     fun prepare(uri: Uri) {
-        if (job?.isActive == true) return
+        if (job?.isActive == true || mutable.value.record != null) return
         val prior = mutable.value
         val readingSignal = android.os.CancellationSignal().also { sourceCancellation = it }
         mutable.value = VaultUploadView(VaultUploadPhase.PREPARING)
@@ -129,13 +140,102 @@ internal class VaultUploadSession(private val context: Context, owner: String, b
         }
     }
 
+    /** Preflight creates and retains one exact candidate before asking the system to authorize it. */
+    fun requestAuthorization(ready: (VaultUploadRecord, Long) -> Unit) {
+        if (job?.isActive == true) return
+        val token = epoch.incrementAndGet()
+        val prior = mutable.value
+        mutable.value = prior.copy(phase = VaultUploadPhase.CHECKING, problem = null)
+        job = scope.launch {
+            try {
+                val file = withContext(Dispatchers.IO) { requireNotNull(disk.draft()) }
+                val record = transfer.prepare(file) { require(epoch.get() == token) }
+                mutable.value = prior.copy(phase = VaultUploadPhase.AUTHORIZING, record = record, problem = null)
+                ready(record, token)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) { mutable.value = prior.copy(problem = problem(failure)) }
+        }
+    }
+
+    fun authorizationCancelled(token: Long) {
+        if (epoch.compareAndSet(token, token + 1) && mutable.value.phase == VaultUploadPhase.AUTHORIZING)
+            mutable.value = mutable.value.copy(phase = if (mutable.value.record?.mayHaveSent == true || mutable.value.record?.uploaded == true)
+                VaultUploadPhase.WAITING else VaultUploadPhase.REVIEW, problem = R.string.vault_authorization_cancelled)
+    }
+
+    fun send(record: VaultUploadRecord, token: Long) {
+        if (epoch.get() != token || mutable.value.phase != VaultUploadPhase.AUTHORIZING) return
+        try { context.startForegroundService(Intent(context, VaultUploadService::class.java)) }
+        catch (_: Exception) {
+            mutable.value = mutable.value.copy(phase = VaultUploadPhase.REVIEW, problem = R.string.vault_background_unavailable)
+            return
+        }
+        mutable.value = mutable.value.copy(phase = VaultUploadPhase.SENDING, problem = null)
+        job = scope.launch {
+            try {
+                val file = withContext(Dispatchers.IO) { requireNotNull(disk.draft()) }
+                val result = transfer.send(record, file, { require(epoch.get() == token) }) { step ->
+                    withContext(Dispatchers.Main.immediate) { mutable.value = mutable.value.copy(step = step) }
+                }
+                mutable.value = mutable.value.copy(phase = if (result.complete) VaultUploadPhase.COMPLETE else VaultUploadPhase.WAITING,
+                    record = result, step = null)
+            } catch (_: CancellationException) { interrupted() }
+            catch (failure: Exception) { interrupted(problem(failure)) }
+        }
+    }
+
+    private suspend fun interrupted(problem: Int = R.string.vault_upload_interrupted) {
+        val record = try { withContext(NonCancellable + Dispatchers.IO) { store.read() } } catch (_: Exception) { null }
+        mutable.value = mutable.value.copy(phase = VaultUploadPhase.WAITING, record = record ?: mutable.value.record,
+            step = null, problem = problem)
+    }
+
+    fun cancelSending() {
+        if (mutable.value.phase != VaultUploadPhase.SENDING) return
+        epoch.incrementAndGet(); job?.cancel(); transfer.cancel()
+    }
+
+    fun checkOwnership() {
+        if (job?.isActive == true) return
+        val record = mutable.value.record ?: return
+        val token = epoch.incrementAndGet()
+        mutable.value = mutable.value.copy(phase = VaultUploadPhase.CHECKING, problem = null)
+        job = scope.launch {
+            try {
+                val result = transfer.check(record) { require(epoch.get() == token) }
+                mutable.value = mutable.value.copy(record = result,
+                    phase = if (result.complete) VaultUploadPhase.COMPLETE else VaultUploadPhase.WAITING)
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) { mutable.value = mutable.value.copy(phase = VaultUploadPhase.WAITING, problem = problem(failure)) }
+        }
+    }
+
+    fun backToFiles() {
+        if (job?.isActive == true || mutable.value.phase != VaultUploadPhase.COMPLETE) return
+        job = scope.launch {
+            try { withContext(Dispatchers.IO) { store.remove() }; mutable.value = VaultUploadView() }
+            catch (_: Exception) { mutable.value = mutable.value.copy(problem = R.string.vault_draft_remove_failed) }
+        }
+    }
+
+    private fun problem(failure: Exception) = when (failure) {
+        is VaultInsufficientFunds -> R.string.vault_insufficient_funds
+        is VaultFundingChanged -> R.string.vault_funding_changed
+        is VaultServiceMissing -> R.string.vault_service_unavailable
+        else -> R.string.vault_upload_interrupted
+    }
+
     fun discard() {
         if (job?.isActive == true) return
         val prior = mutable.value
         mutable.value = prior.copy(phase = VaultUploadPhase.LOADING)
         job = scope.launch {
             try {
-                withContext(Dispatchers.IO) { disk.discardDraft() }
+                withContext(Dispatchers.IO) {
+                    val record = store.read()
+                    require(record?.mayHaveSent != true && record?.uploaded != true)
+                    disk.discardDraft(); store.remove()
+                }
                 mutable.value = VaultUploadView()
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { mutable.value = prior.copy(problem = R.string.vault_draft_remove_failed) }
@@ -149,10 +249,15 @@ internal class VaultUploadSession(private val context: Context, owner: String, b
 
 /** Models are shared across module switches. Files remain encrypted and scoped on disk. */
 internal object VaultUploads {
-    private val sessions = linkedMapOf<Pair<String, SaitoBackend>, VaultUploadSession>()
+    private data class Identity(val owner: String, val backend: SaitoBackend, val endpoint: String)
+    private val sessions = linkedMapOf<Identity, VaultUploadSession>()
     @Synchronized fun hasPreparation(owner: String): Boolean = sessions.any {
-        it.key.first == owner && it.value.state.value.phase == VaultUploadPhase.PREPARING
+        it.key.owner == owner && it.value.state.value.phase in setOf(VaultUploadPhase.PREPARING, VaultUploadPhase.SENDING,
+            VaultUploadPhase.CHECKING, VaultUploadPhase.AUTHORIZING)
     }
-    @Synchronized fun session(context: Context, owner: String, backend: SaitoBackend): VaultUploadSession =
-        sessions.getOrPut(owner to backend) { VaultUploadSession(context.applicationContext, owner, backend) }
+    @Synchronized fun active(): List<VaultUploadSession> = sessions.values.filter { it.state.value.phase == VaultUploadPhase.SENDING }
+    @Synchronized fun session(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String,
+        balances: WalletBalances): VaultUploadSession = sessions.getOrPut(Identity(wallet.publicKey, backend, endpoint)) {
+        VaultUploadSession(context.applicationContext, wallet, backend, endpoint, balances)
+    }
 }

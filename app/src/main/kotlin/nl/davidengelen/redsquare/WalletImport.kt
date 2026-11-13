@@ -141,6 +141,7 @@ class WalletImport(
                                 operation.original.publicKey) || SaitoBackend.entries.any { backend ->
                             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
                                 operation.original.publicKey, backend).isNotEmpty() ||
+                                nl.davidengelen.redsquare.vault.VaultUploadStore(activity.applicationContext, operation.original.publicKey, backend).hasWork() ||
                                 nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,
                                     operation.original.publicKey, backend).load().hasWork ||
                                 nl.davidengelen.redsquare.vault.VaultDisk(activity.applicationContext,
@@ -247,6 +248,7 @@ class WalletImport(
                             nl.davidengelen.redsquare.saito.TransferStore(activity.applicationContext, selected.original.publicKey).hasWork() ||
                             nl.davidengelen.redsquare.vault.VaultUploads.hasPreparation(selected.original.publicKey) ||
                             SaitoBackend.entries.any { backend ->
+                                nl.davidengelen.redsquare.vault.VaultUploadStore(activity.applicationContext, selected.original.publicKey, backend).hasWork() ||
                                 nl.davidengelen.redsquare.vault.VaultDisk(activity.applicationContext, selected.original.publicKey, backend)
                                     .let { it.hasDraftData() || it.copies().items.isNotEmpty() }
                             }

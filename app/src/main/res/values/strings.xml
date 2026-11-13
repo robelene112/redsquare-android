@@ -903,7 +903,7 @@
     <string name="vault_standard_key_description">The holder of this key can retrieve your file from the selected Vault service.</string>
     <string name="vault_key_deposit">Key deposit</string>
     <string name="vault_deposit_description">This amount stays with the key. It is separate from a transaction fee and is not freely spendable while attached to the key.</string>
-    <string name="vault_upload_privacy">The storage operator can read this file. Vault access keys do not provide end-to-end encryption. Nothing is uploaded just by selecting a file.</string>
+    <string name="vault_upload_privacy">The storage operator can read this file. Vault access keys do not provide end-to-end encryption. The filename and file reference are public key metadata. Nothing is uploaded just by selecting a file.</string>
     <string name="vault_discard_file">Discard file</string>
     <string name="vault_cancel_reading">Cancel reading</string>
     <string name="vault_source_cancelled">File preparation stopped. Nothing was uploaded.</string>
@@ -912,4 +912,27 @@
     <string name="vault_draft_unavailable">This prepared file could not be read. Discard it and choose the file again.</string>
     <string name="vault_draft_remove_failed">Could not remove this prepared file. Check device storage and try again.</string>
     <string name="vault_source_save_failed">Could not prepare this file. Check your device storage, then discard it or try again.</string>
+    <string name="vault_create_upload">Create key and upload</string>
+    <string name="vault_authorize_upload">Authorize Vault upload</string>
+    <string name="vault_authorization_cancelled">Authorization cancelled. Nothing else was sent.</string>
+    <string name="vault_upload_channel">Vault uploads</string>
+    <string name="vault_upload_notification">Your reviewed Vault upload is in progress.</string>
+    <string name="vault_upload_sending">Uploading to Vault</string>
+    <string name="vault_stop_upload">Stop upload</string>
+    <string name="vault_background_unavailable">Could not start the background upload. Your reviewed file is saved.</string>
+    <string name="vault_insufficient_funds">You need 1 SAITO in available funds for this key. Your file is saved.</string>
+    <string name="vault_funding_changed">The reviewed funds are no longer available. Nothing else was sent.</string>
+    <string name="vault_upload_interrupted">Upload paused. Your file and original key are saved. Check availability before retrying.</string>
+    <string name="vault_upload_waiting">Waiting for availability</string>
+    <string name="vault_upload_waiting_detail">The key and file are checked separately. Retry uses the original key.</string>
+    <string name="vault_upload_complete">Upload complete</string>
+    <string name="vault_upload_complete_detail">The file was accepted and its access key is available on this node.</string>
+    <string name="vault_back_to_files">Back to files</string>
+    <string name="vault_check_upload">Check availability</string>
+    <string name="vault_retry_upload">Retry original upload</string>
+    <string name="vault_checking_upload">Checking upload</string>
+    <string name="vault_sending_key">Submitting access key</string>
+    <string name="vault_sending_file">Sending reviewed file</string>
+    <string name="vault_checking_key">Checking key ownership</string>
+    <string name="vault_no_network_fee">Network fee: 0 SAITO</string>
 </resources>
