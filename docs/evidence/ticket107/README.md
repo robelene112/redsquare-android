@@ -131,6 +131,13 @@ another mint, retained Chat/Fileshare bytes and exact original installation
 restoration. Its process image archive is named `images.tar` and must be collected
 in addition to the standard focused capture archives.
 
+Run43444702387 on `93ffc24a4172a5c283355304220841a7f87c711a` passes the
+complete delayed-provider and real revoked-grant class together under the
+unchanged bounds. The complete NonCancellable rollback/status update removes
+the false corrupt-draft result. All temporary `[DEBUG-vault107]` product probes
+and their dedicated log collection are removed after this verification. Original
+failed artifacts and the source-only original-Throwable capture remain retained.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off
