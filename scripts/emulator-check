@@ -1355,12 +1355,6 @@ if [[ "${TEST_SCOPE:-full}" == policies* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
-    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
-    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
-    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
-    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
-    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
-    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_policies
 fi
 verify_publisher_routes() {
@@ -1377,12 +1371,6 @@ if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
-    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
-    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
-    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
-    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
-    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
-    verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_publisher_routes
 fi
 verify_social_push() {

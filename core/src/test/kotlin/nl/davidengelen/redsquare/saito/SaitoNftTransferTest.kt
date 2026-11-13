@@ -40,7 +40,8 @@ class SaitoNftTransferTest {
         }
     }
     @Test fun onlyTheExactTransferWithItsOriginalInputsCanBeObservedOnTheSelectedChain() {
-        val vector = resource("native-vault-transfer-reference")
+        for (name in listOf("native-vault-transfer-reference", "native-vault-transfer-offset-reference")) {
+            val vector = resource(name)
         val row = vector.getAsJsonObject("block")
         val transfer = SaitoNftTransfer.restore(vector.getAsJsonObject("transfer").get("networkBase64").asString)
         val bytes = java.util.Base64.getDecoder().decode(row.get("fullBase64").asString)
@@ -56,6 +57,7 @@ class SaitoNftTransferTest {
         assertEquals(block.hash, requireNotNull(observed).hash)
         assertNull(SaitoPaymentChain.observe(transfer, snapshot) { null })
         assertNull(SaitoPaymentChain.observe(transfer, snapshot) { java.util.Base64.getDecoder().decode(row.get("changedInputBase64").asString) })
+        }
     }
 
 }

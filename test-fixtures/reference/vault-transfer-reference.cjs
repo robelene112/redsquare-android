@@ -1,6 +1,6 @@
 // Independent Vault mint fixture. Known unsafe test identity; never fund. No network or real storage.
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
-if (process.argv.length !== 6) throw Error('Usage: node vault-transfer-reference.cjs reference-runtime pinned-source-root key-reference output');
+if (process.argv.length !== 6 && !(process.argv.length === 7 && process.argv[6] === '--nonzero-indices')) throw Error('Usage: node vault-transfer-reference.cjs reference-runtime pinned-source-root key-reference output [--nonzero-indices]');
 const runtime=path.resolve(process.argv[2]), source=path.resolve(process.argv[3]);
 const hashes={
  'node/mods/vault/lib/contracts/default.js':'cb33a91e94c0aad86ed6078c1547e3a36dff88ef1e6b65166fe3e9d0d980da58',
@@ -27,6 +27,10 @@ function envelope(tx){
 
 const vector=JSON.parse(fs.readFileSync(process.argv[4],'utf8'));
 const wallet=await wasm.get_wallet();const w=vector.script.witness;
+// A held tuple need not be the first shard in its source transaction.
+if(process.argv[6] === '--nonzero-indices') Object.keys(w).forEach((name,index)=>{
+ const bytes=Buffer.from(w[name],'hex');bytes[49]=index+3;w[name]=bytes.toString('hex');
+});
 await wallet.add_nft(w.utxokey1,w.utxokey2,w.utxokey3,vector.id,vector.key.id,'vault-nft-key');
 const recipient=wasm.generate_public_key('0'.repeat(63)+'3');const original=JSON.parse(vector.key.envelope);
 const metadata=JSON.parse(Buffer.from(original.m,'base64').toString('utf8'));
