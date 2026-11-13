@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "issue": "https://github.com/robelene112/redsquare-android/issues/104",
+  "state": "CLOSED",
+  "stateReason": "COMPLETED",
+  "closedAt": "2026-11-13T07:11:25Z",
+  "acceptanceCriteriaChecked": 8,
+  "actualDevelopmentBranchPush": {
+    "head": "e34f1fb20e9c393ec1f6a3b292d81e21f472f970",
+    "remote": "e34f1fb20e9c393ec1f6a3b292d81e21f472f970",
+    "branch": "codex/unified-redesign",
+    "result": "PASS"
+  },
+  "parentStatesAfterClosure": {
+    "1": "OPEN",
+    "36": "OPEN",
+    "55": "OPEN",
+    "84": "OPEN",
+    "86": "OPEN"
+  },
+  "compiledSource": "3ad638b33be448a2672f7907590c8971a8ba774c",
+  "verificationSource": "96c71daec98336457721a189b3423019d9b74410",
+  "publicBeta": 127,
+  "qualification": "Actual implementation/evidence push, public delivery and all eight development criteria preceded closure. Real device/live-service/provider/Play checks remain under #36; stop after #104."
+}

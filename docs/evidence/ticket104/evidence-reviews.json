@@ -218,7 +218,7 @@
     "10": "43354455129",
     "17": "43354458096"
   },
-  "currentReleaseStatus": "DELIVERED127_PENDING_FINAL_GIT_AND_TRACKER",
+  "currentReleaseStatus": "COMPLETE127",
   "focusedHandshakeRuns": {
     "10": "43358964615",
     "17": "43358967566"
@@ -241,5 +241,25 @@
   "perSdkAcceptance": {
     "10": "PASS",
     "17": "PASS"
+  },
+  "developmentBranchDelivery": {
+    "head": "e34f1fb20e9c393ec1f6a3b292d81e21f472f970",
+    "remote": "e34f1fb20e9c393ec1f6a3b292d81e21f472f970",
+    "branch": "codex/unified-redesign",
+    "result": "PASS"
+  },
+  "trackerClosure": {
+    "issue": 104,
+    "state": "CLOSED",
+    "stateReason": "COMPLETED",
+    "closedAt": "2026-11-13T07:11:25Z",
+    "receipt": "closure.json",
+    "parentsRemainOpen": [
+      1,
+      36,
+      55,
+      84,
+      86
+    ]
   }
 }
