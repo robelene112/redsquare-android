@@ -722,9 +722,15 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-minting* ]]; then
+    verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
+    printf '%s\n' 'Native authenticated Vault mint/upload over owned signed peer and document fixtures. No public financial writes.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-upload* ]]; then
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
+    verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     printf '%s\n' 'Native Vault upload review over an owned Android document provider. No public writes or real provider acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -1180,6 +1186,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultFundingReservationTest 180 vault-funding vault-funding-evidence
+    verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
     verify_group_chat_native VaultRecoveryPreviewTest 180 vault-recovery vault-recovery-evidence
     verify_group_chat_native VaultViewportPreviewTest 180 vault-viewport vault-viewport-evidence

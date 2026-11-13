@@ -43,23 +43,16 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     var feedback by remember { mutableStateOf<Int?>(null) }
     var error by remember { mutableStateOf<Int?>(null) }
     var warning by remember { mutableStateOf<Int?>(null) }
-    val list = rememberLazyListState()
-    val header = rememberReadingHeaderState(true, list)
-    val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
-
     val uploads = remember(wallet.publicKey, backend) { VaultUploads.session(context, wallet.publicKey, backend) }
     val uploadView by uploads.state.collectAsState()
+    val list = rememberLazyListState()
+    val header = rememberReadingHeaderState(uploadView.phase == VaultUploadPhase.FILES, list)
+    val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
+
     LaunchedEffect(uploads) { uploads.load() }
     val pickUpload = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let(uploads::prepare)
     }
-    if (uploadView.phase != VaultUploadPhase.FILES) {
-        SingleOwnerReveal(uploadView.phase, modifier) {
-            VaultUploadReview(uploadView, Modifier.fillMaxSize(), chrome, uploads::discard, uploads::cancelPreparation)
-        }
-        return
-    }
-
     val exportDocument = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         scope.launch {
             busy = true; error = null; feedback = null
@@ -152,6 +145,11 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val visible = library.entries.filter { !offlineOnly || it.copy != null }
     Column(modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
         ReadingHeader(header) { chrome(false) }
+        if (uploadView.phase != VaultUploadPhase.FILES) {
+            SingleOwnerReveal(uploadView.phase, Modifier.weight(1f)) {
+                VaultUploadReview(uploadView, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation)
+            }
+        } else {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalAlignment = Alignment.CenterVertically) {
             Text(stringResource(R.string.vault_files), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             FrameIconButton(R.drawable.ic_info, stringResource(R.string.vault_about)) { privacyOpen = true }
@@ -247,6 +245,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             }
         }
+    }
     }
     }
     if (privacyOpen) AlertDialog(onDismissRequest = { privacyOpen = false }, title = { Text(stringResource(R.string.vault_about)) },

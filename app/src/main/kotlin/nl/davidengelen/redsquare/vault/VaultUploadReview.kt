@@ -14,11 +14,9 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.*
 
 @Composable
-internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, chrome: @Composable (Boolean) -> Unit,
-    onDiscard: () -> Unit, onCancel: () -> Unit) {
+internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDiscard: () -> Unit, onCancel: () -> Unit) {
     val context = LocalContext.current
     Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        chrome(false)
         Column(Modifier.padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text(stringResource(if (view.phase == VaultUploadPhase.REVIEW) R.string.vault_review_upload else R.string.vault_preparing_file),
                 style = MaterialTheme.typography.headlineSmall)

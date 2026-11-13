@@ -21,10 +21,10 @@ import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicBoolean
 
 internal data class VaultReadingScene(val activity: ActivityScenario<MainActivity>, val peer: ControlledFeedPeer,
-    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri)
+    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -43,6 +43,8 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     var failure: Throwable? = null
     var intentsStarted = false
     var transfers: ChatFixtureState? = null
+    val minted = if (minting) OwnedVaultMintFixture(instrumentation.context.assets.open("native-vault-mint-reference.json")
+        .reader().use { JsonParser.parseReader(it).asJsonObject }, fixture.publicKey, ownsKey) else null
     try {
         wallets.replace(original, fixture)
         if (retainTransfers) {
@@ -57,6 +59,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
         MockWebServer().use { balance ->
             balance.dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
+                    minted?.let { return it.response(request.target) }
                     if (request.target != "/balance/${fixture.publicKey}") return MockResponse(code = 404)
                     val originalSnapshot = vector.get("snapshot").asString
                     val ordinary = originalSnapshot.lines().take(2).joinToString("\n") + "\n"
@@ -70,7 +73,8 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
             withAppFrameFixture("vault-$name", evidence.name, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
                 advertisedServices = services, configurePeer = { peer ->
                     referencePeer = peer
-                    peer.vaultResponse = { signed ->
+                    minted?.connect(peer)
+                    if (minted == null) peer.vaultResponse = { signed ->
                         val data = signed.body.getAsJsonObject("data")
                         val selected = inventoryRows.single { it.getAsJsonObject("file").get("id").asString == data.getAsJsonObject("data").get("file_id").asString }
                         assertEquals(selected.get("scriptHash").asString, data.get("access_hash").asString)
@@ -81,14 +85,16 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                         }.toString()
                     }
                 }, archiveResponse = { criteria ->
+                    if (minted != null) minted.archive(criteria) else {
                     val selected = inventoryRows.firstOrNull { it.get("id").asString == criteria.get("field4")?.asString }
                     if (selected != null) "[" + JsonObject().apply { addProperty("tx", selected.getAsJsonObject("key").get("envelope").asString) } + "]"
                     else "[]"
-                }) { activity -> block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination)) }
+                    }
+                }) { activity -> block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted)) }
         }
     } catch (problem: Throwable) { failure = problem; throw problem }
     finally {
-        cleanupAfterTest(failure, { if (intentsStarted) Intents.release() },
+        cleanupAfterTest(failure, { if (intentsStarted) Intents.release() }, { minted?.close() },
             { transfers?.restoreFiles() }, { transfers?.restorePreferences() }, {
             val current = wallets.loadExisting()
             val fixturePreserved = current.exportJson() == fixture.exportJson()
