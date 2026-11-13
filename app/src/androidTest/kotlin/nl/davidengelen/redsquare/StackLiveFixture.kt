@@ -3,10 +3,12 @@ package nl.davidengelen.redsquare
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
 
-internal fun ComposeTestRule.switchStackModule(current: String, next: String) {
+internal fun ComposeTestRule.switchStackModule(current: String, next: String, scrollTarget: Boolean = false) {
     revealAppNavigation()
     onNodeWithContentDescription("Switch app: $current").performClick()
-    onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performClick()
+    val target = onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog()))
+    if (scrollTarget) target.performScrollTo()
+    target.performClick()
     waitUntil(5_000) { onNodeWithContentDescription("Switch app: $next").isDisplayed() }
 }
 

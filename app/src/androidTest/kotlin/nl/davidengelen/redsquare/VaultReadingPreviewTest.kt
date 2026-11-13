@@ -45,8 +45,8 @@ class VaultReadingPreviewTest {
             ui.onNodeWithText("Next files").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Field notes 21.txt").isDisplayed() }
             captureNativeScreen(File(scene.evidence, "page-two.png"))
-            ui.switchStackModule("Vault", "Red Square")
-            ui.switchStackModule("Red Square", "Vault")
+            ui.switchStackModule("Vault", "Red Square", scrollTarget = true)
+            ui.switchStackModule("Red Square", "Vault", scrollTarget = true)
             ui.waitUntil(15_000) { ui.onNodeWithText("Field notes 21.txt").isDisplayed() }
             ui.onAllNodesWithText("Field notes.txt").assertCountEquals(0)
             ui.onNodeWithTag("vault-files").performScrollToNode(hasText("Previous files"))

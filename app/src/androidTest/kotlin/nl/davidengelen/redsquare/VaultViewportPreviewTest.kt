@@ -15,16 +15,16 @@ class VaultViewportPreviewTest {
             withVaultReadingFixture("viewport-$width", captureFolder = "vault-viewport-evidence") { scene ->
                 ui.openNativeVault()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Field notes.txt").isDisplayed() }
-                ui.switchStackModule("Vault", "Red Square")
+                ui.switchStackModule("Vault", "Red Square", scrollTarget = true)
                 ui.withPostViewports(scene.activity, scene.evidence, "vault-$width", listOf(1f, 1.3f, 2f), width) { label, _ ->
-                    ui.switchStackModule("Red Square", "Vault")
+                    ui.switchStackModule("Red Square", "Vault", scrollTarget = true)
                     ui.waitUntil(15_000) { ui.onNodeWithText("Field notes.txt").isDisplayed() }
                     ui.onNodeWithTag("vault-files").performScrollToNode(hasText("Field notes.txt"))
                     ui.onNodeWithText("Field notes.txt").assertIsDisplayed()
                     ui.onNodeWithText("Keep offline").performScrollTo().assertIsDisplayed().assertHeightIsAtLeast(48.dp)
                     ui.onNodeWithText("Save as…").performScrollTo().assertIsDisplayed().assertHeightIsAtLeast(48.dp)
                     captureNativeScreen(File(scene.evidence, "$label-file.png"))
-                    ui.switchStackModule("Vault", "Red Square")
+                    ui.switchStackModule("Vault", "Red Square", scrollTarget = true)
                     ui.waitUntil(5_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 }
             }

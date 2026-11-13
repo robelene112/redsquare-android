@@ -95,5 +95,5 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
 internal fun ComposeTestRule.openNativeVault() {
     waitUntil(15_000) { onNodeWithText("Later").isDisplayed() }
     onNodeWithText("Later").performClick()
-    switchStackModule("Red Square", "Vault")
+    switchStackModule("Red Square", "Vault", scrollTarget = true)
 }
