@@ -25,7 +25,15 @@ const scripts = [
   ], details: {'\uffff': 2, '🎉': 1, witness: {nested: 'excluded from commitment'}}}],
   ['different-witness-same-contract', {...custom, witness: {input: 'a different supplied witness'}}]
 ].map(([name, script]) => ({name, source: JSON.stringify(script), hash: wasm.get_script_hash(JSON.stringify(script))}));
+// Keep the editor's original JSON spelling. JSON.stringify would erase the Rust
+// distinction between integer and floating numbers before it reaches the oracle.
+const numbers = ['1', '1.0', '1e2', '100.0', '1e7', '1e16', '0.000001', '1e-7', '-0', '-0.0',
+  '0e0', '1e23', '1.2345678901234567', '18446744073709551615', '18446744073709551616', '-9223372036854775809'];
+const numericScripts = numbers.map(value => {
+  const source = '{"op":"CHECKFIELD","field":"context.value","operator":"==","value":' + value + '}';
+  return {name: value, source, hash: wasm.get_script_hash(source)};
+});
 const output = {authority: {source: '0db0062d873369dc013046ed77c97410b5683b64', saitoWasm: '0.3.15', sourceHashes: hashes,
-  qualification: 'Actual WASM script commitments and pinned contract builders; no live provider or consensus authorization.'}, creator, renter, scripts};
+  qualification: 'Actual WASM script commitments and pinned contract builders; no live provider or consensus authorization.'}, creator, renter, scripts, numericScripts};
 fs.writeFileSync(path.resolve(process.argv[4]), JSON.stringify(output, null, 2) + '\n');
 console.log('Independent Vault access commitments generated:', scripts.length);

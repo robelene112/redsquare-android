@@ -37,5 +37,87 @@
       "source": "{\"op\":\"CHECKHASH\",\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"witness\":{\"input\":\"a different supplied witness\"}}",
       "hash": "c117b84c5953bd7c4dd4af859815de81b87ae54e4d7fbec50d6ef54cf7033d24"
     }
+  ],
+  "numericScripts": [
+    {
+      "name": "1",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1}",
+      "hash": "8b65ebc7d246e0ab60bc44ab3f97a790ebcf3191d2130ccd0be5d3f898d4ea4e"
+    },
+    {
+      "name": "1.0",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1.0}",
+      "hash": "6d0e859b95255f554a185aac4088e54eb605ea54b3d6f328a07ea264f17814e4"
+    },
+    {
+      "name": "1e2",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1e2}",
+      "hash": "236b780de7ea774a88339511b5e1d8141a35fcb499d175defa5a5578df2120a3"
+    },
+    {
+      "name": "100.0",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":100.0}",
+      "hash": "236b780de7ea774a88339511b5e1d8141a35fcb499d175defa5a5578df2120a3"
+    },
+    {
+      "name": "1e7",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1e7}",
+      "hash": "5bbe12d25abf9f3dcb7b3d39e24a549578608cd49ec8f5f0a3121c88dee47868"
+    },
+    {
+      "name": "1e16",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1e16}",
+      "hash": "6057eefbb24f1dd8110e83bee37c8054c401bc24194ece35f4746b53fbdb658c"
+    },
+    {
+      "name": "0.000001",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":0.000001}",
+      "hash": "66f586a99c5d7f263a182c1031e1af7ececf9891b261905794ddc9268f6d0f19"
+    },
+    {
+      "name": "1e-7",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1e-7}",
+      "hash": "6c94767bc254f1754351d660a906e8e4a62c370499fafab33b848e0c3e99266d"
+    },
+    {
+      "name": "-0",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":-0}",
+      "hash": "d4237e61a98f39478b2d9d6cf9c72598c368c5525bf5c164aae3d4daa41e8532"
+    },
+    {
+      "name": "-0.0",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":-0.0}",
+      "hash": "d4237e61a98f39478b2d9d6cf9c72598c368c5525bf5c164aae3d4daa41e8532"
+    },
+    {
+      "name": "0e0",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":0e0}",
+      "hash": "3fe7a3dfaf0dd8074a2d891eaa1da30b2a84504db545e1aa8b8f420f32e2cd2e"
+    },
+    {
+      "name": "1e23",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1e23}",
+      "hash": "40a8653eebc471678289c1fce42a3669ea9697666c5337e7c98b20fb7963556c"
+    },
+    {
+      "name": "1.2345678901234567",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":1.2345678901234567}",
+      "hash": "3eb39005b4752534948b1af3e04975117489f29ad12ecb17d7e293f1297dd4ec"
+    },
+    {
+      "name": "18446744073709551615",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":18446744073709551615}",
+      "hash": "e80358270e3ef6b93af87a7b2d4b5453112f2258511c12aadb136c397613916c"
+    },
+    {
+      "name": "18446744073709551616",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":18446744073709551616}",
+      "hash": "424e6b3f506bd26889442e65b343639839d9333c5e46455764d6904059906903"
+    },
+    {
+      "name": "-9223372036854775809",
+      "source": "{\"op\":\"CHECKFIELD\",\"field\":\"context.value\",\"operator\":\"==\",\"value\":-9223372036854775809}",
+      "hash": "04f2e1c1a7ed789e5f58b78f95d4fb4afb842af239f7d2d85d42e98ee0da8f5c"
+    }
   ]
 }
