@@ -90,7 +90,18 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                     if (selected != null) "[" + JsonObject().apply { addProperty("tx", selected.getAsJsonObject("key").get("envelope").asString) } + "]"
                     else "[]"
                     }
-                }) { activity -> block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted)) }
+                }) { activity ->
+                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted)) }
+                    finally {
+                        if (minted != null) File(evidence, "owned-protocol-facts.json").writeText(JsonObject().apply {
+                            addProperty("mintFrames", referencePeer.transactions.size)
+                            addProperty("fileUploads", referencePeer.vaultUploads.size)
+                            addProperty("originalCandidateObserved", minted.candidate() != null)
+                            addProperty("nodeReportsOwnership", ownsKey.get())
+                            addProperty("peerAcceptedRequests", runCatching { referencePeer.assertHealthy(); true }.getOrDefault(false))
+                        }.toString())
+                    }
+                }
         }
     } catch (problem: Throwable) { failure = problem; throw problem }
     finally {

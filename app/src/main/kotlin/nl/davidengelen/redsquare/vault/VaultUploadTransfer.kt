@@ -75,17 +75,15 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
         var saved = record
         val operation = currentCoroutineContext().job
         fun admit() { operation.ensureActive(); current(); guard() }
-        try { SaitoPeer(wallet, endpoint).use { peer ->
-            activePeer = peer
-            if ("vault" !in peer.services()) throw VaultServiceMissing()
-            val snapshot = balances.read(backend, wallet.publicKey) ?: throw IOException("Ownership unavailable")
-            val owned = snapshot.nfts.any { it.id == record.candidate.nftId && it.creator == wallet.publicKey }
-            if (!owned) {
-                val funding = balances.funding(backend, wallet.publicKey) ?: throw IOException("Funding unavailable")
-                val eligible = record.candidate.inputs.all { it in funding.eligible }
-                if (!eligible && !record.mayHaveSent) throw VaultFundingChanged()
-                if (eligible) {
-                    onStep(VaultSendStep.KEY)
+        val snapshot = balances.read(backend, wallet.publicKey) ?: throw IOException("Ownership unavailable")
+        val owned = snapshot.nfts.any { it.id == record.candidate.nftId && it.creator == wallet.publicKey }
+        if (!owned) {
+            val funding = balances.funding(backend, wallet.publicKey) ?: throw IOException("Funding unavailable")
+            val eligible = record.candidate.inputs.all { it in funding.eligible }
+            if (!eligible && !record.mayHaveSent) throw VaultFundingChanged()
+            if (eligible) {
+                onStep(VaultSendStep.KEY)
+                withPeer { peer ->
                     peer.submit(plan.mint) {
                         admit()
                         require(store.read()?.candidate?.transaction?.encoded() == record.candidate.transaction.encoded())
@@ -93,20 +91,29 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
                         store.save(saved, ::admit)
                         reservations.reserveMint(backend, record.candidate)
                     }
+                    // A sole connection is gracefully closed by finishBroadcast. The subsequent
+                    // file RPC must own a fresh lease, while other features retain their leases.
                     peer.finishBroadcast()
                 }
             }
-            if (!saved.uploaded) {
-                onStep(VaultSendStep.FILE)
-                val response = peer.requestVaultUpload(plan, ::admit)
-                val result = JsonParser.parseString(response.decodeToString()).asJsonObject
-                require(result.get("status")?.asString == "success" && result.get("err")?.asString.orEmpty().isEmpty())
-                admit()
-                saved = saved.copy(uploaded = true)
-                store.save(saved, ::admit)
-            }
-            onStep(VaultSendStep.OWNERSHIP)
-            check(saved, ::admit)
-        } } finally { activePeer = null }
+        }
+        if (!saved.uploaded) {
+            onStep(VaultSendStep.FILE)
+            val response = withPeer { peer -> peer.requestVaultUpload(plan, ::admit) }
+            val result = JsonParser.parseString(response.decodeToString()).asJsonObject
+            require(result.get("status")?.asString == "success" && result.get("err")?.asString.orEmpty().isEmpty())
+            admit()
+            saved = saved.copy(uploaded = true)
+            store.save(saved, ::admit)
+        }
+        onStep(VaultSendStep.OWNERSHIP)
+        check(saved, ::admit)
     }
+
+    private suspend fun <T> withPeer(block: suspend (SaitoPeer) -> T): T =
+        try { SaitoPeer(wallet, endpoint).use { peer ->
+            activePeer = peer
+            if ("vault" !in peer.services()) throw VaultServiceMissing()
+            block(peer)
+        } } finally { activePeer = null }
 }
