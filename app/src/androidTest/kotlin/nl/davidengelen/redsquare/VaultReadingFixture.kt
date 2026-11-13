@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -85,6 +85,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                     val ordinary = originalSnapshot.lines().take(2).joinToString("\n") + "\n"
                     val full = if (inventory) ordinary + inventoryRows.flatMap { it.getAsJsonArray("snapshotRows").map { line -> line.asString } }.joinToString("\n") + "\n" else originalSnapshot
                     val snapshot = (if (ownsKey.get()) full else ordinary).replaceBefore('-', System.currentTimeMillis().toString())
+                    balanceReplyGate?.let { check(it.await(30, java.util.concurrent.TimeUnit.SECONDS)) { "Owned balance reply was not released" } }
                     return MockResponse(body = snapshot)
                 }
             }
@@ -133,6 +134,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                         throw problem
                     }
                     finally {
+                        balanceReplyGate?.countDown()
                         if (minted != null) File(evidence, "owned-protocol-facts.json").writeText(JsonObject().apply {
                             addProperty("mintFrames", referencePeer.transactions.size)
                             addProperty("fileUploads", referencePeer.vaultUploads.size)

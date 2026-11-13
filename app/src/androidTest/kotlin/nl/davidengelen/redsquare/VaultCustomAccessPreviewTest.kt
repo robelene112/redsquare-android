@@ -7,6 +7,13 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.Base64
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import java.util.concurrent.CountDownLatch
 
 class VaultCustomAccessPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -52,4 +59,36 @@ class VaultCustomAccessPreviewTest {
             assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
             captureNativeScreen(File(scene.evidence, "custom-file-exported.png"))
         }
+
+    @Test fun stoppingFilePreparationRestartsTheCancelledFileDiscovery() {
+        val reply = CountDownLatch(1)
+        withVaultReadingFixture("discovery-restart", custom = true, captureFolder = "vault-custom-access-evidence",
+            balanceReplyGate = reply) { scene ->
+            val name = "unknown-stalled-discovery.bin"
+            val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$name")
+            val resolver = scene.context.contentResolver
+            resolver.call(source, "prepare", name, Bundle().apply { putByteArray("bytes", ByteArray(256 * 1024) { 73 }) })
+            Intents.intending(hasAction(Intent.ACTION_OPEN_DOCUMENT)).respondWith(android.app.Instrumentation.ActivityResult(
+                Activity.RESULT_OK, Intent().setData(source).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
+            try {
+                ui.openNativeVault()
+                ui.waitUntil(5_000) { scene.balanceRequests() > 0 }
+                ui.onNodeWithText("Upload file").performScrollTo().performClick()
+                ui.waitUntil(5_000) { ui.onNodeWithText("Preparing your file").isDisplayed() }
+                ui.waitUntil(5_000) { resolver.call(source, "status", name, null)?.getBoolean("firstWritten") == true }
+                ui.onNodeWithText("Cancel reading").performScrollTo().performClick()
+                ui.waitUntil(10_000) { ui.onNodeWithText("Your files").isDisplayed() }
+                reply.countDown()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Custom field notes.txt").isDisplayed() }
+                assertTrue(scene.balanceRequests() >= 2)
+                assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
+                captureNativeScreen(File(scene.evidence, "cancelled-discovery-restarted-after-file-preparation.png"))
+            } finally {
+                reply.countDown()
+                resolver.call(source, "release", name, null)
+                ui.waitUntil(5_000) { resolver.call(source, "status", name, null)?.getInt("activeWorkers") == 0 }
+            }
+        }
+    }
+
 }
