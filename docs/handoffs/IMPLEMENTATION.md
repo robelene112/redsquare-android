@@ -27,6 +27,32 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
+## Active Store catalogue slice #109
+
+#108 is closed. #109 is assigned and its native dependency gate reports0open
+blockers. Review base:`4c6a2d91a69e14ce4468a15a6ced737945771d7a`.
+First link tracer failed on the missing native route, then passes against actual
+pinned AND deployed route bodies in `native-store-catalogue-reference.json`.
+Commit12f4ff860 contains the real approved Store base/storefront/asset/signature
+reading targets and official eight-category map. No native Store UI exists yet.
+The core query tracer also passes after its missing-body red, matching actual
+category/seller/offset/page-size/status requests and all eight categories. Next: actual bounded pages,
+signed listing hydration/media, native UI, links/origin preservation and unsent
+seller Chat drafts. Do not skip any109criterion or infer ticket completion from
+this small protocol start. Continue110–115 and the one combined beta afterwards.
+
+Owned reference generator:`test-fixtures/reference/store-catalogue-reference.cjs`.
+Pinned upstream Store/categories/browse/summary/warehouse/route source was read
+and Gitblob-verified externally. Public `/store` still serves bundle1794546696
+(SHA256bde5468d...); actual minified route function matches the pinned router.
+The owner `/store` returns the generic small page, not proof of advertised Store
+service. Check exact service `Store` (case-sensitive). Browser catalogue supports
+category/seller/active/sold paging, no global free-text server search. Serialized
+summaries omit image/listing transaction; use signature Archive hydration and
+exact selected-node `/store/cache/<nft_id>.img` media. Source builders are not a
+fully initialized client or financial/consensus acceptance. All scratch remains
+under the external vault-store-planning directory. Beta127 unchanged.
+
 ## Completed upload/key slice #107
 
 #106 and #107 have complete focused Android10/17 acceptance and independent
