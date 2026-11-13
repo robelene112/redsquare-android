@@ -44,6 +44,12 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     var feedback by remember { mutableStateOf<Int?>(null) }
     var error by remember { mutableStateOf<Int?>(null) }
     var warning by remember { mutableStateOf<Int?>(null) }
+    var accessToken by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf<String?>(null) }
+    var accessIdentity by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf<String?>(null) }
+    var accessSource by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf("") }
+    var accessInputs by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf("[]") }
+    var fileJob by remember { mutableStateOf<Job?>(null) }
+    DisposableEffect(library) { onDispose { fileJob?.cancel() } }
     val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(context, wallet, backend, endpoint, balances) }
     val uploadView by uploads.state.collectAsState()
     val list = rememberLazyListState()
@@ -96,14 +102,17 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             if (library.problem == null) { page = library.page; list.scrollToItem(0) }
         }
     }
-    fun keep(entry: VaultEntry) {
+    fun keep(entry: VaultEntry, supplied: SaitoAccessScript? = null) {
         if (busy || exporting) return
         busy = true; feedback = null; error = null
-        scope.launch {
-            try { library.keep(entry); feedback = R.string.vault_copy_saved }
+        fileJob = scope.launch {
+            try {
+                library.keep(entry, supplied); feedback = R.string.vault_copy_saved
+                if (accessToken == entry.token) accessToken = null
+            }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: VaultLocalFailure) { error = R.string.vault_offline_save_failed }
-            catch (_: Exception) { error = R.string.vault_access_failed }
+            catch (_: Exception) { error = if (supplied != null) R.string.vault_unlock_denied else R.string.vault_access_failed }
             finally { busy = false }
         }
     }
@@ -117,17 +126,18 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             finally { busy = false }
         }
     }
-    fun saveAs(entry: VaultEntry) {
+    fun saveAs(entry: VaultEntry, supplied: SaitoAccessScript? = null) {
         if (busy || exporting) return
         busy = true; feedback = null; error = null
-        scope.launch {
+        fileJob = scope.launch {
             try {
-                val file = library.download(entry)
+                val file = library.download(entry, supplied)
                 try { withContext(Dispatchers.IO) { currentCoroutineContext().ensureActive(); library.disk.prepareExport(file) } }
                 catch (cancelled: CancellationException) { throw cancelled }
                 catch (failure: Exception) { throw VaultLocalFailure(failure) }
                 library.refreshLocal()
                 exporting = true
+                if (accessToken == entry.token) accessToken = null
                 try {
                     exportDocument.launch(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
                         .setType(file.mime).putExtra(Intent.EXTRA_TITLE,
@@ -135,7 +145,10 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 } catch (_: Exception) { exporting = false; error = R.string.vault_save_failed }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: VaultLocalFailure) { exporting = false; error = R.string.vault_export_prepare_failed }
-            catch (_: Exception) { exporting = false; error = R.string.vault_access_failed }
+            catch (_: Exception) {
+                exporting = false
+                error = if (supplied != null) R.string.vault_unlock_denied else R.string.vault_access_failed
+            }
             finally {
                 if (!exporting) {
                     try { withContext(NonCancellable + Dispatchers.IO) { library.disk.finishExport() }; warning = null }
@@ -172,7 +185,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             InlineStatus(if (library.loading) stringResource(R.string.vault_loading) else null, StatusTone.WORKING)
             InlineStatus(if (busy || exporting) stringResource(R.string.vault_working) else null, StatusTone.WORKING)
             InlineStatus(feedback?.let { stringResource(it) }, StatusTone.SUCCESS)
-            InlineStatus(error?.let { stringResource(it) }, StatusTone.ERROR)
+            InlineStatus(error?.takeIf { accessToken == null }?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(uploadView.problem?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(library.problem?.let { stringResource(if (it == VaultProblem.SERVICE_UNAVAILABLE)
                 R.string.vault_service_unavailable else R.string.vault_connection_failed) },
@@ -249,12 +262,23 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             val readable = entry.copy != null || entry.key?.let { it.customScript == null } == true
+                            if (entry.copy == null && entry.key?.customScript != null) FilledTonalButton(onClick = {
+                                val identity = "${entry.token}:${entry.key.fileId}"
+                                if (accessIdentity != identity) {
+                                    accessIdentity = identity; accessSource = requireNotNull(entry.key.customScript); accessInputs = "[]"
+                                }
+                                error = null; feedback = null; accessToken = entry.token
+                            }, enabled = enabled, modifier = Modifier.heightIn(min = 48.dp)) {
+                                Text(stringResource(R.string.vault_open_access))
+                            }
+                            else {
                             OutlinedButton(onClick = { saveAs(entry) }, enabled = enabled && readable,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_save_as)) }
                             if (entry.copy == null) FilledTonalButton(onClick = { keep(entry) }, enabled = enabled && readable,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_keep_offline)) }
                             else TextButton(onClick = { remove(entry.copy) }, enabled = enabled,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_remove_copy)) }
+                            }
                         }
                     }
                 }
@@ -272,6 +296,12 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     }
     }
     }
+    }
+    library.entries.firstOrNull { it.token == accessToken && it.key?.customScript != null }?.let { entry ->
+        VaultAccessDialog(entry, backend.domain, accessSource, accessInputs, busy || exporting, error,
+            onSource = { accessSource = it }, onInputs = { accessInputs = it }, onEdited = { error = null },
+            onDismiss = { fileJob?.cancel(); accessToken = null },
+            onKeep = { keep(entry, it) }, onSave = { saveAs(entry, it) })
     }
     if (privacyOpen) AlertDialog(onDismissRequest = { privacyOpen = false }, title = { Text(stringResource(R.string.vault_about)) },
         text = { Text(stringResource(R.string.vault_privacy)) },

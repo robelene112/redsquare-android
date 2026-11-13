@@ -84,14 +84,13 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
         } finally { if (generation.get() == current) loading = false }
     }
 
-    suspend fun download(entry: VaultEntry): VaultFile {
+    suspend fun download(entry: VaultEntry, supplied: SaitoAccessScript? = null): VaultFile {
         entry.copy?.let {
             try { return withContext(Dispatchers.IO) { disk.read(it.fileId) } }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) { throw VaultLocalFailure(failure) }
         }
         val selected = requireNotNull(entry.key)
-        require(selected.customScript == null)
         return withContext(Dispatchers.IO) {
             val current = balances.read(backend, wallet.publicKey) ?: throw IOException("Current ownership unavailable")
             val holding = current.nfts.firstOrNull { it.id == selected.holding.id && it.creator == selected.holding.creator }
@@ -100,14 +99,14 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             val job = currentCoroutineContext().job
             SaitoPeer(wallet, endpoint).use { peer ->
                 require("vault" in peer.services())
-                val response = peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis())) { job.ensureActive() }
+                val response = peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis(), supplied)) { job.ensureActive() }
                 SaitoVault.readFile(key, response.decodeToString())
             }
         }
     }
 
-    suspend fun keep(entry: VaultEntry) {
-        val file = download(entry)
+    suspend fun keep(entry: VaultEntry, supplied: SaitoAccessScript? = null) {
+        val file = download(entry, supplied)
         generation.incrementAndGet(); loading = false
         val saved = try { withContext(Dispatchers.IO) {
             currentCoroutineContext().ensureActive()
