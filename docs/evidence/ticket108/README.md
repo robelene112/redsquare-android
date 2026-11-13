@@ -128,6 +128,54 @@ standard/large-file/advanced reference field stays exactly unchanged. The red
 and green logs remain external. All172core tests pass at
 `d2e7f896a4bf93b39ba3aadf8307a07d17e7beaa`.
 
+## Independent review and follow-up
+
+At `84f115aeb8c287bbce13e1bb8853126c689ac287`, Standards finds no documented-rule
+violations and one duplication finding: six new Wallet classes were called from
+three full-wallet blocks. The duplicate calls are removed at `d5f4bc1b7`; their
+one complete invocation and all original policy/publisher checks remain.
+Spec finds two recovery/compatibility defects:
+
+- Lost upload replies use the standard-key read path without supplying the
+  original custom/master script. A second native rental-master case now stops
+  an actually received upload and requires read-only completion with no second
+  mint/upload. The actual native red is
+  [43509120606](https://github.com/robelene112/redsquare-android/actions/runs/43509120606)
+  at `3eca88467634139cbae9bd78301397a0332812dc`: the lost-answer case times out
+  at the unchanged15s completion goal, while ordinary master mint/read/export
+  passes. The original screenshot shows owned key/file acceptance unverified.
+  All62ZIP and14capture members are exact. The correction supplies the immutable
+  candidate script to that read; custom rules requiring unknown witnesses remain
+  subject to actual provider denial. Corrected whole-ticket proof is pending.
+- A later held tuple can have input indices3/4/5. The first review suspected
+  normalization in block inclusion. The actual independent WASM wallet instead
+  proves candidate output indices0/1/2, retaining the original block/ordinal.
+  Native construction and typed restoration had incorrectly retained the old
+  indices. `3eca88467` fixes those two boundaries; full-block normalization stays
+  unchanged. Both independent tuple vectors, exact native factory bytes, typed
+  restoration, selected-block inclusion and rejection of altered original inputs
+  pass together. The original standard vector regenerates byte-for-byte.
+
+`vault-transfer-reference.cjs ... --nonzero-indices` reproduces the additive
+`native-vault-transfer-offset-reference.json`. The local failing trace and
+[43508461856](https://github.com/robelene112/redsquare-android/actions/runs/43508461856)
+at `d5f4bc1b7a98942587ce9d3178263273e6200959` fail in typed transfer restoration.
+That hosted run never reaches the intended native rental recovery case; it is
+not counted as that case's red. Original logs/artifact remain retained.
+
+The broad diagnostic at `84f115aeb` fails on both
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43507205417)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43507209982).
+It completes the preceding inherited upload subset, actual process protocol and
+all12custom-access viewport cells, then stops in Rules at320dp/200percent/Dark.
+The original screenshot shows the retained upload review scrolled below its title.
+The tracer had required that title to be visible before scrolling. It now finds
+and scrolls that existing title into view within the same original15s; no class,
+cell or action is removed. Both original ZIPs and306capture members are exact.
+These partial runs are failures, not accepted whole-ticket or inherited-suite
+proofs. `deec03d01` also gives rule-mode content the shared interruptible reveal;
+zero-motion test contexts still render immediately.
+
 ## Remaining before closure
 
 Complete the native rental-master and dialog viewport runs, exercise any uncovered

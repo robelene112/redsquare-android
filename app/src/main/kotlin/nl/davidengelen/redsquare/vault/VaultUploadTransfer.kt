@@ -66,7 +66,7 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
             val key = SaitoVault.readKey(holding, record.candidate.transaction.envelope())
             val operation = currentCoroutineContext().job
             val response = withPeer { peer ->
-                peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis())) {
+                peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis(), record.candidate.accessScript)) {
                     operation.ensureActive(); current(); guard()
                 }
             }
