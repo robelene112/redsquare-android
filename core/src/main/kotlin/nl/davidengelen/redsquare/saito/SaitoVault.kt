@@ -25,11 +25,12 @@ class VaultFile(val id: String, val name: String, val mime: String, bytes: ByteA
 object SaitoVault {
     private val signature = Regex("[0-9a-f]{128}")
     private val mime = Regex("[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+")
-    // Bounded to fit both the signed peer response and the existing encrypted local-file format.
-    const val MAX_FILE_BYTES = 3 * 1024 * 1024
+    // The nested signed web envelope stays within the existing 8 MiB authentication budget.
+    const val MAX_FILE_BYTES = 4 * 1024 * 1024
 
     fun readKey(holding: SaitoNft, envelope: String): VaultKey {
         require(holding.type in setOf("vault", "vault-nft-key"))
+        require(envelope.toByteArray(Charsets.UTF_8).size <= 128 * 1024) { "Unsupported Vault key metadata size" }
         val signed = SaitoEnvelope.decodeBound(envelope)
         require(signed.body.get("module")?.asString == "Vault" && signed.body.get("request")?.asString == "mint-vault-key")
         val detached = Base64.getDecoder().decode(JsonParser.parseString(envelope).asJsonObject.get("t").asString)
@@ -77,12 +78,7 @@ object SaitoVault {
                 addProperty("utxokey1", witness[0]); addProperty("utxokey2", witness[1]); addProperty("utxokey3", witness[2])
             })
         }
-        // Rust Script::hash strips witness recursively and sorts object keys.
-        val commitment = JsonObject().apply { addProperty("nftid", key.holding.id); addProperty("op", "CHECKOWNNFT") }
-            .toString().toByteArray(Charsets.UTF_8)
-        val hash = ByteArray(32).also { digest ->
-            Blake3Digest(256).apply { update(commitment, 0, commitment.size); doFinal(digest, 0) }
-        }.joinToString("") { "%02x".format(it) }
+        val hash = standardHash(key.holding.id)
         return SaitoTransaction.create(wallet, JsonObject().apply {
             addProperty("request", "vault access file")
             add("data", JsonObject().apply {
@@ -105,7 +101,11 @@ object SaitoVault {
                 SaitoEnvelope.decode(envelope).takeIf { it.id == key.fileId && it.author == key.holding.creator }
             } catch (_: Exception) { null }
         }.distinctBy { it.id }.singleOrNull() ?: throw IllegalArgumentException("The requested signed file is unavailable")
-        require(matched.body.get("request")?.asString == "vault add file")
+        require(matched.body.get("request")?.asString == "vault add file" && key.customScript == null)
+        require(matched.body.string("access_hash") == standardHash(key.holding.id)) { "File access commitment does not match this key" }
+        val contract = JsonParser.parseString(matched.body.string("access_script")).asJsonObject
+        require(contract.keySet() == setOf("op", "nftid", "witness") && contract.get("witness").isJsonObject)
+        require(contract.string("op") == "CHECKOWNNFT" && contract.string("nftid") == key.holding.id)
         val data = matched.body.getAsJsonObject("data")
         val name = data.string("name").also { require(it.isNotBlank() && it.length <= 1024) }
         val encoded = data.string("file")
@@ -118,6 +118,15 @@ object SaitoVault {
         val bytes = Base64.getDecoder().decode(base64)
         require(bytes.size <= MAX_FILE_BYTES && Base64.getEncoder().encodeToString(bytes) == base64)
         return VaultFile(key.fileId, name, contentType, bytes)
+    }
+
+    private fun standardHash(id: String): String {
+        // Rust Script::hash strips witness recursively and sorts the remaining object keys.
+        val commitment = JsonObject().apply { addProperty("nftid", id); addProperty("op", "CHECKOWNNFT") }
+            .toString().toByteArray(Charsets.UTF_8)
+        return ByteArray(32).also { digest ->
+            Blake3Digest(256).apply { update(commitment, 0, commitment.size); doFinal(digest, 0) }
+        }.joinToString("") { "%02x".format(it) }
     }
 
     private fun JsonObject.string(name: String): String {

@@ -42,4 +42,31 @@ class SaitoVaultTest {
             vector.get("owner").asString, 1700001000000L))
     }
 
+    @Test fun anOtherwiseSignedFileMustCarryTheAccessCommitmentForThisVaultKey() {
+        val vector = reference()
+        val holding = SaitoBalanceSnapshot.parse(vector.get("snapshot").asString.toByteArray(),
+            vector.get("owner").asString, 1700001000000L).nfts.single()
+        val key = SaitoVault.readKey(holding, vector.getAsJsonObject("missingCommitmentKey").get("envelope").asString)
+        val response = com.google.gson.JsonObject().apply {
+            addProperty("status", "success")
+            add("txs", com.google.gson.JsonArray().apply { add(vector.getAsJsonObject("missingCommitmentFile").get("envelope").asString) })
+        }
+        assertThrows(IllegalArgumentException::class.java) { SaitoVault.readFile(key, response.toString()) }
+    }
+
+    @Test fun theBoundedFourMiBFileMatchesTheIndependentWasmSignatureAndDigest() {
+        val vector = nl.davidengelen.redsquare.vaultLargeReference(reference())
+        val holding = SaitoBalanceSnapshot.parse(vector.get("snapshot").asString.toByteArray(),
+            vector.get("owner").asString, 1700001000000L).nfts.single()
+        val key = SaitoVault.readKey(holding, vector.getAsJsonObject("key").get("envelope").asString)
+        val response = com.google.gson.JsonObject().apply {
+            addProperty("status", "success")
+            add("txs", com.google.gson.JsonArray().apply { add(vector.getAsJsonObject("file").get("envelope").asString) })
+        }
+        val file = SaitoVault.readFile(key, response.toString())
+        assertEquals(4 * 1024 * 1024, file.size)
+        assertEquals(vector.getAsJsonObject("large").get("sha256").asString,
+            java.security.MessageDigest.getInstance("SHA-256").digest(file.bytes).joinToString("") { "%02x".format(it) })
+    }
+
 }

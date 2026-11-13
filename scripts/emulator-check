@@ -724,6 +724,9 @@ fi
 
 if [[ "${TEST_SCOPE:-full}" == vault-reading* ]]; then
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
+    verify_group_chat_native VaultRecoveryPreviewTest 180 vault-recovery vault-recovery-evidence
+    verify_group_chat_native VaultViewportPreviewTest 180 vault-viewport vault-viewport-evidence
+    verify_group_chat_native VaultLargeReadingPreviewTest 180 vault-large vault-large-evidence
     printf '%s\n' 'Native Vault existing-key/read/offline/document journeys over owned signed peer fixtures. Independent WASM protocol references, not live provider or physical-device acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -1170,6 +1173,9 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
+    verify_group_chat_native VaultRecoveryPreviewTest 180 vault-recovery vault-recovery-evidence
+    verify_group_chat_native VaultViewportPreviewTest 180 vault-viewport vault-viewport-evidence
+    verify_group_chat_native VaultLargeReadingPreviewTest 180 vault-large vault-large-evidence
     verify_agreement
 fi
 verify_policies() {

@@ -30,12 +30,36 @@ function transaction(body,type,key,inputs,outputs){
  return {id:tx.signature,envelope:JSON.stringify({t:detached.toString('base64'),m:signed.subarray(m).toString('base64'),opt:Buffer.from('{}').toString('base64')}),networkBase64:signed.toString('base64')};
 }
 const file=Buffer.from('Field notes\nSaito café 🔴\n');
-const fileTx=transaction({request:'vault add file',data:{name:'Field notes.txt',file:'data:text/plain;base64,'+file.toString('base64')}},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
-const nftTx=transaction({module:'Vault',request:'mint-vault-key',data:{link:'https://saito.io/vault',filename:'Field notes.txt',file_id:fileTx.id}},8,one,[slip(creator,200000000n,0,0,2000001n,3n)],[slip(creator,2n,9),slip(owner,100000000n,0,1),slip(metadataAddress,0n,9,2),slip(creator,100000000n,0,3)]);
+const fileScript = contract.build({nftid:id});
+const fileHash = wasm.get_script_hash(JSON.stringify(fileScript));
+const payload = {name:'Field notes.txt',file:'data:text/plain;base64,'+file.toString('base64')};
+const fileTx=transaction({request:'vault add file',access_script:JSON.stringify(fileScript),access_hash:fileHash,data:payload},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
+const missingCommitmentFile=transaction({request:'vault add file',data:payload},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
+function keyFor(fileId, address=metadataAddress, name='Field notes.txt') { return transaction({module:'Vault',request:'mint-vault-key',data:{link:'https://saito.io/vault',filename:name,file_id:fileId}},8,one,[slip(creator,200000000n,0,0,2000001n,3n)],[slip(creator,2n,9),slip(owner,100000000n,0,1),slip(address,0n,9,2),slip(creator,100000000n,0,3)]); }
+const nftTx=keyFor(fileTx.id),missingCommitmentKey=keyFor(missingCommitmentFile.id);
 const before=slip(creator,2n,9,0,2000002n,8n),middle=slip(owner,100000000n,0,1,2000002n,8n),after=slip(metadataAddress,0n,9,2,2000002n,8n);
 function utxo(s){let b=Buffer.alloc(59);Buffer.from(base58.decode(s.public_key)).copy(b);b.writeBigUInt64BE(s.block_id,33);b.writeBigUInt64BE(s.tx_ordinal,41);b[49]=s.slip_index;b.writeBigUInt64BE(s.amount,50);b[58]=s.slip_type;const parsed=wasm.WasmSlip.parse_slip_from_utxokey(b.toString('hex'));if(!parsed||parsed.public_key!==s.public_key||parsed.amount!==s.amount)throw Error('WASM UTXO parse');return b.toString('hex');}
 const script=contract.build({nftid:id,utxokey1:utxo(before),utxokey2:utxo(middle),utxokey3:utxo(after)});
 const hash=wasm.get_script_hash(JSON.stringify(script));
 let rows=[slip(owner,50000000n,0,0,2000001n,4n),middle,before,after].map(s=>`${s.public_key} ${s.block_id} ${s.tx_ordinal} ${s.slip_index} ${s.amount} ${s.slip_type}`);
-const result={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:wasmVersion,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Owned synthetic identities and signed fixture tuples. Independently executed WASM serialisation/signatures/script hash/UTXO decoding; not a live consensus mint.'},creator,owner,id,type:'vault-nft-key',snapshot:`1700001000000-2000003-${'ab'.repeat(32)}.snap\n${rows.join('\n')}\n`,snapshotTotal:'50000000',quantity:'2',deposit:'100000000',script,scriptHash:hash,fileContentsBase64:file.toString('base64'),file:fileTx,key:nftTx};
+const inventory=Array.from({length:21},(_,index)=>{
+ const raw=Buffer.from(metadata);raw.fill(0x11+index,1,17);
+ const assetId=raw.toString('hex'),address=base58.encode(raw),name=index===0?'Field notes.txt':`Field notes ${String(index+1).padStart(2,'0')}.txt`;
+ const fileGuard=contract.build({nftid:assetId}),fileCommitment=wasm.get_script_hash(JSON.stringify(fileGuard));
+ const content=index===0?file:Buffer.from(`Vault pagination file ${index+1}\n`);
+ const original=index===0?fileTx:transaction({request:'vault add file',access_script:JSON.stringify(fileGuard),access_hash:fileCommitment,data:{name,file:'data:text/plain;base64,'+content.toString('base64')}},0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
+ const b=slip(creator,2n,9,0,2000002n,BigInt(8+index)),m=slip(owner,100000000n,0,1,2000002n,BigInt(8+index)),a=slip(address,0n,9,2,2000002n,BigInt(8+index));
+ return {id:assetId,name,key:index===0?nftTx:keyFor(original.id,address,name),file:original,
+  script:contract.build({nftid:assetId,utxokey1:utxo(b),utxokey2:utxo(m),utxokey3:utxo(a)}),scriptHash:fileCommitment,
+  snapshotRows:[m,b,a].map(s=>`${s.public_key} ${s.block_id} ${s.tx_ordinal} ${s.slip_index} ${s.amount} ${s.slip_type}`)};
+});
+const largeBytes=Buffer.alloc(4*1024*1024);for(let i=0;i<largeBytes.length;i++)largeBytes[i]=(i*31+7)&255;
+const largeName='Large Vault.bin',largeMime='application/octet-stream';
+const largeBody={request:'vault add file',access_script:JSON.stringify(fileScript),access_hash:fileHash,data:{name:largeName,file:`data:${largeMime};base64,${largeBytes.toString('base64')}`}};
+const largeFile=transaction(largeBody,0,one,[slip(creator,0n,0)],[slip(creator,0n,0)]);
+const largeEnvelope=JSON.parse(largeFile.envelope);
+const large={size:largeBytes.length,name:largeName,mime:largeMime,sha256:crypto.createHash('sha256').update(largeBytes).digest('hex'),
+ fileSignature:largeFile.id,detached:largeEnvelope.t,opt:largeEnvelope.opt,key:keyFor(largeFile.id,metadataAddress,largeName),
+ accessScript:JSON.stringify(fileScript),accessHash:fileHash};
+const result={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:wasmVersion,wasmSha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(runtime,'node_modules/saito-wasm/pkg/node/index_bg.wasm'))).digest('hex'),qualification:'Owned synthetic identities and signed fixture tuples. Independently executed WASM serialisation/signatures/script hash/UTXO decoding; not a live consensus mint.'},creator,owner,id,type:'vault-nft-key',snapshot:`1700001000000-2000003-${'ab'.repeat(32)}.snap\n${rows.join('\n')}\n`,snapshotTotal:'50000000',quantity:'2',deposit:'100000000',script,scriptHash:hash,fileContentsBase64:file.toString('base64'),file:fileTx,key:nftTx,missingCommitmentFile,missingCommitmentKey,inventory,large};
 fs.writeFileSync(path.resolve(process.argv[4]),JSON.stringify(result,null,2)+'\n');console.log('WASM reference complete:',result.authority.saitoWasm,id,hash);

@@ -35,6 +35,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val library = remember(wallet.publicKey, backend, endpoint, balances) { VaultLibrary(context, wallet, backend, endpoint, balances) }
+    var page by rememberSaveable(wallet.publicKey, backend.id) { mutableIntStateOf(0) }
     var offlineOnly by rememberSaveable { mutableStateOf(false) }
     var privacyOpen by rememberSaveable { mutableStateOf(false) }
     var exporting by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
@@ -66,16 +67,23 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 catch (_: Exception) { warning = R.string.vault_export_cleanup }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { error = R.string.vault_save_failed }
-            finally { exporting = false; busy = false }
+            finally { exporting = false; busy = false; library.refreshLocal() }
         }
     }
-    LaunchedEffect(library) { library.load() }
+    LaunchedEffect(library) { library.load(page); if (library.problem == null) page = library.page }
+    fun loadPage(target: Int) {
+        scope.launch {
+            library.load(target)
+            if (library.problem == null) { page = library.page; list.scrollToItem(0) }
+        }
+    }
     fun keep(entry: VaultEntry) {
         if (busy || exporting) return
         busy = true; feedback = null; error = null
         scope.launch {
             try { library.keep(entry); feedback = R.string.vault_copy_saved }
             catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: VaultLocalFailure) { error = R.string.vault_offline_save_failed }
             catch (_: Exception) { error = R.string.vault_access_failed }
             finally { busy = false }
         }
@@ -97,11 +105,13 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             try {
                 val file = library.download(entry)
                 withContext(Dispatchers.IO) { currentCoroutineContext().ensureActive(); library.disk.prepareExport(file) }
+                library.refreshLocal()
                 exporting = true
                 exportDocument.launch(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
                     .setType(file.mime).putExtra(Intent.EXTRA_TITLE,
                         file.name.substringAfterLast('/').substringAfterLast('\\').ifBlank { "Vault file" }))
             } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: VaultLocalFailure) { exporting = false; error = R.string.vault_local_file_failed }
             catch (_: Exception) { exporting = false; error = R.string.vault_access_failed }
             finally { busy = false }
         }
@@ -114,7 +124,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             Text(stringResource(R.string.vault_files), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             FrameIconButton(R.drawable.ic_info, stringResource(R.string.vault_about)) { privacyOpen = true }
             FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.vault_refresh), enabled && !library.loading) {
-                scope.launch { feedback = null; error = null; library.load() }
+                scope.launch { feedback = null; error = null; library.load(page); if (library.problem == null) page = library.page }
             }
         }
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
@@ -177,9 +187,13 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                     }
                 }
             }
-            if (library.more && !offlineOnly) item("more") {
-                OutlinedButton(onClick = { scope.launch { library.load(nextPage = true) } }, enabled = enabled && !library.loading,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_load_more)) }
+            if (!offlineOnly && (library.more || library.page > 0)) item("pages") {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (library.page > 0) OutlinedButton(onClick = { loadPage(library.page - 1) }, enabled = enabled && !library.loading,
+                        modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_previous_files)) }
+                    if (library.more) OutlinedButton(onClick = { loadPage(library.page + 1) }, enabled = enabled && !library.loading,
+                        modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_load_more)) }
+                }
             }
         }
     }

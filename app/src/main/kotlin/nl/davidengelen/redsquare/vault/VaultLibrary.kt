@@ -12,7 +12,9 @@ import java.util.concurrent.atomic.AtomicLong
 
 internal data class VaultEntry(val token: String, val name: String, val key: VaultKey?, val copy: VaultCopy?, val type: String?)
 internal enum class VaultProblem { CONNECTION, SERVICE_UNAVAILABLE }
+private data class VaultDiscovery(val keys: List<Pair<SaitoNft, VaultKey?>>, val page: Int, val more: Boolean, val cacheWarning: Boolean, val local: VaultCopies)
 private class VaultServiceUnavailable : IOException()
+internal class VaultLocalFailure(cause: Exception) : IOException(cause)
 
 /** Native read/offline state. Cached metadata never grants current network access. */
 internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend,
@@ -26,14 +28,14 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     var more by mutableStateOf(false); private set
     private var keys = emptyList<Pair<SaitoNft, VaultKey?>>()
     private var copies = emptyList<VaultCopy>()
-    private var maximum = 20
+    var page by mutableIntStateOf(0); private set
     private val generation = AtomicLong()
 
-    suspend fun load(nextPage: Boolean = false) {
+    suspend fun load(requestedPage: Int = page) {
         if (loading) return
         val current = generation.incrementAndGet()
         loading = true; problem = null
-        if (nextPage) maximum += 20
+        require(requestedPage >= 0)
         try {
             try {
                 val saved = withContext(Dispatchers.IO) { disk.copies() }
@@ -43,13 +45,15 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             catch (_: Exception) { storageWarning = true }
             val result = withContext(Dispatchers.IO) {
                 val observed = balances.read(backend, wallet.publicKey) ?: throw IOException("Vault ownership unavailable")
-                val holdings = observed.nfts.filter { it.type in setOf("vault", "vault-nft-key") }.distinctBy { it.id }
+                val holdings = observed.nfts.filter { it.type in setOf("vault", "vault-nft-key") }.distinctBy { it.id }.sortedBy { it.id }
+                val selectedPage = requestedPage.coerceAtMost(((holdings.size - 1).coerceAtLeast(0)) / PAGE_SIZE)
+                val pageHoldings = holdings.drop(selectedPage * PAGE_SIZE).take(PAGE_SIZE)
                 val cached = try { disk.keys() } catch (_: Exception) { emptyMap() }
                 val resolved = SaitoPeer(wallet, endpoint).use { peer ->
                     if ("vault" !in peer.services()) throw VaultServiceUnavailable()
                     val permits = Semaphore(4)
                     coroutineScope {
-                        holdings.take(maximum).map { holding -> async {
+                        pageHoldings.map { holding -> async {
                             permits.withPermit {
                                 val key = cached[holding.id]?.let { runCatching { SaitoVault.readKey(holding, it) }.getOrNull() }
                                     ?: try {
@@ -65,11 +69,11 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
                 if (generation.get() != current) throw CancellationException("Obsolete Vault discovery")
                 var cacheFailed = false
                 try { disk.saveKeys(resolved.mapNotNull { it.second }) } catch (_: Exception) { cacheFailed = true }
-                Triple(resolved, holdings.size > maximum, cacheFailed)
+                VaultDiscovery(resolved, selectedPage, holdings.size > (selectedPage + 1) * PAGE_SIZE, cacheFailed, disk.copies())
             }
             if (generation.get() != current) return
-            keys = result.first; more = result.second; storageWarning = storageWarning || result.third
-            merge()
+            keys = result.keys; page = result.page; more = result.more; storageWarning = storageWarning || result.cacheWarning
+            applyCopies(result.local)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (failure: Exception) {
             if (generation.get() == current) {
@@ -81,7 +85,11 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     }
 
     suspend fun download(entry: VaultEntry): VaultFile {
-        entry.copy?.let { return withContext(Dispatchers.IO) { disk.read(it.fileId) } }
+        entry.copy?.let {
+            try { return withContext(Dispatchers.IO) { disk.read(it.fileId) } }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) { throw VaultLocalFailure(failure) }
+        }
         val selected = requireNotNull(entry.key)
         require(selected.customScript == null)
         return withContext(Dispatchers.IO) {
@@ -101,8 +109,16 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     suspend fun keep(entry: VaultEntry) {
         val file = download(entry)
         generation.incrementAndGet(); loading = false
-        val saved = withContext(Dispatchers.IO) {
-            currentCoroutineContext().ensureActive(); disk.save(file); disk.copies()
+        val saved = try { withContext(Dispatchers.IO) {
+            currentCoroutineContext().ensureActive()
+            val cleanupWarning = disk.save(file)
+            disk.copies().let { it.copy(warning = it.warning || cleanupWarning) }
+        } } catch (cancelled: CancellationException) { throw cancelled }
+        catch (failure: Exception) {
+            try { applyCopies(withContext(Dispatchers.IO) { disk.copies() }) }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { storageWarning = true }
+            throw VaultLocalFailure(failure)
         }
         applyCopies(saved)
     }
@@ -112,6 +128,11 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             currentCoroutineContext().ensureActive(); disk.remove(copy.fileId); disk.copies()
         }
         applyCopies(saved)
+    }
+    suspend fun refreshLocal() {
+        try { applyCopies(withContext(Dispatchers.IO) { disk.copies() }) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { storageWarning = true }
     }
     private fun applyCopies(saved: VaultCopies) {
         copies = saved.items; storedBytes = saved.bytes; storageWarning = storageWarning || saved.warning; merge()
@@ -126,4 +147,6 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             VaultEntry("file.${it.fileId}", it.name, null, it, null)
         }
     }
+    companion object { private const val PAGE_SIZE = 20 }
+
 }

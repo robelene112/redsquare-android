@@ -83,6 +83,30 @@ mobile feed access require explicit evidence. Wallet/signature reference tests
 now exist in the native implementation; network/feed interoperability remains
 work for the subsequent tickets.
 
+## Native Vault integration under #105
+
+Vault uses the shared wallet and selected node. Read-only service discovery on
+2026-11-13 found `vault` and `Store` at saito.io, but neither at the owner node.
+An HTTP module page alone does not establish an available peer service. Do not
+activate services or change the saved node as part of app implementation.
+
+Protocol references execute saito-wasm 0.3.15 against official source
+`0db0062d873369dc013046ed77c97410b5683b64`. These are synthetic, explicitly unsafe
+fixture identities, never funded consensus mints. The owner node's observed
+saito-js package is 0.3.2; the reference pin does not establish its runtime version.
+Standard retrieval authenticates the signed file and its access commitment,
+and observes current selected-node ownership before a new request. Saved copies
+are wallet/node scoped and encrypted locally, with explicit removal and export.
+The operator can read the remote content. Expiry or transfer cannot recall copies.
+
+The native file bound is 4 MiB, below the reference browser's 100 MiB. It preserves
+the existing 8 MiB signed-envelope and 16 MiB peer-response budgets. Local copies
+use individually encrypted 2 MiB parts committed by one metadata record. Native
+`vault-reading` scopes cover reading, offline restart/export/removal, unavailable
+service, moved keys, wrong replies, local-save failure, bounded key pagination,
+12 theme/text/width cells and byte-exact 4 MiB export. Focused checks do not replace
+#115's complete integration, signed-update and combined-beta acceptance.
+
 ## Native Stack article integration
 
 Signed beta108 delivers the ordinary native public-reading route. Complete

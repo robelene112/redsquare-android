@@ -869,13 +869,13 @@
     <string name="vault_copy_saved">Saved for offline use</string>
     <string name="vault_copy_removed">Offline copy removed</string>
     <string name="vault_save_failed">Could not save this file. Choose Save as to try again.</string>
-    <string name="vault_access_failed">Could not access this file. Check your connection and access key. Files up to 3 MiB are supported.</string>
+    <string name="vault_access_failed">Could not access this file. Check your connection and access key. Files up to 4 MiB are supported.</string>
     <string name="vault_remove_failed">Could not finish removing the local copy. Try again.</string>
     <string name="vault_export_cleanup">The document operation finished, but temporary file cleanup needs a retry.</string>
     <string name="vault_connection_failed">Could not refresh Vault on this node. Offline copies remain available.</string>
     <string name="vault_service_unavailable">This node does not offer Vault. Your offline copies remain available.</string>
     <string name="vault_choose_node">Node settings</string>
-    <string name="vault_storage_warning">Some local Vault data could not be read or saved. Existing files were retained.</string>
+    <string name="vault_storage_warning">Some local Vault data needs attention. Existing files were retained.</string>
     <string name="vault_all_files">All files</string>
     <string name="vault_offline">Offline</string>
     <string name="vault_storage_used">Saved for this node: %1$s</string>
@@ -889,6 +889,9 @@
     <string name="vault_save_as">Save as…</string>
     <string name="vault_keep_offline">Keep offline</string>
     <string name="vault_remove_copy">Remove offline copy</string>
-    <string name="vault_load_more">Load more files</string>
+    <string name="vault_load_more">Next files</string>
     <string name="vault_privacy">Vault controls retrieval through access keys and the selected storage service. The storage operator can read file contents; this is not end-to-end encrypted storage. Your device copies are encrypted locally. Removing an offline copy does not erase the remote file. Transferring or expiring access cannot recall a copy that was already downloaded or exported.</string>
+    <string name="vault_offline_save_failed">Could not save the offline copy. The download succeeded. Check available storage or remove an offline copy, then try again.</string>
+    <string name="vault_local_file_failed">Could not open the saved copy. You can remove it and download the file again when access is available.</string>
+    <string name="vault_previous_files">Previous files</string>
 </resources>
