@@ -555,7 +555,15 @@ class MainActivity : ComponentActivity() {
                                     val moduleStates = rememberSaveableStateHolder()
                                     SingleOwnerReveal(linkedStack?.target ?: module, Modifier.weight(1f)) {
                                         val renderModule: @Composable () -> Unit = {
-                                            if (module == AppModule.TALK) {
+                                            if (module == AppModule.VAULT) {
+                                                val currentWallet = wallet
+                                                if (currentWallet != null) key(currentWallet.publicKey, selected) {
+                                                    nl.davidengelen.redsquare.vault.VaultScreen(currentWallet, selected,
+                                                        FeedEndpoints.fromIntent(intent, selected), balances, Modifier.fillMaxSize(), chrome) {
+                                                        settingsCategory = "node"; settingsOpen = true
+                                                    }
+                                                } else chrome(false)
+                                            } else if (module == AppModule.TALK) {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null && talkAccount != null) {
                                                     val endpoint = FeedEndpoints.fromIntent(intent, selected)

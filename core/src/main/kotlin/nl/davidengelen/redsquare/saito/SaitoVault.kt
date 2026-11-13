@@ -10,7 +10,12 @@ import org.bouncycastle.crypto.digests.Blake3Digest
 class VaultKey internal constructor(val holding: SaitoNft, val name: String, val fileId: String,
     val envelope: String, val customScript: String?)
 
-class VaultFile internal constructor(val id: String, val name: String, val mime: String, bytes: ByteArray) {
+/** Local contents; remote authentication is performed by readFile before constructing this value. */
+class VaultFile(val id: String, val name: String, val mime: String, bytes: ByteArray) {
+    init {
+        require(id.matches(Regex("[0-9a-f]{128}")) && name.isNotBlank() && name.length <= 1024)
+        require(mime.matches(Regex("[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+")) && bytes.size <= SaitoVault.MAX_FILE_BYTES)
+    }
     private val content = bytes.copyOf()
     val bytes: ByteArray get() = content.copyOf()
     val size: Int get() = content.size
@@ -24,7 +29,7 @@ object SaitoVault {
     const val MAX_FILE_BYTES = 3 * 1024 * 1024
 
     fun readKey(holding: SaitoNft, envelope: String): VaultKey {
-        require(holding.type == "vault-nft-key")
+        require(holding.type in setOf("vault", "vault-nft-key"))
         val signed = SaitoEnvelope.decodeBound(envelope)
         require(signed.body.get("module")?.asString == "Vault" && signed.body.get("request")?.asString == "mint-vault-key")
         val detached = Base64.getDecoder().decode(JsonParser.parseString(envelope).asJsonObject.get("t").asString)

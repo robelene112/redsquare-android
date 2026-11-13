@@ -21,7 +21,7 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         .followRedirects(false).followSslRedirects(false).build()
 
     fun assess(backend: SaitoBackend, publicKey: String): ImportBalance =
-        read(backend, publicKey)?.let { if (it.total.signum() == 0) ImportBalance.ZERO else ImportBalance.POSITIVE }
+        read(backend, publicKey)?.let { if (it.total.signum() == 0 && it.nfts.isEmpty()) ImportBalance.ZERO else ImportBalance.POSITIVE }
             ?: ImportBalance.UNKNOWN
 
     fun read(backend: SaitoBackend, publicKey: String): SaitoBalanceSnapshot? = try {

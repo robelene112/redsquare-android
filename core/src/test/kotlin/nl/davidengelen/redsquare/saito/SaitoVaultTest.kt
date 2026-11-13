@@ -35,4 +35,11 @@ class SaitoVaultTest {
         assertArrayEquals(java.util.Base64.getDecoder().decode(vector.get("fileContentsBase64").asString), file.bytes)
     }
 
+    @Test fun anNftOnlyWalletStillUsesTheNonemptyAssetBackupGuard() {
+        val vector = reference()
+        val withoutOrdinarySaito = vector.get("snapshot").asString.lines().filterIndexed { index, _ -> index != 1 }.joinToString("\n")
+        assertEquals(ImportBalance.POSITIVE, ImportBalance.assess(withoutOrdinarySaito.toByteArray(),
+            vector.get("owner").asString, 1700001000000L))
+    }
+
 }

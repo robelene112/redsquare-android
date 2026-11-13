@@ -265,7 +265,7 @@ class WalletImportPreviewTest {
                 openWallet("balance-cases-entry")
                 val address = displayedWalletAddress(ui)
                 val cases = listOf(
-                    Triple("positive", "Your current wallet has SAITO", false),
+                    Triple("positive", "Your current wallet holds assets", false),
                     Triple("zero", "Node reports zero SAITO", true),
                     Triple("malformed", "Balance could not be checked", false),
                     Triple("stale", "Balance could not be checked", false),

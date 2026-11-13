@@ -6,8 +6,8 @@ enum class ImportBalance { UNKNOWN, ZERO, POSITIVE;
         const val MAX_SNAPSHOT_BYTES = SaitoBalanceSnapshot.MAX_BYTES
 
         fun assess(snapshot: ByteArray, publicKey: String, nowMillis: Long): ImportBalance = try {
-            val total = SaitoBalanceSnapshot.parse(snapshot, publicKey, nowMillis).total
-            if (total.signum() == 0) ZERO else POSITIVE
+            val observed = SaitoBalanceSnapshot.parse(snapshot, publicKey, nowMillis)
+            if (observed.total.signum() == 0 && observed.nfts.isEmpty()) ZERO else POSITIVE
         } catch (_: IllegalArgumentException) { UNKNOWN }
     }
 }
