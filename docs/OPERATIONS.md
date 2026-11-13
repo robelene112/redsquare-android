@@ -94,10 +94,21 @@ Protocol references execute saito-wasm 0.3.15 against official source
 `0db0062d873369dc013046ed77c97410b5683b64`. These are synthetic, explicitly unsafe
 fixture identities, never funded consensus mints. The owner node's observed
 saito-js package is 0.3.2; the reference pin does not establish its runtime version.
-Standard retrieval authenticates the signed file and its access commitment,
+Standard/custom retrieval authenticates the signed file and its access commitment,
 and observes current selected-node ownership before a new request. Saved copies
 are wallet/node scoped and encrypted locally, with explicit removal and export.
 The operator can read the remote content. Expiry or transfer cannot recall copies.
+
+Advanced Vault uses bounded original access rules and separate unlock inputs.
+Permanent key transfer moves the whole Bound tuple and deposit; its original
+signed candidate is reserved wallet-wide before authentication and never replaced
+on retry. Inclusion is an exact selected-node full-block observation, not consensus
+finality. Rental master/loan/path bodies follow the same pin. Creator access uses
+the instantiated loan after expiry while file authentication keeps the original
+master commitment. Local eligibility displays do not grant provider authority.
+The rental reference generator additionally needs hash-checked acorn8.19.0 as an
+explicit parser argument; it executes isolated official bodies, not the full web
+client. Store checkout runtime acceptance belongs to114.
 
 The native file bound is 4 MiB, below the reference browser's 100 MiB. It preserves
 the existing 8 MiB signed-envelope and 16 MiB peer-response budgets. Local copies

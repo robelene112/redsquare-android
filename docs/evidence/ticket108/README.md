@@ -66,8 +66,31 @@ PIN prompt produces a generic ownership warning instead of explaining the
 changed account/node. The other two native cases still pass. The correction uses
 a distinct context-change outcome, preserves the retained candidate and exposes
 actual unreadable transfer storage at the library instead of enabling a new
-financial action against unknown reservations. Both context variants still need
-the corrected native run.
+financial action against unknown reservations. The complete three-case class (including both context changes) passes on
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43500319832)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43500315346)
+at `d10dfa8cb3820a2984b3578327ad1a18b6c7c2b2`. Those account/node changes during
+real PIN authentication emit no transfer and retain an explicitly discardable,
+unsent candidate. All59/61ZIP and23capture members are byte-exact.
+
+## Rental foundation
+
+`test-fixtures/reference/vault-rental-reference.cjs` extracts and executes the
+pinned official Store transfer hook and Vault message-builder bodies using
+hash-checked acorn8.19.0. Actual WASM0.3.15 verifies signed paths, FIRST undelegated
+selection, allowed/denied Archive owner changes, and creator/renter eligibility
+before, exactly at, and after expiry. A later signed delegation preserves the
+first renter. Body-builder adapters are not a fully initialized client or signed
+request-wire oracle; the fixture states that limitation explicitly.
+
+Three public core cases pass for signed-path reading/appending, role selection,
+invalid signatures/file bindings/unsupported constitutions, actual checkout/read
+message bodies and authentication of the original master-locked signed file.
+Existing standard/custom file-reader cases pass with the shared parser. Current
+Archive ownership and real provider acceptance still require runtime observation.
+The native rental-master mint/upload/read/export and three12-cell zero-motion
+dialog sweeps are implemented as owned tests and await native verification.
+Store's actual order, checkout and fulfilment flow remains114.
 
 Independent `saito-wasm@0.3.15` vectors pin upstream
 `0db0062d873369dc013046ed77c97410b5683b64`. They cover script commitments,
@@ -84,8 +107,8 @@ checks, not funded consensus transfers or production-provider acceptance.
 
 ## Remaining before closure
 
-Finish durable transfer recovery, the native review/authorization/inclusion flow,
-rental path/delegation handling and current access observations. Complete native
+Complete the native rental-master and dialog viewport runs, exercise any uncovered
+compatibility limits, and preserve current access observations. Complete native
 coverage on both SDKs, inherited upload/read regressions, viewport checks and
 independent Standards/Spec review. Update115's frozen catalogue additively before
 its full-app proof. No partial successful tail counts as ticket acceptance.

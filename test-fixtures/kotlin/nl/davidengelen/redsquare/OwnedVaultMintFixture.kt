@@ -48,7 +48,13 @@ internal class OwnedVaultMintFixture(private val reference: JsonObject, private 
             val data = signed.body.getAsJsonObject("data")
             require(data.get("access_hash").asString == scriptHash)
             val script = JsonParser.parseString(data.get("access_script").asString).asJsonObject
-            require(script.get("op").asString == "CHECKOWNNFT" && script.get("nftid").asString == id)
+            val currentKey = requireNotNull(candidate())
+            val rules = currentKey.accessScript
+            if (rules == null) require(script.get("op").asString == "CHECKOWNNFT" && script.get("nftid").asString == id)
+            else {
+                require(currentKey.keyType == "vault-nft-rental" && reference.get("masterCreatorAccepted").asInt == 1)
+                require(SaitoAccessScript.parse(script.toString()).hash == scriptHash && rules.hash == scriptHash)
+            }
             val file = files[data.getAsJsonObject("data").get("file_id").asString]
             JsonObject().apply {
                 addProperty("status", if (file != null) "success" else "err")

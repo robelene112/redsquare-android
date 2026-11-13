@@ -21,7 +21,7 @@ class VaultFile(val id: String, val name: String, val mime: String, bytes: ByteA
     val size: Int get() = content.size
 }
 
-/** Official standard Vault access. Advanced and rental contracts are admitted by their own later flows. */
+/** Vault key/rental requests and authentication of the original signed file contents. */
 object SaitoVault {
     private val signature = Regex("[0-9a-f]{128}")
     private val mime = Regex("[a-zA-Z0-9.+-]+/[a-zA-Z0-9.+-]+")
@@ -97,7 +97,15 @@ object SaitoVault {
         }, timestamp)
     }
 
-    fun readFile(key: VaultKey, response: String): VaultFile {
+    fun readFile(key: VaultKey, response: String): VaultFile = readProtectedFile(FileBinding(key.fileId, key.holding.creator,
+        key.customScript?.let { SaitoAccessScript.parse(it).hash } ?: standardHash(key.holding.id),
+        if (key.customScript == null) key.holding.id else null), response)
+
+    internal fun readRentalFile(grant: SaitoVaultRental.Grant, response: String): VaultFile =
+        readProtectedFile(FileBinding(grant.fileId, grant.creator, grant.masterScript.hash, null), response)
+
+    private data class FileBinding(val fileId: String, val creator: String, val commitment: String, val standardKeyId: String?)
+    private fun readProtectedFile(binding: FileBinding, response: String): VaultFile {
         require(response.toByteArray().size <= 16 * 1024 * 1024)
         val result = JsonParser.parseString(response).asJsonObject
         require(result.get("status")?.asString == "success") { "Vault did not authorise file access" }
@@ -107,16 +115,16 @@ object SaitoVault {
                 val envelope = if (candidate.isJsonPrimitive && candidate.asJsonPrimitive.isString) candidate.asString
                     else if (candidate.isJsonObject && candidate.asJsonObject.has("tx")) candidate.asJsonObject.string("tx")
                     else candidate.toString()
-                SaitoEnvelope.decode(envelope).takeIf { it.id == key.fileId && it.author == key.holding.creator }
+                SaitoEnvelope.decode(envelope).takeIf { it.id == binding.fileId && it.author == binding.creator }
             } catch (_: Exception) { null }
         }.distinctBy { it.id }.singleOrNull() ?: throw IllegalArgumentException("The requested signed file is unavailable")
         require(matched.body.get("request")?.asString == "vault add file")
-        val commitment = key.customScript?.let { SaitoAccessScript.parse(it).hash } ?: standardHash(key.holding.id)
+        val commitment = binding.commitment
         require(matched.body.string("access_hash") == commitment) { "File access commitment does not match this key" }
-        if (key.customScript == null) {
+        if (binding.standardKeyId != null) {
             val contract = JsonParser.parseString(matched.body.string("access_script")).asJsonObject
             require(contract.keySet() == setOf("op", "nftid", "witness") && contract.get("witness").isJsonObject)
-            require(contract.string("op") == "CHECKOWNNFT" && contract.string("nftid") == key.holding.id)
+            require(contract.string("op") == "CHECKOWNNFT" && contract.string("nftid") == binding.standardKeyId)
         } else {
             require(SaitoAccessScript.parse(matched.body.string("access_script")).hash == commitment) {
                 "The signed file uses different access rules"
@@ -133,7 +141,7 @@ object SaitoVault {
         require(base64.length <= (MAX_FILE_BYTES + 2) / 3 * 4)
         val bytes = Base64.getDecoder().decode(base64)
         require(bytes.size <= MAX_FILE_BYTES && Base64.getEncoder().encodeToString(bytes) == base64)
-        return VaultFile(key.fileId, name, contentType, bytes)
+        return VaultFile(binding.fileId, name, contentType, bytes)
     }
 
     private fun standardHash(id: String): String {

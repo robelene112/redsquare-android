@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -35,6 +35,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
             .use { JsonParser.parseReader(it).asJsonObject }
         OwnedVaultKeyTransferFixture(vector, transferReference)
     } else null
+    require(!rentalMint || minting)
     val wallets = AndroidWalletStore(context)
     val original = wallets.loadOrCreate()
     val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.
@@ -48,8 +49,21 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     var failure: Throwable? = null
     var intentsStarted = false
     var transfers: ChatFixtureState? = null
-    val minted = if (minting) OwnedVaultMintFixture(instrumentation.context.assets.open("native-vault-mint-reference.json")
-        .reader().use { JsonParser.parseReader(it).asJsonObject }, fixture.publicKey, ownsKey, priorMint?.let(nl.davidengelen.redsquare.saito.SaitoVaultMint::readCandidate)) else null
+    val minted = if (minting) {
+        val mintReference = instrumentation.context.assets.open("native-vault-mint-reference.json").reader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        if (rentalMint) {
+            val rental = mintReference.getAsJsonArray("advanced").map { it.asJsonObject }.single { it.get("type").asString == "rental" }
+            mintReference.addProperty("nftId", rental.get("nftId").asString)
+            mintReference.add("file", rental.getAsJsonObject("file").deepCopy())
+            mintReference.add("mint", rental.getAsJsonObject("mint").deepCopy())
+            val rights = instrumentation.context.assets.open("native-vault-rental-reference.json").reader()
+                .use { JsonParser.parseReader(it).asJsonObject }
+            mintReference.add("masterCreatorAccepted", rights.get("masterCreatorAccepted"))
+        }
+        OwnedVaultMintFixture(mintReference, fixture.publicKey, ownsKey,
+            priorMint?.let(nl.davidengelen.redsquare.saito.SaitoVaultMint::readCandidate))
+    } else null
     try {
         wallets.replace(original, fixture)
         if (retainTransfers) {

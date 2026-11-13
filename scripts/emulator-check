@@ -738,12 +738,28 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-advanced-viewport* ]]; then
+    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
+    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
+    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
+    printf '%s\n' 'Three actual Vault dialog journeys, twelve width/font/theme cells each, real zero-motion window observations and owned document/peer state. No public writes.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == vault-rental-master* ]]; then
+    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
+    printf '%s\n' 'Native rental preset review, PIN, master mint/upload and original creator exact retrieval/export over owned peers. Not Store checkout or live provider acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-key-transfer* ]]; then
     verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     printf '%s\n' 'Native permanent whole-key review and explicit recovery over owned peer/account state, before any public write.' > "$evidence/scope.txt"
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == vault-advanced* ]]; then
+    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
+    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
+    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
+    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
     verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
@@ -1288,6 +1304,10 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
+    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
+    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
+    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
     verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
@@ -1319,6 +1339,10 @@ if [[ "${TEST_SCOPE:-full}" == policies* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
+    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
+    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
+    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
     verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_policies
@@ -1337,6 +1361,10 @@ if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
+    verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
+    verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence
+    verify_group_chat_native VaultRentalMasterPreviewTest 180 vault-rental-master vault-rental-master-evidence
     verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_publisher_routes
