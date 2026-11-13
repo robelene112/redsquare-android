@@ -61,4 +61,31 @@ class VaultUploadRecoveryPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("vault-retry.bin").isDisplayed() }
         }
     }
+
+    @Test fun insufficientAvailableFundsKeepTheFileAndCanRecoverBeforeTheFirstAuthenticatedSend() = withVaultDeviceCredential { device ->
+        withVaultReadingFixture("insufficient-upload", captureFolder = "vault-upload-recovery-evidence", retainTransfers = true, minting = true) { scene ->
+            val server = requireNotNull(scene.mint)
+            server.availableNolan = 50_000_000
+            val bytes = "Keep the file until the actual key deposit is available".toByteArray()
+            ui.reviewVaultFile(scene, "vault-budget.bin", bytes)
+            ui.waitUntil(15_000) {
+                ui.onNodeWithText("You need 1 SAITO in available funds for this key. Your file is saved.").isDisplayed()
+            }
+            assertEquals(scene.context.packageName, device.currentPackageName)
+            assertTrue(scene.peer.transactions.isEmpty())
+            assertTrue(scene.peer.vaultUploads.isEmpty())
+            captureNativeScreen(File(scene.evidence, "insufficient-deposit-no-mint-no-auth.png"))
+            server.availableNolan = 200_000_000
+            ui.onNodeWithText("Create key and upload").performScrollTo().performClick()
+            enterRealSystemPin(device)
+            ui.waitUntil(25_000) { ui.onNodeWithText("Upload complete").isDisplayed() }
+            assertEquals(1, scene.peer.transactions.size)
+            assertEquals(1, scene.peer.vaultUploads.size)
+            assertArrayEquals(bytes, server.storedContents())
+            captureNativeScreen(File(scene.evidence, "retained-file-deposit-now-available.png"))
+            ui.onNodeWithText("Back to files").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("vault-budget.bin").isDisplayed() }
+        }
+    }
+
 }

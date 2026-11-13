@@ -21,6 +21,7 @@ internal class OwnedVaultMintFixture(private val reference: JsonObject, private 
     private val workers = Executors.newSingleThreadExecutor()
     private val files = ConcurrentHashMap<String, String>()
     val rejectUpload = AtomicBoolean(false)
+    @Volatile var availableNolan: Long = 200_000_000
     @Volatile var uploadGate: CountDownLatch? = null
     private val id = reference.get("nftId").asString
     private val scriptHash = SaitoEnvelope.decode(reference.getAsJsonObject("file").get("envelope").asString).body.get("access_hash").asString
@@ -71,7 +72,7 @@ internal class OwnedVaultMintFixture(private val reference: JsonObject, private 
 
     fun snapshot(): String {
         val minted = confirm.get() && candidate() != null
-        val rows = if (!minted) "$owner 2000001 3 0 200000000 0\n" else buildString {
+        val rows = if (!minted) "$owner 2000001 3 0 $availableNolan 0\n" else buildString {
             append("$owner 2000004 8 1 100000000 0\n")
             append("$owner 2000004 8 0 1 9\n")
             append("${base58(id.chunked(2).map { it.toInt(16).toByte() }.toByteArray())} 2000004 8 2 0 9\n")
