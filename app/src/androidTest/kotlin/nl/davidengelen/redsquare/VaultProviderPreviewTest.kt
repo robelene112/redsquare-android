@@ -28,12 +28,12 @@ class VaultProviderPreviewTest {
                 scene.context.startActivity(Intent(scene.context, MainActivity::class.java).setAction(Intent.ACTION_SEND)
                     .setType("application/octet-stream").putExtra(Intent.EXTRA_STREAM, source)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION))
-                ui.waitUntil(15_000) { ui.onNodeWithText("Preparing file").isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Preparing your file").isDisplayed() }
                 ui.waitUntil(5_000) { resolver.call(source, "status", name, null)?.getBoolean("firstWritten") == true }
                 captureNativeScreen(File(scene.evidence, "delayed-provider-preparing.png"))
                 ui.switchStackModule("Vault", "Red Square")
                 ui.switchStackModule("Red Square", "Vault", scrollTarget = true)
-                ui.waitUntil(5_000) { ui.onNodeWithText("Preparing file").isDisplayed() }
+                ui.waitUntil(5_000) { ui.onNodeWithText("Preparing your file").isDisplayed() }
                 ui.onNodeWithText("Cancel reading").performScrollTo().performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Your files").isDisplayed() }
                 ui.onNodeWithText("File preparation stopped. Nothing was uploaded.").assertIsDisplayed()
