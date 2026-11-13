@@ -36,6 +36,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         require(requestId.matches(Regex("[0-9a-f]{128}")))
         check(expectedClosedVaultUploadReplies.add(requestId))
     }
+    @Volatile var storeResponse: ((com.google.gson.JsonObject) -> String)? = null
+    val storeRequests = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile var vaultResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultRequests = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
     @Volatile var registryFallbackBeforeNamecheck = false
@@ -295,6 +297,13 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             return
                         }
                         val criteria = body.getAsJsonObject("data")
+                        if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory") &&
+                            criteria.get("module")?.asString == "Store") {
+                            storeRequests.add(body.deepCopy())
+                            val response = requireNotNull(storeResponse)(body)
+                            check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            return
+                        }
                         if (body.get("request").asString == "vault access file") {
                             val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
                             val signed = SaitoEnvelope.decode(original.envelope())
