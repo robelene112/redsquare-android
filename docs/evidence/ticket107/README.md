@@ -116,6 +116,21 @@ protects the complete rollback/status update with NonCancellable. Polling alone
 is not accepted as the established cause or fix. Diagnostic run43442181449 was
 superseded/cancelled by the workflow concurrency group and supplies no acceptance.
 
+Run43443537731 on `13638b7c8ee1414ec958695676f8fda8ec710751` now passes
+the native read-only lost-reply recovery, one-mint/one-upload, authenticated file
+read, exact bytes and Files return assertions. The class still fails its final
+owned-peer health assertion: the fixture treated the deliberately closed original
+upload reply as an unexpected transport error. The corrected fixture requires
+one explicitly identified authenticated request's response to fail enqueue and
+records that exact event; all other response checks and request validation remain
+strict. The test positively waits for the actual lost reply within5s. This failed
+class is retained and is not counted as complete cancellation acceptance.
+Run43443537968 on the same source passes actual native process death and distinct
+cold PID, no automatic send, fresh real PIN, same retained candidate/file without
+another mint, retained Chat/Fileshare bytes and exact original installation
+restoration. Its process image archive is named `images.tar` and must be collected
+in addition to the standard focused capture archives.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

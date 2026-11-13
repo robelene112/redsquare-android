@@ -40,6 +40,8 @@ class VaultUploadCancellationPreviewTest {
                     }.notification
                     assertFalse(notification.extras.getString(Notification.EXTRA_TEXT).orEmpty().contains("vault-cancelled.bin"))
                     val stop = notification.actions.single { it.title.toString() == "Stop upload" }
+                    val originalRequest = scene.peer.vaultUploads.single().id
+                    scene.peer.expectClosedVaultUploadReply(originalRequest)
                     stop.actionIntent.send() // The actual public Android notification control.
                     ui.waitUntil(10_000) { ui.onNodeWithText("Waiting for availability").isDisplayed() }
                     assertEquals(1, scene.peer.transactions.size)
@@ -47,6 +49,7 @@ class VaultUploadCancellationPreviewTest {
                     captureNativeScreen(File(scene.evidence, "notification-stopped-original-file-and-key-retained.png"))
                     gate.countDown()
                     ui.waitUntil(5_000) { runCatching { server.storedContents().contentEquals(bytes) }.getOrDefault(false) }
+                    ui.waitUntil(5_000) { scene.peer.observedClosedVaultUploadReplies == listOf(originalRequest) }
                     ui.onNodeWithText("Check availability").performScrollTo().performClick()
                     ui.waitUntil(15_000) { ui.onNodeWithText("Upload complete").isDisplayed() }
                     assertEquals("Read-only recovery must not mint again", 1, scene.peer.transactions.size)

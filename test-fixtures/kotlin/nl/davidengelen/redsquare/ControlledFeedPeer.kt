@@ -30,6 +30,12 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var vaultUploadResponseExecutor: java.util.concurrent.Executor? = null
     @Volatile var vaultUploadResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultUploads = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
+    private val expectedClosedVaultUploadReplies = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+    val observedClosedVaultUploadReplies = java.util.concurrent.CopyOnWriteArrayList<String>()
+    fun expectClosedVaultUploadReply(requestId: String) {
+        require(requestId.matches(Regex("[0-9a-f]{128}")))
+        check(expectedClosedVaultUploadReplies.add(requestId))
+    }
     @Volatile var vaultResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultRequests = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
     @Volatile var registryFallbackBeforeNamecheck = false
@@ -277,7 +283,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             val respond = Runnable {
                                 try {
                                     val response = requireNotNull(vaultUploadResponse)(signed)
-                                    check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                                    val queued = webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                                    if (expectedClosedVaultUploadReplies.remove(signed.id)) {
+                                        check(!queued) { "The declared closed upload reply was unexpectedly queued" }
+                                        observedClosedVaultUploadReplies.add(signed.id)
+                                    } else check(queued)
                                 } catch (problem: Throwable) { recordFailure(problem) }
                             }
                             val executor = vaultUploadResponseExecutor
@@ -405,5 +415,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
 
     private fun recordFailure(problem: Throwable) { failure = problem; received.countDown() }
     fun assertRequestObserved() { assertTrue("Archive request was not observed", received.await(5, TimeUnit.SECONDS)); assertHealthy() }
-    fun assertHealthy() { failure?.let { throw AssertionError("Controlled peer rejected the request", it) } }
+    fun assertHealthy() {
+        failure?.let { throw AssertionError("Controlled peer rejected the request", it) }
+        check(expectedClosedVaultUploadReplies.isEmpty()) { "A declared closed Vault reply was never observed" }
+    }
 }
