@@ -37,7 +37,8 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     private val generation = AtomicLong()
 
     suspend fun load(requestedPage: Int = page) {
-        if (loading) return
+        // A replacement effect can start before its cancelled predecessor leaves IO.
+        // Its generation owns the result; the old loading flag must not drop the new read.
         val current = generation.incrementAndGet()
         loading = true; problem = null
         require(requestedPage >= 0)
