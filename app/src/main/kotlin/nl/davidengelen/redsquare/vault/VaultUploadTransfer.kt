@@ -57,8 +57,22 @@ internal class VaultUploadTransfer(private val context: Context, private val wal
         current(); currentCoroutineContext().ensureActive()
         val snapshot = balances.read(backend, wallet.publicKey) ?: throw IOException("Ownership unavailable")
         val holding = snapshot.nfts.firstOrNull { it.id == record.candidate.nftId && it.creator == wallet.publicKey }
-        val observed = record.copy(owned = holding != null)
-        currentCoroutineContext().ensureActive(); guard()
+        var observed = record.copy(owned = holding != null)
+        if (holding != null && !record.uploaded) {
+            val key = SaitoVault.readKey(holding, record.candidate.transaction.envelope())
+            val operation = currentCoroutineContext().job
+            val response = withPeer { peer ->
+                peer.request(SaitoVault.access(wallet, key, System.currentTimeMillis())) {
+                    operation.ensureActive(); current(); guard()
+                }
+            }
+            val received = SaitoVault.readFile(key, response.decodeToString())
+            require(received.size == record.size && received.mime == record.mime)
+            // A lost RPC reply is recoverable by an authenticated read of the exact signed
+            // file bound to this key. Neither check nor retrieval submits a mint/upload.
+            observed = observed.copy(uploaded = true)
+        }
+        currentCoroutineContext().ensureActive(); current(); guard()
         store.save(observed, guard)
         if (observed.complete && holding != null) {
             disk.saveKeys(listOf(SaitoVault.readKey(holding, record.candidate.transaction.envelope())))

@@ -95,6 +95,17 @@ cleanup, real revoked-grant case and180s class bound remain unchanged.
 Diagnostic prefix `[DEBUG-vault107]` is temporary and must be removed after the
 exact boundary is verified. Do not count a hypothesis as the established cause.
 
+Run43441762466 on `bf73c6243a1dbab02206f7ab3d2d691a08502874` cleanly
+reproduces the lost-reply failure: notification Stop works, one mint and one
+upload remain, but the subsequent availability check does not reach Complete
+within15s. The product fix now uses the observed original key to retrieve and
+verify the exact signed file, including the expected MIME/size, when an upload
+reply was lost. This read does not mint or upload. The unchanged class must pass.
+Run43441762577 on the same source separately passes the full background case:
+the real display remains noninteractive while balance requests advance6to7,
+with one mint/one upload; native Complete and Files return pass after waking.
+Both original masked permission-cleanup runs remain retained.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off
