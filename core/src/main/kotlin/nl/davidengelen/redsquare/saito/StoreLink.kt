@@ -17,6 +17,13 @@ enum class StoreCategory(val wire: String, private vararg val types: String) {
 /** A read destination only. It never selects a saved node or submits a Store operation. */
 data class StoreLink(val backend: SaitoBackend, val seller: String? = null, val nftId: String? = null,
     val signature: String? = null, val category: String = "") : java.io.Serializable {
+    fun url(): String = backend.webUrl + when {
+        signature != null -> "/store/listing/$signature"
+        nftId != null -> "/store/$seller/$nftId"
+        seller != null -> "/store/$seller"
+        else -> "/store"
+    }
+
     companion object {
         fun parse(url: String): StoreLink? = runCatching {
             require(url.length <= 4096 && url.none { it.isWhitespace() || it.isISOControl() })

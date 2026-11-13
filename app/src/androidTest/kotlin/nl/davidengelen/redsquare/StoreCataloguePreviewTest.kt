@@ -19,9 +19,20 @@ class StoreCataloguePreviewTest {
             .reader().use { JsonParser.parseReader(it).asJsonObject }
         lateinit var peer: ControlledFeedPeer
         withAppFrameFixture("store-catalogue", "store-catalogue-evidence", feedRows = "[]", advertisedServices = "archive||;Store||",
+            archiveResponse = { query ->
+                if (query.get("sig")?.asString == reference.getAsJsonObject("listing").get("id").asString)
+                    JsonArray().apply { add(JsonObject().apply { addProperty("tx", reference.getAsJsonObject("listing").get("envelope").asString) }) }.toString()
+                else "[]"
+            },
             configurePeer = { owned ->
                 peer = owned
-                owned.storeResponse = { request ->
+                owned.storeResponse = response@ { request ->
+                    if (request.get("request").asString == "load-listing") {
+                        val data = request.getAsJsonObject("data")
+                        assertEquals(reference.get("seller").asString, data.get("seller").asString)
+                        assertEquals(reference.get("nftId").asString, data.get("nft_id").asString)
+                        return@response JsonObject().apply { add("listing", reference.getAsJsonObject("page").getAsJsonArray("listings")[0]) }.toString()
+                    }
                     assertEquals("load-listings", request.get("request").asString)
                     val data = request.getAsJsonObject("data")
                     assertEquals("Store", data.get("module").asString)
@@ -57,6 +68,12 @@ class StoreCataloguePreviewTest {
             assertEquals(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER,
                 nl.davidengelen.redsquare.saito.AndroidBackendStore(context).load())
             captureNativeScreen(File(context.cacheDir, "store-catalogue-evidence/real-filtered-store-offer.png"))
+            ui.onNodeWithText("Field notes access key").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
+            ui.onNodeWithText("Message seller").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("2.5 SAITO").assertIsDisplayed()
+            assertTrue(peer.transactions.isEmpty()); assertTrue(peer.vaultUploads.isEmpty())
+            captureNativeScreen(File(context.cacheDir, "store-catalogue-evidence/authenticated-store-product.png"))
         }
     }
 }

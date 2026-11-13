@@ -20,7 +20,9 @@ data class StorePage(val items: List<StoreSummary>, val offset: Int, val total: 
 
 data class StoreProduct(val nftId: String, val seller: String, val signature: String, val title: String,
     val description: String, val category: StoreCategory, val price: StorePrice?, val quantity: BigInteger,
-    val assetType: String, val envelope: String)
+    val assetType: String, val envelope: String, val image: String? = null) {
+    val browserOnly: Boolean get() = assetType in setOf("js", "css", "stack", "nwasm-nft-mod", "saito-app")
+}
 
 /** Bounded Store reading; financial/listing submission contracts are separate explicit operations. */
 object SaitoStore {
@@ -70,8 +72,52 @@ object SaitoStore {
         StoreProduct(asset.id, signed.author, signed.id,
             text(listing, "title", 10_000).ifBlank { text(body, "title", 10_000) },
             text(listing, "description", 200_000).ifBlank { text(body, "description", 200_000) }, category,
-            amount?.takeIf { it.signum() > 0 }?.let { StorePrice(ticker, it) }, quantity, asset.type, envelope)
+            amount?.takeIf { it.signum() > 0 }?.let { StorePrice(ticker, it) }, quantity, asset.type, envelope, body.get("data")?.takeIf { it.isJsonObject }?.asJsonObject
+                ?.get("image")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString?.let(RedSquareImages::safeSource))
     }.getOrNull()
+
+    fun listingRequest(target: StoreLink): String {
+        require(target.signature != null || (target.seller != null && target.nftId != null))
+        require(StoreLink.parse(target.url()) == target)
+        return JsonObject().apply {
+            addProperty("request", "load-listing")
+            add("data", JsonObject().apply {
+                addProperty("module", "Store")
+                if (target.signature != null) addProperty("signature", target.signature)
+                else { addProperty("seller", target.seller); addProperty("nft_id", target.nftId) }
+            })
+        }.toString()
+    }
+
+    fun readOffer(response: String, target: StoreLink): StoreSummary? {
+        require(response.toByteArray(Charsets.UTF_8).size <= 2 * 1024 * 1024)
+        val body = requireNotNull(gson.fromJson(response, JsonObject::class.java))
+        if (!body.has("listing")) { require(body.has("err")); return null }
+        // Use the same bounded summary reader for the protocol's single-offer response.
+        val page = JsonObject().apply {
+            addProperty("public_key", target.seller.orEmpty()); addProperty("category", "")
+            add("listings", com.google.gson.JsonArray().apply { add(body.get("listing")) })
+            add("pagination", JsonObject().apply {
+                addProperty("offset", 0); addProperty("page_size", 1); addProperty("total", 1); addProperty("has_next", false)
+            })
+        }
+        return readCatalogue(page.toString(), StoreQuery(seller = target.seller)).items.singleOrNull()?.takeIf {
+            (target.nftId == null || target.nftId == it.nftId) && (target.signature == null || target.signature == it.signature)
+        }
+    }
+
+    fun listingArchiveRequest(signature: String): String {
+        require(signature.matches(Regex("[0-9a-f]{128}")))
+        return JsonObject().apply {
+            addProperty("request", "archive")
+            add("data", JsonObject().apply {
+                addProperty("request", "load"); addProperty("sig", signature); addProperty("limit", 1)
+            })
+        }.toString()
+    }
+
+    fun readListingArchive(summary: StoreSummary, response: String): StoreProduct? =
+        readArchiveRows(response, { requireNotNull(readListing(summary, it)) }, { true }, { it.signature }).entries.singleOrNull()
 
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 

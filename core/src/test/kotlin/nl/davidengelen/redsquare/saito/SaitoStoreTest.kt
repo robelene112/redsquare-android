@@ -69,4 +69,26 @@ class SaitoStoreTest {
         assertNull(SaitoStore.readListing(offer, altered.toString()))
     }
 
+    @Test fun exactProductLookupAndArchiveNeverSubstituteAnotherOffer() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-listing-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val offer = SaitoStore.readCatalogue(vector.get("page").toString()).items.single()
+        val target = StoreLink(SaitoBackend.OWNER, offer.seller, offer.nftId)
+        val request = JsonParser.parseString(SaitoStore.listingRequest(target)).asJsonObject
+        assertEquals("load-listing", request.get("request").asString)
+        assertEquals(offer.seller, request.getAsJsonObject("data").get("seller").asString)
+        assertEquals(offer.nftId, request.getAsJsonObject("data").get("nft_id").asString)
+        val response = JsonObject().apply { add("listing", vector.getAsJsonObject("page").getAsJsonArray("listings")[0]) }.toString()
+        assertEquals(offer, SaitoStore.readOffer(response, target))
+        assertNull(SaitoStore.readOffer("{\"err\":\"Listing unavailable\"}", target))
+        assertNull(SaitoStore.readOffer(response, target.copy(nftId = "a".repeat(66))))
+        val signed = vector.getAsJsonObject("listing").get("envelope").asString
+        val archive = com.google.gson.JsonArray().apply { add(JsonObject().apply { addProperty("tx", signed) }) }.toString()
+        assertNotNull(SaitoStore.readListingArchive(offer, archive))
+        assertNull(SaitoStore.readListingArchive(offer.copy(signature = "a".repeat(128)), archive))
+        assertEquals(offer.signature, JsonParser.parseString(SaitoStore.listingArchiveRequest(offer.signature))
+            .asJsonObject.getAsJsonObject("data").get("sig").asString)
+        assertEquals("${SaitoBackend.OWNER.webUrl}/store/${offer.seller}/${offer.nftId}", target.url())
+    }
+
 }
