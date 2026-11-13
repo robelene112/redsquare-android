@@ -145,5 +145,39 @@
       "merged": "{\"args\":[{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\"},{\"args\":[{\"hash\":\"5fbf08af2b116ab8f7f3c14b8ec01a46ce23d290e2ebc7a752d0982d54c054f2\",\"op\":\"CHECKHASH\"}],\"op\":\"FUTURE_OPCODE\",\"witness\":{\"input\":\"outer unknown rule\"}}],\"op\":\"OR\"}",
       "hash": "d4941f01ac79defd72a4dede6c1609fbb8257b4082fd66f07d6f28798412219a"
     }
+  ],
+  "presets": [
+    {
+      "type": "rental",
+      "creator": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "renter": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "expiresAt": 1700001000000,
+      "source": "{\"op\":\"OR\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\"},{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKPATHHOP\",\"selector\":\"FIRST\",\"where\":[{\"field\":\"value.delegated\",\"operator\":\"==\",\"value\":0}],\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\",\"hash\":\"\"},{\"op\":\"AND\",\"args\":[{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script\",\"value\":{\"op\":\"OR\",\"args\":[{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"LOAN_RENTER_PLACEHOLDER\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\"<\",\"value\":0}]},{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\">\",\"value\":0}]}]}},{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script.args[0].args[0].publickey\",\"value\":\"__opcodes.checkpathhop.hop.to\"},{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script.args[0].args[1].value\",\"value\":\"__opcodes.checkpathhop.hop.value.expires_at\"},{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script.args[1].args[1].value\",\"value\":\"__opcodes.checkpathhop.hop.value.expires_at\"},{\"op\":\"SCRIPTHASH\",\"source\":\"context.loan_script\",\"into\":\"hash\"},{\"op\":\"CHECKFIELD\",\"field\":\"db.type\",\"operator\":\"==\",\"value\":\"UPDATE\"},{\"op\":\"CHECKKEY\",\"field\":\"db\",\"operator\":\"==\",\"key\":\"owner\"},{\"op\":\"CHECKKEY\",\"field\":\"db\",\"operator\":\"IN\",\"key\":[\"type\",\"owner\",\"updated_at\"]},{\"op\":\"CHECKFIELD\",\"field\":\"db.owner\",\"operator\":\"==\",\"value\":\"__opcodes.scripthash.hash\"}]}]}]}",
+      "hash": "c06411953813023762362555ec1596e2e0b384edcfdbd0cec849953991578ab7"
+    },
+    {
+      "type": "loan",
+      "creator": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "renter": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "expiresAt": 1700001000000,
+      "source": "{\"op\":\"OR\",\"args\":[{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\"<\",\"value\":1700001000000}]},{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\">\",\"value\":1700001000000}]}]}",
+      "hash": "7d4d5a63ce962ce1334ae9a38960c759b45ad09d30313d0e85e1f135d264c010"
+    },
+    {
+      "type": "rental",
+      "creator": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "renter": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "expiresAt": 4102444800000,
+      "source": "{\"op\":\"OR\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\"},{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKPATHHOP\",\"selector\":\"FIRST\",\"where\":[{\"field\":\"value.delegated\",\"operator\":\"==\",\"value\":0}],\"publickey\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\",\"hash\":\"\"},{\"op\":\"AND\",\"args\":[{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script\",\"value\":{\"op\":\"OR\",\"args\":[{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"LOAN_RENTER_PLACEHOLDER\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\"<\",\"value\":0}]},{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\">\",\"value\":0}]}]}},{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script.args[0].args[0].publickey\",\"value\":\"__opcodes.checkpathhop.hop.to\"},{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script.args[0].args[1].value\",\"value\":\"__opcodes.checkpathhop.hop.value.expires_at\"},{\"op\":\"SETFIELD\",\"reference\":\"context.loan_script.args[1].args[1].value\",\"value\":\"__opcodes.checkpathhop.hop.value.expires_at\"},{\"op\":\"SCRIPTHASH\",\"source\":\"context.loan_script\",\"into\":\"hash\"},{\"op\":\"CHECKFIELD\",\"field\":\"db.type\",\"operator\":\"==\",\"value\":\"UPDATE\"},{\"op\":\"CHECKKEY\",\"field\":\"db\",\"operator\":\"==\",\"key\":\"owner\"},{\"op\":\"CHECKKEY\",\"field\":\"db\",\"operator\":\"IN\",\"key\":[\"type\",\"owner\",\"updated_at\"]},{\"op\":\"CHECKFIELD\",\"field\":\"db.owner\",\"operator\":\"==\",\"value\":\"__opcodes.scripthash.hash\"}]}]}]}",
+      "hash": "0101a316a9d5adf6e14ef0f850163884f0217683c3931630d80318d67cddda84"
+    },
+    {
+      "type": "loan",
+      "creator": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+      "renter": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "expiresAt": 4102444800000,
+      "source": "{\"op\":\"OR\",\"args\":[{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\"<\",\"value\":4102444800000}]},{\"op\":\"AND\",\"args\":[{\"op\":\"CHECKSENDER\",\"publickey\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\"},{\"op\":\"CHECKFIELD\",\"field\":\"NOW\",\"operator\":\">\",\"value\":4102444800000}]}]}",
+      "hash": "836ff1bbbcfe6a515a803e6b3c2881db899796c746eab9103387a42f9c11b9ae"
+    }
   ]
 }

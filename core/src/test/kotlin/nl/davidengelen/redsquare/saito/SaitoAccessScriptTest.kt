@@ -35,4 +35,16 @@ class SaitoAccessScriptTest {
             assertEquals(row.get("hash").asString, script.hash)
         }
     }
+
+    @Test fun rentalPresetsBindTheRealCreatorRenterAndExpiryToTheOfficialConstitutions() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-vault-access-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        reference.getAsJsonArray("presets").forEach { value ->
+            val row = value.asJsonObject
+            val script = if (row.get("type").asString == "rental") SaitoVaultRules.rental(row.get("creator").asString)
+                else SaitoVaultRules.loan(row.get("creator").asString, row.get("renter").asString, row.get("expiresAt").asLong)
+            assertEquals(JsonParser.parseString(row.get("source").asString), JsonParser.parseString(script.source))
+            assertEquals(row.get("hash").asString, script.hash)
+        }
+    }
 }

@@ -43,7 +43,17 @@ const witnessCases = [
   const source = JSON.stringify(script), inputs = JSON.stringify(witnesses);
   return {source, inputs, merged: wasm.merge_witness(source, inputs), hash: wasm.get_script_hash(source)};
 });
+const presets = [];
+for (const [author, tenant, expiresAt] of [[creator, renter, 1700001000000], [renter, creator, 4102444800000]]) {
+  for (const type of ['rental', 'loan']) {
+    const contract = require(path.join(root, 'node/mods/vault/lib/contracts/' + type + '.js'));
+    const script = type === 'rental' ? contract.build({creator_publickey: author})
+      : contract.instantiate({creator_publickey: author, renter_publickey: tenant, expires_at: expiresAt});
+    const source = JSON.stringify(script);
+    presets.push({type, creator: author, renter: tenant, expiresAt, source, hash: wasm.get_script_hash(source)});
+  }
+}
 const output = {authority: {source: '0db0062d873369dc013046ed77c97410b5683b64', saitoWasm: '0.3.15', sourceHashes: hashes,
-  qualification: 'Actual WASM script commitments/witness merging and pinned contract builders; no live provider or consensus authorization.'}, creator, renter, scripts, numericScripts, witnessCases};
+  qualification: 'Actual WASM script commitments/witness merging and pinned contract builders; no live provider or consensus authorization.'}, creator, renter, scripts, numericScripts, witnessCases, presets};
 fs.writeFileSync(path.resolve(process.argv[4]), JSON.stringify(output, null, 2) + '\n');
 console.log('Independent Vault access commitments generated:', scripts.length);
