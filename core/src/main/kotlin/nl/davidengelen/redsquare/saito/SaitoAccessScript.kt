@@ -7,6 +7,9 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import org.bouncycastle.crypto.digests.Blake3Digest
 import java.io.StringReader
+import java.math.BigDecimal
+import java.math.BigInteger
+import com.fasterxml.jackson.core.io.schubfach.DoubleToDecimal
 
 /** A bounded script commitment, never evidence that its access conditions are satisfied. */
 class SaitoAccessScript private constructor(val source: String, val hash: String) {
@@ -35,6 +38,7 @@ class SaitoAccessScript private constructor(val source: String, val hash: String
                             quote(it) + ":" + canonical(value.asJsonObject.get(it), depth + 1)
                         }
                     value.asJsonPrimitive.isString -> quote(value.asString)
+                    value.asJsonPrimitive.isNumber -> number(value.asString)
                     else -> value.toString()
                 }
             }
@@ -42,6 +46,32 @@ class SaitoAccessScript private constructor(val source: String, val hash: String
             val digest = ByteArray(32)
             Blake3Digest(256).apply { update(bytes, 0, bytes.size); doFinal(digest, 0) }
             return SaitoAccessScript(source, digest.joinToString("") { "%02x".format(it) })
+        }
+
+        private val integer = Regex("-?(0|[1-9][0-9]*)")
+        private val minSigned = BigInteger.valueOf(Long.MIN_VALUE)
+        private val maxUnsigned = BigInteger.ONE.shiftLeft(64) - BigInteger.ONE
+
+        private fun number(raw: String): String {
+            // serde_json retains i64/u64 integers, while overflow, exponents,
+            // decimals and negative zero enter its floating-point representation.
+            if (raw.length <= 21 && integer.matches(raw) && raw != "-0") {
+                val value = raw.toBigInteger()
+                if (value >= minSigned && value <= maxUnsigned) return value.toString()
+            }
+            val value = raw.toDouble()
+            require(value.isFinite()) { "Access script number is outside the supported JSON range" }
+            if (value == 0.0) return if (java.lang.Double.doubleToRawLongBits(value) < 0) "-0.0" else "0.0"
+            val decimal = BigDecimal(DoubleToDecimal.toString(value)).stripTrailingZeros()
+            val exponent = decimal.precision() - decimal.scale() - 1
+            if (exponent in -5..15) return decimal.toPlainString() + if (decimal.scale() <= 0) ".0" else ""
+            val digits = decimal.unscaledValue().abs().toString()
+            return buildString {
+                if (decimal.signum() < 0) append('-')
+                append(digits[0])
+                if (digits.length > 1) { append('.'); append(digits.substring(1)) }
+                append('e'); append(exponent)
+            }
         }
 
         // Rust sorts UTF-8 strings by scalar value, which differs from UTF-16 order
