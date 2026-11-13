@@ -20,6 +20,9 @@ class VaultSharePreviewTest {
             scene.context.contentResolver.call(source, "prepare", "vault-shared.bin", Bundle().apply {
                 putByteArray("bytes", "Shared into native Vault, not yet published".toByteArray())
             })
+            val handlers = scene.context.packageManager.queryIntentActivities(Intent(Intent.ACTION_SEND)
+                .setType("application/octet-stream").setPackage(scene.context.packageName), android.content.pm.PackageManager.MATCH_DEFAULT_ONLY)
+            assertTrue("Vault must appear as an Android Share target", handlers.any { it.activityInfo.name == MainActivity::class.java.name })
             scene.context.startActivity(Intent(scene.context, MainActivity::class.java).setAction(Intent.ACTION_SEND)
                 .setType("application/octet-stream").putExtra(Intent.EXTRA_STREAM, source)
                 .putExtra("vaultShareMarker", true).putExtra("feedPeerUrl", "ws://127.0.0.1:1/wsopen")
@@ -33,8 +36,13 @@ class VaultSharePreviewTest {
             captureNativeScreen(File(scene.evidence, "shared-file-reviewed-before-any-write.png"))
             ui.onNodeWithText("Discard file").performScrollTo().performClick()
             ui.waitUntil(10_000) { ui.onNodeWithText("Your files").isDisplayed() }
-            ui.onNodeWithContentDescription("Refresh Vault").performClick()
+            val refresh = (hasContentDescription("Refresh Vault") or hasText("Refresh Vault")) and isEnabled()
+            ui.waitUntil(5_000) { ui.onNode(refresh).isDisplayed() }
+            val requestsBeforeRefresh = scene.peer.requests.get()
+            ui.onNode(refresh).performClick()
+            ui.waitUntil(5_000) { scene.peer.requests.get() > requestsBeforeRefresh }
             scene.peer.assertHealthy()
+            captureNativeScreen(File(scene.evidence, "shared-review-discarded-original-node-refreshed.png"))
             assertTrue(scene.peer.transactions.isEmpty())
             assertTrue(scene.peer.vaultUploads.isEmpty())
         }
