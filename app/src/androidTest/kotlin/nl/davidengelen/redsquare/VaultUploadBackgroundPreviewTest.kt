@@ -11,6 +11,8 @@ import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -58,12 +60,25 @@ class VaultUploadBackgroundPreviewTest {
                         addProperty("balanceRequestsBefore", before); addProperty("balanceRequestsAfter", scene.balanceRequests())
                         addProperty("mintFrames", scene.peer.transactions.size); addProperty("fileUploads", scene.peer.vaultUploads.size)
                     }.toString())
-                    // Clear only the disposable emulator credential so returning from the real
-                    // lock screen does not masquerade as another upload authorization.
-                    device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
-                    device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
                     val returnDeadline = SystemClock.elapsedRealtime() + 15_000
                     fun remaining() = (returnDeadline - SystemClock.elapsedRealtime()).also { check(it > 0) }
+                    if (Build.VERSION.SDK_INT == 29) {
+                        // Android10 can retain its PIN bouncer after shell credential removal.
+                        // Unlock through its observed real controls, independently of Vault's
+                        // already completed upload authorization. Keep the same total return goal.
+                        device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
+                        check(device.wait(Until.hasObject(By.res("com.android.systemui", "pinEntry")), remaining()))
+                        EXPORT_TEST_PIN.forEach { digit ->
+                            requireNotNull(device.findObject(By.res("com.android.systemui", "key$digit"))).click()
+                        }
+                        requireNotNull(device.findObject(By.res("com.android.systemui", "key_enter"))).click()
+                        val keyguard = context.getSystemService(android.app.KeyguardManager::class.java)
+                        while (keyguard.isKeyguardLocked && SystemClock.elapsedRealtime() < returnDeadline) SystemClock.sleep(25)
+                        assertFalse("The actual device lock must be dismissed before returning to the app", keyguard.isKeyguardLocked)
+                    } else {
+                        device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0")
+                        device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
+                    }
                     context.startActivity(Intent(context, MainActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
                     ui.waitUntil(remaining()) {

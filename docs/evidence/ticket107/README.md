@@ -235,6 +235,26 @@ Open upload action. The test correction uses that existing label; every original
 4case class still must pass. Same-source viewport run43462298233 passes all12
 width/font/theme cells with costs and48dp actions retained.
 
+All160core tests pass after the review fixes, with0failures/errors/skips.
+Affected Android17 wallet-import risk regression43462939166 and the actual
+three-party Talk/Chat/Fileshare regression43462944723 pass on
+`ec62c468e5da49e2c36c84943ff108308417ab5b`. Original ZIPs and all extracted
+members are byte-exact. These are focused regression observations; the final
+combined beta still requires complete shared-source application/update proofs.
+
+Complete Android10 upload run43464152245 on
+`ddc58d929500cf768500ec22b789cb84010fda5a` passes the distinct-PID process
+protocol, Share and all12viewport cells, then fails the original15s background
+return goal. Original screen-off facts still show1mint/1upload, exact bytes,
+noninteractive display and fresh ownership IO. The original failure PNG/XML show
+Android's actual PIN bouncer covering the app, after the test removed the
+credential using shell while asleep. Clearing the credential is not reliable
+lock-screen dismissal on Android10. The test correction uses the observed real
+PIN digit/Enter controls and positively checks the keyguard is gone. Unlock,
+app readiness, navigation and completion now share the same original15s return
+deadline. No product authority, upload assertion or class goal is relaxed, and
+that failed complete run is retained without assembling its passing subsets.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off
