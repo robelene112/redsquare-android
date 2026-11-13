@@ -31,15 +31,30 @@ authorized. Other parent and real-release prerequisites remain open.
 
 #108 is closed. #109 is assigned and its native dependency gate reports0open
 blockers. Review base:`4c6a2d91a69e14ce4468a15a6ced737945771d7a`.
-First link tracer failed on the missing native route, then passes against actual
-pinned AND deployed route bodies in `native-store-catalogue-reference.json`.
-Commit12f4ff860 contains the real approved Store base/storefront/asset/signature
-reading targets and official eight-category map. No native Store UI exists yet.
-The core query tracer also passes after its missing-body red, matching actual
-category/seller/offset/page-size/status requests and all eight categories. Next: actual bounded pages,
-signed listing hydration/media, native UI, links/origin preservation and unsent
-seller Chat drafts. Do not skip any109criterion or infer ticket completion from
-this small protocol start. Continue110–115 and the one combined beta afterwards.
+First link, catalogue request, bounded summary and signed-product tracers all
+pass against independent official/deployed body/WASM references. Last core loop
+passes `SaitoStoreTest` and `StoreLinkTest` (4cases). `SaitoStore.readListing`
+authenticates original seller/signature/NFT/locking script/custody/quantity and
+terms; it is not current chain/stock/delivery proof. Actual isolated Store builder
++WASM wallet reference uses4inputs/4outputs for the basic full listing, including
+a normal zero slip; never assume the transfer-only3/3shape. Its P2SH output is
+00+scriptHash, not an ordinary ECDSA key.
+
+No native Store UI exists yet. The first native catalogue/category tracer and
+owned read RPC fixture are committed at3467d479d1090c5c23ea14c1187c64da60cb0716.
+Main and AndroidTest compile. Scope `store-catalogue-android17` run43522227534 is pending;
+expect first red on missing Store picker item. Retrieve its actual run status
+and preserve complete original failure before implementing the real native
+Discover/Orders/My store module. ControlledFeedPeer.storeResponse handles only
+three explicit Store read requests, preserving every older default. Native test
+requires genuine signed-reference offer title/price, all8accessible categories,
+actual filtered RPC and no publication/node change. Full Wallet includes it once.
+
+Remaining109: native browsing/detail/media/storefront, bounded continuation and
+recovery, exact feed/Chat/platform links preserving origin/saved node, and existing
+Chat unsent reference drafts preserving all other drafts. Implement the rest of
+109criteria, both SDK/native/theme/large text/motion checks, review and closure.
+Continue110–115 and one combined beta afterwards. No intermediate beta.
 
 Owned reference generator:`test-fixtures/reference/store-catalogue-reference.cjs`.
 Pinned upstream Store/categories/browse/summary/warehouse/route source was read
