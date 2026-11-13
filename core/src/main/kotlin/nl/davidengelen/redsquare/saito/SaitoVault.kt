@@ -69,20 +69,29 @@ object SaitoVault {
     fun readKeyArchive(holding: SaitoNft, response: String): VaultKey? =
         readArchiveRows(response, { readKey(holding, it) }, { true }, { it.fileId }).entries.singleOrNull()
 
-    fun access(wallet: SaitoWallet, key: VaultKey, timestamp: Long): SaitoTransaction {
-        require(wallet.publicKey == key.holding.owner && key.customScript == null)
-        val witness = key.holding.witnesses
-        val script = JsonObject().apply {
-            addProperty("op", "CHECKOWNNFT"); addProperty("nftid", key.holding.id)
-            add("witness", JsonObject().apply {
-                addProperty("utxokey1", witness[0]); addProperty("utxokey2", witness[1]); addProperty("utxokey3", witness[2])
-            })
+    fun access(wallet: SaitoWallet, key: VaultKey, timestamp: Long, supplied: SaitoAccessScript? = null): SaitoTransaction {
+        require(wallet.publicKey == key.holding.owner)
+        val script: String
+        val hash: String
+        if (key.customScript != null) {
+            val witnessed = requireNotNull(supplied) { "Supply the custom access inputs before requesting this file" }
+            require(witnessed.hash == SaitoAccessScript.parse(key.customScript).hash) { "Access rules do not match this key" }
+            script = witnessed.source; hash = witnessed.hash
+        } else {
+            require(supplied == null) { "Standard keys use their current ownership witnesses" }
+            val witness = key.holding.witnesses
+            script = JsonObject().apply {
+                addProperty("op", "CHECKOWNNFT"); addProperty("nftid", key.holding.id)
+                add("witness", JsonObject().apply {
+                    addProperty("utxokey1", witness[0]); addProperty("utxokey2", witness[1]); addProperty("utxokey3", witness[2])
+                })
+            }.toString()
+            hash = standardHash(key.holding.id)
         }
-        val hash = standardHash(key.holding.id)
         return SaitoTransaction.create(wallet, JsonObject().apply {
             addProperty("request", "vault access file")
             add("data", JsonObject().apply {
-                addProperty("request", "vault access file"); addProperty("access_script", script.toString()); addProperty("access_hash", hash)
+                addProperty("request", "vault access file"); addProperty("access_script", script); addProperty("access_hash", hash)
                 add("data", JsonObject().apply { addProperty("file_id", key.fileId) })
             })
         }, timestamp)
@@ -101,11 +110,18 @@ object SaitoVault {
                 SaitoEnvelope.decode(envelope).takeIf { it.id == key.fileId && it.author == key.holding.creator }
             } catch (_: Exception) { null }
         }.distinctBy { it.id }.singleOrNull() ?: throw IllegalArgumentException("The requested signed file is unavailable")
-        require(matched.body.get("request")?.asString == "vault add file" && key.customScript == null)
-        require(matched.body.string("access_hash") == standardHash(key.holding.id)) { "File access commitment does not match this key" }
-        val contract = JsonParser.parseString(matched.body.string("access_script")).asJsonObject
-        require(contract.keySet() == setOf("op", "nftid", "witness") && contract.get("witness").isJsonObject)
-        require(contract.string("op") == "CHECKOWNNFT" && contract.string("nftid") == key.holding.id)
+        require(matched.body.get("request")?.asString == "vault add file")
+        val commitment = key.customScript?.let { SaitoAccessScript.parse(it).hash } ?: standardHash(key.holding.id)
+        require(matched.body.string("access_hash") == commitment) { "File access commitment does not match this key" }
+        if (key.customScript == null) {
+            val contract = JsonParser.parseString(matched.body.string("access_script")).asJsonObject
+            require(contract.keySet() == setOf("op", "nftid", "witness") && contract.get("witness").isJsonObject)
+            require(contract.string("op") == "CHECKOWNNFT" && contract.string("nftid") == key.holding.id)
+        } else {
+            require(SaitoAccessScript.parse(matched.body.string("access_script")).hash == commitment) {
+                "The signed file uses different access rules"
+            }
+        }
         val data = matched.body.getAsJsonObject("data")
         val name = data.string("name").also { require(it.isNotBlank() && it.length <= 1024) }
         val encoded = data.string("file")
