@@ -52,6 +52,13 @@ internal class VaultUploadSession(private val context: Context, private val wall
         }
     }
 
+    suspend fun acceptShared(uri: Uri) {
+        if (state.value.phase in setOf(VaultUploadPhase.LOADING, VaultUploadPhase.FILES)) job?.join()
+        if (job?.isCompleted == false || mutable.value.phase != VaultUploadPhase.FILES || mutable.value.record != null)
+            mutable.value = mutable.value.copy(problem = R.string.vault_share_existing_work)
+        else prepare(uri)
+    }
+
     fun prepare(uri: Uri) {
         if (job?.isActive == true || mutable.value.record != null) return
         val prior = mutable.value

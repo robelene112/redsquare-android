@@ -31,7 +31,8 @@ import nl.davidengelen.redsquare.ui.*
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, balances: WalletBalances,
-    modifier: Modifier, chrome: @Composable (Boolean) -> Unit, onNodeSettings: () -> Unit) {
+    modifier: Modifier, chrome: @Composable (Boolean) -> Unit, incomingFile: SharedVaultFile? = null,
+    onIncomingConsumed: (SharedVaultFile) -> Unit = {}, onNodeSettings: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val library = remember(wallet.publicKey, backend, endpoint, balances) { VaultLibrary(context, wallet, backend, endpoint, balances) }
@@ -52,6 +53,9 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
 
     LaunchedEffect(uploads) { uploads.load() }
+    LaunchedEffect(uploads, incomingFile) {
+        incomingFile?.let { incoming -> uploads.acceptShared(incoming.uri); onIncomingConsumed(incoming) }
+    }
     val pickUpload = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let(uploads::prepare)
     }

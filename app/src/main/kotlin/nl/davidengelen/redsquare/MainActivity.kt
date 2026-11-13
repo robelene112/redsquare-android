@@ -109,6 +109,9 @@ class MainActivity : ComponentActivity() {
             nl.davidengelen.redsquare.notifications.NotificationRoutes::class.java]
     }
 
+    private val incomingVaultFiles by lazy {
+        androidx.lifecycle.ViewModelProvider(this)[nl.davidengelen.redsquare.vault.VaultIncomingFiles::class.java]
+    }
     private val talkUris = kotlinx.coroutines.flow.MutableStateFlow<Uri?>(null)
     private fun isTalkUri(uri: Uri?): Boolean = uri != null &&
         (uri.scheme == "redsquare-talk" || TalkLink.parse(uri.toString()) != null)
@@ -116,6 +119,7 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
+        if (incomingVaultFiles.receive(this, intent)) return
         if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.enqueue(intent.data)
     }
 
@@ -142,6 +146,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalLayoutApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) incomingVaultFiles.receive(this, intent)
         if (isTalkUri(intent.data)) talkUris.value = intent.data else notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
@@ -356,6 +361,22 @@ class MainActivity : ComponentActivity() {
                 if (address != null && talkBackend != null && talkDraft?.let {
                     it.owner != address || it.savedBackend != talkBackend } == true) talkDraft = null
             }
+            val pendingVaultFile by incomingVaultFiles.pending.collectAsState()
+            LaunchedEffect(pendingVaultFile, address, backend, savingBackend, walletImport.busy, walletExport.busy) {
+                if (pendingVaultFile == null || address == null || backend == null || savingBackend || walletImport.busy || walletExport.busy)
+                    return@LaunchedEffect
+                val owner = address; val node = backend
+                postNavigation.awaitSettled()
+                val moved = postNavigation.navigate {
+                    if (wallet?.publicKey != owner || backend != node || savingBackend || walletImport.busy || walletExport.busy) false
+                    else {
+                        walletExport.cancel(); walletImport.cancel(); walletOpen = false
+                        settingsOpen = false; settingsCategory = null; usernameOpen = false
+                        stackLinkEntry = null; module = AppModule.VAULT; true
+                    }
+                }
+                moduleSwitchFailed = !moved
+            }
             val pendingTalkUri by talkUris.collectAsState()
             LaunchedEffect(pendingTalkUri, address, talkBackend) {
                 val uri = pendingTalkUri ?: return@LaunchedEffect
@@ -559,7 +580,8 @@ class MainActivity : ComponentActivity() {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null) key(currentWallet.publicKey, selected) {
                                                     nl.davidengelen.redsquare.vault.VaultScreen(currentWallet, selected,
-                                                        FeedEndpoints.fromIntent(intent, selected), balances, Modifier.fillMaxSize(), chrome) {
+                                                        FeedEndpoints.fromIntent(intent, selected), balances, Modifier.fillMaxSize(), chrome,
+                                                        incomingFile = pendingVaultFile, onIncomingConsumed = incomingVaultFiles::consumed) {
                                                         settingsCategory = "node"; settingsOpen = true
                                                     }
                                                 } else chrome(false)
