@@ -2,8 +2,14 @@ package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.MotionDurationScale
 import org.junit.Assert.*
 import java.io.File
+
+/** Match the system's zero scale in the Compose rule's substituted test recomposer. */
+internal object VaultViewportMotionScale : MotionDurationScale {
+    override val scaleFactor: Float = 0f
+}
 
 /** Existing real device configuration sweep, through the actual module/window controls. */
 internal fun ComposeTestRule.withVaultDialogViewports(name: String, custom: Boolean = false,

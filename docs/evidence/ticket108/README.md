@@ -88,8 +88,23 @@ invalid signatures/file bindings/unsupported constitutions, actual checkout/read
 message bodies and authentication of the original master-locked signed file.
 Existing standard/custom file-reader cases pass with the shared parser. Current
 Archive ownership and real provider acceptance still require runtime observation.
-The native rental-master mint/upload/read/export and three12-cell zero-motion
-dialog sweeps are implemented as owned tests and await native verification.
+The complete native rental-master mint/upload/read/export journey passes at
+`4f48e33f1be9b82627697d6ef273a28631e5cc7e` on
+[Android17](https://github.com/robelene112/redsquare-android/actions/runs/43505017412)
+and [Android10](https://github.com/robelene112/redsquare-android/actions/runs/43505021830).
+Both actual PIN-authorized journeys retain one original master mint/upload and
+export the original file exactly. All62/60ZIP and8capture members are byte-exact.
+
+The three12-cell dialog sweep stops in its first class on both SDKs:
+[Android17](https://github.com/robelene112/redsquare-android/actions/runs/43505026845)
+and [Android10](https://github.com/robelene112/redsquare-android/actions/runs/43505032324).
+The Compose rule substitutes a recomposer without a MotionDurationScale, so the
+native-window observer reads null instead of0. The original failure screenshot
+and byte-exact captures are retained. The correction explicitly supplies zero
+scale to the test recomposer while keeping actual system settings at0 and the
+same observable scale assertion. This is controlled Compose viewport coverage,
+not independent acceptance of the production window-motion factory. All original
+class deadlines and required cells remain. Corrected native runs are pending.
 Store's actual order, checkout and fulfilment flow remains114.
 
 Independent `saito-wasm@0.3.15` vectors pin upstream
@@ -104,6 +119,14 @@ The transfer reference executes the actual wallet factory and WASM full-block
 serializer. Matching signatures and block hashes alone cannot hide a changed
 original input coordinate. These are synthetic selected-chain compatibility
 checks, not funded consensus transfers or production-provider acceptance.
+
+A large custom-rule factory vector exposes a recovery limit:65305script bytes
+produce a65972byte signed mint, above the former64KiB candidate cap. The typed
+candidate cap is now96KiB within the existing128KiB encoded limit. The independent
+factory, native construction and retained candidate match, while every old
+standard/large-file/advanced reference field stays exactly unchanged. The red
+and green logs remain external. All172core tests pass at
+`d2e7f896a4bf93b39ba3aadf8307a07d17e7beaa`.
 
 ## Remaining before closure
 

@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 class VaultAccessViewportPreviewTest {
-    @get:Rule val ui = createEmptyComposeRule()
+    @get:Rule val ui = createEmptyComposeRule(VaultViewportMotionScale)
     @Test fun sourceInputsAndFileActionsRemainReachableInTwelveNativeViewportCells() =
         ui.withVaultDialogViewports("access", custom = true) { scene, label ->
             waitUntil(15_000) { onNodeWithText("Custom field notes.txt").isDisplayed() }

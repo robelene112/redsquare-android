@@ -10,7 +10,7 @@ import org.junit.Test
 import java.io.File
 
 class VaultTransferViewportPreviewTest {
-    @get:Rule val ui = createEmptyComposeRule()
+    @get:Rule val ui = createEmptyComposeRule(VaultViewportMotionScale)
     @Test fun wholeKeyCostsRecipientAndPermanentActionsRemainReachableInTwelveNativeCells() {
         val row = InstrumentationRegistry.getInstrumentation().context.assets.open("native-vault-transfer-reference.json")
             .reader().use { JsonParser.parseReader(it).asJsonObject }

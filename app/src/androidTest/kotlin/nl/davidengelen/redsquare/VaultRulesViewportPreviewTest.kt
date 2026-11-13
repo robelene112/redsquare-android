@@ -14,7 +14,7 @@ import org.junit.Test
 import java.io.File
 
 class VaultRulesViewportPreviewTest {
-    @get:Rule val ui = createEmptyComposeRule()
+    @get:Rule val ui = createEmptyComposeRule(VaultViewportMotionScale)
     @Test fun presetsRulesAndPublicationConsequencesRemainReachableInTwelveNativeCells() =
         ui.withVaultDialogViewports("rules", prepare = { scene ->
             val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/viewport-rules.bin")
