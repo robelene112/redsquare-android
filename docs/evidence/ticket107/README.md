@@ -255,6 +255,17 @@ app readiness, navigation and completion now share the same original15s return
 deadline. No product authority, upload assertion or class goal is relaxed, and
 that failed complete run is retained without assembling its passing subsets.
 
+Complete Android17 run43464157912 on that same`ddc58d9295`source retains
+passing process/Share/viewport/background/cancel/provider/picker checks. The
+4case recovery class passes3cases; delayed ownership now verifies independent
+facts, library navigation, retained exact operation and read-only completion,
+then fails its15s filename goal because the test itself retained the Offline
+filter. The original PNG/XML show the selected Offline filter and truthful
+"No offline copies yet". The corrected observation positively verifies that
+filter is retained, chooses All files and requires the completed remote file
+within the same total15s return goal. No offline copy is invented and the
+failed complete run remains negative.
+
 ## Remaining acceptance
 
 Complete Share/provider failures, delayed/rejected delivery, background/screen-off

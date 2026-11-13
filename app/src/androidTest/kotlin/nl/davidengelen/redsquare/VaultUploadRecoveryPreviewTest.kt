@@ -35,8 +35,13 @@ class VaultUploadRecoveryPreviewTest {
             assertEquals("A read-only check must not submit another mint", 1, scene.peer.transactions.size)
             assertEquals("A read-only check must not upload accepted bytes again", 1, scene.peer.vaultUploads.size)
             captureNativeScreen(File(scene.evidence, "original-key-now-observed.png"))
+            val filesDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+            fun filesRemaining() = (filesDeadline - android.os.SystemClock.elapsedRealtime()).also { check(it > 0) }
             ui.onNodeWithText("Back to files").performScrollTo().performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("vault-delayed.bin").isDisplayed() }
+            ui.waitUntil(filesRemaining()) { ui.onNodeWithText("Your files").isDisplayed() }
+            ui.onNodeWithText("Offline").assertIsSelected()
+            ui.onNodeWithText("All files").performClick()
+            ui.waitUntil(filesRemaining()) { ui.onNodeWithText("vault-delayed.bin").isDisplayed() }
         }
     }
 
