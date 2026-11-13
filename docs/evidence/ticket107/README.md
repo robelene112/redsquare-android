@@ -3,7 +3,8 @@
 **In progress.** This packet records focused observations, not completion of107
 or combined beta acceptance. Beta127 remains delivered. Specification105 and
 issue107 retain Share, background/screen-off, interruption, error and recovery
-requirements; both complete SDK checks and independent reviews remain pending.
+requirements. Independent review fixes are complete; both complete post-fix SDK
+checks remain pending.
 Review base: `8570655b69ab4d1b5aeb98f7ae68bdaa71d1e3f4`.
 
 ## Independent reference and owned native upload
@@ -214,6 +215,25 @@ records explicit provider rejection until actual file acceptance, persists
 observed ownership before a potentially failing file read, and allows library
 navigation without releasing or resending retained work. These focused passes
 are not a completed SDK acceptance run.
+
+Independent re-review reports0Spec findings at
+`3687f07907756975a83cc66c83d44100573c72e4`. Standards review found one additional
+process-fixture cleanup sequencing issue: a failed original-file restore could
+skip preference restoration. Fix`ec62c468e5da49e2c36c84943ff108308417ab5b`
+attempts each captured preference independently alongside file restoration,
+keeps all original identity assertions and removes the recovery checkpoint only
+after successful restoration. Independent Standards re-review confirms0remaining
+findings. The forthcoming complete SDK process gates retain that correction.
+
+Recovery run43462291537 on`3687f07907756975a83cc66c83d44100573c72e4`
+passes3cases, including durable explicit rejection after failed file retrieval.
+The delayed-ownership case verifies all three independent facts and returns to
+the retained-operation library, but waits for the wrong heading, "Files". Its
+original screenshot/XML show the actual "Your files" heading, Offline filter and
+Open upload action. The test correction uses that existing label; every original
+15/25s goal, exact operation assertion and180s class bound remains. The complete
+4case class still must pass. Same-source viewport run43462298233 passes all12
+width/font/theme cells with costs and48dp actions retained.
 
 ## Remaining acceptance
 
