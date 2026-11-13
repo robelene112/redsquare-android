@@ -738,7 +738,13 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == vault-key-transfer* ]]; then
+    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
+    printf '%s\n' 'Native permanent whole-key review and explicit recovery over owned peer/account state, before any public write.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == vault-advanced* ]]; then
+    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
@@ -1282,6 +1288,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_group_chat_native VaultCustomAccessPreviewTest 180 vault-custom-access vault-custom-access-evidence
     python3 "$repo_dir/scripts/vault-upload-process-check" --evidence "$evidence/vault-upload-process"
@@ -1312,6 +1319,7 @@ if [[ "${TEST_SCOPE:-full}" == policies* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_policies
 fi
@@ -1329,6 +1337,7 @@ if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_group_chat_native VaultKeyTransferPreviewTest 180 vault-key-transfer vault-key-transfer-evidence
     verify_group_chat_native VaultKeyReservationTest 180 vault-key-reservation vault-key-reservation-evidence
     verify_publisher_routes
 fi
