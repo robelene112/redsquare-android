@@ -91,6 +91,22 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         return TransferObservation(result, reorganized)
     }
 
+    /** Exact whole-key inclusion on the selected node, with the same bounded ancestry budget. */
+    fun observeKeyTransfer(backend: SaitoBackend, transfer: nl.davidengelen.redsquare.saito.SaitoNftTransfer): SaitoPaymentChain.Inclusion? {
+        val snapshot = read(backend, transfer.author) ?: return null
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(20)
+        var received = 0
+        return SaitoPaymentChain.observe(transfer, snapshot) { hash ->
+            val remainingMillis = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
+            val limit = minOf(8 * 1024 * 1024, 32 * 1024 * 1024 - received)
+            if (remainingMillis <= 0 || limit <= 0 || !hash.matches(Regex("[0-9a-f]{64}"))) null
+            else try {
+                fetch(endpoint(backend).removeSuffix("balance/") + "block/" + hash, limit, minOf(10_000, remainingMillis))
+                    ?.also { received += it.size }
+            } catch (_: Exception) { null }
+        }.takeIf { System.nanoTime() < deadline }
+    }
+
     private fun fetch(url: String, maximumBytes: Int = ImportBalance.MAX_SNAPSHOT_BYTES,
         timeoutMillis: Long = 10_000): ByteArray? {
         val request = Request.Builder().url(url)

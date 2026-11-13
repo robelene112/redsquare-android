@@ -26,7 +26,19 @@ found the modal still open at the later header-ink check. The original tracer
 could observe the underlying review before modal disposal. It now requires the
 selected clickable preset, actual disappearance of the rules modal and returned
 review within the original5s before proceeding. Neither old run constitutes
-complete preset acceptance; both SDKs must rerun the corrected journey.
+complete preset acceptance. The corrected three-case advanced diagnostic then
+passes on both SDKs at `cfb23950d209d886a1e868ff40424d4eca5639e6`:
+[Android10](https://github.com/robelene112/redsquare-android/actions/runs/43489430460)
+and [Android17](https://github.com/robelene112/redsquare-android/actions/runs/43489426106).
+Each includes actual modal dismissal/selection, numeric/invalid custom source
+checks before provider requests, corrected unlock/offline/export, and the encrypted
+whole-key reservation/reopen/uncertainty case. All65/67ZIP and22capture members are
+byte-exact. This is a complete three-case diagnostic, not whole-ticket acceptance.
+
+The permanent transfer review tracer fails on missing **Transfer key** in
+[43491190725](https://github.com/robelene112/redsquare-android/actions/runs/43491190725),
+source `6cc37e56cca856fff937c26f91fafa775a58d276`. The implementation and actual
+send/reconciliation still need their native verification.
 
 Independent `saito-wasm@0.3.15` vectors pin upstream
 `0db0062d873369dc013046ed77c97410b5683b64`. They cover script commitments,

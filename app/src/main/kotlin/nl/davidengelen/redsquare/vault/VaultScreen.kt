@@ -50,6 +50,13 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     var accessInputs by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf("[]") }
     var fileJob by remember { mutableStateOf<Job?>(null) }
     DisposableEffect(library) { onDispose { fileJob?.cancel() } }
+    var transferSelection by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf<String?>(null) }
+    var transferRecipient by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf("") }
+    val keyTransfers = remember(wallet.publicKey, backend, endpoint, balances, context) {
+        VaultKeyTransfers(context as Activity, wallet, backend, endpoint, balances, scope)
+    }
+    DisposableEffect(keyTransfers) { onDispose { keyTransfers.close() } }
+    LaunchedEffect(keyTransfers) { keyTransfers.load() }
     val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(context, wallet, backend, endpoint, balances) }
     val uploadView by uploads.state.collectAsState()
     val list = rememberLazyListState()
@@ -219,6 +226,11 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         LazyColumn(Modifier.fillMaxSize().then(anchor).testTag("vault-files"),
             state = list, contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            items(keyTransfers.records, key = { "transfer:${it.transfer.transaction.id}" }) { record ->
+                VaultKeyTransferCard(record, keyTransfers, Modifier.animateItem()) {
+                    transferSelection = "record:${record.transfer.transaction.id}"
+                }
+            }
             item("upload") {
                 if (uploadView.phase != VaultUploadPhase.FILES) {
                     Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
@@ -261,6 +273,13 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                         if (entry.key?.customScript != null && entry.copy == null) Text(stringResource(R.string.vault_custom_key),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            entry.key?.let { key ->
+                                val reserved = keyTransfers.records.any { it.transfer.holding.witnesses == key.holding.witnesses }
+                                OutlinedButton(onClick = { transferRecipient = ""; transferSelection = "draft:${key.holding.id}" },
+                                    enabled = enabled && !keyTransfers.busy && !reserved, modifier = Modifier.heightIn(min = 48.dp)) {
+                                    Text(stringResource(R.string.vault_key_transfer))
+                                }
+                            }
                             val readable = entry.copy != null || entry.key?.let { it.customScript == null } == true
                             if (entry.copy == null && entry.key?.customScript != null) FilledTonalButton(onClick = {
                                 val identity = "${entry.token}:${entry.key.fileId}"
@@ -302,6 +321,17 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             onSource = { accessSource = it }, onInputs = { accessInputs = it }, onEdited = { error = null },
             onDismiss = { fileJob?.cancel(); accessToken = null },
             onKeep = { keep(entry, it) }, onSave = { saveAs(entry, it) })
+    }
+    transferSelection?.let { selection ->
+        val record = keyTransfers.records.firstOrNull { "record:${it.transfer.transaction.id}" == selection }
+        val key = library.entries.mapNotNull { it.key }.firstOrNull { "draft:${it.holding.id}" == selection }
+        VaultKeyTransferDialog(keyTransfers, backend, key, record, transferRecipient, { transferRecipient = it },
+            onPrepared = { transferSelection = "record:$it" },
+            onDismiss = {
+                keyTransfers.interrupt(); transferSelection = null
+                if (record?.mayHaveSent == true) scope.launch { library.load(page) }
+            },
+            onNodeSettings = { transferSelection = null; keyTransfers.interrupt(); onNodeSettings() })
     }
     if (privacyOpen) AlertDialog(onDismissRequest = { privacyOpen = false }, title = { Text(stringResource(R.string.vault_about)) },
         text = { Text(stringResource(R.string.vault_privacy)) },
