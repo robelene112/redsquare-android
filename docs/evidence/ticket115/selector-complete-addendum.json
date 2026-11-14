@@ -7,7 +7,7 @@
     "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
     "status": "Dispatched before this record; no complete outcome accepted"
   },
-  "android17Requirement": "The entire current74feprimary43629043517must independently succeed; if it fails, execute another entire primary at5fb. No pieces from failed or incomplete workflows may be assembled.",
+  "android17Requirement": "Entire new5fbprimary43632971418must independently succeed and pass the same unchanged frozen contract/collector. No failed74feprefix is accepted.",
   "unchangedFrozenInputs": {
     "full-contract.json": "7200be163eb2518325dd34295b9f833ba9d822d904b7036615115ff8687ae9fa",
     "verify-full.py": "6b1a2453204271e643103bc8755151f380408eacf74e3522ec58a806b757b00d"
@@ -22,5 +22,16 @@
     "Final independent full evidence and exact public delivery review are required."
   ],
   "workflowBasis": "WORKFLOW468requires fresh both-SDK full verification for production changes; WORKFLOW486requires all3jobs at one source per complete primary. No production change occurred. This changes no frozen acceptance assertion or count.",
-  "qualification": "Pre-outcome execution plan for a corrected outstanding completeSDK. No pass or application fix is inferred from a failed original."
+  "qualification": "Pre-outcome execution plan for a corrected outstanding completeSDK. No pass or application fix is inferred from a failed original.",
+  "android17OriginalOutcome": "74feprimary43629043517Wallet failed the same original two-node Keep offline selector. No partial result contributes acceptance.",
+  "newAndroid17Complete": {
+    "run": "43632971418",
+    "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+    "recordedBeforeOutcomeAt": "2026-11-14T19:37:22.699169+00:00",
+    "status": "in_progress"
+  },
+  "currentCompleteTargets": {
+    "10": "43632687955",
+    "17": "43632971418"
+  }
 }
