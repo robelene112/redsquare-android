@@ -179,7 +179,7 @@ class TransferStore(private val context: Context, private val author: String) {
 
     private fun reservedLocations(): Set<Triple<BigInteger, BigInteger, Int>> {
         val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
-        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs } + pendingKeys().flatMap { it.transfer.inputs } + StoreOrderStore(context, author).read().flatMap { it.reservedInputs } + StoreListingStore(context, author).read().flatMap { it.listing.inputs } + StoreDelistStore(context, author).read().flatMap { it.delist.inputs } + StoreImageStore(context, author).read().flatMap { it.mint.inputs }
+        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs } + pendingKeys().flatMap { it.transfer.inputs } + StoreOrderStore(context, author).read().flatMap { it.reservedInputs } + StoreListingStore(context, author).read().flatMap { it.listing.inputs } + StoreDelistStore(context, author).read().flatMap { it.delist.inputs } + StoreImageStore(context, author).read().flatMap { it.mint.inputs } + StoreWithdrawalStore(context, author).read().flatMap { it.candidate.inputs }
         require(inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
         return locations
     }

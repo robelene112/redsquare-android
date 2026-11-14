@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null, val seller: OwnedStoreSellerFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, sellerRemaining: Boolean = false, preserveSeller: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, sellerRemaining: Boolean = false, preserveSeller: Boolean = false, storeCrypto: OwnedStoreCryptoFixture? = null, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -81,6 +81,8 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
         MockWebServer().use { balance ->
             balance.dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
+                    val chain = storeCrypto?.chains?.get(request.target.removePrefix("/network/chains/"))
+                    if (request.target.startsWith("/network/chains/") && chain != null) return MockResponse(body = chain.toString())
                     sellerNode?.let { return it.response(request.target) }
                     minted?.let { return it.response(request.target) }
                     transferred?.let { return it.response(request.target) }
@@ -102,6 +104,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                         nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, endpoint)
                 } }, { minted?.close() })
             }, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
+                storeCryptoNetworksApi = storeCrypto?.let { "http://127.0.0.1:${balance.port}/network/chains/" },
                 advertisedServices = services, peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + if (sellerNode != null) "3" else "1"), configurePeer = { peer ->
                     referencePeer = peer
                     sellerNode?.connect(peer)

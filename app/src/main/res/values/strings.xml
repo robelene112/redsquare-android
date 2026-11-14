@@ -1191,4 +1191,27 @@
     <string name="store_proceeds_pending">Waiting for settlement: %1$s %2$s</string>
     <string name="store_proceeds_empty">No alternate-currency proceeds reported.</string>
     <string name="store_proceeds_unavailable">Proceeds could not be refreshed. Try again when this Store is available.</string>
+    <string name="store_proceeds_provider_unavailable">Payment methods are unavailable. Saved requests are still available below.</string>
+    <string name="store_withdrawal_action">Withdraw %1$s</string>
+    <string name="store_withdrawal_review">Review withdrawal</string>
+    <string name="store_withdrawal_authorize">Authorize withdrawal</string>
+    <string name="store_withdrawal_retry">Retry original request</string>
+    <string name="store_withdrawal_discard">Discard unsent request</string>
+    <string name="store_withdrawal_destination">Destination address</string>
+    <string name="store_withdrawal_destination_explanation">Use an address you control on the correct network. The Store quote includes all proceeds currently eligible for this currency. Your reviewed address and request are saved for this account and node.</string>
+    <string name="store_withdrawal_fee_field">Saito network fee (SAITO)</string>
+    <string name="store_withdrawal_amount">Requested payout: %1$s %2$s</string>
+    <string name="store_withdrawal_service_fee">Service fee: %1$s SAITO</string>
+    <string name="store_withdrawal_network_fee">Signed Saito network fee: %1$s SAITO</string>
+    <string name="store_withdrawal_net_unknown">External network charges are not quoted by this service. The amount ultimately received is not guaranteed.</string>
+    <string name="store_withdrawal_manual">The treasury processes withdrawals manually. Acceptance does not mean external funds have been sent. The signed Saito fee transaction is retained; chain inclusion is not confirmed here.</string>
+    <string name="store_withdrawal_unsent">Saved for review. Not submitted.</string>
+    <string name="store_withdrawal_waiting">Original request retained. Treasury submission has not been verified.</string>
+    <string name="store_withdrawal_submitted">Requested from the treasury. External funds have not been sent.</string>
+    <string name="store_withdrawal_accepted">Accepted by the Store. Waiting for the treasury; external funds have not been sent.</string>
+    <string name="store_withdrawal_forward_failed">The Store retained this request, but treasury submission needs recovery. Retry uses the original request. A request whose quote has expired may need help from the Store operator.</string>
+    <string name="store_withdrawal_expired">This unsent quote expired. Discard it to review a fresh quote.</string>
+    <string name="store_withdrawal_failed">Could not prepare this withdrawal. Check the address, available funds and payment service, then try again.</string>
+    <string name="store_withdrawal_unknown">Could not verify the original request. It has not been replaced. Retry requires authentication and uses the same signed transaction.</string>
+    <string name="store_withdrawal_saved">Withdrawal · %1$s %2$s</string>
 </resources>
