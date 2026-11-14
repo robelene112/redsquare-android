@@ -69,6 +69,10 @@ contract_bytes = git("show", source + ":" + contract_path)
 assert contract_bytes == (packet / "full-contract.json").read_bytes(), "Contract changed after execution"
 assert git("show", source + ":docs/evidence/ticket115/verify-full.py") == Path(__file__).read_bytes(), "Verifier changed after execution"
 contract = json.loads(contract_bytes)
+trace_helper = packet / "trace-check.py"
+assert digest(trace_helper) == contract["traceValidatorSha256"]
+assert git("show", source + ":docs/evidence/ticket115/trace-check.py") == trace_helper.read_bytes(), "Trace validator changed after execution"
+assert contract["creatorRefreshTrace"] == dict(mode="method", refreshes=20, completeMainMerges=20)
 baseline_bytes = git("show", source + ":docs/evidence/ticket103/full-contract.json")
 assert hashlib.sha256(baseline_bytes).hexdigest() == contract["inheritedContractSha256"]
 baseline = json.loads(baseline_bytes)
@@ -283,8 +287,9 @@ with tarfile.open(wallet_root / "store-seller-evidence.tar") as archive:
 with tarfile.open(wallet_root / "vault-reading-evidence.tar") as archive:
     refresh=json.loads(archive.extractfile("vault-reading-evidence/creator-refresh-observation.json").read())
     assert refresh["refreshes"]==20 and refresh["authenticatedMasterRetained"] is True
+    assert refresh["traceMode"] == contract["creatorRefreshTrace"]["mode"]
     trace=module_view / "vault-reading-evidence/creator-discovery.trace"
-    result=subprocess.run([sys.executable,str(packet / "trace-check.py"),str(trace),"--expect","absent"],capture_output=True,text=True)
+    result=subprocess.run([sys.executable,str(trace_helper),str(trace),"--expect","absent","--mode","method"],capture_output=True,text=True)
     assert result.returncode==0,result.stdout+result.stderr
     for scale in (0,1):
         observed=json.loads(archive.extractfile(f"vault-reading-evidence/scale-{scale}-window.json").read())

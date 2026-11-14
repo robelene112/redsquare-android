@@ -12068,5 +12068,11 @@
     "wallet/vault-viewport-evidence.tar"
   ],
   "moduleNormalCompletions": 69,
-  "moduleClassCount": 64
+  "moduleClassCount": 64,
+  "traceValidatorSha256": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43",
+  "creatorRefreshTrace": {
+    "mode": "method",
+    "refreshes": 20,
+    "completeMainMerges": 20
+  }
 }

@@ -31,5 +31,36 @@
     },
     "change": "Freeze the exact original five process success descriptors before new complete runs; all inherited identities, bounds and validators retained."
   },
-  "qualifiedWrapperAcceptanceUsed": false
+  "qualifiedWrapperAcceptanceUsed": false,
+  "methodFreeze": {
+    "recordedBeforeFullDispatchAt": "2026-11-14T21:06:05.470325+00:00",
+    "producerSource": "5d035f440b1775392f4a2be7248f5c442303d70a",
+    "allOriginalContractFieldsUnchanged": true,
+    "newTraceRequirement": {
+      "mode": "method",
+      "refreshes": 20,
+      "completeMainMerges": 20
+    },
+    "hashes": {
+      "full-contract.json": "a10eabaae7213ec68a47399d7770c7695ac82d3ffbc90e25bb8d63e6aa32e182",
+      "verify-full.py": "2b6a5d14202fb067d6371161295fc9dc1a1aa3f05d5c476ab3a07053477e4b49",
+      "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
+    },
+    "observedFocusedTraces": {
+      "10": {
+        "run": "43638799134",
+        "entries": 20,
+        "exits": 20,
+        "mainCrypto": 0
+      },
+      "17": {
+        "run": "43638801672",
+        "entries": 20,
+        "exits": 20,
+        "mainCrypto": 0
+      }
+    },
+    "reason": "The sampling trace in failed5fbfull17has0observedmerge entries and remains inconclusive/rejected. Method tracing requires all20complete Main merge spans, strict stack balance and no overflow, with the original20refresh/15s bounds. Pin the helper and explicit method invocation. No old native count, identity, archive, provider/PIN/data or deadline is changed.",
+    "qualification": "Stronger pre-run diagnostic freeze, not completed full acceptance. Both next complete SDKs must execute this source and pass its exact strict evaluator; failed older prefixes are never assembled."
+  }
 }
