@@ -100,18 +100,26 @@
  };
 --- a/mods/vault/vault.js
 +++ b/mods/vault/vault.js
-@@ -606,6 +606,14 @@
+@@ -364,6 +364,7 @@
+     if (!this.app.BROWSER || this.offerService) {
+       services.push(this.app.network.createPeerService(null, 'vault', 'Secure File Vault'));
+     }
++    if (!this.app.BROWSER) services.push(this.app.network.createPeerService(null, 'vault-rental-restore', 'Vault Rental Restoration'));
+     return services;
+   }
  
-     if (txmsg.request === 'vault add file') {
+@@ -608,6 +609,14 @@
        return await receiveVaultAddFileTransaction(app, this, tx, mycallback);
-+    }
-+
+     }
+ 
 +    if (txmsg.request === 'vault rental capabilities') {
 +      mycallback({rental_restore_protocol: this.app.BROWSER ? 0 : 1}); return 1;
 +    }
 +    if (txmsg.request === 'vault restore rental') {
 +      if (this.app.BROWSER) { mycallback({status: 'err', err: 'server_required'}); return 1; }
 +      return await this.receiveRestoreRentalTransaction(tx, mycallback);
-     }
- 
++    }
++
      if (txmsg.request === 'vault checkout rental') {
+       return await this.receiveCheckOutRentalTransaction(tx, mycallback);
+     }

@@ -38,6 +38,14 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val scope = rememberCoroutineScope()
     val publishing = backend == selected
     val library = remember(wallet.publicKey, backend, selected, endpoint, balances) { VaultLibrary(context, wallet, backend, endpoint, balances, selected) }
+    var creatorSelection by remember { mutableStateOf<VaultEntry?>(null) }
+    var creatorHistory by remember { mutableStateOf<List<SaitoVaultRental>>(emptyList()) }
+    var creatorLoading by remember { mutableStateOf(false) }
+    var creatorFailed by remember { mutableStateOf(false) }
+    var creatorRestored by remember { mutableStateOf(false) }
+    var creatorUnavailable by remember { mutableStateOf(false) }
+    var creatorJob by remember { mutableStateOf<Job?>(null) }
+    DisposableEffect(library) { onDispose { creatorJob?.cancel() } }
     var page by rememberSaveable(wallet.publicKey, backend.id) { mutableIntStateOf(0) }
     var offlineOnly by rememberSaveable { mutableStateOf(false) }
     var privacyOpen by rememberSaveable { mutableStateOf(false) }
@@ -292,6 +300,16 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                         }
                         if (entry.key?.customScript != null && entry.copy == null) Text(stringResource(R.string.vault_custom_key),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        if (entry.creatorMaster) OutlinedButton(onClick = {
+                            creatorSelection = entry; creatorHistory = emptyList(); creatorFailed = false; creatorRestored = false; creatorUnavailable = false; creatorLoading = true
+                            creatorJob?.cancel()
+                            creatorJob = scope.launch {
+                                try { creatorHistory = library.creatorHistory(entry); creatorFailed = creatorHistory.isEmpty() }
+                                catch (cancelled: CancellationException) { throw cancelled }
+                                catch (_: Exception) { creatorFailed = true }
+                                finally { creatorLoading = false }
+                            }
+                        }, enabled = enabled, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_rental_details)) }
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             entry.key?.let { key ->
                                 val reserved = keyTransfers.records.any { it.transfer.holding.witnesses == key.holding.witnesses }
@@ -300,8 +318,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                                     Text(stringResource(R.string.vault_key_transfer))
                                 }
                             }
-                            val readable = entry.copy != null || entry.rental != null || entry.key?.let { it.customScript == null } == true
-                            if (entry.copy == null && entry.key?.customScript != null) FilledTonalButton(onClick = {
+                            val readable = entry.copy != null || entry.rental != null || entry.creatorMaster || entry.key?.let { it.customScript == null } == true
+                            if (entry.copy == null && entry.key?.customScript != null && entry.rental == null) FilledTonalButton(onClick = {
                                 val identity = "${entry.token}:${entry.key.fileId}"
                                 if (accessIdentity != identity) {
                                     accessIdentity = identity; accessSource = requireNotNull(entry.key.customScript); accessInputs = "[]"
@@ -310,7 +328,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             }, enabled = enabled, modifier = Modifier.heightIn(min = 48.dp)) {
                                 Text(stringResource(R.string.vault_open_access))
                             }
-                            else {
+                            if (readable) {
                             OutlinedButton(onClick = { saveAs(entry) }, enabled = enabled && readable,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_save_as)) }
                             if (entry.copy == null) FilledTonalButton(onClick = { keep(entry) }, enabled = enabled && readable,
@@ -335,6 +353,37 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     }
     }
     }
+    }
+    DesignSheet(creatorSelection != null, stringResource(R.string.vault_rental_details), {
+        creatorJob?.cancel(); creatorSelection = null
+    }) { firstAction ->
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(stringResource(R.string.vault_rental_restore_terms))
+            InlineStatus(if (creatorLoading) stringResource(R.string.vault_rental_loading_history) else null, StatusTone.WORKING)
+            InlineStatus(if (creatorFailed) stringResource(R.string.vault_rental_history_failed) else null, StatusTone.NEUTRAL)
+            InlineStatus(if (creatorUnavailable) stringResource(R.string.vault_rental_restore_unavailable) else null, StatusTone.NEUTRAL,
+                actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
+            InlineStatus(if (creatorRestored) stringResource(R.string.vault_rental_restored) else null, StatusTone.SUCCESS)
+            creatorHistory.forEach { path ->
+                val grant = requireNotNull(path.grant)
+                Text(stringResource(R.string.vault_rental_ends, java.text.DateFormat.getDateTimeInstance().format(java.util.Date(grant.expiresAt))))
+                androidx.compose.foundation.text.selection.SelectionContainer { Text(grant.renter) }
+                Button(onClick = {
+                    val entry = requireNotNull(creatorSelection)
+                    library.selectCreatorRental(entry, path); creatorLoading = true; creatorFailed = false
+                    creatorJob = scope.launch {
+                        try { library.restoreCreator(entry, path); creatorRestored = true }
+                        catch (_: VaultRentalRestoreUnavailable) { creatorUnavailable = true }
+                        catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { creatorFailed = true }
+                        finally { creatorLoading = false }
+                    }
+                }, enabled = !creatorLoading && !creatorRestored, modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.vault_rental_restore))
+                }
+            }
+            TextButton(onClick = { creatorJob?.cancel(); creatorSelection = null }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
+        }
     }
     library.entries.firstOrNull { it.token == accessToken && it.key?.customScript != null }?.let { entry ->
         VaultAccessDialog(entry, backend.domain, accessSource, accessInputs, busy || exporting, error,

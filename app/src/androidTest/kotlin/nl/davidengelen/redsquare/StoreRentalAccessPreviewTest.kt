@@ -28,7 +28,8 @@ class StoreRentalAccessPreviewTest {
             payAndOpen(scene, device)
             captureNativeScreen(File(scene.evidence, "received-rental-native-vault-destination.png"))
             ui.onNodeWithText("Back to order").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Check order").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Check order").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Check order").performScrollTo().assertIsDisplayed()
             assertEquals(1, scene.node.peer.transactions.size)
         }
     }

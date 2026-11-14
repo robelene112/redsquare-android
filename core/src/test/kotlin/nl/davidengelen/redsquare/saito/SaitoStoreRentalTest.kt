@@ -43,6 +43,10 @@ class SaitoStoreRentalTest {
         val receipt = payment.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("networkBase64").asString
         val entitlement = SaitoStoreRental.entitlement(purchase, product, receipt)
         val grant = requireNotNull(entitlement.grant)
+        val actual = payment.getAsJsonObject("rentalAccess")
+        assertEquals(actual.get("loanSource").asString, grant.loanScript.source)
+        val requested = SaitoEnvelope.decode(entitlement.checkout(SaitoWallet.fromPrivateKey("0".repeat(63) + "4"), 1700004000001).envelope())
+        assertEquals(actual.getAsJsonObject("checkoutMessage"), SaitoEnvelope.decode(requested.body.get("data").asString).body)
         assertEquals(purchase.buyer, grant.renter)
         assertEquals(1700012800000L, grant.expiresAt)
         val file = reference("native-vault-rental-reference")

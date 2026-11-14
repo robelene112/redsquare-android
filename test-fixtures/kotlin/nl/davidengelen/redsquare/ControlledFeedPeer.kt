@@ -305,6 +305,15 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             if (executor == null) respond.run() else executor.execute(respond)
                             return
                         }
+                        if (body.get("request").asString in setOf("vault access file", "vault access rental", "vault checkout rental", "vault rental capabilities", "vault restore rental")) {
+                            val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                            val signed = SaitoEnvelope.decode(original.envelope())
+                            require(signed.author == authenticatedKey)
+                            vaultRequests.add(signed)
+                            val response = requireNotNull(vaultResponse)(signed)
+                            check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            return
+                        }
                         val criteria = body.getAsJsonObject("data")
                         if ((body.get("request").asString.startsWith("buysaito ") && criteria.get("module")?.asString == "Mixin") ||
                             (body.get("request").asString == "store-web3-status" && criteria.get("module")?.asString == "Store")) {
@@ -333,15 +342,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                                 webSocket.close(1001, "Controlled original seller withdrawal interruption")
                                 return
                             }
-                            check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
-                            return
-                        }
-                        if (body.get("request").asString in setOf("vault access file", "vault access rental", "vault checkout rental", "vault rental capabilities", "vault restore rental")) {
-                            val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
-                            val signed = SaitoEnvelope.decode(original.envelope())
-                            require(signed.author == authenticatedKey)
-                            vaultRequests.add(signed)
-                            val response = requireNotNull(vaultResponse)(signed)
                             check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return
                         }
