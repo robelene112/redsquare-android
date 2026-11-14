@@ -31,7 +31,7 @@ class VaultRentalMasterPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("vault-rental.bin").isDisplayed() }
             ui.onNodeWithText("Access file").performScrollTo().performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("File access").isDisplayed() }
-            ui.onNodeWithText("Keep offline").performClick()
+            ui.onNode(hasText("Keep offline") and hasAnyAncestor(isDialog())).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
             ui.onNodeWithText("Save as…").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("File saved").isDisplayed() }
