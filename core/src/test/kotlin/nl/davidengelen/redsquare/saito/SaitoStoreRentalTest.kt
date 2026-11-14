@@ -54,4 +54,14 @@ class SaitoStoreRentalTest {
         assertTrue(grant.eligibleActorsAt(1700012800000).isEmpty())
         assertEquals(setOf(product.creator), grant.eligibleActorsAt(1700012800001))
     }
+    @Test fun theCreatorExplicitlyRequestsRestorationOfTheBoundLoanWithoutMovingAKey() {
+        val reference = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/native-vault-rental-reference.json")).bufferedReader().use { it.readText() }).asJsonObject
+        val path = SaitoVaultRental.parse(reference.get("creator").asString, reference.get("fileId").asString,
+            reference.get("masterSource").asString, reference.get("hops").toString())
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val requested = SaitoEnvelope.decode(path.restoreMaster(wallet, 1700001001001).envelope())
+        assertEquals(wallet.publicKey, requested.author)
+        assertEquals(JsonParser.parseString("""{"request":"vault restore rental","data":{"file_id":"${path.fileId}","renter":"${reference.get("renter").asString}","expires_at":1700001001000}}"""), requested.body)
+        assertThrows(IllegalArgumentException::class.java) { path.restoreMaster(SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), 1700001001001) }
+    }
 }

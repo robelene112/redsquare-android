@@ -125,6 +125,9 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
         SingleOwnerReveal(mode) {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         val product = review?.product ?: order?.product
+        val rentalProduct = product ?: externalReview?.product ?: methodsProduct
+        val rental = rememberStoreRentalTerms(rentalProduct)
+        if (rentalProduct?.assetType == "store-nft-rental") StoreRentalTerms(rental)
         if (externalReview != null) {
             StoreExternalReview(externalReview, purchases, firstAction)
         } else if (methodsProduct != null && order == null && review == null) {

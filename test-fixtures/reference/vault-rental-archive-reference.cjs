@@ -5,7 +5,7 @@ const compatible=process.argv[6]==='--compatible';
 const [runtime,root,parser,output]=process.argv.slice(2,6).map(p=>path.resolve(p));
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const code=fs.readFileSync(path.join(root,'node/mods/archive/archive.js'),'utf8');
-if(sha(code)!==(compatible?'b84d8a9db8f7fb108a725514ae69d48b79dc86f56d60725017a04f6f5b8eddc6':'1f29d71bfc90d417c8feb21e1baf63ed6aab819fa6cb5e4fc0aaf9b4069c828e'))throw Error('Wrong Archive source');
+if(sha(code)!==(compatible?'0e539daaed9c4784df5b37626f58ec966fe096d49400b24d44dc81cb5173f131':'1f29d71bfc90d417c8feb21e1baf63ed6aab819fa6cb5e4fc0aaf9b4069c828e'))throw Error('Wrong Archive source');
 if(sha(fs.readFileSync(parser))!=='b95392d79457d0357555c5ed3e56302d074b92dff119bcf3b44179500b10e9df')throw Error('Wrong parser');
 const acorn=require(parser),wasm=require(path.join(runtime,'node_modules/saito-wasm/pkg/node'));
 if(require(path.join(runtime,'node_modules/saito-wasm/package.json')).version!=='0.3.15')throw Error('Wrong WASM');

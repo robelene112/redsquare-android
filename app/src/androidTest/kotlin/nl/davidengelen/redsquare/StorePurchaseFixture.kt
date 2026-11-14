@@ -89,7 +89,7 @@ internal fun ComposeTestRule.openStorePurchaseProduct(quantity: String = "1", il
     onNodeWithText("Field notes access key").performClick()
     val descriptionStart = android.os.SystemClock.elapsedRealtime()
     if (illustrated) {
-        waitUntil(15_000) { onNode(hasContentDescription("Refresh Store") and isEnabled()).isDisplayed() }
+        waitUntil(15_000) { onNode(hasText("Refresh Store") and isEnabled()).isDisplayed() }
         onNode(hasScrollAction()).performScrollToNode(hasText("Original creator-authenticated field notes."))
     }
     val descriptionRemaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - descriptionStart)

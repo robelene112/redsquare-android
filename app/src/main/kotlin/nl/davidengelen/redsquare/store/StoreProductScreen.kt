@@ -45,6 +45,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
             currentCoroutineContext().ensureActive(); view = next
         } catch (_: Exception) { currentCoroutineContext().ensureActive(); view = view.copy(loading = false, failed = true) }
     }
+    val rental = rememberStoreRentalTerms(view.product)
     val external = LocalExternalUriHandler.current
     Column(modifier) {
         chrome(list.firstVisibleItemIndex > 0)
@@ -98,12 +99,14 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                     item("description") {
                         Text(product?.description ?: requireNotNull(offer).description, style = MaterialTheme.typography.bodyLarge)
                     }
+                    if (product?.assetType == "store-nft-rental") item("rental-terms") { StoreRentalTerms(rental) }
                     item("actions") {
                         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             if (product == null) InlineStatus(stringResource(R.string.store_original_unavailable), StatusTone.NEUTRAL)
                             if (product?.browserOnly == true) Text(stringResource(R.string.store_browser_compatibility),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            if (product != null && offer != null && product.price?.matches(offer.price) == true) StoreBuyControl(product, offer.available, purchases)
+                            if (product != null && offer != null && product.price?.matches(offer.price) == true &&
+                                (product.assetType != "store-nft-rental" || rental.offer != null)) StoreBuyControl(product, offer.available, purchases)
                             InlineStatus(if (contactFailed) stringResource(R.string.store_contact_failed) else null, StatusTone.ERROR)
                             Button(enabled = product != null && !preparingContact && product.seller != wallet.publicKey,
                                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = { product?.let(onMessage) }) {

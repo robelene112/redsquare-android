@@ -54,6 +54,25 @@ class SaitoVaultRental private constructor(val creator: String, val fileId: Stri
         }, timestamp)
     }
 
+    /** Explicit creator request; only the provider's actual current loan and NOW can authorise it. */
+    fun restoreMaster(wallet: SaitoWallet, timestamp: Long): SaitoTransaction {
+        require(wallet.publicKey == creator)
+        val previous = requireNotNull(grant)
+        return SaitoTransaction.create(wallet, JsonObject().apply {
+            addProperty("request", "vault restore rental")
+            add("data", JsonObject().apply {
+                addProperty("file_id", fileId); addProperty("renter", previous.renter); addProperty("expires_at", previous.expiresAt)
+            })
+        }, timestamp)
+    }
+
+    fun readRestoration(response: String) {
+        require(response.toByteArray(Charsets.UTF_8).size <= 128 * 1024)
+        val row = requireNotNull(gson.fromJson(response, JsonObject::class.java))
+        require(row.get("status")?.asString == "ok" && row.get("file_id")?.asString == fileId && row.get("owner")?.asString == masterScript.hash)
+        require(row.get("already_restored")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean } == true)
+    }
+
     class Grant internal constructor(val creator: String, val fileId: String, val renter: String, val expiresAt: Long,
         val masterScript: SaitoAccessScript) {
         val loanScript = SaitoVaultRules.loan(creator, renter, expiresAt)

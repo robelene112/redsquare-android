@@ -6,7 +6,7 @@
  
 +    // Optional owner compare-and-swap for metadata-only Vault rental transitions.
 +    // The authorization still evaluates the actual stored script and request actor.
-+    if (obj.expected_owner != null && (tx || typeof obj.expected_owner !== 'string' ||
++    if (obj.expected_owner != null && (this.app.BROWSER || tx || typeof obj.expected_owner !== 'string' ||
 +        !existing_rows || existing_rows.length !== 1 || existing_rows[0].owner !== obj.expected_owner)) return 0;
 +
      //
@@ -100,16 +100,17 @@
  };
 --- a/mods/vault/vault.js
 +++ b/mods/vault/vault.js
-@@ -606,6 +606,13 @@
+@@ -606,6 +606,14 @@
  
      if (txmsg.request === 'vault add file') {
        return await receiveVaultAddFileTransaction(app, this, tx, mycallback);
 +    }
 +
 +    if (txmsg.request === 'vault rental capabilities') {
-+      mycallback({rental_restore_protocol: 1}); return 1;
++      mycallback({rental_restore_protocol: this.app.BROWSER ? 0 : 1}); return 1;
 +    }
 +    if (txmsg.request === 'vault restore rental') {
++      if (this.app.BROWSER) { mycallback({status: 'err', err: 'server_required'}); return 1; }
 +      return await this.receiveRestoreRentalTransaction(tx, mycallback);
      }
  

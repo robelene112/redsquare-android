@@ -153,6 +153,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         review = null; cryptoReview = null
         val result = withContext(Dispatchers.IO) {
             current(token)
+            if (product.assetType == "store-nft-rental") requireNotNull(SaitoStoreRental.offer(product))
             val count = quantity.toBigIntegerOrNull()?.takeIf { it.signum() > 0 && it <= BigInteger("9007199254740991") } ?: throw Terms()
             val prior = store.read().firstOrNull { it.backend == backend && it.product.signature == product.signature && it.receipt == null }
             if (prior != null) return@withContext prior to null
@@ -195,6 +196,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
             current(token)
             val previous = store.read().firstOrNull { it.backend == backend && it.product.signature == product.signature && it.receipt == null }
             if (previous != null) return@withContext previous to null
+            if (product.assetType == "store-nft-rental") requireNotNull(SaitoStoreRental.offer(product))
             val count = quantity.toBigIntegerOrNull() ?: throw Terms()
             val fee = networkFee.toBigDecimalOrNull()?.movePointRight(8)?.toBigIntegerExact() ?: throw Terms()
             if (count.signum() <= 0 || count > BigInteger("9007199254740991") || fee.signum() < 0 || fee.bitLength() > 64) throw Terms()
