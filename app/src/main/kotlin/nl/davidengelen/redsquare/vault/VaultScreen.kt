@@ -32,10 +32,12 @@ import nl.davidengelen.redsquare.ui.*
 @Composable
 internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, balances: WalletBalances,
     modifier: Modifier, chrome: @Composable (Boolean) -> Unit, incomingFile: SharedVaultFile? = null,
-    onIncomingConsumed: (SharedVaultFile) -> Unit = {}, onNodeSettings: () -> Unit) {
+    onIncomingConsumed: (SharedVaultFile) -> Unit = {}, selected: SaitoBackend = backend,
+    initialRentalFile: String? = null, onRentalBack: (() -> Unit)? = null, onNodeSettings: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val library = remember(wallet.publicKey, backend, endpoint, balances) { VaultLibrary(context, wallet, backend, endpoint, balances) }
+    val publishing = backend == selected
+    val library = remember(wallet.publicKey, backend, selected, endpoint, balances) { VaultLibrary(context, wallet, backend, endpoint, balances, selected) }
     var page by rememberSaveable(wallet.publicKey, backend.id) { mutableIntStateOf(0) }
     var offlineOnly by rememberSaveable { mutableStateOf(false) }
     var privacyOpen by rememberSaveable { mutableStateOf(false) }
@@ -56,16 +58,17 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         VaultKeyTransfers(context as Activity, wallet, backend, endpoint, balances, scope)
     }
     DisposableEffect(keyTransfers) { onDispose { keyTransfers.close() } }
-    LaunchedEffect(keyTransfers) { keyTransfers.load() }
+    LaunchedEffect(keyTransfers, publishing) { if (publishing) keyTransfers.load() }
     val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(context, wallet, backend, endpoint, balances) }
     val uploadView by uploads.state.collectAsState()
+    val showingFiles = !publishing || uploadView.showingFiles
     val list = rememberLazyListState()
-    val header = rememberReadingHeaderState(uploadView.showingFiles, list)
+    val header = rememberReadingHeaderState(showingFiles, list)
     val anchor = rememberReadingAnchorModifier(list, !header.inMotion, relativeToRoot = true)
 
-    LaunchedEffect(uploads) { uploads.load() }
+    LaunchedEffect(uploads, publishing) { if (publishing) uploads.load() }
     LaunchedEffect(uploads, incomingFile) {
-        incomingFile?.let { incoming -> uploads.acceptShared(incoming.uri); onIncomingConsumed(incoming) }
+        incomingFile?.takeIf { publishing }?.let { incoming -> uploads.acceptShared(incoming.uri); onIncomingConsumed(incoming) }
     }
     val pickUpload = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let(uploads::prepare)
@@ -94,8 +97,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             }
         }
     }
-    LaunchedEffect(library, uploadView.showingFiles, uploadView.record?.complete == true) {
-        if (!uploadView.showingFiles) return@LaunchedEffect
+    LaunchedEffect(library, showingFiles, uploadView.record?.complete == true) {
+        if (!showingFiles) return@LaunchedEffect
         if (!exporting) {
             try { withContext(Dispatchers.IO) { library.disk.finishExport() }; warning = null }
             catch (cancelled: CancellationException) { throw cancelled }
@@ -168,11 +171,22 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     }
     val enabled = !busy && !exporting
     val visible = library.entries.filter { !offlineOnly || it.copy != null }
+    var locatedRental by rememberSaveable(wallet.publicKey, backend.id, initialRentalFile) { mutableStateOf(false) }
+    LaunchedEffect(initialRentalFile, library.entries.map { it.token }, library.loading) {
+        if (locatedRental) return@LaunchedEffect
+        val target = initialRentalFile ?: return@LaunchedEffect
+        val index = library.entries.indexOfFirst { it.rental?.fileId == target }
+        if (index >= 0) { offlineOnly = false; list.scrollToItem(keyTransfers.records.size + 1 + index); locatedRental = true }
+    }
+    androidx.activity.compose.BackHandler(onRentalBack != null) { onRentalBack?.invoke() }
     Column(modifier.fillMaxSize().nestedScroll(header.connection).readingNavigation(header)) {
-        ReadingHeader(header) { chrome(false) }
-        SingleOwnerReveal(uploadView.showingFiles, Modifier.weight(1f)) {
+        ReadingHeader(header) {
+            chrome(false)
+            if (onRentalBack != null) TextButton(onClick = onRentalBack, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_rental_back_order)) }
+        }
+        SingleOwnerReveal(showingFiles, Modifier.weight(1f)) {
         Column(Modifier.fillMaxSize()) {
-        if (!uploadView.showingFiles) {
+        if (!showingFiles) {
             val authorization = remember(uploads, context) { VaultUploadAuthorization(context as Activity, uploads) }
             DisposableEffect(authorization) { onDispose { authorization.close() } }
             SingleOwnerReveal(uploadView.phase, Modifier.weight(1f)) {
@@ -193,7 +207,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             InlineStatus(if (busy || exporting) stringResource(R.string.vault_working) else null, StatusTone.WORKING)
             InlineStatus(feedback?.let { stringResource(it) }, StatusTone.SUCCESS)
             InlineStatus(error?.takeIf { accessToken == null }?.let { stringResource(it) }, StatusTone.ERROR)
-            InlineStatus(uploadView.problem?.let { stringResource(it) }, StatusTone.ERROR)
+            InlineStatus(uploadView.problem?.takeIf { publishing }?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(keyTransfers.problem?.takeIf { transferSelection == null }?.let { stringResource(it) }, StatusTone.ERROR)
             InlineStatus(library.problem?.let { stringResource(if (it == VaultProblem.SERVICE_UNAVAILABLE)
                 R.string.vault_service_unavailable else R.string.vault_connection_failed) },
@@ -233,7 +247,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             }
             item("upload") {
-                if (uploadView.phase != VaultUploadPhase.FILES) {
+                if (publishing && uploadView.phase != VaultUploadPhase.FILES) {
                     Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
                         Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text(uploadView.file?.name ?: uploadView.record?.candidate?.name ?: stringResource(R.string.vault_upload_file),
@@ -245,7 +259,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                         }
                     }
                 }
-                FilledTonalButton(onClick = { pickUpload.launch(arrayOf("*/*")) }, enabled = enabled && uploadView.phase == VaultUploadPhase.FILES,
+                FilledTonalButton(onClick = { pickUpload.launch(arrayOf("*/*")) }, enabled = publishing && enabled && uploadView.phase == VaultUploadPhase.FILES,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_upload_file)) }
             }
             if (visible.isEmpty() && !library.loading) item("empty") {
@@ -282,7 +296,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             entry.key?.let { key ->
                                 val reserved = keyTransfers.records.any { it.transfer.holding.witnesses == key.holding.witnesses }
                                 OutlinedButton(onClick = { transferRecipient = ""; transferSelection = "draft:${key.holding.id}" },
-                                    enabled = enabled && !keyTransfers.busy && keyTransfers.problem != R.string.vault_key_storage_failed && !reserved, modifier = Modifier.heightIn(min = 48.dp)) {
+                                    enabled = publishing && enabled && !keyTransfers.busy && keyTransfers.problem != R.string.vault_key_storage_failed && !reserved, modifier = Modifier.heightIn(min = 48.dp)) {
                                     Text(stringResource(R.string.vault_key_transfer))
                                 }
                             }

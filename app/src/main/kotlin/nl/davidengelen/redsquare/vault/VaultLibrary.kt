@@ -18,12 +18,12 @@ internal class VaultLocalFailure(cause: Exception) : IOException(cause)
 
 /** Native read/offline state. Cached metadata never grants current network access. */
 internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend,
-    private val endpoint: String, private val balances: WalletBalances) {
+    private val endpoint: String, private val balances: WalletBalances, private val selected: SaitoBackend = backend) {
     private val application = context.applicationContext
     val disk = VaultDisk(application, wallet.publicKey, backend)
     private fun current() = synchronized(SaitoLocalState.lock) {
         check(nl.davidengelen.redsquare.AndroidWalletStore(application).loadExisting().publicKey == wallet.publicKey &&
-            AndroidBackendStore(application).load() == backend) { "The selected account or node changed" }
+            AndroidBackendStore(application).load() == selected) { "The selected account or node changed" }
     }
     var entries by mutableStateOf<List<VaultEntry>>(emptyList()); private set
     var loading by mutableStateOf(false); private set

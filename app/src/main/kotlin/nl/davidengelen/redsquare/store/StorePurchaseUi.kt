@@ -102,7 +102,7 @@ internal fun externalOrderStatus(external: StoreOrderStore.External, now: Long):
 }
 
 @Composable
-internal fun StorePurchaseDialog(purchases: StorePurchases) {
+internal fun StorePurchaseDialog(purchases: StorePurchases, onOpenVault: (SaitoBackend, String, String) -> Unit) {
     val review = purchases.review
     val order = purchases.orders.firstOrNull { it.id == purchases.focused }
     val externalReview = purchases.cryptoReview
@@ -128,6 +128,18 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
         val rentalProduct = product ?: externalReview?.product ?: methodsProduct
         val rental = rememberStoreRentalTerms(rentalProduct)
         if (rentalProduct?.assetType == "store-nft-rental") StoreRentalTerms(rental)
+        val receivedRental by produceState<SaitoVaultRental?>(null, order?.id, order?.receipt?.signature) {
+            value = try { kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                order?.takeIf { it.receipt?.asset?.type == "store-nft-rental" }?.let {
+                    SaitoStoreRental.entitlement(requireNotNull(it.fundedPayment), it.product, requireNotNull(it.receipt).encoded)
+                }
+            } } catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+            catch (_: Exception) { null }
+        }
+        receivedRental?.let { received ->
+            Button(onClick = { onOpenVault(requireNotNull(order).backend, received.fileId, order.id) }, enabled = !purchases.busy,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_rental_open_vault)) }
+        }
         if (externalReview != null) {
             StoreExternalReview(externalReview, purchases, firstAction)
         } else if (methodsProduct != null && order == null && review == null) {

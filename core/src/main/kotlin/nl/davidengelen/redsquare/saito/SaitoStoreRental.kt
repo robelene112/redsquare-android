@@ -37,6 +37,24 @@ data class StoreRentalSource(val creator: String, val fileId: String, val name: 
 
 /** A delivered temporary right is authenticated against the original order and seller delegation. */
 object SaitoStoreRental {
+    /** Public signed history is sufficient for creator recovery; no buyer invoice is required. */
+    fun creatorEntitlement(product: StoreProduct, receiptEnvelope: String, paymentArchive: String): SaitoVaultRental {
+        SaitoStoreLineage.restore(product)
+        val sale = SaitoStoreLineage.body(receiptEnvelope).getAsJsonObject("fulfill_sale")
+        val paymentId = sale.get("sale_signature").asString.also { require(it.matches(Regex("[0-9a-f]{128}"))) }
+        val contributors = sale.getAsJsonArray("listing_signatures")?.map { it.asString }.orEmpty()
+        require(sale.get("prior_inventory")?.asString == product.signature || product.signature in contributors)
+        val rules = JsonParser.parseString(SaitoStoreLineage.body(product.envelope).get("access_script").asString).asJsonObject
+        val keys = rules.getAsJsonArray("publickeys").map { it.asString }
+        require(keys.size == 2 && keys[0] == product.seller && SaitoWallet.isPublicKey(keys[1]))
+        val payment = requireNotNull(readArchiveRows(paymentArchive, { it }, {
+            runCatching { SaitoEnvelope.originalNetworkBytes(it).copyOfRange(16, 80).joinToString("") { byte -> "%02x".format(byte.toInt() and 255) } == paymentId }.getOrDefault(false)
+        }, { it }).entries.singleOrNull())
+        val (funded, price) = SaitoStoreLineage.publicPayment(SaitoEnvelope.originalNetworkBytes(payment), keys[1])
+        require(price.matches(product.price))
+        return entitlement(funded, product, java.util.Base64.getEncoder().encodeToString(SaitoEnvelope.originalNetworkBytes(receiptEnvelope)))
+    }
+
     data class Offer(val source: StoreRentalSource, val path: SaitoVaultRental, val expiresAt: Long)
     fun offer(product: StoreProduct): Offer? {
         if (product.assetType != "store-nft-rental") return null

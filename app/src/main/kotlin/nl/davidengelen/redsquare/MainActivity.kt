@@ -193,6 +193,8 @@ class MainActivity : ComponentActivity() {
             var talkReturnExpired by remember { mutableStateOf(false) }
             var stackLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StackLinkEntry?>(null) }
             var storeLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StoreLinkEntry?>(null) }
+            var vaultRentalEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.VaultRentalEntry?>(null) }
+            var storeReturnOrder by rememberSaveable { mutableStateOf<String?>(null) }
             var stackScene by rememberSaveable { mutableStateOf(java.util.UUID.randomUUID().toString()) }
             val linkedSceneStates = rememberSaveableStateHolder()
             var retainedLinkedKeys by rememberSaveable { mutableStateOf(arrayListOf<String>()) }
@@ -213,7 +215,7 @@ class MainActivity : ComponentActivity() {
             fun selectModule(selected: AppModule, onSelected: () -> Unit = {}) {
                 if (selected == module && stackLinkEntry == null && storeLinkEntry == null) onSelected()
                 else scope.launch {
-                    val moved = postNavigation.navigate { stackLinkEntry = null; storeLinkEntry = null; module = selected; onSelected(); true }
+                    val moved = postNavigation.navigate { stackLinkEntry = null; storeLinkEntry = null; vaultRentalEntry = null; module = selected; onSelected(); true }
                     moduleSwitchFailed = !moved
                 }
             }
@@ -381,7 +383,7 @@ class MainActivity : ComponentActivity() {
                     else {
                         walletExport.cancel(); walletImport.cancel(); walletOpen = false
                         settingsOpen = false; settingsCategory = null; usernameOpen = false
-                        stackLinkEntry = null; module = AppModule.VAULT; true
+                        stackLinkEntry = null; vaultRentalEntry = null; module = AppModule.VAULT; true
                     }
                 }
                 moduleSwitchFailed = !moved
@@ -426,7 +428,11 @@ class MainActivity : ComponentActivity() {
             val linkedStore = storeLinkEntry?.takeIf {
                 module == AppModule.STORE && it.owner == address && it.savedBackend == backend
             }
-            val liveLinkedKeys = linkedStore?.retainedSceneKeys() ?: linkedStack?.let {
+            LaunchedEffect(address, backend) {
+                if (vaultRentalEntry?.let { it.owner != address || it.savedBackend != backend } == true) { vaultRentalEntry = null; storeReturnOrder = null }
+            }
+            val linkedVault = vaultRentalEntry?.takeIf { module == AppModule.VAULT && it.owner == address && it.savedBackend == backend }
+            val liveLinkedKeys = linkedVault?.originStore?.retainedSceneKeys() ?: linkedStore?.retainedSceneKeys() ?: linkedStack?.let {
                 setOf(nl.davidengelen.redsquare.ui.linkedStackStateKey(it.owner, it.savedBackend, stackScene))
             }.orEmpty()
             LaunchedEffect(address, backend, liveLinkedKeys) {
@@ -435,7 +441,7 @@ class MainActivity : ComponentActivity() {
                 (retainedLinkedKeys.toSet() - liveLinkedKeys).forEach(linkedSceneStates::removeState)
                 retainedLinkedKeys = ArrayList(liveLinkedKeys)
             }
-            val visibleBackend = if (storeConversation && module == AppModule.STORE) backend else linkedStore?.target?.backend ?: linkedStack?.target?.backend ?: backend
+            val visibleBackend = if (storeConversation && module == AppModule.STORE) backend else linkedVault?.node ?: linkedStore?.target?.backend ?: linkedStack?.target?.backend ?: backend
             LaunchedEffect(address, backend) {
                 if (storeLinkEntry?.let { it.owner != address || it.savedBackend != backend } == true) storeLinkEntry = null
             }
@@ -661,7 +667,20 @@ class MainActivity : ComponentActivity() {
                                                                     }
                                                                 }) else null, chatBackend = selected,
                                                                 chatEndpoint = FeedEndpoints.fromIntent(intent, selected),
-                                                                onChatVisibility = { storeConversation = it }, onWalletMetadata = updateWalletMetadata) {
+                                                                onChatVisibility = { storeConversation = it }, onWalletMetadata = updateWalletMetadata,
+                                                                initialOrder = storeReturnOrder, onInitialOrderConsumed = { storeReturnOrder = null },
+                                                                onOpenVault = { node, file, order ->
+                                                                    scope.launch {
+                                                                        val moved = postNavigation.navigate {
+                                                                            if (wallet?.publicKey != currentWallet.publicKey || backend != selected) false
+                                                                            else {
+                                                                                vaultRentalEntry = nl.davidengelen.redsquare.ui.VaultRentalEntry(currentWallet.publicKey, selected, node, file, order, linkedStore)
+                                                                                module = AppModule.VAULT; true
+                                                                            }
+                                                                        }
+                                                                        moduleSwitchFailed = !moved
+                                                                    }
+                                                                }) {
                                                                 settingsCategory = "node"; settingsOpen = true
                                                             }
                                                         }
@@ -670,9 +689,20 @@ class MainActivity : ComponentActivity() {
                                             } else if (module == AppModule.VAULT) {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null) key(currentWallet.publicKey, selected) {
-                                                    nl.davidengelen.redsquare.vault.VaultScreen(currentWallet, selected,
-                                                        FeedEndpoints.fromIntent(intent, selected), balances, Modifier.fillMaxSize(), chrome,
-                                                        incomingFile = pendingVaultFile, onIncomingConsumed = incomingVaultFiles::consumed) {
+                                                    val vaultNode = linkedVault?.node ?: selected
+                                                    nl.davidengelen.redsquare.vault.VaultScreen(currentWallet, vaultNode,
+                                                        FeedEndpoints.fromIntent(intent, vaultNode), balances, Modifier.fillMaxSize(), chrome,
+                                                        incomingFile = pendingVaultFile.takeIf { vaultNode == selected }, onIncomingConsumed = incomingVaultFiles::consumed,
+                                                        selected = selected, initialRentalFile = linkedVault?.fileId,
+                                                        onRentalBack = linkedVault?.let { origin -> {
+                                                            scope.launch {
+                                                                val moved = postNavigation.navigate {
+                                                                    if (wallet?.publicKey != origin.owner || backend != origin.savedBackend) false
+                                                                    else { storeLinkEntry = origin.originStore; storeReturnOrder = origin.orderId; vaultRentalEntry = null; module = AppModule.STORE; true }
+                                                                }
+                                                                moduleSwitchFailed = !moved
+                                                            }
+                                                        } }) {
                                                         settingsCategory = "node"; settingsOpen = true
                                                     }
                                                 } else chrome(false)

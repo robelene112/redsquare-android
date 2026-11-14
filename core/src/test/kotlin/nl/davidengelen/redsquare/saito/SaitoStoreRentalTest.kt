@@ -64,4 +64,17 @@ class SaitoStoreRentalTest {
         assertEquals(JsonParser.parseString("""{"request":"vault restore rental","data":{"file_id":"${path.fileId}","renter":"${reference.get("renter").asString}","expires_at":1700001001000}}"""), requested.body)
         assertThrows(IllegalArgumentException::class.java) { path.restoreMaster(SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), 1700001001001) }
     }
+    @Test fun theCreatorRecoversTheActualRentalFromPublicTransactionsWithoutTheBuyersInvoice() {
+        fun fixture(name: String) = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/$name.json")).bufferedReader().use { it.readText() }).asJsonObject
+        val offer = fixture("native-store-rental-listing-reference")
+        val payment = fixture("native-store-rental-purchase-reference")
+        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(offer.get("page").toString()).items.single(), offer.getAsJsonObject("listing").get("envelope").asString))
+        val receipt = payment.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("envelope").asString
+        val archive = com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply { add("tx", payment.getAsJsonObject("purchase").get("envelope")) }) }.toString()
+        val path = SaitoStoreRental.creatorEntitlement(product, receipt, archive)
+        assertEquals(product.creator, path.creator)
+        assertEquals(payment.get("buyer").asString, requireNotNull(path.grant).renter)
+        assertEquals(1700012800000L, requireNotNull(path.grant).expiresAt)
+        assertThrows(IllegalArgumentException::class.java) { SaitoStoreRental.creatorEntitlement(product, receipt, "[]") }
+    }
 }

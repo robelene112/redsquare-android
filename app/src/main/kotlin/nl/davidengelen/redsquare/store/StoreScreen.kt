@@ -28,7 +28,7 @@ import java.io.IOException
 internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
     chrome: @Composable (Boolean) -> Unit, entry: StoreLink? = null, onExitLink: (() -> Unit)? = null,
     chatBackend: SaitoBackend = backend, chatEndpoint: String = endpoint, onChatVisibility: (Boolean) -> Unit = {},
-    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onNodeSettings: () -> Unit) {
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onOpenVault: (SaitoBackend, String, String) -> Unit = { _, _, _ -> }, initialOrder: String? = null, onInitialOrderConsumed: () -> Unit = {}, onNodeSettings: () -> Unit) {
     val activity = androidx.compose.ui.platform.LocalContext.current as android.app.Activity
     val purchaseScope = rememberCoroutineScope()
     val purchases = remember(wallet.publicKey, backend, chatBackend, endpoint) {
@@ -36,6 +36,11 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     }
     DisposableEffect(purchases) { onDispose { purchases.dispose() } }
     LaunchedEffect(purchases) { purchases.load() }
+    LaunchedEffect(purchases, initialOrder, purchases.busy, purchases.orders.map { it.id }) {
+        if (initialOrder == null || purchases.busy) return@LaunchedEffect
+        val retained = purchases.orders.firstOrNull { it.id == initialOrder && it.backend == backend } ?: return@LaunchedEffect
+        purchases.open(retained); onInitialOrderConsumed()
+    }
     var path by rememberSaveable(backend, entry) { mutableStateOf(arrayListOf(entry ?: StoreLink(backend))) }
     val states = androidx.compose.runtime.saveable.rememberSaveableStateHolder()
     var contact by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
@@ -96,7 +101,7 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             }
         }
     }
-    StorePurchaseDialog(purchases)
+    StorePurchaseDialog(purchases, onOpenVault)
 }
 
 private enum class StoreTab(override val label: Int, override val icon: Int) : ModuleDestination {

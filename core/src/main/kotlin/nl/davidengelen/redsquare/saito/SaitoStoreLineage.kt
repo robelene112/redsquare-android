@@ -76,7 +76,7 @@ object SaitoStoreLineage {
         inputs: List<SaitoBalanceSnapshot.Slip>) : SaitoStorePayment {
         override val inputs: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(inputs.toList())
     }
-    private fun publicPayment(wire: ByteArray, expectedStore: String): Pair<SaitoStorePayment, StorePrice> {
+    internal fun publicPayment(wire: ByteArray, expectedStore: String): Pair<SaitoStorePayment, StorePrice> {
         val direct = try { SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(wire)) }
         catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
         catch (_: Exception) { null }
