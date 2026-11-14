@@ -7,7 +7,7 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
 edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
-image/file creation, selling, storefront management and recoverable delisting. #112 is next. Continue the approved ready frontier
+image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments and recovery are also complete. #113 is next. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -27,108 +27,42 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active alternate-payment slice #112
+## Completed alternate-payment slice #112
 
 Review base: `a60cd323cf0c46b965fbbc986394d77a73ada2fb`.
-111 is closed. 112 is claimed by robelene112; its110 blocker is closed.
-Seven public core tracers and all208 core cases in42suites pass (latest
-store112-original-restore-green.log). They cover actual unfunded ALT and SAITO
-carrier bytes, seven provider methods, exact upward IEEE-754 quote rounding,
-bound invoices, provider-issued settlement/refund, failure/rejected treasury
-reports and bounded older-history recovery without a provider transaction copy.
-A reference expectation of0.0055was corrected against actual pinned service
-output0.005501; retain rounded-red/green logs and exact original vectors.
+Final product source51bd948439727262ecbd1386cbd8f8881f10fbe4; final observer7a17cf8bcd233bf673c9e40395f509034c10d02e.
+Both source-review axes report zero findings. Core209/42 and main/native compilers
+pass. Complete10run43582567828 at7a and complete17run43580633625 at51bd each pass
+34ordinary cases,36viewport cells and both three-phase actual process proofs.
+All99/101ZIP and403captures per OS are exact. Separate7a17probe43582567886 passes
+24cells. The reviewed test-only production-object bridge is explicit; it is not a
+complete7a17run or assembled prefix. See [the112packet](../evidence/ticket112/README.md).
 
-112implementation is not complete. Shared encrypted Orders now admits original
-external intents and does not reserve provider inputs in the buyer wallet. The
-actual Android10 journal recovery test passes. CI43568010206 on
-65cbd7bfc8fcb412eba406bc2775320ebb281d99 is intentionally RED only at the missing
-Other payment methods UI assertion; all12inherited purchase/recovery cases,
-12viewport cells and3real process phases pass. The complete failed artifact is
-byte-exact (ID14103950091, SHA92cb990b5bc39ec2299e778eafdc2a55e13594378a61eca9f66d49ff9b56dfdb,
-80ZIP/161captures). It is not acceptance and must not be assembled into a pass.
+All seven source methods have native reviewed/PIN/invoice/exact-delivery coverage.
+Immutable original orders recover read-only through late/expired/closed invoices,
+outages, conflicting replies, remote treasury copies missing and actual process
+loss. Unpaid history is distinct from payment/settlement/delivery. Definitely
+unsent orders can be discarded. Public SAITO/USDT remainders authenticate without
+the prior buyer's private invoice, including an independent different buyer.
 
-Native checkout581bb1ae7cdd2eb3ae1640c64260a490df7fc0b8is pushed. Full core208
-passes. Main/native compiler checks pass through the new method/continuation/
-viewport source; no local build is now active. CI43571100454on581is FAILED:
-all inherited12purchase/recovery cases,12viewport cells and3real process phases
-pass, and both CryptoRecovery cases pass. The new complete payment journey reached
-actual instructions and successful clipboard feedback, then failed because the
-test expected `Address copied` while the existing product resource is
-`Address copied.`. Delivery had not been exercised yet. This exact assertion is
-now corrected and additionally checks the actual clipboard destination.
-Full original failed artifact ID14103914003, SHA62ce601d3a43ed7ad5e616bb10267cd3ce08268419a1afbbe8e1cee491b13c9f,
-82ZIP/167captures. Both actual review/instructions PNGs were inspected. Retain
-qualification: zero motion and owned provider, not live payment acceptance.
+Preserve every source-specific original failure. The final native observer enters
+text only after actual focus/IME readiness and verifies quantity around dismissal.
+The exact prior reset cause is unproven. EncryptedLocalFile now allocates actual
+bounded open-file length after an inherited read loop exposed5MiB allocations
+under16MiB memory. GCM/AAD/limits/format and all original deadlines remain intact.
+Full shared-application regression remains115. No hosted/local run is active.
 
-Uncommitted native matrix now compiles:
-- StoreCryptoMethodsPreviewTest:7real native/PIN/network/delivery cases with
-  zero buyer SAITO.480s class bound, additive focused/full Wallet.
-- StoreCryptoPaymentPreviewTest:now2cases, including actual USDT-priced offer.
-- StoreCryptoAvailabilityPreviewTest:3cases, enabled-service outage/recovery,
-  older binding support, conflicting reply/read-only original recovery.
-- StoreCryptoContinuationPreviewTest:3cases, close/late delivery, expired
-  instructions, remote treasury missing copy and actual block recovery.
-- StoreCryptoViewportPreviewTest:2cases/24native cells (12review +12invoice),
-  actual reversible320/412dp100/130/200percent light/dark,48dp actions, explicit
-  zero motion.480s class bound, additive focused/full Wallet.
-Their local logs are method-matrix-tests (5m34), continuation-tests (2m38) and
-viewport-tests (2m41). The latest clipboard assertion still needs compiling.
-All new native runtime journeys beyond581are unverified. Next freeze/push a
-complete source and run/collect both actual SDKs. Do not conflate a compiler pass
-or a failed run's passing prefix with acceptance.
+Provider compatibility artifact is source-only and not deployed. Live activation
+requires one ledger writer or equivalent coordination. Actual funding/provider/
+community-runtime/OEM gates remain under36; public observation enabled:false.
+No public financial write or new beta. Continue113, then114, then115 and the one
+combined signed beta. Owner phone review is for that release, not development QA.
 
-The3phase StoreCryptoProcessRecoveryTest and host script are now implemented,
-added to focused purchase/full Wallet and compile in store112-process-tests.log
-(2m40). It persists the OWNED provider's actual accepted quote independently of
-the app's lost reply, kills the real process under the journal guard, and requires
-a different-PID cold read-only recovery with no allocating request. Exact issued
-payment/delivery, wallet/node and unsent Chat/Fileshare bytes and original
-installation restoration are asserted. The native process proof has not run yet.
-
-All112test sources now compile, including clipboard exact destination. No local
-build or hosted run remains active. The complete112runtime matrix must now be
-frozen, pushed, run/collected on10/17, and independently reviewed against
-basea60cd323cf0c46b965fbbc986394d77a73ada2fb. Source at581failed only the now-fixed
-clipboard-label assertion before exercising actual external delivery; inherited
-process/viewport cases passed. Do not conflate that partial evidence with new
-matrix acceptance. No112acceptance and no new beta. Continue113–115after112.
-
-Independent review of8c found three112corrections: unpaid invoices must not
-say Payment submitted; definitely unsent external originals must be discardable;
-and public remaining stock after a partial provider purchase must be buyable
-without the previous buyer's private invoice. All three fixes are implemented.
-The public-lineage regression failed first, then passes against independently
-executed official SAITO and USDT partial payouts and Store fulfillment, including
-a different buyer's exact next carrier. All209core tests in42suites pass in
-store112-review-core.log. Native corrections add two remainder journeys and one
-unsent-discard case. Both old8c SDK runs passed all ordinary payment/method/
-recovery and both real process proofs; only the new viewport selectors failed.
-Those selectors are repaired. Neither8c run is acceptance; retain each complete
-original. The repaired source still needs native compiler checks, both complete
-focused SDK runs and follow-up independent reviews before112 can close.
-
-Original source-compatible provider patch/reference remain under integrations/
-and test-fixtures/reference, never deployed. Public chain names were read from
-Mixin's actual five chain endpoints; exact owned fixture observation is
-native-store-chains-observation.json. Current core/source work is208tests;
-compile/native acceptance at65was206. Keep those source distinctions.
-
-Passive public reads on November14 find Store `enabled: false` and seven provider
-currencies BNB/BTC/ETH/USDC/USDT/SOL/TRX, with chain IDs. Exact observation and
-reference qualification live in native-store-currency-observation.json and the
-new crypto reference generator. No live reservation or financial write occurred.
-Additional pinned sources are hash/Git-blob-verified under external upstream;
-fetch-pinned112.py retrieves missing source files from GitHub only.
-
-See ADR0003 for the necessary provider invoice binding/recovery compatibility
-patch. The original service resumes by wallet/ticker/purpose without echoing the
-carrier and lacks a read-only status request. Do not present an unbound address
-as payable or poll by creating invoices. No live provider is to be altered.
-Continue one tracer at a time: typed invoice/status and actual provider patch,
-provider-issued Saito payment/receipt/chain compatibility, shared Orders journal,
-native payment UI/auth/recovery, complete owned provider/native proofs and two
-independent review axes. Continue113–115 only after112completion.
+For115polish, inspect the quantity IME action/lower purchase controls while the
+keyboard stays visible, along with111's image-preview/cost placement and actual
+normal/reduced motion. Observers explicitly close IME and do not establish every
+control reachable while it remains open. The native drag-handle tooltip is visible
+in viewport captures; distinguish real user interaction from test focus effects.
 
 ## Completed Store selling #111, next #112
 

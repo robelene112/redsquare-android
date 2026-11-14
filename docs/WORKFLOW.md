@@ -18,8 +18,9 @@ All ten tickets #106–#115 are published as native sub-issues with verified blo
 edges. Implement the ready frontier through the combined beta without another
 per-ticket owner confirmation. Reading #106, upload/recovery #107, advanced ownership/rental foundation #108
 and Store catalogue/native links/unsent Chat #109 are verified on both SDKs.
-#110 SAITO purchases/delivery and #111 native selling/item creation/storefront
-management are verified. Next: #112, alternate-currency checkout and recovery. See
+#110 SAITO purchases/delivery, #111 native selling/item creation/storefront
+management and #112 alternate-currency checkout/recovery are verified. Next: #113,
+alternate pricing, seller proceeds and withdrawals. See
 [108 evidence](evidence/ticket108/README.md). Use Vault as the shared file/key/rental basis
 and deliver one combined completed beta, preserving the spec's full payment and
 native UX scope and the existing agent-owned verification/operational boundaries.
@@ -171,6 +172,13 @@ original logs and every application assertion and deadline.
 2. Record the starting commit as the review base. Use the current working branch
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`.
+   `store-crypto-viewport` and its Android17 variant isolate the original
+   StoreCryptoViewportPreviewTest under its unchanged480second bound:24actual
+   review/invoice cells, native IME input and48dp actions. The helper establishes
+   native focus/IME readiness before replacement and verifies quantity before and
+   after dismissal. Complete purchase and full Wallet retain the class additively;
+   focused passes never replace complete SDK acceptance or prove an old failure's
+   cause. Preserve the source-qualified original failures and financial deadlines.
    `vault-custom-access` and Android17 add VaultCustomAccessPreviewTest under its own180second class bound at the actual native access editor/owned signed peer/document boundaries. Independently executed WASM decisions distinguish wrong/correct inputs; exact signed file bytes and original account/node state remain required. Full Wallet retains it additively.
    `vault-completed-cleanup` and Android17 add VaultCompletedCleanupPreviewTest under its own180second class bound at the native UI/actual encrypted filesystem/fresh runtime seam. A completed upload must recover despite an incomplete original source descriptor and finish cleanup without resending. This runtime reset does not replace the separate distinct-PID process proof. Complete upload and full Wallet retain it additively.
    `vault-funding-race` and Android17 add VaultFundingRacePreviewTest at the existing native system-PIN/owned-node and public wallet-reservation seams, under its own180second class bound. Another payment takes the reviewed input during Vault authentication; the unsent Vault operation must remain discardable without altering the other payment. Full upload and Wallet retain it additively.
