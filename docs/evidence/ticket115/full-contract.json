@@ -12094,5 +12094,26 @@
     "casesPerBoot": 1,
     "rawExtension": ".log",
     "separateFromAcceptanceCounts": true
+  },
+  "ownerTalkUiPolish": {
+    "minimumTargetDp": 48,
+    "controlGapDp": 12,
+    "endCallGapDp": 16,
+    "widthsDp": [
+      320,
+      412
+    ],
+    "fontScales": [
+      1,
+      1.3,
+      2
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "separateInvitationCard": true,
+    "accurateHostRoomReady": true,
+    "originalApplicationIdentitiesUnchanged": true
   }
 }

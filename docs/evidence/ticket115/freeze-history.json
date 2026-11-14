@@ -92,5 +92,45 @@
     "retentionCorrection": "Independent Standards P2: initial726 source would overwrite rejected emulator.log on recursive boot. Each boot now opens its own fresh live log, preserves startup snapshot and complete rejected stream after reap; strict collector verifies snapshot prefix/hash and rejected full log hash/size. Both complete SDKs must execute this corrected freeze.",
     "runnerCorrection": "Actual726 focused run43647607708 failed provisioning before any acceptance case: AGP replaces instrumentation entries with configured AndroidJUnitRunner, so custom component was not registered. Probe now runs one separate, explicit diagnostic JUnit method through that existing runner. Its raw.log is retained and strictly validated separately; original318acceptance classes,830/831identities and completion totals remain unchanged. Original probe failure stays failed.",
     "disconnectCorrection": "177full10Social measured invalid16/512MiB before acceptance, terminated/reaped emulator, then failed strict disconnect check because ADBstilllistedserialoffline. Corrected29-only setup waits for actual transport disappearance within15s and retains every observation; no heap/service/app-test changes. Strict final disconnection requirement remains. SDK17branch is unexecuted."
+  },
+  "ownerTalkUiScope": {
+    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:15:07.922333+00:00",
+    "ownerFeedback": "1000038063.jpg: call buttons need space and overall UI needs thought",
+    "trackingIssue": 115,
+    "supersededCandidate": 129,
+    "nextCandidate": 130,
+    "previousCompletePrimaries": [
+      43650070984,
+      43648934961
+    ],
+    "cancellationReason": "Owner expanded actual product UI scope during verification; old-product runs cancelled and retained. This invalidates conditional177SDK17retention, which remains unused.",
+    "newGoal": {
+      "minimumTargetDp": 48,
+      "controlGapDp": 12,
+      "endCallGapDp": 16,
+      "widthsDp": [
+        320,
+        412
+      ],
+      "fontScales": [
+        1,
+        1.3,
+        2
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "separateInvitationCard": true,
+      "accurateHostRoomReady": true,
+      "originalApplicationIdentitiesUnchanged": true
+    },
+    "allOriginalA07ContractFieldsUnchanged": true,
+    "requirement": "New signed artifact and both entire complete SDKs and actual signed127-to-new-artifact updates required. No129promotion or failed-prefix assembly.",
+    "freezeHashes": {
+      "full-contract.json": "45969311311e84a6ccb76e103b19340771cd3ec6f0427b3c0f9fad27ebd2b898",
+      "verify-full.py": "88baa1a1bcbbf4125ae8bbd78d80fb0aa96f072914f18cf7eeb4c2dea77f4e95",
+      "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
+    }
   }
 }

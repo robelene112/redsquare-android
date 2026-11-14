@@ -121,6 +121,23 @@ def validate_runtime_preflight(root):
     return records
 
 
+def native_action_bounds(data, text):
+    tree = ET.fromstring(data)
+    parents = {child: parent for parent in tree.iter() for child in parent}
+    bounds = set()
+    for node in tree.iter("node"):
+        if node.get("text") != text or node.get("visible-to-user") != "true":
+            continue
+        while node.get("clickable") != "true" and node in parents:
+            node = parents[node]
+        assert node.get("clickable") == "true", ("No native action", text)
+        value = tuple(map(int, re.findall(r"-?\d+", node.get("bounds", ""))))
+        assert len(value) == 4 and value[2] - value[0] >= 48 and value[3] - value[1] >= 48
+        bounds.add(value)
+    assert len(bounds) == 1, ("Require one visible native action", text, bounds)
+    return next(iter(bounds))
+
+
 contract_path = "docs/evidence/ticket115/full-contract.json"
 contract_bytes = git("show", source + ":" + contract_path)
 assert contract_bytes == (packet / "full-contract.json").read_bytes(), "Contract changed after execution"
@@ -134,6 +151,9 @@ assert contract["runtimePreflight"] == dict(sdk=29, maxColdBoots=3, beforeApplic
     unchangedConfiguration=True, noHeapOrServiceChanges=True)
 assert contract["runtimeProbe"] == dict(testClass="nl.davidengelen.redsquare.RuntimeHeapProbe",
     test="observesActualTargetProcessHeap", casesPerBoot=1, rawExtension=".log", separateFromAcceptanceCounts=True)
+assert contract["ownerTalkUiPolish"] == dict(minimumTargetDp=48, controlGapDp=12, endCallGapDp=16,
+    widthsDp=[320, 412], fontScales=[1, 1.3, 2], themes=["light", "dark"], separateInvitationCard=True,
+    accurateHostRoomReady=True, originalApplicationIdentitiesUnchanged=True)
 for path, checksum in contract["runtimePreflightSourceSha256"].items():
     assert digest(repo / path) == checksum
     assert git("show", source + ":" + path) == (repo / path).read_bytes()
@@ -463,6 +483,17 @@ for prefix,suffix in (("talk-invitation","prejoin"),("talk-active","active")):
                     assert config["widthPixels"] == config["widthDp"] == width
                     assert abs(config["fontScale"] - scale/100) < .01 and config["selectedAppearance"].lower() == theme
                     validate_png(archive.extractfile(name + "-" + suffix + ".png").read())
+                    if prefix == "talk-active":
+                        actions = [native_action_bounds(archive.extractfile(name + "-active.xml").read(), text)
+                            for text in ("Mute", "Camera off", "Switch camera", "Audio output", "End call")]
+                        assert all(actions[i + 1][0] - actions[i][2] >= 12 for i in range(3))
+                        assert actions[4][1] - max(action[3] for action in actions[:4]) >= 16
+                        validate_png(archive.extractfile(name + "-invitation.png").read())
+                        invitation = archive.extractfile(name + "-invitation.xml").read()
+                        share = native_action_bounds(invitation, "Share invitation")
+                        native_texts = {node.get("text") for node in ET.fromstring(invitation).iter("node")}
+                        copy = native_action_bounds(invitation, "Copy invitation" if "Copy invitation" in native_texts else "Invitation copied")
+                        assert copy[0] - share[2] >= 12
         if prefix == "talk-invitation":
             for name in ("implicit-view-prejoin.png","busy-prejoin.png"):
                 validate_png(archive.extractfile(prefix + "-evidence/" + name).read())
