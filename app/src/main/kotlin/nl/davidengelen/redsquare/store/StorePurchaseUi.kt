@@ -25,18 +25,20 @@ internal fun StoreBuyControl(product: StoreProduct, available: BigInteger, purch
     var quantity by rememberSaveable(product.signature) { mutableStateOf("1") }
     var fee by rememberSaveable(product.signature) { mutableStateOf("0") }
     var feesOpen by rememberSaveable { mutableStateOf(false) }
-    if (product.price?.currency != "SAITO") return
+    val price = product.price ?: return
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         OutlinedTextField(quantity, { quantity = it.take(16) }, label = { Text(stringResource(R.string.store_purchase_quantity)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true,
             modifier = Modifier.fillMaxWidth(), enabled = !purchases.busy)
-        TextButton(onClick = { feesOpen = !feesOpen }, modifier = Modifier.heightIn(min = 48.dp)) {
+        if (price.currency == "SAITO") TextButton(onClick = { feesOpen = !feesOpen }, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.store_purchase_network_fee, "$fee SAITO"))
         }
-        if (feesOpen) OutlinedTextField(fee, { fee = it.take(30) }, label = { Text(stringResource(R.string.transfer_fee)) },
+        if (price.currency == "SAITO" && feesOpen) OutlinedTextField(fee, { fee = it.take(30) }, label = { Text(stringResource(R.string.transfer_fee)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), singleLine = true, modifier = Modifier.fillMaxWidth(), enabled = !purchases.busy)
-        Button(onClick = { keyboard?.hide(); purchases.prepare(product, quantity, fee) }, enabled = !purchases.busy && available.signum() > 0,
+        if (price.currency == "SAITO") Button(onClick = { keyboard?.hide(); purchases.prepare(product, quantity, fee) }, enabled = !purchases.busy && available.signum() > 0,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_review)) }
+        OutlinedButton(onClick = { keyboard?.hide(); purchases.discoverCrypto(product, quantity) }, enabled = !purchases.busy && available.signum() > 0,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_crypto_methods)) }
     }
 }
 
@@ -71,7 +73,7 @@ internal fun StoreOrders(purchases: StorePurchases, modifier: Modifier) {
     }
 }
 
-private fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreChain.Observation?): Int = when {
+internal fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreChain.Observation?): Int = when {
     observation?.delivered == true -> R.string.store_purchase_delivered
     observation?.refunded == true -> R.string.store_purchase_refunded
     observation?.historical == true && observation.receipt?.kind == SaitoStoreReceipt.Kind.REFUND -> R.string.store_purchase_previous_refund
@@ -89,16 +91,40 @@ private fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreCha
 internal fun StorePurchaseDialog(purchases: StorePurchases) {
     val review = purchases.review
     val order = purchases.orders.firstOrNull { it.id == purchases.focused }
-    val visible = review != null || order != null
+    val externalReview = purchases.cryptoReview
+    val methodsProduct = purchases.methodsProduct
+    val visible = review != null || order != null || externalReview != null || methodsProduct != null
     LaunchedEffect(purchases, order?.id) {
         if (order != null) while (true) {
             kotlinx.coroutines.delay(5000)
             if (!purchases.busy) purchases.refresh(order.id)
         }
     }
-    DesignSheet(visible, stringResource(R.string.store_purchase_title), { purchases.closeReview() }) { firstAction ->
+    val mode = when {
+        externalReview != null -> "external-review:${externalReview.product.signature}:${externalReview.currency.ticker}"
+        order != null -> "order:${order.id}"
+        methodsProduct != null -> "methods:${methodsProduct.signature}"
+        review != null -> "review:${review.product.signature}"
+        else -> "closed"
+    }
+    DesignSheet(visible, stringResource(R.string.store_purchase_title), { purchases.closeReview() }, contentKey = mode) { firstAction ->
+        SingleOwnerReveal(mode) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         val product = review?.product ?: order?.product
-        if (product != null && order?.external != null) {
+        if (externalReview != null) {
+            StoreExternalReview(externalReview, purchases, firstAction)
+        } else if (methodsProduct != null && order == null && review == null) {
+            Text(methodsProduct.title, style = MaterialTheme.typography.headlineSmall)
+            Text(stringResource(R.string.store_crypto_choose))
+            purchases.otherMethods?.currencies?.filter { methodsProduct.price?.currency == "SAITO" || methodsProduct.price?.currency == it.ticker }?.forEachIndexed { index, currency ->
+                OutlinedButton(onClick = { purchases.prepareCrypto(methodsProduct, purchases.methodsQuantity, currency) },
+                    enabled = !purchases.busy, modifier = (if (index == 0) firstAction else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.store_crypto_with, currency.ticker))
+                }
+            }
+            StorePurchaseProblem(purchases)
+            TextButton(onClick = { purchases.closeReview() }, enabled = !purchases.busy, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
+        } else if (product != null && order?.external != null) {
             StoreExternalOrder(order, purchases, firstAction)
         } else if (product != null) {
             Text(product.title, style = MaterialTheme.typography.headlineSmall)
@@ -151,6 +177,8 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
                 }
             }
         }
+        }
+        }
     }
 }
 
@@ -164,6 +192,9 @@ internal fun StorePurchaseProblem(purchases: StorePurchases) {
         StorePurchases.Problem.AUTH -> R.string.transfer_auth_setup
         StorePurchases.Problem.CANCELLED -> R.string.transfer_cancelled
         StorePurchases.Problem.TERMS -> R.string.store_purchase_terms_changed
+        StorePurchases.Problem.PROVIDER -> if (purchases.orders.any { it.id == purchases.focused && it.external != null }) R.string.store_crypto_provider_waiting else R.string.store_crypto_unavailable
+        StorePurchases.Problem.PROVIDER_OLD -> if (purchases.orders.any { it.id == purchases.focused && it.external != null }) R.string.store_crypto_provider_waiting else R.string.store_crypto_provider_old
+        StorePurchases.Problem.OTHER_ORDER -> R.string.store_crypto_other_order
         null -> null
     }
     InlineStatus(if (purchases.busy) stringResource(R.string.store_purchase_working) else label?.let { stringResource(it) },

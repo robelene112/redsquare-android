@@ -18,6 +18,46 @@ class SaitoStoreIssuance private constructor(override val transaction: SaitoTran
     override val inputs: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(inputs.toList())
 
     companion object {
+        data class Discovery(val payment: SaitoStoreIssuance?, val cursor: SaitoStoreChain.Cursor?)
+
+        fun restore(carrier: SaitoStoreCarrier, invoice: SaitoStoreCrypto.Invoice, external: String, encoded: String): SaitoStoreIssuance {
+            require(encoded.length <= 2 * 1024 * 1024 && external.isNotBlank() && external.length <= 2048 && external.none(Char::isISOControl))
+            val wire = Base64.getDecoder().decode(encoded)
+            require(Base64.getEncoder().encodeToString(wire) == encoded)
+            return readOriginal(carrier, invoice, external, wire)
+        }
+
+        /** Retaining a signed original does not itself establish selected-chain inclusion or ownership. */
+        fun discover(carrier: SaitoStoreCarrier, invoice: SaitoStoreCrypto.Invoice, external: String,
+            snapshot: SaitoBalanceSnapshot, cursor: SaitoStoreChain.Cursor? = null,
+            fetchBlock: (String) -> ByteArray?): Discovery {
+            require(snapshot.publicKey == carrier.buyer && invoice.carrierSignature == carrier.transaction.id)
+            require(external.isNotBlank() && external.length <= 2048 && external.none(Char::isISOControl))
+            var received = 0L
+            fun scan(start: SaitoStoreChain.Cursor, fresh: Boolean): Discovery {
+                var next = start
+                try {
+                    repeat(16) { index ->
+                        if (next.height.signum() <= 0) return Discovery(null, null)
+                        val bytes = fetchBlock(next.hash) ?: return Discovery(null, next)
+                        received += bytes.size
+                        if (received > 32L * 1024 * 1024) return Discovery(null, next)
+                        val block = SaitoFullBlock.parse(bytes)
+                        if (block.hash != next.hash || block.height != next.height ||
+                            (fresh && index == 0 && block.timestamp != BigInteger.valueOf(snapshot.timestamp))) return Discovery(null, next)
+                        block.storeIssuance(carrier, invoice, external)?.let { return Discovery(it, null) }
+                        next = SaitoStoreChain.Cursor(next.height - BigInteger.ONE, block.previousHash)
+                    }
+                } catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
+                catch (_: Exception) { return Discovery(null, next) }
+                return Discovery(null, next.takeIf { it.height.signum() > 0 })
+            }
+            val older = cursor?.takeIf { it.height < snapshot.height }?.let { scan(it, false) }
+            if (older?.payment != null) return older
+            val recent = scan(SaitoStoreChain.Cursor(snapshot.height, snapshot.blockHash), true)
+            return if (recent.payment != null) recent else Discovery(null, if (older != null) older.cursor else recent.cursor)
+        }
+
         fun read(carrier: SaitoStoreCarrier, invoice: SaitoStoreCrypto.Invoice, response: String): SaitoStoreIssuance {
             require(response.toByteArray().size <= 2 * 1024 * 1024)
             val status = JsonParser.parseString(response).asJsonObject

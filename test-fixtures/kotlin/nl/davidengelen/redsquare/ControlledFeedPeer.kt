@@ -40,6 +40,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var withholdStoreReply = false
     @Volatile var storeResponse: ((com.google.gson.JsonObject) -> String)? = null
     val storeRequests = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
+    @Volatile var cryptoResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
+    val cryptoRequests = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
+    @Volatile var disconnectAfterCryptoReservation = false
+
     @Volatile var vaultResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
     val vaultRequests = java.util.concurrent.CopyOnWriteArrayList<nl.davidengelen.redsquare.saito.SignedSaitoMessage>()
     @Volatile var registryFallbackBeforeNamecheck = false
@@ -301,6 +305,20 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             return
                         }
                         val criteria = body.getAsJsonObject("data")
+                        if ((body.get("request").asString.startsWith("buysaito ") && criteria.get("module")?.asString == "Mixin") ||
+                            (body.get("request").asString == "store-web3-status" && criteria.get("module")?.asString == "Store")) {
+                            val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                            val signed = SaitoEnvelope.decode(original.envelope())
+                            require(signed.author == authenticatedKey)
+                            cryptoRequests.add(signed)
+                            val response = requireNotNull(cryptoResponse)(signed)
+                            if (disconnectAfterCryptoReservation && signed.body.get("request").asString == "buysaito reserve address") {
+                                webSocket.close(1001, "Controlled original invoice interruption")
+                                return
+                            }
+                            check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            return
+                        }
                         if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory", "load-listing-spend", "submit-listing") &&
                             criteria.get("module")?.asString == "Store") {
                             if (body.get("request").asString in setOf("load-listing-spend", "submit-listing")) {

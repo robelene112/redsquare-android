@@ -8,7 +8,7 @@
       "node/mods/store/lib/helpers.js": "a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce",
       "node/mods/store/lib/summary.js": "e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a"
     },
-    "providerReferenceSha256": "00b4bccb8ee270cd2e2de328474254e11b5b85b8c900043c116423ee076532fa",
+    "providerReferenceSha256": "2c4fbf8f8001aaedb4c01b22154918e81645028fa76a7739f7ae3be791bdb5d2",
     "qualification": "Actual provider-issued transaction from the separately hash-bound provider reference, then actual isolated official Store fulfillment/refund builders and script helpers with WASM transaction/slip wrappers. Controlled input-copy adapter; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment."
   },
   "buyer": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",

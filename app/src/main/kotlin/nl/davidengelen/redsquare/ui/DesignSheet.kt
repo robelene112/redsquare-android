@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 /** Reference-shell action sheet; keep its exit animation mounted after selection. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit,
+internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit, contentKey: Any? = null,
     content: @Composable ColumnScope.(Modifier) -> Unit) {
     val firstAction = remember { FocusRequester() }
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -32,7 +32,8 @@ internal fun DesignSheet(expanded: Boolean, title: String, onDismiss: () -> Unit
     if (mounted) ModalBottomSheet(onDismissRequest = onDismiss, sheetState = state,
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
         SheetKeyboardWindow(onDismiss) { firstAction.requestFocus(FocusDirection.Enter) }
-        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).focusGroup()
+        val scroll = key(contentKey) { rememberScrollState() }
+        Column(Modifier.fillMaxWidth().verticalScroll(scroll).focusGroup()
             .padding(horizontal = AppSpacing.screen).padding(bottom = 28.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(title, Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall)

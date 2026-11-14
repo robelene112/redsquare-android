@@ -107,11 +107,18 @@ global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=
   const saved=rows.find(r=>r.id===current.id);saved.status='failed';
   methodQuotes.push({currency:item.currency,carrier:item.carrier,quote:current});
  }
+ const saitoQuotes=[];
+ for(const item of vector.methodCarriers){
+  const next={...request,ticker:item.currency.ticker,request_id:vector.saitoCarrier.id,tx:vector.saitoCarrier.envelope,issue_amount:5,expected_deposit:0.0055};
+  const quote=await service.startPurchase(buyer,next);
+  assert.equal(quote.purchase_signature,vector.saitoCarrier.id);assert.equal(quote.issue_amount,5);assert.equal(quote.expected_deposit,0.005501);
+  rows.find(row=>row.id===quote.id).status='failed';saitoQuotes.push({currency:item.currency,quote});
+ }
  const count=rows.length,usdt=cryptoMods[0],rate=usdt.price_usd;
  usdt.price_usd=0;
  await assert.rejects(()=>service.startPurchase(buyer,request),/No price is available/);
  assert.equal(rows.length,count,'Quote outage cannot allocate an invoice');usdt.price_usd=rate;
 
- fs.writeFileSync(output,JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',sourceHashes:hashes,patchSha256:patchSha,saitoWasm:'0.3.15',qualification:'Actual isolated pinned-plus-declared-compatibility-patch BuySaitoService/Transfers methods with actual WASM carrier decoding and a web-framing adapter. Owned in-memory database and credential/address adapters, actual isolated provider payout creation with funded WASM wallet and synthetic inbound hash. No network, real provider deposit, live activation, full initialized runtime or funded consensus.'},buyer,provider,carrier:vector.carrier,request,quote:first[0],status,absent,conflict:other,issuance,issuedBody:funded.tx.msg,issuedStatus,outcomes,foreign,methodQuotes,rows},null,2)+'\n');
+ fs.writeFileSync(output,JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',sourceHashes:hashes,patchSha256:patchSha,saitoWasm:'0.3.15',qualification:'Actual isolated pinned-plus-declared-compatibility-patch BuySaitoService/Transfers methods with actual WASM carrier decoding and a web-framing adapter. Owned in-memory database and credential/address adapters, actual isolated provider payout creation with funded WASM wallet and synthetic inbound hash. No network, real provider deposit, live activation, full initialized runtime or funded consensus.'},buyer,provider,carrier:vector.carrier,request,quote:first[0],status,absent,conflict:other,issuance,issuedBody:funded.tx.msg,issuedStatus,outcomes,foreign,methodQuotes,saitoQuotes,rows},null,2)+'\n');
  console.log('PASS: bound invoice, concurrent original retry, read-only wallet-scoped restoration, seven methods, completed/failed recovery and quote outage');
 }finally{fs.rmSync(temporary,{recursive:true,force:true})}})().catch(error=>{console.error(error);process.exitCode=1});

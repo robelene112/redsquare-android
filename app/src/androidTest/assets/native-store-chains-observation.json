@@ -1,0 +1,97 @@
+{
+  "1949e683-6a08-49e2-b087-d6b72398588f": {
+    "data": {
+      "type": "chain",
+      "chain_id": "1949e683-6a08-49e2-b087-d6b72398588f",
+      "kernel_chain_id": "2e21047220b1664644f729c98f3d6c260b4f29dedcfe67cccc7336568117a91b",
+      "name": "BNB Smart Chain",
+      "symbol": "BNB",
+      "icon_url": "https://images.mixin.one/1_44tuBHW1cFfsPnzmzQE8aULR438AT_fjqOsXJp1LEVPSDHox45dI0WGsnzgz9rDRYnA92sWMaMDGWt-oePEFV5qp8HrCFvd7I=s128",
+      "reserve": "0",
+      "deposit_block_height": 32046120,
+      "managed_block_height": 32046120,
+      "external_block_height": 32046121,
+      "threshold": 64,
+      "is_synchronized": false,
+      "deposit_price": "0.1",
+      "deposit_entry_price": "0.5",
+      "withdrawal_memo_possibility": "negative"
+    }
+  },
+  "25dabac5-056a-48ff-b9f9-f67395dc407c": {
+    "data": {
+      "type": "chain",
+      "chain_id": "25dabac5-056a-48ff-b9f9-f67395dc407c",
+      "kernel_chain_id": "05edf1e8723e2ece67afcdfd7fbb504c64a5a939ec8fe5fa05fc7a104011abc9",
+      "name": "TRON",
+      "symbol": "TRX",
+      "icon_url": "https://images.mixin.one/SXfRh0WJZpHrDAbBItuwwLp_TPML7hrbAPHGIz_EQRga0fFm5yGtNd55_W0ZZv9HRj_6W6kE4O4tq8W78mutAPE=s128",
+      "reserve": "0",
+      "deposit_block_height": 56280227,
+      "managed_block_height": 56280227,
+      "external_block_height": 56280245,
+      "threshold": 12,
+      "is_synchronized": false,
+      "deposit_price": "0.5",
+      "deposit_entry_price": "0.5",
+      "withdrawal_memo_possibility": "negative"
+    }
+  },
+  "43d61dcd-e413-450d-80b8-101d5e903357": {
+    "data": {
+      "type": "chain",
+      "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+      "kernel_chain_id": "8dd50817c082cdcdd6f167514928767a4b52426997bd6d4930eca101c5ff8a27",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "icon_url": "https://images.mixin.one/zVDjOxNTQvVsA8h2B4ZVxuHoCF3DJszufYKWpd9duXUSbSapoZadC7_13cnWBqg0EmwmRcKGbJaUpA8wFfpgZA=s128",
+      "reserve": "0",
+      "deposit_block_height": 18550028,
+      "managed_block_height": 18550028,
+      "external_block_height": 18550028,
+      "threshold": 16,
+      "is_synchronized": false,
+      "deposit_price": "0.5",
+      "deposit_entry_price": "0.5",
+      "withdrawal_memo_possibility": "negative"
+    }
+  },
+  "64692c23-8971-4cf4-84a7-4dd1271dd887": {
+    "data": {
+      "type": "chain",
+      "chain_id": "64692c23-8971-4cf4-84a7-4dd1271dd887",
+      "kernel_chain_id": "481360491383ebd4f0f97543f3440313b48b8fd06dcfa5a0c2cabe4252d3a8eb",
+      "name": "Solana",
+      "symbol": "SOL",
+      "icon_url": "https://images.mixin.one/eTzm8_cWke8NqJ3zbQcx7RkvbcTytD_NgBpdwIAgKJRpOoo0S0AQ3IQ-YeBJgUKmpsMPUHcZFzfuWowv3801cF5HXfya5MQ9fTA9HQ=s128",
+      "reserve": "0",
+      "deposit_block_height": 219661076,
+      "managed_block_height": 219661076,
+      "external_block_height": 219661080,
+      "threshold": 3,
+      "is_synchronized": false,
+      "deposit_price": "0.1",
+      "deposit_entry_price": "0.5",
+      "withdrawal_memo_possibility": "negative"
+    }
+  },
+  "c6d0c728-2624-429b-8e0d-d9d19b6592fa": {
+    "data": {
+      "type": "chain",
+      "chain_id": "c6d0c728-2624-429b-8e0d-d9d19b6592fa",
+      "kernel_chain_id": "fe6b7788944d328778f98e3e81588215b5a07de4f9a4a7de4db4535b404e65db",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "icon_url": "https://images.mixin.one/HvYGJsV5TGeZ-X9Ek3FEQohQZ3fE9LBEBGcOcn4c4BNHovP4fW4YB97Dg5LcXoQ1hUjMEgjbl1DPlKg1TW7kK6XP=s128",
+      "reserve": "0",
+      "deposit_block_height": 816611,
+      "managed_block_height": 816611,
+      "external_block_height": 816611,
+      "threshold": 2,
+      "is_synchronized": false,
+      "deposit_price": "0.5",
+      "deposit_entry_price": "0.5",
+      "withdrawal_memo_possibility": "negative"
+    }
+  }
+}

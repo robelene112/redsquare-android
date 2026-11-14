@@ -87,13 +87,62 @@ class SaitoStoreCryptoTest {
         val carrier = SaitoStoreCarrier.restore(vector.getAsJsonObject("carrier").get("networkBase64").asString)
         val currency = SaitoStoreCrypto.readMethods(fixture().get("methods").toString()).currencies.single { it.ticker == "USDT" }
         val invoice = SaitoStoreCrypto.readInvoice(carrier, currency, vector.get("store").asString, vector.get("invoice").toString())
-        for (state in listOf("failed", "succeeded", "outbound_confirmed")) {
+        for (state in listOf("failed", "succeeded", "outbound_confirmed", "treasury_rejected")) {
             val status = vector.getAsJsonObject("providerStatus").deepCopy().apply { addProperty("transfer_status", state) }
             val payment = SaitoStoreIssuance.read(carrier, invoice, status.toString())
             assertEquals(vector.getAsJsonObject("purchase").get("id").asString, payment.transaction.id)
             val refund = SaitoStoreReceipt.read(payment, vector.getAsJsonObject("settlement").getAsJsonObject("refund").get("networkBase64").asString)
             assertEquals(SaitoStoreReceipt.Kind.REFUND, refund.kind)
             assertEquals(invoice.issuedSaito.movePointRight(8).toBigIntegerExact(), refund.refundOutput?.amount)
+        }
+    }
+
+    @Test fun aTreasuryIssuedPaymentCanBeRecoveredFromBoundedHistoryWithoutTheProvidersTransactionCopy() {
+        val vector = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/native-store-crypto-settlement-reference.json"))
+            .bufferedReader().use { it.readText() }).asJsonObject
+        val carrier = SaitoStoreCarrier.restore(vector.getAsJsonObject("carrier").get("networkBase64").asString)
+        val currency = SaitoStoreCrypto.readMethods(fixture().get("methods").toString()).currencies.single { it.ticker == "USDT" }
+        val invoice = SaitoStoreCrypto.readInvoice(carrier, currency, vector.get("store").asString, vector.get("invoice").toString())
+        val blocks = vector.getAsJsonObject("blocks").getAsJsonObject("older")
+        val snapshot = SaitoBalanceSnapshot.parse(blocks.get("snapshot").asString.toByteArray(), carrier.buyer, 1700004003000)
+        val history = blocks.getAsJsonObject("blocks").entrySet().associate { it.key to java.util.Base64.getDecoder().decode(it.value.asString) }
+        val inbound = vector.getAsJsonObject("providerStatus").get("inbound_payment_uuid").asString
+        val first = SaitoStoreIssuance.discover(carrier, invoice, inbound, snapshot) { history[it] }
+        assertNull(first.payment)
+        assertNotNull(first.cursor)
+        val recovered = SaitoStoreIssuance.discover(carrier, invoice, inbound, snapshot, first.cursor) { history[it] }
+        assertEquals(vector.getAsJsonObject("purchase").get("id").asString, recovered.payment?.transaction?.id)
+        val durable = SaitoStoreIssuance.restore(carrier, invoice, inbound, requireNotNull(recovered.payment).transaction.encoded())
+        assertEquals(recovered.payment.transaction.encoded(), durable.transaction.encoded())
+        assertThrows(IllegalArgumentException::class.java) {
+            SaitoStoreIssuance.restore(carrier, invoice, "cd".repeat(32), durable.transaction.encoded())
+        }
+        val wrong = SaitoStoreIssuance.discover(carrier, invoice, "cd".repeat(32), snapshot, first.cursor) { history[it] }
+        assertNull(wrong.payment)
+    }
+
+    @Test fun everyOfferedMethodUsesTheOfficialCarrierAndTheProvidersExactSixDecimalQuoteRounding() {
+        val vector = fixture()
+        val provider = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/native-store-provider-reference.json"))
+            .bufferedReader().use { it.readText() }).asJsonObject
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val price = StorePrice("SAITO", BigDecimal("2.5"))
+        val carrier = SaitoStoreCarrier.create(wallet, vector.get("store").asString, vector.get("nftId").asString,
+            BigInteger.valueOf(2), price, vector.get("timestamp").asLong)
+        assertEquals(vector.getAsJsonObject("saitoCarrier").get("networkBase64").asString, carrier.transaction.encoded())
+        val methods = SaitoStoreCrypto.readMethods(vector.get("methods").toString())
+        assertEquals(7, provider.getAsJsonArray("saitoQuotes").size())
+        for (row in provider.getAsJsonArray("saitoQuotes")) {
+            val ticker = row.asJsonObject.getAsJsonObject("currency").get("ticker").asString
+            // The owned provider reference explicitly installs a USD rate of1 for each module.
+            val currency = methods.currencies.single { it.ticker == ticker }.copy(usd = BigDecimal.ONE)
+            val amount = SaitoStoreCrypto.estimate(price, BigInteger.valueOf(2), currency, BigDecimal("0.001"), vector.get("timestamp").asLong)
+            assertEquals(BigDecimal("0.005501"), amount)
+            val invoice = SaitoStoreCrypto.readInvoice(carrier, currency, provider.get("provider").asString, row.asJsonObject.get("quote").toString())
+            assertEquals(0, amount.compareTo(invoice.amount))
+        }
+        assertThrows(SaitoStoreCrypto.Unavailable::class.java) {
+            SaitoStoreCrypto.estimate(price, BigInteger.valueOf(2), methods.currencies.first(), BigDecimal("0.001"), vector.get("timestamp").asLong + 300001)
         }
     }
 

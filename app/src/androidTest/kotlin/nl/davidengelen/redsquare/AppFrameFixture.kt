@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 
 /** Read-only frame peer and declared local state, restored after the Activity closes. No recomposer replacement. */
-internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, giphyFixtureUrl: String? = null, stackDesignFixture: Boolean = false, nameDirectoryPeerUrl: String? = null, advertisedServices: String? = null, expectedTransactionCount: Int = 0, peerIdentity: nl.davidengelen.redsquare.saito.SaitoWallet = nl.davidengelen.redsquare.saito.SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), mapOfficialPeer: Boolean = false, preserveVault: Boolean = false, beforeStateRestore: (String) -> Unit = {}, block: (ActivityScenario<MainActivity>) -> Unit) {
+internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, archiveResponse: ((com.google.gson.JsonObject) -> String)? = null, registryResponse: ((com.google.gson.JsonObject) -> String)? = null, profileArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, quoteArchiveResponse: ((com.google.gson.JsonObject) -> String)? = null, balanceApiUrl: String? = null, storeCryptoNetworksApi: String? = null, nodeBlockApiUrl: String? = null, nodeBlockOfficialApiUrl: String? = null, giphyFixtureUrl: String? = null, stackDesignFixture: Boolean = false, nameDirectoryPeerUrl: String? = null, advertisedServices: String? = null, expectedTransactionCount: Int = 0, peerIdentity: nl.davidengelen.redsquare.saito.SaitoWallet = nl.davidengelen.redsquare.saito.SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), mapOfficialPeer: Boolean = false, preserveVault: Boolean = false, beforeStateRestore: (String) -> Unit = {}, block: (ActivityScenario<MainActivity>) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -76,6 +76,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
             nameDirectoryPeerUrl?.let { launchIntent.putExtra("nameDirectoryPeerUrl", it) }
             giphyFixtureUrl?.let { launchIntent.putExtra("giphyFixtureUrl", it) }
             balanceApiUrl?.let { launchIntent.putExtra("balanceApiUrl", it) }
+            storeCryptoNetworksApi?.let { launchIntent.putExtra("storeCryptoNetworksApi", it) }
             nodeBlockApiUrl?.let { launchIntent.putExtra("nodeBlockApiUrl", it) }
             nodeBlockOfficialApiUrl?.let { launchIntent.putExtra("nodeBlockOfficialApiUrl", it) }
             ActivityScenario.launch<MainActivity>(launchIntent).use { activity ->

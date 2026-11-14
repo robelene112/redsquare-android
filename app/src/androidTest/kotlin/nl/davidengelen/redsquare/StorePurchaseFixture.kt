@@ -14,7 +14,7 @@ import java.net.InetAddress
 
 internal data class StorePurchaseScene(val node: OwnedStorePurchaseFixture, val activity: ActivityScenario<MainActivity>, val evidence: File)
 
-internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, block: (StorePurchaseScene) -> Unit) {
+internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, block: (StorePurchaseScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -23,7 +23,8 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
     val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
     val buyer = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
     val state = ChatFixtureState(context, listOf("transfer.${buyer.publicKey}.", "store-orders.${buyer.publicKey}."), buyer.publicKey)
-    val node = OwnedStorePurchaseFixture(vector)
+    val node = OwnedStorePurchaseFixture(vector, crypto?.let { owned -> { owned.payment } })
+    crypto?.node = node
     var primary: Throwable? = null
     try {
         if (!preserveOrders) { state.prepare(); wallets.replace(original, buyer) }
@@ -31,6 +32,8 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
         MockWebServer().use { server ->
             server.dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
+                    val chain = crypto?.chains?.get(request.target.removePrefix("/network/chains/"))
+                    if (request.target.startsWith("/network/chains/") && chain != null) return MockResponse(body = chain.toString())
                     val response = node.response(request.target)
                     val held = node.blockReadGate
                     if (request.target.startsWith("/block/") && held != null && node.holdNextBlock.compareAndSet(true, false)) {
@@ -44,13 +47,15 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
             }
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             withAppFrameFixture(name, "store-purchase-evidence", feedRows = "[]", expectedTransactionCount = expectedTransactions,
-                peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||",
-                balanceApiUrl = "http://127.0.0.1:${server.port}/balance/", archiveResponse = { criteria ->
+                peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||" + if (crypto == null) "" else ";Mixin||;buysaito||",
+                balanceApiUrl = "http://127.0.0.1:${server.port}/balance/",
+                storeCryptoNetworksApi = crypto?.let { "http://127.0.0.1:${server.port}/network/chains/" }, archiveResponse = { criteria ->
                     if (criteria.get("sig")?.asString == listing.getAsJsonObject("listing").get("id").asString)
                         JsonArray().apply { add(JsonObject().apply { addProperty("tx", listing.getAsJsonObject("listing").get("envelope").asString) }) }.toString()
                     else "[]"
                 }, configurePeer = { peer ->
                     node.peer = peer
+                    peer.cryptoResponse = crypto?.let { owned -> { message -> owned.reply(message) } }
                     peer.storeResponse = { query -> if (query.get("request").asString == "load-listing")
                         JsonObject().apply { add("listing", listing.getAsJsonObject("page").getAsJsonArray("listings")[0]) }.toString()
                         else listing.get("page").toString() }

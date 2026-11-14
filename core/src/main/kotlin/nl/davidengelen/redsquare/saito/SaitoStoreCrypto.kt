@@ -14,7 +14,7 @@ object SaitoStoreCrypto {
         AWAITING("inbound_awaiting"), DETECTED("inbound_broadcast"), RECEIVED("inbound_confirmed"),
         ISSUING("outbound_awaiting"), BROADCAST("outbound_broadcast"), FORWARDED("treasury_submitted"),
         ACCEPTED("treasury_accepted"), INCLUDED("outbound_confirmed"), FAILED("failed"), CANCELLED("cancelled"),
-        HISTORICAL("succeeded")
+        HISTORICAL("succeeded"), REJECTED("treasury_rejected")
     }
     @ConsistentCopyVisibility
     data class Invoice internal constructor(val id: String, val carrierSignature: String, val provider: String,
@@ -89,6 +89,23 @@ object SaitoStoreCrypto {
             addProperty("request_id", carrier.transaction.id)
         })
     }
+    /** Match the provider's IEEE-754 calculation and upward six-decimal rounding before requesting instructions. */
+    fun estimate(price: StorePrice, quantity: java.math.BigInteger, currency: Currency, saitoUsd: BigDecimal?, now: Long): BigDecimal {
+        require(quantity.signum() > 0 && quantity <= maximum)
+        if (now <= 0 || currency.updatedAt > now + 60_000 || now - currency.updatedAt > 300_000) throw Unavailable()
+        val total = money((price.amount * quantity.toBigDecimal()).stripTrailingZeros().toPlainString())
+        if (price.currency != "SAITO") {
+            require(price.currency == currency.ticker)
+            return total
+        }
+        require(total.movePointRight(8).toBigIntegerExact() <= maximum)
+        val saito = saitoUsd?.toDouble()?.takeIf { it.isFinite() && it > 0 } ?: throw Unavailable()
+        val usd = currency.usd.toDouble().takeIf { it.isFinite() && it > 0 } ?: throw Unavailable()
+        val quoted = kotlin.math.ceil(((total.toDouble() * maxOf(0.001, 1.1 * saito)) / usd) * 1_000_000) / 1_000_000
+        if (!quoted.isFinite() || quoted <= 0) throw Unavailable()
+        return money(BigDecimal.valueOf(quoted).stripTrailingZeros().toPlainString())
+    }
+
     fun readInvoice(carrier: SaitoStoreCarrier, currency: Currency, provider: String, response: String): Invoice {
         require(SaitoWallet.isPublicKey(provider) && response.toByteArray().size <= 128 * 1024)
         val quote = JsonParser.parseString(response).asJsonObject

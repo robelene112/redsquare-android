@@ -31,28 +31,47 @@ authorized. Other parent and real-release prerequisites remain open.
 
 Review base: `a60cd323cf0c46b965fbbc986394d77a73ada2fb`.
 111 is closed. 112 is claimed by robelene112; its110 blocker is closed.
-Five public core tracers now pass, alongside all206 core cases in42suites:
-actual official/WASM zero-fund carrier, dynamic currencies, bound provider
-invoice, provider-issued payment/exact Store delivery, and authentic payment
-retention after a later provider failure (refund denomination remains SAITO).
-The exact source-compatible provider patch and reproducible reference driver
-are under integrations/saito and test-fixtures/reference. They are not deployed.
-The provider reference additionally checks seven methods, wallet-scoped read-only
-recovery, concurrent original retries, completed/failed originals and quote outage.
+Seven public core tracers and all208 core cases in42suites pass (latest
+store112-original-restore-green.log). They cover actual unfunded ALT and SAITO
+carrier bytes, seven provider methods, exact upward IEEE-754 quote rounding,
+bound invoices, provider-issued settlement/refund, failure/rejected treasury
+reports and bounded older-history recovery without a provider transaction copy.
+A reference expectation of0.0055was corrected against actual pinned service
+output0.005501; retain rounded-red/green logs and exact original vectors.
 
-Shared encrypted Orders now admits an external intent without reserving the
-provider's funds in the buyer's wallet. Main Kotlin compiles. The actual Android
-journal test is being compiled; native runtime acceptance is still pending.
-StoreCryptoRecoveryPreviewTest also contains the next intentionally red native
-UI assertion: a Store-only node must expose Other payment methods and clearly
-report unavailable service without creating an order. The external order UI is
-still in progress. No new beta and no112acceptance are claimed.
+112implementation is not complete. Shared encrypted Orders now admits original
+external intents and does not reserve provider inputs in the buyer wallet. The
+actual Android10 journal recovery test passes. CI43568010206 on
+65cbd7bfc8fcb412eba406bc2775320ebb281d99 is intentionally RED only at the missing
+Other payment methods UI assertion; all12inherited purchase/recovery cases,
+12viewport cells and3real process phases pass. The complete failed artifact is
+byte-exact (ID14103950091, SHA92cb990b5bc39ec2299e778eafdc2a55e13594378a61eca9f66d49ff9b56dfdb,
+80ZIP/161captures). It is not acceptance and must not be assembled into a pass.
 
-Retain external logs store112-{issuance-green2,core-first,journal-red,journal-main,
-late-status-red,late-status-green,journal-testcompile}.log. The first journal
-compile intentionally failed for missing API; the first issuance compile had
-missing imports/escrow property and was repaired. The later status tracer failed
-before removing provider-state gating from authentic signed payment admission.
+New uncommitted work now includes full native methods/review/PIN/invoice,
+QR/copy/expiry and close/show-original-instructions UI, shared read-only recovery
+and durable chain-discovered issuance. Main compile is green at both
+store112-external-main.log and store112-external-sheet-main.log. Sheet content
+keys reset its scroll on mode change; Store transitions use SingleOwnerReveal.
+The public core suite remains208green. Native compilation store112-external-tests.log also passes (2m37s). A final
+small source change defers public HTTP client initialization to its IO caller and
+clarifies the no-instructions text; CI must build/check that exact snapshot. Its StoreCryptoPaymentPreviewTest is now additively in
+store-purchase and full Wallet, but has not yet run on a device. The class
+verifies review/PIN/no-broadcast/actual quoted instructions/copy/exact delivery.
+The first source at65has206core cases; do not conflate sources.
+
+Continue112until complete: repair actual native failures, verify all seven methods
+and ALT-priced listings, outdated/outage/quote/malformed/cancel/delayed status,
+real process/retained Chat+Fileshare and12viewport cells on10/17. Complete both
+review axes and affected regressions before accepting/closing112. There is no
+new beta. Continue113–115only after112completion. The build artifacts and native
+failed run43568010206have been preserved externally; public beta remains127.
+
+Original source-compatible provider patch/reference remain under integrations/
+and test-fixtures/reference, never deployed. Public chain names were read from
+Mixin's actual five chain endpoints; exact owned fixture observation is
+native-store-chains-observation.json. Current core/source work is208tests;
+compile/native acceptance at65was206. Keep those source distinctions.
 
 Passive public reads on November14 find Store `enabled: false` and seven provider
 currencies BNB/BTC/ETH/USDC/USDT/SOL/TRX, with chain IDs. Exact observation and

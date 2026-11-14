@@ -120,6 +120,23 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         }
     }
 
+    /** A remote treasury may omit its signed copy. Recover that original before checking settlement. */
+    fun discoverStoreIssuance(backend: SaitoBackend, carrier: nl.davidengelen.redsquare.saito.SaitoStoreCarrier,
+        invoice: nl.davidengelen.redsquare.saito.SaitoStoreCrypto.Invoice, inbound: String,
+        cursor: nl.davidengelen.redsquare.saito.SaitoStoreChain.Cursor?): nl.davidengelen.redsquare.saito.SaitoStoreIssuance.Companion.Discovery? {
+        val snapshot = read(backend, carrier.buyer) ?: return null
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(20)
+        var received = 0
+        return nl.davidengelen.redsquare.saito.SaitoStoreIssuance.discover(carrier, invoice, inbound, snapshot, cursor) { hash ->
+            val remaining = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
+            val limit = minOf(8 * 1024 * 1024, 32 * 1024 * 1024 - received)
+            if (remaining <= 0 || limit <= 0) null else try {
+                fetch(endpoint(backend).removeSuffix("balance/") + "block/" + hash, limit, minOf(10_000, remaining))
+                    ?.also { received += it.size }
+            } catch (_: Exception) { null }
+        }
+    }
+
     /** Original Store order, exact escrow spend and present asset ownership use one bounded ancestry read. */
     fun observeStore(backend: SaitoBackend, purchase: nl.davidengelen.redsquare.saito.SaitoStorePayment,
         creator: String, previous: nl.davidengelen.redsquare.saito.SaitoStoreChain.Payment?,

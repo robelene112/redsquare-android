@@ -95,6 +95,28 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
         }?.index?.toLong()?.let(BigInteger::valueOf)
     }
 
+    /** Recover an authenticated original when a remote treasury does not return its signed copy. */
+    fun storeIssuance(carrier: SaitoStoreCarrier, invoice: SaitoStoreCrypto.Invoice, external: String): SaitoStoreIssuance? {
+        for ((ordinal, wire) in transactions.withIndex()) {
+            if (wire[92] != 0.toByte() || u32(wire, 88) != 1L || u32(wire, 4) != 2L) continue
+            val inputs = u32(wire, 0).toInt()
+            val original = wire.copyOf(93 + 59 * (inputs + 2) + u32(wire, 8).toInt())
+            ByteBuffer.wrap(original).putInt(12, 0)
+            var assigned = true
+            repeat(2) { index ->
+                val offset = 93 + (inputs + index) * 59
+                if (u64(wire, offset + 41) != height || u64(wire, offset + 49) != BigInteger.valueOf(ordinal.toLong()) ||
+                    (wire[offset + 57].toInt() and 255) != index) assigned = false
+                original.fill(0, offset + 41, offset + 57)
+            }
+            if (!assigned) continue
+            try { return SaitoStoreIssuance.readOriginal(carrier, invoice, external, original) }
+            catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
+            catch (_: Exception) { /* An unrelated transaction is not this original payment. */ }
+        }
+        return null
+    }
+
     /** Authenticate Store escrow spends without weakening ordinary Bound author verification. */
     fun storeReceipts(purchase: SaitoStorePayment): List<SaitoStoreReceipt> = transactions.withIndex().mapNotNull { (ordinal, wire) ->
         try {

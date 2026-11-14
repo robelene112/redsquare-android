@@ -10,7 +10,7 @@ import java.nio.ByteBuffer
 import java.util.Base64
 
 /** Controlled Store observations. Independent official/WASM vectors separately verify these wire contracts. */
-internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
+internal class OwnedStorePurchaseFixture(val reference: JsonObject, private val externalPayment: (() -> SaitoStorePayment?)? = null) {
     enum class Phase { WAITING, PAID, DELIVERED, SETTLED_WITHOUT_ASSET, REFUNDED }
     @Volatile var phase = Phase.WAITING
     @Volatile var funded = true
@@ -40,7 +40,7 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
     }
     @Synchronized fun response(target: String): MockResponse {
         if (target == "/options") return MockResponse(body = "{\"consensus\":{\"genesis_period\":100000}}")
-        val candidate = candidate()
+        val candidate: SaitoStorePayment? = externalPayment?.invoke() ?: candidate()
         if (candidate == null || phase == Phase.WAITING) {
             if (target != "/balance/${reference.get("buyer").asString}") return MockResponse(code = 404)
             val row = if (funded) "${reference.get("buyer").asString} 10 2 0 1000000000 0\n" else ""

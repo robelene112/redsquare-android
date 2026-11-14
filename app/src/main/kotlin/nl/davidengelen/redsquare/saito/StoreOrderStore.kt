@@ -19,12 +19,15 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         val reservedInputs: List<SaitoBalanceSnapshot.Slip> get() = purchase?.inputs.orEmpty()
     }
     data class External(val carrier: SaitoStoreCarrier, val currency: SaitoStoreCrypto.Currency, val provider: String,
-        val network: String, val response: String? = null, val status: String? = null, val hidden: Boolean = false) {
+        val network: String, val response: String? = null, val status: String? = null, val hidden: Boolean = false,
+        val discovered: String? = null, val inbound: String? = null, val discoveryCursor: SaitoStoreChain.Cursor? = null) {
         init {
             require(SaitoWallet.isPublicKey(provider) && network.isNotBlank() && network.length <= 120 && network.none(Char::isISOControl))
             require(currency.ticker != "SAITO" && currency.usd.signum() > 0 && currency.updatedAt > 0)
             SaitoStoreCrypto.chainUrl(currency.chainId)
             require(status == null || response != null)
+            require(inbound == null || inbound.isNotBlank() && inbound.length <= 2048 && inbound.none(Char::isISOControl))
+            require(discovered == null || inbound != null)
         }
         private val originalInvoice = response?.let { SaitoStoreCrypto.readInvoice(carrier, currency, provider, it) }
         val invoice: SaitoStoreCrypto.Invoice? = status?.let { text ->
@@ -35,8 +38,14 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
                     latest.issuedSaito.compareTo(first.issuedSaito) == 0 && latest.issuer == first.issuer && latest.expiresAt == first.expiresAt)
             }
         } ?: originalInvoice
-        val issuance: SaitoStoreIssuance? = status?.takeIf { JsonParser.parseString(it).asJsonObject.get("outbound_tx")?.asString?.isNotBlank() == true }
+        val externalHash: String? = inbound ?: status?.let { JsonParser.parseString(it).asJsonObject.get("inbound_payment_uuid")?.asString?.takeIf(String::isNotBlank) }
+        private val reportedIssuance = status?.takeIf { JsonParser.parseString(it).asJsonObject.get("outbound_tx")?.asString?.isNotBlank() == true }
             ?.let { SaitoStoreIssuance.read(carrier, requireNotNull(invoice), it) }
+        val issuance: SaitoStoreIssuance? = discovered?.let {
+            SaitoStoreIssuance.restore(carrier, requireNotNull(invoice), requireNotNull(externalHash), it)
+        } ?: reportedIssuance
+        init { require(reportedIssuance == null || reportedIssuance.transaction.encoded() == issuance?.transaction?.encoded()) }
+
     }
     data class Payment(val height: java.math.BigInteger, val hash: String, val ordinal: java.math.BigInteger)
     private val name = "store-orders.$owner"
@@ -56,13 +65,18 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
             val row = entry.asJsonObject
             require(row.keySet() - setOf("provenance", "external") == setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent", "payment", "receipt", "receiptBlock", "cursor"))
             val external = row.get("external")?.takeUnless { it.isJsonNull }?.asJsonObject?.let { value ->
-                require(value.keySet() == setOf("ticker", "chain", "usd", "updated", "provider", "network", "response", "status", "hidden"))
+                require(value.keySet() - setOf("discovered", "inbound", "discoveryCursor") == setOf("ticker", "chain", "usd", "updated", "provider", "network", "response", "status", "hidden"))
                 require(value.get("hidden").asJsonPrimitive.isBoolean)
                 External(SaitoStoreCarrier.restore(row.get("candidate").asString), SaitoStoreCrypto.Currency(value.get("ticker").asString,
                     value.get("chain").asString, value.get("usd").asString.toBigDecimal(), value.get("updated").asLong),
                     value.get("provider").asString, value.get("network").asString,
                     value.get("response").takeUnless { it.isJsonNull }?.asString,
-                    value.get("status").takeUnless { it.isJsonNull }?.asString, value.get("hidden").asBoolean)
+                    value.get("status").takeUnless { it.isJsonNull }?.asString, value.get("hidden").asBoolean,
+                    value.get("discovered")?.takeUnless { it.isJsonNull }?.asString,
+                    value.get("inbound")?.takeUnless { it.isJsonNull }?.asString,
+                    value.get("discoveryCursor")?.takeUnless { it.isJsonNull }?.asJsonObject?.let {
+                        SaitoStoreChain.Cursor(height(it.get("height").asString), hash(it.get("hash").asString))
+                    })
             }
             val purchase = if (external == null) SaitoStorePurchase.restore(row.get("candidate").asString) else null
             val original = purchase?.transaction ?: requireNotNull(external).carrier.transaction
@@ -123,13 +137,25 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         val external = requireNotNull(saved.external)
         val value = JsonParser.parseString(response).asJsonObject
         if (value.has("found")) require(value.get("found").asJsonPrimitive.isBoolean && value.get("found").asBoolean)
-        val next = if (external.response == null) external.copy(response = response,
-            status = response.takeIf { value.has("found") }) else external.copy(status = response)
+        val observedHash = value.get("inbound_payment_uuid")?.asString?.takeIf(String::isNotBlank)
+        require(external.externalHash == null || observedHash == null || external.externalHash == observedHash)
         val oldIssuance = external.issuance
+        val retained = external.copy(discovered = oldIssuance?.transaction?.encoded() ?: external.discovered,
+            inbound = external.externalHash ?: observedHash)
+        val next = if (retained.response == null) retained.copy(response = response,
+            status = response.takeIf { value.has("found") }) else retained.copy(status = response)
         require(oldIssuance == null || next.issuance?.transaction?.encoded() == oldIssuance.transaction.encoded())
         saved.copy(external = next)
     }
-    fun hideInstructions(id: String) = update(id) { it.copy(external = requireNotNull(it.external).copy(hidden = true)) }
+    fun recordDiscovery(id: String, discovery: SaitoStoreIssuance.Companion.Discovery) = update(id) { saved ->
+        val external = requireNotNull(saved.external)
+        val found = discovery.payment
+        require(found == null || found.carrier.transaction.encoded() == external.carrier.transaction.encoded())
+        require(external.issuance == null || found == null || external.issuance.transaction.encoded() == found.transaction.encoded())
+        saved.copy(external = external.copy(discovered = found?.transaction?.encoded() ?: external.discovered,
+            inbound = external.externalHash, discoveryCursor = discovery.cursor))
+    }
+    fun hideInstructions(id: String, hidden: Boolean = true) = update(id) { it.copy(external = requireNotNull(it.external).copy(hidden = hidden)) }
     fun observe(id: String, observation: SaitoStoreChain.Observation) = update(id) { saved ->
         require(saved.fundedPayment != null)
         val receipt = observation.receipt
@@ -163,6 +189,10 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
                 addProperty("usd", external.currency.usd.toPlainString()); addProperty("updated", external.currency.updatedAt)
                 addProperty("provider", external.provider); addProperty("network", external.network)
                 addProperty("response", external.response); addProperty("status", external.status); addProperty("hidden", external.hidden)
+                addProperty("discovered", external.discovered); addProperty("inbound", external.inbound)
+                add("discoveryCursor", external.discoveryCursor?.let { cursor -> JsonObject().apply {
+                    addProperty("height", cursor.height.toString()); addProperty("hash", cursor.hash)
+                } } ?: com.google.gson.JsonNull.INSTANCE)
             }) }
         }) } }
         // Reject inconsistent new rows before replacing the only durable copy.
