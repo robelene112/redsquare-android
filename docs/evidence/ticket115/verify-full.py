@@ -254,7 +254,7 @@ for goal in contract["moduleProcessGoals"]:
     assert recovered == dict(pending,phase="recovered",recoveredPid=recovered["recoveredPid"])
     assert recovered["recoveredPid"] > 0 and recovered["recoveredPid"] != pending["pid"]
     assert goal["methods"]["interrupted.txt"] in (folder / "interrupted.txt").read_text()
-    assert (folder / "continuity.txt").read_text().startswith("PASS: actual authenticated native")
+    assert (folder / "continuity.txt").read_text() == goal["continuityText"]
     assert (folder / "capture-status.txt").read_text().splitlines()[0] == "0"
     for filename in ("recovered.txt", "restored.txt"):
         assert "OK (1 test)" in (folder / filename).read_text()

@@ -11,7 +11,7 @@ image/file creation, selling, storefront management and recoverable delisting. #
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
-the canonical scope. No additional beta has been built or published. The delivered baseline remains
+the canonical scope. Candidate128was built and staged, then superseded before promotion. The delivered baseline remains
 beta 127 with Talk #104 complete.
 
 Vault is first as the file/key/rental foundation, then integrated Store flows,
@@ -29,26 +29,36 @@ authorized. Other parent and real-release prerequisites remain open.
 
 ## In progress: final combined beta #115
 
-All product slices 106–114 are complete. Candidate 128 is signed/staged from
-`2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59`; public latest remains 127.
-Verification source `dfe6cb855b43a3301986c76d82dd38d4a5aab0b0` differs only in two
-reviewed QA files, with all 224,798 other Git objects exact. Both source-review axes
-have no remaining findings. [Current packet](../evidence/ticket115/README.md)
-records actual sources, qualified focused results and the frozen contract.
+All 106–114 are complete. Public latest remains 127. Staged 128 is superseded and must
+NOT be promoted. Its real 127-to-128 updates passed on 10/17, but both complete
+primary attempts 43621894162/43621897570 failed Android lint before every emulator
+runtime step. No native result from those attempts contributes acceptance.
+Whole originals are retained externally under the 115 working directory.
 
-Full 10/17 primary runs 43621894162/43621897570 and actual signed 127-to-128 updates
-43622017532/43622020099 are active. Require whole successful SDK runs, frozen
-verification, module pending/draft/offline continuity, independent final evidence
-reviews and actual public artifact checks before promoting 128. Do not assemble
-passing fragments or weaken deadlines. Keep source-qualified failed originals.
+Product correction da51c97913fe77826e759da0d85296699112bc71 uses LocalActivity in Store and Vault
+instead of assuming LocalContext itself is an Activity. Local lint passed in11m32s;
+both independent product review axes report no findings. A fresh candidate 129 and actual
+127-to-129 updates are required. Keep the 128 signed-update evidence as superseded,
+not final artifact acceptance.
 
-The signed module observer is temporarily served at the exact hash URL recorded
-in the external `store115-observer-download.json`; remove only that owned APK after
-all update checks complete. It is separate from the ordinary app, guarded to an
-emulator/fresh 127/public unsafe fixture identity, and submits no transaction.
-Do not activate any provider/node patch. Keep existing physical/provider/Play and
-parent gates open. The owner already authorized finishing and publishing; do not
-ask for another implementation permission or repeated phone development QA.
+A separate new 115 collector prefix typo was discovered before runtime. The
+intermediate qualified wrapper was never used and is retired. Freeze exact full
+process descriptors from the unchanged scripts into the strict contract and
+collector before the fresh complete-source dispatch. Preserve every inherited
+identity/count/deadline/validator. See the [packet](../evidence/ticket115/README.md)
+and freeze-history.json. No partial successful fragments may be assembled.
+
+The signed module observer remains temporarily served at the exact hash URL in
+external store115-observer-download.json. It is guarded to a fresh ordinary 127
+emulator and published unsafe identity, reads actual current feature APIs after
+update, and submits no transaction. Reuse it only after checking compatibility;
+remove the owned temporary APK when update verification finishes.
+
+Continue autonomously through fresh full 10/17, signed update, final independent
+reviews and actual public artifact verification, then promote the exact completed
+candidate. Do not activate any provider/node patch. Keep physical/provider/Play
+and parent gates open. No further owner permission or phone development QA is
+required; the owner already authorized completion and publication.
 
 ## Completed integrated rentals #114, next #115
 
@@ -75,7 +85,7 @@ Archive/SQLite/WASM and fresh patch rehearsal do not establish live/community or
 actual deployed-schema/runtime acceptance. #36/OWNER_INPUTS keep those gates open.
 No production node/config/database/provider or public financial write occurred.
 
-Continue sequentially with #115. No partial beta; public delivery remains127.
+Continue sequentially with #115. No partial beta; public delivery remains 127.
 Finish native design/performance/integration, namespace rental payment fixture/
 screenshot basenames (current ordinary assertions pass, but old/new scenes reuse
 some image paths), and freeze expanded complete Android10/17 expectations before

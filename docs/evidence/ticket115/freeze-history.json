@@ -1,0 +1,35 @@
+{
+  "initialFreezeSource": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+  "initialFreezeHashes": {
+    "full-contract.json": "b4a202941a2badc099e138e8f209dc1c248055f42780c66368056a234a7a0ac4",
+    "verify-full.py": "ba36cf57b3bd5e3466a3e647283472168459e8c09eb8a00544d8dc08a2a39166"
+  },
+  "initialAttempts": [
+    {
+      "run": "43621894162",
+      "source": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+      "conclusion": "failure",
+      "jobs": 3,
+      "allNativeRuntimeStepsSkipped": true,
+      "acceptance": false
+    },
+    {
+      "run": "43621897570",
+      "source": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+      "conclusion": "failure",
+      "jobs": 3,
+      "allNativeRuntimeStepsSkipped": true,
+      "acceptance": false
+    }
+  ],
+  "nextFreeze": {
+    "productSource": "da51c97913fe77826e759da0d85296699112bc71",
+    "localLint": "BUILD SUCCESSFUL in 11m 32s",
+    "hashes": {
+      "full-contract.json": "7200be163eb2518325dd34295b9f833ba9d822d904b7036615115ff8687ae9fa",
+      "verify-full.py": "6b1a2453204271e643103bc8755151f380408eacf74e3522ec58a806b757b00d"
+    },
+    "change": "Freeze the exact original five process success descriptors before new complete runs; all inherited identities, bounds and validators retained."
+  },
+  "qualifiedWrapperAcceptanceUsed": false
+}

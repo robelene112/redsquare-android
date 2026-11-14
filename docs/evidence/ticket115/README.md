@@ -1,7 +1,15 @@
 # Combined Vault and Store beta115
 
-Status: IN PROGRESS. Candidate128 is signed and staged; public latest remains127.
-No final combined-beta acceptance or promotion is claimed here yet.
+Status: IN PROGRESS. Public latest remains 127. Staged 128 is superseded and must
+not be promoted. Both complete attempts stopped at Android lint, before emulator
+runtime. The Activity-provider correction da51c97913fe77826e759da0d85296699112bc71 passed local
+lint and both independent source reviews. A fresh strict freeze, candidate129
+and new complete/signed-update runs are required.
+
+The successful 128 updates and focused observations below remain historical,
+source-qualified evidence. They are not acceptance of the corrected candidate.
+The unused qualified-wrapper proposal is retired. See
+[freeze history](freeze-history.json) and [descriptor correction](descriptor-erratum.md).
 
 ## Scope and fixed sources
 
@@ -10,8 +18,8 @@ No final combined-beta acceptance or promotion is claimed here yet.
 native integration/polish and one combined beta. All 106–114 are closed with their
 own qualified packets. Their provider/physical/Play prerequisites remain open.
 
-Candidate128 uses product source `2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59`.
-Current verification source is `dfe6cb855b43a3301986c76d82dd38d4a5aab0b0`.
+Superseded candidate 128 used product source `2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59`.
+The initial verification source was `dfe6cb855b43a3301986c76d82dd38d4a5aab0b0`.
 The [source comparison](source-bridge.json) checks all 224,800 Git entries. Exactly
 two QA files differ: lazy-list navigation before purchase review, and the
 optional observer download User-Agent. All 224,798 other entries, including every
@@ -62,9 +70,9 @@ successful three-job primary run, not passing pieces of failures.
 
 Full 10: [43621894162](https://github.com/robelene112/redsquare-android/actions/runs/43621894162).
 Full 17: [43621897570](https://github.com/robelene112/redsquare-android/actions/runs/43621897570).
-Both were dispatched at exact current verification source on a pinned proof branch.
+Both failed at lint, with every emulator step skipped. Fresh complete-source runs remain required.
 
-Actual 127-to-128 updates are also running on both SDKs:
+Actual 127-to-128 updates succeeded on both SDKs (superseded candidate):
 [10](https://github.com/robelene112/redsquare-android/actions/runs/43622017532),
 [17](https://github.com/robelene112/redsquare-android/actions/runs/43622020099).
 A separate signed, guarded emulator observer uses 127's existing encrypted-file
@@ -74,8 +82,8 @@ draft, and retain independent 29-byte offline/export files. Existing wallet,
 unsent social draft, cache, appearance and debug-package isolation checks remain.
 No transaction is submitted by this module observer. Its temporary QA APK is not
 part of the ordinary application and must be removed from temporary hosting after
-verification. The native 128 update, full suites and final independent packet review
-are still required before promotion.
+verification. Fresh 127-to-129 updates, both complete suites and final independent packet review
+are required before promotion.
 
 ## Boundaries
 

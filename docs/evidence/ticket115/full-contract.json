@@ -1,5 +1,5 @@
 {
-  "baselineSource": "a8324aefe06829966dfa6f7fd87df50aef3c3c2f",
+  "baselineSource": "da51c97913fe77826e759da0d85296699112bc71",
   "basis": "Preserve every104 complete identity, original deadline, archive, visual/speech/media validator and qualification. Add all106\u2013115native Vault/Store journeys, all5original three-phase process proofs, rental viewports/motion/real IME/speech and actual mixed six-module ownership on one authenticated node connection. No failed partition assembly. Source-only Vault restoration remains undeployed; real provider/OEM/Play gates remain open.",
   "identityParserSha256": "53ccafb4b431577d12728478f774e02177abc3f389c6b6cfdf41bc6d04106577",
   "expected": {
@@ -11978,7 +11978,8 @@
         "recovered.txt": "coldRetryRequiresFreshDeviceAuthorizationAndUploadsTheOriginalWithoutAnotherMint",
         "restored.txt": "restoreOriginalEncryptedInstallationFiles"
       },
-      "phaseSeconds": 120
+      "phaseSeconds": 120,
+      "continuityText": "PASS: actual authenticated native Vault mint before process death, cold no automatic resend, fresh real device authentication, exact retained candidate and file, no additional mint, wallet/node and unsent Chat/retained Fileshare state preserved.\n"
     },
     {
       "prefix": "store-purchase-process",
@@ -11988,7 +11989,8 @@
         "recovered.txt": "coldOrderRequiresFreshAuthorizationAndRetriesOnlyTheOriginalPayment",
         "restored.txt": "restoreOriginalEncryptedInstallationFiles"
       },
-      "phaseSeconds": 120
+      "phaseSeconds": 120,
+      "continuityText": "PASS: actual authenticated native Store purchase before process death, cold no automatic resend, fresh real device authentication, exact retained original order and signed payment, wallet/node and unsent Chat/retained Fileshare state preserved.\n"
     },
     {
       "prefix": "store-seller-process",
@@ -11998,7 +12000,8 @@
         "recovered.txt": "coldOfferRequiresFreshAuthorizationAndRetriesOnlyTheOriginalOffer",
         "restored.txt": "restoreOriginalEncryptedInstallationFiles"
       },
-      "phaseSeconds": 120
+      "phaseSeconds": 120,
+      "continuityText": "PASS: actual authenticated native Store offer before process death, cold no automatic resend, fresh real device authentication, exact retained original offer and signed custody transfer, wallet/node and unsent Chat/retained Fileshare state preserved.\n"
     },
     {
       "prefix": "store-crypto-process",
@@ -12008,7 +12011,8 @@
         "recovered.txt": "coldRecoveryReadsTheOriginalProviderInvoiceWithoutAnotherAllocation",
         "restored.txt": "restoreOriginalEncryptedInstallationFiles"
       },
-      "phaseSeconds": 120
+      "phaseSeconds": 120,
+      "continuityText": "PASS: actual native reviewed/PIN-authorized provider reservation before process death, accepted owned-provider state independent of the app lost reply, cold read-only original invoice recovery, no new invoice or transaction, exact selected-node delivery, original carrier distinct from issued payment, wallet/node and unsent Chat/retained Fileshare state preserved.\n"
     },
     {
       "prefix": "store-withdrawal-process",
@@ -12018,7 +12022,8 @@
         "recovered.txt": "coldWithdrawalRequiresFreshAuthorizationAndRetriesOnlyOriginal",
         "restored.txt": "restoreOriginalEncryptedInstallationFiles"
       },
-      "phaseSeconds": 120
+      "phaseSeconds": 120,
+      "continuityText": "PASS: actual authenticated native Store manual withdrawal before process death, cold no automatic resend, fresh real device authentication, exact retained original request, no replacement quote or externally paid claim, wallet/node and unsent Chat/retained Fileshare state preserved.\n"
     }
   ],
   "moduleRequiredArchives": [
