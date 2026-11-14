@@ -46,16 +46,17 @@ internal fun storeSaleCandidate(scene: VaultReadingScene): SaitoStoreListing {
         }
         return listings.distinctBy { it.transaction.encoded() }.single()
     }
-internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Boolean = false, image: Boolean = false, prelisted: Boolean = false, preserve: Boolean = false, block: (VaultReadingScene, AtomicBoolean, AtomicBoolean) -> Unit) {
+internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Boolean = false, image: Boolean = false, prelisted: Boolean = false, remaining: Boolean = false, preserve: Boolean = false, block: (VaultReadingScene, AtomicBoolean, AtomicBoolean) -> Unit) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
         val saved = ChatFixtureState(context, listOf("store-listings.$owner.", "store-sale-draft.$owner.", "store-delists.$owner.", "store-images.$owner."), owner)
         var primary: Throwable? = null
         try {
             if (!preserve) saved.prepare()
-            withVaultReadingFixture("store-sale-$name", services = "archive||;vault||;Store||", captureFolder = "store-seller-evidence", retainTransfers = !preserve, expectedMintCount = expected, minting = minting, sellerImage = image, sellerListed = prelisted, preserveSeller = preserve) { scene ->
+            withVaultReadingFixture("store-sale-$name", services = "archive||;vault||;Store||", captureFolder = "store-seller-evidence", retainTransfers = !preserve, expectedMintCount = expected, minting = minting, sellerImage = image, sellerListed = prelisted, sellerRemaining = remaining, preserveSeller = preserve) { scene ->
                 val report = AtomicBoolean(prelisted); val approved = AtomicBoolean(false); val submitted = AtomicBoolean(false)
                 val reference = InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
+                val removal = if (remaining) InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-remaining-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject } else null
                 scene.peer.storeResponse = { query ->
                     val data = query.getAsJsonObject("data")
                     when (query.get("request").asString) {
@@ -64,8 +65,8 @@ internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Bo
                             add("active", JsonArray().apply { if (report.get() && scene.seller?.confirmDelist?.get() != true) {
                                 val original = if (prelisted) null else storeSaleCandidate(scene)
                                 add(reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply {
-                                    addProperty("seller", owner); addProperty("listing_signature", original?.transaction?.id ?: reference.getAsJsonObject("listing").get("id").asString); addProperty("title", if (prelisted) "Field notes access key" else "Native sale")
-                                    addProperty("price", if (prelisted) 250000000 else 500000000); addProperty("quantity_total", if (prelisted) 2 else 1); addProperty("quantity_available", if (prelisted) 2 else 1)
+                                    addProperty("seller", owner); addProperty("listing_signature", original?.transaction?.id ?: removal?.getAsJsonObject("priorFulfillment")?.get("id")?.asString ?: reference.getAsJsonObject("listing").get("id").asString); addProperty("title", if (prelisted) "Field notes access key" else "Native sale")
+                                    addProperty("price", if (prelisted) 250000000 else 500000000); addProperty("quantity_total", if (prelisted && !remaining) 2 else 1); addProperty("quantity_available", if (prelisted && !remaining) 2 else 1)
                                     addProperty("approved", if (approved.get()) 1 else if (submitted.get()) 2 else 0)
                                 })
                             } }); add("sold", JsonArray())
@@ -75,7 +76,7 @@ internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Bo
                         }.toString()
                         "load-listing-spend" -> {
                             check(prelisted)
-                            if (scene.seller?.confirmDelist?.get() == true) "null" else InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.get("row").toString() }
+                            if (scene.seller?.confirmDelist?.get() == true) "null" else removal?.get("row")?.toString() ?: InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.get("row").toString() }
                         }
                         "submit-listing" -> JsonObject().also { submitted.set(true) }.apply { addProperty("ok", true); addProperty("signature", data.get("signature").asString); addProperty("approved", if (approved.get()) 1 else if (submitted.get()) 2 else 0) }.toString()
                         else -> error("Unexpected owned Store request")

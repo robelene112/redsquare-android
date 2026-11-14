@@ -20,9 +20,9 @@ internal class StoreDelistStore(private val context: Context, private val owner:
         val rows = JsonParser.parseString(saved.text).asJsonArray; require(rows.size() <= 100)
         val ids = HashSet<String>(); val locations = HashSet<Triple<java.math.BigInteger, java.math.BigInteger, Int>>()
         rows.map { value ->
-            val row = value.asJsonObject; require(row.keySet().containsAll(setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent")) && (row.keySet() - setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent")).all { it == "lastObservation" })
-            val archive = JsonArray().apply { add(JsonObject().apply { add("tx", row.get("offer")) }) }
-            val product = requireNotNull(SaitoStore.readOriginalListingArchive(row.get("offerSignature").asString, archive.toString()))
+            val row = value.asJsonObject; require(row.keySet().containsAll(setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent")) && (row.keySet() - setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent")).all { it in setOf("lastObservation", "provenance") })
+            val product = SaitoStoreLineage.readSaved(row.get("offerSignature").asString, row.get("offer").asString,
+                row.get("provenance")?.asJsonArray?.map { it.asString }.orEmpty())
             val delist = SaitoStoreDelist.restore(row.get("candidate").asString, product)
             require(delist.author == owner && ids.add(delist.transaction.id) && delist.inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
             require(row.get("mayHaveSent").asJsonPrimitive.isBoolean)
@@ -62,6 +62,7 @@ internal class StoreDelistStore(private val context: Context, private val owner:
         val json = JsonArray().apply { rows.forEach { record -> add(JsonObject().apply {
             addProperty("backend", record.backend.id); addProperty("candidate", record.delist.transaction.encoded())
             addProperty("offer", record.delist.product.envelope); addProperty("offerSignature", record.delist.product.signature)
+            add("provenance", JsonArray().apply { record.delist.product.provenance.forEach(::add) })
             addProperty("mayHaveSent", record.mayHaveSent)
             add("lastObservation", record.lastObservation?.let { observation -> JsonObject().apply {
                 addProperty("height", observation.height.toString()); addProperty("hash", observation.hash)

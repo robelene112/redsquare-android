@@ -26,6 +26,7 @@ internal fun StoreDelistReview(selling: StoreSelling, record: StoreDelistStore.R
             Text(record.delist.transaction.id, style = MaterialTheme.typography.bodySmall)
         }
         HorizontalDivider()
+        SingleOwnerReveal(Pair(observation != null, record.mayHaveSent), Modifier.fillMaxWidth()) {
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
             Text(stringResource(when {
@@ -45,6 +46,7 @@ internal fun StoreDelistReview(selling: StoreSelling, record: StoreDelistStore.R
                 else TextButton(onClick = { selling.discardDelist(record) }, enabled = !selling.busy,
                     modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.store_delist_discard)) }
             }
+        }
         }
     }
 }

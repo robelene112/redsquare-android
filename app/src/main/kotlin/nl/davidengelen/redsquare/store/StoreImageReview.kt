@@ -29,6 +29,7 @@ internal fun StoreImageReview(selling: StoreSelling, record: StoreImageStore.Rec
             Text(record.mint.transaction.id, style = MaterialTheme.typography.bodySmall)
         }
         HorizontalDivider()
+        SingleOwnerReveal(Triple(offer?.listing?.transaction?.id, owned, record.mayHaveSent), Modifier.fillMaxWidth()) {
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
             Text(stringResource(if (offer != null) R.string.store_image_offered else if (owned) R.string.store_image_owned else if (record.mayHaveSent) R.string.store_image_waiting else R.string.store_sell_not_sent), style = MaterialTheme.typography.bodySmall)
@@ -42,6 +43,7 @@ internal fun StoreImageReview(selling: StoreSelling, record: StoreImageStore.Rec
                 OutlinedButton(onClick = selling::closeImage, enabled = !selling.busy, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
                 if (!record.mayHaveSent) TextButton(onClick = { selling.discardImage(record) }, enabled = !selling.busy, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_discard)) }
             }
+        }
         }
     }
 }

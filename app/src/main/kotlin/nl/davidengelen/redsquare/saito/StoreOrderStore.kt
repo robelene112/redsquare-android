@@ -27,12 +27,12 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         val ids = HashSet<String>()
         rows.map { entry ->
             val row = entry.asJsonObject
-            require(row.keySet() == setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent", "payment", "receipt", "receiptBlock", "cursor"))
+            require(row.keySet() - "provenance" == setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent", "payment", "receipt", "receiptBlock", "cursor"))
             val purchase = SaitoStorePurchase.restore(row.get("candidate").asString)
             require(purchase.author == owner && ids.add(purchase.transaction.id))
             val signature = row.get("offerSignature").asString
-            val archive = JsonArray().apply { add(JsonObject().apply { addProperty("tx", row.get("offer").asString) }) }
-            val product = requireNotNull(SaitoStore.readOriginalListingArchive(signature, archive.toString()))
+            val product = SaitoStoreLineage.readSaved(signature, row.get("offer").asString,
+                row.get("provenance")?.asJsonArray?.map { it.asString }.orEmpty())
             require(product.nftId == purchase.nftId && product.price?.currency == "SAITO" &&
                 requireNotNull(product.price).amount.movePointRight(8).toBigIntegerExact() == purchase.unitPrice)
             require(row.get("mayHaveSent").asJsonPrimitive.isBoolean)
@@ -86,6 +86,7 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         val json = JsonArray().apply { rows.forEach { record -> add(JsonObject().apply {
             addProperty("backend", record.backend.id); addProperty("candidate", record.purchase.transaction.encoded())
             addProperty("offer", record.product.envelope); addProperty("offerSignature", record.product.signature)
+            add("provenance", JsonArray().apply { record.product.provenance.forEach(::add) })
             addProperty("mayHaveSent", record.mayHaveSent)
             add("payment", record.payment?.let { payment -> JsonObject().apply {
                 addProperty("height", payment.height.toString()); addProperty("hash", payment.hash); addProperty("ordinal", payment.ordinal.toString())

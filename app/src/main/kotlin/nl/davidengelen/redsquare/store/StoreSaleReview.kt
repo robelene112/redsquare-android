@@ -27,6 +27,7 @@ internal fun StoreSaleReview(selling: StoreSelling, record: StoreListingStore.Re
             Text(record.listing.transaction.id, style = MaterialTheme.typography.bodySmall)
         }
         HorizontalDivider()
+        SingleOwnerReveal(record.mayHaveSent, Modifier.fillMaxWidth()) {
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
             Text(stringResource(if (record.mayHaveSent) R.string.store_sell_waiting else R.string.store_sell_not_sent), style = MaterialTheme.typography.bodySmall)
@@ -37,6 +38,7 @@ internal fun StoreSaleReview(selling: StoreSelling, record: StoreListingStore.Re
                 OutlinedButton(enabled = !selling.busy, onClick = selling::closeReview, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
                 if (!record.mayHaveSent) TextButton(enabled = !selling.busy, onClick = { selling.discard(record) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_discard)) }
             }
+        }
         }
     }
 }

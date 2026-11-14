@@ -300,7 +300,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
             if (original != null) return@withContext original
             SaitoPeer(wallet, endpoint).use { connection ->
                 val service = connection.servicePublicKey("Store")
-                val product = requireNotNull(SaitoStore.readListingArchive(item.summary, connection.request(SaitoStore.listingArchiveRequest(item.summary.signature).toByteArray()).decodeToString()))
+                val product = requireNotNull(readStoreProduct(connection, item.summary.signature, item.summary))
                 require(product.seller == wallet.publicKey)
                 val candidate = SaitoStoreDelist.create(wallet, product, currentSpend(connection, product.signature, token), System.currentTimeMillis())
                 require(candidate.store == service)

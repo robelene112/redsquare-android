@@ -32,13 +32,19 @@ internal class OwnedStoreSellerFixture(private val source: JsonObject, private v
     fun image(): SaitoImageMint? = originals().filter { !it.first.has("request") && it.first.getAsJsonObject("data")?.has("image") == true }
         .map { SaitoImageMint.restore(it.second) }.distinctBy { it.transaction.id }.also { require(it.size <= 1) }.singleOrNull()
     fun delist(): SaitoStoreDelist? {
-        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(listing.get("page").toString()).items.single(), listing.getAsJsonObject("listing").get("envelope").asString))
+        val remaining = removal.get("priorFulfillment")?.takeUnless { it.isJsonNull }?.asJsonObject
+        val product = if (remaining == null) requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(listing.get("page").toString()).items.single(), listing.getAsJsonObject("listing").get("envelope").asString))
+            else SaitoStoreLineage.readSaved(remaining.get("id").asString, remaining.get("envelope").asString,
+                listOf(removal.getAsJsonObject("listing").get("envelope").asString, removal.getAsJsonObject("purchase").get("envelope").asString))
         return originals().filter { it.first.get("request")?.asString == "delist-asset" }.map { SaitoStoreDelist.restore(it.second, product) }
             .distinctBy { it.transaction.id }.also { require(it.size <= 1) }.singleOrNull()
     }
     fun archive(criteria: JsonObject): String {
         val image = image()
+        val extra = listOfNotNull(removal.get("priorFulfillment")?.takeUnless { it.isJsonNull }?.asJsonObject,
+            removal.get("purchase")?.takeUnless { it.isJsonNull }?.asJsonObject).firstOrNull { it.get("id").asString == criteria.get("sig")?.asString }
         val envelope = when {
+            extra != null -> extra.get("envelope").asString
             criteria.get("sig")?.asString == listing.getAsJsonObject("listing").get("id").asString -> listing.getAsJsonObject("listing").get("envelope").asString
             image != null && criteria.get("field4")?.asString == image.nftId -> image.transaction.envelope()
             criteria.get("field4")?.asString == source.get("id").asString -> source.getAsJsonObject("key").get("envelope").asString
@@ -59,7 +65,8 @@ internal class OwnedStoreSellerFixture(private val source: JsonObject, private v
         creator.sign(signedHeader).hexBytes().copyInto(header, 117)
         val hash = digest(header.copyOfRange(20, 52) + digest(signedHeader)).hex()
         val assigned = wire.copyOf()
-        repeat(3) { i -> val p = 93 + (3 + i) * 59; ByteBuffer.wrap(assigned).putLong(p + 41, 21).putLong(p + 49, 0); assigned[p + 57] = i.toByte() }
+        val height = ByteBuffer.wrap(header).getLong(4)
+        repeat(3) { i -> val p = 93 + (3 + i) * 59; ByteBuffer.wrap(assigned).putLong(p + 41, height).putLong(p + 49, 0); assigned[p + 57] = i.toByte() }
         val bytes = header + assigned
         SaitoFullBlock.parse(bytes).also { require(it.hash == hash && it.storeDelistOrdinal(delist) == java.math.BigInteger.ZERO) }
         included = Triple(delist.transaction.id, hash, bytes); return hash to bytes
@@ -70,7 +77,7 @@ internal class OwnedStoreSellerFixture(private val source: JsonObject, private v
         if (delist != null) {
             val actual = block(delist)
             if (target == "/block/${actual.first}") return MockResponse.Builder().body(okio.Buffer().write(actual.second)).build()
-            if (target == "/balance/$owner") return MockResponse(body = "$blockTime-21-${actual.first}.snap\n" + rows(actual.second.copyOfRange(389, actual.second.size), listOf(1, 0, 2), 21))
+            if (target == "/balance/$owner") return MockResponse(body = "$blockTime-${ByteBuffer.wrap(actual.second).getLong(4)}-${actual.first}.snap\n" + rows(actual.second.copyOfRange(389, actual.second.size), listOf(1, 0, 2), ByteBuffer.wrap(actual.second).getLong(4)))
         }
         if (target != "/balance/$owner") return MockResponse(code = 404)
         val now = System.currentTimeMillis()

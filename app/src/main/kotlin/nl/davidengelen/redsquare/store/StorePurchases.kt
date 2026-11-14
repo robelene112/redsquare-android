@@ -127,7 +127,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                     StoreLink(backend, signature = product.signature)).toByteArray()).decodeToString(), StoreLink(backend, signature = product.signature))
                 if (currentOffer == null || currentOffer.nftId != product.nftId || currentOffer.seller != product.seller ||
                     currentOffer.available < count || currentOffer.price?.currency != "SAITO" || requireNotNull(currentOffer.price).amount.compareTo(requireNotNull(product.price).amount) != 0) throw Terms()
-                val original = SaitoStore.readListingArchive(currentOffer, connection.request(SaitoStore.listingArchiveRequest(product.signature).toByteArray()).decodeToString())
+                val original = readStoreProduct(connection, product.signature, currentOffer)
                 if (original != product) throw Terms()
                 counterparty
             }

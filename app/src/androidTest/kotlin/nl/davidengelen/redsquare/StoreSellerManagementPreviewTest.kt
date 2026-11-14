@@ -42,4 +42,32 @@ class StoreSellerManagementPreviewTest {
             ui.onAllNodesWithText("Delist item").assertCountEquals(0)
         }
     }
+    @Test fun remainingStockAfterAPartialSaleUsesItsAuthenticatedLineageThroughRecreation() = withVaultDeviceCredential { device ->
+        withStoreSellerFixture("remaining", expected = 1, prelisted = true, remaining = true) { scene, _, _ ->
+            ui.openNativeStoreSelling()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Delist item"))
+            ui.onNodeWithText("Delist item").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Authorize and delist").isDisplayed() }
+            ui.onNodeWithText("Items to return: 1").performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText("Authorize and delist").performClick()
+            waitForSystemPin(device); assertTrue(scene.peer.transactions.isEmpty()); enterRealSystemPin(device)
+            ui.waitUntil(25_000) { ui.onNode(hasText("Retry original delisting") and isEnabled()).isDisplayed() }
+            val node = requireNotNull(scene.seller)
+            val original = requireNotNull(node.delist())
+            assertEquals(java.math.BigInteger.ONE, original.quantity)
+            assertEquals(java.math.BigInteger("50000000"), original.inputs[1].amount)
+            scene.activity.recreate()
+            ui.waitUntil(15_000) { ui.onNode(hasText("New listing") and isEnabled()).isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Delisting submitted. Waiting for this node."))
+            ui.onNodeWithText("Delisting submitted. Waiting for this node.").performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Check delisting").isDisplayed() }
+            node.confirmDelist.set(true)
+            ui.onNodeWithText("Check delisting").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Delisting observed here. The exact returned stock is in your wallet.").isDisplayed() }
+            assertEquals(1, scene.peer.transactions.size)
+            assertEquals(original.transaction.encoded(), requireNotNull(node.delist()).transaction.encoded())
+            captureNativeScreen(File(scene.evidence, "partial-sale-exact-remaining-stock-returned.png"))
+        }
+    }
+
 }

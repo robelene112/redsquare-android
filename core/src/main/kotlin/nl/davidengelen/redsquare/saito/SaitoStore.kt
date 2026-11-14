@@ -22,7 +22,7 @@ data class StorePage(val items: List<StoreSummary>, val offset: Int, val total: 
 
 data class StoreProduct(val nftId: String, val seller: String, val signature: String, val title: String,
     val description: String, val category: StoreCategory, val price: StorePrice?, val quantity: BigInteger,
-    val assetType: String, val envelope: String, val image: String? = null, val creator: String) {
+    val assetType: String, val envelope: String, val image: String? = null, val creator: String, val provenance: List<String> = emptyList()) {
     val browserOnly: Boolean get() = assetType in setOf("js", "css", "stack", "nwasm-nft-mod", "saito-app")
 }
 

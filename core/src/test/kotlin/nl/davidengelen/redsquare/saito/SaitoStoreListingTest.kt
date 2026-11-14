@@ -51,6 +51,26 @@ class SaitoStoreListingTest {
                 SaitoNft.Row(wallet.publicKey, holding.positions[0]), SaitoNft.Row(Base58.encode(holding.id.chunked(2).map { it.toInt(16).toByte() }.toByteArray()), holding.positions[2])), purchase, receipt)
         }
     }
+    @Test fun remainingStockHydratesItsOfficialLineageAndCanBeDelisted() {
+        val reference = fixture("native-store-listing-reference")
+        val vector = fixture("native-store-remaining-delist-reference")
+        val envelopes = listOf(vector.getAsJsonObject("listing"), vector.getAsJsonObject("purchase"), vector.getAsJsonObject("priorFulfillment"))
+        val archives = envelopes.associate { it.get("id").asString to com.google.gson.JsonArray().apply {
+            add(com.google.gson.JsonObject().apply { add("tx", it.get("envelope")) })
+        }.toString() }
+        val signature = vector.getAsJsonObject("priorFulfillment").get("id").asString
+        val product = requireNotNull(SaitoStoreLineage.read(signature) { archives[it] })
+        assertEquals(BigInteger.ONE, product.quantity)
+        assertEquals(reference.get("seller").asString, product.seller)
+        assertEquals(product, SaitoStoreLineage.restore(product))
+        assertNull(SaitoStoreLineage.read(signature) { if (it == vector.getAsJsonObject("purchase").get("id").asString) null else archives[it] })
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val delist = SaitoStoreDelist.create(wallet, product, vector.get("row").toString(), 1700004000000)
+        assertEquals(vector.getAsJsonObject("delist").get("networkBase64").asString, delist.transaction.encoded())
+        assertEquals(BigInteger.ONE, delist.quantity)
+        assertEquals(BigInteger("50000000"), delist.inputs[1].amount)
+        assertEquals(delist.transaction.encoded(), SaitoStoreDelist.restore(delist.transaction.encoded(), product).transaction.encoded())
+    }
     @Test fun sellerInventoryKeepsApprovalSeparateFromAvailabilityAndRealSales() {
         val reference = fixture("native-store-listing-reference")
         val active = reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply { addProperty("approved", 0) }

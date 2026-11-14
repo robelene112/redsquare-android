@@ -24,7 +24,7 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null, val seller: OwnedStoreSellerFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, preserveSeller: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, sellerRemaining: Boolean = false, preserveSeller: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -38,7 +38,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
     require(!rentalMint || minting)
     val sellerNode = if (sellerImage || sellerListed) OwnedStoreSellerFixture(vector,
         instrumentation.context.assets.open("native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject },
-        instrumentation.context.assets.open("native-store-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }, sellerImage, sellerListed) else null
+        instrumentation.context.assets.open(if (sellerRemaining) "native-store-remaining-delist-reference.json" else "native-store-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }, sellerImage, sellerListed) else null
     val wallets = AndroidWalletStore(context)
     val original = wallets.loadOrCreate()
     val fixture = if (preserveSeller) original.also { check(it.publicKey == SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey) } else SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.

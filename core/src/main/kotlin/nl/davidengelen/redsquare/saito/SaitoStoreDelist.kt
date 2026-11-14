@@ -10,17 +10,17 @@ import org.bouncycastle.crypto.digests.Blake3Digest
 /** Seller-authorized withdrawal of one exact Store custody tuple. It does not assert chain inclusion. */
 class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, val product: StoreProduct,
     val quantity: BigInteger, val author: String, val inputs: List<SaitoBalanceSnapshot.Slip>) {
-    val store: String = JsonParser.parseString(SaitoEnvelope.decodeBound(product.envelope).body.get("access_script").asString)
+    val store: String = JsonParser.parseString(SaitoStoreLineage.body(product.envelope).get("access_script").asString)
         .asJsonObject.getAsJsonArray("publickeys")[1].asString
     fun matchesSpend(response: String): Boolean = runCatching {
-        val script = SaitoAccessScript.parse(SaitoEnvelope.decodeBound(product.envelope).body.get("access_script").asString)
+        val script = SaitoAccessScript.parse(SaitoStoreLineage.body(product.envelope).get("access_script").asString)
         readSpend(product, response, script).map { it.position } == inputs
     }.getOrDefault(false)
     companion object {
         fun create(wallet: SaitoWallet, original: StoreProduct, response: String, timestamp: Long): SaitoStoreDelist {
             val product = authentic(original)
             require(wallet.publicKey == product.seller && response.toByteArray().size <= 64 * 1024 && timestamp >= 0)
-            val source = SaitoEnvelope.decodeBound(product.envelope).body
+            val source = SaitoStoreLineage.body(product.envelope)
             val script = SaitoAccessScript.parse(source.get("access_script").asString)
             val inputs = readSpend(product, response, script)
             val outputs = inputs.mapIndexed { index, slip -> slip.copy(publicKey = if (index == 1) wallet.publicKey else slip.publicKey, position = slip.position.copy(index = index)) }
@@ -56,7 +56,7 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
                     BigInteger(1, bytes.copyOfRange(p + 41, p + 49)), BigInteger(1, bytes.copyOfRange(p + 49, p + 57)), bytes[p + 57].toInt() and 255,
                     BigInteger(1, bytes.copyOfRange(p + 33, p + 41)), bytes[p + 58].toInt() and 255))
             }
-            val source = SaitoEnvelope.decodeBound(product.envelope).body
+            val source = SaitoStoreLineage.body(product.envelope)
             val script = SaitoAccessScript.parse(source.get("access_script").asString)
             validateInputs(product, rows.take(3), script)
             require(rows[3] == rows[0].copy(position = rows[0].position.copy(index = 0)) &&
@@ -93,15 +93,19 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
             return inputs
         }
         private fun authentic(product: StoreProduct): StoreProduct {
-            val response = com.google.gson.JsonArray().apply { add(JsonObject().apply { addProperty("tx", product.envelope) }) }
-            return requireNotNull(SaitoStore.readOriginalListingArchive(product.signature, response.toString())).also {
+            return SaitoStoreLineage.restore(product).also {
                 require(it == product && it.price?.currency == "SAITO" && it.assetType !in setOf("vault-nft-rental", "store-nft-rental"))
             }
         }
         private fun validateInputs(product: StoreProduct, inputs: List<SaitoNft.Row>, script: SaitoAccessScript) {
             val source = Base64.getDecoder().decode(JsonParser.parseString(product.envelope).asJsonObject.get("t").asString)
             val inputCount = ByteBuffer.wrap(source).getInt(0)
-            val p = 93 + (inputCount + 1) * 59
+            val outputCount = ByteBuffer.wrap(source).getInt(4)
+            val custody = (inputCount until inputCount + outputCount).single { index ->
+                val offset = 93 + index * 59
+                source[offset + 58] in listOf(0.toByte(), 1.toByte()) && source.copyOfRange(offset, offset + 33).hex() == "00" + script.hash
+            }
+            val p = 93 + custody * 59
             val deposit = BigInteger(1, source.copyOfRange(p + 33, p + 41))
             val rules = JsonParser.parseString(script.source).asJsonObject
             val keys = rules.getAsJsonArray("publickeys").map { it.asString }

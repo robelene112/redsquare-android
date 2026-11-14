@@ -1,6 +1,6 @@
 // Actual isolated Store seller delisting builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&process.argv[6]!=='--atr'))throw Error('Usage: node store-delist-reference.cjs runtime upstream acorn.js output [--atr]');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--atr','--remaining'].includes(process.argv[6])))throw Error('Usage: node store-delist-reference.cjs runtime upstream acorn.js output [--atr|--remaining]');
 const quantity=1;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -66,10 +66,17 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  }
  }
  const mod={app:storeApp,fee:0,...storeMethods};
+ let priorFulfillment=null;
+ if(process.argv[6]==='--remaining'){
+  priorFulfillment=await mod.createFulfillmentTransaction(order,[row],{msg:listing.body});
+  const prior=envelope(priorFulfillment.wasmTransaction);
+  row.signature=prior.id;row.quantity=1;
+  for(let i=0;i<3;i++)row['utxo_slip'+(i+1)]=confirmedOutput(prior.networkBase64,i+3,22,0);
+ }
  await wallet.set_private_key('0'.repeat(63)+'2');await wallet.set_public_key(listing.seller);
  const sellerApp={...storeApp,wallet:{getPublicKey:async()=>listing.seller,signMessage:async m=>wasm.sign_buffer(Buffer.from(m),'0'.repeat(63)+'2')}};
  const delistBuilder=vm.runInNewContext('({'+method('transactions','createDelistAssetTransaction')+'})',settlementGlobals).createDelistAssetTransaction;
- const delisted=await delistBuilder.call({app:sellerApp},row,{msg:listing.body});
+ const delisted=await delistBuilder.call({app:sellerApp},row,{msg:priorFulfillment ? priorFulfillment.msg : listing.body});
  await wallet.set_private_key(storeScalar);await wallet.set_public_key(store);
  const delivered=await mod.createFulfillmentTransaction(order,[row],{msg:listing.body});
  const refund=await mod.createOrderRefundTransaction({order_row:order,reason:'insufficient-quantity'});await refund.sign();
@@ -106,9 +113,11 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 
 
  const slips=[];for(let i=0;i<wire.readUInt32BE(0)+wire.readUInt32BE(4);i++){const o=93+i*59;slips.push({key:base58.encode(wire.subarray(o,o+33)),amount:String(wire.readBigUInt64BE(o+33)),block:String(wire.readBigUInt64BE(o+41)),ordinal:String(wire.readBigUInt64BE(o+49)),index:wire[o+57],type:wire[o+58]});}
- const removalBlock=blockFor(delisted.wasmTransaction,21,'cd'.repeat(32),1700004003000);
+ const removalHeight=priorFulfillment ? 23 : 21;
+ const removalParent=priorFulfillment ? blockFor(priorFulfillment.wasmTransaction,22,paymentBlock.hash,1700004002000).hash : 'cd'.repeat(32);
+ const removalBlock=blockFor(delisted.wasmTransaction,removalHeight,removalParent,1700004003000);
  const removalWire=Buffer.from(removalBlock.fullBase64,'base64').subarray(389);
- const removalRows=[1,0,2].map(i=>confirmedOutput(removalWire.toString('base64'),i,21,0));
- const returnedSnapshot=removalBlock.timestamp+'-21-'+removalBlock.hash+'.snap\n'+removalRows.map(r=>[r.publicKey,r.blockId,r.txOrdinal,r.index,r.amount,r.type].join(' ')).join('\n')+'\n';
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official createDelistAssetTransaction with actual JS/WASM transaction and slip wrappers, original reference offer and assigned custody slips. Controlled wallet/input-copy adapters; no full initialized frontend or funded consensus delist.'},seller:listing.seller,store,nftId:listing.nftId,block:removalBlock,returnedSnapshot,listing:listing.listing,row,delist:envelope(delisted.wasmTransaction)},null,2)+'\n');
+ const removalRows=[1,0,2].map(i=>confirmedOutput(removalWire.toString('base64'),i,removalHeight,0));
+ const returnedSnapshot=removalBlock.timestamp+'-'+removalHeight+'-'+removalBlock.hash+'.snap\n'+removalRows.map(r=>[r.publicKey,r.blockId,r.txOrdinal,r.index,r.amount,r.type].join(' ')).join('\n')+'\n';
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official createDelistAssetTransaction with actual JS/WASM transaction and slip wrappers, original reference offer and assigned custody slips. Controlled wallet/input-copy adapters; no full initialized frontend or funded consensus delist.'},seller:listing.seller,store,nftId:listing.nftId,block:removalBlock,returnedSnapshot,listing:listing.listing,purchase:signed,priorFulfillment:priorFulfillment ? envelope(priorFulfillment.wasmTransaction) : null,row,delist:envelope(delisted.wasmTransaction)},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

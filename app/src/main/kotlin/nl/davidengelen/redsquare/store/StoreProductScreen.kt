@@ -37,9 +37,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                     val offer = SaitoStore.readOffer(peer.request(SaitoStore.listingRequest(target).toByteArray()).decodeToString(), target)
                     val signature = offer?.signature ?: target.signature
                     val product = if ("archive" in services && signature != null) {
-                        val response = peer.request(SaitoStore.listingArchiveRequest(signature).toByteArray()).decodeToString()
-                        if (offer != null) SaitoStore.readListingArchive(offer, response)
-                        else SaitoStore.readOriginalListingArchive(signature, response)
+                        readStoreProduct(peer, signature, offer)
                     } else null
                     StoreProductView(loading = false, offer = offer, product = product, unavailable = offer == null)
                 }
