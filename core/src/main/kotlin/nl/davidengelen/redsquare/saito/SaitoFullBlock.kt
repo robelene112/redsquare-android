@@ -55,6 +55,40 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
         }
     }
 
+    /** Store payment admission retains its typed escrow contract and exact original funded inputs. */
+    fun storePaymentOrdinal(purchase: SaitoStorePurchase): BigInteger? {
+        val candidate = Base64.getDecoder().decode(purchase.transaction.encoded())
+        return transactions.withIndex().firstOrNull { (ordinal, wire) ->
+            if (wire[92] != 0.toByte() || u32(wire, 88) != 1L ||
+                !wire.copyOfRange(16, 80).contentEquals(candidate.copyOfRange(16, 80))) return@firstOrNull false
+            val inputs = u32(wire, 0).toInt(); val outputs = u32(wire, 4).toInt()
+            if (outputs != 2 || inputs != u32(candidate, 0).toInt()) return@firstOrNull false
+            val normalized = wire.copyOf(93 + 59 * (inputs + outputs) + u32(wire, 8).toInt())
+            ByteBuffer.wrap(normalized).putInt(12, 0)
+            repeat(outputs) { index ->
+                val offset = 93 + (inputs + index) * 59
+                if (u64(wire, offset + 41) != height || u64(wire, offset + 49) != BigInteger.valueOf(ordinal.toLong()) ||
+                    (wire[offset + 57].toInt() and 255) != index) return@firstOrNull false
+                normalized.fill(0, offset + 41, offset + 57)
+            }
+            normalized.contentEquals(candidate) && SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(normalized))
+                .transaction.encoded() == purchase.transaction.encoded()
+        }?.index?.toLong()?.let(BigInteger::valueOf)
+    }
+
+    /** Authenticate Store escrow spends without weakening ordinary Bound author verification. */
+    fun storeReceipts(purchase: SaitoStorePurchase): List<SaitoStoreReceipt> = transactions.withIndex().mapNotNull { (ordinal, wire) ->
+        try {
+            val inputs = u32(wire, 0).toInt(); val outputs = u32(wire, 4).toInt()
+            repeat(outputs) { index ->
+                val offset = 93 + (inputs + index) * 59
+                require(u64(wire, offset + 41) == height && u64(wire, offset + 49) == BigInteger.valueOf(ordinal.toLong()) &&
+                    (wire[offset + 57].toInt() and 255) == index)
+            }
+            SaitoStoreReceipt.read(purchase, Base64.getEncoder().encodeToString(wire))
+        } catch (_: Exception) { null }
+    }
+
     /** Supported original signed JSON-object messages; opaque/system/encrypted payloads are not application objects. */
     fun applicationMessages(): List<SignedSaitoMessage> = transactions.mapNotNull { wire ->
         if (wire[92] != 0.toByte()) return@mapNotNull null

@@ -29,6 +29,13 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     chrome: @Composable (Boolean) -> Unit, entry: StoreLink? = null, onExitLink: (() -> Unit)? = null,
     chatBackend: SaitoBackend = backend, chatEndpoint: String = endpoint, onChatVisibility: (Boolean) -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onNodeSettings: () -> Unit) {
+    val activity = androidx.compose.ui.platform.LocalContext.current as android.app.Activity
+    val purchaseScope = rememberCoroutineScope()
+    val purchases = remember(wallet.publicKey, backend, endpoint) {
+        StorePurchases(activity, wallet, backend, endpoint, nl.davidengelen.redsquare.WalletBalances.fromIntent(activity.intent), purchaseScope)
+    }
+    DisposableEffect(purchases) { onDispose { purchases.dispose() } }
+    LaunchedEffect(purchases) { purchases.load() }
     var path by rememberSaveable(backend, entry) { mutableStateOf(arrayListOf(entry ?: StoreLink(backend))) }
     val states = androidx.compose.runtime.saveable.rememberSaveableStateHolder()
     var contact by rememberSaveable(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
@@ -68,7 +75,7 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 states.SaveableStateProvider("product:${target.url()}") {
                     StoreProductScreen(wallet, backend, endpoint, target, Modifier.fillMaxSize(), chrome,
                         onBack = { back() }, onSeller = { open(StoreLink(backend, it)) },
-                        contactFailed = contactFailed, preparingContact = preparingContact, onMessage = { product ->
+                        purchases = purchases, contactFailed = contactFailed, preparingContact = preparingContact, onMessage = { product ->
                             if (!preparingContact) {
                                 preparingContact = true; contactFailed = false
                                 scope.launch {
@@ -85,10 +92,11 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             } else states.SaveableStateProvider(target.url()) {
                 StoreCatalogueScreen(wallet, backend, endpoint, Modifier.fillMaxSize(), chrome, target,
-                    if (canBack) ({ back() }) else null, { open(it) }, onNodeSettings)
+                    if (canBack) ({ back() }) else null, { open(it) }, onNodeSettings, purchases)
             }
         }
     }
+    StorePurchaseDialog(purchases)
 }
 
 private enum class StoreTab(override val label: Int, override val icon: Int) : ModuleDestination {
@@ -107,7 +115,7 @@ private data class StoreBrowseView(val query: StoreQuery? = null, val page: Stor
 @Composable
 private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
     chrome: @Composable (Boolean) -> Unit, target: StoreLink,
-    onBack: (() -> Unit)?, onOpen: (StoreLink) -> Unit, onNodeSettings: () -> Unit) {
+    onBack: (() -> Unit)?, onOpen: (StoreLink) -> Unit, onNodeSettings: () -> Unit, purchases: StorePurchases) {
     var tab by rememberSaveable { mutableStateOf(StoreTab.DISCOVER) }
     var category by rememberSaveable { mutableStateOf<StoreCategory?>(StoreCategory.entries.find { it.wire == target.category }) }
     var offset by rememberSaveable { mutableIntStateOf(0) }
@@ -176,10 +184,7 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             if (tab != StoreTab.ORDERS) FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
         }
         if (tab == StoreTab.ORDERS) {
-            Column(Modifier.weight(1f).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(stringResource(R.string.store_orders_unavailable), style = MaterialTheme.typography.bodyLarge)
-                Text(stringResource(R.string.store_orders_description), color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
+            StoreOrders(purchases, Modifier.weight(1f))
         } else {
             Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
             InlineStatus(if (view.loading) stringResource(R.string.store_loading) else null, StatusTone.WORKING)

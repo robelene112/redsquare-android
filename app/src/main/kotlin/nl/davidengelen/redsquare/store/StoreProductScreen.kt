@@ -22,7 +22,7 @@ private data class StoreProductView(val loading: Boolean = true, val offer: Stor
 @Composable
 internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, target: StoreLink,
     modifier: Modifier, chrome: @Composable (Boolean) -> Unit, onBack: () -> Unit, onSeller: (String) -> Unit,
-    contactFailed: Boolean, preparingContact: Boolean, onMessage: (StoreProduct) -> Unit, onNodeSettings: () -> Unit) {
+    purchases: StorePurchases, contactFailed: Boolean, preparingContact: Boolean, onMessage: (StoreProduct) -> Unit, onNodeSettings: () -> Unit) {
     var retry by remember { mutableIntStateOf(0) }
     var view by remember(wallet.publicKey, backend, endpoint, target) { mutableStateOf(StoreProductView()) }
     val list = rememberLazyListState()
@@ -104,6 +104,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                             if (product == null) InlineStatus(stringResource(R.string.store_original_unavailable), StatusTone.NEUTRAL)
                             if (product?.browserOnly == true) Text(stringResource(R.string.store_browser_compatibility),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            if (product != null && offer != null && product.price == offer.price) StoreBuyControl(product, offer.available, purchases)
                             InlineStatus(if (contactFailed) stringResource(R.string.store_contact_failed) else null, StatusTone.ERROR)
                             Button(enabled = product != null && !preparingContact && product.seller != wallet.publicKey,
                                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = { product?.let(onMessage) }) {

@@ -20,7 +20,7 @@ data class StorePage(val items: List<StoreSummary>, val offset: Int, val total: 
 
 data class StoreProduct(val nftId: String, val seller: String, val signature: String, val title: String,
     val description: String, val category: StoreCategory, val price: StorePrice?, val quantity: BigInteger,
-    val assetType: String, val envelope: String, val image: String? = null) {
+    val assetType: String, val envelope: String, val image: String? = null, val creator: String) {
     val browserOnly: Boolean get() = assetType in setOf("js", "css", "stack", "nwasm-nft-mod", "saito-app")
 }
 
@@ -78,7 +78,7 @@ object SaitoStore {
             text(listing, "title", 10_000).ifBlank { text(body, "title", 10_000) },
             text(listing, "description", 200_000).ifBlank { text(body, "description", 200_000) }, category,
             amount?.takeIf { it.signum() > 0 }?.let { StorePrice(ticker, it) }, quantity, asset.type, envelope, body.get("data")?.takeIf { it.isJsonObject }?.asJsonObject
-                ?.get("image")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString?.let(RedSquareImages::safeSource))
+                ?.get("image")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString?.let(RedSquareImages::safeSource), asset.creator)
     }.getOrNull()
 
     fun listingRequest(target: StoreLink): String {

@@ -26,6 +26,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val advertisedServices: String? = null,
     private val onArchiveResponse: ((com.google.gson.JsonObject, String, Boolean) -> Unit)? = null,
     private val relayResponseExecutor: java.util.concurrent.Executor? = null,
+    private val peer: SaitoWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1"),
     private val archiveResponse: ((com.google.gson.JsonObject) -> String)? = null) {
     @Volatile var vaultUploadResponseExecutor: java.util.concurrent.Executor? = null
     @Volatile var vaultUploadResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
@@ -75,7 +76,6 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var withholdHandshakeReplies = false
     private val releaseHandshakeReplies = CountDownLatch(1)
     val heldHandshakeEntries = java.util.concurrent.atomic.AtomicInteger()
-    private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
     val requests = java.util.concurrent.atomic.AtomicInteger()

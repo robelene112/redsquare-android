@@ -107,6 +107,22 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
         }.takeIf { System.nanoTime() < deadline }
     }
 
+    /** Original Store order, exact escrow spend and present asset ownership use one bounded ancestry read. */
+    fun observeStore(backend: SaitoBackend, purchase: nl.davidengelen.redsquare.saito.SaitoStorePurchase,
+        creator: String, previous: nl.davidengelen.redsquare.saito.SaitoStoreChain.Payment?): nl.davidengelen.redsquare.saito.SaitoStoreChain.Observation? {
+        val snapshot = read(backend, purchase.author) ?: return null
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(20)
+        var received = 0
+        return nl.davidengelen.redsquare.saito.SaitoStoreChain.observe(purchase, snapshot, creator, previous) { hash ->
+            val remaining = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
+            val limit = minOf(8 * 1024 * 1024, 32 * 1024 * 1024 - received)
+            if (remaining <= 0 || limit <= 0) null else try {
+                fetch(endpoint(backend).removeSuffix("balance/") + "block/" + hash, limit, minOf(10_000, remaining))
+                    ?.also { received += it.size }
+            } catch (_: Exception) { null }
+        }.takeIf { System.nanoTime() < deadline }
+    }
+
     private fun fetch(url: String, maximumBytes: Int = ImportBalance.MAX_SNAPSHOT_BYTES,
         timeoutMillis: Long = 10_000): ByteArray? {
         val request = Request.Builder().url(url)

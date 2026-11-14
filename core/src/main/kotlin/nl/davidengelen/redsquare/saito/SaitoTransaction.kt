@@ -136,9 +136,19 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
             return createSigned(wallet, body, timestamp, inputs, outputs, transactionType = 8, metadataSlots = setOf(2, 5))
         }
 
+        /** Only the Store purchase factory admits its committed CHECKMULTISIG escrow output. */
+        internal fun createStorePurchase(wallet: SaitoWallet, body: JsonObject, timestamp: Long,
+            inputs: List<OwnedSlip>, outputs: List<OwnedSlip>): SaitoTransaction {
+            require(outputs.size == 2 && inputs.all { it.owner == wallet.publicKey })
+            val script = SaitoAccessScript.parse(body.get("access_script").asString)
+            require(body.get("access_hash").asString == script.hash && body.get("p2sh_address").asString == "00" + script.hash)
+            require(Base58.decode(outputs.first().owner).contentEquals(("00" + script.hash).chunked(2).map { it.toInt(16).toByte() }.toByteArray()))
+            return createSigned(wallet, body, timestamp, inputs, outputs, escrowSlot = inputs.size)
+        }
+
         private fun createSigned(wallet: SaitoWallet, body: JsonElement, timestamp: Long,
             inputs: List<OwnedSlip>, outputs: List<OwnedSlip>, transactionType: Int = 0,
-            messageLimit: Int = MAX_MESSAGE_BYTES, metadataSlots: Set<Int> = emptySet()): SaitoTransaction {
+            messageLimit: Int = MAX_MESSAGE_BYTES, metadataSlots: Set<Int> = emptySet(), escrowSlot: Int? = null): SaitoTransaction {
             require(timestamp >= 0)
             require(inputs.size in 1..255 && outputs.size in 0..255)
             require((if (transactionType == 8) inputs.firstOrNull { it.slip.type != 9 } else inputs.first())?.owner == wallet.publicKey)
@@ -153,6 +163,8 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
             val slips = (inputs + outputs).mapIndexed { index, owned ->
                 if (index in metadataSlots) require(transactionType == 8 && owned.slip.type == 9 &&
                     owned.slip.amount.signum() == 0 && Base58.decode(owned.owner).size == 33)
+                else if (index == escrowSlot) require(transactionType == 0 && owned.slip.type == 0 &&
+                    Base58.decode(owned.owner).let { it.size == 33 && it[0] == 0.toByte() })
                 else require(SaitoWallet.isPublicKey(owned.owner))
                 val slip = owned.slip
                 require(listOf(slip.amount, slip.block, slip.ordinal).all { it.signum() >= 0 && it.bitLength() <= 64 })

@@ -141,6 +141,12 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         requireActive()
     }
 
+    /** Store uses the key of the service-advertising authenticated connection. */
+    suspend fun servicePublicKey(service: String): String {
+        require(service in services())
+        return requireNotNull(connection.identifiedKey).also { requireActive() }
+    }
+
     /** Service announcements belong to the same authenticated physical connection. */
     suspend fun services(): Set<String> = withTimeout(12_000) {
         authenticate()
