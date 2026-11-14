@@ -1,7 +1,7 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
 if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3','--rental','--rental-web3','--rental-multiple'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
-const rental=process.argv[6]?.startsWith('--rental'),web3=['--web3','--rental-web3','--rental-multiple'].includes(process.argv[6]),illustrated=process.argv[6]==='--image',quantity=(rental&&process.argv[6]!=='--rental-multiple')||process.argv[6]==='--partial'?1:2;
+const rental=process.argv[6]?.startsWith('--rental'),web3=['--web3','--rental-web3'].includes(process.argv[6]),illustrated=process.argv[6]==='--image',quantity=(rental&&process.argv[6]!=='--rental-multiple')||process.argv[6]==='--partial'?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={

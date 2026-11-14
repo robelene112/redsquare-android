@@ -38,7 +38,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const wallet=await wasm.get_wallet(),buyer=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3');
  const funding=new wasm.WasmWalletSlip();funding.set_amount(1000000000n);funding.set_block_id(10n);funding.set_tx_ordinal(2n);funding.set_slip_index(0);funding.set_slip_type(0);funding.set_lc(true);funding.set_spent(false);
  const key=Buffer.alloc(59);Buffer.from(base58.decode(buyer)).copy(key);key.writeBigUInt64BE(10n,33);key.writeBigUInt64BE(2n,41);key.writeBigUInt64BE(1000000000n,50);funding.set_utxokey(key.toString('hex'));await wallet.add_slip(funding);
- const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources', (rental?'native-store-rental-listing-reference':'native-store-listing-reference')+'.json'),'utf8'));
+ const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources', (rental?(process.argv[6]==='--rental-partial'?'native-store-rental-multiple-listing-reference':'native-store-rental-listing-reference'):'native-store-listing-reference')+'.json'),'utf8'));
  const timestamp=1700003000000n;
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>buyer,createUnsignedTransactionWithDefaultFee:async(recipient,amount)=>{
  const native=await wallet.createTransaction(recipient,amount,10000000n,false);
