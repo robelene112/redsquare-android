@@ -71,6 +71,20 @@ class SaitoStoreListingTest {
         assertEquals(BigInteger("50000000"), delist.inputs[1].amount)
         assertEquals(delist.transaction.encoded(), SaitoStoreDelist.restore(delist.transaction.encoded(), product).transaction.encoded())
     }
+    @Test fun aMultiLotPurchaseBindsTheRemainingLotRatherThanTheFullySoldPrimary() {
+        val vector = fixture("native-store-multi-delist-reference")
+        val envelopes = listOf("listing", "primaryListing", "purchase", "priorFulfillment").map { vector.getAsJsonObject(it) }
+        val archives = envelopes.associate { it.get("id").asString to com.google.gson.JsonArray().apply {
+            add(com.google.gson.JsonObject().apply { add("tx", it.get("envelope")) })
+        }.toString() }
+        val signature = vector.getAsJsonObject("priorFulfillment").get("id").asString
+        val product = requireNotNull(SaitoStoreLineage.read(signature) { archives[it] })
+        assertEquals(BigInteger.ONE, product.quantity)
+        assertEquals(product, SaitoStoreLineage.restore(product))
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val delist = SaitoStoreDelist.create(wallet, product, vector.get("row").toString(), 1700004000000)
+        assertEquals(vector.getAsJsonObject("delist").get("networkBase64").asString, delist.transaction.encoded())
+    }
     @Test fun sellerInventoryKeepsApprovalSeparateFromAvailabilityAndRealSales() {
         val reference = fixture("native-store-listing-reference")
         val active = reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply { addProperty("approved", 0) }

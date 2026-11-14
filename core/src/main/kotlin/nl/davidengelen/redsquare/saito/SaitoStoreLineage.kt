@@ -25,7 +25,10 @@ object SaitoStoreLineage {
             SaitoStore.readOriginalListingArchive(id, archive)?.let { return it }
             val body = body(envelope)
             val sale = body.getAsJsonObject("fulfill_sale")
-            val previous = resolve(sale.get("prior_inventory").asString)
+            // Official fulfillment consumes ordered lots; only the last consumed lot can retain stock.
+            val contributors = sale.get("listing_signatures")?.takeIf { it.isJsonArray }?.asJsonArray?.map { it.asString }.orEmpty()
+            require(contributors.size <= 16)
+            val previous = resolve(contributors.lastOrNull() ?: sale.get("prior_inventory").asString)
             val purchase = SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(network(load(sale.get("sale_signature").asString))))
             val wire = network(envelope)
             val receipt = SaitoStoreReceipt.read(purchase, Base64.getEncoder().encodeToString(wire))
@@ -50,10 +53,13 @@ object SaitoStoreLineage {
             require(remaining.signum() > 0 && remaining < previous.quantity)
             val terms = body.getAsJsonObject("listing")
             val priorTerms = body(previous.envelope).getAsJsonObject("listing")
-            require(listOf("title", "description", "category", "price", "web3_ticker", "web3_amount").all { terms.get(it) == priorTerms.get(it) })
+            require(listOf("price", "web3_ticker", "web3_amount").all { terms.get(it) == priorTerms.get(it) })
+            val title = terms.get("title")?.asString.orEmpty().also { require(it.length <= 10_000) }
+            val description = terms.get("description")?.asString.orEmpty().also { require(it.length <= 200_000) }
+            val category = StoreCategory.entries.firstOrNull { it.wire == terms.get("category")?.asString } ?: previous.category
             val provenance = previous.provenance + previous.envelope + purchase.transaction.envelope()
             require(provenance.size <= 30)
-            return previous.copy(signature = id, quantity = remaining, envelope = envelope, provenance = java.util.Collections.unmodifiableList(provenance))
+            return previous.copy(signature = id, title = title, description = description, category = category, quantity = remaining, envelope = envelope, provenance = java.util.Collections.unmodifiableList(provenance))
         }
         resolve(signature)
     }.getOrElse { failure ->
