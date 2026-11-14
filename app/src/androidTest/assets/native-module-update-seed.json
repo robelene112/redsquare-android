@@ -11,7 +11,10 @@
     "orderId": "13d0f9b7cb502b72fddbef0834d0a6c9dfbc56c0c81eb98bdc37a8f9f8aabc3557ade9e294602cc2989634a3151499f65da5a2da2d14eabe9dc1cd98e5e0d24f",
     "vaultOperationId": "2eded50225341fda746d112b20c3f772d82eda5e984ab6b97a9c22d1993419260354c65f563eae58a5cb6dad844af1363ca6cd03e7f1a14d966e5b035cb15a30",
     "fileId": "bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19",
-    "fileContentsBase64": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo="
+    "fileContentsBase64": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo=",
+    "draftId": "ff60c99d356f17888f173f6df16235dc1bde5fb664a9480565c22072b26a676a1f63cacf9a82dcd4eaeab70a3888594e528580010543107a1086e208b5b842ee",
+    "draftName": "Upload notes.txt",
+    "draftContentsBase64": "QSBuYXRpdmUgVmF1bHQgdXBsb2FkClNhaXRvIGNhZsOpIPCflLQK"
   },
   "records": [
     {
@@ -43,20 +46,6 @@
       "text": "{\"id\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"name\":\"Field notes.txt\",\"mime\":\"text/plain\",\"size\":29,\"sha256\":\"5bf8ac04ddb177ba8f9452cdb73bd4ded607b328c81808b984d9ac401d8cfbd3\"}"
     },
     {
-      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.data",
-      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
-      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
-      "version": 1,
-      "text": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo="
-    },
-    {
-      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.info",
-      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
-      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
-      "version": 1,
-      "text": "{\"id\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"name\":\"Module update draft.txt\",\"mime\":\"text/plain\",\"size\":29,\"sha256\":\"5bf8ac04ddb177ba8f9452cdb73bd4ded607b328c81808b984d9ac401d8cfbd3\"}"
-    },
-    {
       "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.export.data",
       "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
       "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
@@ -71,11 +60,25 @@
       "text": "{\"id\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"name\":\"Field notes.txt\",\"mime\":\"text/plain\",\"size\":29,\"sha256\":\"5bf8ac04ddb177ba8f9452cdb73bd4ded607b328c81808b984d9ac401d8cfbd3\"}"
     },
     {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.data",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "QSBuYXRpdmUgVmF1bHQgdXBsb2FkClNhaXRvIGNhZsOpIPCflLQK"
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.info",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "{\"id\":\"ff60c99d356f17888f173f6df16235dc1bde5fb664a9480565c22072b26a676a1f63cacf9a82dcd4eaeab70a3888594e528580010543107a1086e208b5b842ee\",\"name\":\"Upload notes.txt\",\"mime\":\"text/plain\",\"size\":39,\"sha256\":\"8d3537865c1aff95f5516080220c52d2124fa2fe7c69595ba14577f50606c26c\"}"
+    },
+    {
       "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.rules",
       "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
       "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
       "version": 1,
-      "text": "{\"file\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"mode\":\"STANDARD\",\"source\":\"\"}"
+      "text": "{\"file\":\"ff60c99d356f17888f173f6df16235dc1bde5fb664a9480565c22072b26a676a1f63cacf9a82dcd4eaeab70a3888594e528580010543107a1086e208b5b842ee\",\"mode\":\"STANDARD\",\"source\":\"\"}"
     },
     {
       "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.operation",

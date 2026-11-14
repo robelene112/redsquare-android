@@ -16,10 +16,13 @@ record('store-orders.'+owner+'.rows','redsquare-store-orders-v1','store-orders.'
 record('store-orders.'+owner+'.guard','redsquare-store-orders-v1','store-orders.',owner)
 family='vault.'+owner+'.'; prefix=family+'owner.'; alias='redsquare.vault.'+owner
 contents=base64.b64decode(vault['fileContentsBase64']); file_id=vault['file']['id']
-for stem,name in [('copy.'+file_id,'Field notes.txt'),('draft','Module update draft.txt'),('export','Field notes.txt')]:
+for stem,name in [('copy.'+file_id,'Field notes.txt'),('export','Field notes.txt')]:
     record(prefix+stem+'.data',alias,family,base64.b64encode(contents).decode())
     record(prefix+stem+'.info',alias,family,dict(id=file_id,name=name,mime='text/plain',size=len(contents),sha256=hashlib.sha256(contents).hexdigest()))
-record(prefix+'draft.rules',alias,family,dict(file=file_id,mode='STANDARD',source=''))
+draft_contents=base64.b64decode(mint['contentsBase64']); draft_id=mint['file']['id']
+record(prefix+'draft.data',alias,family,mint['contentsBase64'])
+record(prefix+'draft.info',alias,family,dict(id=draft_id,name=mint['name'],mime=mint['mime'],size=len(draft_contents),sha256=hashlib.sha256(draft_contents).hexdigest()))
+record(prefix+'draft.rules',alias,family,dict(file=draft_id,mode='STANDARD',source=''))
 record(prefix+'operation',alias,family,dict(candidate=mint['mint']['networkBase64'],mime=mint['mime'],size=len(base64.b64decode(mint['contentsBase64'])),mayHaveSent=True,uploaded=False,owned=False,submitted=True,rejected=False))
-result=dict(owner=owner,qualification='Public unsafe fixture wallet and source-derived records on a fresh emulator only. No network submission or real provider state.',inputs={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (vault_path,mint_path,listing_path,purchase_path)},expected=dict(orderId=purchase['purchase']['id'],vaultOperationId=mint['mint']['id'],fileId=file_id,fileContentsBase64=vault['fileContentsBase64']),records=records)
+result=dict(owner=owner,qualification='Public unsafe fixture wallet and source-derived records on a fresh emulator only. No network submission or real provider state.',inputs={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (vault_path,mint_path,listing_path,purchase_path)},expected=dict(orderId=purchase['purchase']['id'],vaultOperationId=mint['mint']['id'],fileId=file_id,fileContentsBase64=vault['fileContentsBase64'],draftId=draft_id,draftName=mint['name'],draftContentsBase64=mint['contentsBase64']),records=records)
 output.write_text(json.dumps(result,indent=2)+'\n')

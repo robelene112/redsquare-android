@@ -690,8 +690,12 @@ class MainActivity : ComponentActivity() {
                                                 val currentWallet = wallet
                                                 if (currentWallet != null) key(currentWallet.publicKey, selected) {
                                                     val vaultNode = linkedVault?.node ?: selected
+                                                    val vaultEndpoint = FeedEndpoints.fromIntent(intent, vaultNode)
+                                                    CompositionLocalProvider(LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, vaultEndpoint)) {
+                                                        RegisteredIdentityScope(currentWallet, vaultEndpoint, vaultNode,
+                                                            RegistryAuthority.directoryPeer(intent, vaultEndpoint).takeIf { nameDirectoryEnabled == true }) {
                                                     nl.davidengelen.redsquare.vault.VaultScreen(currentWallet, vaultNode,
-                                                        FeedEndpoints.fromIntent(intent, vaultNode), balances, Modifier.fillMaxSize(), chrome,
+                                                        vaultEndpoint, balances, Modifier.fillMaxSize(), chrome,
                                                         incomingFile = pendingVaultFile.takeIf { vaultNode == selected }, onIncomingConsumed = incomingVaultFiles::consumed,
                                                         selected = selected, initialRentalFile = linkedVault?.fileId,
                                                         onRentalBack = linkedVault?.let { origin -> {
@@ -704,6 +708,8 @@ class MainActivity : ComponentActivity() {
                                                             }
                                                         } }) {
                                                         settingsCategory = "node"; settingsOpen = true
+                                                    }
+                                                        }
                                                     }
                                                 } else chrome(false)
                                             } else if (module == AppModule.TALK) {

@@ -16,9 +16,9 @@ import zlib
 import xml.etree.ElementTree as ET
 
 assert len(sys.argv) == 6, "Require SDK, complete raw directory, run ID, exact source and fresh label"
-sdk, raw, run, source, label = sys.argv[1:]
+sdk, raw, run, source, output_label = sys.argv[1:]
 assert sdk in ("10", "17") and re.fullmatch(r"[0-9a-f]{40}", source)
-assert re.fullmatch(r"[A-Za-z0-9._-]+", label)
+assert re.fullmatch(r"[A-Za-z0-9._-]+", output_label)
 packet = Path(__file__).resolve().parent
 repo = packet.parents[2]
 raw = Path(raw)
@@ -464,7 +464,7 @@ for filename, function in (("viewer-check.py", "validate_viewer_evidence"), ("na
     specification.loader.exec_module(inherited)
     getattr(inherited, function)(view, validate_png)
 temporary.cleanup()
-target = packet / label
+target = packet / output_label
 target.mkdir(exist_ok=False)
 (target / "run.json").write_text(json.dumps(metadata, indent=2) + "\n")
 (target / "identities.json").write_text(json.dumps(ids.rows(actual), indent=2) + "\n")

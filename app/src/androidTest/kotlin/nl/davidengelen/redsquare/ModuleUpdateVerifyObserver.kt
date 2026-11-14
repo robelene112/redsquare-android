@@ -37,12 +37,18 @@ class ModuleUpdateVerifyObserver {
         val bytes = Base64.getDecoder().decode(expected.get("fileContentsBase64").asString)
         assertArrayEquals(bytes, disk.read(expected.get("fileId").asString).bytes)
         val draft = requireNotNull(disk.draft())
-        assertEquals("Module update draft.txt", draft.name); assertArrayEquals(bytes, draft.bytes)
+        assertEquals(expected.get("draftId").asString, draft.id)
+        assertEquals(expected.get("draftName").asString, draft.name)
+        assertArrayEquals(Base64.getDecoder().decode(expected.get("draftContentsBase64").asString), draft.bytes)
+        val transfer = VaultUploadTransfer(context, AndroidWalletStore(context).loadExisting(), SaitoBackend.OWNER,
+            "ws://127.0.0.1:1/wsopen", WalletBalances.fromIntent(android.content.Intent().putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")))
+        val plan = transfer.restorePlan(operation, draft) // Pure local reconstruction; no network access.
+        assertEquals(operation.candidate.transaction.encoded(), plan.mint.encoded())
         assertEquals(VaultRuleMode.STANDARD, disk.draftRules(draft.id).mode)
         assertArrayEquals(bytes, requireNotNull(disk.export()).bytes)
         instrumentation.sendStatus(0, Bundle().apply { putString("moduleUpdateContinuity", JsonObject().apply {
             addProperty("owner", owner); addProperty("version", context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode)
-            addProperty("exactPendingStoreOriginal", true); addProperty("exactPendingVaultOriginal", true)
+            addProperty("exactPendingStoreOriginal", true); addProperty("exactPendingVaultOriginal", true); addProperty("pendingVaultPlanReconstructed", true)
             addProperty("exactVaultDraft", true); addProperty("exactOfflineAndPendingExportBytes", true)
             addProperty("encryptedRecordsUnchanged", seed.getAsJsonArray("records").size()); addProperty("noNetworkSubmission", true)
         }.toString()) })

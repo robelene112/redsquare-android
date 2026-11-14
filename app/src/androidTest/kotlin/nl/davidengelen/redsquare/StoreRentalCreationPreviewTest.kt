@@ -166,9 +166,7 @@ class StoreRentalCreationPreviewTest {
             captureNativeScreen(File(scene.evidence, "rental-duration-real-ime.png"), "Rental duration (hours)")
             ui.onNodeWithText("Rental duration (hours)").performImeAction()
             assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
-            val device = androidx.test.uiautomator.UiDevice.getInstance(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation())
-            if (imeVisible()) device.pressBack()
-            ui.waitUntil(5_000) { !imeVisible() }
+            ui.waitUntil(5_000) { ui.onAllNodesWithText("Rental duration (hours)").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Rental duration (hours)").assertTextContains("3")
             File(scene.evidence, "rental-keyboard-observation.json").writeText("{\"actualFocusedWindowIme\":true,\"imeActionDidNotPublish\":true,\"duration\":3}")
         }
