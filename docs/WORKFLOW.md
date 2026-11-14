@@ -585,3 +585,9 @@ The ticket108 permanent-key class additionally verifies real Android device auth
 Ticket108 adds `vault-rental-master` and `vault-rental-master-android17` for native rental-preset review, real PIN, master mint/upload and original-creator offline retrieval/exact document export. The case retains180s,25s financial-action and15s file/ownership limits; modal transitions retain5s. The advanced diagnostic and ordinary wallet scopes include it additively. Its owned provider checks the original master commitment and independently evaluated creator role; actual Store checkout remains114.
 
 The `vault-advanced-viewport` / `vault-advanced-viewport-android17` scopes exercise Access, Rules and Permanent transfer in three180s native classes. Each uses the existing real320/412dp ×1.0/1.3/2.0font ×Light/Dark12-cell sweep,48dp actions, original5/15s UI bounds, and real zero-motion settings with observed window scale and exact restoration. Functional advanced cases retain normal motion. Both advanced and ordinary wallet scopes include the new classes;115 must freeze all added outputs before its full proof.
+
+Ticket114 adds `store-rental-creation` and `store-rental-access` (plus Android17
+variants) at the existing native UI/system-PIN/owned Store-Vault/document seams.
+Each class retains180s,25s financial,15s ownership/navigation and5s modal goals.
+Complete seller/purchase and Wallet scopes include them additively. Entry-only
+proofs do not establish complete rental delivery, service activation or live rights.
