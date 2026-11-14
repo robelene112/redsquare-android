@@ -1234,4 +1234,8 @@
     <string name="store_rental_retry">Retry original rental creation</string>
     <string name="store_rental_owned">This node reports the rental inventory in your wallet.</string>
     <string name="store_rental_waiting">Rental inventory submitted. Waiting for this node.</string>
+    <string name="vault_rental_access">Rental access</string>
+    <string name="vault_rental_ends">Access ends: %1$s</string>
+    <string name="vault_rental_provider_authority">The storage service checks access. Saved and exported copies remain yours after expiry.</string>
+    <string name="store_rental_open_vault">Open in Vault</string>
 </resources>

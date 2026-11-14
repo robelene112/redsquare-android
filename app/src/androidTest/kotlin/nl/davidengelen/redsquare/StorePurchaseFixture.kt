@@ -12,7 +12,7 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.File
 import java.net.InetAddress
 
-internal data class StorePurchaseScene(val node: OwnedStorePurchaseFixture, val activity: ActivityScenario<MainActivity>, val evidence: File)
+internal data class StorePurchaseScene(val node: OwnedStorePurchaseFixture, val activity: ActivityScenario<MainActivity>, val evidence: File, val rental: OwnedStoreRentalFixture? = null)
 
 internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, remainder: JsonObject? = null, rental: Boolean = false, block: (StorePurchaseScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -34,6 +34,7 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
     val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
     val buyer = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
     val state = ChatFixtureState(context, listOf("transfer.${buyer.publicKey}.", "store-orders.${buyer.publicKey}."), buyer.publicKey)
+    val rentalNode = if (rental) OwnedStoreRentalFixture(vector) else null
     val node = OwnedStorePurchaseFixture(vector, crypto?.let { owned -> { owned.payment } })
     crypto?.node = node
     var primary: Throwable? = null
@@ -58,7 +59,7 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
             }
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             withAppFrameFixture(name, "store-purchase-evidence", feedRows = "[]", expectedTransactionCount = expectedTransactions,
-                peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||" + if (crypto == null) "" else ";Mixin||;buysaito||",
+                peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||" + (if (crypto == null) "" else ";Mixin||;buysaito||") + (if (rental) ";vault||" else ""),
                 balanceApiUrl = "http://127.0.0.1:${server.port}/balance/",
                 storeCryptoNetworksApi = crypto?.let { "http://127.0.0.1:${server.port}/network/chains/" }, archiveResponse = { criteria ->
                     publicArchives[criteria.get("sig")?.asString]?.let { encoded ->
@@ -66,11 +67,12 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
                     } ?: "[]"
                 }, configurePeer = { peer ->
                     node.peer = peer
+                    if (rentalNode != null) peer.vaultResponse = rentalNode::reply
                     peer.cryptoResponse = crypto?.let { owned -> { message -> owned.reply(message) } }
                     peer.storeResponse = { query -> if (query.get("request").asString == "load-listing")
                         JsonObject().apply { add("listing", page.getAsJsonArray("listings")[0]) }.toString()
                         else page.toString() }
-                }) { activity -> block(StorePurchaseScene(node, activity, File(context.cacheDir, "store-purchase-evidence").apply { mkdirs() })) }
+                }) { activity -> block(StorePurchaseScene(node, activity, File(context.cacheDir, "store-purchase-evidence").apply { mkdirs() }, rentalNode)) }
         }
     } catch (failure: Throwable) { primary = failure; throw failure }
     finally { if (!preserveOrders) cleanupAfterTest(primary, { state.restoreFiles() }, { state.restorePreferences() }, {
@@ -87,7 +89,7 @@ internal fun ComposeTestRule.openStorePurchaseProduct(quantity: String = "1", il
     onNodeWithText("Field notes access key").performClick()
     val descriptionStart = android.os.SystemClock.elapsedRealtime()
     if (illustrated) {
-        waitUntil(15_000) { onNodeWithText("Product").isDisplayed() }
+        waitUntil(15_000) { onNode(hasContentDescription("Refresh Store") and isEnabled()).isDisplayed() }
         onNode(hasScrollAction()).performScrollToNode(hasText("Original creator-authenticated field notes."))
     }
     val descriptionRemaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - descriptionStart)

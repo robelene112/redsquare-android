@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicLong
 
-internal data class VaultEntry(val token: String, val name: String, val key: VaultKey?, val copy: VaultCopy?, val type: String?)
+internal data class VaultEntry(val token: String, val name: String, val key: VaultKey?, val copy: VaultCopy?, val type: String?, val rental: SaitoVaultRental? = null)
 internal enum class VaultProblem { CONNECTION, SERVICE_UNAVAILABLE }
 private data class VaultDiscovery(val keys: List<Pair<SaitoNft, VaultKey?>>, val page: Int, val more: Boolean, val cacheWarning: Boolean, val local: VaultCopies)
 private class VaultServiceUnavailable : IOException()
@@ -33,6 +33,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     var more by mutableStateOf(false); private set
     private var keys = emptyList<Pair<SaitoNft, VaultKey?>>()
     private var copies = emptyList<VaultCopy>()
+    private var rentals = emptyList<VaultEntry>()
     var page by mutableIntStateOf(0); private set
     private val generation = AtomicLong()
 
@@ -49,6 +50,22 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
                 applyCopies(saved)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { storageWarning = true }
+            try {
+                val received = withContext(Dispatchers.IO) {
+                    StoreOrderStore(application, wallet.publicKey).read().asSequence()
+                        .filter { it.backend == backend && it.receipt?.asset?.type == "store-nft-rental" }
+                        .map { order ->
+                            val path = SaitoStoreRental.entitlement(requireNotNull(order.fundedPayment), order.product, requireNotNull(order.receipt).encoded)
+                            val source = requireNotNull(SaitoStoreRental.offer(order.product)).source
+                            require(requireNotNull(path.grant).renter == wallet.publicKey)
+                            VaultEntry("rental:" + order.id, source.name, null, null, "store-nft-rental", path)
+                        }.toList().groupBy { requireNotNull(it.rental).fileId }
+                        .values.map { entries -> entries.maxBy { requireNotNull(it.rental?.grant).expiresAt } }
+                }
+                if (generation.get() != current) return
+                rentals = received; merge()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { rentals = emptyList(); storageWarning = true; merge() }
             val result = withContext(Dispatchers.IO) {
                 val observed = balances.read(backend, wallet.publicKey) ?: throw IOException("Vault ownership unavailable")
                 val holdings = observed.nfts.filter { it.type in setOf("vault", "vault-nft-key", "vault-nft-rental") }.distinctBy { it.id }.sortedBy { it.id }
@@ -95,6 +112,30 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             try { return withContext(Dispatchers.IO) { disk.read(it.fileId) } }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) { throw VaultLocalFailure(failure) }
+        }
+        entry.rental?.let { path ->
+            return withContext(Dispatchers.IO) {
+                current()
+                val grant = requireNotNull(path.grant)
+                val active = currentCoroutineContext().job
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    require("vault" in peer.services())
+                    suspend fun request(transaction: SaitoTransaction): String = peer.request(transaction) {
+                        active.ensureActive(); current()
+                    }.decodeToString().also { active.ensureActive(); current() }
+                    val first = request(grant.access(wallet, System.currentTimeMillis()))
+                    try { grant.readFile(first) }
+                    catch (failure: IllegalArgumentException) {
+                        val response = com.google.gson.JsonParser.parseString(first).asJsonObject
+                        // Only an authenticated denial/empty read permits explicit activation for this saved path.
+                        require(response.get("status")?.asString == "err" ||
+                            (response.get("status")?.asString == "success" && response.getAsJsonArray("txs")?.size() == 0))
+                        val checkout = com.google.gson.JsonParser.parseString(request(path.checkout(wallet, System.currentTimeMillis()))).asJsonObject
+                        require(checkout.get("status")?.asString == "ok" && checkout.get("file_id")?.asString == path.fileId && checkout.get("result")?.asInt?.let { it > 0 } == true)
+                        grant.readFile(request(grant.access(wallet, System.currentTimeMillis())))
+                    }
+                }
+            }
         }
         val selected = requireNotNull(entry.key)
         return withContext(Dispatchers.IO) {
@@ -149,8 +190,9 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             VaultEntry(holding.id, key?.name ?: holding.id.take(12), key,
                 copies.firstOrNull { it.fileId == key?.fileId }, holding.type)
         }
-        val represented = owned.mapNotNull { it.key?.fileId }.toSet()
-        entries = owned + copies.filter { it.fileId !in represented }.map {
+        val received = rentals.map { entry -> entry.copy(copy = copies.firstOrNull { it.fileId == entry.rental?.fileId }) }
+        val represented = (owned.mapNotNull { it.key?.fileId } + received.mapNotNull { it.rental?.fileId }).toSet()
+        entries = received + owned + copies.filter { it.fileId !in represented }.map {
             VaultEntry("file.${it.fileId}", it.name, null, it, null)
         }
     }

@@ -336,7 +336,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return
                         }
-                        if (body.get("request").asString == "vault access file") {
+                        if (body.get("request").asString in setOf("vault access file", "vault access rental", "vault checkout rental", "vault rental capabilities", "vault restore rental")) {
                             val original = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
                             val signed = SaitoEnvelope.decode(original.envelope())
                             require(signed.author == authenticatedKey)

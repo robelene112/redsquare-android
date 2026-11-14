@@ -265,11 +265,16 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text(entry.name, style = MaterialTheme.typography.titleMedium)
                                 Text(stringResource(if (entry.copy != null) R.string.vault_available_offline
-                                    else if (entry.key != null) R.string.vault_access_key else R.string.vault_details_unavailable),
+                                    else if (entry.rental != null) R.string.vault_rental_access else if (entry.key != null) R.string.vault_access_key else R.string.vault_details_unavailable),
                                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 entry.copy?.let { Text(Formatter.formatShortFileSize(context, it.size.toLong()),
                                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                             }
+                        }
+                        entry.rental?.grant?.let { grant ->
+                            Text(stringResource(R.string.vault_rental_ends, java.text.DateFormat.getDateTimeInstance().format(java.util.Date(grant.expiresAt))),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(R.string.vault_rental_provider_authority), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         if (entry.key?.customScript != null && entry.copy == null) Text(stringResource(R.string.vault_custom_key),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -281,7 +286,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                                     Text(stringResource(R.string.vault_key_transfer))
                                 }
                             }
-                            val readable = entry.copy != null || entry.key?.let { it.customScript == null } == true
+                            val readable = entry.copy != null || entry.rental != null || entry.key?.let { it.customScript == null } == true
                             if (entry.copy == null && entry.key?.customScript != null) FilledTonalButton(onClick = {
                                 val identity = "${entry.token}:${entry.key.fileId}"
                                 if (accessIdentity != identity) {

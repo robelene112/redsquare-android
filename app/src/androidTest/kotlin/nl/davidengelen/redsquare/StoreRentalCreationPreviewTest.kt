@@ -34,7 +34,7 @@ class StoreRentalCreationPreviewTest {
             val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context
             val vector = context.assets.open("native-images-reference.json").reader().use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
             val image = vector.getAsJsonObject("images").get("red").asString
-            val name = "rental-cover.bin"
+            val name = "store-image-rental-cover.bin"
             val uri = android.net.Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$name")
             scene.context.contentResolver.call(uri, "prepare", name, android.os.Bundle().apply { putByteArray("bytes", java.util.Base64.getDecoder().decode(image.substringAfter(','))) })
             androidx.test.espresso.intent.Intents.intending(androidx.test.espresso.intent.matcher.IntentMatchers.hasAction(android.content.Intent.ACTION_OPEN_DOCUMENT))
@@ -63,7 +63,7 @@ class StoreRentalCreationPreviewTest {
             ui.onNodeWithText("Check rental inventory").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Continue listing") and isEnabled()).isDisplayed() }
             ui.onNodeWithText("Continue listing").performClick()
-            ui.waitUntil(15_000) { ui.onNode(hasText("Review sale offer") and isEnabled()).isDisplayed() }
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Review sale offer") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Review sale offer").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Authorize and publish").isDisplayed() }
             ui.onNodeWithText("Authorize and publish").performClick()

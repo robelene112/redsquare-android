@@ -11,7 +11,11 @@ const hashes={
  'node/mods/store/lib/helpers.js':'a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce',
  'node/mods/store/lib/summary.js':'e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a'
 };
-if(rental)hashes['node/mods/store/store.js']='5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f';
+if(rental){
+ hashes['node/mods/store/store.js']='5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f';
+ hashes['node/mods/vault/lib/contracts/loan.js']='870877c0cb6b5926023a9e3e624ebee35cbdb12c82bec9a3eb4fb19aff328156';
+ hashes['node/mods/vault/lib/transactions/rental-checkout.js']='51853d4eabb6f6432056a47410d9701ab00d61bff037318e118b2c20d5ef3453';
+}
 for(const [name,expected]of Object.entries(hashes))if(sha(fs.readFileSync(path.join(root,name)))!==expected)throw Error('Wrong pinned source: '+name);
 if(sha(fs.readFileSync(parser))!=='b95392d79457d0357555c5ed3e56302d074b92dff119bcf3b44179500b10e9df')throw Error('Wrong acorn8.19.0');
 const acorn=require(parser),wasm=require(path.join(runtime,'node_modules/saito-wasm/pkg/node')),base58=require(path.join(runtime,'node_modules/base-58'));
@@ -104,6 +108,20 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 
 
 
+ let rentalAccess;
+ if(rental){
+  const sourceFile=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-rental-reference.json'),'utf8'));
+  const expiry=delivered.msg.data.expires_at;
+  const loan=require(path.join(root,'node/mods/vault/lib/contracts/loan.js')).instantiate({creator_publickey:listing.seller,renter_publickey:buyer,expires_at:expiry});
+  const creatorTx=wasm.WasmTransaction.deserialize(Buffer.from(JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-reference.json'),'utf8')).custom.request.networkBase64,'base64'));
+  const renterTx=created.native,roles=[],originalNow=Date.now;
+  try{for(const time of [expiry-1,expiry,expiry+1]){Date.now=()=>time;roles.push({time,creator:await wasm.evaluate_script_with_transaction(JSON.stringify(loan),creatorTx),renter:await wasm.evaluate_script_with_transaction(JSON.stringify(loan),renterTx)})}}finally{Date.now=originalNow}
+  if(JSON.stringify(roles.map(r=>[r.creator,r.renter]))!=='[[0,1],[0,0],[1,0]]')throw Error('Actual rental payment actors do not match provider roles');
+  const code=fs.readFileSync(path.join(root,'node/mods/vault/lib/transactions/rental-checkout.js'),'utf8'),n=acorn.parse(code,{ecmaVersion:'latest'}).body.find(n=>n.type==='FunctionDeclaration'&&n.id.name==='createCheckOutRentalTransaction');
+  const build=vm.runInNewContext('('+code.slice(n.start,n.end)+')',{});
+  const checkout=await build.call({app:{wallet:{createUnsignedTransaction:async()=>({sign:async()=>{}})}}},delivered);
+  rentalAccess={file:sourceFile.file,contentsBase64:sourceFile.contentsBase64,loanSource:JSON.stringify(loan),loanHash:wasm.get_script_hash(JSON.stringify(loan)),roles,checkoutMessage:checkout.msg};
+ }
  const slips=[];for(let i=0;i<wire.readUInt32BE(0)+wire.readUInt32BE(4);i++){const o=93+i*59;slips.push({key:base58.encode(wire.subarray(o,o+33)),amount:String(wire.readBigUInt64BE(o+33)),block:String(wire.readBigUInt64BE(o+41)),ordinal:String(wire.readBigUInt64BE(o+49)),index:wire[o+57],type:wire[o+58]});}
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:rental?'Actual isolated official rental purchase, Store fulfillment and Store rental transfer hook with real WASM signing. Controlled time/input-copy adapters, not a fully initialized browser/provider or consensus.':'Actual isolated official createPurchaseAssetTransaction and script helpers with actual funded WASM wallet.createTransaction. Controlled default fee and input-copy adapters; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,body:created.msg,settlement,blocks,exactNumbers,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:rental?'Actual isolated official rental purchase, Store fulfillment and Store rental transfer hook with real WASM signing. Controlled time/input-copy adapters, not a fully initialized browser/provider or consensus.':'Actual isolated official createPurchaseAssetTransaction and script helpers with actual funded WASM wallet.createTransaction. Controlled default fee and input-copy adapters; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,body:created.msg,settlement,blocks,exactNumbers,rentalAccess,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

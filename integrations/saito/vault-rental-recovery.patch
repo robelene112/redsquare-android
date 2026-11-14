@@ -1,0 +1,116 @@
+--- a/mods/archive/archive.js
++++ b/mods/archive/archive.js
+@@ -606,6 +606,11 @@
+       });
+     }
+ 
++    // Optional owner compare-and-swap for metadata-only Vault rental transitions.
++    // The authorization still evaluates the actual stored script and request actor.
++    if (obj.expected_owner != null && (tx || typeof obj.expected_owner !== 'string' ||
++        !existing_rows || existing_rows.length !== 1 || existing_rows[0].owner !== obj.expected_owner)) return 0;
++
+     //
+     // update index — build SET clause without always rewriting tx
+     //
+@@ -674,6 +679,10 @@
+     }
+ 
+     let sql = `UPDATE archives SET ${set_clauses.join(', ')} WHERE sig = $sig`;
++    if (obj.expected_owner != null) {
++      sql += ' AND owner = $expected_owner';
++      params.$expected_owner = obj.expected_owner;
++    }
+ 
+     if (this.app.BROWSER) {
+       await this.localDB.update({
+@@ -694,6 +703,10 @@
+       }
+ 
+       await this.app.storage.runDatabase(sql, params, 'archive');
++      if (obj.expected_owner != null) {
++        const after = await this.app.storage.queryDatabase('SELECT sig, owner FROM archives WHERE sig = $sig', {$sig: tx_to_update}, 'archive');
++        return after?.length === 1 && after[0].owner === obj.owner ? 1 : 0;
++      }
+     }
+ 
+     return 1;
+--- a/mods/vault/lib/transactions/rental-checkout.js
++++ b/mods/vault/lib/transactions/rental-checkout.js
+@@ -13,6 +13,7 @@
+ 
+ const Transaction = require('../../../../lib/saito/transaction').default;
+ const loan = require('../contracts/loan');
++const rental = require('../contracts/rental');
+ 
+ /**
+  * Build and sign a Vault checkout transaction for a received rental NFT transfer.
+@@ -218,6 +219,7 @@
+         {
+           sig: file_id,
+           owner: loan_access_hash,
++          expected_owner: this.app.core.scripting.hash(access_script),
+           access_script: access_script,
+           request_tx: tx
+         },
+@@ -259,7 +261,45 @@
+   return 1;
+ }
+ 
++/** Metadata-only restoration, authorised by the actual current loan and provider NOW. */
++async function receiveRestoreRentalTransaction(tx, callback) {
++  try {
++    const creator = String(tx?.from?.[0]?.publicKey || tx?.from?.[0]?.public_key || '');
++    const data = tx.returnMessage()?.data || {};
++    const fileId = String(data.file_id || '');
++    const renter = String(data.renter || '');
++    const expiry = data.expires_at;
++    if (!creator || !/^[0-9a-f]{128}$/.test(fileId) || !renter || renter.length > 128 ||
++        !Number.isSafeInteger(expiry) || expiry < 0 || !this.app.core?.scripting?.hash) {
++      callback({status: 'err', err: 'invalid_rental_restore'}); return 1;
++    }
++    const master = JSON.stringify(rental.build({creator_publickey: creator}));
++    const masterHash = this.app.core.scripting.hash(master);
++    const priorLoan = JSON.stringify(loan.instantiate({creator_publickey: creator, renter_publickey: renter, expires_at: expiry}));
++    const loanHash = this.app.core.scripting.hash(priorLoan);
++    const rows = await this.app.storage.queryDatabase('SELECT sig, owner FROM archives WHERE sig = $sig', {$sig: fileId}, 'archive');
++    if (!rows || rows.length !== 1) {
++      callback({status: 'err', err: 'rental_file_unavailable', file_id: fileId}); return 1;
++    }
++    if (rows[0].owner === masterHash) {
++      callback({status: 'ok', file_id: fileId, owner: masterHash, already_restored: true}); return 1;
++    }
++    if (rows[0].owner !== loanHash) {
++      callback({status: 'err', err: 'rental_owner_changed', file_id: fileId}); return 1;
++    }
++    // Archive authenticates the stored owner and actual request actor/NOW. No client-clock grant.
++    const changed = await this.app.storage.updateTransaction(null,
++      {sig: fileId, owner: masterHash, expected_owner: loanHash, access_script: priorLoan, request_tx: tx}, 'localhost');
++    callback(changed ? {status: 'ok', file_id: fileId, owner: masterHash, already_restored: false}
++      : {status: 'err', err: 'rental_restore_denied', file_id: fileId});
++  } catch (error) {
++    callback({status: 'err', err: String(error?.message || error)});
++  }
++  return 1;
++}
++
+ module.exports = {
++  receiveRestoreRentalTransaction,
+   createCheckOutRentalTransaction,
+   receiveCheckOutRentalTransaction
+ };
+--- a/mods/vault/vault.js
++++ b/mods/vault/vault.js
+@@ -606,6 +606,13 @@
+ 
+     if (txmsg.request === 'vault add file') {
+       return await receiveVaultAddFileTransaction(app, this, tx, mycallback);
++    }
++
++    if (txmsg.request === 'vault rental capabilities') {
++      mycallback({rental_restore_protocol: 1}); return 1;
++    }
++    if (txmsg.request === 'vault restore rental') {
++      return await this.receiveRestoreRentalTransaction(tx, mycallback);
+     }
+ 
+     if (txmsg.request === 'vault checkout rental') {
