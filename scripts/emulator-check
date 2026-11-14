@@ -146,11 +146,20 @@ if [[ "$TEST_DEVICE_API" == 29 ]]; then
         done
         if kill -0 "$emulator_pid" 2>/dev/null; then kill -KILL "$emulator_pid"; fi
         wait "$emulator_pid" || true
-        rejected_devices=$(timeout 15 adb devices)
-        printf '%s\n' "$rejected_devices" > "$evidence/runtime-preflight/boot-$runtime_attempt/devices-after-shutdown.log"
-        if printf '%s\n' "$rejected_devices" | awk -v serial="$rejected_serial" '$1 == serial {found=1} END {exit !found}'; then
-            echo 'Rejected emulator is still connected' >&2; exit 1
-        fi
+        disconnect_deadline=$((SECONDS + 15))
+        while true; do
+            disconnect_remaining=$((disconnect_deadline - SECONDS))
+            ((disconnect_remaining > 0)) || { echo 'Rejected emulator did not disconnect within fifteen seconds' >&2; exit 1; }
+            rejected_devices=$(timeout "$disconnect_remaining" adb devices)
+            printf 'observedAtSeconds=%s\n%s\n' "$SECONDS" "$rejected_devices" >> "$runtime_boot_dir/disconnect-observations.log"
+            if ! printf '%s\n' "$rejected_devices" | awk -v serial="$rejected_serial" '$1 == serial {found=1} END {exit !found}'; then
+                printf '%s\n' "$rejected_devices" > "$runtime_boot_dir/devices-after-shutdown.log"
+                break
+            fi
+            # A reaped emulator can remain briefly listed as offline while ADB
+            # retires its transport. Observe actual disappearance, not a delay.
+            sleep 0.1
+        done
         rejected_log_summary=$(sha256sum "$emulator_log")
         rejected_log_sha=${rejected_log_summary%% *}
         rejected_log_bytes=$(stat -c '%s' "$emulator_log")

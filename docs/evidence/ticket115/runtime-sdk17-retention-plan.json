@@ -1,0 +1,21 @@
+{
+  "recordedBeforeOutcomeAt": "2026-11-14T22:47:13.980055+00:00",
+  "pendingAndroid17Run": 43648934961,
+  "executedSource": "17798cbe4c68ec7de0f52425d8061992b575877f",
+  "observedStatus": "in_progress",
+  "basis": "WORKFLOW fixture-only correction exception: rerun outstanding SDK entire scope, preserve exact successful other SDK with unchanged product/application assertions and exact frozen collector.",
+  "correction": "Only API29 pre-test shutdown/disconnect observation: wait up to15s for stale offline adb transport to disappear, retain all observations. No heap/service/app/native-assertion change. The block is unexecuted onSDK17.",
+  "requiredFrozenFiles": {
+    "full-contract.json": "8056139ca7eaf8dd6633f7799f178d83f1fae63522262384f248118be0e1e2e1",
+    "verify-full.py": "778521f655d1dbe53630a3d385a2ea3ade596f26a5217ff4d0529c0d531cad4c",
+    "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
+  },
+  "conditions": [
+    "Android17whole primary must finishSUCCESSwithall3jobs at177, then pass exact177frozencontract/collector/helper/sourcebytes, retaining all original raw artifacts and qualifications.",
+    "Android10must separately execute one entire successful3job primary at corrected source and its exact prospective freeze. No failed/cancelled prefix assembly.",
+    "Prove exact product/core/resource/build/workflow/protocol/test-body equality and that executable harness change is confined toSDK29provisioning. Only the scripts/emulator-checksourcepin changes in the contract; all semantic requirements and all other pins remain.",
+    "Both independent reviewers must accept the conditional source/evidence bridge before final acceptance.",
+    "If177Android17fails any gate, this plan supplies no acceptance and a fresh entire correctedSDK17primary is required."
+  ],
+  "qualification": "Prospective conditional plan only, recorded while primary is pending. No currentSDK17success or waiver claimed."
+}

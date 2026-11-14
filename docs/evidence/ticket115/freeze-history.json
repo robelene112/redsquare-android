@@ -64,7 +64,7 @@
     "qualification": "Stronger pre-run diagnostic freeze, not completed full acceptance. Both next complete SDKs must execute this source and pass its exact strict evaluator; failed older prefixes are never assembled."
   },
   "runtimeProvisioningFreeze": {
-    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T22:28:39.736824+00:00",
+    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T22:45:44.068472+00:00",
     "previousFreezeSource": "e0f12724de930147d68230e4d4e895a47b2ac959",
     "allOriginalE0ContractFieldsUnchanged": true,
     "runtimePreflight": {
@@ -75,13 +75,13 @@
       "noHeapOrServiceChanges": true
     },
     "sourceHashes": {
-      "scripts/emulator-check": "d6c5b06e55be80a484b66f2fdd5e0da7b0a98d9e093d7f6016f78f9a3267dadb",
+      "scripts/emulator-check": "3e8a8ad8332ea25dd58f27a02c2845cbb34e410aadaa1fa412834dc3c3e0c42f",
       "scripts/runtime-heap-preflight": "b239ec5f45a9aa64a04293a2f6eea4e32b62bd03f4f61ef2d6c9223906439ed2",
       "app/src/androidTest/AndroidManifest.xml": "8aacbaddab399decebf98fe4530db77ae3e6d2f484267e2c7943e7c9527fab04",
       "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RuntimeHeapProbe.kt": "831ef5d80237479f4e10ef5bfe9b23086a45792ebaedff2e64cb9da2595622dc"
     },
     "freezeHashes": {
-      "full-contract.json": "8056139ca7eaf8dd6633f7799f178d83f1fae63522262384f248118be0e1e2e1",
+      "full-contract.json": "af0c98532a268ab1c0d227ca1a09f126bd66d6e737eb0554b94da3f1b86c1590",
       "verify-full.py": "778521f655d1dbe53630a3d385a2ea3ade596f26a5217ff4d0529c0d531cad4c",
       "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
     },
@@ -90,6 +90,7 @@
     "qualification": "Both e0 complete primaries unsuccessful; their passing pieces never accepted. Fresh exact-source whole SDK10/17 and strict collector required. Android10boot race is plausible from AOSP default16m and first-hand investigation, not yet our proven original cause.",
     "reference": "https://www.rainforestqa.com/blog/hunting-race-condition-in-android-10-emulator",
     "retentionCorrection": "Independent Standards P2: initial726 source would overwrite rejected emulator.log on recursive boot. Each boot now opens its own fresh live log, preserves startup snapshot and complete rejected stream after reap; strict collector verifies snapshot prefix/hash and rejected full log hash/size. Both complete SDKs must execute this corrected freeze.",
-    "runnerCorrection": "Actual726 focused run43647607708 failed provisioning before any acceptance case: AGP replaces instrumentation entries with configured AndroidJUnitRunner, so custom component was not registered. Probe now runs one separate, explicit diagnostic JUnit method through that existing runner. Its raw.log is retained and strictly validated separately; original318acceptance classes,830/831identities and completion totals remain unchanged. Original probe failure stays failed."
+    "runnerCorrection": "Actual726 focused run43647607708 failed provisioning before any acceptance case: AGP replaces instrumentation entries with configured AndroidJUnitRunner, so custom component was not registered. Probe now runs one separate, explicit diagnostic JUnit method through that existing runner. Its raw.log is retained and strictly validated separately; original318acceptance classes,830/831identities and completion totals remain unchanged. Original probe failure stays failed.",
+    "disconnectCorrection": "177full10Social measured invalid16/512MiB before acceptance, terminated/reaped emulator, then failed strict disconnect check because ADBstilllistedserialoffline. Corrected29-only setup waits for actual transport disappearance within15s and retains every observation; no heap/service/app-test changes. Strict final disconnection requirement remains. SDK17branch is unexecuted."
   }
 }
