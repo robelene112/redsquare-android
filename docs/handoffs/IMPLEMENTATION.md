@@ -27,6 +27,56 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
+## Active integrated rental slice #114
+
+114 is assigned and open; blockers108/113closed. Review base
+`e5669b50f55aad4620a4527a5f6304de268843c4`. Current committed source
+b6b9c0bdc322d9b35ecca5c5b20b85ac34429a80, with in-progress native/core changes.
+Three independent actual-source/WASM rental mint/listing/purchase vectors are
+added by the existing reference producers. SaitoImageMint was renamed to
+SaitoStoreMint to share exact encrypted original mint recovery with rental stock;
+legacy image bytes and journal names remain unchanged. Actual rental restore
+RED, listing/delegation RED and order-bound entitlement RED each precede GREEN.
+Current full core first run store114-core-first.log passes (218cases/44suites).
+
+Hosted native entry43599459521 atb6 fails the intended missing Create rental
+control. Whole original artifacts/captures are retained under
+vault-store-planning/store114-native-entry-red10-*. First collector used a wrong
+expected source and failed its assertion; corrected collection uses actualb6
+above, not guessed identity. Prior dispatch43599207554 at66d was intentionally
+cancelled before native acceptance because the core listing tracer was stillRED.
+
+Native entry/creation is now implemented in the working tree: persisted rental
+mode/hours, creator-owned master selection, separate cover, immutable disposable
+mint and actual deposit, shared PIN/original-reservation recovery. App compiler
+store114-rental-entry-build.log is running; no edits to its inputs until complete.
+Need inspect actual result and preserve original image labels/assertions. Native
+tracer currently covers only entry, not complete mint/listing/renter lifecycle.
+Do not claim114complete or build a partial beta.
+
+Important pinned source observations: Store sets expires_at at initial listing,
+then preserves it in fulfillment. Show actual end time; do not promise hours
+starting at payment. Rental path FIRST undelegated hop determines renter/expiry.
+Archive.updateTransaction requires supplied script hash to match current owner.
+After initial checkout changes owner from master hash to loan hash, replaying
+master checkout cannot succeed. A later rental cannot replace the old loan by
+that same existing handler. Creator restoration needs the actual previous loan
+path; ordinary master access cannot read the changed archive owner. These are
+observed source constraints, not yet a full runtime diagnosis. Execute actual
+Vault/Archive/SQLite/WASM provider semantics before choosing a compatible recovery
+patch. Similar to112, any required compatibility artifact stays UNDEPLOYED with
+STORE_LIVE gates; no node/config/DB/provider activation or public financial writes.
+Also inspect multi-unit remainder: official fulfillment appends an undelegated
+renter hop to shared metadata, which may retain the prior renter in a later sale.
+Do not silently reduce the approved rental/payment scope.
+
+Remaining114: actual offered currency rentals and seller settlement, exact
+entitlement/provider checkout/read/expiry/creator/delegation/recovery, direct
+Order-to-Vault and native/browser owned proofs, current complete Seller/Purchase/
+Vault regressions and both independent review axes. Then115fullpolish/frozen
+catalogue/full10+17/motion/keyboard/TalkBack/signed127update/exactpublicbeta.
+User approved114then115without more confirmations. Public beta127 unchanged.
+
 ## Completed seller currency/proceeds slice #113
 
 Review base4f7b9923ea214b18cb76a9193c238ae232839b84. Final product

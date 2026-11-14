@@ -18,12 +18,20 @@ internal fun StoreImageReview(selling: StoreSelling, record: StoreImageStore.Rec
     val offer = selling.records.firstOrNull { it.backend == record.backend && it.listing.holding.id == record.mint.nftId && it.listing.holding.creator == record.mint.author }
     Column(modifier.fillMaxSize()) {
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text(stringResource(R.string.store_image_review), style = MaterialTheme.typography.headlineSmall)
+            Text(stringResource(if (record.mint.rental == null) R.string.store_image_review else R.string.store_rental_review), style = MaterialTheme.typography.headlineSmall)
             Text(record.mint.title, style = MaterialTheme.typography.titleLarge)
             nl.davidengelen.redsquare.feed.PostImages(listOf(record.mint.image), record.backend)
             Text(record.mint.description)
+            record.mint.rental?.let { rental ->
+                Text(stringResource(R.string.store_rental_master_stays))
+                Text(rental.name)
+                Text(stringResource(R.string.store_rental_duration, rental.hours))
+                Text(stringResource(R.string.store_rental_rights))
+                Text(stringResource(R.string.store_rental_copies))
+            }
             Text(stringResource(R.string.store_image_public))
-            Text(stringResource(R.string.store_image_deposit))
+            if (record.mint.rental == null) Text(stringResource(R.string.store_image_deposit))
+            else Text(stringResource(R.string.store_rental_deposit, storeAmount(record.mint.deposit)))
             Text(stringResource(R.string.vault_no_network_fee))
             Text(record.backend.webUrl, style = MaterialTheme.typography.bodySmall)
             Text(record.mint.transaction.id, style = MaterialTheme.typography.bodySmall)
@@ -32,12 +40,12 @@ internal fun StoreImageReview(selling: StoreSelling, record: StoreImageStore.Rec
         SingleOwnerReveal(Triple(offer?.listing?.transaction?.id, owned, record.mayHaveSent), Modifier.fillMaxWidth()) {
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
-            Text(stringResource(if (offer != null) R.string.store_image_offered else if (owned) R.string.store_image_owned else if (record.mayHaveSent) R.string.store_image_waiting else R.string.store_sell_not_sent), style = MaterialTheme.typography.bodySmall)
+            Text(stringResource(if (offer != null) R.string.store_image_offered else if (owned) { if (record.mint.rental == null) R.string.store_image_owned else R.string.store_rental_owned } else if (record.mayHaveSent) { if (record.mint.rental == null) R.string.store_image_waiting else R.string.store_rental_waiting } else R.string.store_sell_not_sent), style = MaterialTheme.typography.bodySmall)
             if (offer != null) Button(onClick = { selling.closeImage(); selling.open(offer) }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_open)) }
             else if (owned) Button(onClick = onContinue, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_back_form)) }
             else {
-                Button(onClick = { selling.authorizeImage(record) }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(if (record.mayHaveSent) R.string.store_image_retry else R.string.store_image_authorize)) }
-                if (record.mayHaveSent) OutlinedButton(onClick = { selling.checkImage(record) }, enabled = !selling.busy && !selling.loading, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_check)) }
+                Button(onClick = { selling.authorizeImage(record) }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(if (record.mint.rental != null) { if (record.mayHaveSent) R.string.store_rental_retry else R.string.store_rental_authorize } else if (record.mayHaveSent) R.string.store_image_retry else R.string.store_image_authorize)) }
+                if (record.mayHaveSent) OutlinedButton(onClick = { selling.checkImage(record) }, enabled = !selling.busy && !selling.loading, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(if (record.mint.rental == null) R.string.store_image_check else R.string.store_rental_check)) }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedButton(onClick = selling::closeImage, enabled = !selling.busy, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }

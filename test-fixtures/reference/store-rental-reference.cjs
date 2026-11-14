@@ -46,12 +46,14 @@ async function message(owner,body,time){
  const respond=storeClass.body.body.find(n=>n.key?.name==='respondTo');
  const hooks=vm.runInNewContext('({'+storeCode.slice(respond.start,respond.end)+'})',{Buffer,salert:()=>{throw Error('Unexpected alert')}});
  const rental=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-rental-reference.json'),'utf8'));
- const metadata={link:'https://saito.io/vault',nft_type:'vault-nft-rental',filename:'field-notes.txt',file_id:rental.fileId,file_access_script:rental.masterSource,duration_hours:3,duration_ms:10800000,rights:'all',image};
+ const vaultMint=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-mint-reference.json'),'utf8'));
+ const master=vaultMint.advanced.find(x=>x.type==='rental').mint;
+ const metadata={link:'https://saito.io/vault',nft_type:'vault-nft-rental',filename:vaultMint.name,file_id:rental.fileId,file_access_script:rental.masterSource,duration_hours:3,duration_ms:10800000,rights:'all',image};
  const data=await hooks.respondTo.call({},'saito-create-nft').createData(image,metadata);
  const body={data,title:'Three hours of field notes',description:'Temporary access. Downloaded copies cannot be recalled.'};
  const mint=await wallet.createBoundTransaction(1n,100000000n,Buffer.from(JSON.stringify(body)),0n,owner,'store-nft-rental');
  mint.timestamp=timestamp;await mint.sign();
  const signed=envelope(mint),wire=Buffer.from(mint.serialize()),inputs=[];
  for(let i=0;i<wire.readUInt32BE(0);i++){const p=93+i*59;inputs.push({block:String(wire.readBigUInt64BE(p+41)),ordinal:String(wire.readBigUInt64BE(p+49)),index:wire[p+57],amount:String(wire.readBigUInt64BE(p+33)),type:wire[p+58]})}
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official Store rental createData hook with exact Vault master fields and actual funded WASM wallet.createBoundTransaction. No initialized frontend, provider, consensus admission or public mint.'},owner,timestamp:String(timestamp),inputs,metadata,body,mint:signed},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official Store rental createData hook with exact Vault master fields and actual funded WASM wallet.createBoundTransaction. No initialized frontend, provider, consensus admission or public mint.'},owner,timestamp:String(timestamp),inputs,metadata,master,masterSnapshot:(()=>{const b=Buffer.from(master.networkBase64,'base64'),n=b.readUInt32BE(0);return String(timestamp)+'-2000002-'+'ab'.repeat(32)+'.snap\n'+[1,0,2].map(i=>{const p=93+(n+i)*59;return [base58.encode(b.subarray(p,p+33)),2000002,2,i,b.readBigUInt64BE(p+33),b[p+58]].join(' ')}).join('\n')+'\n'})(),body,mint:signed},null,2)+'\n');
 })().catch(e=>{console.error(e);process.exitCode=1});

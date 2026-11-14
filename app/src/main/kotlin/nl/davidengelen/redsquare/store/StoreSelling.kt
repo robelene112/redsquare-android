@@ -270,6 +270,30 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         }
         if (publishable(token)) { images = images + result; focusedImage = result; ready() }
     }
+    fun prepareRental(item: Inventory, hours: Int, quantity: java.math.BigInteger, title: String, description: String,
+        ready: () -> Unit) = operation { token ->
+        val result = withContext(Dispatchers.IO) {
+            current(token)
+            val funding = requireNotNull(balances.funding(backend, wallet.publicKey))
+            val master = funding.snapshot.nfts.single { it.witnesses == item.holding.witnesses }
+            val key = SaitoVault.readKey(master, requireNotNull(item.envelope))
+            val file = requireNotNull(nl.davidengelen.redsquare.vault.VaultDisk(context, wallet.publicKey, backend).draft())
+            require(file.mime in setOf("image/png", "image/jpeg", "image/webp", "image/gif") && file.size <= SaitoStoreMint.MAX_IMAGE_BYTES)
+            val bounds = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            android.graphics.BitmapFactory.decodeByteArray(file.bytes, 0, file.size, bounds)
+            require(bounds.outWidth > 0 && bounds.outHeight > 0 && bounds.outWidth.toLong() * bounds.outHeight <= 20_000_000L)
+            val deposit = SaitoVaultMint.DEPOSIT * quantity
+            val available = TransferStore(context, wallet.publicKey).available(funding.eligible).sortedByDescending { it.amount }
+            var sum = java.math.BigInteger.ZERO
+            val inputs = available.takeWhile { if (sum >= deposit) false else { sum += it.amount; true } }
+            val image = "data:" + file.mime + ";base64," + java.util.Base64.getEncoder().encodeToString(file.bytes)
+            SaitoPeer(wallet, endpoint).use { it.servicePublicKey("Store") }
+            val candidate = SaitoStoreMint.createRental(wallet, inputs, key, hours, quantity, title, description, image, System.currentTimeMillis())
+            val active = currentCoroutineContext().job
+            synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); imageStore.reserve(backend, candidate) }
+        }
+        if (publishable(token)) { images = images + result; focusedImage = result; ready() }
+    }
     fun openImage(record: StoreImageStore.Record) { if (!busy) { stopLoading(); focusedImage = record; problem = null } }
     fun closeImage() { if (!busy) { stopLoading(); focusedImage = null } }
     fun discardImage(record: StoreImageStore.Record) = operation { token ->
@@ -279,7 +303,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     private fun observesImage(record: StoreImageStore.Record): Boolean {
         val snapshot = requireNotNull(balances.read(backend, wallet.publicKey))
         return snapshot.nfts.any { it.id == record.mint.nftId && it.creator == wallet.publicKey && it.owner == wallet.publicKey &&
-            it.type == "image" && it.quantity == java.math.BigInteger.ONE && it.deposit == record.mint.deposit }
+            it.type == record.mint.type && it.quantity == record.mint.quantity && it.deposit == record.mint.deposit }
     }
     fun checkImage(record: StoreImageStore.Record) = readOperation { token, reading ->
         val id = record.mint.transaction.id; ownedImages = ownedImages - id

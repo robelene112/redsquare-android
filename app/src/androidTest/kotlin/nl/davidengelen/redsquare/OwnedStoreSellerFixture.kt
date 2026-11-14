@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /** Owned node observations. Pinned WASM vectors independently establish the contract, not consensus. */
 internal class OwnedStoreSellerFixture(private val source: JsonObject, private val listing: JsonObject,
-    private val removal: JsonObject, private val imageCreation: Boolean, private val prelisted: Boolean) {
+    private val removal: JsonObject, private val imageCreation: Boolean, private val prelisted: Boolean, private val rentalMaster: Boolean = false) {
     val confirmImage = AtomicBoolean(false)
     val confirmDelist = AtomicBoolean(false)
     private var peer: ControlledFeedPeer? = null
@@ -82,8 +82,10 @@ internal class OwnedStoreSellerFixture(private val source: JsonObject, private v
         if (target != "/balance/$owner") return MockResponse(code = 404)
         val now = System.currentTimeMillis()
         val image = image()?.takeIf { confirmImage.get() }
-        if (image != null) return MockResponse(body = "$now-2000004-${"ab".repeat(32)}.snap\n" + rows(Base64.getDecoder().decode(image.transaction.encoded()), listOf(3, 1, 0, 2), 2000004))
-        if (imageCreation) return MockResponse(body = "$now-2000003-${"ab".repeat(32)}.snap\n$owner 2000001 3 0 200000000 0\n")
+        if (image != null) return MockResponse(body = "$now-2000004-${"ab".repeat(32)}.snap\n" + rows(Base64.getDecoder().decode(image.transaction.encoded()), (if (ByteBuffer.wrap(Base64.getDecoder().decode(image.transaction.encoded())).getInt(4) == 4) listOf(3) else emptyList()) + listOf(1, 0, 2), 2000004) +
+            if (rentalMaster) source.get("snapshot").asString.lines().drop(1).joinToString("\n") else "")
+        if (imageCreation) return MockResponse(body = "$now-2000003-${"ab".repeat(32)}.snap\n$owner 2000001 3 0 200000000 0\n" +
+            if (rentalMaster) source.get("snapshot").asString.lines().drop(1).joinToString("\n") else "")
         if (prelisted) return MockResponse(body = "$now-20-${"cd".repeat(32)}.snap\n$owner 10 2 0 200000000 0\n")
         return MockResponse(body = source.get("snapshot").asString.replaceBefore('-', now.toString()))
     }

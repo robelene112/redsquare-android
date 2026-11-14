@@ -46,14 +46,14 @@ internal fun storeSaleCandidate(scene: VaultReadingScene): SaitoStoreListing {
         }
         return listings.distinctBy { it.transaction.encoded() }.single()
     }
-internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Boolean = false, image: Boolean = false, prelisted: Boolean = false, remaining: Boolean = false, preserve: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, block: (VaultReadingScene, AtomicBoolean, AtomicBoolean) -> Unit) {
+internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Boolean = false, image: Boolean = false, prelisted: Boolean = false, remaining: Boolean = false, preserve: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, rental: Boolean = false, block: (VaultReadingScene, AtomicBoolean, AtomicBoolean) -> Unit) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey
         val saved = ChatFixtureState(context, listOf("store-listings.$owner.", "store-sale-draft.$owner.", "store-delists.$owner.", "store-images.$owner.", "store-withdrawals.$owner."), owner)
         var primary: Throwable? = null
         try {
             if (!preserve) saved.prepare()
-            withVaultReadingFixture("store-sale-$name", services = "archive||;vault||;Store||" + if (crypto == null) "" else ";Mixin||;buysaito||", captureFolder = "store-seller-evidence", retainTransfers = !preserve, expectedMintCount = expected, minting = minting, sellerImage = image, sellerListed = prelisted, sellerRemaining = remaining, preserveSeller = preserve, storeCrypto = crypto) { scene ->
+            withVaultReadingFixture("store-sale-$name", services = "archive||;vault||;Store||" + if (crypto == null) "" else ";Mixin||;buysaito||", captureFolder = "store-seller-evidence", retainTransfers = !preserve, expectedMintCount = expected, minting = minting, sellerImage = image, sellerListed = prelisted, sellerRemaining = remaining, preserveSeller = preserve, storeCrypto = crypto, sellerRental = rental) { scene ->
                 scene.peer.cryptoResponse = crypto?.let { owned -> { signed -> owned.reply(signed) } }
                 val report = AtomicBoolean(prelisted); val approved = AtomicBoolean(false); val submitted = AtomicBoolean(false)
                 val reference = InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }

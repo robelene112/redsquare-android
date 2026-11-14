@@ -1219,4 +1219,19 @@
     <string name="store_withdrawal_failed">Could not prepare this withdrawal. Check the address, available funds and payment service, then try again.</string>
     <string name="store_withdrawal_unknown">Could not verify the original request. It has not been replaced. Retry requires authentication and uses the same signed transaction.</string>
     <string name="store_withdrawal_saved">Withdrawal · %1$s %2$s</string>
+    <string name="store_rental_create">Create rental</string>
+    <string name="store_rental_hours">Rental duration (hours)</string>
+    <string name="store_rental_master_stays">The Vault master stays yours. Create a separate temporary access key.</string>
+    <string name="store_rental_rights">Rights: all access allowed by the rental contract.</string>
+    <string name="store_rental_duration">Rental term: %1$d hours. The exact end time is fixed when the offer is created.</string>
+    <string name="store_rental_cover">Choose rental cover</string>
+    <string name="store_rental_review">Review rental inventory</string>
+    <string name="store_rental_deposit">Inventory deposit: %1$s</string>
+    <string name="store_rental_copies">Expiry does not recall downloaded or exported copies.</string>
+    <string name="store_rental_prepare">Prepare rental cover</string>
+    <string name="store_rental_authorize">Create rental inventory</string>
+    <string name="store_rental_check">Check rental inventory</string>
+    <string name="store_rental_retry">Retry original rental creation</string>
+    <string name="store_rental_owned">This node reports the rental inventory in your wallet.</string>
+    <string name="store_rental_waiting">Rental inventory submitted. Waiting for this node.</string>
 </resources>

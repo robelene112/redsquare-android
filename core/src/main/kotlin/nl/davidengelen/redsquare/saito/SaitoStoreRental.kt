@@ -34,3 +34,39 @@ data class StoreRentalSource(val creator: String, val fileId: String, val name: 
         }
     }
 }
+
+/** A delivered temporary right is authenticated against the original order and seller delegation. */
+object SaitoStoreRental {
+    data class Offer(val source: StoreRentalSource, val path: SaitoVaultRental, val expiresAt: Long)
+    fun offer(product: StoreProduct): Offer? {
+        if (product.assetType != "store-nft-rental") return null
+        val authenticated = SaitoStoreLineage.restore(product)
+        val body = SaitoStoreLineage.body(authenticated.envelope)
+        val data = body.getAsJsonObject("data")
+        val source = StoreRentalSource.read(product.creator, data)
+        val path = SaitoVaultRental.parse(source.creator, source.fileId, source.masterSource, data.getAsJsonArray("path").toString())
+        val expires = data.get("expires_at").asString.toLong().also { require(it >= 0) }
+        require(body.getAsJsonObject("listing").get("listing_mode").asString == "rent")
+        return Offer(source, path, expires)
+    }
+    fun entitlement(purchase: SaitoStorePayment, product: StoreProduct, receipt: String): SaitoVaultRental {
+        require(purchase.nftId == product.nftId)
+        val original = requireNotNull(offer(product))
+        val received = SaitoStoreReceipt.read(purchase, receipt)
+        val asset = requireNotNull(received.asset)
+        require(received.kind == SaitoStoreReceipt.Kind.FULFILLMENT && asset.type == "store-nft-rental" && asset.creator == product.creator)
+        val bytes = java.util.Base64.getDecoder().decode(receipt)
+        val header = java.nio.ByteBuffer.wrap(bytes)
+        val start = 93 + 59 * (header.getInt(0) + header.getInt(4))
+        val body = JsonParser.parseString(bytes.copyOfRange(start, start + header.getInt(8)).toString(Charsets.UTF_8)).asJsonObject
+        val data = body.getAsJsonObject("data")
+        require(StoreRentalSource.read(asset.creator, data) == original.source)
+        val rows = data.getAsJsonArray("path")
+        val prefix = JsonParser.parseString(original.path.source).asJsonArray
+        require(rows.size() == prefix.size() + 1 && (0 until prefix.size()).all { rows[it] == prefix[it] })
+        val path = SaitoVaultRental.parse(asset.creator, original.source.fileId, original.source.masterSource, rows.toString())
+        val grant = requireNotNull(path.grant)
+        require(grant.renter == purchase.buyer && grant.expiresAt == original.expiresAt && data.get("expires_at").asLong == grant.expiresAt)
+        return path
+    }
+}

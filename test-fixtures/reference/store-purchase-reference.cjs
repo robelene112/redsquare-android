@@ -6,12 +6,12 @@ const rental=process.argv[6]==='--rental',quantity=process.argv[6]==='--full'?2:
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
- 'node/mods/store/store.js':'5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f',
  'node/mods/store/lib/transactions.js':'8e7b0c29f8bc1e8e0ede4e966d9fe5c5d385ca00b0f18c31f0304db56a7af8b3',
  'node/mods/store/lib/scripting.js':'917f112d52fd81fc5c6508cc5c1467ffa1df73cd8d12db06982d328b63bc18ff',
  'node/mods/store/lib/helpers.js':'a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce',
  'node/mods/store/lib/summary.js':'e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a'
 };
+if(rental)hashes['node/mods/store/store.js']='5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f';
 for(const [name,expected]of Object.entries(hashes))if(sha(fs.readFileSync(path.join(root,name)))!==expected)throw Error('Wrong pinned source: '+name);
 if(sha(fs.readFileSync(parser))!=='b95392d79457d0357555c5ed3e56302d074b92dff119bcf3b44179500b10e9df')throw Error('Wrong acorn8.19.0');
 const acorn=require(parser),wasm=require(path.join(runtime,'node_modules/saito-wasm/pkg/node')),base58=require(path.join(runtime,'node_modules/base-58'));
@@ -105,5 +105,5 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 
 
  const slips=[];for(let i=0;i<wire.readUInt32BE(0)+wire.readUInt32BE(4);i++){const o=93+i*59;slips.push({key:base58.encode(wire.subarray(o,o+33)),amount:String(wire.readBigUInt64BE(o+33)),block:String(wire.readBigUInt64BE(o+41)),ordinal:String(wire.readBigUInt64BE(o+49)),index:wire[o+57],type:wire[o+58]});}
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official createPurchaseAssetTransaction and script helpers with actual funded WASM wallet.createTransaction. Controlled default fee and input-copy adapters; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,body:created.msg,settlement,blocks,exactNumbers,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:rental?'Actual isolated official rental purchase, Store fulfillment and Store rental transfer hook with real WASM signing. Controlled time/input-copy adapters, not a fully initialized browser/provider or consensus.':'Actual isolated official createPurchaseAssetTransaction and script helpers with actual funded WASM wallet.createTransaction. Controlled default fee and input-copy adapters; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,body:created.msg,settlement,blocks,exactNumbers,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

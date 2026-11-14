@@ -91,12 +91,12 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
         when {
             showingProceeds -> StoreProceedsScreen(wallet, backend, selected, endpoint, Modifier, { showingProceeds = false })
             image != null -> StoreImageReview(selling, image, Modifier.fillMaxSize()) {
-                update(draft.copy(item = image.mint.nftId + ":" + wallet.publicKey, creating = false, image = false))
+                update(draft.copy(item = image.mint.nftId + ":" + wallet.publicKey, creating = false, image = false, rental = false))
                 uploads.discard(); selling.closeImage(); editing = true; uploading = false; selling.load()
             }
             removal != null -> StoreDelistReview(selling, removal, Modifier.fillMaxSize())
             uploading && draft.image -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Text(stringResource(R.string.store_image_prepare), style = MaterialTheme.typography.headlineSmall)
+                Text(stringResource(if (draft.rental) R.string.store_rental_prepare else R.string.store_image_prepare), style = MaterialTheme.typography.headlineSmall)
                 Text(stringResource(R.string.store_image_public))
                 Text(stringResource(R.string.store_image_limit))
                 upload.file?.let { Text(it.name, style = MaterialTheme.typography.titleMedium) }
@@ -105,9 +105,14 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                     LinearProgressIndicator(Modifier.fillMaxWidth())
                     TextButton(onClick = uploads::cancelPreparation, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_cancel_reading)) }
                 }
-                Button(enabled = !selling.busy && upload.phase == VaultUploadPhase.REVIEW && upload.record == null && upload.file != null,
-                    onClick = { selling.prepareImage(draft.title.ifBlank { upload.file?.name.orEmpty() }, draft.description) { update(draft.copy(creating = false)); uploading = false; editing = false } },
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_review)) }
+                Button(enabled = !selling.busy && upload.phase == VaultUploadPhase.REVIEW && upload.record == null && upload.file != null &&
+                    (!draft.rental || (stock != null && draft.hours.toIntOrNull() in 1..24 && draft.quantity.toBigIntegerOrNull()?.signum() == 1 && draft.title.isNotBlank())),
+                    onClick = {
+                        val ready = { update(draft.copy(creating = false)); uploading = false; editing = false }
+                        if (draft.rental) selling.prepareRental(requireNotNull(stock), requireNotNull(draft.hours.toIntOrNull()), draft.quantity.toBigInteger(), draft.title, draft.description, ready)
+                        else selling.prepareImage(draft.title.ifBlank { upload.file?.name.orEmpty() }, draft.description, ready)
+                    },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(if (draft.rental) R.string.store_rental_review else R.string.store_image_review)) }
                 TextButton(onClick = { update(draft.copy(creating = false)); uploading = false }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_back_to_listing)) }
             }
             uploading -> VaultUploadReview(upload, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,
@@ -121,7 +126,14 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 completeLabel = R.string.store_sell_back_form, libraryLabel = R.string.store_sell_back_to_listing)
             focused != null -> StoreSaleReview(selling, focused, Modifier.fillMaxSize())
             editing -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(stringResource(R.string.store_sell_new), style = MaterialTheme.typography.titleLarge)
+                Text(stringResource(if (draft.rental) R.string.store_rental_create else R.string.store_sell_new), style = MaterialTheme.typography.titleLarge)
+                if (draft.rental) {
+                    Text(stringResource(R.string.store_rental_master_stays))
+                    OutlinedTextField(draft.hours, { if (it.length <= 2) update(draft.copy(hours = it)) },
+                        label = { Text(stringResource(R.string.store_rental_hours)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                    Text(stringResource(R.string.store_rental_rights))
+                } else OutlinedButton(onClick = { update(draft.copy(rental = true, item = "")) },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_rental_create)) }
                 InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
                 InlineStatus(if (storageError) stringResource(R.string.store_sell_storage) else null, StatusTone.ERROR)
                 OutlinedTextField(draft.title, { if (it.length <= 10_000) update(draft.copy(title = it)) }, label = { Text(stringResource(R.string.store_sell_title)) }, modifier = Modifier.fillMaxWidth())
@@ -136,7 +148,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 Text(stringResource(R.string.store_sell_inventory), style = MaterialTheme.typography.titleMedium)
                 if (selling.busy || selling.loading) LinearProgressIndicator(Modifier.fillMaxWidth())
                 selling.inventory.forEach { item ->
-                    val eligible = SaitoStoreListing.sellable(item.holding) && item.hasMetadata
+                    val eligible = (if (draft.rental) item.holding.type == "vault-nft-rental" && item.holding.creator == wallet.publicKey else SaitoStoreListing.sellable(item.holding)) && item.hasMetadata
                     OutlinedButton(enabled = eligible && !selling.busy, onClick = { update(draft.copy(item = token(item))) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                         Column(Modifier.weight(1f)) {
                             Text(item.title)
@@ -147,15 +159,17 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 }
                 if (selling.inventoryPage > 0) TextButton(onClick = { selling.load(selling.inventoryPage - 1) }, enabled = !selling.busy && !selling.loading) { Text(stringResource(R.string.store_previous)) }
                 if (selling.moreInventory) TextButton(onClick = { selling.load(selling.inventoryPage + 1) }, enabled = !selling.busy && !selling.loading) { Text(stringResource(R.string.store_more)) }
-                OutlinedButton(onClick = { if (upload.phase == VaultUploadPhase.FILES) { pickingImage = false; picker.launch(arrayOf("*/*")) } else uploading = true }, enabled = loaded && selling.localReady && !storageError && !selling.busy,
+                if (!draft.rental) OutlinedButton(onClick = { if (upload.phase == VaultUploadPhase.FILES) { pickingImage = false; picker.launch(arrayOf("*/*")) } else uploading = true }, enabled = loaded && selling.localReady && !storageError && !selling.busy,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_create_file)) }
                 OutlinedButton(onClick = { pickingImage = true; picker.launch(arrayOf("image/png", "image/jpeg", "image/webp", "image/gif")) },
-                    enabled = loaded && selling.localReady && !storageError && !selling.busy && upload.phase == VaultUploadPhase.FILES,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_create)) }
+                    enabled = loaded && selling.localReady && !storageError && !selling.busy && upload.phase == VaultUploadPhase.FILES &&
+                        (!draft.rental || (stock != null && draft.hours.toIntOrNull() in 1..24 && draft.quantity.toBigIntegerOrNull()?.signum() == 1)),
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(if (draft.rental) R.string.store_rental_cover else R.string.store_image_create)) }
                 val chosen = stock ?: selling.inventory.firstOrNull { it.holding.id + ":" + it.holding.creator == draft.item }
                 val terms = runCatching { StoreListingTerms(draft.title, draft.description, chosen?.let { StoreCategory.forType(it.holding.type) } ?: StoreCategory.OTHER,
-                    draft.price, draft.quantity.toBigInteger(), draft.currency) }.getOrNull()
-                Button(enabled = loaded && selling.localReady && !storageError && !selling.busy && chosen?.hasMetadata == true && terms != null &&
+                    draft.price, draft.quantity.toBigInteger(), draft.currency,
+                    chosen?.takeIf { it.holding.type == "store-nft-rental" }?.envelope?.let { StoreRentalSource.read(chosen.holding.creator, SaitoStoreListing.metadata(chosen.holding, it).getAsJsonObject("data")) }) }.getOrNull()
+                Button(enabled = !draft.rental && loaded && selling.localReady && !storageError && !selling.busy && chosen?.hasMetadata == true && terms != null &&
                     (terms.currency == "SAITO" || selling.pricing?.methods?.currencies.orEmpty().any { it.ticker == terms.currency }),
                     onClick = { keyboard?.hide(); selling.prepare(requireNotNull(chosen), requireNotNull(terms)) { editing = false } }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_review)) }
                 TextButton(onClick = { editing = false }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
