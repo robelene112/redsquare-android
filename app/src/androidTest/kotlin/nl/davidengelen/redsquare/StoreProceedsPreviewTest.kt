@@ -62,6 +62,7 @@ class StoreProceedsPreviewTest {
             ui.waitUntil(15_000) { ui.onAllNodesWithText("Withdrawal · 6.25 USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Withdrawal · 6.25 USDT").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Withdrawal · 6.25 USDT").performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Retry original request").isDisplayed() }
             assertEquals(1, originals.size); assertEquals(1, treasury.quotes)
             assertEquals(original.candidate.transaction.encoded(), journal.read().single().candidate.transaction.encoded())
             scene.peer.disconnectAfterStoreWithdrawal = false

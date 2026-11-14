@@ -45,6 +45,13 @@ internal fun StoreProceedsScreen(wallet: SaitoWallet, backend: SaitoBackend, sel
     Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text(stringResource(R.string.store_proceeds_title), style = MaterialTheme.typography.headlineSmall)
         Text(stringResource(R.string.store_proceeds_explanation), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        val attention = proceeds.records.filter { it.backend == backend && it.result?.state != SaitoStoreWithdrawal.State.SUBMITTED }
+        if (attention.isNotEmpty()) SingleOwnerReveal(attention.map { it.candidate.transaction.id }) {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(R.string.store_withdrawal_attention), style = MaterialTheme.typography.titleMedium)
+                StoreWithdrawalCards(attention, proceeds::open)
+            }
+        }
         InlineStatus(proceeds.problem?.let { stringResource(it) }, StatusTone.NEUTRAL)
         if (proceeds.report != null && proceeds.methods == null) Text(stringResource(R.string.store_proceeds_provider_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (proceeds.loading) LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -67,10 +74,11 @@ internal fun StoreProceedsScreen(wallet: SaitoWallet, backend: SaitoBackend, sel
                 }
             }
         }
-        for (saved in proceeds.records.filter { it.backend == backend }) OutlinedCard(onClick = { proceeds.open(saved) }) {
-            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.store_withdrawal_saved, saved.candidate.quote.amount.stripTrailingZeros().toPlainString(), saved.candidate.quote.ticker), style = MaterialTheme.typography.titleMedium)
-                Text(withdrawalStatus(saved), style = MaterialTheme.typography.bodySmall)
+        val recorded = proceeds.records.filter { it.backend == backend && it.result?.state == SaitoStoreWithdrawal.State.SUBMITTED }
+        if (recorded.isNotEmpty()) SingleOwnerReveal(recorded.map { it.candidate.transaction.id }) {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(R.string.store_withdrawal_history), style = MaterialTheme.typography.titleMedium)
+                StoreWithdrawalCards(recorded, proceeds::open)
             }
         }
         if (proceeds.historyPage > 0) OutlinedButton(onClick = { proceeds.load(proceeds.historyPage - 1) }, enabled = !proceeds.loading && !proceeds.busy,
@@ -81,5 +89,15 @@ internal fun StoreProceedsScreen(wallet: SaitoWallet, backend: SaitoBackend, sel
         TextButton(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
     }
     }
+    }
+}
+
+@Composable
+private fun StoreWithdrawalCards(records: List<StoreWithdrawalStore.Record>, onOpen: (StoreWithdrawalStore.Record) -> Unit) {
+    for (saved in records) OutlinedCard(onClick = { onOpen(saved) }) {
+        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(stringResource(R.string.store_withdrawal_saved, saved.candidate.quote.amount.stripTrailingZeros().toPlainString(), saved.candidate.quote.ticker), style = MaterialTheme.typography.titleMedium)
+            Text(withdrawalStatus(saved), style = MaterialTheme.typography.bodySmall)
+        }
     }
 }

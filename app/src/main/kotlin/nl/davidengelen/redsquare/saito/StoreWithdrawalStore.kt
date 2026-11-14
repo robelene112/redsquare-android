@@ -11,8 +11,9 @@ internal class StoreWithdrawalStore(private val context: Context, private val ow
     init { require(SaitoWallet.isPublicKey(owner)) }
     private val prefix = "store-withdrawals.$owner."
     private fun file(suffix: String) = EncryptedLocalFile(context, prefix + suffix, "redsquare-store-withdrawals-v1", "store-withdrawals.")
-    private fun exists(suffix: String) = requireNotNull(context.noBackupFilesDir.listFiles()).any {
-        it.name in setOf(prefix + suffix, prefix + suffix + ".bak", prefix + suffix + ".new")
+    private fun exists(suffix: String, committedOnly: Boolean = false) = requireNotNull(context.noBackupFilesDir.listFiles()).any {
+        it.name in setOf(prefix + suffix, prefix + suffix + ".bak") ||
+            !committedOnly && it.name == prefix + suffix + ".new"
     }
     private fun pageName(page: Int) = if (page == 0) "rows" else "rows.$page"
     private fun pageCount(): Int {
@@ -21,7 +22,7 @@ internal class StoreWithdrawalStore(private val context: Context, private val ow
         }.toSet()
         if (!exists("rows") && !exists("guard") && !exists("pages")) { require(additional.isEmpty()); return 0 }
         val guard = requireNotNull(file("guard").load()); require(guard.version == 1.toByte() && guard.text == owner && exists("rows"))
-        val count = if (!exists("pages")) 1 else requireNotNull(file("pages").load()).let {
+        val count = if (!exists("pages", committedOnly = true)) 1 else requireNotNull(file("pages").load()).let {
             require(it.version == 1.toByte() && it.text.matches(Regex("[1-9][0-9]{0,9}")))
             it.text.toInt().also { value -> require(value > 0) }
         }

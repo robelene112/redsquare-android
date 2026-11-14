@@ -20,7 +20,7 @@ class StoreProceedsAvailabilityPreviewTest {
             ui.onAllNodesWithText("Withdraw USDT").assertCountEquals(0)
             treasury.settled = true; crypto.available = false
             ui.onNodeWithText("Refresh Store").performScrollTo().performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Payment methods are unavailable. Saved requests are still available below.").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onNodeWithText("Payment methods are unavailable. Saved requests remain available.").isDisplayed() }
             ui.onNodeWithText("Withdraw USDT").performScrollTo().assertIsNotEnabled()
             assertEquals(0, treasury.quotes); assertTrue(treasury.submissions.isEmpty())
             captureNativeScreen(File(scene.evidence, "matured-proceeds-provider-unavailable.png"))

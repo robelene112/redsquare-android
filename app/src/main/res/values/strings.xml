@@ -1191,11 +1191,13 @@
     <string name="store_proceeds_pending">Waiting for settlement: %1$s %2$s</string>
     <string name="store_proceeds_empty">No alternate-currency proceeds reported.</string>
     <string name="store_proceeds_unavailable">Proceeds could not be refreshed. Try again when this Store is available.</string>
-    <string name="store_proceeds_provider_unavailable">Payment methods are unavailable. Saved requests are still available below.</string>
+    <string name="store_proceeds_provider_unavailable">Payment methods are unavailable. Saved requests remain available.</string>
     <string name="store_withdrawal_action">Withdraw %1$s</string>
     <string name="store_withdrawal_review">Review withdrawal</string>
     <string name="store_withdrawal_authorize">Authorize withdrawal</string>
     <string name="store_withdrawal_retry">Retry original request</string>
+    <string name="store_withdrawal_attention">Needs attention</string>
+    <string name="store_withdrawal_history">Recorded requests</string>
     <string name="store_withdrawal_newer">Newer requests</string>
     <string name="store_withdrawal_older">Older requests</string>
     <string name="store_withdrawal_discard_short">Discard</string>

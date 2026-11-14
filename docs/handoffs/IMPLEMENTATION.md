@@ -74,7 +74,7 @@ RED build log store113-index-temp-and-navigation-red-build.log passes compilatio
 
 Complete862regressions: Seller17success43593711516; Purchase10/17success
 43593711014/43593710995. Seller10failed43593710904: after recreation, a click on a
-saved row leaves the overview and Retry is not displayed. Whole artifact and
+saved row does not leave the overview and Retry is not displayed. Whole artifact and
 captures are retained (store113-complete-seller-first10). Screenshot shows remote
 balance cards above the saved row, consistent with a reflow/tap issue, not proof
 of its exact timing. New3175controlled delayed-reply test records row geometry
