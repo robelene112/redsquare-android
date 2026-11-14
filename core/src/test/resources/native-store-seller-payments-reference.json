@@ -1,0 +1,497 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "sourceHashes": {
+      "node/mods/store/lib/database.js": "0f40d0a346d0c71aa0219fff8c446a3b55eba0f0438f30d306aa05261876dc48",
+      "node/mods/store/lib/withdrawal.js": "80857f87587937a681ac1d8ccad8bedd00d6663bf29a882dac65d9bf5bbdb2ab",
+      "node/mods/store/lib/withdrawal-quote.js": "fc77bb19a6852e5e8d361cd9abcab3c712752df1d20556ca1dc76940f4071e52",
+      "node/mods/store/lib/web3-amount.js": "880c4400896f00bababfc69be7b32e8527c3f3c845ed3395782f86e9b08b4e48",
+      "node/mods/mixin/lib/store-withdrawal.js": "9c178cba9bbee1e59838e9e6121c7eac528425231d233653adc088222553f9a1",
+      "node/mods/mixin/lib/mixinmodule.js": "95ff9fd88877a4dec358c53bf5a3367a32bf1c5a9a7262197766fe41390451ba",
+      "node/mods/mixin/lib/database.js": "59b652568d76e8b6e3fb2223527a322b245c262876f493beeae4a1f8ea3621c6",
+      "node/mods/store/sql/listing_sales.sql": "649f4a4b678ac31c1e5dec8d9aef186138092f02865aa7ec860e4fa1d023fb5f",
+      "node/mods/store/sql/withdrawals.sql": "62829072447756b9215f67aa6a5c9716593fea8443cde75a918317381e494790",
+      "node/mods/mixin/sql/transfers.sql": "2e2d6d50610c41c0727c7b0649f9228c202af44d22ecf2b7a41e41d5a8293fc7"
+    },
+    "saitoWasm": "0.3.15",
+    "validator": "0.5.27",
+    "validatorLockSha256": "55555febe90507d829c94aafa32203ff41e18dd620a0c14302dc4115a3dfcd9b",
+    "sqlite": "3.50.4",
+    "qualification": "Actual isolated pinned Store/Mixin quote, SQL eligibility/reservation, forwarding and manual recording algorithms, actual source schemas and SQLite3, actual validator and WASM signing. Native transaction wrapper/message adapter, owned clock, database and no-op mail. Independent reset branches are not live rollback. Direct inner-transaction admission, not full browser/peer initialization or consensus. No network, real funds or external payout."
+  },
+  "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "store": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+  "timestamp": 1700006001000,
+  "networkFee": "0.05",
+  "funding": {
+    "block": "10",
+    "ordinal": "2",
+    "index": 0,
+    "amount": "1000000000",
+    "type": 0
+  },
+  "sales": [
+    {
+      "signature": "sale-a",
+      "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "web3_ticker": "USDT",
+      "web3_amount": "3.75",
+      "quantity_sold": 1,
+      "block_id_sold": 20,
+      "longest_chain_sold": 1,
+      "transfer_uuid": "101",
+      "inbound_payment_uuid": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "signature": "sale-b",
+      "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "web3_ticker": "USDT",
+      "web3_amount": "1.25",
+      "quantity_sold": 2,
+      "block_id_sold": 20,
+      "longest_chain_sold": 1,
+      "transfer_uuid": "102",
+      "inbound_payment_uuid": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    },
+    {
+      "signature": "orphan",
+      "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "web3_ticker": "USDT",
+      "web3_amount": "9.5",
+      "quantity_sold": 1,
+      "block_id_sold": 20,
+      "longest_chain_sold": 0
+    },
+    {
+      "signature": "younger",
+      "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "web3_ticker": "BTC",
+      "web3_amount": "0.1",
+      "quantity_sold": 1,
+      "block_id_sold": 22,
+      "longest_chain_sold": 1
+    },
+    {
+      "signature": "native",
+      "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "web3_ticker": "SAITO",
+      "web3_amount": "50",
+      "quantity_sold": 1,
+      "block_id_sold": 20,
+      "longest_chain_sold": 1
+    }
+  ],
+  "pending": {
+    "pending": {
+      "USDT": "15.75",
+      "BTC": "0.1"
+    },
+    "eligible": {}
+  },
+  "eligible": {
+    "pending": {
+      "USDT": "9.5",
+      "BTC": "0.1"
+    },
+    "eligible": {
+      "USDT": "6.25"
+    }
+  },
+  "quote": {
+    "data": {
+      "amount": "0.25",
+      "publickey": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "ticker": "USDT",
+      "withdrawal_amount": "6.25",
+      "withdrawal_address": "0x1111111111111111111111111111111111111111",
+      "transfer_uuids": [
+        "101",
+        "102"
+      ],
+      "payment_uuids": [
+        "abababababababababababababababababababababababababababababababab",
+        "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+      ],
+      "timestamp": "1700006000000-1"
+    },
+    "signature": "010624624f8eaee79816c8837527132b6a352743fc6fc3aa88d95eff196d1c2b628a35b8b82acf0851368d7e8d8c9ec53f808462978ba92b9362344a56649255"
+  },
+  "body": {
+    "module": "Store",
+    "request": "store-withdrawal",
+    "data": {
+      "amount": "0.25",
+      "publickey": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "ticker": "USDT",
+      "withdrawal_amount": "6.25",
+      "withdrawal_address": "0x1111111111111111111111111111111111111111",
+      "transfer_uuids": [
+        "101",
+        "102"
+      ],
+      "payment_uuids": [
+        "abababababababababababababababababababababababababababababababab",
+        "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+      ],
+      "timestamp": "1700006000000-1"
+    },
+    "signature": "010624624f8eaee79816c8837527132b6a352743fc6fc3aa88d95eff196d1c2b628a35b8b82acf0851368d7e8d8c9ec53f808462978ba92b9362344a56649255"
+  },
+  "candidate": {
+    "id": "210e5a1e1692a7b287b05cdd0a07a6e2a1a70849730885ee76d9a50f57dc21494390897c09f691c803c9a1428c5b929a5daf39fdb86d5e07fc30b4aaf8ab4aeb",
+    "networkBase64": "AAAAAgAAAAIAAAJUAAAAACEOWh4Wkqeyh7Bc3QoHpuKhpwhJcwiF7nbZpQ9X3CFJQ5CJfAn2kcgDyaFCjFuSml2vOf24bV4H/DC0qvirSusAAAGL0ED5aAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAO5rKAAAAAAAAAAAKAAAAAAAAAAIAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAAAAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAADnRBoAAAAAAAAAAAAAAAAAAAAAAAQB7Im1vZHVsZSI6IlN0b3JlIiwicmVxdWVzdCI6InN0b3JlLXdpdGhkcmF3YWwiLCJkYXRhIjp7ImFtb3VudCI6IjAuMjUiLCJwdWJsaWNrZXkiOiJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeCIsInRpY2tlciI6IlVTRFQiLCJ3aXRoZHJhd2FsX2Ftb3VudCI6IjYuMjUiLCJ3aXRoZHJhd2FsX2FkZHJlc3MiOiIweDExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEiLCJ0cmFuc2Zlcl91dWlkcyI6WyIxMDEiLCIxMDIiXSwicGF5bWVudF91dWlkcyI6WyJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiIiwiY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZCJdLCJ0aW1lc3RhbXAiOiIxNzAwMDA2MDAwMDAwLTEifSwic2lnbmF0dXJlIjoiMDEwNjI0NjI0ZjhlYWVlNzk4MTZjODgzNzUyNzEzMmI2YTM1Mjc0M2ZjNmZjM2FhODhkOTVlZmYxOTZkMWMyYjYyOGEzNWI4YjgyYWNmMDg1MTM2OGQ3ZThkOGM5ZWM1M2Y4MDg0NjI5NzhiYTkyYjkzNjIzNDRhNTY2NDkyNTUifQ==",
+    "envelope": "{\"t\":\"AAAAAgAAAAIAAAAAAAAAACEOWh4Wkqeyh7Bc3QoHpuKhpwhJcwiF7nbZpQ9X3CFJQ5CJfAn2kcgDyaFCjFuSml2vOf24bV4H/DC0qvirSusAAAGL0ED5aAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAO5rKAAAAAAAAAAAKAAAAAAAAAAIAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAAAAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAADnRBoAAAAAAAAAAAAAAAAAAAAAAAQA=\",\"m\":\"eyJtb2R1bGUiOiJTdG9yZSIsInJlcXVlc3QiOiJzdG9yZS13aXRoZHJhd2FsIiwiZGF0YSI6eyJhbW91bnQiOiIwLjI1IiwicHVibGlja2V5IjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJ0aWNrZXIiOiJVU0RUIiwid2l0aGRyYXdhbF9hbW91bnQiOiI2LjI1Iiwid2l0aGRyYXdhbF9hZGRyZXNzIjoiMHgxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExIiwidHJhbnNmZXJfdXVpZHMiOlsiMTAxIiwiMTAyIl0sInBheW1lbnRfdXVpZHMiOlsiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYiIsImNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2QiXSwidGltZXN0YW1wIjoiMTcwMDAwNjAwMDAwMC0xIn0sInNpZ25hdHVyZSI6IjAxMDYyNDYyNGY4ZWFlZTc5ODE2Yzg4Mzc1MjcxMzJiNmEzNTI3NDNmYzZmYzNhYTg4ZDk1ZWZmMTk2ZDFjMmI2MjhhMzViOGI4MmFjZjA4NTEzNjhkN2U4ZDhjOWVjNTNmODA4NDYyOTc4YmE5MmI5MzYyMzQ0YTU2NjQ5MjU1In0=\",\"opt\":\"e30=\"}"
+  },
+  "zero": {
+    "quote": {
+      "data": {
+        "amount": "0",
+        "publickey": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+        "ticker": "USDT",
+        "withdrawal_amount": "6.25",
+        "withdrawal_address": "0x1111111111111111111111111111111111111111",
+        "transfer_uuids": [
+          "101",
+          "102"
+        ],
+        "payment_uuids": [
+          "abababababababababababababababababababababababababababababababab",
+          "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+        ],
+        "timestamp": "1700006000000-2"
+      },
+      "signature": "a3a2da9c6558655ec1f63f80ba95f3405eb9259450988569ec08484e4c421e917c98efc18cd2c82b2dc8e0599aa6e3f3168ec52a5cfe7aed0219898e895bcc35"
+    },
+    "body": {
+      "module": "Store",
+      "request": "store-withdrawal",
+      "data": {
+        "amount": "0",
+        "publickey": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+        "ticker": "USDT",
+        "withdrawal_amount": "6.25",
+        "withdrawal_address": "0x1111111111111111111111111111111111111111",
+        "transfer_uuids": [
+          "101",
+          "102"
+        ],
+        "payment_uuids": [
+          "abababababababababababababababababababababababababababababababab",
+          "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+        ],
+        "timestamp": "1700006000000-2"
+      },
+      "signature": "a3a2da9c6558655ec1f63f80ba95f3405eb9259450988569ec08484e4c421e917c98efc18cd2c82b2dc8e0599aa6e3f3168ec52a5cfe7aed0219898e895bcc35"
+    },
+    "candidate": {
+      "id": "15ec3d462368e470b96398f317781615d1c830a8d7984d5acdd9ecc8bf2539a160a23ac8a0c06c004c38fc7c401f81e0664211bea83c4aa00c392d63ac8ea7cb",
+      "networkBase64": "AAAAAgAAAAIAAAJRAAAAABXsPUYjaORwuWOY8xd4FhXRyDCo15hNWs3Z7Mi/JTmhYKI6yKDAbABMOPx8QB+B4GZCEb6oPEqgDDktY6yOp8sAAAGL0ED9UAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQB7Im1vZHVsZSI6IlN0b3JlIiwicmVxdWVzdCI6InN0b3JlLXdpdGhkcmF3YWwiLCJkYXRhIjp7ImFtb3VudCI6IjAiLCJwdWJsaWNrZXkiOiJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeCIsInRpY2tlciI6IlVTRFQiLCJ3aXRoZHJhd2FsX2Ftb3VudCI6IjYuMjUiLCJ3aXRoZHJhd2FsX2FkZHJlc3MiOiIweDExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEiLCJ0cmFuc2Zlcl91dWlkcyI6WyIxMDEiLCIxMDIiXSwicGF5bWVudF91dWlkcyI6WyJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiIiwiY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZCJdLCJ0aW1lc3RhbXAiOiIxNzAwMDA2MDAwMDAwLTIifSwic2lnbmF0dXJlIjoiYTNhMmRhOWM2NTU4NjU1ZWMxZjYzZjgwYmE5NWYzNDA1ZWI5MjU5NDUwOTg4NTY5ZWMwODQ4NGU0YzQyMWU5MTdjOThlZmMxOGNkMmM4MmIyZGM4ZTA1OTlhYTZlM2YzMTY4ZWM1MmE1Y2ZlN2FlZDAyMTk4OThlODk1YmNjMzUifQ==",
+      "envelope": "{\"t\":\"AAAAAgAAAAIAAAAAAAAAABXsPUYjaORwuWOY8xd4FhXRyDCo15hNWs3Z7Mi/JTmhYKI6yKDAbABMOPx8QB+B4GZCEb6oPEqgDDktY6yOp8sAAAGL0ED9UAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=\",\"m\":\"eyJtb2R1bGUiOiJTdG9yZSIsInJlcXVlc3QiOiJzdG9yZS13aXRoZHJhd2FsIiwiZGF0YSI6eyJhbW91bnQiOiIwIiwicHVibGlja2V5IjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJ0aWNrZXIiOiJVU0RUIiwid2l0aGRyYXdhbF9hbW91bnQiOiI2LjI1Iiwid2l0aGRyYXdhbF9hZGRyZXNzIjoiMHgxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExIiwidHJhbnNmZXJfdXVpZHMiOlsiMTAxIiwiMTAyIl0sInBheW1lbnRfdXVpZHMiOlsiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYiIsImNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2RjZGNkY2QiXSwidGltZXN0YW1wIjoiMTcwMDAwNjAwMDAwMC0yIn0sInNpZ25hdHVyZSI6ImEzYTJkYTljNjU1ODY1NWVjMWY2M2Y4MGJhOTVmMzQwNWViOTI1OTQ1MDk4ODU2OWVjMDg0ODRlNGM0MjFlOTE3Yzk4ZWZjMThjZDJjODJiMmRjOGUwNTk5YWE2ZTNmMzE2OGVjNTJhNWNmZTdhZWQwMjE5ODk4ZTg5NWJjYzM1In0=\",\"opt\":\"e30=\"}"
+    },
+    "timestamp": 1700006002000
+  },
+  "concurrent": [
+    {
+      "status": "submitted",
+      "message": "Withdrawal request submitted to the treasury. The external cryptocurrency has not been sent.",
+      "id": 1,
+      "transfer_id": 103
+    },
+    {
+      "status": "submitted",
+      "message": "Withdrawal request submitted to the treasury. The external cryptocurrency has not been sent.",
+      "id": 1,
+      "transfer_id": 103
+    }
+  ],
+  "submitted": {
+    "status": "submitted",
+    "message": "Withdrawal request submitted to the treasury. The external cryptocurrency has not been sent.",
+    "id": 1,
+    "transfer_id": 103
+  },
+  "replayed": {
+    "status": "submitted",
+    "message": "Withdrawal request submitted to the treasury. The external cryptocurrency has not been sent.",
+    "id": 1
+  },
+  "replayAfterExpiry": {
+    "status": "submitted",
+    "message": "Withdrawal request submitted to the treasury. The external cryptocurrency has not been sent.",
+    "id": 1
+  },
+  "unavailable": {
+    "status": "forward_failed",
+    "err": "The local Mixin module is not available.",
+    "message": "The Store accepted the withdrawal, but it was not submitted to the treasury.",
+    "id": 1
+  },
+  "recovered": {
+    "status": "submitted",
+    "message": "Withdrawal request submitted to the treasury. The external cryptocurrency has not been sent.",
+    "id": 1,
+    "transfer_id": 103
+  },
+  "expired": {
+    "err": "The withdrawal quote has expired."
+  },
+  "lostTreasuryReply": {
+    "status": "forward_failed",
+    "err": "Owned treasury reply lost after recording",
+    "message": "The Store accepted the withdrawal, but it was not submitted to the treasury.",
+    "id": 1
+  },
+  "expiredRecovery": {
+    "status": "forward_failed",
+    "err": "The withdrawal quote has expired.",
+    "message": "The Store accepted the withdrawal, but it was not submitted to the treasury.",
+    "id": 1
+  },
+  "after": {
+    "pending": {
+      "USDT": "9.5",
+      "BTC": "0.1"
+    },
+    "eligible": {}
+  },
+  "manual": [
+    {
+      "id": 103,
+      "purpose": "store-withdrawal",
+      "mode": "manual",
+      "payload": "{\"transfer_uuids\":[\"101\",\"102\"],\"payment_uuids\":[\"abababababababababababababababababababababababababababababababab\",\"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"],\"quote_signature\":\"010624624f8eaee79816c8837527132b6a352743fc6fc3aa88d95eff196d1c2b628a35b8b82acf0851368d7e8d8c9ec53f808462978ba92b9362344a56649255\"}",
+      "request_id": "1700006000000-1",
+      "requester_publickey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "recipient_publickey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "status": "other",
+      "email": "",
+      "publickey": "",
+      "inbound_ticker": "SAITO",
+      "inbound_asset_id": "",
+      "inbound_chain_id": "",
+      "inbound_amount": "0.25",
+      "inbound_address": "",
+      "inbound_sender": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "inbound_mixin_user_id": "",
+      "inbound_confirmations": 0,
+      "inbound_confirmations_required": 0,
+      "inbound_tx": "",
+      "inbound_tx_sig": "210e5a1e1692a7b287b05cdd0a07a6e2a1a70849730885ee76d9a50f57dc21494390897c09f691c803c9a1428c5b929a5daf39fdb86d5e07fc30b4aaf8ab4aeb",
+      "inbound_tx_hash": "",
+      "inbound_tx_id": "",
+      "inbound_created_at": null,
+      "inbound_received_at": null,
+      "inbound_settled_at": null,
+      "inbound_block_id": null,
+      "inbound_block_hash": "",
+      "inbound_confirmation_block_id": null,
+      "inbound_longest_chain": null,
+      "outbound_ticker": "USDT",
+      "outbound_asset_id": "",
+      "outbound_chain_id": "",
+      "outbound_amount": "6.25",
+      "outbound_address": "0x1111111111111111111111111111111111111111",
+      "outbound_sender": "",
+      "outbound_mixin_user_id": "",
+      "outbound_confirmations_required": 1,
+      "outbound_tx": "",
+      "outbound_tx_sig": "",
+      "outbound_tx_hash": "",
+      "outbound_tx_id": "",
+      "outbound_created_at": null,
+      "outbound_sent_at": null,
+      "outbound_settled_at": null,
+      "outbound_block_id": null,
+      "outbound_block_hash": "",
+      "outbound_confirmation_block_id": null,
+      "outbound_longest_chain": null,
+      "attempt_count": 0,
+      "next_attempt_at": null,
+      "locked_by": "",
+      "locked_until": null,
+      "last_error": "",
+      "excluded": 0,
+      "created_at": 1700006000000,
+      "updated_at": 1700006000000
+    }
+  ],
+  "transfers": [
+    {
+      "id": 101,
+      "purpose": "store-purchase",
+      "mode": "automatic",
+      "payload": "",
+      "request_id": "",
+      "requester_publickey": "",
+      "recipient_publickey": "",
+      "status": "outbound_confirmed",
+      "email": "",
+      "publickey": "",
+      "inbound_ticker": "USDT",
+      "inbound_asset_id": "",
+      "inbound_chain_id": "",
+      "inbound_amount": "3.75",
+      "inbound_address": "",
+      "inbound_sender": "",
+      "inbound_mixin_user_id": "",
+      "inbound_confirmations": 0,
+      "inbound_confirmations_required": 0,
+      "inbound_tx": "",
+      "inbound_tx_sig": "",
+      "inbound_tx_hash": "abababababababababababababababababababababababababababababababab",
+      "inbound_tx_id": "",
+      "inbound_created_at": null,
+      "inbound_received_at": null,
+      "inbound_settled_at": null,
+      "inbound_block_id": null,
+      "inbound_block_hash": "",
+      "inbound_confirmation_block_id": null,
+      "inbound_longest_chain": null,
+      "outbound_ticker": "",
+      "outbound_asset_id": "",
+      "outbound_chain_id": "",
+      "outbound_amount": "",
+      "outbound_address": "",
+      "outbound_sender": "",
+      "outbound_mixin_user_id": "",
+      "outbound_confirmations_required": 1,
+      "outbound_tx": "",
+      "outbound_tx_sig": "",
+      "outbound_tx_hash": "",
+      "outbound_tx_id": "",
+      "outbound_created_at": null,
+      "outbound_sent_at": null,
+      "outbound_settled_at": null,
+      "outbound_block_id": null,
+      "outbound_block_hash": "",
+      "outbound_confirmation_block_id": null,
+      "outbound_longest_chain": null,
+      "attempt_count": 0,
+      "next_attempt_at": null,
+      "locked_by": "",
+      "locked_until": null,
+      "last_error": "",
+      "excluded": 0,
+      "created_at": 0,
+      "updated_at": 0
+    },
+    {
+      "id": 102,
+      "purpose": "store-purchase",
+      "mode": "automatic",
+      "payload": "",
+      "request_id": "",
+      "requester_publickey": "",
+      "recipient_publickey": "",
+      "status": "outbound_confirmed",
+      "email": "",
+      "publickey": "",
+      "inbound_ticker": "USDT",
+      "inbound_asset_id": "",
+      "inbound_chain_id": "",
+      "inbound_amount": "2.5",
+      "inbound_address": "",
+      "inbound_sender": "",
+      "inbound_mixin_user_id": "",
+      "inbound_confirmations": 0,
+      "inbound_confirmations_required": 0,
+      "inbound_tx": "",
+      "inbound_tx_sig": "",
+      "inbound_tx_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "inbound_tx_id": "",
+      "inbound_created_at": null,
+      "inbound_received_at": null,
+      "inbound_settled_at": null,
+      "inbound_block_id": null,
+      "inbound_block_hash": "",
+      "inbound_confirmation_block_id": null,
+      "inbound_longest_chain": null,
+      "outbound_ticker": "",
+      "outbound_asset_id": "",
+      "outbound_chain_id": "",
+      "outbound_amount": "",
+      "outbound_address": "",
+      "outbound_sender": "",
+      "outbound_mixin_user_id": "",
+      "outbound_confirmations_required": 1,
+      "outbound_tx": "",
+      "outbound_tx_sig": "",
+      "outbound_tx_hash": "",
+      "outbound_tx_id": "",
+      "outbound_created_at": null,
+      "outbound_sent_at": null,
+      "outbound_settled_at": null,
+      "outbound_block_id": null,
+      "outbound_block_hash": "",
+      "outbound_confirmation_block_id": null,
+      "outbound_longest_chain": null,
+      "attempt_count": 0,
+      "next_attempt_at": null,
+      "locked_by": "",
+      "locked_until": null,
+      "last_error": "",
+      "excluded": 0,
+      "created_at": 0,
+      "updated_at": 0
+    },
+    {
+      "id": 103,
+      "purpose": "store-withdrawal",
+      "mode": "manual",
+      "payload": "{\"transfer_uuids\":[\"101\",\"102\"],\"payment_uuids\":[\"abababababababababababababababababababababababababababababababab\",\"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"],\"quote_signature\":\"010624624f8eaee79816c8837527132b6a352743fc6fc3aa88d95eff196d1c2b628a35b8b82acf0851368d7e8d8c9ec53f808462978ba92b9362344a56649255\"}",
+      "request_id": "1700006000000-1",
+      "requester_publickey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "recipient_publickey": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "status": "other",
+      "email": "",
+      "publickey": "",
+      "inbound_ticker": "SAITO",
+      "inbound_asset_id": "",
+      "inbound_chain_id": "",
+      "inbound_amount": "0.25",
+      "inbound_address": "",
+      "inbound_sender": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "inbound_mixin_user_id": "",
+      "inbound_confirmations": 0,
+      "inbound_confirmations_required": 0,
+      "inbound_tx": "",
+      "inbound_tx_sig": "210e5a1e1692a7b287b05cdd0a07a6e2a1a70849730885ee76d9a50f57dc21494390897c09f691c803c9a1428c5b929a5daf39fdb86d5e07fc30b4aaf8ab4aeb",
+      "inbound_tx_hash": "",
+      "inbound_tx_id": "",
+      "inbound_created_at": null,
+      "inbound_received_at": null,
+      "inbound_settled_at": null,
+      "inbound_block_id": null,
+      "inbound_block_hash": "",
+      "inbound_confirmation_block_id": null,
+      "inbound_longest_chain": null,
+      "outbound_ticker": "USDT",
+      "outbound_asset_id": "",
+      "outbound_chain_id": "",
+      "outbound_amount": "6.25",
+      "outbound_address": "0x1111111111111111111111111111111111111111",
+      "outbound_sender": "",
+      "outbound_mixin_user_id": "",
+      "outbound_confirmations_required": 1,
+      "outbound_tx": "",
+      "outbound_tx_sig": "",
+      "outbound_tx_hash": "",
+      "outbound_tx_id": "",
+      "outbound_created_at": null,
+      "outbound_sent_at": null,
+      "outbound_settled_at": null,
+      "outbound_block_id": null,
+      "outbound_block_hash": "",
+      "outbound_confirmation_block_id": null,
+      "outbound_longest_chain": null,
+      "attempt_count": 0,
+      "next_attempt_at": null,
+      "locked_by": "",
+      "locked_until": null,
+      "last_error": "",
+      "excluded": 0,
+      "created_at": 1700006000000,
+      "updated_at": 1700006000000
+    }
+  ]
+}

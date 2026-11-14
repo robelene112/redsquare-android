@@ -319,9 +319,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return
                         }
-                        if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory", "load-listing-spend", "submit-listing") &&
+                        if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory", "load-listing-spend", "submit-listing", "load-web3-proceeds", "store-withdrawal-quote", "store-withdrawal") &&
                             criteria.get("module")?.asString == "Store") {
-                            if (body.get("request").asString in setOf("load-listing-spend", "submit-listing")) {
+                            if (body.get("request").asString in setOf("load-listing-spend", "submit-listing", "load-web3-proceeds", "store-withdrawal-quote", "store-withdrawal")) {
                                 val signed = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
                                 require(SaitoEnvelope.decode(signed.envelope()).author == authenticatedKey)
                             }
