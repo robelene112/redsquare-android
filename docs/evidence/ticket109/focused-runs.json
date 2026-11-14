@@ -1,7 +1,7 @@
 {
-  "preliminary": true,
+  "preliminary": false,
   "reviewBase": "4c6a2d91a69e14ce4468a15a6ced737945771d7a",
-  "qualification": "Ticket109 is not complete. Independent isolated official/deployed route and browser read bodies, actual isolated listing builder and WASM wallet; not a fully initialized community frontend, funded listing or live provider acceptance. Public beta127 unchanged.",
+  "qualification": "Complete controlled native catalogue/read/link/draft acceptance only. Exact owned/pinned/deployed/real WASM reference bodies; public read-only transport and JVM parsing of24rows. Not current unspent ownership, financial checkout, fulfilment, ARM/OEM, full community frontend or provider acceptance. Combined beta is115; public beta127 unchanged.",
   "runs": [
     {
       "run": 43522227534,
@@ -142,6 +142,63 @@
       "zipEntries": 85,
       "captureMembers": 137,
       "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43537032310,
+      "source": "4b231c758e9f11e0cb20db097990ef5368b35bec",
+      "conclusion": "success",
+      "artifactId": 14089773724,
+      "zipSha256": "6e92fc54af208b3941c59faaae7d0bc7f30a42ace596cc9271bd3e2f5f495675",
+      "zipEntries": 83,
+      "captureMembers": 139,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43537029251,
+      "source": "4b231c758e9f11e0cb20db097990ef5368b35bec",
+      "conclusion": "success",
+      "artifactId": 14090213304,
+      "zipSha256": "9f4fd3daca5b09091f169d095fa5d7365e2b12a8f7ae9642d230a867210d086d",
+      "zipEntries": 85,
+      "captureMembers": 139,
+      "allExtractedMembersByteExact": true
+    }
+  ],
+  "acceptedSource": "4b231c758e9f11e0cb20db097990ef5368b35bec",
+  "finalNativeClasses": 8,
+  "finalNativeCasesPerSdk": 13,
+  "viewportCellsPerSdk": 12,
+  "coreCases": 179,
+  "coreIgnored": 0,
+  "reviews": [
+    {
+      "source": "9cb305797",
+      "spec": 4,
+      "standardsHard": 3,
+      "standardsSmell": 1
+    },
+    {
+      "source": "359d7ee5b",
+      "spec": 1,
+      "standardsHard": 1
+    },
+    {
+      "source": "8fc3aa351",
+      "scope": "full base",
+      "spec": 0,
+      "standardsHard": 0
+    },
+    {
+      "source": "8ae4b3c286",
+      "scope": "test/runner delta",
+      "spec": 0,
+      "standardsHard": 0
+    },
+    {
+      "source": "4b231c758",
+      "scope": "final details delta",
+      "spec": 0,
+      "standardsHard": 0
     }
   ]
 }

@@ -27,62 +27,74 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active Store catalogue slice #109
+## Completed Store catalogue slice #109, next #110
 
-#108 is closed. #109 is assigned and its native dependency gate reports0open
-blockers. Review base:`4c6a2d91a69e14ce4468a15a6ced737945771d7a`.
-The native catalogue/product/storefront and exact feed/Chat/platform reading
-flows are implemented. SaitoStore authenticates original signer/signature/NFT/
-locking script/custody/quantity/price/image and can read an unavailable historical
-signature without claiming current stock. Catalogue/source stock stays a node
-report, not chain ownership or fulfilment. All179core cases pass (0ignored).
-See [the qualified packet](../evidence/ticket109/README.md) for all original reds,
-first catalogue17pass and failed complete attempts. Public beta127 is unchanged.
+#106–#108 are closed and verified. #109 is complete and ready for tracker closure; #110 is next. Review base:
+`4c6a2d91a69e14ce4468a15a6ced737945771d7a`. Continue the entire approved
+#109–#115 sequence, one issue at a time, then one combined beta without asking
+for per-ticket permission. Public beta127 remains unchanged.
 
-Latest committed implementation source is359d7ee5b592d43ee630d1461e6ea95ce29a2d8a;
-review corrections are currently uncommitted. Independent two-axis review found
-4Spec/3hard Standards findings, all being corrected: exact signature targets,
-predecessor scene retention, seller sold filtering and empty identity, nested
-peer timeout recovery, independent synthetic Chat setup/cleanup. Additional
-changes preserve product scroll and keep statuses above scrolling. Read the
-current source rather than treating9cb as final. The new native suite has8classes/
-13cases, with12zero-scale real width/theme/font cells, same inherited deadlines.
-A common fixture owns synthetic buyer4and independently restores captured state.
+Current implementation HEAD: `4b231c758e9f11e0cb20db097990ef5368b35bec`.
+Core has179passes/0ignored; main and AndroidTest compile separately. Both review
+axes report0remaining findings in the full-base implementation and all later
+deltas. Source `8ae4b3c28604f5253c1391bf42e3a21cfd49d2d8` has complete successful
+Store runs43534824427(10)/43534821192(17):8classes/13cases,12actual viewport cells,
+83/85ZIP and137/137captures all byte-exact. All rendered product viewport
+combinations, image/history, private origin, timeout and anchors were inspected.
+Both actual anchor receipts are411dp before/after product and module returns.
+Stack-link regressions43533770667(10)/43533766215(17)pass on unchanged shared
+production source8fc3aa351, exact receipts/captures inspected. Keep every original
+failure and its qualification in [the packet](../evidence/ticket109/README.md).
 
-Current source8fc3aa3513e5b5db6f6d3b69358894bbc422ef50 has179core passes,
-separate main/AndroidTest compile passes and0findings from both full-base reviews.
-Its both-SDK Store scopes43533525749/43533522445 pass catalogue/product/stock/
-drafts (3cases), feed/platform routes and private Chat routes. Browse passes the
-large reported catalogue and missing-service cases but fails320dp/200%Light:
-performScrollTo cannot find an uncomposed lazy Message seller item. Original
-screens show a scrollable page and earlier cells show the real accessible button.
-Correct the test by actual list scrolling within original budgets. Later classes
-were not run, and those partial results do not accept109.
+The final detail-sheet source4b231c758 has complete successful native Store runs
+43537032310(10)/43537029251(17), each8classes/13cases/12viewport cells and179core
+cases with0failures/ignored. All83/85ZIP and139/139captures are byte-exact. Both
+actual anchor receipts remain411dp before/after. The final sheet shows selectable
+exact references with reachable Done; actual final images are inspected. Both
+review axes report0remaining findings after the complete base and final deltas.
+See the accepted packet for every original failure and precise qualification.
 
-Current working changes only adjust lazy-item test scrolling, make the focused
-runner collect every independent class verdict (any failure still fails scope),
-and update maintained evidence/operations. Main/UI production source is unchanged
-from reviewed8fc. AndroidTest compilation runs in compile109-virtualized-controls-
-tests.log. Commit, run all Store classes on both SDKs, collect exact artifacts,
-inspect actual12cells/media and fix remaining failures. Stack-link regression
-43533770667(10)passes,43533766215(17)pending, both at8fc; collect/inspect receipts.
-Continue110–115 and one combined beta after109acceptance. No extra permission.
+Close109with its implementation/evidence, verify110native blockers=0, assign110
+and implement SAITO buying/orders next. Then111–115, one issue at a time, with no
+new owner permission. Ordinary development QA stays agent-owned. Public beta127
+remains until the single combined115delivery; no intermediate catalogue beta.
 
-Ticket115 must append all new106–109and subsequent classes/process identities
-to its frozen full catalogue before final shared-source proofs. No intermediate
-beta. No provider/node/Play activation or public financial writes are authorized.
+Actual public Store read on2026-11-14 uses a fresh disposable identity, returns
+24rows and the exact native core parser accepts24/ignored0; see public-read.json
+in the packet. This is read-only transport+JVM parsing, not an Android public-node
+journey, unspent custody, fulfilment, payment or full initialized frontend proof.
+The key was not stored/logged. Owner-node Store is unavailable; never auto-select
+or activate a service. Exact service advertisement is case-sensitive `Store`.
 
-Owned reference generator:`test-fixtures/reference/store-catalogue-reference.cjs`.
-Pinned upstream Store/categories/browse/summary/warehouse/route source was read
-and Gitblob-verified externally. Public `/store` still serves bundle1794546696
-(SHA256bde5468d...); actual minified route function matches the pinned router.
-The owner `/store` returns the generic small page, not proof of advertised Store
-service. Check exact service `Store` (case-sensitive). Browser catalogue supports
-category/seller/active/sold paging, no global free-text server search. Serialized
-summaries omit image/listing transaction; use signature Archive hydration and
-exact selected-node `/store/cache/<nft_id>.img` media. Source builders are not a
-fully initialized client or financial/consensus acceptance. All scratch remains
-under the external vault-store-planning directory. Beta127 unchanged.
+Implementation preserves exact signature targets, original signed asset/terms/
+image, selected-node stock report, seller active/sold filters/empty identity,
+temporary URL-node context, encrypted unsent seller drafts and immediate nested
+origins. Root linked-state holder prunes abandoned scenes to the live predecessor
+chain/current Stack origin after identity/node readiness. Released StackLinkEntry
+serialized fields are unchanged. Defer catalogue measurement until the real page
+exists; internal popped paths are pruned and bounded. Catch nested peer timeouts
+then ensureActive on the enclosing coroutine so real cancellation stays obsolete.
+The common Chat fixture wraps owned setup and independently restores state despite
+assertion failure. Actual FrameIconButton names are semantic text (Back), and the
+profile navigation name is Your profile. Use real lazy-list scrolling before
+locating lower/higher controls at large font. Heavy local core/main/AndroidTest
+compiler phases must run separately; one combined daemon loss is not evidence.
+
+References execute isolated pinned/deployed routes, browser builders/serializers,
+and actual WASM0.3.15 listing creation with qualified wallet adapters. Basic listing
+has4inputs/4outputs (a normal zero slip as well as the NFT tuple); P2SH is00+hash.
+Two signed alternatives at2.5/3.75SAITO share the same owned original input and do
+not assert simultaneous unspent listings. The owned transport peer identity is
+not the reference Store identity. Financial tickets must bind the actual Store
+counterparty and current state; original-term reading is not checkout authority.
+Source pin0db0062d873369dc013046ed77c97410b5683b64; all working artifacts external
+under vault-store-planning. Preserve provider/device/full-client qualifications.
+
+Ticket115 must append every new106–109and subsequent native class/method/process
+identity to its frozen full catalogue before complete final shared-source proof,
+actual signed127→new upgrade and exact public APK/manifest/page delivery. Preserve
+all inherited deadlines and qualifications; no assembled successful partial tails.
+No node/provider/Play activation, public financial writes or community sends.
 
 ## Completed upload/key slice #107
 

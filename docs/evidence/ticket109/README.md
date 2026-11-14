@@ -1,7 +1,9 @@
 # Native Store catalogue, ticket109
 
-**In progress.** Review base:`4c6a2d91a69e14ce4468a15a6ced737945771d7a`.
-No Vault/Store beta has been built or published; public beta127 remains.
+**Accepted.** Review base:`4c6a2d91a69e14ce4468a15a6ced737945771d7a`.
+Final source: `4b231c758e9f11e0cb20db097990ef5368b35bec`. Complete final-source
+Android 10/17 and independent reviews pass. Combined beta delivery remains #115;
+public beta127 is unchanged. Original failures below remain part of the record.
 
 The first native catalogue/category tracer fails on the missing Store picker
 item in [43522227534](https://github.com/robelene112/redsquare-android/actions/runs/43522227534),
@@ -176,3 +178,34 @@ zero; see [receipt](public-read.json). This verifies the deployed public catalog
 response contract. It does not establish Android public-node UI, current unspent
 custody, provider fulfilment, financial checkout or full initialized community
 frontend acceptance. The disposable private key was neither retained nor logged.
+
+## Final acceptance
+
+Final source `4b231c758e9f11e0cb20db097990ef5368b35bec` passes complete Store
+verification on Android 10 [43537032310](https://github.com/robelene112/redsquare-android/actions/runs/43537032310)
+and Android 17 [43537029251](https://github.com/robelene112/redsquare-android/actions/runs/43537029251).
+Each single-source run contains all eight required native classes and 13 cases,
+12 actual width/theme/font cells, and all 179 core cases with zero failures or
+ignored tests. All 83/85 ZIP members and 139/139 capture members are byte-exact;
+see [receipts](focused-runs.json). No partial tails substitute for either run.
+Both final anchor observations are exactly 411dp before and after product/module
+returns. The exact signature/seller sheet and its close path pass in the media
+case. Actual final sheets and the calm large-text product layout were inspected,
+alongside the previously inspected complete viewport/media/recovery/origin set.
+Existing Stack links also pass both SDKs on unchanged shared navigation source.
+
+### Standards
+
+Zero remaining substantive findings. Earlier cancellation, fixture restoration,
+and abandoned-scene lifetime findings are corrected; final detail focus and
+independent class verdict collection preserve project requirements.
+
+### Spec
+
+Zero remaining actionable findings. Exact targets, signed original terms/media,
+seller active/sold/empty identity, node-preserving origins, private unsent drafts,
+reading anchors and accessible native controls satisfy this development slice.
+
+Final totals: Standards 0, Spec 0. Keep ARM/OEM/provider/full-frontend/current-
+ownership/financial qualifications separate under #36. #110–#115 still implement
+and verify the remaining combined trajectory before its one signed beta.
