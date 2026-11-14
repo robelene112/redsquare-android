@@ -80,6 +80,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                 override fun dispatch(request: RecordedRequest): MockResponse {
                     minted?.let { return it.response(request.target) }
                     transferred?.let { return it.response(request.target) }
+                    if (request.target == "/options") return MockResponse(body = "{\"consensus\":{\"genesis_period\":10000000}}")
                     if (request.target != "/balance/${fixture.publicKey}") return MockResponse(code = 404)
                     val originalSnapshot = vector.get("snapshot").asString
                     val ordinary = originalSnapshot.lines().take(2).joinToString("\n") + "\n"

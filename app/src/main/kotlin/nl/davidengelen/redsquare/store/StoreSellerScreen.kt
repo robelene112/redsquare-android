@@ -1,0 +1,156 @@
+package nl.davidengelen.redsquare.store
+
+import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.*
+import nl.davidengelen.redsquare.*
+import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.ui.*
+import nl.davidengelen.redsquare.vault.*
+
+@Composable
+internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selected: SaitoBackend, endpoint: String,
+    modifier: Modifier, onOpen: (StoreLink) -> Unit) {
+    val activity = androidx.compose.ui.platform.LocalContext.current as Activity
+    val scope = rememberCoroutineScope()
+    val balances = remember(activity) { WalletBalances.fromIntent(activity.intent) }
+    val selling = remember(wallet.publicKey, backend, selected, endpoint) { StoreSelling(activity, wallet, backend, selected, endpoint, balances, scope) }
+    val drafts = remember(wallet.publicKey, backend) { StoreSaleDraftStore(activity, wallet.publicKey, backend) }
+    var draft by remember(wallet.publicKey, backend) { mutableStateOf(StoreSaleDraft()) }
+    var loaded by remember { mutableStateOf(false) }
+    var storageError by remember { mutableStateOf(false) }
+    var draftVersion by remember { mutableLongStateOf(0) }
+    var editing by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
+    var uploading by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
+    val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(activity, wallet, backend, endpoint, balances) }
+    val upload by uploads.state.collectAsState()
+    val auth = remember(activity, uploads) { VaultUploadAuthorization(activity, uploads) }
+    DisposableEffect(selling, auth) { onDispose { auth.close(); selling.dispose() } }
+    LaunchedEffect(selling) { selling.load(); uploads.load() }
+    LaunchedEffect(drafts) {
+        try { draft = withContext(Dispatchers.IO) { drafts.read() }; loaded = true; editing = editing || draft.creating; uploading = uploading || draft.creating }
+        catch (_: Exception) { storageError = true }
+    }
+    fun update(next: StoreSaleDraft) {
+        draft = next; val version = ++draftVersion
+        scope.launch {
+            try { withContext(Dispatchers.IO) {
+                synchronized(SaitoLocalState.lock) {
+                    if (draftVersion == version) {
+                        check(AndroidWalletStore(activity).loadExisting().publicKey == wallet.publicKey && AndroidBackendStore(activity).load() == selected)
+                        drafts.save(next)
+                    }
+                }
+            }; if (draftVersion == version) storageError = false }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { if (draftVersion == version) storageError = true }
+        }
+    }
+    val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null) { update(draft.copy(creating = true)); uploading = true; uploads.prepare(uri) }
+    }
+    val focused = selling.focused
+    val stock = selling.inventory.firstOrNull { it.holding.witnesses[1] == draft.item }
+    SingleOwnerReveal(Triple(focused?.listing?.transaction?.id, editing, uploading), modifier) {
+        when {
+            uploading -> VaultUploadReview(upload, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,
+                auth::request, uploads::cancelSending, uploads::checkOwnership,
+                onBack = {
+                    val keyId = upload.record?.candidate?.nftId
+                    if (keyId != null) {
+                        update(draft.copy(item = keyId, creating = false)); uploads.backToFiles(); uploading = false; selling.load()
+                    }
+                }, onLibrary = { uploading = false }, creator = wallet.publicKey, onRules = uploads::changeRules)
+            focused != null -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text(stringResource(R.string.store_sell_review), style = MaterialTheme.typography.headlineSmall)
+                InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
+                Text(focused.listing.terms.title, style = MaterialTheme.typography.titleLarge)
+                Text(focused.listing.terms.description)
+                Text(stringResource(R.string.store_sell_terms, focused.listing.terms.quantity.toString(), focused.listing.terms.price))
+                Text(stringResource(R.string.store_sell_custody))
+                Text(stringResource(R.string.store_sell_cost))
+                Text(backend.webUrl, style = MaterialTheme.typography.bodySmall)
+                Text(focused.listing.transaction.id, style = MaterialTheme.typography.bodySmall)
+                Text(stringResource(if (focused.mayHaveSent) R.string.store_sell_waiting else R.string.store_sell_not_sent))
+                Button(enabled = !selling.busy, onClick = { selling.authorize(focused) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(stringResource(if (focused.mayHaveSent) R.string.store_sell_retry_original else R.string.store_sell_publish))
+                }
+                OutlinedButton(enabled = !selling.busy, onClick = { selling.closeReview() }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
+                if (!focused.mayHaveSent) TextButton(enabled = !selling.busy, onClick = { selling.discard(focused) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_discard)) }
+            }
+            editing -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(R.string.store_sell_new), style = MaterialTheme.typography.titleLarge)
+                InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
+                InlineStatus(if (storageError) stringResource(R.string.store_sell_storage) else null, StatusTone.ERROR)
+                OutlinedTextField(draft.title, { if (it.length <= 10_000) update(draft.copy(title = it)) }, label = { Text(stringResource(R.string.store_sell_title)) }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(draft.description, { if (it.length <= 200_000) update(draft.copy(description = it)) }, label = { Text(stringResource(R.string.store_sell_description)) }, modifier = Modifier.fillMaxWidth(), minLines = 3)
+                OutlinedTextField(draft.price, { if (it.length <= 80) update(draft.copy(price = it)) }, label = { Text(stringResource(R.string.store_sell_price)) }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(draft.quantity, { if (it.length <= 20) update(draft.copy(quantity = it)) }, label = { Text(stringResource(R.string.store_purchase_quantity)) }, modifier = Modifier.fillMaxWidth())
+                Text(stringResource(R.string.store_sell_inventory), style = MaterialTheme.typography.titleMedium)
+                if (selling.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+                selling.inventory.forEach { item ->
+                    val eligible = SaitoStoreListing.sellable(item.holding) && item.envelope != null
+                    OutlinedButton(enabled = eligible && !selling.busy, onClick = { update(draft.copy(item = item.holding.witnesses[1])) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                        Column(Modifier.weight(1f)) {
+                            Text(item.title)
+                            Text(stringResource(if (!SaitoStoreListing.sellable(item.holding)) R.string.store_sell_rental_only else if (item.envelope == null) R.string.store_sell_metadata_unavailable else R.string.store_sell_owned, item.holding.quantity.toString()), style = MaterialTheme.typography.bodySmall)
+                            if (draft.item == item.holding.witnesses[1] || draft.item == item.holding.id) Text(stringResource(R.string.store_sell_selected))
+                        }
+                    }
+                }
+                if (selling.inventoryPage > 0) TextButton(onClick = { selling.load(selling.inventoryPage - 1) }, enabled = !selling.busy) { Text(stringResource(R.string.store_previous)) }
+                if (selling.moreInventory) TextButton(onClick = { selling.load(selling.inventoryPage + 1) }, enabled = !selling.busy) { Text(stringResource(R.string.store_more)) }
+                OutlinedButton(onClick = { if (upload.phase == VaultUploadPhase.FILES) picker.launch(arrayOf("*/*")) else uploading = true }, enabled = loaded && !storageError && !selling.busy,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_create_file)) }
+                val chosen = stock ?: selling.inventory.firstOrNull { it.holding.id == draft.item }
+                val terms = runCatching { StoreListingTerms(draft.title, draft.description, chosen?.let { StoreCategory.forType(it.holding.type) } ?: StoreCategory.OTHER,
+                    draft.price, draft.quantity.toBigInteger()) }.getOrNull()
+                Button(enabled = loaded && !storageError && !selling.busy && chosen?.envelope != null && terms != null,
+                    onClick = { selling.prepare(requireNotNull(chosen), requireNotNull(terms)) { editing = false } }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_review)) }
+                TextButton(onClick = { editing = false }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
+            }
+            else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                item {
+                    InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
+                    InlineStatus(if (storageError) stringResource(R.string.store_sell_storage) else null, StatusTone.ERROR)
+                    if (selling.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+                    Button(enabled = loaded && !storageError && !selling.busy, onClick = { editing = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_new)) }
+                    TextButton(onClick = { selling.load() }, enabled = !selling.busy, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_refresh)) }
+                }
+                items(selling.records.filter { it.backend == backend && selling.reported.none { row -> row.summary.signature == it.listing.transaction.id } }, key = { "local:" + it.listing.transaction.id }) { record ->
+                    OutlinedCard(onClick = { selling.open(record) }) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(record.listing.terms.title, style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(if (record.mayHaveSent) R.string.store_sell_waiting else R.string.store_sell_not_sent))
+                        }
+                    }
+                }
+                items(selling.reported, key = { "remote:" + it.summary.signature }) { item ->
+                    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(item.summary.title, style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(if (item.sold) R.string.store_sell_sold else if (item.approved) R.string.store_sell_approved else R.string.store_sell_unapproved))
+                            if (item.risk.isNotBlank()) Text(item.risk)
+                            if (item.note.isNotBlank()) Text(item.note)
+                            TextButton(onClick = { onOpen(StoreLink(backend, signature = item.summary.signature)) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_open)) }
+                            if (!item.sold && !item.approved) OutlinedButton(onClick = { selling.submitMarketplace(item) }, enabled = !selling.busy, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_marketplace)) }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

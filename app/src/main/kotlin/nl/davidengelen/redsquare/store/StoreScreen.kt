@@ -92,7 +92,7 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             } else states.SaveableStateProvider(target.url()) {
                 StoreCatalogueScreen(wallet, backend, endpoint, Modifier.fillMaxSize(), chrome, target,
-                    if (canBack) ({ back() }) else null, { open(it) }, onNodeSettings, purchases)
+                    if (canBack) ({ back() }) else null, { open(it) }, onNodeSettings, purchases, chatBackend)
             }
         }
     }
@@ -115,7 +115,7 @@ private data class StoreBrowseView(val query: StoreQuery? = null, val page: Stor
 @Composable
 private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, modifier: Modifier,
     chrome: @Composable (Boolean) -> Unit, target: StoreLink,
-    onBack: (() -> Unit)?, onOpen: (StoreLink) -> Unit, onNodeSettings: () -> Unit, purchases: StorePurchases) {
+    onBack: (() -> Unit)?, onOpen: (StoreLink) -> Unit, onNodeSettings: () -> Unit, purchases: StorePurchases, activeBackend: SaitoBackend) {
     var tab by rememberSaveable { mutableStateOf(StoreTab.DISCOVER) }
     var category by rememberSaveable { mutableStateOf<StoreCategory?>(StoreCategory.entries.find { it.wire == target.category }) }
     var offset by rememberSaveable { mutableIntStateOf(0) }
@@ -128,7 +128,7 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     val query = StoreQuery(seller, category, offset, stock = if (seller != null) stock else StoreStock.ACTIVE)
     var loaded by remember(wallet.publicKey, backend, endpoint) { mutableStateOf(StoreBrowseView()) }
     LaunchedEffect(wallet.publicKey, backend, endpoint, query, tab, retry) {
-        if (tab == StoreTab.ORDERS) return@LaunchedEffect
+        if (tab in setOf(StoreTab.ORDERS, StoreTab.MINE)) return@LaunchedEffect
         val previous = loaded.page.takeIf { loaded.query == query }
         loaded = StoreBrowseView(query, previous, loading = true)
         try {
@@ -181,9 +181,11 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
             if (onBack != null) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { onBack() }
             Text(if (target.seller != null && tab == StoreTab.DISCOVER) stringResource(R.string.store_seller_store) else stringResource(tab.label), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
-            if (tab != StoreTab.ORDERS) FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
+            if (tab == StoreTab.DISCOVER) FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
         }
-        if (tab == StoreTab.ORDERS) {
+        if (tab == StoreTab.MINE) {
+            StoreSellerScreen(wallet, backend, activeBackend, endpoint, Modifier.weight(1f), onOpen)
+        } else if (tab == StoreTab.ORDERS) {
             StoreOrders(purchases, Modifier.weight(1f))
         } else {
             Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {

@@ -1,7 +1,7 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&process.argv[6]!=='--image'))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
-const illustrated=process.argv[6]==='--image';
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+const illustrated=process.argv[6]==='--image',quantity=process.argv[6]==='--partial'?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -39,7 +39,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
   const merged=Object.assign(msg,nft.txmsg||{}),native=await wallet.createNFTTransaction(recipient,BigInt(amount),nft.id,fee,deposit,Buffer.from(JSON.stringify(merged)));
   return {msg:merged,native,sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=timestamp;await native.sign();this.signature=native.signature}};
  }}};
- const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:illustrated?'3.75':'2.5',quantity_total:2,quantity_available:2};
+ const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:illustrated?'3.75':'2.5',quantity_total:quantity,quantity_available:quantity};
  const created=await factory.call({app,store_public_key:store},nft,listing);
  const signed=envelope(created.native);
  const summarySource=text('summary'),tree=acorn.parse(summarySource,{ecmaVersion:'latest'}),klass=tree.body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Summary');

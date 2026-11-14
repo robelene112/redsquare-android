@@ -738,6 +738,11 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == store-seller* ]]; then
+    verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence
+    exit 0
+fi
+
 if [[ "${TEST_SCOPE:-full}" == store-purchase* ]]; then
     store_native_result=0
     verify_group_chat_native StorePurchasePreviewTest 180 store-purchase store-purchase-evidence || store_native_result=1
@@ -1344,6 +1349,7 @@ if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native StoreCataloguePreviewTest 180 store-catalogue store-catalogue-evidence
+    verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence
     verify_group_chat_native StorePurchasePreviewTest 180 store-purchase store-purchase-evidence
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence
