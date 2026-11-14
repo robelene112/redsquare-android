@@ -50,3 +50,25 @@ resetting the module or extending the15second goal. These runs have151readable,
 byte-exact capture members each and no missing process capture archive. They are
 not assembled acceptance. Later code also guards cancelled reads before durable
 updates and explicitly qualifies unbridged ancestry receipts as historical.
+
+Static full-base [Spec and Standards reviews](reviews.md) of c2baf1dd5 each
+report0remaining findings. Core187passes/0ignored, main and AndroidTest compile
+in separate successful local invocations. Complete native c2runs and affected
+wallet/catalogue regressions remain pending; no complete acceptance is claimed.
+
+Candidatec2baf1dd5 has complete successful purchase runs43547321240(10) and
+43547323949(17): each3ordinary native classes/12cases,12actual viewport cells,
+all3distinct-PID process/retry/restoration phases and187core tests with0failures
+orignored tests. All75/77ZIP entries and156captures perOS are byte-exact. Both
+24-cell combined action matrices and representative insufficient/pending/delivery/
+refund screens are inspected. No partial tails are assembled. The declared zero
+recomposer/system-motion viewport seam is not production-clock/OEM proof.
+
+Affected ordinary-wallet transfer regressions43547485799(10)/43547488665(17)
+pass on the same source; all87/89ZIP entries and542/652capture members are exact.
+Existing catalogue run43547572194(17) passes8classes/13cases/12cells with139exact
+captures. Catalogue run43547569057(10) remains failed on the media pixel assertion:
+the capture observes the actual image/reveal before the red result appears. The
+new test waits for that same red pixel criterion under one unchanged15second
+clock beginning before the product click. Production source remains unchanged;
+both complete catalogue scopes must be rerun, never just the failed class.

@@ -45,11 +45,17 @@ class StoreMediaPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }; ui.onNodeWithText("Later").performClick()
             ui.switchStackModule("Red Square", "Store", scrollTarget = true)
             ui.waitUntil(15_000) { ui.onNodeWithText("Illustrated field notes access key").isDisplayed() }
+            val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
+            fun remaining() = (deadline - android.os.SystemClock.elapsedRealtime()).also { check(it > 0) }
             ui.onNodeWithText("Illustrated field notes access key").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Image 1 of 1").isDisplayed() }
-            val pixels = ui.onNodeWithContentDescription("Image 1 of 1").captureToImage().toPixelMap()
-            val centre = pixels[pixels.width / 2, pixels.height / 2]
-            assertTrue("The signed red cover must actually render", centre.red > centre.blue + 0.3f && centre.red > centre.green + 0.3f)
+            ui.waitUntil(remaining()) { ui.onNodeWithContentDescription("Image 1 of 1").isDisplayed() }
+            // The semantics precede async decoding and the normal reveal animation.
+            // Observe the actual signed colour within the same original overall bound.
+            ui.waitUntil(remaining()) {
+                val pixels = ui.onNodeWithContentDescription("Image 1 of 1").captureToImage().toPixelMap()
+                val centre = pixels[pixels.width / 2, pixels.height / 2]
+                centre.red > centre.blue + 0.3f && centre.red > centre.green + 0.3f
+            }
             captureNativeScreen(File(context.cacheDir, "store-media-evidence/signed-native-cover.png"))
             ui.onNode(hasScrollAction()).performScrollToNode(hasText("3.75 SAITO"))
             ui.onNodeWithText("3.75 SAITO").assertIsDisplayed()
