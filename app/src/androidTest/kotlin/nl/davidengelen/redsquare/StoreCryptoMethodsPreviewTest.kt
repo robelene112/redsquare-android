@@ -64,6 +64,28 @@ internal fun ComposeTestRule.openNativeStoreOtherMethods(quantity: String = "2")
     waitUntil(15_000) { onNodeWithText("Field notes access key").isDisplayed() }
     onNodeWithText("Field notes access key").performClick()
     waitUntil(15_000) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
-    if (quantity != "1") onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
+    if (quantity != "1") {
+        onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
+        finishNativeStoreQuantityEntry()
+    }
     onNodeWithText("Other payment methods").performScrollTo().performClick()
+}
+
+/** Complete real keyboard input before scrolling to a control whose position depends on IME insets. */
+internal fun ComposeTestRule.finishNativeStoreQuantityEntry() {
+    val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+    fun showing(): Boolean? {
+        var visible: Boolean? = null
+        instrumentation.runOnMainSync {
+            val root = android.view.inspector.WindowInspector.getGlobalWindowViews().singleOrNull { it.isShown && it.hasWindowFocus() }
+            visible = root?.let { androidx.core.view.ViewCompat.getRootWindowInsets(it) }?.let { insets ->
+                insets.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) ||
+                    insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.ime()).bottom > 0
+            }
+        }
+        return visible
+    }
+    waitUntil(15_000) { showing() == true }
+    androidx.test.uiautomator.UiDevice.getInstance(instrumentation).pressBack()
+    waitUntil(5_000) { showing() == false }
 }
