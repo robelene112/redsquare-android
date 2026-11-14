@@ -31,7 +31,9 @@ class StoreRentalPaymentPreviewTest {
             ui.waitUntil(15_000) { ui.onAllNodesWithText("Pay with $ticker").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             val advertised = provider.methods.getAsJsonArray("ac").map { it.asJsonObject }
             assertEquals(7, advertised.size)
-            for (item in advertised) ui.onNodeWithText("Pay with ${item.get("ticker").asString}").assertExists()
+            for (item in advertised.filter { !web3 || it.get("ticker").asString == "USDT" })
+                ui.onNodeWithText("Pay with ${item.get("ticker").asString}").assertExists()
+            if (web3) ui.onAllNodesWithText("Pay with BTC").assertCountEquals(0)
             ui.onNodeWithText("Pay with $ticker").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onAllNodesWithText("Estimated payment: ${if (web3) "3.75" else "0.002751"} $ticker").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Estimated payment: ${if (web3) "3.75" else "0.002751"} $ticker").performScrollTo().assertIsDisplayed()
