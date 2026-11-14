@@ -7,7 +7,7 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
 edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
-image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is complete. #115 is next. Continue the approved ready frontier
+image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is complete. #115 is in progress. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -26,6 +26,29 @@ do not ask the owner to repeat development phone QA. No new production node,
 public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
+
+## In progress: final combined beta #115
+
+All product slices 106–114 are complete. Candidate 128 is signed/staged from
+`2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59`; public latest remains 127.
+Verification source `dfe6cb855b43a3301986c76d82dd38d4a5aab0b0` differs only in two
+reviewed QA files, with all 224,798 other Git objects exact. Both source-review axes
+have no remaining findings. [Current packet](../evidence/ticket115/README.md)
+records actual sources, qualified focused results and the frozen contract.
+
+Full 10/17 primary runs 43621894162/43621897570 and actual signed 127-to-128 updates
+43622017532/43622020099 are active. Require whole successful SDK runs, frozen
+verification, module pending/draft/offline continuity, independent final evidence
+reviews and actual public artifact checks before promoting 128. Do not assemble
+passing fragments or weaken deadlines. Keep source-qualified failed originals.
+
+The signed module observer is temporarily served at the exact hash URL recorded
+in the external `store115-observer-download.json`; remove only that owned APK after
+all update checks complete. It is separate from the ordinary app, guarded to an
+emulator/fresh 127/public unsafe fixture identity, and submits no transaction.
+Do not activate any provider/node patch. Keep existing physical/provider/Play and
+parent gates open. The owner already authorized finishing and publishing; do not
+ask for another implementation permission or repeated phone development QA.
 
 ## Completed integrated rentals #114, next #115
 

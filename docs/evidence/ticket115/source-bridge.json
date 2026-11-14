@@ -1,0 +1,29 @@
+{
+  "staticProductIdentity": "PASS",
+  "compiledProductSource": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+  "verificationSource": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+  "compiledTreeEntries": 224800,
+  "verificationTreeEntries": 224800,
+  "identicalEntries": 224798,
+  "canonicalIdenticalEntriesSha256": "a73be1d2175c9f0056ef15fbe397c02f9989f8f5c51dadfdb67901067064d4a2",
+  "differences": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StorePurchaseFixture.kt",
+      "before": "100644 blob 6ed562145d353daf03dfdcf914414342590df6eb",
+      "after": "100644 blob 8a9b7e5a84e9fd765091f0697f17f4fe3a6d7a9d"
+    },
+    {
+      "path": "scripts/review-update-work-check",
+      "before": "100644 blob 500d2d7e69b2afb95be3ba8404b2ef93a3135961",
+      "after": "100644 blob 06cd75693e761d7ebf0b56ad3d352026bf449957"
+    }
+  ],
+  "reason": "Only real lazy-list QA navigation and the optional observer HTTP User-Agent differ. Every other Git object, including all application/core/resources/build inputs, frozen contract, workflow and pinned references, is exact. Existing goals and deadlines are unchanged.",
+  "candidate": {
+    "version": 128,
+    "bytes": 94069112,
+    "sha256": "7bba03afbef9ce36bf8af19be3cdc56a975556e37626591acd9877e36f4a8281",
+    "certificate": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+  },
+  "qualification": "Static source comparison and exact signed candidate binding. Full SDK, signed-update and public promotion gates remain separately required."
+}
