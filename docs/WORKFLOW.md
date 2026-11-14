@@ -19,8 +19,8 @@ edges. Implement the ready frontier through the combined beta without another
 per-ticket owner confirmation. Reading #106, upload/recovery #107, advanced ownership/rental foundation #108
 and Store catalogue/native links/unsent Chat #109 are verified on both SDKs.
 #110 SAITO purchases/delivery, #111 native selling/item creation/storefront
-management and #112 alternate-currency checkout/recovery are verified. Next: #113,
-alternate pricing, seller proceeds and withdrawals. See
+management and #112 alternate-currency checkout/recovery are verified. The #113 alternate pricing, seller proceeds and withdrawals slice is also
+verified. Next: #114, integrated Vault/Store rentals and access lifecycle. See
 [108 evidence](evidence/ticket108/README.md). Use Vault as the shared file/key/rental basis
 and deliver one combined completed beta, preserving the spec's full payment and
 native UX scope and the existing agent-owned verification/operational boundaries.

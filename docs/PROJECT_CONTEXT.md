@@ -22,8 +22,9 @@ The owner approved all ten tickets and requested the complete build on
 2026-11-13. Native sub-issues #106–#115 and their dependency edges are published
 and verified. #106–#111 are implemented and verified on both SDKs, including
 advanced Vault access, native Store catalogue/purchases, selling, item creation
-and storefront management. #112 is next for alternate-currency checkout. See the
-[ticket111 packet](evidence/ticket111/README.md) and current handoff for the verified
+and storefront management. #112 alternate-currency checkout and #113 seller proceeds/withdrawals are also
+verified. Next is #114 for integrated rentals. See the
+[ticket113 packet](evidence/ticket113/README.md) and current handoff for the verified
 frontier and in-progress checks. Continue through every ready
 slice to the combined beta without repeated implementation confirmations. Beta
 127 remains the delivered baseline until actual combined delivery. Existing

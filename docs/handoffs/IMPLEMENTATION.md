@@ -7,7 +7,7 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
 edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
-image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments and recovery are also complete. #113 is next. Continue the approved ready frontier
+image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is next. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -27,56 +27,33 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active seller currency/proceeds slice #113
+## Completed seller currency/proceeds slice #113
 
-113 remains open. Base4f7b9923ea214b18cb76a9193c238ae232839b84.
-Current product source9452b92ee152f764c94b28244de8c6320191ade6.
-Both independent source-review axes report zero remaining findings. Current
-full-source native checks are running: history10/17 43597074151/43597074071,
-complete Seller10/17 43597074144/43597074058, complete Purchase10/17
-43597073961/43597073910. Check fresh primary metadata, not a stale monitor.
-Local combined compiler lost its daemon during native compilation after main
-passed; native-only client exited143 before a captured result. Neither is counted
-as compiler acceptance. Both hosted history builds compile and pass native tests.
-No new beta or production operation. Continue113,114,115 sequentially.
+Review base4f7b9923ea214b18cb76a9193c238ae232839b84. Final product
+9452b92ee152f764c94b28244de8c6320191ade6. Both independent source axes report
+zero remaining findings. Core215/43passes. Complete current-source Seller10/17
+43597074144/43597074058 each pass18cases/24cells/two3-phase process proofs.
+Complete Purchase10/17 43597073961/43597073910 each pass34cases/36cells/both
+3-phase process proofs. Focused history10/17 43597074151/43597074071 pass2cases.
+Every original digest/member is exact. See ../evidence/ticket113/README.md and
+its run ledger for all source-qualified failures, reviews and service limits.
 
-Implemented: actual seller currencies with retained drafts/originals, exact
-alternate delisting, actual pending/eligible proceeds, Store-signed whole-eligible
-25minute quotes, destination/network/service and Saito fees, real device auth,
-wallet-wide reservations and exact original manual-treasury recovery. Submitted
-is a recorded manual request, not verified payout or Saito-fee inclusion. No
-automatic financial retry, replacement quote or invented status API.
+Actual seller currencies, pending/eligible proceeds, signed whole-eligible
+quotes, real device authentication and exact manual-withdrawal recovery are
+implemented. Recorded request is not actual external payout or SAITO-fee chain
+inclusion. Missing external net quote remains explicit. Paged history preserves
+legacy100records, uncertain originals and cross-page fee reservations. Actual
+513-sale and101history source/SQLite/WASM fixtures cover the scale regressions.
+Authenticated orphan-page recovery handles absent/partial index commits without
+changing originals or financial authority. Actionable rows stay above remote
+balances. Earlier local daemon/client failures are not accepted as passes;
+hosted current-source builds compile and execute all tests.
 
-Current core full215/43 passes (store113-core-final.log). Reference producer
-executes actual pinned Store/Mixin/SQL/SQLite3.50.4, WASM0.3.15 and validator0.5.27
-with owned DB/time/no-op mail. Expanded source run passes, including513eligible
-claims within the unchanged128KiB budget and101independent history quotes.
-No full browser/peer, consensus, live funds or external payout claim.
-
-The lifetime100journal cap is replaced by authenticated physical pages with
-24-row backend-filtered native history. Legacy v1 originals, cross-page lookup
-and every wallet-wide fee reservation remain. Native100historyRED43592120173,
-missing-indexRED43594141768 and partial-index/navigationRED43596400048 are
-retained. At945, only base/.bak counts as a committed index. Complete contiguous
-authenticated orphan pages repair local metadata without changing identities,
-flags or financial authority; corrupt/missing committed data remains a barrier.
-Saved requests needing action now precede every remote-driven status/balance.
-The deterministic RED observed row top296px becoming0 after report arrival.
-
-Earlier focused proofs are source-qualified, not final acceptance: ordinary
-withdrawal4cases and distinct-PID process recovery pass both SDKs atafa;
-wallet-work guard passes both at16cb; all12withdrawal viewport cells pass both
-at664. Actual320dp/font200dark and412dp/font100light captures are inspected.
-At862complete Purchase10/17 and Seller17 pass; Seller10fails saved-row navigation.
-All original logs, exact ZIP members and captures remain outside Git under
-/mnt/storage/redsquare-android-artifacts/vault-store-planning. No passing tails
-or source bridge may substitute for final current-source complete acceptance.
-
-Next: collect the six current945 runs and native-only build. Diagnose real
-failures without weakening any deadlines, exact-original or authentication goals.
-Finish ticket113 evidence, STORE_LIVE/OWNER_INPUTS and closure only after complete
-acceptance. Public beta127 stays unchanged until115. Node/provider/Play operations,
-public financial writes and repeated owner-device development QA remain excluded.
+113 development is complete; STORE_LIVE/OWNER_INPUTS retain real manual treasury,
+provider/funding/operator/community-runtime/ARM-OEM acceptance. No activation or
+public financial write. The combined beta remains115, public beta127 unchanged.
+Next ready slice114: integrated Vault/Store rentals and actual access lifecycle.
+Continue114then115without another owner permission question.
 
 ## Completed alternate-payment slice #112
 
