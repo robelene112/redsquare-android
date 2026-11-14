@@ -14,6 +14,8 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject, private val 
     enum class Phase { WAITING, PAID, DELIVERED, SETTLED_WITHOUT_ASSET, REFUNDED }
     @Volatile var phase = Phase.WAITING
     @Volatile var funded = true
+    @Volatile var fundingGate: java.util.concurrent.CountDownLatch? = null
+    val fundingStarted = java.util.concurrent.CountDownLatch(1)
     @Volatile var wrongCreator = false
     @Volatile var blockReadGate: java.util.concurrent.CountDownLatch? = null
     val blockedReads = java.util.concurrent.atomic.AtomicInteger()
@@ -39,7 +41,10 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject, private val 
         return candidates.firstOrNull()
     }
     @Synchronized fun response(target: String): MockResponse {
-        if (target == "/options") return MockResponse(body = "{\"consensus\":{\"genesis_period\":100000}}")
+        if (target == "/options") {
+            fundingGate?.let { fundingStarted.countDown(); check(it.await(30, java.util.concurrent.TimeUnit.SECONDS)) }
+            return MockResponse(body = "{\"consensus\":{\"genesis_period\":100000}}")
+        }
         val candidate: SaitoStorePayment? = externalPayment?.invoke() ?: candidate()
         if (candidate == null || phase == Phase.WAITING) {
             if (target != "/balance/${reference.get("buyer").asString}") return MockResponse(code = 404)

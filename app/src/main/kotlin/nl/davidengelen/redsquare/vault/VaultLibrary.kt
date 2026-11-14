@@ -230,7 +230,8 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             VaultEntry(holding.id, key?.name ?: holding.id.take(12), key,
                 copies.firstOrNull { it.fileId == key?.fileId }, holding.type, creatorPaths[holding.id], creatorMaster)
         }
-        val received = (rentals + heldRentals).distinctBy { it.rental?.fileId }.map { entry -> entry.copy(copy = copies.firstOrNull { it.fileId == entry.rental?.fileId }) }
+        val received = (rentals + heldRentals).groupBy { requireNotNull(it.rental).fileId }.values
+            .map { candidates -> candidates.maxBy { requireNotNull(it.rental?.grant).expiresAt } }.map { entry -> entry.copy(copy = copies.firstOrNull { it.fileId == entry.rental?.fileId }) }
         val represented = (owned.mapNotNull { it.key?.fileId } + received.mapNotNull { it.rental?.fileId }).toSet()
         entries = received + owned + copies.filter { it.fileId !in represented }.map {
             VaultEntry("file.${it.fileId}", it.name, null, it, null)

@@ -105,4 +105,25 @@ class StoreRentalAccessPreviewTest {
             assertTrue(scene.node.peer.transactions.isEmpty())
         }
     }
+    @Test fun expiryDuringFundingLookupKeepsTheUnsentOriginalWithoutBroadcast() = withVaultDeviceCredential { device ->
+        withStorePurchaseFixture("rental-send-expiry", rental = true) { scene ->
+            ui.openStorePurchaseProduct(illustrated = true)
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Confirm and pay").performScrollTo().performClick()
+            waitForSystemPin(device)
+            val gate = java.util.concurrent.CountDownLatch(1)
+            scene.node.fundingGate = gate
+            try {
+                enterRealSystemPin(device)
+                assertTrue(scene.node.fundingStarted.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                scene.activity.onActivity { it.intent.putExtra("storeRentalFixtureTime", 1700012800000L) }
+                gate.countDown()
+                ui.waitUntil(15_000) { ui.onAllNodesWithText("Check the quantity and fee, then refresh this offer. Its terms or available stock may have changed.").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                val context = InstrumentationRegistry.getInstrumentation().targetContext
+                val retained = nl.davidengelen.redsquare.saito.StoreOrderStore(context, scene.node.reference.get("buyer").asString).read().single()
+                assertFalse(retained.mayHaveSent)
+                assertTrue(scene.node.peer.transactions.isEmpty())
+            } finally { gate.countDown(); scene.node.fundingGate = null }
+        }
+    }
 }
