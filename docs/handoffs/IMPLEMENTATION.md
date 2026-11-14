@@ -30,11 +30,15 @@ authorized. Other parent and real-release prerequisites remain open.
 ## Active seller currency/proceeds slice #113
 
 113 remains open. Base4f7b9923ea214b18cb76a9193c238ae232839b84.
-Current source3175a050872353f27883c239e9c32b89e1c66a25. No local build running;
-its native compiler passes. Native3175historyRED43596400048 is running for
-partial pages.new and controlled delayed-proceeds row movement. Check fresh
-primary metadata. No new beta or production operation; continue113,114,115
-sequentially to the single combined beta without more owner confirmation.
+Current product source9452b92ee152f764c94b28244de8c6320191ade6.
+Both independent source-review axes report zero remaining findings. Current
+full-source native checks are running: history10/17 43597074151/43597074071,
+complete Seller10/17 43597074144/43597074058, complete Purchase10/17
+43597073961/43597073910. Check fresh primary metadata, not a stale monitor.
+Local combined compiler lost its daemon during native compilation after main
+passed; native-only client exited143 before a captured result. Neither is counted
+as compiler acceptance. Both hosted history builds compile and pass native tests.
+No new beta or production operation. Continue113,114,115 sequentially.
 
 Implemented: actual seller currencies with retained drafts/originals, exact
 alternate delisting, actual pending/eligible proceeds, Store-signed whole-eligible
@@ -43,61 +47,36 @@ wallet-wide reservations and exact original manual-treasury recovery. Submitted
 is a recorded manual request, not verified payout or Saito-fee inclusion. No
 automatic financial retry, replacement quote or invented status API.
 
-Current core full215/43passes (store113-core-final.log). At earlierafa,
-ordinary4cases and three-phase distinct-PID withdrawal recovery pass both SDKs:
-43589479817/43589479866 and43589479818/43589479650. At16cb, wallet-work guard
-passes43591251621/43591251590. At66456, all12actual withdrawal review viewport
-cells pass10/17:43592120087/43592120037. Exact originals/captures remain external
-under vault-store-planning; these are focused/source-qualified proofs, not final
-current-source or beta acceptance.
+Current core full215/43 passes (store113-core-final.log). Reference producer
+executes actual pinned Store/Mixin/SQL/SQLite3.50.4, WASM0.3.15 and validator0.5.27
+with owned DB/time/no-op mail. Expanded source run passes, including513eligible
+claims within the unchanged128KiB budget and101independent history quotes.
+No full browser/peer, consensus, live funds or external payout claim.
 
-Independent reviews are recorded in ../evidence/ticket113/reviews.md. Initial
-SpecP2s (512claims and lifetime100journal cap) are resolved at8623473c2. Actual
-source/SQLite/WASM reference now generates513eligible claims and101independent
-history quotes. 513caseRED thenGREEN without increasing128KiB budget. Journal
-uses ≤100row/target512KiB physical pages and24row backend-filtered history; legacy
-v1 rows remain original page0. Lookup and fee reservations span all pages. Native
-full100historyRED43592120173, then normal history17GREEN43593711282. Older funded
-uncertain reservation and exact originals are retained in the migration test.
+The lifetime100journal cap is replaced by authenticated physical pages with
+24-row backend-filtered native history. Legacy v1 originals, cross-page lookup
+and every wallet-wide fee reservation remain. Native100historyRED43592120173,
+missing-indexRED43594141768 and partial-index/navigationRED43596400048 are
+retained. At945, only base/.bak counts as a committed index. Complete contiguous
+authenticated orphan pages repair local metadata without changing identities,
+flags or financial authority; corrupt/missing committed data remains a barrier.
+Saved requests needing action now precede every remote-driven status/balance.
+The deterministic RED observed row top296px becoming0 after report arrival.
 
-A StandardsP2 found interruption between new page and index commit. Native7dd
-RED43594141768 reproduced it. Source771cbcaa validates contiguous authenticated
-complete orphan pages before repairing only local metadata; no record/flag/RPC
-changes. Both SDKs pass absent-index recovery43595501875/43595501776. Both reviewers
-then found that pages.new alone still trips exists("pages")/requireNotNull(load).
-3175adds that exact replay plus incomplete rows.1.new, and a second actual native
-geometry case: a saved pending row must not move when delayed remote balances
-arrive. Run43596400048 should be inspected before implementing its fixes. Proposed
-index fix is committed base/.bak presence, preserving corrupt/missing committed
-page barriers. Existing exists() counts.new. Native partial index and navigation
-RED build log store113-index-temp-and-navigation-red-build.log passes compilation.
+Earlier focused proofs are source-qualified, not final acceptance: ordinary
+withdrawal4cases and distinct-PID process recovery pass both SDKs atafa;
+wallet-work guard passes both at16cb; all12withdrawal viewport cells pass both
+at664. Actual320dp/font200dark and412dp/font100light captures are inspected.
+At862complete Purchase10/17 and Seller17 pass; Seller10fails saved-row navigation.
+All original logs, exact ZIP members and captures remain outside Git under
+/mnt/storage/redsquare-android-artifacts/vault-store-planning. No passing tails
+or source bridge may substitute for final current-source complete acceptance.
 
-Complete862regressions: Seller17success43593711516; Purchase10/17success
-43593711014/43593710995. Seller10failed43593710904: after recreation, a click on a
-saved row does not leave the overview and Retry is not displayed. Whole artifact and
-captures are retained (store113-complete-seller-first10). Screenshot shows remote
-balance cards above the saved row, consistent with a reflow/tap issue, not proof
-of its exact timing. New3175controlled delayed-reply test records row geometry
-before/after report arrival. Consider attention rows above dynamic remote data,
-keeping recorded history below balances. Preserve all click/auth/original/deadline
-goals; complete current-source Seller and Purchase both SDKs still required.
-At862normal focused history10 was intentionally superseded/cancelled by the next
-same-scope run; metadata is retained, never accepted as success.
-
-Next: wait3175nativeRED; fix committed-index detection and stable pending-row UI,
-verify exact filesystem/original/reservation recovery and all12viewport cells,
-then full current seller/shared financial regressions and both review axes. New
-platform prompt adapter resolved the earlierP3. Final evidence, STORE_LIVE/owner
-inputs and closure remain pending. Keep all original failed runs. No source bridge
-may claim older product-source proofs as current complete acceptance. Beta127
-remains public; no release until115.
-
-Reference producer takes external reference-runtime, pinned upstream/node,
-hash-checked Acorn8.19.0, store113-reference-deps and output. It executes actual
-Store/Mixin/SQL/SQLite3.50.4, WASM0.3.15 and validator0.5.27 with owned DB/time/no-op
-mail. Expanded source run store113-review-expanded-reference.log passes; no full
-browser/peer, consensus, live funds or payout claim. All existing operational
-boundaries and pending36gates remain.
+Next: collect the six current945 runs and native-only build. Diagnose real
+failures without weakening any deadlines, exact-original or authentication goals.
+Finish ticket113 evidence, STORE_LIVE/OWNER_INPUTS and closure only after complete
+acceptance. Public beta127 stays unchanged until115. Node/provider/Play operations,
+public financial writes and repeated owner-device development QA remain excluded.
 
 ## Completed alternate-payment slice #112
 

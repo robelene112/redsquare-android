@@ -3,7 +3,9 @@
 Base: `4f7b9923ea214b18cb76a9193c238ae232839b84`.
 The two read-only axes began with separate fresh contexts. Neither reviewer
 changed files or ran tests. Source reviews do not establish runtime acceptance.
-Final sign-off remains pending.
+Final source sign-off: `9452b92ee152f764c94b28244de8c6320191ade6`.
+Both axes independently report zero remaining actionable findings. Native
+runtime acceptance is recorded separately and is not implied by source review.
 
 ## Spec
 
@@ -21,7 +23,13 @@ Both were independently resolved at
 `8623473c29837dddf8c9950c6a9dc9fef4aa47bc`, without scope creep.
 At771cbcaa the Spec axis additionally identified incomplete first-index creation:
 `pages.new` counted as a committed index before authenticated page recovery ran.
-The exact filesystem replay is added at3175a0508; its fix/review is pending.
+The exact filesystem replay was added at3175a0508. At9452b92ee,
+the reviewer independently confirms that only committed base/.bak index files
+count as an index. Authenticated contiguous retained pages recover without
+changing original identities, submission flags or wallet-wide reservations.
+Missing or corrupt committed data remains a barrier. Actionable saved requests
+also precede remote balances, avoiding movement when reports arrive. No new
+actionable Spec findings or scope creep.
 
 ## Standards
 
@@ -37,4 +45,7 @@ At771cbcaa, complete authenticated orphan pages recover through a local index
 repair. Submitted/uncertain flags, original bytes and fee reservations remain;
 no financial RPC is sent. Both SDKs pass the absent-index replay.
 The remaining `pages.new` crash window was independently confirmed by both axes.
-Its dedicated replay and the final follow-up review are still pending acceptance.
+At9452b92ee the Standards reviewer confirms that partial-only indexes
+no longer block authenticated recovery and actionable rows stay above remote
+loading/balance changes. No new documented-standard violations or actionable
+heuristic smells. Dedicated native acceptance is recorded separately.
