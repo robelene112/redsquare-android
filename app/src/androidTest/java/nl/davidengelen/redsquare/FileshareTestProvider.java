@@ -26,7 +26,7 @@ public final class FileshareTestProvider extends ContentProvider {
         return new File(directory, name);
     }
     @Override public boolean onCreate() { return true; }
-    @Override public String getType(Uri uri) { return "application/octet-stream"; }
+    @Override public String getType(Uri uri) { return uri.getLastPathSegment().startsWith("store-image-") ? "image/png" : "application/octet-stream"; }
     @Override public Cursor query(Uri uri, String[] projection, String selection, String[] args, String order) {
         File file = file(uri.getLastPathSegment());
         MatrixCursor cursor = new MatrixCursor(projection != null ? projection : new String[] {OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE});

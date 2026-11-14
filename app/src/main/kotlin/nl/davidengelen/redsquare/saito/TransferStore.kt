@@ -50,7 +50,7 @@ class TransferStore(private val context: Context, private val author: String) {
         slips.filter { Triple(it.block, it.ordinal, it.index) !in reserved }
     }
 
-    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty() || pendingKeys().isNotEmpty() || StoreOrderStore(context, author).read().isNotEmpty() || StoreListingStore(context, author).read().isNotEmpty()
+    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty() || pendingKeys().isNotEmpty() || StoreOrderStore(context, author).read().isNotEmpty() || StoreListingStore(context, author).read().isNotEmpty() || StoreDelistStore(context, author).read().isNotEmpty() || StoreImageStore(context, author).read().isNotEmpty()
 
     fun pendingMints(): List<PendingMint> = synchronized(SaitoLocalState.lock) {
         if (!exists("mint-reservations") && !exists("mint-reservations-guard")) return@synchronized emptyList()
@@ -179,7 +179,7 @@ class TransferStore(private val context: Context, private val author: String) {
 
     private fun reservedLocations(): Set<Triple<BigInteger, BigInteger, Int>> {
         val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
-        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs } + pendingKeys().flatMap { it.transfer.inputs } + StoreOrderStore(context, author).read().flatMap { it.purchase.inputs } + StoreListingStore(context, author).read().flatMap { it.listing.inputs }
+        val inputs = pending().flatMap { it.payment.inputs } + pendingMints().flatMap { it.candidate.inputs } + pendingKeys().flatMap { it.transfer.inputs } + StoreOrderStore(context, author).read().flatMap { it.purchase.inputs } + StoreListingStore(context, author).read().flatMap { it.listing.inputs } + StoreDelistStore(context, author).read().flatMap { it.delist.inputs } + StoreImageStore(context, author).read().flatMap { it.mint.inputs }
         require(inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
         return locations
     }

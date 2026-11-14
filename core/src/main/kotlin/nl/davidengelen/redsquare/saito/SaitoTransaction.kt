@@ -8,7 +8,7 @@ import java.util.Base64
 import java.math.BigInteger
 
 /** Immutable signed transaction. Zero-payment restoration remains a separate strict contract. */
-class SaitoTransaction private constructor(private val bytes: ByteArray) {
+class SaitoTransaction private constructor(private val bytes: ByteArray, private val escrowSigner: String? = null) {
     class InvalidMessage : IllegalArgumentException("Message must be valid Unicode within the native size limit")
     internal data class OwnedSlip(val owner: String, val slip: SaitoBalanceSnapshot.Slip)
 
@@ -68,7 +68,7 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
     }
 
     fun broadcast(wallet: SaitoWallet, destination: String): ByteArray {
-        val author = if (bytes[92] == 8.toByte()) SaitoEnvelope.decodeBound(envelope()).author
+        val author = escrowSigner ?: if (bytes[92] == 8.toByte()) SaitoEnvelope.decodeBound(envelope()).author
             else SaitoEnvelope.decodePayload(envelope()).author
         require(author == wallet.publicKey)
         val recipient = Base58.decode(destination)
@@ -90,6 +90,19 @@ class SaitoTransaction private constructor(private val bytes: ByteArray) {
         /** Only the strict Vault candidate reader admits retained Bound bytes. */
         internal fun fromVaultMintBytes(bytes: ByteArray): SaitoTransaction =
             SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decodeBound(it.envelope()) }
+
+        /** Only the separately validated seller escrow-spend reader uses this signer admission. */
+        internal fun fromStoreDelistBytes(bytes: ByteArray, seller: String): SaitoTransaction {
+            require(SaitoWallet.isPublicKey(seller) && bytes.size >= 448)
+            val header = ByteBuffer.wrap(bytes)
+            require(header.getInt(0) == 3 && header.getInt(4) == 3 && bytes[92] == 8.toByte() && header.getInt(12) == 0 &&
+                header.getInt(88) == 1 && header.getInt(8) in 1..MAX_MESSAGE_BYTES && bytes.size == 447 + header.getInt(8))
+            val payload = bytes.copyOfRange(447, bytes.size)
+            val body = com.google.gson.JsonParser.parseString(payload.toString(Charsets.UTF_8)).asJsonObject
+            require(body.get("module").asString == "Store" && body.get("request").asString == "delist-asset" && body.get("seller").asString == seller &&
+                SaitoWallet.verify(saitoTransactionPreimage(bytes, payload), bytes.copyOfRange(16, 80).joinToString("") { "%02x".format(it.toInt() and 255) }, seller))
+            return SaitoTransaction(bytes.copyOf(), seller)
+        }
 
         fun create(wallet: SaitoWallet, body: JsonObject, timestamp: Long, recipients: List<String> = emptyList()): SaitoTransaction =
             createWithOutputs(wallet, body, timestamp, (listOf(wallet.publicKey) + recipients).distinct())

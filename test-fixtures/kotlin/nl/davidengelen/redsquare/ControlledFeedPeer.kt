@@ -301,8 +301,12 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             return
                         }
                         val criteria = body.getAsJsonObject("data")
-                        if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory") &&
+                        if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory", "load-listing-spend", "submit-listing") &&
                             criteria.get("module")?.asString == "Store") {
+                            if (body.get("request").asString in setOf("load-listing-spend", "submit-listing")) {
+                                val signed = SaitoTransaction.restore(java.util.Base64.getEncoder().encodeToString(frame.copyOfRange(5, frame.size)))
+                                require(SaitoEnvelope.decode(signed.envelope()).author == authenticatedKey)
+                            }
                             storeRequests.add(body.deepCopy())
                             if (withholdStoreReply) return
                             val response = requireNotNull(storeResponse)(body)

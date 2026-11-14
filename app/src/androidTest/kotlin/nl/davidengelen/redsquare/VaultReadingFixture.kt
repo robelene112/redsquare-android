@@ -21,10 +21,10 @@ import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicBoolean
 
 internal data class VaultReadingScene(val activity: ActivityScenario<MainActivity>, val peer: ControlledFeedPeer,
-    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null)
+    val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null, val seller: OwnedStoreSellerFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, preserveSeller: Boolean = false, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -36,9 +36,12 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
         OwnedVaultKeyTransferFixture(vector, transferReference)
     } else null
     require(!rentalMint || minting)
+    val sellerNode = if (sellerImage || sellerListed) OwnedStoreSellerFixture(vector,
+        instrumentation.context.assets.open("native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject },
+        instrumentation.context.assets.open("native-store-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }, sellerImage, sellerListed) else null
     val wallets = AndroidWalletStore(context)
     val original = wallets.loadOrCreate()
-    val fixture = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.
+    val fixture = if (preserveSeller) original.also { check(it.publicKey == SaitoWallet.fromPrivateKey("0".repeat(63) + "2").publicKey) } else SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture identity. Never fund.
     assertEquals(vector.get("owner").asString, fixture.publicKey)
     val document = if (failedExport) "vault-write-fails.bin" else "vault-saved.bin"
     val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$document")
@@ -65,7 +68,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
             priorMint?.let(nl.davidengelen.redsquare.saito.SaitoVaultMint::readCandidate))
     } else null
     try {
-        wallets.replace(original, fixture)
+        if (!preserveSeller) wallets.replace(original, fixture)
         if (retainTransfers) {
             val retained = ChatFixtureState(context, listOf("transfer.${fixture.publicKey}."), fixture.publicKey)
             transfers = retained
@@ -78,6 +81,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
         MockWebServer().use { balance ->
             balance.dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
+                    sellerNode?.let { return it.response(request.target) }
                     minted?.let { return it.response(request.target) }
                     transferred?.let { return it.response(request.target) }
                     if (request.target == "/options") return MockResponse(body = "{\"consensus\":{\"genesis_period\":10000000}}")
@@ -98,8 +102,9 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                         nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, endpoint)
                 } }, { minted?.close() })
             }, balanceApiUrl = "http://127.0.0.1:${balance.port}/balance/",
-                advertisedServices = services, configurePeer = { peer ->
+                advertisedServices = services, peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + if (sellerNode != null) "3" else "1"), configurePeer = { peer ->
                     referencePeer = peer
+                    sellerNode?.connect(peer)
                     minted?.connect(peer)
                     transferred?.connect(peer)
                     if (minted == null) peer.vaultResponse = accessResponse@ { signed ->
@@ -123,13 +128,13 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                         }.toString()
                     }
                 }, archiveResponse = { criteria ->
-                    if (minted != null) minted.archive(criteria) else {
+                    if (sellerNode != null) sellerNode.archive(criteria) else if (minted != null) minted.archive(criteria) else {
                     val selected = inventoryRows.firstOrNull { it.get("id").asString == criteria.get("field4")?.asString }
                     if (selected != null) "[" + JsonObject().apply { addProperty("tx", selected.getAsJsonObject("key").get("envelope").asString) } + "]"
                     else "[]"
                     }
                 }) { activity ->
-                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount }, transferred)) }
+                    try { block(VaultReadingScene(activity, referencePeer, vector, ownsKey, evidence, context, destination, minted, { balance.requestCount }, transferred, sellerNode)) }
                     catch (problem: Throwable) {
                         File(evidence, "$name-original-failure.txt").writeText(problem.stackTraceToString())
                         throw problem

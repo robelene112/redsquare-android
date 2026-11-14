@@ -17,7 +17,8 @@ import nl.davidengelen.redsquare.ui.*
 
 @Composable
 internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDiscard: () -> Unit, onCancel: () -> Unit,
-    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit, onLibrary: () -> Unit, creator: String, onRules: (VaultDraftRules, () -> Unit) -> Unit) {
+    onSubmit: () -> Unit, onStop: () -> Unit, onCheck: () -> Unit, onBack: () -> Unit, onLibrary: () -> Unit, creator: String, onRules: (VaultDraftRules, () -> Unit) -> Unit,
+    completeLabel: Int = R.string.vault_back_to_files, libraryLabel: Int = R.string.vault_show_files) {
     var rulesOpen by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     val working = view.phase in setOf(VaultUploadPhase.LOADING, VaultUploadPhase.PREPARING, VaultUploadPhase.CHECKING,
@@ -39,7 +40,7 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
     Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Column(Modifier.padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FrameIconButton(R.drawable.ic_back, stringResource(R.string.vault_show_files), onClick = onLibrary)
+                FrameIconButton(R.drawable.ic_back, stringResource(libraryLabel), onClick = onLibrary)
                 Text(stringResource(title), style = MaterialTheme.typography.headlineSmall)
             }
             InlineStatus(view.problem?.let { stringResource(it) }, StatusTone.ERROR)
@@ -94,7 +95,7 @@ internal fun VaultUploadReview(view: VaultUploadView, modifier: Modifier, onDisc
             if (view.phase == VaultUploadPhase.COMPLETE) {
                 Text(stringResource(R.string.vault_upload_complete_detail), style = MaterialTheme.typography.bodyMedium)
                 Button(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.vault_back_to_files))
+                    Text(stringResource(completeLabel))
                 }
             }
             if (view.phase == VaultUploadPhase.WAITING) {

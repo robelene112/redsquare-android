@@ -1,0 +1,39 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "saitoWasm": "0.3.15",
+    "sourceHashes": {
+      "node/lib/saito/ui/saito-nft/overlays/create-overlay.js": "39fae6c9fd184f85ba91dc8479b50cf64187364b98f3dede4f3d0fbb7b3a12c1",
+      "node/mods/vault/lib/contracts/custom.js": "e16a289d21a55e0c82a150a00319603bdd2298a9dae086316e71c833a1d95a82",
+      "node/mods/vault/lib/contracts/rental.js": "c0385317ee08e703bd17b9a9655c142bf1179f3336cd98485a95b792abc3b8e8",
+      "node/mods/vault/lib/contracts/default.js": "cb33a91e94c0aad86ed6078c1547e3a36dff88ef1e6b65166fe3e9d0d980da58",
+      "node/mods/vault/lib/ui/overlays/file-upload.js": "f4d8761d55e2415238d999992016ddec38a108fc89459b8aa1af4056b3c74aeb",
+      "node/mods/vault/lib/transactions/add-file.js": "bca07d28003e32d148fbdf0f8422f635e634453cfd6047b3e698fcaaca5893f9",
+      "rust/saito-core/src/core/consensus/wallet.rs": "5225c5b419f670bae1043d42a9c0c50a5430a46498d8ded44ca895de405ec432"
+    },
+    "qualification": "Actual isolated official image createObject method with a minimal DOM type/thumbnail adapter and actual funded WASM wallet.createBoundTransaction. No full frontend, consensus admission or public mint."
+  },
+  "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "timestamp": "1700000999000",
+  "inputs": [
+    {
+      "block": "2000001",
+      "ordinal": "3",
+      "index": 0,
+      "amount": "200000000",
+      "type": 0
+    }
+  ],
+  "body": {
+    "data": {
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII="
+    },
+    "title": "Native red image",
+    "description": "A public image NFT."
+  },
+  "mint": {
+    "id": "dcbe44789dc2bad1e2f65dab2b48fc307c8c3cf9cd2f06f630a1fcf39be1e60f192df240ce192d6e8c3990c021364fe20456505573850cca60c910da2c470e47",
+    "networkBase64": "AAAAAQAAAAQAAADOAAAAANy+RHidwrrR4vZdqytI/DB8jDz5zS8G9jCh/POb4eYPGS3yQM4ZLW6MOZDAITZP4gRWUFVzhQzKYMkQ2ixHDkcAAAGLz/SmWAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAvrwgAAAAAAAB6EgQAAAAAAAAADAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACQLGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwBpbWFnZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAADAHsiZGF0YSI6eyJpbWFnZSI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBQXdBQUFBSUNBSUFBQUJDaG9tbUFBQUFFVWxFUVZSNG5HTzRJNmRCRURHTUtnSUFKMWxzd2ZTZEwrVUFBQUFBU1VWT1JLNUNZSUk9In0sInRpdGxlIjoiTmF0aXZlIHJlZCBpbWFnZSIsImRlc2NyaXB0aW9uIjoiQSBwdWJsaWMgaW1hZ2UgTkZULiJ9",
+    "envelope": "{\"t\":\"AAAAAQAAAAQAAAAAAAAAANy+RHidwrrR4vZdqytI/DB8jDz5zS8G9jCh/POb4eYPGS3yQM4ZLW6MOZDAITZP4gRWUFVzhQzKYMkQ2ixHDkcAAAGLz/SmWAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAvrwgAAAAAAAB6EgQAAAAAAAAADAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACQLGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwBpbWFnZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAADAA==\",\"m\":\"eyJkYXRhIjp7ImltYWdlIjoiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFBd0FBQUFJQ0FJQUFBQkNob21tQUFBQUVVbEVRVlI0bkdPNEk2ZEJFREdNS2dJQUoxbHN3ZlNkTCtVQUFBQUFTVVZPUks1Q1lJST0ifSwidGl0bGUiOiJOYXRpdmUgcmVkIGltYWdlIiwiZGVzY3JpcHRpb24iOiJBIHB1YmxpYyBpbWFnZSBORlQuIn0=\",\"opt\":\"e30=\"}"
+  }
+}

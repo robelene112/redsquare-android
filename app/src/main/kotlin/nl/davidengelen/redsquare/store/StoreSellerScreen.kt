@@ -26,6 +26,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
     modifier: Modifier, onOpen: (StoreLink) -> Unit) {
     val activity = androidx.compose.ui.platform.LocalContext.current as Activity
     val scope = rememberCoroutineScope()
+    val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
     val balances = remember(activity) { WalletBalances.fromIntent(activity.intent) }
     val selling = remember(wallet.publicKey, backend, selected, endpoint) { StoreSelling(activity, wallet, backend, selected, endpoint, balances, scope) }
     val drafts = remember(wallet.publicKey, backend) { StoreSaleDraftStore(activity, wallet.publicKey, backend) }
@@ -34,6 +35,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
     var storageError by remember { mutableStateOf(false) }
     var draftVersion by remember { mutableLongStateOf(0) }
     var editing by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
+    var pickingImage by rememberSaveable { mutableStateOf(false) }
     var uploading by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
     val uploads = remember(wallet.publicKey, backend, endpoint) { VaultUploads.session(activity, wallet, backend, endpoint, balances) }
     val upload by uploads.state.collectAsState()
@@ -60,37 +62,45 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
         }
     }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
-        if (uri != null) { update(draft.copy(creating = true)); uploading = true; uploads.prepare(uri) }
+        if (uri != null) { update(draft.copy(creating = true, image = pickingImage)); uploading = true; uploads.prepare(uri) }
     }
     val focused = selling.focused
-    val stock = selling.inventory.firstOrNull { it.holding.witnesses[1] == draft.item }
-    SingleOwnerReveal(Triple(focused?.listing?.transaction?.id, editing, uploading), modifier) {
+    val removal = selling.focusedDelist
+    val image = selling.focusedImage
+    fun token(item: StoreSelling.Inventory) = item.holding.id + ":" + item.holding.creator + ":" + item.holding.witnesses[1]
+    val stock = selling.inventory.firstOrNull { token(it) == draft.item }
+    SingleOwnerReveal(Triple(image?.mint?.transaction?.id ?: removal?.delist?.transaction?.id ?: focused?.listing?.transaction?.id, editing, uploading), modifier) {
         when {
+            image != null -> StoreImageReview(selling, image, Modifier.fillMaxSize()) {
+                update(draft.copy(item = image.mint.nftId + ":" + wallet.publicKey, creating = false, image = false))
+                uploads.discard(); selling.closeImage(); editing = true; uploading = false; selling.load()
+            }
+            removal != null -> StoreDelistReview(selling, removal, Modifier.fillMaxSize())
+            uploading && draft.image -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text(stringResource(R.string.store_image_prepare), style = MaterialTheme.typography.headlineSmall)
+                Text(stringResource(R.string.store_image_public))
+                Text(stringResource(R.string.store_image_limit))
+                upload.file?.let { Text(it.name, style = MaterialTheme.typography.titleMedium) }
+                InlineStatus(upload.problem?.let { stringResource(it) } ?: selling.problem?.let { stringResource(it) }, StatusTone.ERROR)
+                if (upload.phase == VaultUploadPhase.PREPARING) {
+                    LinearProgressIndicator(Modifier.fillMaxWidth())
+                    TextButton(onClick = uploads::cancelPreparation, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_cancel_reading)) }
+                }
+                Button(enabled = !selling.busy && upload.phase == VaultUploadPhase.REVIEW && upload.record == null && upload.file != null,
+                    onClick = { selling.prepareImage(draft.title.ifBlank { upload.file?.name.orEmpty() }, draft.description) { update(draft.copy(creating = false)); uploading = false; editing = false } },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_review)) }
+                TextButton(onClick = { update(draft.copy(creating = false)); uploading = false }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_back_form)) }
+            }
             uploading -> VaultUploadReview(upload, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,
                 auth::request, uploads::cancelSending, uploads::checkOwnership,
                 onBack = {
                     val keyId = upload.record?.candidate?.nftId
                     if (keyId != null) {
-                        update(draft.copy(item = keyId, creating = false)); uploads.backToFiles(); uploading = false; selling.load()
+                        update(draft.copy(item = keyId + ":" + wallet.publicKey, creating = false)); uploads.backToFiles(); uploading = false; selling.load()
                     }
-                }, onLibrary = { uploading = false }, creator = wallet.publicKey, onRules = uploads::changeRules)
-            focused != null -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Text(stringResource(R.string.store_sell_review), style = MaterialTheme.typography.headlineSmall)
-                InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
-                Text(focused.listing.terms.title, style = MaterialTheme.typography.titleLarge)
-                Text(focused.listing.terms.description)
-                Text(stringResource(R.string.store_sell_terms, focused.listing.terms.quantity.toString(), focused.listing.terms.price))
-                Text(stringResource(R.string.store_sell_custody))
-                Text(stringResource(R.string.store_sell_cost))
-                Text(backend.webUrl, style = MaterialTheme.typography.bodySmall)
-                Text(focused.listing.transaction.id, style = MaterialTheme.typography.bodySmall)
-                Text(stringResource(if (focused.mayHaveSent) R.string.store_sell_waiting else R.string.store_sell_not_sent))
-                Button(enabled = !selling.busy, onClick = { selling.authorize(focused) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                    Text(stringResource(if (focused.mayHaveSent) R.string.store_sell_retry_original else R.string.store_sell_publish))
-                }
-                OutlinedButton(enabled = !selling.busy, onClick = { selling.closeReview() }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
-                if (!focused.mayHaveSent) TextButton(enabled = !selling.busy, onClick = { selling.discard(focused) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_discard)) }
-            }
+                }, onLibrary = { uploading = false }, creator = wallet.publicKey, onRules = uploads::changeRules,
+                completeLabel = R.string.store_sell_back_form, libraryLabel = R.string.store_sell_back_form)
+            focused != null -> StoreSaleReview(selling, focused, Modifier.fillMaxSize())
             editing -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.store_sell_new), style = MaterialTheme.typography.titleLarge)
                 InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
@@ -103,23 +113,26 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 if (selling.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
                 selling.inventory.forEach { item ->
                     val eligible = SaitoStoreListing.sellable(item.holding) && item.envelope != null
-                    OutlinedButton(enabled = eligible && !selling.busy, onClick = { update(draft.copy(item = item.holding.witnesses[1])) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    OutlinedButton(enabled = eligible && !selling.busy, onClick = { update(draft.copy(item = token(item))) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                         Column(Modifier.weight(1f)) {
                             Text(item.title)
                             Text(stringResource(if (!SaitoStoreListing.sellable(item.holding)) R.string.store_sell_rental_only else if (item.envelope == null) R.string.store_sell_metadata_unavailable else R.string.store_sell_owned, item.holding.quantity.toString()), style = MaterialTheme.typography.bodySmall)
-                            if (draft.item == item.holding.witnesses[1] || draft.item == item.holding.id) Text(stringResource(R.string.store_sell_selected))
+                            if (draft.item == token(item) || draft.item == item.holding.id + ":" + item.holding.creator) Text(stringResource(R.string.store_sell_selected))
                         }
                     }
                 }
                 if (selling.inventoryPage > 0) TextButton(onClick = { selling.load(selling.inventoryPage - 1) }, enabled = !selling.busy) { Text(stringResource(R.string.store_previous)) }
                 if (selling.moreInventory) TextButton(onClick = { selling.load(selling.inventoryPage + 1) }, enabled = !selling.busy) { Text(stringResource(R.string.store_more)) }
-                OutlinedButton(onClick = { if (upload.phase == VaultUploadPhase.FILES) picker.launch(arrayOf("*/*")) else uploading = true }, enabled = loaded && !storageError && !selling.busy,
+                OutlinedButton(onClick = { if (upload.phase == VaultUploadPhase.FILES) { pickingImage = false; picker.launch(arrayOf("*/*")) } else uploading = true }, enabled = loaded && !storageError && !selling.busy,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_create_file)) }
-                val chosen = stock ?: selling.inventory.firstOrNull { it.holding.id == draft.item }
+                OutlinedButton(onClick = { pickingImage = true; picker.launch(arrayOf("image/png", "image/jpeg", "image/webp", "image/gif")) },
+                    enabled = loaded && !storageError && !selling.busy && upload.phase == VaultUploadPhase.FILES,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_create)) }
+                val chosen = stock ?: selling.inventory.firstOrNull { it.holding.id + ":" + it.holding.creator == draft.item }
                 val terms = runCatching { StoreListingTerms(draft.title, draft.description, chosen?.let { StoreCategory.forType(it.holding.type) } ?: StoreCategory.OTHER,
                     draft.price, draft.quantity.toBigInteger()) }.getOrNull()
                 Button(enabled = loaded && !storageError && !selling.busy && chosen?.envelope != null && terms != null,
-                    onClick = { selling.prepare(requireNotNull(chosen), requireNotNull(terms)) { editing = false } }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_review)) }
+                    onClick = { keyboard?.hide(); selling.prepare(requireNotNull(chosen), requireNotNull(terms)) { editing = false } }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_review)) }
                 TextButton(onClick = { editing = false }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
             }
             else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -129,6 +142,23 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                     if (selling.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
                     Button(enabled = loaded && !storageError && !selling.busy, onClick = { editing = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_new)) }
                     TextButton(onClick = { selling.load() }, enabled = !selling.busy, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_refresh)) }
+                }
+                items(selling.images.filter { it.backend == backend }, key = { "image:" + it.mint.transaction.id }) { record ->
+                    OutlinedCard(onClick = { selling.openImage(record) }) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(record.mint.title, style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(if (record.mint.transaction.id in selling.ownedImages) R.string.store_image_owned else if (record.mayHaveSent) R.string.store_image_waiting else R.string.store_image_review))
+                        }
+                    }
+                }
+                items(selling.delistRecords.filter { it.backend == backend }, key = { "delist:" + it.delist.transaction.id }) { record ->
+                    OutlinedCard(onClick = { selling.openDelist(record) }) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(record.delist.product.title, style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(if (selling.delistObservations[record.delist.transaction.id]?.returned == true) R.string.store_delist_returned
+                                else if (record.mayHaveSent) R.string.store_delist_waiting else R.string.store_delist_review))
+                        }
+                    }
                 }
                 items(selling.records.filter { it.backend == backend && selling.reported.none { row -> row.summary.signature == it.listing.transaction.id } }, key = { "local:" + it.listing.transaction.id }) { record ->
                     OutlinedCard(onClick = { selling.open(record) }) {
@@ -146,6 +176,11 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                             if (item.risk.isNotBlank()) Text(item.risk)
                             if (item.note.isNotBlank()) Text(item.note)
                             TextButton(onClick = { onOpen(StoreLink(backend, signature = item.summary.signature)) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_open)) }
+                            if (!item.sold && item.summary.price?.currency == "SAITO") {
+                                OutlinedButton(onClick = { selling.prepareDelist(item) }, enabled = !selling.busy,
+                                    modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_delist_action)) }
+                                Text(stringResource(R.string.store_sell_edit_explanation), style = MaterialTheme.typography.bodySmall)
+                            }
                             if (!item.sold && !item.approved) OutlinedButton(onClick = { selling.submitMarketplace(item) }, enabled = !selling.busy, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_marketplace)) }
                         }
                     }

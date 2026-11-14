@@ -50,4 +50,50 @@ class SaitoStoreListingTest {
         assertEquals(reference.get("store").asString, inventory[1].buyer)
         assertThrows(IllegalArgumentException::class.java) { SaitoStoreSeller.readInventory(reply.toString(), reference.get("store").asString) }
     }
+    @Test fun delistingMatchesTheOfficialSellerWitnessAndReturnsTheExactOriginalStock() {
+        val reference = fixture("native-store-listing-reference")
+        val vector = fixture("native-store-delist-reference")
+        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(reference.get("page").toString()).items.single(),
+            reference.getAsJsonObject("listing").get("envelope").asString))
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val delist = SaitoStoreDelist.create(wallet, product, vector.get("row").toString(), 1700004000000)
+        assertEquals(vector.getAsJsonObject("delist").get("networkBase64").asString, delist.transaction.encoded())
+        val restored = SaitoStoreDelist.restore(delist.transaction.encoded(), product)
+        assertEquals(delist.transaction.id, restored.transaction.id)
+        assertEquals(BigInteger.TWO, restored.quantity)
+        assertEquals(wallet.publicKey, restored.author)
+        assertTrue(restored.matchesSpend(vector.get("row").toString()))
+        assertFalse(restored.matchesSpend(vector.getAsJsonObject("row").deepCopy().apply { addProperty("quantity", 1) }.toString()))
+        assertEquals(4.toByte(), restored.transaction.broadcast(wallet, reference.get("store").asString).first())
+        assertThrows(IllegalArgumentException::class.java) { SaitoTransaction.restore(delist.transaction.encoded()) }
+        assertThrows(IllegalArgumentException::class.java) { SaitoEnvelope.decodeBound(delist.transaction.envelope()) }
+    }
+    @Test fun delistedCustodyRequiresTheOriginalOnTheSelectedChainAndExactCurrentReturn() {
+        val reference = fixture("native-store-listing-reference")
+        val vector = fixture("native-store-delist-reference")
+        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(reference.get("page").toString()).items.single(), reference.getAsJsonObject("listing").get("envelope").asString))
+        val delist = SaitoStoreDelist.restore(vector.getAsJsonObject("delist").get("networkBase64").asString, product)
+        val snapshot = SaitoBalanceSnapshot.parse(vector.get("returnedSnapshot").asString.toByteArray(), product.seller, 1700004003000)
+        val block = java.util.Base64.getDecoder().decode(vector.getAsJsonObject("block").get("fullBase64").asString)
+        val observation = requireNotNull(SaitoStoreDelistChain.observe(delist, snapshot) { block })
+        assertEquals(BigInteger.valueOf(21), observation.height); assertEquals(BigInteger.ZERO, observation.ordinal)
+        assertTrue(observation.returned)
+        val missing = SaitoBalanceSnapshot.parse((vector.get("returnedSnapshot").asString.substringBefore('\n') + "\n").toByteArray(), product.seller, 1700004003000)
+        assertFalse(requireNotNull(SaitoStoreDelistChain.observe(delist, missing) { block }).returned)
+        assertNull(SaitoStoreDelistChain.observe(delist, snapshot) { null })
+    }
+    @Test fun aNewPublicImageUsesTheOfficialImageObjectAndWasmMint() {
+        val vector = fixture("native-store-image-reference")
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val inputs = vector.getAsJsonArray("inputs").map { row -> row.asJsonObject.let {
+            SaitoBalanceSnapshot.Slip(it.get("block").asString.toBigInteger(), it.get("ordinal").asString.toBigInteger(), it.get("index").asInt, it.get("amount").asString.toBigInteger(), it.get("type").asInt)
+        } }
+        val image = vector.getAsJsonObject("body").getAsJsonObject("data").get("image").asString
+        val mint = SaitoImageMint.create(wallet, inputs, "Native red image", "A public image NFT.", image, vector.get("timestamp").asLong)
+        assertEquals(vector.getAsJsonObject("mint").get("networkBase64").asString, mint.transaction.encoded())
+        val restored = SaitoImageMint.restore(mint.transaction.encoded())
+        assertEquals(mint.nftId, restored.nftId); assertEquals(BigInteger("100000000"), restored.deposit)
+        assertEquals(inputs, restored.inputs)
+        assertEquals(image, restored.image)
+    }
 }
