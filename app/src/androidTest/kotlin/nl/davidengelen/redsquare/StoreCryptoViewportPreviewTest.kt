@@ -27,8 +27,7 @@ class StoreCryptoViewportPreviewTest {
                     val loading = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(nl.davidengelen.redsquare.R.string.store_loading_product)
                     ui.waitUntil(15_000) { ui.onAllNodesWithText(loading).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Other payment methods"))
-                    ui.onNodeWithText("Quantity").performScrollTo().performTextReplacement("2")
-                    ui.finishNativeStoreQuantityEntry()
+                    ui.enterNativeStoreQuantity("2")
                     ui.onNodeWithText("Other payment methods").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodesWithText("Pay with USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Pay with USDT").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()

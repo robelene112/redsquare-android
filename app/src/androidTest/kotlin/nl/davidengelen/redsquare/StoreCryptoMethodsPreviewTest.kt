@@ -65,16 +65,13 @@ internal fun ComposeTestRule.openNativeStoreOtherMethods(quantity: String = "2")
     onNodeWithText("Field notes access key").performClick()
     waitUntil(15_000) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
     if (quantity != "1") {
-        onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
-        onNodeWithText("Quantity").assertTextContains(quantity)
-        finishNativeStoreQuantityEntry()
-        onNodeWithText("Quantity").assertTextContains(quantity)
+        enterNativeStoreQuantity(quantity)
     }
     onNodeWithText("Other payment methods").performScrollTo().performClick()
 }
 
-/** Complete real keyboard input before scrolling to a control whose position depends on IME insets. */
-internal fun ComposeTestRule.finishNativeStoreQuantityEntry() {
+/** Focus and observe the real keyboard before editing; never race a new input connection with SetText. */
+internal fun ComposeTestRule.enterNativeStoreQuantity(quantity: String) {
     val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
     fun showing(): Boolean? {
         var visible: Boolean? = null
@@ -87,7 +84,11 @@ internal fun ComposeTestRule.finishNativeStoreQuantityEntry() {
         }
         return visible
     }
+    onNodeWithText("Quantity").performScrollTo().performClick()
     waitUntil(15_000) { showing() == true }
+    onNodeWithText("Quantity").assertIsFocused().performTextReplacement(quantity)
+    onNodeWithText("Quantity").assertTextContains(quantity)
     androidx.test.uiautomator.UiDevice.getInstance(instrumentation).pressBack()
     waitUntil(5_000) { showing() == false }
+    onNodeWithText("Quantity").assertTextContains(quantity)
 }
