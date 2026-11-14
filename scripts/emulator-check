@@ -758,6 +758,7 @@ if [[ "${TEST_SCOPE:-full}" == store-purchase* ]]; then
     verify_group_chat_native StoreCryptoMethodsPreviewTest 480 store-crypto-methods store-purchase-evidence || store_native_result=1
     verify_group_chat_native StoreCryptoAvailabilityPreviewTest 180 store-crypto-availability store-purchase-evidence || store_native_result=1
     verify_group_chat_native StoreCryptoContinuationPreviewTest 180 store-crypto-continuation store-purchase-evidence || store_native_result=1
+    verify_group_chat_native StoreCryptoRemainderPreviewTest 180 store-crypto-remainder store-purchase-evidence || store_native_result=1
     verify_group_chat_native StoreCryptoViewportPreviewTest 480 store-crypto-viewport store-purchase-evidence || store_native_result=1
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence || store_native_result=1
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence || store_native_result=1
@@ -1375,6 +1376,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native StoreCryptoMethodsPreviewTest 480 store-crypto-methods store-purchase-evidence
     verify_group_chat_native StoreCryptoAvailabilityPreviewTest 180 store-crypto-availability store-purchase-evidence
     verify_group_chat_native StoreCryptoContinuationPreviewTest 180 store-crypto-continuation store-purchase-evidence
+    verify_group_chat_native StoreCryptoRemainderPreviewTest 180 store-crypto-remainder store-purchase-evidence
     verify_group_chat_native StoreCryptoViewportPreviewTest 480 store-crypto-viewport store-purchase-evidence
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence

@@ -67,16 +67,8 @@ internal fun StoreExternalOrder(order: StoreOrderStore.Order, purchases: StorePu
     Text(stringResource(R.string.store_purchase_quantity_review, external.carrier.quantity.toString()))
     Text(stringResource(R.string.store_crypto_original_item, external.carrier.total.stripTrailingZeros().toPlainString(), external.carrier.price.currency))
     val observation = purchases.observations[order.id]
-    val status = when {
-        observation?.payment != null || observation?.receipt != null || order.payment != null || order.receipt != null -> orderStatus(order, observation)
-        external.hidden -> R.string.store_crypto_closed
-        invoice == null -> R.string.store_crypto_waiting_instructions
-        invoice.state in setOf(SaitoStoreCrypto.TransferState.FAILED, SaitoStoreCrypto.TransferState.REJECTED) -> R.string.store_crypto_provider_problem
-        invoice.state == SaitoStoreCrypto.TransferState.CANCELLED -> R.string.store_crypto_closed
-        invoice.state != SaitoStoreCrypto.TransferState.AWAITING -> R.string.store_crypto_wait_settlement
-        !invoice.payable(now) -> R.string.store_crypto_expired
-        else -> R.string.store_crypto_awaiting
-    }
+    val status = if (observation?.payment != null || observation?.receipt != null || order.payment != null || order.receipt != null)
+        orderStatus(order, observation) else externalOrderStatus(external, now)
     SingleOwnerReveal(status) { Text(stringResource(status), color = MaterialTheme.colorScheme.onSurfaceVariant) }
     order.receipt?.takeIf { it.kind == SaitoStoreReceipt.Kind.REFUND }?.let {
         Text(stringResource(R.string.store_crypto_refund, storeAmount(requireNotNull(order.fundedPayment).amount)))
@@ -86,6 +78,8 @@ internal fun StoreExternalOrder(order: StoreOrderStore.Order, purchases: StorePu
         modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_check)) }
     if (invoice == null && order.fundedPayment == null) OutlinedButton(onClick = { purchases.authorize(order) }, enabled = !purchases.busy,
         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_crypto_retry)) }
+    if (!order.mayHaveSent) TextButton(onClick = { purchases.discard(order) }, enabled = !purchases.busy,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_discard)) }
     if (invoice?.payable(now) == true && !external.hidden && order.payment == null && order.receipt == null) {
         Text(stringResource(R.string.store_crypto_fees), color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.store_crypto_valid_until, java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.SHORT,

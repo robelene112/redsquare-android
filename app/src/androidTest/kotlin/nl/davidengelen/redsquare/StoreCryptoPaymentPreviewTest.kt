@@ -35,6 +35,15 @@ class StoreCryptoPaymentPreviewTest {
             assertEquals(1, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
             val original = requireNotNull(provider.original).transaction.encoded()
             captureNativeScreen(File(scene.evidence, "bound-native-payment-instructions.png"))
+            ui.onNodeWithText("Done").performScrollTo().performClick()
+            ui.waitUntil(5_000) { ui.onAllNodesWithText("Payment: 0.005501 USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+            ui.onNodeWithText("Back").performClick()
+            ui.onNode(hasText("Orders") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Awaiting external payment").isDisplayed() }
+            ui.onAllNodesWithText("Payment submitted. Delivery has not been verified.").assertCountEquals(0)
+            captureNativeScreen(File(scene.evidence, "unpaid-external-order-is-not-labelled-paid-or-submitted.png"))
+            ui.onNodeWithText("Field notes access key").performClick()
+            ui.waitUntil(5_000) { ui.onNodeWithText("Payment: 0.005501 USDT").isDisplayed() }
             scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED
             ui.onNodeWithText("Check order").performScrollTo().performClick()
             ui.waitUntil(25_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }

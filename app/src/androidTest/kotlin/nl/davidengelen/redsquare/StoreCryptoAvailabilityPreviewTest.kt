@@ -67,4 +67,30 @@ class StoreCryptoAvailabilityPreviewTest {
             captureNativeScreen(File(scene.evidence, "original-invoice-restored-without-another-reservation.png"))
         }
     }
+    @Test fun anOriginalWhichDefinitelyNeverLeftTheAppCanBeDiscardedFromOrders() {
+        val provider = OwnedStoreCryptoFixture()
+        withStorePurchaseFixture("discard-definitely-unsent-external-order", fullPurchase = true, crypto = provider) { scene ->
+            val instrumentation = InstrumentationRegistry.getInstrumentation()
+            val context = instrumentation.targetContext
+            fun resource(name: String) = instrumentation.context.assets.open(name).reader().use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
+            val vector = resource("native-store-crypto-reference.json")
+            val carrier = SaitoStoreCarrier.restore(vector.getAsJsonObject("saitoCarrier").get("networkBase64").asString)
+            val listing = resource("native-store-listing-reference.json").getAsJsonObject("listing")
+            val product = SaitoStoreLineage.readSaved(listing.get("id").asString, listing.get("envelope").asString, emptyList())
+            val currency = SaitoStoreCrypto.readMethods(provider.methods.toString()).currencies.single { it.ticker == "USDT" }
+            val journal = StoreOrderStore(context, carrier.buyer)
+            journal.reserveExternal(SaitoBackend.OWNER, carrier, product, currency, vector.get("store").asString, "Ethereum")
+            ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }; ui.onNodeWithText("Later").performClick()
+            ui.onNodeWithContentDescription("Switch app: Red Square").performClick(); ui.onNodeWithText("Store").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Orders") and hasClickAction()).isDisplayed() }; ui.onNode(hasText("Orders") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }; ui.onNodeWithText("Field notes access key").performClick()
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Discard unsent order").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            assertFalse(journal.read().single().mayHaveSent)
+            ui.onNodeWithText("Discard unsent order").performScrollTo().performClick()
+            ui.waitUntil(5_000) { journal.read().isEmpty() }
+            assertEquals(0, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
+            captureNativeScreen(File(scene.evidence, "definitely-unsent-original-discarded-without-provider-action.png"))
+        }
+    }
+
 }

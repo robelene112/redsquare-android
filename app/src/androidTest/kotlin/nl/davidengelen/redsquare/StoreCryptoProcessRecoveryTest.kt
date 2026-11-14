@@ -108,7 +108,7 @@ class StoreCryptoProcessRecoveryTest {
         withStorePurchaseFixture("crypto-process-cold", preserveOrders = true, fullPurchase = true, crypto = provider) { scene ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }; ui.onNodeWithText("Later").performClick()
             ui.onNodeWithContentDescription("Switch app: Red Square").performClick(); ui.onNodeWithText("Store").performScrollTo().performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Orders").isDisplayed() }; ui.onNodeWithText("Orders").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Orders") and hasClickAction()).isDisplayed() }; ui.onNode(hasText("Orders") and hasClickAction()).performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }; ui.onNodeWithText("Field notes access key").performClick()
             ui.waitUntil(25_000) { ui.onNodeWithText("Payment: 0.005501 USDT").isDisplayed() }
             assertEquals(0, provider.reservations); assertTrue(provider.statusReads > 0); assertTrue(scene.node.peer.transactions.isEmpty())

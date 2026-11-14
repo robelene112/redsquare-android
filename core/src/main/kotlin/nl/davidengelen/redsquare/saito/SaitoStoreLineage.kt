@@ -29,15 +29,16 @@ object SaitoStoreLineage {
             val contributors = sale.get("listing_signatures")?.takeIf { it.isJsonArray }?.asJsonArray?.map { it.asString }.orEmpty()
             require(contributors.size <= 16)
             val previous = resolve(contributors.lastOrNull() ?: sale.get("prior_inventory").asString)
-            val purchase = SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(SaitoEnvelope.originalNetworkBytes(load(sale.get("sale_signature").asString))))
+            val rules = JsonParser.parseString(body(previous.envelope).get("access_script").asString).asJsonObject
+            val keys = rules.getAsJsonArray("publickeys").map { it.asString }
+            require(keys.size == 2 && keys[0] == previous.seller && SaitoWallet.isPublicKey(keys[1]))
+            val (purchase, price) = publicPayment(SaitoEnvelope.originalNetworkBytes(load(sale.get("sale_signature").asString)), keys[1])
             val wire = SaitoEnvelope.originalNetworkBytes(envelope)
             val receipt = SaitoStoreReceipt.read(purchase, Base64.getEncoder().encodeToString(wire))
             val delivered = requireNotNull(receipt.asset)
-            val rules = JsonParser.parseString(body(previous.envelope).get("access_script").asString).asJsonObject
-            val keys = rules.getAsJsonArray("publickeys").map { it.asString }
             require(receipt.kind == SaitoStoreReceipt.Kind.FULFILLMENT && keys.size == 2 && keys[0] == previous.seller && keys[1] == purchase.store &&
                 purchase.nftId == previous.nftId && delivered.creator == previous.creator && sale.get("seller").asString == previous.seller &&
-                purchase.unitPrice == requireNotNull(previous.price).amount.movePointRight(8).toBigIntegerExact() && previous.price.currency == "SAITO")
+                price.matches(previous.price))
             val script = SaitoAccessScript.parse(body.get("access_script").asString)
             require(script.hash == SaitoAccessScript.parse(body(previous.envelope).get("access_script").asString).hash)
             val header = ByteBuffer.wrap(wire); val inputs = header.getInt(0); val outputs = header.getInt(4)
@@ -52,9 +53,10 @@ object SaitoStoreLineage {
             }.single()
             require(remaining.signum() > 0 && remaining < previous.quantity)
             val terms = body.getAsJsonObject("listing")
-            val ticker = terms.get("web3_ticker")?.asString.orEmpty()
-            require(ticker.isEmpty() || ticker.equals("SAITO", ignoreCase = true))
-            require(terms.get("price").asString.toBigDecimal().movePointRight(8).toBigIntegerExact() == purchase.unitPrice)
+            val ticker = terms.get("web3_ticker")?.asString.orEmpty().trim().uppercase().ifBlank { "SAITO" }
+            require(ticker == price.currency)
+            require(terms.get(if (ticker == "SAITO") "price" else "web3_amount").asString.toBigDecimal().compareTo(price.amount) == 0)
+            if (ticker != "SAITO") require(terms.get("price").asString.toBigDecimal().signum() == 0)
             val title = terms.get("title")?.asString.orEmpty().also { require(it.length <= 10_000) }
             val description = terms.get("description")?.asString.orEmpty().also { require(it.length <= 200_000) }
             val category = StoreCategory.entries.firstOrNull { it.wire == terms.get("category")?.asString } ?: previous.category
@@ -66,6 +68,79 @@ object SaitoStoreLineage {
     }.getOrElse { failure ->
         if (failure is java.util.concurrent.CancellationException) throw failure
         null
+    }
+
+    /** Only used before verifying the Store-signed fulfillment. This is not a private buyer payment receipt. */
+    private class PublicPayment(override val transaction: SaitoTransaction, override val buyer: String, override val store: String,
+        override val escrow: String, override val nftId: String, override val quantity: BigInteger, override val amount: BigInteger,
+        inputs: List<SaitoBalanceSnapshot.Slip>) : SaitoStorePayment {
+        override val inputs: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(inputs.toList())
+    }
+    private fun publicPayment(wire: ByteArray, expectedStore: String): Pair<SaitoStorePayment, StorePrice> {
+        val direct = try { SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(wire)) }
+        catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
+        catch (_: Exception) { null }
+        if (direct != null) return direct to StorePrice("SAITO", java.math.BigDecimal(direct.unitPrice, 8))
+        val header = ByteBuffer.wrap(wire)
+        val count = header.getInt(0)
+        require(count in 2..255 && header.getInt(4) == 2 && header.getInt(12) == 0 && header.getInt(88) == 1 && wire[92] == 0.toByte() &&
+            header.getLong(80) >= 0 && header.getInt(8) in 1..SaitoTransaction.MAX_MESSAGE_BYTES && wire.size == 93 + 59 * (count + 2) + header.getInt(8))
+        val transaction = SaitoTransaction.fromFundedBytes(wire)
+        val signed = SaitoEnvelope.decode(transaction.envelope())
+        val body = signed.body
+        val providerFields = if (body.has("inbound_payment_uuid") || body.has("transfer_uuid")) setOf("inbound_payment_uuid", "transfer_uuid") else emptySet()
+        val cryptoFields = if (body.has("web3_ticker")) setOf("web3_ticker", "web3_amount") else emptySet()
+        val note = if (body.has("note")) setOf("note") else emptySet()
+        require(body.keySet() == setOf("module", "request", "buyer", "refund", "nft_id", "quantity", "price", "fee", "access_script", "access_hash", "p2sh_address") + providerFields + cryptoFields + note)
+        require(body.get("module").asString == "Store" && body.get("request").asString == "purchase-asset")
+        val buyer = body.get("buyer").asString
+        require(SaitoWallet.isPublicKey(buyer) && body.get("refund").asString == buyer)
+        if (providerFields.isEmpty()) require(buyer == signed.author)
+        else {
+            val inbound = body.get("inbound_payment_uuid").asString
+            require(inbound.isNotBlank() && inbound.length <= 2048 && inbound.none(Char::isISOControl))
+            require(body.get("transfer_uuid").asString.matches(Regex("[1-9][0-9]{0,15}")))
+        }
+        if (note.isNotEmpty()) require(body.get("note").asJsonPrimitive.isString)
+        val script = SaitoAccessScript.parse(body.get("access_script").asString)
+        require(JsonParser.parseString(script.source) == storePurchaseScriptBody(buyer, expectedStore) &&
+            body.get("access_hash").asString == script.hash && body.get("p2sh_address").asString == "00" + script.hash)
+        val escrow = Base58.encode(("00" + script.hash).chunked(2).map { it.toInt(16).toByte() }.toByteArray())
+        require(wire.copyOfRange(126, 152).all { it == 0.toByte() })
+        val inputs = (1 until count).map { index ->
+            val offset = 93 + index * 59
+            require(Base58.encode(wire.copyOfRange(offset, offset + 33)) == signed.author)
+            SaitoFundingInputs.slip(wire, offset)
+        }
+        val total = SaitoFundingInputs.checked(inputs)
+        val offset = 93 + count * 59
+        val payment = SaitoFundingInputs.slip(wire, offset)
+        val change = SaitoFundingInputs.slip(wire, offset + 59)
+        val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
+        require(Base58.encode(wire.copyOfRange(offset, offset + 33)) == escrow && Base58.encode(wire.copyOfRange(offset + 59, offset + 92)) == signed.author &&
+            payment == zero.copy(amount = payment.amount) && change == zero.copy(index = 1, amount = change.amount) &&
+            payment.amount.signum() > 0 && total >= payment.amount + change.amount)
+        val id = body.get("nft_id").asString.also { require(it.matches(Regex("[0-9a-f]{66}"))) }
+        val countText = body.get("quantity").asString
+        require(body.get("quantity").asJsonPrimitive.isNumber && countText.matches(Regex("[1-9][0-9]{0,15}")))
+        val quantity = countText.toBigInteger().also { require(it <= BigInteger("9007199254740991")) }
+        fun decimal(name: String): java.math.BigDecimal {
+            val value = body.get(name)
+            require(value.asJsonPrimitive.isString && value.asString.length <= 40 && value.asString.matches(Regex("[0-9]{1,20}(\\.[0-9]{1,18})?")))
+            return value.asString.toBigDecimal()
+        }
+        val fee = decimal("fee").movePointRight(8).toBigIntegerExact().also { require(it.bitLength() <= 64) }
+        val price = if (cryptoFields.isEmpty()) {
+            val unit = decimal("price").also { require(it.signum() > 0) }
+            require(unit.movePointRight(8).toBigIntegerExact() * quantity + fee == payment.amount)
+            StorePrice("SAITO", unit)
+        } else {
+            val ticker = body.get("web3_ticker").asString.also { require(it.matches(Regex("[A-Z0-9][A-Z0-9._-]{0,15}")) && it != "SAITO") }
+            val amount = decimal("web3_amount").also { require(it.signum() > 0 && it.precision() <= 32 && it.scale() in -32..32) }
+            require(decimal("price").signum() == 0)
+            StorePrice(ticker, amount)
+        }
+        return PublicPayment(transaction, buyer, expectedStore, escrow, id, quantity, payment.amount, inputs) to price
     }
 
     fun readSaved(signature: String, envelope: String, provenance: List<String>): StoreProduct {

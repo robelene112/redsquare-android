@@ -74,9 +74,9 @@ A provider's quoted currency, network, amount, destination and expiry for one
 Store order. Receiving instructions does not establish payment or delivery.
 
 **Store settlement payment**:
-The Saito payment used by the Store to fulfil an order. For an external-currency
-purchase, a provider funds this payment while the buyer remains the asset's
-recipient. A provider report is distinct from observed settlement and ownership.
+The Saito payment used by the Store to fulfil an order, funded by the provider
+for an external-currency purchase while the buyer remains the asset's recipient.
+A provider report is distinct from observed settlement and ownership.
 
 **NFT holding observation**:
 A selected node's report of an unspent NFT tuple and its current owner. The tuple

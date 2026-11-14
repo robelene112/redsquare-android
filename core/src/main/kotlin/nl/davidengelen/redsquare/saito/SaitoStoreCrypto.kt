@@ -21,6 +21,10 @@ object SaitoStoreCrypto {
         val currency: Currency, val amount: BigDecimal, val issuedSaito: BigDecimal, val issuer: String,
         val address: String, val mixinId: String, val expiresAt: Long, val state: TransferState) {
         fun payable(now: Long): Boolean = state == TransferState.AWAITING && now >= 0 && now < expiresAt
+        /** Progress and market-price observations may change; the accepted instructions may not. */
+        fun sameBinding(other: Invoice): Boolean = id == other.id && carrierSignature == other.carrierSignature && provider == other.provider &&
+            currency.ticker == other.currency.ticker && currency.chainId == other.currency.chainId && amount.compareTo(other.amount) == 0 &&
+            issuedSaito.compareTo(other.issuedSaito) == 0 && issuer == other.issuer && address == other.address && mixinId == other.mixinId && expiresAt == other.expiresAt
     }
     data class Currency(val ticker: String, val chainId: String, val usd: BigDecimal, val updatedAt: Long)
     data class Methods(val currencies: List<Currency>, val saitoUsd: BigDecimal?, val verifiedInvoices: Boolean)

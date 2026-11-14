@@ -90,7 +90,7 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
                     (wire[offset + 57].toInt() and 255) != index) return@firstOrNull false
                 normalized.fill(0, offset + 41, offset + 57)
             }
-            // Both sealed candidate types already authenticate their immutable original.
+            // Admitted sealed candidates already authenticate their immutable original.
             normalized.contentEquals(candidate)
         }?.index?.toLong()?.let(BigInteger::valueOf)
     }

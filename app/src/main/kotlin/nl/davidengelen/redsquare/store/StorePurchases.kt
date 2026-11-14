@@ -225,7 +225,10 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     fun open(order: StoreOrderStore.Order) { if (!busy) { stopReading(); focused = order.id; review = null; cryptoReview = null; methodsProduct = null; problem = null } }
     fun closeReview() { if (!busy) { stopReading(); focused = null; review = null; cryptoReview = null; methodsProduct = null; problem = null } }
     fun discard(order: StoreOrderStore.Order) = operation { token ->
-        val rows = withContext(Dispatchers.IO) { current(token); store.discard(order.id); store.read() }
+        val rows = withContext(Dispatchers.IO) {
+            val active = currentCoroutineContext().job
+            synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); store.discard(order.id); store.read() }
+        }
         orders = rows; focused = null
     }
     fun check(order: StoreOrderStore.Order) { stopReading(); refresh(order.id) }

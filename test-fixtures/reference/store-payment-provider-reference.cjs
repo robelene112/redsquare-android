@@ -114,11 +114,25 @@ global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=
   assert.equal(quote.purchase_signature,vector.saitoCarrier.id);assert.equal(quote.issue_amount,5);assert.equal(quote.expected_deposit,0.005501);
   rows.find(row=>row.id===quote.id).status='failed';saitoQuotes.push({currency:item.currency,quote});
  }
+ async function partialPayment(carrier,saito,ordinal){
+  const quote=await service.startPurchase(buyer,{...request,request_id:carrier.id,tx:carrier.envelope,expected_deposit:saito?0.002751:3.75,...(saito?{issue_amount:2.5}:{})});
+  assert.equal(quote.purchase_signature,carrier.id);
+  const row=rows.find(row=>row.id===quote.id);row.inbound_tx_hash=(saito?'ef':'cd').repeat(32);row.status='inbound_confirmed';
+  const fresh=new wasm.WasmWalletSlip();fresh.set_amount(1000000000000n);fresh.set_block_id(10n);fresh.set_tx_ordinal(BigInt(ordinal));fresh.set_slip_index(0);fresh.set_slip_type(0);fresh.set_lc(true);fresh.set_spent(false);
+  const u=Buffer.alloc(59);Buffer.from(base58.decode(provider)).copy(u);u.writeBigUInt64BE(10n,33);u.writeBigUInt64BE(BigInt(ordinal),41);u.writeBigUInt64BE(1000000000000n,50);fresh.set_utxokey(u.toString('hex'));await providerWallet.add_slip(fresh);
+  const payment=await payout(app,row,BigInt(Math.round(Number(quote.issue_amount)*100000000)));
+  const issuance=envelope(payment.tx.native);row.outbound_tx=issuance.envelope;row.outbound_tx_sig=issuance.id;row.status='outbound_awaiting';
+  const issuedStatus=await service.getPurchaseStatus(buyer,{ticker:'USDT',request_id:carrier.id});
+  row.status='failed'; // Independent fixture branch; never broadcast or admitted to consensus.
+  return {carrier,quote,issuance,issuedBody:payment.tx.msg,issuedStatus};
+ }
+ const partial=await partialPayment(vector.partialCarrier,false,3);
+ const saitoPartial=await partialPayment(vector.saitoPartialCarrier,true,4);
  const count=rows.length,usdt=cryptoMods[0],rate=usdt.price_usd;
  usdt.price_usd=0;
  await assert.rejects(()=>service.startPurchase(buyer,request),/No price is available/);
  assert.equal(rows.length,count,'Quote outage cannot allocate an invoice');usdt.price_usd=rate;
 
- fs.writeFileSync(output,JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',sourceHashes:hashes,patchSha256:patchSha,saitoWasm:'0.3.15',qualification:'Actual isolated pinned-plus-declared-compatibility-patch BuySaitoService/Transfers methods with actual WASM carrier decoding and a web-framing adapter. Owned in-memory database and credential/address adapters, actual isolated provider payout creation with funded WASM wallet and synthetic inbound hash. No network, real provider deposit, live activation, full initialized runtime or funded consensus.'},buyer,provider,carrier:vector.carrier,request,quote:first[0],status,absent,conflict:other,issuance,issuedBody:funded.tx.msg,issuedStatus,outcomes,foreign,methodQuotes,saitoQuotes,rows},null,2)+'\n');
+ fs.writeFileSync(output,JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',sourceHashes:hashes,patchSha256:patchSha,saitoWasm:'0.3.15',qualification:'Actual isolated pinned-plus-declared-compatibility-patch BuySaitoService/Transfers methods with actual WASM carrier decoding and a web-framing adapter. Owned in-memory database and credential/address adapters, actual isolated provider payout creation with funded WASM wallet and synthetic inbound hash. No network, real provider deposit, live activation, full initialized runtime or funded consensus.'},buyer,provider,carrier:vector.carrier,request,quote:first[0],status,absent,conflict:other,issuance,issuedBody:funded.tx.msg,issuedStatus,outcomes,foreign,methodQuotes,saitoQuotes,partial,saitoPartial,rows},null,2)+'\n');
  console.log('PASS: bound invoice, concurrent original retry, read-only wallet-scoped restoration, seven methods, completed/failed recovery and quote outage');
 }finally{fs.rmSync(temporary,{recursive:true,force:true})}})().catch(error=>{console.error(error);process.exitCode=1});

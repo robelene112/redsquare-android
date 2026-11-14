@@ -8,7 +8,7 @@
       "node/mods/store/lib/helpers.js": "a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce",
       "node/mods/store/lib/summary.js": "e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a"
     },
-    "providerReferenceSha256": "2c4fbf8f8001aaedb4c01b22154918e81645028fa76a7739f7ae3be791bdb5d2",
+    "providerReferenceSha256": "83a560e157d475392782940e2075da58b2934a7c5910e294444dc69d64c232c3",
     "qualification": "Actual provider-issued transaction from the separately hash-bound provider reference, then actual isolated official Store fulfillment/refund builders and script helpers with WASM transaction/slip wrappers. Controlled input-copy adapter; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment."
   },
   "buyer": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",
@@ -66,6 +66,9 @@
     "outbound_tx": "{\"t\":\"AAAAAgAAAAIAAAAAAAAAAG5O8yUk+gcg7VqsbXog1Lxu+2Iz4uvfHshoAOXzZ6TmVq2BFLMkvVwkdCFTmSmnCFTCqML3oLube2jKFqAc9GYAAAGL0BMyqAAAAAEAAvkwigGSWMMQSTRPhfidUim1MchFg2+ZsIYB8RO84Db5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+TCKAZJYwxBJNE+F+J1SKbUxyEWDb5mwhgHxE7zgNvkAAADo1KUQAAAAAAAAAAAKAAAAAAAAAAIAAABMUSZ7orNgW4IThQdIOD/VvG2Pcb1AMKb6ixKIkd0LjgAAAJ6+cmIAAAAAAAAAAAAAAAAAAAAAAAAAAvkwigGSWMMQSTRPhfidUim1MchFg2+ZsIYB8RO84Db5AAAAShWaF4AAAAAAAAAAAAAAAAAAAAAAAQA=\",\"m\":\"eyJtb2R1bGUiOiJTdG9yZSIsInJlcXVlc3QiOiJwdXJjaGFzZS1hc3NldCIsImJ1eWVyIjoicnF1VHR6ZXl4NzRXNnFGdnRHVE5wUUdORDRXcU1HUjdVVExkRUtxNFFqc0ciLCJyZWZ1bmQiOiJycXVUdHpleXg3NFc2cUZ2dEdUTnBRR05ENFdxTUdSN1VUTGRFS3E0UWpzRyIsIm5mdF9pZCI6IjAyMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTE3NjYxNzU2Yzc0MmQ2ZTY2NzQyZDZiNjU3OTAwMDAwMCIsInF1YW50aXR5IjoyLCJwcmljZSI6IjAiLCJmZWUiOiIwIiwiYWNjZXNzX3NjcmlwdCI6IntcIm9wXCI6XCJDSEVDS01VTFRJU0lHXCIsXCJtXCI6MSxcInB1YmxpY2tleXNcIjpbXCJycXVUdHpleXg3NFc2cUZ2dEdUTnBRR05ENFdxTUdSN1VUTGRFS3E0UWpzR1wiLFwidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXhcIl0sXCJtc2dcIjpcInR4LmZyb20ucDJzaC51dHhvc2V0X2tleVwifSIsImFjY2Vzc19oYXNoIjoiNGM1MTI2N2JhMmIzNjA1YjgyMTM4NTA3NDgzODNmZDViYzZkOGY3MWJkNDAzMGE2ZmE4YjEyODg5MWRkMGI4ZSIsInAyc2hfYWRkcmVzcyI6IjAwNGM1MTI2N2JhMmIzNjA1YjgyMTM4NTA3NDgzODNmZDViYzZkOGY3MWJkNDAzMGE2ZmE4YjEyODg5MWRkMGI4ZSIsIndlYjNfdGlja2VyIjoiVVNEVCIsIndlYjNfYW1vdW50IjoiMy43NSIsImluYm91bmRfcGF5bWVudF91dWlkIjoiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYmFiYWJhYiIsInRyYW5zZmVyX3V1aWQiOiIxIn0=\",\"opt\":\"e30=\"}",
     "last_error": ""
   },
+  "nextCarrier": null,
+  "nextBuyer": null,
+  "nextTimestamp": null,
   "body": {
     "module": "Store",
     "request": "purchase-asset",

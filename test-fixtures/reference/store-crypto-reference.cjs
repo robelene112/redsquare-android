@@ -58,11 +58,13 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const saitoSummary={...listing.page.listings[0],price:2.5,web3_ticker:'',web3_amount:''};
  const saitoPurchase=await factory.call({app,store_public_key:store},saitoSummary,{quantity,price:'2.5',fee:'0',unfunded:true},0n);
  const saitoCarrier=envelope(saitoPurchase.native);
+ const partialCarrier=envelope((await factory.call({app,store_public_key:store},summary,{quantity:1,price:'0',fee:'0'},0n)).native);
+ const saitoPartialCarrier=envelope((await factory.call({app,store_public_key:store},saitoSummary,{quantity:1,price:'2.5',fee:'0',unfunded:true},0n)).native);
  const methodCarriers=[];
  for(const currency of methods.ac){
   const item={...summary,web3_ticker:currency.ticker};
   const payment=await factory.call({app,store_public_key:store},item,{quantity,price:'0',fee:'0'},0n);
   methodCarriers.push({currency,carrier:envelope(payment.native),body:payment.msg});
  }
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:{...hashes,'node/mods/mixin/mixin.js':sha(mixinSource)},qualification:'Actual isolated official Store unfunded purchase carrier factory and actual WASM wallet.createTransaction(0,0). Deterministic public unsafe identities and fixed clock; no provider reservation, deposit, broadcast or funded consensus. Actual isolated Mixin.handlePeerTransaction currency enumeration over the seven observed public modules plus explicit excluded/unpriced candidates, with owned identity and module-state adapters; not full peer/runtime authentication.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),summary,methods,methodCarriers,saitoCarrier,carrier:signed,body:created.msg},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:{...hashes,'node/mods/mixin/mixin.js':sha(mixinSource)},qualification:'Actual isolated official Store unfunded purchase carrier factory and actual WASM wallet.createTransaction(0,0). Deterministic public unsafe identities and fixed clock; no provider reservation, deposit, broadcast or funded consensus. Actual isolated Mixin.handlePeerTransaction currency enumeration over the seven observed public modules plus explicit excluded/unpriced candidates, with owned identity and module-state adapters; not full peer/runtime authentication.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),summary,methods,methodCarriers,saitoCarrier,partialCarrier,saitoPartialCarrier,carrier:signed,body:created.msg},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

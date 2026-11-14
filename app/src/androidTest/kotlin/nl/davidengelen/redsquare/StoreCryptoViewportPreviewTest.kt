@@ -24,6 +24,9 @@ class StoreCryptoViewportPreviewTest {
                     ui.onNodeWithText("Field notes access key").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodesWithText("5 SAITO").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() ||
                         ui.onAllNodesWithText("2.5 SAITO").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    val loading = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(nl.davidengelen.redsquare.R.string.store_loading_product)
+                    ui.waitUntil(15_000) { ui.onAllNodesWithText(loading).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Other payment methods"))
                     ui.onNodeWithText("Quantity").performScrollTo().performTextReplacement("2")
                     ui.onNodeWithText("Other payment methods").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodesWithText("Pay with USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -58,8 +61,8 @@ class StoreCryptoViewportPreviewTest {
                     ui.switchStackModule("Store", "Red Square", scrollTarget = true)
                     ui.withPostViewports(scene.activity, scene.evidence, "crypto-invoice-$width", listOf(1f, 1.3f, 2f), width) { label, _ ->
                         ui.switchStackModule("Red Square", "Store", scrollTarget = true)
-                        ui.waitUntil(15_000) { ui.onNodeWithText("Orders").isDisplayed() }
-                        ui.onNodeWithText("Orders").performClick()
+                        ui.waitUntil(15_000) { ui.onNode(hasText("Orders") and hasClickAction()).isDisplayed() }
+                        ui.onNode(hasText("Orders") and hasClickAction()).performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
                         ui.onNodeWithText("Field notes access key").performClick()
                         val total = hasText("Payment: 0.005501 USDT") and hasAnyAncestor(isDialog())

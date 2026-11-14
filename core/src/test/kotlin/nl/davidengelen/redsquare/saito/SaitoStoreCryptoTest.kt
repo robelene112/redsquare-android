@@ -146,4 +146,30 @@ class SaitoStoreCryptoTest {
         }
     }
 
+    @Test fun anotherBuyerCanOpenAndPurchaseThePublicRemainderWithoutThePreviousBuyersPrivateInvoice() {
+        fun resource(name: String) = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/$name"))
+            .bufferedReader().use { it.readText() }).asJsonObject
+        for ((name, originalName) in listOf("native-store-crypto-partial-reference.json" to "native-store-web3-listing-reference.json",
+            "native-store-provider-saito-partial-reference.json" to "native-store-listing-reference.json")) {
+            val vector = resource(name)
+            val listing = resource(originalName).getAsJsonObject("listing")
+            val delivery = vector.getAsJsonObject("settlement").getAsJsonObject("fulfillment")
+            val sources = listOf(listing, vector.getAsJsonObject("purchase"), delivery).associate {
+                it.get("id").asString to it.get("envelope").asString
+            }
+            val remaining = SaitoStoreLineage.read(delivery.get("id").asString) { id -> sources[id]?.let { encoded ->
+                com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply { addProperty("tx", encoded) }) }.toString()
+            } }
+            assertNotNull("Provider-funded remaining stock must be publicly readable: $name", remaining)
+            val product = requireNotNull(remaining)
+            assertEquals(BigInteger.ONE, product.quantity)
+            assertEquals(product, SaitoStoreLineage.readSaved(product.signature, product.envelope, product.provenance))
+            val nextBuyer = SaitoWallet.fromPrivateKey("0".repeat(63) + "5")
+            assertNotEquals(vector.get("buyer").asString, nextBuyer.publicKey)
+            val next = SaitoStoreCarrier.create(nextBuyer, vector.get("store").asString, product.nftId, BigInteger.ONE,
+                requireNotNull(product.price), vector.get("nextTimestamp").asLong)
+            assertEquals(vector.getAsJsonObject("nextCarrier").get("networkBase64").asString, next.transaction.encoded())
+        }
+    }
+
 }

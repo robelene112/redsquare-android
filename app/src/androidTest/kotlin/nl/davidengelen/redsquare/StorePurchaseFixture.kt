@@ -14,12 +14,23 @@ import java.net.InetAddress
 
 internal data class StorePurchaseScene(val node: OwnedStorePurchaseFixture, val activity: ActivityScenario<MainActivity>, val evidence: File)
 
-internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, block: (StorePurchaseScene) -> Unit) {
+internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, remainder: JsonObject? = null, block: (StorePurchaseScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
     val vector = instrumentation.context.assets.open(if (web3) "native-store-crypto-settlement-reference.json" else if (fullPurchase) "native-store-full-purchase-reference.json" else "native-store-purchase-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
     val listing = instrumentation.context.assets.open(if (web3) "native-store-web3-listing-reference.json" else "native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
+    val page = listing.getAsJsonObject("page").deepCopy()
+    val publicArchives = linkedMapOf(listing.getAsJsonObject("listing").get("id").asString to listing.getAsJsonObject("listing").get("envelope").asString)
+    remainder?.let { history ->
+        val delivery = history.getAsJsonObject("settlement").getAsJsonObject("fulfillment")
+        val purchase = history.getAsJsonObject("purchase")
+        publicArchives[delivery.get("id").asString] = delivery.get("envelope").asString
+        publicArchives[purchase.get("id").asString] = purchase.get("envelope").asString
+        page.getAsJsonArray("listings")[0].asJsonObject.apply {
+            addProperty("signature", delivery.get("id").asString); addProperty("quantity_available", 1)
+        }
+    }
     val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
     val buyer = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
     val state = ChatFixtureState(context, listOf("transfer.${buyer.publicKey}.", "store-orders.${buyer.publicKey}."), buyer.publicKey)
@@ -50,15 +61,15 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
                 peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||" + if (crypto == null) "" else ";Mixin||;buysaito||",
                 balanceApiUrl = "http://127.0.0.1:${server.port}/balance/",
                 storeCryptoNetworksApi = crypto?.let { "http://127.0.0.1:${server.port}/network/chains/" }, archiveResponse = { criteria ->
-                    if (criteria.get("sig")?.asString == listing.getAsJsonObject("listing").get("id").asString)
-                        JsonArray().apply { add(JsonObject().apply { addProperty("tx", listing.getAsJsonObject("listing").get("envelope").asString) }) }.toString()
-                    else "[]"
+                    publicArchives[criteria.get("sig")?.asString]?.let { encoded ->
+                        JsonArray().apply { add(JsonObject().apply { addProperty("tx", encoded) }) }.toString()
+                    } ?: "[]"
                 }, configurePeer = { peer ->
                     node.peer = peer
                     peer.cryptoResponse = crypto?.let { owned -> { message -> owned.reply(message) } }
                     peer.storeResponse = { query -> if (query.get("request").asString == "load-listing")
-                        JsonObject().apply { add("listing", listing.getAsJsonObject("page").getAsJsonArray("listings")[0]) }.toString()
-                        else listing.get("page").toString() }
+                        JsonObject().apply { add("listing", page.getAsJsonArray("listings")[0]) }.toString()
+                        else page.toString() }
                 }) { activity -> block(StorePurchaseScene(node, activity, File(context.cacheDir, "store-purchase-evidence").apply { mkdirs() })) }
         }
     } catch (failure: Throwable) { primary = failure; throw failure }

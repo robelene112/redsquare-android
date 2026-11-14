@@ -33,9 +33,7 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         val invoice: SaitoStoreCrypto.Invoice? = status?.let { text ->
             SaitoStoreCrypto.readInvoice(carrier, currency, provider, text).also { latest ->
                 val first = requireNotNull(originalInvoice)
-                require(latest.id == first.id && latest.carrierSignature == first.carrierSignature && latest.address == first.address &&
-                    latest.mixinId == first.mixinId && latest.amount.compareTo(first.amount) == 0 &&
-                    latest.issuedSaito.compareTo(first.issuedSaito) == 0 && latest.issuer == first.issuer && latest.expiresAt == first.expiresAt)
+                require(latest.sameBinding(first))
             }
         } ?: originalInvoice
         val externalHash: String? = inbound ?: status?.let { JsonParser.parseString(it).asJsonObject.get("inbound_payment_uuid")?.asString?.takeIf(String::isNotBlank) }

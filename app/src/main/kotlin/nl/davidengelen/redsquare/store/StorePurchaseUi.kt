@@ -83,8 +83,22 @@ internal fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreCh
     order.receipt?.kind == SaitoStoreReceipt.Kind.REFUND -> R.string.store_purchase_previous_refund
     order.receipt != null -> R.string.store_purchase_previous_delivery
     order.payment != null -> R.string.store_purchase_previous_observation
+    order.external != null -> externalOrderStatus(requireNotNull(order.external), System.currentTimeMillis())
     order.mayHaveSent -> R.string.store_purchase_submitted
     else -> R.string.store_purchase_not_sent
+}
+
+internal fun externalOrderStatus(external: StoreOrderStore.External, now: Long): Int {
+    val invoice = external.invoice
+    return when {
+        external.hidden -> R.string.store_crypto_closed
+        invoice == null -> R.string.store_crypto_waiting_instructions
+        invoice.state in setOf(SaitoStoreCrypto.TransferState.FAILED, SaitoStoreCrypto.TransferState.REJECTED) -> R.string.store_crypto_provider_problem
+        invoice.state == SaitoStoreCrypto.TransferState.CANCELLED -> R.string.store_crypto_closed
+        invoice.state != SaitoStoreCrypto.TransferState.AWAITING -> R.string.store_crypto_wait_settlement
+        !invoice.payable(now) -> R.string.store_crypto_expired
+        else -> R.string.store_crypto_order_waiting
+    }
 }
 
 @Composable

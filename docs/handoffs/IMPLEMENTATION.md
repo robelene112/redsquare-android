@@ -94,12 +94,19 @@ clipboard-label assertion before exercising actual external delivery; inherited
 process/viewport cases passed. Do not conflate that partial evidence with new
 matrix acceptance. No112acceptance and no new beta. Continue113–115after112.
 
-For113's alternate listing/remaining-stock work, public offer lineage currently
-restores only direct SaitoStorePurchase in SaitoStoreLineage. It must also admit
-Store-authenticated remainder history after provider-funded purchases (including
-SAITO-priced ones), without fabricating a buyer's private invoice or weakening
-client purchase admission. Current112native ALT case buys the whole listed lot;
-remaining inventory after partial provider purchases needs explicit113coverage.
+Independent review of8c found three112corrections: unpaid invoices must not
+say Payment submitted; definitely unsent external originals must be discardable;
+and public remaining stock after a partial provider purchase must be buyable
+without the previous buyer's private invoice. All three fixes are implemented.
+The public-lineage regression failed first, then passes against independently
+executed official SAITO and USDT partial payouts and Store fulfillment, including
+a different buyer's exact next carrier. All209core tests in42suites pass in
+store112-review-core.log. Native corrections add two remainder journeys and one
+unsent-discard case. Both old8c SDK runs passed all ordinary payment/method/
+recovery and both real process proofs; only the new viewport selectors failed.
+Those selectors are repaired. Neither8c run is acceptance; retain each complete
+original. The repaired source still needs native compiler checks, both complete
+focused SDK runs and follow-up independent reviews before112 can close.
 
 Original source-compatible provider patch/reference remain under integrations/
 and test-fixtures/reference, never deployed. Public chain names were read from

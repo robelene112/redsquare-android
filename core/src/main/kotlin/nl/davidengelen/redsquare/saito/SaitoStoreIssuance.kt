@@ -63,9 +63,7 @@ class SaitoStoreIssuance private constructor(override val transaction: SaitoTran
             val status = JsonParser.parseString(response).asJsonObject
             require(status.get("found").asJsonPrimitive.isBoolean && status.get("found").asBoolean)
             val current = SaitoStoreCrypto.readInvoice(carrier, invoice.currency, invoice.provider, response)
-            require(current.id == invoice.id && current.carrierSignature == invoice.carrierSignature &&
-                current.address == invoice.address && current.mixinId == invoice.mixinId && current.amount.compareTo(invoice.amount) == 0 &&
-                current.issuedSaito.compareTo(invoice.issuedSaito) == 0 && current.issuer == invoice.issuer && current.expiresAt == invoice.expiresAt)
+            require(current.sameBinding(invoice))
             // A later provider failure cannot erase an already signed original payment.
             // Authenticity and selected-chain observation, rather than this report, govern it.
             val external = status.get("inbound_payment_uuid").asString.also { require(it.isNotBlank() && it.length <= 2048 && it.none(Char::isISOControl)) }
