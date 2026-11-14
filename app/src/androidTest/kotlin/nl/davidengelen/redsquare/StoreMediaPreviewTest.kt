@@ -65,6 +65,12 @@ class StoreMediaPreviewTest {
             ui.onNodeWithText("3.75 SAITO").assertIsDisplayed()
             ui.onNodeWithText("2 available").assertDoesNotExist()
             captureNativeScreen(File(context.cacheDir, "store-media-evidence/historical-signed-offer.png"))
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Offer details"))
+            ui.onNodeWithText("Offer details").performClick()
+            ui.onNodeWithText(reference.getAsJsonObject("listing").get("id").asString).performScrollTo().assertIsDisplayed()
+            ui.onNodeWithText(reference.get("seller").asString).performScrollTo().assertIsDisplayed()
+            captureNativeScreen(File(context.cacheDir, "store-media-evidence/exact-offer-details.png"))
+            androidx.test.espresso.Espresso.pressBack()
             assertTrue(peer.transactions.isEmpty()); assertTrue(peer.vaultUploads.isEmpty())
         }
     }

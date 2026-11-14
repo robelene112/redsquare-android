@@ -1,0 +1,67 @@
+{
+  "observedAt": "2026-11-14T00:48:22.448Z",
+  "endpoint": "wss://saito.io/wsopen",
+  "peerPublicKey": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+  "services": [
+    "arcade",
+    "archive",
+    "bugs",
+    "chat",
+    "egld",
+    "Explorer",
+    "faucet",
+    "giphy",
+    "graffiti: board",
+    "league",
+    "mailrelay",
+    "mixin",
+    "buysaito",
+    "modtools",
+    "popup",
+    "recovery",
+    "redsquare",
+    "registry",
+    "relay",
+    "stack",
+    "Store",
+    "vault"
+  ],
+  "request": {
+    "request": "load-listings",
+    "data": {
+      "module": "Store",
+      "public_key": "",
+      "category": "",
+      "offset": 0,
+      "page_size": 24,
+      "status": "active"
+    }
+  },
+  "responseBytes": 16234,
+  "responseSha256": "636a507434b3b704aaf291e827280d6607b21316cd582ba492297461620c567b",
+  "responseKeys": [
+    "listings",
+    "public_key",
+    "category",
+    "pagination"
+  ],
+  "listingCount": 24,
+  "pagination": {
+    "offset": 0,
+    "page": 1,
+    "page_size": 24,
+    "total": 24,
+    "total_pages": 1,
+    "has_next": false,
+    "has_previous": false
+  },
+  "qualification": "Fresh disposable public-key read-only binary peer observation. No public transaction, listing, purchase, chat or upload. Not an initialized frontend, ownership/stock fulfilment or financial acceptance. Native core parser check ran on JVM17, not a public-node Android journey.",
+  "nativeReaderResult": {
+    "nativeAcceptedRows": 24,
+    "nativeIgnoredRows": 0,
+    "totalReported": 24,
+    "nextOffset": null
+  },
+  "coreJarSha256": "8c742851c298b3bb2f441550442308ff3e5cb5b76f57969281aa2e909a1edaf4",
+  "probeScriptSha256": "72781075b9c508598e700c9d00328f75438a2d2bd644ebec1c25583607de8fab"
+}

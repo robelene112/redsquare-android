@@ -147,3 +147,32 @@ still fails the entire scope; there are no retries, skipped criteria, widened
 deadlines or assembled successful tails. Current testcode compilation and fresh
 complete scopes remain pending. Existing Stack-link regression runs use the
 same production source. The final signed beta remains115.
+
+## Complete native evidence before final detail-sheet polish
+
+Source `8ae4b3c28604f5253c1391bf42e3a21cfd49d2d8` passes the entire eight-class,
+13-case Store suite in Android 10 [43534824427](https://github.com/robelene112/redsquare-android/actions/runs/43534824427)
+and Android 17 [43534821192](https://github.com/robelene112/redsquare-android/actions/runs/43534821192).
+Every class passes in each same-source run, including 12 real viewport cells,
+silent request recovery, authentic image and unavailable original, nested private
+origin/draft preservation and delayed catalogue-anchor checks. Both actual anchor
+receipts report 411dp before, after product Back and after module return. All
+83/85 ZIP and 137/137 capture members are byte-exact. Actual rendered products
+were inspected across all width/font/theme combinations, plus image/history,
+private origin, recoverable timeout and deep list output. Existing Stack-link
+regressions also pass on both SDKs at the unchanged production source `8fc3aa351`;
+their exact receipts are retained. Core remains 179 passes, zero ignored.
+
+Visual inspection found that inline 128-digit offer references dominate large-
+text product pages. A final small polish moves the selectable signature/seller
+key behind the shared Offer details sheet, with its reachable Done action, and
+extends the native media case to verify the exact fields there. Both compilers
+pass after this change. Fresh complete both-SDK Store results and final review
+of that small delta are still required before closing 109.
+
+A separate fresh-identity read-only public Store observation on 2026-11-14 returns
+24 actual catalogue rows. The exact native core reader accepts all 24 and ignores
+zero; see [receipt](public-read.json). This verifies the deployed public catalogue
+response contract. It does not establish Android public-node UI, current unspent
+custody, provider fulfilment, financial checkout or full initialized community
+frontend acceptance. The disposable private key was neither retained nor logged.

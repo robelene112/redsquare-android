@@ -26,6 +26,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
     var retry by remember { mutableIntStateOf(0) }
     var view by remember(wallet.publicKey, backend, endpoint, target) { mutableStateOf(StoreProductView()) }
     val list = rememberLazyListState()
+    var identityDetails by remember { mutableStateOf(false) }
     LaunchedEffect(wallet.publicKey, backend, endpoint, target, retry) {
         view = view.copy(loading = true, failed = false, missingService = false)
         try {
@@ -113,12 +114,24 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                         }
                     }
                     item("reference") {
-                        StoreOfferIdentity(signature, seller)
+                        TextButton(onClick = { identityDetails = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                            Icon(androidx.compose.ui.res.painterResource(R.drawable.ic_info), null, Modifier.size(18.dp))
+                            Spacer(Modifier.width(8.dp))
+                            Text(stringResource(R.string.store_offer_details))
+                        }
                     }
                 }
             }
         }
     }
+    val reference = view.product?.let { it.signature to it.seller } ?: view.offer?.let { it.signature to it.seller }
+    if (reference != null) DesignSheet(identityDetails, stringResource(R.string.store_offer_details), { identityDetails = false }) { firstAction ->
+        StoreOfferIdentity(reference.first, reference.second)
+        TextButton(onClick = { identityDetails = false }, modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) {
+            Text(stringResource(R.string.done))
+        }
+    }
+
 }
 
 @Composable
