@@ -25,3 +25,10 @@ input mechanics remain intact. The held-response test preserves the original
 HTTP timeout and explicitly releases its old reply before that timeout.
 
 Spec:0remaining. Standards:0hard/0heuristic. No release/provider approval inferred.
+
+## Final test-only delta
+
+Both axes also reviewed c2baf1dd5...29fd04016:0findings. The signed-red visual
+criterion is unchanged and its one15second clock begins before product click.
+Both production trees are byte-identical. Complete catalogue reruns pass on both
+SDKs; the earlier Android10 failure remains retained in the ledger.

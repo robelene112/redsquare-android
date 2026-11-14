@@ -18,7 +18,8 @@ All ten tickets #106–#115 are published as native sub-issues with verified blo
 edges. Implement the ready frontier through the combined beta without another
 per-ticket owner confirmation. Reading #106, upload/recovery #107, advanced ownership/rental foundation #108
 and Store catalogue/native links/unsent Chat #109 are verified on both SDKs.
-#110is active:SAITO purchases, delivery and recoverable orders. See
+#110SAITO purchases, delivery and recoverable orders are verified. Next:#111,
+listing existing and new items. See
 [108 evidence](evidence/ticket108/README.md). Use Vault as the shared file/key/rental basis
 and deliver one combined completed beta, preserving the spec's full payment and
 native UX scope and the existing agent-owned verification/operational boundaries.

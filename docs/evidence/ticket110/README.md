@@ -1,7 +1,7 @@
-# Ticket110 verification in progress
+# Ticket110 accepted controlled verification
 
-No accepted native source or combined beta yet. Work is sequential under105;
-public beta127 remains unchanged. Review base:8810152674202ff0ce09c4ce59926026624b3e87.
+SAITO purchase development is accepted at the owned native/reference seams.
+The combined beta remains under115; public beta127 is unchanged. Review base:8810152674202ff0ce09c4ce59926026624b3e87.
 
 The [run ledger](focused-runs.json) preserves original failures and exact source,
 artifact API digest, ZIP members and readable capture members. Unreadable process
@@ -72,3 +72,24 @@ the capture observes the actual image/reveal before the red result appears. The
 new test waits for that same red pixel criterion under one unchanged15second
 clock beginning before the product click. Production source remains unchanged;
 both complete catalogue scopes must be rerun, never just the failed class.
+
+Final complete catalogue reruns43549190857(10)/43549193046(17), source29fd04016,
+pass8classes/13cases/12cells each. All84/86ZIP entries and139capture members perOS
+are byte-exact; actual final red covers are inspected. Static delta reviews report
+0Spec/0Standards findings and confirm the unchanged15second visual goal. App main
+tree847fe1ee563d69840cc05354a571fd18afe6cce2 and core main tree
+1b9a6cfd72d43c860542a643e090e1deab628c64 exactly match c2purchase/wallet acceptance.
+
+Accepted purchase native classes:StorePurchasePreviewTest(4methods),
+StorePurchaseRecoveryPreviewTest(7), StorePurchaseViewportPreviewTest(1,12cells).
+Host-driven StorePurchaseProcessRecoveryTest runs all3phases separately under
+120seconds each. Original/cold PIDs8293/8624(Android10),5575/5675(Android17) differ.
+The original signed payment, wallet/node, unsent Chat, retained Fileshare and
+original installation are preserved. The viewport class retains480seconds and
+normal classes180seconds. No deadline is widened and no test is ignored.
+
+Ticket115 must append those classes, all12ordinary method identities and all3
+process-phase identities to its frozen complete catalogue, alongside106–109and
+later tickets. Its full-source app/update/public-delivery checks remain required.
+STORE_LIVE remains unchecked for actual funded consensus/fulfillment/refund,
+selected live providers, real ARM/OEM and fully initialized community runtimes.

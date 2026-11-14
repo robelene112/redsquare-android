@@ -27,41 +27,41 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active Store purchase slice #110
+## Completed Store purchase slice #110, next #111
 
-#106–#109 are closed. #110 is assigned and has no open native blocker. Review
-base:8810152674202ff0ce09c4ce59926026624b3e87. Implementation follows source checkpoint
-6baa91bd006673b44287917b586d8612af59c1be with reader-cancellation and historical
-receipt fixes. The exact newer candidate is the current Git HEAD; none is accepted yet. Do not mark110complete or advance111
-until corrected complete both-SDK native proofs, reviews and relevant regressions
-pass. No new beta has been built or published. Continue110–115sequentially under
-the existing authorization, then one combined beta. Do not ask for phone QA.
+#106–#110are implemented and verified. #110is ready for tracker closure;#111is next.
+Review base:8810152674202ff0ce09c4ce59926026624b3e87. Purchase source:
+c2baf1dd517834fd0a4c52ac96a7a2fcbaeeef24. Final media-test/evidence source:
+29fd040163c5e36e407d438a20917f5026fc25b9. Both main production trees are identical.
+See [110packet](../evidence/ticket110/README.md) and all original failed sources.
 
-See [110packet](../evidence/ticket110/README.md) and its preliminary run ledger.
-First751both-SDK runs failed the owned fixture's advertised signing key. Both e6
-runs remain failed despite some successful native purchase/refund cases: hidden
-status/error content,200percent lazy-list reachability, and Java BigInteger.TWO
-in two Android10 test assertions. Every original ZIP and readable capture is
-byte-exact; process captures are unavailable where preparation failed. They are
-not acceptance. 6baa runs43545843605(10)/43545846182(17) remain failed only on an incorrect
-RedSquareafterrecreation test expectation. Both pass the12viewport cells,6then-current
-recovery cases and all3actual-process phases. Preserve151exactcaptures perOS.
-The correction expects the retained Store/product and returns to Orders.
+Both purchase runs43547321240(10)/43547323949(17) pass12ordinary native cases,
+12actual viewport cells,3separate distinct-PID process phases and187core cases
+with0ignored/failures. All75/77ZIP and156captures perOS are byte-exact. Complete
+wallet regressions43547485799/43547488665pass; all87/89ZIP and542/652captures are
+exact. Complete final catalogue runs43549190857/43549193046pass8classes/13cases/
+12cells;84/86ZIP and139captures perOS exact. Both review axes:0remaining findings.
+Both24-cell combined action matrices and representative financial states/final
+red covers are inspected. Viewport proof declares zero recomposer/system motion,
+not production clock/OEM acceptance. No successful partial tails are assembled.
 
-Latest core187passes/0ignored include actual pinned/WASM funded purchase,
-partial/full fulfillment/refund, exact current tuple, monetary bounds, older and
-late settlement ancestry, partial-read continuation and historical refund scope.
-Main/AndroidTest compiler phases stay separate. Reader cancellation must validate
-coroutine/read ownership immediately before the durable update under the shared
-state lock; the older held reply must not overwrite a newer saved receipt. Native
-read-only navigation and obsolete-reply cases are additive under the original
-180s recovery-class bound. Viewport remains480s/12cells; process phases120s each.
+Implemented: exact SAITO escrow/funding/fees, deliberate review before PIN/signing,
+wallet-wide durable original-order reservations, separate payment/settlement/current
+asset observations, read-only recovery/refunds and responsive Orders. An obsolete
+reader cannot overwrite newer durable results:context/job/read generation checks
+run under SaitoLocalState.lock immediately before persistence. Older-history
+continuation is durable/prioritized; unbridged receipts stay historical. Exact
+creator/asset/quantity/positions are required. No count-based arbitrary-NFT success.
+Store fulfils NFT/price buckets, so native review discloses matching-seller stock.
 
-No public financial write or deployed refund/provider proof is authorized. The
-isolated refund reference requires the explicit input-copy adapter because the
-basic WASM wrapper consumes its input. Preserve this qualification under STORE_LIVE.
-115still owns frozen full-catalogue additions, full-source verification and actual
-signed127-to-new upgrade/public delivery. Parent1/36/55/84/86remain open.
+Close110with its accepted evidence;verify111native blockers=0and claim it. Continue
+111–115sequentially without another owner permission, then one combined beta.
+Public beta127 remains;none built/published for Vault/Store. Keep1/36/55/84/86open.
+115must append110's3ordinary classes/12methods and all3StorePurchaseProcessRecoveryTest
+phase identities to the frozen full catalogue alongside106–109and later slices.
+Real funded/provider/full-community-runtime results remain STORE_LIVE. The pinned
+refund reference needs its explicit input-copy adapter; do not claim a deployed
+refund or activate nodes/providers/spend public funds to replace owned proof.
 
 ## Completed Store catalogue slice #109, next #110
 

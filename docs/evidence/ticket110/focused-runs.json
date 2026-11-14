@@ -1,7 +1,7 @@
 {
-  "preliminary": true,
+  "preliminary": false,
   "reviewBase": "8810152674202ff0ce09c4ce59926026624b3e87",
-  "qualification": "Work in progress. No complete native acceptance or beta. Failed-run ZIP/source checks are exact; missing/invalid process capture archives are retained and explicitly excluded from acceptance. Public beta127 unchanged. No public financial writes.",
+  "qualification": "Complete owned native/reference purchase and affected wallet/catalogue acceptance. Production main trees are identical across the tiny media-test correction. Each accepted scope is a complete source-specific run; no successful tails assembled from failed runs. Not live funded consensus/provider/OEM/full-community-runtime acceptance. Refund input-copy adapter remains explicit. Combined beta is115; public beta127 unchanged. No public financial writes.",
   "runs": [
     {
       "run": 43542376647,
@@ -156,6 +156,32 @@
       "zipEntries": 86,
       "captureMembers": 139,
       "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43549190857,
+      "source": "29fd040163c5e36e407d438a20917f5026fc25b9",
+      "conclusion": "success",
+      "artifactId": 14094664246,
+      "zipSha256": "22b3b405dd0e60176e97f4abb19e06b21a1420f6fca894a208c054d8ca1a47e6",
+      "zipEntries": 84,
+      "captureMembers": 139,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "run": 43549193046,
+      "source": "29fd040163c5e36e407d438a20917f5026fc25b9",
+      "conclusion": "success",
+      "artifactId": 14095484078,
+      "zipSha256": "d8d25a1c5aa0cb15587609c6813298d5d7891530a03f5308ee01fd1e12594e51",
+      "zipEntries": 86,
+      "captureMembers": 139,
+      "allExtractedMembersByteExact": true
     }
-  ]
+  ],
+  "acceptedPurchaseSource": "c2baf1dd517834fd0a4c52ac96a7a2fcbaeeef24",
+  "acceptedCatalogueSource": "29fd040163c5e36e407d438a20917f5026fc25b9",
+  "productionTrees": {
+    "appMain": "847fe1ee563d69840cc05354a571fd18afe6cce2",
+    "coreMain": "1b9a6cfd72d43c860542a643e090e1deab628c64"
+  }
 }
