@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-11-14T19:33:37.699159+00:00",
+  "reason": "Replacement10run43628492740also failed the original ambiguous dialog selector, already corrected and verified separately. Its focused results cannot replace the failed full gate.",
+  "previousPlan": "selector-verification-plan.json (conditional both74fe success could not be met)",
+  "newAndroid10Complete": {
+    "run": "43632687955",
+    "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+    "status": "Dispatched before this record; no complete outcome accepted"
+  },
+  "android17Requirement": "The entire current74feprimary43629043517must independently succeed; if it fails, execute another entire primary at5fb. No pieces from failed or incomplete workflows may be assembled.",
+  "unchangedFrozenInputs": {
+    "full-contract.json": "7200be163eb2518325dd34295b9f833ba9d822d904b7036615115ff8687ae9fa",
+    "verify-full.py": "6b1a2453204271e643103bc8755151f380408eacf74e3522ec58a806b757b00d"
+  },
+  "compiledProductSource": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "oneQaSelectorComparison": "source-bridge129.json",
+  "mandatoryGates": [
+    "Every accepted SDK has one complete successful three-job primary at one exact source.",
+    "Each complete primary passes the exact unchanged frozen contract/collector and all original goals/identities/deadlines.",
+    "Any different verification sources differ solely by the independently reviewed one-line dialog selector, with identical product/build/payload inputs.",
+    "Focused corrected-selector proofs and actual signed127-to129 updates both pass on both SDKs.",
+    "Final independent full evidence and exact public delivery review are required."
+  ],
+  "workflowBasis": "WORKFLOW468requires fresh both-SDK full verification for production changes; WORKFLOW486requires all3jobs at one source per complete primary. No production change occurred. This changes no frozen acceptance assertion or count.",
+  "qualification": "Pre-outcome execution plan for a corrected outstanding completeSDK. No pass or application fix is inferred from a failed original."
+}
