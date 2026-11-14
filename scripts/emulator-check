@@ -37,10 +37,13 @@ avd_home="${ANDROID_AVD_HOME:-$HOME/.android/avd}"
 if [[ ! -f "$avd_home/redsquare-proof.ini" ]]; then
     printf 'no\n' | avdmanager create avd --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
 fi
-# The emulator's default 10 GiB data partition is unnecessary for this proof.
-# Bound storage as well as RAM so a hosted runner can fit both system images.
-sed -i '/^disk.dataPartition.size=/d' "$avd_home/redsquare-proof.avd/config.ini"
-printf '%s\n' 'disk.dataPartition.size=2G' >> "$avd_home/redsquare-proof.avd/config.ini"
+# Request bounded storage; an image can normalize this to its filesystem minimum.
+# A rejected-runtime retry must retain that exact effective first-boot config,
+# rather than reapplying a different request or appending a duplicate key.
+if [[ "$TEST_DEVICE_API" != 29 || "$runtime_attempt" == 1 ]]; then
+    sed -i '/^[[:space:]]*disk[.]dataPartition[.]size[[:space:]]*=/d' "$avd_home/redsquare-proof.avd/config.ini"
+    printf '%s\n' 'disk.dataPartition.size=2G' >> "$avd_home/redsquare-proof.avd/config.ini"
+fi
 acceleration=off
 [[ ! -r /dev/kvm ]] || acceleration=on
 test_memory=1536

@@ -12083,7 +12083,7 @@
     "noHeapOrServiceChanges": true
   },
   "runtimePreflightSourceSha256": {
-    "scripts/emulator-check": "3e8a8ad8332ea25dd58f27a02c2845cbb34e410aadaa1fa412834dc3c3e0c42f",
+    "scripts/emulator-check": "dc62fa341b0b7a13be89ab086dd2ac980c2fae3ec9029143ea5b14de71076846",
     "scripts/runtime-heap-preflight": "b239ec5f45a9aa64a04293a2f6eea4e32b62bd03f4f61ef2d6c9223906439ed2",
     "app/src/androidTest/AndroidManifest.xml": "8aacbaddab399decebf98fe4530db77ae3e6d2f484267e2c7943e7c9527fab04",
     "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RuntimeHeapProbe.kt": "831ef5d80237479f4e10ef5bfe9b23086a45792ebaedff2e64cb9da2595622dc"

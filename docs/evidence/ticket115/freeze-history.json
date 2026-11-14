@@ -64,7 +64,7 @@
     "qualification": "Stronger pre-run diagnostic freeze, not completed full acceptance. Both next complete SDKs must execute this source and pass its exact strict evaluator; failed older prefixes are never assembled."
   },
   "runtimeProvisioningFreeze": {
-    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T22:45:44.068472+00:00",
+    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:41:09.291727+00:00",
     "previousFreezeSource": "e0f12724de930147d68230e4d4e895a47b2ac959",
     "allOriginalE0ContractFieldsUnchanged": true,
     "runtimePreflight": {
@@ -75,14 +75,14 @@
       "noHeapOrServiceChanges": true
     },
     "sourceHashes": {
-      "scripts/emulator-check": "3e8a8ad8332ea25dd58f27a02c2845cbb34e410aadaa1fa412834dc3c3e0c42f",
+      "scripts/emulator-check": "dc62fa341b0b7a13be89ab086dd2ac980c2fae3ec9029143ea5b14de71076846",
       "scripts/runtime-heap-preflight": "b239ec5f45a9aa64a04293a2f6eea4e32b62bd03f4f61ef2d6c9223906439ed2",
       "app/src/androidTest/AndroidManifest.xml": "8aacbaddab399decebf98fe4530db77ae3e6d2f484267e2c7943e7c9527fab04",
       "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RuntimeHeapProbe.kt": "831ef5d80237479f4e10ef5bfe9b23086a45792ebaedff2e64cb9da2595622dc"
     },
     "freezeHashes": {
-      "full-contract.json": "af0c98532a268ab1c0d227ca1a09f126bd66d6e737eb0554b94da3f1b86c1590",
-      "verify-full.py": "778521f655d1dbe53630a3d385a2ea3ade596f26a5217ff4d0529c0d531cad4c",
+      "full-contract.json": "af453c845ae542942983e03e73860c75e56e199cd71b76a64dcf403055fdf1c8",
+      "verify-full.py": "fa38a2b1a5791cf916bdfa914be33f1aa3be81997073d09aa8d155a1e828f76a",
       "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
     },
     "reason": "Actual16MiB/declared512MiB startup mismatch now also caused OOM before native4MiB Vault preparation completed. Reject only measured invalid provisioning before any acceptance tests; bounded whole-emulator cold boot, identical config, no heap changes or service restarts. All original native guards and goals remain.",
@@ -91,7 +91,8 @@
     "reference": "https://www.rainforestqa.com/blog/hunting-race-condition-in-android-10-emulator",
     "retentionCorrection": "Independent Standards P2: initial726 source would overwrite rejected emulator.log on recursive boot. Each boot now opens its own fresh live log, preserves startup snapshot and complete rejected stream after reap; strict collector verifies snapshot prefix/hash and rejected full log hash/size. Both complete SDKs must execute this corrected freeze.",
     "runnerCorrection": "Actual726 focused run43647607708 failed provisioning before any acceptance case: AGP replaces instrumentation entries with configured AndroidJUnitRunner, so custom component was not registered. Probe now runs one separate, explicit diagnostic JUnit method through that existing runner. Its raw.log is retained and strictly validated separately; original318acceptance classes,830/831identities and completion totals remain unchanged. Original probe failure stays failed.",
-    "disconnectCorrection": "177full10Social measured invalid16/512MiB before acceptance, terminated/reaped emulator, then failed strict disconnect check because ADBstilllistedserialoffline. Corrected29-only setup waits for actual transport disappearance within15s and retains every observation; no heap/service/app-test changes. Strict final disconnection requirement remains. SDK17branch is unexecuted."
+    "disconnectCorrection": "177full10Social measured invalid16/512MiB before acceptance, terminated/reaped emulator, then failed strict disconnect check because ADBstilllistedserialoffline. Corrected29-only setup waits for actual transport disappearance within15s and retains every observation; no heap/service/app-test changes. Strict final disconnection requirement remains. SDK17branch is unexecuted.",
+    "configurationCorrection": "Actuala700focused10run43653677727 rejected16/512MiB andcoldbooted, thenfailedstrictconfigequalitybeforeanyUIcase: firstbootnormalizeddatapartitionsizeto6442450944withspacesaroundequals; recursiveoldsedfailedtoremoveitandappended2G. RetriesnowretainexacteffectivefirstbootAVDconfigwithoutreapplyingdatapartitionrequest. Initialrequestremovesbothwhitespaceforms. Noheap/RAM/image/nativegoalchange; nooriginalfailureaccepted."
   },
   "ownerTalkUiScope": {
     "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:35:02.137566+00:00",
@@ -130,7 +131,7 @@
     "allOriginalA07ContractFieldsUnchanged": true,
     "requirement": "New signed artifact and both entire complete SDKs and actual signed127-to-new-artifact updates required. No129promotion or failed-prefix assembly.",
     "freezeHashes": {
-      "full-contract.json": "9d8bcaf2be0cc827caa5770fac4f8ce5513759025ede5d20f9beda85098da49f",
+      "full-contract.json": "af453c845ae542942983e03e73860c75e56e199cd71b76a64dcf403055fdf1c8",
       "verify-full.py": "fa38a2b1a5791cf916bdfa914be33f1aa3be81997073d09aa8d155a1e828f76a",
       "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
     },
