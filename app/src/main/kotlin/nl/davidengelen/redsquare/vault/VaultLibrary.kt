@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong
 
 internal data class VaultEntry(val token: String, val name: String, val key: VaultKey?, val copy: VaultCopy?, val type: String?, val rental: SaitoVaultRental? = null, val creatorMaster: Boolean = false, val rentalAlternatives: List<SaitoVaultRental> = emptyList())
 internal enum class VaultProblem { CONNECTION, SERVICE_UNAVAILABLE }
-private data class VaultDiscovery(val keys: List<Pair<SaitoNft, VaultKey?>>, val page: Int, val more: Boolean, val cacheWarning: Boolean, val local: VaultCopies, val received: List<VaultEntry>)
+private data class VaultDiscovery(val keys: List<Pair<SaitoNft, VaultKey?>>, val page: Int, val more: Boolean, val cacheWarning: Boolean, val local: VaultCopies, val received: List<VaultEntry>, val creatorMasters: Map<String, String>)
 private class VaultServiceUnavailable : IOException()
 internal class VaultLocalFailure(cause: Exception) : IOException(cause)
 internal class VaultRentalRestoreUnavailable : IOException()
@@ -36,6 +36,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     private var copies = emptyList<VaultCopy>()
     private var rentals = emptyList<VaultEntry>()
     private var heldRentals = emptyList<VaultEntry>()
+    private var creatorMasters = emptyMap<String, String>()
     private val creatorPaths = mutableMapOf<String, SaitoVaultRental>()
     var page by mutableIntStateOf(0); private set
     private val generation = AtomicLong()
@@ -99,15 +100,24 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
                 if (generation.get() != current) throw CancellationException("Obsolete Vault discovery")
                 var cacheFailed = false
                 try { disk.saveKeys(resolved.mapNotNull { it.second }) } catch (_: Exception) { cacheFailed = true }
-                VaultDiscovery(resolved, selectedPage, holdings.size > (selectedPage + 1) * PAGE_SIZE, cacheFailed, disk.copies(), discoveredRentals.values.sortedBy { it.token })
+                // Authentication and script canonicalization belong to discovery's IO work.
+                // Local-copy refreshes and Compose updates reuse these verified results.
+                val masterHash = if (resolved.any { it.first.type == "vault-nft-rental" && it.first.creator == wallet.publicKey })
+                    SaitoVaultRules.rental(wallet.publicKey).hash else null
+                val masters = resolved.mapNotNull { (holding, key) ->
+                    if (key == null || holding.type != "vault-nft-rental" || holding.creator != wallet.publicKey) null
+                    else runCatching { SaitoAccessScript.parse(requireNotNull(key.customScript)).hash }
+                        .getOrNull()?.takeIf { it == masterHash }?.let { holding.id to it }
+                }.toMap()
+                VaultDiscovery(resolved, selectedPage, holdings.size > (selectedPage + 1) * PAGE_SIZE, cacheFailed, disk.copies(), discoveredRentals.values.sortedBy { it.token }, masters)
             }
             if (generation.get() != current) return
-            keys = result.keys; heldRentals = result.received; page = result.page; more = result.more; storageWarning = storageWarning || result.cacheWarning
+            keys = result.keys; creatorMasters = result.creatorMasters; heldRentals = result.received; page = result.page; more = result.more; storageWarning = storageWarning || result.cacheWarning
             applyCopies(result.local)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (failure: Exception) {
             if (generation.get() == current) {
-                keys = emptyList(); more = false
+                keys = emptyList(); creatorMasters = emptyMap(); more = false
                 problem = if (failure is VaultServiceUnavailable) VaultProblem.SERVICE_UNAVAILABLE else VaultProblem.CONNECTION
                 merge()
             }
@@ -177,7 +187,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     }
     fun selectCreatorRental(entry: VaultEntry, path: SaitoVaultRental) {
         val key = requireNotNull(entry.key)
-        require(path.creator == wallet.publicKey && path.fileId == key.fileId && path.masterScript.hash == SaitoAccessScript.parse(requireNotNull(key.customScript)).hash)
+        require(path.creator == wallet.publicKey && path.fileId == key.fileId && path.masterScript.hash == creatorMasters[key.holding.id])
         creatorPaths[key.holding.id] = path; merge()
     }
     suspend fun restoreCreator(entry: VaultEntry, path: SaitoVaultRental) {
@@ -231,8 +241,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
     }
     private fun merge() {
         val owned = keys.filterNot { (holding, _) -> heldRentals.any { it.token == "held-rental:${holding.id}" } }.map { (holding, key) ->
-            val creatorMaster = key != null && holding.type == "vault-nft-rental" && holding.creator == wallet.publicKey &&
-                runCatching { SaitoAccessScript.parse(requireNotNull(key.customScript)).hash == SaitoVaultRules.rental(wallet.publicKey).hash }.getOrDefault(false)
+            val creatorMaster = holding.id in creatorMasters
             VaultEntry(holding.id, key?.name ?: holding.id.take(12), key,
                 copies.firstOrNull { it.fileId == key?.fileId }, holding.type, creatorPaths[holding.id], creatorMaster)
         }

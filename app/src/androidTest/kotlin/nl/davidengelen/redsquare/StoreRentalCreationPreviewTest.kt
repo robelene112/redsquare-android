@@ -146,4 +146,32 @@ class StoreRentalCreationPreviewTest {
             assertTrue(scene.peer.transactions.isEmpty())
         }
     }
+    @Test fun theRealRentalDurationKeyboardEditsWithoutPublishingOrAuthorizingAnyOperation() {
+        withStoreSellerFixture("rental-keyboard") { scene, _, _ ->
+            ui.openNativeStoreSelling()
+            ui.onNodeWithText("New listing").performClick()
+            ui.onNodeWithText("Create rental").performScrollTo().performClick()
+            ui.onNodeWithText("Rental duration (hours)").performScrollTo().performClick()
+            fun imeVisible(): Boolean {
+                var visible = false
+                androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                    val root = android.view.inspector.WindowInspector.getGlobalWindowViews().singleOrNull { it.isShown && it.hasWindowFocus() }
+                    visible = root?.let { androidx.core.view.ViewCompat.getRootWindowInsets(it) }
+                        ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true
+                }
+                return visible
+            }
+            ui.waitUntil(5_000) { imeVisible() }
+            ui.onNodeWithText("Rental duration (hours)").performTextReplacement("3")
+            captureNativeScreen(File(scene.evidence, "rental-duration-real-ime.png"), "Rental duration (hours)")
+            ui.onNodeWithText("Rental duration (hours)").performImeAction()
+            assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
+            val device = androidx.test.uiautomator.UiDevice.getInstance(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation())
+            if (imeVisible()) device.pressBack()
+            ui.waitUntil(5_000) { !imeVisible() }
+            ui.onNodeWithText("Rental duration (hours)").assertTextContains("3")
+            File(scene.evidence, "rental-keyboard-observation.json").writeText("{\"actualFocusedWindowIme\":true,\"imeActionDidNotPublish\":true,\"duration\":3}")
+        }
+    }
+
 }

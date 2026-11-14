@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Repackage only the test APK's manifest for signed ordinary-app update observation.
+# Its seed/verify entry points reject physical hardware and all nonfixture wallets.
+set -euo pipefail
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+output="$repo_dir/.scratch/module-update-observer"
+signing_dir="${REDSQUARE_SIGNING_DIR:-$HOME/.local/share/redsquare-android/signing}"
+input="$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+[[ -f "$input" ]] || { echo 'Build the current debug AndroidTest APK first' >&2; exit 2; }
+mkdir -p "$output"
+docker run --rm --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=$repo_dir,dst=/workspace" redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/aapt2 link \
+    --manifest /workspace/test-fixtures/android/module-update-manifest.xml \
+    -I /opt/android-sdk/platforms/android-36/android.jar \
+    -o /workspace/.scratch/module-update-observer/manifest.apk
+python3 - "$input" "$output" <<'PY'
+import sys,zipfile
+from pathlib import Path
+source,output=Path(sys.argv[1]),Path(sys.argv[2])
+with zipfile.ZipFile(output/'manifest.apk') as manifest,zipfile.ZipFile(source) as original,zipfile.ZipFile(output/'unsigned.apk','w') as target:
+    for entry in original.infolist():
+        if entry.filename=='AndroidManifest.xml' or entry.filename.upper().startswith('META-INF/'):
+            continue
+        target.writestr(entry,original.read(entry))
+    target.writestr('AndroidManifest.xml',manifest.read('AndroidManifest.xml'))
+PY
+docker run --rm --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=$output,dst=/artifacts" redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/zipalign -f 4 /artifacts/unsigned.apk /artifacts/aligned.apk
+docker run --rm --user "$(id -u):$(id -g)" \
+    --env-file "$signing_dir/signing.env" \
+    --mount "type=bind,src=$signing_dir,dst=/signing,readonly" \
+    --mount "type=bind,src=$output,dst=/artifacts" redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/apksigner sign \
+    --ks /signing/app-signing.p12 --ks-key-alias app-signing \
+    --ks-pass env:REDSQUARE_STORE_PASSWORD --key-pass env:REDSQUARE_KEY_PASSWORD \
+    --out /artifacts/module-update-observer.apk /artifacts/aligned.apk
+docker run --rm --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=$output,dst=/artifacts,readonly" redsquare-android-build:agp8.10.1 \
+    /opt/android-sdk/build-tools/35.0.0/apksigner verify --print-certs /artifacts/module-update-observer.apk > "$output/signature.txt"
+python3 - "$output" <<'PY'
+from pathlib import Path
+import sys,hashlib,json
+p=Path(sys.argv[1]);signature=(p/'signature.txt').read_text()
+assert 'certificate SHA-256 digest: 6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2' in signature
+apk=p/'module-update-observer.apk'
+receipt=dict(sha256=hashlib.sha256(apk.read_bytes()).hexdigest(),bytes=apk.stat().st_size,package='nl.davidengelen.redsquare.moduleupdate.test',target='nl.davidengelen.redsquare',qualification='Test APK only; emulator and published unsafe wallet guards. Never part of the ordinary APK.')
+(p/'manifest.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt))
+PY

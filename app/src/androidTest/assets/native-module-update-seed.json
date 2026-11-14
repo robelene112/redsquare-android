@@ -1,0 +1,88 @@
+{
+  "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "qualification": "Public unsafe fixture wallet and source-derived records on a fresh emulator only. No network submission or real provider state.",
+  "inputs": {
+    "native-vault-reference.json": "189b9c7e2d10f9f7b24b92da4160dc86714b5f2b6827d2ef2d57ccc4a5364e2a",
+    "native-vault-mint-reference.json": "468e34f98b7afede8c5e154e659711092b640d23f3827920d59a503a01bacfa8",
+    "native-store-listing-reference.json": "49c15c8d9d1bfa6b8390768b59fce3bb8c2fc21653be612e0f900872e3839b14",
+    "native-store-update-purchase-reference.json": "d86b05b55aa9a91c24db91c3b42bca5f0aef4804406ef37b4d0be5284e0e3f93"
+  },
+  "expected": {
+    "orderId": "13d0f9b7cb502b72fddbef0834d0a6c9dfbc56c0c81eb98bdc37a8f9f8aabc3557ade9e294602cc2989634a3151499f65da5a2da2d14eabe9dc1cd98e5e0d24f",
+    "vaultOperationId": "2eded50225341fda746d112b20c3f772d82eda5e984ab6b97a9c22d1993419260354c65f563eae58a5cb6dad844af1363ca6cd03e7f1a14d966e5b035cb15a30",
+    "fileId": "bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19",
+    "fileContentsBase64": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo="
+  },
+  "records": [
+    {
+      "name": "store-orders.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.rows",
+      "alias": "redsquare-store-orders-v1",
+      "family": "store-orders.",
+      "version": 1,
+      "text": "[{\"backend\":\"owner\",\"candidate\":\"AAAAAgAAAAIAAAKBAAAAABPQ+bfLUCty/dvvCDTQpsnfvFbAyB65i9w3qPn4qrw1V63p4pRgLMKYljSjFRSZ9l2lototFOq+ncHNmOXg0k8AAAGL0BMuwAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAO5rKAAAAAAAAAAAKAAAAAAAAAAIAAACSlB6r3myGadlkegH8fWW5cQ9qQAFKvgs40J4cdMXjJgAAAAAO5rKAAAAAAAAAAAAAAAAAAAAAAAAAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAACwbgQAAAAAAAAAAAAAAAAAAAAAAAQB7Im1vZHVsZSI6IlN0b3JlIiwicmVxdWVzdCI6InB1cmNoYXNlLWFzc2V0IiwiYnV5ZXIiOiJwbmNTanNmdGRtc3BlZFhnbUNra0hMUkNlYWsxMmV4MldWcm5lMnFkZWZTVSIsInJlZnVuZCI6InBuY1Nqc2Z0ZG1zcGVkWGdtQ2trSExSQ2VhazEyZXgyV1ZybmUycWRlZlNVIiwibmZ0X2lkIjoiMDIxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTc2NjE3NTZjNzQyZDZlNjY3NDJkNmI2NTc5MDAwMDAwIiwicXVhbnRpdHkiOjEsInByaWNlIjoiMi41IiwiZmVlIjoiMCIsImFjY2Vzc19zY3JpcHQiOiJ7XCJvcFwiOlwiQ0hFQ0tNVUxUSVNJR1wiLFwibVwiOjEsXCJwdWJsaWNrZXlzXCI6W1wicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1VcIixcInRFTkJvUXR0enlLYUNXNmQ2MXRRamNlYVZBM0dzWjJXckJMbmdyWUhjWEV4XCJdLFwibXNnXCI6XCJ0eC5mcm9tLnAyc2gudXR4b3NldF9rZXlcIn0iLCJhY2Nlc3NfaGFzaCI6IjkyOTQxZWFiZGU2Yzg2NjlkOTY0N2EwMWZjN2Q2NWI5NzEwZjZhNDAwMTRhYmUwYjM4ZDA5ZTFjNzRjNWUzMjYiLCJwMnNoX2FkZHJlc3MiOiIwMDkyOTQxZWFiZGU2Yzg2NjlkOTY0N2EwMWZjN2Q2NWI5NzEwZjZhNDAwMTRhYmUwYjM4ZDA5ZTFjNzRjNWUzMjYifQ==\",\"offer\":\"{\\\"t\\\":\\\"AAAABAAAAAQAAAAAAAAAAMAb3L5cICZBL7K8w6Dyl3X5APDBOhqh7mZh/g90olodDZZcXZlA+eQ6yzQsv/4J8yHtVbtanWz9GvLB7Qg/EAoAAAGL0APsgAAAAAEIAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAIAAAAAAB6EggAAAAAAAAAIAAkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAHoSCAAAAAAAAAAgBAAIRERERERERERERERERERERdmF1bHQtbmZ0LWtleQAAAAAAAAAAAAAAAAAAAAAehIIAAAAAAAAACAIJAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQCSlB6r3myGadlkegH8fWW5cQ9qQAFKvgs40J4cdMXjJgAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAhERERERERERERERERERERF2YXVsdC1uZnQta2V5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA==\\\",\\\"m\\\":\\\"eyJtb2R1bGUiOiJTdG9yZSIsImRhdGEiOnsibGluayI6Imh0dHBzOi8vc2FpdG8uaW8vdmF1bHQiLCJmaWxlbmFtZSI6IkZpZWxkIG5vdGVzLnR4dCIsImZpbGVfaWQiOiJiYjI1M2E1ZGVjZTVmZjk3NDEyYzNhMzU1NGZkZGJiMTQ1YTNmM2I2Y2UxNmIxMjlkZTE5MmE0YTE1YzM4MjFiMjE1YThjOTY5NTJhMWU4Y2EyODVmMTE4MmQxZjc4ZmE4MmY3MTYzMjM1ODY5Y2EyYTA3MjM3ZTE5NjI4YmYxOSJ9LCJyZXF1ZXN0IjoibGlzdC1hc3NldCIsImFjY2Vzc19zY3JpcHQiOiJ7XCJvcFwiOlwiQ0hFQ0tNVUxUSVNJR1wiLFwibVwiOjEsXCJwdWJsaWNrZXlzXCI6W1wicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1VcIixcInRFTkJvUXR0enlLYUNXNmQ2MXRRamNlYVZBM0dzWjJXckJMbmdyWUhjWEV4XCJdLFwibXNnXCI6XCJ0eC5mcm9tLnAyc2gudXR4b3NldF9rZXlcIn0iLCJhY2Nlc3NfaGFzaCI6IjkyOTQxZWFiZGU2Yzg2NjlkOTY0N2EwMWZjN2Q2NWI5NzEwZjZhNDAwMTRhYmUwYjM4ZDA5ZTFjNzRjNWUzMjYiLCJwMnNoX2FkZHJlc3MiOiIwMDkyOTQxZWFiZGU2Yzg2NjlkOTY0N2EwMWZjN2Q2NWI5NzEwZjZhNDAwMTRhYmUwYjM4ZDA5ZTFjNzRjNWUzMjYiLCJsaXN0aW5nIjp7InRpdGxlIjoiRmllbGQgbm90ZXMgYWNjZXNzIGtleSIsImRlc2NyaXB0aW9uIjoiT3JpZ2luYWwgY3JlYXRvci1hdXRoZW50aWNhdGVkIGZpZWxkIG5vdGVzLiIsImNhdGVnb3J5IjoiQWNjZXNzIEtleXMiLCJwcmljZSI6IjIuNSIsInF1YW50aXR5X3RvdGFsIjoyLCJxdWFudGl0eV9hdmFpbGFibGUiOjJ9fQ==\\\",\\\"opt\\\":\\\"e30=\\\"}\",\"offerSignature\":\"c01bdcbe5c2026412fb2bcc3a0f29775f900f0c13a1aa1ee6661fe0f74a25a1d0d965c5d9940f9e43acb342cbffe09f321ed55bb5a9d6cfd1af2c1ed083f100a\",\"provenance\":[],\"mayHaveSent\":true,\"payment\":null,\"receipt\":null,\"receiptBlock\":null,\"cursor\":null}]"
+    },
+    {
+      "name": "store-orders.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.guard",
+      "alias": "redsquare-store-orders-v1",
+      "family": "store-orders.",
+      "version": 1,
+      "text": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.copy.bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19.data",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo="
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.copy.bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19.info",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "{\"id\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"name\":\"Field notes.txt\",\"mime\":\"text/plain\",\"size\":29,\"sha256\":\"5bf8ac04ddb177ba8f9452cdb73bd4ded607b328c81808b984d9ac401d8cfbd3\"}"
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.data",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo="
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.info",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "{\"id\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"name\":\"Module update draft.txt\",\"mime\":\"text/plain\",\"size\":29,\"sha256\":\"5bf8ac04ddb177ba8f9452cdb73bd4ded607b328c81808b984d9ac401d8cfbd3\"}"
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.export.data",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo="
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.export.info",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "{\"id\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"name\":\"Field notes.txt\",\"mime\":\"text/plain\",\"size\":29,\"sha256\":\"5bf8ac04ddb177ba8f9452cdb73bd4ded607b328c81808b984d9ac401d8cfbd3\"}"
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.draft.rules",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "{\"file\":\"bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19\",\"mode\":\"STANDARD\",\"source\":\"\"}"
+    },
+    {
+      "name": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.owner.operation",
+      "alias": "redsquare.vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "family": "vault.pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU.",
+      "version": 1,
+      "text": "{\"candidate\":\"AAAAAQAAAAQAAAEBAAAAAC7e1QIlNB/adG0RKyDD93LYLtpemEq2uXqcItGZNBkmA1TGX1Y+rlily22thErxNjymzQPn8aFNlm5bA1yxWjAAAAGLz/SmWAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAvrwgAAAAAAAB6EgQAAAAAAAAADAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAACQLGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwB2YXVsdC1uZnQta2V5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAADAHsibW9kdWxlIjoiVmF1bHQiLCJyZXF1ZXN0IjoibWludC12YXVsdC1rZXkiLCJkYXRhIjp7ImxpbmsiOiJodHRwczovL3NhaXRvLmlvL3ZhdWx0IiwiZmlsZW5hbWUiOiJVcGxvYWQgbm90ZXMudHh0IiwiZmlsZV9pZCI6ImZmNjBjOTlkMzU2ZjE3ODg4ZjE3M2Y2ZGYxNjIzNWRjMWJkZTVmYjY2NGE5NDgwNTY1YzIyMDcyYjI2YTY3NmExZjYzY2FjZjlhODJkY2Q0ZWFlYWI3MGEzODg4NTk0ZTUyODU4MDAxMDU0MzEwN2ExMDg2ZTIwOGI1Yjg0MmVlIn19\",\"mime\":\"text/plain\",\"size\":39,\"mayHaveSent\":true,\"uploaded\":false,\"owned\":false,\"submitted\":true,\"rejected\":false}"
+    }
+  ]
+}

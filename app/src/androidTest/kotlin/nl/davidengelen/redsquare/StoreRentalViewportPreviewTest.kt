@@ -19,7 +19,8 @@ class StoreRentalViewportPreviewTest {
                 observeModuleWindowMotionScale(scene.activity, 0, File(scene.evidence, "$label-motion").apply { mkdirs() })
                 ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
                 ui.onNodeWithText("Field notes access key").performClick()
-                ui.waitUntil(15_000) { ui.onAllNodesWithText("Temporary file access").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh Store") and isEnabled()).isDisplayed() }
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Temporary file access"))
                 ui.onNode(hasScrollAction()).performScrollToNode(hasText("Review purchase"))
                 ui.onNodeWithText("Review purchase").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
                 val dialog = hasAnyAncestor(isDialog())

@@ -2,6 +2,9 @@
 """Exercise an actual signed update and local recovery through public Android UI."""
 import argparse
 import json
+import os
+import hashlib
+import urllib.request
 from pathlib import Path
 import re
 import shlex
@@ -65,6 +68,44 @@ def work(phase, label, post=None):
         assert result["offlineCacheRequired"] is True and result["cachedPost"] == post
     return result
 
+module_package = "nl.davidengelen.redsquare.moduleupdate.test"
+module_hash = os.environ.get("TEST_MODULE_UPDATE_OBSERVER_SHA256", "")
+module_results = []
+module_installed = False
+if module_hash:
+    assert re.fullmatch(r"[0-9a-f]{64}", module_hash)
+    assert "package:" + module_package not in installed
+
+def module_observe(prepare):
+    global module_installed
+    if not module_hash:
+        return
+    if not module_installed:
+        url = "https://davidengelen.nl/redsquare/qa/" + module_hash + ".apk"
+        apk = evidence / "module-update-observer.apk"
+        with urllib.request.urlopen(url, timeout=30) as response, apk.open("wb") as output:
+            while chunk := response.read(1024 * 1024):
+                output.write(chunk)
+                assert output.tell() <= 100 * 1024 * 1024
+        assert hashlib.sha256(apk.read_bytes()).hexdigest() == module_hash
+        tools = Path(os.environ["ANDROID_HOME"]) / "build-tools/35.0.0"
+        signature = subprocess.check_output([str(tools / "apksigner"), "verify", "--print-certs", str(apk)], text=True)
+        assert "certificate SHA-256 digest: 6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2" in signature
+        (evidence / "module-observer-signature.txt").write_text(signature)
+        adb("install", str(apk)); module_installed = True
+    observer = "ModuleUpdateSeedObserver" if prepare else "ModuleUpdateVerifyObserver"
+    label = "module-prepare" if prepare else "module-verify-" + str(len(module_results))
+    command = ["am", "instrument", "-w", "-r", "-e", "class", "nl.davidengelen.redsquare." + observer,
+        module_package + "/androidx.test.runner.AndroidJUnitRunner"]
+    output = adb("shell", shlex.join(command))
+    (evidence / (label + ".log")).write_text(output)
+    assert re.search(r"^OK \(1 test\)", output, re.M), label
+    key = "moduleUpdateSeed" if prepare else "moduleUpdateContinuity"
+    result = json.loads(re.search(r"^INSTRUMENTATION_STATUS: " + key + r"=(.+)\r?$", output, re.M)[1])
+    assert result["owner"] == "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" and result["noNetworkSubmission"] is True
+    module_results.append(result)
+    (evidence / "module-continuity.json").write_text(json.dumps(dict(observerSha256=module_hash,observations=module_results),indent=2)+"\n")
+
 primary = None
 try:
     debug_before = debug_address("debug-before")
@@ -72,6 +113,7 @@ try:
     adb("install", "-r", str(args.before))
     main_uid = uid(main)
     assert main_uid != debug_uid
+    module_observe(True)
     prepared = work("prepare", "work-before")
     adb("shell", "am", "force-stop", main)
     adb("shell", "svc", "wifi", "disable")
@@ -81,8 +123,10 @@ try:
     subprocess.run(["python3", str(repo / "scripts/wallet-device-check"),
         "--before", str(args.before), "--after", str(args.after),
         "--evidence", str(evidence / "wallet")], check=True)
+    module_observe(False)
     verified = work("verify", "work-after", prepared["cachedPost"])
     cold = work("verify", "work-after-cold", prepared["cachedPost"])
+    module_observe(False)
     assert verified["draft"] == cold["draft"] == prepared["draft"]
     assert uid(main) == main_uid and uid(debug) == debug_uid
     debug_after = debug_address("debug-after")
@@ -101,7 +145,7 @@ finally:
     # Attempt every owned restoration independently, preserving the primary
     # failure. Only the originally absent ordinary installation is removed.
     failures = []
-    for label, command in [
+    for label, command in ([ ("module-observer-removal", ["adb", "uninstall", module_package]) ] if module_installed else []) + [
         ("native-evidence", ["adb", "exec-out", "run-as", debug, "tar", "-C", "cache", "-cf", "-", "review-update-observation"]),
         ("wifi", ["adb", "shell", "svc", "wifi", "enable" if wifi == "1" else "disable"]),
         ("mobile-data", ["adb", "shell", "svc", "data", "enable" if mobile == "1" else "disable"]),

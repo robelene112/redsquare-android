@@ -116,7 +116,9 @@ if [[ "${TEST_SCOPE:-full}" == candidate-update* ]]; then
     [[ "${TEST_CANDIDATE_VERSION:-}" =~ ^[0-9]+$ ]] && ((10#$TEST_CANDIDATE_VERSION > 83)) || {
         echo 'Require an immutable signed candidate newer than beta83' >&2; exit 2;
     }
-    python3 "$repo_dir/scripts/ci-review-update" 83 "$TEST_CANDIDATE_VERSION" \
+    reference_version="${TEST_CANDIDATE_REFERENCE_VERSION:-83}"
+    [[ "$reference_version" == 83 || "$reference_version" == 127 ]] || { echo "Unsupported signed-update baseline" >&2; exit 2; }
+    python3 "$repo_dir/scripts/ci-review-update" "$reference_version" "$TEST_CANDIDATE_VERSION" \
         --retain-local-work --evidence "$evidence/candidate-update"
     printf '%s\n' 'Actual signed beta83-to-candidate update, retained local work and package isolation only; not full application acceptance.' > "$evidence/scope.txt"
     exit 0
@@ -890,6 +892,7 @@ if [[ "${TEST_SCOPE:-full}" == vault-advanced* ]]; then
     verify_group_chat_native VaultUploadPreviewTest 180 vault-upload vault-upload-evidence
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
     verify_group_chat_native VaultRentalPolishPreviewTest 180 vault-rental-polish vault-reading-evidence
+    verify_group_chat_native VaultRentalMotionPreviewTest 180 vault-rental-motion vault-reading-evidence
     verify_group_chat_native VaultRecoveryPreviewTest 180 vault-recovery vault-recovery-evidence
     verify_group_chat_native VaultViewportPreviewTest 180 vault-viewport vault-viewport-evidence
     verify_group_chat_native VaultLargeReadingPreviewTest 180 vault-large vault-large-evidence
@@ -986,6 +989,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == vault-reading* ]]; then
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
     verify_group_chat_native VaultRentalPolishPreviewTest 180 vault-rental-polish vault-reading-evidence
+    verify_group_chat_native VaultRentalMotionPreviewTest 180 vault-rental-motion vault-reading-evidence
     verify_group_chat_native VaultRecoveryPreviewTest 180 vault-recovery vault-recovery-evidence
     verify_group_chat_native VaultViewportPreviewTest 180 vault-viewport vault-viewport-evidence
     verify_group_chat_native VaultLargeReadingPreviewTest 180 vault-large vault-large-evidence
@@ -1493,6 +1497,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native VaultMintingPreviewTest 180 vault-minting vault-minting-evidence
     verify_group_chat_native VaultReadingPreviewTest 180 vault-reading vault-reading-evidence
     verify_group_chat_native VaultRentalPolishPreviewTest 180 vault-rental-polish vault-reading-evidence
+    verify_group_chat_native VaultRentalMotionPreviewTest 180 vault-rental-motion vault-reading-evidence
     verify_group_chat_native VaultRecoveryPreviewTest 180 vault-recovery vault-recovery-evidence
     verify_group_chat_native VaultViewportPreviewTest 180 vault-viewport vault-viewport-evidence
     verify_group_chat_native VaultLargeReadingPreviewTest 180 vault-large vault-large-evidence

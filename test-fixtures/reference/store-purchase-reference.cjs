@@ -1,6 +1,6 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--full','--rental','--rental-partial','--rental-later'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--full','--rental','--rental-partial','--rental-later','--continuity'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
 
 const rental=process.argv[6]?.startsWith('--rental'),quantity=process.argv[6]==='--full'?2:1;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
@@ -34,7 +34,7 @@ global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=
 function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.readUInt32BE(0)+wire.readUInt32BE(4)),detached=Buffer.from(wire.subarray(0,offset));detached.writeUInt32BE(0,8);return {id:tx.signature,networkBase64:wire.toString('base64'),envelope:JSON.stringify({t:detached.toString('base64'),m:wire.subarray(offset).toString('base64'),opt:Buffer.from('{}').toString('base64')})}}
 
 (async()=>{
- await wasm.initialize(JSON.stringify({server:{host:'127.0.0.1',port:0,protocol:'http',endpoint:{host:'127.0.0.1',port:0,protocol:'http'},verification_threads:1,channel_size:100,stat_timer_in_ms:5000,reconnection_wait_time:1000,thread_sleep_time_in_ms:10,block_fetch_batch_size:1},peers:[],spv_mode:true,browser_mode:true,consensus:{genesis_period:100000,heartbeat_interval:30000,prune_after_blocks:100,max_staker_recursions:1}}),'0'.repeat(63)+'4',0,1n,false);
+ await wasm.initialize(JSON.stringify({server:{host:'127.0.0.1',port:0,protocol:'http',endpoint:{host:'127.0.0.1',port:0,protocol:'http'},verification_threads:1,channel_size:100,stat_timer_in_ms:5000,reconnection_wait_time:1000,thread_sleep_time_in_ms:10,block_fetch_batch_size:1},peers:[],spv_mode:true,browser_mode:true,consensus:{genesis_period:100000,heartbeat_interval:30000,prune_after_blocks:100,max_staker_recursions:1}}),'0'.repeat(63)+(process.argv[6]==='--continuity'?'2':'4'),0,1n,false);
  const wallet=await wasm.get_wallet(),buyer=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3');
  const funding=new wasm.WasmWalletSlip();funding.set_amount(1000000000n);funding.set_block_id(10n);funding.set_tx_ordinal(2n);funding.set_slip_index(0);funding.set_slip_type(0);funding.set_lc(true);funding.set_spent(false);
  const key=Buffer.alloc(59);Buffer.from(base58.decode(buyer)).copy(key);key.writeBigUInt64BE(10n,33);key.writeBigUInt64BE(2n,41);key.writeBigUInt64BE(1000000000n,50);funding.set_utxokey(key.toString('hex'));await wallet.add_slip(funding);

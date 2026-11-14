@@ -107,8 +107,21 @@ class TalkFilesharePreviewTest {
                                 val groups = nl.davidengelen.redsquare.chat.GroupChatStore(context, owner, SaitoBackend.OWNER)
                                 await("Actual group creation is retained during Talk and the receiving file") { groups.load(groupId) != null }
                                 val groupMessage = "Group Chat remains independent of Vault and Store"
-                                alice.sendFrame(GroupChat.message(aliceWallet, requireNotNull(groups.load(groupId)).group, groupMessage, System.currentTimeMillis()).envelope())
-                                await("Actual group Chat retains over the shared live Stun peer") { groups.load(groupId)?.messages?.any { it.text == groupMessage } == true }
+                                // Group messages address the group key and use the node route;
+                                // they are not addressed to the private RTC counterparty.
+                                SaitoPeer(owner, endpoint, onIncoming = { bytes ->
+                                    val envelope = runCatching { GroupChat.originalEnvelope(bytes) }.getOrNull()
+                                    if (envelope == null || SaitoEnvelope.decode(envelope).body.get("group_id")?.asString != groupId) false
+                                    else { nl.davidengelen.redsquare.chat.receiveChat(context, owner, SaitoBackend.OWNER, bytes, endpoint); true }
+                                }).use { groupPeer ->
+                                    runBlocking(kotlinx.coroutines.Dispatchers.IO) { groupPeer.authenticate() }
+                                    val groupFrame = GroupChat.message(aliceWallet, requireNotNull(groups.load(groupId)).group, groupMessage, System.currentTimeMillis())
+                                        .applicationRequest(1).drop(5).toByteArray()
+                                    fixture.sendIncoming(groupFrame, sequence.incrementAndGet())
+                                    await("Actual group Chat retains over the authenticated node during Talk and FileSession") { groups.load(groupId)?.messages?.any { it.text == groupMessage } == true }
+                                }
+                                assertEquals(FilePhase.RECEIVING, session?.transfers?.value?.singleOrNull()?.phase)
+                                assertEquals(2, TalkRuntime.call.value?.participants?.count { it.connected })
                                 File(evidence, "mixed-module-group-retained.json").writeText("{\"groupMessageRetainedDuringTalkAndFile\":true,\"authenticatedNodeConnections\":${fixture.authenticatedConnectionIds.size}}")
                                 val policy = AndroidPersonalControls(context, owner.publicKey)
                                 val old = policy.load(); policy.save(old, old.copy(blocked = old.blocked + carolWallet.publicKey))

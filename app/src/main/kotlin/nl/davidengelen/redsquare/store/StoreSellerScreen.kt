@@ -130,7 +130,9 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 if (draft.rental) {
                     Text(stringResource(R.string.store_rental_master_stays))
                     OutlinedTextField(draft.hours, { if (it.length <= 2) update(draft.copy(hours = it)) },
-                        label = { Text(stringResource(R.string.store_rental_hours)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                        label = { Text(stringResource(R.string.store_rental_hours)) },
+                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number, imeAction = androidx.compose.ui.text.input.ImeAction.Next),
+                        singleLine = true, modifier = Modifier.fillMaxWidth())
                     Text(stringResource(R.string.store_rental_rights))
                 } else OutlinedButton(onClick = { update(draft.copy(rental = true, item = "")) },
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_rental_create)) }
