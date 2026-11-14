@@ -29,7 +29,7 @@ class VaultRentalPolishPreviewTest {
             finally { if (!loaded.isCompleted) runBlocking { loaded.cancelAndJoin() } }
             assertTrue(library.entries.single().creatorMaster)
             val start = SystemClock.uptimeMillis()
-            Debug.startMethodTracingSampling(File(scene.evidence, "creator-discovery.trace").absolutePath, 16 * 1024 * 1024, 100)
+            Debug.startMethodTracing(File(scene.evidence, "creator-discovery.trace").absolutePath, 64 * 1024 * 1024, 0)
             val refreshed = scope.async { repeat(20) { library.refreshLocal() } }
             try { ui.waitUntil(15_000) { refreshed.isCompleted }; runBlocking { refreshed.await() } }
             finally { Debug.stopMethodTracing(); scope.cancel(); runBlocking { refreshed.cancelAndJoin() } }
@@ -37,6 +37,7 @@ class VaultRentalPolishPreviewTest {
             assertEquals("Upload notes.txt", library.entries.single().name)
             File(scene.evidence, "creator-refresh-observation.json").writeText(com.google.gson.JsonObject().apply {
                 addProperty("refreshes", 20); addProperty("elapsedMillis", SystemClock.uptimeMillis() - start)
+                addProperty("traceMode", "method")
                 addProperty("authenticatedMasterRetained", true)
                 addProperty("qualification", "Instrumented emulator method trace; no physical frame-rate claim")
             }.toString())

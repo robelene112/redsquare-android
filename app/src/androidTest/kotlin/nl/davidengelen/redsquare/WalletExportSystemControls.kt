@@ -79,9 +79,13 @@ private fun clickTestBackupRoot() {
     while (SystemClock.uptimeMillis() < deadline) {
         automation.rootInActiveWindow?.let(::find)?.let { row ->
             check(SystemClock.uptimeMillis() < deadline) { "Provider lookup exceeded its original budget" }
-            check(row.performAction(AccessibilityNodeInfo.ACTION_CLICK)) { "Provider row rejected native Click" }
-            check(SystemClock.uptimeMillis() <= deadline) { "Provider selection exceeded its original budget" }
-            return
+            // DocumentsUI can replace its native row while the drawer settles.
+            // A rejected action has not selected the provider: query a fresh row
+            // within the same original control budget before attempting it again.
+            if (row.performAction(AccessibilityNodeInfo.ACTION_CLICK)) {
+                check(SystemClock.uptimeMillis() <= deadline) { "Provider selection exceeded its original budget" }
+                return
+            }
         }
         SystemClock.sleep(50)
     }
