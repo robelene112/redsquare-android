@@ -114,5 +114,6 @@ internal fun ComposeTestRule.openStorePurchaseProduct(quantity: String = "1", il
     check(descriptionRemaining > 0) { "Original product-description deadline elapsed" }
     waitUntil(descriptionRemaining) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
     if (quantity != "1") onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
+    if (illustrated) onNode(hasScrollAction()).performScrollToNode(hasText("Review purchase"))
     onNodeWithText("Review purchase").performScrollTo().performClick()
 }
