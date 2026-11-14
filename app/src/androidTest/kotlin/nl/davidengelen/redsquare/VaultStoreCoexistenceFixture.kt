@@ -56,7 +56,7 @@ internal class VaultStoreCoexistenceFixture {
             val pending = async { runCatching { cancelledStore.request(SaitoStore.catalogueRequest().toByteArray()) } }
             withTimeout(5_000) { while (entered.count != 0L) delay(20) }
             SaitoPeer(owner, endpoint).use { vaultPeer ->
-                val snapshot = SaitoBalanceSnapshot.parse(vault.get("snapshot").asString.toByteArray(), owner.publicKey, System.currentTimeMillis())
+                val snapshot = SaitoBalanceSnapshot.parse(vault.get("snapshot").asString.replaceBefore('-', System.currentTimeMillis().toString()).toByteArray(), owner.publicKey, System.currentTimeMillis())
                 val holding = snapshot.nfts.single { it.id == vault.get("id").asString }
                 val key = requireNotNull(SaitoVault.readKeyArchive(holding, vaultPeer.request(SaitoVault.archiveRequest(holding).toByteArray()).decodeToString()))
                 val file = SaitoVault.readFile(key, vaultPeer.request(SaitoVault.access(owner, key, System.currentTimeMillis())) {}.decodeToString())
