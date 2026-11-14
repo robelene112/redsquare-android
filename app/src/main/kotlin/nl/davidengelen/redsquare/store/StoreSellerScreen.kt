@@ -36,6 +36,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
     var storageError by remember { mutableStateOf(false) }
     var draftVersion by remember { mutableLongStateOf(0) }
     var choosingCurrency by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
+    var showingProceeds by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var editing by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
     var pickingImage by rememberSaveable { mutableStateOf(false) }
     var uploading by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
@@ -86,8 +87,9 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
             TextButton(onClick = { choosingCurrency = false }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
         }
     }
-    SingleOwnerReveal(Triple(image?.mint?.transaction?.id ?: removal?.delist?.transaction?.id ?: focused?.listing?.transaction?.id, editing, uploading), modifier) {
+    SingleOwnerReveal(Triple(if (showingProceeds) "proceeds" else image?.mint?.transaction?.id ?: removal?.delist?.transaction?.id ?: focused?.listing?.transaction?.id, editing, uploading), modifier) {
         when {
+            showingProceeds -> StoreProceedsScreen(wallet, backend, selected, endpoint, Modifier, { showingProceeds = false })
             image != null -> StoreImageReview(selling, image, Modifier.fillMaxSize()) {
                 update(draft.copy(item = image.mint.nftId + ":" + wallet.publicKey, creating = false, image = false))
                 uploads.discard(); selling.closeImage(); editing = true; uploading = false; selling.load()
@@ -167,6 +169,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 LazyColumn(Modifier.weight(1f).fillMaxWidth(), contentPadding = PaddingValues(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 item {
                     Button(enabled = loaded && selling.localReady && !storageError && !selling.busy, onClick = { editing = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_new)) }
+                    OutlinedButton(onClick = { showingProceeds = true }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_proceeds_title)) }
                     TextButton(onClick = { selling.load() }, enabled = !selling.busy && !selling.loading, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_refresh)) }
                 }
                 items(selling.images.filter { it.backend == backend }, key = { "image:" + it.mint.transaction.id }) { record ->

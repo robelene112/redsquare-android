@@ -1185,4 +1185,10 @@
     <string name="store_sell_currencies_unavailable">Other currencies are unavailable on this node. Your selected price is retained.</string>
     <string name="store_sell_external_unavailable">External checkout is currently disabled on this Store. Buyers can pay when the service is available.</string>
     <string name="store_sell_external_terms">Payments and seller payouts in %1$s use the external payment service of this Store.</string>
+    <string name="store_proceeds_title">Proceeds</string>
+    <string name="store_proceeds_explanation">Reported by this Store, separately from sales and your Saito wallet. Waiting amounts have not met the settlement requirements. Available amounts can be requested from the external treasury; this is not proof of custody or an external payout.</string>
+    <string name="store_proceeds_eligible">Available to request: %1$s %2$s</string>
+    <string name="store_proceeds_pending">Waiting for settlement: %1$s %2$s</string>
+    <string name="store_proceeds_empty">No alternate-currency proceeds reported.</string>
+    <string name="store_proceeds_unavailable">Proceeds could not be refreshed. Try again when this Store is available.</string>
 </resources>
