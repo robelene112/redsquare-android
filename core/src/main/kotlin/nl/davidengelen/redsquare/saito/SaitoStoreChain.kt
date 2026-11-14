@@ -10,10 +10,10 @@ object SaitoStoreChain {
     data class Observation(val payment: Payment?, val receipt: SaitoStoreReceipt?, val receiptBlock: String?,
         val delivered: Boolean, val refunded: Boolean, val historical: Boolean = false, val cursor: Cursor? = null,
         val displaced: Boolean = false)
-    fun observe(purchase: SaitoStorePurchase, snapshot: SaitoBalanceSnapshot, creator: String, previous: Payment? = null,
+    fun observe(purchase: SaitoStorePayment, snapshot: SaitoBalanceSnapshot, creator: String, previous: Payment? = null,
         previousReceipt: SaitoStoreReceipt? = null, previousReceiptBlock: String? = null, cursor: Cursor? = null,
         fetchBlock: (String) -> ByteArray?): Observation {
-        require(purchase.author == snapshot.publicKey && SaitoWallet.isPublicKey(creator))
+        require(purchase.buyer == snapshot.publicKey && SaitoWallet.isPublicKey(creator))
         require((previousReceipt == null) == (previousReceiptBlock == null))
         var payment: Payment? = null
         var displaced = false

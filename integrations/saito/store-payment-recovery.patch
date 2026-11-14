@@ -1,0 +1,185 @@
+--- a/node/mods/mixin/lib/transfers.js
++++ b/node/mods/mixin/lib/transfers.js
+@@ -5,6 +5,18 @@
+   restoreSavedSignedTransaction
+ } = require('./transactions');
+ const { storePurchaseMessage, storePurchaseRecipient } = require('./buysaito');
++
++// Echo the identity of the saved original, never the current retry's payload.
++function storedPurchaseSignature(payload) {
++  try {
++    const envelope = JSON.parse(payload || '{}');
++    const bytes = Buffer.from(envelope.t || '', 'base64');
++    return bytes.length >= 93 ? bytes.subarray(16, 80).toString('hex') : '';
++  } catch (err) {
++    return '';
++  }
++}
++
+ 
+ // Outbound SAITO payouts complete after one included block by default.
+ // Required N means the confirmation height is inclusion + (N - 1).
+@@ -79,6 +91,7 @@
+     this.mod = mod;
+     this.running = false;
+     this.inclusion_checked = false;
++    this.reservationQueue = Promise.resolve();
+     // Shared unpaid reservation window for BuySaito, Store purchases, and Migration.
+     // Duration comes from Mixin.ADDRESS_RESERVATION_PERIOD_IN_MINUTES.
+     this.reservation_ms = Number(this.mod?.ADDRESS_RESERVATION_PERIOD_IN_MINUTES || 40) * 60 * 1000;
+@@ -942,16 +955,16 @@
+     return { credentials: selected, address };
+   }
+ 
+-  /**
+-   * Create or return an inbound Mixin deposit-address reservation.
+-   * Callers supply purpose and all business-specific transfer fields.
+-   *
+-   * Note: selectAvailableDepositAddress and insertTransfer are not wrapped in a
+-   * single DB transaction, and open inbound_address is not uniquely constrained.
+-   * Concurrent reservations can therefore select the same free address before
+-   * either insert lands. Hardening that race is deferred.
+-   */
++  /** Serialize address selection and insertion across requesters in this provider. */
+   async reserveAddress(requesterPublickey, reservation = {}) {
++    const pending = this.reservationQueue.catch(() => {}).then(() =>
++      this.reserveAddressLocked(requesterPublickey, reservation)
++    );
++    this.reservationQueue = pending;
++    return pending;
++  }
++
++  async reserveAddressLocked(requesterPublickey, reservation = {}) {
+     const purpose = reservation.purpose;
+     if (!purpose) {
+       throw new Error('Transfer purpose is required');
+@@ -973,6 +986,12 @@
+       inbound_ticker: ticker,
+       purpose
+     });
++    const original = reservation.request_id && (existing || []).find(
++      (row) => row.request_id === reservation.request_id
++    );
++    if (original) {
++      return this.reservationRecord(original);
++    }
+     const open = (existing || []).find(
+       (row) => !Number(row.excluded) && OPEN_STATUSES.includes(row.status)
+     );
+@@ -1029,10 +1048,13 @@
+     return this.reservationRecord({
+       id,
+       purpose,
++      request_id: reservation.request_id || '',
++      payload: reservation.payload || '',
+       status: 'inbound_awaiting',
+       requester_publickey: requesterPublickey,
+       recipient_publickey: recipient,
+       inbound_ticker: ticker,
++      inbound_chain_id: crypto.chain_id || '',
+       inbound_address: address,
+       inbound_mixin_user_id: selected.user_id,
+       inbound_amount: reservation.inbound_amount != null ? String(reservation.inbound_amount) : '',
+@@ -1046,10 +1068,13 @@
+     return {
+       id: row.id,
+       purpose: row.purpose,
++      request_id: row.request_id || '',
++      purchase_signature: storedPurchaseSignature(row.payload),
+       status: row.status,
+       requester_publickey: row.requester_publickey,
+       recipient_publickey: row.recipient_publickey,
+       ticker: row.inbound_ticker,
++      chain_id: row.inbound_chain_id || '',
+       address: row.inbound_address,
+       mixin_id: row.inbound_mixin_user_id,
+       inbound_ticker: row.inbound_ticker,
+--- a/node/mods/mixin/lib/buysaito.js
++++ b/node/mods/mixin/lib/buysaito.js
+@@ -163,6 +163,36 @@
+     return this.mod.transfers.releaseAddress(requesterPublickey, ticker, 'buysaito');
+   }
+ 
++  /** Read the retained purchase without allocating or changing a deposit address. */
++  async getPurchaseStatus(requesterPublickey, request = {}) {
++    const requestId = String(request.request_id || '');
++    const ticker = String(request.ticker || '');
++    if (!/^[0-9a-f]{128}$/.test(requestId) || !this.mod.crypto_mods.some((item) => item.ticker === ticker)) {
++      throw new Error('Invalid purchase status request');
++    }
++    const rows = await this.mod.database.getTransfers({
++      requester_publickey: requesterPublickey,
++      inbound_ticker: ticker,
++      purpose: 'store-purchase'
++    });
++    const matching = rows.filter((row) => row.request_id === requestId);
++    if (matching.length > 1) {
++      throw new Error('Multiple payment records need review');
++    }
++    if (!matching.length) {
++      return { found: false, store_purchase_protocol: 1 };
++    }
++    const row = matching[0];
++    return {
++      ...this.buildDepositReservationResponse(this.mod.transfers.reservationRecord(row)),
++      found: true,
++      inbound_payment_uuid: row.inbound_tx_hash || '',
++      outbound_tx_sig: row.outbound_tx_sig || '',
++      outbound_tx: row.outbound_tx || '',
++      last_error: row.last_error || ''
++    };
++  }
++
+   buildDepositReservationResponse(row) {
+     let status = 'new';
+     if (row.status === 'inbound_broadcast') {
+@@ -175,6 +205,12 @@
+     return {
+       id: row.id,
+       status,
++      transfer_status: row.status,
++      chain_id: row.chain_id || '',
++      store_purchase_protocol: 1,
++      request_id: row.request_id || '',
++      purchase_signature: row.purchase_signature || '',
++      issuance_publickey: this.mod.returnSaitoIssuancePublicKey(),
+       initiator_pubkey: row.requester_publickey,
+       recipient_pubkey: row.recipient_publickey,
+       issue_amount: row.outbound_amount,
+--- a/node/mods/mixin/mixin.js
++++ b/node/mods/mixin/mixin.js
+@@ -834,7 +834,8 @@
+       if (
+         message.request === 'buysaito available currencies' ||
+         message.request === 'buysaito reserve address' ||
+-        message.request === 'buysaito release address'
++        message.request === 'buysaito release address' ||
++        message.request === 'buysaito purchase status'
+       ) {
+         if (await this.tunnelRequestToTreasury(tx, mycallback)) {
+           return 1;
+@@ -914,6 +915,7 @@
+         }
+         const response = {
+           ac: currencies,
++          store_purchase_protocol: 1,
+           erc: Number.isFinite(Number(erc?.price_usd)) && Number(erc.price_usd) > 0 ? Number(erc.price_usd) : null
+         };
+         console.log('Mixin buysaito available currencies reply', {
+@@ -976,6 +978,16 @@
+           if (mycallback) {
+             mycallback({ err: err.message });
+           }
++        }
++        return 1;
++      }
++
++      if (message.request === 'buysaito purchase status') {
++        try {
++          const response = await this.buysaito.getPurchaseStatus(from, data);
++          if (mycallback) mycallback(response);
++        } catch (err) {
++          if (mycallback) mycallback({ err: err.message });
+         }
+         return 1;
+       }

@@ -1148,4 +1148,9 @@
     <string name="store_sell_sale_buyer">Buyer: %1$s</string>
     <string name="store_sell_pending">Available in this storefront. Marketplace review is pending.</string>
     <string name="store_sell_declined">Available in this storefront. Marketplace submission was declined.</string>
+    <string name="store_crypto_retained">Original payment retained</string>
+    <string name="store_crypto_network">Network: %1$s</string>
+    <string name="store_crypto_total">Payment: %1$s %2$s</string>
+    <string name="store_crypto_awaiting">Waiting for the original payment. Checking this order never creates a new invoice.</string>
+    <string name="store_crypto_waiting_instructions">Checking the original payment instructions.</string>
 </resources>

@@ -753,6 +753,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == store-purchase* ]]; then
     store_native_result=0
     verify_group_chat_native StorePurchasePreviewTest 180 store-purchase store-purchase-evidence || store_native_result=1
+    verify_group_chat_native StoreCryptoRecoveryPreviewTest 180 store-crypto-recovery store-purchase-evidence || store_native_result=1
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence || store_native_result=1
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence || store_native_result=1
     python3 "$repo_dir/scripts/store-purchase-process-check" --evidence "$evidence/store-purchase-process" || store_native_result=1
@@ -1363,6 +1364,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native StoreSellerViewportPreviewTest 480 store-seller-viewport store-seller-evidence
     python3 "$repo_dir/scripts/store-seller-process-check" --evidence "$evidence/store-seller-process"
     verify_group_chat_native StorePurchasePreviewTest 180 store-purchase store-purchase-evidence
+    verify_group_chat_native StoreCryptoRecoveryPreviewTest 180 store-crypto-recovery store-purchase-evidence
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence
     python3 "$repo_dir/scripts/store-purchase-process-check" --evidence "$evidence/store-purchase-process"

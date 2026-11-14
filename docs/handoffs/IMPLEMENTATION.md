@@ -31,9 +31,28 @@ authorized. Other parent and real-release prerequisites remain open.
 
 Review base: `a60cd323cf0c46b965fbbc986394d77a73ada2fb`.
 111 is closed. 112 is claimed by robelene112; its110 blocker is closed.
-First two public core tracers pass: actual official/WASM zero-fund carrier wire
-and actual pinned Mixin currency enumeration. Source is still in progress, with
-no native acceptance or new beta. Keep direct-funded purchase restore strict.
+Five public core tracers now pass, alongside all206 core cases in42suites:
+actual official/WASM zero-fund carrier, dynamic currencies, bound provider
+invoice, provider-issued payment/exact Store delivery, and authentic payment
+retention after a later provider failure (refund denomination remains SAITO).
+The exact source-compatible provider patch and reproducible reference driver
+are under integrations/saito and test-fixtures/reference. They are not deployed.
+The provider reference additionally checks seven methods, wallet-scoped read-only
+recovery, concurrent original retries, completed/failed originals and quote outage.
+
+Shared encrypted Orders now admits an external intent without reserving the
+provider's funds in the buyer's wallet. Main Kotlin compiles. The actual Android
+journal test is being compiled; native runtime acceptance is still pending.
+StoreCryptoRecoveryPreviewTest also contains the next intentionally red native
+UI assertion: a Store-only node must expose Other payment methods and clearly
+report unavailable service without creating an order. The external order UI is
+still in progress. No new beta and no112acceptance are claimed.
+
+Retain external logs store112-{issuance-green2,core-first,journal-red,journal-main,
+late-status-red,late-status-green,journal-testcompile}.log. The first journal
+compile intentionally failed for missing API; the first issuance compile had
+missing imports/escrow property and was repaired. The later status tracer failed
+before removing provider-state gating from authentic signed payment admission.
 
 Passive public reads on November14 find Store `enabled: false` and seven provider
 currencies BNB/BTC/ETH/USDC/USDT/SOL/TRX, with chain IDs. Exact observation and

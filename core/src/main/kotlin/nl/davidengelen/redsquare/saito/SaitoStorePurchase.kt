@@ -7,12 +7,13 @@ import java.util.Base64
 import com.google.gson.JsonObject
 
 /** Immutable SAITO Store escrow. Its script commits the buyer and selected Store counterparty. */
-class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, val author: String,
-    inputs: List<SaitoBalanceSnapshot.Slip>, val store: String, val nftId: String, val quantity: BigInteger,
+class SaitoStorePurchase private constructor(override val transaction: SaitoTransaction, val author: String,
+    inputs: List<SaitoBalanceSnapshot.Slip>, override val store: String, override val nftId: String, override val quantity: BigInteger,
     val unitPrice: BigInteger, val storeFee: BigInteger, val networkFee: BigInteger, val timestamp: Long,
-    val escrow: String) {
-    val inputs: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(inputs.toList())
-    val amount: BigInteger get() = unitPrice * quantity + storeFee
+    override val escrow: String) : SaitoStorePayment {
+    override val buyer: String get() = author
+    override val inputs: List<SaitoBalanceSnapshot.Slip> = java.util.Collections.unmodifiableList(inputs.toList())
+    override val amount: BigInteger get() = unitPrice * quantity + storeFee
     val total: BigInteger get() = amount + networkFee
     companion object {
         fun restore(encoded: String): SaitoStorePurchase {
@@ -106,8 +107,6 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
 
         private val MAX_SAFE_INTEGER = BigInteger("9007199254740991")
         private fun hex(text: String) = text.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-
-
 
     }
 }

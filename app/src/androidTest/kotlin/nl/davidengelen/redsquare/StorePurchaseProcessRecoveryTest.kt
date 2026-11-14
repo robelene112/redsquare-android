@@ -76,7 +76,7 @@ class StorePurchaseProcessRecoveryTest {
                 ui.waitUntil(25_000) { ui.onNode(hasText("Retry original payment") and isEnabled()).isDisplayed() }
                 val candidate = requireNotNull(scene.node.candidate())
                 assertEquals(1, scene.node.peer.transactions.size)
-                assertEquals(candidate.transaction.encoded(), StoreOrderStore(context, owner).read().single().purchase.transaction.encoded())
+                assertEquals(candidate.transaction.encoded(), StoreOrderStore(context, owner).read().single().originalTransaction.encoded())
                 row.addProperty("phase", "pending"); row.addProperty("owner", owner); row.addProperty("backend", "owner")
                 row.addProperty("walletDigest", walletDigest()); row.addProperty("candidate", candidate.transaction.encoded())
                 row.add("retainedWork", retainedWork())
@@ -109,7 +109,7 @@ class StorePurchaseProcessRecoveryTest {
             enterRealSystemPin(device)
             ui.waitUntil(25_000) { scene.node.peer.transactions.size == 1 && ui.onNode(hasText("Check order") and isEnabled()).isDisplayed() }
             assertEquals(row.get("candidate").asString, requireNotNull(scene.node.candidate()).transaction.encoded())
-            assertEquals(row.get("candidate").asString, StoreOrderStore(context, owner).read().single().purchase.transaction.encoded())
+            assertEquals(row.get("candidate").asString, StoreOrderStore(context, owner).read().single().originalTransaction.encoded())
             assertEquals(row.get("walletDigest").asString, walletDigest()); assertEquals(row.getAsJsonObject("retainedWork"), retainedWork())
             captureNativeScreen(File(evidence, "cold-fresh-auth-original-payment.png"))
             row.addProperty("phase", "recovered"); row.addProperty("recoveredPid", Process.myPid()); write(row)

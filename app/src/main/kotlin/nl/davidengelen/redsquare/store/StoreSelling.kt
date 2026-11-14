@@ -110,7 +110,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
                     val envelope = if (order != null) null else runCatching {
                         SaitoStoreListing.readInventoryArchive(holding, connection.request(SaitoVault.archiveRequest(holding).toByteArray()).decodeToString())
                     }.getOrNull()
-                    val body = order?.let { SaitoStoreListing.receiptMetadata(holding, it.purchase, requireNotNull(it.receipt).encoded) }
+                    val body = order?.let { SaitoStoreListing.receiptMetadata(holding, requireNotNull(it.fundedPayment), requireNotNull(it.receipt).encoded) }
                         ?: envelope?.let { SaitoStoreListing.metadata(holding, it) }
                     val data = body?.get("data")?.takeIf { it.isJsonObject }?.asJsonObject
                     Inventory(holding, envelope, data?.get("filename")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
@@ -138,7 +138,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
             val service = SaitoPeer(wallet, endpoint).use { it.servicePublicKey("Store") }
             val timestamp = System.currentTimeMillis()
             val listing = item.order?.let { order -> SaitoStoreListing.createFromReceipt(wallet, holding,
-                order.purchase, requireNotNull(order.receipt).encoded, service, terms, timestamp) }
+                requireNotNull(order.fundedPayment), requireNotNull(order.receipt).encoded, service, terms, timestamp) }
                 ?: SaitoStoreListing.create(wallet, holding, requireNotNull(item.envelope), service, terms, timestamp)
             val active = currentCoroutineContext().job
             synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); journal.reserve(backend, listing) }

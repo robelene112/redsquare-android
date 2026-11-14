@@ -1,7 +1,7 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
-const illustrated=process.argv[6]==='--image',quantity=process.argv[6]==='--partial'?1:2;
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+const web3=process.argv[6]==='--web3',illustrated=process.argv[6]==='--image',quantity=process.argv[6]==='--partial'?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -39,14 +39,15 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
   const merged=Object.assign(msg,nft.txmsg||{}),native=await wallet.createNFTTransaction(recipient,BigInt(amount),nft.id,fee,deposit,Buffer.from(JSON.stringify(merged)));
   return {msg:merged,native,sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=timestamp;await native.sign();this.signature=native.signature}};
  }}};
- const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:illustrated?'3.75':'2.5',quantity_total:quantity,quantity_available:quantity};
+ const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:web3?'0':illustrated?'3.75':'2.5',quantity_total:quantity,quantity_available:quantity};
+ if(web3){listing.web3_ticker='USDT';listing.web3_amount='3.75';}
  const created=await factory.call({app,store_public_key:store},nft,listing);
  const signed=envelope(created.native);
  const summarySource=text('summary'),tree=acorn.parse(summarySource,{ecmaVersion:'latest'}),klass=tree.body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Summary');
  const methods=klass.body.body.filter(n=>['constructor','serialize'].includes(n.key?.name)).map(n=>summarySource.slice(n.start,n.end));
  const categories=require(path.join(root,'node/mods/store/lib/categories.js'));
  const Summary=vm.runInNewContext('(class Summary {'+methods.join('\n')+'})',{STORE_CATEGORIES:categories.STORE_CATEGORIES,SUMMARY_STATUS_ACTIVE:1});
- const summary=new Summary(null,null,{nft_id:source.id,seller,category:'Access Keys',title:listing.title,description:listing.description,listing_signature:signed.id,price:illustrated?375000000:250000000,quantity_available:quantity,quantity_total:quantity,created_at:Number(timestamp),updated_at:Number(timestamp),approved:1}).serialize();
+ const summary=new Summary(null,null,{nft_id:source.id,seller,category:'Access Keys',title:listing.title,description:listing.description,listing_signature:signed.id,price:web3?0:illustrated?375000000:250000000,web3_ticker:web3?'USDT':'',web3_amount:web3?'3.75':'',quantity_available:quantity,quantity_total:quantity,created_at:Number(timestamp),updated_at:Number(timestamp),approved:1}).serialize();
  const page={listings:[summary],public_key:'',category:'',pagination:{offset:0,page:1,page_size:24,total:1,total_pages:1,has_next:false,has_previous:false}};
  fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated Store createListAssetTransaction, script/helpers and Summary serializer, actual WASM wallet.createNFTTransaction. Wallet wrapper and standard no-hook adapters are not a full frontend or funded consensus listing.'},seller,store,nftId:source.id,timestamp:String(timestamp),listing:signed,body:created.msg,page},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

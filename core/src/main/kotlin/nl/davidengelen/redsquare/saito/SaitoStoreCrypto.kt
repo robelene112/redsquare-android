@@ -8,6 +8,20 @@ import java.net.URI
 /** Actual provider capabilities and quoted payment metadata, distinct from payment or entitlement. */
 object SaitoStoreCrypto {
     class Unavailable : IllegalStateException("The payment provider is unavailable")
+    class Unsupported : IllegalStateException("This provider cannot verify payment instructions")
+    class Conflict(val original: String) : IllegalStateException("The provider has another original payment")
+    enum class TransferState(val wire: String) {
+        AWAITING("inbound_awaiting"), DETECTED("inbound_broadcast"), RECEIVED("inbound_confirmed"),
+        ISSUING("outbound_awaiting"), BROADCAST("outbound_broadcast"), FORWARDED("treasury_submitted"),
+        ACCEPTED("treasury_accepted"), INCLUDED("outbound_confirmed"), FAILED("failed"), CANCELLED("cancelled"),
+        HISTORICAL("succeeded")
+    }
+    @ConsistentCopyVisibility
+    data class Invoice internal constructor(val id: String, val carrierSignature: String, val provider: String,
+        val currency: Currency, val amount: BigDecimal, val issuedSaito: BigDecimal, val issuer: String,
+        val address: String, val mixinId: String, val expiresAt: Long, val state: TransferState) {
+        fun payable(now: Long): Boolean = state == TransferState.AWAITING && now >= 0 && now < expiresAt
+    }
     data class Currency(val ticker: String, val chainId: String, val usd: BigDecimal, val updatedAt: Long)
     data class Methods(val currencies: List<Currency>, val saitoUsd: BigDecimal?, val verifiedInvoices: Boolean)
 
@@ -54,6 +68,57 @@ object SaitoStoreCrypto {
         } ?: false
         return Methods(java.util.Collections.unmodifiableList(methods.values.toList()), erc, verified)
     }
+
+    fun reservationRequest(carrier: SaitoStoreCarrier, currency: Currency, expectedDeposit: BigDecimal): JsonObject {
+        require(currency.ticker != "SAITO" && expectedDeposit.signum() > 0)
+        return JsonObject().apply {
+            addProperty("request", "buysaito reserve address")
+            add("data", JsonObject().apply {
+                addProperty("module", "Mixin"); addProperty("initiator_pubkey", carrier.buyer)
+                addProperty("recipient_pubkey", carrier.buyer); addProperty("ticker", currency.ticker)
+                addProperty("expected_deposit", expectedDeposit)
+                if (carrier.price.currency == "SAITO") addProperty("issue_amount", carrier.total)
+                addProperty("request_id", carrier.transaction.id); addProperty("tx", carrier.transaction.envelope())
+            })
+        }
+    }
+    fun statusRequest(carrier: SaitoStoreCarrier, currency: Currency): JsonObject = JsonObject().apply {
+        addProperty("request", "buysaito purchase status")
+        add("data", JsonObject().apply {
+            addProperty("module", "Mixin"); addProperty("ticker", currency.ticker)
+            addProperty("request_id", carrier.transaction.id)
+        })
+    }
+    fun readInvoice(carrier: SaitoStoreCarrier, currency: Currency, provider: String, response: String): Invoice {
+        require(SaitoWallet.isPublicKey(provider) && response.toByteArray().size <= 128 * 1024)
+        val quote = JsonParser.parseString(response).asJsonObject
+        if (quote.has("err")) throw Unavailable()
+        if (quote.get("store_purchase_protocol")?.asString != "1" ||
+            !quote.has("purchase_signature") || !quote.has("request_id")) throw Unsupported()
+        val original = quote.get("request_id").asString
+        val signature = quote.get("purchase_signature").asString
+        if (original != carrier.transaction.id || signature != carrier.transaction.id) throw Conflict(original)
+        require(quote.get("initiator_pubkey").asString == carrier.buyer && quote.get("recipient_pubkey").asString == carrier.buyer)
+        require(quote.get("ticker").asString == currency.ticker && quote.get("chain_id").asString == currency.chainId)
+        val amount = money(quote.get("expected_deposit").asString)
+        val issued = money(quote.get("issue_amount").asString)
+        require(issued.movePointRight(8).toBigIntegerExact() <= maximum)
+        if (carrier.price.currency == "SAITO") require(issued.compareTo(carrier.total) == 0)
+        else require(carrier.price.currency == currency.ticker && amount.compareTo(carrier.total) == 0)
+        val id = quote.get("id").asString.also { require(it.matches(Regex("[1-9][0-9]{0,15}")) && it.toBigInteger() <= maximum) }
+        val address = quote.get("address").asString.also { require(it.isNotBlank() && it.length <= 2048 && it.none { c -> c.isWhitespace() || c.isISOControl() }) }
+        val mixin = quote.get("mixin_id").asString.also { require(it.matches(uuid)) }
+        val issuer = quote.get("issuance_publickey").asString.also { require(SaitoWallet.isPublicKey(it)) }
+        val until = quote.get("reserved_until").asString.toBigDecimal().toBigIntegerExact().also { require(it.signum() > 0 && it <= maximum) }.toLong()
+        val state = TransferState.entries.single { it.wire == quote.get("transfer_status").asString }
+        return Invoice(id, signature, provider, currency, amount, issued, issuer, address, mixin, until, state)
+    }
+    private fun money(value: String): BigDecimal {
+        require(value.length <= 40 && value.matches(Regex("[0-9]{1,20}(\\.[0-9]{1,18})?")))
+        return value.toBigDecimal().also { require(it.signum() > 0 && it <= maximum.toBigDecimal() &&
+            it.toDouble().isFinite() && it.compareTo(BigDecimal.valueOf(it.toDouble())) == 0) }
+    }
+    private val maximum = java.math.BigInteger("9007199254740991")
 
     /** Mixin's public network metadata identifies the network without importing an account. */
     fun readChainName(response: String, expectedId: String): String {

@@ -43,7 +43,7 @@ internal fun StoreBuyControl(product: StoreProduct, available: BigInteger, purch
 @Composable
 internal fun StoreOrders(purchases: StorePurchases, modifier: Modifier) {
     LaunchedEffect(purchases) { purchases.refresh() }
-    LaunchedEffect(purchases, purchases.orders.map { it.purchase.transaction.id }) {
+    LaunchedEffect(purchases, purchases.orders.map { it.id }) {
         while (true) { kotlinx.coroutines.delay(5000); if (!purchases.busy) purchases.refresh() }
     }
     DisposableEffect(purchases) { onDispose { purchases.stopReading() } }
@@ -58,12 +58,12 @@ internal fun StoreOrders(purchases: StorePurchases, modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             val rows = purchases.orders.filter { it.backend == purchases.backend }
             if (rows.isEmpty()) item { Text(stringResource(R.string.store_purchase_no_orders), color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            items(rows, key = { it.purchase.transaction.id }) { order ->
+            items(rows, key = { it.id }) { order ->
                 Card(onClick = { purchases.open(order) }, modifier = Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(order.product.title, style = MaterialTheme.typography.titleMedium)
-                        Text(storeAmount(order.purchase.total), color = MaterialTheme.colorScheme.primary)
-                        Text(stringResource(orderStatus(order, purchases.observations[order.purchase.transaction.id])))
+                        Text(order.external?.let { "${it.carrier.total.stripTrailingZeros().toPlainString()} ${it.carrier.price.currency}" } ?: storeAmount(requireNotNull(order.purchase).total), color = MaterialTheme.colorScheme.primary)
+                        Text(stringResource(orderStatus(order, purchases.observations[order.id])))
                     }
                 }
             }
@@ -88,23 +88,25 @@ private fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreCha
 @Composable
 internal fun StorePurchaseDialog(purchases: StorePurchases) {
     val review = purchases.review
-    val order = purchases.orders.firstOrNull { it.purchase.transaction.id == purchases.focused }
+    val order = purchases.orders.firstOrNull { it.id == purchases.focused }
     val visible = review != null || order != null
-    LaunchedEffect(purchases, order?.purchase?.transaction?.id) {
+    LaunchedEffect(purchases, order?.id) {
         if (order != null) while (true) {
             kotlinx.coroutines.delay(5000)
-            if (!purchases.busy) purchases.refresh(order.purchase.transaction.id)
+            if (!purchases.busy) purchases.refresh(order.id)
         }
     }
     DesignSheet(visible, stringResource(R.string.store_purchase_title), { purchases.closeReview() }) { firstAction ->
         val product = review?.product ?: order?.product
-        if (product != null) {
+        if (product != null && order?.external != null) {
+            StoreExternalOrder(order, purchases, firstAction)
+        } else if (product != null) {
             Text(product.title, style = MaterialTheme.typography.headlineSmall)
             if (order == null) Text(product.description, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            val quantity = review?.quantity ?: requireNotNull(order).purchase.quantity
-            val unit = review?.unit ?: requireNotNull(order).purchase.unitPrice
-            val fee = review?.fee ?: requireNotNull(order).purchase.networkFee
-            val total = review?.total ?: requireNotNull(order).purchase.total
+            val quantity = review?.quantity ?: requireNotNull(requireNotNull(order).purchase).quantity
+            val unit = review?.unit ?: requireNotNull(requireNotNull(order).purchase).unitPrice
+            val fee = review?.fee ?: requireNotNull(requireNotNull(order).purchase).networkFee
+            val total = review?.total ?: requireNotNull(requireNotNull(order).purchase).total
             Text(stringResource(R.string.store_purchase_quantity_review, quantity.toString()))
             Text(stringResource(R.string.store_purchase_unit, storeAmount(unit)))
             Text(stringResource(R.string.store_purchase_store_fee, "0 SAITO"))
@@ -119,7 +121,7 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
             StorePurchaseProblem(purchases)
             InlineStatus(if (purchases.refreshing) stringResource(R.string.store_purchase_working) else null, StatusTone.WORKING)
             if (order != null) {
-                val observation = purchases.observations[order.purchase.transaction.id]
+                val observation = purchases.observations[order.id]
                 Text(stringResource(orderStatus(order, observation)), style = MaterialTheme.typography.titleMedium)
                 if (order.receipt?.reason != null) Text(stringResource(R.string.store_purchase_refund_reason, requireNotNull(order.receipt.reason)))
                 Button(onClick = { purchases.check(order) }, enabled = !purchases.busy && !purchases.refreshing,
@@ -142,10 +144,10 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
             androidx.compose.foundation.text.selection.SelectionContainer {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(stringResource(R.string.store_seller_key)); Text(product.seller, style = MaterialTheme.typography.bodySmall)
-                    Text(stringResource(R.string.store_purchase_store_destination)); Text(review?.store ?: requireNotNull(order).purchase.store, style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.store_purchase_store_destination)); Text(review?.store ?: requireNotNull(requireNotNull(order).purchase).store, style = MaterialTheme.typography.bodySmall)
                     Text(stringResource(R.string.store_purchase_node, purchases.backend.domain))
                     Text(stringResource(R.string.store_offer_reference)); Text(product.signature, style = MaterialTheme.typography.bodySmall)
-                    order?.let { Text(stringResource(R.string.store_purchase_order_reference)); Text(it.purchase.transaction.id, style = MaterialTheme.typography.bodySmall) }
+                    order?.let { Text(stringResource(R.string.store_purchase_order_reference)); Text(it.id, style = MaterialTheme.typography.bodySmall) }
                 }
             }
         }

@@ -30,7 +30,7 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
         }
 
         /** Store-delivered metadata has a P2SH signer and is admitted only against the retained purchase. */
-        fun receiptMetadata(holding: SaitoNft, purchase: SaitoStorePurchase, encoded: String): JsonObject {
+        fun receiptMetadata(holding: SaitoNft, purchase: SaitoStorePayment, encoded: String): JsonObject {
             val receipt = SaitoStoreReceipt.read(purchase, encoded)
             val delivered = requireNotNull(receipt.asset)
             require(receipt.kind == SaitoStoreReceipt.Kind.FULFILLMENT && delivered.id == holding.id &&
@@ -41,7 +41,7 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
             return JsonParser.parseString(wire.copyOfRange(start, start + header.getInt(8)).toString(Charsets.UTF_8)).asJsonObject
         }
 
-        fun createFromReceipt(wallet: SaitoWallet, holding: SaitoNft, purchase: SaitoStorePurchase,
+        fun createFromReceipt(wallet: SaitoWallet, holding: SaitoNft, purchase: SaitoStorePayment,
             encoded: String, store: String, terms: StoreListingTerms, timestamp: Long): SaitoStoreListing =
             createWithMetadata(wallet, holding, receiptMetadata(holding, purchase, encoded), store, terms, timestamp)
 

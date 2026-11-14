@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.saito
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import com.google.gson.Strictness
 import java.nio.ByteBuffer
 import java.nio.charset.CodingErrorAction
@@ -17,6 +18,24 @@ data class VerifiedSaitoPayload(val id: String, val author: String, val createdA
 /** Verifies detached web Archive message bytes before exposing any module content. */
 object SaitoEnvelope {
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+
+    /** Framing only. Typed readers authenticate the reconstructed original before admission. */
+    internal fun originalNetworkBytes(envelope: String): ByteArray {
+        require(envelope.toByteArray().size <= 2 * 1024 * 1024)
+        val value = JsonParser.parseString(envelope).asJsonObject
+        val header = Base64.getDecoder().decode(value.get("t").asString)
+        require(header.size >= 93)
+        val bytes = ByteBuffer.wrap(header); val inputs = bytes.getInt(0); val outputs = bytes.getInt(4); val hops = bytes.getInt(12)
+        require(inputs in 1..255 && outputs in 1..255 && hops in 0..1024 && bytes.getInt(8) == 0 &&
+            header.size.toLong() == 93L + 59L * (inputs + outputs) + 130L * hops)
+        val message = Base64.getDecoder().decode(value.get("m").asString)
+        require(message.size in 1..SaitoTransaction.MAX_MESSAGE_BYTES)
+        // Archive routing and assigned output block positions are outside the original signed intent.
+        val original = header.copyOf(93 + 59 * (inputs + outputs))
+        val framing = ByteBuffer.wrap(original).putInt(8, message.size).putInt(12, 0)
+        repeat(outputs) { index -> val offset = 93 + 59 * (inputs + index); framing.putLong(offset + 41, 0); framing.putLong(offset + 49, 0) }
+        return original + message
+    }
 
     /** Framing only: Relay wrappers may be unsigned. Callers must authenticate their original inner message. */
     internal fun unverifiedNetworkEnvelope(binary: ByteArray): String {

@@ -29,8 +29,8 @@ object SaitoStoreLineage {
             val contributors = sale.get("listing_signatures")?.takeIf { it.isJsonArray }?.asJsonArray?.map { it.asString }.orEmpty()
             require(contributors.size <= 16)
             val previous = resolve(contributors.lastOrNull() ?: sale.get("prior_inventory").asString)
-            val purchase = SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(network(load(sale.get("sale_signature").asString))))
-            val wire = network(envelope)
+            val purchase = SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(SaitoEnvelope.originalNetworkBytes(load(sale.get("sale_signature").asString))))
+            val wire = SaitoEnvelope.originalNetworkBytes(envelope)
             val receipt = SaitoStoreReceipt.read(purchase, Base64.getEncoder().encodeToString(wire))
             val delivered = requireNotNull(receipt.asset)
             val rules = JsonParser.parseString(body(previous.envelope).get("access_script").asString).asJsonObject
@@ -81,23 +81,7 @@ object SaitoStoreLineage {
         JsonParser.parseString(envelope).asJsonObject.get("m").asString).toString(Charsets.UTF_8)).asJsonObject
 
     private fun archive(envelope: String): String = JsonArray().apply { add(JsonObject().apply { addProperty("tx", envelope) }) }.toString()
-    private fun identity(envelope: String): String = network(envelope).copyOfRange(16, 80).hex()
-    private fun network(envelope: String): ByteArray {
-        require(envelope.toByteArray().size <= 2 * 1024 * 1024)
-        val value = JsonParser.parseString(envelope).asJsonObject
-        val header = Base64.getDecoder().decode(value.get("t").asString)
-        require(header.size >= 93)
-        val bytes = ByteBuffer.wrap(header); val inputs = bytes.getInt(0); val outputs = bytes.getInt(4); val hops = bytes.getInt(12)
-        require(inputs in 1..255 && outputs in 1..255 && hops in 0..1024 && bytes.getInt(8) == 0 &&
-            header.size.toLong() == 93L + 59L * (inputs + outputs) + 130L * hops)
-        val message = Base64.getDecoder().decode(value.get("m").asString)
-        require(message.size in 1..SaitoTransaction.MAX_MESSAGE_BYTES)
-        // Archive routing and assigned output block positions are outside the original signed intent.
-        val original = header.copyOf(93 + 59 * (inputs + outputs))
-        val framing = ByteBuffer.wrap(original).putInt(8, message.size).putInt(12, 0)
-        repeat(outputs) { index -> val offset = 93 + 59 * (inputs + index); framing.putLong(offset + 41, 0); framing.putLong(offset + 49, 0) }
-        return original + message
-    }
+    private fun identity(envelope: String): String = SaitoEnvelope.originalNetworkBytes(envelope).copyOfRange(16, 80).hex()
     private fun row(wire: ByteArray, index: Int): SaitoNft.Row {
         val offset = 93 + index * 59
         return SaitoNft.Row(Base58.encode(wire.copyOfRange(offset, offset + 33)), SaitoBalanceSnapshot.Slip(

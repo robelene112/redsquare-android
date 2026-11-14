@@ -11,7 +11,7 @@ class SaitoStoreReceipt private constructor(val signature: String, val kind: Kin
     val paymentInput: SaitoBalanceSnapshot.Slip, val refundOutput: SaitoBalanceSnapshot.Slip?, val asset: SaitoNft?, val reason: String?, val encoded: String) {
     enum class Kind { FULFILLMENT, REFUND }
     companion object {
-        fun read(purchase: SaitoStorePurchase, encoded: String): SaitoStoreReceipt {
+        fun read(purchase: SaitoStorePayment, encoded: String): SaitoStoreReceipt {
             require(encoded.length <= 2 * 1024 * 1024)
             val wire = Base64.getDecoder().decode(encoded)
             require(wire.size >= 211)
@@ -54,10 +54,10 @@ class SaitoStoreReceipt private constructor(val signature: String, val kind: Kin
                 "list-asset" -> {
                     require(wire[92] == 8.toByte() && outputs >= 3)
                     val sale = body.getAsJsonObject("fulfill_sale")
-                    require(sale.get("sale_signature").asString == purchase.transaction.id && sale.get("buyer").asString == purchase.author &&
+                    require(sale.get("sale_signature").asString == purchase.transaction.id && sale.get("buyer").asString == purchase.buyer &&
                         sale.get("quantity").asString.toBigInteger() == purchase.quantity)
                     val asset = SaitoNft.fromSnapshot(row(inputs + 1), row(inputs), row(inputs + 2))
-                    require(asset.owner == purchase.author && asset.id == purchase.nftId && asset.quantity == purchase.quantity)
+                    require(asset.owner == purchase.buyer && asset.id == purchase.nftId && asset.quantity == purchase.quantity)
                     require((1 until inputs - 2).any { index ->
                         row(index).position.type == 9 && row(index + 2).position.type == 9 && row(index).publicKey == asset.creator &&
                             Base58.decode(row(index + 2).publicKey).hex() == asset.id
@@ -68,9 +68,9 @@ class SaitoStoreReceipt private constructor(val signature: String, val kind: Kin
                     require(wire[92] == 0.toByte() && inputs == 1 && outputs == 1)
                     require(body.get("order_tx_sig").asString == purchase.transaction.id && body.get("payment_tx_sig").asString == purchase.transaction.id &&
                         body.get("payment_output_index").asInt == 0 && body.get("payment_amount").asString.toBigInteger() == purchase.amount &&
-                        body.get("buyer").asString == purchase.author && body.get("refund").asString == purchase.author)
+                        body.get("buyer").asString == purchase.buyer && body.get("refund").asString == purchase.buyer)
                     val output = row(inputs)
-                    require(output.publicKey == purchase.author && output.position.amount == purchase.amount && output.position.type == 0 && output.position.index == 0)
+                    require(output.publicKey == purchase.buyer && output.position.amount == purchase.amount && output.position.type == 0 && output.position.index == 0)
                     val reason = body.get("reason").asString.also { require(it.length in 1..2000) }
                     SaitoStoreReceipt(signature, Kind.REFUND, escrow.position, output.position, null, reason, encoded)
                 }

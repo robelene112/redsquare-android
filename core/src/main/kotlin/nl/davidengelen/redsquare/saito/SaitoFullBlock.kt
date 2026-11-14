@@ -75,7 +75,7 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
     }
 
     /** Store payment admission retains its typed escrow contract and exact original funded inputs. */
-    fun storePaymentOrdinal(purchase: SaitoStorePurchase): BigInteger? {
+    fun storePaymentOrdinal(purchase: SaitoStorePayment): BigInteger? {
         val candidate = Base64.getDecoder().decode(purchase.transaction.encoded())
         return transactions.withIndex().firstOrNull { (ordinal, wire) ->
             if (wire[92] != 0.toByte() || u32(wire, 88) != 1L ||
@@ -90,13 +90,13 @@ class SaitoFullBlock private constructor(val height: BigInteger, val timestamp: 
                     (wire[offset + 57].toInt() and 255) != index) return@firstOrNull false
                 normalized.fill(0, offset + 41, offset + 57)
             }
-            normalized.contentEquals(candidate) && SaitoStorePurchase.restore(Base64.getEncoder().encodeToString(normalized))
-                .transaction.encoded() == purchase.transaction.encoded()
+            // Both sealed candidate types already authenticate their immutable original.
+            normalized.contentEquals(candidate)
         }?.index?.toLong()?.let(BigInteger::valueOf)
     }
 
     /** Authenticate Store escrow spends without weakening ordinary Bound author verification. */
-    fun storeReceipts(purchase: SaitoStorePurchase): List<SaitoStoreReceipt> = transactions.withIndex().mapNotNull { (ordinal, wire) ->
+    fun storeReceipts(purchase: SaitoStorePayment): List<SaitoStoreReceipt> = transactions.withIndex().mapNotNull { (ordinal, wire) ->
         try {
             val inputs = u32(wire, 0).toInt(); val outputs = u32(wire, 4).toInt()
             repeat(outputs) { index ->

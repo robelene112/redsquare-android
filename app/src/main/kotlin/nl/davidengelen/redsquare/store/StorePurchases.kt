@@ -81,9 +81,9 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                 val result = withContext(Dispatchers.IO) {
                     current(token)
                     val rows = store.read().filter { it.backend == backend }
-                    val order = if (id != null) rows.firstOrNull { it.purchase.transaction.id == id }
+                    val order = if (id != null) rows.firstOrNull { it.id == id }
                         else rows.getOrNull(if (rows.isEmpty()) 0 else Math.floorMod(offset, rows.size))
-                    selectedId = order?.purchase?.transaction?.id
+                    selectedId = order?.id
                     val active = currentCoroutineContext().job
                     val outcome = order?.let { observe(it, token) {
                         active.ensureActive(); check(reading == readRevision)
@@ -140,29 +140,29 @@ internal class StorePurchases(private val activity: Activity, private val wallet
             null to Review(product, count, key, inputs, unit, fee)
         }
         publishable(token)
-        if (result.first != null) { orders = withContext(Dispatchers.IO) { store.read() }; focused = result.first?.purchase?.transaction?.id }
+        if (result.first != null) { orders = withContext(Dispatchers.IO) { store.read() }; focused = result.first?.id }
         else review = result.second
     }
-    fun open(order: StoreOrderStore.Order) { if (!busy) { stopReading(); focused = order.purchase.transaction.id; review = null; problem = null } }
+    fun open(order: StoreOrderStore.Order) { if (!busy) { stopReading(); focused = order.id; review = null; problem = null } }
     fun closeReview() { if (!busy) { stopReading(); focused = null; review = null; problem = null } }
     fun discard(order: StoreOrderStore.Order) = operation { token ->
-        val rows = withContext(Dispatchers.IO) { current(token); store.discard(order.purchase.transaction.id); store.read() }
+        val rows = withContext(Dispatchers.IO) { current(token); store.discard(order.id); store.read() }
         orders = rows; focused = null
     }
-    fun check(order: StoreOrderStore.Order) { stopReading(); refresh(order.purchase.transaction.id) }
+    fun check(order: StoreOrderStore.Order) { stopReading(); refresh(order.id) }
     private fun observe(order: StoreOrderStore.Order, token: Long, stillOwned: () -> Unit): SaitoStoreChain.Observation {
-        val latest = store.read().single { it.purchase.transaction.id == order.purchase.transaction.id }
-        val result = requireNotNull(balances.observeStore(backend, latest.purchase, latest.product.creator, latest.payment?.let {
+        val latest = store.read().single { it.id == order.id }
+        val result = requireNotNull(balances.observeStore(backend, requireNotNull(latest.fundedPayment), latest.product.creator, latest.payment?.let {
             SaitoStoreChain.Payment(it.height, it.hash, it.ordinal)
         }, latest.receipt, latest.receiptBlock, latest.cursor))
         synchronized(SaitoLocalState.lock) {
             current(token); stillOwned()
-            store.observe(order.purchase.transaction.id, result)
+            store.observe(order.id, result)
         }
         return result
     }
     fun authorize(existing: StoreOrderStore.Order? = null) {
-        if (busy || closed || (existing == null && review == null) || (existing != null && existing.backend != backend)) return
+        if (busy || closed || existing?.external != null || (existing == null && review == null) || (existing != null && existing.backend != backend)) return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) { problem = Problem.AUTH; return }
         val reviewed = review
         stopReading()
@@ -202,17 +202,17 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                         }
                     }
                     val retained = store.read()
-                    withContext(Dispatchers.Main.immediate) { if (revision == token) { orders = retained; focused = order.purchase.transaction.id; review = null } }
+                    withContext(Dispatchers.Main.immediate) { if (revision == token) { orders = retained; focused = order.id; review = null } }
                     val sending = currentCoroutineContext().job
                     val observation = if (order.mayHaveSent) observe(order, token) { sending.ensureActive() } else null
                     if (observation?.payment == null && observation?.receipt == null && order.payment == null && order.receipt == null) {
                         val funding = requireNotNull(balances.funding(backend, wallet.publicKey))
-                        require(order.purchase.inputs.all { it in funding.eligible })
+                        require(requireNotNull(order.purchase).inputs.all { it in funding.eligible })
                         val operation = currentCoroutineContext().job
                         SaitoPeer(wallet, endpoint).use { connection ->
                             peer = connection
-                            require(connection.servicePublicKey("Store") == order.purchase.store)
-                            connection.submit(order.purchase.transaction) {
+                            require(connection.servicePublicKey("Store") == requireNotNull(order.purchase).store)
+                            connection.submit(requireNotNull(order.purchase).transaction) {
                                 operation.ensureActive(); current(token); store.markSending(order)
                             }
                             connection.finishBroadcast()
