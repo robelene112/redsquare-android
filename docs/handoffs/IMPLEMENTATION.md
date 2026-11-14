@@ -7,7 +7,7 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
 edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
-image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is next. Continue the approved ready frontier
+image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is active. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -29,103 +29,58 @@ authorized. Other parent and real-release prerequisites remain open.
 
 ## Active integrated rental slice #114
 
-114 is assigned/open; blockers108/113closed. Review base
-`e5669b50f55aad4620a4527a5f6304de268843c4`. Latest product/ref commit is the
-current HEAD (followingf23ba43637916ee1c1308a402cd86c54df2e3f79); read Git rather
-than guessing a full SHA. No local build currently running. Main compilers passed
-store114-rental-entry-build.log and store114-vault-reading-build.log. Current
-full core first run passes218cases/44suites (store114-core-first.log), before
-later additive reference/native reading changes. No native114complete pass yet.
+114 remains assigned/open;108/113are closed. Review base
+`e5669b50f55aad4620a4527a5f6304de268843c4`. Current product/test source is
+`975d34cccd7d07cbfa73cd0b4c5090d799d3b21c`; later documentation may differ.
+External scratch/whole originals are in
+`/mnt/storage/redsquare-android-artifacts/vault-store-planning`.
 
-Three actual-source/WASM rental mint/listing/purchase vectors are added to the
-existing producers. Rental restore, listing/delegation and order-bound entitlement
-tracers each had an actual core RED then GREEN. SaitoImageMint became
-SaitoStoreMint to share original mint recovery with separate rental stock. Legacy
-image bytes/journal names remain. Native seller persists rental mode/hours, chooses
-creator master plus separate cover, reviews deposit and uses existing real PIN/
-original reservations. Master is not spent. Native VaultLibrary now authenticates
-renter rights from StoreOrderStore and lists rentals; an explicit file action
-reads first, activates only after a known empty/denied read, then authenticates the
-original master-locked file. No local clock authorises access. Direct Order-to-Vault
-button/navigation is NOT implemented yet. Core restoreMaster request and strict readRestoration now implemented; actual fourth
-core tracer had RED then GREEN (store114-restore-request-red/green.log). No creator
-restoration UI/path discovery yet. Rental expiry/rights review UI now added but
-not yet compiled/native verified. No direct navigation button yet.
+Implemented: separate rental mint with retained creator master, signed Store
+listing/delegation, actual terms, all alternate payment paths, authenticated
+order-to-exact-Vault-file and return-to-original-order navigation, explicit loan
+activation/read, offline/exported copies, creator public history/restoration and
+public browser-held rights without a local Android invoice. The first renter and
+listing-fixed end remain authoritative; assigned remainders/elapsed-end offers
+cannot start new payments. Check availability after PIN and at first enqueue;
+previously sent uncertain originals remain recoverable. Mixed local/public rights
+select the latest verified expiry. Metadata crypto runs in inventory IO, not on
+sale-form keystrokes. Safe community Vault-origin metadata is retained.
 
-Hosted runs and whole original collection:
--43599207554at66d intentionally cancelled before native acceptance while core
- listing tracerRED; never a runtime pass.
--43599459521atb6b9c0bdc322d9b35ecca5c5b20b85ac34429a80 expected missing Create
- rental control RED. First collector guessed wrong expected source and failed;
- corrected whole collection uses actualb6. All originals retained.
--43600655830/43600657834atff84961976f129fc16c50d845f23a5faeb9242b2 fail creator
- case while entry passes: observer mistook old cover review button for completed
- review (same label); changed completion observation to actual authorize control.
--43600769465at11b784cd3b3ada46199a182dc03aac675e653386 fails pre-navigation:
- actual product image puts description below viewport. Initial helper required
- visibility without scrolling. Whole original and image inspected.
--43601618641atf23 second creation10fails before mint: actual test provider reports
- application/octet-stream for rental-cover.bin. It only reports image/png for
- store-image-* names. Fix is proper store-image-rental-cover.bin fixture, no app
- MIME-validation waiver. Also await enabled sale action existence before scrolling.
--43601623344atf23secondAccess10fails because scroll ran while product still Loading.
- Fix waits real enabled Refresh Store (read complete), then scrolls description
- within the original15s total. Do NOT call either Access failure the missing
- Open-in-Vault tracer yet. The action has not been reached.
--43601620831atf23secondcreation17: check fresh primary metadata and collect whole
- original when complete. Do not assume matching result.
-At0198f497891b1cfed7a5f52210b67709a3cc81d7, creation10/17
-43602232887/43602235026 both PASS2cases including actual mint/PIN/master retention/
-separate offer. Whole originals collected store114-creation-green10/17. Access10
-43602237370 still fails helper92, before payment/nav: Refresh Store is a TEXT
-semantics label, not content-description. XML confirms ready enabled Refresh Store.
-Existing seller recovery tests already use hasText. Corrected helper to hasText;
-original15s description bound remains. Do NOT call this the missing Open-in-Vault
-tracer yet. Its action has not been reached. Older errors above retained source-qualified.
+Core eight rental cases pass, including actual partial-fulfillment remainder,
+seven provider quotes, both denomination receipts, public browser holdings and
+original file binding. Complete core at67c passed223cases/44suites. Native
+creation at67c passes three cases on Android10/17, runs43607786505/43607789496,
+including real PIN mint/listing and browser-created rental creator restoration.
+These are development observations, not final current-source acceptance.
 
-OwnedStoreRentalFixture/test-fixture peer now admits authenticated rental access/
-checkout at the existing seam, anchored to actual source checkout body and actual
-WASM before/exact/after expiry roles for the real fixture buyer. Default clocks are
-owned historical reference time; app local clock does not grant authority. Metadata
-RPCs are not broadcasts. Need complete native lifecycle/export/recovery, actual
-process proof, currencies and native/browser/provider tests before acceptance.
+The67c access10 run43607792005 found a real themed Context-to-Activity crash in
+the purchase sheet.975 fixes this through bounded wrapper traversal. Its access
+10/17 runs43608734738/43608737952 are active; the updated access class also checks
+browser import, PIN/funding expiry and old-local/new-public coexistence. The
+separate payment class adds eight native currency/denomination journeys. Complete
+Seller10/17 runs43609041872/43609044348 are active. Read fresh primary metadata;
+do not infer completion from these dated observations. Local main compile
+store114-themed-clock-main-compile.log passed; current AndroidTest compile is
+store114-mixed-native-compile.log. Full current Purchase/Vault, final native
+motion/viewport coverage, evidence packet and final independent reviews remain.
 
-Pinned semantics: Store sets expires_at at listing and preserves it on fulfillment.
-Show actual end time, not hours starting at payment. FIRST undelegated path hop
-selects renter/expiry. Actual Archive.updateTransaction + SQLite + WASM reference
-now confirms initial checkout1, repeated master checkout0, creator restore before
-expiry0, expired renter0, expired creator1; signed file bytes unchanged.
-`vault-rental-archive-reference.cjs` runs with runtime/upstream/acorn/output, or
-compatible-source root + --compatible. Original result vault114-actual-archive.json;
-compatible result vault114-compatible-archive.json, both logs pass. The compatible
-reference additionally executes the new restore receiver and two concurrent real
-Archive owner updates, proving one succeeds and stale reset cannot rewrite it.
-It uses explicit request/WASM-actor adapters and the four SQL columns actually used,
-not a fully initialized frontend or live provider.
+Actual isolated Archive/SQLite/WASM confirms checkout replay denial and
+provider-authorized restoration. The source-only, undeployed
+`integrations/saito/vault-rental-recovery.patch` adds server-only restoration,
+`vault-rental-restore` advertisement and optional atomic metadata owner CAS.
+Fresh patch rehearsal and actual runtime branches pass; see external
+vault114-final-patch-rehearsal/verification.json. No production node/config/DB or
+provider was changed. Keep activation/schema/runtime/community gates under36and
+OWNER_INPUTS. Preserve all original failed/cancelled observations in the final
+ledger; preliminary collection lists19whole originals. Source hash-object key
+ordering differs only in the reproduced first listing fixture; semantic metadata
+and every actual signed transaction/envelope remain exact.
 
-Source-only `integrations/saito/vault-rental-recovery.patch` adds capabilities and
-creator restore after actual provider expiry, and optional owner compare-and-swap
-for initial checkout/restoration without rewriting archives.tx. Applied/checked
-only to external vault114-compatible-source/node, NOT production. New handler
-reconstructs canonical master from actual sender and old loan from renter/expiry;
-actual Archive authenticates stored owner + requester/NOW. It is idempotent for an
-already restored master. Server-only guard now explicitly rejects browser CAS/restore, with capability0
-in browser runtime. Updated exact source hashes and actual fresh patch reapplication
-pass vault114-patch-rehearsal.log; byte-identical result. Patch remains undeployed.
-All source changes stay UNDEPLOYED and need STORE_LIVE/OWNER_INPUTS transfer.
-Also inspect multi-unit rental remainder against exclusive actual loan semantics;
-parent story41 explicitly forbids promising simultaneous access. Do not invent a
-new custodial/access contract or silently narrow supported payment methods.
-
-Remaining114: direct exact order/file navigation (including temporary node and
-identity isolation), rental review actual expiry/rights, full provider download/
-activation/read-first retry/offline/export/expiry/creator restore/delegation,
-all actual currencies/seller settlement, appropriate recovery/process/viewport
-checks, full current Seller/Purchase/Vault regressions, independent review axes,
-evidence and release-gate transfer. Then115polish/freeze/full10+17/motion/keyboard/
-TalkBack/signed127update/exactpublicsinglecombinedbeta. No per-ticket confirmation.
-Public beta127 unchanged. Keep1/36/55/84/86open. No node/config/DB/provider activation,
-public financial writes or owner-phone development QA.
+Continue114 through focused/current complete checks, independent review/fixes,
+packet and closure. Then115 owns full-app integration/polish, frozen complete
+Android10/17, actual signed127-to-next update and one combined public beta.
+No partial beta. Keep1/36/55/84/86open. No owner development-phone QA or production
+node/provider/financial operation is authorized or required here.
 
 ## Completed seller currency/proceeds slice #113
 
