@@ -29,8 +29,8 @@ internal class OwnedStoreSellerFixture(private val source: JsonObject, private v
         val original = wire.copyOf(end); ByteBuffer.wrap(original).putInt(12, 0)
         body to Base64.getEncoder().encodeToString(original)
     }
-    fun image(): SaitoImageMint? = originals().filter { !it.first.has("request") && it.first.getAsJsonObject("data")?.has("image") == true }
-        .map { SaitoImageMint.restore(it.second) }.distinctBy { it.transaction.id }.also { require(it.size <= 1) }.singleOrNull()
+    fun image(): SaitoStoreMint? = originals().filter { !it.first.has("request") && it.first.getAsJsonObject("data")?.has("image") == true }
+        .map { SaitoStoreMint.restore(it.second) }.distinctBy { it.transaction.id }.also { require(it.size <= 1) }.singleOrNull()
     fun delist(): SaitoStoreDelist? {
         val remaining = removal.get("priorFulfillment")?.takeUnless { it.isJsonNull }?.asJsonObject
         val product = if (remaining == null) requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(listing.get("page").toString()).items.single(), listing.getAsJsonObject("listing").get("envelope").asString))

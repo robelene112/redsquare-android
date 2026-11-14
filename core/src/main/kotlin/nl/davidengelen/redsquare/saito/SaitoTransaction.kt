@@ -138,9 +138,9 @@ class SaitoTransaction private constructor(private val bytes: ByteArray, private
             createWithOutputs(wallet, body, timestamp, listOf(wallet.publicKey), 8 * 1024 * 1024)
 
         internal fun createVaultMint(wallet: SaitoWallet, body: JsonObject, timestamp: Long,
-            inputs: List<SaitoBalanceSnapshot.Slip>, id: String, deposit: BigInteger): SaitoTransaction {
+            inputs: List<SaitoBalanceSnapshot.Slip>, id: String, deposit: BigInteger, quantity: BigInteger = BigInteger.ONE): SaitoTransaction {
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
-            val outputs = listOf(OwnedSlip(wallet.publicKey, zero.copy(amount = BigInteger.ONE, type = 9)),
+            val outputs = listOf(OwnedSlip(wallet.publicKey, zero.copy(amount = quantity, type = 9)),
                 OwnedSlip(wallet.publicKey, zero.copy(index = 1, amount = deposit)),
                 OwnedSlip(Base58.encode(id.chunked(2).map { it.toInt(16).toByte() }.toByteArray()), zero.copy(index = 2, type = 9))) +
                 (inputs.fold(BigInteger.ZERO) { total, slip -> total + slip.amount } - deposit).let { change ->

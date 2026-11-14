@@ -1,10 +1,11 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
-const web3=process.argv[6]==='--web3',illustrated=process.argv[6]==='--image',quantity=process.argv[6]==='--partial'?1:2;
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3','--rental','--rental-web3'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+const rental=process.argv[6]?.startsWith('--rental'),web3=['--web3','--rental-web3'].includes(process.argv[6]),illustrated=process.argv[6]==='--image',quantity=rental||process.argv[6]==='--partial'?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
+ 'node/mods/store/store.js':'5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f',
  'node/mods/store/lib/transactions.js':'8e7b0c29f8bc1e8e0ede4e966d9fe5c5d385ca00b0f18c31f0304db56a7af8b3',
  'node/mods/store/lib/scripting.js':'917f112d52fd81fc5c6508cc5c1467ffa1df73cd8d12db06982d328b63bc18ff',
  'node/mods/store/lib/helpers.js':'a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce',
@@ -24,6 +25,13 @@ const globals={console:consoleAdapter,createListingScript};
 globals.slipPublicKey=vm.runInNewContext('('+fn('helpers','slipPublicKey')+')',globals);
 const factory=vm.runInNewContext(fn('transactions','p2shPaymentRecipient')+'\n({'+method('transactions','createListAssetTransaction')+'})',globals).createListAssetTransaction;
 const source=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-reference.json'),'utf8'));
+if(rental){
+ const mint=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-rental-reference.json'),'utf8'));
+ const b=Buffer.from(mint.mint.networkBase64,'base64'),count=b.readUInt32BE(0);
+ const witnesses=[0,1,2].map(index=>{const p=93+(count+index)*59,u=Buffer.alloc(59);b.copy(u,0,p,p+33);u.writeBigUInt64BE(2000002n,33);u.writeBigUInt64BE(1n,41);u[49]=index;b.copy(u,50,p+33,p+41);u[58]=b[p+58];return u.toString('hex')});
+ source.id=b.subarray(93+(count+2)*59,126+(count+2)*59).toString('hex');source.key=mint.mint;
+ source.script={witness:{utxokey1:witnesses[0],utxokey2:witnesses[1],utxokey3:witnesses[2]}};
+}
 const scalar='0'.repeat(63)+'2',timestamp=illustrated?1700002001000n:1700002000000n;
 const forbidden=()=>{throw Error('Reference must not use a network')};
 global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=>{},append_value:()=>{},flush_data:()=>{},ensure_directory_exists:()=>{},load_block_file_list:async()=>[],is_existing_file:async()=>false,remove_value:async()=>{},load_wallet:()=>{},save_wallet:()=>{},load_blockchain:()=>{},save_blockchain:()=>{},emit_interface_event:()=>{},connect_to_peer:forbidden,send_message_by_peer_id:forbidden,send_message:forbidden,send_message_to_all:forbidden};
@@ -31,16 +39,22 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 (async()=>{
  await wasm.initialize(JSON.stringify({server:{host:'127.0.0.1',port:0,protocol:'http',endpoint:{host:'127.0.0.1',port:0,protocol:'http'},verification_threads:1,channel_size:100,stat_timer_in_ms:5000,reconnection_wait_time:1000,thread_sleep_time_in_ms:10,block_fetch_batch_size:1},peers:[],spv_mode:true,browser_mode:true,consensus:{genesis_period:100000,heartbeat_interval:30000,prune_after_blocks:100,max_staker_recursions:1}}),scalar,0,1n,false);
  const wallet=await wasm.get_wallet(),seller=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3'),w=source.script.witness;
- await wallet.add_nft(w.utxokey1,w.utxokey2,w.utxokey3,source.id,source.key.id,'vault-nft-key');
+ await wallet.add_nft(w.utxokey1,w.utxokey2,w.utxokey3,source.id,source.key.id,rental?'store-nft-rental':'vault-nft-key');
  const txmsg=JSON.parse(Buffer.from(JSON.parse(source.key.envelope).m,'base64').toString());
  if(illustrated)txmsg.data.image=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-images-reference.json'),'utf8')).images.red;
- const nft={id:source.id,amount:2,tx:{},txmsg,returnType:()=> 'vault-nft-key',modifyBeforeSend:async tx=>tx};
+ const nft={id:source.id,amount:rental?1:2,tx:{returnMessage:()=>txmsg},txmsg,returnType:()=> rental?'store-nft-rental':'vault-nft-key',modifyBeforeSend:async tx=>tx};
+ if(rental){
+  const code=fs.readFileSync(path.join(root,'node/mods/store/store.js'),'utf8'),klass=acorn.parse(code,{ecmaVersion:'latest'}).body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Store'),n=klass.body.body.find(n=>n.key?.name==='respondTo');
+  const hook=vm.runInNewContext('({'+code.slice(n.start,n.end)+'})',{Buffer,Date:{now:()=>Number(timestamp)}}).respondTo.call({app:{crypto:{hash:v=>wasm.hash(Buffer.from(v)),signMessage:(v,k)=>wasm.sign_buffer(Buffer.from(v),k)},wallet:{getPrivateKey:async()=>scalar}}},'saito-nft-transfer').onTransfer;
+  nft.modifyBeforeSend=(tx,to,data)=>hook(nft,tx,to,data);
+ }
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>seller,createNFTTransaction:async(nft,recipient,amount,fee,deposit,msg)=>{
   const merged=Object.assign(msg,nft.txmsg||{}),native=await wallet.createNFTTransaction(recipient,BigInt(amount),nft.id,fee,deposit,Buffer.from(JSON.stringify(merged)));
   return {msg:merged,native,sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=timestamp;await native.sign();this.signature=native.signature}};
  }}};
  const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:web3?'0':illustrated?'3.75':'2.5',quantity_total:quantity,quantity_available:quantity};
  if(web3){listing.web3_ticker='USDT';listing.web3_amount='3.75';}
+ if(rental)Object.assign(listing,{listing_mode:'rent',rental_duration_hours:3,rental_duration_ms:10800000,rental_rights:'all',file_id:txmsg.data.file_id});
  const created=await factory.call({app,store_public_key:store},nft,listing);
  const signed=envelope(created.native);
  const summarySource=text('summary'),tree=acorn.parse(summarySource,{ecmaVersion:'latest'}),klass=tree.body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Summary');
@@ -49,5 +63,5 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const Summary=vm.runInNewContext('(class Summary {'+methods.join('\n')+'})',{STORE_CATEGORIES:categories.STORE_CATEGORIES,SUMMARY_STATUS_ACTIVE:1});
  const summary=new Summary(null,null,{nft_id:source.id,seller,category:'Access Keys',title:listing.title,description:listing.description,listing_signature:signed.id,price:web3?0:illustrated?375000000:250000000,web3_ticker:web3?'USDT':'',web3_amount:web3?'3.75':'',quantity_available:quantity,quantity_total:quantity,created_at:Number(timestamp),updated_at:Number(timestamp),approved:1}).serialize();
  const page={listings:[summary],public_key:'',category:'',pagination:{offset:0,page:1,page_size:24,total:1,total_pages:1,has_next:false,has_previous:false}};
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated Store createListAssetTransaction, script/helpers and Summary serializer, actual WASM wallet.createNFTTransaction. Wallet wrapper and standard no-hook adapters are not a full frontend or funded consensus listing.'},seller,store,nftId:source.id,timestamp:String(timestamp),listing:signed,body:created.msg,page},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated Store createListAssetTransaction, script/helpers and Summary serializer, actual WASM wallet.createNFTTransaction. Rental variants execute the official Store transfer hook with controlled time and a real signature. Wallet adapter is not a full frontend or funded consensus listing.'},seller,store,nftId:source.id,timestamp:String(timestamp),listing:signed,body:created.msg,page,inventory:rental?{witnesses:[w.utxokey1,w.utxokey2,w.utxokey3],key:source.key,snapshot: String(timestamp)+'-2000002-'+'ab'.repeat(32)+'.snap\n'+[w.utxokey2,w.utxokey1,w.utxokey3].map(hex=>{const b=Buffer.from(hex,'hex');return [base58.encode(b.subarray(0,33)),b.readBigUInt64BE(33),b.readBigUInt64BE(41),b[49],b.readBigUInt64BE(50),b[58]].join(' ')}).join('\n')+'\n'}:undefined},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

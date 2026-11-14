@@ -775,6 +775,12 @@ if [[ "${TEST_SCOPE:-full}" == store-proceeds* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == store-rental-creation* ]]; then
+    verify_group_chat_native StoreRentalCreationPreviewTest 180 store-rental-creation store-seller-evidence
+    printf '%s\n' 'Native rental creation over owned Store/Vault seams. No public writes.' > "$evidence/scope.txt"
+    exit 0
+fi
+
 if [[ "${TEST_SCOPE:-full}" == store-seller-currency* ]]; then
     verify_group_chat_native StoreAlternateListingPreviewTest 180 store-seller-currency store-seller-evidence
     printf '%s\n' 'Focused actual offered seller currency, retained original and recreation; complete seller/Wallet retain it.' > "$evidence/scope.txt"
@@ -789,6 +795,7 @@ if [[ "${TEST_SCOPE:-full}" == store-seller* ]]; then
     verify_group_chat_native StoreWithdrawalReservationPreviewTest 180 store-withdrawal-reservation store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreWithdrawalViewportPreviewTest 480 store-withdrawal-viewport store-seller-evidence || store_seller_result=1
     python3 "$repo_dir/scripts/store-withdrawal-process-check" --evidence "$evidence/store-withdrawal-process" || store_seller_result=1
+    verify_group_chat_native StoreRentalCreationPreviewTest 180 store-rental-creation store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreAlternateListingPreviewTest 180 store-seller-currency store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreSellerRecoveryPreviewTest 180 store-seller-recovery store-seller-evidence || store_seller_result=1
@@ -1420,6 +1427,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native StoreWithdrawalReservationPreviewTest 180 store-withdrawal-reservation store-seller-evidence
     verify_group_chat_native StoreWithdrawalViewportPreviewTest 480 store-withdrawal-viewport store-seller-evidence
     python3 "$repo_dir/scripts/store-withdrawal-process-check" --evidence "$evidence/store-withdrawal-process"
+    verify_group_chat_native StoreRentalCreationPreviewTest 180 store-rental-creation store-seller-evidence
     verify_group_chat_native StoreAlternateListingPreviewTest 180 store-seller-currency store-seller-evidence
     verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence
     verify_group_chat_native StoreSellerRecoveryPreviewTest 180 store-seller-recovery store-seller-evidence

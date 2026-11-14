@@ -253,7 +253,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         val result = withContext(Dispatchers.IO) {
             current(token)
             val file = requireNotNull(nl.davidengelen.redsquare.vault.VaultDisk(context, wallet.publicKey, backend).draft())
-            require(file.mime in setOf("image/png", "image/jpeg", "image/webp", "image/gif") && file.size <= SaitoImageMint.MAX_IMAGE_BYTES)
+            require(file.mime in setOf("image/png", "image/jpeg", "image/webp", "image/gif") && file.size <= SaitoStoreMint.MAX_IMAGE_BYTES)
             val image = "data:" + file.mime + ";base64," + java.util.Base64.getEncoder().encodeToString(file.bytes)
             val bounds = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
             android.graphics.BitmapFactory.decodeByteArray(file.bytes, 0, file.size, bounds)
@@ -264,7 +264,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
             var sum = java.math.BigInteger.ZERO
             val inputs = available.takeWhile { if (sum >= SaitoVaultMint.DEPOSIT) false else { sum += it.amount; true } }
             require(sum >= SaitoVaultMint.DEPOSIT)
-            val candidate = SaitoImageMint.create(wallet, inputs, title, description, image, System.currentTimeMillis())
+            val candidate = SaitoStoreMint.create(wallet, inputs, title, description, image, System.currentTimeMillis())
             val active = currentCoroutineContext().job
             synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); imageStore.reserve(backend, candidate) }
         }

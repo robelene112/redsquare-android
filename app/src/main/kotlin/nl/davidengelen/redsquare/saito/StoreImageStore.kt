@@ -7,7 +7,7 @@ import com.google.gson.JsonParser
 
 /** Wallet-wide original image mint reservations. A missing guard never frees monetary inputs. */
 internal class StoreImageStore(private val context: Context, private val owner: String) {
-    data class Record(val backend: SaitoBackend, val mint: SaitoImageMint, val mayHaveSent: Boolean = false)
+    data class Record(val backend: SaitoBackend, val mint: SaitoStoreMint, val mayHaveSent: Boolean = false)
     private val prefix = "store-images.$owner."
     private fun file(suffix: String) = EncryptedLocalFile(context, prefix + suffix, "redsquare-store-images-v1", "store-images.")
     private fun exists(suffix: String) = requireNotNull(context.noBackupFilesDir.listFiles()).any {
@@ -21,14 +21,14 @@ internal class StoreImageStore(private val context: Context, private val owner: 
         val ids = HashSet<String>(); val locations = HashSet<Triple<java.math.BigInteger, java.math.BigInteger, Int>>()
         rows.map { element ->
             val row = element.asJsonObject; require(row.keySet() == setOf("backend", "candidate", "mayHaveSent"))
-            val mint = SaitoImageMint.restore(row.get("candidate").asString)
+            val mint = SaitoStoreMint.restore(row.get("candidate").asString)
             require(mint.author == owner && ids.add(mint.transaction.id) &&
                 mint.inputs.all { locations.add(Triple(it.block, it.ordinal, it.index)) })
             require(row.get("mayHaveSent").asJsonPrimitive.isBoolean)
             Record(SaitoBackend.entries.single { it.id == row.get("backend").asString }, mint, row.get("mayHaveSent").asBoolean)
         }
     }
-    fun reserve(backend: SaitoBackend, mint: SaitoImageMint): Record = synchronized(SaitoLocalState.lock) {
+    fun reserve(backend: SaitoBackend, mint: SaitoStoreMint): Record = synchronized(SaitoLocalState.lock) {
         val rows = read()
         rows.firstOrNull { it.mint.transaction.id == mint.transaction.id }?.let {
             require(it.backend == backend && it.mint.transaction.encoded() == mint.transaction.encoded()); return@synchronized it

@@ -198,9 +198,9 @@ class SaitoStoreListingTest {
             SaitoBalanceSnapshot.Slip(it.get("block").asString.toBigInteger(), it.get("ordinal").asString.toBigInteger(), it.get("index").asInt, it.get("amount").asString.toBigInteger(), it.get("type").asInt)
         } }
         val image = vector.getAsJsonObject("body").getAsJsonObject("data").get("image").asString
-        val mint = SaitoImageMint.create(wallet, inputs, "Native red image", "A public image NFT.", image, vector.get("timestamp").asLong)
+        val mint = SaitoStoreMint.create(wallet, inputs, "Native red image", "A public image NFT.", image, vector.get("timestamp").asLong)
         assertEquals(vector.getAsJsonObject("mint").get("networkBase64").asString, mint.transaction.encoded())
-        val restored = SaitoImageMint.restore(mint.transaction.encoded())
+        val restored = SaitoStoreMint.restore(mint.transaction.encoded())
         assertEquals(mint.nftId, restored.nftId); assertEquals(BigInteger("100000000"), restored.deposit)
         assertEquals(inputs, restored.inputs)
         assertEquals(image, restored.image)
