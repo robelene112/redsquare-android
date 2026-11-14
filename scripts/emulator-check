@@ -6,6 +6,17 @@ if [[ "${TEST_SCOPE:-full}" == scroll-profile* ]]; then artifact="$repo_dir/app/
 if [[ ! -f "$artifact" ]]; then echo 'Build the diagnostic APK first' >&2; exit 2; fi
 evidence="$repo_dir/.scratch/device-evidence/api-$TEST_DEVICE_API"
 mkdir -p "$evidence"
+emulator_log="$evidence/emulator.log"
+if [[ "$TEST_DEVICE_API" == 29 ]]; then
+    runtime_attempt=${PROOF_RUNTIME_ATTEMPT:-1}
+    [[ "$runtime_attempt" =~ ^[123]$ ]] || { echo 'Invalid provisioning attempt' >&2; exit 1; }
+    runtime_boot_dir="$evidence/runtime-preflight/boot-$runtime_attempt"
+    mkdir -p "$evidence/runtime-preflight"
+    # A distinct live file per boot retains the whole stream, including rejected
+    # startup and shutdown. Existing evidence must never be overwritten.
+    mkdir "$runtime_boot_dir"
+    emulator_log="$runtime_boot_dir/emulator.log"
+fi
 partition=${TEST_PARTITION:-all}
 case "$partition" in all|chat|social|wallet) ;; *) echo 'Unknown full-proof partition' >&2; exit 2 ;; esac
 if [[ "$partition" != all && ( "${TEST_SCOPE:-full}" != full || ( "$TEST_DEVICE_API" != 29 && "$TEST_DEVICE_API" != 37.0 ) ) ]]; then
@@ -52,13 +63,13 @@ if [[ "${TEST_SCOPE:-full}" == full || "${TEST_SCOPE:-full}" == talk* ]]; then
 fi
 emulator -avd redsquare-proof "${camera_args[@]}" -accel "$acceleration" -no-window -no-audio -no-snapshot \
     -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -cores "$test_cores" -memory "$test_memory" \
-    > "$evidence/emulator.log" 2>&1 &
+    > "$emulator_log" 2>&1 &
 emulator_pid=$!
 trap 'kill "$emulator_pid" 2>/dev/null || true' EXIT
 adb start-server
 for ((attempt=0; attempt<120; attempt++)); do
     if [[ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" == 1 ]]; then break; fi
-    if ! kill -0 "$emulator_pid" 2>/dev/null; then echo 'Emulator exited before boot' >&2; tail -30 "$evidence/emulator.log"; exit 1; fi
+    if ! kill -0 "$emulator_pid" 2>/dev/null; then echo 'Emulator exited before boot' >&2; tail -30 "$emulator_log"; exit 1; fi
     sleep 5
 done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
@@ -113,8 +124,6 @@ fi
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 if [[ "$TEST_DEVICE_API" == 29 ]]; then
-    runtime_attempt=${PROOF_RUNTIME_ATTEMPT:-1}
-    [[ "$runtime_attempt" =~ ^[123]$ ]] || { echo 'Invalid provisioning attempt' >&2; exit 1; }
     runtime_exit=0
     python3 "$repo_dir/scripts/runtime-heap-preflight" --evidence "$evidence" \
         --attempt "$runtime_attempt" --avd-config "$avd_home/redsquare-proof.avd/config.ini" || runtime_exit=$?
@@ -142,8 +151,11 @@ if [[ "$TEST_DEVICE_API" == 29 ]]; then
         if printf '%s\n' "$rejected_devices" | awk -v serial="$rejected_serial" '$1 == serial {found=1} END {exit !found}'; then
             echo 'Rejected emulator is still connected' >&2; exit 1
         fi
-        printf '{"emulatorPid":%s,"emulatorSerial":"%s","fullyReaped":true,"deviceDisconnected":true,"action":"cold-boot"}\n' \
-            "$emulator_pid" "$rejected_serial" > "$evidence/runtime-preflight/boot-$runtime_attempt/termination.json"
+        rejected_log_summary=$(sha256sum "$emulator_log")
+        rejected_log_sha=${rejected_log_summary%% *}
+        rejected_log_bytes=$(stat -c '%s' "$emulator_log")
+        printf '{"emulatorPid":%s,"emulatorSerial":"%s","fullyReaped":true,"deviceDisconnected":true,"action":"cold-boot","emulatorLogBytes":%s,"emulatorLogSha256":"%s"}\n' \
+            "$emulator_pid" "$rejected_serial" "$rejected_log_bytes" "$rejected_log_sha" > "$runtime_boot_dir/termination.json"
         trap - EXIT
         exec env PROOF_RUNTIME_ATTEMPT="$((runtime_attempt + 1))" bash "$repo_dir/scripts/emulator-check"
     fi

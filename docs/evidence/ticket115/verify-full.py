@@ -78,6 +78,10 @@ def validate_runtime_preflight(root):
         boot = folder / f"boot-{attempt}"
         record = json.loads((boot / "result.json").read_text())
         assert record["attempt"] == attempt and record["maxAttempts"] == 3
+        startup = (boot / "startup.log").read_bytes()
+        emulator_log = (boot / "emulator.log").read_bytes()
+        assert startup and emulator_log.startswith(startup)
+        assert hashlib.sha256(startup).hexdigest() == record["emulatorStartupSha256"]
         assert set(record["configurationSha256"]) == configuration_names
         for name, checksum in record["configurationSha256"].items():
             assert digest(boot / name) == checksum
@@ -102,6 +106,8 @@ def validate_runtime_preflight(root):
             termination = json.loads((boot / "termination.json").read_text())
             assert termination["fullyReaped"] and termination["deviceDisconnected"]
             assert termination["action"] == "cold-boot" and termination["emulatorPid"] > 0
+            assert termination["emulatorLogBytes"] == len(emulator_log)
+            assert termination["emulatorLogSha256"] == hashlib.sha256(emulator_log).hexdigest()
             serial = termination["emulatorSerial"]
             assert re.fullmatch(r"emulator-[0-9]+", serial)
             devices = (boot / "devices-after-shutdown.log").read_text().splitlines()

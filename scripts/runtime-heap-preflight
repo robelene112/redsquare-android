@@ -16,7 +16,10 @@ parser.add_argument("--avd-config", type=Path, required=True)
 args = parser.parse_args()
 root = args.evidence / "runtime-preflight"
 folder = root / f"boot-{args.attempt}"
-folder.mkdir(parents=True, exist_ok=False)
+assert folder.is_dir() and {p.name for p in folder.iterdir()} == {"emulator.log"}, "Require fresh per-boot log directory"
+startup = (folder / "emulator.log").read_bytes()
+assert startup, "Missing raw emulator startup log"
+(folder / "startup.log").write_bytes(startup)
 configuration = {"avd-config.ini": args.avd_config}
 for name in ("emulator-capacity.txt", "system-image.txt", "system-image.properties",
              "system-build.txt", "device-abi.txt", "page-size.txt", "requested-page-size.txt"):
@@ -55,6 +58,7 @@ assert observed["actualBytes"] > 0 and observed["declaredBytes"] > 0
 valid = observed["actualBytes"] == observed["declaredBytes"]
 record = dict(result="PASS" if valid else "INVALID_HEAP", attempt=args.attempt,
     maxAttempts=3, observation=observed, configurationSha256=hashes,
+    emulatorStartupSha256=hashlib.sha256(startup).hexdigest(),
     probeSha256=hashlib.sha256(probe.stdout).hexdigest(), elapsedMillis=round((time.monotonic() - started) * 1000),
     qualification="Provisioning only, before acceptance tests; unchanged heap settings, no service restart or application-assertion retry.")
 (folder / "result.json").write_text(json.dumps(record, indent=2) + "\n")
