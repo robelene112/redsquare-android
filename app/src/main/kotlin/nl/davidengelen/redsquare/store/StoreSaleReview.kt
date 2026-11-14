@@ -20,7 +20,11 @@ internal fun StoreSaleReview(selling: StoreSelling, record: StoreListingStore.Re
             Text(stringResource(R.string.store_sell_review), style = MaterialTheme.typography.headlineSmall)
             Text(record.listing.terms.title, style = MaterialTheme.typography.titleLarge)
             Text(record.listing.terms.description)
-            Text(stringResource(R.string.store_sell_terms, record.listing.terms.quantity.toString(), record.listing.terms.price))
+            Text(stringResource(R.string.store_sell_terms, record.listing.terms.quantity.toString(), record.listing.terms.price, record.listing.terms.currency))
+            if (record.listing.terms.currency != "SAITO") {
+                Text(stringResource(R.string.store_sell_external_terms, record.listing.terms.currency), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (selling.pricing?.enabled == false) Text(stringResource(R.string.store_sell_external_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             Text(stringResource(R.string.store_sell_cost))
             Text(stringResource(R.string.store_sell_custody))
             Text(record.backend.webUrl, style = MaterialTheme.typography.bodySmall)

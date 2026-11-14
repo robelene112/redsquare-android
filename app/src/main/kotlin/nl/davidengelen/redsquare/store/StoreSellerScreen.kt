@@ -35,6 +35,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
     var loaded by remember { mutableStateOf(false) }
     var storageError by remember { mutableStateOf(false) }
     var draftVersion by remember { mutableLongStateOf(0) }
+    var choosingCurrency by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
     var editing by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
     var pickingImage by rememberSaveable { mutableStateOf(false) }
     var uploading by rememberSaveable(wallet.publicKey, backend.id) { mutableStateOf(false) }
@@ -42,7 +43,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
     val upload by uploads.state.collectAsState()
     val auth = remember(activity, uploads) { VaultUploadAuthorization(activity, uploads) }
     DisposableEffect(selling, auth) { onDispose { auth.close(); selling.dispose() } }
-    LaunchedEffect(selling) { selling.load(); uploads.load() }
+    LaunchedEffect(selling) { selling.load(); selling.discoverPricing(); uploads.load() }
     LaunchedEffect(drafts) {
         try { draft = withContext(Dispatchers.IO) { drafts.read() }; loaded = true; editing = editing || draft.creating; uploading = uploading || draft.creating }
         catch (_: Exception) { storageError = true }
@@ -70,6 +71,21 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
     val image = selling.focusedImage
     fun token(item: StoreSelling.Inventory) = item.holding.id + ":" + item.holding.creator + ":" + item.holding.witnesses[1]
     val stock = selling.inventory.firstOrNull { token(it) == draft.item }
+    DesignSheet(choosingCurrency, stringResource(R.string.store_sell_currency_choose), { choosingCurrency = false }) { firstAction ->
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            if (selling.pricingLoading) LinearProgressIndicator(Modifier.fillMaxWidth())
+            InlineStatus(if (selling.pricingUnavailable) stringResource(R.string.store_sell_currencies_unavailable) else null, StatusTone.NEUTRAL)
+            val currencies = listOf("SAITO") + selling.pricing?.methods?.currencies.orEmpty().map { it.ticker }
+            currencies.distinct().forEachIndexed { index, currency ->
+                OutlinedButton(onClick = { update(draft.copy(currency = currency)); choosingCurrency = false },
+                    modifier = (if (index == 0) firstAction else Modifier).fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(currency)
+                }
+            }
+            if (selling.pricing?.enabled == false) Text(stringResource(R.string.store_sell_external_unavailable), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            TextButton(onClick = { choosingCurrency = false }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
+        }
+    }
     SingleOwnerReveal(Triple(image?.mint?.transaction?.id ?: removal?.delist?.transaction?.id ?: focused?.listing?.transaction?.id, editing, uploading), modifier) {
         when {
             image != null -> StoreImageReview(selling, image, Modifier.fillMaxSize()) {
@@ -108,7 +124,12 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 InlineStatus(if (storageError) stringResource(R.string.store_sell_storage) else null, StatusTone.ERROR)
                 OutlinedTextField(draft.title, { if (it.length <= 10_000) update(draft.copy(title = it)) }, label = { Text(stringResource(R.string.store_sell_title)) }, modifier = Modifier.fillMaxWidth())
                 OutlinedTextField(draft.description, { if (it.length <= 200_000) update(draft.copy(description = it)) }, label = { Text(stringResource(R.string.store_sell_description)) }, modifier = Modifier.fillMaxWidth(), minLines = 3)
-                OutlinedTextField(draft.price, { if (it.length <= 80) update(draft.copy(price = it)) }, label = { Text(stringResource(R.string.store_sell_price)) }, modifier = Modifier.fillMaxWidth())
+                OutlinedButton(onClick = { keyboard?.hide(); choosingCurrency = true; selling.discoverPricing() }, enabled = !selling.busy,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    SingleOwnerReveal(draft.currency) { Text(stringResource(R.string.store_sell_currency_button, draft.currency)) }
+                }
+                InlineStatus(if (draft.currency != "SAITO" && selling.pricingUnavailable) stringResource(R.string.store_sell_currencies_unavailable) else null, StatusTone.NEUTRAL)
+                OutlinedTextField(draft.price, { if (it.length <= 80) update(draft.copy(price = it)) }, label = { Text(stringResource(R.string.store_sell_price, draft.currency)) }, modifier = Modifier.fillMaxWidth())
                 OutlinedTextField(draft.quantity, { if (it.length <= 20) update(draft.copy(quantity = it)) }, label = { Text(stringResource(R.string.store_purchase_quantity)) }, modifier = Modifier.fillMaxWidth())
                 Text(stringResource(R.string.store_sell_inventory), style = MaterialTheme.typography.titleMedium)
                 if (selling.busy || selling.loading) LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -131,8 +152,9 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_create)) }
                 val chosen = stock ?: selling.inventory.firstOrNull { it.holding.id + ":" + it.holding.creator == draft.item }
                 val terms = runCatching { StoreListingTerms(draft.title, draft.description, chosen?.let { StoreCategory.forType(it.holding.type) } ?: StoreCategory.OTHER,
-                    draft.price, draft.quantity.toBigInteger()) }.getOrNull()
-                Button(enabled = loaded && selling.localReady && !storageError && !selling.busy && chosen?.hasMetadata == true && terms != null,
+                    draft.price, draft.quantity.toBigInteger(), draft.currency) }.getOrNull()
+                Button(enabled = loaded && selling.localReady && !storageError && !selling.busy && chosen?.hasMetadata == true && terms != null &&
+                    (terms.currency == "SAITO" || selling.pricing?.methods?.currencies.orEmpty().any { it.ticker == terms.currency }),
                     onClick = { keyboard?.hide(); selling.prepare(requireNotNull(chosen), requireNotNull(terms)) { editing = false } }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_review)) }
                 TextButton(onClick = { editing = false }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
             }

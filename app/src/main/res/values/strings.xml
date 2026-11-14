@@ -1089,7 +1089,7 @@
     <string name="store_sell_authorize">Publish this sale offer</string>
     <string name="store_sell_submission_unknown">Submission could not be verified. Check My store before retrying the original offer.</string>
     <string name="store_sell_review">Review sale offer</string>
-    <string name="store_sell_terms">Quantity: %1$s · %2$s SAITO each</string>
+    <string name="store_sell_terms">Quantity: %1$s · %2$s %3$s each</string>
     <string name="store_sell_custody">The listed items and their share of the SAITO deposit move into custody that either you or this Store can spend. A listing does not guarantee a sale or marketplace approval.</string>
     <string name="store_sell_cost">Listing network fee: 0 SAITO. The existing item deposit is retained, not charged again.</string>
     <string name="store_sell_waiting">Submitted. Waiting for this Store to report the offer.</string>
@@ -1101,7 +1101,7 @@
     <string name="store_sell_storage">Your saved selling work could not be read or saved. Resolve local storage before publishing.</string>
     <string name="store_sell_title">Item title</string>
     <string name="store_sell_description">Description</string>
-    <string name="store_sell_price">Price per item (SAITO)</string>
+    <string name="store_sell_price">Price per item (%1$s)</string>
     <string name="store_sell_inventory">Choose owned inventory</string>
     <string name="store_sell_rental_only">Rental-only key. Cannot be sold as ordinary stock.</string>
     <string name="store_sell_metadata_unavailable">Original signed details unavailable. Try Refresh.</string>
@@ -1180,4 +1180,9 @@
     <string name="store_crypto_refund">The Store refund is in SAITO: %1$s. It does not reverse the external currency transfer.</string>
     <string name="store_crypto_show">Show original instructions</string>
     <string name="store_crypto_order_waiting">Awaiting external payment</string>
+    <string name="store_sell_currency_button">Payment currency: %1$s</string>
+    <string name="store_sell_currency_choose">Price currency</string>
+    <string name="store_sell_currencies_unavailable">Other currencies are unavailable on this node. Your selected price is retained.</string>
+    <string name="store_sell_external_unavailable">External checkout is currently disabled on this Store. Buyers can pay when the service is available.</string>
+    <string name="store_sell_external_terms">Payments and seller payouts in %1$s use the external payment service of this Store.</string>
 </resources>

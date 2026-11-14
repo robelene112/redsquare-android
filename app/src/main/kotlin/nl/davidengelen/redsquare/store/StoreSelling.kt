@@ -22,6 +22,12 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         val hasMetadata: Boolean get() = envelope != null || order?.receipt != null
     }
     private val context = activity.applicationContext
+    data class Pricing(val methods: SaitoStoreCrypto.Methods, val enabled: Boolean)
+    var pricing by mutableStateOf<Pricing?>(null); private set
+    var pricingLoading by mutableStateOf(false); private set
+    var pricingUnavailable by mutableStateOf(false); private set
+    private var pricingJob: Job? = null
+    private var pricingRevision = 0L
     private val journal = StoreListingStore(context, wallet.publicKey)
     private val removals = StoreDelistStore(context, wallet.publicKey)
     private val imageStore = StoreImageStore(context, wallet.publicKey)
@@ -56,7 +62,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     private fun publishable(token: Long) = !closed && revision == token && !activity.isDestroyed
     private fun operation(work: suspend (Long) -> Unit) {
         if (busy || closed) return
-        stopLoading()
+        stopLoading(); stopPricing()
         val token = ++revision; busy = true; problem = null
         job = scope.launch {
             try { work(token) }
@@ -79,6 +85,38 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
             } finally { if (reading == readRevision) loading = false }
         }
     }
+    /** Currency discovery does not hold inventory, draft editing or financial authority. */
+    fun discoverPricing() {
+        if (closed || busy || pricingLoading) return
+        val token = revision; val reading = ++pricingRevision
+        pricingLoading = true; pricingUnavailable = false
+        pricingJob = scope.launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    current(token)
+                    SaitoPeer(wallet, endpoint).use { readPricing(it, token) }
+                }
+                currentCoroutineContext().ensureActive()
+                if (publishable(token) && reading == pricingRevision) pricing = result
+            } catch (failure: Exception) {
+                currentCoroutineContext().ensureActive()
+                if (publishable(token) && reading == pricingRevision) pricingUnavailable = true
+            } finally { if (reading == pricingRevision) pricingLoading = false }
+        }
+    }
+    private suspend fun readPricing(connection: SaitoPeer, token: Long): Pricing {
+        val services = connection.services()
+        if ("Mixin" !in services && "buysaito" !in services) throw SaitoStoreCrypto.Unavailable()
+        val provider = connection.servicePublicKey(if ("Mixin" in services) "Mixin" else "buysaito")
+        val store = connection.servicePublicKey("Store")
+        suspend fun request(body: com.google.gson.JsonObject, recipient: String) = connection.request(
+            SaitoTransaction.create(wallet, body, System.currentTimeMillis(), listOf(recipient))) { current(token) }.decodeToString()
+        val methods = SaitoStoreCrypto.readMethods(request(SaitoStoreCrypto.methodsRequest(), provider))
+        val enabled = SaitoStoreCrypto.readEnabled(request(SaitoStoreCrypto.statusRequest(), store))
+        current(token)
+        return Pricing(methods, enabled)
+    }
+    private fun stopPricing() { pricingRevision++; pricingJob?.cancel(); pricingJob = null; pricingLoading = false }
     fun load(page: Int = inventoryPage) = readOperation { token, reading ->
         ownedImages = emptySet(); delistObservations = emptyMap()
         val retainedState = withContext(Dispatchers.IO) { current(token); Triple(journal.read(), removals.read(), imageStore.read()) }
@@ -135,7 +173,11 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
             val holding = observed.snapshot.nfts.single { it.witnesses == item.holding.witnesses }
             val minimum = if (observed.snapshot.height > observed.genesisPeriod) observed.snapshot.height - observed.genesisPeriod + java.math.BigInteger.valueOf(2) else java.math.BigInteger.ONE
             require(holding.positions.all { it.block >= minimum })
-            val service = SaitoPeer(wallet, endpoint).use { it.servicePublicKey("Store") }
+            val service = SaitoPeer(wallet, endpoint).use { connection ->
+                val key = connection.servicePublicKey("Store")
+                if (terms.currency != "SAITO") require(readPricing(connection, token).methods.currencies.any { it.ticker == terms.currency })
+                key
+            }
             val timestamp = System.currentTimeMillis()
             val listing = item.order?.let { order -> SaitoStoreListing.createFromReceipt(wallet, holding,
                 requireNotNull(order.fundedPayment), requireNotNull(order.receipt).encoded, service, terms, timestamp) }
@@ -163,7 +205,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     private fun authorizeAction(title: Int, authorized: (Long) -> Unit) {
         if (closed || busy) return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) { problem = R.string.wallet_auth_unavailable; return }
-        stopLoading()
+        stopLoading(); stopPricing()
         val token = ++revision; busy = true; problem = null
         val signal = CancellationSignal().also { cancellation = it }
         try {
@@ -197,6 +239,8 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
                             val fresh = requireNotNull(balances.funding(backend, wallet.publicKey))
                             val minimum = if (fresh.snapshot.height > fresh.genesisPeriod) fresh.snapshot.height - fresh.genesisPeriod + java.math.BigInteger.valueOf(2) else java.math.BigInteger.ONE
                             require(fresh.snapshot.nfts.any { it.witnesses == exact.listing.holding.witnesses } && exact.listing.inputs.all { it.block >= minimum })
+                            if (!exact.mayHaveSent && exact.listing.terms.currency != "SAITO") require(
+                                readPricing(connection, token).methods.currencies.any { it.ticker == exact.listing.terms.currency })
                             connection.submit(exact.listing.transaction) { current(token); journal.markSending(exact) }
                             connection.finishBroadcast()
                         }
@@ -385,6 +429,6 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         if (publishable(token)) reported = result
     }
     fun dispose() {
-        closed = true; revision++; stopLoading(); cancellation?.cancel(); cancellation = null; job?.cancel(); peer?.close(); peer = null
+        closed = true; revision++; stopLoading(); stopPricing(); cancellation?.cancel(); cancellation = null; job?.cancel(); peer?.close(); peer = null
     }
 }
