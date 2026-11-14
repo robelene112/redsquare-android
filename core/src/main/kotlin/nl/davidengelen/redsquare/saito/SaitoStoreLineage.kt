@@ -87,12 +87,16 @@ object SaitoStoreLineage {
         val value = JsonParser.parseString(envelope).asJsonObject
         val header = Base64.getDecoder().decode(value.get("t").asString)
         require(header.size >= 93)
-        val bytes = ByteBuffer.wrap(header); val inputs = bytes.getInt(0); val outputs = bytes.getInt(4)
-        require(inputs in 1..255 && outputs in 1..255 && bytes.getInt(8) == 0 && bytes.getInt(12) == 0 && header.size == 93 + 59 * (inputs + outputs))
+        val bytes = ByteBuffer.wrap(header); val inputs = bytes.getInt(0); val outputs = bytes.getInt(4); val hops = bytes.getInt(12)
+        require(inputs in 1..255 && outputs in 1..255 && hops in 0..1024 && bytes.getInt(8) == 0 &&
+            header.size.toLong() == 93L + 59L * (inputs + outputs) + 130L * hops)
         val message = Base64.getDecoder().decode(value.get("m").asString)
         require(message.size in 1..SaitoTransaction.MAX_MESSAGE_BYTES)
-        bytes.putInt(8, message.size)
-        return header + message
+        // Archive routing and assigned output block positions are outside the original signed intent.
+        val original = header.copyOf(93 + 59 * (inputs + outputs))
+        val framing = ByteBuffer.wrap(original).putInt(8, message.size).putInt(12, 0)
+        repeat(outputs) { index -> val offset = 93 + 59 * (inputs + index); framing.putLong(offset + 41, 0); framing.putLong(offset + 49, 0) }
+        return original + message
     }
     private fun row(wire: ByteArray, index: Int): SaitoNft.Row {
         val offset = 93 + index * 59

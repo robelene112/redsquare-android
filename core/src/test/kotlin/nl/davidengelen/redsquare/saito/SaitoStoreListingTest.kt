@@ -85,6 +85,42 @@ class SaitoStoreListingTest {
         val delist = SaitoStoreDelist.create(wallet, product, vector.get("row").toString(), 1700004000000)
         assertEquals(vector.getAsJsonObject("delist").get("networkBase64").asString, delist.transaction.encoded())
     }
+    @Test fun archivedRoutingAndAssignedOutputPositionsPreserveAuthenticatedInventory() {
+        val vector = fixture("native-store-listing-reference")
+        val original = SaitoStoreListing.restore(vector.getAsJsonObject("listing").get("networkBase64").asString)
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val envelope = routedArchiveEnvelope(original.transaction, wallet, vector.get("store").asString)
+        val archive = com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply { addProperty("tx", envelope) }) }.toString()
+        val product = requireNotNull(SaitoStoreLineage.read(original.transaction.id) { archive })
+        assertEquals("Field notes access key", product.title)
+        assertEquals(original.holding.id, product.nftId)
+        assertEquals(product, SaitoStoreLineage.restore(product))
+        val remaining = fixture("native-store-remaining-delist-reference")
+        val payment = SaitoStorePurchase.restore(remaining.getAsJsonObject("purchase").get("networkBase64").asString)
+        val routedPayment = routedArchiveEnvelope(payment.transaction, SaitoWallet.fromPrivateKey("0".repeat(63) + "4"), vector.get("store").asString)
+        val envelopes = listOf(remaining.getAsJsonObject("listing"), remaining.getAsJsonObject("purchase"), remaining.getAsJsonObject("priorFulfillment"))
+        val sources = envelopes.associate { it.get("id").asString to com.google.gson.JsonArray().apply {
+            add(com.google.gson.JsonObject().apply { addProperty("tx", if (it.get("id").asString == payment.transaction.id) routedPayment else it.get("envelope").asString) })
+        }.toString() }
+        val recovered = requireNotNull(SaitoStoreLineage.read(remaining.getAsJsonObject("priorFulfillment").get("id").asString) { sources[it] })
+        assertEquals(BigInteger.ONE, recovered.quantity)
+        assertEquals(recovered, SaitoStoreLineage.restore(recovered))
+    }
+    private fun routedArchiveEnvelope(transaction: SaitoTransaction, wallet: SaitoWallet, store: String): String {
+        val wire = transaction.broadcast(wallet, store).drop(1).toByteArray()
+        val header = java.nio.ByteBuffer.wrap(wire)
+        assertEquals(1, header.getInt(12))
+        val inputs = header.getInt(0); val outputs = header.getInt(4)
+        repeat(outputs) { index -> val offset = 93 + 59 * (inputs + index); header.putLong(offset + 41, 42); header.putLong(offset + 49, 1) }
+        val start = 93 + 59 * (inputs + outputs); val end = start + header.getInt(8)
+        val detached = wire.copyOfRange(0, start) + wire.copyOfRange(end, wire.size)
+        java.nio.ByteBuffer.wrap(detached).putInt(8, 0)
+        return com.google.gson.JsonObject().apply {
+            addProperty("t", java.util.Base64.getEncoder().encodeToString(detached))
+            addProperty("m", java.util.Base64.getEncoder().encodeToString(wire.copyOfRange(start, end)))
+            addProperty("opt", "e30=")
+        }.toString()
+    }
     @Test fun sellerInventoryKeepsApprovalSeparateFromAvailabilityAndRealSales() {
         val reference = fixture("native-store-listing-reference")
         val active = reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply { addProperty("approved", 0) }
