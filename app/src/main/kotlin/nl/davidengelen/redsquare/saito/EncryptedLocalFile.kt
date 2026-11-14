@@ -34,16 +34,17 @@ internal class EncryptedLocalFile(private val context: Context, filename: String
         if (!file.baseFile.exists() && !File(file.baseFile.path + ".bak").exists()) return@synchronized null
         val key = requireNotNull(existingKey()) { "Draft storage key unavailable" }
         val encrypted = file.openRead().use { input ->
-            val buffer = ByteArray(MAX_BYTES + 30)
+            // A guard or small journal must not allocate the entire five-MiB payload budget.
+            val length = input.channel.size().also { require(it in 29L until (MAX_BYTES + 30).toLong()) }.toInt()
+            val buffer = ByteArray(length)
             var size = 0
             while (size < buffer.size) {
                 val count = input.read(buffer, size, buffer.size - size)
-                if (count < 0) break
-                check(count > 0)
+                check(count > 0) { "Draft storage ended before its recorded length" }
                 size += count
             }
-            require(size in 29 until buffer.size && buffer[0] in 1.toByte()..2.toByte())
-            buffer.copyOf(size)
+            require(input.read() == -1 && buffer[0] in 1.toByte()..2.toByte())
+            buffer
         }
         val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply {
             init(Cipher.DECRYPT_MODE, key, GCMParameterSpec(128, encrypted.copyOfRange(1, 13)))
