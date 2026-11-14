@@ -14,7 +14,7 @@ import java.net.InetAddress
 
 internal data class StorePurchaseScene(val node: OwnedStorePurchaseFixture, val activity: ActivityScenario<MainActivity>, val evidence: File, val rental: OwnedStoreRentalFixture? = null)
 
-internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, remainder: JsonObject? = null, rental: Boolean = false, browserRental: Boolean = false, laterRental: Boolean = false, rentalClock: Long = 1700004000000L, block: (StorePurchaseScene) -> Unit) {
+internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, remainder: JsonObject? = null, rental: Boolean = false, browserRental: Boolean = false, browserRentalChange: Boolean = false, laterRental: Boolean = false, rentalClock: Long = 1700004000000L, block: (StorePurchaseScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -50,7 +50,19 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
                 override fun dispatch(request: RecordedRequest): MockResponse {
                     val chain = crypto?.chains?.get(request.target.removePrefix("/network/chains/"))
                     if (request.target.startsWith("/network/chains/") && chain != null) return MockResponse(body = chain.toString())
-                    if (browserRental && request.target == "/balance/${buyer.publicKey}") return MockResponse(body = vector.getAsJsonObject("blocks").get("snapshot").asString.replaceBefore('-', System.currentTimeMillis().toString()))
+                    if (browserRental && request.target == "/balance/${buyer.publicKey}") {
+                        val held = vector.getAsJsonObject("blocks").get("snapshot").asString.replaceBefore('-', System.currentTimeMillis().toString())
+                        // The independently signed browser purchase also returned output1
+                        // to its buyer in payment block21/ordinal0. Keep that exact
+                        // unspent change for the viewport's separate new-purchase review.
+                        val change = if (browserRentalChange) {
+                            val original = SaitoStorePurchase.restore(vector.getAsJsonObject("purchase").get("networkBase64").asString)
+                            val amount = original.inputs.fold(java.math.BigInteger.ZERO) { total, input -> total + input.amount } - original.total
+                            require(amount.signum() > 0)
+                            "${buyer.publicKey} 21 0 1 $amount 0\n"
+                        } else ""
+                        return MockResponse(body = held + change)
+                    }
                     val response = node.response(request.target)
                     val held = node.blockReadGate
                     if (request.target.startsWith("/block/") && held != null && node.holdNextBlock.compareAndSet(true, false)) {

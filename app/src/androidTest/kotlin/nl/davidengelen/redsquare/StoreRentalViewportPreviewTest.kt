@@ -12,7 +12,7 @@ import java.io.File
 class StoreRentalViewportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule(VaultViewportMotionScale)
     @Test fun rentalTermsCostsAndVaultRightsRemainReachableInTwelveNativeCells() = withNativeModuleMotionScale(0) {
-        for (width in listOf(320, 412)) withStorePurchaseFixture("rental-viewport-$width", rental = true, browserRental = true) { scene ->
+        for (width in listOf(320, 412)) withStorePurchaseFixture("rental-viewport-$width", rental = true, browserRental = true, browserRentalChange = true) { scene ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }; ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(scene.activity, scene.evidence, "rental-$width", listOf(1f, 1.3f, 2f), width) { label, _ ->
                 ui.switchStackModule("Red Square", "Store", scrollTarget = true)
