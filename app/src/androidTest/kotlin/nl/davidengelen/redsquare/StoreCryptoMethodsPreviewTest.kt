@@ -66,7 +66,9 @@ internal fun ComposeTestRule.openNativeStoreOtherMethods(quantity: String = "2")
     waitUntil(15_000) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
     if (quantity != "1") {
         onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
+        onNodeWithText("Quantity").assertTextContains(quantity)
         finishNativeStoreQuantityEntry()
+        onNodeWithText("Quantity").assertTextContains(quantity)
     }
     onNodeWithText("Other payment methods").performScrollTo().performClick()
 }

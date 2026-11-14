@@ -738,6 +738,12 @@ if [[ "${TEST_SCOPE:-full}" == stack-links* ]]; then
     exit 0
 fi
 
+if [[ "${TEST_SCOPE:-full}" == store-crypto-viewport* ]]; then
+    verify_group_chat_native StoreCryptoViewportPreviewTest 480 store-crypto-viewport store-purchase-evidence
+    printf '%s\n' 'Focused original external review/invoice viewport cases only; complete Store purchase and full Wallet retain them.' > "$evidence/scope.txt"
+    exit 0
+fi
+
 if [[ "${TEST_SCOPE:-full}" == store-seller* ]]; then
     store_seller_result=0
     verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence || store_seller_result=1
