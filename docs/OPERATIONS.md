@@ -154,6 +154,42 @@ Store counterparty and reconcile current state, not reuse catalogue authenticati
 as checkout authority. Focused Store checks do not replace #115's complete
 integration, signed-update and combined-beta acceptance.
 
+## Native Store seller proceeds under #105/#113
+
+Seller pricing uses the selected node's actual Mixin/buysaito methods. SAITO
+amounts retain their original8decimal semantics; other offers retain their own
+denominations and native price0. Delisting authenticates the original asset,
+exact current custody tuple and original denomination. A listing price is not a
+seller balance. Authenticated load-web3-proceeds reads keep reported pending and
+eligible amounts separate from sales and the Saito wallet.
+
+Pinned Store withdrawal quotes cover **all** eligible sales for one ticker;
+there is no partial-amount field. Authenticate the Store signature and exact
+reviewed destination before retaining the request. The quote has a25minute TTL,
+a separate SAITO service fee and treasury key, and sale/payment claim identities.
+The current provider network is reviewed separately: chain identity is not a
+field signed by this quote. The service does not quote external network fees or
+guarantee a net received amount. Quote responses retain the128KiB native bound;
+there is no additional512-sale count limit within that budget.
+
+Store acceptance forwards the retained original to Mixin, which records a
+**manual** treasury withdrawal. A submitted/cached response is not proof of an
+external payout or Saito-fee chain inclusion. No read-only withdrawal-status API
+exists at this pin. Loading/restoration never retries a financial RPC; an explicit
+new device-authenticated retry uses the exact original, including after uncertainty.
+A lost treasury reply followed by quote expiry can require operator assistance;
+retain its identities and reservations rather than creating a replacement.
+
+The source-only store-seller-payments-reference.cjs runs actual pinned Store and
+Mixin functions, eligibility/reservation SQL and schemas in Node24 node:sqlite,
+actual saito-wasm0.3.15 signing and official
+@taasfi/multicoin-address-validator0.5.27. It takes runtime, pinned public source,
+hash-checked Acorn8.19.0, isolated validator-dependency directory and output paths.
+Its owned DB/time/no-op-mail adapters, reset branches and synthetic signatures
+are not a full initialized browser/peer, consensus or external payout proof. Do
+not infer production activation from these fixtures. Final native acceptance and
+pending operational qualifications remain with113,115and the open STORE_LIVE gate.
+
 ## Native Stack article integration
 
 Signed beta108 delivers the ordinary native public-reading route. Complete

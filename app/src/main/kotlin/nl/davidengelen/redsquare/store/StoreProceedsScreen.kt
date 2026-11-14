@@ -73,7 +73,11 @@ internal fun StoreProceedsScreen(wallet: SaitoWallet, backend: SaitoBackend, sel
                 Text(withdrawalStatus(saved), style = MaterialTheme.typography.bodySmall)
             }
         }
-        OutlinedButton(onClick = proceeds::load, enabled = !proceeds.loading, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_refresh)) }
+        if (proceeds.historyPage > 0) OutlinedButton(onClick = { proceeds.load(proceeds.historyPage - 1) }, enabled = !proceeds.loading && !proceeds.busy,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_withdrawal_newer)) }
+        if (proceeds.moreHistory) OutlinedButton(onClick = { proceeds.load(proceeds.historyPage + 1) }, enabled = !proceeds.loading && !proceeds.busy,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_withdrawal_older)) }
+        OutlinedButton(onClick = { proceeds.load() }, enabled = !proceeds.loading, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_refresh)) }
         TextButton(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
     }
     }

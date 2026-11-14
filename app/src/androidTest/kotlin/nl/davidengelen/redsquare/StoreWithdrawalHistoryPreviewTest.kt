@@ -23,7 +23,9 @@ class StoreWithdrawalHistoryPreviewTest {
             }
             val chain = OwnedStoreCryptoFixture().methods.getAsJsonArray("ac").map { it.asJsonObject }.single { it.get("ticker").asString == "USDT" }.get("chain_id").asString
             // The pre-paging v1 persisted format is an independent upgrade input at the encrypted filesystem seam.
-            val legacy = JsonArray().apply { candidates.take(100).forEachIndexed { index, candidate -> add(JsonObject().apply {
+            val fundedOriginal = SaitoStoreWithdrawal.restore(ref.getAsJsonObject("candidate").get("networkBase64").asString, ref.get("store").asString)
+            val retained = candidates.take(99) + fundedOriginal
+            val legacy = JsonArray().apply { retained.forEachIndexed { index, candidate -> add(JsonObject().apply {
                 addProperty("backend", "owner"); addProperty("candidate", candidate.transaction.encoded()); addProperty("store", candidate.quote.store)
                 addProperty("chain", chain); addProperty("network", "Ethereum"); addProperty("mayHaveSent", true)
                 add("result", if (index == 99) JsonNull.INSTANCE else JsonObject().apply { addProperty("status", "submitted"); addProperty("id", (index + 1).toString()) })
@@ -35,12 +37,20 @@ class StoreWithdrawalHistoryPreviewTest {
             val original = journal.read(); assertEquals(100, original.size)
             val next = journal.reserve(SaitoBackend.OWNER, candidates.last(), chain, "Ethereum")
             assertEquals(candidates.last().transaction.id, journal.read().last().candidate.transaction.id)
+            assertTrue(TransferStore(context, wallet.publicKey).available(fundedOriginal.inputs).isEmpty())
             journal.observe(original.first(), SaitoStoreWithdrawal.Result(SaitoStoreWithdrawal.State.SUBMITTED, "1"))
             assertThrows(IllegalArgumentException::class.java) { journal.discard(original.first()) }
             assertThrows(IllegalArgumentException::class.java) { journal.discard(original.last()) }
             assertThrows(IllegalArgumentException::class.java) { journal.reserve(SaitoBackend.OWNER, original.last().candidate, chain, "Ethereum") }
+            assertEquals(retained.map { it.transaction.encoded() }, journal.read(1).map { it.candidate.transaction.encoded() })
+            val firstPage = journal.history(SaitoBackend.OWNER)
+            assertEquals(24, firstPage.rows.size); assertTrue(firstPage.more)
+            val lastPage = journal.history(SaitoBackend.OWNER, 4)
+            assertEquals(5, lastPage.rows.size); assertFalse(lastPage.more)
+            assertTrue(journal.history(SaitoBackend.OFFICIAL).rows.isEmpty())
             journal.discard(next)
             assertTrue(TransferStore(context, wallet.publicKey).hasWork())
+            assertTrue(TransferStore(context, wallet.publicKey).available(fundedOriginal.inputs).isEmpty())
         }
     }
 }

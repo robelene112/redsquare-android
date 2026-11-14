@@ -20,6 +20,8 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
     var records by mutableStateOf<List<StoreWithdrawalStore.Record>>(emptyList()); private set
     var focused by mutableStateOf<StoreWithdrawalStore.Record?>(null); private set
     var busy by mutableStateOf(false); private set
+    var historyPage by mutableIntStateOf(0); private set
+    var moreHistory by mutableStateOf(false); private set
     var methods by mutableStateOf<SaitoStoreCrypto.Methods?>(null); private set
     private val journal = StoreWithdrawalStore(activity.applicationContext, wallet.publicKey)
     private val balances = WalletBalances.fromIntent(activity.intent)
@@ -32,13 +34,13 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
         check(!closed && token == revision && !activity.isFinishing && !activity.isDestroyed &&
             AndroidWalletStore(activity).loadExisting().publicKey == wallet.publicKey && AndroidBackendStore(activity).load() == selected)
     }
-    fun load() {
+    fun load(page: Int = historyPage) {
         if (closed || loading || busy) return
         val token = ++revision; loading = true; problem = null; report = null; methods = null
         job = scope.launch {
             try {
-                val saved = withContext(Dispatchers.IO) { current(token); journal.read() }
-                if (!closed && token == revision) records = saved
+                val saved = withContext(Dispatchers.IO) { current(token); journal.history(backend, page) }
+                if (!closed && token == revision) { records = saved.rows; historyPage = page; moreHistory = saved.more }
                 val result = withContext(Dispatchers.IO) {
                     current(token)
                     SaitoPeer(wallet, endpoint).use { peer ->
@@ -100,14 +102,20 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
                 }
                 val candidate = SaitoStoreWithdrawal.create(wallet, quote, funding, fee, now)
                 val active = currentCoroutineContext().job
-                synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); journal.reserve(backend, candidate, currency.chainId, network) }
+                synchronized(SaitoLocalState.lock) {
+                    active.ensureActive(); current(token)
+                    val original = journal.reserve(backend, candidate, currency.chainId, network)
+                    original to journal.history(backend)
+                }
             }
         }
-        if (!closed && token == revision) { records = records + saved; focused = saved; ready() }
+        if (!closed && token == revision) { records = saved.second.rows; focused = saved.first; historyPage = 0; moreHistory = saved.second.more; ready() }
     }
     fun discard(record: StoreWithdrawalStore.Record) = operation { token ->
-        withContext(Dispatchers.IO) { synchronized(SaitoLocalState.lock) { current(token); journal.discard(record) } }
-        records = records.filterNot { it.candidate.transaction.id == record.candidate.transaction.id }; focused = null
+        val saved = withContext(Dispatchers.IO) { synchronized(SaitoLocalState.lock) {
+            current(token); journal.discard(record); journal.history(backend, historyPage)
+        } }
+        records = saved.rows; moreHistory = saved.more; focused = null
     }
     fun authorize(record: StoreWithdrawalStore.Record) {
         if (closed || busy || record.backend != backend || record.result?.state == SaitoStoreWithdrawal.State.SUBMITTED) return
@@ -129,7 +137,7 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
             try {
                 val saved = withContext(Dispatchers.IO) {
                     current(token)
-                    val exact = journal.read().single { it.candidate.transaction.id == record.candidate.transaction.id }
+                    val exact = requireNotNull(journal.find(record.candidate.transaction.id))
                     require(exact.backend == backend && exact.candidate.transaction.encoded() == record.candidate.transaction.encoded())
                     mayHaveWritten = mayHaveWritten || exact.mayHaveSent
                     SaitoPeer(wallet, endpoint).use { peer ->
@@ -147,15 +155,15 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
                         val result = SaitoStoreWithdrawal.readResult(response)
                         val active = currentCoroutineContext().job
                         synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); journal.observe(exact, result) }
-                        journal.read()
+                        journal.history(backend, historyPage) to requireNotNull(journal.find(record.candidate.transaction.id))
                     }
                 }
-                if (!closed && token == revision) { records = saved; focused = saved.single { it.candidate.transaction.id == record.candidate.transaction.id }; report = null }
+                if (!closed && token == revision) { records = saved.first.rows; moreHistory = saved.first.more; focused = saved.second; report = null }
             } catch (failure: Exception) {
                 currentCoroutineContext().ensureActive()
                 if (!closed && token == revision) {
-                    val saved = withContext(Dispatchers.IO) { runCatching { journal.read() }.getOrNull() }
-                    if (saved != null) { records = saved; focused = saved.singleOrNull { it.candidate.transaction.id == record.candidate.transaction.id } }
+                    val saved = withContext(Dispatchers.IO) { runCatching { journal.history(backend, historyPage) to journal.find(record.candidate.transaction.id) }.getOrNull() }
+                    if (saved != null) { records = saved.first.rows; moreHistory = saved.first.more; focused = saved.second }
                     if (saved == null && mayHaveWritten) {
                         val uncertain = record.copy(mayHaveSent = true)
                         focused = uncertain
