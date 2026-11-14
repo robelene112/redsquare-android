@@ -27,6 +27,30 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
+## Active alternate-payment slice #112
+
+Review base: `a60cd323cf0c46b965fbbc986394d77a73ada2fb`.
+111 is closed. 112 is claimed by robelene112; its110 blocker is closed.
+First two public core tracers pass: actual official/WASM zero-fund carrier wire
+and actual pinned Mixin currency enumeration. Source is still in progress, with
+no native acceptance or new beta. Keep direct-funded purchase restore strict.
+
+Passive public reads on November14 find Store `enabled: false` and seven provider
+currencies BNB/BTC/ETH/USDC/USDT/SOL/TRX, with chain IDs. Exact observation and
+reference qualification live in native-store-currency-observation.json and the
+new crypto reference generator. No live reservation or financial write occurred.
+Additional pinned sources are hash/Git-blob-verified under external upstream;
+fetch-pinned112.py retrieves missing source files from GitHub only.
+
+See ADR0003 for the necessary provider invoice binding/recovery compatibility
+patch. The original service resumes by wallet/ticker/purpose without echoing the
+carrier and lacks a read-only status request. Do not present an unbound address
+as payable or poll by creating invoices. No live provider is to be altered.
+Continue one tracer at a time: typed invoice/status and actual provider patch,
+provider-issued Saito payment/receipt/chain compatibility, shared Orders journal,
+native payment UI/auth/recovery, complete owned provider/native proofs and two
+independent review axes. Continue113–115 only after112completion.
+
 ## Completed Store selling #111, next #112
 
 #106–#111 are implemented and verified. See [111 evidence](../evidence/ticket111/README.md).

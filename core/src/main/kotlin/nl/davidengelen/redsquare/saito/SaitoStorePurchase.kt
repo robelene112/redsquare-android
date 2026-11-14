@@ -58,7 +58,7 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
             val keys = tree.getAsJsonArray("publickeys")
             require(keys.size() == 2 && keys[0].asString == author)
             val store = keys[1].asString
-            require(SaitoWallet.isPublicKey(store) && tree == scriptBody(author, store))
+            require(SaitoWallet.isPublicKey(store) && tree == storePurchaseScriptBody(author, store))
             require(body.get("access_hash").asString == script.hash && body.get("p2sh_address").asString == "00" + script.hash)
             require(Base58.decode(recipient).contentEquals(hex("00" + script.hash)))
             val id = body.get("nft_id").asString
@@ -86,7 +86,7 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
             require(amount <= MAX_SAFE_INTEGER && unitPrice <= MAX_SAFE_INTEGER && networkFee.bitLength() <= 64)
             val change = SaitoFundingInputs.checked(inputs) - amount - networkFee
             require(change.signum() >= 0) { "Insufficient funding" }
-            val script = SaitoAccessScript.parse(scriptBody(wallet.publicKey, store).toString())
+            val script = SaitoAccessScript.parse(storePurchaseScriptBody(wallet.publicKey, store).toString())
             val escrow = Base58.encode(hex("00" + script.hash))
             val body = JsonObject().apply {
                 addProperty("module", "Store"); addProperty("request", "purchase-asset")
@@ -106,12 +106,14 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
 
         private val MAX_SAFE_INTEGER = BigInteger("9007199254740991")
         private fun hex(text: String) = text.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-        private fun scriptBody(buyer: String, store: String) = JsonObject().apply {
-            addProperty("op", "CHECKMULTISIG"); addProperty("m", 1)
-            add("publickeys", com.google.gson.JsonArray().apply { add(buyer); add(store) })
-            addProperty("msg", "tx.from.p2sh.utxoset_key")
-        }
+
 
 
     }
+}
+
+internal fun storePurchaseScriptBody(buyer: String, store: String) = JsonObject().apply {
+    addProperty("op", "CHECKMULTISIG"); addProperty("m", 1)
+    add("publickeys", com.google.gson.JsonArray().apply { add(buyer); add(store) })
+    addProperty("msg", "tx.from.p2sh.utxoset_key")
 }

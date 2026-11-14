@@ -1,0 +1,115 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "saitoWasm": "0.3.15",
+    "sourceHashes": {
+      "node/mods/store/lib/transactions.js": "8e7b0c29f8bc1e8e0ede4e966d9fe5c5d385ca00b0f18c31f0304db56a7af8b3",
+      "node/mods/store/lib/scripting.js": "917f112d52fd81fc5c6508cc5c1467ffa1df73cd8d12db06982d328b63bc18ff",
+      "node/mods/store/lib/helpers.js": "a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce",
+      "node/mods/store/lib/summary.js": "e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a",
+      "node/mods/mixin/mixin.js": "dbcb8c801fa9e195eb0fb574a7a6b398f0239efa66abddd6bb08acd5102ccc6d"
+    },
+    "qualification": "Actual isolated official Store unfunded purchase carrier factory and actual WASM wallet.createTransaction(0,0). Deterministic public unsafe identities and fixed clock; no provider reservation, deposit, broadcast or funded consensus. Actual isolated Mixin.handlePeerTransaction currency enumeration over the seven observed public modules plus explicit excluded/unpriced candidates, with owned identity and module-state adapters; not full peer/runtime authentication."
+  },
+  "buyer": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",
+  "store": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+  "nftId": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+  "timestamp": "1700003000000",
+  "summary": {
+    "nft_id": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+    "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+    "category": "Access Keys",
+    "title": "Field notes access key",
+    "description": "Original creator-authenticated field notes.",
+    "listing_signature": "c01bdcbe5c2026412fb2bcc3a0f29775f900f0c13a1aa1ee6661fe0f74a25a1d0d965c5d9940f9e43acb342cbffe09f321ed55bb5a9d6cfd1af2c1ed083f100a",
+    "price": 0,
+    "web3_ticker": "USDT",
+    "web3_amount": "3.75",
+    "quantity_total": 2,
+    "quantity_available": 2,
+    "status": 1,
+    "created_at": 1700002000000,
+    "updated_at": 1700002000000,
+    "subtitle": "",
+    "note": "",
+    "buyer": "",
+    "quantity_sold": 0,
+    "sold_at": 0,
+    "approved": 1,
+    "risk": ""
+  },
+  "methods": {
+    "ac": [
+      {
+        "ticker": "BNB",
+        "chain_id": "1949e683-6a08-49e2-b087-d6b72398588f",
+        "price_usd": 617.48,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/1_44tuBHW1cFfsPnzmzQE8aULR438AT_fjqOsXJp1LEVPSDHox45dI0WGsnzgz9rDRYnA92sWMaMDGWt-oePEFV5qp8HrCFvd7I=s128"
+      },
+      {
+        "ticker": "BTC",
+        "chain_id": "c6d0c728-2624-429b-8e0d-d9d19b6592fa",
+        "price_usd": 66931,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/HvYGJsV5TGeZ-X9Ek3FEQohQZ3fE9LBEBGcOcn4c4BNHovP4fW4YB97Dg5LcXoQ1hUjMEgjbl1DPlKg1TW7kK6XP=s128"
+      },
+      {
+        "ticker": "ETH",
+        "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+        "price_usd": 1897.72,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/zVDjOxNTQvVsA8h2B4ZVxuHoCF3DJszufYKWpd9duXUSbSapoZadC7_13cnWBqg0EmwmRcKGbJaUpA8wFfpgZA=s128"
+      },
+      {
+        "ticker": "USDC",
+        "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+        "price_usd": 0.999565,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/w3Lb-pMrgcmmrzamf7FG_0c6Dkh3w_NRbysqzpuacwdVhMYSOtnX2zedWqiSG7JuZ3jd4xfhAJduQXY1rPidmywn=s128"
+      },
+      {
+        "ticker": "USDT",
+        "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+        "price_usd": 0.999206,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/ndNBEpObYs7450U08oAOMnSEPzN66SL8Mh-f2pPWBDeWaKbXTPUIdrZph7yj8Z93Rl8uZ16m7Qjz-E-9JFKSsJ-F=s128"
+      },
+      {
+        "ticker": "SOL",
+        "chain_id": "64692c23-8971-4cf4-84a7-4dd1271dd887",
+        "price_usd": 75.69,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/eTzm8_cWke8NqJ3zbQcx7RkvbcTytD_NgBpdwIAgKJRpOoo0S0AQ3IQ-YeBJgUKmpsMPUHcZFzfuWowv3801cF5HXfya5MQ9fTA9HQ=s128"
+      },
+      {
+        "ticker": "TRX",
+        "chain_id": "25dabac5-056a-48ff-b9f9-f67395dc407c",
+        "price_usd": 0.312376,
+        "last_update": 1700002999000,
+        "icon_url": "https://images.mixin.one/SXfRh0WJZpHrDAbBItuwwLp_TPML7hrbAPHGIz_EQRga0fFm5yGtNd55_W0ZZv9HRj_6W6kE4O4tq8W78mutAPE=s128"
+      }
+    ],
+    "erc": 0.00029596
+  },
+  "carrier": {
+    "id": "389c2f317992c0c7c3198d1d39fd7ad144d15cd6e0b3bc2832c2f489f223822b2be39eea7d0c6bac0dfc11b71206ce6dae066716060e84b98de6fc46f2e1374f",
+    "networkBase64": "AAAAAgAAAAIAAAKpAAAAADicLzF5ksDHwxmNHTn9etFE0VzW4LO8KDLC9InyI4IrK+Oe6n0Ma6wN/BG3EgbOba4GZxYGDoS5jeb8RvLhN08AAAGL0BMuwAAAAAEAAuST2/HBDYDzWB5JBJMLFATMbBOQDuB1hHT6lKvoxM0TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC5JPb8cENgPNYHkkEkwsUBMxsE5AO4HWEdPqUq+jEzRMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMUSZ7orNgW4IThQdIOD/VvG2Pcb1AMKb6ixKIkd0LjgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuST2/HBDYDzWB5JBJMLFATMbBOQDuB1hHT6lKvoxM0TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQB7Im1vZHVsZSI6IlN0b3JlIiwicmVxdWVzdCI6InB1cmNoYXNlLWFzc2V0IiwiYnV5ZXIiOiJycXVUdHpleXg3NFc2cUZ2dEdUTnBRR05ENFdxTUdSN1VUTGRFS3E0UWpzRyIsInJlZnVuZCI6InJxdVR0emV5eDc0VzZxRnZ0R1ROcFFHTkQ0V3FNR1I3VVRMZEVLcTRRanNHIiwibmZ0X2lkIjoiMDIxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTc2NjE3NTZjNzQyZDZlNjY3NDJkNmI2NTc5MDAwMDAwIiwicXVhbnRpdHkiOjIsInByaWNlIjoiMCIsImZlZSI6IjAiLCJhY2Nlc3Nfc2NyaXB0Ijoie1wib3BcIjpcIkNIRUNLTVVMVElTSUdcIixcIm1cIjoxLFwicHVibGlja2V5c1wiOltcInJxdVR0emV5eDc0VzZxRnZ0R1ROcFFHTkQ0V3FNR1I3VVRMZEVLcTRRanNHXCIsXCJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeFwiXSxcIm1zZ1wiOlwidHguZnJvbS5wMnNoLnV0eG9zZXRfa2V5XCJ9IiwiYWNjZXNzX2hhc2giOiI0YzUxMjY3YmEyYjM2MDViODIxMzg1MDc0ODM4M2ZkNWJjNmQ4ZjcxYmQ0MDMwYTZmYThiMTI4ODkxZGQwYjhlIiwicDJzaF9hZGRyZXNzIjoiMDA0YzUxMjY3YmEyYjM2MDViODIxMzg1MDc0ODM4M2ZkNWJjNmQ4ZjcxYmQ0MDMwYTZmYThiMTI4ODkxZGQwYjhlIiwid2ViM190aWNrZXIiOiJVU0RUIiwid2ViM19hbW91bnQiOiIzLjc1In0=",
+    "envelope": "{\"t\":\"AAAAAgAAAAIAAAAAAAAAADicLzF5ksDHwxmNHTn9etFE0VzW4LO8KDLC9InyI4IrK+Oe6n0Ma6wN/BG3EgbOba4GZxYGDoS5jeb8RvLhN08AAAGL0BMuwAAAAAEAAuST2/HBDYDzWB5JBJMLFATMbBOQDuB1hHT6lKvoxM0TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC5JPb8cENgPNYHkkEkwsUBMxsE5AO4HWEdPqUq+jEzRMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMUSZ7orNgW4IThQdIOD/VvG2Pcb1AMKb6ixKIkd0LjgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuST2/HBDYDzWB5JBJMLFATMbBOQDuB1hHT6lKvoxM0TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=\",\"m\":\"eyJtb2R1bGUiOiJTdG9yZSIsInJlcXVlc3QiOiJwdXJjaGFzZS1hc3NldCIsImJ1eWVyIjoicnF1VHR6ZXl4NzRXNnFGdnRHVE5wUUdORDRXcU1HUjdVVExkRUtxNFFqc0ciLCJyZWZ1bmQiOiJycXVUdHpleXg3NFc2cUZ2dEdUTnBRR05ENFdxTUdSN1VUTGRFS3E0UWpzRyIsIm5mdF9pZCI6IjAyMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTE3NjYxNzU2Yzc0MmQ2ZTY2NzQyZDZiNjU3OTAwMDAwMCIsInF1YW50aXR5IjoyLCJwcmljZSI6IjAiLCJmZWUiOiIwIiwiYWNjZXNzX3NjcmlwdCI6IntcIm9wXCI6XCJDSEVDS01VTFRJU0lHXCIsXCJtXCI6MSxcInB1YmxpY2tleXNcIjpbXCJycXVUdHpleXg3NFc2cUZ2dEdUTnBRR05ENFdxTUdSN1VUTGRFS3E0UWpzR1wiLFwidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXhcIl0sXCJtc2dcIjpcInR4LmZyb20ucDJzaC51dHhvc2V0X2tleVwifSIsImFjY2Vzc19oYXNoIjoiNGM1MTI2N2JhMmIzNjA1YjgyMTM4NTA3NDgzODNmZDViYzZkOGY3MWJkNDAzMGE2ZmE4YjEyODg5MWRkMGI4ZSIsInAyc2hfYWRkcmVzcyI6IjAwNGM1MTI2N2JhMmIzNjA1YjgyMTM4NTA3NDgzODNmZDViYzZkOGY3MWJkNDAzMGE2ZmE4YjEyODg5MWRkMGI4ZSIsIndlYjNfdGlja2VyIjoiVVNEVCIsIndlYjNfYW1vdW50IjoiMy43NSJ9\",\"opt\":\"e30=\"}"
+  },
+  "body": {
+    "module": "Store",
+    "request": "purchase-asset",
+    "buyer": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",
+    "refund": "rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG",
+    "nft_id": "02111111111111111111111111111111117661756c742d6e66742d6b6579000000",
+    "quantity": 2,
+    "price": "0",
+    "fee": "0",
+    "access_script": "{\"op\":\"CHECKMULTISIG\",\"m\":1,\"publickeys\":[\"rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG\",\"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx\"],\"msg\":\"tx.from.p2sh.utxoset_key\"}",
+    "access_hash": "4c51267ba2b3605b8213850748383fd5bc6d8f71bd4030a6fa8b128891dd0b8e",
+    "p2sh_address": "004c51267ba2b3605b8213850748383fd5bc6d8f71bd4030a6fa8b128891dd0b8e",
+    "web3_ticker": "USDT",
+    "web3_amount": "3.75"
+  }
+}

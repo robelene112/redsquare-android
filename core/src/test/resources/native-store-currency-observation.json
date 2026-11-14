@@ -1,0 +1,99 @@
+{
+  "authority": {
+    "observedAt": "2026-11-14T05:53:03.744Z",
+    "endpoint": "wss://saito.io/wsopen",
+    "peerPublicKey": "wnUrrEMtWhwwpULFdeWBto8McZzcydqvpJpfEgLQJx2g",
+    "services": [
+      "arcade",
+      "archive",
+      "bugs",
+      "chat",
+      "egld",
+      "Explorer",
+      "faucet",
+      "giphy",
+      "graffiti: board",
+      "league",
+      "mailrelay",
+      "mixin",
+      "buysaito",
+      "modtools",
+      "popup",
+      "recovery",
+      "redsquare",
+      "registry",
+      "relay",
+      "stack",
+      "Store",
+      "vault"
+    ],
+    "request": {
+      "request": "buysaito available currencies",
+      "data": {
+        "module": "Mixin"
+      }
+    },
+    "responseBytes": 1776,
+    "responseSha256": "8cd217c2124a3ee16a30dffa0d08a58c2ed0bd04556c6a75934be960eb7644d6",
+    "responseKeys": [
+      "ac",
+      "erc"
+    ],
+    "listingCount": null,
+    "qualification": "Fresh disposable public-key read-only binary peer observation. No public transaction, listing, purchase, chat or upload. Not an initialized frontend, ownership/stock fulfilment or financial acceptance."
+  },
+  "response": {
+    "ac": [
+      {
+        "ticker": "BNB",
+        "chain_id": "1949e683-6a08-49e2-b087-d6b72398588f",
+        "price_usd": 617.48,
+        "last_update": 1794635582939,
+        "icon_url": "https://images.mixin.one/1_44tuBHW1cFfsPnzmzQE8aULR438AT_fjqOsXJp1LEVPSDHox45dI0WGsnzgz9rDRYnA92sWMaMDGWt-oePEFV5qp8HrCFvd7I=s128"
+      },
+      {
+        "ticker": "BTC",
+        "chain_id": "c6d0c728-2624-429b-8e0d-d9d19b6592fa",
+        "price_usd": 66931,
+        "last_update": 1794635583234,
+        "icon_url": "https://images.mixin.one/HvYGJsV5TGeZ-X9Ek3FEQohQZ3fE9LBEBGcOcn4c4BNHovP4fW4YB97Dg5LcXoQ1hUjMEgjbl1DPlKg1TW7kK6XP=s128"
+      },
+      {
+        "ticker": "ETH",
+        "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+        "price_usd": 1897.72,
+        "last_update": 1794635583318,
+        "icon_url": "https://images.mixin.one/zVDjOxNTQvVsA8h2B4ZVxuHoCF3DJszufYKWpd9duXUSbSapoZadC7_13cnWBqg0EmwmRcKGbJaUpA8wFfpgZA=s128"
+      },
+      {
+        "ticker": "USDC",
+        "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+        "price_usd": 0.999565,
+        "last_update": 1794635583407,
+        "icon_url": "https://images.mixin.one/w3Lb-pMrgcmmrzamf7FG_0c6Dkh3w_NRbysqzpuacwdVhMYSOtnX2zedWqiSG7JuZ3jd4xfhAJduQXY1rPidmywn=s128"
+      },
+      {
+        "ticker": "USDT",
+        "chain_id": "43d61dcd-e413-450d-80b8-101d5e903357",
+        "price_usd": 0.999206,
+        "last_update": 1794635583488,
+        "icon_url": "https://images.mixin.one/ndNBEpObYs7450U08oAOMnSEPzN66SL8Mh-f2pPWBDeWaKbXTPUIdrZph7yj8Z93Rl8uZ16m7Qjz-E-9JFKSsJ-F=s128"
+      },
+      {
+        "ticker": "SOL",
+        "chain_id": "64692c23-8971-4cf4-84a7-4dd1271dd887",
+        "price_usd": 75.69,
+        "last_update": 1794635583572,
+        "icon_url": "https://images.mixin.one/eTzm8_cWke8NqJ3zbQcx7RkvbcTytD_NgBpdwIAgKJRpOoo0S0AQ3IQ-YeBJgUKmpsMPUHcZFzfuWowv3801cF5HXfya5MQ9fTA9HQ=s128"
+      },
+      {
+        "ticker": "TRX",
+        "chain_id": "25dabac5-056a-48ff-b9f9-f67395dc407c",
+        "price_usd": 0.312376,
+        "last_update": 1794635583651,
+        "icon_url": "https://images.mixin.one/SXfRh0WJZpHrDAbBItuwwLp_TPML7hrbAPHGIz_EQRga0fFm5yGtNd55_W0ZZv9HRj_6W6kE4O4tq8W78mutAPE=s128"
+      }
+    ],
+    "erc": 0.00029596
+  }
+}

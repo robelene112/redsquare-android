@@ -87,6 +87,13 @@ class SaitoTransaction private constructor(private val bytes: ByteArray, private
         internal fun fromFundedBytes(bytes: ByteArray): SaitoTransaction =
             SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decode(it.envelope()) }
 
+        /** Only the separately validated zero-fund Store carrier admits this original. */
+        internal fun fromStoreCarrierBytes(bytes: ByteArray): SaitoTransaction {
+            require(bytes.size >= 329 && ByteBuffer.wrap(bytes).getInt(0) == 2 && ByteBuffer.wrap(bytes).getInt(4) == 2)
+            require((0..3).all { index -> bytes.copyOfRange(93 + 59 * index + 33, 93 + 59 * index + 41).all { it == 0.toByte() } })
+            return SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decode(it.envelope()) }
+        }
+
         /** Only the strict Vault candidate reader admits retained Bound bytes. */
         internal fun fromVaultMintBytes(bytes: ByteArray): SaitoTransaction =
             SaitoTransaction(bytes.copyOf()).also { SaitoEnvelope.decodeBound(it.envelope()) }
