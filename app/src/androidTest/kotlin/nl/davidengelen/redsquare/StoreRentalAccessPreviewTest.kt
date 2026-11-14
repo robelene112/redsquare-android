@@ -149,6 +149,7 @@ class StoreRentalAccessPreviewTest {
             val journal = nl.davidengelen.redsquare.saito.StoreOrderStore(context, purchase.buyer)
             val old = journal.reserve(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, purchase, product)
             journal.observe(old.id, observation)
+            requireNotNull(scene.rental).knownLoans = listOf(paid.getAsJsonObject("rentalAccess"))
             if (activeOld) { requireNotNull(scene.rental).activeLoan = paid.getAsJsonObject("rentalAccess"); requireNotNull(scene.rental).activated = true }
             ui.openNativeVault()
             ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }

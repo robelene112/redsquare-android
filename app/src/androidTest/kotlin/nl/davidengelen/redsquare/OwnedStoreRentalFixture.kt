@@ -12,6 +12,7 @@ internal class OwnedStoreRentalFixture(private val reference: JsonObject) {
     @Volatile var available = true
     @Volatile var activated = false
     @Volatile var activeLoan: JsonObject? = null
+    @Volatile var knownLoans: List<JsonObject> = emptyList()
     @Volatile var reads = 0; private set
     @Volatile var checkouts = 0; private set
     private val source = reference.getAsJsonObject("rentalAccess") ?: androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context.assets
@@ -34,7 +35,7 @@ internal class OwnedStoreRentalFixture(private val reference: JsonObject) {
             }
             "vault access rental" -> {
                 val body = data.asJsonObject
-                val candidate = listOfNotNull(source, activeLoan).distinctBy { it.get("loanHash").asString }
+                val candidate = (listOfNotNull(source, activeLoan) + knownLoans).distinctBy { it.get("loanHash").asString }
                     .single { it.get("loanHash").asString == body.get("access_hash").asString }
                 check(body.get("access_script").asString == candidate.get("loanSource").asString)
                 check(body.getAsJsonObject("data").get("file_id").asString == candidate.getAsJsonObject("file").get("id").asString)
