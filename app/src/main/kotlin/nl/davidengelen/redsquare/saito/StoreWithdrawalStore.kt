@@ -17,7 +17,7 @@ internal class StoreWithdrawalStore(private val context: Context, private val ow
     private fun pageName(page: Int) = if (page == 0) "rows" else "rows.$page"
     private fun pageCount(): Int {
         val additional = requireNotNull(context.noBackupFilesDir.listFiles()).mapNotNull { item ->
-            Regex(Regex.escape(prefix) + "rows\\.([1-9][0-9]*)(?:\\.(?:bak|new))?").matchEntire(item.name)?.groupValues?.get(1)?.toInt()
+            Regex(Regex.escape(prefix) + "rows\\.([1-9][0-9]*)(?:\\.bak)?").matchEntire(item.name)?.groupValues?.get(1)?.toInt()
         }.toSet()
         if (!exists("rows") && !exists("guard") && !exists("pages")) { require(additional.isEmpty()); return 0 }
         val guard = requireNotNull(file("guard").load()); require(guard.version == 1.toByte() && guard.text == owner && exists("rows"))
@@ -25,9 +25,22 @@ internal class StoreWithdrawalStore(private val context: Context, private val ow
             require(it.version == 1.toByte() && it.text.matches(Regex("[1-9][0-9]{0,9}")))
             it.text.toInt().also { value -> require(value > 0) }
         }
-        // A missing/uncommitted index or page is a recovery barrier, never invisible financial work.
-        require(additional.size == count - 1 && additional.all { it in 1 until count })
-        return count
+        val discovered = Math.addExact(additional.maxOrNull() ?: 0, 1)
+        // Committed pages may never disappear. A partial, unindexed .new file is not committed work.
+        require(discovered >= count && additional.size == discovered - 1 && additional.all { it in 1 until discovered })
+        if (discovered > count) {
+            // Recover an append interrupted after page commit and before index publication. Authenticate
+            // every original and reservation before repairing metadata; never retransmit a financial RPC.
+            val ids = HashSet<String>()
+            val locations = HashSet<Triple<java.math.BigInteger, java.math.BigInteger, Int>>()
+            for (page in 0 until discovered) for (record in physical(page)) {
+                require(ids.add(record.candidate.transaction.id) && record.candidate.inputs.all {
+                    locations.add(Triple(it.block, it.ordinal, it.index))
+                })
+            }
+            file("pages").save(EncryptedLocalFile.Contents(1, discovered.toString()))
+        }
+        return discovered
     }
     private fun physical(page: Int): List<Record> {
         val saved = requireNotNull(file(pageName(page)).load()); require(saved.version == 1.toByte())

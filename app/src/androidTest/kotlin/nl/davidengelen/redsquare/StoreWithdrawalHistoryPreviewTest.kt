@@ -34,6 +34,9 @@ class StoreWithdrawalHistoryPreviewTest {
             EncryptedLocalFile(context, prefix + "rows", "redsquare-store-withdrawals-v1", "store-withdrawals.").save(EncryptedLocalFile.Contents(1, legacy.toString()))
             EncryptedLocalFile(context, prefix + "guard", "redsquare-store-withdrawals-v1", "store-withdrawals.").save(EncryptedLocalFile.Contents(1, wallet.publicKey))
             val journal = StoreWithdrawalStore(context, wallet.publicKey)
+            // Replay an interrupted, not-yet-committed new page; older committed work stays usable.
+            val partial = java.io.File(context.noBackupFilesDir, prefix + "rows.1.new")
+            java.io.FileOutputStream(partial).use { it.write(byteArrayOf(1, 2, 3)); it.fd.sync() }
             val original = journal.read(); assertEquals(100, original.size)
             val next = journal.reserve(SaitoBackend.OWNER, candidates.last(), chain, "Ethereum")
             assertEquals(candidates.last().transaction.id, journal.read().last().candidate.transaction.id)
