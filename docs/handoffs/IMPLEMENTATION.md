@@ -6,8 +6,8 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 [Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
-edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is active: native
-image/file creation, selling, storefront management and recoverable delisting. Continue the approved ready frontier
+edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
+image/file creation, selling, storefront management and recoverable delisting. #112 is next. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -27,25 +27,25 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active Store selling slice #111
+## Completed Store selling #111, next #112
 
-Review base:c6157dd47a469923b3c7e9a1511cb27742c87f18. Selling source5409b0a2d
-includes retained original offers, inline Vault file creation, public-image minting,
-marketplace states0/1/2/-1, read-only navigation during delayed IO, exact delisting,
-ATR positions and authenticated single/multiple-lot remainder provenance. Local
-core200cases passed before the currently tested equivalent-price correction.
-No native acceptance yet. Initial1b90/069scopes remain failed with exact original
-ZIPs/captures in external vault-store-planning. Source1a1420693 runs43559414931(10)/
-43559417630(17) are in progress; collect complete originals before another same-
-scope dispatch. Two5489short-ref dispatches43558764251/43558766287failed at checkout
-because a short hash was interpreted as a branch. Their original logs are retained;
-no app test ran. Always dispatch the full40-character source SHA.
+#106–#111 are implemented and verified. See [111 evidence](../evidence/ticket111/README.md).
+Review base: `c6157dd47a469923b3c7e9a1511cb27742c87f18`.
+Implementation: `696a1a4759ccad3fa0e30248abfd990bb5d6c1f5`.
+Both final seller runs `43562045080` / `43562098065` pass nine cases, twelve viewport
+cells and all three distinct-PID process phases. Both final catalogue runs
+`43562047939` / `43562050409` and earlier wallet regressions pass. All original
+artifact/capture bytes are checked. Core 201 cases and both independent reviews
+pass. Preserve the ledger's original failures, observer-exit and protocol/runtime
+qualifications. No public financial write or beta delivery is inferred.
 
-Independent review found and fixed missing footer transitions and partial/multi-
-lot remainder hydration. One remaining correction compares equivalent SAITO
-price strings numerically. Final complete SDK scopes, affected wallet/catalogue
-checks, independent delta reviews and111evidence/closure remain required. Continue
-112–115after111completion. Do not publish a partial beta.
+Continue 112–115 sequentially without another per-ticket confirmation. #112 owns
+all actually offered alternate-currency buyer methods and recoverable payment.
+The public beta remains 127 until 115's combined signed delivery. For final native
+polish in 115, inspect image-creation cost visibility: the large preview can put
+the deposit/fee below the first viewport, although the body is scrollable. Final
+normal/reduced motion, viewport/keyboard/accessibility and full shared-source
+regression/update gates remain required. Ordinary QA stays agent-owned.
 
 ## Completed Store purchase slice #110, next #111
 
