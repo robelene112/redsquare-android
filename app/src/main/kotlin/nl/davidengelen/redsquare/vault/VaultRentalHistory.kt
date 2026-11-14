@@ -51,3 +51,25 @@ internal suspend fun creatorRentalHistory(context: Context, wallet: SaitoWallet,
         } } }.awaitAll().flatten().distinctBy { it.source }.sortedByDescending { requireNotNull(it.grant).expiresAt } }
     }
 }
+
+/** Recover browser-acquired rights from public signed history, independently of the Android order journal. */
+internal suspend fun readHeldRental(peer: SaitoPeer, holding: SaitoNft, current: () -> Unit): VaultEntry? {
+    current()
+    val reply = peer.request(SaitoVault.archiveRequest(holding).toByteArray()).decodeToString()
+    require(reply.toByteArray().size <= 16 * 1024 * 1024)
+    val rows = JsonParser.parseString(reply).asJsonArray.also { require(it.size() <= 10) }
+    for (row in rows) {
+        try {
+            val envelope = row.asJsonObject.get("tx").asString
+            val refs = SaitoStoreRental.publicReceipt(envelope)
+            val product = readStoreProduct(peer, refs.inventory, null) ?: continue
+            val payment = peer.request(SaitoStore.listingArchiveRequest(refs.payment).toByteArray()).decodeToString()
+            val path = SaitoStoreRental.heldEntitlement(holding, product, envelope, payment)
+            val source = requireNotNull(SaitoStoreRental.offer(product)).source
+            current()
+            return VaultEntry("held-rental:${holding.id}", source.name, null, null, holding.type, path)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { /* Another archived row may be the original authenticated delivery. */ }
+    }
+    return null
+}

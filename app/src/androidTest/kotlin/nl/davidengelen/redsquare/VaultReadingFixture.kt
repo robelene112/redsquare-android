@@ -24,12 +24,12 @@ internal data class VaultReadingScene(val activity: ActivityScenario<MainActivit
     val reference: JsonObject, val ownsKey: AtomicBoolean, val evidence: File, val context: Context, val destination: Uri, val mint: OwnedVaultMintFixture? = null, val balanceRequests: () -> Int = { 0 }, val transfer: OwnedVaultKeyTransferFixture? = null, val seller: OwnedStoreSellerFixture? = null)
 
 /** The existing owned peer, HTTP balance, document provider and native Activity boundaries. */
-internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, sellerRemaining: Boolean = false, preserveSeller: Boolean = false, storeCrypto: OwnedStoreCryptoFixture? = null, sellerRental: Boolean = false, block: (VaultReadingScene) -> Unit) {
+internal fun withVaultReadingFixture(name: String, services: String = "archive||;vault||", inventory: Boolean = false, captureFolder: String = "vault-reading-evidence", large: Boolean = false, failedExport: Boolean = false, retainTransfers: Boolean = false, minting: Boolean = false, expectedMintCount: Int = if (minting) 1 else 0, preserveVault: Boolean = false, priorMint: String? = null, custom: Boolean = false, keyTransfer: Boolean = false, rentalMint: Boolean = false, balanceReplyGate: java.util.concurrent.CountDownLatch? = null, sellerImage: Boolean = false, sellerListed: Boolean = false, sellerRemaining: Boolean = false, preserveSeller: Boolean = false, storeCrypto: OwnedStoreCryptoFixture? = null, sellerRental: Boolean = false, creatorRental: Boolean = false, archiveRead: ((JsonObject) -> String?)? = null, block: (VaultReadingScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
     val originalReference = instrumentation.context.assets.open("native-vault-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
-    val vector = if (sellerRental) {
+    val vector = if (sellerRental || creatorRental) {
         val rental = instrumentation.context.assets.open("native-store-rental-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
         originalReference.deepCopy().apply {
             addProperty("snapshot", rental.get("masterSnapshot").asString)
@@ -139,7 +139,7 @@ internal fun withVaultReadingFixture(name: String, services: String = "archive||
                         }.toString()
                     }
                 }, archiveResponse = { criteria ->
-                    if (sellerNode != null) sellerNode.archive(criteria) else if (minted != null) minted.archive(criteria) else {
+                    archiveRead?.invoke(criteria) ?: if (sellerNode != null) sellerNode.archive(criteria) else if (minted != null) minted.archive(criteria) else {
                     val selected = inventoryRows.firstOrNull { it.get("id").asString == criteria.get("field4")?.asString }
                     if (selected != null) "[" + JsonObject().apply { addProperty("tx", selected.getAsJsonObject("key").get("envelope").asString) } + "]"
                     else "[]"

@@ -14,14 +14,18 @@ import java.net.InetAddress
 
 internal data class StorePurchaseScene(val node: OwnedStorePurchaseFixture, val activity: ActivityScenario<MainActivity>, val evidence: File, val rental: OwnedStoreRentalFixture? = null)
 
-internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, remainder: JsonObject? = null, rental: Boolean = false, block: (StorePurchaseScene) -> Unit) {
+internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 0, preserveOrders: Boolean = false, fullPurchase: Boolean = false, crypto: OwnedStoreCryptoFixture? = null, web3: Boolean = false, remainder: JsonObject? = null, rental: Boolean = false, browserRental: Boolean = false, rentalClock: Long = 1700004000000L, block: (StorePurchaseScene) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-    val vector = instrumentation.context.assets.open(if (rental) "native-store-rental-purchase-reference.json" else if (web3) "native-store-crypto-settlement-reference.json" else if (fullPurchase) "native-store-full-purchase-reference.json" else "native-store-purchase-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
-    val listing = instrumentation.context.assets.open(if (rental) "native-store-rental-listing-reference.json" else if (web3) "native-store-web3-listing-reference.json" else "native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
+    val vector = instrumentation.context.assets.open(if (rental) (if (web3) "native-store-rental-crypto-settlement-reference.json" else "native-store-rental-purchase-reference.json") else if (web3) "native-store-crypto-settlement-reference.json" else if (fullPurchase) "native-store-full-purchase-reference.json" else "native-store-purchase-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
+    val listing = instrumentation.context.assets.open(if (rental) (if (web3) "native-store-rental-web3-listing-reference.json" else "native-store-rental-listing-reference.json") else if (web3) "native-store-web3-listing-reference.json" else "native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
     val page = listing.getAsJsonObject("page").deepCopy()
     val publicArchives = linkedMapOf(listing.getAsJsonObject("listing").get("id").asString to listing.getAsJsonObject("listing").get("envelope").asString)
+    if (rental) {
+        for (record in listOf(vector.getAsJsonObject("purchase"), vector.getAsJsonObject("settlement").getAsJsonObject("fulfillment")))
+            publicArchives[record.get("id").asString] = record.get("envelope").asString
+    }
     remainder?.let { history ->
         val delivery = history.getAsJsonObject("settlement").getAsJsonObject("fulfillment")
         val purchase = history.getAsJsonObject("purchase")
@@ -46,6 +50,7 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
                 override fun dispatch(request: RecordedRequest): MockResponse {
                     val chain = crypto?.chains?.get(request.target.removePrefix("/network/chains/"))
                     if (request.target.startsWith("/network/chains/") && chain != null) return MockResponse(body = chain.toString())
+                    if (browserRental && request.target == "/balance/${buyer.publicKey}") return MockResponse(body = vector.getAsJsonObject("blocks").get("snapshot").asString.replaceBefore('-', System.currentTimeMillis().toString()))
                     val response = node.response(request.target)
                     val held = node.blockReadGate
                     if (request.target.startsWith("/block/") && held != null && node.holdNextBlock.compareAndSet(true, false)) {
@@ -60,9 +65,10 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             withAppFrameFixture(name, "store-purchase-evidence", feedRows = "[]", expectedTransactionCount = expectedTransactions,
                 peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||" + (if (crypto == null) "" else ";Mixin||;buysaito||") + (if (rental) ";vault||" else ""),
-                balanceApiUrl = "http://127.0.0.1:${server.port}/balance/",
+                balanceApiUrl = "http://127.0.0.1:${server.port}/balance/", rentalClockMillis = if (rental) rentalClock else null,
                 storeCryptoNetworksApi = crypto?.let { "http://127.0.0.1:${server.port}/network/chains/" }, archiveResponse = { criteria ->
-                    publicArchives[criteria.get("sig")?.asString]?.let { encoded ->
+                    (publicArchives[criteria.get("sig")?.asString] ?: if (rental && criteria.get("field4")?.asString == vector.get("nftId").asString)
+                        vector.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("envelope").asString else null)?.let { encoded ->
                         JsonArray().apply { add(JsonObject().apply { addProperty("tx", encoded) }) }.toString()
                     } ?: "[]"
                 }, configurePeer = { peer ->

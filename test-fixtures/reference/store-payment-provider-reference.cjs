@@ -1,6 +1,6 @@
 // Owned provider reference: exact pinned Mixin bodies, actual WASM carrier and web framing adapter.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto'),assert=require('assert'),cp=require('child_process');
-if(![6,7].includes(process.argv.length))throw Error('Usage: node store-payment-provider-reference.cjs runtime upstream acorn output [compatibility.patch]');
+if(![6,7,8].includes(process.argv.length)||(process.argv[7]&&process.argv[7]!=='--rental'))throw Error('Usage: node store-payment-provider-reference.cjs runtime upstream acorn output [compatibility.patch]');
 const runtime=path.resolve(process.argv[2]),upstream=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -40,7 +40,8 @@ global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=
  const statuses=vm.runInNewContext(transferSource.slice(open.start,open.end)+'\nOPEN_STATUSES');
  const Transfers=declare(transferSource,'Transfers',{...shared,OPEN_STATUSES:statuses});
  const BuySaito=declare(load('node/mods/mixin/lib/buysaito.js'),'BuySaitoService',shared);
- const vector=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-crypto-reference.json'),'utf8'));
+ const rental=process.argv.includes('--rental');
+ const vector=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(rental?'native-store-rental-crypto-reference.json':'native-store-crypto-reference.json')+''),'utf8'));
  const buyer=vector.buyer,provider=wasm.generate_public_key('0'.repeat(63)+'3');
  const rows=[];let next=1;
  const database={getCredentials:async()=>[],findAddress:async()=>({address:'0x0000000000000000000000000000000000000001'}),
@@ -53,7 +54,7 @@ global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=
   {ticker:'ERC-SAITO',price_usd:0.001,last_update:clock,returnMixinNetworkInfo:async()=>{}}];
  const mod={publicKey:provider,crypto_mods:cryptoMods,database,accounts:{getCredentials:()=>({user_id:'00000000-0000-4000-8000-000000000001'})},returnSaitoIssuancePublicKey:()=>provider};
  mod.transfers=new Transfers(app,mod);const service=new BuySaito(app,mod);
- const request={initiator_pubkey:buyer,recipient_pubkey:buyer,ticker:'USDT',expected_deposit:7.5,request_id:vector.carrier.id,tx:vector.carrier.envelope};
+ const request={initiator_pubkey:buyer,recipient_pubkey:buyer,ticker:'USDT',expected_deposit:rental?3.75:7.5,request_id:vector.carrier.id,tx:vector.carrier.envelope};
  const first=await Promise.all([service.startPurchase(buyer,request),service.startPurchase(buyer,request)]);
  assert.equal(first[0].request_id,vector.carrier.id,'Invoice must echo the saved request identity');
  assert.equal(first[0].purchase_signature,vector.carrier.id,'Invoice must identify its actual saved carrier');
@@ -103,15 +104,15 @@ global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=
   if(!installed){installed={...item.currency,asset_id:'owned-'+item.currency.ticker,price_usd:1,last_update:clock,returnMixinNetworkInfo:async()=>{}};mod.crypto_mods.push(installed);}
   const current=await service.startPurchase(buyer,{...request,ticker:item.currency.ticker,request_id:item.carrier.id,tx:item.carrier.envelope});
   assert.equal(current.purchase_signature,item.carrier.id);assert.equal(current.ticker,item.currency.ticker);
-  assert.equal(current.chain_id,item.currency.chain_id);assert.equal(current.expected_deposit,7.5);
+  assert.equal(current.chain_id,item.currency.chain_id);assert.equal(current.expected_deposit,rental?3.75:7.5);
   const saved=rows.find(r=>r.id===current.id);saved.status='failed';
   methodQuotes.push({currency:item.currency,carrier:item.carrier,quote:current});
  }
  const saitoQuotes=[];
  for(const item of vector.methodCarriers){
-  const next={...request,ticker:item.currency.ticker,request_id:vector.saitoCarrier.id,tx:vector.saitoCarrier.envelope,issue_amount:5,expected_deposit:0.0055};
+  const next={...request,ticker:item.currency.ticker,request_id:vector.saitoCarrier.id,tx:vector.saitoCarrier.envelope,issue_amount:rental?2.5:5,expected_deposit:rental?0.00275:0.0055};
   const quote=await service.startPurchase(buyer,next);
-  assert.equal(quote.purchase_signature,vector.saitoCarrier.id);assert.equal(quote.issue_amount,5);assert.equal(quote.expected_deposit,0.005501);
+  assert.equal(quote.purchase_signature,vector.saitoCarrier.id);assert.equal(quote.issue_amount,rental?2.5:5);assert.equal(quote.expected_deposit,rental?0.002751:0.005501);
   rows.find(row=>row.id===quote.id).status='failed';saitoQuotes.push({currency:item.currency,quote});
  }
  async function partialPayment(carrier,saito,ordinal){

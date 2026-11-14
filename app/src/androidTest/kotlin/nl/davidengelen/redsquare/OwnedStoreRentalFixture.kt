@@ -13,7 +13,8 @@ internal class OwnedStoreRentalFixture(private val reference: JsonObject) {
     @Volatile var activated = false
     @Volatile var reads = 0; private set
     @Volatile var checkouts = 0; private set
-    private val source = reference.getAsJsonObject("rentalAccess")
+    private val source = reference.getAsJsonObject("rentalAccess") ?: androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context.assets
+        .open("native-store-rental-purchase-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("rentalAccess") }
     fun reply(request: SignedSaitoMessage): String {
         check(request.author == reference.get("buyer").asString)
         reads++

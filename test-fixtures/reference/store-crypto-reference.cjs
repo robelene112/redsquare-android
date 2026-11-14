@@ -1,8 +1,8 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(process.argv.length!==6)throw Error('Usage: node store-crypto-reference.cjs runtime upstream acorn.js output');
+if(process.argv.length<6||process.argv.length>7||(process.argv[6]&&process.argv[6]!=='--rental'))throw Error('Usage: node store-crypto-reference.cjs runtime upstream acorn.js output');
 
-const quantity=2;
+const rental=process.argv.includes('--rental'),quantity=rental?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -31,7 +31,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 (async()=>{
  await wasm.initialize(JSON.stringify({server:{host:'127.0.0.1',port:0,protocol:'http',endpoint:{host:'127.0.0.1',port:0,protocol:'http'},verification_threads:1,channel_size:100,stat_timer_in_ms:5000,reconnection_wait_time:1000,thread_sleep_time_in_ms:10,block_fetch_batch_size:1},peers:[],spv_mode:true,browser_mode:true,consensus:{genesis_period:100000,heartbeat_interval:30000,prune_after_blocks:100,max_staker_recursions:1}}),'0'.repeat(63)+'4',0,1n,false);
  const wallet=await wasm.get_wallet(),buyer=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3');
- const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-listing-reference.json'),'utf8'));
+ const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(rental?'native-store-rental-listing-reference.json':'native-store-listing-reference.json')+''),'utf8'));
  const timestamp=1700003000000n;
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>buyer,createUnsignedTransactionWithDefaultFee:async(recipient,amount,fee)=>{
  const native=await wallet.createTransaction(recipient,amount,fee ?? 10000000n,false);

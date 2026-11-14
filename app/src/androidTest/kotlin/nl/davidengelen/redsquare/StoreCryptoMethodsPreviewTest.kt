@@ -57,13 +57,20 @@ class StoreCryptoMethodsPreviewTest {
     }
 }
 
-internal fun ComposeTestRule.openNativeStoreOtherMethods(quantity: String = "2") {
+internal fun ComposeTestRule.openNativeStoreOtherMethods(quantity: String = "2", illustrated: Boolean = false) {
     waitUntil(15_000) { onNodeWithText("Later").isDisplayed() }; onNodeWithText("Later").performClick()
     onNodeWithContentDescription("Switch app: Red Square").performClick()
     onNodeWithText("Store").performScrollTo().performClick()
     waitUntil(15_000) { onNodeWithText("Field notes access key").isDisplayed() }
     onNodeWithText("Field notes access key").performClick()
-    waitUntil(15_000) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
+    val started = android.os.SystemClock.elapsedRealtime()
+    if (illustrated) {
+        waitUntil(15_000) { onNode(hasText("Refresh Store") and isEnabled()).isDisplayed() }
+        onNode(hasScrollAction()).performScrollToNode(hasText("Original creator-authenticated field notes."))
+    }
+    val remaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - started)
+    check(remaining > 0)
+    waitUntil(remaining) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
     if (quantity != "1") {
         enterNativeStoreQuantity(quantity)
     }

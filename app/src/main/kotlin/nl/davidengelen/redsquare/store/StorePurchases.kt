@@ -153,10 +153,10 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         review = null; cryptoReview = null
         val result = withContext(Dispatchers.IO) {
             current(token)
-            if (product.assetType == "store-nft-rental") requireNotNull(SaitoStoreRental.offer(product))
             val count = quantity.toBigIntegerOrNull()?.takeIf { it.signum() > 0 && it <= BigInteger("9007199254740991") } ?: throw Terms()
             val prior = store.read().firstOrNull { it.backend == backend && it.product.signature == product.signature && it.receipt == null }
             if (prior != null) return@withContext prior to null
+            if (product.assetType == "store-nft-rental" && !requireNotNull(SaitoStoreRental.offer(product)).availableAt(rentalNowMillis(activity))) throw Terms()
             if (otherMethodsFor != product.signature) throw Terms()
             val provider = requireNotNull(providerKey); val service = requireNotNull(storeKey)
             val methods = SaitoPeer(wallet, endpoint).use { connection ->
@@ -196,7 +196,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
             current(token)
             val previous = store.read().firstOrNull { it.backend == backend && it.product.signature == product.signature && it.receipt == null }
             if (previous != null) return@withContext previous to null
-            if (product.assetType == "store-nft-rental") requireNotNull(SaitoStoreRental.offer(product))
+            if (product.assetType == "store-nft-rental" && !requireNotNull(SaitoStoreRental.offer(product)).availableAt(rentalNowMillis(activity))) throw Terms()
             val count = quantity.toBigIntegerOrNull() ?: throw Terms()
             val fee = networkFee.toBigDecimalOrNull()?.movePointRight(8)?.toBigIntegerExact() ?: throw Terms()
             if (count.signum() <= 0 || count > BigInteger("9007199254740991") || fee.signum() < 0 || fee.bitLength() > 64) throw Terms()
@@ -332,6 +332,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                             val product = order?.product ?: requireNotNull(reviewed).product
                             val count = order?.external?.carrier?.quantity ?: requireNotNull(reviewed).quantity
                             validateOffer(connection, product, count)
+                            if (product.assetType == "store-nft-rental" && !requireNotNull(SaitoStoreRental.offer(product)).availableAt(rentalNowMillis(activity))) throw Terms()
                             val selectedCurrency = order?.external?.currency ?: requireNotNull(reviewed).currency
                             val currentCurrency = methods.currencies.single { it.ticker == selectedCurrency.ticker && it.chainId == selectedCurrency.chainId }
                             val deposit = SaitoStoreCrypto.estimate(requireNotNull(product.price), count, currentCurrency, methods.saitoUsd, System.currentTimeMillis())
@@ -391,6 +392,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                         synchronized(SaitoLocalState.lock) {
                             operation.ensureActive(); current(token)
                             require(TransferStore(context, wallet.publicKey).available(terms.inputs) == terms.inputs)
+                            if (terms.product.assetType == "store-nft-rental" && !requireNotNull(SaitoStoreRental.offer(terms.product)).availableAt(rentalNowMillis(activity))) throw Terms()
                             val purchase = SaitoStorePurchase.create(wallet, terms.inputs, terms.store, terms.product.nftId,
                                 terms.quantity, terms.unit, BigInteger.ZERO, terms.fee, System.currentTimeMillis())
                             store.reserve(backend, purchase, terms.product)
@@ -401,6 +403,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                     val sending = currentCoroutineContext().job
                     val observation = if (order.mayHaveSent) observe(order, token) { sending.ensureActive() } else null
                     if (observation?.payment == null && observation?.receipt == null && order.payment == null && order.receipt == null) {
+                        if (!order.mayHaveSent && order.product.assetType == "store-nft-rental" && !requireNotNull(SaitoStoreRental.offer(order.product)).availableAt(rentalNowMillis(activity))) throw Terms()
                         val funding = requireNotNull(balances.funding(backend, wallet.publicKey))
                         require(requireNotNull(order.purchase).inputs.all { it in funding.eligible })
                         val operation = currentCoroutineContext().job
@@ -422,7 +425,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                 if (revision == token) {
                     try {
                         orders = withContext(Dispatchers.IO) { store.read() }
-                        problem = if (failure is Changed) Problem.CONTEXT else Problem.CONNECTION
+                        problem = when (failure) { is Changed -> Problem.CONTEXT; is Terms -> Problem.TERMS; else -> Problem.CONNECTION }
                     } catch (recovery: Exception) {
                         currentCoroutineContext().ensureActive(); problem = Problem.STORAGE
                     }

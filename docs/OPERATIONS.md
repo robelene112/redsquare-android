@@ -108,7 +108,25 @@ the instantiated loan after expiry while file authentication keeps the original
 master commitment. Local eligibility displays do not grant provider authority.
 The rental reference generator additionally needs hash-checked acorn8.19.0 as an
 explicit parser argument; it executes isolated official bodies, not the full web
-client. Store checkout runtime acceptance belongs to114.
+client. Store rental checkout uses the original signed master file and a separate
+Store rental entitlement; listing creation fixes the end time. It does not start a
+new duration at payment. Archive has one active owner script per file. The first
+undelegated path hop fixes the renter, including later delegation.
+
+Pinned Archive rejects a repeated master checkout once ownership is the loan hash.
+Native explicit reads therefore try the saved loan before initial activation.
+The creator can use that loan after provider expiry. Explicit restoration to the
+master requires the source-only, undeployed
+`integrations/saito/vault-rental-recovery.patch`. It adds server-only restoration
+and an optional metadata owner compare-and-swap while preserving Archive's actual
+script/actor/NOW authorization and original signed file. The node advertises
+`vault-rental-restore`; older nodes show the unavailable state without an unknown
+RPC timeout. The patch must be reviewed/rehearsed against the actual deployed
+Archive schema/runtime before separately authorized activation. It has only been
+rehearsed against pinned public source and an isolated SQLite/WASM adapter, never
+production configuration or databases. This does not establish a live provider's
+availability, concurrent access for different renters, or remotely recallable
+copies.
 
 The native file bound is 4 MiB, below the reference browser's 100 MiB. It preserves
 the existing 8 MiB signed-envelope and 16 MiB peer-response budgets. Local copies

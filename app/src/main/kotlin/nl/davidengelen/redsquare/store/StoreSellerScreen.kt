@@ -168,7 +168,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                 val chosen = stock ?: selling.inventory.firstOrNull { it.holding.id + ":" + it.holding.creator == draft.item }
                 val terms = runCatching { StoreListingTerms(draft.title, draft.description, chosen?.let { StoreCategory.forType(it.holding.type) } ?: StoreCategory.OTHER,
                     draft.price, draft.quantity.toBigInteger(), draft.currency,
-                    chosen?.takeIf { it.holding.type == "store-nft-rental" }?.envelope?.let { StoreRentalSource.read(chosen.holding.creator, SaitoStoreListing.metadata(chosen.holding, it).getAsJsonObject("data")) }) }.getOrNull()
+                    chosen?.rental) }.getOrNull()
                 Button(enabled = !draft.rental && loaded && selling.localReady && !storageError && !selling.busy && chosen?.hasMetadata == true && terms != null &&
                     (terms.currency == "SAITO" || selling.pricing?.methods?.currencies.orEmpty().any { it.ticker == terms.currency }),
                     onClick = { keyboard?.hide(); selling.prepare(requireNotNull(chosen), requireNotNull(terms)) { editing = false } }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_review)) }

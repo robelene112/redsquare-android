@@ -1,8 +1,8 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(process.argv.length<6||process.argv.length>8||process.argv.slice(6).some(v=>!['--partial','--saito'].includes(v)))throw Error('Usage: node store-crypto-settlement-reference.cjs runtime upstream acorn output [--partial] [--saito]');
+if(process.argv.length<6||process.argv.length>9||process.argv.slice(6).some(v=>!['--partial','--saito','--rental'].includes(v)))throw Error('Usage: node store-crypto-settlement-reference.cjs runtime upstream acorn output [--partial] [--saito]');
 
-const partial=process.argv.includes('--partial'),saito=process.argv.includes('--saito'),quantity=partial?1:2;
+const rental=process.argv.includes('--rental'),partial=process.argv.includes('--partial'),saito=process.argv.includes('--saito'),quantity=rental||partial?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -11,6 +11,7 @@ const hashes={
  'node/mods/store/lib/helpers.js':'a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce',
  'node/mods/store/lib/summary.js':'e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a'
 };
+if(rental) hashes['node/mods/store/store.js']='5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f';
 for(const [name,expected]of Object.entries(hashes))if(sha(fs.readFileSync(path.join(root,name)))!==expected)throw Error('Wrong pinned source: '+name);
 if(sha(fs.readFileSync(parser))!=='b95392d79457d0357555c5ed3e56302d074b92dff119bcf3b44179500b10e9df')throw Error('Wrong acorn8.19.0');
 const acorn=require(parser),wasm=require(path.join(runtime,'node_modules/saito-wasm/pkg/node')),base58=require(path.join(runtime,'node_modules/base-58'));
@@ -31,14 +32,14 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 (async()=>{
  await wasm.initialize(JSON.stringify({server:{host:'127.0.0.1',port:0,protocol:'http',endpoint:{host:'127.0.0.1',port:0,protocol:'http'},verification_threads:1,channel_size:100,stat_timer_in_ms:5000,reconnection_wait_time:1000,thread_sleep_time_in_ms:10,block_fetch_batch_size:1},peers:[],spv_mode:true,browser_mode:true,consensus:{genesis_period:100000,heartbeat_interval:30000,prune_after_blocks:100,max_staker_recursions:1}}),'0'.repeat(63)+'4',0,1n,false);
  const wallet=await wasm.get_wallet(),buyer=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3');
- const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(saito?'native-store-listing-reference.json':'native-store-web3-listing-reference.json')),'utf8'));
+ const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(rental?(saito?'native-store-rental-listing-reference.json':'native-store-rental-web3-listing-reference.json'):(saito?'native-store-listing-reference.json':'native-store-web3-listing-reference.json'))),'utf8'));
  const timestamp=1700003000000n;let carrierTime=timestamp,activeBuyer=buyer;
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>activeBuyer,createUnsignedTransactionWithDefaultFee:async(recipient,amount,fee)=>{
  const native=await wallet.createTransaction(recipient,amount,fee??10000000n,false);
  return {native,msg:{},sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=carrierTime;await native.sign();this.signature=native.signature}};
  }}};
- const provider=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-provider-reference.json'),'utf8'));
- const selected=partial?provider[saito?'saitoPartial':'partial']:provider;
+ const provider=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(rental?'native-store-rental-provider-reference.json':'native-store-provider-reference.json')+''),'utf8'));
+ const selected=partial||saito?provider[saito?'saitoPartial':'partial']:provider;
  const created={native:wasm.WasmTransaction.deserialize(Buffer.from(selected.issuance.networkBase64,'base64')),msg:selected.issuedBody};
  const signed=selected.issuance,wire=Buffer.from(signed.networkBase64,'base64');
  const paymentAmount=wire.readBigUInt64BE(93+wire.readUInt32BE(0)*59+33);
@@ -51,16 +52,24 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  helperGlobals.listingInputSlipJsonFromRecord=vm.runInNewContext('('+fn('helpers','listingInputSlipJsonFromRecord')+')',helperGlobals);
  helperGlobals.parseAccessScript=vm.runInNewContext('('+fn('scripting','parseAccessScript')+')',helperGlobals);
  helperGlobals.signAccessScriptWitness=vm.runInNewContext('('+fn('scripting','signAccessScriptWitness')+')',helperGlobals);
- const settlementGlobals={...helperGlobals,Buffer,Transaction,TransactionType:{Bound:8},SaitoNFT:class{ returnType(){return 'vault-nft-key'} },Date:{now:()=>1700004000000},console:consoleAdapter};
+ const settlementGlobals={...helperGlobals,Buffer,Transaction,TransactionType:{Bound:8},SaitoNFT:class{
+  constructor(app,mod,tx){this.app=app;this.tx=tx;this.data=tx.msg.data;}
+  returnType(){return rental?'store-nft-rental':'vault-nft-key'}
+  async modifyBeforeSend(tx,to,data){
+   const code=fs.readFileSync(path.join(root,'node/mods/store/store.js'),'utf8'),klass=acorn.parse(code,{ecmaVersion:'latest'}).body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Store'),n=klass.body.body.find(n=>n.key?.name==='respondTo');
+   const hook=vm.runInNewContext('({'+code.slice(n.start,n.end)+'})',{Buffer,Date:{now:()=>1700004000000}}).respondTo.call({app:{...this.app,wallet:{...this.app.wallet,getPrivateKey:async()=> '0'.repeat(63)+'3'}}},'saito-nft-transfer').onTransfer;
+   return hook(this,tx,to,data);
+  }
+ },Date:{now:()=>1700004000000},console:consoleAdapter};
  settlementGlobals.partitionCustodyDeposit=vm.runInNewContext('('+fn('transactions','partitionCustodyDeposit')+')',settlementGlobals);
  const methods=['attachFulfillmentTxmsg','createFulfillmentTransaction','createOrderRefundTransaction'].map(name=>method('transactions',name));
  const storeMethods=vm.runInNewContext('({'+methods.join(',')+'})',settlementGlobals);
  const storeScalar='0'.repeat(63)+'3';await wallet.set_private_key(storeScalar);await wallet.set_public_key(store);
- const storeApp={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex')),fromBase58:key=>Buffer.from(base58.decode(key)).toString('hex'),hash:bytes=>wasm.hash(bytes)},wallet:{convertSaitoToNolan:value=>BigInt(String(value))*100000000n,signMessage:async message=>wasm.sign_buffer(Buffer.from(message),storeScalar)}};
+ const storeApp={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex')),fromBase58:key=>Buffer.from(base58.decode(key)).toString('hex'),hash:bytes=>wasm.hash(typeof bytes==='string'?Buffer.from(bytes):bytes),signMessage:(v,k)=>wasm.sign_buffer(Buffer.from(v),k)},wallet:{convertSaitoToNolan:value=>BigInt(String(value))*100000000n,signMessage:async message=>wasm.sign_buffer(Buffer.from(message),storeScalar)}};
  function confirmedOutput(network,index,height,ordinal){const b=Buffer.from(network,'base64'),o=93+(b.readUInt32BE(0)+index)*59,k=b.subarray(o,o+33),amount=b.readBigUInt64BE(o+33);const u=Buffer.alloc(59);k.copy(u);u.writeBigUInt64BE(BigInt(height),33);u.writeBigUInt64BE(BigInt(ordinal),41);u[49]=index;u.writeBigUInt64BE(amount,50);u[58]=b[o+58];return {publicKey:base58.encode(k),amount:String(amount),type:b[o+58],index,blockId:String(height),txOrdinal:String(ordinal),utxoKey:u.toString('hex')};}
  const purchaseOutput=confirmedOutput(signed.networkBase64,0,21,0),triple=[0,1,2].map(index=>confirmedOutput(listing.listing.networkBase64,index,20,0));
  const order={order_tx_sig:signed.id,buyer,nft_id:listing.nftId,quantity,price:saito?250000000:0,payment_amount:String(paymentAmount),inbound_payment_uuid:selected.issuedBody.inbound_payment_uuid,transfer_uuid:selected.issuedBody.transfer_uuid,payment_tx_sig:signed.id,payment_output_index:0,utxo_slip:purchaseOutput,access_script:created.msg.access_script};
- const row={signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:2,take_qty:quantity,price:saito?250000000:0,web3_ticker:saito?'':'USDT',web3_amount:saito?'':'3.75',p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
+ const row={signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:rental?1:2,take_qty:quantity,price:saito?250000000:0,web3_ticker:saito?'':'USDT',web3_amount:saito?'':'3.75',p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
  const mod={app:storeApp,fee:0,...storeMethods};
  const delivered=await mod.createFulfillmentTransaction(order,[row],{msg:listing.body});
  const refund=await mod.createOrderRefundTransaction({order_row:order,reason:'insufficient-quantity'});await refund.sign();
@@ -103,5 +112,5 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
 
 
  const slips=[];for(let i=0;i<wire.readUInt32BE(0)+wire.readUInt32BE(4);i++){const o=93+i*59;slips.push({key:base58.encode(wire.subarray(o,o+33)),amount:String(wire.readBigUInt64BE(o+33)),block:String(wire.readBigUInt64BE(o+41)),ordinal:String(wire.readBigUInt64BE(o+49)),index:wire[o+57],type:wire[o+58]});}
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,providerReferenceSha256:sha(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-provider-reference.json'))),qualification:'Actual provider-issued transaction from the separately hash-bound provider reference, then actual isolated official Store fulfillment/refund builders and script helpers with WASM transaction/slip wrappers. Controlled input-copy adapter; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,carrier:selected.carrier,invoice:selected.quote,providerStatus:selected.issuedStatus,nextCarrier,nextBuyer:nextCarrier?activeBuyer:null,nextTimestamp:nextCarrier?String(carrierTime):null,body:created.msg,settlement,blocks,exactNumbers,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,providerReferenceSha256:sha(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(rental?'native-store-rental-provider-reference.json':'native-store-provider-reference.json')+''))),qualification:'Actual provider-issued transaction from the separately hash-bound provider reference, then actual isolated official Store fulfillment/refund builders and script helpers with WASM transaction/slip wrappers. Controlled input-copy adapter; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,carrier:selected.carrier,invoice:selected.quote,providerStatus:selected.issuedStatus,nextCarrier,nextBuyer:nextCarrier?activeBuyer:null,nextTimestamp:nextCarrier?String(carrierTime):null,body:created.msg,settlement,blocks,exactNumbers,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

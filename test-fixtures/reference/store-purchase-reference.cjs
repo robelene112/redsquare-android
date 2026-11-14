@@ -1,8 +1,8 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--full','--rental'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--full','--rental','--rental-partial'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
 
-const rental=process.argv[6]==='--rental',quantity=process.argv[6]==='--full'?2:1;
+const rental=process.argv[6]?.startsWith('--rental'),quantity=process.argv[6]==='--full'?2:1;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -72,7 +72,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  function confirmedOutput(network,index,height,ordinal){const b=Buffer.from(network,'base64'),o=93+(b.readUInt32BE(0)+index)*59,k=b.subarray(o,o+33),amount=b.readBigUInt64BE(o+33);const u=Buffer.alloc(59);k.copy(u);u.writeBigUInt64BE(BigInt(height),33);u.writeBigUInt64BE(BigInt(ordinal),41);u[49]=index;u.writeBigUInt64BE(amount,50);u[58]=b[o+58];return {publicKey:base58.encode(k),amount:String(amount),type:b[o+58],index,blockId:String(height),txOrdinal:String(ordinal),utxoKey:u.toString('hex')};}
  const purchaseOutput=confirmedOutput(signed.networkBase64,0,21,0),triple=[0,1,2].map(index=>confirmedOutput(listing.listing.networkBase64,index,20,0));
  const order={order_tx_sig:signed.id,buyer,nft_id:listing.nftId,quantity,price:250000000,payment_amount:String(250000000n*BigInt(quantity)),payment_tx_sig:signed.id,payment_output_index:0,utxo_slip:purchaseOutput,access_script:created.msg.access_script};
- const row={signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:rental?1:2,take_qty:quantity,price:250000000,p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
+ const row={signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:rental&&process.argv[6]!=='--rental-partial'?1:2,take_qty:quantity,price:250000000,p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
  const mod={app:storeApp,fee:0,...storeMethods};
  const delivered=await mod.createFulfillmentTransaction(order,[row],{msg:listing.body});
  const refund=await mod.createOrderRefundTransaction({order_row:order,reason:'insufficient-quantity'});await refund.sign();

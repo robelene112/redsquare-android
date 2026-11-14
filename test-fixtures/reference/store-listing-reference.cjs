@@ -1,7 +1,7 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3','--rental','--rental-web3'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
-const rental=process.argv[6]?.startsWith('--rental'),web3=['--web3','--rental-web3'].includes(process.argv[6]),illustrated=process.argv[6]==='--image',quantity=rental||process.argv[6]==='--partial'?1:2;
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3','--rental','--rental-web3','--rental-multiple'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+const rental=process.argv[6]?.startsWith('--rental'),web3=['--web3','--rental-web3','--rental-multiple'].includes(process.argv[6]),illustrated=process.argv[6]==='--image',quantity=(rental&&process.argv[6]!=='--rental-multiple')||process.argv[6]==='--partial'?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -26,7 +26,7 @@ globals.slipPublicKey=vm.runInNewContext('('+fn('helpers','slipPublicKey')+')',g
 const factory=vm.runInNewContext(fn('transactions','p2shPaymentRecipient')+'\n({'+method('transactions','createListAssetTransaction')+'})',globals).createListAssetTransaction;
 const source=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-vault-reference.json'),'utf8'));
 if(rental){
- const mint=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-rental-reference.json'),'utf8'));
+ const mint=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/'+(process.argv[6]==='--rental-multiple'?'native-store-rental-multiple-reference.json':'native-store-rental-reference.json')+''),'utf8'));
  const b=Buffer.from(mint.mint.networkBase64,'base64'),count=b.readUInt32BE(0);
  const witnesses=[0,1,2].map(index=>{const p=93+(count+index)*59,u=Buffer.alloc(59);b.copy(u,0,p,p+33);u.writeBigUInt64BE(2000002n,33);u.writeBigUInt64BE(1n,41);u[49]=index;b.copy(u,50,p+33,p+41);u[58]=b[p+58];return u.toString('hex')});
  source.id=b.subarray(93+(count+2)*59,126+(count+2)*59).toString('hex');source.key=mint.mint;
@@ -42,7 +42,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  await wallet.add_nft(w.utxokey1,w.utxokey2,w.utxokey3,source.id,source.key.id,rental?'store-nft-rental':'vault-nft-key');
  const txmsg=JSON.parse(Buffer.from(JSON.parse(source.key.envelope).m,'base64').toString());
  if(illustrated)txmsg.data.image=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-images-reference.json'),'utf8')).images.red;
- const nft={id:source.id,amount:rental?1:2,tx:{returnMessage:()=>txmsg},txmsg,returnType:()=> rental?'store-nft-rental':'vault-nft-key',modifyBeforeSend:async tx=>tx};
+ const nft={id:source.id,amount:quantity,tx:{returnMessage:()=>txmsg},txmsg,returnType:()=> rental?'store-nft-rental':'vault-nft-key',modifyBeforeSend:async tx=>tx};
  if(rental){
   const code=fs.readFileSync(path.join(root,'node/mods/store/store.js'),'utf8'),klass=acorn.parse(code,{ecmaVersion:'latest'}).body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Store'),n=klass.body.body.find(n=>n.key?.name==='respondTo');
   const hook=vm.runInNewContext('({'+code.slice(n.start,n.end)+'})',{Buffer,Date:{now:()=>Number(timestamp)}}).respondTo.call({app:{crypto:{hash:v=>wasm.hash(Buffer.from(v)),signMessage:(v,k)=>wasm.sign_buffer(Buffer.from(v),k)},wallet:{getPrivateKey:async()=>scalar}}},'saito-nft-transfer').onTransfer;

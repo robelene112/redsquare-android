@@ -81,4 +81,70 @@ class SaitoStoreRentalTest {
         assertEquals(1700012800000L, requireNotNull(path.grant).expiresAt)
         assertThrows(IllegalArgumentException::class.java) { SaitoStoreRental.creatorEntitlement(product, receipt, "[]") }
     }
+    @Test fun everyAdvertisedMethodRetainsTheActualRentalCarrierAndAuthenticatesProviderFundedAccess() {
+        fun fixture(name: String) = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/$name.json")).bufferedReader().use { it.readText() }).asJsonObject
+        val vector = fixture("native-store-rental-crypto-reference")
+        val provider = fixture("native-store-rental-provider-reference")
+        val methods = SaitoStoreCrypto.readMethods(vector.get("methods").toString())
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val carrier = SaitoStoreCarrier.create(wallet, vector.get("store").asString, vector.get("nftId").asString,
+            java.math.BigInteger.ONE, StorePrice("SAITO", java.math.BigDecimal("2.5")), vector.get("timestamp").asLong)
+        assertEquals(vector.getAsJsonObject("saitoCarrier").get("networkBase64").asString, carrier.transaction.encoded())
+        assertEquals(7, provider.getAsJsonArray("saitoQuotes").size())
+        for (value in provider.getAsJsonArray("saitoQuotes")) {
+            val row = value.asJsonObject
+            val currency = methods.currencies.single { it.ticker == row.getAsJsonObject("currency").get("ticker").asString }.copy(usd = java.math.BigDecimal.ONE)
+            val invoice = SaitoStoreCrypto.readInvoice(carrier, currency, provider.get("provider").asString, row.get("quote").toString())
+            assertEquals(0, java.math.BigDecimal("0.002751").compareTo(invoice.amount))
+            assertEquals(0, SaitoStoreCrypto.estimate(carrier.price, carrier.quantity, currency, java.math.BigDecimal("0.001"), vector.get("timestamp").asLong).compareTo(invoice.amount))
+        }
+        for ((paymentName, listingName) in listOf("native-store-rental-crypto-settlement-reference" to "native-store-rental-web3-listing-reference",
+            "native-store-rental-saito-provider-settlement-reference" to "native-store-rental-listing-reference")) {
+            val payment = fixture(paymentName); val offer = fixture(listingName)
+            val original = SaitoStoreCarrier.restore(payment.getAsJsonObject("carrier").get("networkBase64").asString)
+            val currency = methods.currencies.single { it.ticker == "USDT" }
+            val invoice = SaitoStoreCrypto.readInvoice(original, currency, payment.get("store").asString, payment.get("invoice").toString())
+            val funded = SaitoStoreIssuance.read(original, invoice, payment.get("providerStatus").toString())
+            val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(offer.get("page").toString()).items.single(), offer.getAsJsonObject("listing").get("envelope").asString))
+            val received = payment.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("networkBase64").asString
+            val path = SaitoStoreRental.entitlement(funded, product, received)
+            assertEquals(wallet.publicKey, requireNotNull(path.grant).renter)
+            assertEquals(1700012800000L, requireNotNull(path.grant).expiresAt)
+            assertEquals("dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe", path.fileId)
+        }
+    }
+    @Test fun aBrowserPurchasedHoldingRecoversItsSignedRentalWithoutAnyLocalAndroidOrder() {
+        fun fixture(name: String) = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/$name.json")).bufferedReader().use { it.readText() }).asJsonObject
+        val offer = fixture("native-store-rental-listing-reference")
+        val paid = fixture("native-store-rental-purchase-reference")
+        val owner = paid.get("buyer").asString
+        val holding = SaitoBalanceSnapshot.parse(paid.getAsJsonObject("blocks").get("snapshot").asString.toByteArray(), owner, 1700004000000).nfts.single()
+        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(offer.get("page").toString()).items.single(), offer.getAsJsonObject("listing").get("envelope").asString))
+        val envelope = paid.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("envelope").asString
+        val refs = SaitoStoreRental.publicReceipt(envelope)
+        assertEquals(product.signature, refs.inventory)
+        assertEquals(paid.getAsJsonObject("purchase").get("id").asString, refs.payment)
+        val archive = com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply { add("tx", paid.getAsJsonObject("purchase").get("envelope")) }) }.toString()
+        val path = SaitoStoreRental.heldEntitlement(holding, product, envelope, archive)
+        assertEquals(owner, requireNotNull(path.grant).renter)
+        assertEquals(1700012800000L, requireNotNull(path.grant).expiresAt)
+        val source = requireNotNull(SaitoStoreRental.offer(product)).source
+        val metadata = source.data("").apply { addProperty("link", "https://saitoverse.com/vault") }
+        assertEquals("https://saitoverse.com/vault", StoreRentalSource.read(product.creator, metadata).data("").get("link").asString)
+        assertFalse(requireNotNull(SaitoStoreRental.offer(product)).availableAt(1700012800000L))
+    }
+    @Test fun anActualPartialRentalFulfillmentLeavesAssignedInventoryUnavailableForAnotherPayment() {
+        fun fixture(name: String) = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/$name.json")).bufferedReader().use { it.readText() }).asJsonObject
+        val original = fixture("native-store-rental-multiple-listing-reference")
+        val paid = fixture("native-store-rental-partial-reference")
+        val delivery = paid.getAsJsonObject("settlement").getAsJsonObject("fulfillment")
+        val rows = listOf(original.getAsJsonObject("listing"), paid.getAsJsonObject("purchase"), delivery).associate { it.get("id").asString to it.get("envelope").asString }
+        val remaining = requireNotNull(SaitoStoreLineage.read(delivery.get("id").asString) { id -> rows[id]?.let { encoded ->
+            com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply { addProperty("tx", encoded) }) }.toString()
+        } })
+        assertEquals(java.math.BigInteger.ONE, remaining.quantity)
+        val offer = requireNotNull(SaitoStoreRental.offer(remaining))
+        assertEquals(paid.get("buyer").asString, requireNotNull(offer.path.grant).renter)
+        assertFalse(offer.availableAt(1700004000001L))
+    }
 }

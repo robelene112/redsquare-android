@@ -1250,4 +1250,6 @@
     <string name="vault_rental_restore_terms">After expiry, the creator can restore master access. The service checks the current rental and its end time. Downloaded copies cannot be recalled.</string>
     <string name="vault_rental_restored">Master access restored on this node.</string>
     <string name="vault_rental_restore_unavailable">This node does not offer rental restoration yet. Your master key stays yours.</string>
+    <string name="store_rental_ended">This rental has ended. It cannot be purchased again.</string>
+    <string name="store_rental_assigned">This rental is already assigned. Remaining inventory does not provide a new rental period.</string>
 </resources>

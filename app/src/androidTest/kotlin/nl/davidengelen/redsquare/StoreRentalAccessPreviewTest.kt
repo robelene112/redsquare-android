@@ -44,7 +44,7 @@ class StoreRentalAccessPreviewTest {
                     .respondWith(android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_OK, android.content.Intent().setData(destination).addFlags(android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION)))
                 payAndOpen(scene, device)
                 ui.onNodeWithText("Keep offline").performScrollTo().performClick()
-                ui.waitUntil(15_000) { ui.onNodeWithText("Saved for offline use").isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
                 val provider = requireNotNull(scene.rental)
                 assertEquals(1, provider.checkouts)
                 val reads = provider.reads
@@ -52,14 +52,57 @@ class StoreRentalAccessPreviewTest {
                 ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }
                 assertEquals(reads, provider.reads)
                 provider.time = OwnedStoreRentalFixture.Time.AFTER; provider.available = false
-                ui.onNodeWithText("Save as").performScrollTo().performClick()
-                ui.waitUntil(15_000) { ui.onNodeWithText("File saved").isDisplayed() && ui.onNode(hasText("Save as") and isEnabled()).isDisplayed() }
+                ui.onNodeWithText("Save as…").performScrollTo().performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("File saved").isDisplayed() && ui.onNode(hasText("Save as…") and isEnabled()).isDisplayed() }
                 val expected = java.util.Base64.getDecoder().decode(scene.node.reference.getAsJsonObject("rentalAccess").get("contentsBase64").asString)
                 assertArrayEquals(expected, context.contentResolver.openInputStream(destination)!!.use { it.readBytes() })
                 assertEquals(reads, provider.reads); assertEquals(1, provider.checkouts)
                 assertEquals(1, scene.node.peer.transactions.size)
                 captureNativeScreen(File(scene.evidence, "rental-cached-exact-export-after-expiry-outage.png"))
             } finally { androidx.test.espresso.intent.Intents.release() }
+        }
+    }
+    @Test fun aBrowserPurchasedRentalAppearsWithoutAnyLocalOrderAndUsesItsActualProviderGrant() {
+        withStorePurchaseFixture("rental-browser-import", rental = true, browserRental = true) { scene ->
+            ui.openNativeVault()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            assertTrue(nl.davidengelen.redsquare.saito.StoreOrderStore(context, scene.node.reference.get("buyer").asString).read().isEmpty())
+            ui.onNodeWithText("Keep offline").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
+            assertEquals(1, requireNotNull(scene.rental).checkouts)
+            assertTrue(scene.node.peer.transactions.isEmpty())
+            captureNativeScreen(File(scene.evidence, "browser-rental-imported-wallet-native-vault.png"))
+        }
+    }
+    @Test fun anEndedRentalHasNoNewPaymentAction() {
+        withStorePurchaseFixture("rental-ended", rental = true, rentalClock = 1700012800000L) { scene ->
+            ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }; ui.onNodeWithText("Later").performClick()
+            ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
+            ui.onNodeWithText("Store").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
+            ui.onNodeWithText("Field notes access key").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Refresh Store") and isEnabled()).isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("This rental has ended. It cannot be purchased again."))
+            ui.onNodeWithText("This rental has ended. It cannot be purchased again.").assertIsDisplayed()
+            ui.onAllNodesWithText("Review purchase").assertCountEquals(0)
+            ui.onAllNodesWithText("Other payment methods").assertCountEquals(0)
+            assertTrue(scene.node.peer.transactions.isEmpty())
+            captureNativeScreen(File(scene.evidence, "ended-rental-no-financial-action.png"))
+        }
+    }
+    @Test fun expiryDuringAuthenticationCannotCreateOrSendANewRentalPayment() = withVaultDeviceCredential { device ->
+        withStorePurchaseFixture("rental-auth-expiry", rental = true) { scene ->
+            ui.openStorePurchaseProduct(illustrated = true)
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Confirm and pay").performScrollTo().performClick()
+            waitForSystemPin(device)
+            scene.activity.onActivity { it.intent.putExtra("storeRentalFixtureTime", 1700012800000L) }
+            enterRealSystemPin(device)
+            ui.waitUntil(15_000) { ui.onNodeWithText("Check the quantity and fee, then refresh this offer. Its terms or available stock may have changed.").isDisplayed() }
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            assertTrue(nl.davidengelen.redsquare.saito.StoreOrderStore(context, scene.node.reference.get("buyer").asString).read().isEmpty())
+            assertTrue(scene.node.peer.transactions.isEmpty())
         }
     }
 }

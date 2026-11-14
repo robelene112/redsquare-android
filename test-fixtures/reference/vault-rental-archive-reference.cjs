@@ -42,6 +42,21 @@ const row=()=>db.prepare('SELECT * FROM archives WHERE sig=?').get(rental.fileId
  if(restoredCreator!==1||row().owner!==rental.masterHash||row().tx!==file)throw Error('Actual expired creator restoration failed');
  let compatibility=null;
  if(compatible){
+  const vaultCode=fs.readFileSync(path.join(root,'node/mods/vault/vault.js'),'utf8');
+  if(sha(vaultCode)!=='3f3cf8f5fbaeb977736c55c953e32b2c49ead0021c31b4c940ade25f2d048411')throw Error('Wrong compatible Vault source');
+  const vaultClass=acorn.parse(vaultCode,{ecmaVersion:'latest'}).body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Vault');
+  const method=name=>{const n=vaultClass.body.body.find(n=>n.key?.name===name);return vm.runInNewContext('({'+vaultCode.slice(n.start,n.end)+'})')[name]};
+  const services=method('returnServices'),handle=method('handlePeerTransaction'),advertisements=[];
+  for(const browser of [false,true]){
+   const app={BROWSER:browser,network:{createPeerService:(_,service)=>({service})}};
+   const owner={app,offerService:true,receiveRestoreRentalTransaction:()=>{throw Error('Unexpected server restoration')}};
+   const actual=services.call(owner).map(s=>s.service);
+   if(JSON.stringify(actual)!==JSON.stringify(browser?['vault']:['vault','vault-rental-restore']))throw Error('Wrong restoration service advertisement');
+   let capability;await handle.call(owner,app,{returnMessage:()=>({request:'vault rental capabilities'})},null,r=>{capability=r});
+   if(capability.rental_restore_protocol!==(browser?0:1))throw Error('Wrong runtime capability');
+   if(browser){let denied;await handle.call(owner,app,{returnMessage:()=>({request:'vault restore rental'})},null,r=>{denied=r});if(denied.err!=='server_required')throw Error('Browser must not accept restoration')}
+   advertisements.push({browser,actual,capability});
+  }
   const receiverCode=fs.readFileSync(path.join(root,'node/mods/vault/lib/transactions/rental-checkout.js'),'utf8');
   if(sha(receiverCode)!=='03b8e633982f34447d92c400e432d883efdd569d267549306e6d6f81616370af')throw Error('Wrong compatible receiver');
   const fn=acorn.parse(receiverCode,{ecmaVersion:'latest'}).body.find(n=>n.type==='FunctionDeclaration'&&n.id.name==='receiveRestoreRentalTransaction');
@@ -66,7 +81,7 @@ const row=()=>db.prepare('SELECT * FROM archives WHERE sig=?').get(rental.fileId
   // A stale reset may not replace a newly activated loan.
   const stale=await update.call(archive,null,{sig:rental.fileId,owner:rental.masterHash,expected_owner:rental.masterHash,access_script:JSON.stringify(master),request_tx:creator});
   if(stale!==0||row().owner!==finalOwner||row().tx!==file)throw Error('Stale owner transition rewrote the newer loan or original file');
-  compatibility={receiverSha256:sha(receiverCode),deniedBefore,deniedAt,deniedRenter,deniedOtherLoan,restored,repeatedRestore,concurrentResults:race,staleReset:stale};
+  compatibility={vaultSha256:sha(vaultCode),advertisements,receiverSha256:sha(receiverCode),deniedBefore,deniedAt,deniedRenter,deniedOtherLoan,restored,repeatedRestore,concurrentResults:race,staleReset:stale};
  }
  const result={authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',archiveSha256:sha(code),saitoWasm:'0.3.15',sqlite:db.prepare('select sqlite_version() AS v').get().v,qualification:'Actual isolated Archive.updateTransaction method, actual SQLite with the four used columns, actual WASM requester/NOW/DB evaluation. No initialized Vault/Archive frontend, live provider or consensus. Compatible variant additionally executes the new restore receiver with an explicit request/WASM-actor adapter and conditional actual Archive SQL.'},compatibility,fileId:rental.fileId,first,repeated,earlyCreator,expiredRenter,restoredCreator,originalSignedFileUnchanged:row().tx===file};
  fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');db.close();console.log('Actual Archive confirms replay denial and expiry-authorized creator restoration');

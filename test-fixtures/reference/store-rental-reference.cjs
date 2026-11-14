@@ -1,6 +1,6 @@
 // Independent Vault mint fixture. Known unsafe test identity; never fund. No network or real storage.
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
-if(process.argv.length!==6)throw Error('Usage: node store-rental-reference.cjs runtime upstream acorn output');
+if(process.argv.length<6||process.argv.length>7||(process.argv[6]&&process.argv[6]!=='--multiple'))throw Error('Usage: node store-rental-reference.cjs runtime upstream acorn output');
 const runtime=path.resolve(process.argv[2]), source=path.resolve(process.argv[3]);
 const hashes={
  'node/mods/store/store.js':'5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f',
@@ -51,7 +51,7 @@ async function message(owner,body,time){
  const metadata={link:'https://saito.io/vault',nft_type:'vault-nft-rental',filename:vaultMint.name,file_id:rental.fileId,file_access_script:rental.masterSource,duration_hours:3,duration_ms:10800000,rights:'all',image};
  const data=await hooks.respondTo.call({},'saito-create-nft').createData(image,metadata);
  const body={data,title:'Three hours of field notes',description:'Temporary access. Downloaded copies cannot be recalled.'};
- const mint=await wallet.createBoundTransaction(1n,100000000n,Buffer.from(JSON.stringify(body)),0n,owner,'store-nft-rental');
+ const mint=await wallet.createBoundTransaction(process.argv[6]==='--multiple'?2n:1n,process.argv[6]==='--multiple'?200000000n:100000000n,Buffer.from(JSON.stringify(body)),0n,owner,'store-nft-rental');
  mint.timestamp=timestamp;await mint.sign();
  const signed=envelope(mint),wire=Buffer.from(mint.serialize()),inputs=[];
  for(let i=0;i<wire.readUInt32BE(0);i++){const p=93+i*59;inputs.push({block:String(wire.readBigUInt64BE(p+41)),ordinal:String(wire.readBigUInt64BE(p+49)),index:wire[p+57],amount:String(wire.readBigUInt64BE(p+33)),type:wire[p+58]})}

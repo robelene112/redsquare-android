@@ -15,7 +15,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     private val backend: SaitoBackend, private val selected: SaitoBackend, private val endpoint: String,
     private val balances: WalletBalances, private val scope: CoroutineScope) {
     data class Inventory(val holding: SaitoNft, val envelope: String?, val title: String,
-        val order: StoreOrderStore.Order? = null) {
+        val order: StoreOrderStore.Order? = null, val rental: StoreRentalSource? = null) {
         val hasMetadata: Boolean get() = envelope != null || order?.receipt != null
     }
     private val context = activity.applicationContext
@@ -149,7 +149,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
                         ?: envelope?.let { SaitoStoreListing.metadata(holding, it) }
                     val data = body?.get("data")?.takeIf { it.isJsonObject }?.asJsonObject
                     Inventory(holding, envelope, data?.get("filename")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
-                        ?: body?.get("title")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString ?: holding.type, order)
+                        ?: body?.get("title")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString ?: holding.type, order, data?.takeIf { holding.type == "store-nft-rental" }?.let { StoreRentalSource.read(holding.creator, it) })
                 } } }.awaitAll() }
                 currentCoroutineContext().ensureActive(); current(token)
                 Load(saved, remote, items, position, available.size > (position + 1) * 24)

@@ -10,16 +10,24 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.ui.*
 
-internal data class StoreRentalRead(val offer: SaitoStoreRental.Offer? = null, val loading: Boolean = true)
+internal data class StoreRentalRead(val offer: SaitoStoreRental.Offer? = null, val loading: Boolean = true, val ended: Boolean = false) {
+    val available: Boolean get() = offer != null && !loading && !ended && offer.path.grant == null
+}
 
 @Composable
 internal fun rememberStoreRentalTerms(product: StoreProduct?): StoreRentalRead {
+    val activity = androidx.compose.ui.platform.LocalContext.current as android.app.Activity
     val result by produceState(StoreRentalRead(), product) {
         value = StoreRentalRead()
         value = try {
-            StoreRentalRead(withContext(Dispatchers.Default) { product?.let(SaitoStoreRental::offer) }, false)
+            withContext(Dispatchers.Default) { product?.let(SaitoStoreRental::offer) }.let { offer -> StoreRentalRead(offer, false, offer?.let { rentalNowMillis(activity) >= it.expiresAt } == true) }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { StoreRentalRead(loading = false) }
+        val expiry = value.offer?.expiresAt
+        if (expiry != null && !value.ended) {
+            kotlinx.coroutines.delay((expiry - rentalNowMillis(activity)).coerceAtLeast(1))
+            value = value.copy(ended = true)
+        }
     }
     return result
 }
@@ -32,6 +40,8 @@ internal fun StoreRentalTerms(read: StoreRentalRead) {
         val offer = read.offer
         when {
             read.loading -> InlineStatus(stringResource(R.string.store_rental_checking), StatusTone.WORKING)
+            read.ended -> InlineStatus(stringResource(R.string.store_rental_ended), StatusTone.NEUTRAL)
+            offer?.path?.grant != null -> InlineStatus(stringResource(R.string.store_rental_assigned), StatusTone.NEUTRAL)
             offer == null -> InlineStatus(stringResource(R.string.store_rental_unverified), StatusTone.NEUTRAL)
             else -> {
                 Text(stringResource(R.string.store_rental_duration, offer.source.hours))
