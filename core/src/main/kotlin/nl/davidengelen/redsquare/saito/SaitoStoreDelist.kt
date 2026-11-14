@@ -85,7 +85,8 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
                 val raw = row.get("utxo_slip$index")
                 val value = if (raw.isJsonPrimitive && raw.asJsonPrimitive.isString) JsonParser.parseString(raw.asString).asJsonObject else raw.asJsonObject
                 fun number(name: String) = value.get(name).asString.toBigDecimal().toBigIntegerExact().also { require(it.signum() >= 0 && it.bitLength() <= 64) }
-                val position = SaitoBalanceSnapshot.Slip(number("blockId"), number("txOrdinal"), number("index").intValueExact(), number("amount"), number("type").intValueExact())
+                fun byteNumber(name: String) = number(name).also { require(it <= BigInteger.valueOf(255)) }.toInt()
+                val position = SaitoBalanceSnapshot.Slip(number("blockId"), number("txOrdinal"), byteNumber("index"), number("amount"), byteNumber("type"))
                 val slip = SaitoNft.Row(value.get("publicKey").asString, position)
                 require(value.get("utxoKey").asString == slip.utxoKey()); slip
             }
