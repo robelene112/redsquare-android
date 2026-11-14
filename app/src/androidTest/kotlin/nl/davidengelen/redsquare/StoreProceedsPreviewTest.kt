@@ -81,7 +81,7 @@ class StoreProceedsPreviewTest {
             assertFalse(original.mayHaveSent); assertTrue(originals.isEmpty()); assertEquals(1, quotes)
             assertTrue(TransferStore(context, original.candidate.author).available(original.candidate.inputs).isEmpty())
             scene.peer.disconnectAfterStoreWithdrawal = true
-            ui.onNodeWithText("Authorize withdrawal").performScrollTo().performClick()
+            ui.onNodeWithText("Authorize withdrawal").assertIsDisplayed().performClick()
             waitForSystemPin(device); assertTrue(originals.isEmpty()); enterRealSystemPin(device)
             ui.waitUntil(25_000) { ui.onNode(hasText("Retry original request") and isEnabled()).isDisplayed() }
             assertEquals(1, originals.size); assertEquals(original.candidate.transaction.envelope(), originals.single())
@@ -90,12 +90,13 @@ class StoreProceedsPreviewTest {
             scene.activity.recreate()
             ui.waitUntil(15_000) { ui.onNodeWithText("New listing").isDisplayed() }
             ui.onNodeWithText("Proceeds").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Withdrawal · 6.25 USDT").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Withdrawal · 6.25 USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Withdrawal · 6.25 USDT").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Withdrawal · 6.25 USDT").performClick()
             assertEquals(1, originals.size); assertEquals(1, quotes)
             assertEquals(original.candidate.transaction.encoded(), journal.read().single().candidate.transaction.encoded())
             scene.peer.disconnectAfterStoreWithdrawal = false
-            ui.onNodeWithText("Retry original request").performScrollTo().performClick()
+            ui.onNodeWithText("Retry original request").assertIsDisplayed().performClick()
             waitForSystemPin(device); assertEquals(1, originals.size); enterRealSystemPin(device)
             ui.waitUntil(25_000) { ui.onNodeWithText("Requested from the treasury. External funds have not been sent.").isDisplayed() }
             assertEquals(listOf(original.candidate.transaction.envelope(), original.candidate.transaction.envelope()), originals.toList())
