@@ -18,6 +18,9 @@ class StoreRentalAccessPreviewTest {
         ui.onNodeWithText("Confirm and pay").performScrollTo().performClick()
         waitForSystemPin(device); assertTrue(scene.node.peer.transactions.isEmpty()); enterRealSystemPin(device)
         ui.waitUntil(25_000) { ui.onAllNodes(hasText("Article received") and hasAnyAncestor(isDialog())).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        // A received order must communicate success in the current viewport.
+        ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).assertIsDisplayed()
+        captureNativeScreen(File(scene.evidence, "rental-received-status-without-scrolling.png"))
         ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
         ui.waitUntil(5_000) { ui.onAllNodesWithText("Open in Vault").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         ui.onNodeWithText("Open in Vault").performScrollTo().assertIsEnabled().performClick()

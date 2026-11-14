@@ -25,7 +25,8 @@ class StoreRentalPaymentPreviewTest {
 
     private fun currency(ticker: String, web3: Boolean = false) = withVaultDeviceCredential { device ->
         val provider = OwnedStoreCryptoFixture()
-        withStorePurchaseFixture("currency-${ticker.lowercase()}", rental = true, web3 = web3, crypto = provider) { scene ->
+        val capturePrefix = "rental-${if (web3) "usdt" else "saito"}-priced-${ticker.lowercase()}"
+        withStorePurchaseFixture(capturePrefix, rental = true, web3 = web3, crypto = provider) { scene ->
             scene.node.funded = false
             ui.openNativeStoreOtherMethods("1", illustrated = true)
             ui.waitUntil(15_000) { ui.onAllNodesWithText("Pay with $ticker").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -45,7 +46,7 @@ class StoreRentalPaymentPreviewTest {
             ui.waitUntil(25_000) { ui.onAllNodesWithText("Payment: ${if (web3) "3.75" else "0.002751"} $ticker").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Payment: ${if (web3) "3.75" else "0.002751"} $ticker").performScrollTo().assertIsDisplayed()
             assertEquals(1, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
-            captureNativeScreen(File(scene.evidence, "method-${ticker.lowercase()}-native-instructions.png"))
+            captureNativeScreen(File(scene.evidence, "$capturePrefix-native-instructions.png"))
             scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED
             ui.onNodeWithText("Check order").performScrollTo().performClick()
             ui.waitUntil(25_000) { ui.onAllNodes(hasText("Article received") and hasAnyAncestor(isDialog())).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -65,7 +66,7 @@ class StoreRentalPaymentPreviewTest {
             ui.waitUntil(5_000) { ui.onAllNodesWithText("Open in Vault").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Open in Vault").performScrollTo().assertIsEnabled().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Vault").isDisplayed() && ui.onNodeWithText("Upload notes.txt").isDisplayed() }
-            captureNativeScreen(File(scene.evidence, "method-${ticker.lowercase()}-exact-delivery.png"))
+            captureNativeScreen(File(scene.evidence, "$capturePrefix-exact-delivery.png"))
         }
     }
 }
