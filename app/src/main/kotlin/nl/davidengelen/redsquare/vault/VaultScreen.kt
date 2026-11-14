@@ -368,7 +368,8 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             creatorHistory.forEach { path ->
                 val grant = requireNotNull(path.grant)
                 Text(stringResource(R.string.vault_rental_ends, java.text.DateFormat.getDateTimeInstance().format(java.util.Date(grant.expiresAt))))
-                androidx.compose.foundation.text.selection.SelectionContainer { Text(grant.renter) }
+                Text(stringResource(R.string.vault_rental_renter, nl.davidengelen.redsquare.registry.registeredIdentity(grant.renter).name), style = MaterialTheme.typography.titleMedium)
+                androidx.compose.foundation.text.selection.SelectionContainer { Text(grant.renter, style = MaterialTheme.typography.bodySmall) }
                 Button(onClick = {
                     val entry = requireNotNull(creatorSelection)
                     library.selectCreatorRental(entry, path); creatorLoading = true; creatorFailed = false

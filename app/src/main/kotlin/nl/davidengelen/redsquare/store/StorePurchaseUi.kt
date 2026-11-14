@@ -127,7 +127,7 @@ internal fun StorePurchaseDialog(purchases: StorePurchases, onOpenVault: (SaitoB
         val product = review?.product ?: order?.product
         val rentalProduct = product ?: externalReview?.product ?: methodsProduct
         val rental = rememberStoreRentalTerms(rentalProduct)
-        if (rentalProduct?.assetType == "store-nft-rental") StoreRentalTerms(rental)
+        if (order == null && rentalProduct?.assetType == "store-nft-rental") StoreRentalTerms(rental)
         val receivedRental by produceState<SaitoVaultRental?>(null, order?.id, order?.receipt?.signature) {
             value = try { kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                 order?.takeIf { it.receipt?.asset?.type == "store-nft-rental" }?.let {
@@ -206,6 +206,7 @@ internal fun StorePurchaseDialog(purchases: StorePurchases, onOpenVault: (SaitoB
                 }
             }
         }
+        if (order != null && rentalProduct?.assetType == "store-nft-rental") StoreRentalTerms(rental)
         }
         }
     }

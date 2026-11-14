@@ -39,6 +39,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     }
     @Volatile var withholdStoreReply = false
     @Volatile var disconnectAfterStoreWithdrawal = false
+    @Volatile var storeResponseExecutor: java.util.concurrent.Executor? = null
     @Volatile var storeResponse: ((com.google.gson.JsonObject) -> String)? = null
     val storeRequests = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile var cryptoResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
@@ -337,12 +338,16 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             }
                             storeRequests.add(body.deepCopy())
                             if (withholdStoreReply) return
-                            val response = requireNotNull(storeResponse)(body)
-                            if (disconnectAfterStoreWithdrawal && body.get("request").asString == "store-withdrawal") {
-                                webSocket.close(1001, "Controlled original seller withdrawal interruption")
-                                return
+                            val respond = Runnable {
+                                try {
+                                    val response = requireNotNull(storeResponse)(body)
+                                    if (disconnectAfterStoreWithdrawal && body.get("request").asString == "store-withdrawal") {
+                                        webSocket.close(1001, "Controlled original seller withdrawal interruption")
+                                    } else check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                                } catch (problem: Throwable) { recordFailure(problem) }
                             }
-                            check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
+                            val executor = storeResponseExecutor
+                            if (executor == null) respond.run() else executor.execute(respond)
                             return
                         }
                         if (body.get("request").asString == "relay peer message") {

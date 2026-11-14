@@ -32,12 +32,13 @@ class TalkFilesharePreviewTest {
         val aliceWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").withChatContact(rawOwner.publicKey)
         val owner = rawOwner.withChatContact(aliceWallet.publicKey)
         val carolWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
-        val files = ChatFixtureState(context, listOf("fileshare.", "chat.", "chatwork.", "personal.${owner.publicKey}."), owner.publicKey)
+        val files = ChatFixtureState(context, listOf("fileshare.", "chat.", "chatwork.", "groupchat.", "personal.${owner.publicKey}."), owner.publicKey)
         val browsers = ConcurrentHashMap<String, TalkBrowserPeer>(); val sequence = AtomicInteger(9000)
         val evidence = File(context.cacheDir, "talk-fileshare-evidence").apply { mkdirs() }
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/talk-complete.bin")
         context.contentResolver.call(destination, "prepare", "talk-complete.bin", Bundle().apply { putByteArray("bytes", byteArrayOf()) })
         var account: TalkAccount? = null; var session: FileSession? = null; var token: String? = null; var primary: Throwable? = null
+        val modules = VaultStoreCoexistenceFixture()
         lateinit var fixture: ControlledFeedPeer
         fun route(envelope: String) {
             val signed = SaitoEnvelope.decodePayload(envelope)
@@ -50,9 +51,10 @@ class TalkFilesharePreviewTest {
                 fixture.sendIncoming(header + body, sequence.incrementAndGet())
             }
         }
-        fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", relayResponse = {
+        fixture = ControlledFeedPeer(modules.feed, advertisedServices = "archive||;relay||;vault||;Store||", archiveResponse = modules::archive, relayResponse = {
             route(SaitoEnvelope.fromSignedJson(it)); "{\"success\":1}"
         })
+        modules.configure(fixture)
         fun await(label: String, timeout: Long = 5000, goal: () -> Boolean) {
             val end = SystemClock.elapsedRealtime() + timeout
             while (!goal() && SystemClock.elapsedRealtime() < end) {
@@ -96,6 +98,18 @@ class TalkFilesharePreviewTest {
                                     System.currentTimeMillis()).envelope())
                                 chunk(0, 1)
                                 await("Actual RTC file chunk is retained while Talk is active") { session?.transfers?.value?.singleOrNull()?.bytes == Fileshare.CHUNK_BYTES.toLong() }
+                                runBlocking(kotlinx.coroutines.Dispatchers.IO) { modules.exercise(owner, endpoint, fixture, evidence) }
+                                assertEquals(2, TalkRuntime.call.value?.participants?.count { it.connected })
+                                assertEquals(FilePhase.RECEIVING, session?.transfers?.value?.singleOrNull()?.phase)
+                                val groupId = SaitoWallet.create().publicKey
+                                val creation = GroupChat.create(aliceWallet, groupId, "Mixed module group", listOf(owner.publicKey), System.currentTimeMillis())
+                                alice.sendFrame(creation.envelope())
+                                val groups = nl.davidengelen.redsquare.chat.GroupChatStore(context, owner, SaitoBackend.OWNER)
+                                await("Actual group creation is retained during Talk and the receiving file") { groups.load(groupId) != null }
+                                val groupMessage = "Group Chat remains independent of Vault and Store"
+                                alice.sendFrame(GroupChat.message(aliceWallet, requireNotNull(groups.load(groupId)).group, groupMessage, System.currentTimeMillis()).envelope())
+                                await("Actual group Chat retains over the shared live Stun peer") { groups.load(groupId)?.messages?.any { it.text == groupMessage } == true }
+                                File(evidence, "mixed-module-group-retained.json").writeText("{\"groupMessageRetainedDuringTalkAndFile\":true,\"authenticatedNodeConnections\":${fixture.authenticatedConnectionIds.size}}")
                                 val policy = AndroidPersonalControls(context, owner.publicKey)
                                 val old = policy.load(); policy.save(old, old.copy(blocked = old.blocked + carolWallet.publicKey))
                                 await("The blocked room no longer owns capture") { TalkRuntime.call.value?.let { !it.phase.live && it.localVideo == null } == true }
@@ -136,7 +150,7 @@ class TalkFilesharePreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             session?.interrupt(); session?.detach(); token?.let(TalkRuntime::end); account?.detach(); TalkRuntime.visibility(false); Thread.sleep(300)
-            cleanupAfterTest(primary, { context.contentResolver.delete(destination, null, null) }, { files.restoreFiles() }, { files.restorePreferences() }, { wallets.replace(wallets.loadOrCreate(), previous) },
+            cleanupAfterTest(primary, { modules.close() }, { context.contentResolver.delete(destination, null, null) }, { files.restoreFiles() }, { files.restorePreferences() }, { wallets.replace(wallets.loadOrCreate(), previous) },
                 { backends.save(previousBackend) }, { context.stopService(Intent(context, TalkService::class.java)) },
                 { context.stopService(Intent(context, FileTransferService::class.java)) })
         }

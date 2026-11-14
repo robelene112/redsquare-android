@@ -1254,4 +1254,5 @@
     <string name="store_rental_assigned">This rental is already assigned. Remaining inventory does not provide a new rental period.</string>
     <string name="vault_rental_latest_end">Latest granted end: %1$s</string>
     <string name="vault_rental_multiple">%1$d received rental rights. The storage service decides which is currently active.</string>
+    <string name="vault_rental_renter">Renter: %1$s</string>
 </resources>
