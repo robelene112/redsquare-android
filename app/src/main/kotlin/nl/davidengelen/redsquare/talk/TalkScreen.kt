@@ -199,6 +199,17 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             if (call?.phase?.live != true || call.phase == CallPhase.INCOMING || showingInvitation)
                 item { Text(stringResource(R.string.talk_calls), style = MaterialTheme.typography.headlineMedium) }
             if (call?.phase?.live == true && call.phase != CallPhase.INCOMING && !showingInvitation) {
+                val invitationFirst = call.direct == null && call.link.room.host == wallet.publicKey && call.participants.isEmpty()
+                val invitation: @Composable () -> Unit = {
+                    TalkInvitationCard(copied = copied, onCopy = {
+                        val room = call.link.room.copy(peers = (call.participants.map { it.key } + wallet.publicKey).distinct())
+                        clipboard.setText(AnnotatedString(TalkLink(call.link.backend, room).url())); copied = true
+                    }, onShare = {
+                        val room = call.link.room.copy(peers = (call.participants.map { it.key } + wallet.publicKey).distinct())
+                        context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
+                            .putExtra(Intent.EXTRA_TEXT, TalkLink(call.link.backend, room).url()), shareInvitationLabel))
+                    })
+                }
                 item {
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         call.direct?.let { Text(registeredIdentity(it).name, style = MaterialTheme.typography.titleLarge) }
@@ -210,6 +221,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
+                if (invitationFirst) item { invitation() }
                 items(call.participants, key = { it.key }) { peer ->
                     TalkVideoTile(peer.key, registeredIdentity(peer.key).name, peer.video, peer.microphone, peer.camera, peer.connected,
                         modifier = Modifier.animateItem())
@@ -218,16 +230,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     call.microphone, call.camera && !call.cameraPaused, connected = true, mirror = call.frontCamera,
                     previewRatio = if (call.participants.isEmpty()) 16f / 10f else 4f / 3f,
                     modifier = if (call.participants.isEmpty()) Modifier.fillMaxWidth() else Modifier.widthIn(max = 180.dp)) }
-                if (call.direct == null) item {
-                    TalkInvitationCard(copied = copied, onCopy = {
-                        val room = call.link.room.copy(peers = (call.participants.map { it.key } + wallet.publicKey).distinct())
-                        clipboard.setText(AnnotatedString(TalkLink(call.link.backend, room).url())); copied = true
-                    }, onShare = {
-                        val room = call.link.room.copy(peers = (call.participants.map { it.key } + wallet.publicKey).distinct())
-                        context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain")
-                            .putExtra(Intent.EXTRA_TEXT, TalkLink(call.link.backend, room).url()), shareInvitationLabel))
-                    })
-                }
+                if (call.direct == null && !invitationFirst) item { invitation() }
             } else if (link != null && entry != null) {
                 item {
                     Text(stringResource(if (entry.direct != null) R.string.talk_ready_direct else R.string.talk_ready_room),

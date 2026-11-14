@@ -38,6 +38,7 @@ class TalkActiveViewportTest {
             val account = TalkRuntime.account(context, wallet, backend, requireNotNull(endpoint)).also { it.attach() }
             var token: String? = null
             var primary: Throwable? = null
+            val folder = File(context.cacheDir, "talk-active-evidence").apply { mkdirs() }
             try {
                 assertTrue(runBlocking { account.start(TalkLink(backend, TalkRoom(SaitoWallet.create().publicKey, wallet.publicKey)), null, true, true) })
                 val call = requireNotNull(TalkRuntime.call.value).also { token = it.token }
@@ -47,8 +48,11 @@ class TalkActiveViewportTest {
                     .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)) }
                 ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
                 ui.waitUntil(5000) { ui.onNodeWithText("Your room is ready").isDisplayed() }
+                ui.onNodeWithText("Share invitation").assertIsDisplayed()
+                captureNativeScreen(File(folder, "entry-$width.png"))
                 ui.runOnIdle { originalClipboard = clipboard.primaryClip; clipboardObserved = true }
-                ui.onNodeWithText("Copy invitation").performScrollTo().performClick()
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Copy invitation"))
+                ui.onNodeWithText("Copy invitation").performClick()
                 ui.waitUntil(5000) { ui.onNodeWithText("Invitation copied").isDisplayed() }
                 var copiedLink: String? = null
                 ui.runOnIdle {
@@ -64,7 +68,6 @@ class TalkActiveViewportTest {
                     ui.waitUntil(5000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 }
                 home()
-                val folder = File(context.cacheDir, "talk-active-evidence").apply { mkdirs() }
                 ui.withPostViewports(activity, folder, "active-$width", widthDp = width) { label, theme ->
                     ui.onNodeWithText("Return to call").performClick()
                     ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
@@ -83,7 +86,8 @@ class TalkActiveViewportTest {
                     assertEquals(call.token, TalkRuntime.call.value?.token)
                     assertTrue(requireNotNull(TalkRuntime.call.value).phase.started)
                     captureNativeScreen(File(folder, "$label-active.png"))
-                    ui.onNodeWithText("Share invitation").performScrollTo().assertIsDisplayed()
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Share invitation"))
+                    ui.onNodeWithText("Share invitation").assertIsDisplayed()
                     val share = ui.onNode(hasText("Share invitation") and hasClickAction()).fetchSemanticsNode().boundsInRoot
                     val copy = ui.onNode((hasText("Copy invitation") or hasText("Invitation copied")) and hasClickAction())
                         .assertIsDisplayed().fetchSemanticsNode().boundsInRoot

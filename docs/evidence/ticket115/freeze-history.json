@@ -94,7 +94,7 @@
     "disconnectCorrection": "177full10Social measured invalid16/512MiB before acceptance, terminated/reaped emulator, then failed strict disconnect check because ADBstilllistedserialoffline. Corrected29-only setup waits for actual transport disappearance within15s and retains every observation; no heap/service/app-test changes. Strict final disconnection requirement remains. SDK17branch is unexecuted."
   },
   "ownerTalkUiScope": {
-    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:15:07.922333+00:00",
+    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:30:09.306461+00:00",
     "ownerFeedback": "1000038063.jpg: call buttons need space and overall UI needs thought",
     "trackingIssue": 115,
     "supersededCandidate": 129,
@@ -123,14 +123,16 @@
       ],
       "separateInvitationCard": true,
       "accurateHostRoomReady": true,
-      "originalApplicationIdentitiesUnchanged": true
+      "originalApplicationIdentitiesUnchanged": true,
+      "waitingInvitationVisibleOnEntry": true
     },
     "allOriginalA07ContractFieldsUnchanged": true,
     "requirement": "New signed artifact and both entire complete SDKs and actual signed127-to-new-artifact updates required. No129promotion or failed-prefix assembly.",
     "freezeHashes": {
-      "full-contract.json": "45969311311e84a6ccb76e103b19340771cd3ec6f0427b3c0f9fad27ebd2b898",
-      "verify-full.py": "88baa1a1bcbbf4125ae8bbd78d80fb0aa96f072914f18cf7eeb4c2dea77f4e95",
+      "full-contract.json": "420e9e5ff86b47a26c686d38a956dc924d7390bf7a363a917e95b0b1addd8d2a",
+      "verify-full.py": "e050dbef02be23b7568242d87806e3bd401eff032101cdc51999945cc02bd035",
       "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
-    }
+    },
+    "nativeInitialObservation": "D88focused10/17bothfail newCopylookup because descendant was notcomposed belowviewport; initialPNG also shows actualwaitingroominviteactions belowselfpreviewandoutsidefirstviewport. Newsourceprioritizesinvitationcardbeforepreviewforownemptyroom andrequiresvisibleShareontheentryPNG/XML. Tests useactualLazyColumn scrollToNode before physicalcopy, preservinggoals/deadlines."
   }
 }
