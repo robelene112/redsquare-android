@@ -20,7 +20,8 @@ class StorePurchaseViewportPreviewTest {
                 ui.switchStackModule("Red Square", "Store", scrollTarget = true)
                 ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
                 ui.onNodeWithText("Field notes access key").performClick()
-                ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
+                ui.waitUntil(15_000) { ui.onAllNodesWithText("2.5 SAITO").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Review purchase"))
                 ui.onNodeWithText("Review purchase").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
                 val total = hasText("Total: 2.5 SAITO") and hasAnyAncestor(isDialog())
                 ui.waitUntil(15_000) { ui.onAllNodes(total).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

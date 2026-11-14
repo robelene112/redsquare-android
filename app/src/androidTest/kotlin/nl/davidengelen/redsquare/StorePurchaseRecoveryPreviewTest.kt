@@ -53,7 +53,7 @@ class StorePurchaseRecoveryPreviewTest {
             ui.onNodeWithText("Confirm and pay").performScrollTo().performClick(); waitForSystemPin(device)
             val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
             val wallet = AndroidWalletStore(context).loadExisting()
-            val input = SaitoBalanceSnapshot.Slip(java.math.BigInteger.TEN, java.math.BigInteger.TWO, 0, java.math.BigInteger("1000000000"), 0)
+            val input = SaitoBalanceSnapshot.Slip(java.math.BigInteger.TEN, java.math.BigInteger.valueOf(2), 0, java.math.BigInteger("1000000000"), 0)
             val competing = SaitoPayment.create(wallet, listOf(input), scene.node.reference.get("store").asString,
                 java.math.BigInteger.ONE, java.math.BigInteger.ZERO, System.currentTimeMillis(), "store110-race", "")
             TransferStore(context, wallet.publicKey).reserve(SaitoBackend.OWNER, competing)
@@ -98,6 +98,27 @@ class StorePurchaseRecoveryPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
             assertNotNull(StoreOrderStore(context, owner).read().single().receipt)
             assertEquals(1, scene.node.peer.transactions.size)
+        }
+    }
+
+    @Test fun aSlowReadOnlyOrderCheckKeepsCloseAndNavigationResponsive() = withVaultDeviceCredential { device ->
+        withStorePurchaseFixture("read-only-navigation", 1) { scene ->
+            scene.node.phase = OwnedStorePurchaseFixture.Phase.PAID
+            ui.openStorePurchaseProduct()
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Confirm and pay").performScrollTo().performClick(); waitForSystemPin(device); enterRealSystemPin(device)
+            ui.waitUntil(25_000) { ui.onNode(hasText("Payment observed. Waiting for delivery.") and hasAnyAncestor(isDialog())).isDisplayed() }
+            val gate = java.util.concurrent.CountDownLatch(1)
+            try {
+                scene.node.blockReadGate = gate
+                ui.onNodeWithText("Check order").performScrollTo().performClick()
+                ui.waitUntil(5000) { scene.node.blockedReads.get() > 0 }
+                ui.onNodeWithText("Done").performScrollTo().assertIsEnabled().performClick()
+                ui.waitUntil(5000) { ui.onAllNodesWithText("Check order").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+                ui.onNodeWithText("Back").assertIsEnabled().performClick()
+                captureNativeScreen(File(scene.evidence, "slow-order-read-keeps-navigation-usable.png"))
+                assertEquals(1, scene.node.peer.transactions.size)
+            } finally { gate.countDown(); scene.node.blockReadGate = null }
         }
     }
 

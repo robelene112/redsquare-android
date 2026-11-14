@@ -122,7 +122,7 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
                 fetch(endpoint(backend).removeSuffix("balance/") + "block/" + hash, limit, minOf(10_000, remaining))
                     ?.also { received += it.size }
             } catch (_: Exception) { null }
-        }.takeIf { System.nanoTime() < deadline }
+        }
     }
 
     private fun fetch(url: String, maximumBytes: Int = ImportBalance.MAX_SNAPSHOT_BYTES,

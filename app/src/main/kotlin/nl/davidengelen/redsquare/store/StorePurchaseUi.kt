@@ -37,7 +37,6 @@ internal fun StoreBuyControl(product: StoreProduct, available: BigInteger, purch
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), singleLine = true, modifier = Modifier.fillMaxWidth(), enabled = !purchases.busy)
         Button(onClick = { keyboard?.hide(); purchases.prepare(product, quantity, fee) }, enabled = !purchases.busy && available.signum() > 0,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_review)) }
-        StorePurchaseProblem(purchases)
     }
 }
 
@@ -47,12 +46,14 @@ internal fun StoreOrders(purchases: StorePurchases, modifier: Modifier) {
     LaunchedEffect(purchases, purchases.orders.map { it.purchase.transaction.id }) {
         while (true) { kotlinx.coroutines.delay(5000); if (!purchases.busy) purchases.refresh() }
     }
+    DisposableEffect(purchases) { onDispose { purchases.stopReading() } }
     Column(modifier) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
             Text(stringResource(R.string.store_purchase_history), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
-            FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !purchases.busy) { purchases.refresh() }
+            FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !purchases.busy && !purchases.refreshing) { purchases.refresh() }
         }
         StorePurchaseProblem(purchases)
+        InlineStatus(if (purchases.refreshing) stringResource(R.string.store_purchase_working) else null, StatusTone.WORKING)
         LazyColumn(Modifier.fillMaxWidth().weight(1f), contentPadding = PaddingValues(AppSpacing.screen),
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             val rows = purchases.orders.filter { it.backend == purchases.backend }
@@ -73,6 +74,8 @@ internal fun StoreOrders(purchases: StorePurchases, modifier: Modifier) {
 private fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreChain.Observation?): Int = when {
     observation?.delivered == true -> R.string.store_purchase_delivered
     observation?.refunded == true -> R.string.store_purchase_refunded
+    observation?.historical == true && observation.receipt?.kind == SaitoStoreReceipt.Kind.REFUND -> R.string.store_purchase_previous_refund
+    observation?.historical == true && observation.receipt != null -> R.string.store_purchase_previous_delivery
     observation?.receipt != null -> R.string.store_purchase_settled
     observation?.payment != null -> R.string.store_purchase_paid
     order.receipt?.kind == SaitoStoreReceipt.Kind.REFUND -> R.string.store_purchase_previous_refund
@@ -97,7 +100,7 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
         val product = review?.product ?: order?.product
         if (product != null) {
             Text(product.title, style = MaterialTheme.typography.headlineSmall)
-            Text(product.description, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (order == null) Text(product.description, color = MaterialTheme.colorScheme.onSurfaceVariant)
             val quantity = review?.quantity ?: requireNotNull(order).purchase.quantity
             val unit = review?.unit ?: requireNotNull(order).purchase.unitPrice
             val fee = review?.fee ?: requireNotNull(order).purchase.networkFee
@@ -107,16 +110,19 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
             Text(stringResource(R.string.store_purchase_store_fee, "0 SAITO"))
             Text(stringResource(R.string.store_purchase_network_fee, storeAmount(fee)))
             Text(stringResource(R.string.store_purchase_total, storeAmount(total)), style = MaterialTheme.typography.titleLarge)
-            Text(stringResource(R.string.store_purchase_fulfillment_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Text(stringResource(R.string.store_purchase_delivery_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (order == null) {
+                Text(stringResource(R.string.store_purchase_fulfillment_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.store_purchase_delivery_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             if (order?.cursor != null) Text(stringResource(R.string.store_purchase_older_history, order.cursor.height.toString()),
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             StorePurchaseProblem(purchases)
+            InlineStatus(if (purchases.refreshing) stringResource(R.string.store_purchase_working) else null, StatusTone.WORKING)
             if (order != null) {
                 val observation = purchases.observations[order.purchase.transaction.id]
                 Text(stringResource(orderStatus(order, observation)), style = MaterialTheme.typography.titleMedium)
                 if (order.receipt?.reason != null) Text(stringResource(R.string.store_purchase_refund_reason, requireNotNull(order.receipt.reason)))
-                Button(onClick = { purchases.check(order) }, enabled = !purchases.busy,
+                Button(onClick = { purchases.check(order) }, enabled = !purchases.busy && !purchases.refreshing,
                     modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_check)) }
                 if (order.payment == null && order.receipt == null) OutlinedButton(onClick = { purchases.authorize(order) }, enabled = !purchases.busy,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
@@ -128,6 +134,11 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
                 modifier = firstAction.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_confirm)) }
             TextButton(onClick = { purchases.closeReview() }, enabled = !purchases.busy,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
+            if (order != null) {
+                Text(product.description, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.store_purchase_fulfillment_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.store_purchase_delivery_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             androidx.compose.foundation.text.selection.SelectionContainer {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(stringResource(R.string.store_seller_key)); Text(product.seller, style = MaterialTheme.typography.bodySmall)
@@ -142,7 +153,7 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
 }
 
 @Composable
-private fun StorePurchaseProblem(purchases: StorePurchases) {
+internal fun StorePurchaseProblem(purchases: StorePurchases) {
     val label = when (purchases.problem) {
         StorePurchases.Problem.CONNECTION -> R.string.store_purchase_connection
         StorePurchases.Problem.INSUFFICIENT -> R.string.store_purchase_insufficient

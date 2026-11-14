@@ -18,6 +18,7 @@ object SaitoStoreChain {
         var payment: Payment? = null
         var displaced = false
         var received = 0L
+        val covered = hashMapOf<BigInteger, String>()
         val receipts = ArrayList<Pair<SaitoStoreReceipt, String>>()
         val minimum = purchase.inputs.maxOf { it.block }
         fun scan(start: Cursor, fresh: Boolean): Cursor? {
@@ -30,24 +31,33 @@ object SaitoStoreChain {
                     val block = SaitoFullBlock.parse(bytes)
                     if (block.hash != next.hash || block.height != next.height ||
                         (fresh && index == 0 && block.timestamp != BigInteger.valueOf(snapshot.timestamp))) return next
+                    if (fresh) covered[block.height] = block.hash
                     if (fresh && previous?.height == block.height && previous.hash != block.hash) displaced = true
-                    block.storePaymentOrdinal(purchase)?.let { payment = Payment(block.height, block.hash, it) }
+                    var foundHere = false
+                    block.storePaymentOrdinal(purchase)?.let { payment = Payment(block.height, block.hash, it); foundHere = true }
                     receipts.addAll(block.storeReceipts(purchase).filter { it.asset?.creator?.let { key -> key == creator } != false }
                         .map { it to block.hash })
                     next = Cursor(next.height - BigInteger.ONE, block.previousHash)
-                    if (payment != null) return null // Settlement cannot precede the original payment.
+                    if (foundHere) return null // Settlement cannot precede the original payment in this prefix.
                 }
             } catch (cancelled: java.util.concurrent.CancellationException) { throw cancelled }
             catch (_: Exception) { return next }
             return next.takeIf { it.height >= minimum }
         }
+        // Older-history work takes priority on continuation. Repeating a slow recent prefix
+        // must not consume every check's IO budget before the next older block is read.
+        val continued = cursor?.takeIf { it.height < snapshot.height }?.let { scan(it, false) }
         val recentCursor = scan(Cursor(snapshot.height, snapshot.blockHash), true)
-        var historyCursor = recentCursor
-        if (payment == null && cursor != null && cursor.height < snapshot.height && !displaced) historyCursor = scan(cursor, false)
+        val historyCursor = if (cursor != null && cursor.height < snapshot.height) continued else recentCursor
+        payment = payment?.takeIf { covered[it.height]?.let { hash -> hash == it.hash } != false }
         val original = payment ?: previous.takeUnless { displaced }
-        val recent = receipts.distinctBy { it.first.signature }.filter { (receipt, _) -> original == null ||
+        fun onCoveredChain(receipt: SaitoStoreReceipt, hash: String): Boolean {
+            val height = receipt.asset?.positions?.firstOrNull()?.block ?: receipt.refundOutput?.block
+            return covered[height]?.let { it == hash } != false
+        }
+        val recent = receipts.filter { onCoveredChain(it.first, it.second) }.distinctBy { it.first.signature }.filter { (receipt, _) -> original == null ||
             (receipt.paymentInput.block == original.height && receipt.paymentInput.ordinal == original.ordinal) }
-        val retained = previousReceipt?.takeIf { !displaced && it.asset?.creator?.let { key -> key == creator } != false &&
+        val retained = previousReceipt?.takeIf { !displaced && onCoveredChain(it, requireNotNull(previousReceiptBlock)) && it.asset?.creator?.let { key -> key == creator } != false &&
             (original == null || (it.paymentInput.block == original.height && it.paymentInput.ordinal == original.ordinal)) }
         // Conflicting observed outcomes remain unknown. A retained receipt never overrules current evidence.
         val selected = if (recent.size == 1) recent.single() else if (recent.isEmpty() && retained != null)
@@ -63,6 +73,6 @@ object SaitoStoreChain {
         val refunded = linked && selected?.first?.kind == SaitoStoreReceipt.Kind.REFUND &&
             (!historical || (refund != null && snapshot.slips.any { it == refund }))
         return Observation(payment ?: previous.takeUnless { displaced }, selected?.first, selected?.second, delivered, refunded,
-            historical, if (selected != null || payment != null) null else historyCursor, displaced)
+            historical, if (original != null && selected != null) null else historyCursor, displaced)
     }
 }

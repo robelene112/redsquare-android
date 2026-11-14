@@ -28,6 +28,10 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     var focused by mutableStateOf<String?>(null); private set
     var observations by mutableStateOf<Map<String, SaitoStoreChain.Observation>>(emptyMap()); private set
     var busy by mutableStateOf(false); private set
+    var refreshing by mutableStateOf(false); private set
+    private var readJob: Job? = null
+    private var readRevision = 0L
+    private var refreshOffset = 0
     var problem by mutableStateOf<Problem?>(null); private set
     enum class Problem { CONNECTION, INSUFFICIENT, CONTEXT, STORAGE, AUTH, CANCELLED, TERMS }
     @Volatile private var revision = 0L
@@ -48,6 +52,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     }
     private fun operation(work: suspend (Long) -> Unit) {
         if (busy || closed) return
+        stopReading()
         val token = ++revision; busy = true; problem = null
         job = scope.launch {
             try { work(token) }
@@ -65,23 +70,43 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         try { orders = withContext(Dispatchers.IO) { current(token); store.read() } }
         catch (failure: Exception) { currentCoroutineContext().ensureActive(); problem = Problem.STORAGE }
     }
-    /** Refresh clears stale current claims and reconciles the focused order or visible order history. */
-    fun refresh(id: String? = null) = operation { token ->
-        observations = if (id == null) emptyMap() else observations - id
-        val result = withContext(Dispatchers.IO) {
-            current(token)
-            val rows = store.read()
-            val selectedRows = rows.filter { it.backend == backend && (id == null || it.purchase.transaction.id == id) }.takeLast(10)
-            val outcomes = linkedMapOf<String, SaitoStoreChain.Observation>()
-            selectedRows.forEach { order ->
+    /** One bounded read at a time, independent of payment authority and order navigation. */
+    fun refresh(id: String? = null) {
+        if (closed || busy || refreshing) return
+        val token = revision; val reading = ++readRevision; val offset = refreshOffset++
+        refreshing = true
+        readJob = scope.launch {
+            var selectedId: String? = id
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    current(token)
+                    val rows = store.read().filter { it.backend == backend }
+                    val order = if (id != null) rows.firstOrNull { it.purchase.transaction.id == id }
+                        else rows.getOrNull(if (rows.isEmpty()) 0 else Math.floorMod(offset, rows.size))
+                    selectedId = order?.purchase?.transaction?.id
+                    val outcome = order?.let { observe(it, token) }
+                    store.read() to outcome
+                }
+                currentCoroutineContext().ensureActive(); publishable(token)
+                if (reading == readRevision) {
+                    problem = null; orders = result.first
+                    selectedId?.let { target -> observations = observations - target +
+                        (result.second?.let { mapOf(target to it) } ?: emptyMap()) }
+                }
+            } catch (failure: Exception) {
                 currentCoroutineContext().ensureActive()
-                try { outcomes[order.purchase.transaction.id] = observe(order, token) }
-                catch (failure: Exception) { currentCoroutineContext().ensureActive(); current(token) }
-            }
-            store.read() to outcomes.toMap()
+                if (reading == readRevision && revision == token) {
+                    selectedId?.let { observations = observations - it }
+                    problem = when (failure) {
+                        is StoreOrderStore.StorageUnavailable -> Problem.STORAGE
+                        is Changed -> Problem.CONTEXT
+                        else -> Problem.CONNECTION
+                    }
+                }
+            } finally { if (reading == readRevision) refreshing = false }
         }
-        publishable(token); orders = result.first; observations = observations + result.second
     }
+    fun stopReading() { readRevision++; readJob?.cancel(); readJob = null; refreshing = false }
     fun prepare(product: StoreProduct, quantity: String, networkFee: String) = operation { token ->
         review = null
         val result = withContext(Dispatchers.IO) {
@@ -115,17 +140,13 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         if (result.first != null) { orders = withContext(Dispatchers.IO) { store.read() }; focused = result.first?.purchase?.transaction?.id }
         else review = result.second
     }
-    fun open(order: StoreOrderStore.Order) { if (!busy) { focused = order.purchase.transaction.id; review = null; problem = null } }
-    fun closeReview() { if (!busy) { focused = null; review = null; problem = null } }
+    fun open(order: StoreOrderStore.Order) { if (!busy) { stopReading(); focused = order.purchase.transaction.id; review = null; problem = null } }
+    fun closeReview() { if (!busy) { stopReading(); focused = null; review = null; problem = null } }
     fun discard(order: StoreOrderStore.Order) = operation { token ->
         val rows = withContext(Dispatchers.IO) { current(token); store.discard(order.purchase.transaction.id); store.read() }
         orders = rows; focused = null
     }
-    fun check(order: StoreOrderStore.Order) = operation { token ->
-        val result = withContext(Dispatchers.IO) { current(token); observe(order, token) }
-        publishable(token); observations = observations + (order.purchase.transaction.id to result)
-        orders = withContext(Dispatchers.IO) { store.read() }
-    }
+    fun check(order: StoreOrderStore.Order) { stopReading(); refresh(order.purchase.transaction.id) }
     private fun observe(order: StoreOrderStore.Order, token: Long): SaitoStoreChain.Observation {
         val latest = store.read().single { it.purchase.transaction.id == order.purchase.transaction.id }
         val result = requireNotNull(balances.observeStore(backend, latest.purchase, latest.product.creator, latest.payment?.let {
@@ -139,6 +160,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         if (busy || closed || (existing == null && review == null) || (existing != null && existing.backend != backend)) return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) { problem = Problem.AUTH; return }
         val reviewed = review
+        stopReading()
         val token = ++revision; busy = true; problem = null
         val signal = CancellationSignal().also { cancellation = it }
         try {
@@ -208,6 +230,6 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         }
     }
     fun dispose() {
-        closed = true; revision++; cancellation?.cancel(); cancellation = null; peer?.close(); peer = null; job?.cancel()
+        closed = true; stopReading(); revision++; cancellation?.cancel(); cancellation = null; peer?.close(); peer = null; job?.cancel()
     }
 }

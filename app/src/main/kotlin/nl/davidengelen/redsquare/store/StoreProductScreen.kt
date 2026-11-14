@@ -62,6 +62,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                 actionLabel = stringResource(R.string.retry), onAction = { retry++ })
             InlineStatus(if (view.missingService) stringResource(R.string.store_service_unavailable) else null, StatusTone.NEUTRAL,
                 actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
+            if (purchases.review == null && purchases.focused == null) StorePurchaseProblem(purchases)
             InlineStatus(if (view.unavailable) stringResource(R.string.store_offer_unavailable) else null, StatusTone.NEUTRAL)
         }
         SingleOwnerReveal(view, Modifier.weight(1f)) {

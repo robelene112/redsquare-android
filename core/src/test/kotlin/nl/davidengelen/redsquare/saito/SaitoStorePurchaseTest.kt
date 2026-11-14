@@ -108,4 +108,28 @@ class SaitoStorePurchaseTest {
         assertEquals(BigInteger.TWO, requireNotNull(receipt.asset).quantity)
     }
 
+    @Test fun aLateSettlementKeepsItsContinuationUntilTheOriginalPaymentIsFound() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-purchase-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val purchase = SaitoStorePurchase.restore(vector.getAsJsonObject("purchase").get("networkBase64").asString)
+        val delayed = vector.getAsJsonObject("blocks").getAsJsonObject("delayed")
+        val text = delayed.get("snapshot").asString
+        val snapshot = SaitoBalanceSnapshot.parse(text.toByteArray(), purchase.author, text.substringBefore('-').toLong())
+        val replies = delayed.getAsJsonObject("blocks").entrySet().associate { it.key to java.util.Base64.getDecoder().decode(it.value.asString) }
+        val creator = snapshot.nfts.single().creator
+        val first = SaitoStoreChain.observe(purchase, snapshot, creator) { replies[it] }
+        assertNotNull(first.receipt); assertNull(first.payment); assertFalse(first.delivered); assertNotNull(first.cursor)
+        val second = SaitoStoreChain.observe(purchase, snapshot, creator, first.payment, first.receipt, first.receiptBlock, first.cursor) { replies[it] }
+        assertNotNull(second.payment); assertTrue(second.delivered)
+        // A bounded read interruption retains its verified prefix rather than starting from the tip again.
+        var reads = 0
+        val partial = SaitoStoreChain.observe(purchase, snapshot, creator) { if (++reads <= 3) replies[it] else null }
+        assertNotNull(partial.cursor); assertEquals(snapshot.height - java.math.BigInteger.valueOf(3), partial.cursor?.height)
+        val requested = arrayListOf<String>()
+        SaitoStoreChain.observe(purchase, snapshot, creator, partial.payment, partial.receipt, partial.receiptBlock, partial.cursor) {
+            requested.add(it); replies[it]
+        }
+        assertEquals(partial.cursor?.hash, requested.first())
+    }
+
 }

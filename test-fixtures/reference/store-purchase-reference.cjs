@@ -81,6 +81,16 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  }
  olderBlocks[deliveryBlock.hash]=deliveryBlock.fullBase64;olderBlocks[paymentBlock.hash]=paymentBlock.fullBase64;
  blocks.older={blocks:olderBlocks,snapshot:snapshot.replace(deliveryBlock.timestamp+'-22-'+deliveryBlock.hash,olderTip.timestamp+'-42-'+olderTip.hash)};
+
+ const delayedBlocks={};let delayedTip=paymentBlock;
+ for(let height=22;height<=40;height++){
+  const header=Buffer.alloc(389);header.writeBigUInt64BE(BigInt(height),4);header.writeBigUInt64BE(1700005000000n+BigInt(height),12);Buffer.from(delayedTip.hash,'hex').copy(header,20);Buffer.from(base58.decode(store)).copy(header,52);
+  const preimage=Buffer.concat([header.subarray(4,117),header.subarray(181,213),header.subarray(221,285)]);Buffer.from(wasm.sign_buffer(preimage,storeScalar),'hex').copy(header,117);
+  const parsed=new wasm.WasmBlock();if(parsed.deserialize(header)!=='')throw Error('Delayed ancestor failed');delayedTip={hash:parsed.hash,height:String(height),timestamp:String(1700005000000n+BigInt(height)),fullBase64:Buffer.from(parsed.serialize()).toString('base64')};delayedBlocks[delayedTip.hash]=delayedTip.fullBase64;
+ }
+ const delayedDelivery=blockFor(delivered.wasmTransaction,41,delayedTip.hash,1700005001000);delayedBlocks[delayedDelivery.hash]=delayedDelivery.fullBase64;delayedBlocks[paymentBlock.hash]=paymentBlock.fullBase64;
+ const delayedWire=Buffer.from(delayedDelivery.fullBase64,'base64').subarray(389),delayedRows=[1,0,2].map(index=>confirmedOutput(delayedWire.toString('base64'),index,41,0));
+ blocks.delayed={blocks:delayedBlocks,snapshot:delayedDelivery.timestamp+'-41-'+delayedDelivery.hash+'.snap\n'+delayedRows.map(r=>[r.publicKey,r.blockId,r.txOrdinal,r.index,r.amount,r.type].join(' ')).join('\n')+'\n'};
  const exactNumbers={maximum:String(Number.MAX_SAFE_INTEGER),firstRounded:'9007199254740993',numberRoundTrip:String(Number('9007199254740993'))};
 
 

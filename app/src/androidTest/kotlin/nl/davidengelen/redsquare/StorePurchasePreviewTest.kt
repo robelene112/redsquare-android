@@ -43,7 +43,7 @@ class StorePurchasePreviewTest {
             ui.onNodeWithText("Quantity: 2").assertIsDisplayed()
             ui.onNodeWithText("Confirm and pay").performScrollTo().performClick(); waitForSystemPin(device); enterRealSystemPin(device)
             ui.waitUntil(25_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
-            assertEquals(java.math.BigInteger.TWO, requireNotNull(scene.node.candidate()).quantity)
+            assertEquals(java.math.BigInteger.valueOf(2), requireNotNull(scene.node.candidate()).quantity)
             assertEquals(1, scene.node.peer.transactions.size)
             captureNativeScreen(File(scene.evidence, "whole-listed-quantity-received.png"))
         }
