@@ -41,7 +41,7 @@ with0ignored/failures. All75/77ZIP and156captures perOS are byte-exact. Complete
 wallet regressions43547485799/43547488665pass; all87/89ZIP and542/652captures are
 exact. Complete final catalogue runs43549190857/43549193046pass8classes/13cases/
 12cells;84/86ZIP and139captures perOS exact. Both review axes:0remaining findings.
-Both24-cell combined action matrices and representative financial states/final
+The combined24-cell action matrices and representative financial states/final
 red covers are inspected. Viewport proof declares zero recomposer/system motion,
 not production clock/OEM acceptance. No successful partial tails are assembled.
 
