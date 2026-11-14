@@ -29,6 +29,7 @@ internal fun androidx.compose.ui.test.junit4.ComposeTestRule.reviewNativeStoreSa
         onNodeWithText("Item title").performScrollTo().performTextReplacement("Native sale")
         onNodeWithText("Description").performScrollTo().performTextReplacement("A genuine owned key, offered from Android.")
         onNodeWithText("Price per item (SAITO)").performScrollTo().performTextReplacement("5")
+        waitUntil(15_000) { onAllNodesWithText("Field notes.txt").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         onNodeWithText("Field notes.txt").performScrollTo().performClick()
         onNodeWithText("Review sale offer").performScrollTo().assertIsEnabled().performClick()
         waitUntil(15_000) { onAllNodesWithText("Authorize and publish").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -53,7 +54,7 @@ internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Bo
         try {
             if (!preserve) saved.prepare()
             withVaultReadingFixture("store-sale-$name", services = "archive||;vault||;Store||", captureFolder = "store-seller-evidence", retainTransfers = !preserve, expectedMintCount = expected, minting = minting, sellerImage = image, sellerListed = prelisted, preserveSeller = preserve) { scene ->
-                val report = AtomicBoolean(prelisted); val approved = AtomicBoolean(false)
+                val report = AtomicBoolean(prelisted); val approved = AtomicBoolean(false); val submitted = AtomicBoolean(false)
                 val reference = InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-listing-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject }
                 scene.peer.storeResponse = { query ->
                     val data = query.getAsJsonObject("data")
@@ -65,7 +66,7 @@ internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Bo
                                 add(reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply {
                                     addProperty("seller", owner); addProperty("listing_signature", original?.transaction?.id ?: reference.getAsJsonObject("listing").get("id").asString); addProperty("title", if (prelisted) "Field notes access key" else "Native sale")
                                     addProperty("price", if (prelisted) 250000000 else 500000000); addProperty("quantity_total", if (prelisted) 2 else 1); addProperty("quantity_available", if (prelisted) 2 else 1)
-                                    addProperty("approved", if (approved.get()) 1 else 0)
+                                    addProperty("approved", if (approved.get()) 1 else if (submitted.get()) 2 else 0)
                                 })
                             } }); add("sold", JsonArray())
                         }.toString()
@@ -76,7 +77,7 @@ internal fun withStoreSellerFixture(name: String, expected: Int = 0, minting: Bo
                             check(prelisted)
                             if (scene.seller?.confirmDelist?.get() == true) "null" else InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-delist-reference.json").reader().use { JsonParser.parseReader(it).asJsonObject.get("row").toString() }
                         }
-                        "submit-listing" -> JsonObject().apply { addProperty("ok", true); addProperty("signature", data.get("signature").asString); addProperty("approved", if (approved.get()) 1 else 0) }.toString()
+                        "submit-listing" -> JsonObject().also { submitted.set(true) }.apply { addProperty("ok", true); addProperty("signature", data.get("signature").asString); addProperty("approved", if (approved.get()) 1 else if (submitted.get()) 2 else 0) }.toString()
                         else -> error("Unexpected owned Store request")
                     }
                 }

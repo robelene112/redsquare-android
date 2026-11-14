@@ -23,7 +23,7 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
             val source = SaitoEnvelope.decodeBound(product.envelope).body
             val script = SaitoAccessScript.parse(source.get("access_script").asString)
             val inputs = readSpend(product, response, script)
-            val outputs = inputs.mapIndexed { index, slip -> if (index == 1) slip.copy(publicKey = wallet.publicKey) else slip }
+            val outputs = inputs.mapIndexed { index, slip -> slip.copy(publicKey = if (index == 1) wallet.publicKey else slip.publicKey, position = slip.position.copy(index = index)) }
             val auth = inputs[1].utxoKey() + "|" + digest(outputPreimage(outputs)).hex()
             val executable = JsonParser.parseString(script.source).asJsonObject.apply {
                 add("witness", JsonObject().apply { add("signatures", com.google.gson.JsonArray().apply { add(wallet.sign(auth.toByteArray())) }) })
@@ -59,7 +59,9 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
             val source = SaitoEnvelope.decodeBound(product.envelope).body
             val script = SaitoAccessScript.parse(source.get("access_script").asString)
             validateInputs(product, rows.take(3), script)
-            require(rows[3] == rows[0] && rows[5] == rows[2] && rows[4] == rows[1].copy(publicKey = product.seller))
+            require(rows[3] == rows[0].copy(position = rows[0].position.copy(index = 0)) &&
+                rows[5] == rows[2].copy(position = rows[2].position.copy(index = 2)) &&
+                rows[4] == rows[1].copy(publicKey = product.seller, position = rows[1].position.copy(index = 1)))
             val body = JsonParser.parseString(payload.toString(Charsets.UTF_8)).asJsonObject
             val witnesses = body.getAsJsonArray("access_scripts").also { require(it.size() == 1) }
             val witness = SaitoAccessScript.parse(witnesses[0].asString)
@@ -106,10 +108,10 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
             require(rules.get("op").asString == "CHECKMULTISIG" && rules.get("m").asInt == 1 && keys.size == 2 && keys[0] == product.seller &&
                 SaitoWallet.isPublicKey(keys[1]) && rules.get("msg").asString == "tx.from.p2sh.utxoset_key")
             require(inputs[0].publicKey == product.creator && inputs[0].position.amount == product.quantity && inputs[0].position.type == 9 &&
-                Base58.decode(inputs[1].publicKey).hex() == "00" + script.hash && inputs[1].position.amount == deposit && inputs[1].position.type == 0 &&
+                Base58.decode(inputs[1].publicKey).hex() == "00" + script.hash && inputs[1].position.amount == deposit && inputs[1].position.type in setOf(0, 1) &&
                 Base58.decode(inputs[2].publicKey).hex() == product.nftId && inputs[2].position.amount == BigInteger.ZERO && inputs[2].position.type == 9)
             require(inputs.all { it.position.block.signum() > 0 && it.position.block == inputs[0].position.block && it.position.ordinal == inputs[0].position.ordinal } &&
-                inputs.map { it.position.index } == listOf(0, 1, 2))
+                inputs[1].position.index in 1..254 && inputs.map { it.position.index } == (inputs[1].position.index - 1..inputs[1].position.index + 1).toList())
         }
         private fun message(source: JsonObject, product: StoreProduct, script: String, hash: String, witness: String): JsonObject = source.deepCopy().apply {
             listOf("request", "access_scripts", "fulfill_sale", "listing_signature").forEach(::remove)

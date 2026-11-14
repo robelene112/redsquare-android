@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.CancellationSignal
 import androidx.compose.runtime.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.withPermit
 import nl.davidengelen.redsquare.*
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
@@ -16,7 +17,10 @@ import nl.davidengelen.redsquare.saito.*
 internal class StoreSelling(private val activity: Activity, private val wallet: SaitoWallet,
     private val backend: SaitoBackend, private val selected: SaitoBackend, private val endpoint: String,
     private val balances: WalletBalances, private val scope: CoroutineScope) {
-    data class Inventory(val holding: SaitoNft, val envelope: String?, val title: String)
+    data class Inventory(val holding: SaitoNft, val envelope: String?, val title: String,
+        val order: StoreOrderStore.Order? = null) {
+        val hasMetadata: Boolean get() = envelope != null || order?.receipt != null
+    }
     private val context = activity.applicationContext
     private val journal = StoreListingStore(context, wallet.publicKey)
     private val removals = StoreDelistStore(context, wallet.publicKey)
@@ -32,6 +36,10 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     var reported by mutableStateOf<List<StoreSellerListing>>(emptyList()); private set
     var focused by mutableStateOf<StoreListingStore.Record?>(null); private set
     var busy by mutableStateOf(false); private set
+    var loading by mutableStateOf(false); private set
+    var localReady by mutableStateOf(false); private set
+    private var readJob: Job? = null
+    @Volatile private var readRevision = 0L
     var problem by mutableStateOf<Int?>(null); private set
     var inventoryPage by mutableIntStateOf(0); private set
     var moreInventory by mutableStateOf(false); private set
@@ -48,20 +56,35 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     private fun publishable(token: Long) = !closed && revision == token && !activity.isDestroyed
     private fun operation(work: suspend (Long) -> Unit) {
         if (busy || closed) return
+        stopLoading()
         val token = ++revision; busy = true; problem = null
         job = scope.launch {
             try { work(token) }
             catch (failure: Exception) {
                 currentCoroutineContext().ensureActive()
-                if (publishable(token)) problem = if (failure is Changed) R.string.store_sell_context else R.string.store_sell_failed
+                if (publishable(token)) problem = when (failure) { is Changed -> R.string.store_sell_context; is SaitoStoreSeller.Rejected -> R.string.store_sell_rejected; else -> R.string.store_sell_failed }
             } finally { if (revision == token) busy = false }
         }
     }
-    fun load(page: Int = inventoryPage) = operation { token ->
+    private fun readOperation(work: suspend (Long, Long) -> Unit) {
+        if (busy || closed) return
+        stopLoading()
+        val token = revision; val reading = ++readRevision
+        loading = true; problem = null
+        readJob = scope.launch {
+            try { work(token, reading) }
+            catch (failure: Exception) {
+                currentCoroutineContext().ensureActive()
+                if (publishable(token) && reading == readRevision) problem = when (failure) { is Changed -> R.string.store_sell_context; is SaitoStoreSeller.Rejected -> R.string.store_sell_rejected; else -> R.string.store_sell_failed }
+            } finally { if (reading == readRevision) loading = false }
+        }
+    }
+    fun load(page: Int = inventoryPage) = readOperation { token, reading ->
+        ownedImages = emptySet(); delistObservations = emptyMap()
         val retainedState = withContext(Dispatchers.IO) { current(token); Triple(journal.read(), removals.read(), imageStore.read()) }
         val retained = retainedState.first
-        if (publishable(token)) {
-            records = retained; delistRecords = retainedState.second; images = retainedState.third
+        if (publishable(token) && reading == readRevision) {
+            records = retained; delistRecords = retainedState.second; images = retainedState.third; localReady = true
             focused = focused?.let { previous -> retained.firstOrNull { it.listing.transaction.id == previous.listing.transaction.id } }
         }
         val result = withContext(Dispatchers.IO) {
@@ -73,44 +96,57 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
                 .filter { it.positions.all { position -> position.block >= minimum } }.sortedWith(compareBy({ it.id }, { it.witnesses.first() }))
             val position = page.coerceIn(0, (available.size - 1).coerceAtLeast(0) / 24)
             val selectedHoldings = available.drop(position * 24).take(24)
+            val orders = StoreOrderStore(context, wallet.publicKey).read()
             SaitoPeer(wallet, endpoint).use { connection ->
                 connection.servicePublicKey("Store")
                 val remote = SaitoStoreSeller.readInventory(connection.request(SaitoStoreSeller.inventoryRequest(wallet.publicKey).toByteArray()).decodeToString(), wallet.publicKey)
-                val items = coroutineScope { selectedHoldings.map { holding -> async {
-                    val envelope = runCatching {
+                val permits = kotlinx.coroutines.sync.Semaphore(4)
+                val items = coroutineScope { selectedHoldings.map { holding -> async { permits.withPermit {
+                    val order = orders.lastOrNull { order -> order.receipt?.let { receipt ->
+                        receipt.kind == SaitoStoreReceipt.Kind.FULFILLMENT && receipt.asset?.let {
+                            it.id == holding.id && it.creator == holding.creator && it.owner == holding.owner
+                        } == true
+                    } == true }
+                    val envelope = if (order != null) null else runCatching {
                         SaitoStoreListing.readInventoryArchive(holding, connection.request(SaitoVault.archiveRequest(holding).toByteArray()).decodeToString())
                     }.getOrNull()
-                    val body = envelope?.let { SaitoStoreListing.metadata(holding, it) }
-                    Inventory(holding, envelope, body?.getAsJsonObject("data")?.get("filename")?.asString
-                        ?: body?.get("title")?.asString ?: holding.type)
-                } }.awaitAll() }
+                    val body = order?.let { SaitoStoreListing.receiptMetadata(holding, it.purchase, requireNotNull(it.receipt).encoded) }
+                        ?: envelope?.let { SaitoStoreListing.metadata(holding, it) }
+                    val data = body?.get("data")?.takeIf { it.isJsonObject }?.asJsonObject
+                    Inventory(holding, envelope, data?.get("filename")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
+                        ?: body?.get("title")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString ?: holding.type, order)
+                } } }.awaitAll() }
                 currentCoroutineContext().ensureActive(); current(token)
                 Load(saved, remote, items, position, available.size > (position + 1) * 24)
             }
         }
-        if (publishable(token)) {
+        if (publishable(token) && reading == readRevision) {
             records = result.saved; reported = result.remote; inventory = result.items
             inventoryPage = result.page; moreInventory = result.more
             focused = focused?.let { previous -> result.saved.firstOrNull { it.listing.transaction.id == previous.listing.transaction.id } }
         }
     }
+    private fun stopLoading() { readRevision++; readJob?.cancel(); readJob = null; loading = false }
     private data class Load(val saved: List<StoreListingStore.Record>, val remote: List<StoreSellerListing>, val items: List<Inventory>, val page: Int, val more: Boolean)
     fun prepare(item: Inventory, terms: StoreListingTerms, ready: () -> Unit) = operation { token ->
         val result = withContext(Dispatchers.IO) {
-            current(token); val envelope = requireNotNull(item.envelope)
+            current(token); require(item.hasMetadata)
             val observed = requireNotNull(balances.funding(backend, wallet.publicKey))
             val holding = observed.snapshot.nfts.single { it.witnesses == item.holding.witnesses }
             val minimum = if (observed.snapshot.height > observed.genesisPeriod) observed.snapshot.height - observed.genesisPeriod + java.math.BigInteger.valueOf(2) else java.math.BigInteger.ONE
             require(holding.positions.all { it.block >= minimum })
             val service = SaitoPeer(wallet, endpoint).use { it.servicePublicKey("Store") }
-            val listing = SaitoStoreListing.create(wallet, holding, envelope, service, terms, System.currentTimeMillis())
+            val timestamp = System.currentTimeMillis()
+            val listing = item.order?.let { order -> SaitoStoreListing.createFromReceipt(wallet, holding,
+                order.purchase, requireNotNull(order.receipt).encoded, service, terms, timestamp) }
+                ?: SaitoStoreListing.create(wallet, holding, requireNotNull(item.envelope), service, terms, timestamp)
             val active = currentCoroutineContext().job
             synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); journal.reserve(backend, listing) }
         }
         if (publishable(token)) { focused = result; records = records + result; ready() }
     }
-    fun open(record: StoreListingStore.Record) { if (!busy) { focused = record; problem = null } }
-    fun closeReview() { if (!busy) focused = null }
+    fun open(record: StoreListingStore.Record) { if (!busy) { stopLoading(); focused = record; problem = null } }
+    fun closeReview() { if (!busy) { stopLoading(); focused = null } }
     fun discard(record: StoreListingStore.Record) = operation { token ->
         withContext(Dispatchers.IO) { synchronized(SaitoLocalState.lock) { current(token); journal.discard(record) } }
         records = records.filterNot { it.listing.transaction.id == record.listing.transaction.id }; focused = null
@@ -127,6 +163,7 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
     private fun authorizeAction(title: Int, authorized: (Long) -> Unit) {
         if (closed || busy) return
         if (!activity.getSystemService(KeyguardManager::class.java).isDeviceSecure) { problem = R.string.wallet_auth_unavailable; return }
+        stopLoading()
         val token = ++revision; busy = true; problem = null
         val signal = CancellationSignal().also { cancellation = it }
         try {
@@ -199,8 +236,8 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         }
         if (publishable(token)) { images = images + result; focusedImage = result; ready() }
     }
-    fun openImage(record: StoreImageStore.Record) { if (!busy) { focusedImage = record; problem = null } }
-    fun closeImage() { if (!busy) focusedImage = null }
+    fun openImage(record: StoreImageStore.Record) { if (!busy) { stopLoading(); focusedImage = record; problem = null } }
+    fun closeImage() { if (!busy) { stopLoading(); focusedImage = null } }
     fun discardImage(record: StoreImageStore.Record) = operation { token ->
         withContext(Dispatchers.IO) { synchronized(SaitoLocalState.lock) { current(token); imageStore.discard(record) } }
         images = images.filterNot { it.mint.transaction.id == record.mint.transaction.id }; focusedImage = null
@@ -210,10 +247,10 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         return snapshot.nfts.any { it.id == record.mint.nftId && it.creator == wallet.publicKey && it.owner == wallet.publicKey &&
             it.type == "image" && it.quantity == java.math.BigInteger.ONE && it.deposit == record.mint.deposit }
     }
-    fun checkImage(record: StoreImageStore.Record) = operation { token ->
+    fun checkImage(record: StoreImageStore.Record) = readOperation { token, reading ->
         val id = record.mint.transaction.id; ownedImages = ownedImages - id
         val owned = withContext(Dispatchers.IO) { current(token); observesImage(record).also { current(token) } }
-        if (publishable(token) && owned) ownedImages = ownedImages + id
+        if (publishable(token) && reading == readRevision && owned) ownedImages = ownedImages + id
     }
     private fun sendImage(record: StoreImageStore.Record, token: Long) {
         job = scope.launch {
@@ -273,17 +310,29 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         }
         if (publishable(token)) { focusedDelist = result; delistRecords = delistRecords.filterNot { it.delist.transaction.id == result.delist.transaction.id } + result }
     }
-    fun openDelist(record: StoreDelistStore.Record) { if (!busy) { focusedDelist = record; problem = null } }
-    fun closeDelist() { if (!busy) focusedDelist = null }
+    fun openDelist(record: StoreDelistStore.Record) { if (!busy) { stopLoading(); focusedDelist = record; problem = null } }
+    fun closeDelist() { if (!busy) { stopLoading(); focusedDelist = null } }
     fun discardDelist(record: StoreDelistStore.Record) = operation { token ->
         withContext(Dispatchers.IO) { synchronized(SaitoLocalState.lock) { current(token); removals.discard(record) } }
         delistRecords = delistRecords.filterNot { it.delist.transaction.id == record.delist.transaction.id }; focusedDelist = null
     }
-    fun checkDelist(record: StoreDelistStore.Record) = operation { token ->
-        val id = record.delist.transaction.id
-        delistObservations = delistObservations - id
-        val observation = withContext(Dispatchers.IO) { current(token); balances.observeStoreDelist(backend, record.delist).also { current(token) } }
-        if (publishable(token)) delistObservations = observation?.let { delistObservations + (id to it) } ?: delistObservations
+    fun checkDelist(record: StoreDelistStore.Record) = readOperation { token, reading ->
+        val id = record.delist.transaction.id; delistObservations = delistObservations - id
+        val result = withContext(Dispatchers.IO) {
+            current(token)
+            val observation = balances.observeStoreDelist(backend, record.delist)
+            val active = currentCoroutineContext().job
+            synchronized(SaitoLocalState.lock) {
+                active.ensureActive(); current(token); check(reading == readRevision)
+                observation?.let { removals.observe(record, it) }
+                removals.read() to observation
+            }
+        }
+        if (publishable(token) && reading == readRevision) {
+            delistRecords = result.first
+            focusedDelist = result.first.firstOrNull { it.delist.transaction.id == id }
+            result.second?.let { delistObservations = delistObservations + (id to it) }
+        }
     }
     private fun sendDelist(record: StoreDelistStore.Record, token: Long) {
         job = scope.launch {
@@ -301,6 +350,10 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
                         connection.finishBroadcast()
                     }
                     currentCoroutineContext().ensureActive(); current(token)
+                    if (already != null) {
+                        val active = currentCoroutineContext().job
+                        synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); removals.observe(exact, already) }
+                    }
                     removals.read() to already
                 }
                 if (publishable(token)) {
@@ -332,6 +385,6 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         if (publishable(token)) reported = result
     }
     fun dispose() {
-        closed = true; revision++; cancellation?.cancel(); cancellation = null; job?.cancel(); peer?.close(); peer = null
+        closed = true; revision++; stopLoading(); cancellation?.cancel(); cancellation = null; job?.cancel(); peer?.close(); peer = null
     }
 }

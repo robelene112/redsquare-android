@@ -31,6 +31,7 @@ internal fun StoreDelistReview(selling: StoreSelling, record: StoreDelistStore.R
             Text(stringResource(when {
                 observation?.returned == true -> R.string.store_delist_returned
                 observation != null -> R.string.store_delist_included
+                record.lastObservation != null -> R.string.store_delist_historical
                 record.mayHaveSent -> R.string.store_delist_waiting
                 else -> R.string.store_sell_not_sent
             }), style = MaterialTheme.typography.bodySmall)
@@ -39,7 +40,7 @@ internal fun StoreDelistReview(selling: StoreSelling, record: StoreDelistStore.R
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedButton(onClick = selling::closeDelist, enabled = !selling.busy,
                     modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }
-                if (record.mayHaveSent) OutlinedButton(onClick = { selling.checkDelist(record) }, enabled = !selling.busy,
+                if (record.mayHaveSent) OutlinedButton(onClick = { selling.checkDelist(record) }, enabled = !selling.busy && !selling.loading,
                     modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.store_delist_check)) }
                 else TextButton(onClick = { selling.discardDelist(record) }, enabled = !selling.busy,
                     modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.store_delist_discard)) }

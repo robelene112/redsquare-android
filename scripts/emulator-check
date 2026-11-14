@@ -740,7 +740,8 @@ fi
 
 if [[ "${TEST_SCOPE:-full}" == store-seller* ]]; then
     store_seller_result=0
-    verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence || store_seller_result=1
+    verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence
+    verify_group_chat_native StoreSellerRecoveryPreviewTest 180 store-seller-recovery store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreSellerCreationPreviewTest 180 store-seller-creation store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreSellerManagementPreviewTest 180 store-seller-management store-seller-evidence || store_seller_result=1
     verify_group_chat_native StoreSellerViewportPreviewTest 480 store-seller-viewport store-seller-evidence || store_seller_result=1
@@ -1356,6 +1357,7 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_group_chat_native StoreCataloguePreviewTest 180 store-catalogue store-catalogue-evidence
     verify_group_chat_native StoreSellerPreviewTest 180 store-seller store-seller-evidence
+    verify_group_chat_native StoreSellerRecoveryPreviewTest 180 store-seller-recovery store-seller-evidence
     verify_group_chat_native StoreSellerCreationPreviewTest 180 store-seller-creation store-seller-evidence
     verify_group_chat_native StoreSellerManagementPreviewTest 180 store-seller-management store-seller-evidence
     verify_group_chat_native StoreSellerViewportPreviewTest 480 store-seller-viewport store-seller-evidence

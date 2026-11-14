@@ -1,8 +1,7 @@
 // Actual isolated Store seller delisting builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&process.argv[6]!=='--full'))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
-
-const quantity=process.argv[6]==='--full'?2:1;
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&process.argv[6]!=='--atr'))throw Error('Usage: node store-delist-reference.cjs runtime upstream acorn.js output [--atr]');
+const quantity=1;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const hashes={
@@ -60,6 +59,12 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const purchaseOutput=confirmedOutput(signed.networkBase64,0,21,0),triple=[0,1,2].map(index=>confirmedOutput(listing.listing.networkBase64,index,20,0));
  const order={order_tx_sig:signed.id,buyer,nft_id:listing.nftId,quantity,price:250000000,payment_amount:String(250000000n*BigInt(quantity)),payment_tx_sig:signed.id,payment_output_index:0,utxo_slip:purchaseOutput,access_script:created.msg.access_script};
  const row={access_hash:listing.body.access_hash,signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:2,take_qty:quantity,price:250000000,p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
+ if(process.argv[6]==='--atr'){
+ for(let i=0;i<3;i++){
+  const slip=row['utxo_slip'+(i+1)];slip.index=i+3;if(i===1)slip.type=1;
+  const key=Buffer.alloc(59);Buffer.from(base58.decode(slip.publicKey)).copy(key);key.writeBigUInt64BE(BigInt(slip.blockId),33);key.writeBigUInt64BE(BigInt(slip.txOrdinal),41);key[49]=slip.index;key.writeBigUInt64BE(BigInt(slip.amount),50);key[58]=slip.type;slip.utxoKey=key.toString('hex');
+ }
+ }
  const mod={app:storeApp,fee:0,...storeMethods};
  await wallet.set_private_key('0'.repeat(63)+'2');await wallet.set_public_key(listing.seller);
  const sellerApp={...storeApp,wallet:{getPublicKey:async()=>listing.seller,signMessage:async m=>wasm.sign_buffer(Buffer.from(m),'0'.repeat(63)+'2')}};

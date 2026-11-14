@@ -34,7 +34,7 @@ class StoreSellerCreationPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Review upload").isDisplayed() }
             ui.onNodeWithText("Create key and upload").performScrollTo().performClick()
             waitForSystemPin(device); assertTrue(scene.peer.transactions.isEmpty()); enterRealSystemPin(device)
-            ui.waitUntil(25_000) { ui.onNodeWithText("Continue listing").isDisplayed() }
+            ui.waitUntil(25_000) { ui.onNodeWithText("Upload complete").isDisplayed() }
             assertEquals(1, scene.peer.transactions.size); assertEquals(1, scene.peer.vaultUploads.size)
             val minted = requireNotNull(scene.mint?.candidate())
             captureNativeScreen(File(scene.evidence, "new-file-vault-key-complete-inline.png"))

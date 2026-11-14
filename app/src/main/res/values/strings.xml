@@ -1138,4 +1138,14 @@
     <string name="store_image_prepare">Prepare image NFT</string>
     <string name="store_image_limit">Choose a PNG, JPEG, WebP or GIF up to 512 KiB. Review creation before authorizing the deposit.</string>
     <string name="store_image_create">Create image NFT</string>
+    <string name="store_delist_historical">Delisting was previously observed on this node. Check its current status.</string>
+    <string name="store_image_offered">This image is used in a saved sale offer.</string>
+    <string name="store_sell_rejected">This Store did not accept the marketplace submission. Your storefront listing is unchanged.</string>
+    <string name="store_sell_back_to_listing">Back to listing</string>
+    <string name="store_sell_currency_price">%1$s %2$s each</string>
+    <string name="store_sell_stock_count">Available: %1$s of %2$s</string>
+    <string name="store_sell_sale_quantity">Reported sold: %1$s</string>
+    <string name="store_sell_sale_buyer">Buyer: %1$s</string>
+    <string name="store_sell_pending">Available in this storefront. Marketplace review is pending.</string>
+    <string name="store_sell_declined">Available in this storefront. Marketplace submission was declined.</string>
 </resources>

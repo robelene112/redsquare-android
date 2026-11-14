@@ -35,6 +35,22 @@ class SaitoStoreListingTest {
         assertEquals(reference.getAsJsonObject("listing").get("networkBase64").asString, listing.transaction.encoded())
         assertEquals(BigInteger.ONE, SaitoStoreListing.restore(listing.transaction.encoded()).terms.quantity)
     }
+    @Test fun purchasedInventoryRetainsTheAuthenticatedStoreReceiptWhenResold() {
+        val vector = fixture("native-store-resale-reference")
+        val inventory = vector.getAsJsonObject("inventory")
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val holding = SaitoBalanceSnapshot.parse(inventory.get("snapshot").asString.toByteArray(), wallet.publicKey, 1700004003000).nfts.single()
+        val purchase = SaitoStorePurchase.restore(inventory.getAsJsonObject("purchase").get("networkBase64").asString)
+        val receipt = inventory.getAsJsonObject("receipt").get("networkBase64").asString
+        val listing = SaitoStoreListing.createFromReceipt(wallet, holding, purchase, receipt, vector.get("store").asString,
+            StoreListingTerms("Field notes access key", "Original creator-authenticated field notes.", StoreCategory.ACCESS, "2.5", BigInteger.ONE), 1700002000000)
+        assertEquals(vector.getAsJsonObject("listing").get("networkBase64").asString, listing.transaction.encoded())
+        assertThrows(IllegalArgumentException::class.java) { SaitoEnvelope.decodeBound(inventory.getAsJsonObject("receipt").get("envelope").asString) }
+        assertThrows(IllegalArgumentException::class.java) {
+            SaitoStoreListing.receiptMetadata(SaitoNft.fromSnapshot(SaitoNft.Row(holding.owner, holding.positions[1]),
+                SaitoNft.Row(wallet.publicKey, holding.positions[0]), SaitoNft.Row(Base58.encode(holding.id.chunked(2).map { it.toInt(16).toByte() }.toByteArray()), holding.positions[2])), purchase, receipt)
+        }
+    }
     @Test fun sellerInventoryKeepsApprovalSeparateFromAvailabilityAndRealSales() {
         val reference = fixture("native-store-listing-reference")
         val active = reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply { addProperty("approved", 0) }
@@ -95,5 +111,51 @@ class SaitoStoreListingTest {
         assertEquals(mint.nftId, restored.nftId); assertEquals(BigInteger("100000000"), restored.deposit)
         assertEquals(inputs, restored.inputs)
         assertEquals(image, restored.image)
+    }
+    @Test fun stackInventoryRetainsTheOfficialCreatorDurationAndDelegationHop() {
+        val vector = fixture("native-store-stack-listing-reference")
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val inventory = vector.getAsJsonObject("inventory")
+        val holding = SaitoBalanceSnapshot.parse(inventory.get("snapshot").asString.toByteArray(), wallet.publicKey, 1700001000000).nfts.single()
+        val listed = SaitoStoreListing.create(wallet, holding, inventory.getAsJsonObject("mint").get("envelope").asString,
+            vector.get("store").asString, StoreListingTerms("Native Stack subscription", "Compatible routing on a Store listing.", StoreCategory.APPS, "2.5", BigInteger.TWO), 1700002000000)
+        assertEquals(vector.getAsJsonObject("listing").get("networkBase64").asString, listed.transaction.encoded())
+        assertEquals("stack", SaitoStoreListing.restore(listed.transaction.encoded()).holding.type)
+    }
+    @Test fun atrCustodyAtLaterTupleOffsetsUsesTheOfficialNormalizedDelistOutputs() {
+        val reference = fixture("native-store-listing-reference")
+        val vector = fixture("native-store-delist-atr-reference")
+        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(reference.get("page").toString()).items.single(), reference.getAsJsonObject("listing").get("envelope").asString))
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val delist = SaitoStoreDelist.create(wallet, product, vector.get("row").toString(), 1700004000000)
+        assertEquals(vector.getAsJsonObject("delist").get("networkBase64").asString, delist.transaction.encoded())
+        assertEquals(listOf(3, 4, 5), delist.inputs.map { it.index })
+        assertEquals(1, delist.inputs[1].type)
+        val snapshot = SaitoBalanceSnapshot.parse(vector.get("returnedSnapshot").asString.toByteArray(), wallet.publicKey, 1700004003000)
+        val block = java.util.Base64.getDecoder().decode(vector.getAsJsonObject("block").get("fullBase64").asString)
+        assertTrue(requireNotNull(SaitoStoreDelistChain.observe(delist, snapshot) { block }).returned)
+    }
+    @Test fun aMarketplaceSubmissionDistinguishesPendingReviewFromRejection() {
+        val signature = "1".repeat(128)
+        assertFalse(SaitoStoreSeller.readSubmission(signature, "{\"ok\":true,\"signature\":\"$signature\",\"approved\":2}"))
+        assertThrows(SaitoStoreSeller.Rejected::class.java) {
+            SaitoStoreSeller.readSubmission(signature, "{\"err\":\"Unauthorized\"}")
+        }
+    }
+    @Test fun officialMarketplaceTransitionsRetainPendingAndModeratorRejectedStates() {
+        val vector = fixture("native-store-moderation-reference")
+        val reference = fixture("native-store-listing-reference")
+        for (case in vector.getAsJsonArray("cases")) {
+            val sample = case.asJsonObject; val response = sample.get("response").toString()
+            if (sample.get("before").asInt == 3) assertThrows(SaitoStoreSeller.Rejected::class.java) {
+                SaitoStoreSeller.readSubmission(vector.get("signature").asString, response)
+            } else assertEquals(sample.get("after").asInt == 1, SaitoStoreSeller.readSubmission(vector.get("signature").asString, response))
+        }
+        for (state in listOf(0, -1, 1, 2)) {
+            val row = reference.getAsJsonObject("page").getAsJsonArray("listings")[0].asJsonObject.deepCopy().apply { addProperty("approved", state) }
+            val body = com.google.gson.JsonObject().apply { add("seller", reference.get("seller")); add("active", com.google.gson.JsonArray().apply { add(row) }); add("sold", com.google.gson.JsonArray()) }
+            val item = SaitoStoreSeller.readInventory(body.toString(), reference.get("seller").asString).single()
+            assertEquals(StoreApproval.entries.single { it.wire == state }, item.approval)
+        }
     }
 }

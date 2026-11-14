@@ -15,6 +15,7 @@ import nl.davidengelen.redsquare.ui.*
 @Composable
 internal fun StoreImageReview(selling: StoreSelling, record: StoreImageStore.Record, modifier: Modifier, onContinue: () -> Unit) {
     val owned = record.mint.transaction.id in selling.ownedImages
+    val offer = selling.records.firstOrNull { it.backend == record.backend && it.listing.holding.id == record.mint.nftId && it.listing.holding.creator == record.mint.author }
     Column(modifier.fillMaxSize()) {
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text(stringResource(R.string.store_image_review), style = MaterialTheme.typography.headlineSmall)
@@ -30,11 +31,12 @@ internal fun StoreImageReview(selling: StoreSelling, record: StoreImageStore.Rec
         HorizontalDivider()
         Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             InlineStatus(selling.problem?.let { stringResource(it) }, if (selling.problem == R.string.store_sell_submission_unknown) StatusTone.NEUTRAL else StatusTone.ERROR)
-            Text(stringResource(if (owned) R.string.store_image_owned else if (record.mayHaveSent) R.string.store_image_waiting else R.string.store_sell_not_sent), style = MaterialTheme.typography.bodySmall)
-            if (owned) Button(onClick = onContinue, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_back_form)) }
+            Text(stringResource(if (offer != null) R.string.store_image_offered else if (owned) R.string.store_image_owned else if (record.mayHaveSent) R.string.store_image_waiting else R.string.store_sell_not_sent), style = MaterialTheme.typography.bodySmall)
+            if (offer != null) Button(onClick = { selling.closeImage(); selling.open(offer) }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_open)) }
+            else if (owned) Button(onClick = onContinue, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_back_form)) }
             else {
                 Button(onClick = { selling.authorizeImage(record) }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(if (record.mayHaveSent) R.string.store_image_retry else R.string.store_image_authorize)) }
-                if (record.mayHaveSent) OutlinedButton(onClick = { selling.checkImage(record) }, enabled = !selling.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_check)) }
+                if (record.mayHaveSent) OutlinedButton(onClick = { selling.checkImage(record) }, enabled = !selling.busy && !selling.loading, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_image_check)) }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedButton(onClick = selling::closeImage, enabled = !selling.busy, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text(stringResource(R.string.done)) }

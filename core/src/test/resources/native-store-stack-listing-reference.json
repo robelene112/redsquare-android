@@ -1,0 +1,96 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "saitoWasm": "0.3.15",
+    "sourceHashes": {
+      "node/mods/stack/stack.js": "fb8a757d267bb3cab87d1750d1dce4cc7ca0b2c8395175fea9459f3e341dd9e9",
+      "node/mods/store/lib/transactions.js": "8e7b0c29f8bc1e8e0ede4e966d9fe5c5d385ca00b0f18c31f0304db56a7af8b3",
+      "node/mods/store/lib/scripting.js": "917f112d52fd81fc5c6508cc5c1467ffa1df73cd8d12db06982d328b63bc18ff",
+      "node/mods/store/lib/helpers.js": "a7617ba4350be5bf307fae6710173ecc9b2abf94c0e627adbdbb97886ec99fce",
+      "node/mods/store/lib/summary.js": "e91b1f554a1da2257c4f86a0f14a7ac1abb56e1ff01dd600fd705cde2775979a"
+    },
+    "qualification": "Actual isolated Store createListAssetTransaction and Stack respondTo/onTransfer hook, script/helpers and Summary serializer, actual WASM wallet mint and NFT transfer. Wallet wrapper and standard no-hook adapters are not a full frontend or funded consensus listing."
+  },
+  "inventory": {
+    "mint": {
+      "id": "3656fe0d271272d2809b6d343b8d51f6e615f2efc15e50f50863a094ce5e312815cf866d3d3475ff227258e709fff768c7e56836d8ae8a11c7c4d66ee59fc032",
+      "networkBase64": "AAAAAQAAAAQAAABQAAAAADZW/g0nEnLSgJttNDuNUfbmFfLvwV5Q9QhjoJTOXjEoFc+GbT00df8icljnCf/3aMflaDbYrooRx8TWbuWfwDIAAAGLz/SqQAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAvrwgAAAAAAAB6EgQAAAAAAAAADAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQLGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwBzdGFjawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAADAHsiZGF0YSI6eyJkdXJhdGlvbiI6ODY0MDAwMDAsInBhdGgiOltdfSwidGl0bGUiOiJTdGFjayBhY2Nlc3MiLCJtb2R1bGUiOiJTdGFjayJ9",
+      "envelope": "{\"t\":\"AAAAAQAAAAQAAAAAAAAAADZW/g0nEnLSgJttNDuNUfbmFfLvwV5Q9QhjoJTOXjEoFc+GbT00df8icljnCf/3aMflaDbYrooRx8TWbuWfwDIAAAGLz/SqQAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAvrwgAAAAAAAB6EgQAAAAAAAAADAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQLGBH+UQe19bTBFQG6VwHzYXHeOS4zvPKerrAm5XHCe5QAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwBzdGFjawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAAAAAAAAAAAAAAAADAA==\",\"m\":\"eyJkYXRhIjp7ImR1cmF0aW9uIjo4NjQwMDAwMCwicGF0aCI6W119LCJ0aXRsZSI6IlN0YWNrIGFjY2VzcyIsIm1vZHVsZSI6IlN0YWNrIn0=\",\"opt\":\"e30=\"}"
+    },
+    "snapshot": "1700001000000-2000003-abababababababababababababababababababababababababababababababab.snap\npncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU 2000002 8 1 100000000 0\npncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU 2000002 8 0 2 9\n11111KCu2gbwsjHudXpvuNNm6xnqnYFko8TPJQxZj9y 2000002 8 2 0 9\n"
+  },
+  "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "store": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+  "nftId": "00000000001e8481000000000000000300737461636b0000000000000000000000",
+  "timestamp": "1700002000000",
+  "listing": {
+    "id": "5efd63bde14d6746553c843ad8d1ca1dfbc2014661a6dd80ffb227250a00c49301ff2fa3f5fdfe672f9b5444fb1a88e45c16af7218225221a3130f65153f9ded",
+    "networkBase64": "AAAABAAAAAQAAAQpAAAAAF79Y73hTWdGVTyEOtjRyh37wgFGYabdgP+yJyUKAMSTAf8vo/X9/mcvm1RE+xqI5FwWr3IYIlIhoxMPZRU/ne0AAAGL0APsgAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAIAAAAAAB6EggAAAAAAAAAIAAkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAHoSCAAAAAAAAAAgBAAAAAAAAHoSBAAAAAAAAAAMAc3RhY2sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAehIIAAAAAAAAACAIJAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQCSlB6r3myGadlkegH8fWW5cQ9qQAFKvgs40J4cdMXjJgAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwBzdGFjawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAHsiZGF0YSI6eyJkdXJhdGlvbiI6ODY0MDAwMDAsInBhdGgiOlt7InRvIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJ2YWx1ZSI6ImV5SjBhVzFsYzNSaGJYQWlPakUzTURBd01ESXdNREF3TURBc0ltUmxiR1ZuWVhSbElqcG1ZV3h6WlgwPSIsInNpZyI6IjkzMDdmZGNiZjZlMDkzMWMzNTNlMzIwZjZjZTdmMDk1OGFhNjQzMDJkMTEzYjYxOGZjZTY4ZTg5NTUxMjNhMDMwYjhlYjk5ODM1OTQ2YTFhMTY2ZDEwMjM0MGI0ZTZkZjYyZjQ5YWMxYzg0ZjY0NmMyNjY0YWI5OTViNjBhYzBhIn1dLCJkdXJhdGlvbl9zaWciOiIxNGM3MTM4NmJmMzQ2NzQzMTllYjE5ZTQ1NmE4NDVmYzY4Yjg3NzBkMmMzM2JmMmQwOWQzNGQ0YWZjYmNjOGFjNTVlYjgzMTM2NGQ0NjY2NTU4MGZjMmRlYzBlMzcxYTc5MGQ0YzRiOGFlMTE5NDI5NTE4YmVmYzRhMDVlY2Q2YyJ9LCJ0aXRsZSI6IlN0YWNrIGFjY2VzcyIsIm1vZHVsZSI6IlN0b3JlIiwicmVxdWVzdCI6Imxpc3QtYXNzZXQiLCJhY2Nlc3Nfc2NyaXB0Ijoie1wib3BcIjpcIkNIRUNLTVVMVElTSUdcIixcIm1cIjoxLFwicHVibGlja2V5c1wiOltcInBuY1Nqc2Z0ZG1zcGVkWGdtQ2trSExSQ2VhazEyZXgyV1ZybmUycWRlZlNVXCIsXCJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeFwiXSxcIm1zZ1wiOlwidHguZnJvbS5wMnNoLnV0eG9zZXRfa2V5XCJ9IiwiYWNjZXNzX2hhc2giOiI5Mjk0MWVhYmRlNmM4NjY5ZDk2NDdhMDFmYzdkNjViOTcxMGY2YTQwMDE0YWJlMGIzOGQwOWUxYzc0YzVlMzI2IiwicDJzaF9hZGRyZXNzIjoiMDA5Mjk0MWVhYmRlNmM4NjY5ZDk2NDdhMDFmYzdkNjViOTcxMGY2YTQwMDE0YWJlMGIzOGQwOWUxYzc0YzVlMzI2IiwibGlzdGluZyI6eyJ0aXRsZSI6Ik5hdGl2ZSBTdGFjayBzdWJzY3JpcHRpb24iLCJkZXNjcmlwdGlvbiI6IkNvbXBhdGlibGUgcm91dGluZyBvbiBhIFN0b3JlIGxpc3RpbmcuIiwiY2F0ZWdvcnkiOiJBcHBzICYgR2FtZXMiLCJwcmljZSI6IjIuNSIsInF1YW50aXR5X3RvdGFsIjoyLCJxdWFudGl0eV9hdmFpbGFibGUiOjJ9fQ==",
+    "envelope": "{\"t\":\"AAAABAAAAAQAAAAAAAAAAF79Y73hTWdGVTyEOtjRyh37wgFGYabdgP+yJyUKAMSTAf8vo/X9/mcvm1RE+xqI5FwWr3IYIlIhoxMPZRU/ne0AAAGL0APsgAAAAAEIAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAIAAAAAAB6EggAAAAAAAAAIAAkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAABfXhAAAAAAAAHoSCAAAAAAAAAAgBAAAAAAAAHoSBAAAAAAAAAAMAc3RhY2sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAehIIAAAAAAAAACAIJAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACQCSlB6r3myGadlkegH8fWW5cQ9qQAFKvgs40J4cdMXjJgAAAAAF9eEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAehIEAAAAAAAAAAwBzdGFjawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgkCxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA==\",\"m\":\"eyJkYXRhIjp7ImR1cmF0aW9uIjo4NjQwMDAwMCwicGF0aCI6W3sidG8iOiJ0RU5Cb1F0dHp5S2FDVzZkNjF0UWpjZWFWQTNHc1oyV3JCTG5ncllIY1hFeCIsInZhbHVlIjoiZXlKMGFXMWxjM1JoYlhBaU9qRTNNREF3TURJd01EQXdNREFzSW1SbGJHVm5ZWFJsSWpwbVlXeHpaWDA9Iiwic2lnIjoiOTMwN2ZkY2JmNmUwOTMxYzM1M2UzMjBmNmNlN2YwOTU4YWE2NDMwMmQxMTNiNjE4ZmNlNjhlODk1NTEyM2EwMzBiOGViOTk4MzU5NDZhMWExNjZkMTAyMzQwYjRlNmRmNjJmNDlhYzFjODRmNjQ2YzI2NjRhYjk5NWI2MGFjMGEifV0sImR1cmF0aW9uX3NpZyI6IjE0YzcxMzg2YmYzNDY3NDMxOWViMTllNDU2YTg0NWZjNjhiODc3MGQyYzMzYmYyZDA5ZDM0ZDRhZmNiY2M4YWM1NWViODMxMzY0ZDQ2NjY1NTgwZmMyZGVjMGUzNzFhNzkwZDRjNGI4YWUxMTk0Mjk1MThiZWZjNGEwNWVjZDZjIn0sInRpdGxlIjoiU3RhY2sgYWNjZXNzIiwibW9kdWxlIjoiU3RvcmUiLCJyZXF1ZXN0IjoibGlzdC1hc3NldCIsImFjY2Vzc19zY3JpcHQiOiJ7XCJvcFwiOlwiQ0hFQ0tNVUxUSVNJR1wiLFwibVwiOjEsXCJwdWJsaWNrZXlzXCI6W1wicG5jU2pzZnRkbXNwZWRYZ21Da2tITFJDZWFrMTJleDJXVnJuZTJxZGVmU1VcIixcInRFTkJvUXR0enlLYUNXNmQ2MXRRamNlYVZBM0dzWjJXckJMbmdyWUhjWEV4XCJdLFwibXNnXCI6XCJ0eC5mcm9tLnAyc2gudXR4b3NldF9rZXlcIn0iLCJhY2Nlc3NfaGFzaCI6IjkyOTQxZWFiZGU2Yzg2NjlkOTY0N2EwMWZjN2Q2NWI5NzEwZjZhNDAwMTRhYmUwYjM4ZDA5ZTFjNzRjNWUzMjYiLCJwMnNoX2FkZHJlc3MiOiIwMDkyOTQxZWFiZGU2Yzg2NjlkOTY0N2EwMWZjN2Q2NWI5NzEwZjZhNDAwMTRhYmUwYjM4ZDA5ZTFjNzRjNWUzMjYiLCJsaXN0aW5nIjp7InRpdGxlIjoiTmF0aXZlIFN0YWNrIHN1YnNjcmlwdGlvbiIsImRlc2NyaXB0aW9uIjoiQ29tcGF0aWJsZSByb3V0aW5nIG9uIGEgU3RvcmUgbGlzdGluZy4iLCJjYXRlZ29yeSI6IkFwcHMgJiBHYW1lcyIsInByaWNlIjoiMi41IiwicXVhbnRpdHlfdG90YWwiOjIsInF1YW50aXR5X2F2YWlsYWJsZSI6Mn19\",\"opt\":\"e30=\"}"
+  },
+  "body": {
+    "data": {
+      "duration": 86400000,
+      "path": [
+        {
+          "to": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+          "value": "eyJ0aW1lc3RhbXAiOjE3MDAwMDIwMDAwMDAsImRlbGVnYXRlIjpmYWxzZX0=",
+          "sig": "9307fdcbf6e0931c353e320f6ce7f0958aa64302d113b618fce68e8955123a030b8eb99835946a1a166d102340b4e6df62f49ac1c84f646c2664ab995b60ac0a"
+        }
+      ],
+      "duration_sig": "14c71386bf34674319eb19e456a845fc68b8770d2c33bf2d09d34d4afcbcc8ac55eb831364d46665580fc2dec0e371a790d4c4b8ae119429518befc4a05ecd6c"
+    },
+    "title": "Stack access",
+    "module": "Store",
+    "request": "list-asset",
+    "access_script": "{\"op\":\"CHECKMULTISIG\",\"m\":1,\"publickeys\":[\"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU\",\"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx\"],\"msg\":\"tx.from.p2sh.utxoset_key\"}",
+    "access_hash": "92941eabde6c8669d9647a01fc7d65b9710f6a40014abe0b38d09e1c74c5e326",
+    "p2sh_address": "0092941eabde6c8669d9647a01fc7d65b9710f6a40014abe0b38d09e1c74c5e326",
+    "listing": {
+      "title": "Native Stack subscription",
+      "description": "Compatible routing on a Store listing.",
+      "category": "Apps & Games",
+      "price": "2.5",
+      "quantity_total": 2,
+      "quantity_available": 2
+    }
+  },
+  "page": {
+    "listings": [
+      {
+        "nft_id": "00000000001e8481000000000000000300737461636b0000000000000000000000",
+        "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+        "category": "Apps & Games",
+        "title": "Native Stack subscription",
+        "description": "Compatible routing on a Store listing.",
+        "listing_signature": "5efd63bde14d6746553c843ad8d1ca1dfbc2014661a6dd80ffb227250a00c49301ff2fa3f5fdfe672f9b5444fb1a88e45c16af7218225221a3130f65153f9ded",
+        "price": 250000000,
+        "web3_ticker": "",
+        "web3_amount": "",
+        "quantity_total": 2,
+        "quantity_available": 2,
+        "status": 1,
+        "created_at": 1700002000000,
+        "updated_at": 1700002000000,
+        "subtitle": "",
+        "note": "",
+        "buyer": "",
+        "quantity_sold": 0,
+        "sold_at": 0,
+        "approved": 1,
+        "risk": ""
+      }
+    ],
+    "public_key": "",
+    "category": "",
+    "pagination": {
+      "offset": 0,
+      "page": 1,
+      "page_size": 24,
+      "total": 1,
+      "total_pages": 1,
+      "has_next": false,
+      "has_previous": false
+    }
+  }
+}

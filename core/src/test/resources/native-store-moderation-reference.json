@@ -1,0 +1,66 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "sourceHashes": {
+      "node/mods/store/lib/database.js": "0f40d0a346d0c71aa0219fff8c446a3b55eba0f0438f30d306aa05261876dc48",
+      "node/mods/store/store.js": "5ef51f3d2ca95313fe55f60429f5afea1ca56c0f1be80fe18a4d5cf331652a3f"
+    },
+    "qualification": "Actual isolated submitListingForMainStore and handlePeerTransaction with a narrowly checked in-memory SQL IO adapter. Not a running database/node or moderation provider."
+  },
+  "signature": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "seller": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "cases": [
+    {
+      "before": 0,
+      "response": {
+        "ok": true,
+        "signature": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "approved": 2,
+        "unchanged": false
+      },
+      "after": 2,
+      "writes": 1
+    },
+    {
+      "before": -1,
+      "response": {
+        "ok": true,
+        "signature": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "approved": 2,
+        "unchanged": false
+      },
+      "after": 2,
+      "writes": 1
+    },
+    {
+      "before": 1,
+      "response": {
+        "ok": true,
+        "signature": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "approved": 1,
+        "unchanged": true
+      },
+      "after": 1,
+      "writes": 0
+    },
+    {
+      "before": 2,
+      "response": {
+        "ok": true,
+        "signature": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+        "approved": 2,
+        "unchanged": true
+      },
+      "after": 2,
+      "writes": 0
+    },
+    {
+      "before": 3,
+      "response": {
+        "err": "Unable to submit listing"
+      },
+      "after": 3,
+      "writes": 0
+    }
+  ]
+}

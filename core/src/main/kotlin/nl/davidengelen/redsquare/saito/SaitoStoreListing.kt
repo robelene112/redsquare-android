@@ -26,9 +26,29 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
 
         fun create(wallet: SaitoWallet, holding: SaitoNft, envelope: String, store: String,
             terms: StoreListingTerms, timestamp: Long): SaitoStoreListing {
+            return createWithMetadata(wallet, holding, metadata(holding, envelope), store, terms, timestamp)
+        }
+
+        /** Store-delivered metadata has a P2SH signer and is admitted only against the retained purchase. */
+        fun receiptMetadata(holding: SaitoNft, purchase: SaitoStorePurchase, encoded: String): JsonObject {
+            val receipt = SaitoStoreReceipt.read(purchase, encoded)
+            val delivered = requireNotNull(receipt.asset)
+            require(receipt.kind == SaitoStoreReceipt.Kind.FULFILLMENT && delivered.id == holding.id &&
+                delivered.creator == holding.creator && delivered.owner == holding.owner)
+            val wire = Base64.getDecoder().decode(encoded)
+            val header = ByteBuffer.wrap(wire)
+            val start = 93 + 59 * (header.getInt(0) + header.getInt(4))
+            return JsonParser.parseString(wire.copyOfRange(start, start + header.getInt(8)).toString(Charsets.UTF_8)).asJsonObject
+        }
+
+        fun createFromReceipt(wallet: SaitoWallet, holding: SaitoNft, purchase: SaitoStorePurchase,
+            encoded: String, store: String, terms: StoreListingTerms, timestamp: Long): SaitoStoreListing =
+            createWithMetadata(wallet, holding, receiptMetadata(holding, purchase, encoded), store, terms, timestamp)
+
+        private fun createWithMetadata(wallet: SaitoWallet, holding: SaitoNft, body: JsonObject, store: String,
+            terms: StoreListingTerms, timestamp: Long): SaitoStoreListing {
             require(holding.owner == wallet.publicKey && sellable(holding) && SaitoWallet.isPublicKey(store) && store != wallet.publicKey)
             require(terms.quantity <= holding.quantity)
-            val body = metadata(holding, envelope)
             for (field in listOf("request", "access_script", "access_hash", "p2sh_address", "access_scripts", "fulfill_sale", "listing_signature", "listing")) body.remove(field)
             val script = SaitoAccessScript.parse(JsonObject().apply {
                 addProperty("op", "CHECKMULTISIG"); addProperty("m", 1)
@@ -43,6 +63,7 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
                 addProperty("category", terms.category.wire); addProperty("price", terms.price)
                 addProperty("quantity_total", terms.quantity); addProperty("quantity_available", terms.quantity)
             })
+            if (holding.type == "stack") transferStack(wallet, holding, body, store, timestamp)
             val source = holding.witnesses.map(::witnessRow)
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
             val deposit = holding.deposit * terms.quantity / holding.quantity
@@ -120,7 +141,50 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
                 }
             }
             require(source.last().publicKey == holding.owner && source.last().position == zero.copy(index = if (partial) 6 else 3))
+            if (holding.type == "stack") {
+                val data = body.getAsJsonObject("data"); val path = data.getAsJsonArray("path")
+                require(path.size() in 1..256)
+                val hop = path.last().asJsonObject
+                require(hop.keySet() == setOf("to", "value", "sig") && hop.get("to").asString == keys[1])
+                val value = hop.get("value").asString
+                val raw = Base64.getDecoder().decode(value)
+                require(raw.size <= 256 && Base64.getEncoder().encodeToString(raw) == value)
+                val event = JsonParser.parseString(raw.toString(Charsets.UTF_8)).asJsonObject
+                require(event.keySet() == setOf("timestamp", "delegate") && event.get("timestamp").asLong == signed.createdAt &&
+                    event.get("delegate").asJsonPrimitive.isBoolean && !event.get("delegate").asBoolean)
+                require(SaitoWallet.verify(hashText(keys[1] + "|" + value + "|" + holding.id).toByteArray(), hop.get("sig").asString, signed.author))
+                if (holding.creator == signed.author && path.size() == 1 && truthy(data.get("duration"))) {
+                    require(SaitoWallet.verify(hashText(data.get("duration").asString + "|" + holding.id).toByteArray(), data.get("duration_sig").asString, signed.author))
+                }
+            }
             return SaitoStoreListing(transaction, holding, keys[1], terms)
+        }
+        /** Official Stack ownership hop, including creator duration binding and last inbound truncation. */
+        private fun transferStack(wallet: SaitoWallet, holding: SaitoNft, body: JsonObject, receiver: String, timestamp: Long) {
+            val data = body.get("data")?.takeIf { it.isJsonObject }?.asJsonObject ?: JsonObject().also { body.add("data", it) }
+            var path = data.get("path")?.takeIf { it.isJsonArray }?.asJsonArray ?: com.google.gson.JsonArray()
+            require(path.size() < 256)
+            if (path.isEmpty && holding.creator == wallet.publicKey && truthy(data.get("duration")) && !truthy(data.get("duration_sig")))
+                data.addProperty("duration_sig", wallet.sign(hashText(data.get("duration").asString + "|" + holding.id).toByteArray()))
+            val inbound = path.indexOfLast { it.asJsonObject.get("to")?.asString == wallet.publicKey }
+            if (inbound >= 0) path = com.google.gson.JsonArray().apply { path.take(inbound + 1).forEach(::add) }
+            val value = Base64.getEncoder().encodeToString(JsonObject().apply {
+                addProperty("timestamp", timestamp); addProperty("delegate", false)
+            }.toString().toByteArray())
+            path.add(JsonObject().apply {
+                addProperty("to", receiver); addProperty("value", value)
+                addProperty("sig", wallet.sign(hashText(receiver + "|" + value + "|" + holding.id).toByteArray()))
+            })
+            data.add("path", path)
+        }
+        private fun truthy(value: com.google.gson.JsonElement?): Boolean = value != null && !value.isJsonNull &&
+            (!value.isJsonPrimitive || value.asJsonPrimitive.let { when {
+                it.isBoolean -> it.asBoolean; it.isNumber -> it.asBigDecimal.signum() != 0; else -> it.asString.isNotEmpty()
+            } })
+        private fun hashText(value: String): String {
+            val bytes = value.toByteArray(); val result = ByteArray(32)
+            org.bouncycastle.crypto.digests.Blake3Digest(256).apply { update(bytes, 0, bytes.size); doFinal(result, 0) }
+            return result.hex()
         }
         private fun witnessRow(value: String): SaitoNft.Row {
             val b = value.chunked(2).map { it.toInt(16).toByte() }.toByteArray().also { require(it.size == 59) }

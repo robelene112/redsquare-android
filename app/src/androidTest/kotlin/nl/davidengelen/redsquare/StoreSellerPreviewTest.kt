@@ -59,7 +59,7 @@ class StoreSellerPreviewTest {
             ui.onNodeWithText("Request marketplace approval").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("New listing") and isEnabled()).isDisplayed() }
             assertTrue(scene.peer.storeRequests.any { it.get("request").asString == "submit-listing" })
-            ui.onNodeWithText(pending).assertIsDisplayed()
+            ui.onNodeWithText("Available in this storefront. Marketplace review is pending.").assertIsDisplayed()
             approved.set(true)
             ui.onNodeWithText("Refresh Store").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Available in this storefront. Approved for the marketplace.").isDisplayed() }

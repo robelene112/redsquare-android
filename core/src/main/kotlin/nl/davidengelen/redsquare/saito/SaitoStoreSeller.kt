@@ -4,11 +4,16 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.math.BigInteger
 
-data class StoreSellerListing(val summary: StoreSummary, val approved: Boolean, val sold: Boolean,
-    val risk: String, val buyer: String, val note: String, val quantitySold: BigInteger)
+enum class StoreApproval(val wire: Int) { NOT_SUBMITTED(0), APPROVED(1), PENDING(2), REJECTED(-1) }
+
+data class StoreSellerListing(val summary: StoreSummary, val approval: StoreApproval, val sold: Boolean,
+    val risk: String, val buyer: String, val note: String, val quantitySold: BigInteger) {
+    val approved: Boolean get() = approval == StoreApproval.APPROVED
+}
 
 /** Selected Store reports, not independent chain inclusion or spendable seller proceeds. */
 object SaitoStoreSeller {
+    class Rejected : IllegalStateException("Store rejected the marketplace submission")
     fun inventoryRequest(seller: String): String {
         require(SaitoWallet.isPublicKey(seller))
         return JsonObject().apply {
@@ -29,13 +34,14 @@ object SaitoStoreSeller {
                 require(ids.add(signature))
                 val target = StoreLink(SaitoBackend.OWNER, seller, signature = signature)
                 val summary = requireNotNull(SaitoStore.readOffer(JsonObject().apply { add("listing", row) }.toString(), target))
-                val approval = row.get("approved").asString.toBigIntegerExact().also { require(it in BigInteger.ZERO..BigInteger.ONE) }
+                val approval = row.get("approved").asString.toBigIntegerExact().let { number -> StoreApproval.entries.single { BigInteger.valueOf(it.wire.toLong()) == number } }
+                require(row.get("status").asString.toBigIntegerExact() == if (sold) BigInteger.ZERO else BigInteger.ONE)
                 val risk = row.get("risk")?.asString.orEmpty().also { require(it in setOf("", "Low", "Medium", "High", "Dangerous")) }
                 val buyer = row.get("buyer")?.asString.orEmpty().also { require(it.isEmpty() || SaitoWallet.isPublicKey(it)) }
                 val note = row.get("note")?.asString.orEmpty().also { require(it.length <= 2000) }
                 val quantity = row.get("quantity_sold")?.asString?.toBigIntegerExact() ?: BigInteger.ZERO
                 require(quantity.signum() >= 0 && quantity <= BigInteger("9007199254740991") && (!sold || summary.available == BigInteger.ZERO))
-                StoreSellerListing(summary, approval == BigInteger.ONE, sold, risk, buyer, note, quantity)
+                StoreSellerListing(summary, approval, sold, risk, buyer, note, quantity)
             }
         }.also { require(it.size <= 1000) }
     }
@@ -49,8 +55,10 @@ object SaitoStoreSeller {
     fun readSubmission(signature: String, response: String): Boolean {
         require(response.toByteArray().size <= 16 * 1024)
         val body = JsonParser.parseString(response).asJsonObject
+        if (body.has("err")) throw Rejected()
         require(body.get("ok")?.asJsonPrimitive?.takeIf { it.isBoolean }?.asBoolean == true && body.get("signature").asString == signature)
-        return body.get("approved").asString.toBigDecimal().compareTo(java.math.BigDecimal.ONE) == 0
+        val state = body.get("approved").asString.toBigIntegerExact().also { require(it in BigInteger.ONE..BigInteger.valueOf(2)) }
+        return state == BigInteger.ONE
     }
     private fun String.toBigIntegerExact() = toBigDecimal().toBigIntegerExact()
 }
