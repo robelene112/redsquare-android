@@ -67,17 +67,22 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  }
  const mod={app:storeApp,fee:0,...storeMethods};
  let primaryListing=null;
+ let primaryBody=listing.body;
  let priorFulfillment=null;
  if(['--remaining','--multi'].includes(process.argv[6])){
   let contributors=[row];
   if(process.argv[6]==='--multi'){
    const first=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-partial-listing-reference.json'),'utf8'));
-   primaryListing=first.listing;
-   const primary={...row,signature:first.listing.id,quantity:1,take_qty:1};
-   for(let i=0;i<3;i++)primary['utxo_slip'+(i+1)]=confirmedOutput(first.listing.networkBase64,i,20,1);
+   primaryBody=JSON.parse(JSON.stringify(first.body));primaryBody.listing.price='2.50';
+   await wallet.set_private_key('0'.repeat(63)+'2');await wallet.set_public_key(listing.seller);
+   const formatted=wasm.WasmTransaction.deserialize(Buffer.from(first.listing.networkBase64,'base64'));
+   formatted.data=Buffer.from(JSON.stringify(primaryBody));await formatted.sign();primaryListing=envelope(formatted);
+   await wallet.set_private_key(storeScalar);await wallet.set_public_key(store);
+   const primary={...row,signature:primaryListing.id,quantity:1,take_qty:1};
+   for(let i=0;i<3;i++)primary['utxo_slip'+(i+1)]=confirmedOutput(primaryListing.networkBase64,i,20,1);
    row.take_qty=1;contributors=[primary,row];
   }
-  priorFulfillment=await mod.createFulfillmentTransaction(order,contributors,{msg:listing.body});
+  priorFulfillment=await mod.createFulfillmentTransaction(order,contributors,{msg:primaryBody});
   const prior=envelope(priorFulfillment.wasmTransaction);
   row.signature=prior.id;row.quantity=1;
   for(let i=0;i<3;i++)row['utxo_slip'+(i+1)]=confirmedOutput(prior.networkBase64,i+3,22,0);

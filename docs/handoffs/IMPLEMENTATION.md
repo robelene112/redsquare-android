@@ -6,8 +6,8 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 [Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
-edges are published and verified. #106–#109 are implemented and verified on both SDKs. #110 is active: SAITO
-purchases, delivery and recoverable orders. Continue the approved ready frontier
+edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is active: native
+image/file creation, selling, storefront management and recoverable delisting. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -26,6 +26,26 @@ do not ask the owner to repeat development phone QA. No new production node,
 public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
+
+## Active Store selling slice #111
+
+Review base:c6157dd47a469923b3c7e9a1511cb27742c87f18. Selling source5409b0a2d
+includes retained original offers, inline Vault file creation, public-image minting,
+marketplace states0/1/2/-1, read-only navigation during delayed IO, exact delisting,
+ATR positions and authenticated single/multiple-lot remainder provenance. Local
+core200cases passed before the currently tested equivalent-price correction.
+No native acceptance yet. Initial1b90/069scopes remain failed with exact original
+ZIPs/captures in external vault-store-planning. Source1a1420693 runs43559414931(10)/
+43559417630(17) are in progress; collect complete originals before another same-
+scope dispatch. Two5489short-ref dispatches43558764251/43558766287failed at checkout
+because a short hash was interpreted as a branch. Their original logs are retained;
+no app test ran. Always dispatch the full40-character source SHA.
+
+Independent review found and fixed missing footer transitions and partial/multi-
+lot remainder hydration. One remaining correction compares equivalent SAITO
+price strings numerically. Final complete SDK scopes, affected wallet/catalogue
+checks, independent delta reviews and111evidence/closure remain required. Continue
+112–115after111completion. Do not publish a partial beta.
 
 ## Completed Store purchase slice #110, next #111
 

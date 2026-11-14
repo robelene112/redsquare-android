@@ -20,9 +20,11 @@ catalogue or payment placeholder.
 
 The owner approved all ten tickets and requested the complete build on
 2026-11-13. Native sub-issues #106–#115 and their dependency edges are published
-and verified. Reading #106 and upload/recovery #107 are verified on both SDKs. Next is #108,
-advanced access rules, permanent transfer and rental-master keys. See the
-[ticket107 packet](evidence/ticket107/README.md) for complete source/proof/review evidence. Continue through every ready
+and verified. #106–#110 are implemented and verified on both SDKs, including
+advanced Vault access and native Store catalogue/purchases. #111 is active for
+selling, native item creation and storefront management. See the
+[ticket110 packet](evidence/ticket110/README.md) and current handoff for the verified
+frontier and in-progress checks. Continue through every ready
 slice to the combined beta without repeated implementation confirmations. Beta
 127 remains the delivered baseline until actual combined delivery. Existing
 parent/release gates stay open.

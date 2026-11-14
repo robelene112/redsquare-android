@@ -52,8 +52,9 @@ object SaitoStoreLineage {
             }.single()
             require(remaining.signum() > 0 && remaining < previous.quantity)
             val terms = body.getAsJsonObject("listing")
-            val priorTerms = body(previous.envelope).getAsJsonObject("listing")
-            require(listOf("price", "web3_ticker", "web3_amount").all { terms.get(it) == priorTerms.get(it) })
+            val ticker = terms.get("web3_ticker")?.asString.orEmpty()
+            require(ticker.isEmpty() || ticker.equals("SAITO", ignoreCase = true))
+            require(terms.get("price").asString.toBigDecimal().movePointRight(8).toBigIntegerExact() == purchase.unitPrice)
             val title = terms.get("title")?.asString.orEmpty().also { require(it.length <= 10_000) }
             val description = terms.get("description")?.asString.orEmpty().also { require(it.length <= 200_000) }
             val category = StoreCategory.entries.firstOrNull { it.wire == terms.get("category")?.asString } ?: previous.category
