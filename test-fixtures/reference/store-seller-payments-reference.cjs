@@ -168,7 +168,30 @@ function envelope(tx) {
   const expiredRecovery = await service.acceptSubmittedTransaction(transaction, candidate.envelope);
   assert.equal(expiredRecovery.status, 'forward_failed'); assert.equal(expiredRecovery.err, 'The withdrawal quote has expired.');
   assert.equal((await mixinDb.facade.all("SELECT * FROM transfers WHERE purpose='store-withdrawal'")).length, 1);
-  fs.writeFileSync(output, JSON.stringify({ authority: { source: '0db0062d873369dc013046ed77c97410b5683b64', sourceHashes: hashes, saitoWasm: '0.3.15', validator: '0.5.27', validatorLockSha256: sha(fs.readFileSync(path.join(deps, 'package-lock.json'))), sqlite: storeDb.database.prepare('SELECT sqlite_version() AS version').get().version, qualification: 'Actual isolated pinned Store/Mixin quote, SQL eligibility/reservation, forwarding and manual recording algorithms, actual source schemas and SQLite3, actual validator and WASM signing. Native transaction wrapper/message adapter, owned clock, database and no-op mail. Independent reset branches are not live rollback. Direct inner-transaction admission, not full browser/peer initialization or consensus. No network, real funds or external payout.' }, seller, store, timestamp: 1700006001000, networkFee: '0.05', funding: { block: '10', ordinal: '2', index: 0, amount: '1000000000', type: 0 }, sales, pending, eligible, quote, body: message, candidate, zero, concurrent, submitted, replayed, replayAfterExpiry, unavailable, recovered, expired, lostTreasuryReply, expiredRecovery, after, manual: clone(manual), transfers: clone(transfers) }, null, 2) + '\n');
+  // Independent many-sale and retained-history branches use actual source quoting and SQLite eligibility.
+  await resetBranch(); mod.fee = '0';
+  async function replaceSales(rows) {
+    await storeDb.facade.exec('DELETE FROM listing_sales');
+    for (const row of rows) {
+      const names = Object.keys(row);
+      await storeDb.facade.run('INSERT INTO listing_sales (' + names.join(',') + ') VALUES (' + names.map(n => '$' + n).join(',') + ')', Object.fromEntries(names.map(n => ['$' + n, row[n]])));
+    }
+  }
+  function oneSale(index, family) { return { signature: family + index, seller, web3_ticker: 'USDT', web3_amount: '1', quantity_sold: 1, block_id_sold: 20, longest_chain_sold: 1, transfer_uuid: String(2000 + index), inbound_payment_uuid: sha(Buffer.from(family + index)) }; }
+  await replaceSales(Array.from({length:513}, (_,i) => oneSale(i, 'bulk')));
+  const bulkQuote = await service.createQuote({ seller, ticker: 'USDT', withdrawalAddress: external });
+  assert.equal(bulkQuote.data.transfer_uuids.length, 513); assert.equal(bulkQuote.data.withdrawal_amount, '513');
+  const bulkBody = { module:'Store', request:'store-withdrawal', data:clone(bulkQuote.data), signature:bulkQuote.signature };
+  const bulkNative = await wallet.createTransaction(store,0n,0n,false); bulkNative.timestamp=BigInt(clock+3000); bulkNative.data=Buffer.from(JSON.stringify(bulkBody)); await bulkNative.sign();
+  const bulk = {quote:bulkQuote,candidate:envelope(bulkNative),timestamp:clock+3000};
+  const historyQuotes = [];
+  for (let i=0;i<101;i++) {
+    await replaceSales([oneSale(i,'history')]);
+    const original = await service.createQuote({seller,ticker:'USDT',withdrawalAddress:external});
+    assert.equal(original.data.withdrawal_amount,'1'); historyQuotes.push(original);
+  }
+  const history = {quotes:historyQuotes,timestamp:clock+4000};
+  fs.writeFileSync(output, JSON.stringify({ authority: { source: '0db0062d873369dc013046ed77c97410b5683b64', sourceHashes: hashes, saitoWasm: '0.3.15', validator: '0.5.27', validatorLockSha256: sha(fs.readFileSync(path.join(deps, 'package-lock.json'))), sqlite: storeDb.database.prepare('SELECT sqlite_version() AS version').get().version, qualification: 'Actual isolated pinned Store/Mixin quote, SQL eligibility/reservation, forwarding and manual recording algorithms, actual source schemas and SQLite3, actual validator and WASM signing. Native transaction wrapper/message adapter, owned clock, database and no-op mail. Independent reset branches are not live rollback. Direct inner-transaction admission, not full browser/peer initialization or consensus. No network, real funds or external payout.' }, seller, store, timestamp: 1700006001000, networkFee: '0.05', funding: { block: '10', ordinal: '2', index: 0, amount: '1000000000', type: 0 }, sales, pending, eligible, quote, body: message, candidate, zero, concurrent, submitted, replayed, replayAfterExpiry, unavailable, recovered, expired, lostTreasuryReply, expiredRecovery, after, bulk, history, manual: clone(manual), transfers: clone(transfers) }, null, 2) + '\n');
   console.log('PASS: official matured proceeds, signed quote, exact WASM candidate, SQLite reservation and idempotent manual request, no payout claimed');
   storeDb.database.close(); mixinDb.database.close();
 })().catch(error => { console.error(error); process.exitCode = 1; });

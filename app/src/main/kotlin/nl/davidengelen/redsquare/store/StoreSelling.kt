@@ -2,9 +2,6 @@ package nl.davidengelen.redsquare.store
 
 import android.app.Activity
 import android.app.KeyguardManager
-import android.hardware.biometrics.BiometricManager
-import android.hardware.biometrics.BiometricPrompt
-import android.os.Build
 import android.os.CancellationSignal
 import androidx.compose.runtime.*
 import kotlinx.coroutines.*
@@ -209,19 +206,12 @@ internal class StoreSelling(private val activity: Activity, private val wallet: 
         val token = ++revision; busy = true; problem = null
         val signal = CancellationSignal().also { cancellation = it }
         try {
-            val builder = BiometricPrompt.Builder(activity).setTitle(activity.getString(title))
-            if (Build.VERSION.SDK_INT >= 30) builder.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-            else { @Suppress("DEPRECATION") builder.setDeviceCredentialAllowed(true) }
-            builder.build().authenticate(signal, activity.mainExecutor, object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    if (!publishable(token)) return
-                    cancellation = null; authorized(token)
-                }
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    if (!publishable(token)) return
-                    cancellation = null; busy = false; problem = R.string.transfer_cancelled
-                }
-            })
+            requestStoreDeviceAuthentication(activity, title, signal,
+                onAuthorized = {
+                    if (publishable(token)) { cancellation = null; authorized(token) }
+                }, onError = {
+                    if (publishable(token)) { cancellation = null; busy = false; problem = R.string.transfer_cancelled }
+                })
         } catch (_: Exception) { signal.cancel(); cancellation = null; busy = false; problem = R.string.wallet_auth_unavailable }
     }
     private fun send(record: StoreListingStore.Record, token: Long) {

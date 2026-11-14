@@ -2,9 +2,6 @@ package nl.davidengelen.redsquare.store
 
 import android.app.Activity
 import android.app.KeyguardManager
-import android.hardware.biometrics.BiometricManager
-import android.hardware.biometrics.BiometricPrompt
-import android.os.Build
 import android.os.CancellationSignal
 import androidx.compose.runtime.*
 import kotlinx.coroutines.*
@@ -118,19 +115,12 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
         stopReading(); val token = revision; busy = true; problem = null
         val signal = CancellationSignal().also { authentication = it }
         try {
-            val builder = BiometricPrompt.Builder(activity).setTitle(activity.getString(R.string.store_withdrawal_authorize))
-            if (Build.VERSION.SDK_INT >= 30) builder.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-            else { @Suppress("DEPRECATION") builder.setDeviceCredentialAllowed(true) }
-            builder.build().authenticate(signal, activity.mainExecutor, object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    if (closed || token != revision) return
-                    authentication = null; send(record, token)
-                }
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    if (closed || token != revision) return
-                    authentication = null; busy = false; problem = R.string.transfer_cancelled
-                }
-            })
+            requestStoreDeviceAuthentication(activity, R.string.store_withdrawal_authorize, signal,
+                onAuthorized = {
+                    if (!closed && token == revision) { authentication = null; send(record, token) }
+                }, onError = {
+                    if (!closed && token == revision) { authentication = null; busy = false; problem = R.string.transfer_cancelled }
+                })
         } catch (_: Exception) { signal.cancel(); authentication = null; busy = false; problem = R.string.wallet_auth_unavailable }
     }
     private fun send(record: StoreWithdrawalStore.Record, token: Long) {

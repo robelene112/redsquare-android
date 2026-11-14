@@ -33,10 +33,10 @@ class StoreWithdrawalViewportPreviewTest {
                 captureNativeScreen(File(scene.evidence, "$label-withdrawal-fees-and-net-limits.png"))
                 ui.onNodeWithText("Authorize withdrawal").assertIsDisplayed().assertIsEnabled().assertHeightIsAtLeast(48.dp)
                 ui.onNodeWithText("Done").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
-                ui.onNodeWithText("Discard unsent request").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
+                ui.onNodeWithContentDescription("Discard unsent request").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
                 captureNativeScreen(File(scene.evidence, "$label-withdrawal-stable-financial-actions.png"))
                 assertTrue(treasury.submissions.isEmpty()); assertTrue(scene.peer.transactions.isEmpty())
-                ui.onNodeWithText("Discard unsent request").performClick()
+                ui.onNodeWithContentDescription("Discard unsent request").performClick()
                 ui.waitUntil(5_000) { ui.onAllNodesWithText("Authorize withdrawal").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
                 ui.onNodeWithText("Done").performScrollTo().performClick()
                 ui.waitUntil(5_000) { ui.onNodeWithText("New listing").isDisplayed() }

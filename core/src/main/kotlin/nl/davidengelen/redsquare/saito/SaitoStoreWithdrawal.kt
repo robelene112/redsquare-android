@@ -60,7 +60,7 @@ object SaitoStoreWithdrawal {
         val amount = money(data.get("withdrawal_amount").asString)
         val fee = money(data.get("amount").asString, true).movePointRight(8).toBigIntegerExact().also { require(it <= maximum) }
         val treasury = data.get("publickey").asString.also { require(SaitoWallet.isPublicKey(it)) }
-        fun ids(name: String, pattern: Regex): List<String> = data.getAsJsonArray(name).also { require(it.size() in 1..512) }.map {
+        fun ids(name: String, pattern: Regex): List<String> = data.getAsJsonArray(name).also { require(it.size() > 0) }.map {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString); it.asString.also { id -> require(id.matches(pattern)) }
         }.also { require(it.distinct().size == it.size) }
         val transfers = ids("transfer_uuids", Regex("[1-9][0-9]{0,15}"))

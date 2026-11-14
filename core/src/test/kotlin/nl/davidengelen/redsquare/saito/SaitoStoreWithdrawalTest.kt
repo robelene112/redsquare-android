@@ -40,6 +40,15 @@ class SaitoStoreWithdrawalTest {
         assertTrue(SaitoStoreWithdrawal.restore(candidate.transaction.encoded(), quote.store).inputs.isEmpty())
         assertEquals(BigInteger.ZERO, candidate.fee)
     }
+    @Test fun allEligibleClaimsInALegitimateQuoteCanBeWithdrawnBeyondFiveHundredSales() {
+        val ref = reference(); val bulk = ref.getAsJsonObject("bulk"); val now = bulk.get("timestamp").asLong
+        val quote = SaitoStoreWithdrawal.readQuote(bulk.get("quote").toString(), ref.get("store").asString, "USDT",
+            "0x1111111111111111111111111111111111111111", now)
+        assertEquals(513, quote.claimIds.size); assertEquals("513", quote.amount.toPlainString())
+        val candidate = SaitoStoreWithdrawal.create(SaitoWallet.fromPrivateKey("0".repeat(63) + "2"), quote, emptyList(), BigInteger.ZERO, now)
+        assertEquals(bulk.getAsJsonObject("candidate").get("networkBase64").asString, candidate.transaction.encoded())
+        assertEquals(513, SaitoStoreWithdrawal.restore(candidate.transaction.encoded(), quote.store).quote.claimIds.size)
+    }
     @Test fun aDifferentDestinationUnsignedAmountOrExpiredQuoteCannotBecomeANewWithdrawal() {
         val ref = reference(); val now = ref.get("timestamp").asLong; val store = ref.get("store").asString
         val quote = ref.getAsJsonObject("quote")
