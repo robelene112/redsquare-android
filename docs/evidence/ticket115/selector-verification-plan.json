@@ -1,0 +1,40 @@
+{
+  "recordedBeforeCompleteOutcomesAt": "2026-11-14T19:08:03.472158+00:00",
+  "candidateProductSource": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "candidate": 129,
+  "completeSources": {
+    "10": {
+      "run": "43628492740",
+      "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "status": "in_progress",
+      "conclusion": ""
+    },
+    "17": {
+      "run": "43629043517",
+      "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "status": "in_progress",
+      "conclusion": ""
+    }
+  },
+  "correctedSelectorSource": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+  "focusedSelectorRuns": {
+    "10": "43630324170",
+    "17": "43630326738"
+  },
+  "compile": "BUILD SUCCESSFUL in2m52s",
+  "scope": "Exactly one AndroidTest selector changes. No product, fixture payload, assertion, identity, deadline, workflow or frozen validator changes.",
+  "requirements": [
+    "Both complete SDK primaries must independently succeed with all three jobs at exact74fe source.",
+    "Each must pass the same unchanged pre-run strict frozen contract/collector.",
+    "Both corrected-selector focused native scopes at5fb must independently succeed with the original data/assertions/deadlines.",
+    "Exact Git-tree comparison must bind all product/build inputs to signed candidate129.",
+    "Both actual127-to129 signed updates and final independent source/evidence/public delivery reviews remain required.",
+    "Failed full or focused prefixes cannot fill any complete acceptance gap."
+  ],
+  "workflowBasis": [
+    "docs/WORKFLOW.md:468 requires fresh both-SDK full acceptance for production changes.",
+    "docs/WORKFLOW.md:486 requires all three full jobs at the same source."
+  ],
+  "independentSpecInterpretation": "Allowed conditionally before outcomes: successful exact-product-source complete primaries plus separate focused one-line QA selector correction and exact source comparison. No hard rule requires another complete rerun solely for this selector change.",
+  "qualification": "This records an acceptance plan, not a pass. If either complete primary fails, its focused selector result and static comparison cannot replace it."
+}
