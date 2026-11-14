@@ -39,7 +39,8 @@ for name in ("dalvik.vm.heapsize", "dalvik.vm.heapgrowthlimit", "ro.kernel.qemu.
 started = time.monotonic()
 try:
     probe = subprocess.run(["adb", "shell", "am", "instrument", "-w", "-r",
-        "nl.davidengelen.redsquare.dev.test/nl.davidengelen.redsquare.RuntimeHeapProbe"],
+        "-e", "class", "nl.davidengelen.redsquare.RuntimeHeapProbe",
+        "nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner"],
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=60)
 except subprocess.TimeoutExpired as failure:
     (folder / "probe.log").write_bytes(failure.output or b"")
@@ -47,9 +48,11 @@ except subprocess.TimeoutExpired as failure:
     raise
 (folder / "probe.log").write_bytes(probe.stdout)
 text = probe.stdout.decode("utf-8")
-observations = re.findall(r"^INSTRUMENTATION_RESULT: heapProbe=(.+)\r?$", text, re.M)
+observations = re.findall(r"^INSTRUMENTATION_STATUS: heapProbe=(.+)\r?$", text, re.M)
 assert probe.returncode == 0 and len(observations) == 1, "Heap probe failed or observation missing"
 assert re.findall(r"^INSTRUMENTATION_CODE: (-?\d+)\s*$", text, re.M) == ["-1"], "Heap probe did not complete"
+assert "OK (1 test)" in text and "FAILURES!!!" not in text
+assert "INSTRUMENTATION_STATUS: test=observesActualTargetProcessHeap" in text
 observed = json.loads(observations[0])
 assert observed["package"] == "nl.davidengelen.redsquare.dev" and observed["sdk"] == 29
 assert observed["hardware"] in ("ranchu", "goldfish")
@@ -60,7 +63,7 @@ record = dict(result="PASS" if valid else "INVALID_HEAP", attempt=args.attempt,
     maxAttempts=3, observation=observed, configurationSha256=hashes,
     emulatorStartupSha256=hashlib.sha256(startup).hexdigest(),
     probeSha256=hashlib.sha256(probe.stdout).hexdigest(), elapsedMillis=round((time.monotonic() - started) * 1000),
-    qualification="Provisioning only, before acceptance tests; unchanged heap settings, no service restart or application-assertion retry.")
+    qualification="One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry.")
 (folder / "result.json").write_text(json.dumps(record, indent=2) + "\n")
 print(json.dumps(record))
 if valid:

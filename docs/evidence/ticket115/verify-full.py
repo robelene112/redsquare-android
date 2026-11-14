@@ -89,9 +89,12 @@ def validate_runtime_preflight(root):
         raw_probe = (boot / "probe.log").read_bytes()
         assert hashlib.sha256(raw_probe).hexdigest() == record["probeSha256"]
         text = raw_probe.decode()
-        values = re.findall(r"^INSTRUMENTATION_RESULT: heapProbe=(.+)\r?$", text, re.M)
+        values = re.findall(r"^INSTRUMENTATION_STATUS: heapProbe=(.+)\r?$", text, re.M)
         assert len(values) == 1 and json.loads(values[0]) == record["observation"]
         assert re.findall(r"^INSTRUMENTATION_CODE: (-?\d+)\s*$", text, re.M) == ["-1"]
+        assert "OK (1 test)" in text and "FAILURES!!!" not in text
+        assert "INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RuntimeHeapProbe" in text
+        assert "INSTRUMENTATION_STATUS: test=observesActualTargetProcessHeap" in text
         observed = record["observation"]
         assert observed["package"] == "nl.davidengelen.redsquare.dev" and observed["sdk"] == 29
         assert observed["hardware"] in ("ranchu", "goldfish")
@@ -129,6 +132,8 @@ assert git("show", source + ":docs/evidence/ticket115/trace-check.py") == trace_
 assert contract["creatorRefreshTrace"] == dict(mode="method", refreshes=20, completeMainMerges=20)
 assert contract["runtimePreflight"] == dict(sdk=29, maxColdBoots=3, beforeApplicationTests=True,
     unchangedConfiguration=True, noHeapOrServiceChanges=True)
+assert contract["runtimeProbe"] == dict(testClass="nl.davidengelen.redsquare.RuntimeHeapProbe",
+    test="observesActualTargetProcessHeap", casesPerBoot=1, rawExtension=".log", separateFromAcceptanceCounts=True)
 for path, checksum in contract["runtimePreflightSourceSha256"].items():
     assert digest(repo / path) == checksum
     assert git("show", source + ":" + path) == (repo / path).read_bytes()
@@ -541,6 +546,7 @@ summary = {"result": "PASS", "sdk": sdk, "source": source, "run": run,
            "completedIdentities": actual.total(), "recoveryTotals": recovery_totals, "classes": len({key[1] for key in actual}),
            "assumptions": assumptions, "inheritedMissingFailureCaptures": qualified_missing, "originalArchives": len(archives), "rawDirectory": str(raw),
            "runtimePreflight": runtime_preflight,
+           "separateProvisioningCompletions": sum(len(records) for records in runtime_preflight.values()),
            "qualification": "Complete primary run, all3partitions. Original raw artifacts retained externally. No partial assembly or physical/provider/store acceptance."}
 (target / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
 print(json.dumps(summary))
