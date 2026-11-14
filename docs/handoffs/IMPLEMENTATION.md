@@ -29,35 +29,61 @@ authorized. Other parent and real-release prerequisites remain open.
 
 ## Active seller currency/proceeds slice #113
 
-113is claimed byrobelene112; native blockers111/112are closed. Review base:
+113 remains open/claimed byrobelene112. Base:
 `4f7b9923ea214b18cb76a9193c238ae232839b84`.
-First public core tracer fails at official USDT listing restore, then passes all
-SaitoStoreListingTest cases after currency-aware terms/creation/restore. Exact
-USDT signed bytes match independently executed official WASM vectors; SAITO
-legacy terms remain unchanged. Logs store113-alternate-listing-red/green outside.
-The first native currency/recreation/discard tracer is added under its own180s
-focused store-seller-currency scope and additively in seller/full Wallet. It is
-intentionally RED at the missing Payment currency control; compilation/runtime
-still need verification. No113completion or new beta.
+Current review-fix candidate is `66456f064c3cdbab6561603ee61d5664279fe3ef`.
+No new beta or production operation. Continue113,114,115 sequentially to the
+single combined beta without another implementation confirmation.
 
-Pinned source provides load-web3-proceeds and Store-signed25minute withdrawal
-quotes. StoreWithdrawals forwards an exact signed original to Mixin, which records
-a manual withdrawal; submitted is explicitly not external funds sent. Preserve
-this limitation rather than inventing automatic payouts. Quotes cover all eligible
-sales, not a client-selected partial amount. The original request is idempotent
-at the Store; an unknown result must retain its original identities and never
-allocate a replacement automatically. Ordinary shared/native/reference seams and
-all existing operational boundaries remain in force.
+Implemented: actual offered seller denominations with encrypted draft/original
+retention; exact official alternate-listing and delisting bytes; actual pending
+and eligible seller proceeds; Store-signed whole-eligible25minute quotes;
+reviewed destination/network/service and Saito fees, real device authentication,
+wallet-wide fee reservations and exact original manual-treasury recovery.
+Submitted is a recorded manual request, not verified external payout or confirmed
+Saito-fee inclusion. External net charges are not quoted. No automatic financial
+retry, replacement quote or invented status API. Current-source exact proofs
+still need completion, final packet and live-gate documentation.
 
-Fresh source-only reads are external under vault-store-planning/upstream at the
-same0db0062pin: Store withdrawal/withdrawal-quote/web3-amount/database and schemas,
-Mixin store-withdrawal/mixinmodule/database. Official dependency is
-@taasfi/multicoin-address-validator0.5.27. Isolated npm11.6.2 (registry integrity
-verified) and that exact validator are provisioned outside Git under
-store113-reference-tools/deps; no global Node/npm change. Node24.13 provides
-node:sqlite for an owned actual-SQL reference if needed. A full withdrawal
-reference/native implementation has not been built yet. Continue113,114,115
-sequentially through the combined beta; do not ask for more owner QA/permission.
+At candidateafa1c6bb4, focused ordinary4cases and actual3-phase distinct-PID
+withdrawal recovery pass on10/17:43589479817/43589479866 and
+43589479818/43589479650. Exact original artifacts and captures are external under
+vault-store-planning, stems store113-withdrawal-recovery10/17 and process10/17.
+Core full214/43 passed before the later large-quote test. At16cb4af0e,
+wallet-retained-work guard passes10/17:43591251621/43591251590.
+Earlier failures remain retained: missing currency/proceeds controls, test-only
+ScrollTo on fixed footer, omitted warning for fee-free work, and130/200percent
+viewport failures. Large-text review footer is now reduced to stable financial
+actions, with status/details in the scrollable content. Follow-up viewport proof
+is pending; old passes are not current-source acceptance.
+
+Two independent reviews at16cb4af0e: Standards0hard violations plus1P3 prompt
+adapter duplication; Spec2P2 findings (arbitrary512quote claims and a permanent
+100-record journal ceiling). The common StoreDeviceAuthentication adapter is
+now implemented, retaining each controller's operation-specific lifetime/auth
+checks. Actual pinned Store/SQLite/WASM source now generates a513-sale quote and
+101independent history quotes. The513case was RED then targeted coreGREEN after
+removing the count cap within the unchanged128KiB response budget. The100-history
+regression and focused native scope are added but paging is NOT implemented yet.
+Do not close113 or present it as complete. Review fixes require follow-up review.
+
+Active at this checkpoint: local compile store113-review-fixes-native.log;
+66456f focused historyRED43592120173 and viewport10/17
+43592120087/43592120037. Check fresh primary metadata before claims. Plan the
+journal continuation so every uncertain original and fee reservation remains,
+with bounded per-page storage and native history navigation rather than deleting
+or merely raising the lifetime ceiling. Existing v1 encrypted rows are the input
+of the added history upgrade test. Finish its RED/GREEN loop, viewport proof,
+complete seller/shared financial regressions, evidence/live gates and reviews.
+
+Reference generator: test-fixtures/reference/store-seller-payments-reference.cjs
+uses the same pinned0db0062source under external upstream/node, real SQLite3.50.4,
+saito-wasm0.3.15 and official validator0.5.27. Isolated npm11.6.2 and validator
+are external under store113-reference-tools/deps. Actual source/SQL/validator
+methods are executed with owned DB/time/no-op mail adapters; this is not a fully
+initialized browser/peer, live provider, real funds or external payout proof.
+Expanded reference run store113-review-expanded-reference.log passed. All
+operational boundaries and pending36gates remain in force.
 
 ## Completed alternate-payment slice #112
 
