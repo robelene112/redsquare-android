@@ -329,9 +329,9 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                                 Text(stringResource(R.string.vault_open_access))
                             }
                             if (readable) {
-                            OutlinedButton(onClick = { saveAs(entry) }, enabled = enabled && readable,
+                            OutlinedButton(onClick = { saveAs(entry) }, enabled = enabled && readable && (entry.copy != null || !library.loading),
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_save_as)) }
-                            if (entry.copy == null) FilledTonalButton(onClick = { keep(entry) }, enabled = enabled && readable,
+                            if (entry.copy == null) FilledTonalButton(onClick = { keep(entry) }, enabled = enabled && readable && (entry.copy != null || !library.loading),
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_keep_offline)) }
                             else TextButton(onClick = { remove(entry.copy) }, enabled = enabled,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_remove_copy)) }

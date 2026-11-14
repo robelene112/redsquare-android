@@ -29,7 +29,7 @@ authorized. Other parent and real-release prerequisites remain open.
 
 ## Active integrated rental slice #114
 
-114 remains assigned/open;108/113are closed. Review base
+#114 remains assigned/open; #108 and #113 are closed. Review base
 `e5669b50f55aad4620a4527a5f6304de268843c4`. Current product/test source is
 `975d34cccd7d07cbfa73cd0b4c5090d799d3b21c`; later documentation may differ.
 External scratch/whole originals are in
@@ -48,17 +48,17 @@ sale-form keystrokes. Safe community Vault-origin metadata is retained.
 
 Core eight rental cases pass, including actual partial-fulfillment remainder,
 seven provider quotes, both denomination receipts, public browser holdings and
-original file binding. Complete core at67c passed223cases/44suites. Native
-creation at67c passes three cases on Android10/17, runs43607786505/43607789496,
+original file binding. Complete core at67c passed 223 cases in 44 suites. Native
+creation at67c passes three cases on Android 10/17, runs 43607786505/43607789496,
 including real PIN mint/listing and browser-created rental creator restoration.
 These are development observations, not final current-source acceptance.
 
-The67c access10 run43607792005 found a real themed Context-to-Activity crash in
+The67c access10 run 43607792005 found a real themed Context-to-Activity crash in
 the purchase sheet.975 fixes this through bounded wrapper traversal. Its access
-10/17 runs43608734738/43608737952 are active; the updated access class also checks
+10/17 runs 43608734738/43608737952 are active; the updated access class also checks
 browser import, PIN/funding expiry and old-local/new-public coexistence. The
 separate payment class adds eight native currency/denomination journeys. Complete
-Seller10/17 runs43609041872/43609044348 are active. Read fresh primary metadata;
+Seller10/17 runs 43609041872/43609044348 are active. Read fresh primary metadata;
 do not infer completion from these dated observations. Local main compile
 store114-themed-clock-main-compile.log passed; current AndroidTest compile is
 store114-mixed-native-compile.log. Full current Purchase/Vault, final native
@@ -70,16 +70,16 @@ provider-authorized restoration. The source-only, undeployed
 `vault-rental-restore` advertisement and optional atomic metadata owner CAS.
 Fresh patch rehearsal and actual runtime branches pass; see external
 vault114-final-patch-rehearsal/verification.json. No production node/config/DB or
-provider was changed. Keep activation/schema/runtime/community gates under36and
+provider was changed. Keep activation/schema/runtime/community gates under #36 and
 OWNER_INPUTS. Preserve all original failed/cancelled observations in the final
-ledger; preliminary collection lists19whole originals. Source hash-object key
+ledger; preliminary collection lists 19 whole originals. Source hash-object key
 ordering differs only in the reproduced first listing fixture; semantic metadata
 and every actual signed transaction/envelope remain exact.
 
-Continue114 through focused/current complete checks, independent review/fixes,
-packet and closure. Then115 owns full-app integration/polish, frozen complete
-Android10/17, actual signed127-to-next update and one combined public beta.
-No partial beta. Keep1/36/55/84/86open. No owner development-phone QA or production
+Continue #114 through focused/current complete checks, independent review/fixes,
+packet and closure. Then #115 owns full-app integration/polish, frozen complete
+Android 10/17, actual signed127-to-next update and one combined public beta.
+No partial beta. Keep issues #1/#36/#55/#84/#86 open. No owner development-phone QA or production
 node/provider/financial operation is authorized or required here.
 
 ## Completed seller currency/proceeds slice #113
@@ -108,7 +108,7 @@ hosted current-source builds compile and execute all tests.
 provider/funding/operator/community-runtime/ARM-OEM acceptance. No activation or
 public financial write. The combined beta remains115, public beta127 unchanged.
 Next ready slice114: integrated Vault/Store rentals and actual access lifecycle.
-Continue114then115without another owner permission question.
+Continue #114then115without another owner permission question.
 
 ## Completed alternate-payment slice #112
 
@@ -196,7 +196,7 @@ Store fulfils NFT/price buckets, so native review discloses matching-seller stoc
 
 110is closed with its accepted evidence;verify111native blockers=0and claim it. Continue
 111–115sequentially without another owner permission, then one combined beta.
-Public beta127 remains;none built/published for Vault/Store. Keep1/36/55/84/86open.
+Public beta127 remains;none built/published for Vault/Store. Keep issues #1/#36/#55/#84/#86 open.
 115must append110's3ordinary classes/12methods and all3StorePurchaseProcessRecoveryTest
 phase identities to the frozen full catalogue alongside106–109and later slices.
 Real funded/provider/full-community-runtime results remain STORE_LIVE. The pinned
@@ -274,7 +274,7 @@ No node/provider/Play activation, public financial writes or community sends.
 
 ## Completed upload/key slice #107
 
-#106 and #107 have complete focused Android10/17 acceptance and independent
+#106 and #107 have complete focused Android 10/17 acceptance and independent
 reviews. See [106](../evidence/ticket106/README.md) and
 [107](../evidence/ticket107/README.md). Final107proof source:
 `f9225502dab0f2a204534160e8c7282400557ff3`; runs43466897529/43466903331.
@@ -446,7 +446,7 @@ Open original. Ordinary external URLs and deliberate publication/access stay
 external. Loading-image Retry taps cannot activate the parent card; a loaded
 image remains a normal article link.
 
-Complete three-job Android10/17 runs43073588639/43069531194 pass with652/653
+Complete three-job Android 10/17 runs43073588639/43069531194 pass with652/653
 identities,229classes,195archives,248/249normal completions,37deliberate
 interruptions and36continuity records. Acceptance is explicitly frozen goals
 verified with the independently reviewed archive-partition catalog erratum:
@@ -487,7 +487,7 @@ before. Cold emulator timing remains mixed, including a worse151.73ms sample.
 This establishes removal of one measured stall, not physical smoothness or a
 controlled general FPS gain. No profiling SDK is added to the ordinary APK.
 
-Both complete three-part Android10/17 runs43040719802/43040725444 pass at
+Both complete three-part Android 10/17 runs43040719802/43040725444 pass at
 `75920db2d63eff0d3cc5b2e621609c5bd13349ac`. The unchanged pre-run101 verifier
 accepts651/652identities,228classes,194archives,247/248normal completions,
 37deliberate interruptions and36continuity records. The inherited API29 Profile

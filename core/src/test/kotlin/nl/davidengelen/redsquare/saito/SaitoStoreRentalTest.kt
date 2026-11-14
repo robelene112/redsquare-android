@@ -147,4 +147,18 @@ class SaitoStoreRentalTest {
         assertEquals(paid.get("buyer").asString, requireNotNull(offer.path.grant).renter)
         assertFalse(offer.availableAt(1700004000001L))
     }
+    @Test fun theLaterBrowserGrantUsesTheExactOfficialActivationBodyAndOriginalFile() {
+        fun fixture(name: String) = JsonParser.parseString(requireNotNull(javaClass.getResourceAsStream("/$name.json")).bufferedReader().use { it.readText() }).asJsonObject
+        val offer = fixture("native-store-rental-later-listing-reference")
+        val paid = fixture("native-store-rental-later-purchase-reference")
+        val product = requireNotNull(SaitoStore.readListing(SaitoStore.readCatalogue(offer.get("page").toString()).items.single(), offer.getAsJsonObject("listing").get("envelope").asString))
+        val purchase = SaitoStorePurchase.restore(paid.getAsJsonObject("purchase").get("networkBase64").asString)
+        val path = SaitoStoreRental.entitlement(purchase, product, paid.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("networkBase64").asString)
+        val actual = paid.getAsJsonObject("rentalAccess")
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        assertEquals(1700016400000L, requireNotNull(path.grant).expiresAt)
+        assertEquals(actual.get("loanSource").asString, requireNotNull(path.grant).loanScript.source)
+        val outer = SaitoEnvelope.decode(path.checkout(wallet, 1700007600001).envelope())
+        assertEquals(actual.getAsJsonObject("checkoutMessage"), SaitoEnvelope.decode(outer.body.get("data").asString).body)
+    }
 }

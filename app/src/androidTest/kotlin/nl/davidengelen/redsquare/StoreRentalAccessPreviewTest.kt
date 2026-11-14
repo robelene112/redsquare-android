@@ -17,7 +17,8 @@ class StoreRentalAccessPreviewTest {
         ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         ui.onNodeWithText("Confirm and pay").performScrollTo().performClick()
         waitForSystemPin(device); assertTrue(scene.node.peer.transactions.isEmpty()); enterRealSystemPin(device)
-        ui.waitUntil(25_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
+        ui.waitUntil(25_000) { ui.onAllNodes(hasText("Article received") and hasAnyAncestor(isDialog())).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
         ui.waitUntil(5_000) { ui.onAllNodesWithText("Open in Vault").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
         ui.onNodeWithText("Open in Vault").performScrollTo().assertIsEnabled().performClick()
         ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Vault").isDisplayed() && ui.onNodeWithText("Upload notes.txt").isDisplayed() }
@@ -43,7 +44,8 @@ class StoreRentalAccessPreviewTest {
                 androidx.test.espresso.intent.Intents.intending(androidx.test.espresso.intent.matcher.IntentMatchers.hasAction(android.content.Intent.ACTION_CREATE_DOCUMENT))
                     .respondWith(android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_OK, android.content.Intent().setData(destination).addFlags(android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION)))
                 payAndOpen(scene, device)
-                ui.onNodeWithText("Keep offline").performScrollTo().performClick()
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Keep offline") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Keep offline").performScrollTo().performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
                 val provider = requireNotNull(scene.rental)
                 assertEquals(1, provider.checkouts)
@@ -68,6 +70,7 @@ class StoreRentalAccessPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }
             val context = InstrumentationRegistry.getInstrumentation().targetContext
             assertTrue(nl.davidengelen.redsquare.saito.StoreOrderStore(context, scene.node.reference.get("buyer").asString).read().isEmpty())
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Keep offline") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Keep offline").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
             assertEquals(1, requireNotNull(scene.rental).checkouts)
@@ -115,7 +118,7 @@ class StoreRentalAccessPreviewTest {
             scene.node.fundingGate = gate
             try {
                 enterRealSystemPin(device)
-                assertTrue(scene.node.fundingStarted.await(15, java.util.concurrent.TimeUnit.SECONDS))
+                ui.waitUntil(15_000) { scene.node.fundingStarted.count == 0L }
                 scene.activity.onActivity { it.intent.putExtra("storeRentalFixtureTime", 1700012800000L) }
                 gate.countDown()
                 ui.waitUntil(15_000) { ui.onAllNodesWithText("Check the quantity and fee, then refresh this offer. Its terms or available stock may have changed.").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -146,6 +149,7 @@ class StoreRentalAccessPreviewTest {
             journal.observe(old.id, observation)
             ui.openNativeVault()
             ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Keep offline") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Keep offline").performScrollTo().performClick()
             // The owned provider accepts only the new independently executed browser loan, never the old path.
             ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }

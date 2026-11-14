@@ -83,6 +83,9 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
             ActivityScenario.launch<MainActivity>(launchIntent).use { activity ->
                 withFailureCapture({
                     cacheObservation("failure")
+                    try { peer.assertHealthy() } catch (problem: Throwable) {
+                        File(context.cacheDir, "$evidenceFolder/$name-peer-rejection.txt").writeText(problem.stackTraceToString())
+                    }
                     captureNativeScreen(File(context.cacheDir, "$evidenceFolder/$name-failure.png"))
                 }) {
                     block(activity)
