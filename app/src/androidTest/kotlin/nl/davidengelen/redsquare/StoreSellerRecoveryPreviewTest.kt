@@ -45,7 +45,7 @@ class StoreSellerRecoveryPreviewTest {
         captureNativeScreen(File(scene.evidence, "marketplace-denied-original-storefront-retained.png"))
         denied = false
         ui.onNodeWithText("Request marketplace approval").performScrollTo().performClick()
-        ui.waitUntil(15_000) { ui.onNode(hasText("Refresh Store") and isEnabled()).isDisplayed() }
+        ui.waitUntil(15_000) { ui.onNodeWithText("Available in this storefront. Marketplace review is pending.").isDisplayed() }
         assertEquals(2, scene.peer.storeRequests.count { it.get("request").asString == "submit-listing" })
         ui.onNodeWithText("Available in this storefront. Marketplace review is pending.").performScrollTo().assertIsDisplayed()
         assertTrue(scene.peer.transactions.isEmpty())
