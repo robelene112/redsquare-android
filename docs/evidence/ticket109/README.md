@@ -96,3 +96,29 @@ compilation and the expanded7class/
 12case native suite (including12viewport cells) remain pending. The viewport
 class uses the declared zero-scale test recomposer and system scale; it is not
 proof of the production factory's motion clock. No public beta has changed.
+
+## Second review and bounded reading-state correction
+
+Source`359d7ee5b592d43ee630d1461e6ea95ce29a2d8a` passes all3catalogue/product/
+storefront/empty/sold/seller-draft cases on both SDKs. Its complete runs
+[43531946118](https://github.com/robelene112/redsquare-android/actions/runs/43531946118)
+and[43531943106](https://github.com/robelene112/redsquare-android/actions/runs/43531943106)
+then stop at another incorrect test label: the profile navigation caption is
+Profile but its actual accessible name is Your profile. The original XML confirms
+this. The native feed link and return had completed; platform/profile remainder
+and subsequent classes are not accepted from those partial runs. All65/67ZIP
+and23/23capture members are byte-exact. The selector is corrected without a
+changed deadline.
+
+The second independent review confirms all previous findings resolved and finds
+one additional item per axis: a restored catalogue index can be clamped against
+an initial one-row list; abandoned linked Store/Stack saved scenes can accumulate.
+Corrections defer mounting a populated list until its real page exists, centrally
+prune a separate linked-state holder to the live predecessor chain/current Stack
+scene after identity/node readiness, and prune popped internal Store paths.
+Existing released StackLinkEntry serialized fields are unchanged. A separate
+persisted scene identity scopes Stack state, rather than retaining every URL.
+The new delayed-response test checks the same deep card and pixel coordinate
+across both product Back and module return. Current suite:8classes/13cases,
+including12viewport cells. Main-only compilation passes; AndroidTest compilation,
+fresh complete both-SDK evidence and final re-review are pending. Beta127 stays.

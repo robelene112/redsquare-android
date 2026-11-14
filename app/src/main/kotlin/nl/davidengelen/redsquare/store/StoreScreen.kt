@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.store
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -38,7 +40,17 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     val scope = rememberCoroutineScope()
     var contactFailed by remember { mutableStateOf(false) }
     var preparingContact by remember { mutableStateOf(false) }
-    fun back() { if (path.size > 1) path = ArrayList(path.dropLast(1)) else onExitLink?.invoke() }
+    fun pathKey(target: StoreLink) = if (target.signature != null || target.nftId != null) "product:${target.url()}" else target.url()
+    fun replacePath(next: List<StoreLink>) {
+        val kept = next.map(::pathKey).toSet()
+        path.map(::pathKey).filterNot(kept::contains).distinct().forEach(states::removeState)
+        path = ArrayList(next)
+    }
+    fun open(target: StoreLink) {
+        val next = path + target
+        replacePath(if (next.size <= 32) next else listOf(next.first()) + next.takeLast(31))
+    }
+    fun back() { if (path.size > 1) replacePath(path.dropLast(1)) else onExitLink?.invoke() }
     val canBack = path.size > 1 || onExitLink != null
     androidx.activity.compose.BackHandler(contact == null && canBack) { back() }
     SingleOwnerReveal(contact ?: path.last(), modifier) {
@@ -55,7 +67,7 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
             if (target.nftId != null || target.signature != null) {
                 states.SaveableStateProvider("product:${target.url()}") {
                     StoreProductScreen(wallet, backend, endpoint, target, Modifier.fillMaxSize(), chrome,
-                        onBack = { back() }, onSeller = { path = ArrayList(path + StoreLink(backend, it)) },
+                        onBack = { back() }, onSeller = { open(StoreLink(backend, it)) },
                         contactFailed = contactFailed, preparingContact = preparingContact, onMessage = { product ->
                             if (!preparingContact) {
                                 preparingContact = true; contactFailed = false
@@ -73,7 +85,7 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                 }
             } else states.SaveableStateProvider(target.url()) {
                 StoreCatalogueScreen(wallet, backend, endpoint, Modifier.fillMaxSize(), chrome, target,
-                    if (canBack) ({ back() }) else null, { path = ArrayList(path + it) }, onNodeSettings)
+                    if (canBack) ({ back() }) else null, { open(it) }, onNodeSettings)
             }
         }
     }
@@ -160,7 +172,7 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen),
             verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
             if (onBack != null) FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back)) { onBack() }
-            Text(if (target.seller != null) stringResource(R.string.store_seller_store) else stringResource(tab.label), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
+            Text(if (target.seller != null && tab == StoreTab.DISCOVER) stringResource(R.string.store_seller_store) else stringResource(tab.label), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             if (tab != StoreTab.ORDERS) FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
         }
         if (tab == StoreTab.ORDERS) {
@@ -179,7 +191,10 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             InlineStatus(if ((view.page?.ignored ?: 0) > 0) stringResource(R.string.store_unreadable_items) else null, StatusTone.NEUTRAL)
             }
             SingleOwnerReveal(query to view.page?.items?.map { it.signature }, Modifier.weight(1f)) {
-                LazyColumn(Modifier.fillMaxSize(), state = list,
+                // An initial one-row list would clamp a restored deep index before the real page arrives.
+                if (view.page == null) Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+                    .padding(horizontal = AppSpacing.screen, vertical = 12.dp)) { filters() }
+                else LazyColumn(Modifier.fillMaxSize(), state = list,
                     contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     item("filters") { filters() }

@@ -39,27 +39,33 @@ report, not chain ownership or fulfilment. All179core cases pass (0ignored).
 See [the qualified packet](../evidence/ticket109/README.md) for all original reds,
 first catalogue17pass and failed complete attempts. Public beta127 is unchanged.
 
-Latest committed implementation source is9cb3057976f892ba1bbe4e5f097e357dd8695317;
+Latest committed implementation source is359d7ee5b592d43ee630d1461e6ea95ce29a2d8a;
 review corrections are currently uncommitted. Independent two-axis review found
 4Spec/3hard Standards findings, all being corrected: exact signature targets,
 predecessor scene retention, seller sold filtering and empty identity, nested
 peer timeout recovery, independent synthetic Chat setup/cleanup. Additional
 changes preserve product scroll and keep statuses above scrolling. Read the
-current source rather than treating9cb as final. The new native suite has7classes/
-12cases, with12zero-scale real width/theme/font cells, same inherited deadlines.
+current source rather than treating9cb as final. The new native suite has8classes/
+13cases, with12zero-scale real width/theme/font cells, same inherited deadlines.
 A common fixture owns synthetic buyer4and independently restores captured state.
 
-Current core run core109-review-green.log passes179. Main-only build passes
-in compile109-reviewed-main.log; AndroidTest-only compilation is running in
-compile109-reviewed-tests.log.
-A combined core/main run lost its daemon and is not accepted evidence. Both
-9cb native runs43529582373(10)/43529551304(17) stopped on the wrong Back selector
-(actual FrameIconButton label is text); their two seller-draft cases pass but no
-later class ran. Original artifacts and images are verified. Selectors are fixed,
-and silent request/nested-link/two-offer/closed-original regressions are added.
-Commit corrected source, run full Store scopes on both SDKs, collect every
-artifact/image member, inspect real renderings, fix failures, re-review and close
-109only when complete. Continue110–115 without further implementation permission.
+Current core run core109-review-green.log passes179. Both main-only and
+AndroidTest compilation passed for359d. Its two complete SDK runs pass the3case
+catalogue/product/seller/stock/draft class, then fail on the incorrect Profile
+selector (actual accessible text Your profile). Subsequent classes do not count.
+Exact receipts and actual XML/screenshots are preserved in the packet.
+
+Second review found one remaining finding per axis: restored deep list indices
+clamp against the initial filters row, and abandoned linked scenes accumulate.
+Uncommitted corrections defer mounting the populated list, centrally prune a
+separate linked-state holder to the live predecessor chain/current Stack scene,
+and prune internal popped Store paths. Released StackLinkEntry fields remain
+unchanged; root owns the new persisted scene identity. Added a controlled delayed
+read asserting same deep card and pixel coordinate after product/module returns.
+Main-only compile109-bounded-scene-main.log passes. AndroidTest-only compilation
+runs in compile109-bounded-scene-tests.log. Commit corrected source, obtain full
+both-SDK Store scopes, inspect actual viewports/media, fix real failures and repeat
+two-axis review before closure. Continue110–115 and one combined beta afterwards.
 
 Ticket115 must append all new106–109and subsequent classes/process identities
 to its frozen full catalogue before final shared-source proofs. No intermediate

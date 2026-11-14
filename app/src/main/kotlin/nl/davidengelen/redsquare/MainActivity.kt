@@ -193,6 +193,9 @@ class MainActivity : ComponentActivity() {
             var talkReturnExpired by remember { mutableStateOf(false) }
             var stackLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StackLinkEntry?>(null) }
             var storeLinkEntry by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.ui.StoreLinkEntry?>(null) }
+            var stackScene by rememberSaveable { mutableStateOf(java.util.UUID.randomUUID().toString()) }
+            val linkedSceneStates = rememberSaveableStateHolder()
+            var retainedLinkedKeys by rememberSaveable { mutableStateOf(arrayListOf<String>()) }
             var storeConversation by remember { mutableStateOf(false) }
             var stackLinkRequest by remember { mutableStateOf(0L) }
             var moduleSwitchFailed by remember { mutableStateOf(false) }
@@ -423,6 +426,15 @@ class MainActivity : ComponentActivity() {
             val linkedStore = storeLinkEntry?.takeIf {
                 module == AppModule.STORE && it.owner == address && it.savedBackend == backend
             }
+            val liveLinkedKeys = linkedStore?.retainedSceneKeys() ?: linkedStack?.let {
+                setOf(nl.davidengelen.redsquare.ui.linkedStackStateKey(it.owner, it.savedBackend, stackScene))
+            }.orEmpty()
+            LaunchedEffect(address, backend, liveLinkedKeys) {
+                // Do not prune restored scenes during the initial asynchronous identity/node load.
+                if (address == null || backend == null) return@LaunchedEffect
+                (retainedLinkedKeys.toSet() - liveLinkedKeys).forEach(linkedSceneStates::removeState)
+                retainedLinkedKeys = ArrayList(liveLinkedKeys)
+            }
             val visibleBackend = if (storeConversation && module == AppModule.STORE) backend else linkedStore?.target?.backend ?: linkedStack?.target?.backend ?: backend
             LaunchedEffect(address, backend) {
                 if (storeLinkEntry?.let { it.owner != address || it.savedBackend != backend } == true) storeLinkEntry = null
@@ -452,11 +464,12 @@ class MainActivity : ComponentActivity() {
                                         }
                                         if ((previous?.depth ?: 0) >= 32) return@navigate false
                                         storeLinkEntry = nl.davidengelen.redsquare.ui.StoreLinkEntry(storeTarget, owner, savedNode,
-                                            module, stackLinkEntry, previous)
+                                            module, stackLinkEntry, stackScene.takeIf { stackLinkEntry != null }, previous)
                                         module = AppModule.STORE
                                     } else {
                                         storeLinkEntry = null
                                         stackLinkEntry = nl.davidengelen.redsquare.ui.StackLinkEntry(requireNotNull(target), owner, savedNode, uri)
+                                        stackScene = java.util.UUID.randomUUID().toString()
                                         module = AppModule.STACK
                                     }
                                     settingsOpen = false; settingsCategory = null
@@ -639,8 +652,8 @@ class MainActivity : ComponentActivity() {
                                                                             val origin = storeLinkEntry
                                                                             if (origin == null || origin.owner != wallet?.publicKey || origin.savedBackend != backend) false
                                                                             else {
-                                                                                moduleStates.removeState("${origin.owner}:STORE:link:${origin.scene}")
                                                                                 module = origin.origin; stackLinkEntry = origin.originStack
+                                                                                origin.originStackScene?.let { stackScene = it }
                                                                                 storeLinkEntry = origin.originStore; true
                                                                             }
                                                                         }
@@ -719,9 +732,10 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                         if (linkedStore != null) key(linkedStore.scene) {
-                                            moduleStates.SaveableStateProvider("${linkedStore.owner}:STORE:link:${linkedStore.scene}") { renderModule() }
+                                            linkedSceneStates.SaveableStateProvider(linkedStore.stateKey) { renderModule() }
                                         } else if (linkedStack != null) key(linkedStack.target) {
-                                            moduleStates.SaveableStateProvider("${linkedStack.owner}:STACK:link:${linkedStack.url}") { renderModule() }
+                                            linkedSceneStates.SaveableStateProvider(nl.davidengelen.redsquare.ui.linkedStackStateKey(
+                                                linkedStack.owner, linkedStack.savedBackend, stackScene)) { renderModule() }
                                         }
                                         else moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") { renderModule() }
                                     }

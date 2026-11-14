@@ -65,7 +65,7 @@ class StoreRoutePreviewTest {
             ui.onNodeWithText("Back").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Exact Store offer").isDisplayed() }
             ui.onNodeWithContentDescription("Switch app: Red Square").assertIsDisplayed()
-            ui.onNodeWithText("Profile").performClick()
+            ui.onNodeWithText("Your profile").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Edit profile").isDisplayed() }
             for (url in listOf(modern, legacy)) {
                 scenario.onActivity { activity -> activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))
