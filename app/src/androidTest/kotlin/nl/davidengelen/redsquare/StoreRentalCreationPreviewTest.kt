@@ -42,7 +42,8 @@ class StoreRentalCreationPreviewTest {
             ui.onNodeWithText("Choose rental cover").performScrollTo().performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Review rental inventory") and isEnabled()).isDisplayed() }
             ui.onNodeWithText("Review rental inventory").performScrollTo().performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Review rental inventory").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onNodeWithText("Create rental inventory").isDisplayed() }
+            ui.onNodeWithText("Review rental inventory").assertIsDisplayed()
             ui.onNodeWithText("Inventory deposit: 1 SAITO").performScrollTo().assertIsDisplayed()
             assertTrue(scene.peer.transactions.isEmpty())
             ui.onNodeWithText("Create rental inventory").performClick()

@@ -79,13 +79,20 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
     }) }
 }
 
-internal fun ComposeTestRule.openStorePurchaseProduct(quantity: String = "1") {
+internal fun ComposeTestRule.openStorePurchaseProduct(quantity: String = "1", illustrated: Boolean = false) {
     waitUntil(15_000) { onNodeWithText("Later").isDisplayed() }; onNodeWithText("Later").performClick()
     onNodeWithContentDescription("Switch app: Red Square").performClick()
     onNodeWithText("Store").performScrollTo().performClick()
     waitUntil(15_000) { onNodeWithText("Field notes access key").isDisplayed() }
     onNodeWithText("Field notes access key").performClick()
-    waitUntil(15_000) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
+    val descriptionStart = android.os.SystemClock.elapsedRealtime()
+    if (illustrated) {
+        waitUntil(15_000) { onNodeWithText("Product").isDisplayed() }
+        onNode(hasScrollAction()).performScrollToNode(hasText("Original creator-authenticated field notes."))
+    }
+    val descriptionRemaining = 15_000 - (android.os.SystemClock.elapsedRealtime() - descriptionStart)
+    check(descriptionRemaining > 0) { "Original product-description deadline elapsed" }
+    waitUntil(descriptionRemaining) { onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
     if (quantity != "1") onNodeWithText("Quantity").performScrollTo().performTextReplacement(quantity)
     onNodeWithText("Review purchase").performScrollTo().performClick()
 }

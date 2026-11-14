@@ -12,7 +12,7 @@ class StoreRentalAccessPreviewTest {
     @Test fun anAuthenticatedReceivedRentalOpensItsVaultDestinationWithoutCopyingAnyKey() = withVaultDeviceCredential { device ->
         withStorePurchaseFixture("rental-vault-entry", expectedTransactions = 1, rental = true) { scene ->
             scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED
-            ui.openStorePurchaseProduct()
+            ui.openStorePurchaseProduct(illustrated = true)
             ui.onNodeWithText("Confirm and pay").performScrollTo().performClick()
             waitForSystemPin(device); assertTrue(scene.node.peer.transactions.isEmpty()); enterRealSystemPin(device)
             ui.waitUntil(25_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
