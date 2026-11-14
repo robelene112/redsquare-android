@@ -19,7 +19,9 @@ each complete successful primary run. It retains stdout/stderr and requires the
 expected descriptor assertion failure; unrelated failures are not waived. It then
 executes an explicitly qualified copy with exactly one replacement: StoreCrypto
 must equal the full continuity descriptor extracted from its immutable executed
-script. The other four prefix assertions remain. All original process/PID,
+script. The other four prefix assertions remain. Reporting-only changes write the erratum
+receipt before the first summary and label that first emitted/persisted result
+`PASS_WITH_DESCRIPTOR_ERRATUM`; no unqualified PASS is published. All original process/PID,
 identity/count/deadline, artifact, visual, speech, media and inherited 94/103/104
 validators execute unchanged. Each SDK still requires its own complete successful
 three-job primary run. No failed partition supplies acceptance.
