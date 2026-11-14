@@ -29,61 +29,75 @@ authorized. Other parent and real-release prerequisites remain open.
 
 ## Active seller currency/proceeds slice #113
 
-113 remains open/claimed byrobelene112. Base:
-`4f7b9923ea214b18cb76a9193c238ae232839b84`.
-Current review-fix candidate is `66456f064c3cdbab6561603ee61d5664279fe3ef`.
-No new beta or production operation. Continue113,114,115 sequentially to the
-single combined beta without another implementation confirmation.
+113 remains open. Base4f7b9923ea214b18cb76a9193c238ae232839b84.
+Current source3175a050872353f27883c239e9c32b89e1c66a25. No local build running;
+its native compiler passes. Native3175historyRED43596400048 is running for
+partial pages.new and controlled delayed-proceeds row movement. Check fresh
+primary metadata. No new beta or production operation; continue113,114,115
+sequentially to the single combined beta without more owner confirmation.
 
-Implemented: actual offered seller denominations with encrypted draft/original
-retention; exact official alternate-listing and delisting bytes; actual pending
-and eligible seller proceeds; Store-signed whole-eligible25minute quotes;
-reviewed destination/network/service and Saito fees, real device authentication,
-wallet-wide fee reservations and exact original manual-treasury recovery.
-Submitted is a recorded manual request, not verified external payout or confirmed
-Saito-fee inclusion. External net charges are not quoted. No automatic financial
-retry, replacement quote or invented status API. Current-source exact proofs
-still need completion, final packet and live-gate documentation.
+Implemented: actual seller currencies with retained drafts/originals, exact
+alternate delisting, actual pending/eligible proceeds, Store-signed whole-eligible
+25minute quotes, destination/network/service and Saito fees, real device auth,
+wallet-wide reservations and exact original manual-treasury recovery. Submitted
+is a recorded manual request, not verified payout or Saito-fee inclusion. No
+automatic financial retry, replacement quote or invented status API.
 
-At candidateafa1c6bb4, focused ordinary4cases and actual3-phase distinct-PID
-withdrawal recovery pass on10/17:43589479817/43589479866 and
-43589479818/43589479650. Exact original artifacts and captures are external under
-vault-store-planning, stems store113-withdrawal-recovery10/17 and process10/17.
-Core full214/43 passed before the later large-quote test. At16cb4af0e,
-wallet-retained-work guard passes10/17:43591251621/43591251590.
-Earlier failures remain retained: missing currency/proceeds controls, test-only
-ScrollTo on fixed footer, omitted warning for fee-free work, and130/200percent
-viewport failures. Large-text review footer is now reduced to stable financial
-actions, with status/details in the scrollable content. Follow-up viewport proof
-is pending; old passes are not current-source acceptance.
+Current core full215/43passes (store113-core-final.log). At earlierafa,
+ordinary4cases and three-phase distinct-PID withdrawal recovery pass both SDKs:
+43589479817/43589479866 and43589479818/43589479650. At16cb, wallet-work guard
+passes43591251621/43591251590. At66456, all12actual withdrawal review viewport
+cells pass10/17:43592120087/43592120037. Exact originals/captures remain external
+under vault-store-planning; these are focused/source-qualified proofs, not final
+current-source or beta acceptance.
 
-Two independent reviews at16cb4af0e: Standards0hard violations plus1P3 prompt
-adapter duplication; Spec2P2 findings (arbitrary512quote claims and a permanent
-100-record journal ceiling). The common StoreDeviceAuthentication adapter is
-now implemented, retaining each controller's operation-specific lifetime/auth
-checks. Actual pinned Store/SQLite/WASM source now generates a513-sale quote and
-101independent history quotes. The513case was RED then targeted coreGREEN after
-removing the count cap within the unchanged128KiB response budget. The100-history
-regression and focused native scope are added but paging is NOT implemented yet.
-Do not close113 or present it as complete. Review fixes require follow-up review.
+Independent reviews are recorded in ../evidence/ticket113/reviews.md. Initial
+SpecP2s (512claims and lifetime100journal cap) are resolved at8623473c2. Actual
+source/SQLite/WASM reference now generates513eligible claims and101independent
+history quotes. 513caseRED thenGREEN without increasing128KiB budget. Journal
+uses ≤100row/target512KiB physical pages and24row backend-filtered history; legacy
+v1 rows remain original page0. Lookup and fee reservations span all pages. Native
+full100historyRED43592120173, then normal history17GREEN43593711282. Older funded
+uncertain reservation and exact originals are retained in the migration test.
 
-Active at this checkpoint: local compile store113-review-fixes-native.log;
-66456f focused historyRED43592120173 and viewport10/17
-43592120087/43592120037. Check fresh primary metadata before claims. Plan the
-journal continuation so every uncertain original and fee reservation remains,
-with bounded per-page storage and native history navigation rather than deleting
-or merely raising the lifetime ceiling. Existing v1 encrypted rows are the input
-of the added history upgrade test. Finish its RED/GREEN loop, viewport proof,
-complete seller/shared financial regressions, evidence/live gates and reviews.
+A StandardsP2 found interruption between new page and index commit. Native7dd
+RED43594141768 reproduced it. Source771cbcaa validates contiguous authenticated
+complete orphan pages before repairing only local metadata; no record/flag/RPC
+changes. Both SDKs pass absent-index recovery43595501875/43595501776. Both reviewers
+then found that pages.new alone still trips exists("pages")/requireNotNull(load).
+3175adds that exact replay plus incomplete rows.1.new, and a second actual native
+geometry case: a saved pending row must not move when delayed remote balances
+arrive. Run43596400048 should be inspected before implementing its fixes. Proposed
+index fix is committed base/.bak presence, preserving corrupt/missing committed
+page barriers. Existing exists() counts.new. Native partial index and navigation
+RED build log store113-index-temp-and-navigation-red-build.log passes compilation.
 
-Reference generator: test-fixtures/reference/store-seller-payments-reference.cjs
-uses the same pinned0db0062source under external upstream/node, real SQLite3.50.4,
-saito-wasm0.3.15 and official validator0.5.27. Isolated npm11.6.2 and validator
-are external under store113-reference-tools/deps. Actual source/SQL/validator
-methods are executed with owned DB/time/no-op mail adapters; this is not a fully
-initialized browser/peer, live provider, real funds or external payout proof.
-Expanded reference run store113-review-expanded-reference.log passed. All
-operational boundaries and pending36gates remain in force.
+Complete862regressions: Seller17success43593711516; Purchase10/17success
+43593711014/43593710995. Seller10failed43593710904: after recreation, a click on a
+saved row leaves the overview and Retry is not displayed. Whole artifact and
+captures are retained (store113-complete-seller-first10). Screenshot shows remote
+balance cards above the saved row, consistent with a reflow/tap issue, not proof
+of its exact timing. New3175controlled delayed-reply test records row geometry
+before/after report arrival. Consider attention rows above dynamic remote data,
+keeping recorded history below balances. Preserve all click/auth/original/deadline
+goals; complete current-source Seller and Purchase both SDKs still required.
+At862normal focused history10 was intentionally superseded/cancelled by the next
+same-scope run; metadata is retained, never accepted as success.
+
+Next: wait3175nativeRED; fix committed-index detection and stable pending-row UI,
+verify exact filesystem/original/reservation recovery and all12viewport cells,
+then full current seller/shared financial regressions and both review axes. New
+platform prompt adapter resolved the earlierP3. Final evidence, STORE_LIVE/owner
+inputs and closure remain pending. Keep all original failed runs. No source bridge
+may claim older product-source proofs as current complete acceptance. Beta127
+remains public; no release until115.
+
+Reference producer takes external reference-runtime, pinned upstream/node,
+hash-checked Acorn8.19.0, store113-reference-deps and output. It executes actual
+Store/Mixin/SQL/SQLite3.50.4, WASM0.3.15 and validator0.5.27 with owned DB/time/no-op
+mail. Expanded source run store113-review-expanded-reference.log passes; no full
+browser/peer, consensus, live funds or payout claim. All existing operational
+boundaries and pending36gates remain.
 
 ## Completed alternate-payment slice #112
 

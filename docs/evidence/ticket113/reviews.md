@@ -1,0 +1,40 @@
+# Ticket 113 independent reviews
+
+Base: `4f7b9923ea214b18cb76a9193c238ae232839b84`.
+The two read-only axes began with separate fresh contexts. Neither reviewer
+changed files or ran tests. Source reviews do not establish runtime acceptance.
+Final sign-off remains pending.
+
+## Spec
+
+At `16cb4af0e55135768fa642a6e2e7e4456bc9b7f9`, two P2 findings:
+
+- A count cap rejected valid all-eligible quotes with more than512sales inside
+  the existing128KiB response budget. Actual pinned Store/SQLite/WASM generation
+  now supplies a513-sale quote and exact candidate. The regression was RED then
+  GREEN after removing only the arbitrary count cap.
+- A lifetime100-record journal cap permanently blocked further withdrawals.
+  Paging now retains every submitted/uncertain original and every fee reservation,
+  with24-row node-filtered native history and cross-page original lookup.
+
+Both were independently resolved at
+`8623473c29837dddf8c9950c6a9dc9fef4aa47bc`, without scope creep.
+At771cbcaa the Spec axis additionally identified incomplete first-index creation:
+`pages.new` counted as a committed index before authenticated page recovery ran.
+The exact filesystem replay is added at3175a0508; its fix/review is pending.
+
+## Standards
+
+At16cb4af0e: zero documented-standard violations and one P3 judgement call for
+repeated Android prompt policy. StoreDeviceAuthentication now shares the platform
+adapter while each operation retains its token, lifetime and send authority.
+The reviewer resolved this finding at8623473c2.
+
+At8623473c2: one P2 documented-standard violation. A new page committed before its
+index could leave every original and wallet reservation inaccessible after process
+loss. Actual native43594141768 reproduced this at the missing-index check.
+At771cbcaa, complete authenticated orphan pages recover through a local index
+repair. Submitted/uncertain flags, original bytes and fee reservations remain;
+no financial RPC is sent. Both SDKs pass the absent-index replay.
+The remaining `pages.new` crash window was independently confirmed by both axes.
+Its dedicated replay and the final follow-up review are still pending acceptance.
