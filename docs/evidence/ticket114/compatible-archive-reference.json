@@ -1,0 +1,78 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "archiveSha256": "0e539daaed9c4784df5b37626f58ec966fe096d49400b24d44dc81cb5173f131",
+    "saitoWasm": "0.3.15",
+    "sqlite": "3.50.4",
+    "qualification": "Actual isolated Archive.updateTransaction method, actual SQLite with the four used columns, actual WASM requester/NOW/DB evaluation. No initialized Vault/Archive frontend, live provider or consensus. Compatible variant additionally executes the new restore receiver with an explicit request/WASM-actor adapter and conditional actual Archive SQL."
+  },
+  "compatibility": {
+    "vaultSha256": "3f3cf8f5fbaeb977736c55c953e32b2c49ead0021c31b4c940ade25f2d048411",
+    "advertisements": [
+      {
+        "browser": false,
+        "actual": [
+          "vault",
+          "vault-rental-restore"
+        ],
+        "capability": {
+          "rental_restore_protocol": 1
+        }
+      },
+      {
+        "browser": true,
+        "actual": [
+          "vault"
+        ],
+        "capability": {
+          "rental_restore_protocol": 0
+        }
+      }
+    ],
+    "receiverSha256": "03b8e633982f34447d92c400e432d883efdd569d267549306e6d6f81616370af",
+    "deniedBefore": {
+      "status": "err",
+      "err": "rental_restore_denied",
+      "file_id": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe"
+    },
+    "deniedAt": {
+      "status": "err",
+      "err": "rental_restore_denied",
+      "file_id": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe"
+    },
+    "deniedRenter": {
+      "status": "err",
+      "err": "rental_owner_changed",
+      "file_id": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe"
+    },
+    "deniedOtherLoan": {
+      "status": "err",
+      "err": "rental_owner_changed",
+      "file_id": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe"
+    },
+    "restored": {
+      "status": "ok",
+      "file_id": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe",
+      "owner": "c06411953813023762362555ec1596e2e0b384edcfdbd0cec849953991578ab7",
+      "already_restored": false
+    },
+    "repeatedRestore": {
+      "status": "ok",
+      "file_id": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe",
+      "owner": "c06411953813023762362555ec1596e2e0b384edcfdbd0cec849953991578ab7",
+      "already_restored": true
+    },
+    "concurrentResults": [
+      1,
+      0
+    ],
+    "staleReset": 0
+  },
+  "fileId": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe",
+  "first": 1,
+  "repeated": 0,
+  "earlyCreator": 0,
+  "expiredRenter": 0,
+  "restoredCreator": 1,
+  "originalSignedFileUnchanged": true
+}

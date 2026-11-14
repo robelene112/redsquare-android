@@ -1,0 +1,16 @@
+{
+  "authority": {
+    "source": "0db0062d873369dc013046ed77c97410b5683b64",
+    "archiveSha256": "1f29d71bfc90d417c8feb21e1baf63ed6aab819fa6cb5e4fc0aaf9b4069c828e",
+    "saitoWasm": "0.3.15",
+    "sqlite": "3.50.4",
+    "qualification": "Actual isolated Archive.updateTransaction method, actual SQLite with the four used columns, actual WASM requester/NOW/DB evaluation. No initialized Vault/Archive frontend, live provider or consensus."
+  },
+  "fileId": "dd369adba25604597aa6e29f74e7312558fe045114d11fe0c6709a9f1fc336bc15fd2082e4fa2e7587854e0311551f01758680f0739fbc268a9993c6dca1c9fe",
+  "first": 1,
+  "repeated": 0,
+  "earlyCreator": 0,
+  "expiredRenter": 0,
+  "restoredCreator": 1,
+  "originalSignedFileUnchanged": true
+}

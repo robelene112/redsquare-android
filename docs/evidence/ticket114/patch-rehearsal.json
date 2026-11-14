@@ -1,0 +1,12 @@
+{
+  "patchSha256": "b6f4f9108d83290e9bba683dc51c67124bd38ab5b4e87b244166b6115f786857",
+  "freshApplyCheck": true,
+  "actualReferenceByteExact": true,
+  "files": {
+    "mods/archive/archive.js": "0e539daaed9c4784df5b37626f58ec966fe096d49400b24d44dc81cb5173f131",
+    "mods/vault/lib/transactions/rental-checkout.js": "03b8e633982f34447d92c400e432d883efdd569d267549306e6d6f81616370af",
+    "mods/vault/vault.js": "3f3cf8f5fbaeb977736c55c953e32b2c49ead0021c31b4c940ade25f2d048411",
+    "mods/vault/lib/contracts/loan.js": "870877c0cb6b5926023a9e3e624ebee35cbdb12c82bec9a3eb4fb19aff328156",
+    "mods/vault/lib/contracts/rental.js": "c0385317ee08e703bd17b9a9655c142bf1179f3336cd98485a95b792abc3b8e8"
+  }
+}

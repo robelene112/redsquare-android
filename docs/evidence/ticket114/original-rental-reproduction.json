@@ -1,0 +1,16 @@
+[
+  {
+    "reference": "native-store-rental-listing-reference.json",
+    "semanticReferenceExact": true,
+    "signedTransactionAndEnvelopeByteExact": true,
+    "wholeReferenceBytesExact": false,
+    "qualification": "Authority sourceHashes key order may differ; actual source-hash values and all signed payloads are exact."
+  },
+  {
+    "reference": "native-store-rental-purchase-reference.json",
+    "semanticReferenceExact": true,
+    "signedTransactionAndEnvelopeByteExact": true,
+    "wholeReferenceBytesExact": true,
+    "qualification": "Authority sourceHashes key order may differ; actual source-hash values and all signed payloads are exact."
+  }
+]

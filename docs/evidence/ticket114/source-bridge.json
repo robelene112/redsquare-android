@@ -1,0 +1,49 @@
+{
+  "productSource": "54a188eac885ebdb11962e0a31f76bf72eb27b97",
+  "executionSource": "ced166d8cfe1961d60a98ac63a6e85cbad1310e9",
+  "productEntries": 224778,
+  "executionEntries": 224778,
+  "allOtherTrackedObjectsExact": true,
+  "differences": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/OwnedStoreRentalFixture.kt",
+      "product": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "ad5615b567cd3076407ed8b7e45a12070bc61bff"
+      },
+      "execution": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "944bad4d00e1c24e0b6703551d30c52180851842"
+      }
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StoreRentalAccessPreviewTest.kt",
+      "product": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "f6e3b640aab855778d6dd337e15d9f56eee24493"
+      },
+      "execution": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "cb9c4d093183984b67cbc8cbd36a8b4b1f9df660"
+      }
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/StoreRentalPaymentPreviewTest.kt",
+      "product": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "5432c830bd2a95701538e5d836e5f67563294b87"
+      },
+      "execution": {
+        "mode": "100644",
+        "type": "blob",
+        "object": "c7d83af70852d3ae0d792152fd7966941c000ff2"
+      }
+    }
+  ],
+  "qualification": "Complete Git trees compared. Only the three identified test/fixture files differ; no product/build/workflow/deadline waiver or cross-run acceptance assembly."
+}
