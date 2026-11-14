@@ -7,7 +7,7 @@ import java.nio.ByteBuffer
 import java.util.Base64
 
 data class StoreListingTerms(val title: String, val description: String, val category: StoreCategory,
-    val price: String, val quantity: BigInteger, val currency: String = "SAITO") {
+    val price: String, val quantity: BigInteger, val currency: String = "SAITO", val rental: StoreRentalSource? = null) {
     init {
         require(title.isNotBlank() && title.length <= 10_000 && description.length <= 200_000)
         require(quantity.signum() > 0 && quantity <= BigInteger("9007199254740991"))
@@ -25,7 +25,7 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
     val inputs: List<SaitoBalanceSnapshot.Slip> get() = holding.positions
     val author: String get() = holding.owner
     companion object {
-        fun sellable(holding: SaitoNft): Boolean = holding.type !in setOf("vault-nft-rental", "store-nft-rental")
+        fun sellable(holding: SaitoNft): Boolean = holding.type != "vault-nft-rental"
 
         fun create(wallet: SaitoWallet, holding: SaitoNft, envelope: String, store: String,
             terms: StoreListingTerms, timestamp: Long): SaitoStoreListing {
@@ -52,6 +52,9 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
             terms: StoreListingTerms, timestamp: Long): SaitoStoreListing {
             require(holding.owner == wallet.publicKey && sellable(holding) && SaitoWallet.isPublicKey(store) && store != wallet.publicKey)
             require(terms.quantity <= holding.quantity)
+            val rental = if (holding.type == "store-nft-rental") StoreRentalSource.read(holding.creator, body.getAsJsonObject("data")) else null
+            require(terms.rental == rental)
+            require(rental == null || holding.creator == wallet.publicKey) { "Only original unused rental inventory can be offered" }
             for (field in listOf("request", "access_script", "access_hash", "p2sh_address", "access_scripts", "fulfill_sale", "listing_signature", "listing")) body.remove(field)
             val script = SaitoAccessScript.parse(JsonObject().apply {
                 addProperty("op", "CHECKMULTISIG"); addProperty("m", 1)
@@ -68,7 +71,19 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
                 if (terms.currency != "SAITO") {
                     addProperty("web3_ticker", terms.currency); addProperty("web3_amount", terms.price)
                 }
+                rental?.let {
+                    addProperty("listing_mode", "rent"); addProperty("rental_duration_hours", it.hours)
+                    addProperty("rental_duration_ms", it.durationMillis); addProperty("rental_rights", it.rights); addProperty("file_id", it.fileId)
+                }
             })
+            if (rental != null) {
+                val path = SaitoVaultRental.parse(holding.creator, rental.fileId, rental.masterSource, "[]")
+                    .append(wallet, store, Math.addExact(timestamp, rental.durationMillis), timestamp, delegated = true)
+                body.getAsJsonObject("data").apply {
+                    add("path", com.google.gson.JsonParser.parseString(path.source))
+                    addProperty("expires_at", timestamp + rental.durationMillis)
+                }
+            }
             if (holding.type == "stack") transferStack(wallet, holding, body, store, timestamp)
             val source = holding.witnesses.map(::witnessRow)
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
@@ -134,7 +149,8 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
             val terms = StoreListingTerms(row.get("title").asString, row.get("description").asString,
                 StoreCategory.entries.single { it.wire == row.get("category").asString },
                 row.get(if (currency == "SAITO") "price" else "web3_amount").asString,
-                row.get("quantity_total").asString.toBigInteger(), currency)
+                row.get("quantity_total").asString.toBigInteger(), currency,
+                if (holding.type == "store-nft-rental") StoreRentalSource.read(holding.creator, body.getAsJsonObject("data")) else null)
             require(terms.quantity <= holding.quantity && row.get("quantity_available").asString.toBigInteger() == terms.quantity)
             val partial = terms.quantity < holding.quantity
             require(header.getInt(4) == if (partial) 7 else 4)
@@ -150,6 +166,19 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
                 }
             }
             require(source.last().publicKey == holding.owner && source.last().position == zero.copy(index = if (partial) 6 else 3))
+            terms.rental?.let { rental ->
+                require(holding.creator == signed.author && row.get("listing_mode").asString == "rent" &&
+                    row.get("rental_duration_hours").asString.toInt() == rental.hours && row.get("rental_duration_ms").asString.toLong() == rental.durationMillis &&
+                    row.get("rental_rights").asString == rental.rights && row.get("file_id").asString == rental.fileId)
+                val data = body.getAsJsonObject("data")
+                val path = data.getAsJsonArray("path")
+                require(path.size() == 1 && path[0].asJsonObject.get("to").asString == keys[1])
+                val verified = SaitoVaultRental.parse(holding.creator, rental.fileId, rental.masterSource, path.toString())
+                require(verified.grant == null)
+                val payload = JsonParser.parseString(Base64.getDecoder().decode(path[0].asJsonObject.get("value").asString).toString(Charsets.UTF_8)).asJsonObject
+                require(payload.get("timestamp").asLong == signed.createdAt && payload.get("expires_at").asLong == Math.addExact(signed.createdAt, rental.durationMillis) &&
+                    data.get("expires_at").asLong == payload.get("expires_at").asLong)
+            }
             if (holding.type == "stack") {
                 val data = body.getAsJsonObject("data"); val path = data.getAsJsonArray("path")
                 require(path.size() in 1..256)
