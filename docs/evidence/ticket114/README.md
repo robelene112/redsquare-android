@@ -1,8 +1,8 @@
 # Ticket114: integrated Store rentals and Vault access
 
-Status: all six complete current-source scopes pass on Android 10/17. Final
-independent packet review is pending. Issue #114 remains open until that review.
-No beta was built or promoted; #115 owns the single combined delivery.
+Status: complete functional rental slice. All six current-source scopes and both
+[independent final reviews](reviews.md) pass. No beta was built or promoted;
+#115 owns the single combined delivery.
 
 The creator retains the Vault master and deliberately mints separate rental stock,
 reviews its deposit and signs the Store listing with actual duration/rights/price.
@@ -88,6 +88,6 @@ Store payment compatibility/activation and manual payout qualifications remain.
 Rental and legacy payment tests reuse some screenshot basenames in these focused
 artifacts. Their complete ordinary UI assertions pass; a single overwritten image
 is not claimed as proof of both scenes. #115 must namespace those captures before
-freezing final full-app/UI coverage. Final packet review and #115's full-app/motion/accessibility,
+freezing final full-app/UI coverage. #115's full-app/motion/accessibility,
 signed 127-to-next continuity and actual public beta checks remain pending.
 Keep issues #1/#36/#55/#84/#86 open.

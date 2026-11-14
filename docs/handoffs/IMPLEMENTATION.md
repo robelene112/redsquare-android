@@ -7,7 +7,7 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
 edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
-image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is active. Continue the approved ready frontier
+image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is complete. #115 is next. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -27,60 +27,42 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
-## Active integrated rental slice #114
+## Completed integrated rentals #114, next #115
 
-#114 remains assigned/open; #108 and #113 are closed. Review base
-`e5669b50f55aad4620a4527a5f6304de268843c4`. Current product/test source is
-`975d34cccd7d07cbfa73cd0b4c5090d799d3b21c`; later documentation may differ.
-External scratch/whole originals are in
+#114 is functionally complete with final Standards/Spec review finding no
+outstanding issues. Review base `e5669b50f55aad4620a4527a5f6304de268843c4`;
+product `54a188eac885ebdb11962e0a31f76bf72eb27b97`, complete execution source
+`ced166d8cfe1961d60a98ac63a6e85cbad1310e9`. Later commits are evidence/docs.
+[Packet](../evidence/ticket114/README.md) retains38whole originals, six accepted
+current-source scopes, exact source comparison and explicit qualifications.
+
+Complete Seller10/17 runs43612128463/43612131229 pass12ordinary classes/21cases,
+24viewport cells and two three-phase process proofs each. Complete Purchase10/17
+runs43612123720/43612126072 pass12classes/50cases,36cells and two three-phase
+proofs each. Vault reading10/17 runs43612292455/43612295245 pass4classes/10cases
+and12cells. Full core224cases/44suites has no failures/skips. All original deadlines
+remain. Provider-active older loans stay readable alongside newer signed grants;
+no expiry ranking alone establishes active access. Browser holdings need no local
+buyer journal, and remote actions wait for current discovery. Offline copies stay
+immediate and cannot be remotely recalled.
+
+Both final independent audits accept functional114closure. The declared source-only
+`integrations/saito/vault-rental-recovery.patch` remains UNDEPLOYED. Actual isolated
+Archive/SQLite/WASM and fresh patch rehearsal do not establish live/community or
+actual deployed-schema/runtime acceptance. #36/OWNER_INPUTS keep those gates open.
+No production node/config/database/provider or public financial write occurred.
+
+Continue sequentially with #115. No partial beta; public delivery remains127.
+Finish native design/performance/integration, namespace rental payment fixture/
+screenshot basenames (current ordinary assertions pass, but old/new scenes reuse
+some image paths), and freeze expanded complete Android10/17 expectations before
+final executions. Preserve inherited validators/deadlines and originals. Verify
+actual signed127-to-next wallet/draft/offline/pending-operation continuity and
+publish one exact combined beta after independent review. Keep1/36/55/84/86open.
+Ordinary development QA is agent-owned; do not request phone tests or repeated
+implementation confirmation. External working material/whole originals and
+concrete115polish observations remain in
 `/mnt/storage/redsquare-android-artifacts/vault-store-planning`.
-
-Implemented: separate rental mint with retained creator master, signed Store
-listing/delegation, actual terms, all alternate payment paths, authenticated
-order-to-exact-Vault-file and return-to-original-order navigation, explicit loan
-activation/read, offline/exported copies, creator public history/restoration and
-public browser-held rights without a local Android invoice. The first renter and
-listing-fixed end remain authoritative; assigned remainders/elapsed-end offers
-cannot start new payments. Check availability after PIN and at first enqueue;
-previously sent uncertain originals remain recoverable. Mixed local/public rights
-select the latest verified expiry. Metadata crypto runs in inventory IO, not on
-sale-form keystrokes. Safe community Vault-origin metadata is retained.
-
-Core eight rental cases pass, including actual partial-fulfillment remainder,
-seven provider quotes, both denomination receipts, public browser holdings and
-original file binding. Complete core at67c passed 223 cases in 44 suites. Native
-creation at67c passes three cases on Android 10/17, runs 43607786505/43607789496,
-including real PIN mint/listing and browser-created rental creator restoration.
-These are development observations, not final current-source acceptance.
-
-The67c access10 run 43607792005 found a real themed Context-to-Activity crash in
-the purchase sheet.975 fixes this through bounded wrapper traversal. Its access
-10/17 runs 43608734738/43608737952 are active; the updated access class also checks
-browser import, PIN/funding expiry and old-local/new-public coexistence. The
-separate payment class adds eight native currency/denomination journeys. Complete
-Seller10/17 runs 43609041872/43609044348 are active. Read fresh primary metadata;
-do not infer completion from these dated observations. Local main compile
-store114-themed-clock-main-compile.log passed; current AndroidTest compile is
-store114-mixed-native-compile.log. Full current Purchase/Vault, final native
-motion/viewport coverage, evidence packet and final independent reviews remain.
-
-Actual isolated Archive/SQLite/WASM confirms checkout replay denial and
-provider-authorized restoration. The source-only, undeployed
-`integrations/saito/vault-rental-recovery.patch` adds server-only restoration,
-`vault-rental-restore` advertisement and optional atomic metadata owner CAS.
-Fresh patch rehearsal and actual runtime branches pass; see external
-vault114-final-patch-rehearsal/verification.json. No production node/config/DB or
-provider was changed. Keep activation/schema/runtime/community gates under #36 and
-OWNER_INPUTS. Preserve all original failed/cancelled observations in the final
-ledger; preliminary collection lists 19 whole originals. Source hash-object key
-ordering differs only in the reproduced first listing fixture; semantic metadata
-and every actual signed transaction/envelope remain exact.
-
-Continue #114 through focused/current complete checks, independent review/fixes,
-packet and closure. Then #115 owns full-app integration/polish, frozen complete
-Android 10/17, actual signed127-to-next update and one combined public beta.
-No partial beta. Keep issues #1/#36/#55/#84/#86 open. No owner development-phone QA or production
-node/provider/financial operation is authorized or required here.
 
 ## Completed seller currency/proceeds slice #113
 
