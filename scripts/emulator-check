@@ -744,6 +744,8 @@ if [[ "${TEST_SCOPE:-full}" == store-catalogue* ]]; then
     verify_group_chat_native StoreChatRoutePreviewTest 180 store-chat-route store-chat-route-evidence
     verify_group_chat_native StoreBrowsePreviewTest 480 store-browse store-browse-evidence
     verify_group_chat_native StoreMediaPreviewTest 180 store-media store-media-evidence
+    verify_group_chat_native StoreRecoveryPreviewTest 180 store-recovery store-recovery-evidence
+    verify_group_chat_native StoreNestedRoutePreviewTest 180 store-nested store-nested-evidence
     printf '%s\n' 'Native genuine Store catalogue over owned peer/archive fixtures, no publishing or financial writes.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -1334,6 +1336,8 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native StoreChatRoutePreviewTest 180 store-chat-route store-chat-route-evidence
     verify_group_chat_native StoreBrowsePreviewTest 480 store-browse store-browse-evidence
     verify_group_chat_native StoreMediaPreviewTest 180 store-media store-media-evidence
+    verify_group_chat_native StoreRecoveryPreviewTest 180 store-recovery store-recovery-evidence
+    verify_group_chat_native StoreNestedRoutePreviewTest 180 store-nested store-nested-evidence
     verify_group_chat_native VaultAccessViewportPreviewTest 180 vault-access-viewport vault-access-viewport-evidence
     verify_group_chat_native VaultRulesViewportPreviewTest 180 vault-rules-viewport vault-rules-viewport-evidence
     verify_group_chat_native VaultTransferViewportPreviewTest 180 vault-transfer-viewport vault-transfer-viewport-evidence

@@ -23,13 +23,7 @@ class StoreChatRoutePreviewTest {
             .reader().use { JsonParser.parseReader(it).asJsonObject }
         val seller = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         assertEquals(reference.get("seller").asString, seller.publicKey)
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4").withChatContact(seller.publicKey)
-        val wallets = AndroidWalletStore(context)
-        val original = wallets.loadOrCreate()
-        val state = ChatFixtureState(context, listOf("chat.", "chatwork.", "chatreactions.", "personal."), wallet.publicKey)
-        state.prepare(); wallets.replace(original, wallet)
-        var primary: Throwable? = null
-        try {
+        withStoreChatWallet(seller.publicKey) { wallet ->
             val url = "https://saito.io/store/${seller.publicKey}/${reference.get("nftId").asString}"
             val incoming = PrivateChat.create(seller, wallet.publicKey, "A shared Store offer\n$url", 1_700_003_000_000)
             ChatHistoryStore(context, wallet, SaitoBackend.OWNER, seller.publicKey).save(listOf(incoming.envelope()))
@@ -56,7 +50,7 @@ class StoreChatRoutePreviewTest {
                 ui.onNode(hasSetTextAction() and hasText("Message")).assertTextContains("Keep this unsent conversation draft")
                 ui.onNodeWithText("Open in Store").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
-                ui.onNodeWithContentDescription("Back").performClick()
+                ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Open in Store").isDisplayed() }
                 ui.onNode(hasSetTextAction() and hasText("Message")).assertTextContains("Keep this unsent conversation draft")
                 assertEquals("Keep this unsent conversation draft", work.load().draft)
@@ -65,12 +59,6 @@ class StoreChatRoutePreviewTest {
                 assertTrue(peer.transactions.isEmpty()); assertTrue(peer.vaultUploads.isEmpty())
                 captureNativeScreen(File(context.cacheDir, "store-chat-route-evidence/private-origin-and-draft-restored.png"))
             }
-        } catch (failure: Throwable) { primary = failure; throw failure }
-        finally {
-            cleanupAfterTest(primary, { state.restoreFiles() }, { state.restorePreferences() }, {
-                val current = wallets.loadExisting(); check(current.exportJson() == wallet.exportJson())
-                wallets.replace(current, original); check(wallets.loadExisting().exportJson() == original.exportJson())
-            })
         }
     }
 }

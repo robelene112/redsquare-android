@@ -31,32 +31,39 @@ authorized. Other parent and real-release prerequisites remain open.
 
 #108 is closed. #109 is assigned and its native dependency gate reports0open
 blockers. Review base:`4c6a2d91a69e14ce4468a15a6ced737945771d7a`.
-First link, catalogue request, bounded summary and signed-product tracers all
-pass against independent official/deployed body/WASM references. Last core loop
-passes `SaitoStoreTest` and `StoreLinkTest` (4cases). `SaitoStore.readListing`
-authenticates original seller/signature/NFT/locking script/custody/quantity and
-terms; it is not current chain/stock/delivery proof. Actual isolated Store builder
-+WASM wallet reference uses4inputs/4outputs for the basic full listing, including
-a normal zero slip; never assume the transfer-only3/3shape. Its P2SH output is
-00+scriptHash, not an ordinary ECDSA key.
+The native catalogue/product/storefront and exact feed/Chat/platform reading
+flows are implemented. SaitoStore authenticates original signer/signature/NFT/
+locking script/custody/quantity/price/image and can read an unavailable historical
+signature without claiming current stock. Catalogue/source stock stays a node
+report, not chain ownership or fulfilment. All179core cases pass (0ignored).
+See [the qualified packet](../evidence/ticket109/README.md) for all original reds,
+first catalogue17pass and failed complete attempts. Public beta127 is unchanged.
 
-The first native Store catalogue/category tracer and
-owned read RPC fixture are committed at3467d479d1090c5c23ea14c1187c64da60cb0716.
-Main and AndroidTest compile at that tracer source. Actual red43522227534 fails
-on the missing Store picker item within5s; original drawer screenshot/64ZIP/
-6captures are exact and176core tests pass. Native Store picker and first genuine
-Discover/Orders/My store shell are now implemented in the working tree; main
-compiles, updated AndroidTest compilation is pending. Run the corrected native
-tracer and inspect original rendered output before expanding the remaining UI. ControlledFeedPeer.storeResponse handles only
-three explicit Store read requests, preserving every older default. Native test
-requires genuine signed-reference offer title/price, all8accessible categories,
-actual filtered RPC and no publication/node change. Full Wallet includes it once.
+Latest committed implementation source is9cb3057976f892ba1bbe4e5f097e357dd8695317;
+review corrections are currently uncommitted. Independent two-axis review found
+4Spec/3hard Standards findings, all being corrected: exact signature targets,
+predecessor scene retention, seller sold filtering and empty identity, nested
+peer timeout recovery, independent synthetic Chat setup/cleanup. Additional
+changes preserve product scroll and keep statuses above scrolling. Read the
+current source rather than treating9cb as final. The new native suite has7classes/
+12cases, with12zero-scale real width/theme/font cells, same inherited deadlines.
+A common fixture owns synthetic buyer4and independently restores captured state.
 
-Remaining109: native browsing/detail/media/storefront, bounded continuation and
-recovery, exact feed/Chat/platform links preserving origin/saved node, and existing
-Chat unsent reference drafts preserving all other drafts. Implement the rest of
-109criteria, both SDK/native/theme/large text/motion checks, review and closure.
-Continue110–115 and one combined beta afterwards. No intermediate beta.
+Current core run core109-review-green.log passes179. Main-only build passes
+in compile109-reviewed-main.log; AndroidTest-only compilation is running in
+compile109-reviewed-tests.log.
+A combined core/main run lost its daemon and is not accepted evidence. Both
+9cb native runs43529582373(10)/43529551304(17) stopped on the wrong Back selector
+(actual FrameIconButton label is text); their two seller-draft cases pass but no
+later class ran. Original artifacts and images are verified. Selectors are fixed,
+and silent request/nested-link/two-offer/closed-original regressions are added.
+Commit corrected source, run full Store scopes on both SDKs, collect every
+artifact/image member, inspect real renderings, fix failures, re-review and close
+109only when complete. Continue110–115 without further implementation permission.
+
+Ticket115 must append all new106–109and subsequent classes/process identities
+to its frozen full catalogue before final shared-source proofs. No intermediate
+beta. No provider/node/Play activation or public financial writes are authorized.
 
 Owned reference generator:`test-fixtures/reference/store-catalogue-reference.cjs`.
 Pinned upstream Store/categories/browse/summary/warehouse/route source was read

@@ -53,22 +53,24 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         } else {
             val target = path.last()
             if (target.nftId != null || target.signature != null) {
-                StoreProductScreen(wallet, backend, endpoint, target, Modifier.fillMaxSize(), chrome,
-                    onBack = { back() }, onSeller = { path = ArrayList(path + StoreLink(backend, it)) },
-                    contactFailed = contactFailed, preparingContact = preparingContact, onMessage = { product ->
-                        if (!preparingContact) {
-                            preparingContact = true; contactFailed = false
-                            scope.launch {
-                                try {
-                                    nl.davidengelen.redsquare.chat.retainChatContact(wallet, product.seller, onWalletMetadata)
-                                    reference = product.title + "\n" + StoreLink(backend, product.seller, product.nftId).url()
-                                    contact = product.seller
-                                } catch (cancelled: CancellationException) { throw cancelled }
-                                catch (_: Exception) { contactFailed = true }
-                                finally { preparingContact = false }
+                states.SaveableStateProvider("product:${target.url()}") {
+                    StoreProductScreen(wallet, backend, endpoint, target, Modifier.fillMaxSize(), chrome,
+                        onBack = { back() }, onSeller = { path = ArrayList(path + StoreLink(backend, it)) },
+                        contactFailed = contactFailed, preparingContact = preparingContact, onMessage = { product ->
+                            if (!preparingContact) {
+                                preparingContact = true; contactFailed = false
+                                scope.launch {
+                                    try {
+                                        nl.davidengelen.redsquare.chat.retainChatContact(wallet, product.seller, onWalletMetadata)
+                                        reference = product.title + "\n" + StoreLink(backend, signature = product.signature).url()
+                                        contact = product.seller
+                                    } catch (cancelled: CancellationException) { throw cancelled }
+                                    catch (_: Exception) { contactFailed = true }
+                                    finally { preparingContact = false }
+                                }
                             }
-                        }
-                    }, onNodeSettings = onNodeSettings)
+                        }, onNodeSettings = onNodeSettings)
+                }
             } else states.SaveableStateProvider(target.url()) {
                 StoreCatalogueScreen(wallet, backend, endpoint, Modifier.fillMaxSize(), chrome, target,
                     if (canBack) ({ back() }) else null, { path = ArrayList(path + it) }, onNodeSettings)
@@ -97,11 +99,13 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     var tab by rememberSaveable { mutableStateOf(StoreTab.DISCOVER) }
     var category by rememberSaveable { mutableStateOf<StoreCategory?>(StoreCategory.entries.find { it.wire == target.category }) }
     var offset by rememberSaveable { mutableIntStateOf(0) }
+    var stock by rememberSaveable { mutableStateOf(StoreStock.ACTIVE) }
     var categoriesOpen by remember { mutableStateOf(false) }
     var retry by remember { mutableIntStateOf(0) }
     val list = rememberLazyListState()
     val scope = rememberCoroutineScope()
-    val query = StoreQuery(if (tab == StoreTab.MINE) wallet.publicKey else target.seller, category, offset)
+    val seller = if (tab == StoreTab.MINE) wallet.publicKey else target.seller
+    val query = StoreQuery(seller, category, offset, stock = if (seller != null) stock else StoreStock.ACTIVE)
     var loaded by remember(wallet.publicKey, backend, endpoint) { mutableStateOf(StoreBrowseView()) }
     LaunchedEffect(wallet.publicKey, backend, endpoint, query, tab, retry) {
         if (tab == StoreTab.ORDERS) return@LaunchedEffect
@@ -117,8 +121,7 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             }
             currentCoroutineContext().ensureActive()
             loaded = StoreBrowseView(query, page)
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (failure: Exception) {
+        } catch (failure: Exception) {
             currentCoroutineContext().ensureActive()
             loaded = StoreBrowseView(query, previous, problem = if (failure is StoreServiceMissing)
                 StoreReadProblem.MISSING_SERVICE else StoreReadProblem.CONNECTION)
@@ -128,6 +131,29 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     fun selectCategory(next: StoreCategory?) {
         category = next; offset = 0; categoriesOpen = false
         scope.launch { list.scrollToItem(0) }
+    }
+    val filters: @Composable () -> Unit = {
+        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (seller != null) {
+                androidx.compose.foundation.text.selection.SelectionContainer {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(registeredIdentity(seller).name, style = MaterialTheme.typography.titleMedium)
+                        Text(seller, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    StoreStock.entries.forEach { choice ->
+                        FilterChip(selected = stock == choice, onClick = {
+                            stock = choice; offset = 0; scope.launch { list.scrollToItem(0) }
+                        }, label = { Text(stringResource(if (choice == StoreStock.ACTIVE) R.string.store_stock_active else R.string.store_stock_sold)) })
+                    }
+                }
+            }
+            OutlinedButton(onClick = { categoriesOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(category?.let { stringResource(it.caption) } ?: stringResource(R.string.store_all_categories))
+                Spacer(Modifier.width(8.dp)); Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
+            }
+        }
     }
     Column(modifier) {
         chrome(list.firstVisibleItemIndex > 0)
@@ -143,30 +169,27 @@ private fun StoreCatalogueScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 Text(stringResource(R.string.store_orders_description), color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         } else {
-            Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedButton(onClick = { categoriesOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
-                    Text(category?.let { stringResource(it.caption) } ?: stringResource(R.string.store_all_categories))
-                    Spacer(Modifier.width(8.dp)); Icon(painterResource(R.drawable.ic_chevron_down), null, Modifier.size(18.dp))
-                }
-                InlineStatus(if (view.loading) stringResource(R.string.store_loading) else null, StatusTone.WORKING)
-                InlineStatus(view.problem?.let { stringResource(if (it == StoreReadProblem.MISSING_SERVICE)
-                    R.string.store_service_unavailable else R.string.store_load_failed) },
-                    if (view.problem == StoreReadProblem.MISSING_SERVICE) StatusTone.NEUTRAL else StatusTone.ERROR,
-                    actionLabel = stringResource(if (view.problem == StoreReadProblem.MISSING_SERVICE) R.string.vault_choose_node else R.string.retry),
-                    onAction = { if (view.problem == StoreReadProblem.MISSING_SERVICE) onNodeSettings() else retry++ })
-                InlineStatus(if ((view.page?.ignored ?: 0) > 0) stringResource(R.string.store_unreadable_items) else null, StatusTone.NEUTRAL)
+            Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+            InlineStatus(if (view.loading) stringResource(R.string.store_loading) else null, StatusTone.WORKING)
+            InlineStatus(view.problem?.let { stringResource(if (it == StoreReadProblem.MISSING_SERVICE)
+                R.string.store_service_unavailable else R.string.store_load_failed) },
+                if (view.problem == StoreReadProblem.MISSING_SERVICE) StatusTone.NEUTRAL else StatusTone.ERROR,
+                actionLabel = stringResource(if (view.problem == StoreReadProblem.MISSING_SERVICE) R.string.vault_choose_node else R.string.retry),
+                onAction = { if (view.problem == StoreReadProblem.MISSING_SERVICE) onNodeSettings() else retry++ })
+            InlineStatus(if ((view.page?.ignored ?: 0) > 0) stringResource(R.string.store_unreadable_items) else null, StatusTone.NEUTRAL)
             }
             SingleOwnerReveal(query to view.page?.items?.map { it.signature }, Modifier.weight(1f)) {
                 LazyColumn(Modifier.fillMaxSize(), state = list,
                     contentPadding = PaddingValues(horizontal = AppSpacing.screen, vertical = 12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    item("filters") { filters() }
                     val page = view.page
                     if (page != null && page.items.isEmpty() && !view.loading && view.problem == null) item("empty") {
                         Text(stringResource(if (page.ignored > 0) R.string.store_unreadable_items else R.string.store_empty),
                             Modifier.padding(vertical = 24.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     items(page?.items.orEmpty(), key = { it.signature }) { offer -> StoreOfferCard(offer) {
-                        onOpen(StoreLink(backend, offer.seller, offer.nftId))
+                        onOpen(StoreLink(backend, signature = offer.signature))
                     } }
                     if (page != null && (page.nextOffset != null || page.offset > 0)) item("pages") {
                         FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {

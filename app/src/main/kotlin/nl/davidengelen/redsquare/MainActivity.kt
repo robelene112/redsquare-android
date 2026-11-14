@@ -447,9 +447,12 @@ class MainActivity : ComponentActivity() {
                                     walletImport.busy || walletExport.busy) false
                                 else {
                                     if (storeTarget != null) {
-                                        val previous = storeLinkEntry
+                                        val previous = storeLinkEntry?.takeIf {
+                                            module == AppModule.STORE && it.owner == owner && it.savedBackend == savedNode
+                                        }
+                                        if ((previous?.depth ?: 0) >= 32) return@navigate false
                                         storeLinkEntry = nl.davidengelen.redsquare.ui.StoreLinkEntry(storeTarget, owner, savedNode,
-                                            previous?.origin ?: module, previous?.originStack ?: stackLinkEntry)
+                                            module, stackLinkEntry, previous)
                                         module = AppModule.STORE
                                     } else {
                                         storeLinkEntry = null
@@ -602,7 +605,7 @@ class MainActivity : ComponentActivity() {
                             if (selected != null) backendStates.SaveableStateProvider(selected.id) {
                                 key(selected) {
                                     val moduleStates = rememberSaveableStateHolder()
-                                    SingleOwnerReveal(linkedStore?.target ?: linkedStack?.target ?: module, Modifier.weight(1f)) {
+                                    SingleOwnerReveal(linkedStore?.scene ?: linkedStack?.target ?: module, Modifier.weight(1f)) {
                                         val updateWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit = { previous, updated ->
                                             check(wallet === previous && updated.publicKey == previous.publicKey)
                                             withContext(NonCancellable) {
@@ -635,7 +638,11 @@ class MainActivity : ComponentActivity() {
                                                                         val moved = postNavigation.navigate {
                                                                             val origin = storeLinkEntry
                                                                             if (origin == null || origin.owner != wallet?.publicKey || origin.savedBackend != backend) false
-                                                                            else { module = origin.origin; stackLinkEntry = origin.originStack; storeLinkEntry = null; true }
+                                                                            else {
+                                                                                moduleStates.removeState("${origin.owner}:STORE:link:${origin.scene}")
+                                                                                module = origin.origin; stackLinkEntry = origin.originStack
+                                                                                storeLinkEntry = origin.originStore; true
+                                                                            }
                                                                         }
                                                                         moduleSwitchFailed = !moved
                                                                     }
@@ -711,8 +718,11 @@ class MainActivity : ComponentActivity() {
                                                 }
                                             }
                                         }
-                                        if (linkedStore != null) key(linkedStore.target) { renderModule() }
-                                        else if (linkedStack != null) key(linkedStack.target) { renderModule() }
+                                        if (linkedStore != null) key(linkedStore.scene) {
+                                            moduleStates.SaveableStateProvider("${linkedStore.owner}:STORE:link:${linkedStore.scene}") { renderModule() }
+                                        } else if (linkedStack != null) key(linkedStack.target) {
+                                            moduleStates.SaveableStateProvider("${linkedStack.owner}:STACK:link:${linkedStack.url}") { renderModule() }
+                                        }
                                         else moduleStates.SaveableStateProvider("${wallet?.publicKey.orEmpty()}:${module.name}") { renderModule() }
                                     }
                                 }

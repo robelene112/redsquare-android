@@ -36,6 +36,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         require(requestId.matches(Regex("[0-9a-f]{128}")))
         check(expectedClosedVaultUploadReplies.add(requestId))
     }
+    @Volatile var withholdStoreReply = false
     @Volatile var storeResponse: ((com.google.gson.JsonObject) -> String)? = null
     val storeRequests = java.util.concurrent.CopyOnWriteArrayList<com.google.gson.JsonObject>()
     @Volatile var vaultResponse: ((nl.davidengelen.redsquare.saito.SignedSaitoMessage) -> String)? = null
@@ -300,6 +301,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                         if (body.get("request").asString in setOf("load-listings", "load-listing", "load-seller-inventory") &&
                             criteria.get("module")?.asString == "Store") {
                             storeRequests.add(body.deepCopy())
+                            if (withholdStoreReply) return
                             val response = requireNotNull(storeResponse)(body)
                             check(webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()))
                             return

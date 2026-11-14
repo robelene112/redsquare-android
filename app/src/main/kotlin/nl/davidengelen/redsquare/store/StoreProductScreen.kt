@@ -34,15 +34,17 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                     val services = peer.services()
                     if ("Store" !in services) return@use StoreProductView(loading = false, missingService = true)
                     val offer = SaitoStore.readOffer(peer.request(SaitoStore.listingRequest(target).toByteArray()).decodeToString(), target)
-                        ?: return@use StoreProductView(loading = false, unavailable = true)
-                    val product = if ("archive" in services) SaitoStore.readListingArchive(offer,
-                        peer.request(SaitoStore.listingArchiveRequest(offer.signature).toByteArray()).decodeToString()) else null
-                    StoreProductView(loading = false, offer = offer, product = product)
+                    val signature = offer?.signature ?: target.signature
+                    val product = if ("archive" in services && signature != null) {
+                        val response = peer.request(SaitoStore.listingArchiveRequest(signature).toByteArray()).decodeToString()
+                        if (offer != null) SaitoStore.readListingArchive(offer, response)
+                        else SaitoStore.readOriginalListingArchive(signature, response)
+                    } else null
+                    StoreProductView(loading = false, offer = offer, product = product, unavailable = offer == null)
                 }
             }
             currentCoroutineContext().ensureActive(); view = next
-        } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { currentCoroutineContext().ensureActive(); view = view.copy(loading = false, failed = true) }
+        } catch (_: Exception) { currentCoroutineContext().ensureActive(); view = view.copy(loading = false, failed = true) }
     }
     val external = LocalExternalUriHandler.current
     Column(modifier) {
@@ -53,43 +55,48 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
             Text(stringResource(R.string.store_product), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
             FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !view.loading) { retry++ }
         }
+        Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+            InlineStatus(if (view.loading) stringResource(R.string.store_loading_product) else null, StatusTone.WORKING)
+            InlineStatus(if (view.failed) stringResource(R.string.store_load_failed) else null, StatusTone.ERROR,
+                actionLabel = stringResource(R.string.retry), onAction = { retry++ })
+            InlineStatus(if (view.missingService) stringResource(R.string.store_service_unavailable) else null, StatusTone.NEUTRAL,
+                actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
+            InlineStatus(if (view.unavailable) stringResource(R.string.store_offer_unavailable) else null, StatusTone.NEUTRAL)
+        }
         SingleOwnerReveal(view, Modifier.weight(1f)) {
             LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(AppSpacing.screen),
                 verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                item("status") {
-                    InlineStatus(if (view.loading) stringResource(R.string.store_loading_product) else null, StatusTone.WORKING)
-                    InlineStatus(if (view.failed) stringResource(R.string.store_load_failed) else null, StatusTone.ERROR,
-                        actionLabel = stringResource(R.string.retry), onAction = { retry++ })
-                    InlineStatus(if (view.missingService) stringResource(R.string.store_service_unavailable) else null, StatusTone.NEUTRAL,
-                        actionLabel = stringResource(R.string.vault_choose_node), onAction = onNodeSettings)
-                    if (view.unavailable) Text(stringResource(R.string.store_offer_unavailable))
-                }
                 val offer = view.offer
-                if (offer != null) {
-                    val product = view.product
+                val product = view.product
+                val seller = product?.seller ?: offer?.seller
+                val signature = product?.signature ?: offer?.signature
+                if (seller != null && signature != null) {
                     product?.image?.let { source -> item("image") {
                         nl.davidengelen.redsquare.feed.PostImages(listOf(source), backend)
                     } }
                     item("identity") {
                         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Text(stringResource((product?.category ?: offer.category).caption), style = MaterialTheme.typography.labelLarge,
+                            Text(stringResource((product?.category ?: requireNotNull(offer).category).caption), style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.primary)
-                            Text((product?.title ?: offer.title).ifBlank { stringResource(R.string.store_untitled) },
+                            Text((product?.title ?: requireNotNull(offer).title).ifBlank { stringResource(R.string.store_untitled) },
                                 style = MaterialTheme.typography.headlineMedium)
-                            TextButton(onClick = { onSeller(offer.seller) }, modifier = Modifier.heightIn(min = 48.dp)) {
-                                Text(stringResource(R.string.store_by_seller, registeredIdentity(offer.seller).name))
+                            TextButton(onClick = { onSeller(seller) }, modifier = Modifier.heightIn(min = 48.dp)) {
+                                Text(stringResource(R.string.store_by_seller, registeredIdentity(seller).name))
                             }
-                            val price = product?.price ?: offer.price
+                            val price = if (product != null) product.price else offer?.price
                             Text(price?.let { "${it.amount.stripTrailingZeros().toPlainString()} ${it.currency}" }
                                 ?: stringResource(R.string.store_price_unavailable), style = MaterialTheme.typography.headlineSmall)
-                            Text(stringResource(R.string.store_quantity_available, offer.available.toString()),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            Text(stringResource(R.string.store_stock_report, backend.domain), style = MaterialTheme.typography.bodySmall,
+                            if (offer != null) {
+                                Text(stringResource(R.string.store_quantity_available, offer.available.toString()),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(stringResource(R.string.store_stock_report, backend.domain), style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            } else if (product != null) Text(stringResource(R.string.store_original_quantity, product.quantity.toString()),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                     item("description") {
-                        Text(product?.description ?: offer.description, style = MaterialTheme.typography.bodyLarge)
+                        Text(product?.description ?: requireNotNull(offer).description, style = MaterialTheme.typography.bodyLarge)
                     }
                     item("actions") {
                         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -106,7 +113,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                         }
                     }
                     item("reference") {
-                        SelectionContainerForStore(offer)
+                        StoreOfferIdentity(signature, seller)
                     }
                 }
             }
@@ -115,13 +122,13 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
 }
 
 @Composable
-private fun SelectionContainerForStore(offer: StoreSummary) {
+private fun StoreOfferIdentity(signature: String, seller: String) {
     androidx.compose.foundation.text.selection.SelectionContainer {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(stringResource(R.string.store_offer_reference), style = MaterialTheme.typography.titleSmall)
-            Text(offer.signature, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(signature, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(stringResource(R.string.store_seller_key), style = MaterialTheme.typography.titleSmall)
-            Text(offer.seller, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(seller, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

@@ -39,14 +39,14 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
   const merged=Object.assign(msg,nft.txmsg||{}),native=await wallet.createNFTTransaction(recipient,BigInt(amount),nft.id,fee,deposit,Buffer.from(JSON.stringify(merged)));
   return {msg:merged,native,sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=timestamp;await native.sign();this.signature=native.signature}};
  }}};
- const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:'2.5',quantity_total:2,quantity_available:2};
+ const listing={title:illustrated?'Illustrated field notes access key':'Field notes access key',description:'Original creator-authenticated field notes.',category:'Access Keys',price:illustrated?'3.75':'2.5',quantity_total:2,quantity_available:2};
  const created=await factory.call({app,store_public_key:store},nft,listing);
  const signed=envelope(created.native);
  const summarySource=text('summary'),tree=acorn.parse(summarySource,{ecmaVersion:'latest'}),klass=tree.body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Summary');
  const methods=klass.body.body.filter(n=>['constructor','serialize'].includes(n.key?.name)).map(n=>summarySource.slice(n.start,n.end));
  const categories=require(path.join(root,'node/mods/store/lib/categories.js'));
  const Summary=vm.runInNewContext('(class Summary {'+methods.join('\n')+'})',{STORE_CATEGORIES:categories.STORE_CATEGORIES,SUMMARY_STATUS_ACTIVE:1});
- const summary=new Summary(null,null,{nft_id:source.id,seller,category:'Access Keys',title:listing.title,description:listing.description,listing_signature:signed.id,price:250000000,quantity_available:2,quantity_total:2,created_at:Number(timestamp),updated_at:Number(timestamp),approved:1}).serialize();
+ const summary=new Summary(null,null,{nft_id:source.id,seller,category:'Access Keys',title:listing.title,description:listing.description,listing_signature:signed.id,price:illustrated?375000000:250000000,quantity_available:2,quantity_total:2,created_at:Number(timestamp),updated_at:Number(timestamp),approved:1}).serialize();
  const page={listings:[summary],public_key:'',category:'',pagination:{offset:0,page:1,page_size:24,total:1,total_pages:1,has_next:false,has_previous:false}};
  fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated Store createListAssetTransaction, script/helpers and Summary serializer, actual WASM wallet.createNFTTransaction. Wallet wrapper and standard no-hook adapters are not a full frontend or funded consensus listing.'},seller,store,nftId:source.id,timestamp:String(timestamp),listing:signed,body:created.msg,page},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

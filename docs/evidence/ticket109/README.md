@@ -10,7 +10,7 @@ Red Square/Stack/Talk/Vault only. All64ZIP and6capture members are byte-exact;
 see [receipt](focused-runs.json). All176core cases pass in that hosted source,
 with0ignored. This is a native red, not feature acceptance.
 
-Five core cases verify native reading routes against actual pinned and deployed
+Seven core cases verify native reading routes against actual pinned and deployed
 router bodies, all8categories, actual browser category/seller/offset/page-size/
 status request bodies, actual Summary serialization and signed NFT listing
 seller/asset/signature/script/custody/quantity/price metadata. Wrong signer,
@@ -54,10 +54,45 @@ portable conversion. The expanded native checks cover seller drafts, temporary
 foreign-node origins, Chat, continuation/recovery and12real theme/font/width cells.
 Testcode compilation and complete corrected native results remain pending.
 
-Remaining109: complete native catalogue/detail/storefront/media, continuation/
-recovery and performance, exact feed/Chat/platform links preserving origin and
-saved node, existing Chat unsent seller-reference drafts without overwriting
-other work, both SDKs/theme/large text/motion/accessibility and independent review.
-Orders/My store later operations must remain honestly unavailable until their
-own approved slices. Continue110–115 after109;115 owns one combined signed beta
-and complete shared-source app/update/public delivery proof.
+Remaining109: finish corrected native verification on both SDKs, inspect the
+rendered controls/media in all declared cells, fix actual failures and repeat
+independent review. Seven native classes contain12cases including12viewport
+cells. Orders/My store transactional operations remain honestly unavailable until
+their own approved slices. Continue110–115 after109;115 owns the single combined
+signed beta and complete shared-source app/update/public delivery proof.
+
+## First complete scene attempt and independent review
+
+Source`9cb3057976f892ba1bbe4e5f097e357dd8695317` runs
+[43529582373](https://github.com/robelene112/redsquare-android/actions/runs/43529582373)
+and[43529551304](https://github.com/robelene112/redsquare-android/actions/runs/43529551304)
+both halt in the first Store class: two seller-draft cases pass, but the third
+expects a Back content-description. The standard FrameIconButton exposes its
+accessible name as text; the original XML and screenshot show the Back control.
+This is a selector failure, not a missing UI button. Subsequent classes did not
+run, so neither run establishes complete Store acceptance. All62/64ZIP and18/18
+capture members are byte-exact. Corrected selectors keep every existing deadline.
+
+Independent review of9cb305797 found4Spec and3hard Standards findings (plus one
+optional duplication smell): exact offer signatures were lost in card/draft
+URLs; nested links lost the immediate scene; sold filtering and empty-storefront
+identity were missing; nested peer timeouts could leave loading stuck; synthetic
+Chat fixture setup/restoration was not independent of assertions. Corrections
+are implemented and awaiting fresh native evidence/re-review. Store scenes now
+retain their predecessor and public scene key, product/catalogue state is retained,
+seller active/sold filters and identity are independent of results, and an
+unavailable exact signature can still hydrate its original signed terms without
+claiming stock. Status feedback stays above scroll content. A common owned Chat
+fixture wraps setup and independently attempts restoration despite assertion
+failure. Native regressions add silent-reply and nested-scene cases. The media
+oracle supplies two actual signed alternatives sharing seller/NFT at2.5/3.75SAITO, so a
+pair lookup cannot pass the second-offer test by returning the first. They use
+the same owned original input and do not assert simultaneous unspent custody.
+
+All179core cases pass with0failures/errors/ignored in the separate core run.
+A combined local core/main build lost its daemon; it is not accepted evidence.
+Keep heavy compiler phases separate. Main-only compilation passes in compile109-reviewed-main.log. AndroidTest
+compilation and the expanded7class/
+12case native suite (including12viewport cells) remain pending. The viewport
+class uses the declared zero-scale test recomposer and system scale; it is not
+proof of the production factory's motion clock. No public beta has changed.

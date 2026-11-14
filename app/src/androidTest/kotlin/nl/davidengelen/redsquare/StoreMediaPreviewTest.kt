@@ -19,6 +19,9 @@ class StoreMediaPreviewTest {
         val context = instrumentation.targetContext
         val reference = instrumentation.context.assets.open("native-store-image-listing-reference.json")
             .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val original = instrumentation.context.assets.open("native-store-listing-reference.json")
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val unavailable = java.util.concurrent.atomic.AtomicBoolean()
         lateinit var peer: ControlledFeedPeer
         withAppFrameFixture("store-media", "store-media-evidence", feedRows = "[]", advertisedServices = "archive||;Store||",
             archiveResponse = { query ->
@@ -28,9 +31,15 @@ class StoreMediaPreviewTest {
             }, configurePeer = { owned ->
                 peer = owned
                 owned.storeResponse = { request ->
-                    if (request.get("request").asString == "load-listing")
-                        JsonObject().apply { add("listing", reference.getAsJsonObject("page").getAsJsonArray("listings")[0]) }.toString()
-                    else reference.get("page").toString()
+                    if (request.get("request").asString == "load-listing" && unavailable.get()) "{\"err\":\"Listing unavailable\"}"
+                    else if (request.get("request").asString == "load-listing") {
+                        val exact = request.getAsJsonObject("data").get("signature")?.asString == reference.getAsJsonObject("listing").get("id").asString
+                        // Both real signed offers share seller/NFT. Pair lookup returns the first, signature lookup the chosen second.
+                        JsonObject().apply { add("listing", (if (exact) reference else original).getAsJsonObject("page").getAsJsonArray("listings")[0]) }.toString()
+                    } else reference.getAsJsonObject("page").deepCopy().apply {
+                        getAsJsonArray("listings").add(original.getAsJsonObject("page").getAsJsonArray("listings")[0])
+                        getAsJsonObject("pagination").addProperty("total", 2)
+                    }.toString()
                 }
             }) {
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }; ui.onNodeWithText("Later").performClick()
@@ -42,7 +51,18 @@ class StoreMediaPreviewTest {
             val centre = pixels[pixels.width / 2, pixels.height / 2]
             assertTrue("The signed red cover must actually render", centre.red > centre.blue + 0.3f && centre.red > centre.green + 0.3f)
             captureNativeScreen(File(context.cacheDir, "store-media-evidence/signed-native-cover.png"))
+            ui.onNodeWithText("3.75 SAITO").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Message seller").performScrollTo().assertIsDisplayed()
+            assertTrue(peer.storeRequests.any { it.getAsJsonObject("data").get("signature")?.asString == reference.getAsJsonObject("listing").get("id").asString })
+            unavailable.set(true)
+            ui.onNodeWithText("Refresh Store").performClick()
+            ui.onNode(hasScrollAction()).performScrollToIndex(0)
+            ui.waitUntil(15_000) { ui.onNodeWithText("This offer is no longer available on this node.").isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original quantity: 2"))
+            ui.onNodeWithText("Original quantity: 2").assertIsDisplayed()
+            ui.onNodeWithText("3.75 SAITO").assertIsDisplayed()
+            ui.onNodeWithText("2 available").assertDoesNotExist()
+            captureNativeScreen(File(context.cacheDir, "store-media-evidence/historical-signed-offer.png"))
             assertTrue(peer.transactions.isEmpty()); assertTrue(peer.vaultUploads.isEmpty())
         }
     }

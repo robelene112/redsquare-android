@@ -102,4 +102,20 @@ class SaitoStoreTest {
         assertFalse(product.browserOnly)
     }
 
+    @Test fun exactOriginalOfferRemainsReadableAfterTheNodeReportsItUnavailable() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-image-listing-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val signature = vector.getAsJsonObject("listing").get("id").asString
+        val archive = com.google.gson.JsonArray().apply {
+            add(JsonObject().apply { addProperty("tx", vector.getAsJsonObject("listing").get("envelope").asString) })
+        }.toString()
+        val product = requireNotNull(SaitoStore.readOriginalListingArchive(signature, archive))
+        assertEquals(signature, product.signature)
+        assertEquals(vector.get("seller").asString, product.seller)
+        assertEquals(vector.get("nftId").asString, product.nftId)
+        assertEquals("Illustrated field notes access key", product.title)
+        assertEquals(0, java.math.BigDecimal("3.75").compareTo(requireNotNull(product.price).amount))
+        assertNull(SaitoStore.readOriginalListingArchive("a".repeat(128), archive))
+    }
+
 }

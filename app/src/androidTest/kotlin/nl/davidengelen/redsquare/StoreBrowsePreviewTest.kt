@@ -102,12 +102,12 @@ class StoreBrowsePreviewTest {
                     ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
                     ui.onNodeWithText("Field notes access key").performClick()
                     ui.waitUntil(15_000) {
-                        ui.onAllNodesWithText("Original creator-authenticated field notes.").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                        ui.onAllNodesWithText("2.5 SAITO").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
                     }
                     ui.onNodeWithText("Message seller").performScrollTo().assertIsDisplayed().assertHeightIsAtLeast(48.dp)
                     captureNativeScreen(File(folder, "$label-product.png"))
                     ui.onNodeWithText("2.5 SAITO").performScrollTo().assertIsDisplayed()
-                    ui.onNodeWithContentDescription("Back").performClick()
+                    ui.onNodeWithText("Back").performClick()
                     ui.switchStackModule("Store", "Red Square", scrollTarget = true)
                     ui.waitUntil(5_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
                 }

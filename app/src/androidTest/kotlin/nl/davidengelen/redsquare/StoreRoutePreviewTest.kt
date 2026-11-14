@@ -62,7 +62,7 @@ class StoreRoutePreviewTest {
             ui.onNodeWithText("Node: saito.io").assertIsDisplayed()
             assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
             captureNativeScreen(File(context.cacheDir, "store-route-evidence/foreign-node-native-product.png"))
-            ui.onNodeWithContentDescription("Back").performClick()
+            ui.onNodeWithText("Back").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Exact Store offer").isDisplayed() }
             ui.onNodeWithContentDescription("Switch app: Red Square").assertIsDisplayed()
             ui.onNodeWithText("Profile").performClick()
@@ -72,7 +72,7 @@ class StoreRoutePreviewTest {
                     .setClass(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)) }
                 ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
                 assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
-                ui.onNodeWithContentDescription("Back").performClick()
+                ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Edit profile").isDisplayed() }
             }
             assertTrue(peer.transactions.isEmpty()); assertTrue(peer.vaultUploads.isEmpty())

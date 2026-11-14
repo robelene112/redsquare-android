@@ -27,9 +27,13 @@ data class StoreProduct(val nftId: String, val seller: String, val signature: St
 /** Bounded Store reading; financial/listing submission contracts are separate explicit operations. */
 object SaitoStore {
     /** Authenticate original terms, not current unspent custody, Store acceptance or delivery. */
-    fun readListing(summary: StoreSummary, envelope: String): StoreProduct? = runCatching {
+    fun readListing(summary: StoreSummary, envelope: String): StoreProduct? = readOriginalListing(summary.signature, envelope)?.takeIf {
+        it.seller == summary.seller && it.nftId == summary.nftId
+    }
+
+    private fun readOriginalListing(signature: String, envelope: String): StoreProduct? = runCatching {
         val signed = SaitoEnvelope.decodeBound(envelope)
-        require(signed.id == summary.signature && signed.author == summary.seller)
+        require(signed.id == signature)
         val body = signed.body
         require(text(body, "module", 64) == "Store" && text(body, "request", 64) == "list-asset")
         val bytes = Base64.getDecoder().decode(gson.fromJson(envelope, JsonObject::class.java).get("t").asString)
@@ -40,7 +44,8 @@ object SaitoStore {
             if (before.position.type != 9 || after.position.type != 9 || middle.position.type !in setOf(0, 1)) null
             else SaitoNft.fromSnapshot(middle, before, after)
         }
-        require(source.isNotEmpty() && source.all { it.id == summary.nftId && it.owner == signed.author } &&
+        val nftId = source.first().id
+        require(source.all { it.id == nftId && it.owner == signed.author } &&
             source.map { it.creator }.distinct().size == 1 && source.map { it.type }.distinct().size == 1)
         val script = SaitoAccessScript.parse(text(body, "access_script", 64 * 1024))
         require(text(body, "access_hash", 64) == script.hash)
@@ -52,7 +57,7 @@ object SaitoStore {
             val before = row(bytes, index); val middle = row(bytes, index + 1); val after = row(bytes, index + 2)
             if (before.position.type != 9 || after.position.type != 9 || middle.position.type !in setOf(0, 1)) continue
             val id = Base58.decode(after.publicKey).joinToString("") { "%02x".format(it) }
-            if (id == summary.nftId && Base58.decode(middle.publicKey).joinToString("") { "%02x".format(it) } == custody) {
+            if (id == nftId && Base58.decode(middle.publicKey).joinToString("") { "%02x".format(it) } == custody) {
                 require(before.publicKey == asset.creator)
                 listed += before.position.amount
             }
@@ -92,7 +97,7 @@ object SaitoStore {
     fun readOffer(response: String, target: StoreLink): StoreSummary? {
         require(response.toByteArray(Charsets.UTF_8).size <= 2 * 1024 * 1024)
         val body = requireNotNull(gson.fromJson(response, JsonObject::class.java))
-        if (!body.has("listing")) { require(body.has("err")); return null }
+        if (!body.has("listing")) { require(text(body, "err", 2000) == "Listing unavailable"); return null }
         // Use the same bounded summary reader for the protocol's single-offer response.
         val page = JsonObject().apply {
             addProperty("public_key", target.seller.orEmpty()); addProperty("category", "")
@@ -118,6 +123,12 @@ object SaitoStore {
 
     fun readListingArchive(summary: StoreSummary, response: String): StoreProduct? =
         readArchiveRows(response, { requireNotNull(readListing(summary, it)) }, { true }, { it.signature }).entries.singleOrNull()
+
+    /** Historical original terms stay readable; this does not turn them into an available offer. */
+    fun readOriginalListingArchive(signature: String, response: String): StoreProduct? {
+        require(signature.matches(Regex("[0-9a-f]{128}")))
+        return readArchiveRows(response, { requireNotNull(readOriginalListing(signature, it)) }, { true }, { it.signature }).entries.singleOrNull()
+    }
 
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
