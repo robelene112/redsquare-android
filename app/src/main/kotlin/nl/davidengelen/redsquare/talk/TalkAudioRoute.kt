@@ -18,7 +18,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.*
 
 /** Choose among actual communication devices. Android owns device availability and routing. */
-@Composable internal fun TalkAudioRouteButton(modifier: Modifier = Modifier) {
+@Composable internal fun TalkAudioRouteButton(modifier: Modifier = Modifier, horizontal: Boolean = false) {
     val context = LocalContext.current
     val audio = remember(context) { context.getSystemService(AudioManager::class.java) }
     var open by remember { mutableStateOf(false) }
@@ -49,7 +49,7 @@ import nl.davidengelen.redsquare.ui.*
         audio.registerAudioDeviceCallback(callback, android.os.Handler(android.os.Looper.getMainLooper()))
         onDispose { audio.unregisterAudioDeviceCallback(callback) }
     }
-    TalkCallControl(icon = R.drawable.ic_audio_output, label = stringResource(R.string.talk_audio_output), modifier = modifier, onClick = {
+    TalkCallControl(icon = R.drawable.ic_audio_output, label = stringResource(R.string.talk_audio_output), modifier = modifier, horizontal = horizontal, onClick = {
         failed = false
         open = true; revision++
     })

@@ -95,7 +95,7 @@
     "configurationCorrection": "Actuala700focused10run43653677727 rejected16/512MiB andcoldbooted, thenfailedstrictconfigequalitybeforeanyUIcase: firstbootnormalizeddatapartitionsizeto6442450944withspacesaroundequals; recursiveoldsedfailedtoremoveitandappended2G. RetriesnowretainexacteffectivefirstbootAVDconfigwithoutreapplyingdatapartitionrequest. Initialrequestremovesbothwhitespaceforms. Noheap/RAM/image/nativegoalchange; nooriginalfailureaccepted."
   },
   "ownerTalkUiScope": {
-    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:35:02.137566+00:00",
+    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:50:07.580997+00:00",
     "ownerFeedback": "1000038063.jpg: call buttons need space and overall UI needs thought",
     "trackingIssue": 115,
     "supersededCandidate": 129,
@@ -126,16 +126,18 @@
       "accurateHostRoomReady": true,
       "originalApplicationIdentitiesUnchanged": true,
       "waitingInvitationVisibleOnEntry": true,
-      "entryFontScale": 1
+      "entryFontScale": 1,
+      "wholeActionWords": true
     },
     "allOriginalA07ContractFieldsUnchanged": true,
     "requirement": "New signed artifact and both entire complete SDKs and actual signed127-to-new-artifact updates required. No129promotion or failed-prefix assembly.",
     "freezeHashes": {
-      "full-contract.json": "af453c845ae542942983e03e73860c75e56e199cd71b76a64dcf403055fdf1c8",
-      "verify-full.py": "fa38a2b1a5791cf916bdfa914be33f1aa3be81997073d09aa8d155a1e828f76a",
+      "full-contract.json": "4ec3a42777457b93ee4ce9b61480cc7e14b12ab89c766f1abe6d3f1930985c9b",
+      "verify-full.py": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
       "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
     },
     "nativeInitialObservation": "D88focused10/17bothfail newCopylookup because descendant was notcomposed belowviewport; initialPNG also shows actualwaitingroominviteactions belowselfpreviewandoutsidefirstviewport. Newsourceprioritizesinvitationcardbeforepreviewforownemptyroom andrequiresvisibleShareontheentryPNG/XML. Tests useactualLazyColumn scrollToNode before physicalcopy, preservinggoals/deadlines.",
-    "entryGeometryCorrection": "IndependentP2: initialentry-$width captures precededwithPostViewports, so bothwereactualdefault320. Correctedentryproofrunsinsideactual320/412andLight/Darkfont100cells, resetsrealLazylisttoindex0beforeShare-visibleassert/capture, andvalidatorchecksPNGactualdimensionsplusnativeaction. All12font/theme/sizecellsstillrequireactualreachable48dpinvitationcontrolsand12dpgeometryafterscroll. No mislabeleddefaultentryproof accepted."
+    "entryGeometryCorrection": "IndependentP2: initialentry-$width captures precededwithPostViewports, so bothwereactualdefault320. Correctedentryproofrunsinsideactual320/412andLight/Darkfont100cells, resetsrealLazylisttoindex0beforeShare-visibleassert/capture, andvalidatorchecksPNGactualdimensionsplusnativeaction. All12font/theme/sizecellsstillrequireactualreachable48dpinvitationcontrolsand12dpgeometryafterscroll. No mislabeleddefaultentryproof accepted.",
+    "largeTextVisualCorrection": "Actuala700SDK17functionalpasscapturesshowfont200labelsbrokenmidword(Mut/e,Cam/era,invitatio/n). Newproductadaptsabove130percenttotwocontrolcolumnswithhorizontalicon/textandstackedfullwidthinvitationactions. Preserve12dppairwisespaceineitheraxisand16dpEndseparation, all48dptargetsandoriginalfunctionalgoals. AddactualTextLayoutline-boundaryassertionagainstmidwordbreaks; do notpresentearlierfunctionalpassasvisualacceptance."
   }
 }

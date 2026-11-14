@@ -29,6 +29,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
@@ -316,27 +318,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
             Surface(Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceContainerLow,
                 shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)) {
             Column(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = 16.dp)) {
-                    Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        val microphoneOn = desired?.microphone ?: call.microphone
-                        val cameraOn = desired?.camera ?: call.camera
-                        TalkCallControl(icon = if (microphoneOn) R.drawable.ic_microphone else R.drawable.ic_microphone_off,
-                            label = stringResource(if (microphoneOn) R.string.talk_mute else R.string.talk_unmute),
-                            state = stringResource(if (microphoneOn) R.string.talk_microphone_on else R.string.talk_muted),
-                            selected = !microphoneOn, modifier = Modifier.weight(1f).fillMaxHeight(), onClick = {
-                            TalkRuntime.controls(call.token, microphone = !(desired?.microphone ?: call.microphone)) },
-                        )
-                        TalkCallControl(icon = if (cameraOn) R.drawable.ic_video else R.drawable.ic_video_off,
-                            label = stringResource(if (cameraOn) R.string.talk_camera_off else R.string.talk_camera_on),
-                            state = stringResource(if (cameraOn) R.string.talk_camera_enabled else R.string.talk_camera_disabled),
-                            selected = !cameraOn, modifier = Modifier.weight(1f).fillMaxHeight(), onClick = {
-                            if (desired?.camera ?: call.camera) TalkRuntime.controls(call.token, camera = false)
-                            else gate.run(true) { TalkRuntime.controls(call.token, camera = true) }
-                        })
-                        if (call.camera && call.canSwitchCamera) TalkCallControl(icon = R.drawable.ic_camera_switch,
-                            label = stringResource(R.string.talk_switch_camera), modifier = Modifier.weight(1f).fillMaxHeight(),
-                            onClick = { TalkRuntime.switchCamera(call.token) })
-                        TalkAudioRouteButton(Modifier.weight(1f).fillMaxHeight())
-                    }
+                    TalkControlGrid(call, desired, gate)
                     if (call.cameraPaused) Text(stringResource(R.string.talk_camera_paused), style = MaterialTheme.typography.bodySmall)
                     InlineStatus(when {
                         call.cameraUnavailable -> stringResource(R.string.talk_camera_unavailable)
@@ -356,20 +338,66 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     }
 }
 
+@Composable private fun TalkControlGrid(call: TalkCall, desired: TalkChoices?, gate: TalkPermissionGate) {
+    val largeText = LocalDensity.current.fontScale > 1.3f
+    val microphoneOn = desired?.microphone ?: call.microphone
+    val cameraOn = desired?.camera ?: call.camera
+    val microphone: @Composable RowScope.() -> Unit = {
+        TalkCallControl(icon = if (microphoneOn) R.drawable.ic_microphone else R.drawable.ic_microphone_off,
+            label = stringResource(if (microphoneOn) R.string.talk_mute else R.string.talk_unmute),
+            state = stringResource(if (microphoneOn) R.string.talk_microphone_on else R.string.talk_muted),
+            selected = !microphoneOn, horizontal = largeText, modifier = Modifier.weight(1f).fillMaxHeight(),
+            onClick = { TalkRuntime.controls(call.token, microphone = !microphoneOn) })
+    }
+    val camera: @Composable RowScope.() -> Unit = {
+        TalkCallControl(icon = if (cameraOn) R.drawable.ic_video else R.drawable.ic_video_off,
+            label = stringResource(if (cameraOn) R.string.talk_camera_off else R.string.talk_camera_on),
+            state = stringResource(if (cameraOn) R.string.talk_camera_enabled else R.string.talk_camera_disabled),
+            selected = !cameraOn, horizontal = largeText, modifier = Modifier.weight(1f).fillMaxHeight(), onClick = {
+                if (cameraOn) TalkRuntime.controls(call.token, camera = false)
+                else gate.run(true) { TalkRuntime.controls(call.token, camera = true) }
+            })
+    }
+    val devices: @Composable RowScope.() -> Unit = {
+        if (call.camera && call.canSwitchCamera) TalkCallControl(icon = R.drawable.ic_camera_switch,
+            label = stringResource(R.string.talk_switch_camera), horizontal = largeText,
+            modifier = Modifier.weight(1f).fillMaxHeight(), onClick = { TalkRuntime.switchCamera(call.token) })
+        TalkAudioRouteButton(Modifier.weight(1f).fillMaxHeight(), horizontal = largeText)
+    }
+    if (largeText) Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            microphone(); camera()
+        }
+        Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(12.dp)) { devices() }
+    } else Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        microphone(); camera(); devices()
+    }
+}
+
 @Composable private fun TalkInvitationCard(copied: Boolean, onCopy: () -> Unit, onShare: () -> Unit) {
+    val largeText = LocalDensity.current.fontScale > 1.3f
+    val share: @Composable (Modifier) -> Unit = { modifier ->
+        Button(onClick = onShare, modifier = modifier.heightIn(min = 48.dp),
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp)) {
+            Text(stringResource(R.string.talk_share_invite), textAlign = TextAlign.Center)
+        }
+    }
+    val copy: @Composable (Modifier) -> Unit = { modifier ->
+        OutlinedButton(onClick = onCopy, modifier = modifier.heightIn(min = 48.dp),
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp)) {
+            Text(stringResource(if (copied) R.string.talk_copied else R.string.talk_copy_invite), textAlign = TextAlign.Center)
+        }
+    }
     OutlinedCard(Modifier.fillMaxWidth(), shape = RoundedCornerShape(AppSpacing.cardRadius),
         colors = CardDefaults.outlinedCardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(stringResource(R.string.talk_invite_people), style = MaterialTheme.typography.titleMedium)
-            Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Button(onClick = onShare, modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 48.dp),
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp)) {
-                    Text(stringResource(R.string.talk_share_invite), textAlign = TextAlign.Center)
-                }
-                OutlinedButton(onClick = onCopy, modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 48.dp),
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp)) {
-                    Text(stringResource(if (copied) R.string.talk_copied else R.string.talk_copy_invite), textAlign = TextAlign.Center)
-                }
+            if (largeText) Column(Modifier.fillMaxWidth().testTag("talk-invitation-actions"),
+                verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                share(Modifier.fillMaxWidth()); copy(Modifier.fillMaxWidth())
+            } else Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min).testTag("talk-invitation-actions"),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                share(Modifier.weight(1f).fillMaxHeight()); copy(Modifier.weight(1f).fillMaxHeight())
             }
             Text(stringResource(R.string.talk_room_link_privacy), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -378,15 +406,19 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
 }
 
 @Composable internal fun TalkCallControl(icon: Int, label: String, modifier: Modifier = Modifier,
-    selected: Boolean = false, state: String? = null, onClick: () -> Unit) {
+    selected: Boolean = false, state: String? = null, horizontal: Boolean = false, onClick: () -> Unit) {
     val color by animateColorAsState(if (selected) MaterialTheme.colorScheme.secondaryContainer
         else MaterialTheme.colorScheme.surfaceContainerHigh, tween(AppSpacing.transitionMillis), label = "talk-control-color")
-    Surface(onClick = onClick, modifier = modifier.heightIn(min = 80.dp).semantics {
+    Surface(onClick = onClick, modifier = modifier.heightIn(min = if (horizontal) 64.dp else 80.dp).semantics {
         role = Role.Button
         state?.let { stateDescription = it }
     }, shape = RoundedCornerShape(AppSpacing.controlRadius), color = color,
         contentColor = if (selected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurface) {
-        Column(Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
+        if (horizontal) Row(Modifier.padding(horizontal = 8.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Icon(painterResource(icon), null, Modifier.size(24.dp))
+            Text(label, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium)
+        } else Column(Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)) {
             Icon(painterResource(icon), null, Modifier.size(24.dp))
             Text(label, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)

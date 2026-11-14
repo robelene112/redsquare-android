@@ -153,7 +153,7 @@ assert contract["runtimeProbe"] == dict(testClass="nl.davidengelen.redsquare.Run
     test="observesActualTargetProcessHeap", casesPerBoot=1, rawExtension=".log", separateFromAcceptanceCounts=True)
 assert contract["ownerTalkUiPolish"] == dict(minimumTargetDp=48, controlGapDp=12, endCallGapDp=16,
     widthsDp=[320, 412], fontScales=[1, 1.3, 2], themes=["light", "dark"], separateInvitationCard=True,
-    accurateHostRoomReady=True, waitingInvitationVisibleOnEntry=True, entryFontScale=1,
+    accurateHostRoomReady=True, waitingInvitationVisibleOnEntry=True, entryFontScale=1, wholeActionWords=True,
     originalApplicationIdentitiesUnchanged=True)
 for path, checksum in contract["runtimePreflightSourceSha256"].items():
     assert digest(repo / path) == checksum
@@ -487,14 +487,17 @@ for prefix,suffix in (("talk-invitation","prejoin"),("talk-active","active")):
                     if prefix == "talk-active":
                         actions = [native_action_bounds(archive.extractfile(name + "-active.xml").read(), text)
                             for text in ("Mute", "Camera off", "Switch camera", "Audio output", "End call")]
-                        assert all(actions[i + 1][0] - actions[i][2] >= 12 for i in range(3))
+                        for first in range(3):
+                            for second in range(first + 1, 4):
+                                a, b = actions[first], actions[second]
+                                assert max(b[0] - a[2], a[0] - b[2], b[1] - a[3], a[1] - b[3]) >= 12
                         assert actions[4][1] - max(action[3] for action in actions[:4]) >= 16
                         validate_png(archive.extractfile(name + "-invitation.png").read())
                         invitation = archive.extractfile(name + "-invitation.xml").read()
                         share = native_action_bounds(invitation, "Share invitation")
                         native_texts = {node.get("text") for node in ET.fromstring(invitation).iter("node")}
                         copy = native_action_bounds(invitation, "Copy invitation" if "Copy invitation" in native_texts else "Invitation copied")
-                        assert copy[0] - share[2] >= 12
+                        assert max(copy[0] - share[2], share[0] - copy[2], copy[1] - share[3], share[1] - copy[3]) >= 12
                         if scale == 100:
                             entry_png = archive.extractfile(name + "-entry.png").read()
                             validate_png(entry_png)

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.saito.*
@@ -82,22 +84,29 @@ class TalkActiveViewportTest {
                         assertTrue("$text remains a48dp action in $label", node.boundsInRoot.height / context.resources.displayMetrics.density >= 48f)
                         assertTrue("$text retains a48dp touch width in $label", node.boundsInRoot.width / context.resources.displayMetrics.density >= 48f)
                         controlBounds.add(node.boundsInRoot)
+                        assertWholeWords(hasText(text))
                     }
                     val density = context.resources.displayMetrics.density
-                    for (index in 0..2) assertTrue("Call controls have12dp of space in $label",
-                        (controlBounds[index + 1].left - controlBounds[index].right) / density >= 11.5f)
+                    for (first in 0..2) for (second in first + 1..3) {
+                        val a = controlBounds[first]; val b = controlBounds[second]
+                        assertTrue("Call controls have12dp of space in $label",
+                            maxOf(b.left - a.right, a.left - b.right, b.top - a.bottom, a.top - b.bottom) / density >= 11.5f)
+                    }
                     assertTrue("End call is separated by16dp in $label",
                         (controlBounds.last().top - controlBounds.take(4).maxOf { it.bottom }) / density >= 15.5f)
                     assertEquals(call.token, TalkRuntime.call.value?.token)
                     assertTrue(requireNotNull(TalkRuntime.call.value).phase.started)
                     captureNativeScreen(File(folder, "$label-active.png"))
-                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Share invitation"))
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasTestTag("talk-invitation-actions"))
                     ui.onNodeWithText("Share invitation").assertIsDisplayed()
                     val share = ui.onNode(hasText("Share invitation") and hasClickAction()).fetchSemanticsNode().boundsInRoot
                     val copy = ui.onNode((hasText("Copy invitation") or hasText("Invitation copied")) and hasClickAction())
                         .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-                    assertTrue("Invitation actions have12dp of space in $label", (copy.left - share.right) / density >= 11.5f)
+                    assertTrue("Invitation actions have12dp of space in $label",
+                        maxOf(copy.left - share.right, share.left - copy.right, copy.top - share.bottom, share.top - copy.bottom) / density >= 11.5f)
                     assertTrue("Both invitation actions retain48dp targets in $label", minOf(share.height, copy.height) / density >= 48f)
+                    assertWholeWords(hasText("Share invitation"))
+                    assertWholeWords(hasText("Copy invitation") or hasText("Invitation copied"))
                     captureNativeScreen(File(folder, "$label-invitation.png"))
                     home()
                 }
@@ -107,6 +116,19 @@ class TalkActiveViewportTest {
             finally {
                 cleanupAfterTest(primary, { token?.let(TalkRuntime::end) }, { account.detach() })
             }
+        }
+    }
+
+    private fun assertWholeWords(matcher: SemanticsMatcher) {
+        val layouts = mutableListOf<TextLayoutResult>()
+        ui.onNode(matcher, useUnmergedTree = true).performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
+            assertTrue("The visible action exposes its actual text layout", it(layouts))
+        }
+        val result = layouts.single()
+        val text = result.layoutInput.text.text
+        for (line in 0 until result.lineCount - 1) {
+            val end = result.getLineEnd(line, visibleEnd = true)
+            assertFalse("Action words remain whole: $text", end in 1 until text.length && text[end - 1].isLetter() && text[end].isLetter())
         }
     }
 }
