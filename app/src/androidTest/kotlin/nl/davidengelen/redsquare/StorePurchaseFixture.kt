@@ -28,7 +28,7 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
         publicArchives[delivery.get("id").asString] = delivery.get("envelope").asString
         publicArchives[purchase.get("id").asString] = purchase.get("envelope").asString
         page.getAsJsonArray("listings")[0].asJsonObject.apply {
-            addProperty("signature", delivery.get("id").asString); addProperty("quantity_available", 1)
+            addProperty("listing_signature", delivery.get("id").asString); addProperty("quantity_available", 1)
         }
     }
     val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
