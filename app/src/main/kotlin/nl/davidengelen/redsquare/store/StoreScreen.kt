@@ -31,8 +31,8 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onNodeSettings: () -> Unit) {
     val activity = androidx.compose.ui.platform.LocalContext.current as android.app.Activity
     val purchaseScope = rememberCoroutineScope()
-    val purchases = remember(wallet.publicKey, backend, endpoint) {
-        StorePurchases(activity, wallet, backend, endpoint, nl.davidengelen.redsquare.WalletBalances.fromIntent(activity.intent), purchaseScope)
+    val purchases = remember(wallet.publicKey, backend, chatBackend, endpoint) {
+        StorePurchases(activity, wallet, backend, chatBackend, endpoint, nl.davidengelen.redsquare.WalletBalances.fromIntent(activity.intent), purchaseScope)
     }
     DisposableEffect(purchases) { onDispose { purchases.dispose() } }
     LaunchedEffect(purchases) { purchases.load() }

@@ -33,14 +33,14 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
             val inputs = (1 until count).map { index ->
                 val offset = 93 + 59 * index
                 require(bytes.copyOfRange(offset, offset + 33).contentEquals(bytes.copyOfRange(93, 126)))
-                slip(bytes, offset)
+                SaitoFundingInputs.slip(bytes, offset)
             }
-            val total = checkedInputs(inputs)
+            val total = SaitoFundingInputs.checked(inputs)
             val output = 93 + 59 * count
             val recipient = Base58.encode(bytes.copyOfRange(output, output + 33))
             require(Base58.decode(recipient).let { it.size == 33 && it[0] == 0.toByte() })
-            val payment = slip(bytes, output)
-            val returning = slip(bytes, output + 59)
+            val payment = SaitoFundingInputs.slip(bytes, output)
+            val returning = SaitoFundingInputs.slip(bytes, output + 59)
             require(Base58.encode(bytes.copyOfRange(output + 59, output + 92)) == author)
             require(payment.block.signum() == 0 && payment.ordinal.signum() == 0 && payment.index == 0 && payment.type == 0)
             require(returning.block.signum() == 0 && returning.ordinal.signum() == 0 && returning.index == 1 && returning.type == 0)
@@ -71,7 +71,7 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
                 return BigDecimal(value.asString).movePointRight(8).toBigIntegerExact().also { require(it.bitLength() <= 64) }
             }
             val unit = nolan("price"); val storeFee = nolan("fee")
-            require(unit.signum() > 0 && unit * quantity + storeFee == payment.amount)
+            require(unit.signum() > 0 && unit <= MAX_SAFE_INTEGER && payment.amount <= MAX_SAFE_INTEGER && unit * quantity + storeFee == payment.amount)
             val result = SaitoStorePurchase(transaction, author, inputs, store, id, quantity, unit, storeFee, fee, signed.createdAt, recipient)
             require(body.toString().toByteArray(Charsets.UTF_8).contentEquals(bytes.copyOfRange(output + 118, bytes.size)))
             return result
@@ -83,8 +83,8 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
             require(quantity.signum() > 0 && quantity <= MAX_SAFE_INTEGER && unitPrice.signum() > 0)
             require(storeFee.signum() >= 0 && networkFee.signum() >= 0)
             val amount = unitPrice * quantity + storeFee
-            require(amount.bitLength() <= 64 && networkFee.bitLength() <= 64)
-            val change = checkedInputs(inputs) - amount - networkFee
+            require(amount <= MAX_SAFE_INTEGER && unitPrice <= MAX_SAFE_INTEGER && networkFee.bitLength() <= 64)
+            val change = SaitoFundingInputs.checked(inputs) - amount - networkFee
             require(change.signum() >= 0) { "Insufficient funding" }
             val script = SaitoAccessScript.parse(scriptBody(wallet.publicKey, store).toString())
             val escrow = Base58.encode(hex("00" + script.hash))
@@ -112,25 +112,6 @@ class SaitoStorePurchase private constructor(val transaction: SaitoTransaction, 
             addProperty("msg", "tx.from.p2sh.utxoset_key")
         }
 
-        private fun checkedInputs(inputs: List<SaitoBalanceSnapshot.Slip>): BigInteger {
-            require(inputs.size in 1..254)
-            val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
-            var total = BigInteger.ZERO
-            inputs.forEach { slip ->
-                require(slip.block.signum() > 0 && slip.block.bitLength() <= 64)
-                require(slip.ordinal.signum() >= 0 && slip.ordinal.bitLength() <= 64)
-                require(slip.index in 0..255 && slip.type in setOf(0, 1, 5, 7))
-                require(slip.amount.signum() > 0 && slip.amount.bitLength() <= 64)
-                require(locations.add(Triple(slip.block, slip.ordinal, slip.index)))
-                total += slip.amount
-                require(total.bitLength() <= 64)
-            }
-            return total
-        }
 
-        private fun slip(bytes: ByteArray, offset: Int) = SaitoBalanceSnapshot.Slip(
-            BigInteger(1, bytes.copyOfRange(offset + 41, offset + 49)),
-            BigInteger(1, bytes.copyOfRange(offset + 49, offset + 57)), bytes[offset + 57].toInt() and 255,
-            BigInteger(1, bytes.copyOfRange(offset + 33, offset + 41)), bytes[offset + 58].toInt() and 255)
     }
 }

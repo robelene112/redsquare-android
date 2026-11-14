@@ -109,11 +109,13 @@ class WalletBalances private constructor(private val endpoint: (SaitoBackend) ->
 
     /** Original Store order, exact escrow spend and present asset ownership use one bounded ancestry read. */
     fun observeStore(backend: SaitoBackend, purchase: nl.davidengelen.redsquare.saito.SaitoStorePurchase,
-        creator: String, previous: nl.davidengelen.redsquare.saito.SaitoStoreChain.Payment?): nl.davidengelen.redsquare.saito.SaitoStoreChain.Observation? {
+        creator: String, previous: nl.davidengelen.redsquare.saito.SaitoStoreChain.Payment?,
+        receipt: nl.davidengelen.redsquare.saito.SaitoStoreReceipt?, receiptBlock: String?,
+        cursor: nl.davidengelen.redsquare.saito.SaitoStoreChain.Cursor?): nl.davidengelen.redsquare.saito.SaitoStoreChain.Observation? {
         val snapshot = read(backend, purchase.author) ?: return null
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(20)
         var received = 0
-        return nl.davidengelen.redsquare.saito.SaitoStoreChain.observe(purchase, snapshot, creator, previous) { hash ->
+        return nl.davidengelen.redsquare.saito.SaitoStoreChain.observe(purchase, snapshot, creator, previous, receipt, receiptBlock, cursor) { hash ->
             val remaining = TimeUnit.NANOSECONDS.toMillis(deadline - System.nanoTime())
             val limit = minOf(8 * 1024 * 1024, 32 * 1024 * 1024 - received)
             if (remaining <= 0 || limit <= 0) null else try {

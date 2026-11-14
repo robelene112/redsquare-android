@@ -13,7 +13,9 @@ enum class StoreStock(val wire: String) { ACTIVE("active"), SOLD("sold") }
 data class StoreQuery(val seller: String? = null, val category: StoreCategory? = null,
     val offset: Int = 0, val pageSize: Int = 24, val stock: StoreStock = StoreStock.ACTIVE)
 
-data class StorePrice(val currency: String, val amount: BigDecimal)
+data class StorePrice(val currency: String, val amount: BigDecimal) {
+    fun matches(other: StorePrice?): Boolean = other != null && currency == other.currency && amount.compareTo(other.amount) == 0
+}
 data class StoreSummary(val nftId: String, val seller: String, val signature: String, val category: StoreCategory,
     val title: String, val description: String, val price: StorePrice?, val available: BigInteger, val total: BigInteger)
 data class StorePage(val items: List<StoreSummary>, val offset: Int, val total: Int, val nextOffset: Int?, val ignored: Int)

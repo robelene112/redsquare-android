@@ -57,9 +57,55 @@ class SaitoStorePurchaseTest {
         val missing = SaitoStoreChain.observe(purchase, noAsset, snapshot.nfts.single().creator) { replies[it] }
         assertNotNull(missing.receipt); assertFalse(missing.delivered)
         val wrongCreator = SaitoStoreChain.observe(purchase, snapshot, purchase.store) { replies[it] }
-        assertFalse(wrongCreator.delivered)
+        assertFalse(wrongCreator.delivered); assertNull(wrongCreator.receipt)
         val lost = SaitoStoreChain.observe(purchase, snapshot, snapshot.nfts.single().creator) { null }
         assertNull(lost.payment); assertNull(lost.receipt); assertFalse(lost.delivered)
+    }
+
+    @Test fun olderHistoryContinuesAcrossChecksAndRetainedDeliveryRechecksExactCurrentOwnership() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-purchase-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val purchase = SaitoStorePurchase.restore(vector.getAsJsonObject("purchase").get("networkBase64").asString)
+        val old = vector.getAsJsonObject("blocks").getAsJsonObject("older")
+        val snapshotText = old.get("snapshot").asString
+        val snapshot = SaitoBalanceSnapshot.parse(snapshotText.toByteArray(), purchase.author, snapshotText.substringBefore('-').toLong())
+        val replies = old.getAsJsonObject("blocks").entrySet().associate { it.key to java.util.Base64.getDecoder().decode(it.value.asString) }
+        val creator = snapshot.nfts.single().creator
+        val first = SaitoStoreChain.observe(purchase, snapshot, creator) { replies[it] }
+        assertNull(first.payment); assertFalse(first.delivered); assertNotNull(first.cursor)
+        val second = SaitoStoreChain.observe(purchase, snapshot, creator, cursor = first.cursor) { replies[it] }
+        assertNotNull(second.payment); assertTrue(second.delivered); assertNotNull(second.receipt)
+        val retained = SaitoStoreChain.observe(purchase, snapshot, creator, second.payment, second.receipt, second.receiptBlock) { replies[it] }
+        assertTrue(retained.delivered); assertTrue(retained.historical)
+        val noAsset = SaitoBalanceSnapshot.parse((snapshotText.substringBefore('\n') + "\n").toByteArray(), purchase.author, snapshot.timestamp)
+        val moved = SaitoStoreChain.observe(purchase, noAsset, creator, second.payment, second.receipt, second.receiptBlock) { replies[it] }
+        assertFalse(moved.delivered); assertNotNull(moved.receipt)
+    }
+
+    @Test fun storeAmountsStayInsideTheOfficialExactNumberRange() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-purchase-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val amounts = vector.getAsJsonObject("exactNumbers")
+        assertNotEquals(amounts.get("firstRounded").asString, amounts.get("numberRoundTrip").asString)
+        val purchase = SaitoStorePurchase.restore(vector.getAsJsonObject("purchase").get("networkBase64").asString)
+        val input = purchase.inputs.single().copy(amount = BigInteger("18446744073709551615"))
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        assertEquals(amounts.get("maximum").asString.toBigInteger(), SaitoStorePurchase.create(wallet, listOf(input), purchase.store,
+            purchase.nftId, BigInteger.ONE, amounts.get("maximum").asString.toBigInteger(), BigInteger.ZERO, BigInteger.ZERO, purchase.timestamp).amount)
+        try {
+            SaitoStorePurchase.create(wallet, listOf(input), purchase.store, purchase.nftId, BigInteger.ONE,
+                amounts.get("firstRounded").asString.toBigInteger(), BigInteger.ZERO, BigInteger.ZERO, purchase.timestamp)
+            fail("Rounded Store buckets cannot be signed")
+        } catch (_: IllegalArgumentException) { }
+    }
+
+    @Test fun completeQuantityUsesTheActualOfficialWasmPurchaseAndFulfillment() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-full-purchase-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val purchase = SaitoStorePurchase.restore(vector.getAsJsonObject("purchase").get("networkBase64").asString)
+        assertEquals(BigInteger.TWO, purchase.quantity); assertEquals(BigInteger("500000000"), purchase.amount)
+        val receipt = SaitoStoreReceipt.read(purchase, vector.getAsJsonObject("settlement").getAsJsonObject("fulfillment").get("networkBase64").asString)
+        assertEquals(BigInteger.TWO, requireNotNull(receipt.asset).quantity)
     }
 
 }

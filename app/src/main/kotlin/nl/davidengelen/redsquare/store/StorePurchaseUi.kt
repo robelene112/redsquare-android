@@ -21,6 +21,7 @@ internal fun storeAmount(nolan: BigInteger) = BigDecimal(nolan, 8).stripTrailing
 
 @Composable
 internal fun StoreBuyControl(product: StoreProduct, available: BigInteger, purchases: StorePurchases) {
+    val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
     var quantity by rememberSaveable(product.signature) { mutableStateOf("1") }
     var fee by rememberSaveable(product.signature) { mutableStateOf("0") }
     var feesOpen by rememberSaveable { mutableStateOf(false) }
@@ -34,7 +35,7 @@ internal fun StoreBuyControl(product: StoreProduct, available: BigInteger, purch
         }
         if (feesOpen) OutlinedTextField(fee, { fee = it.take(30) }, label = { Text(stringResource(R.string.transfer_fee)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), singleLine = true, modifier = Modifier.fillMaxWidth(), enabled = !purchases.busy)
-        Button(onClick = { purchases.prepare(product, quantity, fee) }, enabled = !purchases.busy && available.signum() > 0,
+        Button(onClick = { keyboard?.hide(); purchases.prepare(product, quantity, fee) }, enabled = !purchases.busy && available.signum() > 0,
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text(stringResource(R.string.store_purchase_review)) }
         StorePurchaseProblem(purchases)
     }
@@ -42,10 +43,14 @@ internal fun StoreBuyControl(product: StoreProduct, available: BigInteger, purch
 
 @Composable
 internal fun StoreOrders(purchases: StorePurchases, modifier: Modifier) {
+    LaunchedEffect(purchases) { purchases.refresh() }
+    LaunchedEffect(purchases, purchases.orders.map { it.purchase.transaction.id }) {
+        while (true) { kotlinx.coroutines.delay(5000); if (!purchases.busy) purchases.refresh() }
+    }
     Column(modifier) {
         Row(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
             Text(stringResource(R.string.store_purchase_history), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
-            FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !purchases.busy) { purchases.load() }
+            FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.store_refresh), !purchases.busy) { purchases.refresh() }
         }
         StorePurchaseProblem(purchases)
         LazyColumn(Modifier.fillMaxWidth().weight(1f), contentPadding = PaddingValues(AppSpacing.screen),
@@ -70,7 +75,9 @@ private fun orderStatus(order: StoreOrderStore.Order, observation: SaitoStoreCha
     observation?.refunded == true -> R.string.store_purchase_refunded
     observation?.receipt != null -> R.string.store_purchase_settled
     observation?.payment != null -> R.string.store_purchase_paid
-    order.receipt != null || order.payment != null -> R.string.store_purchase_previous_observation
+    order.receipt?.kind == SaitoStoreReceipt.Kind.REFUND -> R.string.store_purchase_previous_refund
+    order.receipt != null -> R.string.store_purchase_previous_delivery
+    order.payment != null -> R.string.store_purchase_previous_observation
     order.mayHaveSent -> R.string.store_purchase_submitted
     else -> R.string.store_purchase_not_sent
 }
@@ -80,6 +87,12 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
     val review = purchases.review
     val order = purchases.orders.firstOrNull { it.purchase.transaction.id == purchases.focused }
     val visible = review != null || order != null
+    LaunchedEffect(purchases, order?.purchase?.transaction?.id) {
+        if (order != null) while (true) {
+            kotlinx.coroutines.delay(5000)
+            if (!purchases.busy) purchases.refresh(order.purchase.transaction.id)
+        }
+    }
     DesignSheet(visible, stringResource(R.string.store_purchase_title), { purchases.closeReview() }) { firstAction ->
         val product = review?.product ?: order?.product
         if (product != null) {
@@ -96,6 +109,8 @@ internal fun StorePurchaseDialog(purchases: StorePurchases) {
             Text(stringResource(R.string.store_purchase_total, storeAmount(total)), style = MaterialTheme.typography.titleLarge)
             Text(stringResource(R.string.store_purchase_fulfillment_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(stringResource(R.string.store_purchase_delivery_terms), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (order?.cursor != null) Text(stringResource(R.string.store_purchase_older_history, order.cursor.height.toString()),
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
             StorePurchaseProblem(purchases)
             if (order != null) {
                 val observation = purchases.observations[order.purchase.transaction.id]

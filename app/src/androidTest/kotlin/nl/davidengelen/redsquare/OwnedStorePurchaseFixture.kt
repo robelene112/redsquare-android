@@ -14,6 +14,7 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
     enum class Phase { WAITING, PAID, DELIVERED, SETTLED_WITHOUT_ASSET, REFUNDED }
     @Volatile var phase = Phase.WAITING
     @Volatile var funded = true
+    @Volatile var wrongCreator = false
     lateinit var peer: ControlledFeedPeer
     private val signer = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Published unsafe fixture only.
     private var version: String? = null
@@ -40,7 +41,7 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
             val row = if (funded) "${reference.get("buyer").asString} 10 2 0 1000000000 0\n" else ""
             return MockResponse(body = "${System.currentTimeMillis()}-20-${"ab".repeat(32)}.snap\n$row")
         }
-        val next = candidate.transaction.id + phase.name
+        val next = candidate.transaction.id + phase.name + wrongCreator
         if (version != next) {
             val time = System.currentTimeMillis()
             val payment = block(Base64.getDecoder().decode(candidate.transaction.encoded()), 21, "ab".repeat(32), time - 1)
@@ -49,6 +50,11 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
                 val template = reference.getAsJsonObject("settlement").getAsJsonObject(if (phase == Phase.REFUNDED) "refund" else "fulfillment")
                 val wire = Base64.getDecoder().decode(template.get("networkBase64").asString)
                 val h = ByteBuffer.wrap(wire); val n = h.getInt(0); val m = h.getInt(4); val offset = 93 + (n + m) * 59
+                if (wrongCreator && phase != Phase.REFUNDED) {
+                    val replacement = decode58(reference.get("buyer").asString)
+                    replacement.copyInto(wire, 93 + 59) // Bound creator metadata in the consumed listing.
+                    replacement.copyInto(wire, 93 + n * 59) // Matching, but wrong creator in the delivered tuple.
+                }
                 val body = JsonParser.parseString(wire.copyOfRange(offset, wire.size).decodeToString()).asJsonObject
                 if (phase == Phase.REFUNDED) { body.addProperty("order_tx_sig", candidate.transaction.id); body.addProperty("payment_tx_sig", candidate.transaction.id) }
                 else body.getAsJsonObject("fulfill_sale").addProperty("sale_signature", candidate.transaction.id)

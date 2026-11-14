@@ -30,14 +30,14 @@ class SaitoPayment private constructor(val transaction: SaitoTransaction, val au
             val inputs = (1 until count).map { index ->
                 val offset = 93 + 59 * index
                 require(bytes.copyOfRange(offset, offset + 33).contentEquals(bytes.copyOfRange(93, 126)))
-                slip(bytes, offset)
+                SaitoFundingInputs.slip(bytes, offset)
             }
-            val total = checkedInputs(inputs)
+            val total = SaitoFundingInputs.checked(inputs)
             val output = 93 + 59 * count
             val recipient = Base58.encode(bytes.copyOfRange(output, output + 33))
             require(SaitoWallet.isPublicKey(recipient))
-            val payment = slip(bytes, output)
-            val returning = slip(bytes, output + 59)
+            val payment = SaitoFundingInputs.slip(bytes, output)
+            val returning = SaitoFundingInputs.slip(bytes, output + 59)
             require(Base58.encode(bytes.copyOfRange(output + 59, output + 92)) == author)
             require(payment.block.signum() == 0 && payment.ordinal.signum() == 0 && payment.index == 0 && payment.type == 0)
             require(returning.block.signum() == 0 && returning.ordinal.signum() == 0 && returning.index == 1 && returning.type == 0)
@@ -66,7 +66,7 @@ class SaitoPayment private constructor(val transaction: SaitoTransaction, val au
             require(amount.signum() > 0 && amount.bitLength() <= 64 && fee.signum() >= 0 && fee.bitLength() <= 64)
             require(operationId.matches(Regex("[A-Za-z0-9_-]{1,128}")))
             require(memo.length <= 4096 && memo.toByteArray(Charsets.UTF_8).size <= 4096)
-            val total = checkedInputs(inputs)
+            val total = SaitoFundingInputs.checked(inputs)
             val change = total - amount - fee
             require(change.signum() >= 0) { "Insufficient funding" }
             val body = JsonObject().apply {
@@ -86,25 +86,6 @@ class SaitoPayment private constructor(val transaction: SaitoTransaction, val au
                 wallet.publicKey, inputs, recipient, amount, fee, timestamp, operationId, memo)
         }
 
-        private fun checkedInputs(inputs: List<SaitoBalanceSnapshot.Slip>): BigInteger {
-            require(inputs.size in 1..254)
-            val locations = HashSet<Triple<BigInteger, BigInteger, Int>>()
-            var total = BigInteger.ZERO
-            inputs.forEach { slip ->
-                require(slip.block.signum() > 0 && slip.block.bitLength() <= 64)
-                require(slip.ordinal.signum() >= 0 && slip.ordinal.bitLength() <= 64)
-                require(slip.index in 0..255 && slip.type in setOf(0, 1, 5, 7))
-                require(slip.amount.signum() > 0 && slip.amount.bitLength() <= 64)
-                require(locations.add(Triple(slip.block, slip.ordinal, slip.index)))
-                total += slip.amount
-                require(total.bitLength() <= 64)
-            }
-            return total
-        }
 
-        private fun slip(bytes: ByteArray, offset: Int) = SaitoBalanceSnapshot.Slip(
-            BigInteger(1, bytes.copyOfRange(offset + 41, offset + 49)),
-            BigInteger(1, bytes.copyOfRange(offset + 49, offset + 57)), bytes[offset + 57].toInt() and 255,
-            BigInteger(1, bytes.copyOfRange(offset + 33, offset + 41)), bytes[offset + 58].toInt() and 255)
     }
 }

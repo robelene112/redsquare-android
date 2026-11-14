@@ -231,7 +231,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             check(releaseHandshakeReplies.await(15, TimeUnit.SECONDS))
                         }
                         if (offline) { webSocket.close(1001, "Controlled node outage"); return }
-                        val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+                        var number = java.math.BigInteger.ZERO
+                        val alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+                        peer.publicKey.forEach { digit -> number = number * java.math.BigInteger.valueOf(58) + java.math.BigInteger.valueOf(alphabet.indexOf(digit).toLong()) }
+                        val key = number.toByteArray().also { require(it.size == 33) }
                         val signature = peer.sign(frame.copyOfRange(1, 33)).chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         if (webSocket.send((byteArrayOf(2) + key + signature + counter).toByteString())) {
                             servedChallenges.incrementAndGet()

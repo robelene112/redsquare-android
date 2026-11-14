@@ -104,7 +104,7 @@ internal fun StoreProductScreen(wallet: SaitoWallet, backend: SaitoBackend, endp
                             if (product == null) InlineStatus(stringResource(R.string.store_original_unavailable), StatusTone.NEUTRAL)
                             if (product?.browserOnly == true) Text(stringResource(R.string.store_browser_compatibility),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            if (product != null && offer != null && product.price == offer.price) StoreBuyControl(product, offer.available, purchases)
+                            if (product != null && offer != null && product.price?.matches(offer.price) == true) StoreBuyControl(product, offer.available, purchases)
                             InlineStatus(if (contactFailed) stringResource(R.string.store_contact_failed) else null, StatusTone.ERROR)
                             Button(enabled = product != null && !preparingContact && product.seller != wallet.publicKey,
                                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = { product?.let(onMessage) }) {

@@ -58,6 +58,7 @@ class SaitoStoreTest {
         assertEquals(0, java.math.BigDecimal("2.5").compareTo(requireNotNull(product.price).amount))
         assertEquals(java.math.BigInteger("2"), product.quantity)
         assertEquals("vault-nft-key", product.assetType)
+        assertTrue(requireNotNull(product.price).matches(offer.price))
         assertEquals(envelope, product.envelope)
         assertNull(SaitoStore.readListing(offer.copy(seller = vector.get("store").asString), envelope))
         assertNull(SaitoStore.readListing(offer.copy(signature = "a".repeat(128)), envelope))

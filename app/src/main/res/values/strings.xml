@@ -1081,4 +1081,7 @@
     <string name="store_purchase_storage">Order storage needs recovery. No new payment can be sent.</string>
     <string name="store_purchase_terms_changed">Check the quantity and fee, then refresh this offer. Its terms or available stock may have changed.</string>
     <string name="store_purchase_working">Checking purchase…</string>
+    <string name="store_purchase_previous_refund">Refund previously observed. Check for the latest state.</string>
+    <string name="store_purchase_previous_delivery">Delivery previously observed. Check current ownership.</string>
+    <string name="store_purchase_older_history">Checking older history, through block %1$s.</string>
 </resources>

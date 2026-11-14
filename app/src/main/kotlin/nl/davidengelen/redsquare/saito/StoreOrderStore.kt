@@ -10,14 +10,15 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
     init { require(SaitoWallet.isPublicKey(owner)) }
     data class Order(val backend: SaitoBackend, val purchase: SaitoStorePurchase, val product: StoreProduct,
         val mayHaveSent: Boolean = false, val payment: Payment? = null, val receipt: SaitoStoreReceipt? = null,
-        val receiptBlock: String? = null)
+        val receiptBlock: String? = null, val cursor: SaitoStoreChain.Cursor? = null)
     data class Payment(val height: java.math.BigInteger, val hash: String, val ordinal: java.math.BigInteger)
     private val name = "store-orders.$owner"
     private fun file(suffix: String) = EncryptedLocalFile(context, "$name.$suffix", "redsquare-store-orders-v1", "store-orders.")
     private fun exists(suffix: String) = requireNotNull(context.noBackupFilesDir.listFiles()).any {
         it.name in listOf("$name.$suffix", "$name.$suffix.bak", "$name.$suffix.new")
     }
-    fun read(): List<Order> = synchronized(SaitoLocalState.lock) {
+    class StorageUnavailable(cause: Exception) : IllegalStateException("Order storage needs recovery", cause)
+    fun read(): List<Order> = try { synchronized(SaitoLocalState.lock) {
         if (!exists("rows") && !exists("guard")) return@synchronized emptyList()
         val guard = requireNotNull(file("guard").load())
         require(guard.version == 1.toByte() && guard.text == owner)
@@ -26,7 +27,7 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         val ids = HashSet<String>()
         rows.map { entry ->
             val row = entry.asJsonObject
-            require(row.keySet() == setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent", "payment", "receipt", "receiptBlock"))
+            require(row.keySet() == setOf("backend", "candidate", "offer", "offerSignature", "mayHaveSent", "payment", "receipt", "receiptBlock", "cursor"))
             val purchase = SaitoStorePurchase.restore(row.get("candidate").asString)
             require(purchase.author == owner && ids.add(purchase.transaction.id))
             val signature = row.get("offerSignature").asString
@@ -46,9 +47,13 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
             require(receipt?.asset?.creator?.let { it == product.creator } != false)
             if (receipt != null && payment != null) require(receipt.paymentInput.block == payment.height && receipt.paymentInput.ordinal == payment.ordinal)
             Order(SaitoBackend.entries.single { it.id == row.get("backend").asString }, purchase, product,
-                row.get("mayHaveSent").asBoolean, payment, receipt, receiptBlock)
+                row.get("mayHaveSent").asBoolean, payment, receipt, receiptBlock, row.get("cursor").takeUnless { it.isJsonNull }?.asJsonObject?.let {
+                    SaitoStoreChain.Cursor(it.get("height").asString.toBigInteger().also { h -> require(h.signum() > 0 && h.bitLength() <= 64) },
+                        it.get("hash").asString.also { h -> require(h.matches(Regex("[0-9a-f]{64}"))) })
+                })
         }
     }
+    } catch (failure: Exception) { throw if (failure is StorageUnavailable) failure else StorageUnavailable(failure) }
     fun reserve(backend: SaitoBackend, purchase: SaitoStorePurchase, product: StoreProduct): Order = synchronized(SaitoLocalState.lock) {
         val prior = read()
         prior.firstOrNull { it.purchase.transaction.id == purchase.transaction.id }?.let {
@@ -63,8 +68,11 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
         require(saved.backend == order.backend && saved.purchase.transaction.encoded() == order.purchase.transaction.encoded())
         saved.copy(mayHaveSent = true)
     }
-    fun observe(id: String, payment: Payment?, receipt: SaitoStoreReceipt?, block: String?) = update(id) { saved ->
-        saved.copy(payment = payment ?: saved.payment, receipt = receipt ?: saved.receipt, receiptBlock = block ?: saved.receiptBlock)
+    fun observe(id: String, observation: SaitoStoreChain.Observation) = update(id) { saved ->
+        val receipt = observation.receipt
+        require(receipt?.asset?.creator?.let { it == saved.product.creator } != false)
+        val payment = observation.payment?.let { Payment(it.height, it.hash, it.ordinal) }
+        saved.copy(payment = payment, receipt = receipt, receiptBlock = observation.receiptBlock, cursor = observation.cursor)
     }
     fun discard(id: String) = synchronized(SaitoLocalState.lock) {
         val rows = read(); require(!rows.single { it.purchase.transaction.id == id }.mayHaveSent)
@@ -83,6 +91,9 @@ internal class StoreOrderStore(private val context: Context, private val owner: 
                 addProperty("height", payment.height.toString()); addProperty("hash", payment.hash); addProperty("ordinal", payment.ordinal.toString())
             } } ?: com.google.gson.JsonNull.INSTANCE)
             addProperty("receipt", record.receipt?.encoded); addProperty("receiptBlock", record.receiptBlock)
+            add("cursor", record.cursor?.let { cursor -> JsonObject().apply {
+                addProperty("height", cursor.height.toString()); addProperty("hash", cursor.hash)
+            } } ?: com.google.gson.JsonNull.INSTANCE)
         }) } }
         file("rows").save(EncryptedLocalFile.Contents(1, json.toString()))
         if (!exists("guard")) file("guard").save(EncryptedLocalFile.Contents(1, owner))

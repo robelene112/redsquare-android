@@ -73,8 +73,18 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const deliveryWire=Buffer.from(deliveryBlock.fullBase64,'base64').subarray(389),rows=[1,0,2].map(index=>confirmedOutput(deliveryWire.toString('base64'),index,22,0));
  const snapshot=deliveryBlock.timestamp+'-22-'+deliveryBlock.hash+'.snap\n'+rows.map(r=>[r.publicKey,r.blockId,r.txOrdinal,r.index,r.amount,r.type].join(' ')).join('\n')+'\n';
  const blocks={payment:paymentBlock,delivery:deliveryBlock,refund:refundBlock,snapshot:snapshot.replaceAll('\\n','\n')};
+ const olderBlocks={};let olderTip=deliveryBlock;
+ for(let height=23;height<=42;height++){
+  const header=Buffer.alloc(389);header.writeBigUInt64BE(BigInt(height),4);header.writeBigUInt64BE(1700004002000n+BigInt(height),12);Buffer.from(olderTip.hash,'hex').copy(header,20);Buffer.from(base58.decode(store)).copy(header,52);
+  const preimage=Buffer.concat([header.subarray(4,117),header.subarray(181,213),header.subarray(221,285)]);Buffer.from(wasm.sign_buffer(preimage,storeScalar),'hex').copy(header,117);
+  const parsed=new wasm.WasmBlock();if(parsed.deserialize(header)!=='')throw Error('Empty ancestor failed');olderTip={hash:parsed.hash,height:String(height),timestamp:String(1700004002000n+BigInt(height)),fullBase64:Buffer.from(parsed.serialize()).toString('base64')};olderBlocks[olderTip.hash]=olderTip.fullBase64;
+ }
+ olderBlocks[deliveryBlock.hash]=deliveryBlock.fullBase64;olderBlocks[paymentBlock.hash]=paymentBlock.fullBase64;
+ blocks.older={blocks:olderBlocks,snapshot:snapshot.replace(deliveryBlock.timestamp+'-22-'+deliveryBlock.hash,olderTip.timestamp+'-42-'+olderTip.hash)};
+ const exactNumbers={maximum:String(Number.MAX_SAFE_INTEGER),firstRounded:'9007199254740993',numberRoundTrip:String(Number('9007199254740993'))};
+
 
 
  const slips=[];for(let i=0;i<wire.readUInt32BE(0)+wire.readUInt32BE(4);i++){const o=93+i*59;slips.push({key:base58.encode(wire.subarray(o,o+33)),amount:String(wire.readBigUInt64BE(o+33)),block:String(wire.readBigUInt64BE(o+41)),ordinal:String(wire.readBigUInt64BE(o+49)),index:wire[o+57],type:wire[o+58]});}
- fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official createPurchaseAssetTransaction and script helpers with actual funded WASM wallet.createTransaction. Controlled default fee and input-copy adapters; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,body:created.msg,settlement,blocks,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
+ fs.writeFileSync(path.resolve(process.argv[5]),JSON.stringify({authority:{source:'0db0062d873369dc013046ed77c97410b5683b64',saitoWasm:'0.3.15',sourceHashes:hashes,qualification:'Actual isolated official createPurchaseAssetTransaction and script helpers with actual funded WASM wallet.createTransaction. Controlled default fee and input-copy adapters; pinned refund builder reads an input after WASM consumes it, so the adapter retains the original. Actual isolated algorithms and WASM serialization/signing, no full frontend, consensus or public payment.'},buyer,store,nftId:listing.nftId,timestamp:String(timestamp),purchase:signed,body:created.msg,settlement,blocks,exactNumbers,inputCount:wire.readUInt32BE(0),outputCount:wire.readUInt32BE(4),slips},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1});

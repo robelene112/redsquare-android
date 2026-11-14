@@ -36,7 +36,7 @@ class StorePurchaseRecoveryPreviewTest {
                 if (change == "node") nodes.save(SaitoBackend.OFFICIAL)
                 else wallets.replace(original, SaitoWallet.fromPrivateKey("0".repeat(63) + "3"))
                 enterRealSystemPin(device)
-                ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.vault_key_context_changed)).isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNode(hasText(context.getString(R.string.vault_key_context_changed)) and hasAnyAncestor(isDialog())).isDisplayed() }
                 assertTrue(scene.node.peer.transactions.isEmpty())
                 assertTrue(StoreOrderStore(context, original.publicKey).read().isEmpty())
                 captureNativeScreen(File(scene.evidence, "$change-change-revokes-purchase.png"))
@@ -58,11 +58,47 @@ class StorePurchaseRecoveryPreviewTest {
                 java.math.BigInteger.ONE, java.math.BigInteger.ZERO, System.currentTimeMillis(), "store110-race", "")
             TransferStore(context, wallet.publicKey).reserve(SaitoBackend.OWNER, competing)
             enterRealSystemPin(device)
-            ui.waitUntil(15_000) { ui.onNodeWithText(context.getString(R.string.store_purchase_connection)).isDisplayed() }
+            ui.waitUntil(15_000) { ui.onNode(hasText(context.getString(R.string.store_purchase_connection)) and hasAnyAncestor(isDialog())).isDisplayed() }
             assertTrue(scene.node.peer.transactions.isEmpty())
             assertTrue(StoreOrderStore(context, wallet.publicKey).read().isEmpty())
             assertEquals(competing.transaction.encoded(), TransferStore(context, wallet.publicKey).pending().single().payment.transaction.encoded())
             captureNativeScreen(File(scene.evidence, "reviewed-funding-reservation-prevents-second-spend.png"))
         }
     }
+    @Test fun unreadableOrderStorageDuringPinShowsRecoveryWithoutCrashingOrSending() = withVaultDeviceCredential { device ->
+        withStorePurchaseFixture("storage-recovery") { scene ->
+            ui.openStorePurchaseProduct()
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Confirm and pay").performScrollTo().performClick(); waitForSystemPin(device)
+            val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+            val guard = File(context.noBackupFilesDir, "store-orders.${scene.node.reference.get("buyer").asString}.guard")
+            try {
+                guard.writeBytes(byteArrayOf(1, 2, 3))
+                enterRealSystemPin(device)
+                ui.waitUntil(15_000) { ui.onNode(hasText(context.getString(R.string.store_purchase_storage)) and hasAnyAncestor(isDialog())).isDisplayed() }
+                assertTrue(scene.node.peer.transactions.isEmpty())
+                captureNativeScreen(File(scene.evidence, "unreadable-order-storage-keeps-recovery-visible.png"))
+            } finally { check(guard.delete()) }
+        }
+    }
+    @Test fun aWrongCreatorReceiptCannotPoisonOrdersOrWalletFundingAndCanRecover() = withVaultDeviceCredential { device ->
+        withStorePurchaseFixture("wrong-creator", 1) { scene ->
+            scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED; scene.node.wrongCreator = true
+            ui.openStorePurchaseProduct()
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Confirm and pay").performScrollTo().performClick(); waitForSystemPin(device); enterRealSystemPin(device)
+            ui.waitUntil(25_000) { ui.onNode(hasText("Payment observed. Waiting for delivery.") and hasAnyAncestor(isDialog())).isDisplayed() }
+            val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+            val owner = scene.node.reference.get("buyer").asString
+            assertNull(StoreOrderStore(context, owner).read().single().receipt)
+            assertTrue(TransferStore(context, owner).available(emptyList()).isEmpty())
+            captureNativeScreen(File(scene.evidence, "wrong-creator-keeps-original-order-readable.png"))
+            scene.node.wrongCreator = false
+            ui.onNodeWithText("Check order").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
+            assertNotNull(StoreOrderStore(context, owner).read().single().receipt)
+            assertEquals(1, scene.node.peer.transactions.size)
+        }
+    }
+
 }

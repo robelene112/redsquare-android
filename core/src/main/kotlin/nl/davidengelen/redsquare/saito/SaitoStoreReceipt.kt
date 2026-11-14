@@ -8,7 +8,7 @@ import org.bouncycastle.crypto.digests.Blake3Digest
 
 /** A Store-authenticated escrow spend, separate from selected-chain inclusion and current ownership. */
 class SaitoStoreReceipt private constructor(val signature: String, val kind: Kind,
-    val paymentInput: SaitoBalanceSnapshot.Slip, val asset: SaitoNft?, val reason: String?, val encoded: String) {
+    val paymentInput: SaitoBalanceSnapshot.Slip, val refundOutput: SaitoBalanceSnapshot.Slip?, val asset: SaitoNft?, val reason: String?, val encoded: String) {
     enum class Kind { FULFILLMENT, REFUND }
     companion object {
         fun read(purchase: SaitoStorePurchase, encoded: String): SaitoStoreReceipt {
@@ -62,7 +62,7 @@ class SaitoStoreReceipt private constructor(val signature: String, val kind: Kin
                         row(index).position.type == 9 && row(index + 2).position.type == 9 && row(index).publicKey == asset.creator &&
                             Base58.decode(row(index + 2).publicKey).hex() == asset.id
                     })
-                    SaitoStoreReceipt(signature, Kind.FULFILLMENT, escrow.position, asset, null, encoded)
+                    SaitoStoreReceipt(signature, Kind.FULFILLMENT, escrow.position, null, asset, null, encoded)
                 }
                 "order-refund" -> {
                     require(wire[92] == 0.toByte() && inputs == 1 && outputs == 1)
@@ -72,7 +72,7 @@ class SaitoStoreReceipt private constructor(val signature: String, val kind: Kin
                     val output = row(inputs)
                     require(output.publicKey == purchase.author && output.position.amount == purchase.amount && output.position.type == 0 && output.position.index == 0)
                     val reason = body.get("reason").asString.also { require(it.length in 1..2000) }
-                    SaitoStoreReceipt(signature, Kind.REFUND, escrow.position, null, reason, encoded)
+                    SaitoStoreReceipt(signature, Kind.REFUND, escrow.position, output.position, null, reason, encoded)
                 }
                 else -> throw IllegalArgumentException("Unsupported Store receipt")
             }

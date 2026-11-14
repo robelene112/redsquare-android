@@ -15,7 +15,7 @@ import java.math.BigInteger
 
 /** One foreground purchase authority. The reviewed terms survive only as an immutable, original order. */
 internal class StorePurchases(private val activity: Activity, private val wallet: SaitoWallet,
-    val backend: SaitoBackend, private val endpoint: String, private val balances: WalletBalances,
+    val backend: SaitoBackend, private val selected: SaitoBackend, private val endpoint: String, private val balances: WalletBalances,
     private val scope: CoroutineScope) {
     data class Review(val product: StoreProduct, val quantity: BigInteger, val store: String,
         val inputs: List<SaitoBalanceSnapshot.Slip>, val unit: BigInteger, val fee: BigInteger) {
@@ -23,7 +23,6 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     }
     private val context = activity.applicationContext
     private val store = StoreOrderStore(context, wallet.publicKey)
-    private val selected = AndroidBackendStore(context).load()
     var orders by mutableStateOf<List<StoreOrderStore.Order>>(emptyList()); private set
     var review by mutableStateOf<Review?>(null); private set
     var focused by mutableStateOf<String?>(null); private set
@@ -39,9 +38,13 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     private class Changed : IllegalStateException()
     private class Insufficient : IllegalStateException()
     private class Terms : IllegalStateException()
+    private fun publishable(token: Long) {
+        if (closed || revision != token || activity.isFinishing || activity.isDestroyed) throw Changed()
+    }
+    /** Durable authority is inspected only by IO work, never by the UI state publisher. */
     private fun current(token: Long) {
-        if (closed || revision != token || activity.isFinishing || activity.isDestroyed ||
-            AndroidWalletStore(context).loadExisting().publicKey != wallet.publicKey || AndroidBackendStore(context).load() != selected) throw Changed()
+        publishable(token)
+        if (AndroidWalletStore(context).loadExisting().publicKey != wallet.publicKey || AndroidBackendStore(context).load() != selected) throw Changed()
     }
     private fun operation(work: suspend (Long) -> Unit) {
         if (busy || closed) return
@@ -51,6 +54,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
             catch (failure: Exception) {
                 currentCoroutineContext().ensureActive()
                 if (revision == token) problem = when (failure) {
+                    is StoreOrderStore.StorageUnavailable -> Problem.STORAGE
                     is Changed -> Problem.CONTEXT; is Insufficient -> Problem.INSUFFICIENT; is Terms -> Problem.TERMS
                     else -> Problem.CONNECTION
                 }
@@ -60,6 +64,23 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     fun load() = operation { token ->
         try { orders = withContext(Dispatchers.IO) { current(token); store.read() } }
         catch (failure: Exception) { currentCoroutineContext().ensureActive(); problem = Problem.STORAGE }
+    }
+    /** Refresh clears stale current claims and reconciles the focused order or visible order history. */
+    fun refresh(id: String? = null) = operation { token ->
+        observations = if (id == null) emptyMap() else observations - id
+        val result = withContext(Dispatchers.IO) {
+            current(token)
+            val rows = store.read()
+            val selectedRows = rows.filter { it.backend == backend && (id == null || it.purchase.transaction.id == id) }.takeLast(10)
+            val outcomes = linkedMapOf<String, SaitoStoreChain.Observation>()
+            selectedRows.forEach { order ->
+                currentCoroutineContext().ensureActive()
+                try { outcomes[order.purchase.transaction.id] = observe(order, token) }
+                catch (failure: Exception) { currentCoroutineContext().ensureActive(); current(token) }
+            }
+            store.read() to outcomes.toMap()
+        }
+        publishable(token); orders = result.first; observations = observations + result.second
     }
     fun prepare(product: StoreProduct, quantity: String, networkFee: String) = operation { token ->
         review = null
@@ -71,6 +92,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
             val fee = networkFee.toBigDecimalOrNull()?.movePointRight(8)?.toBigIntegerExact() ?: throw Terms()
             if (count.signum() <= 0 || count > BigInteger("9007199254740991") || fee.signum() < 0 || fee.bitLength() > 64) throw Terms()
             val unit = product.price?.takeIf { it.currency == "SAITO" }?.amount?.movePointRight(8)?.toBigIntegerExact() ?: throw Terms()
+            if (unit.signum() <= 0 || unit * count > BigInteger("9007199254740991")) throw Terms()
             val key = SaitoPeer(wallet, endpoint).use { connection ->
                 val counterparty = connection.servicePublicKey("Store")
                 val currentOffer = SaitoStore.readOffer(connection.request(SaitoStore.listingRequest(
@@ -89,7 +111,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
             current(token)
             null to Review(product, count, key, inputs, unit, fee)
         }
-        current(token)
+        publishable(token)
         if (result.first != null) { orders = withContext(Dispatchers.IO) { store.read() }; focused = result.first?.purchase?.transaction?.id }
         else review = result.second
     }
@@ -101,16 +123,16 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     }
     fun check(order: StoreOrderStore.Order) = operation { token ->
         val result = withContext(Dispatchers.IO) { current(token); observe(order, token) }
-        current(token); observations = observations + (order.purchase.transaction.id to result)
+        publishable(token); observations = observations + (order.purchase.transaction.id to result)
         orders = withContext(Dispatchers.IO) { store.read() }
     }
     private fun observe(order: StoreOrderStore.Order, token: Long): SaitoStoreChain.Observation {
-        val result = requireNotNull(balances.observeStore(backend, order.purchase, order.product.creator, order.payment?.let {
+        val latest = store.read().single { it.purchase.transaction.id == order.purchase.transaction.id }
+        val result = requireNotNull(balances.observeStore(backend, latest.purchase, latest.product.creator, latest.payment?.let {
             SaitoStoreChain.Payment(it.height, it.hash, it.ordinal)
-        }))
+        }, latest.receipt, latest.receiptBlock, latest.cursor))
         current(token)
-        store.observe(order.purchase.transaction.id, result.payment?.let { StoreOrderStore.Payment(it.height, it.hash, it.ordinal) },
-            result.receipt, result.receiptBlock)
+        store.observe(order.purchase.transaction.id, result)
         return result
     }
     fun authorize(existing: StoreOrderStore.Order? = null) {
@@ -171,12 +193,16 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                     val latest = observation ?: observe(order, token)
                     store.read() to latest
                 }
-                current(token); orders = result.first; focused?.let { observations = observations + (it to result.second) }
+                publishable(token); orders = result.first; focused?.let { observations = observations + (it to result.second) }
             } catch (failure: Exception) {
                 currentCoroutineContext().ensureActive()
                 if (revision == token) {
-                    orders = withContext(Dispatchers.IO) { store.read() }
-                    problem = if (failure is Changed) Problem.CONTEXT else Problem.CONNECTION
+                    try {
+                        orders = withContext(Dispatchers.IO) { store.read() }
+                        problem = if (failure is Changed) Problem.CONTEXT else Problem.CONNECTION
+                    } catch (recovery: Exception) {
+                        currentCoroutineContext().ensureActive(); problem = Problem.STORAGE
+                    }
                 }
             } finally { peer = null; if (revision == token) busy = false }
         }
