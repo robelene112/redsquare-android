@@ -33,18 +33,21 @@ class StoreRentalPaymentPreviewTest {
             assertEquals(7, advertised.size)
             for (item in advertised) ui.onNodeWithText("Pay with ${item.get("ticker").asString}").assertExists()
             ui.onNodeWithText("Pay with $ticker").performScrollTo().performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Estimated payment: ${if (web3) "3.75" else "0.002751"} $ticker").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Estimated payment: ${if (web3) "3.75" else "0.002751"} $ticker").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Estimated payment: ${if (web3) "3.75" else "0.002751"} $ticker").performScrollTo().assertIsDisplayed()
             val metadata = advertised.single { it.get("ticker").asString == ticker }
             val network = provider.chains.getAsJsonObject(metadata.get("chain_id").asString).getAsJsonObject("data").get("name").asString
-            ui.onNodeWithText("Network: $network").assertIsDisplayed()
+            ui.onNodeWithText("Network: $network").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Create payment instructions").performScrollTo().performClick()
             waitForSystemPin(device); assertEquals(0, provider.reservations); enterRealSystemPin(device)
-            ui.waitUntil(25_000) { ui.onNodeWithText("Payment: ${if (web3) "3.75" else "0.002751"} $ticker").isDisplayed() }
+            ui.waitUntil(25_000) { ui.onAllNodesWithText("Payment: ${if (web3) "3.75" else "0.002751"} $ticker").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Payment: ${if (web3) "3.75" else "0.002751"} $ticker").performScrollTo().assertIsDisplayed()
             assertEquals(1, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
             captureNativeScreen(File(scene.evidence, "method-${ticker.lowercase()}-native-instructions.png"))
             scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED
             ui.onNodeWithText("Check order").performScrollTo().performClick()
-            ui.waitUntil(25_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
+            ui.waitUntil(25_000) { ui.onAllNodes(hasText("Article received") and hasAnyAncestor(isDialog())).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
             val context = InstrumentationRegistry.getInstrumentation().targetContext
             val owner = requireNotNull(provider.original).buyer
             val order = StoreOrderStore(context, owner).read().single()
