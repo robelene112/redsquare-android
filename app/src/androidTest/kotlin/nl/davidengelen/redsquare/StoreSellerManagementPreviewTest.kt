@@ -9,12 +9,16 @@ import java.io.File
 
 class StoreSellerManagementPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    private fun reviewDelisting() {
+        ui.waitUntil(15_000) { ui.onAllNodesWithText("Field notes access key").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Delist item"))
+        ui.onNodeWithText("Delist item").performClick()
+        ui.waitUntil(15_000) { ui.onNodeWithText("Authorize and delist").isDisplayed() }
+    }
     @Test fun anInterruptedDelistingRestoresTheSameSellerSpendAndObservesTheExactReturnedStock() = withVaultDeviceCredential { device ->
         withStoreSellerFixture("delist", expected = 1, prelisted = true) { scene, _, _ ->
             ui.openNativeStoreSelling()
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Delist item"))
-            ui.onNodeWithText("Delist item").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Authorize and delist").isDisplayed() }
+            reviewDelisting()
             ui.onNodeWithText("Items to return: 2").performScrollTo().assertIsDisplayed()
             assertTrue(scene.peer.transactions.isEmpty())
             captureNativeScreen(File(scene.evidence, "exact-existing-store-stock-delist-review.png"))
@@ -45,9 +49,7 @@ class StoreSellerManagementPreviewTest {
     @Test fun remainingStockAfterAPartialSaleUsesItsAuthenticatedLineageThroughRecreation() = withVaultDeviceCredential { device ->
         withStoreSellerFixture("remaining", expected = 1, prelisted = true, remaining = true) { scene, _, _ ->
             ui.openNativeStoreSelling()
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Delist item"))
-            ui.onNodeWithText("Delist item").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Authorize and delist").isDisplayed() }
+            reviewDelisting()
             ui.onNodeWithText("Items to return: 1").performScrollTo().assertIsDisplayed()
             ui.onNodeWithText("Authorize and delist").performClick()
             waitForSystemPin(device); assertTrue(scene.peer.transactions.isEmpty()); enterRealSystemPin(device)
