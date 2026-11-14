@@ -29,7 +29,7 @@ authorized. Other parent and real-release prerequisites remain open.
 
 ## Completed Store purchase slice #110, next #111
 
-#106–#110are implemented and verified. #110is ready for tracker closure;#111is next.
+#106–#110are implemented and verified. #110is closed;#111is next.
 Review base:8810152674202ff0ce09c4ce59926026624b3e87. Purchase source:
 c2baf1dd517834fd0a4c52ac96a7a2fcbaeeef24. Final media-test/evidence source:
 29fd040163c5e36e407d438a20917f5026fc25b9. Both main production trees are identical.
@@ -54,7 +54,7 @@ continuation is durable/prioritized; unbridged receipts stay historical. Exact
 creator/asset/quantity/positions are required. No count-based arbitrary-NFT success.
 Store fulfils NFT/price buckets, so native review discloses matching-seller stock.
 
-Close110with its accepted evidence;verify111native blockers=0and claim it. Continue
+110is closed with its accepted evidence;verify111native blockers=0and claim it. Continue
 111–115sequentially without another owner permission, then one combined beta.
 Public beta127 remains;none built/published for Vault/Store. Keep1/36/55/84/86open.
 115must append110's3ordinary classes/12methods and all3StorePurchaseProcessRecoveryTest
