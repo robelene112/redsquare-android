@@ -78,7 +78,7 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
             val row = JsonParser.parseString(response).asJsonObject
             require(row.get("signature").asString == product.signature && row.get("seller").asString == product.seller &&
                 row.get("nft_id").asString == product.nftId && row.get("quantity").asString.toBigDecimal().toBigIntegerExact() == product.quantity &&
-                row.get("price").asString.toBigDecimal().toBigIntegerExact() == requireNotNull(product.price).amount.movePointRight(8).toBigIntegerExact() &&
+                row.get("price").asString.toBigDecimal().toBigIntegerExact() == (if (requireNotNull(product.price).currency == "SAITO") product.price.amount.movePointRight(8).toBigIntegerExact() else BigInteger.ZERO) &&
                 SaitoAccessScript.parse(row.get("access_script").asString).hash == script.hash && row.get("access_hash").asString == script.hash &&
                 row.get("p2sh_address").asString == "00" + script.hash)
             val inputs = (1..3).map { index ->
@@ -95,7 +95,7 @@ class SaitoStoreDelist private constructor(val transaction: SaitoTransaction, va
         }
         private fun authentic(product: StoreProduct): StoreProduct {
             return SaitoStoreLineage.restore(product).also {
-                require(it == product && it.price?.currency == "SAITO" && it.assetType !in setOf("vault-nft-rental", "store-nft-rental"))
+                require(it == product && it.price != null && it.assetType !in setOf("vault-nft-rental", "store-nft-rental"))
             }
         }
         private fun validateInputs(product: StoreProduct, inputs: List<SaitoNft.Row>, script: SaitoAccessScript) {

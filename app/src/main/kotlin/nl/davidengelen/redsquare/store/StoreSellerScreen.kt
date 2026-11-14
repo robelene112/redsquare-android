@@ -206,7 +206,7 @@ internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selec
                             if (item.risk.isNotBlank()) Text(item.risk)
                             if (item.note.isNotBlank()) Text(item.note)
                             TextButton(onClick = { onOpen(StoreLink(backend, signature = item.summary.signature)) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_sell_open)) }
-                            if (!item.sold && item.summary.price?.currency == "SAITO") {
+                            if (!item.sold && item.summary.price != null) {
                                 OutlinedButton(onClick = { selling.prepareDelist(item) }, enabled = !selling.busy,
                                     modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.store_delist_action)) }
                                 Text(stringResource(R.string.store_sell_edit_explanation), style = MaterialTheme.typography.bodySmall)

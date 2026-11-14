@@ -37,6 +37,16 @@ class SaitoStoreListingTest {
         assertEquals(expected, listing.transaction.encoded())
         assertEquals(expected, SaitoStoreListing.restore(listing.transaction.encoded()).transaction.encoded())
     }
+    @Test fun anAlternatePricedOfferCanReturnItsExactEscrowTupleToTheSeller() {
+        val vector = fixture("native-store-web3-delist-reference")
+        val listing = vector.getAsJsonObject("listing")
+        val archive = com.google.gson.JsonArray().apply { add(com.google.gson.JsonObject().apply { add("tx", listing.get("envelope")) }) }.toString()
+        val product = requireNotNull(SaitoStoreLineage.read(listing.get("id").asString) { archive })
+        assertEquals("USDT", product.price?.currency)
+        val delist = SaitoStoreDelist.create(SaitoWallet.fromPrivateKey("0".repeat(63) + "2"), product, vector.get("row").toString(), 1700004000000)
+        assertEquals(vector.getAsJsonObject("delist").get("networkBase64").asString, delist.transaction.encoded())
+        assertEquals(delist.transaction.id, SaitoStoreDelist.restore(delist.transaction.encoded(), product).transaction.id)
+    }
     @Test fun partialSalePreservesTheOfficialRemainingQuantityAndSplitDeposit() {
         val source = fixture("native-vault-reference")
         val reference = fixture("native-store-partial-listing-reference")

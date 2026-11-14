@@ -1,6 +1,6 @@
 // Actual isolated Store seller delisting builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--atr','--remaining','--multi'].includes(process.argv[6])))throw Error('Usage: node store-delist-reference.cjs runtime upstream acorn.js output [--atr|--remaining|--multi]');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--atr','--remaining','--multi','--web3'].includes(process.argv[6])))throw Error('Usage: node store-delist-reference.cjs runtime upstream acorn.js output [--atr|--remaining|--multi|--web3]');
 const quantity=process.argv[6]==='--multi'?2:1;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -32,7 +32,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const wallet=await wasm.get_wallet(),buyer=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3');
  const funding=new wasm.WasmWalletSlip();funding.set_amount(1000000000n);funding.set_block_id(10n);funding.set_tx_ordinal(2n);funding.set_slip_index(0);funding.set_slip_type(0);funding.set_lc(true);funding.set_spent(false);
  const key=Buffer.alloc(59);Buffer.from(base58.decode(buyer)).copy(key);key.writeBigUInt64BE(10n,33);key.writeBigUInt64BE(2n,41);key.writeBigUInt64BE(1000000000n,50);funding.set_utxokey(key.toString('hex'));await wallet.add_slip(funding);
- const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources/native-store-listing-reference.json'),'utf8'));
+ const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,process.argv[6]==='--web3'?'../../core/src/test/resources/native-store-web3-listing-reference.json':'../../core/src/test/resources/native-store-listing-reference.json'),'utf8'));
  const timestamp=1700003000000n;
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>buyer,createUnsignedTransactionWithDefaultFee:async(recipient,amount)=>{
  const native=await wallet.createTransaction(recipient,amount,10000000n,false);
@@ -58,7 +58,7 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  function confirmedOutput(network,index,height,ordinal){const b=Buffer.from(network,'base64'),o=93+(b.readUInt32BE(0)+index)*59,k=b.subarray(o,o+33),amount=b.readBigUInt64BE(o+33);const u=Buffer.alloc(59);k.copy(u);u.writeBigUInt64BE(BigInt(height),33);u.writeBigUInt64BE(BigInt(ordinal),41);u[49]=index;u.writeBigUInt64BE(amount,50);u[58]=b[o+58];return {publicKey:base58.encode(k),amount:String(amount),type:b[o+58],index,blockId:String(height),txOrdinal:String(ordinal),utxoKey:u.toString('hex')};}
  const purchaseOutput=confirmedOutput(signed.networkBase64,0,21,0),triple=[0,1,2].map(index=>confirmedOutput(listing.listing.networkBase64,index,20,0));
  const order={order_tx_sig:signed.id,buyer,nft_id:listing.nftId,quantity,price:250000000,payment_amount:String(250000000n*BigInt(quantity)),payment_tx_sig:signed.id,payment_output_index:0,utxo_slip:purchaseOutput,access_script:created.msg.access_script};
- const row={access_hash:listing.body.access_hash,signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:2,take_qty:quantity,price:250000000,p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
+ const row={access_hash:listing.body.access_hash,signature:listing.listing.id,seller:listing.seller,nft_id:listing.nftId,quantity:2,take_qty:quantity,price:process.argv[6]==='--web3'?0:250000000,p2sh_address:listing.body.p2sh_address,access_script:listing.body.access_script,utxo_slip1:triple[0],utxo_slip2:triple[1],utxo_slip3:triple[2]};
  if(process.argv[6]==='--atr'){
  for(let i=0;i<3;i++){
   const slip=row['utxo_slip'+(i+1)];slip.index=i+3;if(i===1)slip.type=1;
