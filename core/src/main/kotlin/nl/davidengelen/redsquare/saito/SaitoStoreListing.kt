@@ -7,12 +7,15 @@ import java.nio.ByteBuffer
 import java.util.Base64
 
 data class StoreListingTerms(val title: String, val description: String, val category: StoreCategory,
-    val price: String, val quantity: BigInteger) {
+    val price: String, val quantity: BigInteger, val currency: String = "SAITO") {
     init {
         require(title.isNotBlank() && title.length <= 10_000 && description.length <= 200_000)
         require(quantity.signum() > 0 && quantity <= BigInteger("9007199254740991"))
-        val amount = price.toBigDecimal().movePointRight(8).toBigIntegerExact()
-        require(amount.signum() > 0 && amount <= BigInteger("9007199254740991"))
+        require(currency.matches(Regex("[A-Z0-9][A-Z0-9._-]{0,15}")))
+        require(price.length <= 40 && price.matches(Regex("[0-9]{1,20}(\\.[0-9]{1,18})?")))
+        val amount = price.toBigDecimal()
+        require(amount.signum() > 0 && amount.precision() <= 32)
+        if (currency == "SAITO") require(amount.movePointRight(8).toBigIntegerExact() <= BigInteger("9007199254740991"))
     }
 }
 
@@ -60,8 +63,11 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
             body.addProperty("p2sh_address", "00" + script.hash)
             body.add("listing", JsonObject().apply {
                 addProperty("title", terms.title); addProperty("description", terms.description)
-                addProperty("category", terms.category.wire); addProperty("price", terms.price)
+                addProperty("category", terms.category.wire); addProperty("price", if (terms.currency == "SAITO") terms.price else "0")
                 addProperty("quantity_total", terms.quantity); addProperty("quantity_available", terms.quantity)
+                if (terms.currency != "SAITO") {
+                    addProperty("web3_ticker", terms.currency); addProperty("web3_amount", terms.price)
+                }
             })
             if (holding.type == "stack") transferStack(wallet, holding, body, store, timestamp)
             val source = holding.witnesses.map(::witnessRow)
@@ -123,9 +129,12 @@ class SaitoStoreListing private constructor(val transaction: SaitoTransaction, v
             val zero = SaitoBalanceSnapshot.Slip(BigInteger.ZERO, BigInteger.ZERO, 0, BigInteger.ZERO, 0)
             require(source[3].publicKey == holding.owner && source[3].position == zero)
             val row = body.getAsJsonObject("listing")
+            val currency = row.get("web3_ticker")?.asString.orEmpty().trim().uppercase(java.util.Locale.ROOT).ifBlank { "SAITO" }
+            if (currency != "SAITO") require(row.get("price").asString.toBigDecimal().signum() == 0)
             val terms = StoreListingTerms(row.get("title").asString, row.get("description").asString,
-                StoreCategory.entries.single { it.wire == row.get("category").asString }, row.get("price").asString,
-                row.get("quantity_total").asString.toBigInteger())
+                StoreCategory.entries.single { it.wire == row.get("category").asString },
+                row.get(if (currency == "SAITO") "price" else "web3_amount").asString,
+                row.get("quantity_total").asString.toBigInteger(), currency)
             require(terms.quantity <= holding.quantity && row.get("quantity_available").asString.toBigInteger() == terms.quantity)
             val partial = terms.quantity < holding.quantity
             require(header.getInt(4) == if (partial) 7 else 4)

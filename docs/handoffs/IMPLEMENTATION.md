@@ -27,6 +27,38 @@ public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
 
+## Active seller currency/proceeds slice #113
+
+113is claimed byrobelene112; native blockers111/112are closed. Review base:
+`4f7b9923ea214b18cb76a9193c238ae232839b84`.
+First public core tracer fails at official USDT listing restore, then passes all
+SaitoStoreListingTest cases after currency-aware terms/creation/restore. Exact
+USDT signed bytes match independently executed official WASM vectors; SAITO
+legacy terms remain unchanged. Logs store113-alternate-listing-red/green outside.
+The first native currency/recreation/discard tracer is added under its own180s
+focused store-seller-currency scope and additively in seller/full Wallet. It is
+intentionally RED at the missing Payment currency control; compilation/runtime
+still need verification. No113completion or new beta.
+
+Pinned source provides load-web3-proceeds and Store-signed25minute withdrawal
+quotes. StoreWithdrawals forwards an exact signed original to Mixin, which records
+a manual withdrawal; submitted is explicitly not external funds sent. Preserve
+this limitation rather than inventing automatic payouts. Quotes cover all eligible
+sales, not a client-selected partial amount. The original request is idempotent
+at the Store; an unknown result must retain its original identities and never
+allocate a replacement automatically. Ordinary shared/native/reference seams and
+all existing operational boundaries remain in force.
+
+Fresh source-only reads are external under vault-store-planning/upstream at the
+same0db0062pin: Store withdrawal/withdrawal-quote/web3-amount/database and schemas,
+Mixin store-withdrawal/mixinmodule/database. Official dependency is
+@taasfi/multicoin-address-validator0.5.27. Isolated npm11.6.2 (registry integrity
+verified) and that exact validator are provisioned outside Git under
+store113-reference-tools/deps; no global Node/npm change. Node24.13 provides
+node:sqlite for an owned actual-SQL reference if needed. A full withdrawal
+reference/native implementation has not been built yet. Continue113,114,115
+sequentially through the combined beta; do not ask for more owner QA/permission.
+
 ## Completed alternate-payment slice #112
 
 Review base: `a60cd323cf0c46b965fbbc986394d77a73ada2fb`.

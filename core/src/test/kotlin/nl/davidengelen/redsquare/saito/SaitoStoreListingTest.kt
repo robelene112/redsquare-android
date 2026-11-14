@@ -24,6 +24,19 @@ class SaitoStoreListingTest {
         assertEquals(holding.witnesses, restored.holding.witnesses)
         assertEquals(BigInteger.TWO, restored.terms.quantity)
     }
+    @Test fun alternatePricedInventoryRecoversAndProducesTheOfficialSignedOfferWithoutChangingDenomination() {
+        val source = fixture("native-vault-reference")
+        val reference = fixture("native-store-web3-listing-reference")
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val expected = reference.getAsJsonObject("listing").get("networkBase64").asString
+        val restored = SaitoStoreListing.restore(expected)
+        assertEquals("3.75", restored.terms.price)
+        val holding = SaitoBalanceSnapshot.parse(source.get("snapshot").asString.toByteArray(), wallet.publicKey, 1700001000000).nfts.single()
+        val listing = SaitoStoreListing.create(wallet, holding, source.getAsJsonObject("key").get("envelope").asString,
+            reference.get("store").asString, restored.terms, 1700002000000)
+        assertEquals(expected, listing.transaction.encoded())
+        assertEquals(expected, SaitoStoreListing.restore(listing.transaction.encoded()).transaction.encoded())
+    }
     @Test fun partialSalePreservesTheOfficialRemainingQuantityAndSplitDeposit() {
         val source = fixture("native-vault-reference")
         val reference = fixture("native-store-partial-listing-reference")
