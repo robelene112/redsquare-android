@@ -136,7 +136,8 @@ class StoreRentalAccessPreviewTest {
             val product = requireNotNull(nl.davidengelen.redsquare.saito.SaitoStore.readListing(nl.davidengelen.redsquare.saito.SaitoStore.readCatalogue(offer.get("page").toString()).items.single(), offer.getAsJsonObject("listing").get("envelope").asString))
             val oldSnapshot = nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot.parse(paid.getAsJsonObject("blocks").get("snapshot").asString.toByteArray(), purchase.buyer, 1700004000000)
             val observation = nl.davidengelen.redsquare.saito.SaitoStoreChain.observe(purchase, oldSnapshot, product.creator) { hash ->
-                paid.getAsJsonObject("blocks").getAsJsonObject("blocks").get(hash)?.asString?.let { java.util.Base64.getDecoder().decode(it) }
+                listOf("payment", "delivery", "refund").map { paid.getAsJsonObject("blocks").getAsJsonObject(it) }
+                    .singleOrNull { it.get("hash").asString == hash }?.get("fullBase64")?.asString?.let { java.util.Base64.getDecoder().decode(it) }
             }
             assertTrue(observation.delivered)
             val context = InstrumentationRegistry.getInstrumentation().targetContext
