@@ -1,13 +1,19 @@
 package nl.davidengelen.redsquare
 
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.*
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.Rule
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import java.math.BigInteger
 
 class StoreWithdrawalHistoryPreviewTest {
+    @get:Rule val ui = createEmptyComposeRule()
     @Test fun aFullLegacyHistoryCanAcceptTheNextRequestWithoutDeletingSubmittedOrUncertainOriginals() {
         withStoreSellerFixture("withdrawal-full-history") { _, _, _ ->
             val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -42,6 +48,9 @@ class StoreWithdrawalHistoryPreviewTest {
             assertEquals(candidates.last().transaction.id, journal.read().last().candidate.transaction.id)
             // Replay process loss after the original page commit but before the page-count publication.
             android.util.AtomicFile(java.io.File(context.noBackupFilesDir, prefix + "pages")).delete()
+            java.io.FileOutputStream(java.io.File(context.noBackupFilesDir, prefix + "pages.new")).use {
+                it.write(byteArrayOf(1, 2, 3)); it.fd.sync()
+            }
             val cold = StoreWithdrawalStore(context, wallet.publicKey)
             assertEquals(candidates.last().transaction.encoded(), cold.read().single().candidate.transaction.encoded())
             assertTrue(TransferStore(context, wallet.publicKey).available(fundedOriginal.inputs).isEmpty())
@@ -60,4 +69,38 @@ class StoreWithdrawalHistoryPreviewTest {
             assertTrue(TransferStore(context, wallet.publicKey).available(fundedOriginal.inputs).isEmpty())
         }
     }
+    @Test fun aSavedRequestDoesNotMoveAwayWhenDelayedProceedsArrive() {
+        val waiting = CountDownLatch(1); val release = CountDownLatch(1)
+        val crypto = OwnedStoreCryptoFixture(); val treasury = OwnedStoreWithdrawalFixture()
+        try {
+            withStoreSellerFixture("withdrawal-stable-navigation", crypto = crypto) { scene, _, _ ->
+                val context = InstrumentationRegistry.getInstrumentation().targetContext
+                val ref = InstrumentationRegistry.getInstrumentation().context.assets.open("native-store-seller-payments-reference.json")
+                    .reader().use { JsonParser.parseReader(it).asJsonObject }
+                val candidate = SaitoStoreWithdrawal.restore(ref.getAsJsonObject("candidate").get("networkBase64").asString, ref.get("store").asString)
+                val metadata = crypto.methods.getAsJsonArray("ac").map { it.asJsonObject }.single { it.get("ticker").asString == "USDT" }
+                val journal = StoreWithdrawalStore(context, candidate.author)
+                val original = journal.reserve(SaitoBackend.OWNER, candidate, metadata.get("chain_id").asString, "Ethereum")
+                journal.markSending(original)
+                val ordinary = requireNotNull(scene.peer.storeResponse)
+                scene.peer.storeResponse = { query ->
+                    if (query.get("request").asString == "load-web3-proceeds") {
+                        waiting.countDown(); check(release.await(10, TimeUnit.SECONDS))
+                    }
+                    treasury.reply(query, ordinary)
+                }
+                ui.openNativeStoreSelling(); ui.onNodeWithText("Proceeds").performClick()
+                ui.waitUntil(15_000) { waiting.count == 0L && ui.onNodeWithText("Withdrawal · 6.25 USDT").isDisplayed() }
+                val before = ui.onNodeWithText("Withdrawal · 6.25 USDT").fetchSemanticsNode().boundsInRoot
+                release.countDown()
+                ui.waitUntil(15_000) { ui.onAllNodesWithText("Available to request: 6.25 USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                val after = ui.onNodeWithText("Withdrawal · 6.25 USDT").fetchSemanticsNode().boundsInRoot
+                assertEquals("Loading remote balances must not move the saved request", before.top, after.top, 1f)
+                ui.onNodeWithText("Withdrawal · 6.25 USDT").assertIsDisplayed().performClick()
+                ui.waitUntil(5_000) { ui.onNodeWithText("Retry original request").isDisplayed() }
+                assertTrue(treasury.submissions.isEmpty()); assertTrue(scene.peer.transactions.isEmpty())
+            }
+        } finally { release.countDown() }
+    }
+
 }
