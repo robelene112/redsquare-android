@@ -1,6 +1,5 @@
 package nl.davidengelen.redsquare.store
 
-import android.app.Activity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,7 +15,7 @@ import nl.davidengelen.redsquare.ui.*
 @Composable
 internal fun StoreProceedsScreen(wallet: SaitoWallet, backend: SaitoBackend, selected: SaitoBackend,
     endpoint: String, modifier: Modifier, onBack: () -> Unit) {
-    val activity = androidx.compose.ui.platform.LocalContext.current as Activity
+    val activity = requireNotNull(androidx.activity.compose.LocalActivity.current)
     val scope = rememberCoroutineScope()
     val proceeds = remember(wallet.publicKey, backend, selected, endpoint) { StoreProceeds(activity, wallet, backend, selected, endpoint, scope) }
     DisposableEffect(proceeds) { onDispose { proceeds.dispose() } }

@@ -29,7 +29,7 @@ internal fun StoreScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     chrome: @Composable (Boolean) -> Unit, entry: StoreLink? = null, onExitLink: (() -> Unit)? = null,
     chatBackend: SaitoBackend = backend, chatEndpoint: String = endpoint, onChatVisibility: (Boolean) -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onOpenVault: (SaitoBackend, String, String) -> Unit = { _, _, _ -> }, initialOrder: String? = null, onInitialOrderConsumed: () -> Unit = {}, onNodeSettings: () -> Unit) {
-    val activity = androidx.compose.ui.platform.LocalContext.current as android.app.Activity
+    val activity = requireNotNull(androidx.activity.compose.LocalActivity.current)
     val purchaseScope = rememberCoroutineScope()
     val purchases = remember(wallet.publicKey, backend, chatBackend, endpoint) {
         StorePurchases(activity, wallet, backend, chatBackend, endpoint, nl.davidengelen.redsquare.WalletBalances.fromIntent(activity.intent), purchaseScope)

@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.vault
 
 import android.app.Activity
+
 import android.content.Intent
 import android.text.format.Formatter
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,6 +36,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     onIncomingConsumed: (SharedVaultFile) -> Unit = {}, selected: SaitoBackend = backend,
     initialRentalFile: String? = null, onRentalBack: (() -> Unit)? = null, onNodeSettings: () -> Unit) {
     val context = LocalContext.current
+    val activity = requireNotNull(androidx.activity.compose.LocalActivity.current)
     val scope = rememberCoroutineScope()
     val publishing = backend == selected
     val library = remember(wallet.publicKey, backend, selected, endpoint, balances) { VaultLibrary(context, wallet, backend, endpoint, balances, selected) }
@@ -63,7 +65,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
     var transferSelection by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf<String?>(null) }
     var transferRecipient by rememberSaveable(wallet.publicKey, backend.id, endpoint) { mutableStateOf("") }
     val keyTransfers = remember(wallet.publicKey, backend, endpoint, balances, context) {
-        VaultKeyTransfers(context as Activity, wallet, backend, endpoint, balances, scope)
+        VaultKeyTransfers(activity, wallet, backend, endpoint, balances, scope)
     }
     DisposableEffect(keyTransfers) { onDispose { keyTransfers.close() } }
     LaunchedEffect(keyTransfers, publishing) { if (publishing) keyTransfers.load() }
@@ -195,7 +197,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
         SingleOwnerReveal(showingFiles, Modifier.weight(1f)) {
         Column(Modifier.fillMaxSize()) {
         if (!showingFiles) {
-            val authorization = remember(uploads, context) { VaultUploadAuthorization(context as Activity, uploads) }
+            val authorization = remember(uploads, context) { VaultUploadAuthorization(activity, uploads) }
             DisposableEffect(authorization) { onDispose { authorization.close() } }
             SingleOwnerReveal(uploadView.phase, Modifier.weight(1f)) {
                 VaultUploadReview(uploadView, Modifier.fillMaxSize(), uploads::discard, uploads::cancelPreparation,

@@ -1,6 +1,5 @@
 package nl.davidengelen.redsquare.store
 
-import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -25,7 +24,7 @@ import nl.davidengelen.redsquare.vault.*
 @Composable
 internal fun StoreSellerScreen(wallet: SaitoWallet, backend: SaitoBackend, selected: SaitoBackend, endpoint: String,
     modifier: Modifier, onOpen: (StoreLink) -> Unit) {
-    val activity = androidx.compose.ui.platform.LocalContext.current as Activity
+    val activity = requireNotNull(androidx.activity.compose.LocalActivity.current)
     val scope = rememberCoroutineScope()
     val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
     val balances = remember(activity) { WalletBalances.fromIntent(activity.intent) }
