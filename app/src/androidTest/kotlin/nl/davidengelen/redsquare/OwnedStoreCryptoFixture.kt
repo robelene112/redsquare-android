@@ -24,6 +24,7 @@ internal class OwnedStoreCryptoFixture {
     private val signer = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
     lateinit var node: OwnedStorePurchaseFixture
     @Volatile var available = true
+    @Volatile var reservationLifetime = 2_400_000L
     @Volatile var supported = true
     @Volatile var conflicting = false
     @Volatile var missingTransactionCopy = false
@@ -31,13 +32,24 @@ internal class OwnedStoreCryptoFixture {
         private set
     @Volatile var statusReads = 0
         private set
-    private var carrier: SaitoStoreCarrier? = null
-    private var originalQuote: JsonObject? = null
-    private var originalPayment: SaitoStoreIssuance? = null
+    @Volatile private var carrier: SaitoStoreCarrier? = null
+    @Volatile private var originalQuote: JsonObject? = null
+    @Volatile private var originalPayment: SaitoStoreIssuance? = null
     val original: SaitoStoreCarrier? get() = carrier
     val payment: SaitoStoreIssuance? get() = if (node.phase == OwnedStorePurchaseFixture.Phase.WAITING) null else {
         if (originalPayment == null && carrier != null) originalPayment = SaitoStoreIssuance.read(requireNotNull(carrier), invoice(), fundedStatus())
         originalPayment
+    }
+    @Synchronized fun checkpoint(): JsonObject = JsonObject().apply {
+        addProperty("carrier", requireNotNull(carrier).transaction.encoded())
+        add("quote", requireNotNull(originalQuote).deepCopy())
+        addProperty("reservationCount", reservations)
+    }
+    @Synchronized fun restoreCheckpoint(value: JsonObject) {
+        check(carrier == null && originalQuote == null && reservations == 0)
+        carrier = SaitoStoreCarrier.restore(value.get("carrier").asString)
+        originalQuote = value.getAsJsonObject("quote").deepCopy()
+        invoice() // Admit the actual bound provider record before starting the cold peer.
     }
     fun restore(order: StoreOrderStore.Order) {
         val saved = requireNotNull(order.external)
@@ -82,7 +94,7 @@ internal class OwnedStoreCryptoFixture {
                 addProperty("request_id", original.transaction.id); addProperty("purchase_signature", original.transaction.id)
                 addProperty("ticker", ticker); addProperty("chain_id", currency.get("chain_id").asString)
                 addProperty("expected_deposit", amount); addProperty("issue_amount", issued)
-                addProperty("reserved_until", original.timestamp + 2_400_000)
+                addProperty("reserved_until", original.timestamp + reservationLifetime)
                 // The address is a controlled destination. It is never usable on a live network.
                 addProperty("address", "owned-${ticker.lowercase()}-payment-address")
             }
@@ -91,7 +103,7 @@ internal class OwnedStoreCryptoFixture {
             if (conflicting) addProperty("purchase_signature", "cd".repeat(64))
         }.toString()
     }
-    private fun invoice(): SaitoStoreCrypto.Invoice {
+    @Synchronized private fun invoice(): SaitoStoreCrypto.Invoice {
         val quote = requireNotNull(originalQuote)
         val ticker = quote.get("ticker").asString
         val currency = SaitoStoreCrypto.readMethods(methods.toString()).currencies.single { it.ticker == ticker }

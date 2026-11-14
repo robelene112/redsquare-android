@@ -69,6 +69,15 @@ The record of a buyer's intended purchase or rental and its payment and
 fulfilment progress. A submitted payment is distinct from delivered ownership
 or access.
 
+**Provider payment instructions**:
+A provider's quoted currency, network, amount, destination and expiry for one
+Store order. Receiving instructions does not establish payment or delivery.
+
+**Store settlement payment**:
+The Saito payment used by the Store to fulfil an order. For an external-currency
+purchase, a provider funds this payment while the buyer remains the asset's
+recipient. A provider report is distinct from observed settlement and ownership.
+
 **NFT holding observation**:
 A selected node's report of an unspent NFT tuple and its current owner. The tuple
 contains creator/quantity metadata, a normal owner/deposit slip and an identifier

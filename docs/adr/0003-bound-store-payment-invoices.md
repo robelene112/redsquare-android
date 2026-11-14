@@ -13,8 +13,7 @@ matching amounts proves that an address belongs to the reviewed item.
 
 Keep the official unfunded purchase carrier and existing BuySaito reservation
 RPC. Add a narrowly scoped provider compatibility patch that echoes the saved
-carrier signature and saved request ID, serializes reservation creation per
-requester/ticker, and provides a read-only purchase-status RPC. Capability
+carrier signature and saved request ID, serializes reservation creation within the active Mixin instance, and provides a read-only purchase-status RPC. Capability
 `store_purchase_protocol: 1` identifies that contract. Status reads must never
 reserve another address. Existing browser callers continue to receive their
 original fields; new fields are additive.
@@ -36,7 +35,8 @@ notification or arbitrary increase in NFT count establishes delivery.
 The patch is a reviewable implementation artifact, not an activated service or a
 new custodial backend. Verify it against the exact pinned source at owned
 provider/reference seams. A fully initialized and funded live provider remains
-separately pending. On November 14, passive public discovery advertised seven
+separately pending, including verification of a single active ledger writer
+or equivalent database-level coordination. On November 14, passive public discovery advertised seven
 currencies but Store reported `enabled: false`; no reservation, payment, deposit,
 configuration change or public financial test was performed.
 

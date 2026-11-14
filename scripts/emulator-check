@@ -755,9 +755,14 @@ if [[ "${TEST_SCOPE:-full}" == store-purchase* ]]; then
     verify_group_chat_native StorePurchasePreviewTest 180 store-purchase store-purchase-evidence || store_native_result=1
     verify_group_chat_native StoreCryptoRecoveryPreviewTest 180 store-crypto-recovery store-purchase-evidence || store_native_result=1
     verify_group_chat_native StoreCryptoPaymentPreviewTest 180 store-crypto-payment store-purchase-evidence || store_native_result=1
+    verify_group_chat_native StoreCryptoMethodsPreviewTest 480 store-crypto-methods store-purchase-evidence || store_native_result=1
+    verify_group_chat_native StoreCryptoAvailabilityPreviewTest 180 store-crypto-availability store-purchase-evidence || store_native_result=1
+    verify_group_chat_native StoreCryptoContinuationPreviewTest 180 store-crypto-continuation store-purchase-evidence || store_native_result=1
+    verify_group_chat_native StoreCryptoViewportPreviewTest 480 store-crypto-viewport store-purchase-evidence || store_native_result=1
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence || store_native_result=1
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence || store_native_result=1
     python3 "$repo_dir/scripts/store-purchase-process-check" --evidence "$evidence/store-purchase-process" || store_native_result=1
+    python3 "$repo_dir/scripts/store-crypto-process-check" --evidence "$evidence/store-crypto-process" || store_native_result=1
     printf '%s\n' 'Native reviewed/PIN-authorized Store purchase, external payment instructions, original-order recovery and exact selected-node delivery over owned peers. No public financial writes.' > "$evidence/scope.txt"
     exit "$store_native_result"
 fi
@@ -1367,9 +1372,14 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
     verify_group_chat_native StorePurchasePreviewTest 180 store-purchase store-purchase-evidence
     verify_group_chat_native StoreCryptoRecoveryPreviewTest 180 store-crypto-recovery store-purchase-evidence
     verify_group_chat_native StoreCryptoPaymentPreviewTest 180 store-crypto-payment store-purchase-evidence
+    verify_group_chat_native StoreCryptoMethodsPreviewTest 480 store-crypto-methods store-purchase-evidence
+    verify_group_chat_native StoreCryptoAvailabilityPreviewTest 180 store-crypto-availability store-purchase-evidence
+    verify_group_chat_native StoreCryptoContinuationPreviewTest 180 store-crypto-continuation store-purchase-evidence
+    verify_group_chat_native StoreCryptoViewportPreviewTest 480 store-crypto-viewport store-purchase-evidence
     verify_group_chat_native StorePurchaseRecoveryPreviewTest 180 store-purchase-recovery store-purchase-evidence
     verify_group_chat_native StorePurchaseViewportPreviewTest 480 store-purchase-viewport store-purchase-evidence
     python3 "$repo_dir/scripts/store-purchase-process-check" --evidence "$evidence/store-purchase-process"
+    python3 "$repo_dir/scripts/store-crypto-process-check" --evidence "$evidence/store-crypto-process"
     verify_group_chat_native StoreRoutePreviewTest 180 store-routes store-route-evidence
     verify_group_chat_native StoreChatRoutePreviewTest 180 store-chat-route store-chat-route-evidence
     verify_group_chat_native StoreBrowsePreviewTest 480 store-browse store-browse-evidence

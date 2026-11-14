@@ -48,24 +48,58 @@ Other payment methods UI assertion; all12inherited purchase/recovery cases,
 byte-exact (ID14103950091, SHA92cb990b5bc39ec2299e778eafdc2a55e13594378a61eca9f66d49ff9b56dfdb,
 80ZIP/161captures). It is not acceptance and must not be assembled into a pass.
 
-New uncommitted work now includes full native methods/review/PIN/invoice,
-QR/copy/expiry and close/show-original-instructions UI, shared read-only recovery
-and durable chain-discovered issuance. Main compile is green at both
-store112-external-main.log and store112-external-sheet-main.log. Sheet content
-keys reset its scroll on mode change; Store transitions use SingleOwnerReveal.
-The public core suite remains208green. Native compilation store112-external-tests.log also passes (2m37s). A final
-small source change defers public HTTP client initialization to its IO caller and
-clarifies the no-instructions text; CI must build/check that exact snapshot. Its StoreCryptoPaymentPreviewTest is now additively in
-store-purchase and full Wallet, but has not yet run on a device. The class
-verifies review/PIN/no-broadcast/actual quoted instructions/copy/exact delivery.
-The first source at65has206core cases; do not conflate sources.
+Native checkout581bb1ae7cdd2eb3ae1640c64260a490df7fc0b8is pushed. Full core208
+passes. Main/native compiler checks pass through the new method/continuation/
+viewport source; no local build is now active. CI43571100454on581is FAILED:
+all inherited12purchase/recovery cases,12viewport cells and3real process phases
+pass, and both CryptoRecovery cases pass. The new complete payment journey reached
+actual instructions and successful clipboard feedback, then failed because the
+test expected `Address copied` while the existing product resource is
+`Address copied.`. Delivery had not been exercised yet. This exact assertion is
+now corrected and additionally checks the actual clipboard destination.
+Full original failed artifact ID14103914003, SHA62ce601d3a43ed7ad5e616bb10267cd3ce08268419a1afbbe8e1cee491b13c9f,
+82ZIP/167captures. Both actual review/instructions PNGs were inspected. Retain
+qualification: zero motion and owned provider, not live payment acceptance.
 
-Continue112until complete: repair actual native failures, verify all seven methods
-and ALT-priced listings, outdated/outage/quote/malformed/cancel/delayed status,
-real process/retained Chat+Fileshare and12viewport cells on10/17. Complete both
-review axes and affected regressions before accepting/closing112. There is no
-new beta. Continue113–115only after112completion. The build artifacts and native
-failed run43568010206have been preserved externally; public beta remains127.
+Uncommitted native matrix now compiles:
+- StoreCryptoMethodsPreviewTest:7real native/PIN/network/delivery cases with
+  zero buyer SAITO.480s class bound, additive focused/full Wallet.
+- StoreCryptoPaymentPreviewTest:now2cases, including actual USDT-priced offer.
+- StoreCryptoAvailabilityPreviewTest:3cases, enabled-service outage/recovery,
+  older binding support, conflicting reply/read-only original recovery.
+- StoreCryptoContinuationPreviewTest:3cases, close/late delivery, expired
+  instructions, remote treasury missing copy and actual block recovery.
+- StoreCryptoViewportPreviewTest:2cases/24native cells (12review +12invoice),
+  actual reversible320/412dp100/130/200percent light/dark,48dp actions, explicit
+  zero motion.480s class bound, additive focused/full Wallet.
+Their local logs are method-matrix-tests (5m34), continuation-tests (2m38) and
+viewport-tests (2m41). The latest clipboard assertion still needs compiling.
+All new native runtime journeys beyond581are unverified. Next freeze/push a
+complete source and run/collect both actual SDKs. Do not conflate a compiler pass
+or a failed run's passing prefix with acceptance.
+
+The3phase StoreCryptoProcessRecoveryTest and host script are now implemented,
+added to focused purchase/full Wallet and compile in store112-process-tests.log
+(2m40). It persists the OWNED provider's actual accepted quote independently of
+the app's lost reply, kills the real process under the journal guard, and requires
+a different-PID cold read-only recovery with no allocating request. Exact issued
+payment/delivery, wallet/node and unsent Chat/Fileshare bytes and original
+installation restoration are asserted. The native process proof has not run yet.
+
+All112test sources now compile, including clipboard exact destination. No local
+build or hosted run remains active. The complete112runtime matrix must now be
+frozen, pushed, run/collected on10/17, and independently reviewed against
+basea60cd323cf0c46b965fbbc986394d77a73ada2fb. Source at581failed only the now-fixed
+clipboard-label assertion before exercising actual external delivery; inherited
+process/viewport cases passed. Do not conflate that partial evidence with new
+matrix acceptance. No112acceptance and no new beta. Continue113–115after112.
+
+For113's alternate listing/remaining-stock work, public offer lineage currently
+restores only direct SaitoStorePurchase in SaitoStoreLineage. It must also admit
+Store-authenticated remainder history after provider-funded purchases (including
+SAITO-priced ones), without fabricating a buyer's private invoice or weakening
+client purchase admission. Current112native ALT case buys the whole listed lot;
+remaining inventory after partial provider purchases needs explicit113coverage.
 
 Original source-compatible provider patch/reference remain under integrations/
 and test-fixtures/reference, never deployed. Public chain names were read from

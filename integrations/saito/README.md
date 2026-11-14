@@ -14,8 +14,10 @@ amount before exposing payment instructions.
 The patch preserves existing browser fields and adds a read-only
 `buysaito purchase status` request to the existing authenticated Mixin route. It
 scopes status to the requesting wallet, ticker, Store purpose and original
-request identity. Missing status never allocates an address. A provider-wide
-reservation queue serializes address selection and insertion. A repeated saved
+request identity. Missing status never allocates an address. A reservation queue within the active Mixin instance serializes address
+selection and insertion. It does not coordinate multiple server processes. Live
+activation must verify a single writer for this ledger or supply an equivalent
+database transaction before accepting that deployment. A repeated saved
 request returns its original invoice, including after completion. A conflicting
 open reservation keeps its original identity and is rejected by native checkout.
 

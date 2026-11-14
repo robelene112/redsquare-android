@@ -29,7 +29,9 @@ class StoreCryptoPaymentPreviewTest {
             assertEquals(0, provider.reservations); enterRealSystemPin(device)
             ui.waitUntil(25_000) { ui.onNodeWithText("Payment: 0.005501 USDT").isDisplayed() }
             ui.onNodeWithText("Copy payment address").performScrollTo().performClick()
-            ui.onNodeWithText("Address copied").assertIsDisplayed()
+            ui.onNodeWithText("Address copied.").assertIsDisplayed()
+            val clipboard = InstrumentationRegistry.getInstrumentation().targetContext.getSystemService(android.content.ClipboardManager::class.java)
+            assertEquals("owned-usdt-payment-address", clipboard.primaryClip?.getItemAt(0)?.text?.toString())
             assertEquals(1, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
             val original = requireNotNull(provider.original).transaction.encoded()
             captureNativeScreen(File(scene.evidence, "bound-native-payment-instructions.png"))
@@ -47,4 +49,31 @@ class StoreCryptoPaymentPreviewTest {
             captureNativeScreen(File(scene.evidence, "external-payment-returned-to-exact-delivery.png"))
         }
     }
+    @Test fun anActualCryptoPricedOfferKeepsItsDenominationAndOnlyOffersItsOwnPaymentCurrency() = withVaultDeviceCredential { device ->
+        val provider = OwnedStoreCryptoFixture()
+        withStorePurchaseFixture("crypto-priced-offer", crypto = provider, web3 = true) { scene ->
+            scene.node.funded = false
+            ui.openNativeStoreOtherMethods("2")
+            ui.waitUntil(15_000) { ui.onNodeWithText("Pay with USDT").isDisplayed() }
+            ui.onAllNodesWithText("Pay with BTC").assertCountEquals(0)
+            ui.onNodeWithText("Pay with USDT").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Estimated payment: 7.5 USDT").isDisplayed() }
+            ui.onNodeWithText("Item total: 7.5 USDT").assertIsDisplayed()
+            ui.onNodeWithText("Create payment instructions").performScrollTo().performClick()
+            waitForSystemPin(device); enterRealSystemPin(device)
+            ui.waitUntil(25_000) { ui.onNodeWithText("Payment: 7.5 USDT").isDisplayed() }
+            assertEquals(1, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
+            scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED
+            ui.onNodeWithText("Check order").performScrollTo().performClick()
+            ui.waitUntil(25_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            val order = StoreOrderStore(context, requireNotNull(provider.original).buyer).read().single()
+            assertEquals("USDT", order.external?.carrier?.price?.currency)
+            assertEquals(java.math.BigDecimal("7.5"), requireNotNull(order.external?.invoice).amount.stripTrailingZeros())
+            assertEquals(java.math.BigInteger("681800000000"), order.fundedPayment?.amount)
+            assertEquals(1, provider.reservations); assertTrue(scene.node.peer.transactions.isEmpty())
+            captureNativeScreen(File(scene.evidence, "crypto-priced-offer-exact-provider-and-delivery.png"))
+        }
+    }
+
 }
