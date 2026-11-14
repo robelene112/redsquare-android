@@ -53,14 +53,16 @@ class StoreNestedRoutePreviewTest {
                 ui.waitUntil(15_000) { ui.onNodeWithText("Open in Store").isDisplayed() }
                 ui.onNodeWithText("Open in Store").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
-                ui.onNodeWithText("Message seller").performScrollTo().performClick()
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Message seller"))
+            ui.onNodeWithText("Message seller").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Open in Store").isDisplayed() }
                 ui.onNode(hasSetTextAction() and hasText("Message")).assertTextContains("Keep the immediate seller conversation draft")
                 ui.onNodeWithText("Open in Store").performClick()
                 ui.waitUntil(15_000) {
                     ui.onAllNodesWithText("Illustrated field notes access key").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
                 }
-                ui.onNodeWithText("3.75 SAITO").performScrollTo().assertIsDisplayed()
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("3.75 SAITO"))
+            ui.onNodeWithText("3.75 SAITO").assertIsDisplayed()
                 ui.onNodeWithText("Back").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Open in Store").isDisplayed() }
                 ui.onNode(hasSetTextAction() and hasText("Message")).assertTextContains("Keep the immediate seller conversation draft")

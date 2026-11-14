@@ -104,9 +104,11 @@ class StoreBrowsePreviewTest {
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithText("2.5 SAITO").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
                     }
-                    ui.onNodeWithText("Message seller").performScrollTo().assertIsDisplayed().assertHeightIsAtLeast(48.dp)
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Message seller"))
+                    ui.onNodeWithText("Message seller").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
                     captureNativeScreen(File(folder, "$label-product.png"))
-                    ui.onNodeWithText("2.5 SAITO").performScrollTo().assertIsDisplayed()
+                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("2.5 SAITO"))
+                    ui.onNodeWithText("2.5 SAITO").assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()
                     ui.switchStackModule("Store", "Red Square", scrollTarget = true)
                     ui.waitUntil(5_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }

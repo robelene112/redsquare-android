@@ -122,3 +122,28 @@ The new delayed-response test checks the same deep card and pixel coordinate
 across both product Back and module return. Current suite:8classes/13cases,
 including12viewport cells. Main-only compilation passes; AndroidTest compilation,
 fresh complete both-SDK evidence and final re-review are pending. Beta127 stays.
+
+## First native viewport attempt
+
+Source`8fc3aa3513e5b5db6f6d3b69358894bbc422ef50` has0remaining findings in
+both independent reviews. Store runs
+[43533525749](https://github.com/robelene112/redsquare-android/actions/runs/43533525749)
+and[43533522445](https://github.com/robelene112/redsquare-android/actions/runs/43533522445)
+pass the3case catalogue/product/stock/draft class, exact feed/platform routes and
+private Chat route on both SDKs. The Browse class passes the bounded4096reported-
+item continuation/retry and missing-service cases, then the viewport case fails
+at320dp/200%Light: performScrollTo assumes Message seller is already composed,
+but its lazy item is below the visible product content. The actual rendered
+page is scrollable and earlier100/130%Light/Dark product captures show the
+accessible control. A user scroll is required before finding the item. The
+corrected test uses the real list scroll-to-node action in the same original
+budgets, also when returning to a price above the viewport. No production UI
+code or deadline changes for this correction. All71/73ZIP and69/69capture
+members are byte-exact. Later classes were not run and are not accepted.
+
+The focused Store runner now collects every independent class verdict in the
+same source run, following the existing Stack runner pattern. Any failed class
+still fails the entire scope; there are no retries, skipped criteria, widened
+deadlines or assembled successful tails. Current testcode compilation and fresh
+complete scopes remain pending. Existing Stack-link regression runs use the
+same production source. The final signed beta remains115.

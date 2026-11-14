@@ -118,6 +118,42 @@ service, moved keys, wrong replies, local-save failure, bounded key pagination,
 12 theme/text/width cells and byte-exact 4 MiB export. Focused checks do not replace
 #115's complete integration, signed-update and combined-beta acceptance.
 
+## Native Store catalogue under #105
+
+Store reads require the exact advertised `Store` service. The selected Store
+reports stock and bounded catalogue pages; an HTTP page is insufficient. Requests
+use 24 rows by default (maximum 48), official category strings, seller and offset.
+Available/sold filtering applies to a specified seller; the public marketplace
+is active-only. The inspected contract has no global server text search.
+
+Catalogue cards and seller Chat references retain the exact listing signature.
+The public seller/NFT URL instead asks the node for its current matching offer.
+Archive hydration authenticates the original seller, asset, locking commitment,
+quantity, denomination, terms and optional image. Summary SAITO prices are nolan;
+signed listing SAITO prices are decimal. Alternate amounts remain separate.
+These original-term checks do not prove current unspent custody, accepted stock,
+payment or fulfilment. An unavailable signature may still show its authenticated
+original terms with an explicit unavailable state. Browser apps/scripts/themes
+are identified as browser-only and never executed by this Android reader.
+
+Approved Store URLs open a temporary native context without changing the saved
+node. Seller Chat uses the saved Chat node and a locally retained product-reference
+draft; opening it does not send a message or replace unrelated drafts. Linked
+reading state retains only the active bounded Store predecessor chain and its
+Stack origin. Abandoned scenes are pruned after wallet/node restoration; ordinary
+module state remains separate. Defer catalogue list measurement until its real
+page exists so an initial filters-only list cannot clamp a restored scroll anchor.
+
+Protocol authority remains the Vault/Store pin above. Reference generators execute
+isolated pinned/deployed routes, browser read/summary bodies and actual 0.3.15 WASM
+listing creation using public unsafe fixtures. Signed alternatives may share the
+same original input; they do not establish simultaneous unspent listings or full
+community-client/provider acceptance. Owned transport identity is separate from
+the reference listing's Store identity. Financial tickets must bind their actual
+Store counterparty and reconcile current state, not reuse catalogue authentication
+as checkout authority. Focused Store checks do not replace #115's complete
+integration, signed-update and combined-beta acceptance.
+
 ## Native Stack article integration
 
 Signed beta108 delivers the ordinary native public-reading route. Complete

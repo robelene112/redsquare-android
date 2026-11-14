@@ -70,8 +70,10 @@ class StoreCataloguePreviewTest {
             captureNativeScreen(File(context.cacheDir, "store-catalogue-evidence/real-filtered-store-offer.png"))
             ui.onNodeWithText("Field notes access key").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
-            ui.onNodeWithText("Message seller").performScrollTo().assertIsDisplayed()
-            ui.onNodeWithText("2.5 SAITO").performScrollTo().assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Message seller"))
+            ui.onNodeWithText("Message seller").assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("2.5 SAITO"))
+            ui.onNodeWithText("2.5 SAITO").assertIsDisplayed()
             assertTrue(peer.transactions.isEmpty()); assertTrue(peer.vaultUploads.isEmpty())
             captureNativeScreen(File(context.cacheDir, "store-catalogue-evidence/authenticated-store-product.png"))
             ui.onNodeWithText("By ", substring = true).performScrollTo().performClick()
@@ -125,7 +127,8 @@ class StoreCataloguePreviewTest {
                 ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
                 ui.onNodeWithText("Field notes access key").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText("Original creator-authenticated field notes.").isDisplayed() }
-                ui.onNodeWithText("Message seller").performScrollTo().performClick()
+                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Message seller"))
+            ui.onNodeWithText("Message seller").performClick()
                 val url = nl.davidengelen.redsquare.saito.SaitoBackend.OWNER.webUrl + "/store/listing/" + reference.getAsJsonObject("listing").get("id").asString
                 val draft = "Field notes access key\n$url"
                 ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and hasText("Message")).isDisplayed() }

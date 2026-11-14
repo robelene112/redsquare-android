@@ -51,8 +51,10 @@ class StoreMediaPreviewTest {
             val centre = pixels[pixels.width / 2, pixels.height / 2]
             assertTrue("The signed red cover must actually render", centre.red > centre.blue + 0.3f && centre.red > centre.green + 0.3f)
             captureNativeScreen(File(context.cacheDir, "store-media-evidence/signed-native-cover.png"))
-            ui.onNodeWithText("3.75 SAITO").performScrollTo().assertIsDisplayed()
-            ui.onNodeWithText("Message seller").performScrollTo().assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("3.75 SAITO"))
+            ui.onNodeWithText("3.75 SAITO").assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Message seller"))
+            ui.onNodeWithText("Message seller").assertIsDisplayed()
             assertTrue(peer.storeRequests.any { it.getAsJsonObject("data").get("signature")?.asString == reference.getAsJsonObject("listing").get("id").asString })
             unavailable.set(true)
             ui.onNodeWithText("Refresh Store").performClick()

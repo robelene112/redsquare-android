@@ -49,23 +49,24 @@ current source rather than treating9cb as final. The new native suite has8classe
 13cases, with12zero-scale real width/theme/font cells, same inherited deadlines.
 A common fixture owns synthetic buyer4and independently restores captured state.
 
-Current core run core109-review-green.log passes179. Both main-only and
-AndroidTest compilation passed for359d. Its two complete SDK runs pass the3case
-catalogue/product/seller/stock/draft class, then fail on the incorrect Profile
-selector (actual accessible text Your profile). Subsequent classes do not count.
-Exact receipts and actual XML/screenshots are preserved in the packet.
+Current source8fc3aa3513e5b5db6f6d3b69358894bbc422ef50 has179core passes,
+separate main/AndroidTest compile passes and0findings from both full-base reviews.
+Its both-SDK Store scopes43533525749/43533522445 pass catalogue/product/stock/
+drafts (3cases), feed/platform routes and private Chat routes. Browse passes the
+large reported catalogue and missing-service cases but fails320dp/200%Light:
+performScrollTo cannot find an uncomposed lazy Message seller item. Original
+screens show a scrollable page and earlier cells show the real accessible button.
+Correct the test by actual list scrolling within original budgets. Later classes
+were not run, and those partial results do not accept109.
 
-Second review found one remaining finding per axis: restored deep list indices
-clamp against the initial filters row, and abandoned linked scenes accumulate.
-Uncommitted corrections defer mounting the populated list, centrally prune a
-separate linked-state holder to the live predecessor chain/current Stack scene,
-and prune internal popped Store paths. Released StackLinkEntry fields remain
-unchanged; root owns the new persisted scene identity. Added a controlled delayed
-read asserting same deep card and pixel coordinate after product/module returns.
-Main-only compile109-bounded-scene-main.log passes. AndroidTest-only compilation
-runs in compile109-bounded-scene-tests.log. Commit corrected source, obtain full
-both-SDK Store scopes, inspect actual viewports/media, fix real failures and repeat
-two-axis review before closure. Continue110–115 and one combined beta afterwards.
+Current working changes only adjust lazy-item test scrolling, make the focused
+runner collect every independent class verdict (any failure still fails scope),
+and update maintained evidence/operations. Main/UI production source is unchanged
+from reviewed8fc. AndroidTest compilation runs in compile109-virtualized-controls-
+tests.log. Commit, run all Store classes on both SDKs, collect exact artifacts,
+inspect actual12cells/media and fix remaining failures. Stack-link regression
+43533770667(10)passes,43533766215(17)pending, both at8fc; collect/inspect receipts.
+Continue110–115 and one combined beta after109acceptance. No extra permission.
 
 Ticket115 must append all new106–109and subsequent classes/process identities
 to its frozen full catalogue before final shared-source proofs. No intermediate
