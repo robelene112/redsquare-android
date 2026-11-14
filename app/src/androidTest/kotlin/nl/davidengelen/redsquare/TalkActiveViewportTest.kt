@@ -49,7 +49,6 @@ class TalkActiveViewportTest {
                 ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
                 ui.waitUntil(5000) { ui.onNodeWithText("Your room is ready").isDisplayed() }
                 ui.onNodeWithText("Share invitation").assertIsDisplayed()
-                captureNativeScreen(File(folder, "entry-$width.png"))
                 ui.runOnIdle { originalClipboard = clipboard.primaryClip; clipboardObserved = true }
                 ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Copy invitation"))
                 ui.onNodeWithText("Copy invitation").performClick()
@@ -71,6 +70,12 @@ class TalkActiveViewportTest {
                 ui.withPostViewports(activity, folder, "active-$width", widthDp = width) { label, theme ->
                     ui.onNodeWithText("Return to call").performClick()
                     ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
+                    if (label.contains("-font100-")) {
+                        ui.onNode(hasScrollToIndexAction()).performScrollToIndex(0)
+                        ui.onNodeWithText("Your room is ready").assertIsDisplayed()
+                        ui.onNodeWithText("Share invitation").assertIsDisplayed()
+                        captureNativeScreen(File(folder, "$label-entry.png"))
+                    }
                     val controlBounds = mutableListOf<androidx.compose.ui.geometry.Rect>()
                     for (text in listOf("Mute", "Camera off", "Switch camera", "Audio output", "End call")) {
                         val node = ui.onNode(hasText(text) and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()

@@ -153,7 +153,8 @@ assert contract["runtimeProbe"] == dict(testClass="nl.davidengelen.redsquare.Run
     test="observesActualTargetProcessHeap", casesPerBoot=1, rawExtension=".log", separateFromAcceptanceCounts=True)
 assert contract["ownerTalkUiPolish"] == dict(minimumTargetDp=48, controlGapDp=12, endCallGapDp=16,
     widthsDp=[320, 412], fontScales=[1, 1.3, 2], themes=["light", "dark"], separateInvitationCard=True,
-    accurateHostRoomReady=True, waitingInvitationVisibleOnEntry=True, originalApplicationIdentitiesUnchanged=True)
+    accurateHostRoomReady=True, waitingInvitationVisibleOnEntry=True, entryFontScale=1,
+    originalApplicationIdentitiesUnchanged=True)
 for path, checksum in contract["runtimePreflightSourceSha256"].items():
     assert digest(repo / path) == checksum
     assert git("show", source + ":" + path) == (repo / path).read_bytes()
@@ -494,17 +495,17 @@ for prefix,suffix in (("talk-invitation","prejoin"),("talk-active","active")):
                         native_texts = {node.get("text") for node in ET.fromstring(invitation).iter("node")}
                         copy = native_action_bounds(invitation, "Copy invitation" if "Copy invitation" in native_texts else "Invitation copied")
                         assert copy[0] - share[2] >= 12
+                        if scale == 100:
+                            entry_png = archive.extractfile(name + "-entry.png").read()
+                            validate_png(entry_png)
+                            assert struct.unpack(">II", entry_png[16:24]) == (width, 640 if width == 320 else 915)
+                            entry_xml = archive.extractfile(name + "-entry.xml").read()
+                            native_action_bounds(entry_xml, "Share invitation")
+                            assert any(node.get("text") == "Your room is ready" and node.get("visible-to-user") == "true"
+                                for node in ET.fromstring(entry_xml).iter("node"))
         if prefix == "talk-invitation":
             for name in ("implicit-view-prejoin.png","busy-prejoin.png"):
                 validate_png(archive.extractfile(prefix + "-evidence/" + name).read())
-        else:
-            for width in (320, 412):
-                entry = f"talk-active-evidence/entry-{width}"
-                validate_png(archive.extractfile(entry + ".png").read())
-                entry_xml = archive.extractfile(entry + ".xml").read()
-                native_action_bounds(entry_xml, "Share invitation")
-                assert any(node.get("text") == "Your room is ready" and node.get("visible-to-user") == "true"
-                    for node in ET.fromstring(entry_xml).iter("node"))
 with talk_archive("talk-chat") as archive:
     for video in (False,True):
         value = json.loads(archive.extractfile("talk-chat-evidence/chat-" + str(video).lower() + ".json").read())

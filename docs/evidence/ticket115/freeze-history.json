@@ -94,7 +94,7 @@
     "disconnectCorrection": "177full10Social measured invalid16/512MiB before acceptance, terminated/reaped emulator, then failed strict disconnect check because ADBstilllistedserialoffline. Corrected29-only setup waits for actual transport disappearance within15s and retains every observation; no heap/service/app-test changes. Strict final disconnection requirement remains. SDK17branch is unexecuted."
   },
   "ownerTalkUiScope": {
-    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:30:09.306461+00:00",
+    "recordedBeforeNewCompleteDispatchAt": "2026-11-14T23:35:02.137566+00:00",
     "ownerFeedback": "1000038063.jpg: call buttons need space and overall UI needs thought",
     "trackingIssue": 115,
     "supersededCandidate": 129,
@@ -124,15 +124,17 @@
       "separateInvitationCard": true,
       "accurateHostRoomReady": true,
       "originalApplicationIdentitiesUnchanged": true,
-      "waitingInvitationVisibleOnEntry": true
+      "waitingInvitationVisibleOnEntry": true,
+      "entryFontScale": 1
     },
     "allOriginalA07ContractFieldsUnchanged": true,
     "requirement": "New signed artifact and both entire complete SDKs and actual signed127-to-new-artifact updates required. No129promotion or failed-prefix assembly.",
     "freezeHashes": {
-      "full-contract.json": "420e9e5ff86b47a26c686d38a956dc924d7390bf7a363a917e95b0b1addd8d2a",
-      "verify-full.py": "e050dbef02be23b7568242d87806e3bd401eff032101cdc51999945cc02bd035",
+      "full-contract.json": "9d8bcaf2be0cc827caa5770fac4f8ce5513759025ede5d20f9beda85098da49f",
+      "verify-full.py": "fa38a2b1a5791cf916bdfa914be33f1aa3be81997073d09aa8d155a1e828f76a",
       "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
     },
-    "nativeInitialObservation": "D88focused10/17bothfail newCopylookup because descendant was notcomposed belowviewport; initialPNG also shows actualwaitingroominviteactions belowselfpreviewandoutsidefirstviewport. Newsourceprioritizesinvitationcardbeforepreviewforownemptyroom andrequiresvisibleShareontheentryPNG/XML. Tests useactualLazyColumn scrollToNode before physicalcopy, preservinggoals/deadlines."
+    "nativeInitialObservation": "D88focused10/17bothfail newCopylookup because descendant was notcomposed belowviewport; initialPNG also shows actualwaitingroominviteactions belowselfpreviewandoutsidefirstviewport. Newsourceprioritizesinvitationcardbeforepreviewforownemptyroom andrequiresvisibleShareontheentryPNG/XML. Tests useactualLazyColumn scrollToNode before physicalcopy, preservinggoals/deadlines.",
+    "entryGeometryCorrection": "IndependentP2: initialentry-$width captures precededwithPostViewports, so bothwereactualdefault320. Correctedentryproofrunsinsideactual320/412andLight/Darkfont100cells, resetsrealLazylisttoindex0beforeShare-visibleassert/capture, andvalidatorchecksPNGactualdimensionsplusnativeaction. All12font/theme/sizecellsstillrequireactualreachable48dpinvitationcontrolsand12dpgeometryafterscroll. No mislabeleddefaultentryproof accepted."
   }
 }
