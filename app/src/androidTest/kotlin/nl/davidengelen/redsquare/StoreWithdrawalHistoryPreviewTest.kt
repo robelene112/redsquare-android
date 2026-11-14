@@ -37,6 +37,10 @@ class StoreWithdrawalHistoryPreviewTest {
             val original = journal.read(); assertEquals(100, original.size)
             val next = journal.reserve(SaitoBackend.OWNER, candidates.last(), chain, "Ethereum")
             assertEquals(candidates.last().transaction.id, journal.read().last().candidate.transaction.id)
+            // Replay process loss after the original page commit but before the page-count publication.
+            android.util.AtomicFile(java.io.File(context.noBackupFilesDir, prefix + "pages")).delete()
+            val cold = StoreWithdrawalStore(context, wallet.publicKey)
+            assertEquals(candidates.last().transaction.encoded(), cold.read().single().candidate.transaction.encoded())
             assertTrue(TransferStore(context, wallet.publicKey).available(fundedOriginal.inputs).isEmpty())
             journal.observe(original.first(), SaitoStoreWithdrawal.Result(SaitoStoreWithdrawal.State.SUBMITTED, "1"))
             assertThrows(IllegalArgumentException::class.java) { journal.discard(original.first()) }
