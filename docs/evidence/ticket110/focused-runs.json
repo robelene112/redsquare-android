@@ -1,0 +1,99 @@
+{
+  "preliminary": true,
+  "reviewBase": "8810152674202ff0ce09c4ce59926026624b3e87",
+  "qualification": "Work in progress. No complete native acceptance or beta. Failed-run ZIP/source checks are exact; missing/invalid process capture archives are retained and explicitly excluded from acceptance. Public beta127 unchanged. No public financial writes.",
+  "runs": [
+    {
+      "run": 43542376647,
+      "source": "7516336b03dafb66142c06c13d24cef945512e76",
+      "conclusion": "failure",
+      "artifactId": 14092797033,
+      "zipSha256": "681269c593a286b6a32d0590fd03c03b6e4390b152d0698c7a5b50370b921e9b",
+      "zipEntries": 74,
+      "captureMembers": 47,
+      "allExtractedMembersByteExact": true,
+      "unreadableCaptureArchives": [
+        {
+          "path": ".scratch/device-evidence/api-29/store-purchase-process/images.tar",
+          "error": "file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method tar: ReadError('bad checksum')"
+        }
+      ],
+      "acceptance": false
+    },
+    {
+      "run": 43542379321,
+      "source": "7516336b03dafb66142c06c13d24cef945512e76",
+      "conclusion": "failure",
+      "artifactId": 14092474599,
+      "zipSha256": "0078202889595a52a234d8ddce109b15c19fd287d0227fc3858c03d340a13702",
+      "zipEntries": 76,
+      "captureMembers": 47,
+      "allExtractedMembersByteExact": true,
+      "unreadableCaptureArchives": [
+        {
+          "path": ".scratch/device-evidence/api-37.0/store-purchase-process/images.tar",
+          "error": "file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method tar: ReadError('bad checksum')"
+        }
+      ],
+      "acceptance": false
+    },
+    {
+      "run": 43543927001,
+      "source": "e6d1e3ba9bff9c582caa36223e67c45e68847185",
+      "conclusion": "failure",
+      "artifactId": 14094025050,
+      "zipSha256": "06d3f63b904e972ab13872c4d0e3105a3513ff7d9146d4f38fa077eecb52f313",
+      "zipEntries": 74,
+      "captureMembers": 84,
+      "allExtractedMembersByteExact": true,
+      "unreadableCaptureArchives": [
+        {
+          "path": ".scratch/device-evidence/api-29/store-purchase-process/images.tar",
+          "error": "file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method tar: ReadError('bad checksum')"
+        }
+      ],
+      "acceptance": false
+    },
+    {
+      "run": 43543930019,
+      "source": "e6d1e3ba9bff9c582caa36223e67c45e68847185",
+      "conclusion": "failure",
+      "artifactId": 14093009346,
+      "zipSha256": "e0aacd9ae3146ebdf6eb0c85e6e64f6e1596914953ee3f3501df61db720b5ad9",
+      "zipEntries": 75,
+      "captureMembers": 84,
+      "allExtractedMembersByteExact": true,
+      "unreadableCaptureArchives": [
+        {
+          "path": ".scratch/device-evidence/api-37.0/store-purchase-process/images.tar",
+          "error": "file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method tar: ReadError('bad checksum')"
+        }
+      ],
+      "acceptance": false
+    },
+    {
+      "run": 43545843605,
+      "source": "6baa91bd006673b44287917b586d8612af59c1be",
+      "conclusion": "failure",
+      "artifactId": 14094183196,
+      "zipSha256": "6c915e69ab5ff6e0fd56041516976f850958f69b04453b238bf53b7a612035e3",
+      "zipEntries": 76,
+      "captureMembers": 151,
+      "allExtractedMembersByteExact": true,
+      "unreadableCaptureArchives": [],
+      "acceptance": false
+    },
+    {
+      "run": 43545846182,
+      "source": "6baa91bd006673b44287917b586d8612af59c1be",
+      "conclusion": "failure",
+      "artifactId": 14093994561,
+      "zipSha256": "329efa1ac67a8094102f336be7b31514c09684b541576d3e43c61b375156a0ce",
+      "zipEntries": 78,
+      "captureMembers": 151,
+      "allExtractedMembersByteExact": true,
+      "unreadableCaptureArchives": [],
+      "acceptance": false
+    }
+  ]
+}

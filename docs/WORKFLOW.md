@@ -16,8 +16,9 @@ The owner approved the combined Vault/Store scope in
 The owner approved the breakdown and requested the full build on 2026-11-13.
 All ten tickets #106–#115 are published as native sub-issues with verified blocking
 edges. Implement the ready frontier through the combined beta without another
-per-ticket owner confirmation. Reading #106, upload/recovery #107 and advanced ownership/rental foundation #108
-are verified on both SDKs. Next:#109, Store catalogue/native links/unsent Chat. See
+per-ticket owner confirmation. Reading #106, upload/recovery #107, advanced ownership/rental foundation #108
+and Store catalogue/native links/unsent Chat #109 are verified on both SDKs.
+#110is active:SAITO purchases, delivery and recoverable orders. See
 [108 evidence](evidence/ticket108/README.md). Use Vault as the shared file/key/rental basis
 and deliver one combined completed beta, preserving the spec's full payment and
 native UX scope and the existing agent-owned verification/operational boundaries.

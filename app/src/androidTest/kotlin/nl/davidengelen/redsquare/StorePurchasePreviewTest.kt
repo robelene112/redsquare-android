@@ -59,9 +59,8 @@ class StorePurchasePreviewTest {
             val original = requireNotNull(scene.node.candidate()).transaction.encoded()
             captureNativeScreen(File(scene.evidence, "submitted-original-payment-awaits-delivery.png"))
             scene.activity.recreate()
-            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
-            ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
-            ui.onNodeWithText("Store").performScrollTo().performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Store").isDisplayed() }
+            ui.onNodeWithText("Back").performClick()
             ui.onNodeWithText("Orders").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
             ui.onNodeWithText("Field notes access key").performClick()

@@ -30,7 +30,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
     var busy by mutableStateOf(false); private set
     var refreshing by mutableStateOf(false); private set
     private var readJob: Job? = null
-    private var readRevision = 0L
+    @Volatile private var readRevision = 0L
     private var refreshOffset = 0
     var problem by mutableStateOf<Problem?>(null); private set
     enum class Problem { CONNECTION, INSUFFICIENT, CONTEXT, STORAGE, AUTH, CANCELLED, TERMS }
@@ -84,7 +84,10 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                     val order = if (id != null) rows.firstOrNull { it.purchase.transaction.id == id }
                         else rows.getOrNull(if (rows.isEmpty()) 0 else Math.floorMod(offset, rows.size))
                     selectedId = order?.purchase?.transaction?.id
-                    val outcome = order?.let { observe(it, token) }
+                    val active = currentCoroutineContext().job
+                    val outcome = order?.let { observe(it, token) {
+                        active.ensureActive(); check(reading == readRevision)
+                    } }
                     store.read() to outcome
                 }
                 currentCoroutineContext().ensureActive(); publishable(token)
@@ -147,13 +150,15 @@ internal class StorePurchases(private val activity: Activity, private val wallet
         orders = rows; focused = null
     }
     fun check(order: StoreOrderStore.Order) { stopReading(); refresh(order.purchase.transaction.id) }
-    private fun observe(order: StoreOrderStore.Order, token: Long): SaitoStoreChain.Observation {
+    private fun observe(order: StoreOrderStore.Order, token: Long, stillOwned: () -> Unit): SaitoStoreChain.Observation {
         val latest = store.read().single { it.purchase.transaction.id == order.purchase.transaction.id }
         val result = requireNotNull(balances.observeStore(backend, latest.purchase, latest.product.creator, latest.payment?.let {
             SaitoStoreChain.Payment(it.height, it.hash, it.ordinal)
         }, latest.receipt, latest.receiptBlock, latest.cursor))
-        current(token)
-        store.observe(order.purchase.transaction.id, result)
+        synchronized(SaitoLocalState.lock) {
+            current(token); stillOwned()
+            store.observe(order.purchase.transaction.id, result)
+        }
         return result
     }
     fun authorize(existing: StoreOrderStore.Order? = null) {
@@ -198,7 +203,8 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                     }
                     val retained = store.read()
                     withContext(Dispatchers.Main.immediate) { if (revision == token) { orders = retained; focused = order.purchase.transaction.id; review = null } }
-                    val observation = if (order.mayHaveSent) observe(order, token) else null
+                    val sending = currentCoroutineContext().job
+                    val observation = if (order.mayHaveSent) observe(order, token) { sending.ensureActive() } else null
                     if (observation?.payment == null && observation?.receipt == null && order.payment == null && order.receipt == null) {
                         val funding = requireNotNull(balances.funding(backend, wallet.publicKey))
                         require(order.purchase.inputs.all { it in funding.eligible })
@@ -212,7 +218,7 @@ internal class StorePurchases(private val activity: Activity, private val wallet
                             connection.finishBroadcast()
                         }
                     }
-                    val latest = observation ?: observe(order, token)
+                    val latest = observation ?: observe(order, token) { sending.ensureActive() }
                     store.read() to latest
                 }
                 publishable(token); orders = result.first; focused?.let { observations = observations + (it to result.second) }

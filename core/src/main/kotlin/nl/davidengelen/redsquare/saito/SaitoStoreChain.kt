@@ -62,7 +62,9 @@ object SaitoStoreChain {
         // Conflicting observed outcomes remain unknown. A retained receipt never overrules current evidence.
         val selected = if (recent.size == 1) recent.single() else if (recent.isEmpty() && retained != null)
             retained to requireNotNull(previousReceiptBlock) else null
-        val historical = selected != null && recent.none { it.first.signature == selected.first.signature }
+        val selectedHeight = selected?.first?.let { it.asset?.positions?.firstOrNull()?.block ?: it.refundOutput?.block }
+        val historical = selected != null && (recent.none { it.first.signature == selected.first.signature } ||
+            covered[selectedHeight] != selected.second)
         val asset = selected?.first?.asset
         val linked = original != null && selected?.first?.paymentInput?.let {
             it.block == original.height && it.ordinal == original.ordinal

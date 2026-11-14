@@ -6,8 +6,8 @@ The owner approved both completed grills and the shared scope on 2026-11-13.
 [Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
 ready-for-agent. The owner approved the ten-ticket breakdown and requested
 the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
-edges are published and verified. #106–#108 are implemented and verified on both SDKs. Next is #109, Store
-catalogue, native links and unsent seller Chat drafts. Continue the approved ready frontier
+edges are published and verified. #106–#109 are implemented and verified on both SDKs. #110 is active: SAITO
+purchases, delivery and recoverable orders. Continue the approved ready frontier
 through the combined beta without per-ticket implementation questions.
 Source snapshots, publication receipts and working material remain external
 under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
@@ -26,6 +26,42 @@ do not ask the owner to repeat development phone QA. No new production node,
 public Saito financial write, community recipient or provider/Play operation is
 authorized. Other parent and real-release prerequisites remain open.
 
+
+## Active Store purchase slice #110
+
+#106–#109 are closed. #110 is assigned and has no open native blocker. Review
+base:8810152674202ff0ce09c4ce59926026624b3e87. Implementation follows source checkpoint
+6baa91bd006673b44287917b586d8612af59c1be with reader-cancellation and historical
+receipt fixes. The exact newer candidate is the current Git HEAD; none is accepted yet. Do not mark110complete or advance111
+until corrected complete both-SDK native proofs, reviews and relevant regressions
+pass. No new beta has been built or published. Continue110–115sequentially under
+the existing authorization, then one combined beta. Do not ask for phone QA.
+
+See [110packet](../evidence/ticket110/README.md) and its preliminary run ledger.
+First751both-SDK runs failed the owned fixture's advertised signing key. Both e6
+runs remain failed despite some successful native purchase/refund cases: hidden
+status/error content,200percent lazy-list reachability, and Java BigInteger.TWO
+in two Android10 test assertions. Every original ZIP and readable capture is
+byte-exact; process captures are unavailable where preparation failed. They are
+not acceptance. 6baa runs43545843605(10)/43545846182(17) remain failed only on an incorrect
+RedSquareafterrecreation test expectation. Both pass the12viewport cells,6then-current
+recovery cases and all3actual-process phases. Preserve151exactcaptures perOS.
+The correction expects the retained Store/product and returns to Orders.
+
+Latest core187passes/0ignored include actual pinned/WASM funded purchase,
+partial/full fulfillment/refund, exact current tuple, monetary bounds, older and
+late settlement ancestry, partial-read continuation and historical refund scope.
+Main/AndroidTest compiler phases stay separate. Reader cancellation must validate
+coroutine/read ownership immediately before the durable update under the shared
+state lock; the older held reply must not overwrite a newer saved receipt. Native
+read-only navigation and obsolete-reply cases are additive under the original
+180s recovery-class bound. Viewport remains480s/12cells; process phases120s each.
+
+No public financial write or deployed refund/provider proof is authorized. The
+isolated refund reference requires the explicit input-copy adapter because the
+basic WASM wrapper consumes its input. Preserve this qualification under STORE_LIVE.
+115still owns frozen full-catalogue additions, full-source verification and actual
+signed127-to-new upgrade/public delivery. Parent1/36/55/84/86remain open.
 
 ## Completed Store catalogue slice #109, next #110
 

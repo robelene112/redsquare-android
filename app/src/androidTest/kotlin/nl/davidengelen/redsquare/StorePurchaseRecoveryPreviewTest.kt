@@ -122,4 +122,43 @@ class StorePurchaseRecoveryPreviewTest {
         }
     }
 
+    @Test fun releasingAnObsoleteHeldReplyCannotOverwriteNewerDurableDelivery() = withVaultDeviceCredential { device ->
+        withStorePurchaseFixture("obsolete-order-read", 1) { scene ->
+            scene.node.phase = OwnedStorePurchaseFixture.Phase.PAID
+            ui.openStorePurchaseProduct()
+            ui.waitUntil(15_000) { ui.onAllNodesWithText("Confirm and pay").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Confirm and pay").performScrollTo().performClick(); waitForSystemPin(device); enterRealSystemPin(device)
+            ui.waitUntil(25_000) { ui.onNode(hasText("Payment observed. Waiting for delivery.") and hasAnyAncestor(isDialog())).isDisplayed() }
+            val gate = java.util.concurrent.CountDownLatch(1)
+            try {
+                scene.node.blockReadGate = gate
+                ui.onNodeWithText("Check order").performScrollTo().performClick()
+                ui.waitUntil(5000) { scene.node.blockedReads.get() == 1 }
+                ui.onNodeWithText("Done").performScrollTo().performClick()
+                ui.waitUntil(5000) { ui.onAllNodesWithText("Check order").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+                ui.onNodeWithText("Back").performClick(); ui.onNodeWithText("Orders").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithText("Field notes access key").isDisplayed() }
+                ui.onNodeWithText("Field notes access key").performClick()
+                scene.node.phase = OwnedStorePurchaseFixture.Phase.DELIVERED
+                ui.onNodeWithText("Check order").performScrollTo().performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasText("Article received") and hasAnyAncestor(isDialog())).isDisplayed() }
+                val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+                val owner = scene.node.reference.get("buyer").asString
+                val receipt = requireNotNull(StoreOrderStore(context, owner).read().single().receipt).signature
+                assertTrue("Release the old response before the unchanged ten-second HTTP read timeout",
+                    android.os.SystemClock.elapsedRealtime() - scene.node.heldReplyStartedAt < 9000)
+                gate.countDown()
+                ui.waitUntil(5000) { scene.node.completedHeldReplies.get() == 1 }
+                // Observe the complete immediate reply-processing window, rather than asserting before the old reply is released.
+                val end = android.os.SystemClock.uptimeMillis() + 2500
+                do {
+                    assertEquals(receipt, StoreOrderStore(context, owner).read().single().receipt?.signature)
+                    android.os.SystemClock.sleep(40)
+                } while (android.os.SystemClock.uptimeMillis() < end)
+                assertEquals(1, scene.node.peer.transactions.size)
+                captureNativeScreen(File(scene.evidence, "obsolete-old-reply-cannot-clear-durable-delivery.png"))
+            } finally { gate.countDown(); scene.node.blockReadGate = null }
+        }
+    }
+
 }

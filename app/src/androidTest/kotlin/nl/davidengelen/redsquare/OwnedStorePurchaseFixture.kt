@@ -17,6 +17,9 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
     @Volatile var wrongCreator = false
     @Volatile var blockReadGate: java.util.concurrent.CountDownLatch? = null
     val blockedReads = java.util.concurrent.atomic.AtomicInteger()
+    val completedHeldReplies = java.util.concurrent.atomic.AtomicInteger()
+    val holdNextBlock = java.util.concurrent.atomic.AtomicBoolean(true)
+    @Volatile var heldReplyStartedAt = 0L
     lateinit var peer: ControlledFeedPeer
     private val signer = SaitoWallet.fromPrivateKey("0".repeat(63) + "3") // Published unsafe fixture only.
     private var version: String? = null
@@ -37,9 +40,6 @@ internal class OwnedStorePurchaseFixture(val reference: JsonObject) {
     }
     @Synchronized fun response(target: String): MockResponse {
         if (target == "/options") return MockResponse(body = "{\"consensus\":{\"genesis_period\":100000}}")
-        if (target.startsWith("/block/")) blockReadGate?.let { gate ->
-            blockedReads.incrementAndGet(); check(gate.await(30, java.util.concurrent.TimeUnit.SECONDS))
-        }
         val candidate = candidate()
         if (candidate == null || phase == Phase.WAITING) {
             if (target != "/balance/${reference.get("buyer").asString}") return MockResponse(code = 404)

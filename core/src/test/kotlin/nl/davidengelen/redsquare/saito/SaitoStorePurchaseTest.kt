@@ -132,4 +132,25 @@ class SaitoStorePurchaseTest {
         assertEquals(partial.cursor?.hash, requested.first())
     }
 
+    @Test fun aContinuedRefundIsHistoricalUntilItsExactOutputIsCurrentlyObserved() {
+        val vector = requireNotNull(javaClass.getResourceAsStream("/native-store-purchase-reference.json"))
+            .reader().use { JsonParser.parseReader(it).asJsonObject }
+        val purchase = SaitoStorePurchase.restore(vector.getAsJsonObject("purchase").get("networkBase64").asString)
+        val block = vector.getAsJsonObject("blocks").getAsJsonObject("refund")
+        val time = block.get("timestamp").asLong
+        val cursor = SaitoStoreChain.Cursor(BigInteger("22"), block.get("hash").asString)
+        val payment = vector.getAsJsonObject("blocks").getAsJsonObject("payment")
+        val known = SaitoStoreChain.Payment(BigInteger("21"), payment.get("hash").asString, BigInteger.ZERO)
+        // Current tip is intentionally unrelated/unavailable: the retained prefix is historical evidence only.
+        val snapshot = SaitoBalanceSnapshot.parse("$time-42-${"cd".repeat(32)}.snap\n".toByteArray(), purchase.author, time)
+        val result = SaitoStoreChain.observe(purchase, snapshot, vector.get("store").asString, known, cursor = cursor) { hash ->
+            when (hash) {
+                cursor.hash -> java.util.Base64.getDecoder().decode(block.get("fullBase64").asString)
+                known.hash -> java.util.Base64.getDecoder().decode(payment.get("fullBase64").asString)
+                else -> null
+            }
+        }
+        assertNotNull(result.receipt); assertTrue(result.historical); assertFalse(result.refunded)
+    }
+
 }

@@ -29,7 +29,19 @@ internal fun withStorePurchaseFixture(name: String, expectedTransactions: Int = 
         if (!preserveOrders) { state.prepare(); wallets.replace(original, buyer) }
         else check(wallets.loadExisting().publicKey == buyer.publicKey)
         MockWebServer().use { server ->
-            server.dispatcher = object : Dispatcher() { override fun dispatch(request: RecordedRequest) = node.response(request.target) }
+            server.dispatcher = object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    val response = node.response(request.target)
+                    val held = node.blockReadGate
+                    if (request.target.startsWith("/block/") && held != null && node.holdNextBlock.compareAndSet(true, false)) {
+                        node.heldReplyStartedAt = android.os.SystemClock.elapsedRealtime()
+                        node.blockedReads.incrementAndGet()
+                        check(held.await(30, java.util.concurrent.TimeUnit.SECONDS))
+                        node.completedHeldReplies.incrementAndGet()
+                    }
+                    return response
+                }
+            }
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             withAppFrameFixture(name, "store-purchase-evidence", feedRows = "[]", expectedTransactionCount = expectedTransactions,
                 peerIdentity = SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), advertisedServices = "archive||;Store||",
