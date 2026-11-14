@@ -28,6 +28,10 @@ class StoreCryptoViewportPreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodesWithText(loading).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Other payment methods"))
                     ui.onNodeWithText("Quantity").performScrollTo().performTextReplacement("2")
+                    // Real IME entry can outlive the text replacement, especially on Android17.
+                    ui.waitUntil(15_000) { keyboardVisible(scene) }
+                    androidx.test.uiautomator.UiDevice.getInstance(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()).pressBack()
+                    ui.waitUntil(5_000) { !keyboardVisible(scene) }
                     ui.onNodeWithText("Other payment methods").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
                     ui.waitUntil(15_000) { ui.onAllNodesWithText("Pay with USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Pay with USDT").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
@@ -83,4 +87,13 @@ class StoreCryptoViewportPreviewTest {
             }
         }
     }
+    private fun keyboardVisible(scene: StorePurchaseScene): Boolean {
+        var visible = false
+        scene.activity.onActivity { activity ->
+            visible = androidx.core.view.ViewCompat.getRootWindowInsets(activity.window.decorView)
+                ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true
+        }
+        return visible
+    }
+
 }
