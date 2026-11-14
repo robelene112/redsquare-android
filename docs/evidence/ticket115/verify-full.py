@@ -64,6 +64,54 @@ def validate_visual(name, data):
         ET.fromstring(data)
 
 
+def validate_runtime_preflight(root):
+    folder = root / "runtime-preflight"
+    accepted = json.loads((folder / "accepted.json").read_text())
+    last = accepted["attempt"]
+    assert type(last) is int and 1 <= last <= 3
+    assert {p.name for p in folder.iterdir() if p.is_dir()} == {f"boot-{i}" for i in range(1, last + 1)}
+    assert (folder / "accepted.json").read_bytes() == (folder / f"boot-{last}/result.json").read_bytes()
+    records = []
+    configuration_names = {"avd-config.ini", "emulator-capacity.txt", "system-image.txt",
+        "system-image.properties", "system-build.txt", "device-abi.txt", "page-size.txt", "requested-page-size.txt"}
+    for attempt in range(1, last + 1):
+        boot = folder / f"boot-{attempt}"
+        record = json.loads((boot / "result.json").read_text())
+        assert record["attempt"] == attempt and record["maxAttempts"] == 3
+        assert set(record["configurationSha256"]) == configuration_names
+        for name, checksum in record["configurationSha256"].items():
+            assert digest(boot / name) == checksum
+            assert (boot / name).read_bytes() == (folder / "boot-1" / name).read_bytes()
+        raw_probe = (boot / "probe.log").read_bytes()
+        assert hashlib.sha256(raw_probe).hexdigest() == record["probeSha256"]
+        text = raw_probe.decode()
+        values = re.findall(r"^INSTRUMENTATION_RESULT: heapProbe=(.+)\r?$", text, re.M)
+        assert len(values) == 1 and json.loads(values[0]) == record["observation"]
+        assert re.findall(r"^INSTRUMENTATION_CODE: (-?\d+)\s*$", text, re.M) == ["-1"]
+        observed = record["observation"]
+        assert observed["package"] == "nl.davidengelen.redsquare.dev" and observed["sdk"] == 29
+        assert observed["hardware"] in ("ranchu", "goldfish")
+        assert observed["pid"] > 0 and observed["parentPid"] > 0
+        assert observed["actualBytes"] > 0 and observed["declaredBytes"] > 0
+        properties = json.loads((boot / "properties.json").read_text())
+        assert set(properties) == {"dalvik.vm.heapsize", "dalvik.vm.heapgrowthlimit", "ro.kernel.qemu.dalvik.vm.heapsize"}
+        if attempt == last:
+            assert record["result"] == "PASS" and observed["actualBytes"] == observed["declaredBytes"]
+        else:
+            assert record["result"] == "INVALID_HEAP" and observed["actualBytes"] != observed["declaredBytes"]
+            termination = json.loads((boot / "termination.json").read_text())
+            assert termination["fullyReaped"] and termination["deviceDisconnected"]
+            assert termination["action"] == "cold-boot" and termination["emulatorPid"] > 0
+            serial = termination["emulatorSerial"]
+            assert re.fullmatch(r"emulator-[0-9]+", serial)
+            devices = (boot / "devices-after-shutdown.log").read_text().splitlines()
+            assert devices[0] == "List of devices attached"
+            assert not any(line.split() and line.split()[0] == serial for line in devices[1:])
+            assert (boot / "shutdown.log").stat().st_size > 0
+        records.append(record)
+    return records
+
+
 contract_path = "docs/evidence/ticket115/full-contract.json"
 contract_bytes = git("show", source + ":" + contract_path)
 assert contract_bytes == (packet / "full-contract.json").read_bytes(), "Contract changed after execution"
@@ -73,6 +121,11 @@ trace_helper = packet / "trace-check.py"
 assert digest(trace_helper) == contract["traceValidatorSha256"]
 assert git("show", source + ":docs/evidence/ticket115/trace-check.py") == trace_helper.read_bytes(), "Trace validator changed after execution"
 assert contract["creatorRefreshTrace"] == dict(mode="method", refreshes=20, completeMainMerges=20)
+assert contract["runtimePreflight"] == dict(sdk=29, maxColdBoots=3, beforeApplicationTests=True,
+    unchangedConfiguration=True, noHeapOrServiceChanges=True)
+for path, checksum in contract["runtimePreflightSourceSha256"].items():
+    assert digest(repo / path) == checksum
+    assert git("show", source + ":" + path) == (repo / path).read_bytes()
 baseline_bytes = git("show", source + ":docs/evidence/ticket103/full-contract.json")
 assert hashlib.sha256(baseline_bytes).hexdigest() == contract["inheritedContractSha256"]
 baseline = json.loads(baseline_bytes)
@@ -155,6 +208,7 @@ archives = {}
 originals = {}
 assumptions = []
 recovery_totals = {name: 0 for name in contract["expectedRecoveryTotals"][sdk]}
+runtime_preflight = {}
 for part in ("chat", "social", "wallet"):
     artifact = raw / ("android-native-proof-" + part)
     root = artifact / ".scratch/device-evidence" / ("api-29" if sdk == "10" else "api-37.0")
@@ -162,6 +216,8 @@ for part in ("chat", "social", "wallet"):
         assert (artifact / ".scratch" / name).read_text().strip() == source
     for name in ("partition.txt", "partition-complete.txt"):
         assert (root / name).read_text().strip() == part
+    if sdk == "10":
+        runtime_preflight[part] = validate_runtime_preflight(root)
     actual.update(ids.identities(root))
     destination = view / part
     destination.mkdir()
@@ -478,6 +534,7 @@ target.mkdir(exist_ok=False)
 summary = {"result": "PASS", "sdk": sdk, "source": source, "run": run,
            "completedIdentities": actual.total(), "recoveryTotals": recovery_totals, "classes": len({key[1] for key in actual}),
            "assumptions": assumptions, "inheritedMissingFailureCaptures": qualified_missing, "originalArchives": len(archives), "rawDirectory": str(raw),
+           "runtimePreflight": runtime_preflight,
            "qualification": "Complete primary run, all3partitions. Original raw artifacts retained externally. No partial assembly or physical/provider/store acceptance."}
 (target / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
 print(json.dumps(summary))

@@ -152,6 +152,9 @@ class VideoPreviewTest {
     }
 
     @Test fun aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink() {
+        // Connect native accessibility before the controlled WebView is created.
+        // Preserve the exact native-text lookup, physical click and ten-second goal.
+        val device = UiDevice.getInstance(instrumentation)
         val reference = instrumentation.context.assets.open("native-video-reference.json").bufferedReader()
             .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
         val row = reference.getAsJsonObject("text")
@@ -232,7 +235,6 @@ class VideoPreviewTest {
                             ui.onNodeWithText("Retry").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(3, api.requestCount)
-                            val device = UiDevice.getInstance(instrumentation)
                             requireNotNull(device.wait(Until.findObject(By.text("Play controlled refused video")), 10_000)).click()
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("Retry").fetchSemanticsNodes().isNotEmpty() }
                             assertProviderTextVisible(device, "Controlled provider explanation remains visible.")

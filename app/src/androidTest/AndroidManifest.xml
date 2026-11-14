@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
+    <instrumentation android:name="nl.davidengelen.redsquare.RuntimeHeapProbe"
+        android:targetPackage="nl.davidengelen.redsquare.dev" />
     <queries>
         <package android:name="com.android.talkback" />
         <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>

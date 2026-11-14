@@ -112,6 +112,43 @@ fi
 
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "$TEST_DEVICE_API" == 29 ]]; then
+    runtime_attempt=${PROOF_RUNTIME_ATTEMPT:-1}
+    [[ "$runtime_attempt" =~ ^[123]$ ]] || { echo 'Invalid provisioning attempt' >&2; exit 1; }
+    runtime_exit=0
+    python3 "$repo_dir/scripts/runtime-heap-preflight" --evidence "$evidence" \
+        --attempt "$runtime_attempt" --avd-config "$avd_home/redsquare-proof.avd/config.ini" || runtime_exit=$?
+    if [[ "$runtime_exit" == 42 ]]; then
+        if [[ "$runtime_attempt" == 3 ]]; then echo 'Actual VM heap differs from declared memory after three cold boots' >&2; exit 1; fi
+        [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+        rejected_serial=$(adb get-serialno)
+        [[ "$rejected_serial" =~ ^emulator-[0-9]+$ ]] || { echo 'Invalid emulator serial' >&2; exit 1; }
+        # Retry provisioning only. No acceptance class has run, and neither heap
+        # properties nor zygote/services are changed or restarted individually.
+        timeout 15 adb emu kill > "$evidence/runtime-preflight/boot-$runtime_attempt/shutdown.log" 2>&1
+        for ((stop_attempt=0; stop_attempt<100; stop_attempt++)); do
+            kill -0 "$emulator_pid" 2>/dev/null || break
+            sleep 0.1
+        done
+        if kill -0 "$emulator_pid" 2>/dev/null; then kill "$emulator_pid"; fi
+        for ((stop_attempt=0; stop_attempt<100; stop_attempt++)); do
+            kill -0 "$emulator_pid" 2>/dev/null || break
+            sleep 0.1
+        done
+        if kill -0 "$emulator_pid" 2>/dev/null; then kill -KILL "$emulator_pid"; fi
+        wait "$emulator_pid" || true
+        rejected_devices=$(timeout 15 adb devices)
+        printf '%s\n' "$rejected_devices" > "$evidence/runtime-preflight/boot-$runtime_attempt/devices-after-shutdown.log"
+        if printf '%s\n' "$rejected_devices" | awk -v serial="$rejected_serial" '$1 == serial {found=1} END {exit !found}'; then
+            echo 'Rejected emulator is still connected' >&2; exit 1
+        fi
+        printf '{"emulatorPid":%s,"emulatorSerial":"%s","fullyReaped":true,"deviceDisconnected":true,"action":"cold-boot"}\n' \
+            "$emulator_pid" "$rejected_serial" > "$evidence/runtime-preflight/boot-$runtime_attempt/termination.json"
+        trap - EXIT
+        exec env PROOF_RUNTIME_ATTEMPT="$((runtime_attempt + 1))" bash "$repo_dir/scripts/emulator-check"
+    fi
+    [[ "$runtime_exit" == 0 ]] || { echo 'Runtime provisioning probe failed' >&2; exit "$runtime_exit"; }
+fi
 if [[ "${TEST_SCOPE:-full}" == candidate-update* ]]; then
     [[ "${TEST_CANDIDATE_VERSION:-}" =~ ^[0-9]+$ ]] && ((10#$TEST_CANDIDATE_VERSION > 83)) || {
         echo 'Require an immutable signed candidate newer than beta83' >&2; exit 2;

@@ -12074,5 +12074,18 @@
     "mode": "method",
     "refreshes": 20,
     "completeMainMerges": 20
+  },
+  "runtimePreflight": {
+    "sdk": 29,
+    "maxColdBoots": 3,
+    "beforeApplicationTests": true,
+    "unchangedConfiguration": true,
+    "noHeapOrServiceChanges": true
+  },
+  "runtimePreflightSourceSha256": {
+    "scripts/emulator-check": "4903023642f354c435f52028388f55e4967663b204dd55a4305a85414eea7c1c",
+    "scripts/runtime-heap-preflight": "59881261c15aed7714db6f8a648f268d8bc39ac8c2dda5c2a44854437cbf2fef",
+    "app/src/androidTest/AndroidManifest.xml": "65cfc667a28c9b8c8ba50ec4645154792d25549ab8019d0c093e5d1c388dc35d",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RuntimeHeapProbe.kt": "a003b66da4b6725aa188518a533887d41053abceb018b59f012174443a8c2b21"
   }
 }
