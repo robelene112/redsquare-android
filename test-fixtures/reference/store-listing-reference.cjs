@@ -1,6 +1,6 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3','--rental','--rental-web3','--rental-multiple'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--image','--partial','--web3','--rental','--rental-web3','--rental-multiple','--rental-later'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
 const rental=process.argv[6]?.startsWith('--rental'),web3=['--web3','--rental-web3'].includes(process.argv[6]),illustrated=process.argv[6]==='--image',quantity=(rental&&process.argv[6]!=='--rental-multiple')||process.argv[6]==='--partial'?1:2;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -32,7 +32,7 @@ if(rental){
  source.id=b.subarray(93+(count+2)*59,126+(count+2)*59).toString('hex');source.key=mint.mint;
  source.script={witness:{utxokey1:witnesses[0],utxokey2:witnesses[1],utxokey3:witnesses[2]}};
 }
-const scalar='0'.repeat(63)+'2',timestamp=illustrated?1700002001000n:1700002000000n;
+const scalar='0'.repeat(63)+'2',timestamp=process.argv[6]==='--rental-later'?1700005600000n:illustrated?1700002001000n:1700002000000n;
 const forbidden=()=>{throw Error('Reference must not use a network')};
 global.shared_methods={read_value:async()=>new Uint8Array(),write_value:async()=>{},append_value:()=>{},flush_data:()=>{},ensure_directory_exists:()=>{},load_block_file_list:async()=>[],is_existing_file:async()=>false,remove_value:async()=>{},load_wallet:()=>{},save_wallet:()=>{},load_blockchain:()=>{},save_blockchain:()=>{},emit_interface_event:()=>{},connect_to_peer:forbidden,send_message_by_peer_id:forbidden,send_message:forbidden,send_message_to_all:forbidden};
 function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.readUInt32BE(0)+wire.readUInt32BE(4)),detached=Buffer.from(wire.subarray(0,offset));detached.writeUInt32BE(0,8);return {id:tx.signature,networkBase64:wire.toString('base64'),envelope:JSON.stringify({t:detached.toString('base64'),m:wire.subarray(offset).toString('base64'),opt:Buffer.from('{}').toString('base64')})}}

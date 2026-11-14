@@ -16,7 +16,7 @@ internal data class StoreRentalRead(val offer: SaitoStoreRental.Offer? = null, v
 
 @Composable
 internal fun rememberStoreRentalTerms(product: StoreProduct?): StoreRentalRead {
-    val activity = androidx.compose.ui.platform.LocalContext.current as android.app.Activity
+    val activity = androidx.compose.ui.platform.LocalContext.current
     val result by produceState(StoreRentalRead(), product) {
         value = StoreRentalRead()
         value = try {

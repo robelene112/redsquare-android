@@ -1,6 +1,6 @@
 // Actual isolated Store listing builder and WASM wallet. Public unsafe fixture identities only.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
-if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--full','--rental','--rental-partial'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
+if(![6,7].includes(process.argv.length)||(process.argv.length===7&&!['--full','--rental','--rental-partial','--rental-later'].includes(process.argv[6])))throw Error('Usage: node store-listing-reference.cjs runtime upstream acorn.js output [--image]');
 
 const rental=process.argv[6]?.startsWith('--rental'),quantity=process.argv[6]==='--full'?2:1;
 const runtime=path.resolve(process.argv[2]),root=path.resolve(process.argv[3]),parser=path.resolve(process.argv[4]);
@@ -38,8 +38,8 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
  const wallet=await wasm.get_wallet(),buyer=await wallet.get_public_key(),store=wasm.generate_public_key('0'.repeat(63)+'3');
  const funding=new wasm.WasmWalletSlip();funding.set_amount(1000000000n);funding.set_block_id(10n);funding.set_tx_ordinal(2n);funding.set_slip_index(0);funding.set_slip_type(0);funding.set_lc(true);funding.set_spent(false);
  const key=Buffer.alloc(59);Buffer.from(base58.decode(buyer)).copy(key);key.writeBigUInt64BE(10n,33);key.writeBigUInt64BE(2n,41);key.writeBigUInt64BE(1000000000n,50);funding.set_utxokey(key.toString('hex'));await wallet.add_slip(funding);
- const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources', (rental?(process.argv[6]==='--rental-partial'?'native-store-rental-multiple-listing-reference':'native-store-rental-listing-reference'):'native-store-listing-reference')+'.json'),'utf8'));
- const timestamp=1700003000000n;
+ const listing=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../core/src/test/resources', (rental?(process.argv[6]==='--rental-partial'?'native-store-rental-multiple-listing-reference':process.argv[6]==='--rental-later'?'native-store-rental-later-listing-reference':'native-store-rental-listing-reference'):'native-store-listing-reference')+'.json'),'utf8'));
+ const timestamp=process.argv[6]==='--rental-later'?1700006600000n:1700003000000n;
  const app={crypto:{toBase58:hex=>base58.encode(Buffer.from(hex,'hex'))},core:{scripting:{hash:s=>wasm.get_script_hash(JSON.stringify(s)),address:s=>wasm.get_script_address(JSON.stringify(s))}},wallet:{getPublicKey:async()=>buyer,createUnsignedTransactionWithDefaultFee:async(recipient,amount)=>{
  const native=await wallet.createTransaction(recipient,amount,10000000n,false);
  return {native,msg:{},sign:async function(){native.data=Buffer.from(JSON.stringify(this.msg));native.timestamp=timestamp;await native.sign();this.signature=native.signature}};
@@ -60,10 +60,10 @@ function envelope(tx){const wire=Buffer.from(tx.serialize()),offset=93+59*(wire.
   returnType(){return rental?'store-nft-rental':'vault-nft-key'}
   async modifyBeforeSend(tx,to,data){
    const code=fs.readFileSync(path.join(root,'node/mods/store/store.js'),'utf8'),klass=acorn.parse(code,{ecmaVersion:'latest'}).body.find(n=>n.type==='ClassDeclaration'&&n.id.name==='Store'),n=klass.body.body.find(n=>n.key?.name==='respondTo');
-   const hook=vm.runInNewContext('({'+code.slice(n.start,n.end)+'})',{Buffer,Date:{now:()=>1700004000000}}).respondTo.call({app:{...this.app,wallet:{...this.app.wallet,getPrivateKey:async()=> '0'.repeat(63)+'3'}}},'saito-nft-transfer').onTransfer;
+   const hook=vm.runInNewContext('({'+code.slice(n.start,n.end)+'})',{Buffer,Date:{now:()=>process.argv[6]==='--rental-later'?1700007600000:1700004000000}}).respondTo.call({app:{...this.app,wallet:{...this.app.wallet,getPrivateKey:async()=> '0'.repeat(63)+'3'}}},'saito-nft-transfer').onTransfer;
    return hook(this,tx,to,data);
   }
- },Date:{now:()=>1700004000000},console:consoleAdapter};
+ },Date:{now:()=>process.argv[6]==='--rental-later'?1700007600000:1700004000000},console:consoleAdapter};
  settlementGlobals.partitionCustodyDeposit=vm.runInNewContext('('+fn('transactions','partitionCustodyDeposit')+')',settlementGlobals);
  const methods=['attachFulfillmentTxmsg','createFulfillmentTransaction','createOrderRefundTransaction'].map(name=>method('transactions',name));
  const storeMethods=vm.runInNewContext('({'+methods.join(',')+'})',settlementGlobals);

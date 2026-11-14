@@ -126,4 +126,32 @@ class StoreRentalAccessPreviewTest {
             } finally { gate.countDown(); scene.node.fundingGate = null }
         }
     }
+    @Test fun aNewBrowserRentalReplacesTheOlderLocalRightForTheSameFile() {
+        withStorePurchaseFixture("rental-new-browser-old-local", rental = true, browserRental = true, laterRental = true) { scene ->
+            fun fixture(name: String) = InstrumentationRegistry.getInstrumentation().context.assets.open(name).reader()
+                .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
+            val offer = fixture("native-store-rental-listing-reference.json")
+            val paid = fixture("native-store-rental-purchase-reference.json")
+            val purchase = nl.davidengelen.redsquare.saito.SaitoStorePurchase.restore(paid.getAsJsonObject("purchase").get("networkBase64").asString)
+            val product = requireNotNull(nl.davidengelen.redsquare.saito.SaitoStore.readListing(nl.davidengelen.redsquare.saito.SaitoStore.readCatalogue(offer.get("page").toString()).items.single(), offer.getAsJsonObject("listing").get("envelope").asString))
+            val oldSnapshot = nl.davidengelen.redsquare.saito.SaitoBalanceSnapshot.parse(paid.getAsJsonObject("blocks").get("snapshot").asString.toByteArray(), purchase.buyer, 1700004000000)
+            val observation = nl.davidengelen.redsquare.saito.SaitoStoreChain.observe(purchase, oldSnapshot, product.creator) { hash ->
+                paid.getAsJsonObject("blocks").getAsJsonObject("blocks").get(hash)?.asString?.let { java.util.Base64.getDecoder().decode(it) }
+            }
+            assertTrue(observation.delivered)
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            val journal = nl.davidengelen.redsquare.saito.StoreOrderStore(context, purchase.buyer)
+            val old = journal.reserve(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, purchase, product)
+            journal.observe(old.id, observation)
+            ui.openNativeVault()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }
+            ui.onNodeWithText("Keep offline").performScrollTo().performClick()
+            // The owned provider accepts only the new independently executed browser loan, never the old path.
+            ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
+            assertEquals(1, requireNotNull(scene.rental).checkouts)
+            assertEquals(1700012800000L, requireNotNull(nl.davidengelen.redsquare.saito.SaitoStoreRental.entitlement(purchase, product, requireNotNull(journal.read().single().receipt).encoded).grant).expiresAt)
+            assertTrue(scene.node.peer.transactions.isEmpty())
+            captureNativeScreen(File(scene.evidence, "new-browser-rental-preferred-over-old-local-order.png"))
+        }
+    }
 }

@@ -111,7 +111,13 @@ explicit parser argument; it executes isolated official bodies, not the full web
 client. Store rental checkout uses the original signed master file and a separate
 Store rental entitlement; listing creation fixes the end time. It does not start a
 new duration at payment. Archive has one active owner script per file. The first
-undelegated path hop fixes the renter, including later delegation.
+undelegated path hop fixes the renter, including later delegation. A partially
+sold rental's remaining inventory is already assigned; its copied path cannot
+create a fresh lease. Native new-payment controls reject assigned or elapsed-end
+offers, including after authentication and immediately before initial enqueue.
+Previously sent uncertain orders remain observable/recoverable. Public signed
+Store history also recovers browser-held rentals without a local buyer journal;
+when local/public rights cover the same file, the latest verified expiry is used.
 
 Pinned Archive rejects a repeated master checkout once ownership is the loan hash.
 Native explicit reads therefore try the saved loan before initial activation.

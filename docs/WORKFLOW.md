@@ -55,6 +55,16 @@ The preceding issue102 is delivered in signed beta112. Preserve its accepted
 full-run catalog erratum and fixture-only source bridge. Work stays sequential;
 start a new implementation only when the owner asks for another ticket.
 
+The rental scopes retain `StoreRentalCreationPreviewTest` and
+`StoreRentalAccessPreviewTest` under their individual bounds of 180 seconds.
+`StoreRentalPaymentPreviewTest` adds all seven advertised methods and the
+USDT-denominated rental under a separate bound of 180 seconds, additively in complete
+Purchase/full Wallet. Tests use the historical signed-transaction clock only for
+local new-purchase availability under DEBUG/dev/emulator guards. Provider access
+and restoration still use separately executed WASM NOW/actor decisions. Original
+financial, read/navigation and modal deadlines remain. Focused observations never
+replace #115's frozen complete-source SDK, signed-update or public delivery proof.
+
 ## Load the real skills
 
 Read `.agents/skills/<name>/SKILL.md` before a phase and follow its referenced
