@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.*
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicLong
 
-internal data class VaultEntry(val token: String, val name: String, val key: VaultKey?, val copy: VaultCopy?, val type: String?, val rental: SaitoVaultRental? = null, val creatorMaster: Boolean = false)
+internal data class VaultEntry(val token: String, val name: String, val key: VaultKey?, val copy: VaultCopy?, val type: String?, val rental: SaitoVaultRental? = null, val creatorMaster: Boolean = false, val rentalAlternatives: List<SaitoVaultRental> = emptyList())
 internal enum class VaultProblem { CONNECTION, SERVICE_UNAVAILABLE }
 private data class VaultDiscovery(val keys: List<Pair<SaitoNft, VaultKey?>>, val page: Int, val more: Boolean, val cacheWarning: Boolean, val local: VaultCopies, val received: List<VaultEntry>)
 private class VaultServiceUnavailable : IOException()
@@ -62,8 +62,7 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
                             val source = requireNotNull(SaitoStoreRental.offer(order.product)).source
                             require(requireNotNull(path.grant).renter == wallet.publicKey)
                             VaultEntry("rental:" + order.id, source.name, null, null, "store-nft-rental", path)
-                        }.toList().groupBy { requireNotNull(it.rental).fileId }
-                        .values.map { entries -> entries.maxBy { requireNotNull(it.rental?.grant).expiresAt } }
+                        }.toList()
                 }
                 if (generation.get() != current) return
                 rentals = received; merge()
@@ -122,28 +121,35 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
             catch (failure: Exception) { throw VaultLocalFailure(failure) }
         }
         entry.rental?.let { path ->
-            return withContext(Dispatchers.IO) {
+            val downloaded = withContext(Dispatchers.IO) {
                 current()
-                val grant = requireNotNull(path.grant)
                 val active = currentCoroutineContext().job
                 SaitoPeer(wallet, endpoint).use { peer ->
                     require("vault" in peer.services())
                     suspend fun request(transaction: SaitoTransaction): String = peer.request(transaction) {
                         active.ensureActive(); current()
                     }.decodeToString().also { active.ensureActive(); current() }
-                    val first = request(grant.access(wallet, System.currentTimeMillis()))
-                    try { grant.readFile(first) }
-                    catch (failure: IllegalArgumentException) {
-                        val response = com.google.gson.JsonParser.parseString(first).asJsonObject
-                        // Only an authenticated denial/empty read permits explicit activation for this saved path.
-                        require(response.get("status")?.asString == "err" ||
-                            (response.get("status")?.asString == "success" && response.getAsJsonArray("txs")?.size() == 0))
-                        val checkout = com.google.gson.JsonParser.parseString(request(path.checkout(wallet, System.currentTimeMillis()))).asJsonObject
-                        require(checkout.get("status")?.asString == "ok" && checkout.get("file_id")?.asString == path.fileId && checkout.get("result")?.asInt?.let { it > 0 } == true)
-                        grant.readFile(request(grant.access(wallet, System.currentTimeMillis())))
+                    // Signed grants do not establish which loan the provider currently stores.
+                    // Try known loan reads before any metadata-changing activation.
+                    for (candidate in listOf(path) + entry.rentalAlternatives) {
+                        val grant = requireNotNull(candidate.grant)
+                        val reply = request(grant.access(wallet, System.currentTimeMillis()))
+                        try { return@use grant.readFile(reply) }
+                        catch (_: IllegalArgumentException) {
+                            val response = com.google.gson.JsonParser.parseString(reply).asJsonObject
+                            require(response.get("status")?.asString == "err" ||
+                                (response.get("status")?.asString == "success" && response.getAsJsonArray("txs")?.size() == 0))
+                        }
                     }
+                    // A creator read must never replace the master with a loan merely to open a file.
+                    if (entry.creatorMaster) return@use null
+                    val checkout = com.google.gson.JsonParser.parseString(request(path.checkout(wallet, System.currentTimeMillis()))).asJsonObject
+                    require(checkout.get("status")?.asString == "ok" && checkout.get("file_id")?.asString == path.fileId && checkout.get("result")?.asInt?.let { it > 0 } == true)
+                    val grant = requireNotNull(path.grant)
+                    grant.readFile(request(grant.access(wallet, System.currentTimeMillis())))
                 }
             }
+            if (downloaded != null) return downloaded
         }
         val selected = requireNotNull(entry.key)
         return withContext(Dispatchers.IO) {
@@ -231,7 +237,11 @@ internal class VaultLibrary(context: Context, private val wallet: SaitoWallet, p
                 copies.firstOrNull { it.fileId == key?.fileId }, holding.type, creatorPaths[holding.id], creatorMaster)
         }
         val received = (rentals + heldRentals).groupBy { requireNotNull(it.rental).fileId }.values
-            .map { candidates -> candidates.maxBy { requireNotNull(it.rental?.grant).expiresAt } }.map { entry -> entry.copy(copy = copies.firstOrNull { it.fileId == entry.rental?.fileId }) }
+            .map { candidates ->
+                val ordered = candidates.sortedByDescending { requireNotNull(it.rental?.grant).expiresAt }
+                    .distinctBy { requireNotNull(it.rental?.grant).loanScript.hash }
+                ordered.first().copy(rentalAlternatives = ordered.drop(1).map { requireNotNull(it.rental) })
+            }.map { entry -> entry.copy(copy = copies.firstOrNull { it.fileId == entry.rental?.fileId }) }
         val represented = (owned.mapNotNull { it.key?.fileId } + received.mapNotNull { it.rental?.fileId }).toSet()
         entries = received + owned + copies.filter { it.fileId !in represented }.map {
             VaultEntry("file.${it.fileId}", it.name, null, it, null)

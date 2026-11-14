@@ -294,8 +294,9 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             }
                         }
                         entry.rental?.grant?.let { grant ->
-                            Text(stringResource(R.string.vault_rental_ends, java.text.DateFormat.getDateTimeInstance().format(java.util.Date(grant.expiresAt))),
+                            Text(stringResource(if (entry.rentalAlternatives.isEmpty()) R.string.vault_rental_ends else R.string.vault_rental_latest_end, java.text.DateFormat.getDateTimeInstance().format(java.util.Date(grant.expiresAt))),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            if (entry.rentalAlternatives.isNotEmpty()) Text(stringResource(R.string.vault_rental_multiple, entry.rentalAlternatives.size + 1))
                             Text(stringResource(R.string.vault_rental_provider_authority), color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         if (entry.key?.customScript != null && entry.copy == null) Text(stringResource(R.string.vault_custom_key),
@@ -331,7 +332,7 @@ internal fun VaultScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: S
                             if (readable) {
                             OutlinedButton(onClick = { saveAs(entry) }, enabled = enabled && readable && (entry.copy != null || !library.loading),
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_save_as)) }
-                            if (entry.copy == null) FilledTonalButton(onClick = { keep(entry) }, enabled = enabled && readable && (entry.copy != null || !library.loading),
+                            if (entry.copy == null) FilledTonalButton(onClick = { keep(entry) }, enabled = enabled && readable && !library.loading,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_keep_offline)) }
                             else TextButton(onClick = { remove(entry.copy) }, enabled = enabled,
                                 modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.vault_remove_copy)) }

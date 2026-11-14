@@ -1252,4 +1252,6 @@
     <string name="vault_rental_restore_unavailable">This node does not offer rental restoration yet. Your master key stays yours.</string>
     <string name="store_rental_ended">This rental has ended. It cannot be purchased again.</string>
     <string name="store_rental_assigned">This rental is already assigned. Remaining inventory does not provide a new rental period.</string>
+    <string name="vault_rental_latest_end">Latest granted end: %1$s</string>
+    <string name="vault_rental_multiple">%1$d received rental rights. The storage service decides which is currently active.</string>
 </resources>

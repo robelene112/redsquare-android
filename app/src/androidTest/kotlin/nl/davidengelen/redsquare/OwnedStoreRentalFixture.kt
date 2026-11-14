@@ -11,6 +11,7 @@ internal class OwnedStoreRentalFixture(private val reference: JsonObject) {
     @Volatile var time = Time.BEFORE
     @Volatile var available = true
     @Volatile var activated = false
+    @Volatile var activeLoan: JsonObject? = null
     @Volatile var reads = 0; private set
     @Volatile var checkouts = 0; private set
     private val source = reference.getAsJsonObject("rentalAccess") ?: androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context.assets
@@ -33,13 +34,15 @@ internal class OwnedStoreRentalFixture(private val reference: JsonObject) {
             }
             "vault access rental" -> {
                 val body = data.asJsonObject
-                check(body.get("access_script").asString == source.get("loanSource").asString && body.get("access_hash").asString == source.get("loanHash").asString)
-                check(body.getAsJsonObject("data").get("file_id").asString == source.getAsJsonObject("file").get("id").asString)
-                val permitted = source.getAsJsonArray("roles")[time.ordinal].asJsonObject.get("renter").asInt == 1
+                val candidate = listOfNotNull(source, activeLoan).distinctBy { it.get("loanHash").asString }
+                    .single { it.get("loanHash").asString == body.get("access_hash").asString }
+                check(body.get("access_script").asString == candidate.get("loanSource").asString)
+                check(body.getAsJsonObject("data").get("file_id").asString == candidate.getAsJsonObject("file").get("id").asString)
+                val permitted = candidate.getAsJsonArray("roles")[time.ordinal].asJsonObject.get("renter").asInt == 1
                 if (!permitted) "{\"status\":\"err\",\"err\":\"access_denied_script_failed\"}"
                 else JsonObject().apply {
                     addProperty("status", "success")
-                    add("txs", JsonArray().apply { if (activated) add(source.getAsJsonObject("file").get("envelope")) })
+                    add("txs", JsonArray().apply { if (activated && (activeLoan ?: source).get("loanHash").asString == candidate.get("loanHash").asString) add(candidate.getAsJsonObject("file").get("envelope")) })
                 }.toString()
             }
             else -> error("Unexpected rental request")

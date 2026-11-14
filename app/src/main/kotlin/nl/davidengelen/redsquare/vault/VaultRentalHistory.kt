@@ -28,6 +28,7 @@ internal suspend fun creatorRentalHistory(context: Context, wallet: SaitoWallet,
             val product = local[id] ?: readStoreProduct(peer, id, reported[id]) ?: return@withPermit emptyList()
             val offer = try { SaitoStoreRental.offer(product) } catch (cancelled: CancellationException) { throw cancelled } catch (_: Exception) { null }
             if (offer == null || offer.source.fileId != key.fileId || offer.source.creator != wallet.publicKey) return@withPermit emptyList()
+            val known = if (offer.path.grant != null && offer.path.masterScript.hash == SaitoAccessScript.parse(requireNotNull(key.customScript)).hash) listOf(offer.path) else emptyList()
             val query = JsonObject().apply {
                 addProperty("request", "archive"); add("data", JsonObject().apply {
                     addProperty("request", "load"); addProperty("field4", product.nftId); addProperty("limit", 10)
@@ -36,7 +37,7 @@ internal suspend fun creatorRentalHistory(context: Context, wallet: SaitoWallet,
             val reply = request(query.toString())
             require(reply.toByteArray().size <= 16 * 1024 * 1024)
             val rows = JsonParser.parseString(reply).asJsonArray.also { require(it.size() <= 10) }
-            rows.mapNotNull { row ->
+            known + rows.mapNotNull { row ->
                 try {
                     val envelope = row.asJsonObject.get("tx").asString.also { require(it.toByteArray().size <= 2 * 1024 * 1024) }
                     val body = JsonParser.parseString(java.util.Base64.getDecoder().decode(JsonParser.parseString(envelope).asJsonObject.get("m").asString).decodeToString()).asJsonObject

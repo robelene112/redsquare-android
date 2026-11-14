@@ -129,8 +129,10 @@ class StoreRentalAccessPreviewTest {
             } finally { gate.countDown(); scene.node.fundingGate = null }
         }
     }
-    @Test fun aNewBrowserRentalReplacesTheOlderLocalRightForTheSameFile() {
-        withStorePurchaseFixture("rental-new-browser-old-local", rental = true, browserRental = true, laterRental = true) { scene ->
+    @Test fun aNewBrowserRentalReplacesTheOlderLocalRightForTheSameFile() = mixedRental(false)
+    @Test fun anAlreadyActiveOlderLoanRemainsReadableDespiteANewerReceivedGrant() = mixedRental(true)
+    private fun mixedRental(activeOld: Boolean) {
+        withStorePurchaseFixture(if (activeOld) "rental-active-old-new-inventory" else "rental-new-browser-old-local", rental = true, browserRental = true, laterRental = true) { scene ->
             fun fixture(name: String) = InstrumentationRegistry.getInstrumentation().context.assets.open(name).reader()
                 .use { com.google.gson.JsonParser.parseReader(it).asJsonObject }
             val offer = fixture("native-store-rental-listing-reference.json")
@@ -147,16 +149,17 @@ class StoreRentalAccessPreviewTest {
             val journal = nl.davidengelen.redsquare.saito.StoreOrderStore(context, purchase.buyer)
             val old = journal.reserve(nl.davidengelen.redsquare.saito.SaitoBackend.OWNER, purchase, product)
             journal.observe(old.id, observation)
+            if (activeOld) { requireNotNull(scene.rental).activeLoan = paid.getAsJsonObject("rentalAccess"); requireNotNull(scene.rental).activated = true }
             ui.openNativeVault()
             ui.waitUntil(15_000) { ui.onNodeWithText("Upload notes.txt").isDisplayed() }
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Keep offline") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Keep offline").performScrollTo().performClick()
-            // The owned provider accepts only the new independently executed browser loan, never the old path.
+            // The provider accepts only its actual active loan. Both independent signed grants remain known.
             ui.waitUntil(15_000) { ui.onNodeWithText("Available offline").isDisplayed() }
-            assertEquals(1, requireNotNull(scene.rental).checkouts)
+            assertEquals(if (activeOld) 0 else 1, requireNotNull(scene.rental).checkouts)
             assertEquals(1700012800000L, requireNotNull(nl.davidengelen.redsquare.saito.SaitoStoreRental.entitlement(purchase, product, requireNotNull(journal.read().single().receipt).encoded).grant).expiresAt)
             assertTrue(scene.node.peer.transactions.isEmpty())
-            captureNativeScreen(File(scene.evidence, "new-browser-rental-preferred-over-old-local-order.png"))
+            captureNativeScreen(File(scene.evidence, if (activeOld) "active-old-loan-preserved-with-newer-grant.png" else "new-browser-rental-preferred-over-old-local-order.png"))
         }
     }
 }
