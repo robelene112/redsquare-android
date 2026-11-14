@@ -19,7 +19,16 @@ class TalkActiveViewportTest {
     @Test fun videoCallControlsStayVisibleAndReachableAt412dpAcrossThemesAndLargeText() = active(412)
     private fun active(width: Int) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        withAppFrameFixture("talk-active-$width", "talk-active-evidence", advertisedServices = "archive||;relay||") { activity ->
+        val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
+        var originalClipboard: android.content.ClipData? = null
+        var clipboardObserved = false
+        withAppFrameFixture("talk-active-$width", "talk-active-evidence", advertisedServices = "archive||;relay||",
+            beforeStateRestore = {
+                if (clipboardObserved) {
+                    val before = originalClipboard
+                    if (before == null) clipboard.clearPrimaryClip() else clipboard.setPrimaryClip(before)
+                }
+            }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             val wallet = AndroidWalletStore(context).loadExisting()
@@ -28,9 +37,6 @@ class TalkActiveViewportTest {
             activity.onActivity { endpoint = it.intent.getStringExtra("feedPeerUrl") }
             val account = TalkRuntime.account(context, wallet, backend, requireNotNull(endpoint)).also { it.attach() }
             var token: String? = null
-            val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
-            var originalClipboard: android.content.ClipData? = null
-            var clipboardObserved = false
             var primary: Throwable? = null
             try {
                 assertTrue(runBlocking { account.start(TalkLink(backend, TalkRoom(SaitoWallet.create().publicKey, wallet.publicKey)), null, true, true) })
@@ -90,12 +96,7 @@ class TalkActiveViewportTest {
                 ui.waitUntil(5000) { TalkRuntime.call.value?.phase == CallPhase.ENDED }
             } catch (failure: Throwable) { primary = failure; throw failure }
             finally {
-                cleanupAfterTest(primary, { token?.let(TalkRuntime::end) }, { account.detach() }, {
-                    if (clipboardObserved) {
-                        val before = originalClipboard
-                        if (before == null) clipboard.clearPrimaryClip() else clipboard.setPrimaryClip(before)
-                    }
-                })
+                cleanupAfterTest(primary, { token?.let(TalkRuntime::end) }, { account.detach() })
             }
         }
     }
