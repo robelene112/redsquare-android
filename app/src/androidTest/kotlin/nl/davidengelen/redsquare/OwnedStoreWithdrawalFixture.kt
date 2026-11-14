@@ -62,7 +62,10 @@ internal fun ComposeTestRule.enterNativeStoreDestination(address: String) {
 
 internal fun ComposeTestRule.reviewNativeStoreWithdrawal() {
     onNodeWithText("Proceeds").performScrollTo().performClick()
-    waitUntil(15_000) { onNodeWithText("Available to request: 6.25 USDT").isDisplayed() }
+    val start = android.os.SystemClock.elapsedRealtime()
+    waitUntil(15_000) { onAllNodesWithText("Available to request: 6.25 USDT").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+    onNodeWithText("Available to request: 6.25 USDT").performScrollTo().assertIsDisplayed()
+    org.junit.Assert.assertTrue("The actual amount remains reachable within its original deadline", android.os.SystemClock.elapsedRealtime() - start < 15_000)
     onNodeWithText("Withdraw USDT").performScrollTo().performClick()
     enterNativeStoreDestination("0x1111111111111111111111111111111111111111")
     onNodeWithText("Review withdrawal").performScrollTo().performClick()

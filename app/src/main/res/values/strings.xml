@@ -1186,7 +1186,7 @@
     <string name="store_sell_external_unavailable">External checkout is currently disabled on this Store. Buyers can pay when the service is available.</string>
     <string name="store_sell_external_terms">Payments and seller payouts in %1$s use the external payment service of this Store.</string>
     <string name="store_proceeds_title">Proceeds</string>
-    <string name="store_proceeds_explanation">Reported by this Store, separately from sales and your Saito wallet. Waiting amounts have not met the settlement requirements. Available amounts can be requested from the external treasury; this is not proof of custody or an external payout.</string>
+    <string name="store_proceeds_explanation">Earnings reported by this Store.</string>
     <string name="store_proceeds_eligible">Available to request: %1$s %2$s</string>
     <string name="store_proceeds_pending">Waiting for settlement: %1$s %2$s</string>
     <string name="store_proceeds_empty">No alternate-currency proceeds reported.</string>
@@ -1207,8 +1207,8 @@
     <string name="store_withdrawal_manual">The treasury processes withdrawals manually. Acceptance does not mean external funds have been sent. The signed Saito fee transaction is retained; chain inclusion is not confirmed here.</string>
     <string name="store_withdrawal_unsent">Saved for review. Not submitted.</string>
     <string name="store_withdrawal_waiting">Original request retained. Treasury submission has not been verified.</string>
-    <string name="store_withdrawal_submitted">Requested from the treasury. External funds have not been sent.</string>
-    <string name="store_withdrawal_accepted">Accepted by the Store. Waiting for the treasury; external funds have not been sent.</string>
+    <string name="store_withdrawal_submitted">Request recorded by the treasury. External payout is unverified.</string>
+    <string name="store_withdrawal_accepted">Accepted by the Store. Treasury submission and external payout are unverified.</string>
     <string name="store_withdrawal_forward_failed">The Store retained this request, but treasury submission needs recovery. Retry uses the original request. A request whose quote has expired may need help from the Store operator.</string>
     <string name="store_withdrawal_expired">This unsent quote expired. Discard it to review a fresh quote.</string>
     <string name="store_withdrawal_failed">Could not prepare this withdrawal. Check the address, available funds and payment service, then try again.</string>

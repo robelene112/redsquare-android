@@ -50,7 +50,7 @@ class TransferStore(private val context: Context, private val author: String) {
         slips.filter { Triple(it.block, it.ordinal, it.index) !in reserved }
     }
 
-    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty() || pendingKeys().isNotEmpty() || StoreOrderStore(context, author).read().isNotEmpty() || StoreListingStore(context, author).read().isNotEmpty() || StoreDelistStore(context, author).read().isNotEmpty() || StoreImageStore(context, author).read().isNotEmpty()
+    fun hasWork(): Boolean = pending().isNotEmpty() || pendingMints().isNotEmpty() || pendingKeys().isNotEmpty() || StoreOrderStore(context, author).read().isNotEmpty() || StoreListingStore(context, author).read().isNotEmpty() || StoreDelistStore(context, author).read().isNotEmpty() || StoreImageStore(context, author).read().isNotEmpty() || StoreWithdrawalStore(context, author).read().isNotEmpty()
 
     fun pendingMints(): List<PendingMint> = synchronized(SaitoLocalState.lock) {
         if (!exists("mint-reservations") && !exists("mint-reservations-guard")) return@synchronized emptyList()

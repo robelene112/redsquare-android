@@ -110,7 +110,7 @@ class StoreWithdrawalProcessRecoveryTest {
             ui.onNodeWithText("Retry original request").performClick(); waitForSystemPin(device)
             assertTrue("Old authority cannot survive process death", treasury.submissions.isEmpty())
             enterRealSystemPin(device)
-            ui.waitUntil(25_000) { ui.onNodeWithText("Requested from the treasury. External funds have not been sent.").isDisplayed() }
+            ui.waitUntil(25_000) { ui.onNodeWithText("Request recorded by the treasury. External payout is unverified.").isDisplayed() }
             val saved = StoreWithdrawalStore(context, owner).read().single()
             assertEquals(row.get("candidate").asString, saved.candidate.transaction.encoded())
             assertEquals(listOf(saved.candidate.transaction.envelope()), treasury.submissions.toList()); assertEquals(0, treasury.quotes)

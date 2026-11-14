@@ -134,12 +134,14 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
         } catch (_: Exception) { signal.cancel(); authentication = null; busy = false; problem = R.string.wallet_auth_unavailable }
     }
     private fun send(record: StoreWithdrawalStore.Record, token: Long) {
+        var mayHaveWritten = record.mayHaveSent
         job = scope.launch {
             try {
                 val saved = withContext(Dispatchers.IO) {
                     current(token)
                     val exact = journal.read().single { it.candidate.transaction.id == record.candidate.transaction.id }
                     require(exact.backend == backend && exact.candidate.transaction.encoded() == record.candidate.transaction.encoded())
+                    mayHaveWritten = mayHaveWritten || exact.mayHaveSent
                     SaitoPeer(wallet, endpoint).use { peer ->
                         require(peer.servicePublicKey("Store") == exact.candidate.quote.store)
                         if (!exact.mayHaveSent) {
@@ -151,7 +153,7 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
                             }
                         }
                         val request = SaitoTransaction.create(wallet, SaitoStoreWithdrawal.submitRequest(exact.candidate), System.currentTimeMillis(), listOf(exact.candidate.quote.store))
-                        val response = peer.request(request) { current(token); journal.markSending(exact) }.decodeToString()
+                        val response = peer.request(request) { current(token); journal.markSending(exact); mayHaveWritten = true }.decodeToString()
                         val result = SaitoStoreWithdrawal.readResult(response)
                         val active = currentCoroutineContext().job
                         synchronized(SaitoLocalState.lock) { active.ensureActive(); current(token); journal.observe(exact, result) }
@@ -164,7 +166,12 @@ internal class StoreProceeds(private val activity: Activity, private val wallet:
                 if (!closed && token == revision) {
                     val saved = withContext(Dispatchers.IO) { runCatching { journal.read() }.getOrNull() }
                     if (saved != null) { records = saved; focused = saved.singleOrNull { it.candidate.transaction.id == record.candidate.transaction.id } }
-                    problem = R.string.store_withdrawal_unknown
+                    if (saved == null && mayHaveWritten) {
+                        val uncertain = record.copy(mayHaveSent = true)
+                        focused = uncertain
+                        records = records.map { if (it.candidate.transaction.id == record.candidate.transaction.id) uncertain else it }
+                    }
+                    problem = if (mayHaveWritten) R.string.store_withdrawal_unknown else R.string.store_withdrawal_failed
                 }
             } finally { if (token == revision) busy = false }
         }

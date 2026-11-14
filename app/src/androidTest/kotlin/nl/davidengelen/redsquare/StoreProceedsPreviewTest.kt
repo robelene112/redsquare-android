@@ -98,7 +98,7 @@ class StoreProceedsPreviewTest {
             scene.peer.disconnectAfterStoreWithdrawal = false
             ui.onNodeWithText("Retry original request").assertIsDisplayed().performClick()
             waitForSystemPin(device); assertEquals(1, originals.size); enterRealSystemPin(device)
-            ui.waitUntil(25_000) { ui.onNodeWithText("Requested from the treasury. External funds have not been sent.").isDisplayed() }
+            ui.waitUntil(25_000) { ui.onNodeWithText("Request recorded by the treasury. External payout is unverified.").isDisplayed() }
             assertEquals(listOf(original.candidate.transaction.envelope(), original.candidate.transaction.envelope()), originals.toList())
             assertEquals(1, quotes); assertEquals(SaitoStoreWithdrawal.State.SUBMITTED, journal.read().single().result?.state)
             assertTrue(scene.peer.transactions.isEmpty())

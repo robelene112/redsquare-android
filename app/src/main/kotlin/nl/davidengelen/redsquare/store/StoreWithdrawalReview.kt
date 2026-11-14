@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.store
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -38,7 +39,7 @@ internal fun StoreWithdrawalReview(proceeds: StoreProceeds, record: StoreWithdra
             Text(stringResource(R.string.store_withdrawal_net_unknown), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(stringResource(R.string.store_withdrawal_manual), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(record.backend.webUrl, style = MaterialTheme.typography.bodySmall)
-            Text(candidate.transaction.id, style = MaterialTheme.typography.bodySmall)
+            SelectionContainer { Text(candidate.transaction.id, style = MaterialTheme.typography.bodySmall) }
         }
         HorizontalDivider()
         SingleOwnerReveal(Triple(record.mayHaveSent, record.result, quote.validAt(now))) {
