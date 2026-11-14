@@ -52,7 +52,7 @@ class StoreRentalCreationPreviewTest {
             assertEquals("store-nft-rental", mint.type); assertEquals(3, requireNotNull(mint.rental).hours)
             assertTrue(mint.inputs.none { it.block == java.math.BigInteger("2000002") })
             captureNativeScreen(File(scene.evidence, "rental-inventory-authenticated-master-retained.png"))
-            scene.seller.confirmImage.set(true)
+            requireNotNull(scene.seller).confirmImage.set(true)
             val observed = kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.IO) {
                 var balance: WalletBalances? = null
                 scene.activity.onActivity { balance = WalletBalances.fromIntent(it.intent) }
