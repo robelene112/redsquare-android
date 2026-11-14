@@ -16,7 +16,7 @@ for row in header.split('*methods\n')[1].split('*end')[0].splitlines():
 magic,version,offset=struct.unpack_from('<4sHH',data,end);assert magic==b'SLOW' and version==3
 size=struct.unpack_from('<H',data,end+16)[0];assert size==14
 records=data[end+offset:];assert len(records)%size==0
-stack=[];crypto=collections.Counter();merges=0;closed_merges=0;preexisting_exits=0
+stack=[];crypto=collections.Counter();merges=0;closed_merges=0
 merge=('nl.davidengelen.redsquare.vault.VaultLibrary','merge')
 for pos in range(0,len(records),size):
     tid,method,cpu,wall=struct.unpack_from('<HIII',records,pos)
@@ -33,15 +33,10 @@ for pos in range(0,len(records),size):
         assert action in (1,2)
         if stack and stack[-1]==methods[method]:
             if stack.pop()==merge:closed_merges+=1
-        elif not stack and a.mode=='method' and methods[method]!=merge:
-            # Method tracing starts inside Main's existing Looper stack. Those
-            # already-active ancestors can exit without a recorded entry. Never
-            # ignore a target merge exit or a mismatch within an observed span.
-            preexisting_exits+=1
         else:raise AssertionError(('Unbalanced main trace',methods[method],stack[-3:]))
 qualification=('ART sampled call stacks during20native local refreshes; counts are observed spans, not exact invocations, physical frame rate or a general FPS gain.' if a.mode=='sampling' else
     'ART instrumented method entry/exit recording during20native local refreshes. All20Main merge spans must be complete. Instrumentation overhead is present; no physical frame-rate or general latency claim.')
-result=dict(trace=str(a.trace),mainThread=main[0],traceMode=a.mode,observedMergeEntries=merges,observedMergeExits=closed_merges,preexistingMainFrameExits=preexisting_exits,mainCryptoEntriesUnderMerge=sum(crypto.values()),methods=dict(crypto),qualification=qualification)
+result=dict(trace=str(a.trace),mainThread=main[0],traceMode=a.mode,observedMergeEntries=merges,observedMergeExits=closed_merges,mainCryptoEntriesUnderMerge=sum(crypto.values()),methods=dict(crypto),qualification=qualification)
 if a.mode=='sampling':result['sampledMergeEntries']=merges
 print(json.dumps(result,indent=2));assert merges>0
 if a.mode=='method':assert merges==closed_merges==20, 'Require every complete native refresh merge span'

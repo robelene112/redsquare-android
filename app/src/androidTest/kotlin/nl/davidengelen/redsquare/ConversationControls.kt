@@ -33,7 +33,10 @@ internal fun ComposeTestRule.openMessageActions(last: Boolean = false) {
     val buttons = onAllNodesWithContentDescription("Message actions")
     waitUntil(15_000) { buttons.fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     val visible = buttons.fetchSemanticsNodes().indices.filter { buttons[it].isDisplayed() }
-    val button = buttons[(if (last) visible.lastOrNull() else visible.firstOrNull()) ?: 0]
+    val selected = buttons[(if (last) visible.lastOrNull() else visible.firstOrNull()) ?: 0].fetchSemanticsNode().id
+    // Scrolling the lazy history can recycle earlier buttons and change their
+    // collection indices. Keep the selected button's identity through the tap.
+    val button = onNode(SemanticsMatcher("Selected message action") { it.id == selected })
     button.performScrollTo().assertIsDisplayed().performClick()
     waitUntil(5_000) { onNode(isPopup()).isDisplayed() }
 }
