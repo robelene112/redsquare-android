@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.FeedPost
@@ -35,7 +34,7 @@ internal class PostComposerState(
     private val quote: FeedPost? = null,
 ) {
     private val owner = wallet.publicKey
-    private val writes = Mutex()
+    private val writes = memory.writes
     // A write can replace the file before confirmation fails. Trust only its successful return.
     private var savedContent by mutableStateOf<PostDraftStore.Saved?>(null)
     var text by mutableStateOf("")
@@ -58,6 +57,8 @@ internal class PostComposerState(
     var sending by mutableStateOf(false)
     var reload by mutableIntStateOf(0)
     var confirmClear by mutableStateOf(false)
+    val recoveryError: Boolean get() = memory.unfinished?.failed == true
+    fun retryRecovery() { memory.unfinished?.retry() }
     val locallySaved: Boolean get() = savedContent?.let {
         it.text == text && it.images == images && it.gifAttributions == gifAttributions
     } == true
@@ -104,7 +105,10 @@ internal class PostComposerState(
                 memory.clearSubmitted()
             }
             savedContent = saved
-            text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
+            if (saved.transaction == null && memory.unfinished == null) {
+                memory.unfinished = withContext(Dispatchers.IO) { store.unfinishedText() }
+            }
+            text = if (saved.transaction != null) saved.text else memory.text ?: memory.unfinished?.restored ?: saved.text
             images = if (saved.transaction != null) saved.images else memory.images ?: saved.images
             gifAttributions = (if (saved.transaction != null) saved.gifAttributions else memory.gifAttributions ?: saved.gifAttributions)
                 .filterKeys { it in images }
@@ -327,6 +331,7 @@ internal class PostComposerState(
         if (!ready || saving || sending || transaction != null) return
         text = value
         memory.text = value
+        memory.unfinished?.update(value)
         validationError = false
     }
 

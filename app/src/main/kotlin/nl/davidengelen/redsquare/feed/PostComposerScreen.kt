@@ -232,6 +232,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     InlineStatus(if (checkError) stringResource(R.string.post_check_failed) else null, StatusTone.INFO)
                     InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
                     InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
+                    InlineStatus(if (recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
+                        StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
                     if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
                     InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
                     Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,

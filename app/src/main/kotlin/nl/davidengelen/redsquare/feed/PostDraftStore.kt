@@ -28,8 +28,14 @@ internal class PostDraftStore private constructor(private val context: Context, 
         require(submissionId.isEmpty() || (authorKind == null && submissionId.matches(Regex("[0-9a-f]{128}"))))
     }
     val isSubmittedRecord: Boolean get() = submissionId.isNotEmpty()
-    private val file = EncryptedLocalFile(context,
-        "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}.v1", "redsquare.postdraft.v1", "postdraft.")
+    private val filename = "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}.v1"
+    private val file = EncryptedLocalFile(context, filename, "redsquare.postdraft.v1", "postdraft.")
+    private val recovery = UnfinishedTextRecovery(context, filename, file::load)
+
+    fun unfinishedText(): UnfinishedTextRecovery.EditingSession = synchronized(lock) {
+        check(!isSubmittedRecord && authorKind == null && load().transaction == null)
+        recovery.open()
+    }
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
         val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null,
@@ -116,6 +122,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
         check(same(reopened, saved)) {
             "Draft persistence verification failed"
         }
+        recovery.retire()
         changes.value += 1
     }
 
