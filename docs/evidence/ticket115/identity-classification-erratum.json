@@ -1,0 +1,78 @@
+{
+  "recordedAt": "2026-11-15T01:46:11.277509+00:00",
+  "kind": "Interruption identity classification erratum",
+  "frozenVerifierSha256": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
+  "frozenContractSha256": "4ec3a42777457b93ee4ce9b61480cc7e14b12ab89c766f1abe6d3f1930985c9b",
+  "assessorSha256": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+  "nativeSources": [
+    "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "fd8fe6c9eb53ae20703ed409775efb9eb04db923"
+  ],
+  "basis": "Frozen contract includes five new intentional status1 process-death observations among required identities, while inherited94parser counts only terminal0/-4. A deliberately killed test cannot report normal completion.",
+  "classification": [
+    {
+      "path": "vault-upload-process/interrupted.txt",
+      "testClass": "nl.davidengelen.redsquare.VaultUploadProcessRecoveryTest",
+      "test": "terminateAfterAnAuthenticatedVaultMintAndRejectedFile",
+      "occurrences": 1
+    },
+    {
+      "path": "store-purchase-process/interrupted.txt",
+      "testClass": "nl.davidengelen.redsquare.StorePurchaseProcessRecoveryTest",
+      "test": "terminateAfterAnAuthenticatedStorePaymentWithUnknownDelivery",
+      "occurrences": 1
+    },
+    {
+      "path": "store-seller-process/interrupted.txt",
+      "testClass": "nl.davidengelen.redsquare.StoreSellerProcessRecoveryTest",
+      "test": "terminateAfterAnAuthenticatedStoreOfferWithUnknownAvailability",
+      "occurrences": 1
+    },
+    {
+      "path": "store-crypto-process/interrupted.txt",
+      "testClass": "nl.davidengelen.redsquare.StoreCryptoProcessRecoveryTest",
+      "test": "terminateAfterTheProviderReservesAnInvoiceButItsReplyIsLost",
+      "occurrences": 1
+    },
+    {
+      "path": "store-withdrawal-process/interrupted.txt",
+      "testClass": "nl.davidengelen.redsquare.StoreWithdrawalProcessRecoveryTest",
+      "test": "terminateAfterAnAuthenticatedWithdrawalWithUnknownAvailability",
+      "occurrences": 1
+    }
+  ],
+  "unchangedRequiredObservedIdentities": {
+    "10": 830,
+    "17": 831
+  },
+  "unchangedRequiredRecoveryTotals": {
+    "10": {
+      "normalCompletions": 344,
+      "deliberateInterruptions": 44,
+      "continuityRecords": 43
+    },
+    "17": {
+      "normalCompletions": 345,
+      "deliberateInterruptions": 44,
+      "continuityRecords": 43
+    }
+  },
+  "originalCollectorPreserved": true,
+  "rawOriginalsUnchanged": true,
+  "nativeApplicationTestsHarnessUnchanged": true,
+  "allOriginalPostIdentityValidatorsUnchanged": true,
+  "qualification": "Separate qualified assessment; original frozen collector did not pass.",
+  "reviewRequirement": "Both independent source/evidence axes must accept before final acceptance. Original frozen failure output remains retained; no ordinary completion is fabricated and no native goal/deadline is changed.",
+  "observedOriginalFrozenFailure": {
+    "sdk": "17",
+    "run": 43656409473,
+    "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "path": "frozen-collector17-failure.txt",
+    "sha256": "1620ce6e7ffef56fdba2d446e2aee310ddddd32dce14df6ff2532d25afa646af",
+    "nativePrimaryConclusion": "success",
+    "frozenCollectorConclusion": "FAIL",
+    "terminalIdentities": 826,
+    "missingContractedInterruptedStarts": 5,
+    "extraIdentities": 0
+  }
+}
