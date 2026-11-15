@@ -17,6 +17,7 @@ public final class ChatPhotoFaultProvider extends ContentProvider {
     private boolean opened;
     private int assetCalls;
     private int typedCalls;
+    private int openCalls;
 
     @Override public boolean onCreate() { return true; }
     @Override public String getType(Uri uri) { return "image/png"; }
@@ -43,17 +44,33 @@ public final class ChatPhotoFaultProvider extends ContentProvider {
         try { pipe = ParcelFileDescriptor.createPipe(); }
         catch (IOException failure) { throw new FileNotFoundException(failure.getMessage()); }
         synchronized (this) {
-            closeWriter(); writer = pipe[1]; opened = true;
+            closeWriter(); writer = pipe[1]; opened = true; openCalls++;
         }
         signal.setOnCancelListener(() -> { synchronized (this) { if (writer == pipe[1]) closeWriter(); } });
         return pipe[0];
     }
 
     @Override public synchronized Bundle call(String method, String arg, Bundle extras) {
-        if ("reset".equals(method)) { closeWriter(); opened = false; assetCalls = 0; typedCalls = 0; }
+        if ("reset".equals(method)) { closeWriter(); opened = false; assetCalls = 0; typedCalls = 0; openCalls = 0; }
+        else if ("complete".equals(method)) {
+            byte[] bytes = extras == null ? null : extras.getByteArray("png");
+            if (bytes == null || bytes.length > 8192) throw new IllegalArgumentException("Small synthetic PNG required");
+            boolean delivered = writer != null;
+            if (delivered) {
+                try (java.io.OutputStream output = new ParcelFileDescriptor.AutoCloseOutputStream(writer)) {
+                    writer = null;
+                    output.write(bytes);
+                } catch (IOException failure) { throw new IllegalStateException(failure); }
+            }
+            Bundle result = status(); result.putBoolean("delivered", delivered); return result;
+        }
         else if ("release".equals(method)) closeWriter(); // EOF is not a valid raster.
         else if (!"status".equals(method)) throw new IllegalArgumentException("Unknown synthetic photo action");
-        Bundle result = new Bundle(); result.putBoolean("opened", opened);
+        return status();
+    }
+
+    private Bundle status() {
+        Bundle result = new Bundle(); result.putBoolean("opened", opened); result.putInt("openCalls", openCalls);
         result.putInt("assetCalls", assetCalls); result.putInt("typedCalls", typedCalls); return result;
     }
 
