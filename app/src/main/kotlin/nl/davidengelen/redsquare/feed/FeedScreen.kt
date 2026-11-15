@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -371,6 +372,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         pullRefreshSucceeded = true
                     }
                     if (hadOutage) { recovered = true; hadOutage = false }
+                } catch (_: TimeoutCancellationException) {
+                    // The request's own deadline must not cancel the foreground polling loop.
+                    currentCoroutineContext().ensureActive()
+                    manualPullPending = false; pulledTopPost = null; failed = true; hadOutage = true; recovered = false
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { manualPullPending = false; pulledTopPost = null; failed = true; hadOutage = true; recovered = false }
                 finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
