@@ -10,12 +10,22 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current active ticket: #119 (accepted incoming Fileshare foreground ownership).
-Its native regression holds a real Relay signalling reply past the service's
-existing idle window, accepts the file, backgrounds/screens off and observes
-actual foreground controls before completing the original transfer journey.
-#120–#130 and final #131 follow once each preceding ticket is accepted.
-Public beta remains 0.1.131 until the combined delivery.
+Current active ticket: #120 (unfinished post/reply/quote and biography recovery).
+#119 is complete at product cfac7287a and native6b231a4e, with complete Fileshare
+Android10/17 and independent Standards/Spec source/evidence acceptance. See
+[the #119 packet](../evidence/ticket119/README.md). Both SDKs complete9ordinary
+classes/11methods, two normal process methods and one separately verified intentional
+start with distinct PIDs. Delayed acceptance retains actual foreground ownership
+for61/63samples, completes150007 exact bytes, or real pending notification Cancel
+ends the original token with0grants/chunks/bytes and retained draft. Core224/44 and
+lint0errors pass. Invalid Android10 setup and a replaced slow source build remain
+retained and excluded. Current public beta remains0.1.131.
+
+Continue #120–#130 sequentially, then integrated qualification/beta #131, without
+asking for another approval. Preserve all prior deadlines, native goals and
+physical/OEM/live-service/Play qualifications. No production node/provider change
+or public financial write occurred. Canonical dirty checkout remains untouched.
+Originals: `/mnt/storage/redsquare-android-artifacts/fileshare-accept119`.
 
 ## Completed first review-remediation ticket #118, next #119
 

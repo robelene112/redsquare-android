@@ -1,0 +1,27 @@
+{
+  "result": "PASS_SOURCE_DEBUG",
+  "run": 43745406490,
+  "source": "6b231a4e106fa0d471b919fe228db040f5c6e4d2",
+  "core": {
+    "tests": 224,
+    "failures": 0,
+    "ignored": 0,
+    "classes": 44
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 94,
+    "hints": 3
+  },
+  "receipt": {
+    "run": 43745406490,
+    "source": "6b231a4e106fa0d471b919fe228db040f5c6e4d2",
+    "conclusion": "success",
+    "artifactId": 14174402009,
+    "zipSha256": "5722537dc95ac94e7ec6c5a4deaafd09856061cba5804e278225e7260bacfd32",
+    "zipEntries": 55,
+    "captureMembers": 0,
+    "allExtractedMembersByteExact": true
+  },
+  "qualification": "Compiler, core/gateway and lint tasks complete. Gradle can reuse unchanged task outputs; these recorded counts do not claim uncached execution. Replaced run43743691425 is not acceptance."
+}

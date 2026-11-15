@@ -1,0 +1,62 @@
+{
+  "result": "PASS_COMPLETE_FILESHARE_SCOPE",
+  "sdk": "17",
+  "run": 43743686504,
+  "source": "6b231a4e106fa0d471b919fe228db040f5c6e4d2",
+  "ordinaryClasses": 9,
+  "ordinaryCompletions": 11,
+  "normalProcessCompletions": 2,
+  "verifiedIntentionalStarts": 1,
+  "distinctProcessPids": true,
+  "foreground": {
+    "pending-acceptance": {
+      "relayHeld": true,
+      "screenOff": true,
+      "samples": 63,
+      "allForeground": true
+    },
+    "pending-acceptance-cancel": {
+      "relayHeld": true,
+      "screenOff": true,
+      "samples": 63,
+      "allForeground": true
+    }
+  },
+  "delivery": {
+    "result": "PASS",
+    "incoming": true,
+    "cancel": false,
+    "sourcePin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "bytes": 150007,
+    "sha256": "38ea1455fbe8e50f07f360c80d0b815159ed98daa419b9ee5def259398a90fc1",
+    "actualWebRtc": true,
+    "screenOffObserved": true,
+    "unknownSizeProvider": false,
+    "browserAdapterWallet": "Native public unsafe fixture; independent wallet vectors verified separately"
+  },
+  "cancellation": {
+    "result": "PASS",
+    "exactTokenCancelled": true,
+    "durableCancelled": true,
+    "payloadBytes": 0,
+    "signedChunks": 0,
+    "permissionGrants": 0,
+    "serviceStopped": true,
+    "draftRetained": true
+  },
+  "receipt": {
+    "run": 43743686504,
+    "source": "6b231a4e106fa0d471b919fe228db040f5c6e4d2",
+    "conclusion": "success",
+    "artifactId": 14172799728,
+    "zipSha256": "a489db4947c3e1ea6aa3e37601e8701d5a2c19a76c3b48723b995ab7a8cde026",
+    "zipEntries": 102,
+    "captureMembers": 107,
+    "allExtractedMembersByteExact": true
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 102,
+    "captures": 107
+  },
+  "qualification": "Complete focused Fileshare scope at existing controlled seams, not whole-app/final beta acceptance. Real Android foreground flags/service classification and actual notification Cancel are asserted by completed native tests. Original timing goals unchanged. Physical/OEM/live-service/Play qualifications remain open."
+}

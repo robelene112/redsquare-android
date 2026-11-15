@@ -1,0 +1,20 @@
+{
+  "base": "f973bd61e3d6a6782e097adcfd70a4152a400556",
+  "source": "6b231a4e106fa0d471b919fe228db040f5c6e4d2",
+  "standards": {
+    "result": "PASS",
+    "findings": 0,
+    "reviewer": "/root/accept119_standards"
+  },
+  "spec": {
+    "result": "PASS",
+    "findings": 0,
+    "reviewer": "/root/accept119_spec"
+  },
+  "nativeRuns": [
+    43744801973,
+    43743686504
+  ],
+  "sourceRun": 43745406490,
+  "independentVerification": "Fresh GitHub source/status/digests and full logs, every original ZIP/TAR byte and complete hash index, every native assessment assertion and core/lint reports independently verified. Failed, invalid and canceled parents excluded. Focused acceptance only; beta/final whole-app proof remains131."
+}
