@@ -1,0 +1,8 @@
+state=RUNNABLE
+android.os.MessageQueue.nativePollOnce(Native Method)
+android.os.MessageQueue.next(MessageQueue.java:336)
+android.os.Looper.loop(Looper.java:174)
+android.app.ActivityThread.main(ActivityThread.java:7356)
+java.lang.reflect.Method.invoke(Native Method)
+com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)

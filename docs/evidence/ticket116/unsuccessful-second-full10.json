@@ -1,0 +1,13 @@
+{
+  "run": 43680230627,
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "acceptance": false,
+  "failedClass": "WalletImportPreviewTest",
+  "failedMethod": "explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+  "failedCheck": "Parent Node header not visible within the existing shared15000ms dismissal/draw/visibility budget; final wait14322ms",
+  "observed": "Wallet imported feedback and incoming address were verified before dismissal; afterward the focused attached parent window was blank. Main thread was in MessageQueue.nativePollOnce, stored backend was owner. Cause is unproved.",
+  "focusedImportRun": 43683570303,
+  "nextCompleteRun": 43683761408,
+  "nextCompleteRunner": "Existing supported ubuntu-22.04 pool, same source/images/goals/deadlines; no host-cause claim",
+  "qualification": "No successful partition or focused result replaces one complete successful primary. No changed native assertion/deadline or forced redraw."
+}

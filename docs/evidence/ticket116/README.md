@@ -28,8 +28,9 @@ reading text despite preserving its absolute pixel.
   The frozen workflow permits baseline127; this is not a direct130-to131 proof
   or a separate pending Vault/Store module-observer claim. The inherited scope
   descriptor still says83; actual versions and downloads independently bind127/131.
-- Complete Android17 primary `43678447389` and Android10 primary `43680230627`
-  are pending. No complete acceptance is claimed yet.
+- Complete Android17 primary `43678447389` and Android10 primary `43683761408`
+  are pending. The latter uses the existing supported Ubuntu22.04 pool after a second
+  unsuccessful10observation; no host-cause claim is made. No complete acceptance is claimed yet.
 - Signed beta131 is staged, not promoted. APK94,089,760bytes,
   SHA256`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
   established certificate`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
@@ -61,6 +62,14 @@ SENDING and cause is unproved. Other partitions were canceled by the ordinary
 same-scope concurrency rule when the new complete10dispatch started. No prefix is
 accepted. Unchanged-source focused Fileshare43680228412 passes, providing diagnosis
 support only. No class/action deadline or native assertion was weakened.
+
+`unsuccessful-second-full10.json` records the different WalletImport failure in
+43680230627: import feedback/address were verified, but its focused parent window
+was blank after dismissal. The original shared15second parent-visibility budget
+failed. Its cause remains unproved; focused import43683570303 diagnoses the same
+unchanged methods. Complete10run43683761408uses the already supported Ubuntu22.04
+pool with unchanged source, images, goals and bounds. Earlier parents supply no
+acceptance, and no forced redraw or test-clock alteration is used.
 
 A local lint attempt used changing source inputs and failed; a later redundant
 local lint attempt was stopped after all six clean hosted build/lint steps passed.
