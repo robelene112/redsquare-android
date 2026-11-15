@@ -1,0 +1,15 @@
+{
+  "run": 43678445624,
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "conclusion": "cancelled",
+  "acceptance": false,
+  "failedClass": "FileshareCancelPreviewTest",
+  "failedCheck": "Physical Cancel was not found within the original5000ms shade deadline",
+  "observed": "Transfer remained SENDING and its notification was below retained alerts. The native action was never clicked. Cause remains unproved.",
+  "otherPartitions": "Canceled automatically when the new complete Android10 dispatch started on the same scope/ref. No successful prefix is accepted.",
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/full116/raw-43678445624",
+  "focusedUnchangedSourceRun": 43680228412,
+  "focusedResult": "success, diagnostic support only",
+  "newCompleteRun": 43680230627,
+  "allDeadlinesAndAssertionsUnchanged": true
+}

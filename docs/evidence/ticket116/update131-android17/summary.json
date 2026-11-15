@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "run": 43680521171,
+  "sdk": "17",
+  "versions": [
+    127,
+    131
+  ],
+  "downloadedCandidateBytes": 94089760,
+  "downloadedCandidateSha256": "260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4",
+  "originalRawFiles": 25,
+  "originalNativeMembers": 23,
+  "indexedOriginals": 48,
+  "scopeDescriptorSha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+  "scopeDescriptorQualified": true,
+  "originalRawDirectory": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/feed116-update131-android17-43680521171-artifacts/.scratch/device-evidence/api-37.0/candidate-update",
+  "moduleObserverUsed": false,
+  "direct130To131UpdateTested": false,
+  "qualification": "Actual signed ordinary127-to131 update, exact wallet/draft/cache/Light preference and independent debug identity. Uses the established127 baseline allowed by the frozen workflow; no direct130-to131 or separate pending module observer claim. Known unsafe fixture/emulator only; no physical/provider acceptance. Whole binary originals remain external; no APK is committed."
+}

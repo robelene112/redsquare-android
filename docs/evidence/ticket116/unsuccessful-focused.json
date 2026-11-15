@@ -1,0 +1,41 @@
+[
+  {
+    "run": 43676519938,
+    "source": "0e43e867240fc1893dec014c714b94b53d36c7ea",
+    "conclusion": "failure",
+    "artifactId": 14146564562,
+    "zipSha256": "e3212a2cf078c9a07aea869ac433d1b4be374b5dfbd91b4c3c5585a8e4f9b001",
+    "zipEntries": 91,
+    "captureMembers": 32,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false,
+    "meaning": "Original-layout red: extra gap"
+  },
+  {
+    "run": 43676771341,
+    "source": "d44ff40a05998d5a73a76ea0d2d164a3cf55fae6",
+    "conclusion": "failure",
+    "artifactId": 14147091510,
+    "zipSha256": "9d84742128294fab5e481374bd5f47f28bdd0e8fec2c79c55c2a2eb3c90ec131",
+    "zipEntries": 91,
+    "captureMembers": 31,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false,
+    "meaning": "Rejected normal-flow proposal: top-edge reading text becomes clipped"
+  },
+  {
+    "run": 43676773274,
+    "source": "d44ff40a05998d5a73a76ea0d2d164a3cf55fae6",
+    "conclusion": "failure",
+    "artifactId": 14146876916,
+    "zipSha256": "4985d27846bb24cd8897f47088705fd648094594087d8163ad07ca74003f3394",
+    "zipEntries": 80,
+    "captureMembers": 31,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false,
+    "meaning": "Rejected normal-flow proposal: top-edge reading text becomes clipped"
+  }
+]
