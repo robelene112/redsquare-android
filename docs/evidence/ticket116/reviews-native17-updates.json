@@ -1,0 +1,35 @@
+{
+  "reviewedAt": "2026-11-15T06:27:45.973994+00:00",
+  "reviewedCommit": "b36a1024d88adfc8ced8f5fde8fd9a117b673e59",
+  "base": "e577b31d93c1249c4f333511f1b2c7a15327176e",
+  "nativeSource": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "standards": {
+    "findings": 0,
+    "agent": "/root/feed116_standards",
+    "externalProofRoot": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/standards-review17"
+  },
+  "spec": {
+    "findings": 0,
+    "agent": "/root/feed116_spec",
+    "externalProofRoot": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/spec-review17"
+  },
+  "independentComplete17Replay": true,
+  "independentBothSignedUpdateReplays": true,
+  "allFiveZipDigestsFreshlyVerified": true,
+  "allExtractedZipFiles": 1824,
+  "whole17IndexedOriginals": 1472,
+  "signedUpdateIndexedOriginalsPerSdk": 48,
+  "native17Result": "CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION",
+  "native17Counts": {
+    "classes": 318,
+    "archives": 251,
+    "observedIdentities": 831,
+    "terminalIdentities": 826,
+    "verifiedIntentionalStarts": 5,
+    "normalCompletions": 345,
+    "interruptions": 44,
+    "continuities": 43,
+    "zeroGapScenes": 4
+  },
+  "qualification": "Output destinations only were redirected outside Git; all source/hash/profile and native assertions retained. This review does not accept complete Android10 or public promotion, direct130-to131, module-observer, physical/OEM or real provider/Play gates."
+}

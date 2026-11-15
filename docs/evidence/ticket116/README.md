@@ -21,7 +21,8 @@ reading text despite preserving its absolute pixel.
   collapsed-header, pending/outage/recovery goals remain. The added expiry
   assertion retains the same pixel. Native screenshots were inspected.
 - Standards and Spec reviews find zero remaining source/proof-method issues at
-  this source. Final complete-evidence and delivery review remains pending.
+  this source. Independent complete17and signed-update evidence review also finds zero issues.
+  Android10and public delivery review remain pending.
 - Signed ordinary127-to131 updates `43680519365`/`43680521171` succeed. Both
   original ZIPs and all96 indexed raw/native originals are verified. Exact wallet,
   unsent draft, cached post, Light preference and separate debug identity survive.
