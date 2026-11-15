@@ -10,43 +10,26 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current active ticket: #120 (unfinished post/reply/quote and biography recovery).
+Current active ticket: #121 (resume selected-image preparation across Activity recreation).
 
-#120 is in progress, not accepted. Native red43746535491 at6f20287ca reproduces
-49characters becoming an empty composer after actual background process death.
-First post-only green43747908540 at e225c5aa restores the exact text with distinct
-PIDs3342/4163, unchanged explicit draft, wallet/node and zero publication. Originals
-and collectors live outside Git at `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
-Test-only9ba4ae405 adds profile/reply/quote/previous-Saved contexts. Actual profile
-red43749242236 loses52characters in the cold Bio field, with its real first-process
-termination verified. Profile green43750883200 at0fe820532 now restores the exact52characters after
-actual process death without explicit saving or publication. The native screenshot
-also shows the recovered biography in both preview and Bio field. ViewModel
-closeables own writers even if initial-load cancellation races delivery; retirement
-clears the old recovered-text snapshot and pending writes. Cold queued-post
-cancellation/new-profile-edit paths also acquire an unsigned writer.
+#120 is complete with both independent source/evidence axes reporting zero remaining
+findings. See [the #120 packet](../evidence/ticket120/README.md). Native source
+bbc3a1cf2, source/core/lint3bb29ee769, exact two-line fixture-only bridge. Six complete
+composer/profiles/agreement-queue parents pass on Android10/17, with99normal
+completions,20verified intentional starts and one unchanged named API29Profile
+assumption. All eight new recovery modes restore exact text after actual process
+death, retain prior Saved drafts and wallet/node, and publish nothing. Continuous
+checkpointing, real failure/Retry, encrypted prior work, stale retirement and exact
+queued signature/permission guards pass. Core224/44 and lint0errors pass with cache
+qualification. Both axes verify653raw/688captures plus55source originals, complete
+indexes and all assessment assertions. Original reds, intermediate passes, replaced
+source builds and first failed composer fixture remain retained without prefix
+acceptance. Public beta remains0.1.131; final integrated delivery belongs to131.
+Originals: `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
 
-Continuous-typing red43752110988 at9ea19ec0 reproduces starvation: the durable
-checkpoint still contains the pre-loop body after1.8seconds of real native SetText
-actions40ms apart. Source e0c922325 changes this to periodic latest-snapshot writes
-using a conflated signal, with independent generation retirement and success
-version checks. It also propagates unreadable initial checkpoints to the existing
-load/Retry path. Green43753348329 at exact e0c922325a6f7bb7d9a19fe753013ea0136e7919 now passes
-the continuous typing checkpoint and actual new-PID final-text recovery. Final
-source adds actual write-failure/Retry preservation and three encrypted-storage
-checks for retired/stale writers, unreadable prior work, wallet/node isolation and
-unchanged signed queued candidates/permission. The host now runs eight separate
-process variants: post, post-saved, reply, quote, profile, profile-saved, continuous
-and storage-failure. It preserves the120s phase bounds and per-mode original
-logs/captures/identity rows. Complete composer and full Social include them
-additively. Warning/Retry stays visible beside the writing header only after an
-actual recovery failure. Final source/core/lint, both complete relevant SDK scopes
-and independent reviews are pending. These additions have not yet passed native
-checks; do not close120 from earlier focused successes. Existing ChatFixtureState now includes
-the new family when post/profile files are declared, preserving test restoration.
-Storage failure, generation retirement,
-identity/node isolation, signed candidate preservation, final SDK coverage and
-independent reviews still remain for120. Do not close it from the post-only pass.
+Continue121–130 sequentially, then131, without another approval question. Ordinary
+QA remains agent-owned. No production node/provider change or public financial
+write is authorized. The canonical dirty checkout remains untouched.
 
 #119 is complete at product cfac7287a and native6b231a4e, with complete Fileshare
 Android10/17 and independent Standards/Spec source/evidence acceptance. See

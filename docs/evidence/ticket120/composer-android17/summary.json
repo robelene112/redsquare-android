@@ -1,0 +1,105 @@
+{
+  "result": "PASS_COMPLETE_RELEVANT_SCOPE",
+  "sdk": "17",
+  "scope": "composer",
+  "run": 43759927888,
+  "source": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+  "ordinaryClasses": 7,
+  "ordinaryNormalCompletions": 11,
+  "inheritedAssumptions": [],
+  "normalProcessCompletions": 16,
+  "verifiedIntentionalStarts": 8,
+  "totalObservedInvocations": 35,
+  "modeResults": {
+    "post": {
+      "originalPid": 6060,
+      "recoveredPid": 6139,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private post 120, not explicitly saved"
+    },
+    "post-saved": {
+      "originalPid": 6257,
+      "recoveredPid": 6341,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private post-saved text 120, never published"
+    },
+    "reply": {
+      "originalPid": 6452,
+      "recoveredPid": 6526,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private reply text 120, never published"
+    },
+    "quote": {
+      "originalPid": 6631,
+      "recoveredPid": 6706,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private quote text 120, never published"
+    },
+    "profile": {
+      "originalPid": 6813,
+      "recoveredPid": 6894,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private profile text 120, never published"
+    },
+    "profile-saved": {
+      "originalPid": 6998,
+      "recoveredPid": 7111,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private profile-saved text 120, never published"
+    },
+    "continuous": {
+      "originalPid": 7214,
+      "recoveredPid": 7298,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private continuous text 120, never published"
+    },
+    "storage-failure": {
+      "originalPid": 7404,
+      "recoveredPid": 7479,
+      "backend": "owner",
+      "nativeEditableText": "Unfinished private storage-failure text 120, never published"
+    }
+  },
+  "catalog": {
+    "ComposerDraftStatusPreviewTest": [
+      "unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns",
+      "savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus"
+    ],
+    "ComposerPostJourneyTest": [
+      "imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement"
+    ],
+    "ComposerReplyJourneyTest": [
+      "imageReplyReturnsWithItsThreadAndPublishesOnlyAfterDeliberateAgreement"
+    ],
+    "ComposerQuoteJourneyTest": [
+      "imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement"
+    ],
+    "PostComposerFocusPreviewTest": [
+      "writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard"
+    ],
+    "PublishingWorkViewportTest": [
+      "savedAuthorChangesOpenTheSameUnsentTextWithTheirOriginalNodeInBothThemes",
+      "policyPausedQueueShowsItsOriginAndCancelsIntoTheSameEditableDraftInBothThemes"
+    ],
+    "UnfinishedTextStorageTest": [
+      "newerEditorsAndRetirementPreventStaleWritesAcrossIdentityAndNodeScopes",
+      "anUnreadableCheckpointCanBeRetriedWithoutReplacingItsPreviousEncryptedWork",
+      "pendingPrivateWritesCannotChangeASignedQueuedCandidateOrGrantPublication"
+    ]
+  },
+  "receipt": {
+    "run": 43759927888,
+    "source": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+    "conclusion": "success",
+    "artifactId": 14179264886,
+    "zipSha256": "17027740e134b7375ab2b9b4d4014da259d2fa1f2987d6653817a859eeae8241",
+    "zipEntries": 156,
+    "captureMembers": 227,
+    "allExtractedMembersByteExact": true
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 156,
+    "captures": 227
+  },
+  "qualification": "Complete relevant scope at agreed controlled native/storage/owned-peer/process seams. All original phase/class goals retained. The one named API29 Profile assumption is inherited unchanged; intentional process starts never count as normal completions. Whole-app/beta/physical/OEM/live-service/Play gates remain separate."
+}

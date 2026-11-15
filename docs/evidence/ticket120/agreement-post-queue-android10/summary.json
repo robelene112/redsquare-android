@@ -1,0 +1,35 @@
+{
+  "result": "PASS_COMPLETE_RELEVANT_SCOPE",
+  "sdk": "10",
+  "scope": "agreement-post-queue",
+  "run": 43759927565,
+  "source": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+  "ordinaryClasses": 1,
+  "ordinaryNormalCompletions": 2,
+  "inheritedAssumptions": [],
+  "normalProcessCompletions": 0,
+  "verifiedIntentionalStarts": 0,
+  "totalObservedInvocations": 2,
+  "modeResults": {},
+  "catalog": {
+    "PublishingPostQueuePreviewTest": [
+      "unacceptedBackgroundPostsKeepTheirOriginalAndCanBeCancelled",
+      "explicitAgreementResumesTheQueuedPostWithoutSigningAnotherAttempt"
+    ]
+  },
+  "receipt": {
+    "run": 43759927565,
+    "source": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+    "conclusion": "success",
+    "artifactId": 14180245872,
+    "zipSha256": "53233cbf614b83e4ac283f31e66b5c82bfba407003d46dc9cca0183ba2517287",
+    "zipEntries": 80,
+    "captureMembers": 11,
+    "allExtractedMembersByteExact": true
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 80,
+    "captures": 11
+  },
+  "qualification": "Complete relevant scope at agreed controlled native/storage/owned-peer/process seams. All original phase/class goals retained. The one named API29 Profile assumption is inherited unchanged; intentional process starts never count as normal completions. Whole-app/beta/physical/OEM/live-service/Play gates remain separate."
+}

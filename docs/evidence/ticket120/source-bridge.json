@@ -1,0 +1,24 @@
+{
+  "source": "3bb29ee769a6969e08d89c9e65de3b81e08e60b2",
+  "nativeSource": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+  "onlyChangedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UnfinishedTextProcessTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UnfinishedTextStorageTest.kt"
+  ],
+  "fixtures": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UnfinishedTextStorageTest.kt",
+      "beforeSha256": "de6d6cd8c832f0974480a75e3527963408c08f9f39490aced858a296fa8b9236",
+      "afterSha256": "57a035345cd1799663d3dd3d44ab01f5582ec6fb61e662c879b289660e298eae",
+      "change": "Exact equality with private failure message"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/UnfinishedTextProcessTest.kt",
+      "beforeSha256": "74a4d7ea354f81792062b594d8e3c8dd14672a47f5c7b274ca96cd180f0cb496",
+      "afterSha256": "b2ef278120f64b40c2eecc35310d7a78406e852d440be080233c2316fe54e02e",
+      "change": "Visible enabled pinned Retry click; same action and persistence goals"
+    }
+  ],
+  "allOtherTrackedInputsIdentical": true,
+  "goalOrDeadlineChanges": false
+}

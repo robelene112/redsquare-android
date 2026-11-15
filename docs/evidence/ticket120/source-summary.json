@@ -1,0 +1,28 @@
+{
+  "result": "PASS_SOURCE_DEBUG",
+  "run": 43756601784,
+  "source": "3bb29ee769a6969e08d89c9e65de3b81e08e60b2",
+  "nativeSource": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+  "core": {
+    "tests": 224,
+    "failures": 0,
+    "ignored": 0,
+    "classes": 44
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 94,
+    "hints": 3
+  },
+  "receipt": {
+    "run": 43756601784,
+    "source": "3bb29ee769a6969e08d89c9e65de3b81e08e60b2",
+    "conclusion": "success",
+    "artifactId": 14179217021,
+    "zipSha256": "e51731c8090aed06e34ba834cfcc0fbf80f80ff4795f61cf69d440216ca3d961",
+    "zipEntries": 55,
+    "captureMembers": 0,
+    "allExtractedMembersByteExact": true
+  },
+  "qualification": "Compiler/core/gateway/lint tasks complete. Gradle can reuse unchanged task outputs; no uncached test claim. Native compile/execution uses fixture-only newer source with all product/core/build/resources/workflow/scripts identical."
+}

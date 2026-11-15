@@ -1,0 +1,31 @@
+{
+  "base": "ae7c5ae9c961750f2e15112c8cd757ed1e3ff13e",
+  "nativeSource": "bbc3a1cf2dc46ebafdf652b6b3e91e677539deb9",
+  "sourceCheck": "3bb29ee769a6969e08d89c9e65de3b81e08e60b2",
+  "standards": {
+    "reviewer": "/root/text120_standards",
+    "result": "PASS",
+    "remainingFindings": 0
+  },
+  "spec": {
+    "reviewer": "/root/text120_spec",
+    "result": "PASS",
+    "remainingFindings": 0
+  },
+  "nativeRuns": [
+    43759927503,
+    43759927888,
+    43759927652,
+    43759927462,
+    43759927565,
+    43759927747
+  ],
+  "sourceRun": 43756601784,
+  "normalCompletions": 99,
+  "verifiedIntentionalStarts": 20,
+  "inheritedAssumptions": 1,
+  "nativeRawFiles": 653,
+  "nativeCaptures": 688,
+  "sourceFiles": 55,
+  "qualification": "Exact inherited API29 ProfilePublishing assumption only; two-line fixture-only source bridge and Gradle cache reuse explicit. Fresh metadata/digests/full logs, all original bytes/indexes and every assessor assertion independently reproduced. Failed/intermediate parents excluded. Whole app, beta and physical/OEM/live-service/Play gates remain separate."
+}
