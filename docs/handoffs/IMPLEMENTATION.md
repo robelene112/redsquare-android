@@ -1,6 +1,44 @@
 # Implementation handoff
 
-## Delivered combined Vault/Store and Talk UI, beta130
+## Delivered feed refresh spacing, beta 131 (#116)
+
+[Signed beta 0.1.131](https://davidengelen.nl/redsquare/) removes the extra gap
+between the feed tabs and the transient refresh-success strip. It preserves the
+original viewport overlay, pointer pass-through and strict reading position,
+including feedback dismissal and opening/returning from a post. Shared status
+bars retain their normal spacing. No separate layout row or no-overlap claim.
+
+See [the #116 packet](../evidence/ticket116/README.md). Signed product source is
+`d6b8083941d126377bf9e9d1a3f77c8dec7cadc6`; APK SHA256 is
+`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
+94,089,760 bytes, with the established signing certificate. Current public
+canonical/fresh latest, immutable manifest, exact page and downloaded APK bytes,
+version and signature pass actual verification. Both independent delivery reviews report zero findings in the packet.
+
+Complete Android 17 run `43678447389` uses exact product d6. Complete Android 10
+run `43693979501` uses `71c117ea9e4bd4e0f6697d5288fc7e2fcc5a60bb`, differing
+only in the declared Fileshare notification test operator and #116 evidence.
+All ordinary product/core/resource/build/workflow/protocol source equals signed
+131. Each complete run covers 318 classes and 251 archives, all inherited goals
+and zero-gap feed geometry. Independent Standards/Spec reviews reproduce every
+assertion, fresh ZIP digest and indexed original, plus the actual late-rejection
+CLI check. Original Android 17 admission inputs remain immutable.
+
+Actual signed 127-to-131 updates pass on both SDKs with independent review.
+This is not direct 130-to-131 or a separate pending module-observer proof.
+The inherited #115 classification qualification, one API29 Profile assumption,
+unavailable Chat archive and four missing legacy failure captures remain explicit.
+Earlier failed whole10 parents and unproved causes are preserved, without prefix
+acceptance or relaxed goals. No original frozen-collector PASS is claimed.
+
+Stop after #116 until the owner requests another ticket. Keep #1/#36/#55/#84/#86
+and #105 open. Physical/OEM, real node/provider/schema/funding and Play gates
+remain. Source-only Vault rental restoration stays UNDEPLOYED. No node/provider
+operation or public financial write occurred. Ordinary development QA remained
+agent-owned; the canonical dirty checkout was untouched. Originals remain outside
+Git under `/mnt/storage/redsquare-android-artifacts/feed-notice-fix`.
+
+## Earlier combined Vault/Store and Talk UI delivery, beta130
 
 Ticket115 is delivered in [signed beta 0.1.130](https://davidengelen.nl/redsquare/).
 All approved native slices106–115 are complete. Stop here until the owner's next

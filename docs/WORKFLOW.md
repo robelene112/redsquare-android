@@ -11,6 +11,23 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current completed owner scope
 
+Feed refresh spacing [#116](https://github.com/robelene112/redsquare-android/issues/116)
+is delivered in [signed beta 0.1.131](https://davidengelen.nl/redsquare/).
+The strip attaches directly below the tabs while preserving the reading viewport,
+pointer pass-through and truthful refresh timing. Complete Android 10/17 runs,
+actual signed 127-to-131 updates and independent source/evidence reviews pass
+with the explicit inherited classification and Android10 fixture qualifications.
+Actual public page, metadata and downloaded APK bytes/version/signature pass.
+See [the #116 packet](evidence/ticket116/README.md) for final independent delivery acceptance, exact source bridges, retained failed
+runs and limits.
+
+Stop after #116 until the next owner request. Keep #105 and #1/#36/#55/#84/#86
+open. Physical/OEM, actual provider/node/schema/funding and Play gates remain;
+Vault rental restoration remains UNDEPLOYED. No additional module, node/provider
+operation or public financial write is authorized. Ordinary QA is agent-owned.
+
+### Earlier beta 130 delivery
+
 The approved Vault/Store specification105 and native slices106–115 are delivered
 in [signed beta 0.1.130](https://davidengelen.nl/redsquare/), including the owner's
 Saito Talk call-screen polish. Both complete SDK primaries, actual signed updates,

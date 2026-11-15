@@ -1,6 +1,28 @@
 # Red Square Android project context
 
-## Delivered native Vault and Store, beta130
+## Delivered feed refresh polish, beta 131
+
+[Signed beta 0.1.131](https://davidengelen.nl/redsquare/) addresses owner feedback
+in [#116](https://github.com/robelene112/redsquare-android/issues/116): the
+transient Feed updated strip attaches directly below the feed tabs with zero
+outer vertical gap. It preserves reading pixels, post taps and return navigation.
+Other status bars retain their existing spacing.
+
+Complete Android 10/17 verification, signed 127-to-131 updates and independent
+source/evidence reviews pass. Actual public metadata, page and downloaded APK
+bytes/version/signature are verified. See [the #116 packet](evidence/ticket116/README.md)
+for final independent delivery acceptance and exact source/reporting qualifications.
+Android10 changes only a notification test operator relative to signed product;
+Android17 retains its original exact source/profile. Original failed parents and
+all inherited evidence limits remain explicit. No native goal was weakened.
+
+Stop after #116 until the next owner request. Keep #105 and #1/#36/#55/#84/#86
+open. Real physical/OEM/provider/schema/funding/Play gates remain; source-only
+Vault rental restoration stays UNDEPLOYED. No production node/provider operation
+or public financial write occurred. The beta 130 history below remains applicable
+to the existing Vault/Store/Talk features.
+
+## Earlier native Vault and Store delivery, beta130
 
 [Signed beta 0.1.130](https://davidengelen.nl/redsquare/) delivers the approved
 [Vault/Store specification105](https://github.com/robelene112/redsquare-android/issues/105)

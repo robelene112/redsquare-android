@@ -23,7 +23,7 @@ reading text despite preserving its absolute pixel.
 - Standards and Spec source reviews report zero remaining findings. Independent
   complete Android 17 and signed-update evidence reviews also report zero findings.
   Final complete Android 10 review also reports zero findings, including independent
-  late-rejection CLI replays. Public delivery review remains pending.
+  late-rejection CLI replays. Both independent public delivery reviews also report zero findings.
 - Complete Android 17 primary `43678447389` succeeds at exact product source d6.
   It covers 318 classes, 251 archives and 831 observed identities: 826 terminal
   identities plus five verified intentional starts. It records 345 normal
@@ -45,7 +45,11 @@ reading text despite preserving its absolute pixel.
   direct 130-to-131 proof nor a separate pending Vault/Store module-observer claim.
   The inherited scope descriptor says 83; actual versions and downloads bind
   127/131 independently. See `update131-android10` and `update131-android17`.
-- Signed beta 131 is staged, not promoted. APK: 94,089,760 bytes; SHA256:
+- [Signed beta 0.1.131](https://davidengelen.nl/redsquare/) is promoted. Actual
+  canonical and fresh latest metadata both report 131. The immutable manifest,
+  notes, page and full downloaded APK bytes, signature and version pass verification
+  in `public131.json`. Both independent delivery reviews pass (`reviews-public131.json`).
+  APK: 94,089,760 bytes; SHA256:
   `260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`.
   Established certificate:
   `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
