@@ -1,9 +1,12 @@
 """Admit the Android10 notification-operator fixture while retaining signed131 code."""
+import contextlib
 import hashlib
+import io
 import json
 from pathlib import Path
 import subprocess
 import tarfile
+import tempfile
 import sys
 
 assert len(sys.argv) in (6, 7) and sys.argv[1] == '10'
@@ -54,36 +57,47 @@ assert adapted.count(output_span) == 1
 adapted = adapted.replace(output_span, 'current_packet=notification_output, current_adapter_sha=', 1)
 # Only profile selection and the optional report destination are adapted.
 # Every original source/time/hash/native check and evidence input is retained.
-output_root.mkdir(parents=True, exist_ok=True)
-exec(compile(adapted, str(adapter) + ':notification10-profile', 'exec'),
-     dict(__file__=str(adapter), __name__='__main__', notification_output=output_root))
-summary_path = output_root / sys.argv[5] / 'summary.json'
-summary = json.loads(summary_path.read_text())
-archive_path = Path(sys.argv[2]) / 'android-native-proof-chat/.scratch/device-evidence/api-29/fileshare-evidence.tar'
-with tarfile.open(archive_path) as archive:
-    def record(name):
-        return json.loads(archive.extractfile('fileshare-evidence/' + name).read())
-    context = record('cancel-shade-fixtures.json')
-    lookup = record('cancel-lookup.json')
-    restoration = record('cancel-shade-restoration.json')
-    assert context['messageCount'] >= 3
-    assert context['ownedMessages'] == max(0, 3 - context['existingMessages'])
-    assert lookup['budgetMillis'] == 5000 and 0 <= lookup['elapsedMillis'] <= 5000
-    assert restoration == dict(ownedChannelRemoved=True, ownedNotificationsRemoved=True)
-    geometry = []
-    member = next((m for m in archive.getmembers() if m.name == 'fileshare-evidence/cancel-scroll-geometry.jsonl'), None)
-    if member is not None:
-        geometry = [json.loads(line) for line in archive.extractfile(member).read().splitlines()]
-        for point in geometry:
-            assert point['gestureTop'] >= max(point['listTop'], point['headerBottom']) + 8
-            assert point['gestureBottom'] <= min(point['listBottom'], point['shelfTop']) - 8
-            assert point['gestureBottom'] - point['gestureTop'] >= 48
-            if point['messageBodyBottom'] >= 0:
-                assert point['gestureBottom'] <= point['messageBodyBottom'] - 8
-summary['notificationOperator'] = dict(context=context, lookup=lookup, restoration=restoration,
-    geometry=geometry, qualification='Actual physical Cancel and original cancellation assertions remain mandatory; geometry is additional operator evidence, not a replacement.')
-summary['result'] = 'CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION_AND_NOTIFICATION_FIXTURE'
-summary.update(notificationAdmissionWrapperSha256=sha(wrapper_bytes), fixtureBridge=bridge)
-summary['qualification'] += ' Android10 changes only the owned notification test operator; all ordinary product source equals the signed131source. Android17 retains its separate exact original source/profile. No native goal/deadline is weakened.'
-summary_path.write_text(json.dumps(summary, indent=2) + '\n')
-print(json.dumps(summary))
+target = output_root / sys.argv[5]
+assert not target.exists(), 'Assessment destination already exists'
+# Staging stays outside Git and on the report filesystem. Neither a preliminary
+# success packet nor its stdout is published if a later native assertion fails.
+stage_parent = repo.parent if output_root.resolve().is_relative_to(repo.resolve()) else output_root.parent
+stage_parent.mkdir(parents=True, exist_ok=True)
+with tempfile.TemporaryDirectory(prefix='notification116-', dir=stage_parent) as temporary:
+    staged_root = Path(temporary)
+    with contextlib.redirect_stdout(io.StringIO()):
+        exec(compile(adapted, str(adapter) + ':notification10-profile', 'exec'),
+             dict(__file__=str(adapter), __name__='__main__', notification_output=staged_root))
+    summary_path = staged_root / sys.argv[5] / 'summary.json'
+    summary = json.loads(summary_path.read_text())
+    archive_path = Path(sys.argv[2]) / 'android-native-proof-chat/.scratch/device-evidence/api-29/fileshare-evidence.tar'
+    with tarfile.open(archive_path) as archive:
+        def record(name):
+            return json.loads(archive.extractfile('fileshare-evidence/' + name).read())
+        context = record('cancel-shade-fixtures.json')
+        lookup = record('cancel-lookup.json')
+        restoration = record('cancel-shade-restoration.json')
+        assert context['messageCount'] >= 3
+        assert context['ownedMessages'] == max(0, 3 - context['existingMessages'])
+        assert lookup['budgetMillis'] == 5000 and 0 <= lookup['elapsedMillis'] <= 5000
+        assert restoration == dict(ownedChannelRemoved=True, ownedNotificationsRemoved=True)
+        geometry = []
+        member = next((m for m in archive.getmembers() if m.name == 'fileshare-evidence/cancel-scroll-geometry.jsonl'), None)
+        if member is not None:
+            geometry = [json.loads(line) for line in archive.extractfile(member).read().splitlines()]
+            for point in geometry:
+                assert point['gestureTop'] >= max(point['listTop'], point['headerBottom']) + 8
+                assert point['gestureBottom'] <= min(point['listBottom'], point['shelfTop']) - 8
+                assert point['gestureBottom'] - point['gestureTop'] >= 48
+                if point['messageBodyBottom'] >= 0:
+                    assert point['gestureBottom'] <= point['messageBodyBottom'] - 8
+    summary['notificationOperator'] = dict(context=context, lookup=lookup, restoration=restoration,
+        geometry=geometry, qualification='Actual physical Cancel and original cancellation assertions remain mandatory; geometry is additional operator evidence, not a replacement.')
+    summary['result'] = 'CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION_AND_NOTIFICATION_FIXTURE'
+    summary.update(notificationAdmissionWrapperSha256=sha(wrapper_bytes), fixtureBridge=bridge)
+    summary['qualification'] += ' Android10 changes only the owned notification test operator; all ordinary product source equals the signed131source. Android17 retains its separate exact original source/profile. No native goal/deadline is weakened.'
+    summary_path.write_text(json.dumps(summary, indent=2) + '\n')
+    output_root.mkdir(parents=True, exist_ok=True)
+    assert not target.exists(), 'Assessment destination already exists'
+    summary_path.parent.rename(target)
+    print(json.dumps(summary))

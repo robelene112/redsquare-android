@@ -34,9 +34,9 @@ reading text despite preserving its absolute pixel.
   identities (826terminal plus5verified intentional starts),345normal completions,
   44deliberate interruptions and43continuities. Four native feedback scenes have
   zero gap. Its `native131-android17` packet retains the exact run and byte indexes.
-- Complete Android10 primary `43687853067` remains pending in the standard
-  Ubuntu24.04 pool after three unsuccessful10observations. No host-cause claim is made
-  and no complete two-SDK acceptance is claimed yet.
+- Four complete Android10 parents are excluded. The fourth, `43687853067`, failed
+  the same physical-Cancel lookup as the first. Targeted notification qualification
+  is pending; no new whole-run or two-SDK acceptance is claimed.
 - Signed beta131 is staged, not promoted. APK94,089,760bytes,
   SHA256`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
   established certificate`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
@@ -95,3 +95,20 @@ per-packet original indexes bind the retained bytes. No APK is committed.
 Physical/OEM, real node/provider/schema/funding and Play prerequisites remain open
 under36/OWNER_INPUTS. No node/provider/Play operation or public financial write was
 performed. Parent1/36/55/84/86 and105 remain open.
+
+## Notification fixture qualification, pending
+
+The repeated physical-Cancel failure is retained in `unsuccessful-fourth-full10.json`.
+The sole source change outside this evidence directory is the Android test fixture
+`FilesharePreviewTest.kt`. Ordinary app/core/resource/build/script/workflow/protocol
+source and signed131bytes remain unchanged. The original17adapter/profile remain
+immutable, and both reviewers reran every accepted17assertion successfully after
+the fixture changes.
+
+The new10profile/wrapper prospectively bind that single fixture difference to the
+signed131manifest/source. They retain every original assertion and original5000ms
+lookup, add owned-alert cleanup and actual gesture/budget evidence, and publish no
+success packet/stdout until all delegated and additional assertions pass. Temporary
+staging stays outside Git. Independent source/admission review and focused native
+proof must complete before a new whole10run. Earlier quiet-alert reproducers did not
+establish the real alert ranking and are not evidence that the full failure is fixed.

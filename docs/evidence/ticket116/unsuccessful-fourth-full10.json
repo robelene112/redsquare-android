@@ -1,0 +1,10 @@
+{
+  "run": 43687853067,
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "acceptance": false,
+  "conclusion": "failure",
+  "failedClass": "FileshareCancelPreviewTest",
+  "failedCheck": "Physical Cancel not located in original5000ms notification-shade window",
+  "observation": "Repeated first whole10 failure with retained alert cards and grouped Android System row. No app code change or test-goal waiver. Targeted notification-operator qualification now replaces broad retries.",
+  "qualification": "Earlier standalone success did not prove the full-suite notification context. This parent and every successful partition remain excluded."
+}
