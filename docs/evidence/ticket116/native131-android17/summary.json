@@ -1,0 +1,75 @@
+{
+  "result": "CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION",
+  "sdk": "17",
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "run": "43678447389",
+  "observedIdentities": 831,
+  "terminalCompletionOrAssumptionIdentities": 826,
+  "verifiedModuleInterruptedStarts": 5,
+  "assessorSha256": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+  "erratumSha256": "1a3ecf9168b3e284365e2d35b584d2c248e20505fa32ce5b58d2bab3e5c32a4a",
+  "adapterSha256": "54e95ca00f40739a1b8cafe52691a072070cc06c30cb0772db0c6a0451b8bc30",
+  "sourceProfileSha256": "63c0eac76dcbeb7c4f0b558cfc59f7f8a4e9cdb1e6c587d82d1a89a879c97d97",
+  "feedGeometry": [
+    {
+      "scene": "reading-during-pending-refresh",
+      "tabsBottom": 184.0,
+      "viewportTop": 184.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 184.0,
+      "feedbackBottom": 216.0,
+      "noticeTop": 193.0,
+      "noticeBottom": 207.0
+    },
+    {
+      "scene": "collapsed-reading",
+      "tabsBottom": 76.0,
+      "viewportTop": 76.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 76.0,
+      "feedbackBottom": 108.0,
+      "noticeTop": 85.0,
+      "noticeBottom": 99.0
+    },
+    {
+      "scene": "results-applied",
+      "tabsBottom": 184.0,
+      "viewportTop": 184.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 184.0,
+      "feedbackBottom": 216.0,
+      "noticeTop": 193.0,
+      "noticeBottom": 207.0
+    },
+    {
+      "scene": "recovered-results",
+      "tabsBottom": 238.0,
+      "viewportTop": 238.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 238.0,
+      "feedbackBottom": 270.0,
+      "noticeTop": 247.0,
+      "noticeBottom": 261.0
+    }
+  ],
+  "frozenVerifierSha256": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
+  "assessorCommit": "d70f6989710d342570ae288eca096a567fc0ab33",
+  "recoveryTotals": {
+    "normalCompletions": 345,
+    "deliberateInterruptions": 44,
+    "continuityRecords": 43
+  },
+  "classes": 318,
+  "assumptions": [],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 251,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/full116/raw-43678447389",
+  "runtimePreflight": {},
+  "separateProvisioningCompletions": 0,
+  "qualification": "Current116source assessment with inherited115interruption classification. The115frozen collector is not claimed to pass. One complete successful native primary, all3partitions. Exact five contracted intentional-start observations are separate from terminal completions/assumptions; all original goals and remaining validators retained. Originals remain external. No partial assembly or physical/provider/store acceptance."
+}

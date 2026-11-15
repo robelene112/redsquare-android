@@ -28,9 +28,14 @@ reading text despite preserving its absolute pixel.
   The frozen workflow permits baseline127; this is not a direct130-to131 proof
   or a separate pending Vault/Store module-observer claim. The inherited scope
   descriptor still says83; actual versions and downloads independently bind127/131.
-- Complete Android17 primary `43678447389` and Android10 primary `43683761408`
-  are pending. The latter uses the existing supported Ubuntu22.04 pool after a second
-  unsuccessful10observation; no host-cause claim is made. No complete acceptance is claimed yet.
+- Complete Android17 primary `43678447389` succeeds. The qualified current-source
+  assessor runs every inherited validator:318classes,251archives,831observed
+  identities (826terminal plus5verified intentional starts),345normal completions,
+  44deliberate interruptions and43continuities. Four native feedback scenes have
+  zero gap. Its `native131-android17` packet retains the exact run and byte indexes.
+- Complete Android10 primary `43683761408` remains pending in the existing supported
+  Ubuntu22.04 pool after two unsuccessful10observations. No host-cause claim is made
+  and no complete two-SDK acceptance is claimed yet.
 - Signed beta131 is staged, not promoted. APK94,089,760bytes,
   SHA256`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
   established certificate`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
