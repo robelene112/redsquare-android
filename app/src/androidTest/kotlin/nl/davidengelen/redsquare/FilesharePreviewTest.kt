@@ -26,7 +26,7 @@ abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
     protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false,
-        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false) {
+        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false, pendingAccept: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -44,8 +44,17 @@ abstract class FileshareFixture {
         val shadeFixture = "fileshare-cancel-viewport-fixture"
         val seedShade = cancel && android.os.Build.VERSION.SDK_INT == 29
         val browserRef = AtomicReference<FileshareBrowserPeer>()
+        val holdSignal = java.util.concurrent.atomic.AtomicBoolean(false)
+        val signalEntered = java.util.concurrent.CountDownLatch(1)
+        val releaseSignal = java.util.concurrent.CountDownLatch(1)
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
-            relayResponse = { browserRef.get().relay(it) })
+            relayResponse = { inner ->
+                val response = browserRef.get().relay(inner)
+                if (holdSignal.get() && SaitoEnvelope.decode(SaitoEnvelope.fromSignedJson(inner)).body.get("request")?.asString == "peer-description") {
+                    signalEntered.countDown(); check(releaseSignal.await(10, java.util.concurrent.TimeUnit.SECONDS))
+                }
+                response
+            })
         if (large && android.os.Build.VERSION.SDK_INT == 29) {
             val declared = context.getSystemService(android.app.ActivityManager::class.java).memoryClass.toLong() * 1024 * 1024
             val actual = Runtime.getRuntime().maxMemory()
@@ -57,7 +66,7 @@ abstract class FileshareFixture {
         val source = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/$sourceName")
         val destination = Uri.parse("content://nl.davidengelen.redsquare.dev.test.fileshare/saved.bin")
         val draft = "Keep this unsent message"
-        val delayedChatReturn = incoming && !cancel && !unknown && !denyNotifications && !preparationCancel && viewportWidth == null && !large
+        val delayedChatReturn = incoming && !cancel && !unknown && !denyNotifications && !preparationCancel && viewportWidth == null && !large && !pendingAccept
         var session: FileSession? = null
         var restoreLegacyNotifications: (() -> Unit)? = null
         var primary: Throwable? = null
@@ -176,7 +185,39 @@ abstract class FileshareFixture {
                                 assertEquals(0L, session!!.transfers.value.single().bytes)
                                 ui.onNodeWithText("Accept file").performScrollTo()
                                 captureNativeScreen(File(evidence, "incoming-accept.png"), "Accept file")
+                                if (pendingAccept) {
+                                    holdSignal.set(true); browser.renegotiate()
+                                    assertTrue("Real prior Relay reply is held", signalEntered.await(5, java.util.concurrent.TimeUnit.SECONDS))
+                                }
                                 ui.onNodeWithText("Accept file").performClick()
+                                if (pendingAccept) {
+                                    val notifications = context.getSystemService(NotificationManager::class.java)
+                                    try {
+                                        waitUntil { notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID } }
+                                        device.pressHome(); device.sleep()
+                                        assertFalse(device.isScreenOn)
+                                        val deadline = android.os.SystemClock.elapsedRealtime() + 3200
+                                        val observations = mutableListOf<Boolean>()
+                                        while (android.os.SystemClock.elapsedRealtime() < deadline) {
+                                            observations.add(notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID })
+                                            Thread.sleep(50)
+                                        }
+                                        File(evidence, "pending-acceptance-foreground.json").writeText(com.google.gson.JsonObject().apply {
+                                            addProperty("relayHeld", releaseSignal.count == 1L)
+                                            addProperty("screenOff", !device.isScreenOn)
+                                            addProperty("samples", observations.size)
+                                            addProperty("allForeground", observations.all { it })
+                                        }.toString())
+                                        assertTrue("Accepted transfer keeps its foreground notification beyond the idle window", observations.all { it })
+                                        val alert = notifications.activeNotifications.single { it.id == FileTransferService.NOTIFICATION_ID }
+                                        assertTrue("Pending acceptance has exact-transfer Cancel", alert.notification.actions.orEmpty().any {
+                                            it.title.toString() == context.getString(nl.davidengelen.redsquare.R.string.fileshare_cancel) })
+                                    } finally { holdSignal.set(false); releaseSignal.countDown() }
+                                    waitUntil { session!!.transfers.value.any { it.phase == FilePhase.RECEIVING && it.bytes > 0 } }
+                                    device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
+                                    notifications.activeNotifications.single { it.id == FileTransferService.NOTIFICATION_ID }.notification.contentIntent.send()
+                                    waitUntil { ui.onAllNodesWithText(draft).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                }
                                 waitUntil { session!!.transfers.value.any { it.phase == FilePhase.RECEIVING && it.bytes > 0 } }
                                 session!!.accept(session!!.transfers.value.single().token)
                                 // A late duplicate Accept must leave the already receiving transfer intact.
@@ -403,6 +444,7 @@ abstract class FileshareFixture {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
+            holdSignal.set(false); releaseSignal.countDown()
             session?.interrupt()
             Thread.sleep(300)
             device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
@@ -428,6 +470,7 @@ class FileshareSendPreviewTest : FileshareFixture() {
 }
 class FileshareReceivePreviewTest : FileshareFixture() {
     @Test fun anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes() = transfer(incoming = true)
+    @Test fun acceptingBehindHeldSignallingRetainsForegroundControlsWhileScreenOff() = transfer(incoming = true, pendingAccept = true)
 }
 class FileshareCancelPreviewTest : FileshareFixture() {
     @Test fun theActualNotificationCancelStopsTheSpecificTransferWithoutClaimingCompletion() = transfer(incoming = false, cancel = true)

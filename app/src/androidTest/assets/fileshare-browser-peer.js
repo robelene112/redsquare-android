@@ -135,3 +135,13 @@ window.sendGeneratedFile = (size, name, id) => {
 };
 window.closePeer = () => { if (rtc) rtc.close(); };
 Host.ready();
+
+// An owned valid renegotiation keeps the file channel open while its Relay ACK is held.
+window.renegotiateFileChannel = async () => {
+  try {
+    makingOffer = true;
+    await rtc.setLocalDescription(await rtc.createOffer());
+    signal('peer-description', {description:{type:rtc.localDescription.type,sdp:rtc.localDescription.sdp}});
+  } catch (error) { Host.failure(String(error)); }
+  finally { makingOffer = false; }
+};
