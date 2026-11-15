@@ -40,8 +40,11 @@ internal class PostComposerState(
     var text by mutableStateOf("")
     var images by mutableStateOf<List<String>>(emptyList())
     var gifAttributions by mutableStateOf<Map<String, GiphyAttribution>>(emptyMap())
-    var imageError by mutableStateOf(false)
-    var preparingImages by mutableStateOf(false)
+    private var localImageError by mutableStateOf(false)
+    var imageError: Boolean
+        get() = localImageError || memory.imagePreparation.failed
+        set(value) { localImageError = value }
+    val preparingImages: Boolean get() = memory.imagePreparation.preparing
     var ready by mutableStateOf(false)
     var saving by mutableStateOf(false)
     var error by mutableStateOf(false)
@@ -167,7 +170,7 @@ internal class PostComposerState(
         }
     }
     suspend fun persist(): Boolean = writes.withLock {
-        if (!ready) return@withLock false
+        if (!ready || preparingImages) return@withLock false
         try {
             val snapshot = PostDraftStore.Saved(text, transaction, queued, available, images = images, gifAttributions = gifAttributions)
             withContext(NonCancellable) {
@@ -196,7 +199,7 @@ internal class PostComposerState(
         }
     }
     fun send(beforePublishing: suspend () -> Boolean) {
-        if (!ready || saving || sending || (text.isBlank() && images.isEmpty())) return
+        if (!ready || saving || sending || preparingImages || (text.isBlank() && images.isEmpty())) return
         val retrying = transaction != null
         networkError = false
         validationError = false
@@ -361,58 +364,69 @@ internal class PostComposerState(
         }
     }
 
-    fun addImages(resolver: ContentResolver, uris: List<Uri>) {
-        if (!ready || saving || sending || transaction != null || uris.isEmpty()) return
-        if (uris.size > RedSquareImages.MAX_COUNT - images.size) { imageError = true; return }
-        saving = true
+    suspend fun addImages(resolver: ContentResolver, selection: SelectedImagePreparation.Selection) {
+        if (!ready || saving || sending || transaction != null) return
+        val operation = memory.imagePreparation
         imageError = false
-        preparingImages = true
-        scope.launch {
-            try {
-                writes.withLock {
-                    // Preserve current work before any provider read or pixel allocation.
+        try {
+            val perImage = writes.withLock {
+                require(selection.uris.size <= RedSquareImages.MAX_COUNT - images.size)
+                // Keep prior content recoverable before starting a provider read. Do
+                // not hold the draft mutex, or disable input, while reading pixels.
+                saving = true
+                try {
                     val prior = PostDraftStore.Saved(text, images = images, gifAttributions = gifAttributions)
-                    savedContent = null
-                    val persistedPrior = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(prior) }
-                    savedContent = persistedPrior
-                    memory.text = persistedPrior.text
-                    memory.images = persistedPrior.images
-                    memory.gifAttributions = persistedPrior.gifAttributions
-                    val remaining = withContext(Dispatchers.IO) {
-                        SaitoTransaction.MAX_MESSAGE_BYTES - RedSquarePosts.message(text, images, parent, quote)
-                            .toString().toByteArray(Charsets.UTF_8).size - 8 * uris.size
-                    }
-                    val perImage = minOf(RedSquarePosts.MAX_IMAGE_CHARS, remaining / uris.size)
-                    require(perImage >= 1024)
-                    val prepared = mutableListOf<String>()
-                    for (uri in uris) prepared.add(PostImagePreparation.normalize(resolver, uri, perImage))
-                    val combined = images + prepared
-                    val finalSize = withContext(Dispatchers.IO) { RedSquarePosts.message(text, combined, parent, quote).toString().toByteArray(Charsets.UTF_8).size }
-                    require(finalSize <= SaitoTransaction.MAX_MESSAGE_BYTES)
-                    val snapshot = PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions)
                     withContext(NonCancellable) {
                         savedContent = null
-                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
+                        savedContent = withContext(Dispatchers.IO) { store.saveComposer(prior) }
+                        memory.unfinished?.update(memory.text ?: text)
+                    }
+                    val remaining = withContext(Dispatchers.IO) {
+                        SaitoTransaction.MAX_MESSAGE_BYTES - RedSquarePosts.message(text, images, parent, quote)
+                            .toString().toByteArray(Charsets.UTF_8).size - 8 * selection.uris.size
+                    }
+                    minOf(RedSquarePosts.MAX_IMAGE_CHARS, remaining / selection.uris.size).also { require(it >= 1024) }
+                } finally { saving = false }
+            }
+            val prepared = operation.prepared(selection, resolver, perImage)
+            writes.withLock {
+                if (operation.pending !== selection) return@withLock
+                saving = true
+                try {
+                    // Activity replacement can leave an older waiter finishing a
+                    // non-cancellable commit. The retained memory is authoritative.
+                    val latest = memory.text ?: text
+                    val combined = (memory.images ?: images) + prepared
+                    val credits = memory.gifAttributions ?: gifAttributions
+                    require(withContext(Dispatchers.IO) {
+                        RedSquarePosts.message(latest, combined, parent, quote).toString().toByteArray(Charsets.UTF_8).size
+                    } <= SaitoTransaction.MAX_MESSAGE_BYTES)
+                    withContext(NonCancellable) {
+                        savedContent = null
+                        val persisted = withContext(Dispatchers.IO) {
+                            store.saveComposer(PostDraftStore.Saved(latest, images = combined, gifAttributions = credits))
+                        }
                         savedContent = persisted
                         images = persisted.images
                         gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
                         memory.gifAttributions = persisted.gifAttributions
-                        memory.text = persisted.text
+                        text = memory.text ?: latest
+                        memory.unfinished?.update(text)
+                        operation.complete(selection)
                     }
                     error = false
                     validationError = false
-                }
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { imageError = true }
-            finally { saving = false; preparingImages = false }
-        }
+                } finally { saving = false }
+            }
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { operation.fail(selection); imageError = true }
     }
 
     /** A provider selection is its unchanged original URL, never normalized raster bytes. */
     fun addGif(item: GiphyItem, onAdded: () -> Unit) {
         val source = item.originalUrl
-        if (!ready || saving || sending || transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
+        if (!ready || saving || sending || preparingImages || transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
         saving = true
         imageError = false
         scope.launch {
@@ -447,7 +461,7 @@ internal class PostComposerState(
     }
 
     fun removeImage(index: Int) {
-        if (!ready || saving || sending || transaction != null || index !in images.indices) return
+        if (!ready || saving || sending || preparingImages || transaction != null || index !in images.indices) return
         saving = true
         scope.launch {
             try {

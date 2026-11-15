@@ -5,6 +5,7 @@ import nl.davidengelen.redsquare.media.GiphyAttribution
 
 /** Retains unfinished edits during screen recreation, without putting text in a saved-state bundle. */
 internal class PostComposerMemory : ViewModel() {
+    val imagePreparation = SelectedImagePreparation().also { addCloseable("selected-images", it) }
     val writes = kotlinx.coroutines.sync.Mutex()
     var unfinished: UnfinishedTextRecovery.EditingSession? = null
     var text: String? = null

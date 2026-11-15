@@ -97,7 +97,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
     }
     var choosingGif by remember(state) { mutableStateOf(false) }
-    var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
+    val selection = memory.imagePreparation.pending
+    val selectedImages = selection?.uris.orEmpty()
     // Only public session metadata enters saved state. Wallet material and draft
     // contents remain in their existing private stores.
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
@@ -105,14 +106,14 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val singlePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) {
             if (pickingFor == session) {
                 pickingFor = null
-                selectedImages = listOfNotNull(it)
+                memory.imagePreparation.select(listOfNotNull(it))
             }
         }
         val multiplePicker = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(
             maxOf(2, RedSquareImages.MAX_COUNT - state.images.size))) {
             if (pickingFor == session) {
                 pickingFor = null
-                selectedImages = it
+                memory.imagePreparation.select(it)
             }
         }
         val launch: () -> Unit = {
@@ -130,10 +131,9 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
         launch
     }
-    LaunchedEffect(state.ready, selectedImages) {
-        if (state.ready && selectedImages.isNotEmpty()) {
-            state.addImages(context.contentResolver, selectedImages)
-            selectedImages = emptyList()
+    LaunchedEffect(state, state.ready, selection) {
+        if (state.ready && selection != null && !memory.imagePreparation.failed) {
+            state.addImages(context.contentResolver, selection)
         }
     }
     // Exercise real loading-state recovery without changing ordinary app timing.
@@ -186,7 +186,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         Column(modifier.imePadding()) {
             Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !saving && !sending) {
+                FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !saving && !sending && !preparingImages) {
                     if (ready) saveAndClose(closeEditor) else closeEditor()
                 }
                 Text(stringResource(if (quote != null) R.string.post_quote else if (parent == null) R.string.post_new else R.string.post_reply),
@@ -261,7 +261,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                         modifier = Modifier.bringIntoViewRequester(editorView).onGloballyPositioned {
                             editorPlaced = it.size.height > 0
                         })
-                    PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
+                    PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending && !preparingImages,
                         previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
                     quote?.let { QuotedPost(it, backend, onOpenSource = ::openMediaSource) }
                     if (transaction != null && !available)
@@ -280,20 +280,20 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 FrameIconButton(R.drawable.ic_image, stringResource(R.string.image_add),
-                    ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
+                    ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
                     launchImagePicker)
                 FrameIconButton(R.drawable.ic_gif, stringResource(R.string.giphy_add),
-                    ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null) {
+                    ready && !saving && !sending && !preparingImages && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null) {
                     openImagePicker { choosingGif = true }
                 }
                 Spacer(Modifier.weight(1f))
-                FrameIconButton(R.drawable.ic_save, stringResource(R.string.post_save_draft), ready && !saving && !sending) {
+                FrameIconButton(R.drawable.ic_save, stringResource(R.string.post_save_draft), ready && !saving && !sending && !preparingImages) {
                     saveAndClose(closeEditor)
                 }
             }
                 Button(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     shape = RoundedCornerShape(AppSpacing.controlRadius),
-                    enabled = ready && !saving && !sending && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
+                    enabled = ready && !saving && !sending && !preparingImages && (available || text.isNotBlank() || images.isNotEmpty()), onClick = {
                     if (available) saveAndClose(closeEditor)
                     else if (transaction == null || networkError || error) send(publishing::beforePublishing)
                     else checkStatus()
