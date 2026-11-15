@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import tarfile
 import sys
 
 assert len(sys.argv) in (6, 7) and sys.argv[1] == '10'
@@ -58,6 +59,29 @@ exec(compile(adapted, str(adapter) + ':notification10-profile', 'exec'),
      dict(__file__=str(adapter), __name__='__main__', notification_output=output_root))
 summary_path = output_root / sys.argv[5] / 'summary.json'
 summary = json.loads(summary_path.read_text())
+archive_path = Path(sys.argv[2]) / 'android-native-proof-chat/.scratch/device-evidence/api-29/fileshare-evidence.tar'
+with tarfile.open(archive_path) as archive:
+    def record(name):
+        return json.loads(archive.extractfile('fileshare-evidence/' + name).read())
+    context = record('cancel-shade-fixtures.json')
+    lookup = record('cancel-lookup.json')
+    restoration = record('cancel-shade-restoration.json')
+    assert context['messageCount'] >= 3
+    assert context['ownedMessages'] == max(0, 3 - context['existingMessages'])
+    assert lookup['budgetMillis'] == 5000 and 0 <= lookup['elapsedMillis'] <= 5000
+    assert restoration == dict(ownedChannelRemoved=True, ownedNotificationsRemoved=True)
+    geometry = []
+    member = next((m for m in archive.getmembers() if m.name == 'fileshare-evidence/cancel-scroll-geometry.jsonl'), None)
+    if member is not None:
+        geometry = [json.loads(line) for line in archive.extractfile(member).read().splitlines()]
+        for point in geometry:
+            assert point['gestureTop'] >= max(point['listTop'], point['headerBottom']) + 8
+            assert point['gestureBottom'] <= min(point['listBottom'], point['shelfTop']) - 8
+            assert point['gestureBottom'] - point['gestureTop'] >= 48
+            if point['messageBodyBottom'] >= 0:
+                assert point['gestureBottom'] <= point['messageBodyBottom'] - 8
+summary['notificationOperator'] = dict(context=context, lookup=lookup, restoration=restoration,
+    geometry=geometry, qualification='Actual physical Cancel and original cancellation assertions remain mandatory; geometry is additional operator evidence, not a replacement.')
 summary['result'] = 'CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION_AND_NOTIFICATION_FIXTURE'
 summary.update(notificationAdmissionWrapperSha256=sha(wrapper_bytes), fixtureBridge=bridge)
 summary['qualification'] += ' Android10 changes only the owned notification test operator; all ordinary product source equals the signed131source. Android17 retains its separate exact original source/profile. No native goal/deadline is weakened.'
