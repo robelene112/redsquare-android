@@ -54,7 +54,12 @@ class ProfileDeadlineRecoveryTest {
                         ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText("Posts"))
                         ui.waitUntil(20_000) { historyReads.get() > 0 }
                         val error = context.getString(R.string.profile_error)
-                        ui.waitUntil(20_000) { ui.onAllNodesWithText(error).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) {
+                            runCatching {
+                                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(error))
+                                ui.onNodeWithText(error).isDisplayed()
+                            }.getOrDefault(false)
+                        }
                         ui.onNodeWithText(error).assertIsDisplayed()
                         ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(post.text))
                         ui.onNodeWithText(post.text).assertIsDisplayed()

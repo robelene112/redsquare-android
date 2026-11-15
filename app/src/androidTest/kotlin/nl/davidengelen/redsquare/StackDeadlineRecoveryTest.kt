@@ -71,7 +71,12 @@ class StackDeadlineRecoveryTest {
                         ui.waitUntil(20_000) { reads.get() > 0 && ui.onAllNodesWithText(cachedTitle).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(cachedTitle).assertIsDisplayed()
                         val error = context.getString(R.string.stack_load_failed)
-                        ui.waitUntil(20_000) { ui.onAllNodesWithText(error).fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) {
+                            runCatching {
+                                ui.onNode(hasVerticalScrollAction()).performScrollToNode(hasText(error))
+                                ui.onNodeWithText(error).isDisplayed()
+                            }.getOrDefault(false)
+                        }
                         ui.onNodeWithText(error).assertIsDisplayed()
                         ui.onNodeWithText(cachedTitle).assertIsDisplayed()
                         capture(context, "stack-deadline-cached-reading")
