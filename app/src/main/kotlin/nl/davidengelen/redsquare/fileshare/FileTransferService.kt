@@ -38,8 +38,7 @@ class FileTransferService : Service() {
         scope.launch {
             while (isActive) {
                 delay(60_000)
-                if (FileshareRuntime.transfers.value.any { it.phase.active } ||
-                    FileshareRuntime.preparations.value.any { it.phase == PreparationPhase.PREPARING }) wake.acquire(10 * 60_000L)
+                if (FileshareRuntime.hasLiveWork()) wake.acquire(10 * 60_000L)
             }
         }
         scope.launch {
@@ -122,6 +121,15 @@ class FileTransferService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         lastStartId = startId; lastCommandAt = android.os.SystemClock.elapsedRealtime()
+        stoppingNormally = false
+        val acceptance = intent?.getStringExtra(ACCEPT_TOKEN)
+        val transfers = FileshareRuntime.transfers.value
+        val active = transfers.firstOrNull { it.token == acceptance && it.phase.active }
+            ?: transfers.firstOrNull { it.phase.active }
+        val preparation = FileshareRuntime.preparations.value.firstOrNull { it.phase == PreparationPhase.PREPARING }
+        val alert = active?.let(::notification) ?: preparation?.let(::notification)
+        if (alert != null) startForeground(NOTIFICATION_ID, alert, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        if (acceptance != null && active?.token == acceptance) FileshareRuntime.serviceReady(acceptance)
         if (intent?.action == CANCEL && intent.data?.scheme == "fileshare-cancel" && intent.data?.authority == packageName)
             intent.data?.lastPathSegment?.let(FileshareRuntime::cancel)
         return START_NOT_STICKY
@@ -136,6 +144,7 @@ class FileTransferService : Service() {
         super.onDestroy()
     }
     companion object {
+        internal const val ACCEPT_TOKEN = "nl.davidengelen.redsquare.fileshare.ACCEPT_TOKEN"
         const val CHANNEL = "fileshare.transfers"
         const val NOTIFICATION_ID = 9103
         private const val CANCEL = "nl.davidengelen.redsquare.fileshare.CANCEL"

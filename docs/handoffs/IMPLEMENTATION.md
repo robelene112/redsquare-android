@@ -1,5 +1,22 @@
 # Implementation handoff
 
+## Active uninterrupted review-remediation sequence #119–#131
+
+The owner explicitly requested all remaining tickets consecutively without stopping
+on 2026-11-15, after #118 was completed. Authorization covers implementing and
+verifying #119–#130 sequentially, followed by integrated qualification and the
+combined beta in #131. Do not stop after each ticket to ask for another approval.
+Keep one implementation ticket active at a time; independent code-review agents
+remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
+provider activation or public financial write is authorized.
+
+Current active ticket: #119 (accepted incoming Fileshare foreground ownership).
+Its native regression holds a real Relay signalling reply past the service's
+existing idle window, accepts the file, backgrounds/screens off and observes
+actual foreground controls before completing the original transfer journey.
+#120–#130 and final #131 follow once each preceding ticket is accepted.
+Public beta remains 0.1.131 until the combined delivery.
+
 ## Completed first review-remediation ticket #118, next #119
 
 The owner approved specification #117 and children #118–#131, then requested

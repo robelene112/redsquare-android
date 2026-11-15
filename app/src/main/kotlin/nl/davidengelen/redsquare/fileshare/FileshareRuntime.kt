@@ -45,6 +45,7 @@ internal object FileshareRuntime {
             it.contact == contact && it.ownsDelivery }?.receiveDirect(envelope)
     fun cancel(token: String) { sessions.values.forEach { it.cancel(token) } }
     fun stopAll() { sessions.values.forEach { it.interrupt() } }
+    fun serviceReady(token: String) { sessions.values.forEach { it.serviceReady(token) } }
     @Synchronized fun hasLiveWork() = sessions.values.any { session ->
         session.foregroundOwned || session.transfers.value.any { it.phase.active } || session.preparation.value?.phase == PreparationPhase.PREPARING
     }
@@ -66,7 +67,12 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var preparingWork: Preparing? = null
     private var preparationJob: Job? = null
     private val store = FileTransferStore(context, owner, backend, contact)
-    private var current: FileTransfer? = null
+    @Volatile private var current: FileTransfer? = null
+    private class Acceptance(val offered: FileTransfer) {
+        val ready = CompletableDeferred<Unit>()
+        @Volatile var stop: FilePhase? = null
+    }
+    private val accepting = java.util.concurrent.atomic.AtomicReference<Acceptance?>()
     @Volatile private var rtc: SaitoFileChannel? = null
     private var peer: SaitoPeer? = null
     private var open = false
@@ -82,9 +88,9 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     private var checkedAt = 0L
     @Volatile private var chatWallet = wallet
     @Volatile private var serviceStarted = false
-    val foregroundOwned get() = serviceStarted
+    val foregroundOwned get() = serviceStarted || accepting.get() != null
     @Volatile private var observers = 0
-    val ownsDelivery get() = observers > 0 || serviceStarted
+    val ownsDelivery get() = observers > 0 || foregroundOwned
     private var loaded = false
     private var watchdog: Job? = null
     private var completedTransferToken: String? = null
@@ -156,7 +162,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
                         val bound = if (value.phase in setOf(FilePhase.WAITING, FilePhase.OFFERED)) 120_000 else 60_000
                         if (System.currentTimeMillis() - activityAt > bound) end(FilePhase.INTERRUPTED)
                     } else if (rtc != null && observers == 0 && System.currentTimeMillis() - activityAt > 30_000) cleanup()
-                    if (observers == 0 && current?.phase == FilePhase.OFFERED) end(FilePhase.DECLINED)
+                    if (observers == 0 && current?.phase == FilePhase.OFFERED && accepting.get() == null) end(FilePhase.DECLINED)
                 }
             }
         }
@@ -209,25 +215,58 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
 
     fun accept(token: String) {
-        if (state.value.none { it.token == token && it.phase == FilePhase.OFFERED }) return
+        val offered = state.value.singleOrNull { it.token == token && it.phase == FilePhase.OFFERED } ?: return
         if (!FileshareNotifications.available(context)) { error.value = true; return }
-        // The platform foreground-service launch stays directly attached to the visible user action.
-        try { context.startForegroundService(Intent(context, FileTransferService::class.java)) }
-        catch (_: Exception) { error.value = true; return }
-        post {
-            val value = current ?: return@post
-            if (value.token != token || value.phase != FilePhase.OFFERED || !open) return@post
-            assertSelected(); nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
-            serviceStarted = true
-            update(value.copy(phase = FilePhase.RECEIVING))
-            spool = store.begin(value); receiver = Fileshare.Receiver(value.offer)
-            incomingFrames = store.inbox(requireNotNull(current))
-            sendControl("grant file permission", value.offer.id)
-        }
+        val pending = Acceptance(offered)
+        if (!accepting.compareAndSet(null, pending)) return
+        publishView(offered)
+        // Reserve work before Android starts its service; the actor may still await an earlier RPC.
+        try { context.startForegroundService(Intent(context, FileTransferService::class.java)
+            .putExtra(FileTransferService.ACCEPT_TOKEN, token)) }
+        catch (_: Exception) { releaseAcceptance(pending); error.value = true; return }
+        if (!post {
+            try {
+                if (accepting.get() !== pending || pending.stop != null) return@post
+                val value = current ?: return@post
+                if (value.token != token || value.phase != FilePhase.OFFERED || !open) return@post
+                check(withTimeoutOrNull(5000) { pending.ready.await(); true } == true) { "Transfer service is unavailable" }
+                currentCoroutineContext().ensureActive()
+                if (pending.stop != null) return@post
+                assertSelected(); nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
+                check(FileshareNotifications.available(context))
+                serviceStarted = true
+                update(value.copy(phase = FilePhase.RECEIVING))
+                spool = store.begin(value); receiver = Fileshare.Receiver(value.offer)
+                incomingFrames = store.inbox(requireNotNull(current))
+                // Authority precedes the acceptance lock, including wallet/node invalidation.
+                synchronized(SaitoLocalState.lock) { synchronized(pending) {
+                    if (pending.stop == null && accepting.get() === pending) sendControl("grant file permission", value.offer.id)
+                } }
+            } finally { releaseAcceptance(pending) }
+        }) { releaseAcceptance(pending); error.value = true }
+    }
+
+    fun serviceReady(token: String) {
+        accepting.get()?.takeIf { it.offered.token == token }?.ready?.complete(Unit)
+    }
+    private fun stopAcceptance(token: String? = null, phase: FilePhase): Acceptance? {
+        val pending = accepting.get()?.takeIf { token == null || it.offered.token == token } ?: return null
+        synchronized(pending) { pending.stop = phase; pending.ready.cancel() }
+        publishView(current?.takeIf { it.token == pending.offered.token } ?: pending.offered)
+        return pending
+    }
+    private fun releaseAcceptance(pending: Acceptance) {
+        if (!accepting.compareAndSet(pending, null)) return
+        pending.ready.cancel()
+        val actual = current?.takeIf { it.token == pending.offered.token } ?: pending.offered
+        val shown = if (actual.phase == FilePhase.OFFERED && pending.stop != null) actual.copy(phase = requireNotNull(pending.stop)) else actual
+        state.update { rows -> rows.map { if (it.token == shown.token && it.phase in setOf(FilePhase.OFFERED, FilePhase.RECEIVING)) shown else it } }
+        changed()
     }
 
     fun cancel(token: String) {
-        if (state.value.any { it.token == token && (it.phase.active || it.phase == FilePhase.OFFERED) } ||
+        val pending = stopAcceptance(token, FilePhase.CANCELLED)
+        if (pending != null || state.value.any { it.token == token && (it.phase.active || it.phase == FilePhase.OFFERED) } ||
             preparationState.value?.let { it.token == token && it.phase == PreparationPhase.PREPARING } == true) operation?.cancel()
         post {
         if (preparationState.value?.let { it.token == token && it.phase == PreparationPhase.PREPARING } == true) {
@@ -238,13 +277,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         try {
             if (open) sendControl(if (value.phase == FilePhase.OFFERED) "deny file permission" else "stop file transfer", value.offer.id)
         } catch (_: Exception) { /* Local cancellation does not depend on the other peer. */ }
-        end(if (value.phase == FilePhase.OFFERED) FilePhase.DECLINED else FilePhase.CANCELLED)
+        end(if (value.phase == FilePhase.OFFERED && pending == null) FilePhase.DECLINED else FilePhase.CANCELLED)
     } }
     fun interrupt() {
+        val pending = stopAcceptance(phase = FilePhase.INTERRUPTED)
         operation?.cancel()
         post {
             if (preparationState.value?.phase == PreparationPhase.PREPARING) finishPreparation(PreparationPhase.INTERRUPTED)
-            else if (current?.phase?.active == true) end(FilePhase.INTERRUPTED) else cleanup()
+            else if (current?.let { it.phase.active || it.token == pending?.offered?.token } == true) end(FilePhase.INTERRUPTED) else cleanup()
         }
     }
 
@@ -547,7 +587,14 @@ internal class FileSession(private val context: Context, private val wallet: Sai
     }
     private fun publish(value: FileTransfer) {
         if (current?.token == value.token || value.phase.active || value.phase == FilePhase.OFFERED) current = value
-        state.value = (listOf(value) + state.value.filter { it.token != value.token }).sortedByDescending { it.createdAt }
+        publishView(value)
+    }
+    private fun publishView(value: FileTransfer) {
+        state.update { rows ->
+            val pending = accepting.get()?.takeIf { it.offered.token == value.token && value.phase == FilePhase.OFFERED }
+            val shown = pending?.let { value.copy(phase = it.stop ?: FilePhase.RECEIVING) } ?: value
+            (listOf(shown) + rows.filter { it.token != value.token }).sortedByDescending { it.createdAt }
+        }
         changed()
     }
     private fun publishProgress(value: FileTransfer) {
@@ -568,6 +615,7 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         channelGeneration++; watchdog?.cancel(); watchdog = null
         readJob?.cancel(); readJob = null
         val oldInbox = incomingFrames; incomingFrames = null; oldInbox?.close()
+        accepting.getAndSet(null)?.ready?.cancel()
         open = false; serviceStarted = false
         val oldRtc = rtc; rtc = null
         val oldPeer = peer; peer = null

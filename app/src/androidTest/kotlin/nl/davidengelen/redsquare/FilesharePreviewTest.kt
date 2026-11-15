@@ -40,7 +40,7 @@ abstract class FileshareFixture {
             "chat.owner.${wallet.publicKey}.", "chatwork.owner.${wallet.publicKey}.", "chatreactions.owner.${wallet.publicKey}."), wallet.publicKey)
         val device = UiDevice.getInstance(instrumentation)
         val permitted = android.os.Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-        val evidence = File(context.cacheDir, "fileshare-evidence").apply { mkdirs() }
+        val evidence = File(context.cacheDir, if (pendingAccept) "fileshare-evidence/pending-acceptance" else "fileshare-evidence").apply { mkdirs() }
         val shadeFixture = "fileshare-cancel-viewport-fixture"
         val seedShade = cancel && android.os.Build.VERSION.SDK_INT == 29
         val browserRef = AtomicReference<FileshareBrowserPeer>()
@@ -208,6 +208,7 @@ abstract class FileshareFixture {
                                             addProperty("samples", observations.size)
                                             addProperty("allForeground", observations.all { it })
                                         }.toString())
+                                        assertTrue("Foreground ownership was sampled repeatedly", observations.size >= 20)
                                         assertTrue("Accepted transfer keeps its foreground notification beyond the idle window", observations.all { it })
                                         val alert = notifications.activeNotifications.single { it.id == FileTransferService.NOTIFICATION_ID }
                                         assertTrue("Pending acceptance has exact-transfer Cancel", alert.notification.actions.orEmpty().any {
