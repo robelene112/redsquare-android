@@ -55,8 +55,7 @@ import org.webrtc.RendererCommon
 import org.webrtc.VideoTrack
 
 internal data class TalkDraft(val url: String, val direct: String? = null,
-    val owner: String? = null, val savedBackend: SaitoBackend? = null,
-    val microphone: Boolean = true, val camera: Boolean? = null) : java.io.Serializable
+    val owner: String? = null, val savedBackend: SaitoBackend? = null) : java.io.Serializable
 internal val LocalTalkLaunch = staticCompositionLocalOf<((String, TalkMode) -> Unit)?> { null }
 
 internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val notice: @Composable () -> Unit)
@@ -180,9 +179,13 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val gate = rememberTalkPermissionGate()
     val link = remember(entry?.url) { entry?.let { TalkLink.parse(it.url) } }
     val showingInvitation = link != null && entry != null
-    // Choices travel with the saved invitation, including module and Activity restoration.
-    val camera = entry?.camera ?: (link?.room?.mode != TalkMode.VOICE)
-    val microphone = entry?.microphone ?: true
+    // Scope restoration to the invitation without changing the serialized TalkDraft format.
+    val (cameraState, microphoneState) = key(wallet.publicKey, backend.id, entry?.url, entry?.direct) {
+        rememberSaveable { mutableStateOf(link?.room?.mode != TalkMode.VOICE) } to
+            rememberSaveable { mutableStateOf(true) }
+    }
+    var camera by cameraState
+    var microphone by microphoneState
     var starting by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     var joinText by key(wallet.publicKey, backend.id) { rememberSaveable { mutableStateOf("") } }
@@ -251,13 +254,13 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                 }
                 item {
                     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
-                        value = microphone, role = Role.Checkbox, onValueChange = { onEntry(entry.copy(microphone = it)) }),
+                        value = microphone, role = Role.Checkbox, onValueChange = { microphone = it }),
                         verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(checked = microphone, onCheckedChange = null)
                         Text(stringResource(R.string.talk_start_microphone))
                     }
                     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
-                        value = camera, role = Role.Checkbox, onValueChange = { onEntry(entry.copy(camera = it)) }),
+                        value = camera, role = Role.Checkbox, onValueChange = { camera = it }),
                         verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(checked = camera, onCheckedChange = null)
                         Text(stringResource(R.string.talk_start_camera))

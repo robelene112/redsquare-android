@@ -110,6 +110,67 @@ class TalkInvitationPreviewTest {
             captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/unreviewed-input-restored.png"))
         }
     }
+    @Test fun newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context); val originalBackend = backends.load()
+        val other = SaitoWallet.fromPrivateKey("0".repeat(63) + "4")
+        val files = ChatFixtureState(context, listOf("feed.", "namemap.", "profilemeta."), original.publicKey)
+        val otherFiles = ChatFixtureState(context, emptyList(), other.publicKey)
+        val host = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val first = TalkLink(SaitoBackend.OWNER, TalkRoom(host, host)).url()
+        val second = TalkLink(SaitoBackend.OWNER, TalkRoom(other.publicKey, host)).url()
+        val folder = File(context.cacheDir, "talk-invitation-evidence").apply { mkdirs() }
+        var primary: Throwable? = null
+        fun choice(label: Int) = ui.onNode(hasText(context.getString(label)) and isToggleable())
+        try {
+            files.prepare(); otherFiles.prepare(); backends.save(SaitoBackend.OWNER)
+            val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" })
+            peer.start().use { server ->
+                val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+                androidx.test.core.app.ActivityScenario.launch<MainActivity>(android.content.Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)
+                    .putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { activity ->
+                    withFailureCapture({ captureNativeScreen(File(folder, "choice-scope-failure.png")) }) {
+                        ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
+                        fun open(url: String) {
+                            activity.onActivity { it.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW,
+                                android.net.Uri.parse(url)).setPackage(context.packageName)) }
+                            ui.waitUntil(5000) { ui.onNodeWithText("Ready to join?").isDisplayed() }
+                            ui.waitUntil(5000) { runCatching {
+                                choice(R.string.talk_start_microphone).assertIsOn()
+                                choice(R.string.talk_start_camera).assertIsOn(); true
+                            }.getOrDefault(false) }
+                        }
+                        fun turnOff() {
+                            choice(R.string.talk_start_microphone).performScrollTo().performClick().assertIsOff()
+                            choice(R.string.talk_start_camera).performScrollTo().performClick().assertIsOff()
+                        }
+                        open(first); turnOff(); open(second)
+                        captureNativeScreen(File(folder, "new-invitation-defaults.png")); turnOff()
+                        backends.save(SaitoBackend.OFFICIAL); activity.recreate()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Create a room").isDisplayed() }
+                        open(second)
+                        assertEquals(SaitoBackend.OFFICIAL, backends.load())
+                        captureNativeScreen(File(folder, "new-node-defaults.png")); turnOff()
+                        wallets.replace(original, other); activity.recreate()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Create a room").isDisplayed() }
+                        open(second)
+                        assertEquals(other.publicKey, wallets.loadExisting().publicKey)
+                        assertTrue(TalkRuntime.call.value?.phase?.live != true)
+                        captureNativeScreen(File(folder, "new-wallet-defaults.png"))
+                        assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty()); peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { files.restoreFiles() }, { otherFiles.restoreFiles() },
+                { files.restorePreferences() }, { otherFiles.restorePreferences() },
+                { wallets.replace(wallets.loadExisting(), original) }, { backends.save(originalBackend) })
+        }
+    }
     private fun invitation(width: Int) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val room = TalkRoom(SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey,

@@ -23,7 +23,8 @@ class TalkChatPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
     @Test fun aPrivateChatAudioCallUsesActualMediaAndPreservesTheUnsentDraft() = call(false)
     @Test fun aPrivateChatVideoCallUsesActualMediaAndPreservesTheUnsentDraft() = call(true)
-    private fun call(video: Boolean) {
+    @Test fun restoredPrejoinOffChoicesTransmitSilentAudioAndNoCameraToTheActualPeer() = call(true, restoredPrejoin = true)
+    private fun call(video: Boolean, restoredPrejoin: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -35,6 +36,8 @@ class TalkChatPreviewTest {
         val backends = AndroidBackendStore(context); val previousBackend = backends.load()
         val files = ChatFixtureState(context, listOf("chatwork.", "chat.owner.${owner.publicKey}.", "displaynames.", "namemap."), owner.publicKey)
         val evidence = File(context.cacheDir, "talk-chat-evidence").apply { mkdirs() }
+        val scene = if (restoredPrejoin) "restored-off" else video.toString()
+        var accountLease: TalkAccount? = null
         val browser = AtomicReference<TalkBrowserPeer>(); val sequence = AtomicInteger(8000)
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" }, relayResponse = { inner ->
             val envelope = SaitoEnvelope.fromSignedJson(inner); val signed = SaitoEnvelope.decode(envelope)
@@ -75,8 +78,8 @@ class TalkChatPreviewTest {
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { activity ->
                         withFailureCapture({
-                            File(evidence, "failure-$video.txt").writeText("${TalkRuntime.call.value}\n${peer.errors}\nmedia=${peer.media}\ndiagnostics=${peer.diagnostics}\n")
-                            captureNativeScreen(File(evidence, "failure-$video.png"))
+                            File(evidence, "failure-$scene.txt").writeText("${TalkRuntime.call.value}\n${peer.errors}\nmedia=${peer.media}\ndiagnostics=${peer.diagnostics}\n")
+                            captureNativeScreen(File(evidence, "failure-$scene.png"))
                         }) {
                             await("Chat navigation ready", 15_000) { ui.onNodeWithText("Chat").isDisplayed() }
                             ui.onNodeWithText("Chat").performClick()
@@ -92,22 +95,61 @@ class TalkChatPreviewTest {
                             await("Native direct prejoin") { ui.onNodeWithText("Ready to call?").isDisplayed() }
                             assertTrue(TalkRuntime.call.value?.phase?.live != true)
                             assertEquals(0, peer.captures.get())
+                            if (restoredPrejoin) {
+                                // Isolate #118 from the independently tracked idle-account detach race (#123).
+                                accountLease = TalkRuntime.account(context, owner, SaitoBackend.OWNER, endpoint).also { it.attach() }
+                                fun choice(label: Int) = ui.onNode(hasText(context.getString(label)) and isToggleable())
+                                choice(R.string.talk_start_microphone).performScrollTo().performClick().assertIsOff()
+                                choice(R.string.talk_start_camera).performScrollTo().performClick().assertIsOff()
+                                activity.recreate()
+                                await("Restored direct invitation") { ui.onNodeWithText("Ready to call?").isDisplayed() }
+                                ui.onNodeWithContentDescription("Switch app: Saito Talk").performClick()
+                                ui.onNode(hasText("Red Square") and hasClickAction()).performClick()
+                                ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
+                                ui.onNode(hasText("Saito Talk") and hasClickAction()).performClick()
+                                await("Same invitation after module return") { ui.onNodeWithText("Ready to call?").isDisplayed() }
+                                choice(R.string.talk_start_microphone).performScrollTo().assertIsOff()
+                                choice(R.string.talk_start_camera).performScrollTo().assertIsOff()
+                                assertTrue(TalkRuntime.call.value?.phase?.live != true)
+                                assertEquals(0, peer.captures.get())
+                            }
                             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Start call") and hasClickAction())
                             ui.onNode(hasText("Start call") and hasClickAction()).performClick()
                             await("The actual web dialer rings") { peer.ringing.get() }
                             token = requireNotNull(TalkRuntime.call.value).token
                             peer.answer()
+                            if (restoredPrejoin) {
+                                await("Restored Off choices produce actual silent RTP without camera frames", 25_000) {
+                                    TalkRuntime.call.value?.phase == CallPhase.ACTIVE &&
+                                        (peer.audioBytes[owner.publicKey] ?: 0L) > 0 &&
+                                        peer.media[owner.publicKey]?.let { it.rms < 0.003 && it.width == 0 && it.nonBlack == 0 } == true
+                                }
+                                assertFalse(requireNotNull(TalkRuntime.call.value).microphone)
+                                assertFalse(requireNotNull(TalkRuntime.call.value).camera)
+                                assertNull(TalkRuntime.call.value?.localVideo)
+                                assertEquals(false, peer.microphones[owner.publicKey])
+                                File(evidence, "restored-off-media.json").writeText(JsonObject().apply {
+                                    addProperty("receivedAudioBytes", peer.audioBytes[owner.publicKey])
+                                    addProperty("remoteRms", requireNotNull(peer.media[owner.publicKey]).rms)
+                                    addProperty("remoteVideoWidth", requireNotNull(peer.media[owner.publicKey]).width)
+                                    addProperty("restoredMicrophone", false); addProperty("restoredCamera", false)
+                                }.toString())
+                                captureNativeScreen(File(evidence, "restored-off-connected.png"))
+                                // Positive control: the same live transport receives authored PCM only after explicit Unmute.
+                                ui.onNode(hasText("Unmute") and hasClickAction()).performClick()
+                            }
+                            val expectedVideo = video && !restoredPrejoin
                             await("The accepted call decodes real native PCM at the peer", 25_000) {
                                 TalkRuntime.call.value?.phase == CallPhase.ACTIVE &&
-                                    peer.media[owner.publicKey]?.let { it.rms > 0.01 && (!video || it.width >= 320 && it.nonBlack > 500) } == true
+                                    peer.media[owner.publicKey]?.let { it.rms > 0.01 && (!expectedVideo || it.width >= 320 && it.nonBlack > 500) } == true
                             }
                             if (video) {
                                 assertTrue(owner.publicKey < caller.publicKey)
                                 assertEquals("The higher-key browser initially answers the native offer",
                                     "Submitting SDP (answer)", peer.diagnostics.firstOrNull { it.startsWith("Submitting SDP (") })
                             }
-                            assertEquals(video, TalkRuntime.call.value?.camera)
-                            assertEquals(!video, TalkRuntime.call.value?.localVideo == null)
+                            assertEquals(expectedVideo, TalkRuntime.call.value?.camera)
+                            assertEquals(!expectedVideo, TalkRuntime.call.value?.localVideo == null)
                             ui.onNodeWithText("Audio output").assertIsDisplayed().performClick()
                             await("Speaker choice available without unrelated permissions") { ui.onNode(hasText("Speaker") and hasClickAction()).isDisplayed() }
                             ui.onNode(hasText("Speaker") and hasClickAction()).performClick()
@@ -116,7 +158,7 @@ class TalkChatPreviewTest {
                                 if (android.os.Build.VERSION.SDK_INT >= 31) audio.communicationDevice?.type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER
                                 else audio.isSpeakerphoneOn
                             }
-                            captureNativeScreen(File(evidence, "connected-$video.png"))
+                            captureNativeScreen(File(evidence, "connected-$scene.png"))
                             ui.onNode(hasText("End call") and hasClickAction()).performClick()
                             await("Native End action releases the call") { TalkRuntime.call.value?.phase == CallPhase.ENDED }
                             ui.onNodeWithContentDescription("Switch app: Saito Talk").performClick()
@@ -124,8 +166,8 @@ class TalkChatPreviewTest {
                             await("Exact unsent private draft restored", 15_000) { ui.onNode(hasText(draft) and hasSetTextAction()).isDisplayed() }
                             assertEquals(owner.exportJson(), wallets.loadExisting().exportJson())
                             assertEquals(SaitoBackend.OWNER, backends.load())
-                            captureNativeScreen(File(evidence, "draft-return-$video.png"))
-                            File(evidence, "chat-$video.json").writeText("{\"video\":$video,\"realRemotePcm\":true,\"speakerSelected\":true,\"nativeStartEnd\":true,\"draftRetained\":true}")
+                            captureNativeScreen(File(evidence, "draft-return-$scene.png"))
+                            File(evidence, "chat-$scene.json").writeText("{\"video\":$expectedVideo,\"realRemotePcm\":true,\"speakerSelected\":true,\"nativeStartEnd\":true,\"draftRetained\":true}")
                             fixture.assertHealthy()
                         }
                     }
@@ -133,7 +175,7 @@ class TalkChatPreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            RtcPlatform.audioInputForTest(null); token?.let(TalkRuntime::end); TalkRuntime.visibility(false); Thread.sleep(300)
+            RtcPlatform.audioInputForTest(null); token?.let(TalkRuntime::end); accountLease?.detach(); TalkRuntime.visibility(false); Thread.sleep(300)
             cleanupAfterTest(primary, { files.restoreFiles() }, { files.restorePreferences() }, { wallets.replace(wallets.loadOrCreate(), previous) },
                 { backends.save(previousBackend) }, { context.stopService(Intent(context, TalkService::class.java)) })
         }
