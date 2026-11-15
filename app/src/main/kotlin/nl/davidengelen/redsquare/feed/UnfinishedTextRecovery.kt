@@ -66,7 +66,9 @@ internal class UnfinishedTextRecovery(context: Context, draftName: String,
 
     /** One editor owns the writer across Activity recreation; superseded editors cannot reacquire it. */
     inner class EditingSession internal constructor(@Volatile private var baseline: String,
-        val restored: String?, unreadable: Boolean) : AutoCloseable {
+        restored: String?, unreadable: Boolean) : AutoCloseable {
+        @Volatile var restored: String? = restored
+            private set
         var failed by mutableStateOf(unreadable)
             private set
         private val generation = AtomicLong()
@@ -112,6 +114,7 @@ internal class UnfinishedTextRecovery(context: Context, draftName: String,
             generation.incrementAndGet()
             baseline = anchor
             latestText = null
+            restored = null
             failed = false
         }
 

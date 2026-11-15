@@ -11,6 +11,25 @@ remain permitted. Ordinary native/emulator QA is agent-owned. No production node
 provider activation or public financial write is authorized.
 
 Current active ticket: #120 (unfinished post/reply/quote and biography recovery).
+
+#120 is in progress, not accepted. Native red43746535491 at6f20287ca reproduces
+49characters becoming an empty composer after actual background process death.
+First post-only green43747908540 at e225c5aa restores the exact text with distinct
+PIDs3342/4163, unchanged explicit draft, wallet/node and zero publication. Originals
+and collectors live outside Git at `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
+Test-only9ba4ae405 adds profile/reply/quote/previous-Saved contexts. Actual profile
+red43749242236 loses52characters in the cold Bio field, with its real first-process
+termination verified. Profile recovery is now implemented and awaits its green.
+ViewModel closeables own writers even if initial-load cancellation races delivery;
+retirement clears the old recovered-text snapshot as well as pending writes. Cold
+queued-post cancellation/new-profile-edit paths also acquire an unsigned writer.
+The first helper still needs a continuous-
+typing adverse test: strict stale-version dropping may postpone all checkpoints
+until typing pauses. Preserve the150ms nonblocking coalescing intent while proving
+normal editing is durably checkpointed. Storage failure, generation retirement,
+identity/node isolation, signed candidate preservation, final SDK coverage and
+independent reviews still remain for120. Do not close it from the post-only pass.
+
 #119 is complete at product cfac7287a and native6b231a4e, with complete Fileshare
 Android10/17 and independent Standards/Spec source/evidence acceptance. See
 [the #119 packet](../evidence/ticket119/README.md). Both SDKs complete9ordinary

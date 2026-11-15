@@ -37,6 +37,7 @@ import nl.davidengelen.redsquare.ui.StatusTone
 
 internal class ProfileDraftMemory : ViewModel() {
     var changes: JsonObject? = null
+    var unfinished: UnfinishedTextRecovery.EditingSession? = null
 }
 
 private class ProfileEditorState(private val store: ProfileDraftStore, private val memory: ProfileDraftMemory,
@@ -58,6 +59,14 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     var networkError by mutableStateOf(false)
     var imageError by mutableStateOf(false)
     var preparingImage by mutableStateOf(false)
+    val recoveryError: Boolean get() = memory.unfinished?.failed == true
+    fun retryRecovery() { memory.unfinished?.retry() }
+
+    private suspend fun recoverEditing(saved: ProfileDraftStore.Saved) {
+        if (saved.transaction == null && memory.unfinished == null) memory.unfinished = withContext(Dispatchers.IO) {
+            store.unfinishedText().also { memory.addCloseable("unfinished-text", it) }
+        }
+    }
 
     suspend fun load() {
         try {
@@ -73,8 +82,11 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                 record to snapshot
             }
             durable = saved
+            recoverEditing(saved)
             startingProfile = preview
-            changes = (if (saved.transaction != null) saved.changes else memory.changes ?: saved.changes).deepCopy()
+            changes = (if (saved.transaction != null) saved.changes else memory.changes ?: saved.changes.deepCopy().apply {
+                memory.unfinished?.restored?.let { addProperty("description", it) }
+            }).deepCopy()
             memory.changes = changes.deepCopy()
             candidate = saved.transaction
             // Durable confirmation is historical until this session verifies exact server availability.
@@ -116,6 +128,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         if (!ready || busy || candidate != null) return
         changes = changes.deepCopy().apply { addProperty("description", text) }
         memory.changes = changes.deepCopy()
+        memory.unfinished?.update(text)
     }
 
     fun image(kind: ProfileImageKind, profile: SaitoProfile?): String? {
@@ -190,6 +203,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                 else save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
             }
             retain(saved)
+            recoverEditing(saved)
             error = false
             afterSave()
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -216,6 +230,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                     store.startNew(transaction.id, durable, public)
                 }
                 retain(saved)
+                recoverEditing(saved)
                 // A stale mounted editor first adopts unseen progress; confirmation can then be retried.
                 error = saved.transaction != null
                 if (!error) { networkError = false; imageError = false }
@@ -459,6 +474,8 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                     onClick = { confirmingNewEdit = true }) { Text(stringResource(R.string.profile_new_edit)) }
                 InlineStatus(if (networkError) stringResource(R.string.profile_publish_error) else null, StatusTone.WARNING)
                 InlineStatus(if (error) stringResource(R.string.profile_draft_error) else null, StatusTone.ERROR)
+                InlineStatus(if (recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
+                    StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
                 if (error && !ready) TextButton(onClick = { reload++ }, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.retry))
                 }

@@ -17,8 +17,15 @@ import nl.davidengelen.redsquare.policy.PublishingPolicies
 /** Unpublished profile changes stay encrypted and tied to their wallet and server. */
 internal class ProfileDraftStore(private val context: Context, private val owner: String, private val backend: SaitoBackend) {
     init { require(owner.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}"))) }
-    private val file = EncryptedLocalFile(context, "profiledraft.${backend.id}.$owner.v1",
+    private val filename = "profiledraft.${backend.id}.$owner.v1"
+    private val file = EncryptedLocalFile(context, filename,
         "redsquare.profiledraft.v1", "profiledraft.")
+    private val recovery by lazy { UnfinishedTextRecovery(context, filename, file::load) }
+
+    fun unfinishedText(): UnfinishedTextRecovery.EditingSession = synchronized(SaitoLocalState.lock) {
+        check(load().transaction == null)
+        recovery.open()
+    }
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
     // available records a past exact confirmation, not current server retention.
@@ -153,6 +160,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
             attempt = Attempt(witness(expected), witness(previous), witness(saved))
         }
         check(same(load(), saved)) { "Profile draft persistence verification failed" }
+        recovery.retire()
         attempt = null
     }
 

@@ -106,7 +106,9 @@ internal class PostComposerState(
             }
             savedContent = saved
             if (saved.transaction == null && memory.unfinished == null) {
-                memory.unfinished = withContext(Dispatchers.IO) { store.unfinishedText() }
+                memory.unfinished = withContext(Dispatchers.IO) {
+                    store.unfinishedText().also { memory.addCloseable("unfinished-text", it) }
+                }
             }
             text = if (saved.transaction != null) saved.text else memory.text ?: memory.unfinished?.restored ?: saved.text
             images = if (saved.transaction != null) saved.images else memory.images ?: saved.images
@@ -296,6 +298,9 @@ internal class PostComposerState(
                         memory.text = text
                         memory.images = images
                         memory.gifAttributions = gifAttributions
+                        if (memory.unfinished == null) memory.unfinished = withContext(Dispatchers.IO) {
+                            store.unfinishedText().also { memory.addCloseable("unfinished-text", it) }
+                        }
                     }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }

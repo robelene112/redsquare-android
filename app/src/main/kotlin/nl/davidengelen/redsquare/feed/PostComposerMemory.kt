@@ -21,5 +21,4 @@ internal class PostComposerMemory : ViewModel() {
         transactionId = null
     }
 
-    override fun onCleared() { unfinished?.close() }
 }

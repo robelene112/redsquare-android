@@ -30,7 +30,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
     val isSubmittedRecord: Boolean get() = submissionId.isNotEmpty()
     private val filename = "postdraft.${backend.id}.$owner${if (authorKind != null) ".author.${authorKind.storageId}.$authorTarget" else if (quoteId.isNotEmpty()) ".quote.$quoteId" else parentId.takeIf { it.isNotEmpty() }?.let { ".$it" }.orEmpty()}${submissionId.takeIf { it.isNotEmpty() }?.let { ".submitted.$it" }.orEmpty()}.v1"
     private val file = EncryptedLocalFile(context, filename, "redsquare.postdraft.v1", "postdraft.")
-    private val recovery = UnfinishedTextRecovery(context, filename, file::load)
+    private val recovery by lazy { UnfinishedTextRecovery(context, filename, file::load) }
 
     fun unfinishedText(): UnfinishedTextRecovery.EditingSession = synchronized(lock) {
         check(!isSubmittedRecord && authorKind == null && load().transaction == null)
