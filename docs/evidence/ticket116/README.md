@@ -67,7 +67,7 @@ support only. No class/action deadline or native assertion was weakened.
 43680230627: import feedback/address were verified, but its focused parent window
 was blank after dismissal. The original shared15second parent-visibility budget
 failed. Its cause remains unproved; focused import43683570303 diagnoses the same
-unchanged methods. Complete10run43683761408uses the already supported Ubuntu22.04
+unchanged methods and succeeds, providing diagnosis support only. Complete10run43683761408uses the already supported Ubuntu22.04
 pool with unchanged source, images, goals and bounds. Earlier parents supply no
 acceptance, and no forced redraw or test-clock alteration is used.
 
