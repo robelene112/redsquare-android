@@ -1,0 +1,21 @@
+{
+  "recordedBeforeOutcomeAt": "2026-11-15T00:24:55.411591+00:00",
+  "pendingAndroid17Run": 43656409473,
+  "executedSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "observedStatus": "in_progress",
+  "basis": "WORKFLOW fixture-only correction exception. Production and all acceptance assertions unchanged; rerun outstanding SDK entire scope.",
+  "correction": "Only fallback physical scroll in FileshareCancel observer: address actual Android notification list instead of global screen coordinates. Original actualCancel selector/click,5s reveal,180s class and terminal/no-completion assertions retained. No notification removal or product change.",
+  "requiredFrozenFiles": {
+    "full-contract.json": "4ec3a42777457b93ee4ce9b61480cc7e14b12ab89c766f1abe6d3f1930985c9b",
+    "verify-full.py": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
+    "trace-check.py": "5e3b7b8192c992078423490de1347033f368c71a02e2380ba81fb35f237e4c43"
+  },
+  "conditions": [
+    "Original010Android17primary must finishSUCCESSwithall3jobs and pass its own exact010frozencontract/verifier/helper and unchanged strict goals.",
+    "CorrectedAndroid10must complete one entire successful3jobprimary; no prefix from any failed/cancelled run counts.",
+    "Prove exactproduct/core/resources/build/workflow/protocol and all acceptance assertions/deadlines unchanged; only bounded physical scroll observation differs.",
+    "Both independent reviewers must accept exactsource/evidencebridge before final acceptance.",
+    "If original010SDK17fails, this plan supplies no acceptance; rerun its entire corrected scope."
+  ],
+  "qualification": "Prospective conditional plan, recorded before currentSDK17outcome. No present complete success, waiver or failed-prefix assembly."
+}

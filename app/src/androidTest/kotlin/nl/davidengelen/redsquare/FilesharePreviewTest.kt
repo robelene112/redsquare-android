@@ -229,9 +229,12 @@ abstract class FileshareFixture {
                                         if (expand != null) { expand.click(); expanded = true; break }
                                         row = row.parent
                                     }
-                                    // Its title can be visible while its expanded action is below the fold.
-                                    if (!expanded) device.swipe(device.displayWidth / 2, device.displayHeight * 4 / 5,
-                                        device.displayWidth / 2, device.displayHeight / 3, 12)
+                                    // The transfer can sit below retained Chat alerts. Scroll the
+                                    // actual notification list, rather than assuming screen coordinates
+                                    // belong to that list while the shade is still settling.
+                                    if (!expanded) requireNotNull(device.findObject(androidx.test.uiautomator.By.res(
+                                        "com.android.systemui:id/notification_stack_scroller")))
+                                        .scroll(androidx.test.uiautomator.Direction.DOWN, 0.7f)
                                     Thread.sleep(100)
                                 }
                                 check(device.hasObject(cancelAction))
