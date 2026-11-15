@@ -55,7 +55,7 @@ class ProfileImagePreparationRecreationTest {
                 hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
             Intents.intending(pick).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)))
-            val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" })
+            val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
