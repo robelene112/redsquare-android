@@ -1,0 +1,11 @@
+{
+  "reviewedCommit": "71c117ea9e4bd4e0f6697d5288fc7e2fcc5a60bb",
+  "standardsFindings": 0,
+  "specFindings": 0,
+  "resolvedFindings": [
+    "Preliminary delegated success is private staged output with stdout suppressed; final success published only after every assertion",
+    "README and failure ledger exclude all four unsuccessful parents"
+  ],
+  "original17PreservationReplaysPass": true,
+  "qualification": "Source/admission review only. Real-CLI late-failure rejection and complete new-source Android10 evidence remain pending."
+}

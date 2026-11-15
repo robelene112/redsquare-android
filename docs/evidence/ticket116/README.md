@@ -35,8 +35,9 @@ reading text despite preserving its absolute pixel.
   44deliberate interruptions and43continuities. Four native feedback scenes have
   zero gap. Its `native131-android17` packet retains the exact run and byte indexes.
 - Four complete Android10 parents are excluded. The fourth, `43687853067`, failed
-  the same physical-Cancel lookup as the first. Targeted notification qualification
-  is pending; no new whole-run or two-SDK acceptance is claimed.
+  the same physical-Cancel lookup as the first. Targeted notification source `e237aa18` passes focused10/17. Prospective
+  whole10run `43693979501` uses exact admission source `71c117ea`. No new whole-run
+  or two-SDK acceptance is claimed yet.
 - Signed beta131 is staged, not promoted. APK94,089,760bytes,
   SHA256`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
   established certificate`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
@@ -112,3 +113,18 @@ success packet/stdout until all delegated and additional assertions pass. Tempor
 staging stays outside Git. Independent source/admission review and focused native
 proof must complete before a new whole10run. Earlier quiet-alert reproducers did not
 establish the real alert ranking and are not evidence that the full failure is fixed.
+
+The final focused notification pair43692577963/43692579857passes. API29observes
+three existing message alerts, scrolls the real notification body range184..469
+below the header and above grouped-system controls, resolves the physical Cancel
+in3159ms against5000ms, and removes its owned fixture channel/tags. The native
+specific-transfer cancellation and absent delivered bytes still pass. API37keeps
+the old operator and passes without seeding. Earlier quiet-alert/old-operator
+focused successes did not prove that the intermittent whole-context failure was
+eliminated; no deterministic-cause claim is made.
+
+Both review axes accept admission71c117eaafter the staged-report fix, and replay
+original17success again using its original exact d6inputs. New complete10run
+43693979501holds71c117eaand every old goal/deadline. On success, use
+`verify-notification-full.py 10 RAW RUN 71c117ea... LABEL [EXTERNAL_OUTPUT_ROOT]`.
+A late-failure corruption check at this actual CLI remains required before delivery.
