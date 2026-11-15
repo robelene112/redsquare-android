@@ -1,0 +1,33 @@
+{
+  "reviewedAt": "2026-11-15T09:57:31.869242+00:00",
+  "reviewedCommit": "23d1cfe77eec27a4808e96011f4e9207fae82981",
+  "nativeRun": 43693979501,
+  "nativeSource": "71c117ea9e4bd4e0f6697d5288fc7e2fcc5a60bb",
+  "signedSource": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "standards": {
+    "findings": 0,
+    "agent": "/root/feed116_standards",
+    "externalProofRoot": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/standards-review-final10"
+  },
+  "spec": {
+    "findings": 0,
+    "agent": "/root/feed116_spec",
+    "externalProofRoot": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/spec-review10"
+  },
+  "actualCliIndependentReplaysPass": true,
+  "allThreeZipDigestsFreshlyVerified": true,
+  "allExtractedZipFiles": 1660,
+  "indexedOriginals": 1501,
+  "notificationLookupMillis": 3876,
+  "originalLookupBudgetMillis": 5000,
+  "independentLateRejectionReplays": {
+    "exit": 1,
+    "stdoutBytes": 0,
+    "publishedPacket": false,
+    "soleChangedMember": "fileshare-evidence/cancel-lookup.json",
+    "originalBudget": 5000,
+    "rejectedBudget": 5001,
+    "originalArchiveUnchanged": true
+  },
+  "qualification": "All inherited and new assertions replayed with only external output destinations changed. Exact notification-fixture-only bridge to signed131 and immutable original17 inputs retained. Three provisioning probes separate; one inherited API29 Profile assumption, unavailable Chat archive and four legacy failure captures remain. Failed parents supply no acceptance. Public delivery remains pending. No direct130-to131, module-observer, physical/OEM/provider/Play acceptance claim."
+}
