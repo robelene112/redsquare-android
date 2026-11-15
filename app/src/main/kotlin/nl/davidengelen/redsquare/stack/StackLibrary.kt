@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.currentCoroutineContext
@@ -116,6 +117,10 @@ internal class StackLibrary(context: Context, private val wallet: SaitoWallet, b
             before = nextBefore
             more = nextMore
             successfulRead = true
+            started = true
+        } catch (_: TimeoutCancellationException) {
+            currentCoroutineContext().ensureActive()
+            failed = true
             started = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true; started = true }
