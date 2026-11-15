@@ -50,7 +50,7 @@ def validate_feed_feedback(view):
     for name in ('reading-during-pending-refresh', 'collapsed-reading', 'results-applied', 'recovered-results'):
         measurement = json.loads((folder / (name + '-feedback-position.json')).read_text())
         assert abs(measurement['tabsBottom'] - measurement['feedbackTop']) <= 1, (name, measurement)
-        assert abs(measurement['feedbackBottom'] - measurement['viewportTop']) <= 1, (name, measurement)
+        assert abs(measurement['feedbackTop'] - measurement['viewportTop']) <= 1, (name, measurement)
         assert measurement['feedbackTop'] <= measurement['noticeTop'] < measurement['noticeBottom'] <= measurement['feedbackBottom']
         assert measurement['feedbackBottom'] < measurement['viewportBottom']
         assert (folder / (name + '.png')).stat().st_size > 1000

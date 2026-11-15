@@ -164,7 +164,7 @@ class FeedRefreshRedesignTest {
                 addProperty("noticeTop", notice.top); addProperty("noticeBottom", notice.bottom)
             }.toString())
         assertEquals("Refresh feedback must attach directly below the tabs", tabs.bottom, feedback.top, 1f)
-        assertEquals("Refresh feedback must reserve its own space above the posts", feedback.bottom, viewport.top, 1f)
+        assertEquals("Refresh feedback must attach to the viewport edge", viewport.top, feedback.top, 1f)
         assertTrue("Refresh text must fit inside its status strip",
             notice.top >= feedback.top && notice.bottom <= feedback.bottom)
     }
