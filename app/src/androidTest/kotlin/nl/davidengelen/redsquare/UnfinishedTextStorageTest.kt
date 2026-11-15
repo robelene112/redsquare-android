@@ -60,11 +60,11 @@ class UnfinishedTextStorageTest {
             cleanupAfterTest(primary,
                 { sessions.asReversed().forEach { it.close() } },
                 { retained.restoreFiles() }, { retained.restorePreferences() },
-                { agreements.forEach { (file, previous) ->
+                { cleanupAfterTest(null, *agreements.map { (file, previous) -> {
                     if (previous == null) check(!file.exists() || file.delete()) else file.writeBytes(previous)
                     val restored = file.takeIf { it.exists() }?.readBytes()
                     if (previous == null) assertNull(restored) else assertTrue(previous.contentEquals(restored))
-                } },
+                } }.toTypedArray()) },
                 { if (previousPolicy == null) check(!policy.exists() || policy.delete()) else policy.writeBytes(previousPolicy) })
         }
     }
