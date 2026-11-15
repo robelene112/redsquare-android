@@ -206,6 +206,9 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             nextBefore = result.oldestCreatedAt?.takeIf { result.rowCount >= 20 && it < pageCursor }
             pagingUnavailable = result.rowCount >= 20 && nextBefore == null
             failed = false
+        } catch (_: TimeoutCancellationException) {
+            currentCoroutineContext().ensureActive()
+            failed = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { loading = false }
