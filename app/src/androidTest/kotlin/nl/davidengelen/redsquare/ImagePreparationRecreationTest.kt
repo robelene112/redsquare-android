@@ -34,18 +34,21 @@ class ImagePreparationRecreationTest {
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
-        backends.save(SaitoBackend.OWNER)
         val wallet = nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadOrCreate()
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") || it.name.startsWith("editrecovery.") }
-            ?.forEach { check(it.delete()) }
+        val retained = ChatFixtureState(context, listOf("postdraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}"), wallet.publicKey)
         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val bytes = android.util.Base64.decode(fixture.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP)
         val uri = Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
         fun provider(action: String, extras: Bundle? = null) = requireNotNull(context.contentResolver.call(uri, action, null, extras))
-        provider("reset")
-        Intents.init()
+        var primary: Throwable? = null
+        var intentsInitialized = false
         try {
+            retained.prepare()
+            backends.save(SaitoBackend.OWNER)
+            provider("reset")
+            Intents.init()
+            intentsInitialized = true
             val pick = anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
                 hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
@@ -95,8 +98,14 @@ class ImagePreparationRecreationTest {
                     peer.assertHealthy()
                 }
             }
-        } finally {
-            withImageFixtureCleanup({ provider("reset"); backends.save(originalBackend) }) { Intents.release() }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary,
+                { if(intentsInitialized) Intents.release() },
+                { provider("reset") },
+                { retained.restoreFiles() },
+                { retained.restorePreferences() },
+                { backends.save(originalBackend) })
         }
     }
 }

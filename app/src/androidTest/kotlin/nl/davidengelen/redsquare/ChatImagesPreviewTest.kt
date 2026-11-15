@@ -275,7 +275,13 @@ class ChatImagesPreviewTest {
                                 }).getBoolean("delivered")) { "The original selected read must survive Activity recreation" }
                                 val image = hasContentDescription("Image 1 of 1")
                                 ui.waitUntil(15_000) { displayed(image) }
-                                ui.assertSyntheticRedImage()
+                                ui.waitUntil(15_000) {
+                                    val bitmap = ui.onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
+                                    val pixel = bitmap.getPixel(bitmap.width/2, bitmap.height/2)
+                                    kotlin.math.abs(android.graphics.Color.red(pixel)-220)<=5 &&
+                                        kotlin.math.abs(android.graphics.Color.green(pixel)-30)<=5 &&
+                                        kotlin.math.abs(android.graphics.Color.blue(pixel)-40)<=5
+                                }
                                 assertDraft()
                                 check(provider("status").getInt("openCalls") == 1) { "Selection must be prepared exactly once" }
                                 Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))

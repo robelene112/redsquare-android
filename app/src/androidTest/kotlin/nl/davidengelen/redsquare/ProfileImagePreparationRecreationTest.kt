@@ -33,10 +33,8 @@ class ProfileImagePreparationRecreationTest {
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val backends = AndroidBackendStore(context)
         val oldBackend = backends.load()
-        backends.save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("profiledraft.") || it.name.startsWith("editrecovery.") }
-            ?.forEach { check(it.delete()) }
         val wallet = AndroidWalletStore(context).loadOrCreate()
+        val retained = ChatFixtureState(context, listOf("profiledraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}"), wallet.publicKey)
         val uri = Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
         fun provider(action: String, extras: Bundle? = null) = requireNotNull(context.contentResolver.call(uri, action, null, extras))
         val source = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
@@ -45,9 +43,14 @@ class ProfileImagePreparationRecreationTest {
         val field = if (banner) "banner" else "image"
         val control = if (banner) "Change banner" else "Change profile picture"
         val text = "Bio edited while selected $field preparation is running"
-        provider("reset")
-        Intents.init()
+        var primary: Throwable? = null
+        var intentsInitialized = false
         try {
+            retained.prepare()
+            backends.save(SaitoBackend.OWNER)
+            provider("reset")
+            Intents.init()
+            intentsInitialized = true
             val pick = anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
                 hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
@@ -102,8 +105,14 @@ class ProfileImagePreparationRecreationTest {
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                 }
             }
-        } finally {
-            try { Intents.release() } finally { try { provider("reset") } finally { backends.save(oldBackend) } }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary,
+                { if(intentsInitialized) Intents.release() },
+                { provider("reset") },
+                { retained.restoreFiles() },
+                { retained.restorePreferences() },
+                { backends.save(oldBackend) })
         }
     }
 }
