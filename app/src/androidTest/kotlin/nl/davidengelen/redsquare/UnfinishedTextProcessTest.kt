@@ -93,7 +93,7 @@ class UnfinishedTextProcessTest {
             })
         }
         assertEquals("The previous protected work survives the failed write", body, protectedText())
-        ui.onNodeWithText("Retry").performScrollTo().performClick()
+        ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled().performClick()
         ui.waitUntil(5000) { protectedText() == latest }
         ui.waitUntil(5000) { ui.onAllNodesWithText(warning).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
         ui.onNode(editor).assertEditableTextEquals(latest)
