@@ -1,0 +1,217 @@
+{
+  "result": "CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION_AND_NOTIFICATION_FIXTURE",
+  "sdk": "10",
+  "source": "71c117ea9e4bd4e0f6697d5288fc7e2fcc5a60bb",
+  "run": "43693979501",
+  "observedIdentities": 830,
+  "terminalCompletionOrAssumptionIdentities": 825,
+  "verifiedModuleInterruptedStarts": 5,
+  "assessorSha256": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+  "erratumSha256": "1a3ecf9168b3e284365e2d35b584d2c248e20505fa32ce5b58d2bab3e5c32a4a",
+  "adapterSha256": "54e95ca00f40739a1b8cafe52691a072070cc06c30cb0772db0c6a0451b8bc30",
+  "sourceProfileSha256": "62b7e22e2b955393555e927bccae1dc075d3eb2fad0e76694156a4cf5a6f6fe0",
+  "feedGeometry": [
+    {
+      "scene": "reading-during-pending-refresh",
+      "tabsBottom": 184.0,
+      "viewportTop": 184.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 184.0,
+      "feedbackBottom": 216.0,
+      "noticeTop": 193.0,
+      "noticeBottom": 207.0
+    },
+    {
+      "scene": "collapsed-reading",
+      "tabsBottom": 76.0,
+      "viewportTop": 76.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 76.0,
+      "feedbackBottom": 108.0,
+      "noticeTop": 85.0,
+      "noticeBottom": 99.0
+    },
+    {
+      "scene": "results-applied",
+      "tabsBottom": 184.0,
+      "viewportTop": 184.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 184.0,
+      "feedbackBottom": 216.0,
+      "noticeTop": 193.0,
+      "noticeBottom": 207.0
+    },
+    {
+      "scene": "recovered-results",
+      "tabsBottom": 238.0,
+      "viewportTop": 238.0,
+      "viewportBottom": 555.0,
+      "feedbackTop": 238.0,
+      "feedbackBottom": 270.0,
+      "noticeTop": 247.0,
+      "noticeBottom": 261.0
+    }
+  ],
+  "frozenVerifierSha256": "c39b618c1ef9dd695d4d620aa472827e3f71fe0ba49e0920c1791fa09ed32212",
+  "assessorCommit": "d6d9cd17ec6d7e793971ed3de51bc488407b522a",
+  "recoveryTotals": {
+    "normalCompletions": 344,
+    "deliberateInterruptions": 44,
+    "continuityRecords": 43
+  },
+  "classes": 318,
+  "assumptions": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ],
+  "inheritedMissingFailureCaptures": [
+    "wallet/live-official/wallet-first-failure.png",
+    "wallet/live-official/wallet-first-failure.xml",
+    "wallet/live-owner/wallet-first-failure.png",
+    "wallet/live-owner/wallet-first-failure.xml"
+  ],
+  "originalArchives": 251,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/feed-notice-fix/full116/raw-43693979501",
+  "runtimePreflight": {
+    "chat": [
+      {
+        "result": "PASS",
+        "attempt": 1,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3439,
+          "parentPid": 1663,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 536870912,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "004c901b31f05bac0b675cf25dcd9717066fcde87f7e9cd2e9acf29e96f77a71",
+        "probeSha256": "306914ccbdc2434e54306d08af79f706685a1c3add7aaca1cc41b91b56489e00",
+        "elapsedMillis": 1302,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      }
+    ],
+    "social": [
+      {
+        "result": "PASS",
+        "attempt": 1,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3468,
+          "parentPid": 1662,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 536870912,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "98547fa375291b0bfe3055218eb29c0f2296c166322bdbd65108c4c75e118e7e",
+        "probeSha256": "3dec515bd13952475ad1ef0b9ce1f6a95610139724f99948d1368961eac44e8c",
+        "elapsedMillis": 1471,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      }
+    ],
+    "wallet": [
+      {
+        "result": "PASS",
+        "attempt": 1,
+        "maxAttempts": 3,
+        "observation": {
+          "package": "nl.davidengelen.redsquare.dev",
+          "sdk": 29,
+          "hardware": "ranchu",
+          "pid": 3419,
+          "parentPid": 1667,
+          "is64Bit": true,
+          "applicationFlags": 686308934,
+          "actualBytes": 536870912,
+          "declaredBytes": 536870912
+        },
+        "configurationSha256": {
+          "avd-config.ini": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be",
+          "emulator-capacity.txt": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97",
+          "system-image.txt": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d",
+          "system-image.properties": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847",
+          "system-build.txt": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003",
+          "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+          "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+          "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+        },
+        "emulatorStartupSha256": "a19ac98a42e92893c9eef3ad4e58f0f4d9c8bae60bffc415e98a891886e69f34",
+        "probeSha256": "31eee7af29e08855247ecd99cc73357536454b3a499dc76a9b155f20ecbb351d",
+        "elapsedMillis": 1370,
+        "qualification": "One separate provisioning JUnit observation before acceptance tests, retained in.log outside their counts; unchanged heap settings, no service restart or application-assertion retry."
+      }
+    ]
+  },
+  "separateProvisioningCompletions": 3,
+  "qualification": "Current116source assessment with inherited115interruption classification. The115frozen collector is not claimed to pass. One complete successful native primary, all3partitions. Exact five contracted intentional-start observations are separate from terminal completions/assumptions; all original goals and remaining validators retained. Originals remain external. No partial assembly or physical/provider/store acceptance. Android10 changes only the owned notification test operator; all ordinary product source equals the signed131source. Android17 retains its separate exact original source/profile. No native goal/deadline is weakened.",
+  "notificationOperator": {
+    "context": {
+      "existingMessages": 3,
+      "ownedMessages": 0,
+      "messageCount": 3
+    },
+    "lookup": {
+      "elapsedMillis": 3876,
+      "budgetMillis": 5000,
+      "physicalButtonBounds": "[8,537][85,585]"
+    },
+    "restoration": {
+      "ownedChannelRemoved": true,
+      "ownedNotificationsRemoved": true
+    },
+    "geometry": [
+      {
+        "listTop": 0,
+        "listBottom": 608,
+        "headerBottom": 176,
+        "shelfTop": 576,
+        "messageBodyBottom": 477,
+        "gestureTop": 184,
+        "gestureBottom": 469
+      }
+    ],
+    "qualification": "Actual physical Cancel and original cancellation assertions remain mandatory; geometry is additional operator evidence, not a replacement."
+  },
+  "notificationAdmissionWrapperSha256": "a88e5b467f04c8c41dbd6fed627fdab6d38905e3f989ef606f57f90b783f0c50",
+  "fixtureBridge": {
+    "signedSource": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+    "signedVersionCode": 131,
+    "signedApkSha256": "260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4",
+    "signedManifestSha256": "66c18405108ecee2fd6b52dc7e182ec7da8e40ed01816ca8521288c62935ea40",
+    "allowedFixturePaths": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FilesharePreviewTest.kt"
+    ],
+    "qualification": "Only the owned Android10 notification context/operator changes. Physical Cancel, exact cancellation state, original5000ms lookup and every class/protocol/timing goal remain. No ordinary main/core/resource/build/script/workflow/protocol source changes."
+  }
+}

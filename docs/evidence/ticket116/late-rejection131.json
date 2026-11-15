@@ -1,0 +1,17 @@
+{
+  "result": "PASS_LATE_REJECTION_WITH_NO_PUBLISHED_SUCCESS",
+  "run": 43693979501,
+  "source": "71c117ea9e4bd4e0f6697d5288fc7e2fcc5a60bb",
+  "changedMember": "fileshare-evidence/cancel-lookup.json",
+  "originalBudgetMillis": 5000,
+  "rejectedBudgetMillis": 5001,
+  "changedFileMembers": 1,
+  "originalTarSha256": "e800dceaa041b6a4bb39da4f12371d199e078cf5b907096d8c1d82e04278d70c",
+  "originalUnchanged": true,
+  "corruptCopyTarSha256": "8fccb7b51afff4ca0da6c2d30a7c6e5cc2b2cf6eb6a41b61306d67ae96d38f49",
+  "verifierExit": 1,
+  "emittedStdoutBytes": 0,
+  "publishedPacket": false,
+  "stderrSha256": "d72aad7f2bfd3cbdeb0d98bbfc1749829ceffd47b43e3562702463b511d975a2",
+  "qualification": "Deliberately corrupt isolated metadata only; not native acceptance. All original evidence remains byte-exact. The real CLI rejects after inherited assessment without emitting or publishing a preliminary success."
+}

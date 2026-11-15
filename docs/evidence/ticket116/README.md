@@ -34,10 +34,15 @@ reading text despite preserving its absolute pixel.
   identities (826terminal plus5verified intentional starts),345normal completions,
   44deliberate interruptions and43continuities. Four native feedback scenes have
   zero gap. Its `native131-android17` packet retains the exact run and byte indexes.
-- Four complete Android10 parents are excluded. The fourth, `43687853067`, failed
-  the same physical-Cancel lookup as the first. Targeted notification source `e237aa18` passes focused10/17. Prospective
-  whole10run `43693979501` uses exact admission source `71c117ea`. No new whole-run
-  or two-SDK acceptance is claimed yet.
+- Complete Android10 primary `43693979501` succeeds at exact admission source
+  `71c117ea9e4bd4e0f6697d5288fc7e2fcc5a60bb`, with the explicitly reviewed
+  notification-only source bridge to signed131. The current-source assessor
+  retains318classes,251archives,830observed identities (825terminal/assumption
+  plus5verified intentional starts),344normal completions,44interruptions and
+  43continuities. Three separate provisioning probes pass with512MiB parity.
+  Four zero-gap feed scenes pass. Physical Cancel resolves in3876ms against5000ms,
+  with three retained alerts and verified owned-state cleanup. No failed prefix is
+  accepted. Independent complete10evidence review remains pending.
 - Signed beta131 is staged, not promoted. APK94,089,760bytes,
   SHA256`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
   established certificate`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
@@ -128,3 +133,21 @@ original17success again using its original exact d6inputs. New complete10run
 43693979501holds71c117eaand every old goal/deadline. On success, use
 `verify-notification-full.py 10 RAW RUN 71c117ea... LABEL [EXTERNAL_OUTPUT_ROOT]`.
 A late-failure corruption check at this actual CLI remains required before delivery.
+
+## Complete Android10 execution and late rejection
+
+`native131-notification-android10` is generated only after every inherited and
+additional assertion succeeds. It reports
+`CURRENT_SOURCE_PASS_WITH_INHERITED115_CLASSIFICATION_AND_NOTIFICATION_FIXTURE`.
+The signed ordinary131source remainsd6; executed10source is71c117ea, differing
+only in the declared Android test fixture plus116evidence. Original17continues to
+use its exactd6profile/snapshot. No literal115frozen-PASS or shared native-test-source
+claim is made. The inherited single API29Profile assumption and four missing old
+failure captures remain explicit. Physical/OEM/provider/Play gates remain open.
+
+`late-rejection131.json` records a real CLI rejection after inherited assessment:
+a separate hardlinked copy replaces only the copy's archive inode and changes the
+extra lookup budget field5000to5001. All original bytes remain unchanged. The CLI
+fails at the additional budget assertion, emits zero stdout bytes, publishes no
+success packet and removes private staging. This is a report-integrity negative
+check, not native acceptance.
