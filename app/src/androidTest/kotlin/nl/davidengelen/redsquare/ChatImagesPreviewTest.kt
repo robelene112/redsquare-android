@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class ChatImagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    private enum class PhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION, QUEUED_CANCEL }
+    private enum class PhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION, PREPARATION_RECREATION, QUEUED_CANCEL }
 
     @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = false)
 
@@ -45,6 +45,12 @@ class ChatImagesPreviewTest {
     @Test fun editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation() =
         exercisePhoto(group = true, flow = PhotoFlow.FAILED_PREPARATION)
 
+    @Test fun aSelectedPrivatePhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading() =
+        exercisePhoto(group = false, flow = PhotoFlow.PREPARATION_RECREATION)
+
+    @Test fun aSelectedGroupPhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading() =
+        exercisePhoto(group = true, flow = PhotoFlow.PREPARATION_RECREATION)
+
     @Test fun cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending() =
         exercisePhoto(group = false, flow = PhotoFlow.QUEUED_CANCEL)
 
@@ -60,6 +66,7 @@ class ChatImagesPreviewTest {
         val prefix = when (flow) {
             PhotoFlow.VIEW -> kind; PhotoFlow.DRAFT -> "$kind-draft"; PhotoFlow.SEND -> "$kind-send"
             PhotoFlow.FAILED_PREPARATION -> "$kind-failed-preparation"
+            PhotoFlow.PREPARATION_RECREATION -> "$kind-preparation-recreation"
             PhotoFlow.QUEUED_CANCEL -> "$kind-queued-cancel"
         }
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
@@ -241,6 +248,41 @@ class ChatImagesPreviewTest {
                                 cleanupAfterTest(faultFailure, { Intents.release() }, { provider("reset") })
                                 trace("cleanup-return")
                             }
+                            return@withFailureCapture
+                        }
+                        if (flow == PhotoFlow.PREPARATION_RECREATION) {
+                            val uri = android.net.Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
+                            fun provider(action: String, extras: android.os.Bundle? = null) =
+                                requireNotNull(context.contentResolver.call(uri, action, null, extras))
+                            val source = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+                                .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString }
+                            provider("reset")
+                            var failure: Throwable? = null
+                            Intents.init()
+                            try {
+                                val pick = anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
+                                    hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
+                                    hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
+                                Intents.intending(pick).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)))
+                                ui.withAttachmentAction { ui.onNode(hasText("Add photo") and isEnabled()).performClick() }
+                                ui.waitUntil(10_000) { provider("status").getBoolean("opened") }
+                                draft = "Caption edited during selected $kind image preparation"
+                                ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
+                                androidx.test.espresso.Espresso.closeSoftKeyboard()
+                                recreateAndObserve()
+                                check(provider("complete", android.os.Bundle().apply {
+                                    putByteArray("png", android.util.Base64.decode(source.substringAfter(','), android.util.Base64.NO_WRAP))
+                                }).getBoolean("delivered")) { "The original selected read must survive Activity recreation" }
+                                val image = hasContentDescription("Image 1 of 1")
+                                ui.waitUntil(15_000) { displayed(image) }
+                                ui.assertSyntheticRedImage()
+                                assertDraft()
+                                check(provider("status").getInt("openCalls") == 1) { "Selection must be prepared exactly once" }
+                                Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))
+                                assertIdentityAndOutgoing(0)
+                                capture("$prefix-selected-image-retained")
+                            } catch (problem: Throwable) { failure = problem; throw problem }
+                            finally { cleanupAfterTest(failure, { Intents.release() }, { provider("reset") }) }
                             return@withFailureCapture
                         }
                         if (composing) {
