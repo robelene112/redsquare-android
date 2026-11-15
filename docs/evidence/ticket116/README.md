@@ -34,8 +34,8 @@ reading text despite preserving its absolute pixel.
   identities (826terminal plus5verified intentional starts),345normal completions,
   44deliberate interruptions and43continuities. Four native feedback scenes have
   zero gap. Its `native131-android17` packet retains the exact run and byte indexes.
-- Complete Android10 primary `43683761408` remains pending in the existing supported
-  Ubuntu22.04 pool after two unsuccessful10observations. No host-cause claim is made
+- Complete Android10 primary `43687853067` remains pending in the standard
+  Ubuntu24.04 pool after three unsuccessful10observations. No host-cause claim is made
   and no complete two-SDK acceptance is claimed yet.
 - Signed beta131 is staged, not promoted. APK94,089,760bytes,
   SHA256`260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4`,
@@ -76,6 +76,12 @@ failed. Its cause remains unproved; focused import43683570303 diagnoses the same
 unchanged methods and succeeds, providing diagnosis support only. Complete10run43683761408uses the already supported Ubuntu22.04
 pool with unchanged source, images, goals and bounds. Earlier parents supply no
 acceptance, and no forced redraw or test-clock alteration is used.
+
+`unsuccessful-third-full10.json` records a different failure on Ubuntu22.04:
+20creator refreshes under the unchanged method tracer exceeded the original15second
+wait. That parent is not accepted. Focused Vault-reading43687862233diagnoses the
+same original assertions. Complete10run43687853067returns to the standardUbuntu24.04
+pool at the same frozen source. No trace, refresh-count or timing goal is weakened.
 
 A local lint attempt used changing source inputs and failed; a later redundant
 local lint attempt was stopped after all six clean hosted build/lint steps passed.

@@ -1,0 +1,12 @@
+{
+  "run": 43683761408,
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "runner": "ubuntu-22.04",
+  "acceptance": false,
+  "failedClass": "VaultRentalPolishPreviewTest",
+  "failedMethod": "creatorMasterRefreshKeepsItsAuthenticatedEntryAndRecordsActualMainThreadWork",
+  "failedCheck": "Twenty refreshLocal calls under original method tracing did not complete within the original15000ms wait",
+  "qualification": "Separate performance observation, not either preceding UI failure. Cause remains unproved. No deadline, trace mode, refresh count or assertion was changed. No successful partition is accepted.",
+  "focusedVaultReadingRun": 43687862233,
+  "nextCompleteDefaultPoolRun": 43687853067
+}
