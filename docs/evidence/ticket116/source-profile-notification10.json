@@ -1,0 +1,28 @@
+{
+  "productSource": "e237aa18f97dc1e1093d194906f4b28039f2db20",
+  "basis": "Android10 notification fixture only. The signed131 ordinary product, all native goals and deadlines stay unchanged. Android17 retains its original exact source/profile.",
+  "adapterSha256": "54e95ca00f40739a1b8cafe52691a072070cc06c30cb0772db0c6a0451b8bc30",
+  "nativeTrees": {
+    "app": "060a56b1a94145e4145346e25c230348e2f19db3",
+    "core": "c05c7a841ed25557d1c5a1d6ef57f59cce340245",
+    "scripts": "26dd5e2e0491186226f2fdf0385f33233e8c2b02",
+    ".github": "750b15bd4ffa0c16036c58aea088e1aba563e1ca",
+    "build-support": "a65cd2a86f1db7157357446ea65447a67a38a93a"
+  },
+  "inheritedSha256": {
+    "docs/evidence/ticket115/verify-qualified-full.py": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+    "docs/evidence/ticket115/full-contract.json": "e2e961409bc697953a9b6a16a9c4cf70f088817d3057acc572819bf486512aca",
+    "docs/evidence/ticket115/identity-classification-erratum.json": "1a3ecf9168b3e284365e2d35b584d2c248e20505fa32ce5b58d2bab3e5c32a4a"
+  },
+  "wrapperSha256": "811a7661443a48b0b2664e68fdb141a12f7dbbc3c0488f2892de3bd5c687aad9",
+  "fixtureBridge": {
+    "signedSource": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+    "signedVersionCode": 131,
+    "signedApkSha256": "260634ed86a1487482e097611f11fa0a737a9ea7120bc43e3113ffc385f9ccc4",
+    "signedManifestSha256": "66c18405108ecee2fd6b52dc7e182ec7da8e40ed01816ca8521288c62935ea40",
+    "allowedFixturePaths": [
+      "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FilesharePreviewTest.kt"
+    ],
+    "qualification": "Only the owned Android10 notification context/operator changes. Physical Cancel, exact cancellation state, original5000ms lookup and every class/protocol/timing goal remain. No ordinary main/core/resource/build/script/workflow/protocol source changes."
+  }
+}
