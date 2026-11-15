@@ -33,10 +33,9 @@ internal class UnfinishedTextRecovery(context: Context, draftName: String,
     private data class Edit(val generation: Long, val version: Long, val text: String)
 
     fun open(): EditingSession = synchronized(SaitoLocalState.lock) {
-        var unreadable = false
-        val saved = try { read() } catch (_: Exception) { unreadable = true; null }
+        val saved = read()
         val anchor = anchor()
-        EditingSession(anchor, saved?.takeIf { it.anchor == anchor }?.text, unreadable).also { session ->
+        EditingSession(anchor, saved?.takeIf { it.anchor == anchor }?.text).also { session ->
             active.put(key, session)?.close()
         }
     }
@@ -66,25 +65,28 @@ internal class UnfinishedTextRecovery(context: Context, draftName: String,
 
     /** One editor owns the writer across Activity recreation; superseded editors cannot reacquire it. */
     inner class EditingSession internal constructor(@Volatile private var baseline: String,
-        restored: String?, unreadable: Boolean) : AutoCloseable {
+        restored: String?) : AutoCloseable {
         @Volatile var restored: String? = restored
             private set
-        var failed by mutableStateOf(unreadable)
+        var failed by mutableStateOf(false)
             private set
         private val generation = AtomicLong()
         private val version = AtomicLong()
-        @Volatile private var latestText: String? = null
-        private val pending = Channel<Edit>(Channel.CONFLATED)
+        private val edits = Any()
+        @Volatile private var latest: Edit? = null
+        private val pending = Channel<Unit>(Channel.CONFLATED)
         private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
         init {
             scope.launch {
-                for (edit in pending) {
+                while (pending.receiveCatching().isSuccess) {
                     delay(150)
-                    if (!current(edit)) continue
+                    var attempted: Edit? = null
                     try {
-                        synchronized(SaitoLocalState.lock) {
-                            if (!current(edit)) return@synchronized
+                        val saved = synchronized(SaitoLocalState.lock) {
+                            val edit = latest ?: return@synchronized null
+                            if (!current(edit)) return@synchronized null
+                            attempted = edit
                             check(anchor() == baseline) { "Draft changed before checkpoint" }
                             read() // Never silently replace unreadable earlier recovery work.
                             val record = JsonObject().apply {
@@ -92,28 +94,33 @@ internal class UnfinishedTextRecovery(context: Context, draftName: String,
                             }
                             require(edit.text.toByteArray().size <= 1024 * 1024)
                             file.save(EncryptedLocalFile.Contents(1, record.toString()))
+                            edit
                         }
-                        if (current(edit)) failed = false
+                        if (saved != null && current(saved) && latest?.version == saved.version) failed = false
                     } catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { if (current(edit)) failed = true }
+                    catch (_: Exception) { if (attempted?.let(::current) == true) failed = true }
                 }
             }
         }
 
-        private fun current(edit: Edit) = active[key] === this && edit.generation == generation.get() && edit.version == version.get()
+        private fun current(edit: Edit) = active[key] === this && edit.generation == generation.get()
 
         fun update(text: String) {
-            latestText = text
             if (active[key] !== this) { failed = true; return }
-            if (!pending.trySend(Edit(generation.get(), version.incrementAndGet(), text)).isSuccess) failed = true
+            synchronized(edits) {
+                latest = Edit(generation.get(), version.incrementAndGet(), text)
+                if (!pending.trySend(Unit).isSuccess) failed = true
+            }
         }
 
-        fun retry() { latestText?.let(::update) }
+        fun retry() = synchronized(edits) {
+            if (latest != null && !pending.trySend(Unit).isSuccess) failed = true
+        }
 
-        internal fun advance(anchor: String) {
+        internal fun advance(anchor: String) = synchronized(edits) {
             generation.incrementAndGet()
             baseline = anchor
-            latestText = null
+            latest = null
             restored = null
             failed = false
         }
