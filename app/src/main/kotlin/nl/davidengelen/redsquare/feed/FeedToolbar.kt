@@ -22,6 +22,6 @@ internal fun FeedToolbar(followingView: Boolean, onFollowing: (Boolean) -> Unit,
 }
 
 @Composable
-private fun FeedActions(maintenanceEnabled: Boolean, onQueue: () -> Unit, onChanges: () -> Unit, modifier: Modifier = Modifier) {
+private fun FeedActions(maintenanceEnabled: Boolean, onQueue: () -> Unit, onChanges: () -> Unit) {
     FeedMoreActions(maintenanceEnabled, onQueue, onChanges)
 }
