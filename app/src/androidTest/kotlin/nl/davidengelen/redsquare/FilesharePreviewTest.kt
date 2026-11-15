@@ -41,6 +41,8 @@ abstract class FileshareFixture {
         val device = UiDevice.getInstance(instrumentation)
         val permitted = android.os.Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         val evidence = File(context.cacheDir, "fileshare-evidence").apply { mkdirs() }
+        val shadeFixture = "fileshare-cancel-viewport-fixture"
+        val seedShade = cancel && android.os.Build.VERSION.SDK_INT == 29
         val browserRef = AtomicReference<FileshareBrowserPeer>()
         val fixture = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
             relayResponse = { browserRef.get().relay(it) })
@@ -211,6 +213,20 @@ abstract class FileshareFixture {
                             waitUntil { ui.onAllNodesWithText("Chat still receives during a file transfer").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                             val notifications = context.getSystemService(NotificationManager::class.java)
                             waitUntil { notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID } }
+                            if (seedShade) {
+                                check(notifications.getNotificationChannel(shadeFixture) == null)
+                                notifications.createNotificationChannel(android.app.NotificationChannel(shadeFixture,
+                                    "Fileshare viewport fixture", NotificationManager.IMPORTANCE_DEFAULT).apply {
+                                    setSound(null, null); enableVibration(false)
+                                })
+                                repeat(3) { index ->
+                                    notifications.notify(shadeFixture, index, android.app.Notification.Builder(context, shadeFixture)
+                                        .setSmallIcon(nl.davidengelen.redsquare.R.drawable.ic_file)
+                                        .setContentTitle("Red Square").setContentText("New message")
+                                        .setGroup("$shadeFixture-$index").setShowWhen(false).build())
+                                }
+                                waitUntil { notifications.activeNotifications.count { it.tag == shadeFixture } == 3 }
+                            }
                             captureNativeScreen(File(evidence, "active-${incoming}-${cancel}.png"))
                             device.pressHome(); device.sleep()
                             assertFalse(device.isScreenOn)
@@ -349,6 +365,9 @@ abstract class FileshareFixture {
                 { restoreLegacyNotifications?.invoke() },
                 { if (preparationCancel) context.contentResolver.call(source, "release", null, null) },
                 { context.getSystemService(NotificationManager::class.java).cancel(FileTransferService.NOTIFICATION_ID) },
+                { if (seedShade) context.getSystemService(NotificationManager::class.java).let { manager ->
+                    repeat(3) { manager.cancel(shadeFixture, it) }; manager.deleteNotificationChannel(shadeFixture)
+                } },
                 { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(previousBackend) },
                 { files.restoreFiles() }, { files.restorePreferences() })
         }
