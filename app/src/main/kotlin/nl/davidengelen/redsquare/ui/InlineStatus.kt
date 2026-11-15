@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 
@@ -35,7 +36,7 @@ internal enum class StatusTone { INFO, NEUTRAL, WORKING, SUCCESS, WARNING, ERROR
 @Composable
 internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
     details: List<String> = emptyList(), modifier: Modifier = Modifier, announce: Boolean = true,
-    actionLabel: String? = null, actionEnabled: Boolean = true, passThrough: Boolean = false, onAction: () -> Unit = {}) {
+    actionLabel: String? = null, actionEnabled: Boolean = true, passThrough: Boolean = false, verticalSpacing: Dp = 3.dp, onAction: () -> Unit = {}) {
     require(!passThrough || (details.isEmpty() && actionLabel == null))
     var openedDetails by remember { mutableStateOf<Pair<String, List<String>>?>(null) }
     var previousSummary by remember { mutableStateOf(summary.orEmpty()) }
@@ -67,7 +68,7 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
     if (visibility.currentState || visibility.targetState || !visibility.isIdle) AnimatedVisibility(visibleState = visibility, modifier = modifier,
         enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
-        StatusSurface(Modifier.fillMaxWidth().padding(vertical = 3.dp)
+        StatusSurface(Modifier.fillMaxWidth().padding(vertical = verticalSpacing)
             .animateContentSize(tween(AppSpacing.transitionMillis))
             .semantics { if (summary == null) hideFromAccessibility() },
             passThrough) {

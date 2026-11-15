@@ -509,6 +509,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             FeedToolbar(followingView = followingView, onFollowing = { followingView = it },
                 maintenanceEnabled = wallet != null, onQueue = { reviewingQueue = true },
                 onChanges = { reviewingChanges = true }, modifier = Modifier.testTag("feed-tabs"))
+            // Reserve a strip immediately below the tabs. The list's reading anchor
+            // compensates for this height while a scrolled reader is idle.
+            InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
+                StatusTone.SUCCESS, modifier = Modifier.testTag("feed-refresh-feedback"), verticalSpacing = 0.dp)
             val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
                 (!followingView || post.author in following?.accounts.orEmpty()) }
             val visiblePostIds = visiblePosts.map { it.id }.toSet()
@@ -570,11 +574,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         HorizontalDivider()
                     }
                 }
-                // Overlay the visible posts viewport so feedback stays below the tabs
-                // without moving the reader's post when it appears or disappears.
-                InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
-                    StatusTone.SUCCESS, modifier = Modifier.align(Alignment.TopCenter).padding(top = AppSpacing.small).testTag("feed-refresh-feedback"),
-                    passThrough = true)
             }
             else Spacer(Modifier.weight(1f))
         }
