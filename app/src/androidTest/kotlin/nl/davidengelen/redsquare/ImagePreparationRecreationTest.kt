@@ -92,7 +92,7 @@ class ImagePreparationRecreationTest {
                     val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                     check(device.takeScreenshot(java.io.File(directory,"selected-$mode.png")))
                     device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode.xml"))
-                    assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
+                    check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
                     assertEquals(SaitoBackend.OWNER, backends.load())
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()

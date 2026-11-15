@@ -100,7 +100,7 @@ class ProfileImagePreparationRecreationTest {
                     device.dumpWindowHierarchy(File(directory,"selected-profile-$field.xml"))
                     assertEquals(1, provider("status").getInt("openCalls"))
                     Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))
-                    assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
+                    check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
                     assertEquals(SaitoBackend.OWNER, backends.load())
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                 }
