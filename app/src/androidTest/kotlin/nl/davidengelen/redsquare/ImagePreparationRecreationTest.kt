@@ -40,7 +40,8 @@ class ImagePreparationRecreationTest {
         val reference = nl.davidengelen.redsquare.saito.RedSquareFeed.readArchive("[$root]").posts.single()
         val retained = ChatFixtureState(context, listOf("postdraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}",
             "feed.${SaitoBackend.OWNER.id}.", "conversation.${SaitoBackend.OWNER.id}.${reference.threadId}.",
-            "authorposts.${SaitoBackend.OWNER.id}.${reference.id}."), wallet.publicKey)
+            "authorposts.${SaitoBackend.OWNER.id}.${reference.id}.", "stack.${SaitoBackend.OWNER.id}.",
+            "stackwindow.${SaitoBackend.OWNER.id}.${wallet.publicKey}."), wallet.publicKey)
         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val bytes = android.util.Base64.decode(fixture.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP)

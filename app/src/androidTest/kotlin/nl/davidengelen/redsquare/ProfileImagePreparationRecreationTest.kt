@@ -34,7 +34,8 @@ class ProfileImagePreparationRecreationTest {
         val backends = AndroidBackendStore(context)
         val oldBackend = backends.load()
         val wallet = AndroidWalletStore(context).loadOrCreate()
-        val retained = ChatFixtureState(context, listOf("profiledraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}"), wallet.publicKey)
+        val retained = ChatFixtureState(context, listOf("profiledraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}",
+            "stack.${SaitoBackend.OWNER.id}.", "stackwindow.${SaitoBackend.OWNER.id}.${wallet.publicKey}."), wallet.publicKey)
         val uri = Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
         fun provider(action: String, extras: Bundle? = null) = requireNotNull(context.contentResolver.call(uri, action, null, extras))
         val source = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
