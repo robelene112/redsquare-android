@@ -1,0 +1,207 @@
+{
+  "release": 130,
+  "productSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "standardsFinalRemainingFindings": 0,
+  "specFinalRemainingFindings": 0,
+  "qualifiedAndroid17Acceptance": {
+    "run": 43656409473,
+    "nativeSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "assessorCommit": "77ac62cf2c3fb33245727b911203dfc834af89cb",
+    "standardsRemainingFindings": 0,
+    "specRemainingFindings": 0,
+    "independentlyVerified": {
+      "zipCount": 3,
+      "extractedMembers": 1401,
+      "indexedOriginals": 1242,
+      "observedIdentities": 831,
+      "terminalIdentities": 826,
+      "verifiedInterruptedStarts": 5,
+      "classes": 318,
+      "archives": 251,
+      "normalCompletions": 345,
+      "deliberateInterruptions": 44,
+      "continuities": 43,
+      "allOriginalPostIdentityValidatorsExecuted": true
+    },
+    "qualification": "Accepted explicitly through reviewed classification erratum. Original frozen collector FAILED; original prospective literal frozen-PASS condition not met. Entire10/public/ticket gates remain pending."
+  },
+  "qualifiedAndroid10Acceptance": {
+    "run": 43668944254,
+    "nativeSource": "ca4217e1e5746746f55d716d0d48669ecf1c2fc5",
+    "assessorCommit": "f6f8c4b0de9e0611a39d5dc81dfdf6eb55559526",
+    "standardsRemainingFindings": 0,
+    "specRemainingFindings": 0,
+    "independentlyVerified": {
+      "zipCount": 3,
+      "extractedMembers": 1660,
+      "indexedOriginals": 1501,
+      "observedIdentities": 830,
+      "terminalOrAssumptionIdentities": 825,
+      "verifiedInterruptedStarts": 5,
+      "classes": 318,
+      "archives": 251,
+      "normalCompletions": 344,
+      "deliberateInterruptions": 44,
+      "continuities": 43,
+      "separateProvisioningCompletions": 3,
+      "allOriginalPostIdentityValidatorsExecuted": true
+    },
+    "qualification": "Accepted through explicit reviewed classification erratum. Original frozen collector FAILED and remains preserved; inherited API29 assumption/unavailable archive/four legacy captures retained. No failed-prefix assembly or earlier OS-cause claim."
+  },
+  "talk130EvidenceAndQaReview": {
+    "compiledSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "qaSource": "fd8fe6c9eb53ae20703ed409775efb9eb04db923",
+    "standardsRemainingFindings": 0,
+    "specRemainingFindings": 0,
+    "agents": [
+      "/root/integration115_standards",
+      "/root/integration115_spec"
+    ],
+    "independentlyVerified": {
+      "focusedZipEntries": [
+        80,
+        69
+      ],
+      "focusedNativeMembersPerSdk": 79,
+      "actualViewportCellsPerSdk": 12,
+      "entryProofsPerSdk": 4,
+      "signedUpdateIndexedOriginals": 108,
+      "exactCandidateBytes": 94089760,
+      "identicalGitEntries": 224811,
+      "qaDiffEntries": 2,
+      "frozenContractVerifierTraceIdentical": true,
+      "focusedTalkSdks": 2
+    },
+    "resolvedDocumentationFinding": "Shared descriptor qualification now explicitly records current127-to130source/runs; original inaccurate83scope bytes retained.",
+    "localQaCompile": "PASS2m44s",
+    "qaCorrection": "Scroll actual native notification container with sameCancel/cancellation/no-completion assertions and5s/180s deadlines.",
+    "qualifications": [
+      "SDK17clipboard preview obscures part of two original default-dark frames; same-cell invitation capture is unobstructed.",
+      "Earlier native-scroll failure cause remains unproved; focused corrected gesture and completeSDK10stillpending.",
+      "SDK17retention is prospective and conditional on whole original010success underexact010frozenchecker.",
+      "Observer removed at origin; timestampedfresh/canonical404observations do not establishglobalpurge.",
+      "Both complete acceptance and public delivery review remain pending."
+    ]
+  },
+  "publicDeliveryAcceptance": {
+    "standardsRemainingFindings": 0,
+    "specRemainingFindings": 0,
+    "actualDownloadedBytes": 94089760,
+    "actualDownloadedSha256": "78720151b1c10772dfef36684a3d8be6a1718d519847a6db5a9df459feb60a7e",
+    "freshLatest": 130,
+    "canonicalLatestObserved": 130,
+    "manifestNotesSourceAndPageByteExact": true,
+    "establishedCertificateAndVersionVerified": true,
+    "sourceSnapshotsAndQualifiedIdentityReportsPreserved": true,
+    "receipt": "public130.json",
+    "qualification": "Actual public delivery accepted independently. No frozen-collector PASS or globalCDNpurge claim. Provider/physical/OEM/Play gates stay open."
+  },
+  "historicalReviews": {
+    "base": "881166a6cd85358973082659fc473112f09c654f",
+    "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+    "scope": "Committed product, QA, harness and frozen-verifier source; complete-run/update/public evidence separately required.",
+    "standards": {
+      "agent": "/root/integration115_standards",
+      "remainingFindings": 0,
+      "conclusion": "Earlier findings resolved. No concrete Standards or defensible additional smell findings."
+    },
+    "spec": {
+      "agent": "/root/integration115_spec",
+      "remainingProductFindings": 0,
+      "descriptorFinding": {
+        "priority": "P3",
+        "path": "scripts/emulator-check:123",
+        "finding": "Generic retained scope.txt says beta83 even when actual selected baseline is127.",
+        "resolution": "Preserve original descriptor bytes and explicitly qualify against actual versions/download/native observations in update-scope-label.json. No native assertion, behavior or deadline changes."
+      }
+    },
+    "qualification": "Independent read-only source reviews do not establish unfinished complete SDK, actual signed-update or public delivery acceptance.",
+    "verificationSource": "17798cbe4c68ec7de0f52425d8061992b575877f",
+    "qaFollowup": {
+      "base": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultRentalMasterPreviewTest.kt",
+      "change": "Scope the existing Keep offline action to its actual dialog; avoid identical background label.",
+      "standardsFindings": 0,
+      "specFindings": 0,
+      "goalsUnchanged": true,
+      "localAndroidTestCompile": "PASS in2m52s",
+      "nativeFocusedReceipt": "selector-checks.json",
+      "staticProductComparison": "source-bridge129.json",
+      "completeGate": "Superseded by exact e0 complete SDK primaries; all older complete attempts failed and cannot supply acceptance."
+    },
+    "finalQaAndFreezeReview": {
+      "from": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+      "through": "e0f12724de930147d68230e4d4e895a47b2ac959",
+      "standardsAgent": "/root/integration115_standards",
+      "specAgent": "/root/integration115_spec",
+      "standardsRemainingFindings": 0,
+      "specRemainingFindings": 0,
+      "resolvedFinding": "Explicit strict method mode, native sidecar and pinned helper/source integration added before complete dispatch.",
+      "verified": "Original contract fields recursively identical; provider20s, refresh15s and menu15s/5s retained. Strict20complete Main merges, balanced stack, no overflow or crypto below merge. Stable native message identity retained across actual scroll/tap.",
+      "qualification": "Read-only source/freeze review. Both fresh entire complete SDK primaries and final evidence/public delivery reviews still required."
+    },
+    "staticFocusedEvidenceReview": {
+      "standardsAgent": "/root/integration115_standards",
+      "specAgent": "/root/integration115_spec",
+      "standardsRemainingFindings": 0,
+      "specRemainingFindings": 0,
+      "independentlyVerified": {
+        "identicalGitEntries": 224796,
+        "documentedDifferences": 10,
+        "focusedZipEntries": 474,
+        "focusedNativeMembers": 1109,
+        "strictMethodMainMergesPerSdk": 20,
+        "cryptoUnderMergePerSdk": 0,
+        "coreReports": 44,
+        "coreTests": 224,
+        "candidatePackageAndSignature": true,
+        "historicalFailureLogsAndFocusedZipHashes": true
+      },
+      "qualification": "Read-only static/focused evidence acceptance only. No current complete primary was polled or accepted; complete and public delivery review remain outstanding."
+    },
+    "runtimeProvisioningReview": {
+      "through": "17798cbe4c68ec7de0f52425d8061992b575877f",
+      "standardsAgent": "/root/integration115_standards",
+      "specAgent": "/root/integration115_spec",
+      "standardsRemainingFindings": 0,
+      "specRemainingFindings": 0,
+      "resolvedP2": "Distinct live per-boot logs preserve all rejected startup/shutdown bytes; strict snapshot/full-stream validation.",
+      "observedIntegrationCorrection": "AGPdidnotregistercustomprobe;177usesexistingAndroidJUnitRunner, explicitdiagnosticmethod, strict.log/native/status/class/method/OK1validation and separately reported provisioning completions.",
+      "allOriginalE0ContractFieldsUnchanged": true,
+      "localAndroidTestAssembly": "PASS in2m58",
+      "qualification": "Both entire corrected-source complete SDK primaries and final packet/public delivery reviews required. No original-cause claim or failed-prefix assembly."
+    },
+    "runtimeFocusedEvidenceReview": {
+      "source": "17798cbe4c68ec7de0f52425d8061992b575877f",
+      "run": 43648442543,
+      "standardsAgent": "/root/integration115_standards",
+      "specAgent": "/root/integration115_spec",
+      "standardsRemainingFindings": 0,
+      "specRemainingFindings": 0,
+      "independentlyVerified": {
+        "identicalGitEntries": 224794,
+        "documentedDifferences": 14,
+        "focusedZipEntries": 80,
+        "nativeCaptureMembers": 7,
+        "observedBoots": 1,
+        "actualHeapBytes": 536870912,
+        "declaredHeapBytes": 536870912,
+        "strictProvisioningValidatorPass": true,
+        "originalFourMiBExactUpload": true
+      },
+      "qualification": "Focused and static binding only; rejected-boot/retry branch was not exercised here and no cause claim. Both complete primaries and final public delivery evidence still required."
+    },
+    "talkAdaptiveReview": {
+      "base": "57180df7421a1b3bfa7106bf5a20a00bad86ea1f",
+      "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+      "standardsAgent": "/root/integration115_standards",
+      "specAgent": "/root/integration115_spec",
+      "standardsRemainingFindings": 0,
+      "specRemainingFindings": 0,
+      "verified": "Adaptive two-row controls and stacked invitation actions preserve callbacks,12dp separation and16dp End call gap. Actual TextLayoutResult word checks additive; original identities/deadlines/contract fields unchanged.",
+      "localAssembly": "PASS6m20s",
+      "qualification": "Read-only source review; native render/full-suite/update/public delivery acceptance remains pending."
+    }
+  }
+}

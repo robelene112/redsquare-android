@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-11-15T03:54:02.848186+00:00",
+  "10": {
+    "run": 43668944254,
+    "source": "ca4217e1e5746746f55d716d0d48669ecf1c2fc5",
+    "nativePrimary": "success",
+    "frozenCollector": "FAIL",
+    "failureFile": "frozen-collector10-failure.txt",
+    "failureSha256": "1620ce6e7ffef56fdba2d446e2aee310ddddd32dce14df6ff2532d25afa646af",
+    "missingContractedInterruptedStarts": 5,
+    "extras": 0
+  },
+  "17": {
+    "run": 43656409473,
+    "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "nativePrimary": "success",
+    "frozenCollector": "FAIL",
+    "failureFile": "frozen-collector17-failure.txt",
+    "failureSha256": "1620ce6e7ffef56fdba2d446e2aee310ddddd32dce14df6ff2532d25afa646af",
+    "missingContractedInterruptedStarts": 5,
+    "extras": 0
+  },
+  "qualification": "Actual complete native primaries succeed; original frozen collectors fail only the five documented intentional-start classifications. Exact outputs preserved. Qualified assessors keep terminal/assumption and intentional-start identities separate and must run every remaining validator."
+}

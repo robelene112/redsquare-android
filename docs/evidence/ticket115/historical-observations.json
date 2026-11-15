@@ -1,0 +1,2173 @@
+{
+  "focused": [
+    {
+      "verification": {
+        "run": 43619863982,
+        "source": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+        "conclusion": "success",
+        "artifactId": 14123803491,
+        "zipSha256": "7984e9c0e1c3f7e9f3a800868f458444609f2497ddb75205765802022b8ed134",
+        "zipEntries": 67,
+        "captureMembers": 20,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-creation-final10-43619863982-original.zip",
+      "zipBytes": 257745,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43619866357,
+        "source": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+        "conclusion": "success",
+        "artifactId": 14124120864,
+        "zipSha256": "8ca27b4840d7a966877e5f93871cf6ebc707c9eb70daf6ac5e5c2e3fce0830e7",
+        "zipEntries": 69,
+        "captureMembers": 20,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-creation-final17-43619866357-original.zip",
+      "zipBytes": 267335,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43618457134,
+        "source": "a8324aefe06829966dfa6f7fd87df50aef3c3c2f",
+        "conclusion": "failure",
+        "artifactId": 14123326202,
+        "zipSha256": "7345ae853375f4bf3bf0224ab6740a6e23824d218e9c192eb09ae43fe0627a0c",
+        "zipEntries": 67,
+        "captureMembers": 25,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-keyboard-first10-43618457134-original.zip",
+      "zipBytes": 288681,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43616342711,
+        "source": "7658e86f9373b33ac44fc79aa0a7e1a009569667",
+        "conclusion": "failure",
+        "artifactId": 14122727520,
+        "zipSha256": "0ebaee8d8e96139b9df0c972fee26f6efe30e3ee1a2283f00a0a912d75ac6544",
+        "zipEntries": 73,
+        "captureMembers": 4,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-mixed-first10-43616342711-original.zip",
+      "zipBytes": 284254,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43618452401,
+        "source": "a8324aefe06829966dfa6f7fd87df50aef3c3c2f",
+        "conclusion": "success",
+        "artifactId": 14123691374,
+        "zipSha256": "6c2879a7ffe75931b9041bd215028b8145ee529605a3a2e9e1d051cac58d82e2",
+        "zipEntries": 70,
+        "captureMembers": 7,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-mixed-green10-43618452401-original.zip",
+      "zipBytes": 112515,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43617358547,
+        "source": "89a71d1cf5f421630eb44fc5f6f4f703fea32a24",
+        "conclusion": "failure",
+        "artifactId": 14122985658,
+        "zipSha256": "dd1fbc10610f90edcec9f239e1a1f66fa1323e0b46d508e6be24a516831397ab",
+        "zipEntries": 73,
+        "captureMembers": 5,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-mixed-second10-43617358547-original.zip",
+      "zipBytes": 272186,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43615448721,
+        "source": "efe48ff6414d996b9814479ba70f39ac23b1b403",
+        "conclusion": "failure",
+        "artifactId": 14122116642,
+        "zipSha256": "5600bd0bba2972460a017414d3de3076ffbc147fcf7fda282b5ab11c4a0f8934",
+        "zipEntries": 71,
+        "captureMembers": 21,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-profile-first10-43615448721-original.zip",
+      "zipBytes": 300597,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43618449870,
+        "source": "a8324aefe06829966dfa6f7fd87df50aef3c3c2f",
+        "conclusion": "failure",
+        "artifactId": 14123861275,
+        "zipSha256": "a66d1cb3a61589bcba49ed6f1e6c5645c71a05f733676ad915473d1b2e744859",
+        "zipEntries": 71,
+        "captureMembers": 28,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-profile-fourth10-43618449870-original.zip",
+      "zipBytes": 319623,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43616340144,
+        "source": "7658e86f9373b33ac44fc79aa0a7e1a009569667",
+        "conclusion": "failure",
+        "artifactId": 14122169028,
+        "zipSha256": "2972036c4c06040ea1ad939412ee9e99c4c6ed9e00100f87b5eea6ba3c7350be",
+        "zipEntries": 69,
+        "captureMembers": 25,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-profile-second10-43616340144-original.zip",
+      "zipBytes": 8518589,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43617356291,
+        "source": "89a71d1cf5f421630eb44fc5f6f4f703fea32a24",
+        "conclusion": "failure",
+        "artifactId": 14123010043,
+        "zipSha256": "cced0038e6f61cc29949834547e03aaf25d1bc4355bc934f104522b11436173b",
+        "zipEntries": 69,
+        "captureMembers": 28,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-profile-third10-43617356291-original.zip",
+      "zipBytes": 343866,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43619854145,
+        "source": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+        "conclusion": "success",
+        "artifactId": 14123499581,
+        "zipSha256": "69ac8c980cec2eae3a64f7b0108b00d3dd57a4df7c860122484c62f0b485cb0e",
+        "zipEntries": 80,
+        "captureMembers": 208,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-reading-final10-43619854145-original.zip",
+      "zipBytes": 8234293,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43619856717,
+        "source": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+        "conclusion": "success",
+        "artifactId": 14123864237,
+        "zipSha256": "144eb23514c0fb585357281ac01a247fb9b537d8a469fc3daa4ca5a988947cd1",
+        "zipEntries": 82,
+        "captureMembers": 219,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-reading-final17-43619856717-original.zip",
+      "zipBytes": 9107465,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43619861539,
+        "source": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+        "conclusion": "failure",
+        "artifactId": 14124096342,
+        "zipSha256": "11a212433e272b26d5412a0df4391d1e1e657d13868cb1f548c6829caa7b8773",
+        "zipEntries": 69,
+        "captureMembers": 35,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-rental-final-first17-43619861539-original.zip",
+      "zipBytes": 395734,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43619859286,
+        "source": "2e3c6f2dc0e3c48349c6a9dd7313b7205a7f0d59",
+        "conclusion": "success",
+        "artifactId": 14123609191,
+        "zipSha256": "ba2f0212b124c87bed31ddba5767b088d814ea00b53055cb40857bb75cf6e947",
+        "zipEntries": 71,
+        "captureMembers": 185,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-rental-final10-43619859286-original.zip",
+      "zipBytes": 3069886,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43621036113,
+        "source": "de911c3225004cceb737866b6d91255b82d1412c",
+        "conclusion": "success",
+        "artifactId": 14123963799,
+        "zipSha256": "2327d58d095a78777a08cbce8d02f3e8def557b4a4fdfbd669438647a6292462",
+        "zipEntries": 73,
+        "captureMembers": 185,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-rental-final17-43621036113-original.zip",
+      "zipBytes": 3105614,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43616345103,
+        "source": "7658e86f9373b33ac44fc79aa0a7e1a009569667",
+        "conclusion": "success",
+        "artifactId": 14122791233,
+        "zipSha256": "e600898d09946e86529c877ad87389b2753c789bc08555220b52b2d787e294d0",
+        "zipEntries": 69,
+        "captureMembers": 79,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-status-green10-43616345103-original.zip",
+      "zipBytes": 984163,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43615365283,
+        "source": "408ad14ed34dc44c914aff924cde57f86cc7d207",
+        "conclusion": "failure",
+        "artifactId": 14122510819,
+        "zipSha256": "2f28e2dc0c8d1cbec9a5812bd4c2e1b8ec2bdeac8a8e7ac4085e6b66ae9ffe93",
+        "zipEntries": 67,
+        "captureMembers": 31,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-status-red10-43615365283-original.zip",
+      "zipBytes": 314955,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43617363995,
+        "source": "89a71d1cf5f421630eb44fc5f6f4f703fea32a24",
+        "conclusion": "success",
+        "artifactId": 14123600382,
+        "zipSha256": "47c4f52fdba54ca54e701e49a00cb205102cf01b80d3c67242c459626378f12e",
+        "zipEntries": 97,
+        "captureMembers": 198,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talkback-first10-43617363995-original.zip",
+      "zipBytes": 2309977,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43622017532,
+        "source": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+        "conclusion": "success",
+        "artifactId": 14125101871,
+        "zipSha256": "bfe68d5e18db8f7c07bdd42c951550fcfdec492c05763457dd5c528f5a024773",
+        "zipEntries": 95,
+        "captureMembers": 0,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-update128-android10-43622017532-original.zip",
+      "zipBytes": 4899151,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43622020099,
+        "source": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+        "conclusion": "success",
+        "artifactId": 14124548901,
+        "zipSha256": "81a25cab9d01fea0a995841ae25fa77cd57eb86b97221d18287715ea9d479e35",
+        "zipEntries": 97,
+        "captureMembers": 0,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-update128-android17-43622020099-original.zip",
+      "zipBytes": 4898859,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43617361365,
+        "source": "89a71d1cf5f421630eb44fc5f6f4f703fea32a24",
+        "conclusion": "failure",
+        "artifactId": 14122479565,
+        "zipSha256": "cad8e22bc4f271a49b87ad252bca7f1df7abdbe9eec9dfd7cc615dd92ea9cd7c",
+        "zipEntries": 71,
+        "captureMembers": 91,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-viewport-first10-43617361365-original.zip",
+      "zipBytes": 1113689,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43618454887,
+        "source": "a8324aefe06829966dfa6f7fd87df50aef3c3c2f",
+        "conclusion": "failure",
+        "artifactId": 14123157891,
+        "zipSha256": "8b43069487a36bbdb3c8278e680e13c50829b50bec43edf21c303d7e62d71634",
+        "zipEntries": 71,
+        "captureMembers": 91,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-viewport-second10-43618454887-original.zip",
+      "zipBytes": 1150120,
+      "finalAcceptance": false,
+      "qualification": "Historical focused observation or superseded128 update; never assembled into final complete acceptance."
+    },
+    {
+      "verification": {
+        "run": 43628054643,
+        "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+        "conclusion": "success",
+        "artifactId": 14127315187,
+        "zipSha256": "0f71a521447734ed76a78427549aa7023b854f05f798be2da963412e6ce252f4",
+        "zipEntries": 78,
+        "captureMembers": 440,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-heap-focused10-43628054643-original.zip",
+      "zipBytes": 21875266,
+      "finalAcceptance": false,
+      "qualification": "Unchanged focused repetition after a complete primary failure. Not complete acceptance and not proof of the earlier cause."
+    },
+    {
+      "verification": {
+        "run": 43628376950,
+        "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+        "conclusion": "success",
+        "artifactId": 14126493936,
+        "zipSha256": "74aedabb01a67a021c48b1ec6a2a047ddff0e2aa827f2b55fdbb500b65fbe1e8",
+        "zipEntries": 73,
+        "captureMembers": 185,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-rental-repeat17-43628376950-original.zip",
+      "zipBytes": 3094976,
+      "finalAcceptance": false,
+      "qualification": "Unchanged focused repetition after a complete primary failure. Not complete acceptance and not proof of the earlier cause."
+    },
+    {
+      "verification": {
+        "run": 43631551929,
+        "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+        "conclusion": "success",
+        "artifactId": 14129050074,
+        "zipSha256": "803e499f8f334ed6eff365a0b67ea47ea7d6dee41bf13de6bf130b450252401e",
+        "zipEntries": 79,
+        "captureMembers": 316,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-group-reading-repeat10-43631551929-original.zip",
+      "zipBytes": 5214231,
+      "finalAcceptance": false,
+      "qualification": "Unchanged focused repetition after a complete primary failure. Not complete acceptance and not proof of the earlier cause."
+    },
+    {
+      "verification": {
+        "run": 43638799134,
+        "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+        "conclusion": "success",
+        "artifactId": 14131299719,
+        "zipSha256": "91e61a8a8427185c7513c1a2419184c7b4a099212d54034689cc7107fb534bfd",
+        "zipEntries": 80,
+        "captureMembers": 202,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-method-reading10-43638799134-original.zip",
+      "zipBytes": 14187580,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused QA observation. Not a substitute for either entire complete SDK primary."
+    },
+    {
+      "verification": {
+        "run": 43638801672,
+        "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+        "conclusion": "success",
+        "artifactId": 14131925398,
+        "zipSha256": "f69fbc365d1274cb81ccf6531304bd0f1d41b3f0281041e531acbc32dd26403b",
+        "zipEntries": 82,
+        "captureMembers": 223,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-method-reading17-43638801672-original.zip",
+      "zipBytes": 10938736,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused QA observation. Not a substitute for either entire complete SDK primary."
+    },
+    {
+      "verification": {
+        "run": 43638804279,
+        "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+        "conclusion": "success",
+        "artifactId": 14130524691,
+        "zipSha256": "e434dba9455fc0852c85d66332239442e62bd8dd8dc4c9f638aae241613f4845",
+        "zipEntries": 75,
+        "captureMembers": 26,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-provider-import10-43638804279-original.zip",
+      "zipBytes": 931396,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused QA observation. Not a substitute for either entire complete SDK primary."
+    },
+    {
+      "verification": {
+        "run": 43638806561,
+        "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+        "conclusion": "success",
+        "artifactId": 14130579725,
+        "zipSha256": "8b576eaa1fa37be67146ba19c2bd92832774066a5fdfe9e0801cc0f1db0ba618",
+        "zipEntries": 77,
+        "captureMembers": 26,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-provider-import17-43638806561-original.zip",
+      "zipBytes": 943387,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused QA observation. Not a substitute for either entire complete SDK primary."
+    },
+    {
+      "verification": {
+        "run": 43640645933,
+        "source": "5d035f440b1775392f4a2be7248f5c442303d70a",
+        "conclusion": "success",
+        "artifactId": 14131808945,
+        "zipSha256": "7e227c1aad14c9f6ec2756526be12881502af31c34aca018175c4d6b09124bf8",
+        "zipEntries": 79,
+        "captureMembers": 316,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-message-target10-43640645933-original.zip",
+      "zipBytes": 5206707,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused QA observation. Not a substitute for either entire complete SDK primary."
+    },
+    {
+      "verification": {
+        "run": 43640648273,
+        "source": "5d035f440b1775392f4a2be7248f5c442303d70a",
+        "conclusion": "success",
+        "artifactId": 14131794752,
+        "zipSha256": "cce1f7a685b62f2cc09e49ca7a266bde34fe68d5f52fe240c8b9563d8e09154f",
+        "zipEntries": 81,
+        "captureMembers": 316,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-message-target17-43640648273-original.zip",
+      "zipBytes": 5454102,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused QA observation. Not a substitute for either entire complete SDK primary."
+    },
+    {
+      "verification": {
+        "run": 43646385140,
+        "source": "e0f12724de930147d68230e4d4e895a47b2ac959",
+        "conclusion": "success",
+        "artifactId": 14134206772,
+        "zipSha256": "e9f5d4e8ba7b058711704f0975de71e529f06a8657455de220234f4243ca36fa",
+        "zipEntries": 67,
+        "captureMembers": 7,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-original-large10-43646385140-original.zip",
+      "zipBytes": 101080,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused observation only; no whole-primary acceptance or earlier cause claim."
+    },
+    {
+      "verification": {
+        "run": 43646560537,
+        "source": "e0f12724de930147d68230e4d4e895a47b2ac959",
+        "conclusion": "success",
+        "artifactId": 14134642172,
+        "zipSha256": "480fc8032963d6143b311b14e220850db3f6bd80cda52fd3459d11b9c35d3aa1",
+        "zipEntries": 71,
+        "captureMembers": 15,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-original-video17-43646560537-original.zip",
+      "zipBytes": 355811,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused observation only; no whole-primary acceptance or earlier cause claim."
+    },
+    {
+      "verification": {
+        "run": 43647607708,
+        "source": "72619c5ceaabd9d40e1e2f0a96a84925a28e8a51",
+        "conclusion": "failure",
+        "artifactId": 14134599226,
+        "zipSha256": "7d7b0f3d2dc40700cf4a6d584a4affce15f10a1fdebe840d60de1a8c5743224e",
+        "zipEntries": 73,
+        "captureMembers": 0,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-preflight-component10-43647607708-original.zip",
+      "zipBytes": 72640,
+      "finalAcceptance": false,
+      "qualification": "Failed provisioning before any application case: custom component absent because AGP configured runner replaces registration. Corrected177usesexistingregisteredrunner; no application assertion retry."
+    },
+    {
+      "verification": {
+        "run": 43647917431,
+        "source": "19da8bd1418a444eb23d67a24b8599a3b8d4c85a",
+        "conclusion": "failure",
+        "artifactId": 14135515021,
+        "zipSha256": "d288ab5133c612e534675eddce6eeea8c60deb8727f410364e96439ccccaad90",
+        "zipEntries": 74,
+        "captureMembers": 0,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-preflight-retention10-43647917431-original.zip",
+      "zipBytes": 74983,
+      "finalAcceptance": false,
+      "qualification": "Failed provisioning before any application case: custom component absent because AGP configured runner replaces registration. Corrected177usesexistingregisteredrunner; no application assertion retry."
+    },
+    {
+      "verification": {
+        "run": 43647610710,
+        "source": "72619c5ceaabd9d40e1e2f0a96a84925a28e8a51",
+        "conclusion": "success",
+        "artifactId": 14133849578,
+        "zipSha256": "b3fd2f218a6f9b244624329d34a46a416ac1bec883c0ebc09d76f7b892b94f4e",
+        "zipEntries": 71,
+        "captureMembers": 15,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-early-video17-43647610710-original.zip",
+      "zipBytes": 357073,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused observation only; no whole-primary acceptance or earlier cause claim."
+    },
+    {
+      "verification": {
+        "run": 43648442543,
+        "source": "17798cbe4c68ec7de0f52425d8061992b575877f",
+        "conclusion": "success",
+        "artifactId": 14135236680,
+        "zipSha256": "acab133c0215531b5df4a915a6ff7b318215a44148c42a7d06387e7a29fdb5a3",
+        "zipEntries": 80,
+        "captureMembers": 7,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-runtime-guard-large10-43648442543-original.zip",
+      "zipBytes": 110431,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused observation only; no whole-primary acceptance or earlier cause claim."
+    },
+    {
+      "verification": {
+        "run": 43655877829,
+        "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+        "conclusion": "success",
+        "artifactId": 14137982632,
+        "zipSha256": "9f44990520f13e3ff272a0c1dd5b1cd97e2b4c935dfe89f9556815ce3368e6b3",
+        "zipEntries": 80,
+        "captureMembers": 79,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-adaptive10-43655877829-original.zip",
+      "zipBytes": 1392282,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43652619734,
+        "source": "d88bcfd4e645f1b5a168445de31584694afa1201",
+        "conclusion": "failure",
+        "artifactId": 14136044138,
+        "zipSha256": "cc392f1dfb9e946e8f9f32bc14ebd764d9060801370d4628bb2cfa19142ca6d8",
+        "zipEntries": 83,
+        "captureMembers": 11,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-first10-43652619734-original.zip",
+      "zipBytes": 291317,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43652622103,
+        "source": "d88bcfd4e645f1b5a168445de31584694afa1201",
+        "conclusion": "failure",
+        "artifactId": 14137085856,
+        "zipSha256": "fabedf72011365163d88ea1a7237c7669bef0b9cb09661a9506243441c3e30af",
+        "zipEntries": 72,
+        "captureMembers": 11,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-first17-43652622103-original.zip",
+      "zipBytes": 1145357,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43654529292,
+        "source": "57180df7421a1b3bfa7106bf5a20a00bad86ea1f",
+        "conclusion": "failure",
+        "artifactId": 14136943600,
+        "zipSha256": "1f2898055f40b1e2e1d7b8c3f73348e0642b0c9b7050f38d6a04eec41ee3dfc5",
+        "zipEntries": 110,
+        "captureMembers": 0,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-guard10-43654529292-original.zip",
+      "zipBytes": 98934,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43654531724,
+        "source": "57180df7421a1b3bfa7106bf5a20a00bad86ea1f",
+        "conclusion": "success",
+        "artifactId": 14137970014,
+        "zipSha256": "dab67083b9242fc28ff6a34b59430b65c87b5aa86281d73bf837b4e917b03f68",
+        "zipEntries": 69,
+        "captureMembers": 79,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-guard17-43654531724-original.zip",
+      "zipBytes": 1404565,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43653677727,
+        "source": "a700fbb8db51ad9a5ad4e42923cd6df5f20af60b",
+        "conclusion": "failure",
+        "artifactId": 14136733321,
+        "zipSha256": "8d67f24406dae456c97611f1e572f2a091f86675e17a648d9a7cf9d2c9f6a596",
+        "zipEntries": 83,
+        "captureMembers": 0,
+        "allExtractedMembersByteExact": true,
+        "unreadableCaptureArchives": [],
+        "acceptance": false
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-priority10-43653677727-original.zip",
+      "zipBytes": 83582,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43653679942,
+        "source": "a700fbb8db51ad9a5ad4e42923cd6df5f20af60b",
+        "conclusion": "success",
+        "artifactId": 14136743571,
+        "zipSha256": "ea0d742281693a3d99790ca74c9d290bbba6ddca6e3d24365bee07067b19b693",
+        "zipEntries": 69,
+        "captureMembers": 75,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-priority17-43653679942-original.zip",
+      "zipBytes": 1321710,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focused Talk observation only. Older product layouts and failed provisioning/observer runs remain historical; no whole-primary acceptance."
+    },
+    {
+      "verification": {
+        "run": 43655880024,
+        "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+        "conclusion": "success",
+        "artifactId": 14137924497,
+        "zipSha256": "bc3500ce31d9efa022f56bcb42f73023c811da4acce276e4ee67af8a0ed91c97",
+        "zipEntries": 69,
+        "captureMembers": 79,
+        "allExtractedMembersByteExact": true
+      },
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-talk-ui-adaptive17-43655880024-original.zip",
+      "zipBytes": 1385435,
+      "finalAcceptance": false,
+      "qualification": "Source-qualified focusedTalkobservation; completeSDKanddeliverygatesseparate."
+    }
+  ],
+  "initialCompleteAttempts": [
+    {
+      "run": "43621894162",
+      "source": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+      "conclusion": "failure",
+      "allNativeRuntimeSkipped": true,
+      "artifacts": [
+        {
+          "id": 14125420589,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNTQyMDU4OQ==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 117394,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14125420589",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14125420589/zip",
+          "expired": false,
+          "digest": "sha256:05fa92d12b1235fe4f8489606bdae632e1df8aed2a68713e0f27f63d8dd7886e",
+          "created_at": "2026-11-14T17:51:36Z",
+          "updated_at": "2026-11-14T17:51:36Z",
+          "expires_at": "2026-11-28T17:51:34Z",
+          "workflow_run": {
+            "id": 43621894162,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-dfe6cb8",
+            "head_sha": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0"
+          }
+        },
+        {
+          "id": 14125355263,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNTM1NTI2Mw==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 117372,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14125355263",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14125355263/zip",
+          "expired": false,
+          "digest": "sha256:46f18c67064e056285e5a81b527d59b0e27fe8ed9eb777dc1264e2bcf8a0b24e",
+          "created_at": "2026-11-14T17:48:17Z",
+          "updated_at": "2026-11-14T17:48:17Z",
+          "expires_at": "2026-11-28T17:48:17Z",
+          "workflow_run": {
+            "id": 43621894162,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-dfe6cb8",
+            "head_sha": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0"
+          }
+        },
+        {
+          "id": 14124826568,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNDgyNjU2OA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 117359,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14124826568",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14124826568/zip",
+          "expired": false,
+          "digest": "sha256:fe4d0dd60e51d8b29ff8384011e88c1edd55d88f5d223c3691cd77c1323c2afb",
+          "created_at": "2026-11-14T17:46:34Z",
+          "updated_at": "2026-11-14T17:46:34Z",
+          "expires_at": "2026-11-28T17:46:33Z",
+          "workflow_run": {
+            "id": 43621894162,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-dfe6cb8",
+            "head_sha": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0"
+          }
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43621897570",
+      "source": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0",
+      "conclusion": "failure",
+      "allNativeRuntimeSkipped": true,
+      "artifacts": [
+        {
+          "id": 14125326305,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNTMyNjMwNQ==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 117438,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14125326305",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14125326305/zip",
+          "expired": false,
+          "digest": "sha256:99ac3f505c59221c0c5baee38dbe1dcddc187d6d711b47af4cd38ef27e8bdf16",
+          "created_at": "2026-11-14T17:52:20Z",
+          "updated_at": "2026-11-14T17:52:20Z",
+          "expires_at": "2026-11-28T17:52:20Z",
+          "workflow_run": {
+            "id": 43621897570,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-dfe6cb8",
+            "head_sha": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0"
+          }
+        },
+        {
+          "id": 14124693823,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNDY5MzgyMw==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 117398,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14124693823",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14124693823/zip",
+          "expired": false,
+          "digest": "sha256:0487d02176b7b6ed3a447b674067710c5ca6e58bbd17f32d222b5c2843a71483",
+          "created_at": "2026-11-14T17:49:30Z",
+          "updated_at": "2026-11-14T17:49:30Z",
+          "expires_at": "2026-11-28T17:49:29Z",
+          "workflow_run": {
+            "id": 43621897570,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-dfe6cb8",
+            "head_sha": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0"
+          }
+        },
+        {
+          "id": 14124409618,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNDQwOTYxOA==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 117395,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14124409618",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14124409618/zip",
+          "expired": false,
+          "digest": "sha256:ab5ef37318b0348e5304b56d4b8bd5def6052d456650d7440234c2ae014beb4b",
+          "created_at": "2026-11-14T17:51:34Z",
+          "updated_at": "2026-11-14T17:51:34Z",
+          "expires_at": "2026-11-28T17:51:32Z",
+          "workflow_run": {
+            "id": 43621897570,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-dfe6cb8",
+            "head_sha": "dfe6cb855b43a3301986c76d82dd38d4a5aab0b0"
+          }
+        }
+      ],
+      "finalAcceptance": false
+    }
+  ],
+  "qualification": "All source-qualified whole originals retained externally. Superseded observations do not satisfy the corrected candidate complete-source or signed-update gates.",
+  "checkoutFailure": {
+    "run": "43615254546",
+    "workflowSource": "408ad14ed34dc44c914aff924cde57f86cc7d207",
+    "conclusion": "failure",
+    "failedSteps": [
+      "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
+    ],
+    "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43615254546.log",
+    "originalLogSha256": "42fb605b56da38c06d4edfb47f9c3bcd887f9d8eb2ab0b7c41c5793685247b0e",
+    "artifacts": [],
+    "finalAcceptance": false,
+    "qualification": "Shortened source_ref failed checkout before any native application observation. Subsequent runs pin the full40-character source."
+  },
+  "nativeCompleteAttempts": [
+    {
+      "run": "43625392921",
+      "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "conclusion": "failure",
+      "allJobs": [
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14128381899,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyODM4MTg5OQ==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 146562435,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14128381899",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14128381899/zip",
+          "expired": false,
+          "digest": "sha256:0bf28ce720a97629baf27518ad35d520f1ec01dd71d9a2e883d5a9ccb6ed87a4",
+          "created_at": "2026-11-14T19:16:31Z",
+          "updated_at": "2026-11-14T19:16:31Z",
+          "expires_at": "2026-11-28T19:16:24Z",
+          "workflow_run": {
+            "id": 43625392921,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14127950263,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNzk1MDI2Mw==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 20425421,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14127950263",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14127950263/zip",
+          "expired": false,
+          "digest": "sha256:d21ace5e5343b2ef99d5bd644cfb384b2775a2db4917b4b9097b9e435b9e224a",
+          "created_at": "2026-11-14T19:00:16Z",
+          "updated_at": "2026-11-14T19:00:16Z",
+          "expires_at": "2026-11-28T19:00:13Z",
+          "workflow_run": {
+            "id": 43625392921,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14126418492,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNjQxODQ5Mg==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 23648310,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14126418492",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14126418492/zip",
+          "expired": false,
+          "digest": "sha256:2f8241c6472e852759da1ed7b92bcabe97bc764c46639852edd361fcceec733c",
+          "created_at": "2026-11-14T18:38:01Z",
+          "updated_at": "2026-11-14T18:38:01Z",
+          "expires_at": "2026-11-28T18:38:00Z",
+          "workflow_run": {
+            "id": 43625392921,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43625392921.log",
+      "originalLogSha256": "b7ed4a11f046f03fe5f043985d102957101028298efbb42ee494a284273daafc",
+      "failures": [
+        {
+          "partition": "social",
+          "test": "AvatarRecoveryPreviewTest.threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction",
+          "observation": "Actual16MiB versus declared512MiB process heap precondition; no allocation failure cause asserted."
+        },
+        {
+          "partition": "wallet",
+          "test": "VaultRentalMasterPreviewTest.aRentalMasterIsReviewedMintedAndRetrievedWithItsOriginalCreatorRules",
+          "observation": "Global Keep offline selector found dialog and background controls. Corrected selector5fbtargets dialog; all original file/rule/count/deadline goals retained."
+        },
+        {
+          "partition": "chat",
+          "test": "GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading",
+          "observation": "Original15s additional history-read goal timed out. Unchanged focused repetition passes; original cause remains unproven."
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43625395907",
+      "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "conclusion": "failure",
+      "allJobs": [
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14129340818,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyOTM0MDgxOA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 215458449,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129340818",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129340818/zip",
+          "expired": false,
+          "digest": "sha256:409ff4128f1276c0c5b5f5681abe16c6e047a6b7b549d4eadbf33d4e48370ddf",
+          "created_at": "2026-11-14T19:47:13Z",
+          "updated_at": "2026-11-14T19:47:13Z",
+          "expires_at": "2026-11-28T19:47:05Z",
+          "workflow_run": {
+            "id": 43625395907,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14128467450,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyODQ2NzQ1MA==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 138443674,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14128467450",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14128467450/zip",
+          "expired": false,
+          "digest": "sha256:a19271e0ce06af3845df492fc3e6d2955a29117c8a4647b3b3062660cad7b501",
+          "created_at": "2026-11-14T19:34:13Z",
+          "updated_at": "2026-11-14T19:34:13Z",
+          "expires_at": "2026-11-28T19:34:08Z",
+          "workflow_run": {
+            "id": 43625395907,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14127102560,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNzEwMjU2MA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 6215905,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14127102560",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14127102560/zip",
+          "expired": false,
+          "digest": "sha256:b72a4580b6bd7f5aa0f8a86dab88c36ef454a2c29b586c8d584d188596681946",
+          "created_at": "2026-11-14T18:42:33Z",
+          "updated_at": "2026-11-14T18:42:33Z",
+          "expires_at": "2026-11-28T18:42:31Z",
+          "workflow_run": {
+            "id": 43625395907,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43625395907.log",
+      "originalLogSha256": "4fb047621ec39a293a9de506cd9be8be93e750a639e16e2382aaca576d10d16f",
+      "failures": [
+        {
+          "partition": "wallet",
+          "test": "StoreRentalAccessPreviewTest.activationAndOfflineExportSurviveRecreationAndProviderExpiryWithoutAnotherPayment",
+          "observation": "Original15s File saved and enabled Save as goal after recreation missed. No crash/error visible; picker result and output bytes not observed at failure. Unchanged focused repetition passes, no original cause/fix inferred."
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43628492740",
+      "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14130237782,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMDIzNzc4Mg==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 182287585,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14130237782",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14130237782/zip",
+          "expired": false,
+          "digest": "sha256:c43f76aa7c83ceeabdf879a1ba906ff7f35e791b89c1c97861e67ff4b6bdbddb",
+          "created_at": "2026-11-14T20:12:32Z",
+          "updated_at": "2026-11-14T20:12:32Z",
+          "expires_at": "2026-11-28T20:12:26Z",
+          "workflow_run": {
+            "id": 43628492740,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-retry10-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14129785569,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyOTc4NTU2OQ==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 117932754,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129785569",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129785569/zip",
+          "expired": false,
+          "digest": "sha256:dd7f1293d42b64d0051b598b4ba93f1c2e4bcfb8e06db2ffb58f684961cf96da",
+          "created_at": "2026-11-14T19:51:04Z",
+          "updated_at": "2026-11-14T19:51:04Z",
+          "expires_at": "2026-11-28T19:51:00Z",
+          "workflow_run": {
+            "id": 43628492740,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-retry10-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14127694254,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyNzY5NDI1NA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 20404174,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14127694254",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14127694254/zip",
+          "expired": false,
+          "digest": "sha256:bc0a48a8fe98c28bb96af4dbcec636ee7a96176b6a9080e9c9616810bc43e653",
+          "created_at": "2026-11-14T19:31:07Z",
+          "updated_at": "2026-11-14T19:31:07Z",
+          "expires_at": "2026-11-28T19:31:04Z",
+          "workflow_run": {
+            "id": 43628492740,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-retry10-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43628492740.log",
+      "originalLogSha256": "83030f380b32d0272a2e32dd0a0efe5b7a11b87bfcc4b745131d05dbf44689f1",
+      "failures": [
+        {
+          "partition": "wallet",
+          "observation": "Global Keep offline selector matched the dialog and live background. Failed original primary, corrected in QA source5fb."
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43629043517",
+      "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14131241499,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMTI0MTQ5OQ==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 216089705,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131241499",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131241499/zip",
+          "expired": false,
+          "digest": "sha256:a36d1621f848d62cb94793a82b8ebd6184d915126e31676eccedcc7de61176a2",
+          "created_at": "2026-11-14T20:34:01Z",
+          "updated_at": "2026-11-14T20:34:01Z",
+          "expires_at": "2026-11-28T20:33:52Z",
+          "workflow_run": {
+            "id": 43629043517,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-retry10-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14129418113,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyOTQxODExMw==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 137809243,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129418113",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129418113/zip",
+          "expired": false,
+          "digest": "sha256:3c3f9192e37f49be7db1b397d4cf4c7d01cb2c2cb302123e08758cb2f859428d",
+          "created_at": "2026-11-14T20:07:18Z",
+          "updated_at": "2026-11-14T20:07:18Z",
+          "expires_at": "2026-11-28T20:07:13Z",
+          "workflow_run": {
+            "id": 43629043517,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-retry10-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        },
+        {
+          "id": 14129071365,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEyOTA3MTM2NQ==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 20787492,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129071365",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14129071365/zip",
+          "expired": false,
+          "digest": "sha256:30d269e39123a8772f595d6260b67839268a06c3cc0b8ffe68cc6e4d7ea827c1",
+          "created_at": "2026-11-14T19:33:46Z",
+          "updated_at": "2026-11-14T19:33:46Z",
+          "expires_at": "2026-11-28T19:33:45Z",
+          "workflow_run": {
+            "id": 43629043517,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-retry10-74fe9a2",
+            "head_sha": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43629043517.log",
+      "originalLogSha256": "723b1397ee5ec943fdc85ad46e5d8467c44640319d0c2478de0175d97d69e8d4",
+      "failures": [
+        {
+          "partition": "wallet",
+          "observation": "Global Keep offline selector matched the dialog and live background. Failed original primary, corrected in QA source5fb."
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43632687955",
+      "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14131165996,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMTE2NTk5Ng==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 37645385,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131165996",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131165996/zip",
+          "expired": false,
+          "digest": "sha256:f0ec9d1bf2d44ec0cf4fe5e4f29581e59093f79332973159793bacf1b381ab27",
+          "created_at": "2026-11-14T20:34:08Z",
+          "updated_at": "2026-11-14T20:34:08Z",
+          "expires_at": "2026-11-28T20:34:05Z",
+          "workflow_run": {
+            "id": 43632687955,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5fbfb53",
+            "head_sha": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb"
+          }
+        },
+        {
+          "id": 14131032691,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMTAzMjY5MQ==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 121267765,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131032691",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131032691/zip",
+          "expired": false,
+          "digest": "sha256:013c1237a40297c3fddeb7683d4229d1405d1121702ffa4f61dde16b9b014b8b",
+          "created_at": "2026-11-14T20:38:22Z",
+          "updated_at": "2026-11-14T20:38:22Z",
+          "expires_at": "2026-11-28T20:38:17Z",
+          "workflow_run": {
+            "id": 43632687955,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5fbfb53",
+            "head_sha": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb"
+          }
+        },
+        {
+          "id": 14131021153,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMTAyMTE1Mw==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 148017348,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131021153",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131021153/zip",
+          "expired": false,
+          "digest": "sha256:4a612e374d34b446f368688fb17d158d2565ed9395f730f006caf8ee00467d11",
+          "created_at": "2026-11-14T20:29:32Z",
+          "updated_at": "2026-11-14T20:29:32Z",
+          "expires_at": "2026-11-28T20:29:26Z",
+          "workflow_run": {
+            "id": 43632687955,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5fbfb53",
+            "head_sha": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43632687955.log",
+      "originalLogSha256": "533afa6cb37f17e1ee6280b41d487c2219f9ba37f0bad98a2ff3546cd933d99c",
+      "failures": [
+        {
+          "partition": "chat",
+          "test": "ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage",
+          "observation": "Original5s popup goal missed at font200/light after actual details close, scroll and tap. Latest message69 visible. Dynamic collection-index hazard corrected in5d; original missed-tap cause remains unproved."
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43632971418",
+      "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14132335971,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMjMzNTk3MQ==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 216396723,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14132335971",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14132335971/zip",
+          "expired": false,
+          "digest": "sha256:a741afc46f3522f11a027134c0c50d9635aee56cd4693c4910f0482b799733c9",
+          "created_at": "2026-11-14T21:09:38Z",
+          "updated_at": "2026-11-14T21:09:38Z",
+          "expires_at": "2026-11-28T21:09:30Z",
+          "workflow_run": {
+            "id": 43632971418,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5fbfb53",
+            "head_sha": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb"
+          }
+        },
+        {
+          "id": 14131701789,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMTcwMTc4OQ==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 137731757,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131701789",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131701789/zip",
+          "expired": false,
+          "digest": "sha256:87f1e7e13088077a39bc1bd45e48523c95633ea5f38b83cab940b2a0097ed137",
+          "created_at": "2026-11-14T20:56:35Z",
+          "updated_at": "2026-11-14T20:56:35Z",
+          "expires_at": "2026-11-28T20:56:29Z",
+          "workflow_run": {
+            "id": 43632971418,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5fbfb53",
+            "head_sha": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb"
+          }
+        },
+        {
+          "id": 14131330068,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMTMzMDA2OA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 38283845,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131330068",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14131330068/zip",
+          "expired": false,
+          "digest": "sha256:a76a427cd683354f525c2ac007b041476d5d1f886039d4b3d835b4e0147791e4",
+          "created_at": "2026-11-14T20:26:03Z",
+          "updated_at": "2026-11-14T20:26:03Z",
+          "expires_at": "2026-11-28T20:26:01Z",
+          "workflow_run": {
+            "id": 43632971418,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5fbfb53",
+            "head_sha": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43632971418.log",
+      "originalLogSha256": "7f2b4932e881283254cff941867acb6af0222b8bc5e31491012c22f6d7b18f50",
+      "failures": [
+        {
+          "partition": "wallet",
+          "test": "WalletImportPreviewTest.replacementRequiresANewBackupBoundToTheCurrentSelection",
+          "observation": "Provider ACTION_CLICK returned false. Fresh node retry in5e retains original20s and all downstream selection/PIN/exact backup assertions."
+        },
+        {
+          "partition": "wallet",
+          "observation": "Sampled ART trace observed0Main merge spans despite20refreshes. Strict validator rejects absence as inconclusive. New method producer and pre-run freeze require20complete spans."
+        }
+      ],
+      "finalAcceptance": false
+    },
+    {
+      "run": "43642283382",
+      "source": "e0f12724de930147d68230e4d4e895a47b2ac959",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14133580229,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMzU4MDIyOQ==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 23318480,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133580229",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133580229/zip",
+          "expired": false,
+          "digest": "sha256:05131c83fd9928e81485638b7cd8428be6b16535606f6cdac4507410512acf27",
+          "created_at": "2026-11-14T21:38:23Z",
+          "updated_at": "2026-11-14T21:38:23Z",
+          "expires_at": "2026-11-28T21:38:20Z",
+          "workflow_run": {
+            "id": 43642283382,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        },
+        {
+          "id": 14133167836,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMzE2NzgzNg==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 28814969,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133167836",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133167836/zip",
+          "expired": false,
+          "digest": "sha256:9c72743cb9373a21e8e5b3d80637579207881b5760eb9b009d0450cc9c93a0d1",
+          "created_at": "2026-11-14T21:40:17Z",
+          "updated_at": "2026-11-14T21:40:17Z",
+          "expires_at": "2026-11-28T21:40:15Z",
+          "workflow_run": {
+            "id": 43642283382,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        },
+        {
+          "id": 14132574088,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMjU3NDA4OA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 462949,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14132574088",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14132574088/zip",
+          "expired": false,
+          "digest": "sha256:9364bdc4616fc78c93264ea2c4f8bf4c51fb0fa57307f27994331c32479c904c",
+          "created_at": "2026-11-14T21:40:16Z",
+          "updated_at": "2026-11-14T21:40:16Z",
+          "expires_at": "2026-11-28T21:40:15Z",
+          "workflow_run": {
+            "id": 43642283382,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43642283382.log",
+      "originalLogSha256": "67dbf009c4624631f2ad66f28529df5b0aaee1a1cbbee9d5f91a9365951c436b",
+      "failures": [
+        {
+          "partition": "social",
+          "test": "AvatarRecoveryPreviewTest.threeLargeSignedPicturesStayVisibleTogetherWithoutSourceBudgetEviction",
+          "observation": "Actual16MiB versus declared512MiB at original API29 pre-allocation heap parity assertion. Declared dalvik.vm.heapsize512m, AVD heap32M,64bit child of zygote64. Same documented unresolved image anomaly; no cause/fix inferred."
+        }
+      ],
+      "cancellation": "After actual Social failure, unchanged complete retry43644012375 automatically cancelled other jobs via existing same-ref/scope workflow concurrency. No manual cancel, heap configuration change, exception or prefix assembly.",
+      "finalAcceptance": false
+    },
+    {
+      "run": "43644012375",
+      "source": "e0f12724de930147d68230e4d4e895a47b2ac959",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14135366648,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTM2NjY0OA==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 117997331,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135366648",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135366648/zip",
+          "expired": false,
+          "digest": "sha256:4683e021b575f135b6fa3b0aba5f103e1dc77029fd247d7025e145063ea44131",
+          "created_at": "2026-11-14T22:36:14Z",
+          "updated_at": "2026-11-14T22:36:14Z",
+          "expires_at": "2026-11-28T22:36:08Z",
+          "workflow_run": {
+            "id": 43644012375,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        },
+        {
+          "id": 14134957475,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNDk1NzQ3NQ==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 146509116,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14134957475",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14134957475/zip",
+          "expired": false,
+          "digest": "sha256:9d3e7af05b3f84d36dd388330a0d084903cfeb9541bf6e95be2ce08659a3e63a",
+          "created_at": "2026-11-14T22:36:14Z",
+          "updated_at": "2026-11-14T22:36:14Z",
+          "expires_at": "2026-11-28T22:36:08Z",
+          "workflow_run": {
+            "id": 43644012375,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        },
+        {
+          "id": 14133567996,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMzU2Nzk5Ng==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 23031837,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133567996",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133567996/zip",
+          "expired": false,
+          "digest": "sha256:508f0c21f7b68215f9acf7cfdc45e3341562121a957744fd26e0683d20f4cc18",
+          "created_at": "2026-11-14T22:03:27Z",
+          "updated_at": "2026-11-14T22:03:27Z",
+          "expires_at": "2026-11-28T22:03:26Z",
+          "workflow_run": {
+            "id": 43644012375,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43644012375.log",
+      "originalLogSha256": "b4ed1742b33622680372d967d955e11a829043becc3a9880c0494cb23e6ba542",
+      "failures": [
+        {
+          "partition": "wallet",
+          "test": "VaultUploadLargePreviewTest.theFullFourMiBFileReachesVaultUnchangedAfterNativeReviewAndAuthentication",
+          "observation": "Original15s review goal missed with suppressed actual16MiB OOM at4MiB ByteArrayOutputStream.toByteArray in VaultUploadSession135. Later unchanged focused original4MiB passes. Underlying tiny-VM startup cause remains unproved. New pre-test provisioning guard preserves originalpayload/deadline/nativeheapguards."
+        }
+      ],
+      "cancellation": "Existing same-ref/scope concurrency cancelled remaining jobs when corrected177complete primary was dispatched after actual native failure. No passing prefix used.",
+      "finalAcceptance": false
+    },
+    {
+      "run": "43642285934",
+      "source": "e0f12724de930147d68230e4d4e895a47b2ac959",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (social)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14135586308,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTU4NjMwOA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 197858264,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135586308",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135586308/zip",
+          "expired": false,
+          "digest": "sha256:1c0177429d2770cb5a682a263a6cdcb4793921452482b2adb3199435b52ca7e5",
+          "created_at": "2026-11-14T22:36:17Z",
+          "updated_at": "2026-11-14T22:36:17Z",
+          "expires_at": "2026-11-28T22:36:09Z",
+          "workflow_run": {
+            "id": 43642285934,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        },
+        {
+          "id": 14134244410,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNDI0NDQxMA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 54366670,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14134244410",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14134244410/zip",
+          "expired": false,
+          "digest": "sha256:ec0d3f5be608bbe64c0f502992854a7393de8741600ef6af47948666470960e7",
+          "created_at": "2026-11-14T22:20:29Z",
+          "updated_at": "2026-11-14T22:20:29Z",
+          "expires_at": "2026-11-28T22:20:26Z",
+          "workflow_run": {
+            "id": 43642285934,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        },
+        {
+          "id": 14133612890,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzMzYxMjg5MA==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 73686478,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133612890",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14133612890/zip",
+          "expired": false,
+          "digest": "sha256:16bb6cbd6eefa6adb8af6be2cb5b6f6bddcf44180a5654913a700781cfb0229e",
+          "created_at": "2026-11-14T22:06:38Z",
+          "updated_at": "2026-11-14T22:06:38Z",
+          "expires_at": "2026-11-28T22:06:34Z",
+          "workflow_run": {
+            "id": 43642285934,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "e0f12724de930147d68230e4d4e895a47b2ac959"
+          }
+        }
+      ],
+      "originalLog": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/proof-43642285934.log",
+      "originalLogSha256": "8b7a72a251bb56234227369b810ae3d7dc033b4719bb04f4a4d256ee6fa2d5c3",
+      "failures": [
+        {
+          "partition": "social",
+          "test": "VideoPreviewTest.aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink",
+          "observation": "Original10s native-text lookup for Play controlled refused video returnednull at236. PNG shows actualHTMLbutton, nativeXML has WebView but no virtual children. Exactoriginalfocusedvideos17passes; earlier initialization of same native observer also passesfocused. No original-cause claim; exacttext/trustedtouch/bounds preserved."
+        }
+      ],
+      "cancellation": "Existing same-ref/scope concurrency cancelled remaining jobs when corrected177complete primary was dispatched after actual native failure. No passing prefix used.",
+      "finalAcceptance": false
+    },
+    {
+      "run": "43648932350",
+      "source": "17798cbe4c68ec7de0f52425d8061992b575877f",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14135593045,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTU5MzA0NQ==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 6753764,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135593045",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135593045/zip",
+          "expired": false,
+          "digest": "sha256:dceec891a905a34c6c1485e9d386ad6712389b51d4383a1dfc2bdbaa72b82843",
+          "created_at": "2026-11-14T22:47:03Z",
+          "updated_at": "2026-11-14T22:47:03Z",
+          "expires_at": "2026-11-28T22:47:01Z",
+          "workflow_run": {
+            "id": 43648932350,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "17798cbe4c68ec7de0f52425d8061992b575877f"
+          }
+        },
+        {
+          "id": 14135442367,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTQ0MjM2Nw==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 29384888,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135442367",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135442367/zip",
+          "expired": false,
+          "digest": "sha256:94eb58e841057e8423f7e5bc41e688d3ada953224c7a0838e42a48d51f682ef6",
+          "created_at": "2026-11-14T22:49:30Z",
+          "updated_at": "2026-11-14T22:49:30Z",
+          "expires_at": "2026-11-28T22:49:28Z",
+          "workflow_run": {
+            "id": 43648932350,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "17798cbe4c68ec7de0f52425d8061992b575877f"
+          }
+        },
+        {
+          "id": 14135387382,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTM4NzM4Mg==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 129571,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135387382",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135387382/zip",
+          "expired": false,
+          "digest": "sha256:36ee85976317108e892537bc48629c5060de391f73fbf8a3fac9ba288c18cd6d",
+          "created_at": "2026-11-14T22:40:53Z",
+          "updated_at": "2026-11-14T22:40:53Z",
+          "expires_at": "2026-11-28T22:40:51Z",
+          "workflow_run": {
+            "id": 43648932350,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "17798cbe4c68ec7de0f52425d8061992b575877f"
+          }
+        }
+      ],
+      "allThreeOriginalZipsByteExact": true,
+      "originalLogSha256": "74ad1e3a7b18e0dc3bbffee011bb0feed7509badf7fb47b2ef757b3d2bc4b39a",
+      "finalAcceptance": false,
+      "qualification": "Social rejected16/512MiB then failed before application on stale offline transport; other jobs cancelled by corrected-source replacement."
+    },
+    {
+      "run": "43650070984",
+      "source": "a07b9f95b74ba0d069ce06740fa38b81575508ce",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (social)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14136096678,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNjA5NjY3OA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 19436684,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14136096678",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14136096678/zip",
+          "expired": false,
+          "digest": "sha256:ad6fa13b818cd607df107f2c9ac47722228bd57e9a22477d847186152601e5ff",
+          "created_at": "2026-11-14T22:59:38Z",
+          "updated_at": "2026-11-14T22:59:38Z",
+          "expires_at": "2026-11-28T22:59:37Z",
+          "workflow_run": {
+            "id": 43650070984,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "a07b9f95b74ba0d069ce06740fa38b81575508ce"
+          }
+        },
+        {
+          "id": 14135443499,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTQ0MzQ5OQ==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 6149953,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135443499",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135443499/zip",
+          "expired": false,
+          "digest": "sha256:7f271060f201749c5ba7d1db445e3964eeb50bde1df3f3c4fe30aaac7bf8b9cf",
+          "created_at": "2026-11-14T22:59:39Z",
+          "updated_at": "2026-11-14T22:59:39Z",
+          "expires_at": "2026-11-28T22:59:37Z",
+          "workflow_run": {
+            "id": 43650070984,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "a07b9f95b74ba0d069ce06740fa38b81575508ce"
+          }
+        },
+        {
+          "id": 14135059102,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTA1OTEwMg==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 2801979,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135059102",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135059102/zip",
+          "expired": false,
+          "digest": "sha256:2658a5405d0bf8b12bb2b91115fc2e2f3fd0b4961f71e362f45683224e2af1f9",
+          "created_at": "2026-11-14T22:59:39Z",
+          "updated_at": "2026-11-14T22:59:39Z",
+          "expires_at": "2026-11-28T22:59:37Z",
+          "workflow_run": {
+            "id": 43650070984,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "a07b9f95b74ba0d069ce06740fa38b81575508ce"
+          }
+        }
+      ],
+      "allThreeOriginalZipsByteExact": true,
+      "originalLogSha256": "a181666766914a3978547bdf85604c49fd3d514e415dc105c88ae526b58a8b62",
+      "finalAcceptance": false,
+      "qualification": "Cancelled specifically after owner added product Talk UI scope. Superseded product, no final acceptance or passing-prefix assembly."
+    },
+    {
+      "run": "43648934961",
+      "source": "17798cbe4c68ec7de0f52425d8061992b575877f",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (social)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "cancelled"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14136430308,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNjQzMDMwOA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 41126673,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14136430308",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14136430308/zip",
+          "expired": false,
+          "digest": "sha256:039c676dc90dceb3d6bf8f2cad0c85a02bbf2d324f743bbc1dd8bbabde4217f8",
+          "created_at": "2026-11-14T22:59:41Z",
+          "updated_at": "2026-11-14T22:59:41Z",
+          "expires_at": "2026-11-28T22:59:39Z",
+          "workflow_run": {
+            "id": 43648934961,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "17798cbe4c68ec7de0f52425d8061992b575877f"
+          }
+        },
+        {
+          "id": 14136285798,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNjI4NTc5OA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 15689285,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14136285798",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14136285798/zip",
+          "expired": false,
+          "digest": "sha256:1747819e547bedf84b232593f97d94dbc67b0e6f4fe1036c97991016c77dc633",
+          "created_at": "2026-11-14T22:59:40Z",
+          "updated_at": "2026-11-14T22:59:40Z",
+          "expires_at": "2026-11-28T22:59:38Z",
+          "workflow_run": {
+            "id": 43648934961,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "17798cbe4c68ec7de0f52425d8061992b575877f"
+          }
+        },
+        {
+          "id": 14135603185,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzNTYwMzE4NQ==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 65591383,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135603185",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14135603185/zip",
+          "expired": false,
+          "digest": "sha256:900e4f41ae88e49a0418ecc644c6561f7f8e9cdf0d4a63f127d2b3d29494fe33",
+          "created_at": "2026-11-14T22:59:43Z",
+          "updated_at": "2026-11-14T22:59:43Z",
+          "expires_at": "2026-11-28T22:59:39Z",
+          "workflow_run": {
+            "id": 43648934961,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "17798cbe4c68ec7de0f52425d8061992b575877f"
+          }
+        }
+      ],
+      "allThreeOriginalZipsByteExact": true,
+      "originalLogSha256": "4b63741e306f211a25378a0c07bd4f76af0009478722aa761faa82d777416287",
+      "finalAcceptance": false,
+      "qualification": "Cancelled specifically after owner added product Talk UI scope. Superseded product, no final acceptance or passing-prefix assembly."
+    },
+    {
+      "run": "43656406728",
+      "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "failure"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "native-proof (social)",
+          "conclusion": "cancelled"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14139008142,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzOTAwODE0Mg==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 9310979,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14139008142",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14139008142/zip",
+          "expired": false,
+          "digest": "sha256:dcd409f3d331f5091167f5b3a03c462aad7c490f6e817f2b9705b5bc87f586cd",
+          "created_at": "2026-11-15T00:26:49Z",
+          "updated_at": "2026-11-15T00:26:49Z",
+          "expires_at": "2026-11-29T00:26:48Z",
+          "workflow_run": {
+            "id": 43656406728,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0"
+          }
+        },
+        {
+          "id": 14138838507,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzODgzODUwNw==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 44629603,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14138838507",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14138838507/zip",
+          "expired": false,
+          "digest": "sha256:810a584b23111579cf420e058edbec7d151cdd3a47330c1081079cef27d2d805",
+          "created_at": "2026-11-15T00:26:51Z",
+          "updated_at": "2026-11-15T00:26:51Z",
+          "expires_at": "2026-11-29T00:26:48Z",
+          "workflow_run": {
+            "id": 43656406728,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0"
+          }
+        },
+        {
+          "id": 14138508238,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzODUwODIzOA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 28511973,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14138508238",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14138508238/zip",
+          "expired": false,
+          "digest": "sha256:3606c8114f7fbd50fbc3a4fed4bf9f630240a1e8b6a492dd98371a304a94ccd5",
+          "created_at": "2026-11-15T00:20:29Z",
+          "updated_at": "2026-11-15T00:20:29Z",
+          "expires_at": "2026-11-29T00:20:27Z",
+          "workflow_run": {
+            "id": 43656406728,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0"
+          }
+        }
+      ],
+      "allThreeOriginalZipsByteExact": true,
+      "originalLogSha256": "47f9fbe24f4cf93adfe71a61d5742e109b925d5a119b5559773a3084c4aec672",
+      "finalAcceptance": false,
+      "qualification": "ActualChatFileshareCancelnative5slookupfailed; transferbelowretainednotificationstack. Otherjobs cancelledafterQA-onlyreplacement. Originalcauseunproved, no passingprefixacceptance. Preflight2-bootbranchseparatelyvalidatedwithunchangedstrictchecker."
+    },
+    {
+      "run": "43658180588",
+      "source": "fd8fe6c9eb53ae20703ed409775efb9eb04db923",
+      "conclusion": "cancelled",
+      "jobs": [
+        {
+          "name": "native-proof (social)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (wallet)",
+          "conclusion": "success"
+        },
+        {
+          "name": "native-proof (chat)",
+          "conclusion": "cancelled"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 14142557984,
+          "node_id": "MDg6QXJ0aWZhY3QxNDE0MjU1Nzk4NA==",
+          "name": "android-native-proof-chat",
+          "size_in_bytes": 158288573,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14142557984",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14142557984/zip",
+          "expired": false,
+          "digest": "sha256:6edac167d5507a995423c5c79888f68f38a9bc902f0574e1e836488a04fb2584",
+          "created_at": "2026-11-15T02:27:14Z",
+          "updated_at": "2026-11-15T02:27:14Z",
+          "expires_at": "2026-11-29T02:27:08Z",
+          "workflow_run": {
+            "id": 43658180588,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "fd8fe6c9eb53ae20703ed409775efb9eb04db923"
+          }
+        },
+        {
+          "id": 14140922688,
+          "node_id": "MDg6QXJ0aWZhY3QxNDE0MDkyMjY4OA==",
+          "name": "android-native-proof-social",
+          "size_in_bytes": 120644589,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14140922688",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14140922688/zip",
+          "expired": false,
+          "digest": "sha256:36c15ca1ad9474e0db3d7b2a873e2bc149bba30852ed763977cfe4dbf661f0f6",
+          "created_at": "2026-11-15T01:25:50Z",
+          "updated_at": "2026-11-15T01:25:50Z",
+          "expires_at": "2026-11-29T01:25:46Z",
+          "workflow_run": {
+            "id": 43658180588,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "fd8fe6c9eb53ae20703ed409775efb9eb04db923"
+          }
+        },
+        {
+          "id": 14139749878,
+          "node_id": "MDg6QXJ0aWZhY3QxNDEzOTc0OTg3OA==",
+          "name": "android-native-proof-wallet",
+          "size_in_bytes": 38470535,
+          "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14139749878",
+          "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14139749878/zip",
+          "expired": false,
+          "digest": "sha256:c2d3eb295b4aab0f4c6358b8618d7f47eef09b747f1be41e59dfe036a49f8387",
+          "created_at": "2026-11-15T01:21:51Z",
+          "updated_at": "2026-11-15T01:21:51Z",
+          "expires_at": "2026-11-29T01:21:48Z",
+          "workflow_run": {
+            "id": 43658180588,
+            "repository_id": 1409443430,
+            "head_repository_id": 1409443430,
+            "head_branch": "proof-vault-store115-5d035f4",
+            "head_sha": "fd8fe6c9eb53ae20703ed409775efb9eb04db923"
+          }
+        }
+      ],
+      "allThreeOriginalZipsByteExact": true,
+      "originalLogSha256": "92ae61d046cfea7922664abe5c022231df6de176f4755941b00dd37d81e1e1d8",
+      "finalAcceptance": false,
+      "qualification": "Last of11Chat-alertcasesstartedthenAndroidreportedSystemhascrashed. Nativeexit0withoutOK; nextunboundedrun-asarchive0byteshunguntil120minjoblimit. OSrootcauseunproved. Chatunfinished; successfulWallet/Socialpartsnotacceptedasprefixes. Wholecorrectednative10required."
+    }
+  ]
+}

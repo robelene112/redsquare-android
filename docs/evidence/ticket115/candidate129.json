@@ -1,0 +1,17 @@
+{
+  "status": "SUPERSEDED, NEVER PROMOTE",
+  "manifest": {
+    "versionCode": 129,
+    "versionName": "0.1.129",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "17b30739dae3abbcaeb2141f0f9e2bcd2dce7ec1ea7ef37ec5ec0bfb57a9bf90",
+    "commit": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+    "variant": "release",
+    "apkUrl": "https://davidengelen.nl/redsquare/releases/129/redsquare.apk",
+    "notes": "Adds native Vault storage and offline copies, plus Store browsing, purchases, selling, supported payment methods, seller proceeds and file rentals. Includes clearer purchase feedback, native navigation and accessibility improvements. Rental restoration requires a compatible Vault node. Physical-device and live-provider verification remain open."
+  },
+  "bytes": 94069112,
+  "latestAtStaging": 127,
+  "reason": "Owner requested actual Saito Talk UI polish during build. This changes ordinary product input; a fresh signed candidate130and both completeSDKs/actualsignedupdates are required."
+}

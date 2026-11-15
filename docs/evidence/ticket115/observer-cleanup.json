@@ -1,0 +1,50 @@
+{
+  "removedFromOriginAt": "2026-11-14T18:57:12.538524+00:00",
+  "ownedFileAbsent": true,
+  "originFreshRequest404": true,
+  "observerSha256": "2bd5368aa7aaf6ff6c48316f707968ab1b35b56451840c0befd9d5b8bf168bd5",
+  "publicObservations": [
+    {
+      "url": "https://davidengelen.nl/redsquare/qa/2bd5368aa7aaf6ff6c48316f707968ab1b35b56451840c0befd9d5b8bf168bd5.apk",
+      "status": 200,
+      "bytes": 10668952,
+      "sha256": "2bd5368aa7aaf6ff6c48316f707968ab1b35b56451840c0befd9d5b8bf168bd5",
+      "cacheStatus": "HIT",
+      "cacheAge": "4854",
+      "cacheControl": "max-age=14400"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/qa/2bd5368aa7aaf6ff6c48316f707968ab1b35b56451840c0befd9d5b8bf168bd5.apk?cleanup=1794682632284311354",
+      "status": 404,
+      "bytes": 153,
+      "sha256": "9f6d0b634cab6787cdebb2a02e08a2e2ff6d8863344e46aa7bf387e607b827c3",
+      "cacheStatus": "MISS",
+      "cacheAge": null,
+      "cacheControl": "max-age=14400"
+    }
+  ],
+  "purge": {
+    "at": "2026-11-14T18:56:14.921232+00:00",
+    "operation": "Purge only owned temporary observer URL",
+    "url": "https://davidengelen.nl/redsquare/qa/2bd5368aa7aaf6ff6c48316f707968ab1b35b56451840c0befd9d5b8bf168bd5.apk",
+    "httpStatus": 401,
+    "success": false,
+    "errorCodes": [
+      10000
+    ]
+  },
+  "qualification": "Owned origin removed after both successful signed updates and independent reviews. Fresh public query returned404 at cleanup. A later actual canonical GET at21:32UTC also returns404 with CF-Cache-Status EXPIRED. Earlier cached200and failed single-URL purge remain retained; no immediate or global cache purge is claimed. Exact original observer retained externally; ordinary APK/releases unchanged.",
+  "laterPublicObservations": [
+    {
+      "url": "https://davidengelen.nl/redsquare/qa/2bd5368aa7aaf6ff6c48316f707968ab1b35b56451840c0befd9d5b8bf168bd5.apk",
+      "checkedAt": "2026-11-14T21:32:00.338858+00:00",
+      "method": "GET",
+      "status": 404,
+      "bytes": 153,
+      "sha256": "9f6d0b634cab6787cdebb2a02e08a2e2ff6d8863344e46aa7bf387e607b827c3",
+      "cacheStatus": "EXPIRED",
+      "cacheAge": null,
+      "cacheControl": "max-age=14400"
+    }
+  ]
+}

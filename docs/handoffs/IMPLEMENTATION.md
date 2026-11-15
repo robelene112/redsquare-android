@@ -1,64 +1,77 @@
 # Implementation handoff
 
-## Current planning: combined Vault and Store #105
+## Delivered combined Vault/Store and Talk UI, beta130
 
-The owner approved both completed grills and the shared scope on 2026-11-13.
-[Spec #105](https://github.com/robelene112/redsquare-android/issues/105) is published and labelled
-ready-for-agent. The owner approved the ten-ticket breakdown and requested
-the complete build on 2026-11-13. Native sub-issues #106–#115 and all blocking
-edges are published and verified. #106–#110 are implemented and verified on both SDKs. #111 is also complete and verified: native
-image/file creation, selling, storefront management and recoverable delisting. #112 alternate payments/recovery and #113 seller proceeds/withdrawals are complete. #114 is complete. #115 is in progress. Continue the approved ready frontier
-through the combined beta without per-ticket implementation questions.
-Source snapshots, publication receipts and working material remain external
-under /mnt/storage/redsquare-android-artifacts/vault-store-planning. Use #105 as
-the canonical scope. Candidate128was built and staged, then superseded before promotion. The delivered baseline remains
-beta 127 with Talk #104 complete.
+Ticket115 is delivered in [signed beta 0.1.130](https://davidengelen.nl/redsquare/).
+All approved native slices106–115 are complete. Stop here until the owner's next
+request. Keep parent105 and1/36/55/84/86 open for their remaining real-release work.
+The owner will review the delivered APK; ordinary development QA stayed agent-owned.
+Canonical dirty checkout was untouched. No node/provider/Play activation or public
+financial write occurred. Source-only Vault rental restoration remains UNDEPLOYED.
 
-Vault is first as the file/key/rental foundation, then integrated Store flows,
-with one combined completed signed beta. Buying/selling, renting/renting out,
-new image/file creation, all offered payment methods, native links and unsent
-seller Chat drafts are included. Vault also stands alone with standard/custom/
-rental access, Advanced source/witness editing, explicit offline files and
-Android Share. Official storage compatibility is accepted, with provider-visible
-content and no promise to recall downloaded copies. Reuse the existing native,
-pinned-protocol, owned-reference/provider and signed-update testing boundaries;
-do not ask the owner to repeat development phone QA. No new production node,
-public Saito financial write, community recipient or provider/Play operation is
-authorized. Other parent and real-release prerequisites remain open.
+The [115 evidence packet](../evidence/ticket115/README.md) is the maintained entry
+point for source, package, actual public delivery, signed updates, qualified native
+acceptance, independent reviews and preserved unsuccessful runs. Compiled product
+010aa0b3,94,089,760-byte APK SHA78720151b1c10772dfef36684a3d8be6a1718d519847a6db5a9df459feb60a7e,
+established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Candidates 128/129 are superseded and must never be promoted.
 
+The owner's Talk screen feedback is implemented in the actual app: a distinct
+Share/Copy invitation card, truthful clipboard feedback, accurate empty-host room
+status, full-width lone preview and persistent spaced controls. Above font1.3,
+controls use two rows and invitation actions stack. Both SDKs pass12 real viewport/
+theme/text cells each,48dp targets,12dp gaps,16dp End-call separation, whole-word
+layout and clipboard checks. Two17 frames have a qualified system clipboard overlay.
 
-## In progress: final combined beta #115
+Whole native17 primary43656409473 at010 and10 primary43668944254 at ca4217e1 both
+succeed. Independent reviewers verify all six ZIPs, 3,061 extracted members and 2,743
+indexed originals, and re-execute all qualified assertions. Each SDK covers318
+classes,251 archives,44 deliberate interruptions and43 continuities. Normal
+completions are344/345; observed identities830/831 comprise825/826 terminal-or-
+assumption identities plus five verified intentional starts. All native deadlines
+and normative goals remain unchanged. Core224/44 passes at unchanged source.
+Both current Wallet traces have20 balanced Main merges and zero crypto underneath.
 
-All 106–114 are complete. Public latest remains 127. Staged 128 is superseded and must
-NOT be promoted. Its real 127-to-128 updates passed on 10/17, but both complete
-primary attempts 43621894162/43621897570 failed Android lint before every emulator
-runtime step. No native result from those attempts contributes acceptance.
-Whole originals are retained externally under the 115 working directory.
+IMPORTANT: original frozen collectors FAILED their classification of those five
+intentional starts. Exact failure outputs are preserved. The separate committed
+assessor reports QUALIFIED_PASS_IDENTITY_CLASSIFICATION and runs every original
+later validator. No normal completion is fabricated; the original prospective
+literal frozen-PASS condition was not met. Accepted17 retains its exact native 010/
+assessor 77/old contract+erratum reference; current10 uses native ca4217e1/reporting
+f6f8c4b0/new harness pin. Do not evaluate17 against updated10 input files. The
+external frozen130-android17 reference has18 exact Git blobs and private HEAD77,
+with the existing object store read-only. Every assertion and the identical summary
+reproduce there. Never pull, check out, commit or push that temporary reference.
 
-Product correction da51c97913fe77826e759da0d85296699112bc71 uses LocalActivity in Store and Vault
-instead of assuming LocalContext itself is an Activity. Local lint passed in11m32s;
-both independent product review axes report no findings. A fresh candidate 129 and actual
-127-to-129 updates are required. Keep the 128 signed-update evidence as superseded,
-not final artifact acceptance.
+The last failed10 parent43658180588 records an Android system abort in the final
+Chat-alert case, then an unbounded run-as archive hang until the 120-minute job bound.
+The OS cause is unproved. Nativeca4217e1 bounds serial/archive capture and collects
+bounded diagnostics before archival on failure, preserving timeout-window order,
+native commands/criteria/deadlines and configuration. The only contract change is
+its whole-harness source hash. Host regression and fresh Chat-alert focus pass;
+failed/canceled parents and successful prefixes supply no acceptance.
 
-A separate new 115 collector prefix typo was discovered before runtime. The
-intermediate qualified wrapper was never used and is retired. Freeze exact full
-process descriptors from the unchanged scripts into the strict contract and
-collector before the fresh complete-source dispatch. Preserve every inherited
-identity/count/deadline/validator. See the [packet](../evidence/ticket115/README.md)
-and freeze-history.json. No partial successful fragments may be assembled.
+Actual signed 127-to130 updates43657102973/43657105150 pass with108 indexed originals,
+wallet/draft/cache/Light preference/debug isolation and ten pending Store/Vault
+records plus exact mint/offline/export originals and reconstruction. Both reviews
+accept them. The separate signed unsafe-fixture emulator observer is removed from
+origin; timestamped fresh/canonical404 observations are limited, without a global
+purge claim. Native source bridges prove ordinary product/core/resources/build/
+workflow/protocol equality to the actual signed 130 artifact.
 
-The signed module observer remains temporarily served at the exact hash URL in
-external store115-observer-download.json. It is guarded to a fresh ordinary 127
-emulator and published unsafe identity, reads actual current feature APIs after
-update, and submits no transaction. Reuse it only after checking compatibility;
-remove the owned temporary APK when update verification finishes.
+Public latest 130, immutable manifest/notes/page and full downloaded APK bytes,
+version and established signature pass actual verification. Public delivery review
+is recorded in the packet. Inherited API29 Profile assumption, unavailable Chat
+archive and four missing legacy failure captures stay explicit. Real physical/OEM,
+community node/provider/schema/funding/Play checks remain under36 and OWNER_INPUTS.
+Vault/Store require a compatible selected node; source proof does not activate one.
 
-Continue autonomously through fresh full 10/17, signed update, final independent
-reviews and actual public artifact verification, then promote the exact completed
-candidate. Do not activate any provider/node patch. Keep physical/provider/Play
-and parent gates open. No further owner permission or phone development QA is
-required; the owner already authorized completion and publication.
+Whole originals and working material remain externally under
+`/mnt/storage/redsquare-android-artifacts/vault-store-planning`. The proof branch
+proof-vault-store115-5d035f4 was held at native ca4217e1 so workflow/source/metadata
+match; reporting f6f8c4b0 was public separately. Later documentation commits do not
+change any accepted runtime input. No new implementation or beta is authorized
+until the next owner request.
 
 ## Completed integrated rentals #114, next #115
 

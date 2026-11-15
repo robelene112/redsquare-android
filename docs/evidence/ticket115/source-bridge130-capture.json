@@ -15,10 +15,10 @@
     "scripts/emulator-check"
   ],
   "ordinaryProductCoreResourcesBuildWorkflowProtocolIdentical": true,
-  "onlyNormativeContractDifference": false,
   "onlyContractDifference": "runtimePreflightSourceSha256[scripts/emulator-check]",
   "nativeClassCommandsAssertionsAndDeadlinesUnchanged": true,
   "oldNativeInputReference": "native010/assessor77 snapshot for accepted SDK17",
   "nativeScopeRequired": "Fresh entire Android10primary; no failed/cancelledprefix acceptance.",
-  "qualification": "Static bridge and prospective native source freeze only. Hostcapture regression is not OS-root-cause or native-success evidence. Final qualified assessor/erratum bound separately before dispatch."
+  "qualification": "Static bridge and prospective native source freeze only. Hostcapture regression is not OS-root-cause or native-success evidence. Final qualified assessor/erratum bound separately before dispatch.",
+  "allNormativeContractFieldsUnchanged": true
 }

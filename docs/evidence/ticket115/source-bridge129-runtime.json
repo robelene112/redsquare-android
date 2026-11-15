@@ -1,0 +1,93 @@
+{
+  "staticProductIdentity": "PASS",
+  "compiledProductSource": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "verificationSource": "17798cbe4c68ec7de0f52425d8061992b575877f",
+  "compiledTreeEntries": 224804,
+  "verificationTreeEntries": 224808,
+  "identicalEntries": 224794,
+  "canonicalEncoding": "Git ls-tree metadata TAB raw path NUL, sorted by raw path",
+  "canonicalIdenticalEntriesSha256": "a32e1f0ea691caa51a30c2d0887330231e940687ac7e0044bda27020bfa20750",
+  "differences": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt",
+      "before": "100644 blob 5ff8457d09933a17a78e91182e94a5e311e24e17",
+      "after": "100644 blob 6f173f761442d0e182842af441bca95886c810cb"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/RuntimeHeapProbe.kt",
+      "before": "absent",
+      "after": "100644 blob 7f76a0c2f35306c7f68d8971cc23f8e9854df313"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultRentalMasterPreviewTest.kt",
+      "before": "100644 blob 450ae07e5459c64b01428d06c138da18436549d5",
+      "after": "100644 blob db60764b4a406e16062aefe7295b31c0e18257d8"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultRentalPolishPreviewTest.kt",
+      "before": "100644 blob 40e0d614492ad14aad8d493d76e1d2264e01ff68",
+      "after": "100644 blob 29442991ea5f6eeba26b5e2319bee9d19d5ef53c"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VideoPreviewTest.kt",
+      "before": "100644 blob e16f3531d39255b2ce91e6dd907fd7dd66857bf0",
+      "after": "100644 blob 7c56924ff93b6f9a0acc2847bc84b3afbb880486"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletExportSystemControls.kt",
+      "before": "100644 blob 1042bd205f785f08afdfe348a6bb2978ddafec85",
+      "after": "100644 blob ba702ac0373732143927ae3a9886cefb1d14b0d5"
+    },
+    {
+      "path": "docs/evidence/ticket115/freeze-history.json",
+      "before": "100644 blob bb4628c53151e7174cc222978545651250e07b57",
+      "after": "100644 blob a26571680fa0fc8663f3df8cd1e7ea8b2e26f377"
+    },
+    {
+      "path": "docs/evidence/ticket115/full-contract.json",
+      "before": "100644 blob f987f3dd7eb64dec1ca50d655914a866f1fd765f",
+      "after": "100644 blob ef6310566351acd1d45a45dcfcee9c66e4021af6"
+    },
+    {
+      "path": "docs/evidence/ticket115/selector-complete-addendum.json",
+      "before": "absent",
+      "after": "100644 blob 1344f4a4452972b424e7da89489383449815145e"
+    },
+    {
+      "path": "docs/evidence/ticket115/selector-verification-plan.json",
+      "before": "absent",
+      "after": "100644 blob d6e24839ab2251619df89b58d8d4eb887a5b379b"
+    },
+    {
+      "path": "docs/evidence/ticket115/trace-check.py",
+      "before": "100644 blob 861b2eb02a186fcf1665170e143292fb4df6e43c",
+      "after": "100644 blob 28262175b29973ef5a0d71e3908c790b33e8b219"
+    },
+    {
+      "path": "docs/evidence/ticket115/verify-full.py",
+      "before": "100644 blob aaae7ec0427c84ff5db91c34ee294abe9e1a216c",
+      "after": "100644 blob a12b22b58dcdf61c2f8d63c563eb108d12f563c0"
+    },
+    {
+      "path": "scripts/emulator-check",
+      "before": "100755 blob bda92e91551f7af6af33c0ef2b82c5dffa63554c",
+      "after": "100755 blob 4873294e47b5ba29a8fd2b2a5a56133fe9efac80"
+    },
+    {
+      "path": "scripts/runtime-heap-preflight",
+      "before": "absent",
+      "after": "100644 blob 55abe854332b8476729e092e55900319e6ce2a2c"
+    }
+  ],
+  "candidate": {
+    "versionCode": 129,
+    "versionName": "0.1.129",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "17b30739dae3abbcaeb2141f0f9e2bcd2dce7ec1ea7ef37ec5ec0bfb57a9bf90",
+    "commit": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+    "variant": "release"
+  },
+  "reason": "Five existing AndroidTest interactions/measurements plus a separate provisioning probe, bounded provisioning harness/helper and frozen evidence/planning differ. Every ordinary product/core/resource/build/workflow/protocol/reference input is identical. All original application goals/payloads/counts/deadlines retained; provisioning observations are additional and explicitly separate.",
+  "qualification": "Exact ordinary product binding only. Both fresh entire complete SDK primaries at this corrected prospective freeze remain required. No failed prefixes or physical/provider acceptance inferred."
+}

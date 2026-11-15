@@ -1,35 +1,34 @@
 # Red Square Android project context
 
-## Approved next scope: native Vault and Store
+## Delivered native Vault and Store, beta130
 
-[Specification #105](https://github.com/robelene112/redsquare-android/issues/105) records the owner's completed
-Store and Vault grills on 2026-11-13. Deliver both together in one signed beta,
-with Vault providing the file/key/rental foundation. Store includes buying,
-selling, rentals, new image/file items, all actually offered payment methods,
-orders and seller contact through an unsent Chat draft. Its navigation is
-Discover, Orders, My store. Vault is independently accessible, with official
-standard/custom/rental keys, Advanced script/witness editing, explicit offline
-copies/storage management and Android Share to Vault.
+[Signed beta 0.1.130](https://davidengelen.nl/redsquare/) delivers the approved
+[Vault/Store specification105](https://github.com/robelene112/redsquare-android/issues/105)
+and slices106–115, plus the owner's Saito Talk call-screen polish. Vault provides
+storage, standard/custom/rental access, Advanced rules, explicit offline copies
+and Android Share. Store includes buying, selling, rentals, new image/file items,
+offered payment methods, recoverable orders, proceeds and unsent seller Chat drafts.
+Both use shared wallet/account/module navigation and the selected compatible node.
+Provider-visible content and downloaded-copy limits remain honest.
 
-Follow the official interoperable protocol and accurate provider-visible storage
-semantics, rather than claiming end-to-end encryption or recall of downloaded
-copies. All categories remain visible with honest browser-only compatibility.
-Ordinary native/protocol/owned-peer/update testing remains agent-owned. One
-combined beta follows complete integration and independent reviews, not a partial
-catalogue or payment placeholder.
+Talk has a distinct invitation card, spaced persistent controls, adaptive large
+text, accurate waiting-host wording and a larger local preview. Both SDKs' native
+UI matrices and actual signed 127-to130 updates pass independent reviews. Entire
+SDK 10run43668944254 and17run43656409473 are accepted through the explicit reporting
+classification erratum:830/831 observed identities,318 classes and251 archives per
+SDK. The original frozen collectors failed and remain preserved; five deliberately
+interrupted starts are separately verified, not fabricated completions. Both
+reviewers reproduce every original remaining validator and all 2,743 indexed
+originals. See the [115 packet](evidence/ticket115/README.md) for exact source
+snapshots, inherited assumptions and limitations.
 
-The owner approved all ten tickets and requested the complete build on
-2026-11-13. Native sub-issues #106–#115 and their dependency edges are published
-and verified. #106–#111 are implemented and verified on both SDKs, including
-advanced Vault access, native Store catalogue/purchases, selling, item creation
-and storefront management. #112 alternate-currency checkout and #113 seller proceeds/withdrawals are also
-verified. Next is #114 for integrated rentals. See the
-[ticket113 packet](evidence/ticket113/README.md) and current handoff for the verified
-frontier and in-progress checks. Continue through every ready
-slice to the combined beta without repeated implementation confirmations. Beta
-127 remains the delivered baseline until actual combined delivery. Existing
-parent/release gates stay open.
-
+Actual public130 APK bytes, established certificate, package/version, page, manifest,
+notes and latest metadata are verified. Candidates 128/129 are superseded. Real
+physical/OEM/provider/deployed-schema/funding/Play acceptance stays open under36;
+source-only Vault rental restoration is UNDEPLOYED. No production node or public
+financial write was authorized. Keep105 and1/36/55/84/86 open. Stop after this
+combined delivery until the owner requests more work; historical stop boundaries
+below remain historical. Owner phone testing is for the delivered release.
 
 ## Delivered native Saito Talk #104
 

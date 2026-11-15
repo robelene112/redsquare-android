@@ -1,0 +1,74 @@
+{
+  "nativeSource": "ca4217e1e5746746f55d716d0d48669ecf1c2fc5",
+  "hostRegression": {
+    "sourceSha256": "d686436cdb5a9bb5408f61eab2c9e47cbdd9168f2a1cc11df69181260a0d1ad3",
+    "result": "PASS_HOST_CAPTURE_BOUND_ONLY",
+    "results": [
+      {
+        "version": "before",
+        "mode": "aborted",
+        "returncode": 124,
+        "elapsedSeconds": 3.003,
+        "commands": [
+          "get-serialno",
+          "shell am instrument -w -r -e class nl.davidengelen.redsquare.FakeCase nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner",
+          "exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - fake-evidence"
+        ]
+      },
+      {
+        "version": "after",
+        "mode": "aborted",
+        "returncode": 1,
+        "elapsedSeconds": 30.049,
+        "commands": [
+          "get-serialno",
+          "shell am instrument -w -r -e class nl.davidengelen.redsquare.FakeCase nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner",
+          "logcat -d -b crash -v threadtime",
+          "logcat -d -b main -b system -b events -v threadtime",
+          "shell dumpsys activity processes",
+          "shell df -k /data",
+          "shell cat /proc/meminfo",
+          "exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - fake-evidence"
+        ]
+      },
+      {
+        "version": "before",
+        "mode": "passed",
+        "returncode": 0,
+        "elapsedSeconds": 0.022,
+        "commands": [
+          "get-serialno",
+          "shell am instrument -w -r -e class nl.davidengelen.redsquare.FakeCase nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner",
+          "exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - fake-evidence"
+        ]
+      },
+      {
+        "version": "after",
+        "mode": "passed",
+        "returncode": 0,
+        "elapsedSeconds": 0.024,
+        "commands": [
+          "get-serialno",
+          "shell am instrument -w -r -e class nl.davidengelen.redsquare.FakeCase nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner",
+          "exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - fake-evidence"
+        ]
+      }
+    ],
+    "workingDirectory": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/native-capture-bound115-ecb2r0hk",
+    "qualification": "Host harness regression with explicit fakeADB. Demonstrates earlier post-abort hang and boundeddiagnostics-before-archive; does not establish native/system-crash cause or complete application acceptance. No original evidence changed."
+  },
+  "focusedNative": {
+    "run": 43668942231,
+    "source": "ca4217e1e5746746f55d716d0d48669ecf1c2fc5",
+    "conclusion": "success",
+    "artifactId": 14143706591,
+    "zipSha256": "01a5268bc10f9390236b6694766b10fadcf0b6113297788ec09b32b38c596d02",
+    "zipEntries": 111,
+    "captureMembers": 173,
+    "allExtractedMembersByteExact": true
+  },
+  "standardsRemainingStaticFindings": 0,
+  "specRemainingStaticFindings": 0,
+  "old17ReferenceRecheck": "Every qualified assertion reproduces and summary is byte-semantically equal to accepted17packet under18exactoriginalGitblobs/HEAD77.",
+  "qualification": "Hostsimulationprovesboundedfailurehandling; freshnativefocusprovesunchangedChat-alertjourneys. Successfulnativefocusdoesnotexercisethesystem-abortbranchorprovetheoldOScause. FreshentireSDK10acceptanceremainsrequired."
+}

@@ -1,0 +1,126 @@
+{
+  "debug-after.log": {
+    "bytes": 896,
+    "sha256": "7cb45ad61002dce2bc93a29cd3d800ed2c016f82c3ef488268a69140fd7bb10d"
+  },
+  "debug-before.log": {
+    "bytes": 895,
+    "sha256": "56283414742266d9aa778c2ee527c67f4dd3ac280b299b45defab8b04f6e1dc7"
+  },
+  "download-127.json": {
+    "bytes": 498,
+    "sha256": "a99237b8613c985930f6c4189ba6560502de645e696be5a66c95e4ccac73b87c"
+  },
+  "download-130.json": {
+    "bytes": 498,
+    "sha256": "f650c68d035e977962ac87885944a18b7df1f662bfc99d79ef0453a98a08da58"
+  },
+  "local-work-and-isolation.json": {
+    "bytes": 799,
+    "sha256": "498f3f8c9bfb4898018cac951ca97c806bd1fc2434508cc6b57e3fd548ffe73d"
+  },
+  "module-continuity.json": {
+    "bytes": 1881,
+    "sha256": "b8927c52a23306cb0b30c15739fbffb017930f2032e442f6522a9c9c8bc84bc3"
+  },
+  "module-observer-signature.txt": {
+    "bytes": 295,
+    "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+  },
+  "module-prepare.log": {
+    "bytes": 1813,
+    "sha256": "e3fd9478447b731130e6f2b7a3b505ac72757080bc836f5cb4b56c389e0f3589"
+  },
+  "module-update-observer.apk": {
+    "bytes": 10681240,
+    "sha256": "2eda01e1cedd0035878c771df306e4e82763285490bee487bb6dc2e50fa01e1c"
+  },
+  "module-verify-1.log": {
+    "bytes": 1244,
+    "sha256": "1fdd7ca4f2dbf18238e2070aad51485473ec9c53fd54a097e3f2dd2a0d6c97a1"
+  },
+  "module-verify-2.log": {
+    "bytes": 1244,
+    "sha256": "909ac95c545050e6f3fafbc7142af43e649e54cd2bfaa1d866f4bcdfbb333bb6"
+  },
+  "native-local-work.tar": {
+    "bytes": 795648,
+    "sha256": "d524a08097f4de00143a7b7d1918aff5969e01c1f7238cccf6213719d6f2963c"
+  },
+  "restoration.json": {
+    "bytes": 73,
+    "sha256": "6b6ecc6e31caed9718ebd396f646bfce228748203f070e38fc0986da320752e1"
+  },
+  "versions.txt": {
+    "bytes": 97,
+    "sha256": "89f2300c764ed90e27fbb3cd8064ede70dee5e0b32b5c577188f566398b862f4"
+  },
+  "wallet/continuity.txt": {
+    "bytes": 129,
+    "sha256": "8e9f01b7b8e45845a566b317e7810e09717840c4e85f6329e34b4024bf0369dc"
+  },
+  "wallet/observation-1.log": {
+    "bytes": 896,
+    "sha256": "566b7fae6273e956361c2f52cb317ad01090bc37bc6fc387c767a41f879ebb8d"
+  },
+  "wallet/observation-1.png": {
+    "bytes": 35396,
+    "sha256": "0ef1f8bbf03ea5e02fb390d1cff15b582fbffc59d3b400b2e5a289647a480728"
+  },
+  "wallet/observation-1.xml": {
+    "bytes": 30407,
+    "sha256": "ba318f9002c69fd110224e889bcd21c50c4fef053535a5d0fa8748963d2e2f1a"
+  },
+  "wallet/observation-2.log": {
+    "bytes": 896,
+    "sha256": "6de41a48e6d52a3d574bcb81ef20bc0802c6d86e32924ac2a8bca0290de737e8"
+  },
+  "wallet/observation-2.png": {
+    "bytes": 35396,
+    "sha256": "0ef1f8bbf03ea5e02fb390d1cff15b582fbffc59d3b400b2e5a289647a480728"
+  },
+  "wallet/observation-2.xml": {
+    "bytes": 30407,
+    "sha256": "ba318f9002c69fd110224e889bcd21c50c4fef053535a5d0fa8748963d2e2f1a"
+  },
+  "wallet/observation-3.log": {
+    "bytes": 896,
+    "sha256": "ef7929fe6855e5881ca2d4653b589d3d0f8751ba13e45ed464ad2aea65ad2ee6"
+  },
+  "wallet/observation-3.png": {
+    "bytes": 35396,
+    "sha256": "0ef1f8bbf03ea5e02fb390d1cff15b582fbffc59d3b400b2e5a289647a480728"
+  },
+  "wallet/observation-3.xml": {
+    "bytes": 30407,
+    "sha256": "ba318f9002c69fd110224e889bcd21c50c4fef053535a5d0fa8748963d2e2f1a"
+  },
+  "wallet/observation-4.log": {
+    "bytes": 896,
+    "sha256": "596a0f636da019463bc5fb0034185e1860ff1873102fcd7454998bf478a444b0"
+  },
+  "wallet/observation-4.png": {
+    "bytes": 35396,
+    "sha256": "0ef1f8bbf03ea5e02fb390d1cff15b582fbffc59d3b400b2e5a289647a480728"
+  },
+  "wallet/observation-4.xml": {
+    "bytes": 30407,
+    "sha256": "ba318f9002c69fd110224e889bcd21c50c4fef053535a5d0fa8748963d2e2f1a"
+  },
+  "wallet/wallet.png": {
+    "bytes": 38705,
+    "sha256": "76a62b0646712e5a89d41d06583343361c2bd0e4022e3264dd46d92d98eabb7d"
+  },
+  "work-after-cold.log": {
+    "bytes": 1199,
+    "sha256": "f50f2f3c5312d670a3c6ac2ddb41eb844cd2e2ec48e2c9b068b57d1e6a0e4456"
+  },
+  "work-after.log": {
+    "bytes": 1199,
+    "sha256": "0d7958235688e0cf73bfa602ff7440e853006ae43a958cd2b934b876337b6a8b"
+  },
+  "work-before.log": {
+    "bytes": 1201,
+    "sha256": "102f902207d2e804100122139f93ba087f26c3b7c1384f65cb5aed4aa8db20e4"
+  }
+}

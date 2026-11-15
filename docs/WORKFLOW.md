@@ -9,23 +9,24 @@ requested, carry its code, verification, review, fixes and commit to completion.
 Work through tickets sequentially; a request to implement a sequence authorizes
 that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
-## Current owner execution authorization
+## Current completed owner scope
 
-The owner approved the combined Vault/Store scope in
-[specification #105](https://github.com/robelene112/redsquare-android/issues/105). Both grills are complete.
-The owner approved the breakdown and requested the full build on 2026-11-13.
-All ten tickets #106–#115 are published as native sub-issues with verified blocking
-edges. Implement the ready frontier through the combined beta without another
-per-ticket owner confirmation. Reading #106, upload/recovery #107, advanced ownership/rental foundation #108
-and Store catalogue/native links/unsent Chat #109 are verified on both SDKs.
-#110 SAITO purchases/delivery, #111 native selling/item creation/storefront
-management and #112 alternate-currency checkout/recovery are verified. The #113 alternate pricing, seller proceeds and withdrawals slice is also
-verified. #114 integrated rentals/access lifecycle is verified on both SDKs with final independent review. Next: #115, final integration/polish, frozen complete-source verification and the single combined signed beta. See
-[108 evidence](evidence/ticket108/README.md). Use Vault as the shared file/key/rental basis
-and deliver one combined completed beta, preserving the spec's full payment and
-native UX scope and the existing agent-owned verification/operational boundaries.
-The earlier stop-after-104 limit is superseded only for this newly requested
-Vault/Store trajectory. Keep other parent/release gates open.
+The approved Vault/Store specification105 and native slices106–115 are delivered
+in [signed beta 0.1.130](https://davidengelen.nl/redsquare/), including the owner's
+Saito Talk call-screen polish. Both complete SDK primaries, actual signed updates,
+independent reviews and public APK/page/manifest verification are accepted with
+the explicit reporting erratum described in [the115 packet](evidence/ticket115/README.md).
+The original frozen collectors did not pass; intentional process-death starts are
+classified separately from terminal completions without changing native goals.
+Exact per-source snapshots and original failures remain preserved.
+
+Stop after this combined delivery until the owner's next request. Keep105 and
+1/36/55/84/86 open. Real node/provider/deployed-schema/funding, physical/OEM and
+Play prerequisites remain under36 and OWNER_INPUTS. Source-only Vault rental
+restoration stays UNDEPLOYED. No new node/provider operation or public financial
+write is authorized. Owner phone review is for the delivered beta; ordinary
+software QA remains agent-owned. The earlier stop-after104 boundary below is
+historical and was superseded only for this completed trajectory.
 
 Native Saito Talk [104](https://github.com/robelene112/redsquare-android/issues/104)
 is delivered in signed beta 127: direct Chat audio/video and group rooms/links.
@@ -143,6 +144,22 @@ Wayfinder's tickets ask questions. Implementation tickets deliver working
 behavior. Resolving a Wayfinder map therefore does not replace writing a spec
 and implementation tickets. Suggest Wayfinder when this condition arises;
 the owner chooses whether to start it. It is not required for every app-wide grill.
+
+## Native evidence collection and identity accounting
+
+Retain the original class/action deadlines and require the native result, not adb
+exit status alone. Android can abort instrumentation with exit0 and no `OK` marker.
+Bound every post-class archive or diagnostic read so a dead package manager cannot
+consume the whole job budget. Capture failure buffers before a potentially blocked
+archive; retain the actual failed output and never retry a native assertion silently.
+
+Keep terminal 0/-4 observations, deliberate status 1 process-death starts and separate
+provisioning probes distinct. A killed test cannot fabricate normal completion.
+A reporting correction must preserve the original frozen inputs/failure, bind its
+own reviewed code and erratum, retain every native goal and later validator, and
+emit an explicitly qualified result from its first report. Use the exact input
+snapshot for each accepted SDK. Never substitute a newer harness/contract into an
+older source-bound assessment or assemble successful prefixes from failed parents.
 
 ## Sequential implementation and review
 
@@ -346,9 +363,19 @@ original logs and every application assertion and deadline.
    retain its metadata. The ordinary emulator lifecycle is preserved: a later run with
    service restarts failed headless-worker verification. That fixture change was
    removed; the exact failure cause remains unproved. Do not treat focused successes as full acceptance or combine
-   partitions from different complete dispatches. Original diagnostic packets
-   remain under59; temporary scopes/class/observation hooks have been removed.
-   `chat-photo-process` and its Android17 variant isolate the existing private
+   partitions from different complete dispatches.
+   Ticket115 additionally checks the actual target-process heap before any
+   application acceptance class. A positively measured API29 mismatch can reject
+   that entire disposable emulator boot, with at most3whole cold boots using
+   byte-identical image/AVD/RAM/heap configuration. No heap properties or individual
+   services are modified/restarted. Retain every raw boot/probe/config/shutdown
+   record; other probe/boot errors fail. The separate one-case JUnit provisioning
+   observation is retained in.log, verified and reported separately from original
+   application identities/completions. Native heap guards, all application
+   payloads and class/request deadlines remain. This is a pre-test provisioning
+   gate, never a retry of an application assertion. See115's prospective contract.
+   Original diagnostic packets remain under59; temporary scopes/class/observation hooks have been removed.
+   `chat-photo-process` and its Android 17 variant isolate the existing private
    and group queued-photo process protocols. Complete `chat-images` and full
    scopes retain both, along with picker/normalization and image storage checks.
    The existing120second per-process-phase deadline and original identity/raw

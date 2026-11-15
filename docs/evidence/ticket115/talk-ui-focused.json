@@ -1,0 +1,38 @@
+{
+  "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "result": "PASS",
+  "runs": [
+    {
+      "sdk": "10",
+      "run": 43655877829,
+      "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+      "conclusion": "success",
+      "artifactId": 14137982632,
+      "zipSha256": "9f44990520f13e3ff272a0c1dd5b1cd97e2b4c935dfe89f9556815ce3368e6b3",
+      "zipEntries": 80,
+      "captureMembers": 79,
+      "allExtractedMembersByteExact": true
+    },
+    {
+      "sdk": "17",
+      "run": 43655880024,
+      "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+      "conclusion": "success",
+      "artifactId": 14137924497,
+      "zipSha256": "bc3500ce31d9efa022f56bcb42f73023c811da4acce276e4ee67af8a0ed91c97",
+      "zipEntries": 69,
+      "captureMembers": 79,
+      "allExtractedMembersByteExact": true
+    }
+  ],
+  "cellsPerSdk": 12,
+  "entryCapturesPerSdk": 4,
+  "minimumTargetDp": 48,
+  "controlGapDp": 12,
+  "endCallGapDp": 16,
+  "actualClipboardAndWholeWordAssertions": true,
+  "independentStandardsFindings": 0,
+  "independentSpecFindings": 0,
+  "visualQualification": "Android17active-412-412-font100-dark-entry.png and -active.png retain a transient Android clipboard preview over part of End call. Same-cell -invitation.png is unobstructed. Originals are preserved; this is system-overlay observation, not app overlap.",
+  "qualification": "Focused Talk source/render verification only; both complete SDK, actual signed updates and public delivery gates remain pending."
+}

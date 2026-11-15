@@ -1,0 +1,32 @@
+[
+  {
+    "path": "store-crypto-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StoreCryptoProcessRecoveryTest",
+    "test": "terminateAfterTheProviderReservesAnInvoiceButItsReplyIsLost",
+    "occurrences": 1
+  },
+  {
+    "path": "store-purchase-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StorePurchaseProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedStorePaymentWithUnknownDelivery",
+    "occurrences": 1
+  },
+  {
+    "path": "store-seller-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StoreSellerProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedStoreOfferWithUnknownAvailability",
+    "occurrences": 1
+  },
+  {
+    "path": "store-withdrawal-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.StoreWithdrawalProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedWithdrawalWithUnknownAvailability",
+    "occurrences": 1
+  },
+  {
+    "path": "vault-upload-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.VaultUploadProcessRecoveryTest",
+    "test": "terminateAfterAnAuthenticatedVaultMintAndRejectedFile",
+    "occurrences": 1
+  }
+]

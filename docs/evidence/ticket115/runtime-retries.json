@@ -1,0 +1,19 @@
+{
+  "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "applicationAndHarnessUnchanged": true,
+  "android10": {
+    "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+    "branch": "proof-vault-store115-retry10-74fe9a2",
+    "sdk": "10",
+    "run": "43628492740",
+    "reason": "Initial complete10Social failed unchanged inherited actual16MiB versus declared512MiB precondition. Unmodified focused avatar scope43628054643passes with actual/declared512MiB. No cause/fix inferred. Fresh complete3job run, no failed-prefix assembly."
+  },
+  "android17": {
+    "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+    "branch": "proof-vault-store115-retry10-74fe9a2",
+    "sdk": "17",
+    "run": "43629043517",
+    "reason": "Initial full17Wallet failed original15s success+enabled-action export goal after recreation. Original eight-case class and whole17-case focused rental scope43628376950then passed unchanged. Cause remains unproven; no application fix inferred. Fresh complete3job source-identical run, no partial assembly."
+  },
+  "qualification": "Both initial whole workflows remain failed. Successful unchanged focused observations do not satisfy complete acceptance or establish the earlier failure cause. Each replacement requires its own complete successful primary and strict frozen verification."
+}

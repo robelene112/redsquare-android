@@ -1,0 +1,459 @@
+{
+  "result": "PASS focused, not complete acceptance",
+  "checks": [
+    {
+      "kind": "method",
+      "sdk": "10",
+      "run": 43638799134,
+      "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+      "conclusion": "success",
+      "artifactId": 14131299719,
+      "zipSha256": "91e61a8a8427185c7513c1a2419184c7b4a099212d54034689cc7107fb534bfd",
+      "zipEntries": 80,
+      "captureMembers": 202,
+      "allExtractedMembersByteExact": true,
+      "ordinaryInstrumentedCases": 12,
+      "instrumentedClasses": 6,
+      "identities": [
+        {
+          "path": ".scratch/device-evidence/api-29/vault-large-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultLargeReadingPreviewTest",
+          "test": "aFourMiBFileKeepsItsExactBytesThroughEncryptedPartsRestartAndDocumentExport",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultReadingPreviewTest",
+          "test": "aRealKeyDownloadsExactBytesAndItsOfflineCopySurvivesRecreationWithoutAWorkingNode",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultReadingPreviewTest",
+          "test": "laterFilePagesRemainSelectedWhenSwitchingBetweenNativeModules",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "aFailedDocumentExportClearsTemporaryBytesAndKeepsTheOfflineCopy",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "aLocalStorageFailureDoesNotBlameSuccessfulFileAccessOrClaimAnOfflineCopy",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "aSuccessfulServerReplyCannotSubstituteAnotherSignedPayloadForTheRequestedFile",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "anUnavailableServiceIsDistinctFromAnEmptyVault",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "localExportStagingFailureExplainsDeviceStorageAndLeavesTheKeyUsable",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "transferringAVisibleKeyPreventsANewRetrievalWithItsCachedWitness",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-rental-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRentalMotionPreviewTest",
+          "test": "nativeRentalDetailsOpenAndCloseAtNormalAndReducedMotion",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-rental-polish-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRentalPolishPreviewTest",
+          "test": "creatorMasterRefreshKeepsItsAuthenticatedEntryAndRecordsActualMainThreadWork",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/vault-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultViewportPreviewTest",
+          "test": "fileNamesAndControlsRemainUsableInBothThemesAndLargeTextAtNarrowAndWideWidths",
+          "occurrences": 1
+        }
+      ],
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-method-reading10-43638799134-original.zip",
+      "qualification": "Source-qualified focused diagnostic only. Final acceptance requires both entire strict e0 complete SDK primaries.",
+      "strictTrace": {
+        "trace": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-method-reading10-43638799134-captures/vault-reading-evidence/creator-discovery.trace",
+        "mainThread": 3987,
+        "traceMode": "method",
+        "observedMergeEntries": 20,
+        "observedMergeExits": 20,
+        "mainCryptoEntriesUnderMerge": 0,
+        "methods": {},
+        "qualification": "ART instrumented method entry/exit recording during20native local refreshes. All20Main merge spans must be complete. Instrumentation overhead is present; no physical frame-rate or general latency claim."
+      },
+      "traceSha256": "b4bb00bfd51525d3afa8a501d0cbfd1ccefd5ca11699f23e326cb13d1c3b6f2b"
+    },
+    {
+      "kind": "method",
+      "sdk": "17",
+      "run": 43638801672,
+      "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+      "conclusion": "success",
+      "artifactId": 14131925398,
+      "zipSha256": "f69fbc365d1274cb81ccf6531304bd0f1d41b3f0281041e531acbc32dd26403b",
+      "zipEntries": 82,
+      "captureMembers": 223,
+      "allExtractedMembersByteExact": true,
+      "ordinaryInstrumentedCases": 12,
+      "instrumentedClasses": 6,
+      "identities": [
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-large-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultLargeReadingPreviewTest",
+          "test": "aFourMiBFileKeepsItsExactBytesThroughEncryptedPartsRestartAndDocumentExport",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultReadingPreviewTest",
+          "test": "aRealKeyDownloadsExactBytesAndItsOfflineCopySurvivesRecreationWithoutAWorkingNode",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultReadingPreviewTest",
+          "test": "laterFilePagesRemainSelectedWhenSwitchingBetweenNativeModules",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "aFailedDocumentExportClearsTemporaryBytesAndKeepsTheOfflineCopy",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "aLocalStorageFailureDoesNotBlameSuccessfulFileAccessOrClaimAnOfflineCopy",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "aSuccessfulServerReplyCannotSubstituteAnotherSignedPayloadForTheRequestedFile",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "anUnavailableServiceIsDistinctFromAnEmptyVault",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "localExportStagingFailureExplainsDeviceStorageAndLeavesTheKeyUsable",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRecoveryPreviewTest",
+          "test": "transferringAVisibleKeyPreventsANewRetrievalWithItsCachedWitness",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-rental-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRentalMotionPreviewTest",
+          "test": "nativeRentalDetailsOpenAndCloseAtNormalAndReducedMotion",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-rental-polish-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultRentalPolishPreviewTest",
+          "test": "creatorMasterRefreshKeepsItsAuthenticatedEntryAndRecordsActualMainThreadWork",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/vault-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.VaultViewportPreviewTest",
+          "test": "fileNamesAndControlsRemainUsableInBothThemesAndLargeTextAtNarrowAndWideWidths",
+          "occurrences": 1
+        }
+      ],
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-method-reading17-43638801672-original.zip",
+      "qualification": "Source-qualified focused diagnostic only. Final acceptance requires both entire strict e0 complete SDK primaries.",
+      "strictTrace": {
+        "trace": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-method-reading17-43638801672-captures/vault-reading-evidence/creator-discovery.trace",
+        "mainThread": 1,
+        "traceMode": "method",
+        "observedMergeEntries": 20,
+        "observedMergeExits": 20,
+        "mainCryptoEntriesUnderMerge": 0,
+        "methods": {},
+        "qualification": "ART instrumented method entry/exit recording during20native local refreshes. All20Main merge spans must be complete. Instrumentation overhead is present; no physical frame-rate or general latency claim."
+      },
+      "traceSha256": "911ae941fa288bf11f1d75288a9d62f53981ccf62be2e7d9a0c0b921aaa17a22"
+    },
+    {
+      "kind": "provider",
+      "sdk": "10",
+      "run": 43638804279,
+      "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+      "conclusion": "success",
+      "artifactId": 14130524691,
+      "zipSha256": "e434dba9455fc0852c85d66332239442e62bd8dd8dc4c9f638aae241613f4845",
+      "zipEntries": 75,
+      "captureMembers": 26,
+      "allExtractedMembersByteExact": true,
+      "ordinaryInstrumentedCases": 10,
+      "instrumentedClasses": 4,
+      "identities": [
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-process/recovered-instrumentation.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportInterruptionTest",
+          "test": "coldStartupRecoversTheOutgoingPublishedIdentity",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "replacementRequiresANewBackupBoundToTheCurrentSelection",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-risk-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportRiskPreviewTest",
+          "test": "outgoingOtherAssetsAndSavedNamesCannotBeClearedByASaitoZeroResponse",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/wallet-storage-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportStorageRecoveryTest",
+          "test": "failedDirectorySyncAfterReplacementWriteRestoresPublishedWalletOptions",
+          "occurrences": 1
+        }
+      ],
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-provider-import10-43638804279-original.zip",
+      "qualification": "Source-qualified focused diagnostic only. Final acceptance requires both entire strict e0 complete SDK primaries."
+    },
+    {
+      "kind": "provider",
+      "sdk": "17",
+      "run": 43638806561,
+      "source": "5e735cbeeb2d23767dda38edd25c46e88c278637",
+      "conclusion": "success",
+      "artifactId": 14130579725,
+      "zipSha256": "8b576eaa1fa37be67146ba19c2bd92832774066a5fdfe9e0801cc0f1db0ba618",
+      "zipEntries": 77,
+      "captureMembers": 26,
+      "allExtractedMembersByteExact": true,
+      "ordinaryInstrumentedCases": 10,
+      "instrumentedClasses": 4,
+      "identities": [
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-process/recovered-instrumentation.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportInterruptionTest",
+          "test": "coldStartupRecoversTheOutgoingPublishedIdentity",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "replacementRequiresANewBackupBoundToTheCurrentSelection",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-risk-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportRiskPreviewTest",
+          "test": "outgoingOtherAssetsAndSavedNamesCannotBeClearedByASaitoZeroResponse",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/wallet-storage-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.WalletImportStorageRecoveryTest",
+          "test": "failedDirectorySyncAfterReplacementWriteRestoresPublishedWalletOptions",
+          "occurrences": 1
+        }
+      ],
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-provider-import17-43638806561-original.zip",
+      "qualification": "Source-qualified focused diagnostic only. Final acceptance requires both entire strict e0 complete SDK primaries."
+    },
+    {
+      "kind": "message",
+      "sdk": "10",
+      "run": 43640645933,
+      "source": "5d035f440b1775392f4a2be7248f5c442303d70a",
+      "conclusion": "success",
+      "artifactId": 14131808945,
+      "zipSha256": "7e227c1aad14c9f6ec2756526be12881502af31c34aca018175c4d6b09124bf8",
+      "zipEntries": 79,
+      "captureMembers": 316,
+      "allExtractedMembersByteExact": true,
+      "ordinaryInstrumentedCases": 5,
+      "instrumentedClasses": 5,
+      "identities": [
+        {
+          "path": ".scratch/device-evidence/api-29/conversation-filtering-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationFilteringPreviewTest",
+          "test": "blockingAndRevealingCachedMessagesDoNotSignalNewArrivals",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/conversation-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationViewportPreviewTest",
+          "test": "openingACachedPrivateConversationExposesItsLatestMessage",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/group-conversation-polish-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationPolishPreviewTest",
+          "test": "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/group-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationReadingPreviewTest",
+          "test": "cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-29/private-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest",
+          "test": "newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader",
+          "occurrences": 1
+        }
+      ],
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-message-target10-43640645933-original.zip",
+      "qualification": "Source-qualified focused diagnostic only. Final acceptance requires both entire strict e0 complete SDK primaries."
+    },
+    {
+      "kind": "message",
+      "sdk": "17",
+      "run": 43640648273,
+      "source": "5d035f440b1775392f4a2be7248f5c442303d70a",
+      "conclusion": "success",
+      "artifactId": 14131794752,
+      "zipSha256": "cce1f7a685b62f2cc09e49ca7a266bde34fe68d5f52fe240c8b9563d8e09154f",
+      "zipEntries": 81,
+      "captureMembers": 316,
+      "allExtractedMembersByteExact": true,
+      "ordinaryInstrumentedCases": 5,
+      "instrumentedClasses": 5,
+      "identities": [
+        {
+          "path": ".scratch/device-evidence/api-37.0/conversation-filtering-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationFilteringPreviewTest",
+          "test": "blockingAndRevealingCachedMessagesDoNotSignalNewArrivals",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/conversation-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationViewportPreviewTest",
+          "test": "openingACachedPrivateConversationExposesItsLatestMessage",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/group-conversation-polish-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationPolishPreviewTest",
+          "test": "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/group-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationReadingPreviewTest",
+          "test": "cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading",
+          "occurrences": 1
+        },
+        {
+          "path": ".scratch/device-evidence/api-37.0/private-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest",
+          "test": "newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader",
+          "occurrences": 1
+        }
+      ],
+      "originalZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-message-target17-43640648273-original.zip",
+      "qualification": "Source-qualified focused diagnostic only. Final acceptance requires both entire strict e0 complete SDK primaries."
+    }
+  ]
+}

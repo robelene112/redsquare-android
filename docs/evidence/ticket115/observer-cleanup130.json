@@ -1,0 +1,20 @@
+{
+  "observerSha256": "2eda01e1cedd0035878c771df306e4e82763285490bee487bb6dc2e50fa01e1c",
+  "removedAt": "2026-11-15T00:27:11.369317+00:00",
+  "originRemoved": true,
+  "observations": [
+    {
+      "url": "https://davidengelen.nl/redsquare/qa/2eda01e1cedd0035878c771df306e4e82763285490bee487bb6dc2e50fa01e1c.apk?cleanup=1794702431199790843",
+      "status": 404,
+      "cacheStatus": "MISS",
+      "age": null
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/qa/2eda01e1cedd0035878c771df306e4e82763285490bee487bb6dc2e50fa01e1c.apk",
+      "status": 404,
+      "cacheStatus": "MISS",
+      "age": null
+    }
+  ],
+  "qualification": "Temporary signed emulator-only observer removed from origin after both independently reviewed updates. Fresh URL returns404. Canonical CDN response may retain cached bytes until expiry; no immediate global purge or production activation claim."
+}

@@ -1,0 +1,36 @@
+{
+  "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "runs": {
+    "10": "43626013216",
+    "17": "43626016251"
+  },
+  "standards": {
+    "agent": "/root/integration115_standards",
+    "remainingFindings": 0,
+    "independentlyVerifiedOriginalsPerSdk": 54
+  },
+  "spec": {
+    "agent": "/root/integration115_spec",
+    "remainingFindings": 0,
+    "independentlyVerifiedOriginalsPerSdk": 54,
+    "scopeLabelFinding": "Resolved by byte-exact original retention and explicit qualification against actual127-to129 versions/download/seed/native observations."
+  },
+  "qualification": "Signed-update evidence accepted independently. Complete-suite, public promotion and final delivery acceptance remain separate gates.",
+  "current130Acceptance": {
+    "compiledSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "runs": {
+      "10": 43657102973,
+      "17": 43657105150
+    },
+    "versions": [
+      127,
+      130
+    ],
+    "indexedOriginals": 108,
+    "moduleRecordsPerSdk": 10,
+    "standardsRemainingFindings": 0,
+    "specRemainingFindings": 0,
+    "scopeQualification": "update-scope-label.json",
+    "qualification": "Actual signed updates accepted independently; wallet/draft/cache/preference/debug isolation and exact pending Store/Vault/draft/offline/export originals retained. Observer submits no transactions and is absent from ordinary APK."
+  }
+}

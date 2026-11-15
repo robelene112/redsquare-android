@@ -19,6 +19,15 @@ After verifying that downloaded candidate, run the same command and notes with
 including signature, package, version and notes. The ordinary command continues
 to create and promote a fresh version in one operation.
 
+Public delivery checks fetch `latest.json?check=<fresh nonce>` and the page with
+a fresh query, matching the download page's existing request. The observed
+Cloudflare edge can cache the canonical URL for four hours even when a client
+sends `Cache-Control: no-cache`. Record the canonical response separately rather
+than claiming immediate cache replacement. Immutable APKs still require a full
+download and exact bytes/version/certificate checks. Removing a temporary QA APK
+from the origin also leaves any prior edge copy until expiry or an authorized
+single-URL purge; verify and report those two states separately.
+
 The isolated timing app is built with `scripts/review-build --performance`.
 Artifacts go to `.scratch/performance-builds/<version>`, using the same signing
 identity and shared version counter. It has package

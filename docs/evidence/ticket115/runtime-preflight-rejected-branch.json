@@ -1,0 +1,12 @@
+{
+  "run": 43656406728,
+  "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "partition": "chat",
+  "strictPreflightValidator": "PASS",
+  "observedBoots": 2,
+  "rejectedActualBytes": 16777216,
+  "acceptedActualBytes": 536870912,
+  "declaredBytes": 536870912,
+  "rawDirectory": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/full115/raw-43656406728/android-native-proof-chat/.scratch/device-evidence/api-29/runtime-preflight",
+  "qualification": "Provisioning diagnostic only. Exact retained rejection/termination/disconnect/configuration followed by validcoldboot passes unchanged strictvalidator. Entire primary later failed actual FileshareCancelandwas cancelledafterreplacement; no application acceptance or causalclaim."
+}

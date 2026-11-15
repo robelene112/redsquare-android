@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "versionCode": 129,
+  "versionName": "0.1.129",
+  "applicationId": "nl.davidengelen.redsquare",
+  "apkBytes": 94069112,
+  "apkSha256": "17b30739dae3abbcaeb2141f0f9e2bcd2dce7ec1ea7ef37ec5ec0bfb57a9bf90",
+  "establishedCertificate": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "minSdk": 29,
+  "targetSdk": 36,
+  "flags": {
+    "debuggable": false,
+    "allowBackup": false,
+    "profileable": false
+  },
+  "packagedNativeAbis": [
+    "arm64-v8a",
+    "armeabi-v7a",
+    "x86",
+    "x86_64"
+  ],
+  "optionalHardware": {
+    "android.hardware.camera.any": "false",
+    "android.hardware.camera": "false",
+    "android.hardware.camera.autofocus": "false",
+    "android.hardware.microphone": "false"
+  },
+  "fixtureAssetsAbsent": true,
+  "rawManifestSha256": "03f86d1fc322efce09e04164959aff32ca74fbf08c4f67dd3de66e8125a21e9f",
+  "signatureReportSha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65",
+  "qualification": "Exact local signed candidate package and retained APK-derived manifest/signature reports. Both actualHTTPsigned updates independently bind the same APK bytes. Packaged ABIs do not establish physical/OEM/runtime or Play acceptance."
+}

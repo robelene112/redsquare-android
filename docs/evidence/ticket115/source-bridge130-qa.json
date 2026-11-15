@@ -1,0 +1,16 @@
+{
+  "compiledAndOriginalVerificationSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "correctedVerificationSource": "fd8fe6c9eb53ae20703ed409775efb9eb04db923",
+  "identicalGitEntries": 224811,
+  "identicalEntriesCanonicalSha256": "04a8554a624005c46a043b5ad073336fc82aab1589e659e1a5ffffb2bcf92d3e",
+  "canonicalFormat": "Raw path-sorted identical ls-tree metadata TAB path NUL records.",
+  "differences": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FilesharePreviewTest.kt",
+    "docs/evidence/ticket115/talk130-sdk17-retention-plan.json"
+  ],
+  "ordinaryProductCoreResourcesBuildWorkflowProtocolIdentical": true,
+  "frozenContractVerifierAndTraceIdentical": true,
+  "acceptanceAssertionsAndDeadlinesUnchanged": true,
+  "change": "Actual native notification-list fallback scroll replaces screen-coordinate fallback. No notification removal, transaction or app changes.",
+  "qualification": "Static source bridge only. Whole original010SDK17success and entire correctedSDK10success, exact frozen verification and independent review remain mandatory. No current whole acceptance or original-cause claim."
+}

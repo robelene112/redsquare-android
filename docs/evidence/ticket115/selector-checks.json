@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "sdk": "10",
+      "run": "43630324170",
+      "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+      "result": "PASS",
+      "classes": 1,
+      "cases": 2,
+      "classSeconds": 180,
+      "nativeMembers": 12,
+      "rawFiles": 13,
+      "zipSha256": "0d75e21b8d2b94058e1c78b9a9ae1c179c94b4b254a98754f27f9f3da1f784fa",
+      "wholeZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-dialog-selector10-43630324170-original.zip"
+    },
+    {
+      "sdk": "17",
+      "run": "43630326738",
+      "source": "5fbfb53f812e5cc46324cf1241b1e5dcdc2d70bb",
+      "result": "PASS",
+      "classes": 1,
+      "cases": 2,
+      "classSeconds": 180,
+      "nativeMembers": 12,
+      "rawFiles": 15,
+      "zipSha256": "cae5142316d8c3c5bcedf243021332992fec2e1a3aa8f3f5fb91f2a3bb33cea4",
+      "wholeZip": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-dialog-selector17-43630326738-original.zip"
+    }
+  ],
+  "qualification": "Both original rental-master cases pass with only the dialog selector correction. Exact file/rules/mint/upload/export goals and180s bound remain. These focused results never replace a failed or missing complete SDK gate; follow the pre-outcome selector-verification-plan.json."
+}

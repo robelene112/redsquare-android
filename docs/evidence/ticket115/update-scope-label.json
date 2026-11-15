@@ -1,0 +1,101 @@
+{
+  "source": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "kind": "Descriptor-only qualification",
+  "finding": "P3: inherited scope.txt hard-codes beta83 even for an explicitly selected127 baseline.",
+  "originalScopeText": "Actual signed beta83-to-candidate update, retained local work and package isolation only; not full application acceptance.\n",
+  "selectedBaseline": 127,
+  "candidate": 129,
+  "unchangedOriginals": true,
+  "requiredDirectEvidence": [
+    "versions.txt must state127 ->129 with the established certificate",
+    "download-127.json and download-129.json must verify exact public APK bytes",
+    "ModuleUpdateSeedObserver must run inside actual signed127 before first launch",
+    "Two actual current-version module observations must read exact originals after update and cold launch"
+  ],
+  "qualification": "The original generic scope descriptor is inaccurate. Acceptance requires the actual version/download/native records above on both SDKs. No test goal, timeout, assertion or original artifact changes.",
+  "observed": {
+    "10": {
+      "run": "43626013216",
+      "result": "PASS",
+      "versions": [
+        127,
+        129
+      ],
+      "scopeDescriptorSha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+      "originalPath": "update129-android10/scope.txt",
+      "moduleRecords": 10,
+      "localModuleObservations": 3
+    },
+    "17": {
+      "run": "43626016251",
+      "result": "PASS",
+      "versions": [
+        127,
+        129
+      ],
+      "scopeDescriptorSha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+      "originalPath": "update129-android17/scope.txt",
+      "moduleRecords": 10,
+      "localModuleObservations": 3
+    }
+  },
+  "current130Qualification": {
+    "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+    "selectedBaseline": 127,
+    "candidate": 130,
+    "unchangedOriginals": true,
+    "requiredDirectEvidence": [
+      "Exact127and130downloads with establishedcertificate",
+      "versions.txt127 ->130",
+      "Signed127generic encrypted-file seed",
+      "Two130current-feature observations after update/cold launch"
+    ],
+    "observed": {
+      "10": {
+        "result": "PASS",
+        "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+        "run": 43657102973,
+        "sdk": "10",
+        "versions": [
+          127,
+          130
+        ],
+        "downloadedCandidateBytes": 94089760,
+        "downloadedCandidateSha256": "78720151b1c10772dfef36684a3d8be6a1718d519847a6db5a9df459feb60a7e",
+        "originalRawFiles": 31,
+        "originalNativeMembers": 23,
+        "indexedOriginals": 54,
+        "scopeDescriptorSha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+        "scopeDescriptorQualified": true,
+        "originalRawDirectory": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-update130-android10-43657102973-artifacts/.scratch/device-evidence/api-29/candidate-update",
+        "moduleRecords": 10,
+        "localModuleObservations": 3,
+        "pendingVaultPlanReconstructed": true,
+        "qualification": "Actual signed ordinary127-to130 update, exact wallet/draft/cache/preference, independent debug identity and original pending Store/Vault/draft/offline/export continuity. Known unsafe fixture/emulator only; no network submission by module observer, no physical/provider acceptance. Whole binary originals remain external; no APK is committed."
+      },
+      "17": {
+        "result": "PASS",
+        "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+        "run": 43657105150,
+        "sdk": "17",
+        "versions": [
+          127,
+          130
+        ],
+        "downloadedCandidateBytes": 94089760,
+        "downloadedCandidateSha256": "78720151b1c10772dfef36684a3d8be6a1718d519847a6db5a9df459feb60a7e",
+        "originalRawFiles": 31,
+        "originalNativeMembers": 23,
+        "indexedOriginals": 54,
+        "scopeDescriptorSha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+        "scopeDescriptorQualified": true,
+        "originalRawDirectory": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-update130-android17-43657105150-artifacts/.scratch/device-evidence/api-37.0/candidate-update",
+        "moduleRecords": 10,
+        "localModuleObservations": 3,
+        "pendingVaultPlanReconstructed": true,
+        "qualification": "Actual signed ordinary127-to130 update, exact wallet/draft/cache/preference, independent debug identity and original pending Store/Vault/draft/offline/export continuity. Known unsafe fixture/emulator only; no network submission by module observer, no physical/provider acceptance. Whole binary originals remain external; no APK is committed."
+      }
+    },
+    "qualification": "Preserved inherited83descriptor is inaccurate. Bothactual127to130records establish true scope; no original artifact/assertion/deadline changes."
+  }
+}

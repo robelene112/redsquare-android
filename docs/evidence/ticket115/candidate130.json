@@ -1,0 +1,31 @@
+{
+  "status": "PROMOTED_PUBLICLY_VERIFIED",
+  "version": 130,
+  "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "publicLatest": 130,
+  "immutableUrl": "https://davidengelen.nl/redsquare/releases/130/redsquare.apk",
+  "fullRuns": {
+    "10": 43668944254,
+    "17": 43656409473
+  },
+  "signedUpdateRuns": {
+    "10": 43657102973,
+    "17": 43657105150
+  },
+  "qualification": "Exact signed130 promoted after both complete native primaries, qualified assessments and signed updates were independently accepted. Original frozen collectors did not pass; explicit classification erratum applies. Physical/OEM/provider/deployed-schema/Play gates remain open.",
+  "verificationSources": {
+    "10": "ca4217e1e5746746f55d716d0d48669ecf1c2fc5",
+    "17": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0"
+  },
+  "supersededFull10": 43656406728,
+  "supersededFull10Runs": [
+    43656406728,
+    43658180588
+  ],
+  "android17QualifiedAcceptance": "qualified130-android17/summary.json",
+  "qualifiedAssessments": {
+    "10": "qualified130-bounded-android10/summary.json",
+    "17": "qualified130-android17/summary.json"
+  },
+  "publicReceipt": "public130.json"
+}

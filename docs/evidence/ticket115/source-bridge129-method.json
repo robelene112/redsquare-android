@@ -1,0 +1,73 @@
+{
+  "staticProductIdentity": "PASS",
+  "compiledProductSource": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+  "verificationSource": "e0f12724de930147d68230e4d4e895a47b2ac959",
+  "compiledTreeEntries": 224804,
+  "verificationTreeEntries": 224806,
+  "identicalEntries": 224796,
+  "canonicalEncoding": "Git ls-tree metadata TAB raw path NUL, sorted by raw path",
+  "canonicalIdenticalEntriesSha256": "ee6ae02309484b76989c5a271ab42672fcd901571fd173c9cff42bba8ee0a2e7",
+  "differences": [
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ConversationControls.kt",
+      "before": "100644 blob 5ff8457d09933a17a78e91182e94a5e311e24e17",
+      "after": "100644 blob 6f173f761442d0e182842af441bca95886c810cb"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultRentalMasterPreviewTest.kt",
+      "before": "100644 blob 450ae07e5459c64b01428d06c138da18436549d5",
+      "after": "100644 blob db60764b4a406e16062aefe7295b31c0e18257d8"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultRentalPolishPreviewTest.kt",
+      "before": "100644 blob 40e0d614492ad14aad8d493d76e1d2264e01ff68",
+      "after": "100644 blob 29442991ea5f6eeba26b5e2319bee9d19d5ef53c"
+    },
+    {
+      "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletExportSystemControls.kt",
+      "before": "100644 blob 1042bd205f785f08afdfe348a6bb2978ddafec85",
+      "after": "100644 blob ba702ac0373732143927ae3a9886cefb1d14b0d5"
+    },
+    {
+      "path": "docs/evidence/ticket115/freeze-history.json",
+      "before": "100644 blob bb4628c53151e7174cc222978545651250e07b57",
+      "after": "100644 blob e6089c885b235b9d780c92cb89f91d0c2c17e7d2"
+    },
+    {
+      "path": "docs/evidence/ticket115/full-contract.json",
+      "before": "100644 blob f987f3dd7eb64dec1ca50d655914a866f1fd765f",
+      "after": "100644 blob 03b29f2543376e90ac47b86108b667a4b54f031a"
+    },
+    {
+      "path": "docs/evidence/ticket115/selector-complete-addendum.json",
+      "before": "absent",
+      "after": "100644 blob 1344f4a4452972b424e7da89489383449815145e"
+    },
+    {
+      "path": "docs/evidence/ticket115/selector-verification-plan.json",
+      "before": "absent",
+      "after": "100644 blob d6e24839ab2251619df89b58d8d4eb887a5b379b"
+    },
+    {
+      "path": "docs/evidence/ticket115/trace-check.py",
+      "before": "100644 blob 861b2eb02a186fcf1665170e143292fb4df6e43c",
+      "after": "100644 blob 28262175b29973ef5a0d71e3908c790b33e8b219"
+    },
+    {
+      "path": "docs/evidence/ticket115/verify-full.py",
+      "before": "100644 blob aaae7ec0427c84ff5db91c34ee294abe9e1a216c",
+      "after": "100644 blob c5a76c54bf7d5a3130bddac9898ea3c78e9bb5be"
+    }
+  ],
+  "candidate": {
+    "versionCode": 129,
+    "versionName": "0.1.129",
+    "applicationId": "nl.davidengelen.redsquare",
+    "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+    "sha256": "17b30739dae3abbcaeb2141f0f9e2bcd2dce7ec1ea7ef37ec5ec0bfb57a9bf90",
+    "commit": "74fe9a299f63e3d1b8ef745db3409117fa89a1f7",
+    "variant": "release"
+  },
+  "reason": "Four AndroidTest interactions/measurement files and six frozen-evidence/planning files differ. Every product, core, resource, build, workflow, protocol and reference input is identical. Test data/identities/application deadlines remain; method-trace evidence adds strict all20coverage.",
+  "qualification": "Static exact product binding only. Both complete SDK primaries must independently succeed with the exact stronger pre-run frozen contract/collector; no failed-prefix assembly or physical/provider acceptance is inferred."
+}

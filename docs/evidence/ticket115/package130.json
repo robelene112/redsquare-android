@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "versionCode": 130,
+  "versionName": "0.1.130",
+  "applicationId": "nl.davidengelen.redsquare",
+  "apkBytes": 94089760,
+  "apkSha256": "78720151b1c10772dfef36684a3d8be6a1718d519847a6db5a9df459feb60a7e",
+  "establishedCertificate": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "minSdk": 29,
+  "targetSdk": 36,
+  "flags": {
+    "debuggable": false,
+    "allowBackup": false,
+    "profileable": false
+  },
+  "packagedNativeAbis": [
+    "arm64-v8a",
+    "armeabi-v7a",
+    "x86",
+    "x86_64"
+  ],
+  "optionalHardware": {
+    "android.hardware.camera.any": "false",
+    "android.hardware.camera": "false",
+    "android.hardware.camera.autofocus": "false",
+    "android.hardware.microphone": "false"
+  },
+  "fixtureAssetsAbsent": true,
+  "rawManifestSha256": "3498f3136122a22e72f7b42a9348f7dd885935254e53c667c953629162fb413f",
+  "signatureReportSha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65",
+  "qualification": "Exact signed local candidate. Actual signed updates, whole SDK gates and public delivery remain pending; ABIs do not establish physical/OEM or provider acceptance."
+}

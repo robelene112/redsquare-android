@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "source": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "run": 43657102973,
+  "sdk": "10",
+  "versions": [
+    127,
+    130
+  ],
+  "downloadedCandidateBytes": 94089760,
+  "downloadedCandidateSha256": "78720151b1c10772dfef36684a3d8be6a1718d519847a6db5a9df459feb60a7e",
+  "originalRawFiles": 31,
+  "originalNativeMembers": 23,
+  "indexedOriginals": 54,
+  "scopeDescriptorSha256": "236ead16878dc551971692c8e2877abe528f0c6da8417643cc53be5e603034ac",
+  "scopeDescriptorQualified": true,
+  "originalRawDirectory": "/mnt/storage/redsquare-android-artifacts/vault-store-planning/store115-update130-android10-43657102973-artifacts/.scratch/device-evidence/api-29/candidate-update",
+  "moduleRecords": 10,
+  "localModuleObservations": 3,
+  "pendingVaultPlanReconstructed": true,
+  "qualification": "Actual signed ordinary127-to130 update, exact wallet/draft/cache/preference, independent debug identity and original pending Store/Vault/draft/offline/export continuity. Known unsafe fixture/emulator only; no network submission by module observer, no physical/provider acceptance. Whole binary originals remain external; no APK is committed."
+}
