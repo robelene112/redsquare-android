@@ -1,0 +1,18 @@
+{
+  "run": 43687862233,
+  "source": "d6b8083941d126377bf9e9d1a3f77c8dec7cadc6",
+  "conclusion": "success",
+  "artifactId": 14150094628,
+  "zipSha256": "bf9a3bec581dbc55867f2cdb53d93b8eaddcc39424d4a9389e48979d30638bd5",
+  "zipEntries": 99,
+  "captureMembers": 200,
+  "allExtractedMembersByteExact": true,
+  "qualification": "Diagnostic unchanged-source Vault reading only; not complete SDK acceptance or a proved cause for the earlier timeout.",
+  "creatorObservation": {
+    "refreshes": 20,
+    "elapsedMillis": 645,
+    "traceMode": "method",
+    "authenticatedMasterRetained": true,
+    "qualification": "Instrumented emulator method trace; no physical frame-rate claim"
+  }
+}

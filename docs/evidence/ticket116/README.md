@@ -80,7 +80,8 @@ acceptance, and no forced redraw or test-clock alteration is used.
 `unsuccessful-third-full10.json` records a different failure on Ubuntu22.04:
 20creator refreshes under the unchanged method tracer exceeded the original15second
 wait. That parent is not accepted. Focused Vault-reading43687862233diagnoses the
-same original assertions. Complete10run43687853067returns to the standardUbuntu24.04
+same original assertions and succeeds, with20traced refreshes in645ms. This is
+diagnostic support, not a host-cause or physical-performance claim. Complete10run43687853067returns to the standardUbuntu24.04
 pool at the same frozen source. No trace, refresh-count or timing goal is weakened.
 
 A local lint attempt used changing source inputs and failed; a later redundant
