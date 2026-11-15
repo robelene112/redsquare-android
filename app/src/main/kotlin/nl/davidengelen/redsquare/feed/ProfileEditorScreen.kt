@@ -26,6 +26,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.saito.*
@@ -36,6 +37,8 @@ import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
 internal class ProfileDraftMemory : ViewModel() {
+    val writes = kotlinx.coroutines.sync.Mutex()
+    val imagePreparation = SelectedImagePreparation().also { addCloseable("selected-images", it) }
     var changes: JsonObject? = null
     var unfinished: UnfinishedTextRecovery.EditingSession? = null
 }
@@ -57,8 +60,11 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     var superseding by mutableStateOf<SaitoProfile?>(null)
     val superseded: Boolean get() = superseding != null
     var networkError by mutableStateOf(false)
-    var imageError by mutableStateOf(false)
-    var preparingImage by mutableStateOf(false)
+    private var localImageError by mutableStateOf(false)
+    var imageError: Boolean
+        get() = localImageError || memory.imagePreparation.failed
+        set(value) { localImageError = value }
+    val preparingImage: Boolean get() = memory.imagePreparation.preparing
     val recoveryError: Boolean get() = memory.unfinished?.failed == true
     fun retryRecovery() { memory.unfinished?.retry() }
 
@@ -68,7 +74,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         }
     }
 
-    suspend fun load() {
+    suspend fun load() = memory.writes.withLock {
         try {
             val (saved, preview) = withContext(Dispatchers.IO) {
                 val record = store.load()
@@ -141,13 +147,13 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         profile?.description.orEmpty()
 
     fun removeImage(kind: ProfileImageKind) {
-        if (!ready || busy || candidate != null) return
+        if (!ready || busy || preparingImage || candidate != null) return
         changes = changes.deepCopy().apply { add(kind.field, JsonNull.INSTANCE) }
         memory.changes = changes.deepCopy()
     }
 
     fun openImagePicker(onLaunch: () -> Unit) {
-        if (!ready || busy || candidate != null) return
+        if (!ready || busy || preparingImage || candidate != null) return
         scope.launch {
             try {
                 if (!persist()) return@launch
@@ -158,46 +164,60 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         }
     }
 
-    fun addImage(resolver: ContentResolver, uri: Uri, kind: ProfileImageKind, known: SaitoProfile?) {
+    suspend fun addImage(resolver: ContentResolver, selection: SelectedImagePreparation.Selection, known: SaitoProfile?) {
         if (!ready || busy || candidate != null) return
-        busy = true
-        preparingImage = true
+        val operation = memory.imagePreparation
+        val kind = ProfileImageKind.entries.single { it.ratio == selection.cropRatio }
         imageError = false
-        scope.launch {
-            try {
-                val prior = changes.deepCopy()
-                withContext(Dispatchers.IO) {
-                    // Preserve all prior work before provider reads or pixel allocation.
-                    withContext(NonCancellable) { save(ProfileDraftStore.Saved(prior)) }
-                    val cached = cache.load()
-                    check(!cached.unreadable)
-                    val public = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
-                    val baseline = startingProfile?.let { SaitoProfiles.merge(it, public) } ?: public
-                    // An empty placeholder includes the exact JSON field overhead and replaces old media.
-                    val placeholder = prior.deepCopy().apply { addProperty(kind.field, "") }
-                    val remaining = SaitoTransaction.MAX_MESSAGE_BYTES -
-                        SaitoProfiles.message(baseline, placeholder).toString().toByteArray(Charsets.UTF_8).size
-                    val source = PostImagePreparation.normalize(resolver, uri, minOf(512 * 1024, remaining), kind.ratio)
-                    val prepared = prior.deepCopy().apply { addProperty(kind.field, source) }
-                    require(SaitoProfiles.message(baseline, prepared).toString().toByteArray(Charsets.UTF_8).size <=
-                        SaitoTransaction.MAX_MESSAGE_BYTES)
-                    withContext(NonCancellable) {
-                        save(ProfileDraftStore.Saved(prepared))
-                        withContext(Dispatchers.Main.immediate) {
-                            changes = prepared; memory.changes = prepared.deepCopy(); error = false
-                        }
+        try {
+            val (baseline, remaining) = memory.writes.withLock {
+                busy = true
+                try {
+                    val prior = (memory.changes ?: changes).deepCopy()
+                    val baseline = withContext(Dispatchers.IO) {
+                        withContext(NonCancellable) { save(ProfileDraftStore.Saved(prior)) }
+                        val cached = cache.load()
+                        check(!cached.unreadable)
+                        val public = known?.let { SaitoProfiles.merge(cached.profile, it) } ?: cached.profile
+                        startingProfile?.let { SaitoProfiles.merge(it, public) } ?: public
                     }
-                }
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { imageError = true }
-            finally { busy = false; preparingImage = false }
-        }
+                    memory.changes?.get("description")?.asString?.let { memory.unfinished?.update(it) }
+                    val placeholder = prior.deepCopy().apply { addProperty(kind.field, "") }
+                    val remaining = withContext(Dispatchers.IO) {
+                        SaitoTransaction.MAX_MESSAGE_BYTES - SaitoProfiles.message(baseline, placeholder)
+                            .toString().toByteArray(Charsets.UTF_8).size
+                    }
+                    baseline to minOf(512 * 1024, remaining)
+                } finally { busy = false }
+            }
+            val source = operation.prepared(selection, resolver, remaining).single()
+            memory.writes.withLock {
+                if (operation.pending !== selection) return@withLock
+                busy = true
+                try {
+                    val prepared = (memory.changes ?: changes).deepCopy().apply { addProperty(kind.field, source) }
+                    require(withContext(Dispatchers.IO) {
+                        SaitoProfiles.message(baseline, prepared).toString().toByteArray(Charsets.UTF_8).size
+                    } <= SaitoTransaction.MAX_MESSAGE_BYTES)
+                    withContext(NonCancellable) {
+                        withContext(Dispatchers.IO) { save(ProfileDraftStore.Saved(prepared)) }
+                        // A replacement Activity may already have accepted newer Bio input.
+                        changes = (memory.changes ?: prepared).deepCopy().apply { addProperty(kind.field, source) }
+                        memory.changes = changes.deepCopy()
+                        changes.get("description")?.asString?.let { memory.unfinished?.update(it) }
+                        operation.complete(selection)
+                        error = false
+                    }
+                } finally { busy = false }
+            }
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { operation.fail(selection); imageError = true }
     }
 
-    suspend fun persist(afterSave: suspend () -> Boolean = { true }): Boolean {
-        if (!ready || busy) return false
+    suspend fun persist(afterSave: suspend () -> Boolean = { true }): Boolean = memory.writes.withLock {
+        if (!ready || busy || preparingImage) return@withLock false
         busy = true
-        return try {
+        try {
             val saved = withContext(NonCancellable + Dispatchers.IO) {
                 if (available && !networkError && !superseded) store.clearAvailable(requireNotNull(candidate).id, durable)
                 else save(ProfileDraftStore.Saved(changes, candidate, previouslyAvailable, superseding))
@@ -241,7 +261,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
     }
 
     fun send(known: SaitoProfile?, beforePublishing: suspend () -> Boolean) {
-        if (!ready || busy || available || superseded || changes.size() == 0) return
+        if (!ready || busy || preparingImage || available || superseded || changes.size() == 0) return
         busy = true
         error = false
         networkError = false
@@ -380,12 +400,12 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     var confirmingNewEdit by remember(session) { mutableStateOf(false) }
     var identityOpen by rememberSaveable(session) { mutableStateOf(false) }
     var picking by rememberSaveable(session) { mutableStateOf<String?>(null) }
-    var selected by remember(session) { mutableStateOf<Pair<ProfileImageKind, Uri>?>(null) }
+    val selected = memory.imagePreparation.pending
     val chooseImage: (ProfileImageKind) -> Unit = key(session) {
         val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             val kind = ProfileImageKind.entries.firstOrNull { "$session:${it.name}" == picking }
             picking = null
-            if (kind != null && uri != null) selected = kind to uri
+            if (kind != null && uri != null) memory.imagePreparation.select(listOf(uri), kind.ratio)
         }
         val choose: (ProfileImageKind) -> Unit = { kind ->
             if (picking == null) state.openImagePicker {
@@ -406,11 +426,13 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     }
     val navigation = requireNotNull(LocalPostNavigation.current)
     LaunchedEffect(state, state.reload) { state.load() }
-    LaunchedEffect(state.ready, selected) {
-        if (state.ready) selected?.let { (kind, uri) ->
-            state.addImage(activity.contentResolver, uri, kind, profile)
-            selected = null
+    LaunchedEffect(state, state.ready, selected) {
+        if (state.ready && selected != null && !memory.imagePreparation.failed) {
+            state.addImage(activity.applicationContext.contentResolver, selected, profile)
         }
+    }
+    LaunchedEffect(state, memory.imagePreparation.completed) {
+        if (memory.imagePreparation.completed > 0) state.load()
     }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
@@ -501,11 +523,11 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                             Text(stringResource(kind.label), Modifier.padding(AppSpacing.small),
                                 style = MaterialTheme.typography.titleSmall)
                             FlowRow(horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-                                TextButton(enabled = ready && !busy && candidate == null && picking == null,
+                                TextButton(enabled = ready && !busy && !preparingImage && candidate == null && picking == null,
                                     modifier = Modifier.heightIn(min = 48.dp),
                                     onClick = { chooseImage(kind) }) { Text(stringResource(kind.changeLabel)) }
                                 if (image(kind, preview) != null) TextButton(
-                                    enabled = ready && !busy && candidate == null && picking == null,
+                                    enabled = ready && !busy && !preparingImage && candidate == null && picking == null,
                                     modifier = Modifier.heightIn(min = 48.dp),
                                     onClick = { removeImage(kind) }) { Text(stringResource(kind.removeLabel)) }
                             }
@@ -513,7 +535,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                     }
                 }
             }
-            Button(enabled = ready && previewReady && !busy && !available && !superseded && changes.size() > 0,
+            Button(enabled = ready && previewReady && !busy && !preparingImage && !available && !superseded && changes.size() > 0,
                 onClick = { send(profile, publishing::beforePublishing) }, shape = RoundedCornerShape(AppSpacing.controlRadius),
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(when {

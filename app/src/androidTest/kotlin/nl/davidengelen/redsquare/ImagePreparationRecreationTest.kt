@@ -23,12 +23,19 @@ import org.junit.Test
 class ImagePreparationRecreationTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun selectedPostImageContinuesOnceAcrossRecreationWithoutPublishing() {
+    @Test fun selectedPostImageContinuesOnceAcrossRecreationWithoutPublishing() = exercise("post")
+    @Test fun selectedReplyImageContinuesOnceAcrossRecreationWithoutPublishing() = exercise("reply")
+    @Test fun selectedQuoteImageContinuesOnceAcrossRecreationWithoutPublishing() = exercise("quote")
+
+    private fun exercise(mode: String) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val backends = AndroidBackendStore(context)
+        val originalBackend = backends.load()
+        backends.save(SaitoBackend.OWNER)
+        val wallet = nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadOrCreate()
         context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("postdraft.") || it.name.startsWith("editrecovery.") }
             ?.forEach { check(it.delete()) }
         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
@@ -44,16 +51,28 @@ class ImagePreparationRecreationTest {
                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
             Intents.intending(pick).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK,
                 Intent().setData(uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
-            val peer = ControlledFeedPeer("[${fixture.getAsJsonObject("ordinary")}]")
+            val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader()
+                .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
+            val reference = nl.davidengelen.redsquare.saito.RedSquareFeed.readArchive("[$root]").posts.single()
+            val peer = ControlledFeedPeer("[$root]")
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
                     ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.refreshableContentReady() }
-                    ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    if (mode == "post") ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    else {
+                        ui.clickVisiblePostBody(reference.text)
+                        ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+                        if(mode == "reply") ui.replyToPost(reference.id) else ui.clickVisiblePostContent("Quote")
+                    }
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Selected image retained 121")
                     ui.clickImagePicker()
                     ui.waitUntil(10_000) { provider("status").getBoolean("opened") }
+                    val text = "Latest $mode text while selected image is preparing"
+                    ui.onNode(hasSetTextAction()).assertIsEnabled().performTextReplacement(text)
+                    androidx.test.espresso.Espresso.closeSoftKeyboard()
+                    ui.onNodeWithText("Send").assertIsNotEnabled()
                     var first = 0
                     scenario.onActivity { first = System.identityHashCode(it) }
                     scenario.recreate()
@@ -61,17 +80,23 @@ class ImagePreparationRecreationTest {
                     assertTrue("The original selected provider read survives Activity replacement",
                         provider("complete", Bundle().apply { putByteArray("png", bytes) }).getBoolean("delivered"))
                     ui.waitUntil(15_000) { ui.onAllNodesWithText("Remove image 1").fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasSetTextAction()).assert(hasText("Selected image retained 121"))
+                    ui.onNode(hasSetTextAction()).assert(hasText(text))
                     ui.onAllNodesWithText("Remove image 2").assertCountEquals(0)
                     ui.assertSyntheticRedImage()
                     assertEquals("Exactly one provider preparation", 1, provider("status").getInt("openCalls"))
                     Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))
+                    val directory = java.io.File(context.cacheDir,"images-evidence").apply { mkdirs() }
+                    val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                    check(device.takeScreenshot(java.io.File(directory,"selected-$mode.png")))
+                    device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode.xml"))
+                    assertEquals(wallet.exportJson(), nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadExisting().exportJson())
+                    assertEquals(SaitoBackend.OWNER, backends.load())
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
                 }
             }
         } finally {
-            withImageFixtureCleanup({ provider("reset") }) { Intents.release() }
+            withImageFixtureCleanup({ provider("reset"); backends.save(originalBackend) }) { Intents.release() }
         }
     }
 }

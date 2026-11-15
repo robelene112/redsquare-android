@@ -26,23 +26,23 @@ import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.media.GiphyItem
 import nl.davidengelen.redsquare.media.GiphyPicker
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.feed.PostImagePreparation
+import nl.davidengelen.redsquare.feed.SelectedImagePreparation
 import nl.davidengelen.redsquare.feed.PostImages
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 /** URI grants are consumed immediately. Only the normalized composed message enters encrypted drafts. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
-    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null,
+internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean, work: SelectedImagePreparation,
+    beforePicker: suspend () -> Boolean, onPhoto: suspend (String) -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null,
     showPickerActions: Boolean = true,
     onAddFile: (() -> Unit)? = null,
     content: @Composable (preview: @Composable () -> Unit, actions: @Composable () -> Unit) -> Unit) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
-    var selected by remember { mutableStateOf<Uri?>(null) }
-    var preparing by remember { mutableStateOf(false) }
+    val selected = work.pending
+    val preparing = work.preparing
     var gifOpen by remember { mutableStateOf(false) }
     var selectingGif by remember { mutableStateOf(false) }
     val selectGif by rememberUpdatedState(onSelectGif)
@@ -50,22 +50,24 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
     val currentBody by rememberUpdatedState(body)
     val currentEnabled by rememberUpdatedState(enabled)
     val change by rememberUpdatedState(onChange)
+    val commitPhoto by rememberUpdatedState(onPhoto)
     val preparation by rememberUpdatedState(onPreparing)
     // Restored pickers and returned URIs also keep navigation waiting.
-    SideEffect { preparation(preparing || pickingFor != null || selected != null || selectingGif) }
+    SideEffect { preparation(preparing || pickingFor != null || selectingGif) }
     val photo = remember(body) { chatPhoto(body) }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (pickingFor == session) { pickingFor = null; selected = uri; preparation(uri != null) }
+        if (pickingFor == session) { pickingFor = null; work.select(listOfNotNull(uri)); preparation(work.preparing) }
     }
-    LaunchedEffect(selected) {
-        val uri = selected ?: return@LaunchedEffect
-        preparing = true; preparation(true); failed = false
+    LaunchedEffect(selected, currentEnabled) {
+        val selection = selected ?: return@LaunchedEffect
+        if (!currentEnabled || work.failed) return@LaunchedEffect
+        failed = false
         try {
-            val source = PostImagePreparation.normalize(context.contentResolver, uri, 500_000)
-            if (currentEnabled) change(composeChatPhoto(source, chatPhoto(currentBody)?.text ?: currentBody))
+            val source = work.prepared(selection, context.applicationContext.contentResolver, 500_000).single()
+            if (currentEnabled && commitPhoto(source)) work.complete(selection)
+            else work.fail(selection)
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { failed = true }
-        finally { selected = null; preparing = false; preparation(false) }
+        catch (_: Exception) { work.fail(selection) }
     }
     val preview: @Composable () -> Unit = {
         Column {
@@ -77,7 +79,7 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                     onOpenSource = { open -> scope.launch { if (beforePicker() && currentEnabled) open() } })
             }
             if (preparing) Text(stringResource(R.string.image_preparing))
-            if (failed) Text(stringResource(R.string.image_prepare_failed))
+            if (failed || work.failed) Text(stringResource(R.string.image_prepare_failed))
         }
     }
     val actions: @Composable () -> Unit = {

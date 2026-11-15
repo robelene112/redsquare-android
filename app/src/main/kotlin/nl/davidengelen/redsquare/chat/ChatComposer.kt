@@ -33,6 +33,7 @@ import nl.davidengelen.redsquare.saito.*
 
 /** Retains private edits through activity recreation without storing plaintext in a Bundle. */
 internal class ChatComposerMemory : ViewModel() {
+    val imagePreparation = nl.davidengelen.redsquare.feed.SelectedImagePreparation().also { addCloseable("selected-images", it) }
     var text: String? = null
     val writes = Mutex()
 }
@@ -136,6 +137,9 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         delay(300)
         persist()
     }
+    LaunchedEffect(ready, memory.imagePreparation.completed) {
+        if (ready && !saved.frozen && memory.imagePreparation.completed > 0) changeText(memory.text ?: text)
+    }
     val editable = ready && !sending && !saved.frozen && !navigation.transitioning
     val replyAction = remember(work) {
         { message: PrivateChatMessage ->
@@ -222,9 +226,28 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     } else {
         nl.davidengelen.redsquare.fileshare.FileAttachment(fileSession, editable && permitted,
             beforePicker = { !navigation.transitioning && publishing.beforePublishing() && persist() && !navigation.transitioning }) { pickFile, filePanel, hasFiles ->
-        ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted,
+        ChatPhotoAttachment("${wallet.publicKey}:${backend.id}:$contact", body, backend, editable && permitted, memory.imagePreparation,
             beforePicker = { !navigation.transitioning && persist() && !navigation.transitioning },
             onPreparing = { preparingPhoto = it },
+            onPhoto = { source ->
+                writes.withLock {
+                    if (!ready || sending || saved.frozen || navigation.transitioning) false
+                    else {
+                        fun attached(value: String): String {
+                            val reply = privateReply(value)
+                            val content = reply?.body ?: value
+                            return (reply?.prefix ?: "") + composeChatPhoto(source, chatPhoto(content)?.text ?: content)
+                        }
+                        withContext(NonCancellable) {
+                            val prior = memory.text ?: text
+                            val next = attached(prior)
+                            saved = withContext(Dispatchers.IO) { work.assertSelected(); work.saveDraft(next) }
+                            changeText(attached(memory.text ?: prior))
+                        }
+                        true
+                    }
+                }
+            },
             onChange = { if (!navigation.transitioning) changeText((quote?.prefix ?: "") + it) },
             gifAttribution = saved.gifAttribution, onAddFile = pickFile,
             onSelectGif = { item ->

@@ -136,6 +136,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         } catch(cancelled:CancellationException){throw cancelled}
         catch(_:Exception){draftFailed=true}
     }
+    LaunchedEffect(draftReady,draftMemory.imagePreparation.completed) {
+        if(draftReady && draftMemory.imagePreparation.completed>0) changeMessage(draftMemory.text ?: message)
+    }
     LaunchedEffect(draftReady,message,preparingPhoto) {
         if(!draftReady||busy||preparingPhoto)return@LaunchedEffect
         delay(300)
@@ -601,9 +604,29 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         val body=quote?.body ?: message
                         val photo=remember(body){chatPhoto(body)}
                         val typed=photo?.text ?: body
-                        ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
+                        ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,draftMemory.imagePreparation,
                             beforePicker={!navigation.transitioning&&persistDraft()&&!navigation.transitioning},onPreparing={preparingPhoto=it},
                             onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)},
+                            onPhoto={source->
+                                draftWrites.withLock {
+                                    if(!attachmentPermitted||selected!=entry.group.id||navigation.transitioning)false
+                                    else {
+                                        fun attached(value:String):String {
+                                            val reply=privateReply(value)
+                                            val content=reply?.body ?: value
+                                            return (reply?.prefix ?: "")+composeChatPhoto(source,chatPhoto(content)?.text ?: content)
+                                        }
+                                        withContext(NonCancellable) {
+                                            val prior=draftMemory.text ?: message
+                                            val next=attached(prior)
+                                            withContext(Dispatchers.IO){store.assertSelected()}
+                                            publish{store.saveDraft(entry.group.id,next);store.entries()}
+                                            changeMessage(attached(draftMemory.text ?: prior))
+                                        }
+                                        true
+                                    }
+                                }
+                            },
                             gifAttribution=entry.gifAttribution,
                             showPickerActions=!entry.hasPendingAction,
                             onSelectGif={item->
