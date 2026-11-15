@@ -102,6 +102,13 @@ class ProfileImagePreparationRecreationTest {
                     Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))
                     check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
                     assertEquals(SaitoBackend.OWNER, backends.load())
+                    ui.returnFromStackAfterPreparedMedia()
+                    val returned = store.load()
+                    assertEquals(text, returned.changes.get("description").asString)
+                    assertEquals(saved.changes.get(field), returned.changes.get(field))
+                    assertNull(returned.transaction)
+                    check(device.takeScreenshot(File(directory,"selected-profile-$field-module-return.png")))
+                    device.dumpWindowHierarchy(File(directory,"selected-profile-$field-module-return.xml"))
                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                 }
             }

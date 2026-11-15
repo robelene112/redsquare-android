@@ -98,6 +98,18 @@ class ImagePreparationRecreationTest {
                     device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode.xml"))
                     check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
                     assertEquals(SaitoBackend.OWNER, backends.load())
+                    val draft = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER,
+                        parent = reference.takeIf { mode == "reply" }, quote = reference.takeIf { mode == "quote" })
+                    val prepared = draft.load()
+                    assertEquals(text, prepared.text)
+                    assertEquals(1, prepared.images.size)
+                    ui.returnFromStackAfterPreparedMedia()
+                    val returned = draft.load()
+                    assertEquals(text, returned.text)
+                    assertEquals(prepared.images, returned.images)
+                    assertNull(returned.transaction)
+                    check(device.takeScreenshot(java.io.File(directory,"selected-$mode-module-return.png")))
+                    device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode-module-return.xml"))
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
                 }
