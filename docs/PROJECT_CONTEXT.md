@@ -1,5 +1,16 @@
 # Red Square Android project context
 
+## Active lifecycle and recovery remediation
+
+[Specification #117](https://github.com/robelene112/redsquare-android/issues/117)
+records twelve review defects and the owner-approved manual Fileshare retention
+controls. The approved children #118–#130 each deliver one behavior; final
+integration and beta ticket #131 is natively blocked by all thirteen.
+The owner requested implementation on 2026-11-15. Work stays sequential, starting
+with #118 (Talk prejoin microphone/camera choices and invitation input).
+Public beta remains 0.1.131. Planning/implementation does not activate Vault or
+other services on the owner's node or close real-service/physical/Play gates.
+
 ## Delivered feed refresh polish, beta 131
 
 [Signed beta 0.1.131](https://davidengelen.nl/redsquare/) addresses owner feedback

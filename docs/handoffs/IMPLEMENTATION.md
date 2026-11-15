@@ -1,5 +1,24 @@
 # Implementation handoff
 
+## Active review remediation #117, first ticket #118
+
+The owner approved the 14-ticket breakdown and requested implementation on
+2026-11-15. All children #118–#131 are published under
+[specification #117](https://github.com/robelene112/redsquare-android/issues/117).
+Native dependency edges block final integration/delivery #131 on all thirteen
+behavior tickets; the other tickets have no necessary cross-ticket blockers.
+Implement one ticket at a time in listed priority order. Active #118 retains
+Talk prejoin media choices and unfinished invitation input. No other ticket is
+being implemented concurrently. Ordinary native QA remains agent-owned.
+
+The existing native emulator, controlled peer/media, document-provider and
+host-driven process seams are approved by the specification. Each child needs
+targeted adverse/corrected evidence and review. Complete app qualification and
+the next combined beta belong to #131; public beta remains 131 until then.
+This issue number and beta version happen to share a number. Do not infer
+permission for production node/provider activation or financial writes. Keep
+#1/#36/#55/#84/#86/#105 and physical/OEM/provider/Play gates open.
+
 ## Delivered feed refresh spacing, beta 131 (#116)
 
 [Signed beta 0.1.131](https://davidengelen.nl/redsquare/) removes the extra gap

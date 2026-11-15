@@ -26,6 +26,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +55,8 @@ import org.webrtc.RendererCommon
 import org.webrtc.VideoTrack
 
 internal data class TalkDraft(val url: String, val direct: String? = null,
-    val owner: String? = null, val savedBackend: SaitoBackend? = null) : java.io.Serializable
+    val owner: String? = null, val savedBackend: SaitoBackend? = null,
+    val microphone: Boolean = true, val camera: Boolean? = null) : java.io.Serializable
 internal val LocalTalkLaunch = staticCompositionLocalOf<((String, TalkMode) -> Unit)?> { null }
 
 internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val notice: @Composable () -> Unit)
@@ -178,11 +180,12 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
     val gate = rememberTalkPermissionGate()
     val link = remember(entry?.url) { entry?.let { TalkLink.parse(it.url) } }
     val showingInvitation = link != null && entry != null
-    var camera by remember(entry?.url) { mutableStateOf(link?.room?.mode != TalkMode.VOICE) }
-    var microphone by remember(entry?.url) { mutableStateOf(true) }
+    // Choices travel with the saved invitation, including module and Activity restoration.
+    val camera = entry?.camera ?: (link?.room?.mode != TalkMode.VOICE)
+    val microphone = entry?.microphone ?: true
     var starting by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
-    var joinText by remember { mutableStateOf("") }
+    var joinText by key(wallet.publicKey, backend.id) { rememberSaveable { mutableStateOf("") } }
     var joinError by remember { mutableStateOf(false) }
     val clipboard = LocalClipboardManager.current
     val shareInvitationLabel = stringResource(R.string.talk_share_invite)
@@ -248,13 +251,13 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                 }
                 item {
                     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
-                        value = microphone, role = Role.Checkbox, onValueChange = { microphone = it }),
+                        value = microphone, role = Role.Checkbox, onValueChange = { onEntry(entry.copy(microphone = it)) }),
                         verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(checked = microphone, onCheckedChange = null)
                         Text(stringResource(R.string.talk_start_microphone))
                     }
                     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(
-                        value = camera, role = Role.Checkbox, onValueChange = { camera = it }),
+                        value = camera, role = Role.Checkbox, onValueChange = { onEntry(entry.copy(camera = it)) }),
                         verticalAlignment = Alignment.CenterVertically) {
                         Checkbox(checked = camera, onCheckedChange = null)
                         Text(stringResource(R.string.talk_start_camera))
