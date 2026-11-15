@@ -26,6 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
@@ -105,6 +107,9 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             unreadable = page.ignored > 0
             failed = false
             if (manualPullPending) { manualPullPending = false; pullRefreshSucceeded = true }
+        } catch (_: TimeoutCancellationException) {
+            currentCoroutineContext().ensureActive()
+            failed = true
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
