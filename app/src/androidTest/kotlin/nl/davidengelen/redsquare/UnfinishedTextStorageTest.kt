@@ -50,7 +50,7 @@ class UnfinishedTextStorageTest {
                 val after = file.takeIf { it.exists() }?.readBytes()
                 if (previous == null) assertNull(after) else assertTrue(previous.contentEquals(after))
             }
-            assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
+            assertTrue("Wallet state remains unchanged", wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson())
             assertEquals(backend, AndroidBackendStore(context).load())
             result.addProperty("result", "PASS")
             result.addProperty("publishingPermissionUnchanged", true)
