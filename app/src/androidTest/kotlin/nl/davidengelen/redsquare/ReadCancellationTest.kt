@@ -41,6 +41,8 @@ class ReadCancellationTest {
             retained.prepare()
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
+                SaitoPeer(wallet, endpoint).use { retainedConnection ->
+                retainedConnection.authenticate()
                 val library = StackLibrary(context, wallet, SaitoBackend.OWNER, endpoint)
                 val entered = CompletableDeferred<Unit>()
                 val reader = launch(Dispatchers.Main) {
@@ -70,6 +72,7 @@ class ReadCancellationTest {
                     addProperty("lateRepliesReplayed", lateReplies); addProperty("nextReaderArticles", next.articles.size)
                     addProperty("cancelledReaderArticles", library.articles.size); addProperty("publications", peer.transactions.size)
                 }.toString())
+                }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally { cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() }) }
