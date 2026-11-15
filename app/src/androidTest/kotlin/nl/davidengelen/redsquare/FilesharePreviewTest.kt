@@ -219,13 +219,22 @@ abstract class FileshareFixture {
                                     "Fileshare viewport fixture", NotificationManager.IMPORTANCE_DEFAULT).apply {
                                     setSound(null, null); enableVibration(false)
                                 })
-                                repeat(3) { index ->
+                                val existingMessages = notifications.activeNotifications.count {
+                                    it.notification.category == android.app.Notification.CATEGORY_MESSAGE
+                                }
+                                val fixturesNeeded = (3 - existingMessages).coerceAtLeast(0)
+                                repeat(fixturesNeeded) { index ->
                                     notifications.notify(shadeFixture, index, android.app.Notification.Builder(context, shadeFixture)
                                         .setSmallIcon(nl.davidengelen.redsquare.R.drawable.ic_file)
                                         .setContentTitle("Red Square").setContentText("New message")
-                                        .setGroup("$shadeFixture-$index").setShowWhen(false).build())
+                                        .setCategory(android.app.Notification.CATEGORY_MESSAGE).setShowWhen(false).build())
                                 }
-                                waitUntil { notifications.activeNotifications.count { it.tag == shadeFixture } == 3 }
+                                waitUntil { notifications.activeNotifications.count { it.tag == shadeFixture } == fixturesNeeded }
+                                File(evidence, "cancel-shade-fixtures.json").writeText(com.google.gson.JsonObject().apply {
+                                    addProperty("existingMessages", existingMessages); addProperty("ownedMessages", fixturesNeeded)
+                                    addProperty("messageCount", notifications.activeNotifications.count {
+                                        it.notification.category == android.app.Notification.CATEGORY_MESSAGE })
+                                }.toString())
                             }
                             captureNativeScreen(File(evidence, "active-${incoming}-${cancel}.png"))
                             device.pressHome(); device.sleep()
