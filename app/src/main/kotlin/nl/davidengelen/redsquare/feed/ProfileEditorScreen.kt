@@ -171,6 +171,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         imageError = false
         try {
             val (baseline, remaining) = memory.writes.withLock {
+                if (operation.pending !== selection) return
                 busy = true
                 try {
                     val prior = (memory.changes ?: changes).deepCopy()

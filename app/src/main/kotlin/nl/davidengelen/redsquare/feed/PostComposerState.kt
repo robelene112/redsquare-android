@@ -370,6 +370,7 @@ internal class PostComposerState(
         imageError = false
         try {
             val perImage = writes.withLock {
+                if (operation.pending !== selection) return
                 require(selection.uris.size <= RedSquareImages.MAX_COUNT - images.size)
                 // Keep prior content recoverable before starting a provider read. Do
                 // not hold the draft mutex, or disable input, while reading pixels.
