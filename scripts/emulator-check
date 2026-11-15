@@ -1273,6 +1273,10 @@ verify_unfinished_text() {
     verify_group_chat_native UnfinishedTextStorageTest 180 unfinished-text-storage unfinished-text-storage-evidence
     python3 "$repo_dir/scripts/unfinished-text-process-check" --evidence "$evidence/unfinished-text-process"
 }
+if [[ "${TEST_SCOPE:-full}" == selected-image* ]]; then
+    verify_group_chat_native ImagePreparationRecreationTest 180 selected-image images-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == unfinished-text* ]]; then
     verify_unfinished_text
     exit 0

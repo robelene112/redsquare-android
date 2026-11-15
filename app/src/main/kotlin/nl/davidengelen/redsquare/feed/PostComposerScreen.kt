@@ -136,6 +136,9 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             state.addImages(context.contentResolver, selection)
         }
     }
+    LaunchedEffect(state, memory.imagePreparation.completed) {
+        if (memory.imagePreparation.completed > 0) state.load()
+    }
     // Exercise real loading-state recovery without changing ordinary app timing.
     val fixtureLoadDelay = if (nl.davidengelen.redsquare.BuildConfig.DEBUG &&
         android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))

@@ -18,6 +18,8 @@ internal class SelectedImagePreparation : AutoCloseable {
         private set
     var failed by mutableStateOf(false)
         private set
+    var completed by mutableIntStateOf(0)
+        private set
     val preparing: Boolean get() = pending != null && !failed
 
     fun select(uris: List<Uri>, cropRatio: Int? = null) {
@@ -37,7 +39,7 @@ internal class SelectedImagePreparation : AutoCloseable {
     }
 
     fun complete(selection: Selection) {
-        if (pending === selection) { pending = null; failed = false }
+        if (pending === selection) { pending = null; failed = false; completed++ }
     }
 
     fun fail(selection: Selection) {
