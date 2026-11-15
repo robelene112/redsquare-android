@@ -69,6 +69,47 @@ class TalkInvitationPreviewTest {
             } finally { token?.let(TalkRuntime::end); account?.detach() }
         }
     }
+    @Test fun prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val host = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val link = TalkLink(SaitoBackend.OWNER, TalkRoom(host, host)).url()
+        withAppFrameFixture("talk-prejoin-restoration", "talk-invitation-evidence",
+            advertisedServices = "archive||;relay||") { activity ->
+            ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            fun switchModule(from: String, to: String) {
+                ui.onNodeWithContentDescription("Switch app: $from").performClick()
+                ui.onNode(hasText(to) and hasClickAction()).performClick()
+                ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: $to").isDisplayed() }
+            }
+            fun choice(label: Int) = ui.onNode(hasText(context.getString(label)) and isToggleable())
+            switchModule("Red Square", "Saito Talk")
+            ui.onNode(hasSetTextAction()).performScrollTo().performTextReplacement(link)
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            ui.onNodeWithText("Review invitation").performScrollTo().performClick()
+            choice(R.string.talk_start_microphone).performScrollTo().performClick()
+            choice(R.string.talk_start_camera).performScrollTo().performClick()
+            for (stage in listOf("recreated", "module-return")) {
+                if (stage == "recreated") activity.recreate()
+                else { switchModule("Saito Talk", "Red Square"); switchModule("Red Square", "Saito Talk") }
+                ui.waitUntil(5000) { ui.onNodeWithText("Ready to join?").isDisplayed() }
+                choice(R.string.talk_start_microphone).performScrollTo().assertIsOff()
+                choice(R.string.talk_start_camera).performScrollTo().assertIsOff()
+                assertTrue("Restoration is not consent to capture", TalkRuntime.call.value?.phase?.live != true)
+                captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/prejoin-$stage.png"))
+            }
+            ui.onNode(hasText("Back") and hasClickAction()).performScrollTo().performClick()
+            val unfinished = " $link unfinished invitation input "
+            ui.onNode(hasSetTextAction()).performScrollTo().performTextReplacement(unfinished)
+            androidx.test.espresso.Espresso.closeSoftKeyboard()
+            switchModule("Saito Talk", "Red Square"); switchModule("Red Square", "Saito Talk")
+            activity.recreate()
+            ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
+            ui.onNode(hasSetTextAction()).performScrollTo().assertTextContains(unfinished)
+            assertTrue(TalkRuntime.call.value?.phase?.live != true)
+            captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/unreviewed-input-restored.png"))
+        }
+    }
     private fun invitation(width: Int) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val room = TalkRoom(SaitoWallet.fromPrivateKey("0".repeat(63) + "3").publicKey,
