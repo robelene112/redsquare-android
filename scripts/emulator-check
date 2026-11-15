@@ -1273,6 +1273,10 @@ verify_unfinished_text() {
     verify_group_chat_native UnfinishedTextStorageTest 180 unfinished-text-storage unfinished-text-storage-evidence
     python3 "$repo_dir/scripts/unfinished-text-process-check" --evidence "$evidence/unfinished-text-process"
 }
+if [[ "${TEST_SCOPE:-full}" == read-deadline-stack* ]]; then
+    verify_group_chat_native StackDeadlineRecoveryTest 180 stack-deadline stack-deadline-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == read-deadline-profile* ]]; then
     verify_group_chat_native ProfileDeadlineRecoveryTest 180 profile-deadline profile-deadline-evidence
     exit 0
