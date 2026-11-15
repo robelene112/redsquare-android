@@ -9,6 +9,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.feed.AndroidFeedCache
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -19,7 +20,10 @@ import java.util.concurrent.atomic.AtomicLong
 class ReadDeadlineRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun firstFeedReadDeadlineShowsRetryAndPollingRecoversWithoutNavigation() {
+    @Test fun firstFeedReadDeadlineShowsRetryAndPollingRecoversWithoutNavigation() = exercise(false)
+    @Test fun cachedFeedStaysReadableDuringDeadlineAndPollingRecoversWithoutNavigation() = exercise(true)
+
+    private fun exercise(cached: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -32,6 +36,7 @@ class ReadDeadlineRecoveryTest {
         val fixture = instrumentation.context.assets.open("native-following-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
         val post = RedSquareFeed.readArchive("[$fixture]").posts.single()
+        val mode = if(cached) "cached-feed" else "first-feed"
         val retained = ChatFixtureState(context, listOf("feed.${SaitoBackend.OWNER.id}.",
             "personal.${wallet.publicKey}.", "authorposts.${SaitoBackend.OWNER.id}.${post.id}."), wallet.publicKey)
         val reads = AtomicInteger()
@@ -49,32 +54,37 @@ class ReadDeadlineRecoveryTest {
             retained.prepare()
             wallets.replace(previous, wallet)
             backends.save(SaitoBackend.OWNER)
+            if(cached) AndroidFeedCache(context, SaitoBackend.OWNER).save(listOf(post))
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
-                    withFailureCapture({ capture(context, "first-feed-failure") }) {
+                    withFailureCapture({ capture(context, "$mode-failure") }) {
                         ui.waitUntil(20_000) { withheldAt.get() > 0 }
+                        if(cached) ui.onNodeWithText(post.text, useUnmergedTree = true).assertIsDisplayed()
                         ui.waitUntil(20_000) { ui.onAllNodesWithText("Node unavailable").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Node unavailable").assertIsDisplayed()
                         ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled()
                         val failedAt = SystemClock.elapsedRealtime()
-                        capture(context, "first-feed-deadline")
+                        if(cached) ui.onNodeWithText(post.text, useUnmergedTree = true).assertIsDisplayed()
+                        capture(context, "$mode-deadline")
                         val before = reads.get()
                         peer.withholdArchiveReply = false
                         // No tap, Activity replacement or lifecycle restart triggers this read.
                         ui.waitUntil(20_000) { reads.get() > before &&
-                            ui.onAllNodesWithText(post.text, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onAllNodesWithText(post.text, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() &&
+                            ui.onAllNodesWithText("Node unavailable").fetchSemanticsNodes().isEmpty() }
                         ui.onNodeWithText(post.text, useUnmergedTree = true).assertIsDisplayed()
                         ui.onAllNodesWithText("Node unavailable").assertCountEquals(0)
-                        capture(context, "first-feed-poll-recovered")
+                        capture(context, "$mode-poll-recovered")
                         val record = JsonObject().apply {
+                            addProperty("cachedReading", cached)
                             addProperty("withheldAt", withheldAt.get()); addProperty("failedAt", failedAt)
                             addProperty("recoveredAt", SystemClock.elapsedRealtime()); addProperty("archiveReads", reads.get())
                             addProperty("activityRecreated", false); addProperty("retryTapped", false)
                             addProperty("lifecycleRestarted", false); addProperty("publications", peer.transactions.size)
                         }
-                        File(context.cacheDir, "read-deadline-evidence/first-feed.json").writeText(record.toString())
+                        File(context.cacheDir, "read-deadline-evidence/$mode.json").writeText(record.toString())
                         check(wallets.loadExisting().exportJson() == wallet.exportJson()) { "Read recovery must preserve the wallet" }
                         check(backends.load() == SaitoBackend.OWNER)
                         check(peer.transactions.isEmpty())
