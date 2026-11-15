@@ -31,8 +31,11 @@ class UnfinishedTextStorageTest {
         val retained = ChatFixtureState(context, listOf("postdraft.", "profiledraft."), wallet.publicKey)
         val policy = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
         val previousPolicy = policy.takeIf { it.exists() }?.readBytes()
-        val agreement = File(context.noBackupFilesDir, "publishing-agreement.v1")
-        val previousAgreement = agreement.takeIf { it.exists() }?.readBytes()
+        val agreements = listOf("publishing-agreement.v1", "publishing-agreement.v1.bak",
+            "publishing-agreement.v1.new", "publishing-agreement.pending").associate { name ->
+            val file = File(context.noBackupFilesDir, name)
+            file to file.takeIf { it.exists() }?.readBytes()
+        }
         val sessions = mutableListOf<UnfinishedTextRecovery.EditingSession>()
         val evidence = File(context.cacheDir, "unfinished-text-storage-evidence").apply { mkdirs() }
         var primary: Throwable? = null
@@ -43,9 +46,10 @@ class UnfinishedTextStorageTest {
             val result = block(wallet, backend, PostDraftStore(context, wallet.publicKey, backend), sessions)
             assertEquals(PublishingPermission.Required(null), PublishingPolicies.permission(context))
             assertThrows(IllegalStateException::class.java) { PublishingPolicies.requireAllowed(context) }
-            val afterAgreement = agreement.takeIf { it.exists() }?.readBytes()
-            if (previousAgreement == null) assertNull(afterAgreement)
-            else assertTrue(previousAgreement.contentEquals(afterAgreement))
+            agreements.forEach { (file, previous) ->
+                val after = file.takeIf { it.exists() }?.readBytes()
+                if (previous == null) assertNull(after) else assertTrue(previous.contentEquals(after))
+            }
             assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
             assertEquals(backend, AndroidBackendStore(context).load())
             result.addProperty("result", "PASS")
@@ -56,6 +60,11 @@ class UnfinishedTextStorageTest {
             cleanupAfterTest(primary,
                 { sessions.asReversed().forEach { it.close() } },
                 { retained.restoreFiles() }, { retained.restorePreferences() },
+                { agreements.forEach { (file, previous) ->
+                    if (previous == null) check(!file.exists() || file.delete()) else file.writeBytes(previous)
+                    val restored = file.takeIf { it.exists() }?.readBytes()
+                    if (previous == null) assertNull(restored) else assertTrue(previous.contentEquals(restored))
+                } },
                 { if (previousPolicy == null) check(!policy.exists() || policy.delete()) else policy.writeBytes(previousPolicy) })
         }
     }
