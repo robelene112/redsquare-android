@@ -57,7 +57,7 @@ class ConversationDeadlineRecoveryTest {
                     withFailureCapture({ capture(context, "conversation-failure") }) {
                         ui.waitUntil(20_000) { ui.onNode(hasText("Search") and hasClickAction()).isDisplayed() }
                         ui.onNode(hasText("Search") and hasClickAction()).performClick()
-                        ui.onNode(hasSetTextAction() and isEnabled()).performTextInput("Independent Saito reply")
+                        ui.onNode(hasSetTextAction() and isEnabled()).performTextInput("Independent")
                         ui.onNode(hasSetTextAction() and isEnabled()).performImeAction()
                         ui.waitUntil(20_000) { ui.onNodeWithText("Independent Saito reply").isDisplayed() }
                         ui.clickVisiblePostBody("Independent Saito reply")
