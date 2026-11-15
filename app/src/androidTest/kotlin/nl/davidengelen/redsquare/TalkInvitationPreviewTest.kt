@@ -136,7 +136,8 @@ class TalkInvitationPreviewTest {
                         ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
                         fun open(url: String) {
                             activity.onActivity { it.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW,
-                                android.net.Uri.parse(url)).setPackage(context.packageName)) }
+                                android.net.Uri.parse(url)).setPackage(context.packageName)
+                                .addFlags(android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)) }
                             ui.waitUntil(5000) { ui.onNodeWithText("Ready to join?").isDisplayed() }
                             ui.waitUntil(5000) { runCatching {
                                 choice(R.string.talk_start_microphone).assertIsOn()
