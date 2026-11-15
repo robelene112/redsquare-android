@@ -226,31 +226,37 @@ if [[ "${TEST_SCOPE:-full}" == feed-typography* ]]; then
     exit $?
 fi
 verify_group_chat_native() {
-    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    local test_class=$1 seconds=$2 prefix=$3 capture=$4 native_exit=0
+    [[ "$(timeout 15 adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local test_class=$1 seconds=$2 prefix=$3 capture=$4 native_exit=0 capture_exit=0 native_passed=false
     timeout "$seconds" adb shell am instrument -w -r \
         -e class "nl.davidengelen.redsquare.$test_class" \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/$prefix-ui.txt" || native_exit=$?
     printf '%s\n' "$native_exit" > "$evidence/$prefix-ui-exit.txt"
+    if [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"; then
+        native_passed=true
+    fi
     if [[ "$native_exit" == 124 ]]; then
         # Retain the actual timed-out window separately from the last successful fixture capture.
         timeout 10 adb exec-out screencap -p > "$evidence/$prefix-timeout.png" || true
         timeout 15 adb shell uiautomator dump /sdcard/redsquare-timeout.xml > "$evidence/$prefix-timeout-dump.txt" 2>&1 &&
             timeout 10 adb pull /sdcard/redsquare-timeout.xml "$evidence/$prefix-timeout.xml" >/dev/null || true
     fi
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
-        > "$evidence/$capture.tar" || true
-    if [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"; then
-        return 0
-    fi
-    # Instrumentation can abort when Android itself reports a system crash.
-    # Retain the real crash buffer without retrying or accepting the failed class.
-    timeout 10 adb logcat -d -b crash -v threadtime > "$evidence/$prefix-failure-crash.txt" 2>&1 || true
-    if [[ "$prefix" == fileshare-* || "$prefix" == talk-* ]]; then
+    if [[ "$native_passed" != true ]]; then
+        # A system crash can leave run-as/tar waiting for a dead package manager.
+        # Capture the failure before attempting that archive, with every read bounded.
+        timeout 10 adb logcat -d -b crash -v threadtime > "$evidence/$prefix-failure-crash.txt" 2>&1 || true
         timeout 10 adb logcat -d -b main -b system -b events -v threadtime > "$evidence/$prefix-failure-context.txt" 2>&1 || true
         timeout 10 adb shell dumpsys activity processes > "$evidence/$prefix-failure-processes.txt" 2>&1 || true
+        timeout 10 adb shell df -k /data > "$evidence/$prefix-failure-storage.log" 2>&1 || true
+        timeout 10 adb shell cat /proc/meminfo > "$evidence/$prefix-failure-memory.log" 2>&1 || true
     fi
+    timeout 30 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
+        > "$evidence/$capture.tar" || capture_exit=$?
+    printf 'captureExit=%s\ntimeoutSeconds=30\n' "$capture_exit" > "$evidence/$prefix-capture-status.log"
+    # Keep original native acceptance unchanged. Missing/unavailable archives are
+    # still evaluated separately by the frozen complete-evidence validators.
+    [[ "$native_passed" == true ]] && return 0
     return 1
 }
 # Native Vault foreground proofs own only notification permission. Restore it after
