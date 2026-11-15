@@ -23,52 +23,51 @@ import org.junit.Test
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 
-internal enum class ChatPhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION, PREPARATION_RECREATION, QUEUED_CANCEL }
-
 class ChatImagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+    private enum class PhotoFlow { VIEW, DRAFT, SEND, FAILED_PREPARATION, PREPARATION_RECREATION, QUEUED_CANCEL }
 
     @Test fun aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = false)
 
     @Test fun aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt() = exercisePhoto(group = true)
 
-    @Test fun aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = false, flow = ChatPhotoFlow.DRAFT)
+    @Test fun aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = false, flow = PhotoFlow.DRAFT)
 
-    @Test fun aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = true, flow = ChatPhotoFlow.DRAFT)
+    @Test fun aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend() = exercisePhoto(group = true, flow = PhotoFlow.DRAFT)
 
-    @Test fun aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = false, flow = ChatPhotoFlow.SEND)
+    @Test fun aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = false, flow = PhotoFlow.SEND)
 
-    @Test fun aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = true, flow = ChatPhotoFlow.SEND)
+    @Test fun aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath() = exercisePhoto(group = true, flow = PhotoFlow.SEND)
 
     @Test fun editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation() =
-        exercisePhoto(group = false, flow = ChatPhotoFlow.FAILED_PREPARATION)
+        exercisePhoto(group = false, flow = PhotoFlow.FAILED_PREPARATION)
 
     @Test fun editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation() =
-        exercisePhoto(group = true, flow = ChatPhotoFlow.FAILED_PREPARATION)
+        exercisePhoto(group = true, flow = PhotoFlow.FAILED_PREPARATION)
+
+    @Test fun aSelectedPrivatePhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading() =
+        exercisePhoto(group = false, flow = PhotoFlow.PREPARATION_RECREATION)
+
+    @Test fun aSelectedGroupPhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading() =
+        exercisePhoto(group = true, flow = PhotoFlow.PREPARATION_RECREATION)
 
     @Test fun cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending() =
-        exercisePhoto(group = false, flow = ChatPhotoFlow.QUEUED_CANCEL)
+        exercisePhoto(group = false, flow = PhotoFlow.QUEUED_CANCEL)
 
     @Test fun cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending() =
-        exercisePhoto(group = true, flow = ChatPhotoFlow.QUEUED_CANCEL)
+        exercisePhoto(group = true, flow = PhotoFlow.QUEUED_CANCEL)
 
-    private fun exercisePhoto(group: Boolean, flow: ChatPhotoFlow = ChatPhotoFlow.VIEW) =
-        ChatImageFixture(ui).exercisePhoto(group, flow)
-}
-
-/** Shared owned native fixture; each suite keeps its original independent deadline. */
-internal class ChatImageFixture(private val ui: androidx.compose.ui.test.junit4.ComposeTestRule) {
-    fun exercisePhoto(group: Boolean, flow: ChatPhotoFlow = ChatPhotoFlow.VIEW) {
-        val composing = flow != ChatPhotoFlow.VIEW
+    private fun exercisePhoto(group: Boolean, flow: PhotoFlow = PhotoFlow.VIEW) {
+        val composing = flow != PhotoFlow.VIEW
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val kind = if (group) "group" else "private"
         val prefix = when (flow) {
-            ChatPhotoFlow.VIEW -> kind; ChatPhotoFlow.DRAFT -> "$kind-draft"; ChatPhotoFlow.SEND -> "$kind-send"
-            ChatPhotoFlow.FAILED_PREPARATION -> "$kind-failed-preparation"
-            ChatPhotoFlow.PREPARATION_RECREATION -> "$kind-preparation-recreation"
-            ChatPhotoFlow.QUEUED_CANCEL -> "$kind-queued-cancel"
+            PhotoFlow.VIEW -> kind; PhotoFlow.DRAFT -> "$kind-draft"; PhotoFlow.SEND -> "$kind-send"
+            PhotoFlow.FAILED_PREPARATION -> "$kind-failed-preparation"
+            PhotoFlow.PREPARATION_RECREATION -> "$kind-preparation-recreation"
+            PhotoFlow.QUEUED_CANCEL -> "$kind-queued-cancel"
         }
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
@@ -184,7 +183,7 @@ internal class ChatImageFixture(private val ui: androidx.compose.ui.test.junit4.
                         open()
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
-                        if (flow == ChatPhotoFlow.FAILED_PREPARATION) {
+                        if (flow == PhotoFlow.FAILED_PREPARATION) {
                             fun trace(phase: String) = instrumentation.sendStatus(0, android.os.Bundle().apply {
                                 putString("stream", "\nChat photo $prefix: $phase at ${android.os.SystemClock.elapsedRealtime()} ms\n")
                             })
@@ -251,7 +250,7 @@ internal class ChatImageFixture(private val ui: androidx.compose.ui.test.junit4.
                             }
                             return@withFailureCapture
                         }
-                        if (flow == ChatPhotoFlow.PREPARATION_RECREATION) {
+                        if (flow == PhotoFlow.PREPARATION_RECREATION) {
                             val uri = android.net.Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
                             fun provider(action: String, extras: android.os.Bundle? = null) =
                                 requireNotNull(context.contentResolver.call(uri, action, null, extras))
@@ -335,7 +334,7 @@ internal class ChatImageFixture(private val ui: androidx.compose.ui.test.junit4.
                                     assertPreparedPhoto(); assertDraft()
                                     check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                     capture("$prefix-photo-draft-reopened")
-                                    if (flow == ChatPhotoFlow.QUEUED_CANCEL) {
+                                    if (flow == PhotoFlow.QUEUED_CANCEL) {
                                         val work = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact)
                                         val groups = nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER)
                                         val before = if (group) requireNotNull(groups.load(groupId)) else null
@@ -376,7 +375,7 @@ internal class ChatImageFixture(private val ui: androidx.compose.ui.test.junit4.
                                         assertIdentityAndOutgoing(0)
                                         capture("$prefix-photo-restored-online-unsent")
                                     }
-                                    if (flow == ChatPhotoFlow.SEND) {
+                                    if (flow == PhotoFlow.SEND) {
                                         ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                         ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                                         val sent = postingTransaction(peer.transactions.single())
@@ -403,7 +402,7 @@ internal class ChatImageFixture(private val ui: androidx.compose.ui.test.junit4.
                                     }
                                 } finally { Intents.release() }
                             } finally { check(context.contentResolver.delete(uri, null, null) == 1) }
-                            assertIdentityAndOutgoing(if (flow == ChatPhotoFlow.SEND) 1 else 0)
+                            assertIdentityAndOutgoing(if (flow == PhotoFlow.SEND) 1 else 0)
                             return@withFailureCapture
                         }
                         peer.sendIncoming(incoming, requestId = 960)

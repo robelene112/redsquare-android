@@ -1822,8 +1822,10 @@ verify_chat_photo_recovery() {
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind group --photo --evidence "$evidence/chat-photo-group-process"
 }
 verify_chat_images() {
-    verify_group_chat_native ChatImagesPreviewTest 120 chat-images chat-images-evidence
-    verify_group_chat_native ChatImagePreparationRecreationTest 180 chat-image-preparation-recreation chat-images-evidence
+    # Keep all ten inherited methods together under their original class bound.
+    # The two selected-read cases are additive; neither invocation overlaps the other.
+    verify_group_chat_native 'ChatImagesPreviewTest#aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt,nl.davidengelen.redsquare.ChatImagesPreviewTest#aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt,nl.davidengelen.redsquare.ChatImagesPreviewTest#aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend,nl.davidengelen.redsquare.ChatImagesPreviewTest#aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend,nl.davidengelen.redsquare.ChatImagesPreviewTest#aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath,nl.davidengelen.redsquare.ChatImagesPreviewTest#aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath,nl.davidengelen.redsquare.ChatImagesPreviewTest#editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation,nl.davidengelen.redsquare.ChatImagesPreviewTest#editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation,nl.davidengelen.redsquare.ChatImagesPreviewTest#cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending,nl.davidengelen.redsquare.ChatImagesPreviewTest#cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending' 120 chat-images chat-images-evidence
+    verify_group_chat_native 'ChatImagesPreviewTest#aSelectedPrivatePhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading,nl.davidengelen.redsquare.ChatImagesPreviewTest#aSelectedGroupPhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading' 180 chat-image-preparation-recreation chat-images-evidence
     verify_chat_photo_recovery
     verify_chat_image_storage
 }
