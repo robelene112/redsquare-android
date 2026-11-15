@@ -1,23 +1,30 @@
 # Implementation handoff
 
-## Active review remediation #117, first ticket #118
+## Completed first review-remediation ticket #118, next #119
 
-The owner approved the 14-ticket breakdown and requested implementation on
-2026-11-15. All children #118–#131 are published under
-[specification #117](https://github.com/robelene112/redsquare-android/issues/117).
-Native dependency edges block final integration/delivery #131 on all thirteen
-behavior tickets; the other tickets have no necessary cross-ticket blockers.
-Implement one ticket at a time in listed priority order. Active #118 retains
-Talk prejoin media choices and unfinished invitation input. No other ticket is
-being implemented concurrently. Ordinary native QA remains agent-owned.
+The owner approved specification #117 and children #118–#131, then requested
+implementation on 2026-11-15. First ticket #118 is complete with independent
+Standards/Spec source and evidence review reporting zero remaining findings.
+See [the #118 packet](../evidence/ticket118/README.md). Product source40c9b215f;
+exact native source3a5cd747 differs only in test VIEW-delivery flags. Both complete
+Talk runs pass: Android10 `43736794457`, Android17 `43736791635`. Per SDK: 14
+ordinary classes/25 completions, two normal process completions and one separately
+verified intentional start with distinct PIDs. Actual peer audio remains silent
+and video absent after restored Off choices, with positive PCM after explicit
+Unmute. Source/core/lint checks pass; original TalkDraft format is unchanged.
 
-The existing native emulator, controlled peer/media, document-provider and
-host-driven process seams are approved by the specification. Each child needs
-targeted adverse/corrected evidence and review. Complete app qualification and
-the next combined beta belong to #131; public beta remains 131 until then.
-This issue number and beta version happen to share a number. Do not infer
-permission for production node/provider activation or financial writes. Keep
-#1/#36/#55/#84/#86/#105 and physical/OEM/provider/Play gates open.
+The fixture's explicit observer isolates the separately tracked #123 account
+lifetime race. Failed earlier parents and the superseded draft-field variant are
+retained, without partial-run acceptance. Physical/OEM, live service/provider and
+Play gates remain open. No production node/provider or public financial write.
+The canonical dirty checkout was untouched.
+
+Work remains one ticket at a time. Next ready #119 concerns accepted incoming
+Fileshare foreground ownership; it has not been implemented here. Twelve behavior
+tickets plus final integration/delivery #131 remain. Native dependency edges block
+#131 on all unfinished behavior children. Public beta remains 0.1.131; no partial
+beta was published for #118. Keep #1/#36/#55/#84/#86/#105 and parent #117 open.
+Originals remain outside Git at `/mnt/storage/redsquare-android-artifacts/talk-prejoin118`.
 
 ## Delivered feed refresh spacing, beta 131 (#116)
 

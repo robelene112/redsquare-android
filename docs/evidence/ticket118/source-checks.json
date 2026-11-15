@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "run": 43735666987,
+  "source": "40c9b215fe22b813876831c0e1060177ea8759f3",
+  "nativeSource": "3a5cd747a31e4821a5ec18d6f36b4aed4052b40c",
+  "sourceBridge": "source-bridge.json",
+  "core": {
+    "tests": 224,
+    "failures": 0,
+    "ignored": 0
+  },
+  "coreSuites": 44,
+  "pushGatewayTask": "succeeded",
+  "debugAndAndroidTestCompilation": "succeeded",
+  "lintErrors": 0,
+  "lintWarnings": 94,
+  "lintHints": 3,
+  "receipt": {
+    "run": 43735666987,
+    "source": "40c9b215fe22b813876831c0e1060177ea8759f3",
+    "conclusion": "success",
+    "artifactId": 14171135618,
+    "zipSha256": "df6a84328ab17a29bae1889aa23c0c19283a9bcd0c792aa18628c803cbcc9b79",
+    "zipEntries": 55,
+    "captureMembers": 0,
+    "allExtractedMembersByteExact": true
+  },
+  "qualification": "Supported hosted source-debug workflow. Gradle may reuse unchanged task outputs; no fresh uncached execution claim. Only the subsequent test VIEW-delivery flags differ from native3a5, with all product/core/build/script inputs identical. No native or release acceptance follows from this source check."
+}

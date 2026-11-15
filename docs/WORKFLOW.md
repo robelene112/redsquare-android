@@ -9,6 +9,19 @@ requested, carry its code, verification, review, fixes and commit to completion.
 Work through tickets sequentially; a request to implement a sequence authorizes
 that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
+## Active approved review follow-up
+
+The owner approved [specification #117](https://github.com/robelene112/redsquare-android/issues/117)
+and children #118–#131, then requested implementation on 2026-11-15. Execute one
+behavior ticket at a time in priority order. #118 is complete with both focused
+SDK Talk runs and independent reviews; next ready is #119. Use the existing
+native/owned-peer/process seams and targeted adverse/corrected checks for each
+child. Complete app qualification and the combined signed beta belong to final
+#131, natively blocked by all thirteen behavior tickets. Preserve every current
+release goal and operational qualification. Public beta remains 0.1.131 until final
+delivery. The historical stop-after-#116 boundary below is superseded by this
+explicit request only for the approved follow-up scope.
+
 ## Current completed owner scope
 
 Feed refresh spacing [#116](https://github.com/robelene112/redsquare-android/issues/116)

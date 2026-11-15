@@ -1,0 +1,6 @@
+{
+  "retainedPath": "/mnt/storage/redsquare-android-artifacts/talk-prejoin118/assess-talk.py",
+  "sha256": "d17b00246935ca3727aea3c181d80105c13ff9981ce815ebbd67d3ecb320c85f",
+  "usage": "python3 assess-talk.py SDK RUN STEM [EXTERNAL_OUTPUT_ROOT]",
+  "qualification": "Read-only retained-original assessment with report output only. Independent reviewers ran this actual CLI outside Git. Native behavioral assertions remain in the committed app tests."
+}

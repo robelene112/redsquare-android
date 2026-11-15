@@ -1,0 +1,126 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkInvitationPreviewTest:
+INSTRUMENTATION_STATUS: test=aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anotherInvitationPreviewsWithoutReplacingTheActiveCall
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anotherInvitationPreviewsWithoutReplacingTheActiveCall
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aWideInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aWideInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Activity never becomes requested state "[RESUMED]" (last lifecycle transition = "STOPPED")
+	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+	at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+	at androidx.test.core.app.ActivityScenario.recreate(ActivityScenario.java:718)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice$lambda$30$lambda$29$lambda$28(TalkInvitationPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.$r8$lambda$sqjPbMxtKy5IeJi7Ql6bOquuhxg(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice(TalkInvitationPreviewTest.kt:135)
+
+INSTRUMENTATION_STATUS: stream=
+Error in newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice(nl.davidengelen.redsquare.TalkInvitationPreviewTest):
+java.lang.AssertionError: Activity never becomes requested state "[RESUMED]" (last lifecycle transition = "STOPPED")
+	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+	at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+	at androidx.test.core.app.ActivityScenario.recreate(ActivityScenario.java:718)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice$lambda$30$lambda$29$lambda$28(TalkInvitationPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.$r8$lambda$sqjPbMxtKy5IeJi7Ql6bOquuhxg(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice(TalkInvitationPreviewTest.kt:135)
+
+INSTRUMENTATION_STATUS: test=newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 92.27
+There was 1 failure:
+1) newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice(nl.davidengelen.redsquare.TalkInvitationPreviewTest)
+java.lang.AssertionError: Activity never becomes requested state "[RESUMED]" (last lifecycle transition = "STOPPED")
+	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+	at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+	at androidx.test.core.app.ActivityScenario.recreate(ActivityScenario.java:718)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice$lambda$30$lambda$29$lambda$28(TalkInvitationPreviewTest.kt:152)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.$r8$lambda$sqjPbMxtKy5IeJi7Ql6bOquuhxg(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice(TalkInvitationPreviewTest.kt:135)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

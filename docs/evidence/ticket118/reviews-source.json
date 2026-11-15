@@ -1,0 +1,12 @@
+{
+  "reviewBase": "f7d7448ad7ae67277ddf58ac2d6761c92b3b50c5",
+  "reviewedSource": "40c9b215fe22b813876831c0e1060177ea8759f3",
+  "standardsFindings": 0,
+  "specFindings": 0,
+  "agents": [
+    "/root/prejoin118_standards",
+    "/root/prejoin118_spec"
+  ],
+  "resolvedFinding": "Initial draft-field variant changed Serializable UID; revised source preserves the original TalkDraft declaration and scopes primitive saved choice states instead.",
+  "qualification": "Source review only; current-source native results and their independent evidence reviews remain pending. #123 idle-account ownership is separately tracked and explicitly isolated in the media fixture."
+}

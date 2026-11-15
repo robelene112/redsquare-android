@@ -1,0 +1,36 @@
+{
+  "result": "PASS_COMPLETE_TALK_SCOPE",
+  "sdk": "10",
+  "run": 43736794457,
+  "source": "3a5cd747a31e4821a5ec18d6f36b4aed4052b40c",
+  "ordinaryClasses": 14,
+  "ordinaryCompletions": 25,
+  "processClass": "TalkProcessRecoveryTest",
+  "normalProcessCompletions": 2,
+  "verifiedIntentionalStarts": 1,
+  "totalObservedIdentities": 28,
+  "distinctProcessPids": true,
+  "media": {
+    "receivedAudioBytes": 249,
+    "remoteRms": 3.456567149047956e-06,
+    "remoteVideoWidth": 0,
+    "restoredMicrophone": false,
+    "restoredCamera": false
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 160,
+    "captures": 215
+  },
+  "receipt": {
+    "run": 43736794457,
+    "source": "3a5cd747a31e4821a5ec18d6f36b4aed4052b40c",
+    "conclusion": "success",
+    "artifactId": 14171251445,
+    "zipSha256": "2c12229a94fe06311c91df0a0d610b7723dac730a16c66d5505bbcd76bf2bd90",
+    "zipEntries": 160,
+    "captureMembers": 215,
+    "allExtractedMembersByteExact": true
+  },
+  "qualification": "Complete focused Talk scope, not whole-app/final beta acceptance. Native Off reception is silent audio RTP and no video; explicit Unmute then actual PCM is asserted by the completed peer case. Independent observer lease isolates known #123 ownership race. Failed40 parents and abandoned6c variant supply no current acceptance. Physical/OEM/real-service/Play gates remain open.",
+  "nativeChoiceScenes": 5
+}

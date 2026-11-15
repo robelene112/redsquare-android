@@ -1,0 +1,66 @@
+{
+  "source": "3a5cd747a31e4821a5ec18d6f36b4aed4052b40c",
+  "ordinaryClasses": {
+    "TalkPermissionPreviewTest": [
+      "denyingMicrophoneKeepsCaptureOffAndAnExplicitAllowedRetryStartsNativeCapture"
+    ],
+    "TalkRoutingPreviewTest": [
+      "anIncomingCallReachesTalkWhenTheAuthenticatedSocketBelongsToChat",
+      "aRejectedCallIsNotAcknowledgedByAnUnrelatedReceiver"
+    ],
+    "TalkCapturePreviewTest": [
+      "startingAVideoRoomProducesActualNativeCameraFramesAndEndingReleasesIt"
+    ],
+    "TalkInvitationPreviewTest": [
+      "aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode",
+      "aWideInvitationPreviewsWithoutCaptureOrChangingTheNode",
+      "aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture",
+      "anotherInvitationPreviewsWithoutReplacingTheActiveCall",
+      "prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips",
+      "newInvitationsWalletsAndNodesNeverInheritAnotherPrejoinChoice"
+    ],
+    "TalkChatPreviewTest": [
+      "aPrivateChatAudioCallUsesActualMediaAndPreservesTheUnsentDraft",
+      "aPrivateChatVideoCallUsesActualMediaAndPreservesTheUnsentDraft",
+      "restoredPrejoinOffChoicesTransmitSilentAudioAndNoCameraToTheActualPeer"
+    ],
+    "TalkDirectPreviewTest": [
+      "anAcceptedLegacyBrowserCallAuthenticatesBeforeRingingAndConnectsWithNativeAudioOnly"
+    ],
+    "TalkMediaPreviewTest": [
+      "aNativeRoomTransportsDecodedAudioAndVideoToTwoOfficialBrowserPeers"
+    ],
+    "TalkControlsPreviewTest": [
+      "microphoneChoiceReachesThePeerAndMuteSilencesActualRtpEvenWhileRelayIsWaiting",
+      "aWaitingRoomRosterAcknowledgementCannotDelayNativeMute"
+    ],
+    "TalkLifecyclePreviewTest": [
+      "losingAndroidAudioFocusInterruptsTheExactCallAndReleasesItsForegroundOwnership"
+    ],
+    "TalkCameraLifecyclePreviewTest": [
+      "enablingVideoInAVoiceRoomUpdatesForegroundOwnershipAndPausesAndResumesActualCameraCapture"
+    ],
+    "TalkOwnershipPreviewTest": [
+      "oldNotificationCannotEndANewerCallAndTheCurrentHangupReleasesCapture",
+      "walletNodeAndBlockingChangesSilenceTheOldCaptureBeforeTheWriteReturns"
+    ],
+    "TalkDialPreviewTest": [
+      "directCallOutcomesNeverStartCaptureWithoutAcceptanceAndIgnoreRetiredRequests"
+    ],
+    "TalkActiveViewportTest": [
+      "videoCallControlsStayVisibleAndReachableAt320dpAcrossThemesAndLargeText",
+      "videoCallControlsStayVisibleAndReachableAt412dpAcrossThemesAndLargeText"
+    ],
+    "TalkFilesharePreviewTest": [
+      "blockingAnotherRoomParticipantPreservesTheUnblockedPeersFileAndPrivateChat"
+    ]
+  },
+  "ordinaryMethods": 25,
+  "processClass": "TalkProcessRecoveryTest",
+  "intentionalProcessStart": "terminateDuringActualCameraCaptureAndForegroundCall",
+  "processCompletions": [
+    "coldRestartRejectsTheOldCallReturnWithoutCaptureAndRetainsTheDraft",
+    "restoreOriginalEncryptedInstallationFiles"
+  ],
+  "qualification": "Execution inventory from exact source, not a replacement for behavioral assertions or a prospective whole-app contract. Original class/method bounds remain unchanged."
+}

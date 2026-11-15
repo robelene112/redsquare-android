@@ -1,0 +1,166 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkInvitationPreviewTest:
+INSTRUMENTATION_STATUS: test=aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aNarrowInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (ToggleableState = 'Off')
+Semantics of the node:
+Node #4694 at (l=18.0, t=397.0, r=302.0, b=445.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=2)'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@8e51c87'
+Focused = 'false'
+Role = 'Checkbox'
+Text = '[Start with microphone on]'
+ToggleableState = 'On'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, OnFillData, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: ((Text + InputText + EditableText contains 'Start with microphone on' (ignoreCase: false)) && (ToggleableState is defined))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsOff(Assertions.kt:81)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips$lambda$16(TalkInvitationPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.$r8$lambda$dyfuVgzEnwQUIoPR4Vj31gRVDEI(TalkInvitationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$25$lambda$24$lambda$23(AppFrameFixture.kt:91)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$cxxARcvOQDiSbN9tefupVLmBMok(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:84)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips(TalkInvitationPreviewTest.kt:76)
+
+INSTRUMENTATION_STATUS: stream=
+Error in prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips(nl.davidengelen.redsquare.TalkInvitationPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (ToggleableState = 'Off')
+Semantics of the node:
+Node #4694 at (l=18.0, t=397.0, r=302.0, b=445.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=2)'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@8e51c87'
+Focused = 'false'
+Role = 'Checkbox'
+Text = '[Start with microphone on]'
+ToggleableState = 'On'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, OnFillData, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: ((Text + InputText + EditableText contains 'Start with microphone on' (ignoreCase: false)) && (ToggleableState is defined))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsOff(Assertions.kt:81)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips$lambda$16(TalkInvitationPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.$r8$lambda$dyfuVgzEnwQUIoPR4Vj31gRVDEI(TalkInvitationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$25$lambda$24$lambda$23(AppFrameFixture.kt:91)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$cxxARcvOQDiSbN9tefupVLmBMok(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:84)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips(TalkInvitationPreviewTest.kt:76)
+
+INSTRUMENTATION_STATUS: test=prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anotherInvitationPreviewsWithoutReplacingTheActiveCall
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anotherInvitationPreviewsWithoutReplacingTheActiveCall
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aWideInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aWideInvitationPreviewsWithoutCaptureOrChangingTheNode
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkInvitationPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSharedTalkUrlResolvesThroughAndroidToNativePrejoinWithoutCapture
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 57.72
+There was 1 failure:
+1) prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips(nl.davidengelen.redsquare.TalkInvitationPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (ToggleableState = 'Off')
+Semantics of the node:
+Node #4694 at (l=18.0, t=397.0, r=302.0, b=445.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=2)'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@8e51c87'
+Focused = 'false'
+Role = 'Checkbox'
+Text = '[Start with microphone on]'
+ToggleableState = 'On'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, OnFillData, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 9 siblings
+Selector used: ((Text + InputText + EditableText contains 'Start with microphone on' (ignoreCase: false)) && (ToggleableState is defined))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsOff(Assertions.kt:81)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips$lambda$16(TalkInvitationPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.$r8$lambda$dyfuVgzEnwQUIoPR4Vj31gRVDEI(TalkInvitationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$25$lambda$24$lambda$23(AppFrameFixture.kt:91)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$cxxARcvOQDiSbN9tefupVLmBMok(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:84)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.TalkInvitationPreviewTest.prejoinChoicesAndUnreviewedInputSurviveRecreationAndModuleRoundtrips(TalkInvitationPreviewTest.kt:76)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

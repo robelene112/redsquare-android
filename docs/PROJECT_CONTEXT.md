@@ -6,8 +6,11 @@
 records twelve review defects and the owner-approved manual Fileshare retention
 controls. The approved children #118–#130 each deliver one behavior; final
 integration and beta ticket #131 is natively blocked by all thirteen.
-The owner requested implementation on 2026-11-15. Work stays sequential, starting
-with #118 (Talk prejoin microphone/camera choices and invitation input).
+The owner requested implementation on 2026-11-15. Work stays sequential.
+#118 (Talk prejoin microphone/camera choices and invitation input) is complete,
+with full focused Talk checks on Android10/17 and both independent reviews.
+See [its packet](evidence/ticket118/README.md). Next ready ticket is #119; the
+remaining behavior tickets and final whole-app/beta qualification remain open.
 Public beta remains 0.1.131. Planning/implementation does not activate Vault or
 other services on the owner's node or close real-service/physical/Play gates.
 

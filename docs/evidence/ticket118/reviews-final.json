@@ -1,0 +1,37 @@
+{
+  "reviewedAt": "2026-11-15T17:05:21.899414+00:00",
+  "reviewBase": "f7d7448ad7ae67277ddf58ac2d6761c92b3b50c5",
+  "nativeSource": "3a5cd747a31e4821a5ec18d6f36b4aed4052b40c",
+  "standards": {
+    "agent": "/root/prejoin118_standards",
+    "findings": 0,
+    "externalOutput": "/mnt/storage/redsquare-android-artifacts/talk-prejoin118/standards-review"
+  },
+  "spec": {
+    "agent": "/root/prejoin118_spec",
+    "findings": 0,
+    "externalOutput": "/mnt/storage/redsquare-android-artifacts/talk-prejoin118/spec-review"
+  },
+  "bothActualAssessmentCliReplaysPass": true,
+  "bothFreshGithubMetadataAndZipDigestsMatch": true,
+  "rawFileCounts": {
+    "10": 160,
+    "17": 149
+  },
+  "captureMemberCounts": {
+    "10": 215,
+    "17": 216
+  },
+  "perSdk": {
+    "ordinaryClasses": 14,
+    "ordinaryCompletions": 25,
+    "normalProcessCompletions": 2,
+    "separateVerifiedIntentionalStarts": 1,
+    "distinctProcessPids": true,
+    "nativeChoiceScenes": 5
+  },
+  "sourceChecksVerified": true,
+  "originalTalkDraftDeclarationUnchanged": true,
+  "failedParentsExcluded": true,
+  "qualification": "Independent source and original-byte/evidence review accepts focused118behavior only. Preserve #123 observer isolation, source40 lint/core fixture-only bridge, failed originals and inherited operational limits. Whole-app qualification and beta delivery remain #131."
+}

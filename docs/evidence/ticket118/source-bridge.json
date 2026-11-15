@@ -1,0 +1,9 @@
+{
+  "productAndLintSource": "40c9b215fe22b813876831c0e1060177ea8759f3",
+  "nativeSource": "3a5cd747a31e4821a5ec18d6f36b4aed4052b40c",
+  "onlyChangedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/TalkInvitationPreviewTest.kt"
+  ],
+  "ordinaryProductIdentical": true,
+  "qualification": "Fixture adds SINGLE_TOP/CLEAR_TOP flags to real VIEW delivery so ActivityScenario owns the recreated Activity. No assertions, goals or deadlines change. This is a source comparison, not acceptance of failed earlier primaries."
+}
