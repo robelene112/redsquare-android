@@ -1269,6 +1269,10 @@ fi
 verify_composer_draft_status() {
     verify_group_chat_native ComposerDraftStatusPreviewTest 180 composer-draft composer-draft-evidence
 }
+if [[ "${TEST_SCOPE:-full}" == unfinished-text* ]]; then
+    python3 "$repo_dir/scripts/unfinished-text-process-check" --evidence "$evidence/unfinished-text-process"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == composer-draft* ]]; then
     verify_composer_draft_status
     printf '%s\n' 'Focused native local draft status only; full app acceptance not run.' > "$evidence/scope.txt"
