@@ -1,0 +1,17 @@
+{
+  "productSource": "c7571ebbe9f153c7551552a59c5f0471ca5f4603",
+  "basis": "All non116-evidence source bytes equal this reviewed product revision. Complete native goals/deadlines and inherited115qualified classification remain; no partial partition assembly or frozen115PASS claim.",
+  "adapterSha256": "2d1e1c0bb1b01ebd1999791b3f25a2ad0acf67546750bea2375ea9866372fb31",
+  "nativeTrees": {
+    "app": "4941e57538a269d372b4023d192fca7b0668a9c4",
+    "core": "c05c7a841ed25557d1c5a1d6ef57f59cce340245",
+    "scripts": "26dd5e2e0491186226f2fdf0385f33233e8c2b02",
+    ".github": "750b15bd4ffa0c16036c58aea088e1aba563e1ca",
+    "build-support": "a65cd2a86f1db7157357446ea65447a67a38a93a"
+  },
+  "inheritedSha256": {
+    "docs/evidence/ticket115/verify-qualified-full.py": "547a3bf0c23168f429c5e849d953e21af2b259157f14b42622c5c4d836c038d5",
+    "docs/evidence/ticket115/full-contract.json": "e2e961409bc697953a9b6a16a9c4cf70f088817d3057acc572819bf486512aca",
+    "docs/evidence/ticket115/identity-classification-erratum.json": "1a3ecf9168b3e284365e2d35b584d2c248e20505fa32ce5b58d2bab3e5c32a4a"
+  }
+}
