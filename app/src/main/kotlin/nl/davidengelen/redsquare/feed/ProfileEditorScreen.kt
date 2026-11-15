@@ -440,7 +440,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
         val loading: () -> Boolean = { !state.ready && !state.error }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (navigation.saveCurrent !== save || !state.ready || state.busy || state.preparingImage ||
-                picking != null || selected != null) false
+                picking != null) false
             else state.persist { navigation.saveCurrent === save && commit() }
         }
         navigation.saveCurrent = save

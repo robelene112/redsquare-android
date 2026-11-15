@@ -98,7 +98,6 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
     }
     var choosingGif by remember(state) { mutableStateOf(false) }
     val selection = memory.imagePreparation.pending
-    val selectedImages = selection?.uris.orEmpty()
     // Only public session metadata enters saved state. Wallet material and draft
     // contents remain in their existing private stores.
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
@@ -167,7 +166,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val loading: () -> Boolean = { !state.ready && !state.error }
         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
-                state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()) false
+                state.preparingImages || pickingFor != null) false
             else {
                 state.saving = true
                 try {
