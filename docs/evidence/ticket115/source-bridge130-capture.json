@@ -1,0 +1,24 @@
+{
+  "compiledProductSource": "010aa0b3cf49e4253f0e72c9f3d49d5b023fd4c0",
+  "nativeSource": "ca4217e1e5746746f55d716d0d48669ecf1c2fc5",
+  "identicalGitEntries": 224808,
+  "identicalEntriesCanonicalSha256": "89e097278191d4d7e2c90e9fc1cc72dacf95eeab8f30a1d8626d3b865f98f47c",
+  "canonicalFormat": "Raw path-sorted identical ls-tree metadata TAB path NUL records.",
+  "differences": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FilesharePreviewTest.kt",
+    "docs/evidence/ticket115/freeze-history.json",
+    "docs/evidence/ticket115/frozen-collector17-failure.txt",
+    "docs/evidence/ticket115/full-contract.json",
+    "docs/evidence/ticket115/identity-classification-erratum.json",
+    "docs/evidence/ticket115/talk130-sdk17-retention-plan.json",
+    "docs/evidence/ticket115/verify-qualified-full.py",
+    "scripts/emulator-check"
+  ],
+  "ordinaryProductCoreResourcesBuildWorkflowProtocolIdentical": true,
+  "onlyNormativeContractDifference": false,
+  "onlyContractDifference": "runtimePreflightSourceSha256[scripts/emulator-check]",
+  "nativeClassCommandsAssertionsAndDeadlinesUnchanged": true,
+  "oldNativeInputReference": "native010/assessor77 snapshot for accepted SDK17",
+  "nativeScopeRequired": "Fresh entire Android10primary; no failed/cancelledprefix acceptance.",
+  "qualification": "Static bridge and prospective native source freeze only. Hostcapture regression is not OS-root-cause or native-success evidence. Final qualified assessor/erratum bound separately before dispatch."
+}
