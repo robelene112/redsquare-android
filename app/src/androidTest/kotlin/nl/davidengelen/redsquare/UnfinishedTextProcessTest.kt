@@ -5,6 +5,8 @@ import android.os.Build
 import android.os.Process
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -54,6 +56,15 @@ class UnfinishedTextProcessTest {
     private fun assertExplicitDraft() {
         if (profile) assertEquals(0, ProfileDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load()).load().changes.size())
         else assertEquals(savedText, draft().load().text)
+    }
+    private fun protectedText(): String? = synchronized(SaitoLocalState.lock) {
+        val files = context.noBackupFilesDir.listFiles().orEmpty().filter { it.name.startsWith("editrecovery.") && it.name.endsWith(".v1") }
+        if (files.isEmpty()) return@synchronized null
+        assertEquals("Only this fixture's current recovery checkpoint exists", 1, files.size)
+        val file = files.single()
+        assertFalse("Recovery bytes do not contain the native plaintext", file.readBytes().toString(Charsets.ISO_8859_1).contains(body))
+        val contents = EncryptedLocalFile(context, file.name, "redsquare.editrecovery.v1", "editrecovery.").load() ?: return@synchronized null
+        JsonParser.parseString(contents.text).asJsonObject.get("text")?.asString
     }
 
     private fun editWithPeer(block: (ControlledFeedPeer) -> Unit) {
@@ -128,6 +139,26 @@ class UnfinishedTextProcessTest {
             ui.onNode(editor).assertEditableTextEquals(body)
             if (!profile) ui.onNodeWithText("Unsaved changes").assertExists()
             assertExplicitDraft()
+            if (mode == "continuous") {
+                ui.waitUntil(5000) { protectedText() == body }
+                val action = requireNotNull(ui.onNode(editor).fetchSemanticsNode().config[SemanticsActions.SetText].action)
+                val start = android.os.SystemClock.elapsedRealtime()
+                var updates = 0
+                while (android.os.SystemClock.elapsedRealtime() - start < 1800) {
+                    val text = "Continuous 120 edit ${updates++}, still typing"
+                    InstrumentationRegistry.getInstrumentation().runOnMainSync { check(action(AnnotatedString(text))) }
+                    Thread.sleep(40)
+                }
+                // Read immediately, before any final idle interval can hide a starvation defect.
+                val protected = protectedText()
+                assertTrue("Normal typing checkpoints progress before any pause: $protected", protected?.startsWith("Continuous 120 edit ") == true)
+                File(context.cacheDir, "unfinished-text-evidence/$mode/continuous-checkpoint.json").apply { parentFile!!.mkdirs() }.writeText(JsonObject().apply {
+                    addProperty("updates", updates); addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime() - start)
+                    addProperty("checkpointText", protected)
+                }.toString())
+                ui.onNode(editor).performTextReplacement(body)
+                ui.onNode(editor).assertEditableTextEquals(body)
+            }
             capture("unfinished-before-background.png")
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressHome()
             Thread.sleep(800)

@@ -6,7 +6,7 @@ from process_check_utils import ProcessInstrumentation,assert_process_gone,finis
 
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--evidence',type=Path,required=True)
-parser.add_argument('--mode',choices=('post','post-saved','reply','quote','profile'),default='profile')
+parser.add_argument('--mode',choices=('post','post-saved','reply','quote','profile','continuous'),default='continuous')
 args=parser.parse_args()
 package='nl.davidengelen.redsquare.dev'
 checkpoint='cache/unfinished-text-checkpoint.json'
