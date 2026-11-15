@@ -26,7 +26,7 @@ abstract class FileshareFixture {
     @get:Rule val ui = createEmptyComposeRule()
 
     protected fun transfer(incoming: Boolean, cancel: Boolean = false, unknown: Boolean = false,
-        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false, pendingAccept: Boolean = false) {
+        denyNotifications: Boolean = false, preparationCancel: Boolean = false, viewportWidth: Int? = null, large: Boolean = false, pendingAccept: Boolean = false, pendingAcceptCancel: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -40,7 +40,7 @@ abstract class FileshareFixture {
             "chat.owner.${wallet.publicKey}.", "chatwork.owner.${wallet.publicKey}.", "chatreactions.owner.${wallet.publicKey}."), wallet.publicKey)
         val device = UiDevice.getInstance(instrumentation)
         val permitted = android.os.Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-        val evidence = File(context.cacheDir, if (pendingAccept) "fileshare-evidence/pending-acceptance" else "fileshare-evidence").apply { mkdirs() }
+        val evidence = File(context.cacheDir, if (pendingAcceptCancel) "fileshare-evidence/pending-acceptance-cancel" else if (pendingAccept) "fileshare-evidence/pending-acceptance" else "fileshare-evidence").apply { mkdirs() }
         val shadeFixture = "fileshare-cancel-viewport-fixture"
         val seedShade = cancel && android.os.Build.VERSION.SDK_INT == 29
         val browserRef = AtomicReference<FileshareBrowserPeer>()
@@ -199,7 +199,11 @@ abstract class FileshareFixture {
                                         val deadline = android.os.SystemClock.elapsedRealtime() + 3200
                                         val observations = mutableListOf<Boolean>()
                                         while (android.os.SystemClock.elapsedRealtime() < deadline) {
-                                            observations.add(notifications.activeNotifications.any { it.id == FileTransferService.NOTIFICATION_ID })
+                                            val alert = notifications.activeNotifications.singleOrNull { it.id == FileTransferService.NOTIFICATION_ID }
+                                            val foregroundFlag = ((alert?.notification?.flags ?: 0) and android.app.Notification.FLAG_FOREGROUND_SERVICE) != 0
+                                            val running = context.getSystemService(android.app.ActivityManager::class.java).getRunningServices(64)
+                                                .any { it.service.className == FileTransferService::class.java.name && it.foreground }
+                                            observations.add(alert != null && foregroundFlag && running)
                                             Thread.sleep(50)
                                         }
                                         File(evidence, "pending-acceptance-foreground.json").writeText(com.google.gson.JsonObject().apply {
@@ -211,9 +215,35 @@ abstract class FileshareFixture {
                                         assertTrue("Foreground ownership was sampled repeatedly", observations.size >= 20)
                                         assertTrue("Accepted transfer keeps its foreground notification beyond the idle window", observations.all { it })
                                         val alert = notifications.activeNotifications.single { it.id == FileTransferService.NOTIFICATION_ID }
-                                        assertTrue("Pending acceptance has exact-transfer Cancel", alert.notification.actions.orEmpty().any {
-                                            it.title.toString() == context.getString(nl.davidengelen.redsquare.R.string.fileshare_cancel) })
+                                        val cancelAction = alert.notification.actions.orEmpty().single {
+                                            it.title.toString() == context.getString(nl.davidengelen.redsquare.R.string.fileshare_cancel) }
+                                        assertEquals("No permission before the earlier signal is released", 0, browser.grants.get())
+                                        assertEquals("No payload before permission", 0, browser.signedChunks.get())
+                                        if (pendingAcceptCancel) {
+                                            val token = session!!.transfers.value.single().token
+                                            cancelAction.actionIntent.send()
+                                            ui.waitUntil(5000) { session!!.transfers.value.any { it.token == token && it.phase == FilePhase.CANCELLED } }
+                                            assertEquals(0, browser.grants.get()); assertEquals(0, browser.signedChunks.get())
+                                        }
                                     } finally { holdSignal.set(false); releaseSignal.countDown() }
+                                    if (pendingAcceptCancel) {
+                                        val token = session!!.transfers.value.single().token
+                                        ui.waitUntil(5000) {
+                                            !FileshareRuntime.hasLiveWork() && context.getSystemService(android.app.ActivityManager::class.java)
+                                                .getRunningServices(64).none { it.service.className == FileTransferService::class.java.name }
+                                        }
+                                        val cancelled = FileTransferStore(context, wallet.publicKey, SaitoBackend.OWNER, author.publicKey)
+                                            .load().single { it.token == token }
+                                        assertEquals(FilePhase.CANCELLED, cancelled.phase); assertEquals(0L, cancelled.bytes)
+                                        assertEquals(0, browser.grants.get()); assertEquals(0, browser.signedChunks.get())
+                                        device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
+                                        notifications.activeNotifications.single { it.id == FileTransferService.NOTIFICATION_ID }.notification.contentIntent.send()
+                                        waitUntil { ui.onAllNodesWithText("Transfer cancelled").fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                                        ui.onNodeWithText(draft).assertExists(); assertTrue(fixture.transactions.isEmpty()); fixture.assertHealthy()
+                                        File(evidence, "cancelled-before-grant.json").writeText("{\"result\":\"PASS\",\"exactTokenCancelled\":true,\"durableCancelled\":true,\"payloadBytes\":0,\"signedChunks\":0,\"permissionGrants\":0,\"serviceStopped\":true,\"draftRetained\":true}")
+                                        captureNativeScreen(File(evidence, "cancelled-before-grant.png"))
+                                        return@withFailureCapture
+                                    }
                                     waitUntil { session!!.transfers.value.any { it.phase == FilePhase.RECEIVING && it.bytes > 0 } }
                                     device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
                                     notifications.activeNotifications.single { it.id == FileTransferService.NOTIFICATION_ID }.notification.contentIntent.send()
@@ -472,6 +502,8 @@ class FileshareSendPreviewTest : FileshareFixture() {
 class FileshareReceivePreviewTest : FileshareFixture() {
     @Test fun anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes() = transfer(incoming = true)
     @Test fun acceptingBehindHeldSignallingRetainsForegroundControlsWhileScreenOff() = transfer(incoming = true, pendingAccept = true)
+    @Test fun actualPendingNotificationCancelStopsTheExactAcceptanceBeforeAnyGrant() =
+        transfer(incoming = true, pendingAccept = true, pendingAcceptCancel = true)
 }
 class FileshareCancelPreviewTest : FileshareFixture() {
     @Test fun theActualNotificationCancelStopsTheSpecificTransferWithoutClaimingCompletion() = transfer(incoming = false, cancel = true)

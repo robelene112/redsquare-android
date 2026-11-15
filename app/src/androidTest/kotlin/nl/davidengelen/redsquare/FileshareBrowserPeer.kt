@@ -26,6 +26,7 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
     val open = CountDownLatch(1)
     val chunks = AtomicInteger()
     val signedChunks = AtomicInteger()
+    val grants = AtomicInteger()
     val acknowledgedChunk = AtomicLong()
     val uploadReadFinished = AtomicBoolean()
     private val ready = CountDownLatch(1)
@@ -103,6 +104,7 @@ internal class FileshareBrowserPeer(private val owner: SaitoWallet, private val 
         @JavascriptInterface fun inspect(envelope: String): String {
             val signed = SaitoEnvelope.decode(envelope)
             check(signed.author == owner.publicKey && wallet.publicKey in signed.recipients)
+            if (signed.body.get("request")?.asString == "grant file permission") grants.incrementAndGet()
             if (signed.body.get("request")?.asString == "read receipt")
                 acknowledgedChunk.accumulateAndGet(signed.body.getAsJsonObject("data").get("chunk_id").asLong, ::maxOf)
             return JsonObject().apply {
