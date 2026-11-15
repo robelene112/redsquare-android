@@ -34,7 +34,7 @@ class ImagePreparationRecreationTest {
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
-        val wallet = nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadOrCreate()
+        val wallet = AndroidWalletStore(context).loadOrCreate()
         val retained = ChatFixtureState(context, listOf("postdraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}"), wallet.publicKey)
         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
@@ -92,7 +92,7 @@ class ImagePreparationRecreationTest {
                     val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
                     check(device.takeScreenshot(java.io.File(directory,"selected-$mode.png")))
                     device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode.xml"))
-                    assertEquals(wallet.exportJson(), nl.davidengelen.redsquare.saito.AndroidWalletStore(context).loadExisting().exportJson())
+                    assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
                     assertEquals(SaitoBackend.OWNER, backends.load())
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
