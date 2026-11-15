@@ -68,7 +68,10 @@ class FeedRefreshRedesignTest {
                 ui.revealAppNavigation()
                 assertEquals("Opening a post through refresh feedback must preserve its reading pixel", before,
                     target.fetchSemanticsNode().boundsInRoot.top, 1f)
-                ui.waitUntil(5_000) { ui.refreshableContentReady() }
+                ui.waitUntil(5_000) { ui.refreshableContentReady() && !ui.onNodeWithText("Feed updated.").isDisplayed() }
+                assertEquals("Dismissing refresh feedback must preserve the reading pixel", before,
+                    target.fetchSemanticsNode().boundsInRoot.top, 1f)
+                captureNativeScreen(File(instrumentation.targetContext.cacheDir, "feed-refresh-evidence/after-feedback-dismissed.png"))
                 ui.onNodeWithTag("feed-post-list").performTouchInput { swipeUp() }
                 ui.waitUntil(5_000) {
                     ui.onAllNodes(appNavigationRevealAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
