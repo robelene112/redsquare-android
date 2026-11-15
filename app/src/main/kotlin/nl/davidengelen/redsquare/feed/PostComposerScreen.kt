@@ -194,13 +194,15 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
 
             }
             val localStatus = if (transaction != null || !ready || error || saving || sending) null else when {
+                recoveryError -> R.string.unfinished_text_recovery_failed
                 text.isEmpty() && images.isEmpty() -> R.string.status_unsent_draft
                 locallySaved -> R.string.post_saved_device
                 else -> R.string.post_unsaved_changes
             }
-            InlineStatus(localStatus?.let { stringResource(it) },
-                details = listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
-                announce = false)
+            InlineStatus(localStatus?.let { stringResource(it) }, if (recoveryError) StatusTone.WARNING else StatusTone.INFO,
+                details = if (recoveryError) emptyList() else listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
+                announce = recoveryError, actionLabel = if (recoveryError) stringResource(R.string.retry) else null,
+                onAction = ::retryRecovery)
             val deliveryStatus = when {
                 checking -> R.string.post_checking
                 preparingImages -> R.string.image_preparing
@@ -232,8 +234,6 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     InlineStatus(if (checkError) stringResource(R.string.post_check_failed) else null, StatusTone.INFO)
                     InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
                     InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
-                    InlineStatus(if (recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
-                        StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
                     if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
                     InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
                     Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically,

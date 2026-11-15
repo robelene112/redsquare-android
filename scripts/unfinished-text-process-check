@@ -1,38 +1,50 @@
 #!/usr/bin/env python3
 """Cold recovery of native unfinished text after ordinary backgrounding and actual process loss."""
-import argparse,json,subprocess
+import argparse
+import json
+import subprocess
 from pathlib import Path
-from process_check_utils import ProcessInstrumentation,assert_process_gone,finish_process_fixture
+from process_check_utils import ProcessInstrumentation, assert_process_gone, finish_process_fixture
 
-parser=argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--evidence',type=Path,required=True)
-parser.add_argument('--mode',choices=('post','post-saved','reply','quote','profile','continuous'),default='continuous')
-args=parser.parse_args()
-package='nl.davidengelen.redsquare.dev'
-checkpoint='cache/unfinished-text-checkpoint.json'
-def adb(*arguments,check=True,timeout=60):
-    return subprocess.run(['adb',*arguments],capture_output=True,text=True,check=check,timeout=timeout)
+MODES = ('post', 'post-saved', 'reply', 'quote', 'profile', 'profile-saved', 'continuous', 'storage-failure')
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+parser.add_argument('--mode', choices=('all', *MODES), default='all')
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+checkpoint = 'cache/unfinished-text-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
 assert adb('get-serialno').stdout.strip().startswith('emulator-')
-args.evidence.mkdir(parents=True,exist_ok=True)
-instrument=ProcessInstrumentation(adb,args.evidence,'nl.davidengelen.redsquare.UnfinishedTextProcessTest',package+'.test/androidx.test.runner.AndroidJUnitRunner',arguments=('-e','mode',args.mode)).run
-primary=None
-try:
-    result=instrument('backgroundWithUnfinishedTextThenTerminateTheActualProcess','interrupted.txt',check=False)
-    assert 'FAILURES!!!' not in result.stdout,'Native editing failed before termination'
-    row=json.loads(adb('exec-out','run-as',package,'cat',checkpoint).stdout)
-    assert row['phase']=='pending'
-    assert_process_gone(adb,package,row['pid'])
-    (args.evidence/'pending-checkpoint.json').write_text(json.dumps(row,indent=2)+'\n')
-    adb('shell','am','force-stop',package)
-    result=instrument('coldProcessRestoresTheExactUnfinishedTextWithoutSavingOrPublishing','recovered.txt')
-    assert 'OK (1 test)' in result.stdout,'Unfinished text was not recovered'
-    recovered=json.loads(adb('exec-out','run-as',package,'cat',checkpoint).stdout)
-    assert isinstance(recovered['recoveredPid'],int) and recovered['recoveredPid']>0 and recovered['recoveredPid']!=row['pid']
-    assert recovered==dict(row,phase='recovered',recoveredPid=recovered['recoveredPid'])
-    (args.evidence/'recovered-checkpoint.json').write_text(json.dumps(recovered,indent=2)+'\n')
-    (args.evidence/'continuity.txt').write_text('PASS: actual background process loss, new PID, exact unfinished native text, unchanged explicit draft, identity/node retained, zero publication.\n')
-except BaseException as failure:
-    primary=failure
-    raise
-finally:
-    finish_process_fixture(instrument,args.evidence,package,'unfinished-text-evidence',primary)
+for mode in MODES if args.mode == 'all' else (args.mode,):
+    evidence = args.evidence / mode
+    evidence.mkdir(parents=True, exist_ok=True)
+    # Only this owned debug fixture's capture directory is replaced between cases.
+    adb('shell', 'run-as', package, 'rm', '-rf', 'cache/unfinished-text-evidence')
+    instrument = ProcessInstrumentation(adb, evidence, 'nl.davidengelen.redsquare.UnfinishedTextProcessTest',
+        package + '.test/androidx.test.runner.AndroidJUnitRunner', arguments=('-e', 'mode', mode)).run
+    primary = None
+    try:
+        result = instrument('backgroundWithUnfinishedTextThenTerminateTheActualProcess', 'interrupted.txt', check=False)
+        assert 'FAILURES!!!' not in result.stdout, 'Native editing failed before termination'
+        row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+        assert row['phase'] == 'pending' and row['mode'] == mode
+        assert_process_gone(adb, package, row['pid'])
+        (evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+        adb('shell', 'am', 'force-stop', package)
+        result = instrument('coldProcessRestoresTheExactUnfinishedTextWithoutSavingOrPublishing', 'recovered.txt')
+        assert 'OK (1 test)' in result.stdout, 'Unfinished text was not recovered'
+        recovered = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+        assert isinstance(recovered['recoveredPid'], int) and recovered['recoveredPid'] > 0 and recovered['recoveredPid'] != row['pid']
+        assert recovered == dict(row, phase='recovered', recoveredPid=recovered['recoveredPid'])
+        (evidence / 'recovered-checkpoint.json').write_text(json.dumps(recovered, indent=2) + '\n')
+        (evidence / 'continuity.txt').write_text('PASS: ' + mode + ': actual background process loss, new PID, exact unfinished native text, unchanged explicit draft, identity/node retained, zero publication.\n')
+    except BaseException as failure:
+        primary = failure
+        raise
+    finally:
+        finish_process_fixture(instrument, evidence, package, 'unfinished-text-evidence', primary)

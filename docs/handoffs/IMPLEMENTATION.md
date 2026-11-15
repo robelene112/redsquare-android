@@ -19,14 +19,32 @@ PIDs3342/4163, unchanged explicit draft, wallet/node and zero publication. Origi
 and collectors live outside Git at `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
 Test-only9ba4ae405 adds profile/reply/quote/previous-Saved contexts. Actual profile
 red43749242236 loses52characters in the cold Bio field, with its real first-process
-termination verified. Profile recovery is now implemented and awaits its green.
-ViewModel closeables own writers even if initial-load cancellation races delivery;
-retirement clears the old recovered-text snapshot as well as pending writes. Cold
-queued-post cancellation/new-profile-edit paths also acquire an unsigned writer.
-The first helper still needs a continuous-
-typing adverse test: strict stale-version dropping may postpone all checkpoints
-until typing pauses. Preserve the150ms nonblocking coalescing intent while proving
-normal editing is durably checkpointed. Storage failure, generation retirement,
+termination verified. Profile green43750883200 at0fe820532 now restores the exact52characters after
+actual process death without explicit saving or publication. The native screenshot
+also shows the recovered biography in both preview and Bio field. ViewModel
+closeables own writers even if initial-load cancellation races delivery; retirement
+clears the old recovered-text snapshot and pending writes. Cold queued-post
+cancellation/new-profile-edit paths also acquire an unsigned writer.
+
+Continuous-typing red43752110988 at9ea19ec0 reproduces starvation: the durable
+checkpoint still contains the pre-loop body after1.8seconds of real native SetText
+actions40ms apart. Source e0c922325 changes this to periodic latest-snapshot writes
+using a conflated signal, with independent generation retirement and success
+version checks. It also propagates unreadable initial checkpoints to the existing
+load/Retry path. Green43753348329 at exact e0c922325a6f7bb7d9a19fe753013ea0136e7919 now passes
+the continuous typing checkpoint and actual new-PID final-text recovery. Final
+source adds actual write-failure/Retry preservation and three encrypted-storage
+checks for retired/stale writers, unreadable prior work, wallet/node isolation and
+unchanged signed queued candidates/permission. The host now runs eight separate
+process variants: post, post-saved, reply, quote, profile, profile-saved, continuous
+and storage-failure. It preserves the120s phase bounds and per-mode original
+logs/captures/identity rows. Complete composer and full Social include them
+additively. Warning/Retry stays visible beside the writing header only after an
+actual recovery failure. Final source/core/lint, both complete relevant SDK scopes
+and independent reviews are pending. These additions have not yet passed native
+checks; do not close120 from earlier focused successes. Existing ChatFixtureState now includes
+the new family when post/profile files are declared, preserving test restoration.
+Storage failure, generation retirement,
 identity/node isolation, signed candidate preservation, final SDK coverage and
 independent reviews still remain for120. Do not close it from the post-only pass.
 

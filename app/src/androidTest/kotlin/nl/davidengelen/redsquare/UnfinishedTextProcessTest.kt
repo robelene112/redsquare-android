@@ -22,7 +22,7 @@ import org.junit.Test
 import java.io.File
 import java.security.MessageDigest
 
-/** Host-separated processes exercise unfinished native editing without a Save or picker callback. */
+/** Host-separated processes recover the latest editing without a final Save or picker callback. */
 class UnfinishedTextProcessTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext.also {
@@ -30,9 +30,9 @@ class UnfinishedTextProcessTest {
     }
     private val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val mode get() = InstrumentationRegistry.getArguments().getString("mode") ?: "post"
-    private val profile get() = mode == "profile"
+    private val profile get() = mode.startsWith("profile")
     private val body get() = if (mode == "post") "Unfinished private post 120, not explicitly saved" else "Unfinished private $mode text 120, never published"
-    private val savedText get() = if (mode == "post-saved") "An explicitly saved post before later edits 120" else ""
+    private val savedText get() = if (mode.endsWith("-saved")) "An explicitly saved $mode before later edits 120" else ""
     private val reference by lazy {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-following-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
@@ -54,17 +54,57 @@ class UnfinishedTextProcessTest {
     private fun draft() = PostDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load(),
         parent = reference.takeIf { mode == "reply" }, quote = reference.takeIf { mode == "quote" })
     private fun assertExplicitDraft() {
-        if (profile) assertEquals(0, ProfileDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load()).load().changes.size())
+        if (profile) {
+            val saved = ProfileDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load()).load()
+            if (savedText.isEmpty()) assertEquals(0, saved.changes.size())
+            else assertEquals(savedText, saved.changes.get("description").asString)
+        }
         else assertEquals(savedText, draft().load().text)
     }
-    private fun protectedText(): String? = synchronized(SaitoLocalState.lock) {
-        val files = context.noBackupFilesDir.listFiles().orEmpty().filter { it.name.startsWith("editrecovery.") && it.name.endsWith(".v1") }
-        if (files.isEmpty()) return@synchronized null
-        assertEquals("Only this fixture's current recovery checkpoint exists", 1, files.size)
-        val file = files.single()
-        assertFalse("Recovery bytes do not contain the native plaintext", file.readBytes().toString(Charsets.ISO_8859_1).contains(body))
-        val contents = EncryptedLocalFile(context, file.name, "redsquare.editrecovery.v1", "editrecovery.").load() ?: return@synchronized null
-        JsonParser.parseString(contents.text).asJsonObject.get("text")?.asString
+    private fun protectedText(): String? {
+        val snapshot = unfinishedTextCheckpoint(context) ?: return null
+        assertFalse("Recovery bytes do not contain the native plaintext", snapshot.encrypted.toString(Charsets.ISO_8859_1).contains(body))
+        return snapshot.text
+    }
+
+    private fun exerciseStorageFailure() {
+        ui.waitUntil(5000) { protectedText() == body }
+        val original = requireNotNull(unfinishedTextCheckpoint(context))
+        val latest = "$body, latest edit after storage failed"
+        val warning = context.getString(R.string.unfinished_text_recovery_failed)
+        var primary: Throwable? = null
+        try {
+            synchronized(SaitoLocalState.lock) { check(original.file.delete()); check(original.file.mkdir()) }
+            ui.onNode(editor).performTextReplacement(latest)
+            ui.waitUntil(5000) { ui.onAllNodesWithText(warning).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNode(editor).assertEditableTextEquals(latest)
+            ui.onNodeWithText(warning).assertIsDisplayed()
+            ui.onNodeWithText("Saved on this device").assertDoesNotExist()
+            assertExplicitDraft()
+            capture("storage-failure-current-text.png")
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, {
+                synchronized(SaitoLocalState.lock) {
+                    check(original.file.isDirectory && original.file.delete())
+                    original.file.writeBytes(original.encrypted)
+                    assertTrue(original.encrypted.contentEquals(original.file.readBytes()))
+                }
+            })
+        }
+        assertEquals("The previous protected work survives the failed write", body, protectedText())
+        ui.onNodeWithText("Retry").performScrollTo().performClick()
+        ui.waitUntil(5000) { protectedText() == latest }
+        ui.waitUntil(5000) { ui.onAllNodesWithText(warning).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+        ui.onNode(editor).assertEditableTextEquals(latest)
+        assertExplicitDraft()
+        capture("storage-repaired-latest-text.png")
+        File(context.cacheDir, "unfinished-text-evidence/$mode/storage-retry.json").writeText(JsonObject().apply {
+            addProperty("previousProtectedText", body); addProperty("repairedProtectedText", protectedText())
+            addProperty("explicitDraftText", draft().load().text); addProperty("priorEncryptedBytesPreserved", true)
+        }.toString())
+        ui.onNode(editor).performTextReplacement(body)
+        ui.waitUntil(5000) { protectedText() == body }
     }
 
     private fun editWithPeer(block: (ControlledFeedPeer) -> Unit) {
@@ -110,6 +150,7 @@ class UnfinishedTextProcessTest {
         val backend = AndroidBackendStore(context).load()
         val row = JsonObject().apply {
             addProperty("phase", "prepared"); addProperty("pid", Process.myPid()); addProperty("backend", backend.id)
+            addProperty("mode", mode)
             addProperty("originalWalletDigest", digest(previous.exportJson())); addProperty("walletDigest", digest(wallet.exportJson()))
             add("savedFiles", snapshotProcessFixtureFiles(context, originals, names()))
             add("preferences", JsonArray().apply { preferences().forEach { (name, key) ->
@@ -130,8 +171,9 @@ class UnfinishedTextProcessTest {
             if (savedText.isNotEmpty()) {
                 ui.onNode(editor).performTextReplacement(savedText)
                 ui.onNodeWithText("Save draft").performClick()
-                ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
-                ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                val reopen = hasText(if (profile) "Edit profile" else "New post") and hasClickAction()
+                ui.waitUntil(10_000) { ui.onNode(reopen).isDisplayed() }
+                ui.onNode(reopen).performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(editor).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNode(editor).assertEditableTextEquals(savedText)
             }
@@ -139,6 +181,7 @@ class UnfinishedTextProcessTest {
             ui.onNode(editor).assertEditableTextEquals(body)
             if (!profile) ui.onNodeWithText("Unsaved changes").assertExists()
             assertExplicitDraft()
+            if (mode == "storage-failure") exerciseStorageFailure()
             if (mode == "continuous") {
                 ui.waitUntil(5000) { protectedText() == body }
                 val action = requireNotNull(ui.onNode(editor).fetchSemanticsNode().config[SemanticsActions.SetText].action)
@@ -171,6 +214,7 @@ class UnfinishedTextProcessTest {
 
     @Test fun coldProcessRestoresTheExactUnfinishedTextWithoutSavingOrPublishing() {
         val row = read(); assertEquals("pending", row.get("phase").asString)
+        assertEquals(mode, row.get("mode").asString)
         assertNotEquals(row.get("pid").asInt, Process.myPid())
         assertEquals(row.get("walletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(row.get("backend").asString, AndroidBackendStore(context).load().id)

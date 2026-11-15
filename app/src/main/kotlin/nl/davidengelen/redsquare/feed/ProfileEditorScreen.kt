@@ -453,6 +453,8 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                     Text(stringResource(R.string.post_save_draft))
                 }
             }
+            InlineStatus(if (recoveryError && ready && candidate == null && !error) stringResource(R.string.unfinished_text_recovery_failed) else null,
+                StatusTone.WARNING, actionLabel = stringResource(R.string.retry), actionEnabled = !busy, onAction = ::retryRecovery)
             if (!previewReady) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(editorScroll),
@@ -474,8 +476,6 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                     onClick = { confirmingNewEdit = true }) { Text(stringResource(R.string.profile_new_edit)) }
                 InlineStatus(if (networkError) stringResource(R.string.profile_publish_error) else null, StatusTone.WARNING)
                 InlineStatus(if (error) stringResource(R.string.profile_draft_error) else null, StatusTone.ERROR)
-                InlineStatus(if (recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
-                    StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
                 if (error && !ready) TextButton(onClick = { reload++ }, modifier = Modifier.heightIn(min = 48.dp)) {
                     Text(stringResource(R.string.retry))
                 }
