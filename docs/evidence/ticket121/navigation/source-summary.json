@@ -1,0 +1,26 @@
+{
+  "source": "adcc1e9ca804372cd7b6a11c276168d106fcc328",
+  "reviewBase": "0b549754b4c8c3ef7e19155be7fbdb80d3803aa9",
+  "coreTests": 224,
+  "coreSuites": 44,
+  "coreFailures": 0,
+  "coreIgnored": 0,
+  "coreAndGateway": "FROM-CACHE",
+  "lintErrors": 0,
+  "lintWarnings": 94,
+  "lintHints": 3,
+  "sourceOriginals": 55,
+  "exactChangedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SelectedMediaNavigationTestUi.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt",
+    "scripts/emulator-check"
+  ],
+  "productPaths": [
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt"
+  ],
+  "qualification": "Source and both targeted SDK inputs are exactadcc. Review base0b already contains the initial122feed polling fix; this follow-up changes only two recreated media navigation guards plus their tests/harness. Prior initial121whole-scope evidence remains bound to its earlier sources. No whole-app/beta acceptance."
+}

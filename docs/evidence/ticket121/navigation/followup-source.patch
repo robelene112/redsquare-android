@@ -1,0 +1,130 @@
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
+index e6e113993..3c3ab1bad 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
+@@ -40,7 +40,8 @@ class ImagePreparationRecreationTest {
+         val reference = nl.davidengelen.redsquare.saito.RedSquareFeed.readArchive("[$root]").posts.single()
+         val retained = ChatFixtureState(context, listOf("postdraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}",
+             "feed.${SaitoBackend.OWNER.id}.", "conversation.${SaitoBackend.OWNER.id}.${reference.threadId}.",
+-            "authorposts.${SaitoBackend.OWNER.id}.${reference.id}."), wallet.publicKey)
++            "authorposts.${SaitoBackend.OWNER.id}.${reference.id}.", "stack.${SaitoBackend.OWNER.id}.",
++            "stackwindow.${SaitoBackend.OWNER.id}.${wallet.publicKey}."), wallet.publicKey)
+         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+             .use { JsonParser.parseReader(it).asJsonObject }
+         val bytes = android.util.Base64.decode(fixture.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP)
+@@ -98,6 +99,18 @@ class ImagePreparationRecreationTest {
+                     device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode.xml"))
+                     check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
+                     assertEquals(SaitoBackend.OWNER, backends.load())
++                    val draft = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER,
++                        parent = reference.takeIf { mode == "reply" }, quote = reference.takeIf { mode == "quote" })
++                    val prepared = draft.load()
++                    assertEquals(text, prepared.text)
++                    assertEquals(1, prepared.images.size)
++                    ui.returnFromStackAfterPreparedMedia()
++                    val returned = draft.load()
++                    assertEquals(text, returned.text)
++                    assertEquals(prepared.images, returned.images)
++                    assertNull(returned.transaction)
++                    check(device.takeScreenshot(java.io.File(directory,"selected-$mode-module-return.png")))
++                    device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode-module-return.xml"))
+                     assertTrue(peer.transactions.isEmpty())
+                     peer.assertHealthy()
+                 }
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
+index fcb756c9b..7a0b952a6 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
+@@ -34,7 +34,8 @@ class ProfileImagePreparationRecreationTest {
+         val backends = AndroidBackendStore(context)
+         val oldBackend = backends.load()
+         val wallet = AndroidWalletStore(context).loadOrCreate()
+-        val retained = ChatFixtureState(context, listOf("profiledraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}"), wallet.publicKey)
++        val retained = ChatFixtureState(context, listOf("profiledraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}",
++            "stack.${SaitoBackend.OWNER.id}.", "stackwindow.${SaitoBackend.OWNER.id}.${wallet.publicKey}."), wallet.publicKey)
+         val uri = Uri.parse("content://nl.davidengelen.redsquare.dev.test.chat-photo-faults/stalled.png")
+         fun provider(action: String, extras: Bundle? = null) = requireNotNull(context.contentResolver.call(uri, action, null, extras))
+         val source = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+@@ -102,6 +103,13 @@ class ProfileImagePreparationRecreationTest {
+                     Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))
+                     check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
+                     assertEquals(SaitoBackend.OWNER, backends.load())
++                    ui.returnFromStackAfterPreparedMedia()
++                    val returned = store.load()
++                    assertEquals(text, returned.changes.get("description").asString)
++                    assertEquals(saved.changes.get(field), returned.changes.get(field))
++                    assertNull(returned.transaction)
++                    check(device.takeScreenshot(File(directory,"selected-profile-$field-module-return.png")))
++                    device.dumpWindowHierarchy(File(directory,"selected-profile-$field-module-return.xml"))
+                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                 }
+             }
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SelectedMediaNavigationTestUi.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SelectedMediaNavigationTestUi.kt
+new file mode 100644
+index 000000000..83b291d48
+--- /dev/null
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/SelectedMediaNavigationTestUi.kt
+@@ -0,0 +1,17 @@
++package nl.davidengelen.redsquare
++
++import androidx.compose.ui.test.*
++import androidx.compose.ui.test.junit4.ComposeTestRule
++
++/** Exercise the shared guarded navigation after a recreated writer finishes its selection. */
++internal fun ComposeTestRule.returnFromStackAfterPreparedMedia() {
++    fun switch(current: String, next: String) {
++        revealAppNavigation()
++        onNodeWithContentDescription("Switch app: $current").assertIsDisplayed().performClick()
++        onNode(hasText(next) and hasClickAction() and hasAnyAncestor(isPopup() or isDialog()))
++            .assertIsDisplayed().assertIsEnabled().performClick()
++        waitUntil(5_000) { onNodeWithContentDescription("Switch app: $next").isDisplayed() }
++    }
++    switch("Red Square", "Stack")
++    switch("Stack", "Red Square")
++}
+diff --git a/app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt b/app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt
+index c73f4257a..97390b525 100644
+--- a/app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt
++++ b/app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostComposerScreen.kt
+@@ -98,7 +98,6 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend:
+     }
+     var choosingGif by remember(state) { mutableStateOf(false) }
+     val selection = memory.imagePreparation.pending
+-    val selectedImages = selection?.uris.orEmpty()
+     // Only public session metadata enters saved state. Wallet material and draft
+     // contents remain in their existing private stores.
+     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
+@@ -167,7 +166,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend:
+         val loading: () -> Boolean = { !state.ready && !state.error }
+         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+             if (navigation.saveCurrent !== save || !state.ready || state.saving || state.sending ||
+-                state.preparingImages || pickingFor != null || selectedImages.isNotEmpty()) false
++                state.preparingImages || pickingFor != null) false
+             else {
+                 state.saving = true
+                 try {
+diff --git a/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt b/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt
+index 61edc5538..5170660c2 100644
+--- a/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt
++++ b/app/src/main/kotlin/nl/davidengelen/redsquare/feed/ProfileEditorScreen.kt
+@@ -440,7 +440,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
+         val loading: () -> Boolean = { !state.ready && !state.error }
+         val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+             if (navigation.saveCurrent !== save || !state.ready || state.busy || state.preparingImage ||
+-                picking != null || selected != null) false
++                picking != null) false
+             else state.persist { navigation.saveCurrent === save && commit() }
+         }
+         navigation.saveCurrent = save
+diff --git a/scripts/emulator-check b/scripts/emulator-check
+index 8beb5697d..daf18a43d 100755
+--- a/scripts/emulator-check
++++ b/scripts/emulator-check
+@@ -1279,6 +1279,7 @@ if [[ "${TEST_SCOPE:-full}" == read-deadline* ]]; then
+ fi
+ if [[ "${TEST_SCOPE:-full}" == selected-image* ]]; then
+     verify_group_chat_native ImagePreparationRecreationTest 180 selected-image images-evidence
++    verify_group_chat_native ProfileImagePreparationRecreationTest 180 selected-profile-image profile-edit-evidence
+     exit 0
+ fi
+ if [[ "${TEST_SCOPE:-full}" == unfinished-text* ]]; then

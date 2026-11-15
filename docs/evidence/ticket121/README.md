@@ -1,8 +1,10 @@
 # Selected-image preparation, ticket121
 
-All eight complete relevant scopes pass independent Standards and Spec source/
-evidence review with zero remaining findings. This completes ticket121's agreed
-software qualification, without claiming whole-app/beta acceptance.
+Initial source/native acceptance492c61b64 records eight complete relevant scopes.
+The subsequent [navigation follow-up](navigation/README.md) corrects a stale
+captured-selection guard after recreation and has exact-source SDK10/17 acceptance.
+Initial and follow-up evidence retain their separate source limits. No whole-app/
+beta acceptance is claimed.
 
 ## Behavior and source
 
@@ -17,7 +19,7 @@ Original image bounds, metadata removal, crop ratios and15-second provider deadl
 remain. This is Activity recreation, not recovery of an unprepared URI after process
 loss. Existing prepared-media/process recovery remains separately exercised.
 
-Current source: `24db78cf05e147f7243be5503566df5b79c9f871`.
+Initial accepted source: `24db78cf05e147f7243be5503566df5b79c9f871`.
 Source/core/lint uses `77bb6d44fa06f5f9b48932c60c7e643d991e7954`.
 Native sources59dc7f351 and3b1df5ddd differ only in the reviewed test fixtures and
 harness. Product source is identical across the accepted source and native inputs.

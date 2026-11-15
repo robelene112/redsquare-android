@@ -12,7 +12,30 @@ provider activation or public financial write is authorized.
 
 Current active ticket: #122 (recover reads and feed polling after request deadlines).
 
-#121 is complete with both independent source/evidence axes reporting zero remaining
+The reopened121navigation follow-up is complete atadcc1e9ca804372cd7b6a11c276168d106fcc328,
+with both independent axes reporting zero source/native findings. See
+[the follow-up packet](../evidence/ticket121/navigation/README.md). Exact-source
+selected-image Android10/17 parents43772033795/43772035861 each complete all five
+post/reply/quote/avatar/banner methods with real module switches under5seconds
+in each direction,
+exact encrypted media/text retention and no publication.157native raw originals,
+40PNG/XML members and55source originals verify; core224/44 FROM-CACHE and lint0errors
+remain explicit. Red43770278729/source56 fails the old post transitions at5seconds;
+its profile phase is not reached. Initial eight-scope acceptance below remains
+historical at its own sources. No beta or whole-app acceptance is implied.
+Originals: `/mnt/storage/redsquare-android-artifacts/selected-images121-navigation`.
+
+#122 first feed-deadline tracer5b718d7b3 and minimal polling fix0b549754b are already
+committed. Original red43769541018 fails the expected first-feed error feedback;
+source/debug43769682332 passes. Originals are retained at
+`/mnt/storage/redsquare-android-artifacts/read-deadlines122`. Resume122 by running
+the first corrected tracer, then finish remaining122criteria before123–130 and
+final131. No further approval is needed. No production node/provider change or
+public financial write is authorized. Preserve the canonical dirty checkout.
+
+### Initial121 acceptance492c61b64, before the reopened navigation follow-up
+
+#121 initially completed with both independent source/evidence axes reporting zero remaining
 findings. See [the #121 packet](../evidence/ticket121/README.md). Current product
 24db78cf0; source/core/lint77bb6d44f; native59dc7f351,3b1df5ddd and24db78cf0 through
 exact reviewed fixture-only bridges. All eight complete images/profiles/composer/
