@@ -254,16 +254,44 @@ abstract class FileshareFixture {
                                         if (expand != null) { expand.click(); expanded = true; break }
                                         row = row.parent
                                     }
-                                    // The transfer can sit below retained Chat alerts. Scroll the
-                                    // actual notification list, rather than assuming screen coordinates
-                                    // belong to that list while the shade is still settling.
-                                    if (!expanded) requireNotNull(device.findObject(androidx.test.uiautomator.By.res(
-                                        "com.android.systemui:id/notification_stack_scroller")))
-                                        .scroll(androidx.test.uiautomator.Direction.DOWN, 0.7f)
+                                    if (!expanded) {
+                                        val list = requireNotNull(device.findObject(androidx.test.uiautomator.By.res(
+                                            "com.android.systemui:id/notification_stack_scroller")))
+                                        if (android.os.Build.VERSION.SDK_INT == 29) {
+                                            // API29 includes Quick Settings and the bottom icon shelf in
+                                            // this node. Its default5% margin starts inside that shelf.
+                                            val bounds = list.visibleBounds
+                                            val headerBottom = device.findObject(androidx.test.uiautomator.By.res(
+                                                "com.android.systemui:id/header"))?.visibleBounds?.bottom ?: bounds.top
+                                            val shelfTop = device.findObjects(androidx.test.uiautomator.By.res(
+                                                "com.android.systemui:id/content")).map { it.visibleBounds }
+                                                .filter { it.top >= headerBottom && it.bottom == bounds.bottom }
+                                                .minOfOrNull { it.top } ?: bounds.bottom
+                                            val top = maxOf(bounds.top, headerBottom) + 8
+                                            val bottom = minOf(bounds.bottom, shelfTop) - 8
+                                            if (bottom - top < 48) { Thread.sleep(100); continue }
+                                            list.setGestureMargins(8, top - bounds.top, 8, bounds.bottom - bottom)
+                                            File(evidence, "cancel-scroll-geometry.jsonl").appendText(com.google.gson.JsonObject().apply {
+                                                addProperty("listTop", bounds.top); addProperty("listBottom", bounds.bottom)
+                                                addProperty("headerBottom", headerBottom); addProperty("shelfTop", shelfTop)
+                                                addProperty("gestureTop", top); addProperty("gestureBottom", bottom)
+                                            }.toString() + "\n")
+                                        }
+                                        list.scroll(androidx.test.uiautomator.Direction.DOWN, 0.7f)
+                                    }
                                     Thread.sleep(100)
                                 }
                                 check(device.hasObject(cancelAction))
-                                device.findObject(cancelAction).click()
+                                val actualCancel = requireNotNull(device.findObject(cancelAction))
+                                if (seedShade) {
+                                    val elapsed = 5000 - (deadline - android.os.SystemClock.uptimeMillis())
+                                    check(elapsed <= 5000) { "Physical Cancel lookup exceeded its original five seconds" }
+                                    File(evidence, "cancel-lookup.json").writeText(com.google.gson.JsonObject().apply {
+                                        addProperty("elapsedMillis", elapsed); addProperty("budgetMillis", 5000)
+                                        addProperty("physicalButtonBounds", actualCancel.visibleBounds.toShortString())
+                                    }.toString())
+                                }
+                                actualCancel.click()
                                 waitUntil { session!!.transfers.value.any { it.token == token && it.phase == FilePhase.CANCELLED } }
                                 assertNull(browser.received.get())
                             } else {
@@ -376,6 +404,9 @@ abstract class FileshareFixture {
                 { context.getSystemService(NotificationManager::class.java).cancel(FileTransferService.NOTIFICATION_ID) },
                 { if (seedShade) context.getSystemService(NotificationManager::class.java).let { manager ->
                     repeat(3) { manager.cancel(shadeFixture, it) }; manager.deleteNotificationChannel(shadeFixture)
+                    waitUntil { manager.getNotificationChannel(shadeFixture) == null &&
+                        manager.activeNotifications.none { it.tag == shadeFixture } }
+                    File(evidence, "cancel-shade-restoration.json").writeText("{\"ownedChannelRemoved\":true,\"ownedNotificationsRemoved\":true}\n")
                 } },
                 { wallets.replace(wallets.loadOrCreate(), previous) }, { backends.save(previousBackend) },
                 { files.restoreFiles() }, { files.restorePreferences() })
