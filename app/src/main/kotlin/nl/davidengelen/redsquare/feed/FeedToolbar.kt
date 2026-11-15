@@ -13,13 +13,13 @@ import nl.davidengelen.redsquare.ui.DesignTabs
 @Composable
 internal fun FeedToolbar(followingView: Boolean, onFollowing: (Boolean) -> Unit,
     maintenanceEnabled: Boolean,
-    onQueue: () -> Unit, onChanges: () -> Unit) {
+    onQueue: () -> Unit, onChanges: () -> Unit, modifier: Modifier = Modifier) {
     val modes = listOf(stringResource(R.string.feed_title), stringResource(R.string.following_title))
-    DesignTabs(modes, if (followingView) 1 else 0, onSelect = { onFollowing(it == 1) },
-        trailing = { FeedActions(maintenanceEnabled, onQueue, onChanges) })
+    Box(modifier) { DesignTabs(modes, if (followingView) 1 else 0, onSelect = { onFollowing(it == 1) },
+        trailing = { FeedActions(maintenanceEnabled, onQueue, onChanges) }) }
 }
 
 @Composable
-private fun FeedActions(maintenanceEnabled: Boolean, onQueue: () -> Unit, onChanges: () -> Unit) {
+private fun FeedActions(maintenanceEnabled: Boolean, onQueue: () -> Unit, onChanges: () -> Unit, modifier: Modifier = Modifier) {
     FeedMoreActions(maintenanceEnabled, onQueue, onChanges)
 }

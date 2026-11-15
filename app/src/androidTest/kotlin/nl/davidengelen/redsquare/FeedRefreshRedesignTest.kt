@@ -150,15 +150,19 @@ class FeedRefreshRedesignTest {
     private fun assertRefreshFeedbackAtTop(label: String) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val viewport = ui.onNodeWithTag("feed-post-list").fetchSemanticsNode().boundsInRoot
+        val tabs = ui.onNodeWithTag("feed-tabs").fetchSemanticsNode().boundsInRoot
+        val feedback = ui.onNodeWithTag("feed-refresh-feedback").fetchSemanticsNode().boundsInRoot
         val notice = ui.onNodeWithText("Feed updated.").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        val topBand = 80 * context.resources.displayMetrics.density
         File(context.cacheDir, "feed-refresh-evidence/$label-feedback-position.json").writeText(
             com.google.gson.JsonObject().apply {
+                addProperty("tabsBottom", tabs.bottom)
                 addProperty("viewportTop", viewport.top); addProperty("viewportBottom", viewport.bottom)
+                addProperty("feedbackTop", feedback.top); addProperty("feedbackBottom", feedback.bottom)
                 addProperty("noticeTop", notice.top); addProperty("noticeBottom", notice.bottom)
-                addProperty("topBandPixels", topBand)
             }.toString())
-        assertTrue("Refresh feedback must stay inside the top of the visible posts viewport",
-            notice.top >= viewport.top && notice.bottom <= viewport.top + topBand)
+        assertEquals("Refresh feedback must attach directly below the tabs", tabs.bottom, feedback.top, 1f)
+        assertEquals("Refresh feedback must reserve its own space above the posts", feedback.bottom, viewport.top, 1f)
+        assertTrue("Refresh text must fit inside its status strip",
+            notice.top >= feedback.top && notice.bottom <= feedback.bottom)
     }
 }

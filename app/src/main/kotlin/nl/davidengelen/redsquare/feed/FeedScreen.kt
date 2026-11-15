@@ -508,7 +508,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 actionEnabled = !loading, onAction = { refresh++ })
             FeedToolbar(followingView = followingView, onFollowing = { followingView = it },
                 maintenanceEnabled = wallet != null, onQueue = { reviewingQueue = true },
-                onChanges = { reviewingChanges = true })
+                onChanges = { reviewingChanges = true }, modifier = Modifier.testTag("feed-tabs"))
             val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
                 (!followingView || post.author in following?.accounts.orEmpty()) }
             val visiblePostIds = visiblePosts.map { it.id }.toSet()
@@ -573,7 +573,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 // Overlay the visible posts viewport so feedback stays below the tabs
                 // without moving the reader's post when it appears or disappears.
                 InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null,
-                    StatusTone.SUCCESS, modifier = Modifier.align(Alignment.TopCenter).padding(top = AppSpacing.small),
+                    StatusTone.SUCCESS, modifier = Modifier.align(Alignment.TopCenter).padding(top = AppSpacing.small).testTag("feed-refresh-feedback"),
                     passThrough = true)
             }
             else Spacer(Modifier.weight(1f))
