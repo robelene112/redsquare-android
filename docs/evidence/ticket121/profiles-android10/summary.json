@@ -1,0 +1,71 @@
+{
+  "result": "QUALIFIED_PASS_INHERITED_API29_ASSUMPTION",
+  "sdk": "10",
+  "scope": "profiles",
+  "run": 43766339724,
+  "source": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+  "ordinaryClasses": 6,
+  "ordinaryNormalCompletions": 21,
+  "inheritedAssumptions": [
+    [
+      "ProfilePublishingPreviewTest",
+      "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation",
+      -4
+    ]
+  ],
+  "normalProcessCompletions": 1,
+  "verifiedIntentionalStarts": 2,
+  "totalObservedInvocations": 25,
+  "modeResults": {},
+  "catalog": {
+    "ProfileEditPreviewTest": [
+      "aLateDraftSaveFailureCanBeRetriedInTheSameEditorAfterStorageRecovers",
+      "viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar",
+      "profileHistoryRemainsReachableWithAFullMultilineBio",
+      "cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable",
+      "aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing",
+      "walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement",
+      "failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork"
+    ],
+    "ProfileImagePreparationRecreationTest": [
+      "selectedAvatarContinuesAcrossRecreationWithoutLosingNewBioText",
+      "selectedBannerContinuesAcrossRecreationWithoutLosingNewBioText"
+    ],
+    "ProfileMediaPreviewTest": [
+      "selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity",
+      "removingSelectedPictureAndBannerSurvivesDraftRecoveryAndPublishesGeneratedDefaults"
+    ],
+    "ProfileNewEditPreviewTest": [
+      "aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt",
+      "aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages"
+    ],
+    "ProfilePublishingPreviewTest": [
+      "savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields",
+      "cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable",
+      "previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain",
+      "aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads",
+      "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    ],
+    "VideoPreviewTest": [
+      "videoContactsProviderOnlyAfterTapAndClosingPreservesThePost",
+      "selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows",
+      "aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink",
+      "userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay"
+    ]
+  },
+  "receipt": {
+    "run": 43766339724,
+    "source": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+    "conclusion": "success",
+    "artifactId": 14182856053,
+    "zipSha256": "65ba27f734a87d9d64302ed3e2d6d3351bdf99017506a92ea61b3b8fb9e55ccc",
+    "zipEntries": 97,
+    "captureMembers": 108,
+    "allExtractedMembersByteExact": true
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 97,
+    "captures": 108
+  },
+  "qualification": "Complete relevant scope at agreed controlled native/storage/owned-peer/process seams. All original phase/class goals retained. The one named API29 Profile assumption is inherited unchanged; intentional process starts never count as normal completions. Whole-app/beta/physical/OEM/live-service/Play gates remain separate."
+}

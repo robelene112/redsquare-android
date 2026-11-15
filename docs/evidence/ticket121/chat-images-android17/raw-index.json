@@ -1,0 +1,477 @@
+[
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-history-avd-config.ini",
+    "bytes": 3746,
+    "sha256": "ffdbbb9b1bfe1a54f9b72e5dae7d72ffc1742ccaf9447519d62e6dfe5a50b959"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-history-capture-status.log",
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-history-evidence.tar",
+    "bytes": 1100,
+    "sha256": "e5322bbd4952cbbe650b833959734ac261bebaa456b26fbff10d0ad4f19cf4e7"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-history-runtime-properties.txt",
+    "bytes": 217,
+    "sha256": "ec15e12b7412baf0e4c8104664e12f63de5d800feed86eccd5d028f9becbae79"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-history-ui-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-history-ui.txt",
+    "bytes": 8612,
+    "sha256": "3a1707bf3869dfa649a690586e5d3be326e68809dfffe59aa701b719f3b36826"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-preparation-recreation-capture-status.log",
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-preparation-recreation-ui-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-image-preparation-recreation-ui.txt",
+    "bytes": 1578,
+    "sha256": "a1889d17a7879e990efea5c0e87d054d2d43c82510eec21e8f4036ff270554ae"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-images-capture-status.log",
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-images-evidence.tar",
+    "bytes": 3018240,
+    "sha256": "3cf188aef2ebf03a71a6949169bfdd37a0549901e933185f89e078ee52cd85d8"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-images-ui-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-images-ui.txt",
+    "bytes": 10255,
+    "sha256": "7cdaed17ff7fdbbb45ff7369351ad05fe3e334ce0cd972f956053bc63b88fda3"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/capture-status.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/continuity.txt",
+    "bytes": 248,
+    "sha256": "12d2c20a87dafae083edc566acd8d28ec26f2d8e6c0e653c57e16588b1c52129"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images.tar",
+    "bytes": 402432,
+    "sha256": "cd0cbeaf95b90af5df3afbde5f3bd1dc6c73036c4de89caaec10aa94fae6e4fd"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/interrupted.txt",
+    "bytes": 482,
+    "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/pending-checkpoint.json",
+    "bytes": 1089,
+    "sha256": "43331a85f8ede1f9b0f5e9a5da2dba86899ba14bcc69580fec905fb4c94a5e18"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/recovered-checkpoint.json",
+    "bytes": 1115,
+    "sha256": "48601aea934cfd3729628915c2479c84746fbd2faad483701841c3c3f9c22311"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/recovered.txt",
+    "bytes": 852,
+    "sha256": "0659885c91ff15be7d4ae39ecbf5751287248f1950527ffa4d9840d51cc5826b"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-group-process/restored.txt",
+    "bytes": 810,
+    "sha256": "7ddfb2de3d327a4189089f84b2dfa57911238343f59a52afab71a5eb1d672194"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/capture-status.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/continuity.txt",
+    "bytes": 220,
+    "sha256": "47ead9fd3cb5126bdc4fd53f1ea2b871c0f145d559d6bbcd1be40bbc66a521b9"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar",
+    "bytes": 419840,
+    "sha256": "058011989e12cf9efcb30d8dfc2ae525aa533febe69b0973600294076e77023a"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/interrupted.txt",
+    "bytes": 482,
+    "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/pending-checkpoint.json",
+    "bytes": 922,
+    "sha256": "ce308b4b086afac71dc589e772501dfd6a0136863f05b536866213637290e4bd"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/recovered-checkpoint.json",
+    "bytes": 948,
+    "sha256": "46ce571400ba57c87efb0b32c21dbb3154330c1985094ff6af770a7a5b3166f1"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/recovered.txt",
+    "bytes": 852,
+    "sha256": "95711ea896e3b6e8a3e76bf2417851c1cca05849084b0d8f7903811fe6854627"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/chat-photo-private-process/restored.txt",
+    "bytes": 810,
+    "sha256": "2cda3625391a57b066143729f77980584828fd2a76f377bdc705a5af61e96163"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/device-abi.txt",
+    "bytes": 7,
+    "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/emulator-capacity.txt",
+    "bytes": 64,
+    "sha256": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/emulator-online-cpus.txt",
+    "bytes": 2,
+    "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/emulator.log",
+    "bytes": 11692,
+    "sha256": "a390c379a63de67813b714e04e6db8c1b3ea46338261906a0b012e84771fe390"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/page-size.txt",
+    "bytes": 5,
+    "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/requested-page-size.txt",
+    "bytes": 8,
+    "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/scope.txt",
+    "bytes": 58,
+    "sha256": "b3b51dcb2c120513077e513710601327e5e2acd7715a5ffd43bacfd03ab83df8"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/system-build.txt",
+    "bytes": 85,
+    "sha256": "c48dc581bd2abfaa3f122516d4d554c23b64a2ae633ecdde68fc16be6b7b7afd"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/system-image.properties",
+    "bytes": 359,
+    "sha256": "1f50787fdc2c40508ba14e4bfb1e402c8a71bf435a59f9301e0f841807a07f8e"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/system-image.txt",
+    "bytes": 46,
+    "sha256": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/wellbeing-disable.txt",
+    "bytes": 67,
+    "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+  },
+  {
+    "path": ".scratch/device-evidence/api-37.0/wellbeing-disabled-package.txt",
+    "bytes": 42,
+    "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+  },
+  {
+    "path": ".scratch/proof-runner.txt",
+    "bytes": 13,
+    "sha256": "7dd997d4a5e962f8d10bd8f4cde2d9a3a67d2f5d7529bf34f210585506f42d6d"
+  },
+  {
+    "path": ".scratch/proof-source.txt",
+    "bytes": 41,
+    "sha256": "b8f4844eee144cbb322668012c9bbcc0ff07f7f0b8e6ee0789741853bc1dac42"
+  },
+  {
+    "path": ".scratch/proof-workflow.txt",
+    "bytes": 41,
+    "sha256": "b8f4844eee144cbb322668012c9bbcc0ff07f7f0b8e6ee0789741853bc1dac42"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.ControlledLikeArchiveContractTest.html",
+    "bytes": 2271,
+    "sha256": "30e8649728c23497c8e2eeeafaa6a5d18c00026f2c6b4d4b9e34dbf145cfc1bf"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest.html",
+    "bytes": 2095,
+    "sha256": "912ad14bde771b2aee5ef672dcd8f28233d18398105bc2d013c8e47e8487ced6"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.html",
+    "bytes": 2280,
+    "sha256": "5fbc31be38507a47983edb60b4e625643c4c7d3b08f684905cf2082e26ae68cc"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.FileshareTest.html",
+    "bytes": 2562,
+    "sha256": "e169c33a37dce096777034cbdcdc9bf5d00b3a228f8c996e8cdf4ab3aae0be2b"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html",
+    "bytes": 2534,
+    "sha256": "d62ea1e35ac44dbe930d3753ddd79766d9ed36584c66bae3b46794b8a9b37dd5"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html",
+    "bytes": 5325,
+    "sha256": "3cbe9c838ae4fe1a7ff1e7fa3faab30f38f71ca4422678c51d376d48376a1b63"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html",
+    "bytes": 2444,
+    "sha256": "448156651455f403d9e27d449a331b6357e74b1fdd6191da8e6bac6ddc5f05b8"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html",
+    "bytes": 3620,
+    "sha256": "5c281270d5fcccb3722e4e5165cad9b42b5a4946bc597c7e3d31cb27fe2da475"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html",
+    "bytes": 2279,
+    "sha256": "6412e1aa8bf32b2916e4589d3a4634547f272dc62edc275e25ec43bb78d00336"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html",
+    "bytes": 3702,
+    "sha256": "c08aa4066c36dd91dc28ea343a2737921ffddd16d4eaa51b5cfec64c6e6d99e9"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html",
+    "bytes": 2599,
+    "sha256": "dcc60d085bc7e89acedc2647f07892f4075eb93583deb61c9ad36aa022871203"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html",
+    "bytes": 2611,
+    "sha256": "b6e22de686c8e0f139f537e9f7b8de95b4625e396b2195a517f46392b8ada8f3"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html",
+    "bytes": 3357,
+    "sha256": "eddb591b2f8c495a58799bc5ea68337a09a4466c80f186deca90bf87429e5938"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html",
+    "bytes": 2613,
+    "sha256": "3a11c6f38c6b1b64a392a7a9bb6105f2c22c24db8c62a387386899987748884c"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html",
+    "bytes": 2780,
+    "sha256": "af39d65e0f1693575a1a26709fe523db94016f223a67f242f0621ebdce4d6f6f"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoAccessScriptTest.html",
+    "bytes": 2630,
+    "sha256": "09ec5b23b3c451397fc3b2f92a213d487e8ad719bdfe4788f017faa5a89045d4"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html",
+    "bytes": 2589,
+    "sha256": "59a309fc262492603a337681d451d9ce7fe9cce6111f34affbc57063314d3370"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html",
+    "bytes": 2106,
+    "sha256": "f9dd0cf51688046afe5284c844a228e2657c98b0abebaa8b7758b0375f9936fc"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest.html",
+    "bytes": 2279,
+    "sha256": "c6dab356bbb15f0c778df3399ae683dec345f29dbcc2582e19ac5db234a58ee4"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNftTransferTest.html",
+    "bytes": 2437,
+    "sha256": "3f4e62af424c8c33490991d3817eeadf5e03bf06f0acbfd8533a653c26a95f3b"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNodeBlockTest.html",
+    "bytes": 2268,
+    "sha256": "0e0d4087acfcf51a82371aa3b04c7fd95c01b0c366bc08711ecda33aa98ad20a"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html",
+    "bytes": 2785,
+    "sha256": "280b3154b8e0527bf98524676af167e56c29b866735fcf4db6c83ad52802c3b9"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html",
+    "bytes": 2243,
+    "sha256": "0e3a972a007becc9f7a26ce95385e28f9683c23a0588987e91746be4d2d9ca4e"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html",
+    "bytes": 2644,
+    "sha256": "683487e5f53098e2e4696a200c5c7941e7c70486dd900611307271f85f0655e4"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html",
+    "bytes": 2860,
+    "sha256": "88ba55b690105383af1825deda0bab1dfc058c04d8cef3462e8d8bcc7a20bda0"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStackTest.html",
+    "bytes": 2292,
+    "sha256": "ce8e0ad6a2fcdd49dee8e427c4aa16085b56854873725187807c3541383715f9"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest.html",
+    "bytes": 3387,
+    "sha256": "2348b76f6fbaa1b0bc1a2cbffbbfc5fc2d3e8cd265e325838f7496a7a44693e6"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreListingTest.html",
+    "bytes": 4617,
+    "sha256": "5be7b96120cbc6c357f1261ee2467f4f325f482e79930509bcf5379360daf520"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest.html",
+    "bytes": 3259,
+    "sha256": "88a5e4a9686fe93a60d9c9814875db6f78a30a4986ab63e3f8c2fd08029bb83d"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreRentalTest.html",
+    "bytes": 3506,
+    "sha256": "98438a026b964356cb77fa4f4d487194bd0fc98bcabbd0479945f14398f07628"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreTest.html",
+    "bytes": 2910,
+    "sha256": "9b0bb27fd74bc748d58bf2e9562c5f02b180ee932484f23a74f0b9b11fb80c1f"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest.html",
+    "bytes": 2633,
+    "sha256": "fa55ad5aac57c7c99a89500abccf7985608a11e6a63b8e5ba1520d72a3597bc2"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html",
+    "bytes": 2577,
+    "sha256": "215ae996b93e8921fa64b612b98462efd7636950f76d15d18864b6360d897dc5"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest.html",
+    "bytes": 2124,
+    "sha256": "c2d56c2d5dee6ea2ecb5be257303a4757e32259104b0daf101c4fbb302fbdc0b"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultMintTest.html",
+    "bytes": 2602,
+    "sha256": "ceddb3ba3f11d3b3cb6a5946ee08d543e95fa9198a75bcaea2b10c29c93ca840"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultRentalTest.html",
+    "bytes": 2466,
+    "sha256": "38fcf8adccacced84fb682969b57ca7b421f4f5a08656219ec49bfbb02ce02e3"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultTest.html",
+    "bytes": 2912,
+    "sha256": "e36fc5ff7a48e0d71f671c5299b118d53bd17cb0fd5000618c3bb06a8ffbe70d"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html",
+    "bytes": 4426,
+    "sha256": "23af2a5c1995e23fb7251cad9739451ca33e128c5dd0857a1cd90c562db644a5"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html",
+    "bytes": 2085,
+    "sha256": "9f68e7a313c02f42bb32a24c9881acec064db99c6029eae3203aab512c970233"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SharedNodeConnectionTest.html",
+    "bytes": 3762,
+    "sha256": "65ff70ff6d7e26db4d89c5c997ed307286a8aec46ef55f8491a628cc2699022a"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.StackLinkTest.html",
+    "bytes": 2443,
+    "sha256": "e5f2957783165d08fd2568f896c5d64110e83ecd61a977dced07df1a53df8b8b"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.StoreLinkTest.html",
+    "bytes": 2070,
+    "sha256": "7111c9344a6debe4cf6b21849173efc4e578aa1225f391be008705125a99866a"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.TalkTest.html",
+    "bytes": 3049,
+    "sha256": "48411c48924e0ddb9cce3e8eee79cffba4d21c87b9679d66d9da54753c195955"
+  },
+  {
+    "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.VaultUploadTransportTest.html",
+    "bytes": 2117,
+    "sha256": "d9fa9b7e8cdce7b0b323bc72d877d1b5e8c5878fe56481f34d47acf6e080adac"
+  },
+  {
+    "path": "core/build/reports/tests/test/css/base-style.css",
+    "bytes": 2645,
+    "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+  },
+  {
+    "path": "core/build/reports/tests/test/css/style.css",
+    "bytes": 1135,
+    "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+  },
+  {
+    "path": "core/build/reports/tests/test/index.html",
+    "bytes": 13484,
+    "sha256": "9d716c58fa85bc9b7edba1231e0bbca137887a6acfcd11834bbb5114c2fd4fe5"
+  },
+  {
+    "path": "core/build/reports/tests/test/js/report.js",
+    "bytes": 5252,
+    "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+  },
+  {
+    "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.feed.html",
+    "bytes": 2083,
+    "sha256": "596de082ec3fc4f6089f054eecd412c05ace5f2ca7ad950378f250529ab88d2e"
+  },
+  {
+    "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.html",
+    "bytes": 2091,
+    "sha256": "2daa51e4d5b7b8a5fb1a2c7f767a8eee2254d9b61f480a47389237d018def348"
+  },
+  {
+    "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html",
+    "bytes": 11025,
+    "sha256": "d26b80a3f5ee25fa9eb2420f3df616e7c635a5f0737985138bf30debf57b0881"
+  }
+]

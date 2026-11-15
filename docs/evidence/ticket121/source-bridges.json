@@ -1,0 +1,62 @@
+{
+  "sourceCoreLint": "77bb6d44fa06f5f9b48932c60c7e643d991e7954",
+  "native": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+  "current": "24db78cf05e147f7243be5503566df5b79c9f871",
+  "bridges": [
+    {
+      "fromSource": "77bb6d44fa06f5f9b48932c60c7e643d991e7954",
+      "toSource": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+      "exactChangedPaths": [
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagePreparationRecreationTest.kt",
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt",
+        "scripts/emulator-check"
+      ],
+      "unchangedGitEntries": 225566,
+      "canonicalUnchangedInventorySha256": "41c93831192b79490d0acc9c1990e311293226453508468c454bf0576edfb2ca",
+      "patch": "bridge-77bb6d44f-59dc7f351.patch",
+      "patchSha256": "20cc9caace1da769cc5c48da0c8b98ba0b7643349b728bb9f423ec5c9e7293f4"
+    },
+    {
+      "fromSource": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+      "toSource": "82ed5c1c375369d7639cce401a8b7dbcd9d21186",
+      "exactChangedPaths": [
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt",
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt"
+      ],
+      "unchangedGitEntries": 225567,
+      "canonicalUnchangedInventorySha256": "c246a5774e18f4948cbe039b2a7ac2be8e2f4e31fdd7f0929f999bee7a1459ed",
+      "patch": "bridge-59dc7f351-82ed5c1c3.patch",
+      "patchSha256": "1f35f3b9de12ea7d1ea02845f5d8c22491088b52393b46ea477adf6209b53980"
+    },
+    {
+      "fromSource": "82ed5c1c375369d7639cce401a8b7dbcd9d21186",
+      "toSource": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+      "exactChangedPaths": [
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt",
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt"
+      ],
+      "unchangedGitEntries": 225567,
+      "canonicalUnchangedInventorySha256": "c246a5774e18f4948cbe039b2a7ac2be8e2f4e31fdd7f0929f999bee7a1459ed",
+      "patch": "bridge-82ed5c1c3-3b1df5ddd.patch",
+      "patchSha256": "aafbb0a601fb10fc929c63a9e1a414593f2f6d26edcf3d5ad914eaa589099408"
+    },
+    {
+      "fromSource": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+      "toSource": "24db78cf05e147f7243be5503566df5b79c9f871",
+      "exactChangedPaths": [
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagePreparationRecreationTest.kt",
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatImagesPreviewTest.kt",
+        "scripts/emulator-check"
+      ],
+      "unchangedGitEntries": 225566,
+      "canonicalUnchangedInventorySha256": "d885a9c74faa672864b7bc068d97d347c6ec9b53ae01e4973c77fab44bab364f",
+      "patch": "bridge-3b1df5ddd-24db78cf0.patch",
+      "patchSha256": "8e02a7e8e834b918f25cfe1a203a4bfb0ce5310864acb1f8f929fa8b847aaee4"
+    }
+  ],
+  "nativeSources": [
+    "59dc7f351d7ac92a4461e5254b9bd17599274620",
+    "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+    "24db78cf05e147f7243be5503566df5b79c9f871"
+  ]
+}

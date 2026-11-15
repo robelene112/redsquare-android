@@ -1,0 +1,26 @@
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
+index 6987e7d15..12e5bcd6a 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
+@@ -92,7 +92,7 @@ class ImagePreparationRecreationTest {
+                     val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+                     check(device.takeScreenshot(java.io.File(directory,"selected-$mode.png")))
+                     device.dumpWindowHierarchy(java.io.File(directory,"selected-$mode.xml"))
+-                    assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
++                    check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
+                     assertEquals(SaitoBackend.OWNER, backends.load())
+                     assertTrue(peer.transactions.isEmpty())
+                     peer.assertHealthy()
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
+index 46562b394..c370232bf 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
+@@ -100,7 +100,7 @@ class ProfileImagePreparationRecreationTest {
+                     device.dumpWindowHierarchy(File(directory,"selected-profile-$field.xml"))
+                     assertEquals(1, provider("status").getInt("openCalls"))
+                     Intents.intended(pick, androidx.test.espresso.intent.VerificationModes.times(1))
+-                    assertEquals(wallet.exportJson(), AndroidWalletStore(context).loadExisting().exportJson())
++                    check(wallet.exportJson() == AndroidWalletStore(context).loadExisting().exportJson()) { "Selected image preparation must preserve the original wallet" }
+                     assertEquals(SaitoBackend.OWNER, backends.load())
+                     assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
+                 }

@@ -1,0 +1,142 @@
+{
+  "result": "PASS_COMPLETE_RELEVANT_SCOPE",
+  "sdk": "10",
+  "scope": "images",
+  "run": 43766334903,
+  "source": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+  "ordinaryNormalCompletions": 21,
+  "normalProcessCompletions": 2,
+  "verifiedIntentionalStarts": 3,
+  "totalObservedInvocations": 26,
+  "catalog": {
+    "images-ui.txt": [
+      [
+        "ImagePreviewTest",
+        "selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing"
+      ],
+      [
+        "ImagePreviewTest",
+        "signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer"
+      ],
+      [
+        "ImagePreviewTest",
+        "systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft"
+      ],
+      [
+        "ImagePostingTest",
+        "imageOnlyPostSignsAndServesItsOrderedPreparedImages"
+      ],
+      [
+        "ImagePostingTest",
+        "imageReplyKeepsItsParentThreadRecipientsAndAttachment"
+      ],
+      [
+        "ImagePostingTest",
+        "imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal"
+      ]
+    ],
+    "images-preparation-ui.txt": [
+      [
+        "ImagePreparationRecreationTest",
+        "selectedPostImageContinuesOnceAcrossRecreationWithoutPublishing"
+      ],
+      [
+        "ImagePreparationRecreationTest",
+        "selectedReplyImageContinuesOnceAcrossRecreationWithoutPublishing"
+      ],
+      [
+        "ImagePreparationRecreationTest",
+        "selectedQuoteImageContinuesOnceAcrossRecreationWithoutPublishing"
+      ],
+      [
+        "ImagePreparationTest",
+        "allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata"
+      ],
+      [
+        "ImagePreparationTest",
+        "pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget"
+      ],
+      [
+        "ImagePreparationTest",
+        "failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches"
+      ],
+      [
+        "ImageLoadingTest",
+        "remoteFailuresKeepVerifiedTextReadableAndRetryCanRecoverOneImage"
+      ],
+      [
+        "ImageLoadingTest",
+        "leavingStalledDownloadsKeepsNavigationUsableAndReleasesImageCapacity"
+      ]
+    ],
+    "images-lifecycle-ui.txt": [
+      [
+        "PostPreviewTest",
+        "walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource"
+      ],
+      [
+        "AuthorPostPreviewTest",
+        "authorImageEditsRetainPixelsAndDeletionRemovesTheGallery"
+      ],
+      [
+        "PostQueuePreviewTest",
+        "cancelledImageQueueKeepsItsPreparedDraftAfterItsSourceDisappears"
+      ],
+      [
+        "PostQueuePreviewTest",
+        "queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels"
+      ],
+      [
+        "PostPreviewTest",
+        "failedImageDraftSavingKeepsItsPixelsAndServerUntilStorageRecovers"
+      ],
+      [
+        "PostQueuePreviewTest",
+        "failedImageQueueSavingRetainsPixelsAndCannotTransmitBeforeRepair"
+      ],
+      [
+        "AuthorPostPreviewTest",
+        "imageQuoteKeepsOwnGalleryWhileOriginalImagesFollowEditAndRemoval"
+      ]
+    ],
+    "image-process/recovered-instrumentation.txt": [
+      [
+        "ImageProcessRecoveryTest",
+        "coldCandidateReconcilesWithoutRebroadcastingOrLosingItsImage"
+      ]
+    ],
+    "image-queue-process/recovered-instrumentation.txt": [
+      [
+        "PostQueueProcessRecoveryTest",
+        "coldStartupDeliversThePreviouslySignedQueuedPost"
+      ]
+    ]
+  },
+  "receipt": {
+    "run": 43766334903,
+    "source": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+    "conclusion": "success",
+    "artifactId": 14182646999,
+    "zipSha256": "12742cb680be077cf8345b23fccd15ba9b47c7337f36cee19ece2e7a161a3f76",
+    "zipEntries": 98,
+    "captureMembers": 65,
+    "allExtractedMembersByteExact": true
+  },
+  "perArchiveOriginals": {
+    "run": 43766334903,
+    "source": "3b1df5ddd9185e489cb9f3aee96679e8f4c104f8",
+    "archiveMembers": 65,
+    "uniqueFlattenedMembers": 49,
+    "collidingPaths": 16,
+    "everyArchiveMemberRetainedSeparatelyByteExact": true,
+    "flattenedViewMatchesOrderedLastArchiveWins": true,
+    "unavailableArchives": [],
+    "qualification": "Separate per-archive originals preserve every version. Flattened captures are a convenience last-archive-wins view; their unique-file count is not the original member count."
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 98,
+    "captures": 49,
+    "archive-members": 65
+  },
+  "qualification": "Separate per-archive originals preserve each version; flattened convenience captures use ordered last-archive wins. Complete relevant controlled native/storage/owned-peer/process scope; all original class/action goals retained. Deliberate interrupted starts are distinct from normal completions. Whole-app/beta/physical/OEM/live service and Play gates remain separate. The unchanged storage-only Chat history class produces no capture directory; its unavailable original archive stays explicit in the collection receipt, and every other archive is mandatory."
+}

@@ -10,7 +10,31 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current active ticket: #121 (resume selected-image preparation across Activity recreation).
+Current active ticket: #122 (recover reads and feed polling after request deadlines).
+
+#121 is complete with both independent source/evidence axes reporting zero remaining
+findings. See [the #121 packet](../evidence/ticket121/README.md). Current product
+24db78cf0; source/core/lint77bb6d44f; native59dc7f351,3b1df5ddd and24db78cf0 through
+exact reviewed fixture-only bridges. All eight complete images/profiles/composer/
+Chat parents pass on Android10/17:181normal completions,30verified intentional
+starts and one unchanged named API29Profile assumption. Selected images survive
+real Activity replacement on post/reply/quote/privateChat/groupChat/avatar/banner,
+with exactly one provider preparation, latest editable caption/Bio, encrypted
+normalized drafts, original identity and zero implicit publication. Both axes
+verify892native raw originals,980separate TAR members,939unique convenience
+captures and55source originals, all indexes and assessor assertions. Source224/44
+core and gateway FROM-CACHE qualification and lint0errors remain explicit. Chat
+storage-only capture absence and archive-version collisions are qualified; every
+original version is separately indexed. All reds, compile replacements and failed
+whole parents remain retained without prefix acceptance. Two earlier Chat17
+legacy-suite timeout causes remain unproved; final original10 completes111.326s
+under120 and new2 completes11.984s under180. Public beta remains0.1.131; integrated
+qualification and combined delivery belong to131. Originals:
+`/mnt/storage/redsquare-android-artifacts/selected-images121`.
+
+Continue122–130 sequentially, then131, without another approval. No production
+node/provider change or public financial write is authorized. Preserve the dirty
+canonical checkout; ordinary native QA remains agent-owned.
 
 #120 is complete with both independent source/evidence axes reporting zero remaining
 findings. See [the #120 packet](../evidence/ticket120/README.md). Native source
@@ -27,7 +51,7 @@ source builds and first failed composer fixture remain retained without prefix
 acceptance. Public beta remains0.1.131; final integrated delivery belongs to131.
 Originals: `/mnt/storage/redsquare-android-artifacts/unfinished-text120`.
 
-Continue121–130 sequentially, then131, without another approval question. Ordinary
+Continue122–130 sequentially, then131, without another approval question. Ordinary
 QA remains agent-owned. No production node/provider change or public financial
 write is authorized. The canonical dirty checkout remains untouched.
 
@@ -41,7 +65,7 @@ ends the original token with0grants/chunks/bytes and retained draft. Core224/44 
 lint0errors pass. Invalid Android10 setup and a replaced slow source build remain
 retained and excluded. Current public beta remains0.1.131.
 
-Continue #120–#130 sequentially, then integrated qualification/beta #131, without
+Continue #122–#130 sequentially, then integrated qualification/beta #131, without
 asking for another approval. Preserve all prior deadlines, native goals and
 physical/OEM/live-service/Play qualifications. No production node/provider change
 or public financial write occurred. Canonical dirty checkout remains untouched.

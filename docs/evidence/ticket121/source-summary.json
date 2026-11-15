@@ -1,0 +1,16 @@
+{
+  "result": "PASS_SOURCE_DEBUG_WITH_CACHED_CORE_QUALIFICATION",
+  "run": 43764357762,
+  "source": "77bb6d44fa06f5f9b48932c60c7e643d991e7954",
+  "coreTests": 224,
+  "coreSuites": 44,
+  "coreFailures": 0,
+  "coreIgnored": 0,
+  "coreAndGatewayTask": "FROM-CACHE",
+  "appAndInstrumentation": "compiled",
+  "lintErrors": 0,
+  "lintWarnings": 94,
+  "lintHints": 3,
+  "sourceOriginals": 55,
+  "qualification": "Recorded core/gateway results use Gradle cache; app and instrumentation Kotlin compile and lint succeeded at source77bb. Exact reviewed fixture-only bridges bind the native59, native3b and current24 sources; product source is identical."
+}

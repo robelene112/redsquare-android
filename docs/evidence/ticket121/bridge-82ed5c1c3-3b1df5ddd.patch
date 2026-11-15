@@ -1,0 +1,45 @@
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
+index 12e5bcd6a..e6e113993 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ImagePreparationRecreationTest.kt
+@@ -35,7 +35,12 @@ class ImagePreparationRecreationTest {
+         val backends = AndroidBackendStore(context)
+         val originalBackend = backends.load()
+         val wallet = AndroidWalletStore(context).loadOrCreate()
+-        val retained = ChatFixtureState(context, listOf("postdraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}"), wallet.publicKey)
++        val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader()
++            .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
++        val reference = nl.davidengelen.redsquare.saito.RedSquareFeed.readArchive("[$root]").posts.single()
++        val retained = ChatFixtureState(context, listOf("postdraft.${SaitoBackend.OWNER.id}.${wallet.publicKey}",
++            "feed.${SaitoBackend.OWNER.id}.", "conversation.${SaitoBackend.OWNER.id}.${reference.threadId}.",
++            "authorposts.${SaitoBackend.OWNER.id}.${reference.id}."), wallet.publicKey)
+         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+             .use { JsonParser.parseReader(it).asJsonObject }
+         val bytes = android.util.Base64.decode(fixture.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP)
+@@ -54,10 +59,9 @@ class ImagePreparationRecreationTest {
+                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
+             Intents.intending(pick).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK,
+                 Intent().setData(uri).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
+-            val root = instrumentation.context.assets.open("native-following-reference.json").bufferedReader()
+-                .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
+-            val reference = nl.davidengelen.redsquare.saito.RedSquareFeed.readArchive("[$root]").posts.single()
+-            val peer = ControlledFeedPeer("[$root]")
++            val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
++                if (criteria.get("field1")?.asString == "RedSquare") "[$root]" else "[]"
++            })
+             peer.start().use { server ->
+                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
+diff --git a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
+index c370232bf..fcb756c9b 100644
+--- a/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
++++ b/app/src/androidTest/kotlin/nl/davidengelen/redsquare/ProfileImagePreparationRecreationTest.kt
+@@ -55,7 +55,7 @@ class ProfileImagePreparationRecreationTest {
+                 hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
+                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
+             Intents.intending(pick).respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)))
+-            val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" })
++            val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { "[]" })
+             peer.start().use { server ->
+                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->

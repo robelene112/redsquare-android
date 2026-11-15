@@ -1,0 +1,422 @@
+[
+  {
+    "path": "chat-images-evidence/group-compatible-photo.png",
+    "bytes": 31173,
+    "sha256": "f08f016fd60d64fa472524ddd68d0cdda171ece749dbfa92468cdba6d10b76fa"
+  },
+  {
+    "path": "chat-images-evidence/group-compatible-photo.xml",
+    "bytes": 50701,
+    "sha256": "d77e76373f5cd41d96837440ab5d18274431fc038ce377b487fb241d6496b265"
+  },
+  {
+    "path": "chat-images-evidence/group-draft-photo-draft-reopened.png",
+    "bytes": 31629,
+    "sha256": "40891073b281669c1d3e252f89d85b7105a59bf543b78ec0dd9d02c3916099c6"
+  },
+  {
+    "path": "chat-images-evidence/group-draft-photo-draft-reopened.xml",
+    "bytes": 46865,
+    "sha256": "e9c733ff7cd4a3b449bde5016d0e283f3d7acd431c65f956e0169a010eb91193"
+  },
+  {
+    "path": "chat-images-evidence/group-draft-photo-selected-unsent.png",
+    "bytes": 31796,
+    "sha256": "623c5bf1547ab3c847b7475bf8f32fa2439c71f39db7db446977e5092b5d3fbe"
+  },
+  {
+    "path": "chat-images-evidence/group-draft-photo-selected-unsent.xml",
+    "bytes": 46864,
+    "sha256": "f48fddf92eb76398ef8bca06a30d33313c2d7f397f3093f566e9a374ce3e2f36"
+  },
+  {
+    "path": "chat-images-evidence/group-failed-preparation-text-durably-retained.png",
+    "bytes": 34964,
+    "sha256": "0a33ef427e7f47d065927e951d422dcfd0c4dde5ab72be400320cbf7e20d4289"
+  },
+  {
+    "path": "chat-images-evidence/group-failed-preparation-text-durably-retained.xml",
+    "bytes": 46031,
+    "sha256": "3cd7a1d1e2de6c5e4d0a1bc6fa8d9bc761aa360ebe22ef7b30abc5de78a9dbdf"
+  },
+  {
+    "path": "chat-images-evidence/group-failed-preparation-text-reopened.png",
+    "bytes": 34749,
+    "sha256": "434ade9797de9f0be13d1c054d62a02cd669abd19ee7edfbe7ea197657dc1503"
+  },
+  {
+    "path": "chat-images-evidence/group-failed-preparation-text-reopened.xml",
+    "bytes": 46032,
+    "sha256": "c31d64d4cf7e478b01c7ecf9c1c3c184f9d238c6b6f44d93b72001a0f1ca387f"
+  },
+  {
+    "path": "chat-images-evidence/group-photo-cached-after-reopening.png",
+    "bytes": 31911,
+    "sha256": "cd22846fb63ea0ca6e4ee4d70eaaa9503fcb9850c89eafb25a96113d5acbf320"
+  },
+  {
+    "path": "chat-images-evidence/group-photo-cached-after-reopening.xml",
+    "bytes": 50703,
+    "sha256": "f26e941a6af1d8fc07f4535bee6ff2cc2b6098c317b4fb0e92be37e9797be69a"
+  },
+  {
+    "path": "chat-images-evidence/group-photo-expanded.png",
+    "bytes": 7278,
+    "sha256": "af86f5b418e7762d67f84d3b9292cb5251e2a921729f453e21d2089585ac0134"
+  },
+  {
+    "path": "chat-images-evidence/group-photo-expanded.xml",
+    "bytes": 19987,
+    "sha256": "39548249582cf41944799623cc51ee91e123bf45f81dfca0d37d3200d9b8dbd6"
+  },
+  {
+    "path": "chat-images-evidence/group-photo-explicitly-sent.png",
+    "bytes": 33294,
+    "sha256": "474b5125b080297ab7a399e9b7ddd87e572a914a5b3ed0ded4d928583031402f"
+  },
+  {
+    "path": "chat-images-evidence/group-photo-explicitly-sent.xml",
+    "bytes": 52108,
+    "sha256": "be417eaa6ff1e6440800fb6a5c4f22a19d8edeb5fbb04e4452d8acd40f6e773e"
+  },
+  {
+    "path": "chat-images-evidence/group-preparation-recreation-selected-image-retained.png",
+    "bytes": 31336,
+    "sha256": "ef68899c3744221b866f4689d088ca227e8e1b7ff65bbd5f3807184b99970696"
+  },
+  {
+    "path": "chat-images-evidence/group-preparation-recreation-selected-image-retained.xml",
+    "bytes": 46855,
+    "sha256": "074d69d372a8a1436948e05da190b13a860447339e9b6b4ce96cbc30b0b68d30"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-draft-reopened.png",
+    "bytes": 31652,
+    "sha256": "9d1fb9bc159087a873b78f677b5ec6346f10a818c1d938e43263e35d122dcf40"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-draft-reopened.xml",
+    "bytes": 46865,
+    "sha256": "d158bf4c5425cbad978c4e2da30f6be6b4730099b4805aa23d5c170c472a2bea"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-queued.png",
+    "bytes": 35042,
+    "sha256": "36a8faf04cae5030d56c6f4a4024e558c1becfa86220d1ab394bd8a4df8da740"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-queued.xml",
+    "bytes": 51838,
+    "sha256": "d02605562c727c88af0b22b223fd0a5f946d69dc32a95d3614e6c899c3472358"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-restored-after-cancel.png",
+    "bytes": 35577,
+    "sha256": "29eb7cdde1282c1ffaf983060c74481272b3ee14e1c6dd1b875a02d1eb6b177b"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-restored-after-cancel.xml",
+    "bytes": 49572,
+    "sha256": "6a1167a3730a9a5299010da8a7942b5202e7b1274e4bcc9166afaa2e4f22604b"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-restored-online-unsent.png",
+    "bytes": 31652,
+    "sha256": "9d1fb9bc159087a873b78f677b5ec6346f10a818c1d938e43263e35d122dcf40"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-restored-online-unsent.xml",
+    "bytes": 46865,
+    "sha256": "d158bf4c5425cbad978c4e2da30f6be6b4730099b4805aa23d5c170c472a2bea"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-selected-unsent.png",
+    "bytes": 31818,
+    "sha256": "b3047ab17c65c3c2f5762882a004c0046cedcf4fbb78d093da8803e4465fc27b"
+  },
+  {
+    "path": "chat-images-evidence/group-queued-cancel-photo-selected-unsent.xml",
+    "bytes": 46864,
+    "sha256": "80881f900b204a9fe2d4b059be8deeb3c147b06be0c1d6b437e01b0589d4fabd"
+  },
+  {
+    "path": "chat-images-evidence/group-send-photo-draft-reopened.png",
+    "bytes": 31629,
+    "sha256": "40891073b281669c1d3e252f89d85b7105a59bf543b78ec0dd9d02c3916099c6"
+  },
+  {
+    "path": "chat-images-evidence/group-send-photo-draft-reopened.xml",
+    "bytes": 46865,
+    "sha256": "e9c733ff7cd4a3b449bde5016d0e283f3d7acd431c65f956e0169a010eb91193"
+  },
+  {
+    "path": "chat-images-evidence/group-send-photo-selected-unsent.png",
+    "bytes": 31796,
+    "sha256": "623c5bf1547ab3c847b7475bf8f32fa2439c71f39db7db446977e5092b5d3fbe"
+  },
+  {
+    "path": "chat-images-evidence/group-send-photo-selected-unsent.xml",
+    "bytes": 46864,
+    "sha256": "f48fddf92eb76398ef8bca06a30d33313c2d7f397f3093f566e9a374ce3e2f36"
+  },
+  {
+    "path": "chat-images-evidence/native-capture-timings.jsonl",
+    "bytes": 5826,
+    "sha256": "b425dede05009441fc83a179e0311473bb2878a7141be963ea1f8f438e39320d"
+  },
+  {
+    "path": "chat-images-evidence/native-group-photo-envelope.json",
+    "bytes": 2324,
+    "sha256": "facdf50c5489dac96e35cd1fceb54de87b85c5b8d9b484b262937d1dca489a78"
+  },
+  {
+    "path": "chat-images-evidence/native-private-photo-envelope.json",
+    "bytes": 3064,
+    "sha256": "7dd53937197001d94fc643f13ab38dc0d01342c51e8ae8b6ae1986a3bda29da4"
+  },
+  {
+    "path": "chat-images-evidence/private-compatible-photo.png",
+    "bytes": 32097,
+    "sha256": "fed627c5e934f197712296073906f79385f44f58b5f94b7b67492acc5cc0701c"
+  },
+  {
+    "path": "chat-images-evidence/private-compatible-photo.xml",
+    "bytes": 51054,
+    "sha256": "d14093c52c84569e5449dbbb2d7abf260bd2b387637729cde49a4f0f827e943d"
+  },
+  {
+    "path": "chat-images-evidence/private-draft-photo-draft-reopened.png",
+    "bytes": 35512,
+    "sha256": "0f52ec19ceeb97882f56f9b0e26848b0e905306cb65f89e73072d1573d0a52e7"
+  },
+  {
+    "path": "chat-images-evidence/private-draft-photo-draft-reopened.xml",
+    "bytes": 49807,
+    "sha256": "7223b8af523f2209f947e0321e82e256395bed178c0f77c940232b7d301fe345"
+  },
+  {
+    "path": "chat-images-evidence/private-draft-photo-selected-unsent.png",
+    "bytes": 35684,
+    "sha256": "673d6edaaa0085789af8994afee7aa8d569770f26e7306b89092353f377563b0"
+  },
+  {
+    "path": "chat-images-evidence/private-draft-photo-selected-unsent.xml",
+    "bytes": 49806,
+    "sha256": "83523aba507884e6024bc677750f1369fcefd830d89ae82514faf84fde771891"
+  },
+  {
+    "path": "chat-images-evidence/private-failed-preparation-text-durably-retained.png",
+    "bytes": 40306,
+    "sha256": "f7d47f64dd5fee7d4fd5454d8ae011810a059786bd3b989d617602eadaaa60ac"
+  },
+  {
+    "path": "chat-images-evidence/private-failed-preparation-text-durably-retained.xml",
+    "bytes": 48994,
+    "sha256": "c1fdcef19cf4ee406d7ea55dcc814771c5b4ddafb4b676632ba5d364903f5da4"
+  },
+  {
+    "path": "chat-images-evidence/private-failed-preparation-text-reopened.png",
+    "bytes": 40092,
+    "sha256": "09b9a6080c57474305cb0d2586b8d9d14caa90d11fe25f5ec09c3d47decd89b9"
+  },
+  {
+    "path": "chat-images-evidence/private-failed-preparation-text-reopened.xml",
+    "bytes": 48995,
+    "sha256": "9d6a333a4dfb48051341095c4301de0dfc735ec00295df0f73991340f39915d6"
+  },
+  {
+    "path": "chat-images-evidence/private-photo-cached-after-reopening.png",
+    "bytes": 33257,
+    "sha256": "6aa4b8771f97361792617ba04acd08ee48e9f52f325ef2e9082adb47c30aab9d"
+  },
+  {
+    "path": "chat-images-evidence/private-photo-cached-after-reopening.xml",
+    "bytes": 51931,
+    "sha256": "fa2defe82488e86262af5fba195b6934163591dc51891f1a1f35de0781146be0"
+  },
+  {
+    "path": "chat-images-evidence/private-photo-expanded.png",
+    "bytes": 7073,
+    "sha256": "ffda0039e1d669893b9fa6d3d68fbaab6a4329b9f87e08282cff64aef87d13a6"
+  },
+  {
+    "path": "chat-images-evidence/private-photo-expanded.xml",
+    "bytes": 19981,
+    "sha256": "01c849db80547bdfdca1cde655daf027da2b1adf4ab7bf0d2bae1e09f9255329"
+  },
+  {
+    "path": "chat-images-evidence/private-photo-explicitly-sent.png",
+    "bytes": 33500,
+    "sha256": "e21d75668195e20b6e87f0f1ae988fee634dbfa90f997d99f1f8e0c083d3521f"
+  },
+  {
+    "path": "chat-images-evidence/private-photo-explicitly-sent.xml",
+    "bytes": 54188,
+    "sha256": "30f56d1defa2d67ed8af6e889ba5e6fca34ffe105de32af5058a3a987dded83d"
+  },
+  {
+    "path": "chat-images-evidence/private-preparation-recreation-selected-image-retained.png",
+    "bytes": 35458,
+    "sha256": "9153df363b6ba12d14e2e3372611b768577fc23c8ad90348621c3f644d33e5af"
+  },
+  {
+    "path": "chat-images-evidence/private-preparation-recreation-selected-image-retained.xml",
+    "bytes": 49799,
+    "sha256": "773c4ca76c75d93a22db2fc44c159654b3b3fac88341ea7df605f907f66989d6"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-draft-reopened.png",
+    "bytes": 35512,
+    "sha256": "0f52ec19ceeb97882f56f9b0e26848b0e905306cb65f89e73072d1573d0a52e7"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-draft-reopened.xml",
+    "bytes": 49807,
+    "sha256": "7223b8af523f2209f947e0321e82e256395bed178c0f77c940232b7d301fe345"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-queued.png",
+    "bytes": 28919,
+    "sha256": "78628adcb440fe03a35bd04c8975a949f5a5352377bd1bcde12005e072c631c8"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-queued.xml",
+    "bytes": 50361,
+    "sha256": "d0d66e5ae2b2473bb8236418fc605e151601028fd09888a55a4bd22ab6ae4cb1"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-restored-after-cancel.png",
+    "bytes": 35278,
+    "sha256": "9980bb5372c7e226f3dd85369e7dc9ccacd83a8193850b09ecb01179fac2bba6"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-restored-after-cancel.xml",
+    "bytes": 51552,
+    "sha256": "e95f8ca4c6f251c894e525b09463c0b5379d55c66a84ee8fc93230fb08cbc116"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-restored-online-unsent.png",
+    "bytes": 35512,
+    "sha256": "0f52ec19ceeb97882f56f9b0e26848b0e905306cb65f89e73072d1573d0a52e7"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-restored-online-unsent.xml",
+    "bytes": 49807,
+    "sha256": "7223b8af523f2209f947e0321e82e256395bed178c0f77c940232b7d301fe345"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-selected-unsent.png",
+    "bytes": 35684,
+    "sha256": "673d6edaaa0085789af8994afee7aa8d569770f26e7306b89092353f377563b0"
+  },
+  {
+    "path": "chat-images-evidence/private-queued-cancel-photo-selected-unsent.xml",
+    "bytes": 49806,
+    "sha256": "83523aba507884e6024bc677750f1369fcefd830d89ae82514faf84fde771891"
+  },
+  {
+    "path": "chat-images-evidence/private-send-photo-draft-reopened.png",
+    "bytes": 35532,
+    "sha256": "e5a2e16ae7a285af8e3983ee58967e97ce08e8164fc40785ed063ddc7051b03b"
+  },
+  {
+    "path": "chat-images-evidence/private-send-photo-draft-reopened.xml",
+    "bytes": 49807,
+    "sha256": "e55f8af6bae794e4f00b4d6f228cfa8a75df5bf62059cbfa76f83d0e4859d469"
+  },
+  {
+    "path": "chat-images-evidence/private-send-photo-selected-unsent.png",
+    "bytes": 35703,
+    "sha256": "105a34f833222ce39b2954644babe757808d48e910ec2eb9555b915d77c40fd4"
+  },
+  {
+    "path": "chat-images-evidence/private-send-photo-selected-unsent.xml",
+    "bytes": 49806,
+    "sha256": "fb8222246b68b9758c32abeb242e2054ffda888c7f3515c3cd62af924cd982d3"
+  },
+  {
+    "path": "chat-queue-process-evidence/group-history-after-photo-scroll.png",
+    "bytes": 32189,
+    "sha256": "334b235a61d1ab57ecd451c62eb80a05072adf6e6476500ac4ce93a254b59f85"
+  },
+  {
+    "path": "chat-queue-process-evidence/group-history-after-photo-scroll.semantics.txt",
+    "bytes": 21436,
+    "sha256": "7ac3f5feb7dc84488095a46aef31dcadb391737a290424a2d1af593969d2a1c5"
+  },
+  {
+    "path": "chat-queue-process-evidence/group-history-after-photo-scroll.xml",
+    "bytes": 52094,
+    "sha256": "dabce186d5e63632d60623e9f188473ec408d4604201ada674a21fe96252a5ce"
+  },
+  {
+    "path": "chat-queue-process-evidence/group-history-before-photo-scroll.png",
+    "bytes": 32189,
+    "sha256": "334b235a61d1ab57ecd451c62eb80a05072adf6e6476500ac4ce93a254b59f85"
+  },
+  {
+    "path": "chat-queue-process-evidence/group-history-before-photo-scroll.semantics.txt",
+    "bytes": 20074,
+    "sha256": "c5217fa02272b1b5b7275018996684221133378ca391e78b0c62b258a862b62b"
+  },
+  {
+    "path": "chat-queue-process-evidence/group-history-before-photo-scroll.xml",
+    "bytes": 52094,
+    "sha256": "dabce186d5e63632d60623e9f188473ec408d4604201ada674a21fe96252a5ce"
+  },
+  {
+    "path": "chat-queue-process-evidence/native-capture-timings.jsonl",
+    "bytes": 711,
+    "sha256": "54d102919659b0604293d8c169889e025a199317c83a21bb450536f13c7cb4ca"
+  },
+  {
+    "path": "chat-queue-process-evidence/private-history-after-photo-scroll.png",
+    "bytes": 32671,
+    "sha256": "705bf02b822bd35c1dca7069b3041f3ebf075a7470c67a815117f6bb3e308e80"
+  },
+  {
+    "path": "chat-queue-process-evidence/private-history-after-photo-scroll.semantics.txt",
+    "bytes": 22597,
+    "sha256": "99cac54d40d2204a3a31318bd78680a2b6214552e47408971efa2c1eb7013282"
+  },
+  {
+    "path": "chat-queue-process-evidence/private-history-after-photo-scroll.xml",
+    "bytes": 54174,
+    "sha256": "6d2f72828a200500abc9a72d11094174ccbf3497fbdc595227ac82920e8b4614"
+  },
+  {
+    "path": "chat-queue-process-evidence/private-history-before-photo-scroll.png",
+    "bytes": 32671,
+    "sha256": "705bf02b822bd35c1dca7069b3041f3ebf075a7470c67a815117f6bb3e308e80"
+  },
+  {
+    "path": "chat-queue-process-evidence/private-history-before-photo-scroll.semantics.txt",
+    "bytes": 21235,
+    "sha256": "d5e37ee1e45585eb6fc644ed7e33c066ebdc6a2644bc8e41eb16620a1c6a7106"
+  },
+  {
+    "path": "chat-queue-process-evidence/private-history-before-photo-scroll.xml",
+    "bytes": 54174,
+    "sha256": "6d2f72828a200500abc9a72d11094174ccbf3497fbdc595227ac82920e8b4614"
+  },
+  {
+    "path": "chat-queue-process-evidence/queued-before-death.png",
+    "bytes": 34910,
+    "sha256": "3071694f7da15e9ecabf4d33f29982f19205f6bdfa9df03aad0f3e2a05ac6459"
+  },
+  {
+    "path": "chat-queue-process-evidence/queued-before-death.xml",
+    "bytes": 56033,
+    "sha256": "c8e2a911d66959df05fce6077f65b1b8c4eeb5f8c3b3c56bd1bd2047db1675bb"
+  },
+  {
+    "path": "chat-queue-process-evidence/queued-original-automatically-forwarded.png",
+    "bytes": 30859,
+    "sha256": "515bf1bbecef6dce672dc5ceb4d0bb89e1c56d8c1e737079a60113e42a678162"
+  },
+  {
+    "path": "chat-queue-process-evidence/queued-original-automatically-forwarded.xml",
+    "bytes": 55051,
+    "sha256": "1025737aeead3c6cbbbd5c6729c7dfe4b6d42dee85f8d2be27893e80ed0e2edd"
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "member": "chat-queue-process-evidence/native-capture-timings.jsonl",
+    "versions": [
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images.tar",
+        "archiveSha256": "cd0cbeaf95b90af5df3afbde5f3bd1dc6c73036c4de89caaec10aa94fae6e4fd",
+        "member": "chat-queue-process-evidence/native-capture-timings.jsonl",
+        "bytes": 1060,
+        "sha256": "bd98805754e51d6f960c5eaece28105b0b7fc1e221df6f75d6e65cff5c39edfa",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images/chat-queue-process-evidence/native-capture-timings.jsonl"
+      },
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar",
+        "archiveSha256": "058011989e12cf9efcb30d8dfc2ae525aa533febe69b0973600294076e77023a",
+        "member": "chat-queue-process-evidence/native-capture-timings.jsonl",
+        "bytes": 709,
+        "sha256": "9b06c78487b6ddfe7396d75dc41e651845a4f83bca8bee50ea0e29f6fa7982e0",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images/chat-queue-process-evidence/native-capture-timings.jsonl"
+      }
+    ],
+    "flattenedWinner": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar"
+  },
+  {
+    "member": "chat-queue-process-evidence/queued-before-death.xml",
+    "versions": [
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images.tar",
+        "archiveSha256": "cd0cbeaf95b90af5df3afbde5f3bd1dc6c73036c4de89caaec10aa94fae6e4fd",
+        "member": "chat-queue-process-evidence/queued-before-death.xml",
+        "bytes": 54819,
+        "sha256": "0fcde59a43bb8d7201d15d42c87b67f5ae0350c8b36f54147a3dbd3023b5eea1",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images/chat-queue-process-evidence/queued-before-death.xml"
+      },
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar",
+        "archiveSha256": "058011989e12cf9efcb30d8dfc2ae525aa533febe69b0973600294076e77023a",
+        "member": "chat-queue-process-evidence/queued-before-death.xml",
+        "bytes": 59194,
+        "sha256": "ba0ef19ec565dbb84e7257b0f15d2447b0090f944373fccc60d5fc45744b8586",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images/chat-queue-process-evidence/queued-before-death.xml"
+      }
+    ],
+    "flattenedWinner": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar"
+  },
+  {
+    "member": "chat-queue-process-evidence/queued-before-death.png",
+    "versions": [
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images.tar",
+        "archiveSha256": "cd0cbeaf95b90af5df3afbde5f3bd1dc6c73036c4de89caaec10aa94fae6e4fd",
+        "member": "chat-queue-process-evidence/queued-before-death.png",
+        "bytes": 31971,
+        "sha256": "40c16cc3a2f064fdabe80c14441cfa74fae477bbc89430dd574f3625ac18df82",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images/chat-queue-process-evidence/queued-before-death.png"
+      },
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar",
+        "archiveSha256": "058011989e12cf9efcb30d8dfc2ae525aa533febe69b0973600294076e77023a",
+        "member": "chat-queue-process-evidence/queued-before-death.png",
+        "bytes": 36033,
+        "sha256": "921f21aed506ae28328b6f819f75230aba3d7c56d515b52fb0f9f0f9c6901291",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images/chat-queue-process-evidence/queued-before-death.png"
+      }
+    ],
+    "flattenedWinner": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar"
+  },
+  {
+    "member": "chat-queue-process-evidence/queued-original-automatically-forwarded.xml",
+    "versions": [
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images.tar",
+        "archiveSha256": "cd0cbeaf95b90af5df3afbde5f3bd1dc6c73036c4de89caaec10aa94fae6e4fd",
+        "member": "chat-queue-process-evidence/queued-original-automatically-forwarded.xml",
+        "bytes": 55121,
+        "sha256": "bee5ddc30bad5f478d21d9077314c86dd1aec94ce0bbd375cad66653eb1a51f5",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images/chat-queue-process-evidence/queued-original-automatically-forwarded.xml"
+      },
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar",
+        "archiveSha256": "058011989e12cf9efcb30d8dfc2ae525aa533febe69b0973600294076e77023a",
+        "member": "chat-queue-process-evidence/queued-original-automatically-forwarded.xml",
+        "bytes": 57278,
+        "sha256": "75f50e5b54a70f4226048f5d57dd9f36972d1b55dc6c256b0c7f798da748fa65",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images/chat-queue-process-evidence/queued-original-automatically-forwarded.xml"
+      }
+    ],
+    "flattenedWinner": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar"
+  },
+  {
+    "member": "chat-queue-process-evidence/queued-original-automatically-forwarded.png",
+    "versions": [
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images.tar",
+        "archiveSha256": "cd0cbeaf95b90af5df3afbde5f3bd1dc6c73036c4de89caaec10aa94fae6e4fd",
+        "member": "chat-queue-process-evidence/queued-original-automatically-forwarded.png",
+        "bytes": 31316,
+        "sha256": "5b7c9825213fdefc54106070991294483c173bfa681c1ca865f8960b2e11fca7",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-group-process/images/chat-queue-process-evidence/queued-original-automatically-forwarded.png"
+      },
+      {
+        "archive": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar",
+        "archiveSha256": "058011989e12cf9efcb30d8dfc2ae525aa533febe69b0973600294076e77023a",
+        "member": "chat-queue-process-evidence/queued-original-automatically-forwarded.png",
+        "bytes": 31742,
+        "sha256": "2d8e186471d0bfa075d1b8c2bff1928c95d1f3fb7bb3b688a9b31683b8e0492a",
+        "separatePath": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images/chat-queue-process-evidence/queued-original-automatically-forwarded.png"
+      }
+    ],
+    "flattenedWinner": ".scratch/device-evidence/api-37.0/chat-photo-private-process/images.tar"
+  }
+]

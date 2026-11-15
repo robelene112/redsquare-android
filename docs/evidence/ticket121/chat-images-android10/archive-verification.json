@@ -1,0 +1,17 @@
+{
+  "run": 43764833243,
+  "source": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+  "archiveMembers": 89,
+  "uniqueFlattenedMembers": 84,
+  "collidingPaths": 5,
+  "everyArchiveMemberRetainedSeparatelyByteExact": true,
+  "flattenedViewMatchesOrderedLastArchiveWins": true,
+  "unavailableArchives": [
+    {
+      "archive": ".scratch/device-evidence/api-29/chat-image-history-evidence.tar",
+      "sha256": "da79344b1e69f87dcf800866ec1a6b76dc2a200fe54d22b657774a563d5430cd",
+      "qualification": "Unchanged storage-only class has no capture directory. Original unavailable archive retained."
+    }
+  ],
+  "qualification": "Separate per-archive originals preserve every version. Flattened captures are a convenience last-archive-wins view; their unique-file count is not the original member count."
+}

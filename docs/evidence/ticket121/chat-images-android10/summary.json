@@ -1,0 +1,139 @@
+{
+  "result": "QUALIFIED_PASS_INHERITED_STORAGE_CAPTURE_ABSENCE",
+  "sdk": "10",
+  "scope": "chat-images",
+  "run": 43764833243,
+  "source": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+  "ordinaryNormalCompletions": 14,
+  "normalProcessCompletions": 4,
+  "verifiedIntentionalStarts": 2,
+  "totalObservedInvocations": 20,
+  "catalog": {
+    "chat-images-ui.txt": [
+      [
+        "ChatImagesPreviewTest",
+        "aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending"
+      ],
+      [
+        "ChatImagesPreviewTest",
+        "cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending"
+      ]
+    ],
+    "chat-image-preparation-recreation-ui.txt": [
+      [
+        "ChatImagePreparationRecreationTest",
+        "aSelectedPrivatePhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading"
+      ],
+      [
+        "ChatImagePreparationRecreationTest",
+        "aSelectedGroupPhotoContinuesOnceAcrossRecreationWhileTheProviderIsReading"
+      ]
+    ],
+    "chat-image-history-ui.txt": [
+      [
+        "ChatImageHistoryStorageTest",
+        "twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts"
+      ],
+      [
+        "ChatImageHistoryStorageTest",
+        "sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts"
+      ]
+    ],
+    "chat-photo-private-process/recovered.txt": [
+      [
+        "ChatQueueProcessRecoveryTest",
+        "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory"
+      ]
+    ],
+    "chat-photo-private-process/restored.txt": [
+      [
+        "ChatQueueProcessRecoveryTest",
+        "restoreOriginalEncryptedInstallationFiles"
+      ]
+    ],
+    "chat-photo-group-process/recovered.txt": [
+      [
+        "ChatQueueProcessRecoveryTest",
+        "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory"
+      ]
+    ],
+    "chat-photo-group-process/restored.txt": [
+      [
+        "ChatQueueProcessRecoveryTest",
+        "restoreOriginalEncryptedInstallationFiles"
+      ]
+    ]
+  },
+  "receipt": {
+    "run": 43764833243,
+    "source": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+    "conclusion": "success",
+    "artifactId": 14181424929,
+    "zipSha256": "ba842894201627f18675fb9cdb2e5154ab30468d6167ec5899a47d492553d17d",
+    "zipEntries": 106,
+    "captureMembers": 89,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [
+      {
+        "path": ".scratch/device-evidence/api-29/chat-image-history-evidence.tar",
+        "error": "file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method tar: ReadError('bad checksum')"
+      }
+    ],
+    "captureQualification": "Inherited storage-only Chat history case has no capture directory; original malformed archive retained byte-exactly. Every other archive is mandatory and verified; native acceptance is separate."
+  },
+  "perArchiveOriginals": {
+    "run": 43764833243,
+    "source": "59dc7f351d7ac92a4461e5254b9bd17599274620",
+    "archiveMembers": 89,
+    "uniqueFlattenedMembers": 84,
+    "collidingPaths": 5,
+    "everyArchiveMemberRetainedSeparatelyByteExact": true,
+    "flattenedViewMatchesOrderedLastArchiveWins": true,
+    "unavailableArchives": [
+      {
+        "archive": ".scratch/device-evidence/api-29/chat-image-history-evidence.tar",
+        "sha256": "da79344b1e69f87dcf800866ec1a6b76dc2a200fe54d22b657774a563d5430cd",
+        "qualification": "Unchanged storage-only class has no capture directory. Original unavailable archive retained."
+      }
+    ],
+    "qualification": "Separate per-archive originals preserve every version. Flattened captures are a convenience last-archive-wins view; their unique-file count is not the original member count."
+  },
+  "sourceQualifiedOriginals": {
+    "raw": 106,
+    "captures": 84,
+    "archive-members": 89
+  },
+  "qualification": "Separate per-archive originals preserve each version; flattened convenience captures use ordered last-archive wins. Complete relevant controlled native/storage/owned-peer/process scope; all original class/action goals retained. Deliberate interrupted starts are distinct from normal completions. Whole-app/beta/physical/OEM/live service and Play gates remain separate. The unchanged storage-only Chat history class produces no capture directory; its unavailable original archive stays explicit in the collection receipt, and every other archive is mandatory."
+}
