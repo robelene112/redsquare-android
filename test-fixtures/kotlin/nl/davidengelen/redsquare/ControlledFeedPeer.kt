@@ -70,6 +70,15 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var disconnectAfterReport = false
     @Volatile var withholdReportReply = false
     @Volatile var withholdArchiveReply = false
+    @Volatile var retainWithheldArchiveReplies = false
+    private val withheldArchiveReplies = java.util.concurrent.ConcurrentLinkedQueue<Pair<WebSocket, okio.ByteString>>()
+    fun releaseWithheldArchiveReplies(): Int {
+        var count = 0
+        while (true) {
+            val (socket, response) = withheldArchiveReplies.poll() ?: return count
+            if (socket.send(response)) count++
+        }
+    }
     @Volatile var rejectedArchiveKinds: Set<String> = emptySet()
     @Volatile var reportReplyIsError = false
     @Volatile private var offline = false
@@ -447,9 +456,11 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(criteria.get("flagged_ne").asInt == 1)
                             rows
                         }
-                        val queued = !withholdArchiveReply && webSocket.send(
-                            (byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
-                                frame.copyOfRange(1, 5) + response.toByteArray()).toByteString())
+                        val archiveReply = (byteArrayOf(if (criteria.get("field1")?.asString in rejectedArchiveKinds) 14.toByte() else 13.toByte()) +
+                            frame.copyOfRange(1, 5) + response.toByteArray()).toByteString()
+                        val withheld = withholdArchiveReply
+                        if (withheld && retainWithheldArchiveReplies) withheldArchiveReplies.add(webSocket to archiveReply)
+                        val queued = !withheld && webSocket.send(archiveReply)
                         onArchiveResponse?.invoke(criteria.deepCopy(), response, queued)
                         requests.incrementAndGet()
                         received.countDown()
