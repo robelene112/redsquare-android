@@ -6,6 +6,7 @@ from process_check_utils import ProcessInstrumentation,assert_process_gone,finis
 
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--evidence',type=Path,required=True)
+parser.add_argument('--mode',choices=('post','post-saved','reply','quote','profile'),default='profile')
 args=parser.parse_args()
 package='nl.davidengelen.redsquare.dev'
 checkpoint='cache/unfinished-text-checkpoint.json'
@@ -13,7 +14,7 @@ def adb(*arguments,check=True,timeout=60):
     return subprocess.run(['adb',*arguments],capture_output=True,text=True,check=check,timeout=timeout)
 assert adb('get-serialno').stdout.strip().startswith('emulator-')
 args.evidence.mkdir(parents=True,exist_ok=True)
-instrument=ProcessInstrumentation(adb,args.evidence,'nl.davidengelen.redsquare.UnfinishedTextProcessTest',package+'.test/androidx.test.runner.AndroidJUnitRunner').run
+instrument=ProcessInstrumentation(adb,args.evidence,'nl.davidengelen.redsquare.UnfinishedTextProcessTest',package+'.test/androidx.test.runner.AndroidJUnitRunner',arguments=('-e','mode',args.mode)).run
 primary=None
 try:
     result=instrument('backgroundWithUnfinishedTextThenTerminateTheActualProcess','interrupted.txt',check=False)

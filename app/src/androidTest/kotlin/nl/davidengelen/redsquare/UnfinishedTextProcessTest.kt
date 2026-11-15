@@ -12,6 +12,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.feed.PostDraftStore
+import nl.davidengelen.redsquare.feed.ProfileDraftStore
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -26,10 +27,18 @@ class UnfinishedTextProcessTest {
         check(it.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
     }
     private val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
-    private val body = "Unfinished private post 120, not explicitly saved"
+    private val mode get() = InstrumentationRegistry.getArguments().getString("mode") ?: "post"
+    private val profile get() = mode == "profile"
+    private val body get() = if (mode == "post") "Unfinished private post 120, not explicitly saved" else "Unfinished private $mode text 120, never published"
+    private val savedText get() = if (mode == "post-saved") "An explicitly saved post before later edits 120" else ""
+    private val reference by lazy {
+        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-following-reference.json")
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
+        RedSquareFeed.readArchive("[$root]").posts.single()
+    }
     private val checkpoint get() = File(context.cacheDir, "unfinished-text-checkpoint.json")
     private val originals get() = File(context.noBackupFilesDir, "unfinished-text-originals")
-    private val prefixes = listOf("postdraft.", "profiledraft.", "editrecovery.", "feed.", "profiledetails.", "avatarprofiles.", "displaynames.")
+    private val prefixes = listOf("postdraft.", "profiledraft.", "editrecovery.", "feed.", "conversation.", "profile.", "profilemeta.", "profiledetails.", "avatarprofiles.", "displaynames.")
     private fun names() = (listOf("wallet.v1", "wallet.v1.bak", "wallet.v1.new", "wallet.recovery.v1",
         "wallet.recovery.v1.bak", "wallet.recovery.v1.new") + context.noBackupFilesDir.listFiles().orEmpty()
         .filter { it.isFile && prefixes.any(it.name::startsWith) }.map { it.name }).toSet()
@@ -38,11 +47,23 @@ class UnfinishedTextProcessTest {
     private fun read() = JsonParser.parseString(checkpoint.readText()).asJsonObject
     private fun write(row: JsonObject) = checkpoint.outputStream().use { it.write(row.toString().toByteArray()); it.fd.sync() }
     private fun digest(text: String) = MessageDigest.getInstance("SHA-256").digest(text.toByteArray()).joinToString("") { "%02x".format(it) }
-    private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "unfinished-text-evidence/$name"))
+    private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "unfinished-text-evidence/$mode/$name"))
     private val editor get() = hasSetTextAction() and isEnabled()
+    private fun draft() = PostDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load(),
+        parent = reference.takeIf { mode == "reply" }, quote = reference.takeIf { mode == "quote" })
+    private fun assertExplicitDraft() {
+        if (profile) assertEquals(0, ProfileDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load()).load().changes.size())
+        else assertEquals(savedText, draft().load().text)
+    }
 
     private fun editWithPeer(block: (ControlledFeedPeer) -> Unit) {
-        val peer = ControlledFeedPeer("[]", archiveResponse = { "[]" })
+        val rows = if (mode in listOf("reply", "quote")) {
+            val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-following-reference.json")
+                .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
+            "[$root]"
+        } else "[]"
+        val peer = ControlledFeedPeer(rows, profileArchiveResponse = { "[]" },
+            archiveResponse = { criteria -> if (criteria.get("field1").asString == "RedSquare") rows else "[]" })
         peer.start().use { server ->
             val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -50,8 +71,21 @@ class UnfinishedTextProcessTest {
                 .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
                 withFailureCapture({ capture("failure.png") }) {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    when {
+                        profile -> {
+                            ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
+                            ui.waitUntil(15_000) { ui.onAllNodes(hasText("Edit profile") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                            ui.onNode(hasText("Edit profile") and hasClickAction()).performClick()
+                        }
+                        mode in listOf("reply", "quote") -> {
+                            ui.clickVisiblePostBody(reference.text)
+                            ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+                            if (mode == "reply") ui.replyToPost(reference.id) else ui.clickVisiblePostContent("Quote")
+                        }
+                        else -> ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                    }
                     ui.waitUntil(10_000) { ui.onAllNodes(editor).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.onNode(editor).performScrollTo()
                     block(peer)
                 }
             }
@@ -82,10 +116,18 @@ class UnfinishedTextProcessTest {
         wallets.replace(previous, wallet)
         preferences().forEach { (name, key) -> check(context.getSharedPreferences(name, 0).edit().putBoolean(key, name != "name-directory").commit()) }
         editWithPeer { peer ->
+            if (savedText.isNotEmpty()) {
+                ui.onNode(editor).performTextReplacement(savedText)
+                ui.onNodeWithText("Save draft").performClick()
+                ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+                ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                ui.waitUntil(10_000) { ui.onAllNodes(editor).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.onNode(editor).assertEditableTextEquals(savedText)
+            }
             ui.onNode(editor).performTextReplacement(body)
             ui.onNode(editor).assertEditableTextEquals(body)
-            ui.onNodeWithText("Unsaved changes").assertExists()
-            assertEquals("", PostDraftStore(context, wallet.publicKey, backend).load().text)
+            if (!profile) ui.onNodeWithText("Unsaved changes").assertExists()
+            assertExplicitDraft()
             capture("unfinished-before-background.png")
             UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressHome()
             Thread.sleep(800)
@@ -103,9 +145,11 @@ class UnfinishedTextProcessTest {
         assertEquals(row.get("backend").asString, AndroidBackendStore(context).load().id)
         editWithPeer { peer ->
             ui.onNode(editor).assertEditableTextEquals(body)
-            ui.onNodeWithText("Unsaved changes").assertExists()
-            ui.onNodeWithText("Saved on this device").assertDoesNotExist()
-            assertEquals("", PostDraftStore(context, wallet.publicKey, AndroidBackendStore(context).load()).load().text)
+            if (!profile) {
+                ui.onNodeWithText("Unsaved changes").assertExists()
+                ui.onNodeWithText("Saved on this device").assertDoesNotExist()
+            }
+            assertExplicitDraft()
             assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
             capture("unfinished-cold-restored.png")
             row.addProperty("phase", "recovered"); row.addProperty("recoveredPid", Process.myPid()); write(row)
