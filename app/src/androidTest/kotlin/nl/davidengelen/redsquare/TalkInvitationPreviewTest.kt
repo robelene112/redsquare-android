@@ -104,7 +104,10 @@ class TalkInvitationPreviewTest {
             androidx.test.espresso.Espresso.closeSoftKeyboard()
             switchModule("Saito Talk", "Red Square"); switchModule("Red Square", "Saito Talk")
             activity.recreate()
-            ui.waitUntil(5000) { ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() }
+            ui.waitUntil(5000) {
+                ui.onNodeWithContentDescription("Switch app: Saito Talk").isDisplayed() &&
+                    ui.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().size == 1
+            }
             ui.onNode(hasSetTextAction()).performScrollTo().assertTextContains(unfinished)
             assertTrue(TalkRuntime.call.value?.phase?.live != true)
             captureNativeScreen(File(context.cacheDir, "talk-invitation-evidence/unreviewed-input-restored.png"))
