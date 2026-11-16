@@ -246,7 +246,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         page.posts.forEach(revisions::observe)
                         val searchedQuery = withContext(Dispatchers.Main.immediate) { view.searchedQuery }
                         val incomingIds = withContext(Dispatchers.Main.immediate) {
-                            page.posts.filterNot { personal.hidesPosts(it.author) }.map { it.id }.toSet()
+                            page.posts.filter { personal?.hidesPosts(it.author) == false }.map { it.id }.toSet()
                         }
                         var deferred = false
                         while (true) {
