@@ -32,7 +32,8 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
     private val policy: ArchiveReadPolicy) : Closeable {
     var peer = SaitoPeer(wallet, endpoint)
         private set
-    data class Page(val response: String, val next: ArchiveReadCursor?, val adapted: Boolean)
+    data class Page(val response: String, val next: ArchiveReadCursor?, val adapted: Boolean,
+        val pagingUnavailable: Boolean = false)
     private data class Read(val response: String, val limit: Int, val single: Boolean = false)
 
     suspend fun next(criteria: JsonObject, cursor: ArchiveReadCursor? = null): Page {
@@ -61,15 +62,17 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
         val rows = JsonParser.parseString(read.response).asJsonArray
         require(rows.size() <= 100)
         val adapted = policy.adapted(criteria)
+        var unavailable = false
         val next = when (position) {
             is ArchiveReadCursor.Before -> {
                 if (!read.single && rows.size() < read.limit) null
                 else {
                     val oldest = rows.mapNotNull { row ->
-                        try { row.asJsonObject.get("created_at").asLong.takeIf { it >= 0 && it < position.timestamp } }
+                        try { row.asJsonObject.get("created_at").asString.toLongOrNull()?.takeIf { it >= 0 && it < position.timestamp } }
                         catch (_: Exception) { null }
-                    }.minOrNull() ?: throw IOException("Archive continuation is unavailable")
-                    if (adapted) ArchiveReadCursor.High(oldest) else older(oldest)
+                    }.minOrNull()
+                    if (oldest == null) { unavailable = true; null }
+                    else if (adapted) ArchiveReadCursor.High(oldest) else older(oldest)
                 }
             }
             is ArchiveReadCursor.High -> {
@@ -90,12 +93,12 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
                 else position.copy(nextId = position.nextId + 1)
             }
         }
-        return Page(read.response, next, adapted)
+        return Page(read.response, next, adapted, unavailable)
     }
 
     private fun older(timestamp: Long) = if (timestamp > 0) ArchiveReadCursor.Before(timestamp) else null
     private fun ids(rows: JsonArray): List<Long> = rows.map { row ->
-        try { row.asJsonObject.get("id").asLong.also { require(it >= 0) } }
+        try { requireNotNull(row.asJsonObject.get("id").asString.toLongOrNull()).also { require(it >= 0) } }
         catch (_: Exception) { throw IOException("Archive continuation is unavailable") }
     }
 
@@ -108,7 +111,7 @@ internal class BoundedArchiveReader(private val wallet: SaitoWallet, private val
                 peer.close()
                 peer = SaitoPeer(wallet, endpoint)
                 if (limit > 10) {
-                    limit = maxOf(10, limit / 2)
+                    limit = 10
                     policy.reduce(base, limit)
                 } else {
                     policy.reduce(base, 10)

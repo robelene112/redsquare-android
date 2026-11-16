@@ -65,10 +65,12 @@ internal class SearchViewState {
     var failed by mutableStateOf(false)
     var paused by mutableStateOf(false)
     var unreadable by mutableStateOf(false)
-    var cursors by mutableStateOf<Map<String, Long?>>(emptyMap())
+    val archivePolicy = ArchiveReadPolicy()
+    var cursors by mutableStateOf<Map<String, ArchiveReadCursor?>>(emptyMap())
     var pending by mutableStateOf<List<String>>(emptyList())
     var pagingUnavailable by mutableStateOf(false)
     var limitReached by mutableStateOf(false)
+    var windowLimited by mutableStateOf(false)
     var saveError by mutableStateOf(false)
     var exactPerson by mutableStateOf<SaitoRegisteredName?>(null)
     var usernameFailed by mutableStateOf(false)
@@ -88,10 +90,11 @@ internal class SearchViewState {
         usernameFailed = false
         usernameConfirmed = false
         val before = System.currentTimeMillis() + 1
-        cursors = listOf("RedSquare", "RedSquareRetweet").associateWith { before }
+        cursors = listOf("RedSquare", "RedSquareRetweet").associateWith { ArchiveReadCursor.Before(before) }
         pending = cursors.keys.toList()
         pagingUnavailable = false
         limitReached = false
+        windowLimited = false
         request++
     }
 
@@ -117,6 +120,7 @@ internal class SearchViewState {
         failed = false
         pagingUnavailable = false
         limitReached = false
+        windowLimited = false
         saveError = false
     }
 
@@ -196,13 +200,13 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         view.failed = false
         try {
             withContext(Dispatchers.IO) {
-                SaitoPeer(wallet, endpoint).use { peer ->
+                BoundedArchiveReader(wallet, endpoint, view.archivePolicy).use { archive ->
                     val identifier = withContext(Dispatchers.Main.immediate) {
                         view.searchedQuery.takeIf { view.usernamePending }
                     }
                     if (identifier != null) {
                         try {
-                            val person = RegistryLookup(peer, registrar).namecheck(identifier)?.takeIf { it.active }
+                            val person = RegistryLookup(archive.peer, registrar).namecheck(identifier)?.takeIf { it.active }
                             withContext(Dispatchers.Main.immediate) {
                                 view.exactPerson = person
                                 view.usernameConfirmed = person != null
@@ -221,19 +225,18 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                         // Paging/retrying post streams must not repeat a completed username attempt.
                         withContext(Dispatchers.Main.immediate) { view.usernamePending = false }
                     }
-                    for ((stream, before) in pages) {
+                    for ((stream, cursor) in pages) {
                         if (withContext(Dispatchers.Main.immediate) { view.limitReached }) break
                         val criteria = JsonObject().apply {
                             addProperty("request", "load"); addProperty("field1", stream)
                             addProperty("flagged_ne", 1); addProperty("limit", 100)
-                            addProperty("created_earlier_than", before)
+                            addProperty("created_earlier_than", (cursor as? ArchiveReadCursor.Before)?.timestamp ?: Long.MAX_VALUE)
                         }
-                        val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                        val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
-                        val page = if (stream == "RedSquare") RedSquareFeed.readSearch(response)
-                            else RedSquareFeed.readCurrentQuotes(response)
+                        val received = archive.next(criteria, cursor)
+                        val page = if (stream == "RedSquare") RedSquareFeed.readSearch(received.response)
+                            else RedSquareFeed.readCurrentQuotes(received.response)
                         val observed = withContext(Dispatchers.Main.immediate) { view.posts }
-                        revisions.reconcileDeletions(peer, page.deletions, page.posts + observed)
+                        revisions.reconcileDeletions(archive.peer, page.deletions, page.posts + observed)
                         page.posts.forEach(revisions::observe)
                         val searchedQuery = withContext(Dispatchers.Main.immediate) { view.searchedQuery }
                         while (true) {
@@ -246,11 +249,12 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                                     social?.observe(page.posts)
                                     view.posts = applied.posts
                                     view.unreadable = view.unreadable || applied.unreadable || page.ignored > 0
-                                    val next = page.oldestCreatedAt?.takeIf { page.rowCount == 100 && it < before }
-                                    view.pagingUnavailable = view.pagingUnavailable || (page.rowCount == 100 && next == null)
+                                    val next = received.next
+                                    view.pagingUnavailable = view.pagingUnavailable || received.pagingUnavailable
                                     view.cursors = view.cursors + (stream to next)
                                     view.pending = view.pending - stream
-                                    if (applied.limited) {
+                                    view.windowLimited = view.windowLimited || (applied.limited && received.adapted)
+                                    if (applied.limited && !received.adapted) {
                                         view.limitReached = true
                                         view.cursors = view.cursors.mapValues { null }
                                         view.pending = emptyList()
@@ -329,6 +333,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             if (view.unreadable) add(stringResource(R.string.search_unreadable))
             if (view.pagingUnavailable) add(stringResource(R.string.search_paging_unavailable))
             if (view.limitReached) add(stringResource(R.string.search_limit))
+            if (view.windowLimited) add(stringResource(R.string.search_window_limit))
         }
     }
     val warningSummary = when {

@@ -113,6 +113,7 @@ class PhotoPagesPreviewTest {
                                 if (lowRead) (1..10).toList() else (20 downTo 11).toList()
                             }
                             for (number in available) {
+                                list.performScrollToIndex(0)
                                 list.performScrollToNode(hasText("Photo page item $number"))
                                 ui.onNodeWithText("Photo page item $number", useUnmergedTree = true).assertIsDisplayed()
                                 reached.add(number)

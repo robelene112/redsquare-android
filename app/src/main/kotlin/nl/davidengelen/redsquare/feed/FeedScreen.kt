@@ -363,6 +363,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                         val page = archive.next(query, cursor)
                                         val decoded = decode(page.response)
                                         publish(decoded)
+                                        if (page.pagingUnavailable && page.adapted)
+                                            throw java.io.IOException("Archive continuation is unavailable")
                                         seen.addAll(decoded.posts.map { it.id })
                                         cursor = page.next
                                         if (cursor == null || (cursor is ArchiveReadCursor.Before &&
