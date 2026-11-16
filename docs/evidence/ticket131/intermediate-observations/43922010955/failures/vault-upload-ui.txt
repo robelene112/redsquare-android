@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VaultUploadPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.VaultUploadPreviewTest:
+INSTRUMENTATION_STATUS: test=choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VaultUploadPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded$lambda$11(VaultUploadPreviewTest.kt:54)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.$r8$lambda$rsfhucaBrR-iDkpcLLUlgc7pcZI(VaultUploadPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$lambda$34$lambda$33(VaultReadingFixture.kt:148)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.$r8$lambda$s84g-M43W4QgUdacHCZr-D_QkF4(VaultReadingFixture.kt:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture(VaultReadingFixture.kt:109)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$default(VaultReadingFixture.kt:27)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(VaultUploadPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(nl.davidengelen.redsquare.VaultUploadPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded$lambda$11(VaultUploadPreviewTest.kt:54)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.$r8$lambda$rsfhucaBrR-iDkpcLLUlgc7pcZI(VaultUploadPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$lambda$34$lambda$33(VaultReadingFixture.kt:148)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.$r8$lambda$s84g-M43W4QgUdacHCZr-D_QkF4(VaultReadingFixture.kt:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture(VaultReadingFixture.kt:109)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$default(VaultReadingFixture.kt:27)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(VaultUploadPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 13.085
+There was 1 failure:
+1) choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(nl.davidengelen.redsquare.VaultUploadPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded$lambda$11(VaultUploadPreviewTest.kt:54)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.$r8$lambda$rsfhucaBrR-iDkpcLLUlgc7pcZI(VaultUploadPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$lambda$34$lambda$33(VaultReadingFixture.kt:148)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.$r8$lambda$s84g-M43W4QgUdacHCZr-D_QkF4(VaultReadingFixture.kt:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture(VaultReadingFixture.kt:109)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$default(VaultReadingFixture.kt:27)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(VaultUploadPreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

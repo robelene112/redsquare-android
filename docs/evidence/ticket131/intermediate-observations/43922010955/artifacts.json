@@ -1,0 +1,62 @@
+[
+  {
+    "id": 14261373306,
+    "node_id": "MDg6QXJ0aWZhY3QxNDI2MTM3MzMwNg==",
+    "name": "android-native-proof-chat",
+    "size_in_bytes": 228466005,
+    "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14261373306",
+    "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14261373306/zip",
+    "expired": false,
+    "digest": "sha256:287481e2541ac7bd6ebd9784416d9da741f7bfe126cbcf076e6a28713636f73a",
+    "created_at": "2026-11-16T19:30:40Z",
+    "updated_at": "2026-11-16T19:30:40Z",
+    "expires_at": "2026-11-30T19:30:33Z",
+    "workflow_run": {
+      "id": 43922010955,
+      "repository_id": 1409443430,
+      "head_repository_id": 1409443430,
+      "head_branch": "proof-lifecycle131-137",
+      "head_sha": "f0272926f326029040fb041b78afdd11159d2606"
+    }
+  },
+  {
+    "id": 14259282624,
+    "node_id": "MDg6QXJ0aWZhY3QxNDI1OTI4MjYyNA==",
+    "name": "android-native-proof-social",
+    "size_in_bytes": 86457198,
+    "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14259282624",
+    "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14259282624/zip",
+    "expired": false,
+    "digest": "sha256:c2217748bc2f8845985cc611dff2b6a4791d3d59ec0076ced5b9bc33d154abbb",
+    "created_at": "2026-11-16T18:53:56Z",
+    "updated_at": "2026-11-16T18:53:56Z",
+    "expires_at": "2026-11-30T18:53:51Z",
+    "workflow_run": {
+      "id": 43922010955,
+      "repository_id": 1409443430,
+      "head_repository_id": 1409443430,
+      "head_branch": "proof-lifecycle131-137",
+      "head_sha": "f0272926f326029040fb041b78afdd11159d2606"
+    }
+  },
+  {
+    "id": 14258337780,
+    "node_id": "MDg6QXJ0aWZhY3QxNDI1ODMzNzc4MA==",
+    "name": "android-native-proof-wallet",
+    "size_in_bytes": 27087432,
+    "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14258337780",
+    "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14258337780/zip",
+    "expired": false,
+    "digest": "sha256:129475620dc7e0175aac5ce0cb69db6b9f721f68d179a541f0de3439ba08dc47",
+    "created_at": "2026-11-16T18:44:48Z",
+    "updated_at": "2026-11-16T18:44:48Z",
+    "expires_at": "2026-11-30T18:44:45Z",
+    "workflow_run": {
+      "id": 43922010955,
+      "repository_id": 1409443430,
+      "head_repository_id": 1409443430,
+      "head_branch": "proof-lifecycle131-137",
+      "head_sha": "f0272926f326029040fb041b78afdd11159d2606"
+    }
+  }
+]

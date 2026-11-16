@@ -417,6 +417,19 @@
       "failedInstrumentationOriginals": [],
       "assumptionInstrumentationOriginals": [],
       "qualification": "Controlled single1000px/s physicaldismissal17focusedSUCCESS. Original20ordinarymethods/fournormalprocesscompletions/fourintentionalstarts retained; alloriginal5sremoval/redelivery/identity/PID goals pass. Bothindependent focusedreviews accepted, no originalcause or wholeappclaim."
+    },
+    {
+      "run": 43922010955,
+      "head": "f0272926f326029040fb041b78afdd11159d2606",
+      "status": "completed",
+      "conclusion": "failure",
+      "originalFiles": 1436,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-37.0/search-presentation-ui.txt",
+        "android-native-proof-wallet/.scratch/device-evidence/api-37.0/vault-upload-ui.txt"
+      ],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Original complete137 Android17 FAILED Wallet original5s Vault invalid-source validation andSocial immediatePostsselected gesture. Chat SUCCESS does not accept a failed parent or supply a replacementpartition. Both originalcauses unproved; actualinputpreconditions corrected only inAndroidTest files. BothfreshcompleteSDKparents required."
     }
   ]
 }

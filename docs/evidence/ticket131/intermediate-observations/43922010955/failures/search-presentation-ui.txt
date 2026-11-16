@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=peopleAndPostsHaveIndependentResultsWithReadableExactIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Selected = 'true')
+Semantics of the node:
+Node #319 at (l=18.0, t=257.0, r=86.0, b=305.0)px
+Focused = 'false'
+IsContainer = 'true'
+Role = 'Tab'
+Selected = 'false'
+Text = '[Posts]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (Text + InputText + EditableText contains 'Posts' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsSelected(Assertions.kt:88)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity$lambda$9(SearchPresentationPreviewTest.kt:57)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.$r8$lambda$g7lYww0zzzaDNrnyBpBzdf7amtI(SearchPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(SearchPresentationPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: stream=
+Error in peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(nl.davidengelen.redsquare.SearchPresentationPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (Selected = 'true')
+Semantics of the node:
+Node #319 at (l=18.0, t=257.0, r=86.0, b=305.0)px
+Focused = 'false'
+IsContainer = 'true'
+Role = 'Tab'
+Selected = 'false'
+Text = '[Posts]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (Text + InputText + EditableText contains 'Posts' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsSelected(Assertions.kt:88)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity$lambda$9(SearchPresentationPreviewTest.kt:57)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.$r8$lambda$g7lYww0zzzaDNrnyBpBzdf7amtI(SearchPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(SearchPresentationPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: test=peopleAndPostsHaveIndependentResultsWithReadableExactIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.487
+There was 1 failure:
+1) peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(nl.davidengelen.redsquare.SearchPresentationPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (Selected = 'true')
+Semantics of the node:
+Node #319 at (l=18.0, t=257.0, r=86.0, b=305.0)px
+Focused = 'false'
+IsContainer = 'true'
+Role = 'Tab'
+Selected = 'false'
+Text = '[Posts]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 sibling
+Selector used: (Text + InputText + EditableText contains 'Posts' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsSelected(Assertions.kt:88)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity$lambda$9(SearchPresentationPreviewTest.kt:57)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.$r8$lambda$g7lYww0zzzaDNrnyBpBzdf7amtI(SearchPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(SearchPresentationPreviewTest.kt:28)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
