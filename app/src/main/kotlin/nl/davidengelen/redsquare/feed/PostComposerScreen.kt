@@ -130,9 +130,14 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         }
         launch
     }
-    LaunchedEffect(state, state.ready, selection) {
-        if (state.ready && selection != null && !memory.imagePreparation.failed) {
-            state.addImages(context.contentResolver, selection)
+    LaunchedEffect(state, selection) {
+        if (selection != null && !memory.imagePreparation.failed) {
+            // A picker result can arrive while an earlier draft write is busy.
+            // Keep this waiter alive until admission, without keying on the busy
+            // flags that preparation changes during its own atomic commit.
+            snapshotFlow { state.ready && !state.saving && !state.sending }.first { it }
+            if (memory.imagePreparation.pending === selection && !memory.imagePreparation.failed)
+                state.addImages(context.contentResolver, selection)
         }
     }
     LaunchedEffect(state, memory.imagePreparation.completed) {

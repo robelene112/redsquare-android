@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.gson.JsonArray
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.withLock
 import nl.davidengelen.redsquare.R
@@ -427,9 +428,11 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     }
     val navigation = requireNotNull(LocalPostNavigation.current)
     LaunchedEffect(state, state.reload) { state.load() }
-    LaunchedEffect(state, state.ready, selected) {
-        if (state.ready && selected != null && !memory.imagePreparation.failed) {
-            state.addImage(activity.applicationContext.contentResolver, selected, profile)
+    LaunchedEffect(state, selected) {
+        if (selected != null && !memory.imagePreparation.failed) {
+            snapshotFlow { state.ready && !state.busy }.first { it }
+            if (memory.imagePreparation.pending === selected && !memory.imagePreparation.failed)
+                state.addImage(activity.applicationContext.contentResolver, selected, profile)
         }
     }
     LaunchedEffect(state, memory.imagePreparation.completed) {
