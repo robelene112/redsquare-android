@@ -407,7 +407,7 @@ class FollowingPreviewTest {
                     }
                     ui.onNodeWithText("Following").performClick()
                     waitFor("Profile newer post 20")
-                    waitFor("Node unavailable")
+                    waitFor("Some followed accounts could not load.")
                     peer.assertHealthy()
                     captureFeedEvidence("following-evidence/partial-author-results.png")
                     server.close()
