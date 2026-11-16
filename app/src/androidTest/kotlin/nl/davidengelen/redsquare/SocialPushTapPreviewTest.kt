@@ -288,10 +288,18 @@ class SocialPushTapPreviewTest {
                         }
                         if (stack) {
                             hideKeyboard()
-                            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Switch app: Red Square").isDisplayed() }
-                            ui.onNodeWithContentDescription("Switch app: Red Square").performClick()
-                            ui.onNode(hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())).performClick()
-                            ui.waitUntil(5_000) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
+                            val moduleHeader = hasContentDescription("Switch app: Red Square") and isEnabled()
+                            ui.waitUntil(15_000) { nativeKeyboardHidden() && ui.onNode(moduleHeader).isDisplayed() }
+                            val moduleDeadline = android.os.SystemClock.elapsedRealtime() + 5_000
+                            fun remainingModuleBudget(): Long = (moduleDeadline - android.os.SystemClock.elapsedRealtime()).also {
+                                check(it > 0) { "Module selection exceeded its original five-second budget" }
+                            }
+                            ui.onNode(moduleHeader).performClick()
+                            val stackChoice = hasText("Stack") and hasClickAction() and hasAnyAncestor(isPopup() or isDialog())
+                            ui.waitUntil(remainingModuleBudget()) { ui.onAllNodes(stackChoice).fetchSemanticsNodes().size == 1 }
+                            ui.onNode(stackChoice).performClick()
+                            ui.waitUntil(remainingModuleBudget()) { ui.onNode(hasContentDescription("Switch app: Stack") and isEnabled()).isDisplayed() }
+                            remainingModuleBudget()
                             ui.onNodeWithTag("stack-live-content").assertIsDisplayed()
                             // Real incoming references for a different identity or node must not
                             // switch the mounted module, even when no modal blocks navigation.
@@ -518,6 +526,16 @@ class SocialPushTapPreviewTest {
         ui.onNodeWithText("Notifications and privacy").performScrollTo().performClick()
         waitFor(alertChoice() and isEnabled())
         return ui.onNode(alertChoice()).performScrollTo()
+    }
+
+    private fun nativeKeyboardHidden(): Boolean {
+        val activity = activeMainActivities().singleOrNull() ?: return false
+        var hidden = false
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val insets = androidx.core.view.ViewCompat.getRootWindowInsets(activity.window.decorView)
+            hidden = insets != null && !insets.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())
+        }
+        return hidden
     }
 
     private fun hideKeyboard() {
