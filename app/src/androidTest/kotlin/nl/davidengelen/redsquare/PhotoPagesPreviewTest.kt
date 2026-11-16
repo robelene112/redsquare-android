@@ -83,7 +83,10 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
             addProperty("id", 18)
             val foreign = JsonObject().apply {
                 addProperty("module", "RedSquare"); addProperty("request", "create tweet")
-                add("data", JsonObject().apply { addProperty("text", "Wrong author must stay hidden") })
+                add("data", JsonObject().apply {
+                    addProperty("text", "Wrong author must stay hidden")
+                    add("images", JsonArray().apply { add(image) })
+                })
             }
             addProperty("tx", SaitoTransaction.create(SaitoWallet.fromPrivateKey("0".repeat(63) + "3"), foreign, timestamp).envelope())
         },
