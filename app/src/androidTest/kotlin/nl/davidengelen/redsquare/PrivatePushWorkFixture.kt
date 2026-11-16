@@ -349,8 +349,11 @@ abstract class PrivatePushWorkFixture {
                     }
                 }
                 recordDismissal()
+                val swipeSpeedPixelsPerSecond = 1_000
+                dismissal.addProperty("configuredSwipeSpeedPixelsPerSecond", swipeSpeedPixelsPerSecond)
+                dismissal.addProperty("configuredGestureMarginPixels", 8)
                 val gestureStarted = SystemClock.elapsedRealtime()
-                card.swipe(Direction.RIGHT, 1.0f)
+                card.swipe(Direction.RIGHT, 1.0f, swipeSpeedPixelsPerSecond)
                 dismissal.addProperty("gestureMillis", SystemClock.elapsedRealtime() - gestureStarted)
                 val hidden = device.wait(Until.gone(By.text("New message")), 5_000)
                 dismissal.addProperty("textHidden", hidden)
