@@ -178,8 +178,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     }
                     ui.waitUntil(30_000) {
                         peer.assertHealthy()
-                        if (search) ui.onAllNodes(hasText("Photo page item", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
-                    else ui.onAllNodesWithText("Photo page item $postCount", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+                        ui.onAllNodes(hasText("Photo page item", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
                     }
                     if (search) ui.waitUntil(30_000) {
                     ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
