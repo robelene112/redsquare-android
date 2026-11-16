@@ -1,5 +1,5 @@
 {
-  "qualification": "Intermediate or unsuccessful observations only. Original complete parent conclusions and all raw indexed bytes retained externally; no assembly of passing prefixes.",
+  "qualification": "Intermediate or unsuccessful observations only. Original complete parent conclusions and all raw indexed bytes retained externally; no assembly of passing prefixes. Original stack captures remain byte-exact, including historical copies under failures; assumptions are explicitly classified separately and are not app failures.",
   "observations": [
     {
       "run": 43875784814,
@@ -8,6 +8,7 @@
       "conclusion": "success",
       "originalFiles": 55,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Intermediate source/debug success before later product corrections; not final source acceptance."
     },
     {
@@ -19,6 +20,7 @@
       "failedInstrumentationOriginals": [
         "android-native-proof-chat/.scratch/device-evidence/api-29/appearance-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole10 parent canceled after original Chat Appearance hidden failure; Social/Wallet canceled, no prefix acceptance."
     },
     {
@@ -30,6 +32,7 @@
       "failedInstrumentationOriginals": [
         "android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole17 parent canceled after original Chat Appearance hidden failure; Social/Wallet canceled, no prefix acceptance."
     },
     {
@@ -41,6 +44,7 @@
       "failedInstrumentationOriginals": [
         "android-native-proof/.scratch/device-evidence/api-29/appearance-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Focused10 fails original fresh Settings re-entry Privacy visibility after recreation. Product scroll reset follows."
     },
     {
@@ -50,6 +54,7 @@
       "conclusion": "",
       "originalFiles": 0,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Upstream queued jobless observation; cancel CLI and force-cancel API contradictory rejections retained, no runtime acceptance."
     },
     {
@@ -59,6 +64,7 @@
       "conclusion": "success",
       "originalFiles": 84,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected focused Settings full light/dark/system, recreation/re-entry success10, not full app."
     },
     {
@@ -68,6 +74,7 @@
       "conclusion": "success",
       "originalFiles": 73,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected focused Settings full light/dark/system, recreation/re-entry success17, not full app."
     },
     {
@@ -80,6 +87,7 @@
         "android-native-proof-chat/.scratch/device-evidence/api-29/file-menu-busy-ui.txt",
         "android-native-proof-social/.scratch/device-evidence/api-29/composer-draft-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole10 canceled after completed Chat initial WebView invalid rollback and Social lost Unsaved changes failures; no passing prefixes."
     },
     {
@@ -89,6 +97,7 @@
       "conclusion": "cancelled",
       "originalFiles": 737,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole17 canceled after product correction required by whole10; no app pass/failure inferred from cancellation."
     },
     {
@@ -98,6 +107,7 @@
       "conclusion": "success",
       "originalFiles": 135,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Trace-only focused file menu success; no signaling behavior change, cannot prove original race causality or replace failed full parent."
     },
     {
@@ -107,6 +117,7 @@
       "conclusion": "success",
       "originalFiles": 81,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected focused original composer draft tests success after product status correction; no assertion/deadline changes."
     },
     {
@@ -116,6 +127,7 @@
       "conclusion": "success",
       "originalFiles": 161,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected focused unfinished text storage/process recovery success; no assertion/deadline changes."
     },
     {
@@ -127,6 +139,7 @@
       "failedInstrumentationOriginals": [
         "android-native-proof-social/.scratch/device-evidence/api-29/video-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole245b10 canceled after completed Social video initial20second timeout; preceding fixture row visible, providerrequests0. Walletsuccess/Chatcancellation are not acceptance prefixes."
     },
     {
@@ -138,6 +151,7 @@
       "failedInstrumentationOriginals": [
         "android-native-proof-social/.scratch/device-evidence/api-37.0/images-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole245b17 canceled after completed Social real-picker rotation20second timeout while Preparing images. Cause unproved; surviving sibling prefixes are not accepted."
     },
     {
@@ -147,6 +161,7 @@
       "conclusion": "success",
       "originalFiles": 99,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Video reading-isolation focused10success, original4methods and deadlines unchanged, exact captured state restoration."
     },
     {
@@ -156,6 +171,7 @@
       "conclusion": "success",
       "originalFiles": 87,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Diagnostic-only original real-picker/images17success before readiness-idle product correction. No causal fix claim; original failed primary retained."
     },
     {
@@ -165,6 +181,7 @@
       "conclusion": "cancelled",
       "originalFiles": 686,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Entire e5 fixture-only10 primary canceled because later product admission correction requires freshbothSDK acceptance. No failed app test or accepted prefix inferred."
     },
     {
@@ -174,6 +191,7 @@
       "conclusion": "success",
       "originalFiles": 87,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected product real-picker/images17 focused success; original20second predicate and all image/process goals retained."
     },
     {
@@ -183,6 +201,7 @@
       "conclusion": "success",
       "originalFiles": 73,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected selected-image17 five-method focused success, provideronce/recreation/module-return and preservation assertions unchanged."
     },
     {
@@ -192,6 +211,7 @@
       "conclusion": "success",
       "originalFiles": 84,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected selected-image10 five-method focused success, provideronce/recreation/module-return and preservation assertions unchanged."
     },
     {
@@ -201,9 +221,11 @@
       "conclusion": "cancelled",
       "originalFiles": 967,
       "failedInstrumentationOriginals": [
-        "android-native-proof-social/.scratch/device-evidence/api-29/ProfilePublishingPreviewTest-ui.txt",
-        "android-native-proof-social/.scratch/device-evidence/api-29/profile-edit-ui.txt",
         "android-native-proof-wallet/.scratch/device-evidence/api-29/vault-rental-polish-ui.txt"
+      ],
+      "assumptionInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-29/ProfilePublishingPreviewTest-ui.txt",
+        "android-native-proof-social/.scratch/device-evidence/api-29/profile-edit-ui.txt"
       ],
       "qualification": "Whole136 Android10 canceled after Wallet15second20refresh measurement timeout. The failed original method trace has only5complete Main merges and is not accepted. Chat/Social canceled prefixes are not acceptance."
     },
@@ -214,6 +236,7 @@
       "conclusion": "cancelled",
       "originalFiles": 1512,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Whole136 Android17 canceled because coherent Vault export product correction requires freshbothSDK primaries. No app failure or accepted prefix inferred from cancellation."
     },
     {
@@ -225,6 +248,7 @@
       "failedInstrumentationOriginals": [
         "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-ui.txt"
       ],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Unchanged-source diagnostic Vault scope FAILED overall at original immediate recovery-control assertion after export staging error. Performance method passes20refreshes/10581ms with original trace validator, but cannot accept this failed parent. Product now publishes terminal results after cleanup and clears busy coherently; standard fixture waitForIdle is before unchanged timed measurement."
     },
     {
@@ -234,6 +258,7 @@
       "conclusion": "success",
       "originalFiles": 88,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected Vault17 focused SUCCESS12methods/sixgroups; unchanged original recovery assertions and20refresh/15s method trace. Both independent focused reviews pass; not whole-app acceptance."
     },
     {
@@ -243,6 +268,7 @@
       "conclusion": "",
       "originalFiles": 0,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Original corrected Vault10 scope remains jobless queued. Normal cancel rejected as completed; force-cancel rejected409notqueued while fresh metadata says queued. No instrumentation, native pass or failure inferred. Separate exact-product alternate-pool focused scope replaces it, never a successful prefix."
     },
     {
@@ -252,7 +278,145 @@
       "conclusion": "success",
       "originalFiles": 99,
       "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
       "qualification": "Corrected Vault10 alternate-pool focused SUCCESS12methods/sixgroups at frozenf027,22same product treepins. Original immediate recovery assertion and20refresh/15s method trace retained;20balancedMainmerges/zero crypto,2930ms. Both independent focused reviews pass; not whole-app acceptance."
+    },
+    {
+      "run": 43925173800,
+      "head": "f0272926f326029040fb041b78afdd11159d2606",
+      "status": "completed",
+      "conclusion": "failure",
+      "originalFiles": 1615,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-chat/.scratch/device-evidence/api-29/chat-alerts-ui.txt"
+      ],
+      "assumptionInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-29/ProfilePublishingPreviewTest-ui.txt",
+        "android-native-proof-social/.scratch/device-evidence/api-29/profile-edit-ui.txt"
+      ],
+      "qualification": "Original complete137 Android10 FAILED Chat at original5s physical private-notification dismissal. Actual178ms full-distance stroke exposesSystemUIgeartray, clearable notification remains active. Wallet/Social success are not accepted prefixes. Both freshcomplete SDK parents required."
+    },
+    {
+      "run": 43932764151,
+      "head": "f0272926f326029040fb041b78afdd11159d2606",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 70,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Unchanged f027 focusedVault rules17SUCCESS. Diagnostic only; originalwhole17 failure cause remainsunproved, not accepted as correction or completeprimary."
+    },
+    {
+      "run": 43933554945,
+      "head": "2e18e8b77987fbe1981455894fde0485971ba9f3",
+      "status": "completed",
+      "conclusion": "failure",
+      "originalFiles": 85,
+      "failedInstrumentationOriginals": [
+        "android-native-proof/.scratch/device-evidence/api-29/vault-upload-ui.txt"
+      ],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "First input-setup10FAILED at newly added AnnotatedString equality despite exact actual EditableText characters. This is an extra setup-observer failure, retained. Actual original error assertion was not reached. Later helper compares exact characters independently of styling."
+    },
+    {
+      "run": 43933559441,
+      "head": "2e18e8b77987fbe1981455894fde0485971ba9f3",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 70,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "First input-setup17SUCCESS, but sourceprecedes strict unknown-window observation fix and exact-character comparison. Intermediate only, not current acceptance."
+    },
+    {
+      "run": 43934340289,
+      "head": "f0272926f326029040fb041b78afdd11159d2606",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 3,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Mistaken post-presentation diagnostic scope canceled after selecting wronggroup. Replaced by correct Search scope; no runtime pass/failure inferred from cancellation."
+    },
+    {
+      "run": 43934393571,
+      "head": "f0272926f326029040fb041b78afdd11159d2606",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 88,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Unchanged f027 Search17focusedSUCCESS. Diagnostic only, originalwhole17 tabgesture cause unproved."
+    },
+    {
+      "run": 43934680206,
+      "head": "ca9047b25c61aacaa57e1490433e88be43dd8e2c",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 88,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Corrected Search17focusedSUCCESS17methods/sixgroups atca904; actual Activity window focus and stablePosts target beforeoriginalsingle tap/immediate selected assertion. Both independent focusedreviews pass; not wholeacceptance."
+    },
+    {
+      "run": 43934687295,
+      "head": "ca9047b25c61aacaa57e1490433e88be43dd8e2c",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 3,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Intermediate strict Vault17scope canceled because new extra input-character observer correction required. No nativefailure or acceptedprefix inferred."
+    },
+    {
+      "run": 43934894726,
+      "head": "14b5c7c6c2d4d3dfd255149152845f8bf9748a42",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 81,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Corrected strict Vault10focusedSUCCESS; unique observedwindow/insets proveIMEabsence, exactcharacters andstableenabledtarget before originalsingleclick/5s visible-error. Both independent focusedreviews pass."
+    },
+    {
+      "run": 43934901451,
+      "head": "14b5c7c6c2d4d3dfd255149152845f8bf9748a42",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 70,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Corrected strict Vault17focusedSUCCESS; unique observedwindow/insets proveIMEabsence, exactcharacters andstableenabledtarget before originalsingleclick/5s visible-error. Both independent focusedreviews pass."
+    },
+    {
+      "run": 43936762285,
+      "head": "f0272926f326029040fb041b78afdd11159d2606",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 111,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Unchanged f027 Chat alerts10focusedSUCCESS. Diagnostic only; does not provewhy originalwhole10 physicalswipe openedSystemUIgeartray or acceptfailedprimary."
+    },
+    {
+      "run": 43937017497,
+      "head": "90987894d610872b94a42d10693ce2b4b61550fd",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 111,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Controlled single1000px/s physicaldismissal10focusedSUCCESS. Original20ordinarymethods/fournormalprocesscompletions/fourintentionalstarts retained; alloriginal5sremoval/redelivery/identity/PID goals pass. Bothindependent focusedreviews accepted, no originalcause or wholeappclaim."
+    },
+    {
+      "run": 43937023299,
+      "head": "90987894d610872b94a42d10693ce2b4b61550fd",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 101,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Controlled single1000px/s physicaldismissal17focusedSUCCESS. Original20ordinarymethods/fournormalprocesscompletions/fourintentionalstarts retained; alloriginal5sremoval/redelivery/identity/PID goals pass. Bothindependent focusedreviews accepted, no originalcause or wholeappclaim."
     }
   ]
 }

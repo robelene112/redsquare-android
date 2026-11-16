@@ -1,0 +1,134 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VaultUploadPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.VaultUploadPreviewTest:
+INSTRUMENTATION_STATUS: test=choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.VaultUploadPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (EditableText = 'not valid JSON')
+Semantics of the node:
+Node #449 at (l=18.0, t=279.0, r=302.0, b=420.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'not valid JSON'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@51091ad'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'not valid JSON'
+IsEditable = 'true'
+Text = '[Access script]'
+TextSelectionRange = 'TextRange(14, 14)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (Text + InputText + EditableText contains 'Access script' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.settleAdvancedConfirmation(VaultUploadPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded$lambda$11(VaultUploadPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.$r8$lambda$rsfhucaBrR-iDkpcLLUlgc7pcZI(Unknown Source:0)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$lambda$34$lambda$33(VaultReadingFixture.kt:148)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.$r8$lambda$s84g-M43W4QgUdacHCZr-D_QkF4(Unknown Source:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture(VaultReadingFixture.kt:109)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$default(VaultReadingFixture.kt:27)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(VaultUploadPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(nl.davidengelen.redsquare.VaultUploadPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'not valid JSON')
+Semantics of the node:
+Node #449 at (l=18.0, t=279.0, r=302.0, b=420.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'not valid JSON'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@51091ad'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'not valid JSON'
+IsEditable = 'true'
+Text = '[Access script]'
+TextSelectionRange = 'TextRange(14, 14)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (Text + InputText + EditableText contains 'Access script' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.settleAdvancedConfirmation(VaultUploadPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded$lambda$11(VaultUploadPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.$r8$lambda$rsfhucaBrR-iDkpcLLUlgc7pcZI(Unknown Source:0)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$lambda$34$lambda$33(VaultReadingFixture.kt:148)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.$r8$lambda$s84g-M43W4QgUdacHCZr-D_QkF4(Unknown Source:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture(VaultReadingFixture.kt:109)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$default(VaultReadingFixture.kt:27)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(VaultUploadPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.051
+There was 1 failure:
+1) choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(nl.davidengelen.redsquare.VaultUploadPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (EditableText = 'not valid JSON')
+Semantics of the node:
+Node #449 at (l=18.0, t=279.0, r=302.0, b=420.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'not valid JSON'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@51091ad'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'not valid JSON'
+IsEditable = 'true'
+Text = '[Access script]'
+TextSelectionRange = 'TextRange(14, 14)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (Text + InputText + EditableText contains 'Access script' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.settleAdvancedConfirmation(VaultUploadPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded$lambda$11(VaultUploadPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.$r8$lambda$rsfhucaBrR-iDkpcLLUlgc7pcZI(Unknown Source:0)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$lambda$34$lambda$33(VaultReadingFixture.kt:148)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.$r8$lambda$s84g-M43W4QgUdacHCZr-D_QkF4(Unknown Source:0)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$26$lambda$25$lambda$24(AppFrameFixture.kt:92)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$De0tYm-B9z_BUSdwWOm5ENca-h8(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:76)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:85)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture(VaultReadingFixture.kt:109)
+	at nl.davidengelen.redsquare.VaultReadingFixtureKt.withVaultReadingFixture$default(VaultReadingFixture.kt:27)
+	at nl.davidengelen.redsquare.VaultUploadPreviewTest.choosingAFileShowsItsNativeReviewBeforeAnyMintOrUploadAndCanBeDiscarded(VaultUploadPreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

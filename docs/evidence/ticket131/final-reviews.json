@@ -114,5 +114,92 @@
     },
     "observations": "Both successful exact-source runs/server ZIP digests,205original ZIP files,62rawfiles/46native TAR members and20PNG/20XML validated and packet-byte-exact. Actual94265888byte candidate SHA/version/package/cert and fresh same-source observer SHA/cert verified;125nonmanifest/nonsignature observer entries equal freshAndroidTest. Actual signed131-to137 update/coldlaunch preserve wallet/node/draft/offlinecache/Light/debugUIDidentityisolation, all10encryptedrecords/exactlegacyFilesharepayload/history, pendingVaultStoreplan/draft/export. Independentrestoration has nofailures; guardedunsafe fixtures make no submissions.",
     "qualification": "Signed update only. Both complete current-source SDK primaries and public-delivery acceptance remain pending. Candidate137 staged only; public latest131. No physical/OEM/live provider/node/schema/funding/Play acceptance."
+  },
+  "nativeInputQualification": {
+    "fixtureSource": "14b5c7c6c2d4d3dfd255149152845f8bf9748a42",
+    "frozenSource": "b6181516719f8443cee50d974600bc39b85f98f9",
+    "signedProductSource": "f0272926f326029040fb041b78afdd11159d2606",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0,
+      "priorUnknownImeObservationFindingResolved": true
+    },
+    "bridgeIdenticalEntries": 228764,
+    "bridgeCanonicalLfSha256": "8d5a45aa1b396f92c61b66083151ad2e79f900b67204ca05d6b4321af52d046f",
+    "qualification": "Exactly two AndroidTest files plus ticket131 evidence differ. Original methods/taps/assertions/deadlines restore byte-exact. Originalfull10 onlyif entire originalparent/profilepasses; replacementfull17 must freshly completeall3parts underprospectiveprofile. Signed137/update/observerf027 remainapplicable to identicalproduction. Originalfailurecauses unproved, unchangedfocused successes diagnostic only. Native/full/public acceptancepending.",
+    "supersededBeforeWholeDispatch": true
+  },
+  "physicalInputQualification": {
+    "fixtureSource": "90987894d610872b94a42d10693ce2b4b61550fd",
+    "frozenSource": "a594f6e89b97589f837ad256677cb1b57beed6bb",
+    "signedProductSource": "f0272926f326029040fb041b78afdd11159d2606",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_SOURCE_AND_FOCUSED_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_SOURCE_ONLY_AND_FOCUSED",
+      "findings": 0
+    },
+    "bridgeIdenticalEntries": 228763,
+    "bridgeCanonicalLfSha256": "6e303b8affdd4d6753fca5aa1b4f195a729e89ffe36e9da0d04462cbfa226257",
+    "focusedVaultSearch": {
+      "runs": [
+        43934894726,
+        43934901451,
+        43934680206
+      ],
+      "result": "PASS_FOCUSED",
+      "normalMethods": 19,
+      "originalZipFiles": 239,
+      "originalTarMembers": 218,
+      "png": 90,
+      "xml": 90,
+      "scope": "Native strictIME/geometry/source andActivityfocus setup, originaloneclick/5s validation/immediateselectedassertion. SixSearchgroups/recovery/viewports retained."
+    },
+    "qualification": "Three AndroidTest files andticket131evidence only. Originalfiles restorebyteexact reversingexplicitinputchanges; allnativegoals remain. Bothoriginalwhole137parents failed; bothfreshcompleteSDKs required, noacceptedprefixes. Signed137/update/observer remainexactf027. Originalcausesunproved; annotationobserverfailure retained. Allcorrectedfocusedscopes accepted. BothfreshcompleteSDKparents andpublicdelivery pending.",
+    "controlledNotifications": {
+      "runs": [
+        43937017497,
+        43937023299
+      ],
+      "spec": {
+        "reviewer": "/root/integrated131_spec_final",
+        "result": "PASS_FOCUSED",
+        "findings": 0
+      },
+      "standards": {
+        "reviewer": "/root/integrated131_standards_final",
+        "result": "PASS_FOCUSED",
+        "findings": 0
+      },
+      "originalZipFiles": 212,
+      "originalTarMembers": 346,
+      "png": 166,
+      "xml": 166,
+      "perSdk": {
+        "ordinaryMethods": 20,
+        "processNormalCompletions": 4,
+        "separateIntentionalStarts": 4
+      },
+      "gestureMillisRange": [
+        424,
+        549
+      ],
+      "dismissals": 6,
+      "qualification": "Configured1000px/s/8pxmargin is plannedinput, not measureddeliveredvelocity. Eachoriginalsinglephysicalswipe/5sdisappearance/removal/redelivery/classbound remains. Exactidentity/backend/worker/payload/PID continuity andrestoration verified. Originalcauseunproved; unchangedcomparison diagnostic only."
+    },
+    "replacementFullRuns": {
+      "10": 43938739034,
+      "17": 43939468380
+    }
   }
 }

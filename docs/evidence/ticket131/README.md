@@ -5,19 +5,35 @@ Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
 **In progress.** Behavior children #118–#130 have focused acceptance. Final
 integration also corrects selected-image idle admission and coherent Vault export
-recovery. Current frozen source is `f0272926f326029040fb041b78afdd11159d2606`, with
-product `cf1e38756825219111aeb054cf956538e98f6694` and prospective candidate137.
+recovery. Signed137 source is `f0272926f326029040fb041b78afdd11159d2606`, with
+product correction `cf1e38756825219111aeb054cf956538e98f6694`. Both replacement SDK
+qualifications are prospectively frozen at
+`a594f6e89b97589f837ad256677cb1b57beed6bb`, after three test-only input changes.
 Public latest remains131. Candidates132–136 are superseded; their focused or
 update passes remain intermediate and must never be promoted.
 
 ## Prospective complete source
 
-The current source freezes `source-profile-vault-export.json` and
-`verify-full-vault-export.py` before fresh whole-app execution. Both independent
-source/profile reviews pass with zero findings. Android17 full run43922010955 and Android10 full run43925173800
-require all three original partitions and public reads. Both complete primaries
-remain pending. Actual signed131-to137 runs43923164655/43923170701 pass, with both
-independent source/binary/evidence reviews accepted as update-only.
+Both first137 primaries are rejected: Android10 run43925173800 has a failed Chat
+partition, while17 run43922010955 has failed Wallet and Social partitions.
+Successful siblings cannot supply acceptance. The replacement profile uses
+`source-profile-physical-input.json` and `verify-full-physical-input.py`, frozen
+before dispatch. Both independent source/binding reviews pass. Both SDKs must
+freshly complete all three original partitions, source checks and public reads.
+Replacement10 run43938739034 and17 run43939468380 use exact frozen a594.
+The earlier two-file, outstanding-SDK proposal at b618 was superseded before any
+whole replacement dispatch when the original10 Chat partition also failed.
+
+Actual signed131-to137 runs43923164655/43923170701 pass, with both independent
+source/binary/evidence reviews accepted as update-only. Signed137 and its fresh
+module observer remain exact f027. The production-equivalence bridge excludes
+exactly three named AndroidTest files and ticket131 evidence documentation; all
+228,763 other tracked entries match, canonical LF SHA256
+`6e303b8affdd4d6753fca5aa1b4f195a729e89ffe36e9da0d04462cbfa226257`.
+The original test files restore byte-for-byte after reversing only explicit
+input setup, naming an existing callback parameter and controlling the one physical
+notification swipe's speed with planned-input observations. All original assertions
+and deadlines remain. See [physical input source bridge](physical-input-source-bridge.json).
 
 The earlier136 primaries43908922875/43908922433 were canceled after the10 Wallet
 measurement failure and the later export recovery correction. Both136 signed
@@ -138,6 +154,57 @@ retained. Alternate-pool run43921793430 uses
 frozen f027 with identical product trees. It passes the same12 methods/six groups,
 including immediate usable recovery controls and20 balanced Main merges in2930ms,
 with zero cryptography under merge. Both independent focused10 reviews pass.
+
+## Native input setup qualification
+
+The first17 Wallet parent failed the original five-second visible error predicate
+in VaultUploadPreviewTest54 after invalid JSON input. Original native PNG/XML show
+the invalid text, open keyboard and enabled confirmation, with no validation status
+between the explanation and field. They do not establish that the tap reached its
+handler, or that an error was merely offscreen. Unchanged isolated run43932764151
+passes; this does not prove the original cause or accept the failed primary.
+
+The same17 parent failed SearchPresentationPreviewTest57: after closing identity
+details, the original single Posts tap did not satisfy its immediate selected
+assertion. By failure capture, the dialog was gone and People remained selected.
+That does not establish gesture delivery or its cause. The unchanged isolated
+Search run43934393571 passes; it is diagnostic only.
+
+Test setup now closes the ordinary keyboard and requires observed focused-window
+insets proving absence plus stable enabled confirmation geometry before Vault's
+original single tap. Unknown root/insets cannot satisfy readiness. Search waits
+for the actual Activity window to own focus, dialog disappearance and stable
+enabled Posts geometry before its original single tap and immediate selected
+assertion. Each new setup has a separate five-second bound and records actual
+insets/bounds; no retry tap, semantic-action substitution, scroll during the error
+wait, new clock or deadline extension is introduced. Native product source stays
+unchanged. One extra setup observer initially compared styled AnnotatedString
+objects and failed on Android10 despite identical actual characters; that failed
+observation43933554945 is retained. It now compares the exact editable characters
+independently of style. Both corrected Vault focused runs43934894726/43934901451
+and Search17 run43934680206 pass both independent focused reviews:19 methods total,
+strict observed IME absence, native validation/error captures, actual Activity
+focus and original immediate tab selection. All six Search groups, recovery and
+viewport checks remain.
+
+Original10 Chat then failed PrivatePushWorkFixture360 during the receipt-storage
+journey. The actual clearable, non-ongoing notification remained active after one
+178ms physical swipe; original PNG/XML show SystemUI's64px gear tray exposed.
+The installed UiAutomator2.4.0 bytecode confirms a full margin-rectangle gesture,
+not a shortened center swipe. It does not establish why SystemUI retained the
+notification or prove an app defect. Unchanged isolated43936762285 passes; that
+is diagnostic only. The test now retains one full-distance swipe on the same card
+with explicit1000px/s speed and records configured speed/margins plus measured
+gesture duration. Configured speed is planned input, not a measurement of delivered
+velocity. Original five-second disappearance/removal, redelivery and180-second
+class bounds remain. Controlled notification scopes43937017497/43937023299 pass
+both independent focused reviews. Each SDK retains20 ordinary methods plus four
+normal process completions and four separately classified intentional starts.
+All six recorded dismissals remove the actual owned notification with measured
+gesture durations424–549ms. Exact identities/backend/worker payloads and distinct
+process recovery/restoration remain. No retry, cancellation API or semantic
+substitute is used. Both fresh complete app parents and public delivery remain
+pending.
 
 ## Intermediate signed updates and boundaries
 
