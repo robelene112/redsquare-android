@@ -77,7 +77,7 @@ internal fun SingleOwnerReveal(target: Any?, modifier: Modifier = Modifier,
 }
 
 /** Own one submission callback per destination; disposed destinations never drive a later reveal. */
-private class FirstContentFrame {
+internal class FirstContentFrame {
     val submitted = CompletableDeferred<Unit>()
     var drawn = false
     private var observer: ViewTreeObserver? = null

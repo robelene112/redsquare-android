@@ -126,16 +126,10 @@ class LoadedMediaMotionTest {
         var deliveryFailure: Throwable? = null
         val movie = File(folder, "scale-$scale-$name.mp4")
         var deliveryDeadline = 0L
-        val timing = MediaArrivalTiming(activity)
-        var recordingFailure: Throwable? = null
-        val recording = try {
-            recordNativeTransition(movie, recordingSeconds = 4) {
-                deliveryDeadline = SystemClock.elapsedRealtime() + 10_000
-                try { deliver() } catch (failure: Throwable) { deliveryFailure = failure }
-            }
-        } catch (failure: Throwable) { recordingFailure = failure; throw failure }
-        finally { cleanupAfterTest(recordingFailure, { timing.close() }) }
-        File(folder, "scale-$scale-$name-render-timing.json").writeText(timing.observations().toString())
+        val recording = recordNativeTransition(movie, recordingSeconds = 4) {
+            deliveryDeadline = SystemClock.elapsedRealtime() + 10_000
+            try { deliver() } catch (failure: Throwable) { deliveryFailure = failure }
+        }
         // Keep SurfaceFlinger screenshot capture out of the recorded transition itself.
         // The original10s delivery budget still starts when the packet is released.
         if (deliveryFailure == null) try {
