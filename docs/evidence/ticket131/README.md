@@ -3,9 +3,9 @@
 Parent: [#117](https://github.com/robelene112/redsquare-android/issues/117).
 Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
-**In progress.** Behavior children #118–#130 are accepted. Final whole-app,
-actual signed-candidate update and public beta delivery remain pending here.
-Public latest remains beta 131. Candidates 132/133/134 are superseded and must
+**In progress.** Behavior children #118–#130 are accepted. Final whole-app qualification and public beta delivery remain pending here.
+Both actual signed-candidate updates and independent source/update reviews pass.
+Public latest remains beta 131. Candidate 135 is staged at the same exact source as the current whole runs; both actual 131-to-135 updates and independent source/update reviews pass. Whole-app and public delivery remain pending. Candidates 132/133/134 are superseded and must
 never be promoted. Candidate 134's accepted update packet is intermediate only.
 
 ## Prospective complete source

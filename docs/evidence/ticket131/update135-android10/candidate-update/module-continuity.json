@@ -1,0 +1,45 @@
+{
+  "observerSha256": "943848cbb5a2281cc44a29990e43012d2b4a30b4895a04a53ba2fb9776fd9469",
+  "observations": [
+    {
+      "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "sourceVersion": 131,
+      "fileshareLegacyFormatSeed": true,
+      "encryptedRecords": 10,
+      "noNetworkSubmission": true,
+      "expected": {
+        "orderId": "13d0f9b7cb502b72fddbef0834d0a6c9dfbc56c0c81eb98bdc37a8f9f8aabc3557ade9e294602cc2989634a3151499f65da5a2da2d14eabe9dc1cd98e5e0d24f",
+        "vaultOperationId": "2eded50225341fda746d112b20c3f772d82eda5e984ab6b97a9c22d1993419260354c65f563eae58a5cb6dad844af1363ca6cd03e7f1a14d966e5b035cb15a30",
+        "fileId": "bb253a5dece5ff97412c3a3554fddbb145a3f3b6ce16b129de192a4a15c3821b215a8c96952a1e8ca285f1182d1f78fa82f7163235869ca2a07237e19628bf19",
+        "fileContentsBase64": "RmllbGQgbm90ZXMKU2FpdG8gY2Fmw6kg8J+UtAo=",
+        "draftId": "ff60c99d356f17888f173f6df16235dc1bde5fb664a9480565c22072b26a676a1f63cacf9a82dcd4eaeab70a3888594e528580010543107a1086e208b5b842ee",
+        "draftName": "Upload notes.txt",
+        "draftContentsBase64": "QSBuYXRpdmUgVmF1bHQgdXBsb2FkClNhaXRvIGNhZsOpIPCflLQK"
+      }
+    },
+    {
+      "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "version": 135,
+      "exactPendingStoreOriginal": true,
+      "exactPendingVaultOriginal": true,
+      "pendingVaultPlanReconstructed": true,
+      "exactVaultDraft": true,
+      "exactOfflineAndPendingExportBytes": true,
+      "exactRetainedFileshareAndInterruptedHistory": true,
+      "encryptedRecordsUnchanged": 10,
+      "noNetworkSubmission": true
+    },
+    {
+      "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "version": 135,
+      "exactPendingStoreOriginal": true,
+      "exactPendingVaultOriginal": true,
+      "pendingVaultPlanReconstructed": true,
+      "exactVaultDraft": true,
+      "exactOfflineAndPendingExportBytes": true,
+      "exactRetainedFileshareAndInterruptedHistory": true,
+      "encryptedRecordsUnchanged": 10,
+      "noNetworkSubmission": true
+    }
+  ]
+}

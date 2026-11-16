@@ -1,0 +1,20 @@
+{
+  "source": "245b79ee7750f51aaf12f73f7cb2fbaaad77a2f5",
+  "base": "59594c5634cbfec2c49bc4375865e3e101503580",
+  "sourceAndSignedUpdate135": {
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS",
+      "findings": 0,
+      "scope": "Original server ZIP digests,31raw/23native member hashes perSDK, actual signed131-to135 update/coldlaunch, exact candidate bytes/version/package and candidate+observer certificate. Legacy131 encrypted Fileshare payload/history and pendingStore/Vault/draft/export, wallet/node/draft/cache/preference/package isolation, restoration/nonetwork. Additive contract, Settings/composer corrections and qualified browser ordering mechanism. No unrequested scope."
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS",
+      "documentedBreaches": 0,
+      "actionableFowlerHeuristics": 0,
+      "scope": "Independent live metadata/server digests,108/97original ZIP members,62rawfiles/46native members including20PNG/20XML. Actual94265888byte candidate hash/package/version/cert, exactobserver hash/cert and125nonmanifest/signature members against fresh AndroidTest APK. Inspected native draft/Light/offlinefeed captures. Guarded continuity and independent cleanup. Reproduced ordered signal mechanism green and genuine glare negative."
+    },
+    "qualification": "Source and actual update only. Current completeSDK qualification and actual public delivery remain pending. Candidate135 staged only; no physical/OEM/live/provider/Play acceptance."
+  }
+}
