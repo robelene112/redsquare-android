@@ -92,6 +92,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var followingView by rememberSaveable { mutableStateOf(false) }
     val followingOwner = if (followingView) wallet?.publicKey else null
     val cache = remember(backend, followingOwner) { AndroidFeedCache(context, backend, followingOwner = followingOwner) }
+    val archivePolicy = remember(wallet?.publicKey, endpoint) { ArchiveReadPolicy() }
+    val archiveContinuations = remember(wallet?.publicKey, endpoint, followingView) {
+        mutableMapOf<String, Pair<com.google.gson.JsonObject, ArchiveReadCursor>>()
+    }
     val revisions = remember(backend) { AndroidPostRevisions(context, backend) }
     val connection = remember { AndroidInternetStatus(context) }
     DisposableEffect(connection) { onDispose { connection.close() } }
@@ -314,7 +318,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 loading = true
                 try {
                     withContext(Dispatchers.IO) {
-                        SaitoPeer(wallet, endpoint).use { peer ->
+                        BoundedArchiveReader(wallet, endpoint, archivePolicy).use { archive ->
                             val authors = if (followingView) following!!.accounts.sorted() else listOf<String?>(null)
                             var rowCount = 0
                             var validCount = 0
@@ -325,14 +329,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                     addProperty("created_earlier_than", System.currentTimeMillis())
                                     if (author != null) addProperty("field2", author)
                                 }
-                                val request = com.google.gson.JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
-                                val response = peer.request(request.toString().toByteArray()).toString(Charsets.UTF_8)
                                 suspend fun publish(page: ArchiveFeedPage) {
                                     val accepted = if (author == null) page else page.copy(posts = page.posts.filter { it.author == author })
                                     rowCount += accepted.rowCount
                                     validCount += accepted.posts.size
                                     val known = withContext(Dispatchers.Main.immediate) { posts.toList() }
-                                    revisions.reconcileDeletions(peer, accepted.deletions, accepted.posts + known)
+                                    revisions.reconcileDeletions(archive.peer, accepted.deletions, accepted.posts + known)
                                     withContext(Dispatchers.Main.immediate) {
                                         social?.observe(accepted.posts)
                                         val applied = withContext(Dispatchers.IO) {
@@ -349,13 +351,33 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                         unreadablePage = rowCount > 0 && validCount == 0
                                     }
                                 }
-                                publish(RedSquareFeed.readArchive(response))
+                                suspend fun readStream(base: com.google.gson.JsonObject, decode: (String) -> ArchiveFeedPage) {
+                                    val key = base.get("field1").asString + ":" + author.orEmpty()
+                                    val retained = archiveContinuations[key]
+                                    val query = retained?.first ?: base
+                                    var cursor = retained?.second
+                                    val seen = mutableSetOf<String>()
+                                    // Bound each foreground turn; an unfinished tie resumes on the
+                                    // next poll without losing the node, verified cards or viewport.
+                                    repeat(16) {
+                                        val page = archive.next(query, cursor)
+                                        val decoded = decode(page.response)
+                                        publish(decoded)
+                                        seen.addAll(decoded.posts.map { it.id })
+                                        cursor = page.next
+                                        if (cursor == null || (cursor is ArchiveReadCursor.Before &&
+                                                (!page.adapted || seen.size >= 20))) {
+                                            archiveContinuations.remove(key)
+                                            return
+                                        }
+                                        archiveContinuations[key] = query to requireNotNull(cursor)
+                                    }
+                                }
+                                readStream(criteria, RedSquareFeed::readArchive)
                                 val quoteCriteria = criteria.deepCopy().apply {
                                     addProperty("field1", "RedSquareRetweet"); remove("field4")
                                 }
-                                val quoteRequest = com.google.gson.JsonObject().apply { addProperty("request", "archive"); add("data", quoteCriteria) }
-                                val quoteResponse = peer.request(quoteRequest.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
-                                publish(RedSquareFeed.readCurrentQuotes(quoteResponse))
+                                readStream(quoteCriteria, RedSquareFeed::readCurrentQuotes)
                             }
                         }
                     }

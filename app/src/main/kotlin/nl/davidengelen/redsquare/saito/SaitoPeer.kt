@@ -32,6 +32,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
     private val onIncoming: ((ByteArray) -> Boolean)? = null) : Closeable {
     class RequestError : IOException("Peer returned a request error")
+    internal data class ArchiveHint(val id: Long, val createdAt: Long)
+    internal class ResponseTooLarge(val archiveHint: ArchiveHint?) : IOException("Peer response exceeds the read bound")
     private val active = AtomicBoolean(true)
     private val released = CompletableDeferred<Unit>()
     private val leaseId = nextLease.incrementAndGet()
@@ -67,6 +69,11 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
     }
 
+    /** Only Archive readers may use untrusted routing hints from a rejected oversized callback. */
+    internal suspend fun requestArchive(message: ByteArray): ByteArray = requestFrame(archiveRead = true) { index ->
+        SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
+    }
+
     /** A Registry namecheck can receive one dispatcher fallback before its actual callback. */
     internal suspend fun requestRegistryNamecheck(message: ByteArray): ByteArray = requestFrame(awaitRegistryCallback = true) { index ->
         SaitoWire.applicationRequest(wallet.publicKey, message, index, System.currentTimeMillis())
@@ -92,14 +99,14 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         }
 
     private suspend fun requestFrame(beforeSend: (() -> Unit)? = null, awaitRegistryCallback: Boolean = false,
-        timeoutMillis: Long = 12_000, frame: (Int) -> ByteArray): ByteArray = withTimeout(timeoutMillis) {
+        timeoutMillis: Long = 12_000, archiveRead: Boolean = false, frame: (Int) -> ByteArray): ByteArray = withTimeout(timeoutMillis) {
         authenticate()
         val index = nextRequestIndex.updateAndGet { previous ->
             if (previous == Int.MAX_VALUE) throw IOException("Peer request identities exhausted")
             previous + 1
         }
         val response = CompletableDeferred<ByteArray>()
-        val request = Connection.PendingRequest(this@SaitoPeer, response, awaitRegistryCallback)
+        val request = Connection.PendingRequest(this@SaitoPeer, response, awaitRegistryCallback, archiveRead)
         try {
             val job = currentCoroutineContext().job
             // Authority mutations precede pool operations everywhere. Never call a feature
@@ -116,6 +123,9 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
                 }
             }
             await(response)
+        } catch (failure: IOException) {
+            currentCoroutineContext().ensureActive()
+            throw (request.oversized ?: failure)
         } finally { connection.pending.remove(index, request) }
     }
 
@@ -206,7 +216,10 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
         val closed = CompletableDeferred<Unit>()
         val disconnected = AtomicBoolean(false)
         val leases = java.util.concurrent.CopyOnWriteArrayList<SaitoPeer>()
-        class PendingRequest(val owner: SaitoPeer, val response: CompletableDeferred<ByteArray>, val awaitRegistryCallback: Boolean)
+        class PendingRequest(val owner: SaitoPeer, val response: CompletableDeferred<ByteArray>,
+            val awaitRegistryCallback: Boolean, val archiveRead: Boolean) {
+            @Volatile var oversized: ResponseTooLarge? = null
+        }
         val pending = ConcurrentHashMap<Int, PendingRequest>()
         private val challenges = mutableListOf(randomNonce())
         var identifiedKey: String? = null
@@ -220,6 +233,12 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                 try {
+                    if (bytes.size > MAX_RESPONSE_BYTES && bytes[0] == 13.toByte() && ready.isCompleted && !ready.isCancelled) {
+                        val index = ByteBuffer.wrap(bytes.substring(1, 5).toByteArray()).int
+                        pending[index]?.takeIf { it.archiveRead }?.let { request ->
+                            request.oversized = ResponseTooLarge(archiveHint(bytes))
+                        }
+                    }
                     require(bytes.size in 1..MAX_RESPONSE_BYTES)
                     val frame = bytes.toByteArray()
                     when (frame[0].toInt() and 0xff) {
@@ -344,6 +363,26 @@ class SaitoPeer(private val wallet: SaitoWallet, private val endpoint: String,
             if (end == null) { fail(); throw IOException("Peer disconnected") }
             return end
         }
+
+        // This prefix never enters a content decoder/cache. It selects an exact bounded
+        // read only; the returned full envelope still passes the existing signature reader.
+        private fun archiveHint(bytes: ByteString): ArchiveHint? = try {
+            val prefix = bytes.substring(5, minOf(bytes.size, MAX_RESPONSE_BYTES)).utf8()
+            com.google.gson.stream.JsonReader(java.io.StringReader(prefix)).use { reader ->
+                reader.beginArray(); reader.beginObject()
+                var id: Long? = null
+                var timestamp: Long? = null
+                while (reader.hasNext()) {
+                    when (reader.nextName()) {
+                        "id" -> id = reader.nextLong()
+                        "created_at" -> timestamp = reader.nextLong()
+                        else -> reader.skipValue()
+                    }
+                }
+                reader.endObject()
+                if (id != null && id!! >= 0 && timestamp != null && timestamp!! >= 0) ArchiveHint(id!!, timestamp!!) else null
+            }
+        } catch (_: Exception) { null }
 
         fun fail() {
             synchronized(poolLock) {
