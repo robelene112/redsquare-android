@@ -199,6 +199,7 @@ class MainActivity : ComponentActivity() {
             var connectionDetailsOpen by remember { mutableStateOf(false) }
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             val settingsStates = rememberSaveableStateHolder()
+            val settingsOverviewScroll = rememberScrollState()
             var module by rememberSaveable { mutableStateOf(AppModule.RED_SQUARE) }
             var talkDraft by rememberSaveable { mutableStateOf<TalkDraft?>(null) }
             var talkReturnExpired by remember { mutableStateOf(false) }
@@ -603,7 +604,12 @@ class MainActivity : ComponentActivity() {
                                     walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true
                                 }
                             },
-                            onSettings = { if (walletOpen) closeWallet(); settingsOpen = true },
+                            onSettings = { scope.launch {
+                                if (walletOpen) closeWallet()
+                                settingsCategory = null
+                                settingsOverviewScroll.scrollTo(0)
+                                settingsOpen = true
+                            } },
                             onModule = { selected -> selectModule(selected) {
                                 if (walletOpen) closeWallet()
                                 settingsOpen = false; settingsCategory = null
@@ -843,7 +849,8 @@ class MainActivity : ComponentActivity() {
                         text = {
                             SingleOwnerReveal(settingsCategory, Modifier.fillMaxSize()) {
                             settingsStates.SaveableStateProvider(settingsCategory ?: "index") {
-                            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                            val categoryScroll = if (settingsCategory == null) settingsOverviewScroll else rememberScrollState()
+                            Column(Modifier.fillMaxWidth().verticalScroll(categoryScroll),
                                 verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                                 if (settingsCategory == null) {
                                     Text(stringResource(R.string.settings_account_section), style = MaterialTheme.typography.titleSmall)
