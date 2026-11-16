@@ -1,0 +1,36 @@
+{
+  "signedProductSource": "f0272926f326029040fb041b78afdd11159d2606",
+  "fixtureSource": "90987894d610872b94a42d10693ce2b4b61550fd",
+  "candidateVersion": 137,
+  "candidateSha256": "9a3db53d79e1faa6a1913caa2057d312fde652f1dc6f8eea2743fd509c896b83",
+  "excludedEvidenceDirectory": "docs/evidence/ticket131/",
+  "onlyOtherChangedPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivatePushWorkFixture.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPresentationPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultUploadPreviewTest.kt"
+  ],
+  "identicalEntries": 228763,
+  "canonicalLfEntryFormat": "sorted Git mode type object TAB path LF, excluding exactly the three listed AndroidTest files and ticket131 evidence documentation",
+  "identicalEntriesSha256": "6e303b8affdd4d6753fca5aa1b4f195a729e89ffe36e9da0d04462cbfa226257",
+  "tests": {
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VaultUploadPreviewTest.kt": {
+      "originalSha256": "4e8a11cb742b422c4bce5de33d9a711193a3948c3197ffc1f864cbaf707efee9",
+      "fixtureSha256": "2d10885f216534a046d934a2815c00b86e37790f22b35191bb7a84410df5a6d7",
+      "restoredOriginalSha256": "4e8a11cb742b422c4bce5de33d9a711193a3948c3197ffc1f864cbaf707efee9",
+      "originalSourceByteExactAfterReversingOnlyExplicitInputChanges": true
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPresentationPreviewTest.kt": {
+      "originalSha256": "435e1eef032bd586c6f40ae390795e529feec99eda808cddb7cad6de18f21581",
+      "fixtureSha256": "7309d603c6d726cce61faaa0185644421a913d4154d212f2d8f8eca22f3d8456",
+      "restoredOriginalSha256": "435e1eef032bd586c6f40ae390795e529feec99eda808cddb7cad6de18f21581",
+      "originalSourceByteExactAfterReversingOnlyExplicitInputChanges": true
+    },
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivatePushWorkFixture.kt": {
+      "originalSha256": "bec4c15269edbd31aeb642b3ef092ca6986411dede908db1ffdc07e94c2a368d",
+      "fixtureSha256": "6f91f63d99eaf124012fa8bd4d7fcd83ea4c3a46debfeaa2df204593118436e0",
+      "restoredOriginalSha256": "bec4c15269edbd31aeb642b3ef092ca6986411dede908db1ffdc07e94c2a368d",
+      "originalSourceByteExactAfterReversingOnlyExplicitInputChanges": true
+    }
+  },
+  "qualification": "No production change or established causal fix for the original input failures. Vault/Search setup observes actual native input windows before the original single taps. Private alert dismissal retains one full-distance physical swipe on the same card with explicit1000px/s speed; original5s disappearance/removal/redelivery and class180s remain. Configured speed is a planned input, measured gesture duration does not prove delivered velocity. Earlier failed/canceled/diagnostic observations remain distinct. Requires freshcompletebothSDKs and independent evidence/publicdelivery review; physical/OEM/live/provider/Play gates remain."
+}
