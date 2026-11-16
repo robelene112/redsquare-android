@@ -1,0 +1,9 @@
+{
+  "testSha256": "699ca8e3507cdaeb7595cd68036ee3a5008f0f2ef621038151734a5b2023b40a",
+  "peerSha256": "d58e82dc6fe3b2e8714884e3b980df961b1e8d7a3eb5389ef0f4476d85bfd03b",
+  "sourceParent": "79432ce0a",
+  "result": "FAILED_ORIGINAL_5S_CALLBACK_WHILE_INCOMING_RETENTION_HELD",
+  "qualification": "Real authenticated binary shared-socket boundary. Incoming callback holds independently of coroutine callback request. ACK must remain absent until held retention releases. This demonstrates reader starvation; exact original GroupPolish failure cause remains unproved.",
+  "redTestCommit": "ec82990617e34e59525f5a714d163622175eb2b4",
+  "productionSource": "e44991e6d84891834e12d117f53294a0ea25d075"
+}

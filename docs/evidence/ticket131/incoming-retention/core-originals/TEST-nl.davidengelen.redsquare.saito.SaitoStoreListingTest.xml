@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-16T21:57:24" hostname="00ffe6c423c8" time="0.349">
+  <properties/>
+  <testcase name="delistedCustodyRequiresTheOriginalOnTheSelectedChainAndExactCurrentReturn" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.041"/>
+  <testcase name="officialMarketplaceTransitionsRetainPendingAndModeratorRejectedStates" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.008"/>
+  <testcase name="archivedRoutingAndAssignedOutputPositionsPreserveAuthenticatedInventory" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.057"/>
+  <testcase name="existingInventoryProducesTheOfficialSignedListingAndRecoversExactTerms" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.011"/>
+  <testcase name="purchasedInventoryRetainsTheAuthenticatedStoreReceiptWhenResold" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.016"/>
+  <testcase name="aMultiLotPurchaseBindsTheRemainingLotRatherThanTheFullySoldPrimary" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.064"/>
+  <testcase name="remainingStockHydratesItsOfficialLineageAndCanBeDelisted" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.048"/>
+  <testcase name="sellerInventoryKeepsApprovalSeparateFromAvailabilityAndRealSales" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.001"/>
+  <testcase name="delistingMatchesTheOfficialSellerWitnessAndReturnsTheExactOriginalStock" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.014"/>
+  <testcase name="partialSalePreservesTheOfficialRemainingQuantityAndSplitDeposit" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.009"/>
+  <testcase name="stackInventoryRetainsTheOfficialCreatorDurationAndDelegationHop" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.024"/>
+  <testcase name="atrCustodyAtLaterTupleOffsetsUsesTheOfficialNormalizedDelistOutputs" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.02"/>
+  <testcase name="aMarketplaceSubmissionDistinguishesPendingReviewFromRejection" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.001"/>
+  <testcase name="anAlternatePricedOfferCanReturnItsExactEscrowTupleToTheSeller" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.017"/>
+  <testcase name="aNewPublicImageUsesTheOfficialImageObjectAndWasmMint" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.008"/>
+  <testcase name="alternatePricedInventoryRecoversAndProducesTheOfficialSignedOfferWithoutChangingDenomination" classname="nl.davidengelen.redsquare.saito.SaitoStoreListingTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

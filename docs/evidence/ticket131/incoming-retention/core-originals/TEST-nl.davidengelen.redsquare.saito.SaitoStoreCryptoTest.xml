@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-16T21:57:24" hostname="00ffe6c423c8" time="0.208">
+  <properties/>
+  <testcase name="providerPaymentAndStoreDeliveryRemainBoundToTheOriginalBuyerAndExactAsset" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.031"/>
+  <testcase name="paymentMethodsComeFromTheActualServiceResponseRatherThanAnInventedList" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.002"/>
+  <testcase name="aTreasuryIssuedPaymentCanBeRecoveredFromBoundedHistoryWithoutTheProvidersTransactionCopy" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.045"/>
+  <testcase name="anExternalPaymentCarrierMatchesTheOfficialUnfundedPurchaseAndNeverSpendsSaito" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.007"/>
+  <testcase name="aProviderInvoiceMustBindTheOriginalOrderExactAmountAndNetworkBeforeItIsPayable" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.026"/>
+  <testcase name="aLateProviderFailureCannotEraseAnAuthenticOriginalPaymentOrTurnARefundIntoForeignCurrency" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.023"/>
+  <testcase name="anotherBuyerCanOpenAndPurchaseThePublicRemainderWithoutThePreviousBuyersPrivateInvoice" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.051"/>
+  <testcase name="everyOfferedMethodUsesTheOfficialCarrierAndTheProvidersExactSixDecimalQuoteRounding" classname="nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest" time="0.022"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

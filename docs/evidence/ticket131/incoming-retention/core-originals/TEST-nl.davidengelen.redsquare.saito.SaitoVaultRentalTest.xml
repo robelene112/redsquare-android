@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoVaultRentalTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-16T21:57:26" hostname="00ffe6c423c8" time="0.048">
+  <properties/>
+  <testcase name="rentalCheckoutAndReadUseTheOfficialBodiesAndAuthenticateTheOriginalMasterLockedFile" classname="nl.davidengelen.redsquare.saito.SaitoVaultRentalTest" time="0.02"/>
+  <testcase name="creatorCustodianAndRenterAppendTheSameSignedHopsAsTheOfficialStoreHook" classname="nl.davidengelen.redsquare.saito.SaitoVaultRentalTest" time="0.023"/>
+  <testcase name="aVerifiedDelegatedPathKeepsTheFirstRenterAndActualCreatorRightsAcrossExpiry" classname="nl.davidengelen.redsquare.saito.SaitoVaultRentalTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

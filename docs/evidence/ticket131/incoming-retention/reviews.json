@@ -1,0 +1,28 @@
+{
+  "source": "cce5d423cab31164134785e81177a4d941e8ceec",
+  "spec": {
+    "reviewer": "/root/integrated131_spec_final",
+    "result": "PASS_SOURCE_AND_CORE",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/integrated131_standards_final",
+    "sourceResult": "PASS_SOURCE_ONLY",
+    "coreResult": "PASS_CORE_EVIDENCE",
+    "findings": 0
+  },
+  "core": {
+    "tests": 229,
+    "xmlReports": 44,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "newBinaryBoundaryTests": 5
+  },
+  "focusedRuns": [
+    43965648855,
+    43965653546
+  ],
+  "nativeResult": "PENDING",
+  "qualification": "The deterministic red establishes callback starvation under held incoming retention. Exact original GroupPolish failure cause remains unproved. No complete qualification, signed update or public delivery acceptance."
+}

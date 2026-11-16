@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoStoreTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-16T21:57:25" hostname="00ffe6c423c8" time="0.017">
+  <properties/>
+  <testcase name="exactProductLookupAndArchiveNeverSubstituteAnotherOffer" classname="nl.davidengelen.redsquare.saito.SaitoStoreTest" time="0.004"/>
+  <testcase name="productMediaComesFromTheActualSignedListingAndNeverAnUnsignedSummaryHint" classname="nl.davidengelen.redsquare.saito.SaitoStoreTest" time="0.001"/>
+  <testcase name="boundedCatalogueRequestsMatchTheOfficialBrowserBuilderAndEveryCategory" classname="nl.davidengelen.redsquare.saito.SaitoStoreTest" time="0.003"/>
+  <testcase name="exactOriginalOfferRemainsReadableAfterTheNodeReportsItUnavailable" classname="nl.davidengelen.redsquare.saito.SaitoStoreTest" time="0.004"/>
+  <testcase name="actualStoreSummariesKeepTheirExactOfferIdentityPriceAndCurrentReportedStock" classname="nl.davidengelen.redsquare.saito.SaitoStoreTest" time="0.001"/>
+  <testcase name="productDetailsBindTheOriginalSignedSellerAssetAndTerms" classname="nl.davidengelen.redsquare.saito.SaitoStoreTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

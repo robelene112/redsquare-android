@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoStackTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-16T21:57:24" hostname="00ffe6c423c8" time="0.009">
+  <properties/>
+  <testcase name="archive revisions stay with their signer and restricted rows do not become public content" classname="nl.davidengelen.redsquare.saito.SaitoStackTest" time="0.008"/>
+  <testcase name="signed article exposes the original title author content cover and revision identity" classname="nl.davidengelen.redsquare.saito.SaitoStackTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -22,12 +22,25 @@ rendering cost. It does not establish the exact cause of the failed original
 recording. Its temporary instrumentation has been removed.
 
 Unchanged focused group run43953110416 and unchanged media run43949706276
-passed diagnostically. They neither explain nor replace the rejected complete
-parents. Group transport attribution is still under investigation; original15s
+passed diagnostically. They neither explain nor replace rejected complete parents.
+Calibration43961449941 then captured delayed callbacks behind incoming work.
+A deterministic real binary regression failed while incoming retention was held.
+Sourcecce5d423 moves retention to one bounded owned FIFO worker, preserving
+ACK-after-retention and freeing the reader for callbacks and heartbeats. All229
+core tests and both independent source/core reviews pass with zero findings.
+Exact original GroupPolish failure attribution remains qualified. Original15s
 history receipt and incoming original/positive-ACK goals remain unchanged.
-Candidates132–137 and their update/focused observations are intermediate only.
-A new signed candidate, fresh same-source observer, both complete SDK primaries,
-actual signed updates and independent delivery acceptance are required.
+See [incoming retention](incoming-retention/README.md). Fresh conversation10/17
+runs43965648855/43965653546 are pending. All temporary probes are removed.
+
+The next complete qualification uses `source-profile-prepared-incoming.json` and
+`verify-full-prepared-incoming.py`, prospectively frozen before fresh dispatch.
+Both SDKs must pass fresh ordinary three-part parents, with all original goals.
+Native focused and complete checks can run concurrently, but every required
+result and independent review must pass before promotion. Candidates132–137 and
+their update/focused observations remain intermediate only. A new signed
+candidate, fresh same-source observer, actual signed updates and independent
+public delivery acceptance are required.
 
 ## Prospective complete source
 

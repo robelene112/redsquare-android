@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-11-16T21:48:47" hostname="0487580d1ab2" time="6.06">
+  <properties/>
+  <testcase name="heldIncomingRetentionDoesNotBlockSharedReadCallbacksOrAcknowledgeEarly" classname="nl.davidengelen.redsquare.saito.SharedNodeConnectionTest" time="6.06">
+    <failure message="kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 5000 ms" type="kotlinx.coroutines.TimeoutCancellationException">kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 5000 ms
+	at _COROUTINE._BOUNDARY._(CoroutineDebugging.kt:42)
+	at kotlinx.coroutines.selects.SelectImplementation.doSelectSuspend(Select.kt:453)
+	at nl.davidengelen.redsquare.saito.SaitoPeer$requestFrame$2.invokeSuspend(SaitoPeer.kt:137)
+	at nl.davidengelen.redsquare.saito.SharedNodeConnectionTest$heldIncomingRetentionDoesNotBlockSharedReadCallbacksOrAcknowledgeEarly$1$1$2$2.invokeSuspend(SharedNodeConnectionTest.kt:43)
+	at nl.davidengelen.redsquare.saito.SharedNodeConnectionTest$heldIncomingRetentionDoesNotBlockSharedReadCallbacksOrAcknowledgeEarly$1.invokeSuspend(SharedNodeConnectionTest.kt:42)
+Caused by: kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 5000 ms
+	at kotlinx.coroutines.TimeoutKt.TimeoutCancellationException(Timeout.kt:189)
+	at kotlinx.coroutines.TimeoutCoroutine.run(Timeout.kt:157)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedRunnableTask.run(EventLoop.common.kt:505)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.DefaultExecutor.run(DefaultExecutor.kt:105)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

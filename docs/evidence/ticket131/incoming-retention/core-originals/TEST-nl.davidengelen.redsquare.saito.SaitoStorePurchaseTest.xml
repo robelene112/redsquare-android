@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-16T21:57:25" hostname="00ffe6c423c8" time="0.157">
+  <properties/>
+  <testcase name="selectedChainSeparatesPaymentSettlementAndTheExactPresentAsset" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.017"/>
+  <testcase name="olderHistoryContinuesAcrossChecksAndRetainedDeliveryRechecksExactCurrentOwnership" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.047"/>
+  <testcase name="completeQuantityUsesTheActualOfficialWasmPurchaseAndFulfillment" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.005"/>
+  <testcase name="aFundedPurchaseMatchesTheActualOfficialBuilderAndWasmWallet" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.006"/>
+  <testcase name="aLateSettlementKeepsItsContinuationUntilTheOriginalPaymentIsFound" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.048"/>
+  <testcase name="exactStoreFulfillmentAndRefundAreBoundToTheOriginalEscrowAndAsset" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.02"/>
+  <testcase name="aContinuedRefundIsHistoricalUntilItsExactOutputIsCurrentlyObserved" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.009"/>
+  <testcase name="storeAmountsStayInsideTheOfficialExactNumberRange" classname="nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
