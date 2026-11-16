@@ -48,11 +48,13 @@ internal object TalkRuntime {
     }
     @Volatile var visible = false
         private set
-    fun account(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String): TalkAccount =
-        requireNotNull(accounts.compute("${wallet.publicKey}:${backend.id}:$endpoint") { _, existing ->
+    fun account(context: Context, wallet: SaitoWallet, backend: SaitoBackend, endpoint: String,
+        fallbackForTest: String? = null): TalkAccount =
+        requireNotNull(accounts.compute("${wallet.publicKey}:${backend.id}:$endpoint" +
+            fallbackForTest?.let { ":$it" }.orEmpty()) { _, existing ->
             // Reserve before returning: a queued old detach must not retire the new owner's account.
             existing?.takeIf { it.reserveOwner() }
-                ?: TalkAccount(context.applicationContext, wallet, backend, endpoint).also { check(it.reserveOwner()) }
+                ?: TalkAccount(context.applicationContext, wallet, backend, endpoint, fallbackForTest).also { check(it.reserveOwner()) }
         })
     fun end(token: String) { accounts.values.forEach { it.end(token) } }
     fun visibility(value: Boolean) { visible = value; accounts.values.forEach { it.visibility() } }
@@ -66,7 +68,7 @@ internal object TalkRuntime {
 
 /** One serial actor owns invitations, membership and media for the selected wallet/node. */
 internal class TalkAccount(private val context: Context, val wallet: SaitoWallet,
-    val backend: SaitoBackend, val endpoint: String) {
+    val backend: SaitoBackend, val endpoint: String, fallbackForTest: String? = null) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val events = Channel<suspend () -> Unit>(128)
     private data class Outgoing(val token: String?, val transaction: SaitoTransaction)
@@ -106,8 +108,21 @@ internal class TalkAccount(private val context: Context, val wallet: SaitoWallet
     private var authority: Closeable? = null
     private var changedAt = System.currentTimeMillis()
     private var latestWallet = wallet
-    private val routes = if (BuildConfig.DEBUG && endpoint != backend.peerUrl) listOf(endpoint)
-        else listOf(endpoint, SaitoBackend.OFFICIAL.peerUrl).distinct()
+    private val routes = when {
+        fallbackForTest != null -> {
+            // Exercise the real dual-route implementation using owned peers, never a public fallback.
+            check(BuildConfig.DEBUG && context.packageName == "nl.davidengelen.redsquare.dev" &&
+                android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+            val owned = listOf(endpoint, fallbackForTest).distinct()
+            require(owned.all { route -> android.net.Uri.parse(route).let {
+                it.scheme in listOf("ws", "wss", "http", "https") &&
+                    it.host in listOf("127.0.0.1", "localhost", "::1", "[::1]")
+            } })
+            owned
+        }
+        BuildConfig.DEBUG && endpoint != backend.peerUrl -> listOf(endpoint)
+        else -> listOf(endpoint, SaitoBackend.OFFICIAL.peerUrl).distinct()
+    }
     val online = MutableStateFlow(false)
     val connectionPhase = MutableStateFlow(TalkConnectionPhase.PAUSED)
     val failed = MutableStateFlow(false)

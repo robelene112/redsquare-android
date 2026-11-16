@@ -361,9 +361,12 @@ class MainActivity : ComponentActivity() {
             val talkWallet = wallet
             val talkBackend = backend
             val talkEndpoint = talkBackend?.let { FeedEndpoints.fromIntent(intent, it) }
-            val talkOwnership = remember(address, talkBackend, talkEndpoint) {
+            val talkFallbackForTest = if (BuildConfig.DEBUG) intent.getStringExtra("talkFallbackPeerUrl")?.takeIf {
+                it != talkEndpoint } else null
+            val talkOwnership = remember(address, talkBackend, talkEndpoint, talkFallbackForTest) {
                 if (talkWallet != null && talkBackend != null && talkEndpoint != null)
-                    ActivityTalkAccount(TalkRuntime.account(applicationContext, talkWallet, talkBackend, talkEndpoint)) else null
+                    ActivityTalkAccount(TalkRuntime.account(applicationContext, talkWallet, talkBackend, talkEndpoint,
+                        talkFallbackForTest)) else null
             }
             val talkAccount = talkOwnership?.account
             DisposableEffect(talkAccount) {

@@ -321,6 +321,7 @@ internal class TalkPermissionGate(val run: (Boolean, () -> Unit) -> Unit, val no
                     OutlinedTextField(value = joinText, onValueChange = { joinText = it; joinError = false },
                         label = { Text(stringResource(R.string.talk_invite_link)) }, modifier = Modifier.fillMaxWidth(), minLines = 2)
                     InlineStatus(if (joinError) stringResource(R.string.talk_invalid_link) else null, StatusTone.ERROR)
+                    Spacer(Modifier.height(AppSpacing.small))
                     OutlinedButton(onClick = {
                         val parsed = TalkLink.parse(joinText.trim())
                         if (parsed == null) joinError = true else onEntry(TalkDraft(parsed.url(), owner = wallet.publicKey, savedBackend = backend))
