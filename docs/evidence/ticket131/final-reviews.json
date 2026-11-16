@@ -1,5 +1,5 @@
 {
-  "source": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+  "source": "f0272926f326029040fb041b78afdd11159d2606",
   "base": "59594c5634cbfec2c49bc4375865e3e101503580",
   "sourceAndSignedUpdate135": {
     "spec": {
@@ -56,6 +56,33 @@
       "findings": 0
     },
     "observations": "Both original server ZIP digests,62 indexed raw files and46native TAR members match,20PNG/20XML validate. Actual94265888byte APK/candidateSHA/version/package and establishedcertificate verified. Fresh same-source observer SHA/cert and125nonmanifest entries match compiledAndroidTest. Wallet/node/draft/offlinecache/Light/debugUIDidentityisolation, exactlegacyFilesharepayload/history, pendingVaultStore originals/plan/draft/export, coldlaunch and independentrestoration all pass.",
-    "qualification": "Actual update only; candidate136staged/publiclatest131, currentwhole andpublicdelivery pending. No physical/OEM/live/provider/Play acceptance."
+    "qualification": "Actual update-only acceptance at superseded b625 source. Cannot accept137 or current whole app; public latest remains131.",
+    "superseded": true
+  },
+  "vaultExport": {
+    "productSource": "cf1e38756825219111aeb054cf956538e98f6694",
+    "frozenSource": "f0272926f326029040fb041b78afdd11159d2606",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "focusedAndroid17": {
+      "run": 43919787780,
+      "spec": "PASS_FOCUSED_ANDROID17",
+      "standards": "PASS_FOCUSED_ANDROID17",
+      "normalMethods": 12,
+      "nativeGroups": 6,
+      "refreshes": 20,
+      "elapsedMillis": 861,
+      "mainMergeSpans": 20,
+      "cryptoUnderMerge": 0
+    },
+    "qualification": "Original recovery tests and benchmark15second20refresh/method-trace goals unchanged. Standard waitForIdle before measurement. Earlier failed parents retained; no host-only or physical-performance claim. Focus10/completeSDKs/signed137/publicdelivery pending."
   }
 }

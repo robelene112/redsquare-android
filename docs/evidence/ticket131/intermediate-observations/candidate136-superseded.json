@@ -1,0 +1,8 @@
+{
+  "version": 136,
+  "source": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+  "staged": true,
+  "promoted": false,
+  "sha256": "f776d067d9b68590f54294615980adc428adbe28caec7ab9a1ac2407f7ca56d7",
+  "reason": "Original focused VaultRecovery export-staging error was published before cleanup released controls. Product cf1e3875 now publishes terminal results with ready controls after cleanup, preserving original assertions. Separate original perf15s failure retained; unchanged diagnostic perf20/10581ms passed inside FAILED scope. New137 requires freshbothSDK qualification/signedupdate."
+}

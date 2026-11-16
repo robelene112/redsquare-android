@@ -1,0 +1,382 @@
+{
+  "android-native-proof/.scratch/device-evidence/api-29/device-abi.txt": {
+    "bytes": 7,
+    "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/emulator-capacity.txt": {
+    "bytes": 64,
+    "sha256": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/emulator-online-cpus.txt": {
+    "bytes": 2,
+    "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/page-size.txt": {
+    "bytes": 5,
+    "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/requested-page-size.txt": {
+    "bytes": 8,
+    "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/accepted.json": {
+    "bytes": 1518,
+    "sha256": "da9cee4dde64f5e42cb16cb3ae00be2124ba6eb76d7db534ab9441cdcfe5b147"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/avd-config.ini": {
+    "bytes": 3764,
+    "sha256": "79593541dcb6d294b3650b4e381a10d28d40e14caca9897ef5ae9cf05e9c51be"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/device-abi.txt": {
+    "bytes": 7,
+    "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/emulator-capacity.txt": {
+    "bytes": 64,
+    "sha256": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/emulator.log": {
+    "bytes": 5645,
+    "sha256": "eeb68a389bb6c905f9413dbe10a13703f34b7e1f5297873336beaf79f88a844a"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/page-size.txt": {
+    "bytes": 5,
+    "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/probe.log": {
+    "bytes": 1014,
+    "sha256": "b61dc2889fc04d6508e72656b41078b39d40552ad09f1c1e7596ae73ec481a1e"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/properties.json": {
+    "bytes": 117,
+    "sha256": "9608ef576838f06ddb4ac5c8055a4fb8f353340b0b6a5c5ecd6d3deb8888e892"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/requested-page-size.txt": {
+    "bytes": 8,
+    "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/result.json": {
+    "bytes": 1518,
+    "sha256": "da9cee4dde64f5e42cb16cb3ae00be2124ba6eb76d7db534ab9441cdcfe5b147"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/startup.log": {
+    "bytes": 5229,
+    "sha256": "5fb957219cfdb9d001eaa54cadc4fd662c07b05ce23a75f82e99b905f470ea4b"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/system-build.txt": {
+    "bytes": 87,
+    "sha256": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/system-image.properties": {
+    "bytes": 256,
+    "sha256": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/runtime-preflight/boot-1/system-image.txt": {
+    "bytes": 40,
+    "sha256": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/system-build.txt": {
+    "bytes": 87,
+    "sha256": "6ae65e4e6a95d74db8a522b1941f25805a3cfd4c5828470d6f5ea1afd1c0a003"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/system-image.properties": {
+    "bytes": 256,
+    "sha256": "9db370b96467c9a94a68843aeb1a699bec44d4d05ef52a6774d8f6174418a847"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/system-image.txt": {
+    "bytes": 40,
+    "sha256": "8eaa79caa90322aec00875daaf69496d19a756b20360b71c1b0bd134cf62e30d"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-reading-capture-status.log": {
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-reading-evidence.tar": {
+    "bytes": 26235392,
+    "sha256": "44fc8d15de78376eeb1185e56c399cb9f4c6c9ee65382ac13c39b45eb799e3b1"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-reading-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-reading-ui.txt": {
+    "bytes": 1576,
+    "sha256": "e9c6965a9bb0087f5af287b4dcb862f84f70dd18735ae785323bddc9cc3e724f"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-capture-status.log": {
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-evidence.tar": {
+    "bytes": 444416,
+    "sha256": "55eb79df77d77e3261f87ee86775cf37c8e8f8ceb178747ab66bafd7642cbb55"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-failure-context.txt": {
+    "bytes": 1401470,
+    "sha256": "4e561130fd3ff558d606eec7d46e3bae57a70a9350d10562c5ea31e6aaf988fd"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-failure-crash.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-failure-memory.log": {
+    "bytes": 1279,
+    "sha256": "a5cc8c643202ae792f1ed8fae06d443c73cc553561dea961b218be6c2e5e0126"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-failure-processes.txt": {
+    "bytes": 121984,
+    "sha256": "3f73b0df48c59ab53468e0b192f4b3beb3127f849c48e0c8d81a74ba1f4731a6"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-failure-storage.log": {
+    "bytes": 111,
+    "sha256": "c752a79e9e74ff67f7a8eb488f36b15f969d69d5ee0ace242d9debbe3c2878d4"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-ui.txt": {
+    "bytes": 12385,
+    "sha256": "2f8da689c9c3c59029a1ea472a19dd3844d1495cbd2a3307535bb0f68e70fd66"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-rental-motion-capture-status.log": {
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-rental-motion-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-rental-motion-ui.txt": {
+    "bytes": 839,
+    "sha256": "982fd428a67685c56fcf62652165bd3ec170ae18a405fd5bc370db06439e7aae"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-rental-polish-capture-status.log": {
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-rental-polish-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "android-native-proof/.scratch/device-evidence/api-29/vault-rental-polish-ui.txt": {
+    "bytes": 881,
+    "sha256": "a9383854fa3f329d5e68e084ecf880eb4078175b3eb8e7d1e183db58f80c0ca3"
+  },
+  "android-native-proof/.scratch/proof-runner.txt": {
+    "bytes": 13,
+    "sha256": "133ae462930a750f586835027fb9be64ca40cebbd1c87126533b23a6909ba119"
+  },
+  "android-native-proof/.scratch/proof-source.txt": {
+    "bytes": 41,
+    "sha256": "c7f0b8d4d2143f29d0c1bc4c8f37bec993f2b4af139ce506220dd144adaecf88"
+  },
+  "android-native-proof/.scratch/proof-workflow.txt": {
+    "bytes": 41,
+    "sha256": "c7f0b8d4d2143f29d0c1bc4c8f37bec993f2b4af139ce506220dd144adaecf88"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.ControlledLikeArchiveContractTest.html": {
+    "bytes": 2271,
+    "sha256": "33db6e046887388bf957b54f54505668f749662e6da00af89dcba4387531c4cd"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest.html": {
+    "bytes": 2095,
+    "sha256": "0820f48cd11515d4eb73a917786b0f9bd53b60cb6ff57e05b01772d7f11729c4"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.html": {
+    "bytes": 2280,
+    "sha256": "35fc994c1f9fc08c93ca2f083ac888ee882744f9eee81b4bc2a7249cadd30c41"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.FileshareTest.html": {
+    "bytes": 2562,
+    "sha256": "85e39db41abeeb3af4369d7c395bc923d5d6854eb7ebf5dc9ea4c4c5b5723d11"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html": {
+    "bytes": 2534,
+    "sha256": "bbeb732af9b5637787cd604f4c3415f91929678cee897e47260455073beb3924"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html": {
+    "bytes": 5325,
+    "sha256": "2f4dff72a71541a9efe51a97624c14d3095bd5cf06de2f5d615a5b86a10a2bf9"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html": {
+    "bytes": 2444,
+    "sha256": "1fc8c7f7e8340393326f494c185113e808b384bde9c729ac9000dfe4b14d4d8e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html": {
+    "bytes": 3620,
+    "sha256": "81957b87df3c478cc83e943d78b52865223fd75ccceea4ab3451cb8ab7890dc8"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html": {
+    "bytes": 2279,
+    "sha256": "143d71154f90807dbcc7370d5c1b71d6526e1db282fa0014eba742b0f7f3e352"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html": {
+    "bytes": 3702,
+    "sha256": "9536796918dd29c8bcc2ceb561a13c1563513a9aaa5e6478b08ff1be526570f0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html": {
+    "bytes": 2599,
+    "sha256": "7d2f20a364ad91ecf59342d0d88a159499f1f7b92f5644f65cedead62bdc43ad"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html": {
+    "bytes": 2611,
+    "sha256": "2e7d70ab62afcb571d5887e2821ac6c14096f50f5a7919a1a28123c8909be711"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html": {
+    "bytes": 3357,
+    "sha256": "c175ff0c262224562ad360f4d7f2ee2aaf1ea2feabe146fcb23a56840ae291d0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html": {
+    "bytes": 2613,
+    "sha256": "b30783b3c06e752a69feba9f5f0f6ff2cbac0a0bb77cd8fdcd2e6a23d3de9d32"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html": {
+    "bytes": 2776,
+    "sha256": "493a3a350395b03490d945386c3881c45b2f78e1932cd2de530efaf4bddb84b2"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoAccessScriptTest.html": {
+    "bytes": 2630,
+    "sha256": "a048369c149fdf38a970f35e7325aaa33c6765676a8100eb0ada059795c49a45"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html": {
+    "bytes": 2589,
+    "sha256": "c76c978c475d509c797bb3328fbbf43c2a1bcb863a86bd04ae3dc8a7a7ca1669"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html": {
+    "bytes": 2106,
+    "sha256": "c26c149ee09d31d0597984b8f69e81eebdaa6e9c07557d586b9a2db35bc2d89e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest.html": {
+    "bytes": 2279,
+    "sha256": "33dde248f1f7d3ee6e4973fb5b91c61e17ead1c43b1f8063866e2f21280c56b2"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNftTransferTest.html": {
+    "bytes": 2437,
+    "sha256": "7bd5aa91e19e8466c53ae8a0d2aff2c0778307bf5166caf2a73404e8a2a4f35c"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNodeBlockTest.html": {
+    "bytes": 2264,
+    "sha256": "387fb53a1ec8f43b54679ac7f8a3c9475a12aa5d42bd8612f6f81531c4e795d0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html": {
+    "bytes": 2785,
+    "sha256": "3bed8344a50991dc712a0ad8b657c39dca9489ae29fc3e44691ca34bd1e2a461"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html": {
+    "bytes": 2243,
+    "sha256": "f5a2984943ec601cb938f69877f27de94efcdde6f84eefb45e859e5cac3ab0d1"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html": {
+    "bytes": 2644,
+    "sha256": "c284555e6365e1461effcbb6143e8d0c34027820f200dba6a8f5a171cc726a89"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html": {
+    "bytes": 2860,
+    "sha256": "bc8a7de836f63a9d7a8b0571254d16d131d82a44382632ea39920f4193f40740"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStackTest.html": {
+    "bytes": 2292,
+    "sha256": "c0712fa34bd1b460aa92996df3d17ecbb5ba225ce5d9ef46fddad32b753fadb6"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest.html": {
+    "bytes": 3387,
+    "sha256": "87d75b4e9fc7f1defc1646a7acffa914f1419660a713aa804630d3c2c9c757bb"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreListingTest.html": {
+    "bytes": 4617,
+    "sha256": "864b159b6f185497623c10cc6d44a01fc7a0bbd82b00b4ca172533cefc9efee4"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest.html": {
+    "bytes": 3259,
+    "sha256": "e951c1996558d500ed35770fee4009ccc893efd259fc07e3948f64c8300e6f80"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreRentalTest.html": {
+    "bytes": 3506,
+    "sha256": "64654c1e29bbee2b596c3c061c0766a205cb2940a28700d090da8f10be1859cf"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreTest.html": {
+    "bytes": 2906,
+    "sha256": "1baace25779e61146144da7adfa75071873adefa68e859c1bcf8e38c1a4c8df9"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest.html": {
+    "bytes": 2633,
+    "sha256": "ae57e27fd19313a3ab8f402ccd4e6a6900ab87ed4d8088d9745f9aba26702a9a"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html": {
+    "bytes": 2577,
+    "sha256": "25b8fd2091dc9ff66ba612dcdcafe87145be162527951e4545506c54482200a3"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest.html": {
+    "bytes": 2124,
+    "sha256": "1aad49ee437e5693116b46015c44dcf408fe25e9a6a45777924bafa64fd1e2e3"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultMintTest.html": {
+    "bytes": 2602,
+    "sha256": "ba268d9090fe49ad93894381e46e33efdfe4899ba12ec971a62892100dc78626"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultRentalTest.html": {
+    "bytes": 2466,
+    "sha256": "99405b37dcdcdf3707dfc6bb956882d264071d1ae4bdabe204c66d59bf68faf3"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultTest.html": {
+    "bytes": 2912,
+    "sha256": "5ed07553366ca1404c8810091c803c5c20a1ff8d754ff85926029adc44b2f9e7"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html": {
+    "bytes": 4430,
+    "sha256": "1190184f3c2264b7f8d04204a3aafdcf6c082badab761692b03b6a87488155dc"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html": {
+    "bytes": 2093,
+    "sha256": "381c3207e1ab0ed64ed57e0355dd73ec4c2052b617f39916a60a7c33acc514be"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SharedNodeConnectionTest.html": {
+    "bytes": 3762,
+    "sha256": "53fba8b9654ece5f591f14611d3e2620a475a477f7f3d698b7f273e204208568"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.StackLinkTest.html": {
+    "bytes": 2439,
+    "sha256": "2cc96d8b8913f61028cb45bee56e0e2ec5df5e14f6d7f50f954fe1f38db8b1e0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.StoreLinkTest.html": {
+    "bytes": 2070,
+    "sha256": "e9353c2e9fe3607822c6b187b0e4deaaebb6a5a7e14f14d0bf12f4a6e15d2168"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.TalkTest.html": {
+    "bytes": 3049,
+    "sha256": "c0f98455d23e877204d3862551874f0a1d563c1f56aabb914e45dfe6c353187f"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.VaultUploadTransportTest.html": {
+    "bytes": 2117,
+    "sha256": "7ff85484bc3f78fb9af3f2b8693ea3dd71df0693cf08c6746d81cb4ce3753b6f"
+  },
+  "android-native-proof/core/build/reports/tests/test/css/base-style.css": {
+    "bytes": 2645,
+    "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+  },
+  "android-native-proof/core/build/reports/tests/test/css/style.css": {
+    "bytes": 1135,
+    "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+  },
+  "android-native-proof/core/build/reports/tests/test/index.html": {
+    "bytes": 13488,
+    "sha256": "44187020c226ae8cadb7f04d227f6667d471edf4e1f229ceaab5e5703601e931"
+  },
+  "android-native-proof/core/build/reports/tests/test/js/report.js": {
+    "bytes": 5252,
+    "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+  },
+  "android-native-proof/core/build/reports/tests/test/packages/nl.davidengelen.redsquare.feed.html": {
+    "bytes": 2083,
+    "sha256": "864143e9757062cb8fe1408911b77847d1bdf2515e2c1289238ead6136a3086d"
+  },
+  "android-native-proof/core/build/reports/tests/test/packages/nl.davidengelen.redsquare.html": {
+    "bytes": 2091,
+    "sha256": "247f50a24aa6fdbb884327cee64288a77911317c02f141319b6fc8339e31de68"
+  },
+  "android-native-proof/core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html": {
+    "bytes": 11029,
+    "sha256": "c7598a5f509eac20f2df36ced701f24039565d73efaea214e24002867dca6899"
+  }
+}

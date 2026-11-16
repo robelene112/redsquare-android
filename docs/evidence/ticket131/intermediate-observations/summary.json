@@ -193,6 +193,57 @@
       "originalFiles": 84,
       "failedInstrumentationOriginals": [],
       "qualification": "Corrected selected-image10 five-method focused success, provideronce/recreation/module-return and preservation assertions unchanged."
+    },
+    {
+      "run": 43908922875,
+      "head": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 967,
+      "failedInstrumentationOriginals": [
+        "android-native-proof-social/.scratch/device-evidence/api-29/ProfilePublishingPreviewTest-ui.txt",
+        "android-native-proof-social/.scratch/device-evidence/api-29/profile-edit-ui.txt",
+        "android-native-proof-wallet/.scratch/device-evidence/api-29/vault-rental-polish-ui.txt"
+      ],
+      "qualification": "Whole136 Android10 canceled after Wallet15second20refresh measurement timeout. The failed original method trace has only5complete Main merges and is not accepted. Chat/Social canceled prefixes are not acceptance."
+    },
+    {
+      "run": 43908922433,
+      "head": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 1512,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Whole136 Android17 canceled because coherent Vault export product correction requires freshbothSDK primaries. No app failure or accepted prefix inferred from cancellation."
+    },
+    {
+      "run": 43915858592,
+      "head": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+      "status": "completed",
+      "conclusion": "failure",
+      "originalFiles": 95,
+      "failedInstrumentationOriginals": [
+        "android-native-proof/.scratch/device-evidence/api-29/vault-recovery-ui.txt"
+      ],
+      "qualification": "Unchanged-source diagnostic Vault scope FAILED overall at original immediate recovery-control assertion after export staging error. Performance method passes20refreshes/10581ms with original trace validator, but cannot accept this failed parent. Product now publishes terminal results after cleanup and clears busy coherently; standard fixture waitForIdle is before unchanged timed measurement."
+    },
+    {
+      "run": 43919787780,
+      "head": "cf1e38756825219111aeb054cf956538e98f6694",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 88,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Corrected Vault17 focused SUCCESS12methods/sixgroups; unchanged original recovery assertions and20refresh/15s method trace. Both independent focused reviews pass; not whole-app acceptance."
+    },
+    {
+      "run": 43919788137,
+      "head": "cf1e38756825219111aeb054cf956538e98f6694",
+      "status": "queued",
+      "conclusion": "",
+      "originalFiles": 0,
+      "failedInstrumentationOriginals": [],
+      "qualification": "Original corrected Vault10 scope remains jobless queued. Normal cancel rejected as completed; force-cancel rejected409notqueued while fresh metadata says queued. No instrumentation, native pass or failure inferred. Separate exact-product alternate-pool focused scope replaces it, never a successful prefix."
     }
   ]
 }

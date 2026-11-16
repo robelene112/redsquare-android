@@ -1,0 +1,21 @@
+{
+  "versionCode": 137,
+  "versionName": "0.1.137",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "9a3db53d79e1faa6a1913caa2057d312fde652f1dc6f8eea2743fd509c896b83",
+  "commit": "f0272926f326029040fb041b78afdd11159d2606",
+  "variant": "release",
+  "bytes": 94265888,
+  "status": "STAGED_ONLY, not public latest",
+  "moduleObserver": {
+    "sha256": "ebe6fc1830ec534cc3b773c3f2a45303bf37372384fea32e3ccb71d1b62c928e",
+    "bytes": 11230104,
+    "package": "nl.davidengelen.redsquare.moduleupdate.test",
+    "target": "nl.davidengelen.redsquare",
+    "qualification": "Test APK only; emulator and published unsafe wallet guards. Never part of the ordinary APK.",
+    "source": "f0272926f326029040fb041b78afdd11159d2606",
+    "url": "https://davidengelen.nl/redsquare/qa/ebe6fc1830ec534cc3b773c3f2a45303bf37372384fea32e3ccb71d1b62c928e.apk",
+    "publicBytesVerified": true
+  }
+}
