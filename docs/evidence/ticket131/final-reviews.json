@@ -38,5 +38,24 @@
       "findings": 0
     },
     "qualification": "Confirmed conditional source lost-wakeup corrected using cancellable idle-admission waits. Original17real-picker failure cause remains unproved; diagnostic-onlyscope passed beforefix. Original methods/predicates/deadlines retained. Current complete SDKs/signed136/update/publicdelivery pending."
+  },
+  "signedUpdate136": {
+    "source": "b62597a2c899c1b13f2c182de088cc2cb5766554",
+    "runs": [
+      43909868564,
+      43909868796
+    ],
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_UPDATE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_UPDATE_ONLY",
+      "findings": 0
+    },
+    "observations": "Both original server ZIP digests,62 indexed raw files and46native TAR members match,20PNG/20XML validate. Actual94265888byte APK/candidateSHA/version/package and establishedcertificate verified. Fresh same-source observer SHA/cert and125nonmanifest entries match compiledAndroidTest. Wallet/node/draft/offlinecache/Light/debugUIDidentityisolation, exactlegacyFilesharepayload/history, pendingVaultStore originals/plan/draft/export, coldlaunch and independentrestoration all pass.",
+    "qualification": "Actual update only; candidate136staged/publiclatest131, currentwhole andpublicdelivery pending. No physical/OEM/live/provider/Play acceptance."
   }
 }

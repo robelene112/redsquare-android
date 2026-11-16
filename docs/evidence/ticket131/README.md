@@ -15,7 +15,8 @@ The current source freezes `source-profile-image-admission.json` and
 `verify-full-image-admission.py` before whole Android10 run43908922875 and Android17
 run43908922433. Both require all three original partitions and public reads.
 Actual signed131-to136 updates are runs43909868564/43909868796, also at exact b625.
-Complete native, current signed-update and public-delivery acceptance remain pending.
+Both current signed updates and independent source/update reviews pass. Complete
+whole-app and public-delivery acceptance remain pending.
 
 The wrapper selects a distinct prospective snapshot with exactly one profile-path
 and two adapter-identity path replacements in the hash-pinned original131 adapter.
