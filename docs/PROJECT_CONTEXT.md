@@ -7,13 +7,11 @@ records twelve review defects and the owner-approved manual Fileshare retention
 controls. The approved children #118–#130 each deliver one behavior; final
 integration and beta ticket #131 is natively blocked by all thirteen.
 The owner requested implementation on 2026-11-15. Work stays sequential.
-#118–#121 and the reopened121navigation follow-up are complete with relevant
-Android10/17 scopes and both independent source/evidence reviews. See
-[initial121 evidence](evidence/ticket121/README.md) and its exact-source
-[navigation follow-up](evidence/ticket121/navigation/README.md). Current ticket122
-already has its first feed-deadline tracer and minimal polling fix committed;
-resume its corrected native check, then finish122–130 and final131 sequentially
-without another approval. Ordinary development QA remains agent-owned.
+#118–#125 and the reopened121 navigation follow-up are complete with relevant
+Android10/17 scopes and independent source/evidence reviews. See the
+[latest bounded-photo packet](evidence/ticket125/README.md). Continue #126–#130
+sequentially, then final #131, without another approval. Ordinary development QA
+remains agent-owned.
 Public beta remains 0.1.131. Planning/implementation does not activate Vault or
 other services on the owner's node or close real-service/physical/Play gates.
 

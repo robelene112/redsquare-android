@@ -1,0 +1,757 @@
+[
+  {
+    "path": "android10/verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-verification.json",
+    "sha256": "96f4235e4b97151127efb702322ac7d7151875d7d049ef33d29baaa812c6929b"
+  },
+  {
+    "path": "android10/assessment.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-assessment.json",
+    "sha256": "cd0821ce1e0543e5baa689bac33fbd320270050b9fe11e27212ebca31e96dd93"
+  },
+  {
+    "path": "android10/photo-pages-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-pages-ui.txt",
+    "sha256": "1db52d423220986281ccebd4d939cdd1a167a33fdf4786b7ef044bd1243f4e3b"
+  },
+  {
+    "path": "android10/photo-pages-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-pages-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/photo-pages-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-pages-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/photo-continuation-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-continuation-ui.txt",
+    "sha256": "12aeb292aa46137883badd27ff7fe0837185792a5ac3cfb296d48524a22c94f6"
+  },
+  {
+    "path": "android10/photo-continuation-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-continuation-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/photo-continuation-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-continuation-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/photo-large-rows-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-large-rows-ui.txt",
+    "sha256": "c963235e5493a27968322f60334141dcbdfb2c6523b1737aefe61c863ff2bc97"
+  },
+  {
+    "path": "android10/photo-large-rows-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-large-rows-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/photo-large-rows-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-large-rows-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/photo-multistream-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-multistream-ui.txt",
+    "sha256": "ed0fa483d21c43fe8b06c140c1560135b2b78ba79b3bb1ca37bf26ef114324db"
+  },
+  {
+    "path": "android10/photo-multistream-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-multistream-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/photo-multistream-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-multistream-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/photo-read-cancellation-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-read-cancellation-ui.txt",
+    "sha256": "5463babc6b5dd11c2fbf6e58e0d3726d7bc881641fb353cb4d2ca41284db4fb4"
+  },
+  {
+    "path": "android10/photo-read-cancellation-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-read-cancellation-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/photo-read-cancellation-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-read-cancellation-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/photo-read-deadline-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-read-deadline-ui.txt",
+    "sha256": "f8719dab6c067b9edae2048bfe38c27cc41923cdc4210957ef829ce31db5d415"
+  },
+  {
+    "path": "android10/photo-read-deadline-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-read-deadline-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/photo-read-deadline-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-artifacts/.scratch/device-evidence/api-29/photo-read-deadline-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-reads.json",
+    "sha256": "0249419f71b1fcf1f05afaa7b6234a235c887ee190b28c62decc692bbdb73527"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/feed-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/feed-all-reached.png",
+    "sha256": "d1bb6294be5d62685cf99938eb360989581d213db204198be5215ef020da3a76"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/multi-search-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/multi-search-all-reached.png",
+    "sha256": "0c2c2ce22e0079e21e449daff43578c0b984ac60d16621b631256a2a2e66c8c6"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-all-reached.xml",
+    "sha256": "3508fdadec2c695e00bb6cfe6d7efdaf8198c6d64e88435fb30f7a3a51faafe6"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-before.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-before.png",
+    "sha256": "c1be4ad1ead5148dce67b43686350621da1887a192d905280392efad8586e27e"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/large-rows-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/large-rows-reads.json",
+    "sha256": "f4990c088fd9d631e7a41712463a0aca698f94465174a0f1c654b3ad6d62bc01"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/native-capture-timings.jsonl",
+    "sha256": "a926323a865a555233abbcdae1857581e08de0fb3c3ee099f9d05d3a5fccc34b"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-before.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-before.xml",
+    "sha256": "bd65b158d64f3f177195f289895969e2877664ddf0ed0bdef62f0d8457c15ccc"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/search-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/search-all-reached.xml",
+    "sha256": "859c0a84378ca85a48147236c88017e1c563c03200b4c23b1cdad1994367d668"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/multi-search-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/multi-search-all-reached.xml",
+    "sha256": "8f966defc78edaee73e16f4e73617ed83b6555aa41da59f057173787f87f75e3"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/older-search-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/older-search-all-reached.xml",
+    "sha256": "275e26c2c02d0858e1a62b5cee51aba13b76f3fa4e3b391d75d7aa63f20b0cf8"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/search-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/search-all-reached.png",
+    "sha256": "5977293d4ebfd7d56e283c054714825062c94a24d65a178884f3323fda12608c"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/multi-search-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/multi-search-reads.json",
+    "sha256": "1c6cd13f2c724ff03f18d4c67e7dd4806382bd4b51b43641ac8d2caa9c33b83b"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/older-search-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/older-search-all-reached.png",
+    "sha256": "2c70dbe03ce211403cbe067ce875d8b6975c263985d40f669e7e41cc77a62cab"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/large-rows-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/large-rows-all-reached.xml",
+    "sha256": "934fbac0a2d8c46c8b1e12ee6786356c11dac12ef3c592dc4bc4c69d9e35f858"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/large-rows-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/large-rows-all-reached.png",
+    "sha256": "4d0ede0026ee81c1944def174c7649770db40988a05f4a76cd625b5651abe571"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/feed-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/feed-reads.json",
+    "sha256": "c2876fe88cbaaeb65e16250ae8bbb040faa532b0b853f65886fa12963452adf2"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/feed-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/feed-all-reached.xml",
+    "sha256": "0ad20d605d22d3530b93cd0ab35d3f65b68f1363e8a7eed1beb837a54f76bd52"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-anchor-preserved.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-anchor-preserved.xml",
+    "sha256": "8ce8cd1f8c5c36efa0a87a6e61312e6979d9458a28e92a47b5b1b3df7b4a41e9"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-anchor-preserved.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-anchor-preserved.png",
+    "sha256": "c1be4ad1ead5148dce67b43686350621da1887a192d905280392efad8586e27e"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/older-search-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/older-search-reads.json",
+    "sha256": "7f49cb53e8754b7a3e40995c470eef634f8a84c81ee88963a56ed68356a41a1c"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/search-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/search-reads.json",
+    "sha256": "360e535da0b3363d09eea7a36a81568864888cc99aafc72f07f87b2a852cd0fb"
+  },
+  {
+    "path": "android10/captures/photo-pages-evidence/following-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/photo-pages-evidence/following-all-reached.png",
+    "sha256": "d2867b8bfe788f65611da3e899e7385ac0fac9accb67e0946cd8fac19746dc34"
+  },
+  {
+    "path": "android10/captures/read-cancellation-evidence/caller-cancel.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-cancellation-evidence/caller-cancel.json",
+    "sha256": "6b8305e4e33d323f82bfbf472ba98b187bdffd8bdfeeadadf0a381aa33ba63ee"
+  },
+  {
+    "path": "android10/captures/read-cancellation-evidence/enclosing-deadline.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-cancellation-evidence/enclosing-deadline.json",
+    "sha256": "b5df8905fe5a17088b475f30654143dbfc10457030cad3a8b7cd61b762eaa3b9"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/first-feed-poll-recovered.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/first-feed-poll-recovered.png",
+    "sha256": "5a3467e37aae0673bb43cf5287bcaeac694d338231d0dea7f2b1173aa7c68b51"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/cached-feed-deadline.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/cached-feed-deadline.xml",
+    "sha256": "97fb164d513687b28bb97ffe35cca1449705eb031ac7d6028648ec931b7e690f"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/cached-feed-poll-recovered.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/cached-feed-poll-recovered.png",
+    "sha256": "5a3467e37aae0673bb43cf5287bcaeac694d338231d0dea7f2b1173aa7c68b51"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/first-feed-deadline.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/first-feed-deadline.png",
+    "sha256": "e9abc49b73c1766becd6dd2161f0abdd87d53faac4d73871e4ef84e18f2195e1"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/native-capture-timings.jsonl",
+    "sha256": "351bcf4ba5a0aaa37d0acda3a9af835e7a5692d179f8504a5336c89ac46f062f"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/first-feed-deadline.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/first-feed-deadline.xml",
+    "sha256": "1cb6955298a7efcc1de050bdbacdb7a07806de85a393ef6d95494e17446c3d87"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/cached-feed-deadline.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/cached-feed-deadline.png",
+    "sha256": "b7e9e14ba8c9b2ada704c0cc185e65bcf03ab5ca28bd359bbcc976460c08079e"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/cached-feed-poll-recovered.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/cached-feed-poll-recovered.xml",
+    "sha256": "1f7d2c023446f3e414bb2312c8f0ad0e40d6d5f4e7e320a4263a54f3e3eff722"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/cached-feed.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/cached-feed.json",
+    "sha256": "b347c4ce76d6f0d7589a5317031f8c675604ec8c0b0c28bb35034d38e42a9d08"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/first-feed.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/first-feed.json",
+    "sha256": "524a5d09d1934cfc42e808029b5e9c24ba7452809be479d9b8dc56b8c0721e04"
+  },
+  {
+    "path": "android10/captures/read-deadline-evidence/first-feed-poll-recovered.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/capture10-43813578386-captures/read-deadline-evidence/first-feed-poll-recovered.xml",
+    "sha256": "1f7d2c023446f3e414bb2312c8f0ad0e40d6d5f4e7e320a4263a54f3e3eff722"
+  },
+  {
+    "path": "android17/verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-verification.json",
+    "sha256": "d077041de9f7244d25e72b35a0497ff964a67ef9c34bb90b1f67aa1a00bae1b9"
+  },
+  {
+    "path": "android17/assessment.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-assessment.json",
+    "sha256": "b4c0354b8bbcea2b2c5fd9088192ab1da9cd2513352e0c19081ba083205ff4aa"
+  },
+  {
+    "path": "android17/photo-pages-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-pages-ui.txt",
+    "sha256": "2564f0c8b1370a5c51972afedaf89a2c3bcd049d194fa42cb61e799473702196"
+  },
+  {
+    "path": "android17/photo-pages-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-pages-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/photo-pages-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-pages-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/photo-continuation-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-continuation-ui.txt",
+    "sha256": "a72590111026760d8fb5061d214a6ce6a24088f537975449e4b4973138f7b027"
+  },
+  {
+    "path": "android17/photo-continuation-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-continuation-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/photo-continuation-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-continuation-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/photo-large-rows-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-large-rows-ui.txt",
+    "sha256": "c3280e372ce15af0ed601f705d551b438da71e1872e374eb45d8947db4634c8a"
+  },
+  {
+    "path": "android17/photo-large-rows-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-large-rows-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/photo-large-rows-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-large-rows-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/photo-multistream-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-multistream-ui.txt",
+    "sha256": "fe2127e7e808c2685392ab50b51c235593710aa025f3d363b44e57683c315d59"
+  },
+  {
+    "path": "android17/photo-multistream-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-multistream-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/photo-multistream-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-multistream-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/photo-read-cancellation-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-read-cancellation-ui.txt",
+    "sha256": "e39b49d4a822cd70cca412f5e14a72f7f972a105bb81f6fcafe40a0b89ef002d"
+  },
+  {
+    "path": "android17/photo-read-cancellation-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-read-cancellation-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/photo-read-cancellation-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-read-cancellation-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/photo-read-deadline-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-read-deadline-ui.txt",
+    "sha256": "c972487365d8f45e89d6fe83fbeff656e78d420b20de68f5f80a27a659a629bb"
+  },
+  {
+    "path": "android17/photo-read-deadline-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-read-deadline-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/photo-read-deadline-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-artifacts/.scratch/device-evidence/api-37.0/photo-read-deadline-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-reads.json",
+    "sha256": "d39acb86726204b5bcbb2ca9b9e423fdfd68bd4d28ab4cab002bf47f4f96c868"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/feed-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/feed-all-reached.png",
+    "sha256": "11ab42872ea915ff5ddec983430c4957f6caa1bbdf3cde7df216ee2aa219e4bf"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/multi-search-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/multi-search-all-reached.png",
+    "sha256": "bef5669e69173c5aa35efddbab25dbbd61903ffb3ac7e7de64ca09ef66d8b7cb"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-all-reached.xml",
+    "sha256": "c69539aaf2f9ddd5cbff842fcecbc7c954d89ba70efd60de31f53dcfe46630b8"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-before.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-before.png",
+    "sha256": "af816c87f3ab31445ffff023d859bfd018c9f4ea4653a7082f37e4aba69ddace"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/large-rows-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/large-rows-reads.json",
+    "sha256": "717441c3e35f18decce7eb67f02196307c699272e9e890e0c6cbbaea79635955"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/native-capture-timings.jsonl",
+    "sha256": "3afb3f6bdec63e0cf5b5b4ea7392d50af2e37006b218058a3dcf81438db90377"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-before.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-before.xml",
+    "sha256": "9bcb5eff13d4e481cb7dac1a9c142dee2aa5fa4ed46eeb79ad8d9e298b8e6f14"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/search-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/search-all-reached.xml",
+    "sha256": "a03bbebbed8930db30f3a36aea93ee5000919091a648bc2a27bc0828e2735d42"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/multi-search-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/multi-search-all-reached.xml",
+    "sha256": "5402f66d5441ae32bec628bd3fa92c0c0ee1221a7b525601dc868cbdac7c63fa"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/older-search-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/older-search-all-reached.xml",
+    "sha256": "864cf43c002553f1678cea7feac38ab5a1153eb7d34ddc0214d88423ed0c9cbb"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/search-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/search-all-reached.png",
+    "sha256": "fc508e042bc7212276b4053a58f4315960e67bf33fcc55ea9bd8df97fd08bf07"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/multi-search-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/multi-search-reads.json",
+    "sha256": "e33b1d3b29a4b978d486be4b6f3ce459abdae3e44db465f5c9b396e97cf09353"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/older-search-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/older-search-all-reached.png",
+    "sha256": "e848aee480ef089abca71e1e1f3b493686e67926dd9e4069b60ac13df74795a3"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/large-rows-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/large-rows-all-reached.xml",
+    "sha256": "519f8ef5bb364fb7738d43e54026361ae151ae9db4dc69046052d8366ab06c6d"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/large-rows-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/large-rows-all-reached.png",
+    "sha256": "097f0f941d53ef58142a45f3b6eafd2c050005f1c68399451d0c1401b221d9c7"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/feed-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/feed-reads.json",
+    "sha256": "917bef80f96c7e46ed836b38b9d6d1763585847c51020b7e295279fd339a955c"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/feed-all-reached.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/feed-all-reached.xml",
+    "sha256": "526145fc5ebfbab4595d347cf9cc0fc3eeb6cb2a65782beb79196f6de1348f5f"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-anchor-preserved.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-anchor-preserved.xml",
+    "sha256": "b7fae4873b6a16b804b2b7d80cc84433ae9bb31ae2ccbab43ea63e797e7f6f58"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-anchor-preserved.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-anchor-preserved.png",
+    "sha256": "0b45da308cb4476c067ee943335def46785cadf108a0309fa961a00d734eb62b"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/older-search-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/older-search-reads.json",
+    "sha256": "3ab0fc4d41c120f68855ae1fbd1e35f573afe8a26e9dbb98605c7f3bb1c7a5f8"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/search-reads.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/search-reads.json",
+    "sha256": "8ad783d9220cf5045aaddf0d216f85c428b2ae1361d97b27fab35d1b680d1d5a"
+  },
+  {
+    "path": "android17/captures/photo-pages-evidence/following-all-reached.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/photo-pages-evidence/following-all-reached.png",
+    "sha256": "68886854aa69b7080c42b545095e93ff6bbf989513ab6167427985b8fd123e44"
+  },
+  {
+    "path": "android17/captures/read-cancellation-evidence/caller-cancel.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-cancellation-evidence/caller-cancel.json",
+    "sha256": "213eb7a3bd07f329c6b3227c259f698941f67e8fb87ba3eee4b776ae33a33210"
+  },
+  {
+    "path": "android17/captures/read-cancellation-evidence/enclosing-deadline.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-cancellation-evidence/enclosing-deadline.json",
+    "sha256": "940db9e8c0108b3e7c3b5082210158e18fd356db459f438d4d735d5521d3a10b"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/first-feed-poll-recovered.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/first-feed-poll-recovered.png",
+    "sha256": "e052ad785e6e02553a11d1f9f817735cc8759d0475be6243a78a0bbc14b84902"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/cached-feed-deadline.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/cached-feed-deadline.xml",
+    "sha256": "a5bb8d63295cde7fc135ba8913e0f6484e3e942415a1b39b6608becce39dc5bc"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/cached-feed-poll-recovered.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/cached-feed-poll-recovered.png",
+    "sha256": "613f947307187680d05dd836ecf50a6b050f01ec900f1d8d240bbeb78d18a531"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/first-feed-deadline.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/first-feed-deadline.png",
+    "sha256": "3512adf2f3a70ee568810075e8796827d20a7fe5c8a7a5b3cb4bed60fc851e73"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/native-capture-timings.jsonl",
+    "sha256": "2a75aae0ace40ac2472c66a35b1d1c402d2e2c7da7eb8768439317bffbc36164"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/first-feed-deadline.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/first-feed-deadline.xml",
+    "sha256": "c92cae45f669fe2c8bb4833948683952cf6d297b1d41df0a3bc013d01199d371"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/cached-feed-deadline.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/cached-feed-deadline.png",
+    "sha256": "be0d1f0f089552c720656ebc50e7ed5fe5490719167456f618dbeec05f9c731b"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/cached-feed-poll-recovered.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/cached-feed-poll-recovered.xml",
+    "sha256": "b0f41249aa6eadca8556bee63a0b7f5746b95ae6445fceb221cc9286c344ecc7"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/cached-feed.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/cached-feed.json",
+    "sha256": "9d2b9afe5dc9e3baafdf804eed164aa56122c18c267d74dec39e98224a392914"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/first-feed.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/first-feed.json",
+    "sha256": "087fbbbeadf0fbff0f147c933566168dc0936d5226d9850f1fa291be38f95b07"
+  },
+  {
+    "path": "android17/captures/read-deadline-evidence/first-feed-poll-recovered.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/encoded17-43815624179-captures/read-deadline-evidence/first-feed-poll-recovered.xml",
+    "sha256": "c50eecdda799838c763c91d9c0c513dc1c0e86a63253c076932896c403a2aaa2"
+  },
+  {
+    "path": "search10/verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-verification.json",
+    "sha256": "21b789cba8c837e28e71973eb308980e53b465b891f0a56822d1249f2e32920c"
+  },
+  {
+    "path": "search10/assessment.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-assessment.json",
+    "sha256": "e32a9b6e6661168f5a3c7026df6a7dc77b56b09e508b90938c6a2d799aa4beff"
+  },
+  {
+    "path": "search10/search-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-ui.txt",
+    "sha256": "3236f7312a36a654f82acef7a75275efb28040deee2bc72a7b2de1ab1103a68b"
+  },
+  {
+    "path": "search10/search-entry-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-entry-ui.txt",
+    "sha256": "dcea0391bf26297c69c916bda05e0887da7c724ade4919ae100ffa3e96e0877e"
+  },
+  {
+    "path": "search10/search-entry-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-entry-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search10/search-entry-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-entry-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search10/search-presentation-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-presentation-ui.txt",
+    "sha256": "285899153fbd082c1a3026195ef852ee975bb4dd350791e6795d4426300b21a7"
+  },
+  {
+    "path": "search10/search-presentation-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-presentation-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search10/search-presentation-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-presentation-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search10/search-reading-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-reading-ui.txt",
+    "sha256": "5e31b7a5cfce5a45892d796fbfb3fa6fd16013994396c9f2272d240e563d4fbc"
+  },
+  {
+    "path": "search10/search-reading-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-reading-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search10/search-reading-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-reading-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search10/search-recovery-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-recovery-ui.txt",
+    "sha256": "9937fd4061325d104f036d86ca5b0dca11b7830d6e5769e714d6f6e70636a8fe"
+  },
+  {
+    "path": "search10/search-recovery-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-recovery-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search10/search-recovery-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-recovery-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search10/search-viewport-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-viewport-ui.txt",
+    "sha256": "5cac1d77dfe3b625f2d2e068b96ae63cead577f9355bcbb878a808e57dfea815"
+  },
+  {
+    "path": "search10/search-viewport-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-viewport-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search10/search-viewport-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search10-43812335808-artifacts/.scratch/device-evidence/api-29/search-viewport-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search17/verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-verification.json",
+    "sha256": "f3ff6aae889730b21c348966add5748eac43f3c68be4c542863a426598228cb5"
+  },
+  {
+    "path": "search17/assessment.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-assessment.json",
+    "sha256": "0b8c14624a88e2c31cec6dafc5650be8eb128117255fb5b10f4dde17febeae79"
+  },
+  {
+    "path": "search17/search-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-ui.txt",
+    "sha256": "a265b3ba6fcefe68c905d7e40c51e865914a8f7cb59bebca5bffa13cdc20c94b"
+  },
+  {
+    "path": "search17/search-entry-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-entry-ui.txt",
+    "sha256": "7c5113c3ee7f62be836fd20777109b59d31040960b5bf90b2fec8efc8caf60d1"
+  },
+  {
+    "path": "search17/search-entry-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-entry-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search17/search-entry-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-entry-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search17/search-presentation-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-presentation-ui.txt",
+    "sha256": "92655e85d48ae6c76c6a90062c4126c0b3f69c41c44f953acfe3e196a067de12"
+  },
+  {
+    "path": "search17/search-presentation-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-presentation-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search17/search-presentation-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-presentation-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search17/search-reading-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-reading-ui.txt",
+    "sha256": "f906893f7b5aad0ba354966af95634cac1085f1d52ece4dd259ff5b2dd5b2548"
+  },
+  {
+    "path": "search17/search-reading-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-reading-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search17/search-reading-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-reading-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search17/search-recovery-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-recovery-ui.txt",
+    "sha256": "9bed47b2c8f81f45069b9534d2cf63c61006edf17ef433970212c2b4cf002817"
+  },
+  {
+    "path": "search17/search-recovery-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-recovery-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search17/search-recovery-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-recovery-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "search17/search-viewport-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-viewport-ui.txt",
+    "sha256": "ca2272a370c1544ccdfaf8ab18544b67e40cf187c9f85bfbde3520c52a5b1936"
+  },
+  {
+    "path": "search17/search-viewport-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-viewport-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "search17/search-viewport-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-search17-43812338833-artifacts/.scratch/device-evidence/api-37.0/search-viewport-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "source-verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/accepted-source-43812333098-verification.json",
+    "sha256": "226de76f5bb727644c7d3ae0111f52e7b8f114959b85dc63f39c3f50a757a558"
+  },
+  {
+    "path": "retained-run-inventory.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/retained-run-inventory.json",
+    "sha256": "49eba1b409539a1504f1e8b19adb79c2ef60aa036265ba7e3159553fb47be9aa"
+  },
+  {
+    "path": "source-bridge.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/photo-pages125/source-bridge.json",
+    "sha256": "f0f765067550ce03c045d97cd7c8e1cba15a3aa3a249b9659743eeb340799d3f"
+  }
+]

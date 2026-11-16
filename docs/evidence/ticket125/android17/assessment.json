@@ -1,0 +1,61 @@
+{
+  "source": "baae54a41a5b2f04a4ae6a0f583af87b697e29ec",
+  "run": 43815624179,
+  "kind": "photo",
+  "normalMethods": 10,
+  "groups": [
+    {
+      "group": "photo-pages",
+      "class": "PhotoPagesPreviewTest",
+      "methods": [
+        "allPhotoPostsAtOneTimestampStayReachableAfterAnOversizedFeedResponse",
+        "searchCanContinueThroughAllPhotoPostsAtOneTimestamp",
+        "searchCanReachOlderPhotoMatchesAfterTheVisibleWindowFills"
+      ],
+      "nativeLogSha256": "2564f0c8b1370a5c51972afedaf89a2c3bcd049d194fa42cb61e799473702196"
+    },
+    {
+      "group": "photo-continuation",
+      "class": "PhotoArchiveContinuationTest",
+      "methods": [
+        "followingKeepsItsCachedAnchorAcrossMalformedSparseAndDuplicateTimestampRows"
+      ],
+      "nativeLogSha256": "a72590111026760d8fb5061d214a6ce6a24088f537975449e4b4973138f7b027"
+    },
+    {
+      "group": "photo-large-rows",
+      "class": "PhotoLargeRowPreviewTest",
+      "methods": [
+        "individuallyAcceptedPhotoRowsStayReachableWhenEvenTenRowsExceedTheReceiveBound"
+      ],
+      "nativeLogSha256": "c3280e372ce15af0ed601f705d551b438da71e1872e374eb45d8947db4634c8a"
+    },
+    {
+      "group": "photo-multistream",
+      "class": "PhotoMultiStreamPreviewTest",
+      "methods": [
+        "everyRootAndQuoteMatchRemainsReachableWhenTheirCombinedWindowExceedsTheCacheBound"
+      ],
+      "nativeLogSha256": "fe2127e7e808c2685392ab50b51c235593710aa025f3d363b44e57683c315d59"
+    },
+    {
+      "group": "photo-read-cancellation",
+      "class": "ReadCancellationTest",
+      "methods": [
+        "callerCancellationDoesNotCommitTheLateArchiveReply",
+        "enclosingDeadlineDoesNotBecomeARecoverablePeerFailure"
+      ],
+      "nativeLogSha256": "e39b49d4a822cd70cca412f5e14a72f7f972a105bb81f6fcafe40a0b89ef002d"
+    },
+    {
+      "group": "photo-read-deadline",
+      "class": "ReadDeadlineRecoveryTest",
+      "methods": [
+        "cachedFeedStaysReadableDuringDeadlineAndPollingRecoversWithoutNavigation",
+        "firstFeedReadDeadlineShowsRetryAndPollingRecoversWithoutNavigation"
+      ],
+      "nativeLogSha256": "c972487365d8f45e89d6fe83fbeff656e78d420b20de68f5f80a27a659a629bb"
+    }
+  ],
+  "allCompleteNativeAndCaptureChecksPassed": true
+}

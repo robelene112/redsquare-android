@@ -10,7 +10,7 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current active ticket: #125 (read valid photo-heavy pages within existing response bounds).
+Current next ticket: #126 (keep Following progress when the first author fails).
 
 The reopened121navigation follow-up is complete atadcc1e9ca804372cd7b6a11c276168d106fcc328,
 with both independent axes reporting zero source/native findings. See
@@ -70,12 +70,27 @@ use exact native assertions and later visible readiness/incoming checks, not tho
 images as rendered endpoint proof. Launcher captures remain background-only.
 Originals: `/mnt/storage/redsquare-android-artifacts/talk-idle124`.
 
-Continue125–130 sequentially, then final131, without another approval. #125 uses
-bounded smaller Archive reads/continuation for valid signed image pages over16MiB,
-including tied timestamps and malformed rows, without raising existing bounds or
-skipping valid items. Public beta remains0.1.131 until final combined qualification
-and signed delivery in131. No production node/provider change or public financial
-write is authorized. Preserve the canonical dirty checkout.
+#125 is complete: product/source/lint and original Search at
+`6aed8c3700ee4aa4f3e161c4f793c90f4763cd17`, Android10 photo fixture at
+`a5eb8e9ad10750b2debc7449c196d8bf192b5732`, Android17 photo fixture/harness at
+`baae54a41a5b2f04a4ae6a0f583af87b697e29ec`. See
+[the packet](../evidence/ticket125/README.md). Both whole photo parents
+43813578386/43815624179 complete10 normal methods/six groups, preserving every
+original bound and the exact198-to198px cached anchor. Original Search parents
+43812335808/43812338833 complete17 unchanged methods per SDK. Source43812333098
+actually executes224 core tests/44 classes with zero failures/ignored; gateway
+FROM-CACHE and lint0 errors/95 warnings/3 hints remain explicit. The reviewed
+fixture/harness bridge changes no product files, admitted contents or native goals.
+Both independent axes accept all425 original ZIP files/458 TAR files. The packet
+copies151 source-bound files, plus its index/README. All earlier failed/cancelled
+parents remain excluded, including the qualified stale-selection and slow fixture
+observations; earlier duplicate-start and54px failure causes remain unproved.
+Originals: `/mnt/storage/redsquare-android-artifacts/photo-pages125`.
+
+Continue126–130 sequentially, then final131, without another approval. Public beta
+remains0.1.131 until final combined qualification and signed delivery. No production
+node/provider change or public financial write is authorized. Preserve the
+canonical dirty checkout.
 
 ### Initial121 acceptance492c61b64, before the reopened navigation follow-up
 

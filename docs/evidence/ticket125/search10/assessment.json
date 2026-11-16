@@ -1,0 +1,68 @@
+{
+  "source": "6aed8c3700ee4aa4f3e161c4f793c90f4763cd17",
+  "run": 43812335808,
+  "kind": "search",
+  "normalMethods": 17,
+  "groups": [
+    {
+      "group": "search",
+      "class": "SearchPreviewTest",
+      "methods": [
+        "anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet",
+        "anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson",
+        "anExactSignedUsernameOpensTheCorrectProfileAndRetainsTheSearch",
+        "cachedExactNamesAreQualifiedWhenFreshChecksFailAndForgedNamesCannotResolve",
+        "failedSearchSavingKeepsLiveResultsAndRepairRestoresOfflineReading",
+        "knownAuthorsAndVerifiedNamesRemainSearchableByPrefixAfterReopeningOffline",
+        "partialHistoryCanBeRetriedAndPagedWithoutLosingVerifiedResults",
+        "reopeningOfflineKeepsSearchHistoryIsolatedBetweenSelectedServers",
+        "verifiedAuthorEditsAndDeletionsSurviveStaleSearchHistory"
+      ],
+      "nativeLogSha256": "3236f7312a36a654f82acef7a75275efb28040deee2bc72a7b2de1ab1103a68b"
+    },
+    {
+      "group": "search-entry",
+      "class": "SearchEntryPreviewTest",
+      "methods": [
+        "clearingAnUnfinishedSearchDiscardsItsLateResultsAndDoesNotContinuePaging",
+        "keyboardSearchAndClearKeepUserInControlOfSearchRequests"
+      ],
+      "nativeLogSha256": "dcea0391bf26297c69c916bda05e0887da7c724ade4919ae100ffa3e96e0877e"
+    },
+    {
+      "group": "search-presentation",
+      "class": "SearchPresentationPreviewTest",
+      "methods": [
+        "peopleAndPostsHaveIndependentResultsWithReadableExactIdentity"
+      ],
+      "nativeLogSha256": "285899153fbd082c1a3026195ef852ee975bb4dd350791e6795d4426300b21a7"
+    },
+    {
+      "group": "search-reading",
+      "class": "SearchReadingPreviewTest",
+      "methods": [
+        "threadProfileAndRecreationKeepTheSameSearchReadingPosition"
+      ],
+      "nativeLogSha256": "5e31b7a5cfce5a45892d796fbfb3fa6fd16013994396c9f2272d240e563d4fbc"
+    },
+    {
+      "group": "search-recovery",
+      "class": "SearchRecoveryPreviewTest",
+      "methods": [
+        "disposalPausesBeforeCancelledLookupFinishesUnwinding",
+        "leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation",
+        "retryingAUsernameFailureDoesNotRepeatCompletedPostStreams"
+      ],
+      "nativeLogSha256": "9937fd4061325d104f036d86ca5b0dca11b7830d6e5769e714d6f6e70636a8fe"
+    },
+    {
+      "group": "search-viewport",
+      "class": "SearchViewportPreviewTest",
+      "methods": [
+        "invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes"
+      ],
+      "nativeLogSha256": "5cac1d77dfe3b625f2d2e068b96ae63cead577f9355bcbb878a808e57dfea815"
+    }
+  ],
+  "allCompleteNativeAndCaptureChecksPassed": true
+}
