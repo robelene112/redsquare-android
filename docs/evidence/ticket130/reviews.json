@@ -1,0 +1,25 @@
+{
+  "base": "30bb852d4109c64a61e749d59c615b401a62df3f",
+  "reviewedPacket": "678659885cbd9a0523445d941fee01cc7ba0d631",
+  "executingSource": "1e5066800bf5a48eb72693266fd9d9d170d525c1",
+  "standards": {
+    "result": "PASS",
+    "remainingFindings": 0,
+    "agent": "storage130_standards"
+  },
+  "spec": {
+    "result": "PASS",
+    "remainingFindings": 0,
+    "agent": "storage130_spec"
+  },
+  "independentlyVerified": {
+    "copiedFiles": 873,
+    "receipts": 14,
+    "zipEntries": 1220,
+    "tarMembers": 1029,
+    "normalCompletionsPerSdk": 21,
+    "separateIntentionalProcessDeathStartsPerSdk": 1,
+    "sourceAndNativeExactSameSource": true
+  },
+  "qualification": "Complete relevant owned-emulator/peer/provider/filesystem scope only. Whole-app qualification and signed beta belong to131. Physical/OEM/live provider/node/schema/funding/Play gates remain open."
+}

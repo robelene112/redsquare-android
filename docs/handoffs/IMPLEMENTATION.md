@@ -10,7 +10,32 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current next ticket: #130 (manual retained received Fileshare management).
+Current next ticket: #131 (integrated qualification and signed beta delivery).
+
+#130 is complete at product/source/native1e5066800bf5a48eb72693266fd9d9d170d525c1.
+See [the storage packet](../evidence/ticket130/README.md). Settings → Storage lists
+manual retained incoming files with exact encrypted payload totals, per-file48dp
+accessible actions and confirmed removal. History/drafts/exported bytes/Vault and
+other identity/node/pending payloads remain. Actual export leases block removal
+and release visibly; partial unlink leaves truthful remaining bytes and local
+unavailability. Legacy records remain attributable without inventing ownership.
+All file IO stays off main and the whole task scrolls at large text. Actual native
+0/1window motion is observed without a Compose test-rule replacement.
+Complete Android10 43868275196 and Android17 43868275286 each pass19ordinary
+methods/16groups plus two normal process recovery/restoration completions and one
+separate intentional death start. Original test/host process goals are byte-identical
+to129. Source43868274993 at the exact same source has224core/44classes, zero fails/
+ignored, explicit core/gateway FROM-CACHE, actual debug/test assemblies and lint
+0errors/95warnings/3hints. Both review axes accept873 indexed copies, all14 receipts
+with1220ZIP/1029TAR members byte-exact. Every unsuccessful observation remains
+qualified, including the actual40dp accessibility failure and test observer/setup
+corrections; no successful prefix assembly or source bridge. Originals remain at
+`/mnt/storage/redsquare-android-artifacts/received-storage130`.
+All thirteen behavior prerequisites are complete. Continue131 without approval,
+including ordinary full-suite integration of every new child regression, actual
+signed update, independent complete evidence review and exact public beta delivery.
+Public beta remains0.1.131 until that delivery. Physical/OEM/live node/provider/
+schema/funding/Play and source-only Vault rental deployment qualifications remain.
 
 #129 is complete: product/source1e170ba024b0d3a4af0cf0bb98b131a1e3ade3db,
 native fixture1619140c7c27f54040c0549fdca2a63f15fbba7f. See
