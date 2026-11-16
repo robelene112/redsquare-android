@@ -110,9 +110,9 @@ class VaultUploadPreviewTest {
             previous = bounds
             bounds != null && now - stableSince >= 200
         }
-        ui.onNodeWithText("Access script").assert(SemanticsMatcher.expectValue(
-            androidx.compose.ui.semantics.SemanticsProperties.EditableText,
-            androidx.compose.ui.text.AnnotatedString("not valid JSON")))
+        ui.onNodeWithText("Access script").assert(SemanticsMatcher("Exact invalid source remains before confirmation") {
+            it.config[androidx.compose.ui.semantics.SemanticsProperties.EditableText].text == "not valid JSON"
+        })
         confirmation.assertIsDisplayed().assertIsEnabled()
         val settledIme = observedImeBottom()
         check(settledIme == 0 && android.os.SystemClock.elapsedRealtime() - started <= 5_000)
