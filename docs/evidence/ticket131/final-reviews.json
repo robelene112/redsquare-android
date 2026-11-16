@@ -229,7 +229,29 @@
       43957725934,
       43957732330
     ],
-    "nativeResult": "PENDING",
-    "qualification": "Original tests byte-identical; no complete or delivery acceptance. Signed137 superseded by production change."
+    "nativeResult": "PASS_FOCUSED",
+    "qualification": "Original tests byte-identical; no complete or delivery acceptance. Signed137 superseded by production change.",
+    "focusedSpec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_FOCUSED",
+      "findings": 0
+    },
+    "focusedStandards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_FOCUSED",
+      "findings": 0
+    },
+    "evidence": {
+      "rawFiles": 298,
+      "tarMembers": 261,
+      "png": 169,
+      "xml": 20,
+      "mp4": 12,
+      "normalMethodIdentities": 6,
+      "normalIntermediateFramesEach": 9,
+      "zeroIntermediateFramesEach": 0,
+      "physicalRetryTapsEach": 3,
+      "httpRequestsEach": 2
+    }
   }
 }

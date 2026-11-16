@@ -1,0 +1,278 @@
+{
+  "android-native-proof/.scratch/device-evidence/api-37.0/device-abi.txt": {
+    "bytes": 7,
+    "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/emulator-capacity.txt": {
+    "bytes": 64,
+    "sha256": "e3bc0f153844241b99bea4935b0140c43e5f46640d788cf46060ae2b20af4a97"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/emulator-online-cpus.txt": {
+    "bytes": 2,
+    "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/emulator.log": {
+    "bytes": 8293,
+    "sha256": "ac010d1a17ca5ac32222b36a0042e4289367ae42480fb25bb3137775e1c8c0d4"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/loaded-media-capture-status.log": {
+    "bytes": 32,
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/loaded-media-evidence.tar": {
+    "bytes": 3682816,
+    "sha256": "3c80dcc2b6800c32c4275f20e97297bf403fdadedd14fc48eb3be8f469147a38"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/loaded-media-ui-exit.txt": {
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/loaded-media-ui.txt": {
+    "bytes": 1563,
+    "sha256": "d34dbca8d66927351cac8711af478e55950cd1cb06b0092946f25ba8ba5d4438"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/page-size.txt": {
+    "bytes": 5,
+    "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/requested-page-size.txt": {
+    "bytes": 8,
+    "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/system-build.txt": {
+    "bytes": 85,
+    "sha256": "c48dc581bd2abfaa3f122516d4d554c23b64a2ae633ecdde68fc16be6b7b7afd"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/system-image.properties": {
+    "bytes": 359,
+    "sha256": "1f50787fdc2c40508ba14e4bfb1e402c8a71bf435a59f9301e0f841807a07f8e"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/system-image.txt": {
+    "bytes": 46,
+    "sha256": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/wellbeing-disable.txt": {
+    "bytes": 67,
+    "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+  },
+  "android-native-proof/.scratch/device-evidence/api-37.0/wellbeing-disabled-package.txt": {
+    "bytes": 42,
+    "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+  },
+  "android-native-proof/.scratch/proof-runner.txt": {
+    "bytes": 13,
+    "sha256": "133ae462930a750f586835027fb9be64ca40cebbd1c87126533b23a6909ba119"
+  },
+  "android-native-proof/.scratch/proof-source.txt": {
+    "bytes": 41,
+    "sha256": "ae7794351890b760ddc5cda92713298ca9b8837d94566dd33210c4b540ea5c04"
+  },
+  "android-native-proof/.scratch/proof-workflow.txt": {
+    "bytes": 41,
+    "sha256": "ae7794351890b760ddc5cda92713298ca9b8837d94566dd33210c4b540ea5c04"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.ControlledLikeArchiveContractTest.html": {
+    "bytes": 2271,
+    "sha256": "0fd92442904f24f365236bda1f7acef2dd89076c9d258c8caa48e41c8d7c3ba1"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest.html": {
+    "bytes": 2103,
+    "sha256": "692be4c9f1387b26d298271172948760420ffd1a4190f458eb292cf70ea1b57b"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.ControlledNodeOutageTest.html": {
+    "bytes": 2280,
+    "sha256": "3475ffece6e8c79d4ebc0b1b0214df6dc19d8725b6796805475cc9af24379f8f"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.FileshareTest.html": {
+    "bytes": 2562,
+    "sha256": "4cfa046e4958a37bad5dafe2f7a64ac0cbe8121e429544bc8b63320c9c8b90ed"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html": {
+    "bytes": 2534,
+    "sha256": "1531c82f884bd20fa021778dc6e256fd61b0ee102813922bb8dcb3ec668a463d"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html": {
+    "bytes": 5325,
+    "sha256": "9c39f399841cfd2f8d68cb85a680389370be3e61a9776e50e744aa5acdb3325b"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html": {
+    "bytes": 2444,
+    "sha256": "f1499b81214bce06b057498d6d37348dfaad7eefb9445f6cc8715e5a4c90116e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html": {
+    "bytes": 3620,
+    "sha256": "693e77f07907253cbfc4df7c4a5213e6a84ef7219366c3af22712b6a9e63922a"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html": {
+    "bytes": 2279,
+    "sha256": "deca152aab5f07bf77ee320e5b785651caf39e4bd1efad71a672ee3b0444a04f"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html": {
+    "bytes": 3702,
+    "sha256": "e41d218efb9aecab7eaa99dba7d58e1e603d99387ef6e0b09bc0a6324d4b5ce0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html": {
+    "bytes": 2599,
+    "sha256": "a325f7ed92c929f5edf65558b053c61eb075adbb5a11f63868bdd40594ad125f"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html": {
+    "bytes": 2611,
+    "sha256": "8489cdc998c2902de46469d1b51021c23842b102214ee8449e89de598433d69b"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html": {
+    "bytes": 3357,
+    "sha256": "6c8209ed85ca825ed9f62e2ab7ddc2ad70a87c70bd368aea3805ce132df4f73d"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html": {
+    "bytes": 2613,
+    "sha256": "4c032010a488d5bd33a17510ec574ba2d48b1f9d9fddfd4f73f666ed3afe7b58"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html": {
+    "bytes": 2780,
+    "sha256": "e5b4df1d8cc7ece651c72a33b56a7f68fc55de2d37299c8fcd7778a096b7ef85"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoAccessScriptTest.html": {
+    "bytes": 2630,
+    "sha256": "9411fa364da7775c101a464b8c5894846eaad564217898c4c137e87df63aa4a5"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html": {
+    "bytes": 2589,
+    "sha256": "e192dd9d4f33bf1eccdbac0d6b3996bcee4db994afd276cf22b1bd50b135ec1b"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html": {
+    "bytes": 2106,
+    "sha256": "0ee0e1aa74fe372d1880911866ad45fb6ba74c2035b38de89d8314c6b347da6f"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNameDirectoryTest.html": {
+    "bytes": 2279,
+    "sha256": "5913ec8775d6e7409c478cc050f0860ec79e46aa97090ee0fa901acd3bf856c0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNftTransferTest.html": {
+    "bytes": 2437,
+    "sha256": "792d0b5c3f093cc9f5bdad301b60b628c4da443295f1389306f5385b64f11c1e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoNodeBlockTest.html": {
+    "bytes": 2268,
+    "sha256": "2be497a9d87889f39366755480ac17aa7ed34236d63d7f643cedb474d28a9bab"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html": {
+    "bytes": 2785,
+    "sha256": "14c208ba32f319d15dd52ca191f8d68c882826837a9f96bee41595ad9da5e849"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html": {
+    "bytes": 2243,
+    "sha256": "8ec2241ff9fa8bbb9d5bdc547267b4d4f7be2196a2606f4420c6c855dbda6633"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html": {
+    "bytes": 2644,
+    "sha256": "52f2dbf968906712713fab2ea97d9bc8afbe81320adba1d60bec5c5e4cd5d2f9"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html": {
+    "bytes": 2860,
+    "sha256": "a4e3405316c8c360d756f15c4282924ce52811d726f092ff7c44e5b5cd3d1335"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStackTest.html": {
+    "bytes": 2292,
+    "sha256": "1bf4cae278455115279793bd34939d4d669f7b953f07e01a4780b83e7de51228"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreCryptoTest.html": {
+    "bytes": 3387,
+    "sha256": "389fb2456b4bcacc484ff8a6180d0da7d0329615cdf51d0c2d8c9de3bb8ed397"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreListingTest.html": {
+    "bytes": 4617,
+    "sha256": "7c5d6b80ed3a2b2cedd7183e7c70a3141652d322ec68cf0ab1cf92233c23723b"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStorePurchaseTest.html": {
+    "bytes": 3259,
+    "sha256": "eecac57bbaafb27e9792710b7f47270d26fa97c17d6f74984299af4294b1142d"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreRentalTest.html": {
+    "bytes": 3506,
+    "sha256": "649fde1cd3d40e9f02f94b32f37fea1790689f9f7c2795d37ae96690e718e40e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreTest.html": {
+    "bytes": 2910,
+    "sha256": "0c30dae8a3b463e1e5698417cd619e948864061306d557b8d0124c0a3c520c0d"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest.html": {
+    "bytes": 2633,
+    "sha256": "12757f5595b3cbadda0af1c3c44148ddf517753ff6753719f77dacf8afecde1e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html": {
+    "bytes": 2581,
+    "sha256": "918b09402e02f1e418610a1b2f7459d41840aa8c5717796598806f7ca4cd7610"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultCustomAccessTest.html": {
+    "bytes": 2124,
+    "sha256": "adb2c0ba37f74f23cae6ff72da3922f3a5b31a0a207264f803eb53bff06a65da"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultMintTest.html": {
+    "bytes": 2602,
+    "sha256": "6d6dc2e7668e3a49bfcaec387cd1e22f7061b293f80b7b3c0dbf52b8866fc89f"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultRentalTest.html": {
+    "bytes": 2466,
+    "sha256": "fb62318c32ae0a7951afc8e3c2baadd5b492cba5e894b48c0ec2e72f4a46f12a"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoVaultTest.html": {
+    "bytes": 2912,
+    "sha256": "6a99de60480407c6ac3045ee95072caf37350bed46ec88f503c3ae0b45f2e8de"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html": {
+    "bytes": 4426,
+    "sha256": "a1f9d12c6caa5202fb07fd5446a536b911128e6311b9c56103c374fe83e97267"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html": {
+    "bytes": 2093,
+    "sha256": "1dfe905a9fc6bd1096e80a6e7a715bf5c0e99fc22d584537809ac2c3b5d9c8a0"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SharedNodeConnectionTest.html": {
+    "bytes": 3762,
+    "sha256": "96954e6db5b521bb05f35e7e08bc93d7a3d5496905be71252f57d38f8bb0dc9d"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.StackLinkTest.html": {
+    "bytes": 2443,
+    "sha256": "29147a8d1289e205a9c23cf8dee37bece4a272b472f385a72a1738d37adb3523"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.StoreLinkTest.html": {
+    "bytes": 2070,
+    "sha256": "296685f35b09ab38b812096a13d67a344f82afd3b0045b14384e1315391d22ef"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.TalkTest.html": {
+    "bytes": 3049,
+    "sha256": "62570075a89d961fbfc825e923a5666cd8cb2357c30b30a698bb7e32bf42d21e"
+  },
+  "android-native-proof/core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.VaultUploadTransportTest.html": {
+    "bytes": 2117,
+    "sha256": "9728e94143326944d4e029794ebe0629550a3bd1f9036f99324d2bc2e1e44dd0"
+  },
+  "android-native-proof/core/build/reports/tests/test/css/base-style.css": {
+    "bytes": 2645,
+    "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+  },
+  "android-native-proof/core/build/reports/tests/test/css/style.css": {
+    "bytes": 1135,
+    "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+  },
+  "android-native-proof/core/build/reports/tests/test/index.html": {
+    "bytes": 13496,
+    "sha256": "9736ab6903c0d27174f15c5197cab883a5a6eb7560fa1bb1d7a7a8656fa6038f"
+  },
+  "android-native-proof/core/build/reports/tests/test/js/report.js": {
+    "bytes": 5252,
+    "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+  },
+  "android-native-proof/core/build/reports/tests/test/packages/nl.davidengelen.redsquare.feed.html": {
+    "bytes": 2091,
+    "sha256": "df9436909125b7ee7e69b56a15a72e4d589198618a9c8bd14ab8363de150445e"
+  },
+  "android-native-proof/core/build/reports/tests/test/packages/nl.davidengelen.redsquare.html": {
+    "bytes": 2091,
+    "sha256": "906977a5427350c57c73e9adce1d8a82701fe11c4e99e75fddf2a4f7e86ae46f"
+  },
+  "android-native-proof/core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html": {
+    "bytes": 11029,
+    "sha256": "3aeae5a6e4b76ace5c0c3074958719f9649b8b038439eedd17235d53cb10d86f"
+  }
+}

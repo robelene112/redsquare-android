@@ -14,7 +14,9 @@ The media correction at `03d80ff15ef41548b3e517e171640325db1805f5`
 prepares the incoming rendered result at positive opacity before starting the
 existing180ms overlap. Both source reviews pass with zero remaining findings.
 Original loaded-media and image-retry motion goals are unchanged. Fresh focused
-10/17 runs43957716249/43957720646 and43957725934/43957732330 are pending.
+10/17 runs43957716249/43957720646 and43957725934/43957732330 all pass,
+with independent Spec and Standards focused acceptance and zero findings.
+See [prepared media](prepared-media/README.md).
 The earlier observational probe43952067644 passed, recording substantial initial
 rendering cost. It does not establish the exact cause of the failed original
 recording. Its temporary instrumentation has been removed.
