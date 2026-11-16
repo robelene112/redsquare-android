@@ -489,6 +489,15 @@ abstract class FileshareFixture {
             Thread.sleep(300)
             device.wakeUp(); device.executeShellCommand("wm dismiss-keyguard")
             cleanupAfterTest(primary,
+                { // An actual notification action can leave the system shade above the next fixture.
+                    val shade = androidx.test.uiautomator.By.res("com.android.systemui", "notification_panel")
+                    if (device.hasObject(shade)) {
+                        device.pressBack()
+                        check(device.wait(androidx.test.uiautomator.Until.gone(shade), 5_000)) {
+                            "The owned notification shade must close before restoring fixture state"
+                        }
+                    }
+                },
                 { Intents.release() },
                 { restoreLegacyNotifications?.invoke() },
                 { if (preparationCancel) context.contentResolver.call(source, "release", null, null) },
