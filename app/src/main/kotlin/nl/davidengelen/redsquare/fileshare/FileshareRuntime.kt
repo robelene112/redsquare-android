@@ -43,6 +43,10 @@ internal object FileshareRuntime {
     fun receiveDirect(owner: String, backend: SaitoBackend, endpoint: String, contact: String, envelope: String): Boolean? =
         sessions.values.firstOrNull { it.owner == owner && it.backend == backend && it.endpoint == endpoint &&
             it.contact == contact && it.ownsDelivery }?.receiveDirect(envelope)
+    fun refreshLocalCopies(owner: String, backend: SaitoBackend, contact: String) {
+        sessions.values.filter { it.owner == owner && it.backend == backend && it.contact == contact }
+            .forEach { it.refreshLocalCopies() }
+    }
     fun cancel(token: String) { sessions.values.forEach { it.cancel(token) } }
     fun stopAll() { sessions.values.forEach { it.interrupt() } }
     fun serviceReady(token: String) { sessions.values.forEach { it.serviceReady(token) } }
@@ -287,6 +291,11 @@ internal class FileSession(private val context: Context, private val wallet: Sai
             else if (current?.let { it.phase.active || it.token == pending?.offered?.token } == true) end(FilePhase.INTERRUPTED) else cleanup()
         }
     }
+
+    fun refreshLocalCopies() { post {
+        state.value = state.value.map { it.copy(localCopy = store.localCopy(it)) }
+        changed()
+    } }
 
     suspend fun export(token: String, uri: Uri): Boolean = withContext(Dispatchers.IO) {
         try {
@@ -590,9 +599,10 @@ internal class FileSession(private val context: Context, private val wallet: Sai
         publishView(value)
     }
     private fun publishView(value: FileTransfer) {
+        val available = value.copy(localCopy = store.localCopy(value))
         state.update { rows ->
             val pending = accepting.get()?.takeIf { it.offered.token == value.token && value.phase == FilePhase.OFFERED }
-            val shown = pending?.let { value.copy(phase = it.stop ?: FilePhase.RECEIVING) } ?: value
+            val shown = pending?.let { available.copy(phase = it.stop ?: FilePhase.RECEIVING) } ?: available
             (listOf(shown) + rows.filter { it.token != value.token }).sortedByDescending { it.createdAt }
         }
         changed()

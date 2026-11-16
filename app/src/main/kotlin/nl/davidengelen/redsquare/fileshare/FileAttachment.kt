@@ -181,7 +181,11 @@ private fun FileTransferCard(value: FileTransfer, session: FileSession, enabled:
                     tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(28.dp))
                 Column(Modifier.weight(1f)) {
                     Text(value.offer.name, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                    AnimatedContent(if (saving) R.string.fileshare_saving else filePhaseLabel(value.phase, value.incoming), label = "fileStatus") { label ->
+                    AnimatedContent(if (saving) R.string.fileshare_saving else when {
+                        value.incoming && value.phase.delivered && value.localCopy == LocalFileCopy.REMOVED -> R.string.fileshare_copy_removed
+                        value.incoming && value.phase.delivered && value.localCopy == LocalFileCopy.UNAVAILABLE -> R.string.fileshare_copy_unavailable
+                        else -> filePhaseLabel(value.phase, value.incoming)
+                    }, label = "fileStatus") { label ->
                         Text(stringResource(label), style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
                     }
@@ -203,7 +207,7 @@ private fun FileTransferCard(value: FileTransfer, session: FileSession, enabled:
                     TextButton(enabled = enabled, onClick = { session.cancel(value.token) }) { Text(stringResource(R.string.fileshare_decline)) }
                 } else if (value.phase.active) {
                     TextButton(enabled = enabled, onClick = { session.cancel(value.token) }) { Text(stringResource(R.string.fileshare_cancel)) }
-                } else if (value.incoming && value.phase in setOf(FilePhase.COMPLETE, FilePhase.SAVED)) {
+                } else if (value.incoming && value.phase.delivered && value.localCopy == LocalFileCopy.AVAILABLE) {
                     FilledTonalButton(enabled = enabled, onClick = { onSave(value) }) { Text(stringResource(R.string.fileshare_save)) }
                 } else if (!value.incoming && value.source != null) {
                     TextButton(enabled = enabled && !busy, onClick = {

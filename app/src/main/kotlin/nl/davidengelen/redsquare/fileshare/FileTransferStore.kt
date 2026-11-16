@@ -27,9 +27,12 @@ internal data class FilePreparation(val token: String, val owner: String, val ba
     val contact: String, val endpoint: String, val source: String, val phase: PreparationPhase = PreparationPhase.PREPARING,
     val name: String? = null, val bytes: Long = 0)
 
+internal enum class LocalFileCopy { AVAILABLE, REMOVED, UNAVAILABLE }
+
 internal data class FileTransfer(val token: String, val owner: String, val backend: SaitoBackend,
     val contact: String, val endpoint: String, val offer: Fileshare.Offer, val incoming: Boolean,
-    val phase: FilePhase, val bytes: Long = 0, val createdAt: Long = System.currentTimeMillis(), val source: String? = null) {
+    val phase: FilePhase, val bytes: Long = 0, val createdAt: Long = System.currentTimeMillis(), val source: String? = null,
+    val localCopy: LocalFileCopy = LocalFileCopy.AVAILABLE) {
     init { require(token.matches(Regex("[0-9a-f-]{36}"))) }
 }
 
@@ -68,6 +71,7 @@ internal class FileTransferStore(private val context: Context, private val owner
     fun save(value: FileTransfer) {
         require(value.owner == owner && value.backend == backend && value.contact == contact)
         val body = JsonObject().apply {
+            addProperty("owner", owner); addProperty("backend", backend.id); addProperty("contact", contact)
             addProperty("token", value.token); addProperty("endpoint", value.endpoint)
             add("offer", value.offer.data()); addProperty("incoming", value.incoming)
             addProperty("phase", value.phase.name); addProperty("bytes", value.bytes)
@@ -88,8 +92,30 @@ internal class FileTransferStore(private val context: Context, private val owner
                 FilePhase.valueOf(body.get("phase").asString), Fileshare.number(body, "bytes"),
                 Fileshare.number(body, "createdAt"), body.get("source")?.asString)
             require(value.bytes <= value.offer.size)
-            value
+            value.copy(localCopy = localCopy(value))
         }.sortedByDescending { it.createdAt }
+
+    private fun removal(token: String) = EncryptedLocalFile(context, file(token, "removed").name,
+        "fileshare.metadata.v1", "fileshare.")
+
+    fun localCopy(value: FileTransfer): LocalFileCopy {
+        if (!value.incoming || !value.phase.delivered) return value.localCopy
+        return when {
+            removal(value.token).load() != null -> LocalFileCopy.REMOVED
+            file(value.token, "data").isFile -> LocalFileCopy.AVAILABLE
+            else -> LocalFileCopy.UNAVAILABLE
+        }
+    }
+
+    /** Count only the app's encrypted payload, including any remainder of an interrupted removal. */
+    fun retainedBytes(token: String): Long = listOf("data", "part", "inbox").sumOf { file(token, it).length() }
+
+    /** Journal before unlinking. A failed or interrupted unlink can never advertise an exportable copy. */
+    fun removeReceived(value: FileTransfer) {
+        require(value.incoming && value.phase.delivered)
+        removal(value.token).save(EncryptedLocalFile.Contents(1, "removed"))
+        discard(value.token)
+    }
 
     fun begin(value: FileTransfer): Spool {
         require(value.incoming)
@@ -202,7 +228,8 @@ internal class FileTransferStore(private val context: Context, private val owner
         }
     }
 
-    fun export(value: FileTransfer, destination: Uri) {
+    fun export(value: FileTransfer, destination: Uri) = ReceivedFileLocks.withCopy(value) {
+        require(localCopy(value) == LocalFileCopy.AVAILABLE)
         require(value.incoming && value.phase in setOf(FilePhase.COMPLETE, FilePhase.SAVED))
         openPrepared(value).use { input ->
             requireNotNull(context.contentResolver.openOutputStream(destination, "wt")).use { output -> input.copyTo(output, Fileshare.CHUNK_BYTES) }

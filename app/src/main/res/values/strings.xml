@@ -1270,4 +1270,22 @@
     <string name="vault_rental_latest_end">Latest granted end: %1$s</string>
     <string name="vault_rental_multiple">%1$d received rental rights. The storage service decides which is currently active.</string>
     <string name="vault_rental_renter">Renter: %1$s</string>
+    <string name="settings_storage">Storage</string>
+    <string name="settings_storage_summary">Manage received files on this device</string>
+    <string name="received_files">Received files</string>
+    <string name="received_retention">Received files stay here until you remove them. Saving a copy elsewhere keeps the original here.</string>
+    <string name="received_total">%1$s on this device</string>
+    <string name="received_total_detail">Space used by encrypted received copies, including encryption overhead. Chat records and copies saved elsewhere are excluded.</string>
+    <string name="received_file_size">File: %1$s · Device storage: %2$s</string>
+    <string name="received_incomplete">Some file records could not be read or assigned to this account. The total includes only the received copies listed here.</string>
+    <string name="received_empty">No received files stored</string>
+    <string name="received_remove">Remove</string>
+    <string name="received_remove_title">Remove local copy?</string>
+    <string name="received_remove_detail">You will no longer be able to open or save this copy from the app. Its chat record and copies saved elsewhere will stay. You can ask the sender to share it again.</string>
+    <string name="received_remove_confirm">Remove copy</string>
+    <string name="received_failure">Could not complete this action. Check the remaining files and try again.</string>
+    <string name="received_removal_incomplete">Removal incomplete. Remaining bytes are included above. Remove again to finish.</string>
+    <string name="received_saving">Saving this file. You can remove it when saving finishes.</string>
+    <string name="fileshare_copy_removed">Local copy removed</string>
+    <string name="fileshare_copy_unavailable">Local copy unavailable</string>
 </resources>

@@ -195,6 +195,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var receivedFilesScope by rememberSaveable { mutableStateOf<nl.davidengelen.redsquare.fileshare.ReceivedFilesScope?>(null) }
             var connectionDetailsOpen by remember { mutableStateOf(false) }
             var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             val settingsStates = rememberSaveableStateHolder()
@@ -239,6 +240,11 @@ class MainActivity : ComponentActivity() {
                 backendReady = true
             }
             val address = wallet?.publicKey
+            LaunchedEffect(address, backend) {
+                receivedFilesScope?.let { saved ->
+                    if (address != null && backend != null && (saved.owner != address || saved.backend != backend)) receivedFilesScope = null
+                }
+            }
             var failed by remember { mutableStateOf(false) }
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
@@ -554,7 +560,7 @@ class MainActivity : ComponentActivity() {
                 // chrome returns when typing ends without dismissing any reminders.
                 val nodeBlock = rememberNodeBlocks(visibleBackend, intent)
                 val keyboardVisible = nl.davidengelen.redsquare.ui.keyboardOccupiesWindow()
-                val featureUnobstructed = !settingsOpen && !connectionDetailsOpen && !policiesOpen &&
+                val featureUnobstructed = receivedFilesScope == null && !settingsOpen && !connectionDetailsOpen && !policiesOpen &&
                     !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
                     !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
                     !savingBackend && !walletImport.busy && !walletExport.busy
@@ -809,6 +815,12 @@ class MainActivity : ComponentActivity() {
                         } else chrome(true)
                     }
                     if (connectionDetailsOpen) NodeConnectionDetails(visibleBackend?.domain, nodeBlock) { connectionDetailsOpen = false }
+                    receivedFilesScope?.let { saved ->
+                        if (saved.owner == address && saved.backend == backend)
+                            nl.davidengelen.redsquare.fileshare.ReceivedFilesScreen(saved) {
+                                receivedFilesScope = null; settingsCategory = null; settingsOpen = true
+                            }
+                    }
                     if (settingsOpen) AccountDialog(
                         onDismissRequest = {
                             if (!savingBackend) {
@@ -841,6 +853,11 @@ class MainActivity : ComponentActivity() {
                                         stringResource(if (androidx.core.app.NotificationManagerCompat.from(applicationContext)
                                             .areNotificationsEnabled()) R.string.settings_notifications_allowed
                                             else R.string.settings_notifications_blocked)) { settingsCategory = "notifications" }
+                                    if (wallet != null && backend != null) AccountActionRow(stringResource(R.string.settings_storage),
+                                        R.drawable.ic_file, summary = stringResource(R.string.settings_storage_summary)) {
+                                        receivedFilesScope = nl.davidengelen.redsquare.fileshare.ReceivedFilesScope(wallet!!.publicKey, backend!!)
+                                        settingsOpen = false; settingsCategory = null
+                                    }
                                     Text(stringResource(R.string.settings_app_section), style = MaterialTheme.typography.titleSmall)
                                     AccountActionRow(stringResource(R.string.server_choice), R.drawable.ic_globe, summary =
                                         backend?.domain ?: stringResource(R.string.feed_loading)) { settingsCategory = "node" }
