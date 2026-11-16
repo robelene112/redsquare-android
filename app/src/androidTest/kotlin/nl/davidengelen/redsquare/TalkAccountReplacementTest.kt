@@ -14,7 +14,7 @@ import java.io.File
 
 /** An explicit actor barrier reproduces replacement acquisition before an older detach is drained. */
 class TalkAccountReplacementTest {
-    @Test fun replacementReceivesIncomingCallsAndStartsACallAfterTheOldDetach() = runBlocking {
+    @Test fun replacementReceivesIncomingCallsAndStartsACallAfterTheOldDetach() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -37,11 +37,13 @@ class TalkAccountReplacementTest {
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 // This foreground debug host has no automatic Talk account of its own.
+                try {
                 ActivityScenario.launch<CompatibilityActivity>(Intent(context, CompatibilityActivity::class.java)).use {
                     withFailureCapture({
                         File(folder, "stage.json").writeText(record.toString())
                         captureNativeScreen(File(folder, "failure.png"))
                     }) {
+                      runBlocking {
                         TalkRuntime.visibility(true)
                         val original = TalkRuntime.account(context, owner, SaitoBackend.OWNER, endpoint).also { old = it; it.attach() }
                         await("Original incoming listener") { original.online.value && RealtimeIncoming.hasReceiver(owner.publicKey, endpoint) }
@@ -91,7 +93,16 @@ class TalkAccountReplacementTest {
                         captureNativeScreen(File(folder, "replacement-call.png"))
                         TalkRuntime.end(requireNotNull(token))
                         await("Controlled call releases ownership") { TalkRuntime.call.value?.phase?.live == false }
+                      }
                     }
+                }
+                } finally {
+                    releaseOld.complete(Unit); releaseReplacement.complete(Unit)
+                    token?.let(TalkRuntime::end)
+                    if (!oldDetached) { old?.detach(); oldDetached = true }
+                    replacement?.detach(); replacement = null
+                    TalkRuntime.visibility(false)
+                    await("Disposed fixture listener releases its socket") { !RealtimeIncoming.hasReceiver(owner.publicKey, endpoint) }
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
