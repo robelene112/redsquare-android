@@ -1,0 +1,81 @@
+{
+  "run": 43852586018,
+  "source": "1619140c7c27f54040c0549fdca2a63f15fbba7f",
+  "normalMethods": 10,
+  "groups": [
+    {
+      "group": "file-menu",
+      "class": "FileshareAttachmentAvailabilityTest",
+      "methods": [
+        "initialLoadingExplainsOnlyTheFileRestrictionAndReadyOpensTheRealPickerOnce"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/file-menu-ui.txt",
+      "sha256": "7786776ce3165b3da26083e9d56a824c29a8476aeb53d06fb25b359687b67629"
+    },
+    {
+      "group": "file-menu-busy",
+      "class": "FileshareAttachmentBusyTest",
+      "methods": [
+        "anAcceptedTransferExplainsTheFileRestrictionWithoutBlockingTheWriter",
+        "streamingPreparationExplainsTheFileRestrictionWhileOtherMediaStayEnabled"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/file-menu-busy-ui.txt",
+      "sha256": "1f3a5bf573f6110b850d66ab325da25e302873fd2f1a07f3dc031998c01606f2"
+    },
+    {
+      "group": "fileshare-send",
+      "class": "FileshareSendPreviewTest",
+      "methods": [
+        "aNativeFileReachesThePinnedBrowserWhileTheActivityIsHiddenAndTheScreenIsOff"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/fileshare-send-ui.txt",
+      "sha256": "7942170084140ad13512cc521322073c83b3e203c96017c4e1c9073d86348f91"
+    },
+    {
+      "group": "fileshare-receive",
+      "class": "FileshareReceivePreviewTest",
+      "methods": [
+        "acceptingBehindHeldSignallingRetainsForegroundControlsWhileScreenOff",
+        "actualPendingNotificationCancelStopsTheExactAcceptanceBeforeAnyGrant",
+        "anAcceptedBrowserFileCompletesWithScreenOffAndSavesTheExactBytes"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/fileshare-receive-ui.txt",
+      "sha256": "1150ad1e461ebc9ac926b4f441157b43b50236d3ff1b0f3baf9fd32b04e2ec4a"
+    },
+    {
+      "group": "fileshare-cancel",
+      "class": "FileshareCancelPreviewTest",
+      "methods": [
+        "theActualNotificationCancelStopsTheSpecificTransferWithoutClaimingCompletion"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/fileshare-cancel-ui.txt",
+      "sha256": "d3af2f20b65a83b4ad31c618d25a234add1b4001b4ccc9e293375572115a6336"
+    },
+    {
+      "group": "fileshare-preparation-cancel",
+      "class": "FilesharePreparationCancelPreviewTest",
+      "methods": [
+        "cancellationDuringStreamingPreparationCannotRestartWorkAndStopsTheForegroundService"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/fileshare-preparation-cancel-ui.txt",
+      "sha256": "2b8137fb414ee94dce0296808af6d8989a66068fcca23ccfaa23884f74f198ba"
+    },
+    {
+      "group": "fileshare-notifications",
+      "class": "FileshareNotificationPreviewTest",
+      "methods": [
+        "disabledNotificationsExplainTheNeededControlsWithoutStartingATransferOrLosingTheDraft"
+      ],
+      "log": ".scratch/device-evidence/api-37.0/fileshare-notifications-ui.txt",
+      "sha256": "ad8cfcf7ffdcf6e3c07cd0f8e058564f6a34939072c82190d6b0e0f1aedb5e6d"
+    }
+  ],
+  "allCompleteNativeAndCaptureChecksPassed": true,
+  "originalFixtureGoalsAndBoundsPreserved": true,
+  "qualifications": [
+    "The initial loading fixture holds only real Fileshare background directory IO through a ContextWrapper before the shared encrypted-store lock; it does not replace FileSession state or network data.",
+    "The ready case observes actual Android DocumentsUI and a single platform intent. Existing streaming transfer fixtures separately use controlled picker-result grants.",
+    "Photo/GIF availability and writer focus are asserted; existing handlers are unchanged. Full application/media/process/performance/release qualification belongs to final131.",
+    "Controlled emulators/owned peers only, without physical/OEM/live community-service acceptance."
+  ]
+}

@@ -1,0 +1,862 @@
+[
+  {
+    "path": "android10/verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-verification.json",
+    "sha256": "185e975d4ec79ce3420a6ca4a58e005e8e2979bac50ae466a1e3fae240360950"
+  },
+  {
+    "path": "android10/assessment.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-assessment.json",
+    "sha256": "fdb7143f8e2d02124b5a2e686198fcb9654dd23f8d4c533205bed588793399ba"
+  },
+  {
+    "path": "android10/file-menu-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-ui.txt",
+    "sha256": "021661121d51de5f87df18347afe9deb1530d1004c230e4a308646c545c2e899"
+  },
+  {
+    "path": "android10/file-menu-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/file-menu-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/file-menu-busy-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-busy-ui.txt",
+    "sha256": "b697ad64155d6c2d2a991869c84055008db1fc453ee88b0b6f19407db2644966"
+  },
+  {
+    "path": "android10/file-menu-busy-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-busy-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/file-menu-busy-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-busy-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/fileshare-send-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-send-ui.txt",
+    "sha256": "2262841813928d285eb8df3544638ba3e563bbe0657604ea6fe6b4f02dc8cd5d"
+  },
+  {
+    "path": "android10/fileshare-send-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-send-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/fileshare-send-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-send-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/fileshare-receive-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-receive-ui.txt",
+    "sha256": "2e8aa87529211bede34160ff3024019585258dba443f327330d6705c77a78bbb"
+  },
+  {
+    "path": "android10/fileshare-receive-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-receive-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/fileshare-receive-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-receive-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/fileshare-cancel-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-cancel-ui.txt",
+    "sha256": "dda88b251a07caecc650b8b63feab4d4d0f7deb08c7217f2d0b746ff27a66dbd"
+  },
+  {
+    "path": "android10/fileshare-cancel-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-cancel-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/fileshare-cancel-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-cancel-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/fileshare-preparation-cancel-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-preparation-cancel-ui.txt",
+    "sha256": "46d7a9929e3ad9d55feb6b1ba18b2c4583942c7baa5ac84610aefea772f0611e"
+  },
+  {
+    "path": "android10/fileshare-preparation-cancel-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-preparation-cancel-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/fileshare-preparation-cancel-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-preparation-cancel-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/fileshare-notifications-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-notifications-ui.txt",
+    "sha256": "0f6fa30aa378875e185513f4981ffffa2e045d5a98dfc328215026a18b8b8111"
+  },
+  {
+    "path": "android10/fileshare-notifications-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-notifications-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android10/fileshare-notifications-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/fileshare-notifications-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android10/file-menu-original-permissions.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-original-permissions.txt",
+    "sha256": "54abe88d6d38211b288a2b7c9692fb666caa05c31141bf63136e7f692e328a95"
+  },
+  {
+    "path": "android10/file-menu-restored-permissions.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-artifacts/.scratch/device-evidence/api-29/file-menu-restored-permissions.txt",
+    "sha256": "54abe88d6d38211b288a2b7c9692fb666caa05c31141bf63136e7f692e328a95"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/picker-cancelled-draft-retained.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/picker-cancelled-draft-retained.png",
+    "sha256": "dd14f17b952cf5f4c1d05dc7ddf9d9c95aada211c86df93ec0914c390f745893"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/real-document-picker.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/real-document-picker.png",
+    "sha256": "e231e0ba6ee31fcaab54101d00e54abb5aff289a1e4035f3635defead6985597"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/initial-loading-menu.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/initial-loading-menu.png",
+    "sha256": "cab623045a4d0bddedc243d812bfafbcef571f98989f96452ce12a8558d0a777"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/native-capture-timings.jsonl",
+    "sha256": "fffacc9e36ae6d52ae36f437eb4183d2008197184bedc625629faa399e713137"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/initial-loading-menu.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/initial-loading-menu.xml",
+    "sha256": "f40f38990a7a004d0ef93eb20f7b568d78e42fa733da55510d4a0df42829dbd1"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/picker-cancelled-draft-retained.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/picker-cancelled-draft-retained.xml",
+    "sha256": "432f93ebdfa7c4372237edd3449e5c20036725592a1fc2448a5906f2044bcb59"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/loading-and-picker.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/loading-and-picker.json",
+    "sha256": "baa13de8b184194c505d6555bae7d69f95464087abedc8c4a5bbea1bf758ad1b"
+  },
+  {
+    "path": "android10/captures/file-menu-evidence/real-document-picker.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/file-menu-evidence/real-document-picker.xml",
+    "sha256": "7ebcf72548e8c52032b5fbaed9be13eed6b2323d273870888729ef347f0355e5"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/cancel-shade-fixtures.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/cancel-shade-fixtures.json",
+    "sha256": "236546905ad78c40112debaaff5b00f99f3f114959d233a0000d595ae8d11343"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/saved.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/saved.xml",
+    "sha256": "aa2f41077e5f99e54cbadb805f048b51c71cc59aa2d60afb608176f222f2ee10"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/file-action-preparing.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/file-action-preparing.xml",
+    "sha256": "4f28f5e9e43b74dfc67c369e2a9ebfce74cc4f6af18ad1b2661ec79cbb258719"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/active-false-true.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/active-false-true.xml",
+    "sha256": "a4ba6a47dd24a7c53c8ecc391bab53b532941ade0a53869bde20ba663ac45b47"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/notifications-disabled.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/notifications-disabled.png",
+    "sha256": "0026816dd70932c998908c5ffbd62b7f5ed1a2ef02df3ad6942bff70e6c69afa"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/preparation-active.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/preparation-active.xml",
+    "sha256": "4238db14f4df0ff28e19acc6382035d884891f2a65514f2874b7f26a14b505da"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/complete-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/complete-true-false.xml",
+    "sha256": "2b577455ce36fb37dedfe6399625e15e698aa2566600fda6e339cf8380fb52f1"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/active-false-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/active-false-false.xml",
+    "sha256": "bd7f2f476e70fdceff5eda806c1cd537597c69170cc6d67bfda6e1c1aa8d59ef"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/complete-false-true.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/complete-false-true.png",
+    "sha256": "d3bf9bff0952830f8e5ab12d650f090e00e34170f242b46d3fc9151ef4d4450d"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/cancel-shade-restoration.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/cancel-shade-restoration.json",
+    "sha256": "f2bbc5fbafd9083dcaac784034ec800e2cc99c7e0605dde3689e962778468555"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/native-capture-timings.jsonl",
+    "sha256": "ccb2db5df9a8b6da8e8e53274dad67155b1542dccec5fc021f78c0580e879206"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/notifications-disabled.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/notifications-disabled.xml",
+    "sha256": "9a96836498b4a1772bc5fbca562118fb4648edb32c838ee186ef82b9d8a2673a"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/incoming-accept.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/incoming-accept.xml",
+    "sha256": "0ede29845941e1ba0fab331f7f781c7ea0cefd9e84218b59381c5f59e8d9daf7"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/preparation-cancelled.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/preparation-cancelled.xml",
+    "sha256": "b304ce9e7c17e09bb6be42fa765b342832916b1856fcb1a87a943e4988a2a658"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/active-false-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/active-false-false.png",
+    "sha256": "8b32b0465139dc6ddb2cbb2a20a8747dbdf9a1b6cffde376e8b06d29e74bf252"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/complete-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/complete-true-false.png",
+    "sha256": "e8e7ff50a658653d3ce9e5ae8ca3dcfac3f8c300ef8bf6b43b5b91e194f7404a"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/complete-false-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/complete-false-false.png",
+    "sha256": "0cba9aa3f90b82354fd727acfc8fdb7e59586d458cda909000d728ea6adbac14"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/result-false-true-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/result-false-true-false.json",
+    "sha256": "77bb2e67bfc0a9c18291dc1bc6af51091e46439379e797ce4bf5cd0f1ca10f7b"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/complete-false-true.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/complete-false-true.xml",
+    "sha256": "94abb2ebc4458775c5bff553824893c0d8f10cc87aca2de85a9037eb6b7408c6"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/active-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/active-true-false.png",
+    "sha256": "3ffb98827152c6a0c8fddbd75d6cba0576aaddf2fc992d0cdd20f891ff9dbeec"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/incoming-accept.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/incoming-accept.png",
+    "sha256": "e59327bde1950d8ecc3abbd790486430ebb9d51740e62ecfebfa8c7155eadd29"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/active-false-true.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/active-false-true.png",
+    "sha256": "3efef0ef2f7ceb1c76c510ee06d6295255790b9acc13d5f426d7122f4a9168d6"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/preparation-cancelled.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/preparation-cancelled.json",
+    "sha256": "d8cd10cf261e666cce690e7766616ce12b8fb2c38e8c1f407e6bc51bd6d387bb"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/file-action-preparing.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/file-action-preparing.png",
+    "sha256": "6bfe311fd57f9e1309c6f9d5cf5988bb87fc72edd76666e31175922b120e396d"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/result-true-false-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/result-true-false-false.json",
+    "sha256": "9a230625f4124d2eb13c931b5571ba23ba5475ebfb85c7a0e3b9c3b33f5d75bd"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/saved.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/saved.png",
+    "sha256": "61dee0e8aa2841d192309f0a1deb2c7534e86d6c7c7b780575f955d30bdea847"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/active-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/active-true-false.xml",
+    "sha256": "f47b3537d53ace53a3718973de0b019e40c8160ff3e41e74a54c734289337437"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/complete-false-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/complete-false-false.xml",
+    "sha256": "fa863ebbd4f2cd1a4a8d694cdc4dad1e4231c66a31abda7c792672a0345ce391"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/notifications-disabled.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/notifications-disabled.json",
+    "sha256": "cb4cc4833388cb16bc62a524703e71559295a5cf40cccd2f24798eaa5dbaeedd"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/preparation-cancelled.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/preparation-cancelled.png",
+    "sha256": "8b0f5e1301a3374769fcf13094aacf9db64c191ae4883169c0e4bc2cbf05a97d"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/preparation-active.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/preparation-active.png",
+    "sha256": "158d908f7756ed314df4027d926b9ea7d89a5ec5af9699c0800020419544db42"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/cancel-lookup.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/cancel-lookup.json",
+    "sha256": "d2683cd50b19e543f1e16a8a5ece2506997c37a638afea94a0abedba8a4bd316"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/result-false-false-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/result-false-false-false.json",
+    "sha256": "585aa0299b3b0a9ee7579f7acfcbaa024f2060cc9469b67a2cd737d1052ed9f0"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/saved.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/saved.xml",
+    "sha256": "570729666e575683c253f2f5e52f4074c8b90a5c65a2dfe0cfc2a1c233ffde2f"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/file-action-accepted.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/file-action-accepted.xml",
+    "sha256": "35b34452d36888b17c3bab841fd1da23adc54a4514187e15ec19e238158c2869"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/pending-acceptance-foreground.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/pending-acceptance-foreground.json",
+    "sha256": "0be7b333ae40eb1f7817f969b402a54bb6a059631da32af3ccde462e5c382d90"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/complete-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/complete-true-false.xml",
+    "sha256": "9412def3128fe03001267f1d06933ba7b4aa120ee9765398d833c594e658cc90"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/file-action-accepted.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/file-action-accepted.png",
+    "sha256": "82dd1b550e88a6722027de9dd42ec4ddb1c5850867e57d8dc439e637fe745bc1"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/native-capture-timings.jsonl",
+    "sha256": "462fe9a3eeb885b8ed4dee392e8e1f06963d969cb23be30d85a55f3f5b364e4c"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/incoming-accept.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/incoming-accept.xml",
+    "sha256": "4e4af21c264e04b60e9c80feb4aabaf8ffcf1e4018899f9219053b76de3780ac"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/complete-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/complete-true-false.png",
+    "sha256": "1b7cd3f1a4208db9926956a744f36a7edd9e9ea0fcc3955bbfb22653e3659401"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/active-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/active-true-false.png",
+    "sha256": "e227b325d37a88118b94bca74877f3de23b3426413850799bd30da3a4f851b2d"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/incoming-accept.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/incoming-accept.png",
+    "sha256": "e70f6b3f80cdb5ea11b77781240f19e808d2b464472d0afa69522b7e14f71a4e"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/result-true-false-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/result-true-false-false.json",
+    "sha256": "9a230625f4124d2eb13c931b5571ba23ba5475ebfb85c7a0e3b9c3b33f5d75bd"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/saved.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/saved.png",
+    "sha256": "3b436b850bf736621d2a94ce0acee512bb1e0d2ff228d25a6730d1a3e748a78e"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance/active-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance/active-true-false.xml",
+    "sha256": "7ed867cfffee085c8013b18777716b2d186f64eb57831f638599dd02eb64cfd2"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.png",
+    "sha256": "73698e31ef5dc2ac63ec318d071347e7605285da74e1c56cfd76613806004b1f"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/pending-acceptance-foreground.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/pending-acceptance-foreground.json",
+    "sha256": "0be7b333ae40eb1f7817f969b402a54bb6a059631da32af3ccde462e5c382d90"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/native-capture-timings.jsonl",
+    "sha256": "6df4459fc3752cb990f4993a4c0bb77927fcd806ad9fa33af2dcb6de7500ea15"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.xml",
+    "sha256": "4e4af21c264e04b60e9c80feb4aabaf8ffcf1e4018899f9219053b76de3780ac"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.png",
+    "sha256": "a479cbcd2cbd86b497f13ee654565a3573bb9ef538152bcf8fe0a04c9e811948"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.xml",
+    "sha256": "19e1444ca71ab3a98364d478a4069a4a4caa50dcd4db2ca26dfa5e09c49a37f4"
+  },
+  {
+    "path": "android10/captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final10-43852586005-captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.json",
+    "sha256": "835cbd304c98395763a7cd18d4638b468b2a89ed5c2f093ae2d42668a22e5a07"
+  },
+  {
+    "path": "android17/verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-verification.json",
+    "sha256": "958b0bbcc965bfa677dec6da05141e48f5538ab310136e6fc244242cf2c6c69e"
+  },
+  {
+    "path": "android17/assessment.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-assessment.json",
+    "sha256": "74b92e7b3e6f317d95e600adf8a5590d70061757aae28998b28a5b9746a398d0"
+  },
+  {
+    "path": "android17/file-menu-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-ui.txt",
+    "sha256": "7786776ce3165b3da26083e9d56a824c29a8476aeb53d06fb25b359687b67629"
+  },
+  {
+    "path": "android17/file-menu-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/file-menu-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/file-menu-busy-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-busy-ui.txt",
+    "sha256": "1f3a5bf573f6110b850d66ab325da25e302873fd2f1a07f3dc031998c01606f2"
+  },
+  {
+    "path": "android17/file-menu-busy-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-busy-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/file-menu-busy-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-busy-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/fileshare-send-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-send-ui.txt",
+    "sha256": "7942170084140ad13512cc521322073c83b3e203c96017c4e1c9073d86348f91"
+  },
+  {
+    "path": "android17/fileshare-send-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-send-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/fileshare-send-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-send-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/fileshare-receive-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-receive-ui.txt",
+    "sha256": "1150ad1e461ebc9ac926b4f441157b43b50236d3ff1b0f3baf9fd32b04e2ec4a"
+  },
+  {
+    "path": "android17/fileshare-receive-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-receive-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/fileshare-receive-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-receive-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/fileshare-cancel-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-cancel-ui.txt",
+    "sha256": "d3af2f20b65a83b4ad31c618d25a234add1b4001b4ccc9e293375572115a6336"
+  },
+  {
+    "path": "android17/fileshare-cancel-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-cancel-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/fileshare-cancel-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-cancel-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/fileshare-preparation-cancel-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-preparation-cancel-ui.txt",
+    "sha256": "2b8137fb414ee94dce0296808af6d8989a66068fcca23ccfaa23884f74f198ba"
+  },
+  {
+    "path": "android17/fileshare-preparation-cancel-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-preparation-cancel-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/fileshare-preparation-cancel-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-preparation-cancel-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/fileshare-notifications-ui.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-notifications-ui.txt",
+    "sha256": "ad8cfcf7ffdcf6e3c07cd0f8e058564f6a34939072c82190d6b0e0f1aedb5e6d"
+  },
+  {
+    "path": "android17/fileshare-notifications-ui-exit.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-notifications-ui-exit.txt",
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "android17/fileshare-notifications-capture-status.log",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/fileshare-notifications-capture-status.log",
+    "sha256": "f1e5a9bf918ef96d70d9349486079422501b73b2075852a4d83fcf868d65e188"
+  },
+  {
+    "path": "android17/file-menu-original-permissions.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-original-permissions.txt",
+    "sha256": "0db6fed9069e5e94ae35e0fe36e2d7df77efbe5b69242a5e6a36ade5e8cd2b51"
+  },
+  {
+    "path": "android17/file-menu-restored-permissions.txt",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-artifacts/.scratch/device-evidence/api-37.0/file-menu-restored-permissions.txt",
+    "sha256": "94538842486f0bfa0ca9047f968a314f4020182ead5700c3ceddd26984c532da"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/picker-cancelled-draft-retained.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/picker-cancelled-draft-retained.png",
+    "sha256": "6333be08a8ded17b00513bc127b2ac442a4a7f83305d573ceaaacfc6d6bfb524"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/real-document-picker.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/real-document-picker.png",
+    "sha256": "6da98072e03153946e6c802316bb45b3d6ecc6b428e2f35345f00b83973706d9"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/initial-loading-menu.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/initial-loading-menu.png",
+    "sha256": "52f803a9673cb6e2e86ebadf876bd469f6a8e3c71624004739061b0f9c996bcf"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/native-capture-timings.jsonl",
+    "sha256": "9dc140b92feeb7dfe7b25cc17dcab7654629c20239ce65e898b7fb2a0dcb8c9a"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/initial-loading-menu.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/initial-loading-menu.xml",
+    "sha256": "99b036651682ea30318eee2f2021b0215b2ba1aacaad0c573dce8ba3fc99c11a"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/picker-cancelled-draft-retained.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/picker-cancelled-draft-retained.xml",
+    "sha256": "42ff8102b78e4d587fd8a2c3a2616f6051c26a791a43ad591bf92dd4b404d424"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/loading-and-picker.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/loading-and-picker.json",
+    "sha256": "baa13de8b184194c505d6555bae7d69f95464087abedc8c4a5bbea1bf758ad1b"
+  },
+  {
+    "path": "android17/captures/file-menu-evidence/real-document-picker.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/file-menu-evidence/real-document-picker.xml",
+    "sha256": "2edcd0ecedbceb4a6841820f07c8dc40e1c6087739d03b973d122d6c30367755"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/saved.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/saved.xml",
+    "sha256": "2912e643ec4e682d7891d76078cede70a4d8d218a940d44b3d038676da81777d"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/file-action-preparing.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/file-action-preparing.xml",
+    "sha256": "ba98e85e6dd6dff75bff7e8249f8378393248a8fd52087449991233ab9a3bcf1"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/active-false-true.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/active-false-true.xml",
+    "sha256": "5d4d487434bfb6d7a43c86b28215efa26d93ac1b7b6c3ea0edc454d8cd192c49"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/notifications-disabled.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/notifications-disabled.png",
+    "sha256": "f6352b37b982cb3bd3d2a0d9afd70efe61da65bf1c37cb5c6eaebbf1c0ef44c2"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/preparation-active.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/preparation-active.xml",
+    "sha256": "db3904faaf0335d77ea61fb7540f72e66f747d3516d1791019198a29c431664b"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/complete-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/complete-true-false.xml",
+    "sha256": "61340bc8d850257c292639cef1a7743dcdeb9e526b461f07b76dd60588adedc9"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/active-false-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/active-false-false.xml",
+    "sha256": "8212a052beaa05457dd2655163b5ac39629893ce33e70fdcff2e2cf13669b4d8"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/complete-false-true.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/complete-false-true.png",
+    "sha256": "b955369b46ef791ae5c2a53ef9d5d12ebfc908ff5a3038f3e330f98598a61bc1"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/native-capture-timings.jsonl",
+    "sha256": "6c5f6cad23d7f75c27f9a888fe01aeb18ab0cbdcbe18f67a4cffc453fa4a1f02"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/notifications-disabled.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/notifications-disabled.xml",
+    "sha256": "2a9febc27712c48c2f0f8b1096ceb04a68858132fb44466e0ebc38ff168818c9"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/incoming-accept.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/incoming-accept.xml",
+    "sha256": "45e794daa9862d24f352adae108bb06b670b0c4daeb1ee2f1b8805cc34ea6e04"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/preparation-cancelled.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/preparation-cancelled.xml",
+    "sha256": "59d2a1870cc4b73f17034ef172a379e1aaf322236e3326042b9a060380fcc4b6"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/active-false-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/active-false-false.png",
+    "sha256": "249e7b72e20944aab0a4dda741950f73ac0872f430546c278413ca56014632cd"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/complete-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/complete-true-false.png",
+    "sha256": "add2021612ad3710d3dc16a31d28139ccda14fb9546165139468abf2da518959"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/complete-false-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/complete-false-false.png",
+    "sha256": "4e3043f98193c4e746eda22760cc407c7e91c59d7c772f9a642738bbd36afa36"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/result-false-true-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/result-false-true-false.json",
+    "sha256": "77bb2e67bfc0a9c18291dc1bc6af51091e46439379e797ce4bf5cd0f1ca10f7b"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/complete-false-true.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/complete-false-true.xml",
+    "sha256": "cff8e2d81db79578773c70f68a66c300b8b2d2e13da18c5e13b0c76854e6b52e"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/active-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/active-true-false.png",
+    "sha256": "8bdd3c6067957d31ff003626e4f8f33d05e15561b93c1d501f545ef487f45b3f"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/incoming-accept.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/incoming-accept.png",
+    "sha256": "2e8c3c86a1f120ebbc0f70b45a1b2a9125c952c8e0e51efca07bbcb433d023bf"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/active-false-true.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/active-false-true.png",
+    "sha256": "afc456565881ac112fca4b2d7143a06ef6786a107d45f58605d86911f401945e"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/preparation-cancelled.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/preparation-cancelled.json",
+    "sha256": "d8cd10cf261e666cce690e7766616ce12b8fb2c38e8c1f407e6bc51bd6d387bb"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/file-action-preparing.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/file-action-preparing.png",
+    "sha256": "528e4a6b8c146c7027cf572b3a450f775b5805bed48a558c559199c3343deff6"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/result-true-false-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/result-true-false-false.json",
+    "sha256": "9a230625f4124d2eb13c931b5571ba23ba5475ebfb85c7a0e3b9c3b33f5d75bd"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/saved.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/saved.png",
+    "sha256": "1179e838d8034bc282388600d82bfe8107c8897193081c2642a1d373f2570d87"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/active-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/active-true-false.xml",
+    "sha256": "6bc9b3a378ba9c38a3604fd1f117c5d4e9078266b3cf203b1587194de5ba5e46"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/complete-false-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/complete-false-false.xml",
+    "sha256": "2f00bcd26458d1a962daa0130a362c2ba6887156841e25c38ed9dd93ea608528"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/notifications-disabled.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/notifications-disabled.json",
+    "sha256": "cb4cc4833388cb16bc62a524703e71559295a5cf40cccd2f24798eaa5dbaeedd"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/preparation-cancelled.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/preparation-cancelled.png",
+    "sha256": "6413127abbebaf5a54632171f3111310a6930405f1e02ad9daba5bb594472bdf"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/preparation-active.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/preparation-active.png",
+    "sha256": "c43613e6699afe29e9228f0cafd92dd0b6d8dc0e2cf6af9cc91eeedfe9826489"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/result-false-false-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/result-false-false-false.json",
+    "sha256": "585aa0299b3b0a9ee7579f7acfcbaa024f2060cc9469b67a2cd737d1052ed9f0"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/saved.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/saved.xml",
+    "sha256": "ca8ce15fed33f1ab4da0d54605208cd12e9a666d6baf507b61354f05179119f6"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/file-action-accepted.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/file-action-accepted.xml",
+    "sha256": "5204a49c05460c72af5de4887c8254bb5ac0ec40c0d90bd71fdc90ee1c463934"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/pending-acceptance-foreground.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/pending-acceptance-foreground.json",
+    "sha256": "0be7b333ae40eb1f7817f969b402a54bb6a059631da32af3ccde462e5c382d90"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/complete-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/complete-true-false.xml",
+    "sha256": "633787bd933fbd34e7741057277e615e1c4bdfbd8db004663988afeb0818f613"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/file-action-accepted.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/file-action-accepted.png",
+    "sha256": "254fe41bb8a25d84304bfad5e1527a89e2ad62ed26e41d5c32d9fdffda65e958"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/native-capture-timings.jsonl",
+    "sha256": "2d0e842c6fc9aa8d4821d2b5d0c43e79517a5a1588ae7ecb1fcf76fdfed42b17"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/incoming-accept.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/incoming-accept.xml",
+    "sha256": "822c7ea45459cd2604bf67b2a8b0f7a9e831cc65d8ea381c7cd10b8bda0395f6"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/complete-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/complete-true-false.png",
+    "sha256": "6dfd5b7f58c8758938043a9626f9bf9d301e41554529a3d0c91a0e8b0dca7af0"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/active-true-false.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/active-true-false.png",
+    "sha256": "b2c3cbb9c0d4c19b2f652215a3843dfc982a523b71155b0065ced3cfec4ee397"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/incoming-accept.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/incoming-accept.png",
+    "sha256": "6c35a2a13d32c701cdf647fa776d8f7c65f361e6f388bea90207af06c3638f04"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/result-true-false-false.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/result-true-false-false.json",
+    "sha256": "9a230625f4124d2eb13c931b5571ba23ba5475ebfb85c7a0e3b9c3b33f5d75bd"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/saved.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/saved.png",
+    "sha256": "b9f9c227bdb2920acf289ed1e6287e55eabb67a3ab58416bb3b95a6fb36d9803"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance/active-true-false.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance/active-true-false.xml",
+    "sha256": "604c1ceeea8112b88c5ae68cd3bf3ef8261c96b492fcd040b255e64f87808f12"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.png",
+    "sha256": "bf5a72ac64a95e465b2643d862098c6cf370edbcea5ec2b5bb9012db4c0423b4"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/pending-acceptance-foreground.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/pending-acceptance-foreground.json",
+    "sha256": "7a7031b5fa70df61ca1aa1e94cfb2155d55c853a0e2974064a2b99b43e5a31e8"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/native-capture-timings.jsonl",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/native-capture-timings.jsonl",
+    "sha256": "14010d269b3ef791d20020e3e0b331e9c309b1668b0bbfb53c47e0d2279d301e"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.xml",
+    "sha256": "822c7ea45459cd2604bf67b2a8b0f7a9e831cc65d8ea381c7cd10b8bda0395f6"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.png",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/incoming-accept.png",
+    "sha256": "6c35a2a13d32c701cdf647fa776d8f7c65f361e6f388bea90207af06c3638f04"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.xml",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.xml",
+    "sha256": "f4bc3b4bca73b67d0a92ca8b49f7a575b5f6409a9baff7c976c1778b351b21a4"
+  },
+  {
+    "path": "android17/captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final17-43852586018-captures/fileshare-evidence/pending-acceptance-cancel/cancelled-before-grant.json",
+    "sha256": "835cbd304c98395763a7cd18d4638b468b2a89ed5c2f093ae2d42668a22e5a07"
+  },
+  {
+    "path": "source-bridge.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/source-bridge.json",
+    "sha256": "6b8de21fc3b132ae4f31cc5c3ffed9219aa1256d331d001d27eb5b3c95fdc0d1"
+  },
+  {
+    "path": "retained-run-inventory.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/retained-run-inventory.json",
+    "sha256": "6edd0ec79c9650334a767eb1702370b2a3bcc513d521f2300294acffcf97aba5"
+  },
+  {
+    "path": "source-verification.json",
+    "source": "/mnt/storage/redsquare-android-artifacts/file-menu129/final-source-43849560389-verification.json",
+    "sha256": "67a07ce970d477dd8db54c74f5b9dd785dfc774fa16340d5420f160a4bca3d96"
+  }
+]

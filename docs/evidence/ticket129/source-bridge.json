@@ -1,0 +1,18 @@
+{
+  "from": "1e170ba024b0d3a4af0cf0bb98b131a1e3ade3db",
+  "to": "1619140c7c27f54040c0549fdca2a63f15fbba7f",
+  "onlyDifferingPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FileshareAttachmentAvailabilityTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FileshareAttachmentBusyTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FileshareAttachmentTestUi.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/FilesharePreviewTest.kt",
+    "scripts/emulator-check"
+  ],
+  "identicalGitEntries": 227699,
+  "canonicalIdenticalEntriesSha256": "e60e896c40402bd58593e97a9115725a60ed0b82814c56c0ac4f024f0af7fc0f",
+  "canonicalIdenticalEntriesSerialization": "UTF-8 LF terminated: lexically sorted path + TAB + git ls-tree left-of-TAB (mode SPACE type SPACE OID), join LF and append final LF",
+  "productCoreResourcesBuildWorkflowAndControlledPeerByteIdentical": true,
+  "harnessChangedAdditively": true,
+  "qualification": "Four AndroidTest files add real busy-menu/focus/touch checks and independent shade cleanup. The harness adds new classes to full Fileshare and expands the focused scope to ten methods/seven groups.",
+  "originalNativeGoalsAndDeadlinesPreserved": true
+}

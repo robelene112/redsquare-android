@@ -10,7 +10,28 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current next ticket: #129 (explain unavailable Chat Add file actions).
+Current next ticket: #130 (manual retained received Fileshare management).
+
+#129 is complete: product/source1e170ba024b0d3a4af0cf0bb98b131a1e3ade3db,
+native fixture1619140c7c27f54040c0549fdca2a63f15fbba7f. See
+[the packet](../evidence/ticket129/README.md). The file row explains actual loading,
+preparation/transfer/picker restrictions and stays disabled without closing the
+menu. Text/photo/GIF controls and writer focus are retained. The real initial IO
+hold releases to one actual DocumentsUI launch with encrypted draft preservation.
+Whole relevant Android10/17 parents43852586005/43852586018 each complete10 methods/
+seven groups, retaining original transfer/cancel/denied-permission assertions and
+180s class/10s held-Relay bounds. Both independent axes accept172 indexed copies,
+all633ZIP/249TAR originals across seven receipts and227699-entry canonical bridge.
+Four AndroidTest files and additive harness coverage differ from source/debug1e;
+product/core/resources/build/workflow/controlled peer are identical. Source43849560389
+has224core tests/44classes, zero failures/ignored, core/gateway FROM-CACHE and
+lint0errors/95warnings/3hints. Earlier failed complete parents retain their covering
+SystemUI-shade captures without an invented earlier causal timeline; independent
+cleanup closes visible shade before state restoration. API29 loadingXML omits
+disabled row text; its PNG and native assertions prove the label. Physical/live/
+whole-app/performance/release limits remain. Public beta stays131; continue130,
+then final131 without approval. Originals:
+`/mnt/storage/redsquare-android-artifacts/file-menu129`.
 
 #128 is complete: product62f4146cb2eca09d21e566c1f833bd0eb5d10a6a,
 source/debug78bc22eda545039dea5be51db5b0c7aa6b574016, native fixture
