@@ -119,7 +119,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         indexedRows.sortedByDescending { it.first }.take(20).forEach { add(it.second) }
     }.toString() else null
     val queries = CopyOnWriteArrayList<JsonObject>()
-    val oversized = AtomicInteger()
+    val constructedOversized = AtomicInteger()
     val respond: (JsonObject) -> String = { query ->
         queries.add(query.deepCopy())
         val selected = if (query.get("field1")?.asString !in setOf("RedSquare", "RedSquareRetweet") || (search && query.has("field4")) || (following && !query.has("field2"))) emptyList() else indexedRows.filter { (id, row) ->
@@ -138,7 +138,7 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
         (if (following && selected.size == 20 && query.get("limit")?.asInt == 20 &&
                 !query.has("created_at") && !query.has("id") && !query.has("ascending")) requireNotNull(preparedFollowingPage)
             else selected.joinToString(",", "[", "]")).also {
-            if (it.toByteArray().size + 5 > SaitoPeer.MAX_RESPONSE_BYTES) oversized.incrementAndGet()
+            if (it.toByteArray().size + 5 > SaitoPeer.MAX_RESPONSE_BYTES) constructedOversized.incrementAndGet()
         }
     }
     val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" },
@@ -250,19 +250,27 @@ internal fun exercisePhotoPages(ui: ComposeTestRule, search: Boolean = false,
                     ui.waitUntil(30_000) { ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 }
                 check(reached.size == postCount)
-                    check(when { bothStreams -> oversized.get() == 0; largeRows -> oversized.get() in 1..4; else -> oversized.get() == 1 }) { "The same oversized page was requested again" }
+                    // A held payload has not reached the receive seam. Count queued
+                    // replies/releases, retaining preparation separately for diagnosis.
+                    val callbacks = peer.archiveObservations.toList()
+                    check(callbacks.size < 256) { "The response observation window was truncated" }
+                    val oversized = callbacks.count { event -> event.get("queued")?.asBoolean == true &&
+                        event.get("bytes").asInt > SaitoPeer.MAX_RESPONSE_BYTES }
+                    val constructedCount = constructedOversized.get()
+                    check(when { bothStreams -> oversized == 0; largeRows -> oversized in 1..4; else -> oversized == 1 }) { "The same oversized page was requested again" }
                     check(peer.transactions.isEmpty())
                     check(backends.load() == SaitoBackend.OWNER)
                     check(wallets.loadExisting().exportJson() == wallet.exportJson())
                     captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/$mode-all-reached.png"))
                     File(context.cacheDir, "photo-pages-evidence/$mode-reads.json").writeText(JsonObject().apply {
-                        addProperty("combinedBytes", combinedBytes); addProperty("oversizedReplies", oversized.get())
+                        addProperty("combinedBytes", combinedBytes); addProperty("oversizedReplies", oversized)
+                        addProperty("constructedOversizedReplies", constructedCount)
                         addProperty("reachedPosts", postCount); addProperty("cachedAnchorPreserved", following); addProperty("publications", peer.transactions.size)
                         cachedAnchor?.let { (before, after) ->
                             addProperty("cachedAnchorBefore", before); addProperty("cachedAnchorAfter", after)
                         }
                         add("queries", JsonArray().apply { queries.forEach(::add) })
-                        add("callbacks", JsonArray().apply { peer.archiveObservations.forEach { add(it) } })
+                        add("callbacks", JsonArray().apply { callbacks.forEach { add(it) } })
                     }.toString())
                     peer.assertHealthy()
                 }
