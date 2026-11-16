@@ -853,16 +853,16 @@ class MainActivity : ComponentActivity() {
                                         stringResource(if (androidx.core.app.NotificationManagerCompat.from(applicationContext)
                                             .areNotificationsEnabled()) R.string.settings_notifications_allowed
                                             else R.string.settings_notifications_blocked)) { settingsCategory = "notifications" }
-                                    if (wallet != null && backend != null) AccountActionRow(stringResource(R.string.settings_storage),
-                                        R.drawable.ic_file, summary = stringResource(R.string.settings_storage_summary)) {
-                                        receivedFilesScope = nl.davidengelen.redsquare.fileshare.ReceivedFilesScope(wallet!!.publicKey, backend!!)
-                                        settingsOpen = false; settingsCategory = null
-                                    }
                                     Text(stringResource(R.string.settings_app_section), style = MaterialTheme.typography.titleSmall)
                                     AccountActionRow(stringResource(R.string.server_choice), R.drawable.ic_globe, summary =
                                         backend?.domain ?: stringResource(R.string.feed_loading)) { settingsCategory = "node" }
                                     AccountActionRow(stringResource(R.string.appearance), R.drawable.ic_appearance, summary =
                                         stringResource(appearance.label)) { settingsCategory = "appearance" }
+                                    if (wallet != null && backend != null) AccountActionRow(stringResource(R.string.settings_storage),
+                                        R.drawable.ic_file, summary = stringResource(R.string.settings_storage_summary)) {
+                                        receivedFilesScope = nl.davidengelen.redsquare.fileshare.ReceivedFilesScope(wallet!!.publicKey, backend!!)
+                                        settingsOpen = false; settingsCategory = null
+                                    }
                                     AccountActionRow(stringResource(R.string.settings_about), R.drawable.ic_info, summary =
                                         stringResource(R.string.settings_about_summary)) { settingsCategory = "about" }
                                 }
