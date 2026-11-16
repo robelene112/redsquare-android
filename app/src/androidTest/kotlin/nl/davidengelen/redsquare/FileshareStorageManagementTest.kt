@@ -54,6 +54,12 @@ class FileshareStorageManagementTest {
                 exportCreated = true
                 store.export(value, exported)
                 store.save(value.copy(phase = FilePhase.SAVED))
+                // Preserve the actual encrypted pre-130 schema to exercise an installed app's retained copies.
+                val metadataName = context.noBackupFilesDir.listFiles()!!.single { it.name.endsWith("$token.info") }.name
+                val metadata = EncryptedLocalFile(context, metadataName, "fileshare.metadata.v1", "fileshare.")
+                val legacy = com.google.gson.JsonParser.parseString(metadata.load()!!.text).asJsonObject
+                listOf("owner", "backend", "contact").forEach(legacy::remove)
+                metadata.save(EncryptedLocalFile.Contents(1, legacy.toString()))
                 assertArrayEquals(bytes, context.contentResolver.openInputStream(exported)!!.use { it.readBytes() })
                 assertTrue("Save as retains the app's original encrypted copy", payload.isFile)
                 val history = PrivateChat.create(contact, wallet.publicKey, "Retain this chat history", System.currentTimeMillis())

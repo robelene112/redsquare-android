@@ -45,7 +45,7 @@ public final class FileshareTestProvider extends ContentProvider {
             return new Bundle();
         }
         if (!"prepare".equals(method)) throw new IllegalArgumentException("Unknown synthetic document action");
-        if (name.startsWith("unknown-stalled")) { gate = new java.util.concurrent.CountDownLatch(1); firstWritten = false; }
+        if (name.startsWith("unknown-stalled") || name.startsWith("export-stalled")) { gate = new java.util.concurrent.CountDownLatch(1); firstWritten = false; }
         File target = file(name);
         try (FileOutputStream out = new FileOutputStream(target)) { out.write(extras.getByteArray("bytes")); }
         catch (Exception failure) { throw new IllegalStateException(failure); }
@@ -75,6 +75,14 @@ public final class FileshareTestProvider extends ContentProvider {
                 }, "controlled-file-provider").start();
                 return pipe[0];
             } catch (java.io.IOException failure) { throw new FileNotFoundException("Controlled provider unavailable"); }
+        }
+        if (mode.contains("w") && uri.getLastPathSegment().startsWith("export-stalled")) {
+            firstWritten = true;
+            try {
+                if (!gate.await(30, java.util.concurrent.TimeUnit.SECONDS)) throw new FileNotFoundException("Controlled export gate timed out");
+            } catch (InterruptedException interrupted) {
+                Thread.currentThread().interrupt(); throw new FileNotFoundException("Controlled export interrupted");
+            }
         }
         return ParcelFileDescriptor.open(file(uri.getLastPathSegment()), ParcelFileDescriptor.parseMode(mode));
     }

@@ -6,6 +6,7 @@ import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.saito.*
 import java.io.Serializable
+import java.io.File
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
@@ -29,7 +30,8 @@ internal object ReceivedFileLocks {
 }
 
 /** Device-only Fileshare storage. All callers run scans and unlink operations away from the main thread. */
-internal class ReceivedFiles(private val context: Context, private val scope: ReceivedFilesScope) {
+internal class ReceivedFiles(private val context: Context, private val scope: ReceivedFilesScope,
+    private val unlink: (File) -> Boolean = File::delete) {
     private fun selected(): SaitoWallet = synchronized(SaitoLocalState.lock) {
         AndroidWalletStore(context).loadExisting().also {
             check(it.publicKey == scope.owner && AndroidBackendStore(context).load() == scope.backend)
@@ -96,7 +98,7 @@ internal class ReceivedFiles(private val context: Context, private val scope: Re
                 check(current.incoming && current.phase.delivered)
                 check(FileshareRuntime.transfers.value.none { it.owner == scope.owner && it.backend == scope.backend &&
                     it.contact == value.contact && it.token == value.token && (it.phase.active || it.phase == FilePhase.OFFERED) })
-                store.removeReceived(current)
+                store.removeReceived(current, unlink)
             }
         } finally {
             lease.unlock()

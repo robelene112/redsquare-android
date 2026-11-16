@@ -111,10 +111,10 @@ internal class FileTransferStore(private val context: Context, private val owner
     fun retainedBytes(token: String): Long = listOf("data", "part", "inbox").sumOf { file(token, it).length() }
 
     /** Journal before unlinking. A failed or interrupted unlink can never advertise an exportable copy. */
-    fun removeReceived(value: FileTransfer) {
+    fun removeReceived(value: FileTransfer, unlink: (File) -> Boolean = File::delete) {
         require(value.incoming && value.phase.delivered)
         removal(value.token).save(EncryptedLocalFile.Contents(1, "removed"))
-        discard(value.token)
+        discard(value.token, unlink)
     }
 
     fun begin(value: FileTransfer): Spool {
@@ -140,10 +140,10 @@ internal class FileTransferStore(private val context: Context, private val owner
             return spool.count
         }
     }
-    fun discard(token: String) {
+    fun discard(token: String, unlink: (File) -> Boolean = File::delete) {
         for (suffix in listOf("part", "data", "inbox")) {
             val target = file(token, suffix)
-            check(!target.exists() || target.delete())
+            check(!target.exists() || unlink(target))
         }
     }
 
