@@ -20,7 +20,10 @@ import java.util.concurrent.atomic.AtomicInteger
 class PhotoPagesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun allPhotoPostsAtOneTimestampStayReachableAfterAnOversizedFeedResponse() {
+    @Test fun allPhotoPostsAtOneTimestampStayReachableAfterAnOversizedFeedResponse() = exercise(search = false)
+    @Test fun searchCanContinueThroughAllPhotoPostsAtOneTimestamp() = exercise(search = true)
+
+    private fun exercise(search: Boolean) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -30,7 +33,8 @@ class PhotoPagesPreviewTest {
         val backends = AndroidBackendStore(context)
         val oldBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("feed.${SaitoBackend.OWNER.id}.",
-            "personal.${wallet.publicKey}."), wallet.publicKey)
+            "search.${SaitoBackend.OWNER.id}.", "personal.${wallet.publicKey}."), wallet.publicKey)
+        val mode = if (search) "search" else "feed"
         val timestamp = 1700000000123L
         val random = java.util.Random(125)
         val bitmap = Bitmap.createBitmap(800, 800, Bitmap.Config.ARGB_8888)
@@ -66,7 +70,7 @@ class PhotoPagesPreviewTest {
         val oversized = AtomicInteger()
         val peer = ControlledFeedPeer("[]", profileArchiveResponse = { "[]" }, archiveResponse = { query ->
             queries.add(query.deepCopy())
-            val selected = if (query.get("field1")?.asString != "RedSquare") emptyList() else rows.filter { row ->
+            val selected = if (query.get("field1")?.asString != "RedSquare" || (search && query.has("field4"))) emptyList() else rows.filter { row ->
                 (!query.has("id") || query.get("id").asLong == row.get("id").asLong) &&
                     (!query.has("sig") || query.get("sig").asString == row.get("sig").asString) &&
                     (!query.has("created_at") || query.get("created_at").asLong == timestamp) &&
@@ -87,22 +91,46 @@ class PhotoPagesPreviewTest {
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/failure.png")) }) {
+                    withFailureCapture({ captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/$mode-failure.png")) }) {
+                        if (search) {
+                            ui.waitUntil(20_000) { ui.onAllNodesWithText("Search").fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNodeWithText("Search").performClick()
+                            ui.onNode(hasSetTextAction()).performTextInput("Photo page")
+                            ui.onNodeWithContentDescription("Search history").assertIsEnabled()
+                            ui.onNodeWithContentDescription("Search history").performClick()
+                        }
                         ui.waitUntil(30_000) {
                             peer.assertHealthy()
                             ui.onAllNodesWithText("Photo page item 20", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
                         }
                         val list = ui.onNode(hasScrollToNodeAction())
-                        for (number in 20 downTo 1) {
-                            list.performScrollToNode(hasText("Photo page item $number"))
-                            ui.onNodeWithText("Photo page item $number", useUnmergedTree = true).assertIsDisplayed()
+                        val reached = mutableSetOf<Int>()
+                        for (window in 0 until if (search) 5 else 1) {
+                            val available = if (!search) (20 downTo 1).toList() else {
+                                // A byte-bounded result window may replace earlier cards. Observe
+                                // each native window before explicitly continuing to the next one.
+                                val lowRead = queries.any { query -> query.has("ascending") }
+                                if (lowRead) (1..10).toList() else (20 downTo 11).toList()
+                            }
+                            for (number in available) {
+                                list.performScrollToNode(hasText("Photo page item $number"))
+                                ui.onNodeWithText("Photo page item $number", useUnmergedTree = true).assertIsDisplayed()
+                                reached.add(number)
+                            }
+                            if (search && reached.size < 20) {
+                                list.performScrollToNode(hasText("Load more"))
+                                ui.onNodeWithText("Load more").assertIsEnabled().performClick()
+                                ui.waitUntil(30_000) { ui.onAllNodes(hasText("Load more") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            }
+                            if (reached.size == 20) break
                         }
+                        check(reached.size == 20)
                         check(oversized.get() == 1) { "The same oversized page was requested again" }
                         check(peer.transactions.isEmpty())
                         check(backends.load() == SaitoBackend.OWNER)
                         check(wallets.loadExisting().exportJson() == wallet.exportJson())
-                        captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/all-reached.png"))
-                        File(context.cacheDir, "photo-pages-evidence/reads.json").writeText(JsonObject().apply {
+                        captureNativeScreen(File(context.cacheDir, "photo-pages-evidence/$mode-all-reached.png"))
+                        File(context.cacheDir, "photo-pages-evidence/$mode-reads.json").writeText(JsonObject().apply {
                             addProperty("combinedBytes", combinedBytes); addProperty("oversizedReplies", oversized.get())
                             addProperty("reachedPosts", 20); addProperty("publications", peer.transactions.size)
                             add("queries", JsonArray().apply { queries.forEach(::add) })
