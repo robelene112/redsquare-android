@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "source": "d3314b923e69c5f03247358317c3135b66025c5b",
+  "run": 43887027354,
+  "sdk": "10",
+  "versions": [
+    131,
+    134
+  ],
+  "candidateSha256": "fb0df0083b618d65bcbd01710113705c0c7379c8a84e11ca1b01dd3a52b99ca5",
+  "candidateBytes": 94265888,
+  "rawFiles": 31,
+  "nativeMembers": 23,
+  "moduleObserverSha256": "99dcf64b0d239c2462b03455ee8ef9e4821928dfdbbf08ad5c4df368e8c615e4",
+  "legacyFilesharePayloadAndHistoryPreserved": true,
+  "pendingVaultStoreAndOfflineDraftExportPreserved": true,
+  "walletNodeDraftCachePreferenceAndDebugIsolationPreserved": true,
+  "qualification": "Actual signed131-to134 install-r and cold relaunch on guarded disposable emulators. Unsafe public fixtures only, no network submissions. Module observer test source and directly used crypto/persistence APIs are unchanged from its99eb compilation; intentional MainActivity Settings corrections are exercised through public UI. Whole-app and physical/live/provider/Play acceptance remain separate."
+}

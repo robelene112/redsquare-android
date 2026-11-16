@@ -1,0 +1,36 @@
+{
+  "qualification": "Intermediate source and update reviews only; no whole-app acceptance or public promotion. Candidate134 superseded after later product correction.",
+  "signed131to134": {
+    "source": "d3314b923e69c5f03247358317c3135b66025c5b",
+    "runs": [
+      43887027354,
+      43887027355
+    ],
+    "spec": {
+      "result": "PASS",
+      "findings": 0,
+      "reviewer": "/root/storage130_spec",
+      "scope": "Original ZIP digests/bytes, raw/native indices, APK bytes/version/package/certificate, test/core source observer bridge, wallet/node/draft/cache/preference/isolation, Fileshare legacy payload/history and pending Vault/Store work, both cold launches and restoration. Native visible draft/cache/preference screenshots independently inspected."
+    },
+    "standards": {
+      "result": "PASS",
+      "findings": 0,
+      "reviewer": "/root/storage130_standards",
+      "scope": "Independently reproduced assessor without modifications, original ZIP/TAR/packet byte indices, exact actual APK identity and observer source bridge, all normal methods and retained work/cleanup. Update only."
+    }
+  },
+  "composerRecoveryStatus": {
+    "source": "d1cba3a36823145f2dd40a9a53464d6013fdcbc9",
+    "spec": {
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0,
+      "reviewer": "/root/storage130_spec"
+    },
+    "standards": {
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0,
+      "reviewer": "/root/storage130_standards"
+    },
+    "qualification": "Native corrected composer and unfinished-text evidence still required. RTC delta is bounded diagnostic-only, no negotiation behavior changed."
+  }
+}
