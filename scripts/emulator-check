@@ -1275,6 +1275,10 @@ verify_unfinished_text() {
     verify_group_chat_native UnfinishedTextStorageTest 180 unfinished-text-storage unfinished-text-storage-evidence
     python3 "$repo_dir/scripts/unfinished-text-process-check" --evidence "$evidence/unfinished-text-process"
 }
+if [[ "${TEST_SCOPE:-full}" == received-storage* ]]; then
+    verify_group_chat_native FileshareStorageManagementTest 180 received-storage received-storage-evidence
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == file-menu* ]]; then
     verify_vault_notification_native FileshareAttachmentAvailabilityTest 180 file-menu file-menu-evidence
     verify_fileshare_case FileshareAttachmentBusyTest file-menu-busy

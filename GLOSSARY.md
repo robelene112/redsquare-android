@@ -38,6 +38,16 @@ checked that information. It describes that node's report, rather than a global
 network lag estimate or the completeness of post history.
 
 
+## Fileshare
+
+**Retained received file**:
+A completed file received through Chat and kept inside the app on this device
+until deliberately removed. Saving a separate copy elsewhere does not remove it.
+
+**Locally unavailable received file**:
+A received transfer whose copy is no longer available for opening or saving
+from the app, while the transfer's chat record remains.
+
 ## Vault and Store
 
 **Vault file**:
