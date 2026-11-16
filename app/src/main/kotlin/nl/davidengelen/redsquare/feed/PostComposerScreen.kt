@@ -196,15 +196,16 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
 
             }
             val localStatus = if (transaction != null || !ready || error || saving || sending) null else when {
-                recoveryError -> R.string.unfinished_text_recovery_failed
+                recoveryError -> R.string.post_unsaved_changes
                 text.isEmpty() && images.isEmpty() -> R.string.status_unsent_draft
                 locallySaved -> R.string.post_saved_device
                 else -> R.string.post_unsaved_changes
             }
-            InlineStatus(localStatus?.let { stringResource(it) }, if (recoveryError) StatusTone.WARNING else StatusTone.INFO,
-                details = if (recoveryError) emptyList() else listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
-                announce = recoveryError, actionLabel = if (recoveryError) stringResource(R.string.retry) else null,
-                onAction = ::retryRecovery)
+            InlineStatus(localStatus?.let { stringResource(it) }, StatusTone.INFO,
+                details = listOf(stringResource(if (locallySaved && !recoveryError) R.string.post_draft_local else R.string.post_unsaved_detail)),
+                announce = false)
+            InlineStatus(if (localStatus != null && recoveryError) stringResource(R.string.unfinished_text_recovery_failed) else null,
+                StatusTone.WARNING, actionLabel = stringResource(R.string.retry), onAction = ::retryRecovery)
             val deliveryStatus = when {
                 checking -> R.string.post_checking
                 preparingImages -> R.string.image_preparing
