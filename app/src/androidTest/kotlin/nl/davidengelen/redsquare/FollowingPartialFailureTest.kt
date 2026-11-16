@@ -79,14 +79,21 @@ class FollowingPartialFailureTest {
                 val endpoint = "ws://127.0.0.1:" + server.port + "/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use {
-                    withFailureCapture({ captureNativeScreen(File(context.cacheDir,
-                        "following-partial-evidence/" + mode + "-failure.png")) }) {
+                    withFailureCapture({
+                        val folder = File(context.cacheDir, "following-partial-evidence").apply { mkdirs() }
+                        File(folder, mode + "-failure-reads.json").writeText(JsonObject().apply {
+                            add("authorReadOrder", JsonArray().apply { attempts.forEach { add(it) } })
+                            add("callbacks", JsonArray().apply { peer.archiveObservations.forEach { add(it) } })
+                        }.toString())
+                        captureNativeScreen(File(folder, mode + "-failure.png"))
+                    }) {
                         ui.waitUntil(15_000) { ui.onAllNodesWithText("Following").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Following").performClick()
                         val list = ui.onNodeWithTag("feed-post-list")
                         ui.waitUntil(20_000) {
                             peer.assertHealthy()
-                            list.fetchSemanticsNode().config[SemanticsProperties.CollectionInfo].rowCount == 3
+                            ui.onAllNodesWithTag("feed-post-list").fetchSemanticsNodes().singleOrNull()
+                                ?.config?.get(SemanticsProperties.CollectionInfo)?.rowCount == 3
                         }
                         fun display(text: String) {
                             list.performScrollToIndex(0); list.performScrollToNode(hasText(text))
