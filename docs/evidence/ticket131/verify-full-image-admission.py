@@ -7,12 +7,12 @@ original = packet / 'verify-full.py'
 assert hashlib.sha256(original.read_bytes()).hexdigest() == '2895a8c6623d875b68d36512cc4f28dbcb1795b3ba4c3aa24e8de381c4f277e8'
 text = original.read_text()
 # Keep the original245b profile/adapter runnable for its complete primary. The
-# fixture-only source has a distinct, pre-execution profile and adapter identity.
+# corrected product has a distinct, pre-execution profile and adapter identity.
 for before, after, occurrences in [
     ('docs/evidence/ticket131/source-profile.json', 'docs/evidence/ticket131/source-profile-image-admission.json', 1),
     ('docs/evidence/ticket131/verify-full.py', 'docs/evidence/ticket131/verify-full-image-admission.py', 2),
 ]:
     assert text.count(before) == occurrences
     text = text.replace(before, after, occurrences)
-exec(compile(text, str(original) + ':separate-video-fixture-profile', 'exec'),
+exec(compile(text, str(original) + ':separate-image-admission-profile', 'exec'),
     dict(__file__=__file__, __name__='__main__'))
