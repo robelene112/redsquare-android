@@ -1,0 +1,52 @@
+{
+  "source": "cb575f1731b8ffe884c603c5a06ba9d950259c73",
+  "run": 43780001228,
+  "passedNativeMethods": 5,
+  "groups": [
+    {
+      "group": "talk-account-replacement",
+      "class": "TalkAccountReplacementTest",
+      "passedMethods": [
+        "replacementReceivesIncomingCallsAndStartsACallAfterTheOldDetach"
+      ],
+      "sha256": "c08bd2dee67f32e5d0dd549e5e1ad60cf06723f0517fff988fc30e36fbd10ef5"
+    },
+    {
+      "group": "talk-ownership",
+      "class": "TalkOwnershipPreviewTest",
+      "passedMethods": [
+        "oldNotificationCannotEndANewerCallAndTheCurrentHangupReleasesCapture",
+        "walletNodeAndBlockingChangesSilenceTheOldCaptureBeforeTheWriteReturns"
+      ],
+      "sha256": "89c2a5e07279f1ab35565e370a6617a1a5f6cc67aec13aec9071c708e04ca5a0"
+    },
+    {
+      "group": "talk-lifecycle",
+      "class": "TalkLifecyclePreviewTest",
+      "passedMethods": [
+        "losingAndroidAudioFocusInterruptsTheExactCallAndReleasesItsForegroundOwnership"
+      ],
+      "sha256": "0051cb79685493fd5782c1adde937a01e3421d8af837dd8ac729c4f053a0df1f"
+    },
+    {
+      "group": "talk-camera-lifecycle",
+      "class": "TalkCameraLifecyclePreviewTest",
+      "passedMethods": [
+        "enablingVideoInAVoiceRoomUpdatesForegroundOwnershipAndPausesAndResumesActualCameraCapture"
+      ],
+      "sha256": "aeee1cc5af8ff853de71439d6cdb1c788c6ab5bcb61ef66348f77a1d0dfe97be"
+    }
+  ],
+  "replacementObservation": {
+    "oldDetachQueuedAt": 22714,
+    "replacementAcquiredAt": 22714,
+    "oldDetachReleasedAt": 22714,
+    "incomingReachedReplacement": true,
+    "actualActivityRecreationRetainsCall": true,
+    "controlledCallStarted": true,
+    "activeCallSurvivesBackground": true
+  },
+  "limitations": [
+    "Owned emulator peer; no production node/provider, physical/OEM, TURN/NAT or killed-app incoming qualification."
+  ]
+}

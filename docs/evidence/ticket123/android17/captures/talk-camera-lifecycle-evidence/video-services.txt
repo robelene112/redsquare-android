@@ -1,0 +1,36 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 0 active services:
+  * ServiceRecord{ff46b5d u0 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.talk.TalkService c:nl.davidengelen.redsquare.dev}
+    intent={cmp=nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.talk.TalkService}
+    packageName=nl.davidengelen.redsquare.dev
+    processName=nl.davidengelen.redsquare.dev
+    targetSdkVersion=36
+    baseDir=/data/app/~~4Yn-gVa3LIh2iWYhjAvKhw==/nl.davidengelen.redsquare.dev-FJMnoeQdfFtKNA60M6KUww==/base.apk
+    dataDir=/data/user/0/nl.davidengelen.redsquare.dev
+    app=ProcessRecord{311db08 4757:nl.davidengelen.redsquare.dev/u0a234}
+    useNewWiuLogic_forCapabilities()=true
+    useNewWiuLogic_forStart()=true
+    useNewBfslLogic()=true
+    mAllowWiu_noBinding=PROC_STATE_TOP
+    mAllowWiu_inBindService=DENIED
+    mAllowWiu_byBindings=DENIED
+    getFgsAllowWiu_legacy=PROC_STATE_TOP
+    getFgsAllowWiu_new=PROC_STATE_TOP
+    getFgsAllowWiu_forStart=PROC_STATE_TOP
+    getFgsAllowWiu_forCapabilities=PROC_STATE_TOP
+    allowUiJobScheduling=true
+    recentCallingPackage=nl.davidengelen.redsquare.dev
+    recentCallingUid=10234
+    mAllowStart_noBinding=PROC_STATE_TOP
+    mAllowStart_inBindService=DENIED
+    mAllowStart_byBindings=DENIED
+    getFgsAllowStart_legacy=PROC_STATE_TOP
+    getFgsAllowStart_new=PROC_STATE_TOP
+    getFgsAllowStart=PROC_STATE_TOP
+    startForegroundCount=1
+    infoAllowStartForeground=[callingPackage: nl.davidengelen.redsquare.dev; callingUid: 10234; uidState: TOP ; uidBFSL: [BFSL]; BFGS denied: false; intent: Intent { xflg=0x4 cmp=nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.talk.TalkService (has extras) }; code:PROC_STATE_TOP; tempAllowListReason:<null>; allowWiu:12; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null; isBindService:false]
+    isForeground=true foregroundId=9104 types=0x000000C0 foregroundNoti=Notification(channel=talk.calls shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT|ONLY_ALERT_ONCE|NO_CLEAR|FOREGROUND_SERVICE color=0x00000000 category=call groupKey=talk.calls actions=1 vis=PRIVATE)
+    createTime=-704ms startingBgTimeout=--
+    lastActivity=-704ms restartTime=-704ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=true callStart=true lastStartId=1
+ startCommandResult=2
