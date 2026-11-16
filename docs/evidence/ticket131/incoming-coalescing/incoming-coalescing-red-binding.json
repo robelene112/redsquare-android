@@ -1,0 +1,8 @@
+{
+  "productionSource": "ccc3fe43a1c4beda7051cddad634568b5addde18",
+  "testSha256": "82b8063c26f6ae9ec9fdcccc859f3ad0d5afdabed09c8ea92cba01b9a3421748",
+  "peerSha256": "53c5ba800f98d804ca139a2916c5e9bda407b359aab3ab5e0e77e53179dab90f",
+  "result": "FAILED_REAL_SHARED_CONNECTION_RETIRED_ON_IDENTICAL_PENDING_RETRANSMISSIONS",
+  "qualification": "No ACK allowed while original retention is held. Distinct indexes and changed payloads must remain independently dispatched. This red isolates duplicate admission; exact cause of failed original native15s ACK remains qualified.",
+  "redTestCommit": "268841ec009b3ad56ee3f07c9910e382c5e93bf5"
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.TalkTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:25:29" hostname="ca2e7e10c732" time="0.051">
+  <properties/>
+  <testcase name="aPeerTranscriptionStatusDoesNotFallThroughToChat" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.005"/>
+  <testcase name="signallingForAnotherRoomParticipantDoesNotGetRejectedByTheFirstPeer" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.003"/>
+  <testcase name="aSignedRoomRosterAddressesTheJoinerAndPreservesTheOtherParticipants" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.005"/>
+  <testcase name="aLegacyUnsignedInvitationRemainsAClaimUntilTheActualPeerIsAuthenticated" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.005"/>
+  <testcase name="anActualUpstreamInvitationOpensTheSameRoomAndSharesACompatibleLink" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.01"/>
+  <testcase name="aStandaloneStunDepartureStaysOwnedByTheSharedTransport" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.002"/>
+  <testcase name="largeEncryptedChatAndFileshareFramesRemainOwnedByTheirOriginalFeatures" classname="nl.davidengelen.redsquare.saito.TalkTest" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

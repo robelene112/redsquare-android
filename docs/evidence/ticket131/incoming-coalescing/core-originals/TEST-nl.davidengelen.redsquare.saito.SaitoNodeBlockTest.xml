@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoNodeBlockTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:25:03" hostname="ca2e7e10c732" time="0.004">
+  <properties/>
+  <testcase name="absentZeroFutureAndImprecisePublishedFieldsDoNotBecomeInventedHeights" classname="nl.davidengelen.redsquare.saito.SaitoNodeBlockTest" time="0.002"/>
+  <testcase name="oldPublishedBlockRemainsReadableWithoutQualifyingAsFreshPaymentFunds" classname="nl.davidengelen.redsquare.saito.SaitoNodeBlockTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

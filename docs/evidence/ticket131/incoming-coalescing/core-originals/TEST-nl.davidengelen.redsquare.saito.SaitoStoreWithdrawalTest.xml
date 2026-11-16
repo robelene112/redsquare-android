@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:25:05" hostname="ca2e7e10c732" time="0.153">
+  <properties/>
+  <testcase name="sellerReviewsEligibleProceedsAndRecoversTheExactOfficialSignedWithdrawal" classname="nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest" time="0.035"/>
+  <testcase name="anActuallyFreeOfficialWithdrawalNeedsNoSyntheticSpendableBalance" classname="nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest" time="0.02"/>
+  <testcase name="allEligibleClaimsInALegitimateQuoteCanBeWithdrawnBeyondFiveHundredSales" classname="nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest" time="0.077"/>
+  <testcase name="aDifferentDestinationUnsignedAmountOrExpiredQuoteCannotBecomeANewWithdrawal" classname="nl.davidengelen.redsquare.saito.SaitoStoreWithdrawalTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

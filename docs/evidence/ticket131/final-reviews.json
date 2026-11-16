@@ -279,8 +279,20 @@
       43965648855,
       43965653546
     ],
-    "nativeResult": "PENDING",
-    "qualification": "The deterministic red establishes callback starvation under held incoming retention. Exact original GroupPolish failure cause remains unproved. No complete qualification, signed update or public delivery acceptance."
+    "nativeResult": "REJECTED_FOCUSED_SET",
+    "qualification": "The deterministic red establishes callback starvation under held incoming retention. Exact original GroupPolish failure cause remains unproved. No complete qualification, signed update or public delivery acceptance.",
+    "focusedResults": {
+      "10": {
+        "run": 43965648855,
+        "result": "FAILURE",
+        "goal": "Original15s incomingpositiveACK inGroupPolish fourth/font200Darkcell"
+      },
+      "17": {
+        "run": 43965653546,
+        "result": "SUCCESS",
+        "qualification": "Olderworker focusedonly, notacceptanceofcoalescingproduct"
+      }
+    }
   },
   "preparedIncomingQualification": {
     "productSource": "cce5d423cab31164134785e81177a4d941e8ceec",
@@ -296,7 +308,57 @@
       "result": "PASS_SOURCE_ONLY",
       "findings": 0
     },
-    "completeResult": "PENDING",
-    "qualification": "Prospective profile/adapter frozen before any whole SDK dispatch. Both ordinary complete parents must independently pass all original goals; focused/core evidence does not substitute."
+    "completeResult": "CANCELED_REPLACED_PRODUCT_CORRECTION",
+    "qualification": "Prospective profile/adapter frozen before any whole SDK dispatch. Both ordinary complete parents must independently pass all original goals; focused/core evidence does not substitute.",
+    "runs": [
+      43966533019,
+      43966540019
+    ]
+  },
+  "pendingIncomingCoalescing": {
+    "source": "7b04e15f8af2d8159f1edce6a0e6a9377e01306c",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "sourceResult": "PASS_SOURCE_ONLY",
+      "coreResult": "PASS_CORE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "sourceResult": "PASS_SOURCE_ONLY",
+      "coreResult": "PASS_CORE_EVIDENCE",
+      "findings": 0
+    },
+    "core": {
+      "tests": 230,
+      "xmlReports": 44,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "additiveTransportTests": 6
+    },
+    "focusedRuns": [
+      43970202494,
+      43970207700
+    ],
+    "nativeResult": "PENDING",
+    "qualification": "Real red establishes exact-pending retransmission queue retirement before coalescing. Original native10 ACK failure cause remains qualified. No completed acceptance cache, early ACK, native deadline change or fixture retry change. Fresh both SDK/native, signed update and public delivery remain required."
+  },
+  "coalescedIncomingQualification": {
+    "productSource": "7b04e15f8af2d8159f1edce6a0e6a9377e01306c",
+    "profile": "source-profile-coalesced-incoming.json",
+    "adapter": "verify-full-coalesced-incoming.py",
+    "spec": {
+      "reviewer": "/root/integrated131_spec_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "standards": {
+      "reviewer": "/root/integrated131_standards_final",
+      "result": "PASS_SOURCE_ONLY",
+      "findings": 0
+    },
+    "completeResult": "PENDING_FOCUSED_THEN_FRESH_BOTH",
+    "qualification": "Prospective inputs frozen before any fresh whole dispatch. Require correctedfocused bothsuccess first, then both complete parents and same-source signing/update/publicdelivery acceptance. All earlier sourceprofiles remain immutable."
   }
 }

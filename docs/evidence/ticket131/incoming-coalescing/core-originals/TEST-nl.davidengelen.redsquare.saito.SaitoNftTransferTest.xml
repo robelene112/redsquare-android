@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoNftTransferTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:25:03" hostname="ca2e7e10c732" time="0.127">
+  <properties/>
+  <testcase name="transferRequiresTheActualCurrentOwnerAndAnotherValidRecipient" classname="nl.davidengelen.redsquare.saito.SaitoNftTransferTest" time="0.013"/>
+  <testcase name="permanentTransferMovesTheEntireIndependentNftTupleAndLockedDeposit" classname="nl.davidengelen.redsquare.saito.SaitoNftTransferTest" time="0.032"/>
+  <testcase name="onlyTheExactTransferWithItsOriginalInputsCanBeObservedOnTheSelectedChain" classname="nl.davidengelen.redsquare.saito.SaitoNftTransferTest" time="0.081"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

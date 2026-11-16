@@ -31,6 +31,8 @@ cause of the earlier full10 failure. The longer unchanged-source Chat diagnostic
 43958604824 remains separate. Neither diagnostic pass supplies acceptance.
 
 Original native bodies/goals are unchanged. Fresh conversation-viewport10/17
-runs43965648855/43965653546 are pending. Full SDK qualification, signed updates
-and delivery remain pending. The old rejected parent and all earlier signed
+runs43965648855/43965653546 finished:10failed the original15s incomingACK
+and17passed. This focused set is rejected. See the subsequent exact pending
+coalescing correction in `../incoming-coalescing/README.md`. Full SDK
+qualification, signed updates and delivery remain pending. The old rejected parent and all earlier signed
 candidates remain intermediate. See `reviews.json` and the parent packet.

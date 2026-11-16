@@ -23,6 +23,18 @@
     43965648855,
     43965653546
   ],
-  "nativeResult": "PENDING",
-  "qualification": "The deterministic red establishes callback starvation under held incoming retention. Exact original GroupPolish failure cause remains unproved. No complete qualification, signed update or public delivery acceptance."
+  "nativeResult": "REJECTED_FOCUSED_SET",
+  "qualification": "The deterministic red establishes callback starvation under held incoming retention. Exact original GroupPolish failure cause remains unproved. No complete qualification, signed update or public delivery acceptance.",
+  "focusedResults": {
+    "10": {
+      "run": 43965648855,
+      "result": "FAILURE",
+      "goal": "Original15s incomingpositiveACK inGroupPolish fourth/font200Darkcell"
+    },
+    "17": {
+      "run": 43965653546,
+      "result": "SUCCESS",
+      "qualification": "Olderworker focusedonly, notacceptanceofcoalescingproduct"
+    }
+  }
 }

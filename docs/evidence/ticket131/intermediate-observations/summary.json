@@ -487,6 +487,68 @@
       "failedInstrumentationOriginals": [],
       "assumptionInstrumentationOriginals": [],
       "qualification": "Unchanged focused conversation viewport10 SUCCESS, including original GroupPolish goal. Diagnostic only; failed whole10 history receipt remains unresolved and is not replaced by this pass."
+    },
+    {
+      "run": 43958604824,
+      "head": "e44991e6d84891834e12d117f53294a0ea25d075",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 346,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Single-Chat e449 diagnostic canceled automatically when root dispatched new ordinarywhole10 under samebranch/scope concurrency key. Completedcalibration/redcoreproofs remain separate. No nativefailure or acceptance inferred from canceled parent."
+    },
+    {
+      "run": 43961449941,
+      "head": "79432ce0a8191666a7afad3a7c570d660eaf3b3c",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 97,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Bounded transport trace calibration10SUCCESS with0drops/errors. Actualserver/groupcallback request correlation observed, including delayedcallbacks behindincomingwork andsockettimeout. Diagnostic only; exactearlierfullfailurecause unproved."
+    },
+    {
+      "run": 43965648855,
+      "head": "cce5d423cab31164134785e81177a4d941e8ceec",
+      "status": "completed",
+      "conclusion": "failure",
+      "originalFiles": 114,
+      "failedInstrumentationOriginals": [
+        "android-native-proof/.scratch/device-evidence/api-29/group-conversation-polish-ui.txt"
+      ],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Cce incomingworker focused10FAILED original15s incomingpositiveACK atfourthfont200DarkGroupPolishcell. Originalactions/assertions/deadlines unchanged. Alloriginals retained. Deterministicpending-original queue-overload regression andexactpendingcoalescing correction follow, withoutclaimingexactnativecause."
+    },
+    {
+      "run": 43965653546,
+      "head": "cce5d423cab31164134785e81177a4d941e8ceec",
+      "status": "completed",
+      "conclusion": "success",
+      "originalFiles": 86,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Cce incomingworker focused17SUCCESS. Focusedonly atolderworker source; cannotreplacefailed10 oracceptlatercoalescingproduct orfullapp."
+    },
+    {
+      "run": 43966533019,
+      "head": "ccc3fe43a1c4beda7051cddad634568b5addde18",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 165,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Prospective ccc complete10CANCELED after ccefocused10original15s incomingACKfailure requiresnewproductcorrection. Allthreecanceledpartitions retained, noappfailure orprefixacceptance inferred solelyfromcancellation."
+    },
+    {
+      "run": 43966540019,
+      "head": "ccc3fe43a1c4beda7051cddad634568b5addde18",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "originalFiles": 173,
+      "failedInstrumentationOriginals": [],
+      "assumptionInstrumentationOriginals": [],
+      "qualification": "Prospective ccc complete17CANCELED after ccefocused10failure requiresnewproductcorrection. Allthreecanceledpartitions retained, noappfailure orprefixacceptance inferred solelyfromcancellation."
     }
   ]
 }

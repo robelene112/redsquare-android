@@ -3,44 +3,41 @@
 Parent: [#117](https://github.com/robelene112/redsquare-android/issues/117).
 Review base: `59594c5634cbfec2c49bc4375865e3e101503580`.
 
-**In progress.** Behavior children #118–#130 have focused acceptance. Both
-replacement137 complete SDK parents are rejected: Android10 run43938739034
-failed the original fresh group-history receipt goal; Android17 run43939468380
-failed the original recorded loaded-banner motion goal. Successful siblings do
-not supply acceptance. Public latest remains131. Signed137 remains staged and
-must be superseded after the production media preparation correction.
+**In progress.** Behavior children #118–#130 have focused acceptance. Public
+latest stays131; candidates132–137 remain intermediate and must not be promoted.
+No signed138 candidate or observer has been built or reserved. Both original137
+and a594 replacement complete parents are rejected and retained. Later ccc whole
+parents43966533019/43966540019 were canceled after the worker's focused10 incoming
+ACK failure required another product correction. Successful siblings do not supply
+acceptance, and cancellation alone is not an app failure.
 
-The media correction at `03d80ff15ef41548b3e517e171640325db1805f5`
-prepares the incoming rendered result at positive opacity before starting the
-existing180ms overlap. Both source reviews pass with zero remaining findings.
-Original loaded-media and image-retry motion goals are unchanged. Fresh focused
-10/17 runs43957716249/43957720646 and43957725934/43957732330 all pass,
-with independent Spec and Standards focused acceptance and zero findings.
-See [prepared media](prepared-media/README.md).
-The earlier observational probe43952067644 passed, recording substantial initial
-rendering cost. It does not establish the exact cause of the failed original
-recording. Its temporary instrumentation has been removed.
+The media correction03d80ff15 has source and original loaded-media/retry10/17
+focused acceptance on both review axes. It prepares a positive media frame before
+the unchanged180ms overlap. Original tests/goals remain. See
+[prepared media](prepared-media/README.md).
 
-Unchanged focused group run43953110416 and unchanged media run43949706276
-passed diagnostically. They neither explain nor replace rejected complete parents.
-Calibration43961449941 then captured delayed callbacks behind incoming work.
-A deterministic real binary regression failed while incoming retention was held.
-Sourcecce5d423 moves retention to one bounded owned FIFO worker, preserving
-ACK-after-retention and freeing the reader for callbacks and heartbeats. All229
-core tests and both independent source/core reviews pass with zero findings.
-Exact original GroupPolish failure attribution remains qualified. Original15s
-history receipt and incoming original/positive-ACK goals remain unchanged.
-See [incoming retention](incoming-retention/README.md). Fresh conversation10/17
-runs43965648855/43965653546 are pending. All temporary probes are removed.
+Sourcecce5d423 moves incoming retention off the socket reader, retaining FIFO,
+bounds and ACK-after-retention. Its deterministic red and229 completecore pass
+remain valid, but focused10 run43965648855 fails original15s incomingACK in the
+fourth/font200Dark cell;17 run43965653546 passes. That focused set is rejected.
+See [incoming retention](incoming-retention/README.md).
 
-The next complete qualification uses `source-profile-prepared-incoming.json` and
-`verify-full-prepared-incoming.py`, prospectively frozen before fresh dispatch.
-Both SDKs must pass fresh ordinary three-part parents, with all original goals.
-Native focused and complete checks can run concurrently, but every required
-result and independent review must pass before promotion. Candidates132–137 and
-their update/focused observations remain intermediate only. A new signed
-candidate, fresh same-source observer, actual signed updates and independent
-public delivery acceptance are required.
+Current product7b04e15f additionally coalesces only exact pending full wire frames,
+including type/index. Changed index or payload still dispatches independently.
+There is no completed-result cache or earlyACK. A real binary red reproduces
+connection retirement from duplicate pending admission. All230 completecore tests
+and both source/core reviews pass with zero findings. Exact original native failure
+causes remain qualified. See [pending coalescing](incoming-coalescing/README.md).
+Fresh conversation10/17 runs43970202494/43970207700 are pending, with all original
+native bodies, retransmission cadence and deadlines unchanged.
+
+The next prospective complete inputs are `source-profile-coalesced-incoming.json`
+and `verify-full-coalesced-incoming.py`. They retain every original native goal and
+historical profile. Wait for both corrected focused scopes before fresh whole SDK
+dispatch. Freeze reviewed inputs before dispatch. Each SDK must pass an ordinary
+complete three-part parent including public reads. A new same-source signed
+candidate/observer, actual signed updates and independent public delivery review
+remain required. All temporary diagnostic probes have been removed from product.
 
 ## Prospective complete source
 

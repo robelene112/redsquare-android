@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.saito.SaitoAccessScriptTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-16T22:25:03" hostname="ca2e7e10c732" time="0.036">
+  <properties/>
+  <testcase name="numericEditorInputRetainsTheSameCommitmentAsTheRustJsonParser" classname="nl.davidengelen.redsquare.saito.SaitoAccessScriptTest" time="0.015"/>
+  <testcase name="officialCustomAndRentalContractsKeepTheirIndependentWasmAccessCommitments" classname="nl.davidengelen.redsquare.saito.SaitoAccessScriptTest" time="0.007"/>
+  <testcase name="suppliedWitnessInputsMergeThroughTheOfficialLogicalPathsWithoutChangingAccessRules" classname="nl.davidengelen.redsquare.saito.SaitoAccessScriptTest" time="0.005"/>
+  <testcase name="rentalPresetsBindTheRealCreatorRenterAndExpiryToTheOfficialConstitutions" classname="nl.davidengelen.redsquare.saito.SaitoAccessScriptTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,29 @@
+{
+  "source": "7b04e15f8af2d8159f1edce6a0e6a9377e01306c",
+  "spec": {
+    "reviewer": "/root/integrated131_spec_final",
+    "sourceResult": "PASS_SOURCE_ONLY",
+    "coreResult": "PASS_CORE_ONLY",
+    "findings": 0
+  },
+  "standards": {
+    "reviewer": "/root/integrated131_standards_final",
+    "sourceResult": "PASS_SOURCE_ONLY",
+    "coreResult": "PASS_CORE_EVIDENCE",
+    "findings": 0
+  },
+  "core": {
+    "tests": 230,
+    "xmlReports": 44,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "additiveTransportTests": 6
+  },
+  "focusedRuns": [
+    43970202494,
+    43970207700
+  ],
+  "nativeResult": "PENDING",
+  "qualification": "Real red establishes exact-pending retransmission queue retirement before coalescing. Original native10 ACK failure cause remains qualified. No completed acceptance cache, early ACK, native deadline change or fixture retry change. Fresh both SDK/native, signed update and public delivery remain required."
+}

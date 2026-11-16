@@ -1,0 +1,62 @@
+[
+  {
+    "id": 14277139029,
+    "node_id": "MDg6QXJ0aWZhY3QxNDI3NzEzOTAyOQ==",
+    "name": "android-native-proof-social",
+    "size_in_bytes": 117275,
+    "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14277139029",
+    "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14277139029/zip",
+    "expired": false,
+    "digest": "sha256:b5c38ff9eba03e7268191639eb5d88d01c8f041636798b301dc281950388622c",
+    "created_at": "2026-11-16T22:18:14Z",
+    "updated_at": "2026-11-16T22:18:14Z",
+    "expires_at": "2026-11-30T22:18:13Z",
+    "workflow_run": {
+      "id": 43966540019,
+      "repository_id": 1409443430,
+      "head_repository_id": 1409443430,
+      "head_branch": "codex/unified-redesign",
+      "head_sha": "ccc3fe43a1c4beda7051cddad634568b5addde18"
+    }
+  },
+  {
+    "id": 14276054853,
+    "node_id": "MDg6QXJ0aWZhY3QxNDI3NjA1NDg1Mw==",
+    "name": "android-native-proof-wallet",
+    "size_in_bytes": 121100,
+    "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14276054853",
+    "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14276054853/zip",
+    "expired": false,
+    "digest": "sha256:64add8cc8232df3d64b2d64749a916e0947068e5bbd09788f92cf1d4b7a4c8dc",
+    "created_at": "2026-11-16T22:18:14Z",
+    "updated_at": "2026-11-16T22:18:14Z",
+    "expires_at": "2026-11-30T22:18:13Z",
+    "workflow_run": {
+      "id": 43966540019,
+      "repository_id": 1409443430,
+      "head_repository_id": 1409443430,
+      "head_branch": "codex/unified-redesign",
+      "head_sha": "ccc3fe43a1c4beda7051cddad634568b5addde18"
+    }
+  },
+  {
+    "id": 14276024915,
+    "node_id": "MDg6QXJ0aWZhY3QxNDI3NjAyNDkxNQ==",
+    "name": "android-native-proof-chat",
+    "size_in_bytes": 121065,
+    "url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14276024915",
+    "archive_download_url": "https://api.github.com/repos/robelene112/redsquare-android/actions/artifacts/14276024915/zip",
+    "expired": false,
+    "digest": "sha256:e56a7932c67efb45591c238c8d334f58d3f7e009e58854089d63cc31374bd605",
+    "created_at": "2026-11-16T22:18:13Z",
+    "updated_at": "2026-11-16T22:18:13Z",
+    "expires_at": "2026-11-30T22:18:13Z",
+    "workflow_run": {
+      "id": 43966540019,
+      "repository_id": 1409443430,
+      "head_repository_id": 1409443430,
+      "head_branch": "codex/unified-redesign",
+      "head_sha": "ccc3fe43a1c4beda7051cddad634568b5addde18"
+    }
+  }
+]
