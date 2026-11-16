@@ -64,7 +64,7 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
                 if (current.incomplete) Text(stringResource(R.string.received_incomplete), style = MaterialTheme.typography.bodySmall)
             }
             InlineStatus(if (failed) stringResource(R.string.received_failure) else null, StatusTone.ERROR)
-            TextButton(onClick = { failed = false; refresh++ }, enabled = removing == null) { Text(stringResource(R.string.feed_refresh)) }
+            TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { failed = false; refresh++ }, enabled = removing == null) { Text(stringResource(R.string.feed_refresh)) }
             AnimatedVisibility(snapshot == null && !failed) { LinearProgressIndicator(Modifier.fillMaxWidth()) }
             if (snapshot?.files?.isEmpty() == true) Text(stringResource(R.string.received_empty))
             }
@@ -81,7 +81,7 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
                                 if (file.busy) Text(stringResource(R.string.received_saving), style = MaterialTheme.typography.bodySmall)
                                 if (removing == file.key) LinearProgressIndicator(Modifier.fillMaxWidth())
                                 val removeDescription = stringResource(R.string.received_remove_accessible, file.transfer.offer.name)
-                                TextButton(modifier = Modifier.semantics { contentDescription = removeDescription },
+                                TextButton(modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = removeDescription },
                                     enabled = removing == null && !file.busy, onClick = { confirmation = file },
                                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
                                     Text(stringResource(R.string.received_remove))
@@ -97,8 +97,8 @@ internal fun ReceivedFilesScreen(binding: ReceivedFilesScope, onBack: () -> Unit
             text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(file.transfer.offer.name, style = MaterialTheme.typography.titleMedium)
                 Text(stringResource(R.string.received_remove_detail))
-            } }, dismissButton = { TextButton(onClick = { confirmation = null }) { Text(stringResource(R.string.fileshare_cancel)) } },
-            confirmButton = { TextButton(onClick = {
+            } }, dismissButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = { confirmation = null }) { Text(stringResource(R.string.fileshare_cancel)) } },
+            confirmButton = { TextButton(modifier = Modifier.heightIn(min = 48.dp), onClick = {
                 confirmation = null; removing = file.key; failed = false
                 scope.launch {
                     try { withContext(Dispatchers.IO) { storage.remove(file) } }
