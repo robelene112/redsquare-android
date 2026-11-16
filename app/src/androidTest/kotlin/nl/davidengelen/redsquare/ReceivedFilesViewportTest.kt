@@ -48,7 +48,7 @@ private fun ComposeTestRule.verifyReceivedFilesViewports(width: Int) {
                 waitUntil(10_000) { onAllNodesWithText("1.6 KB on this device").fetchSemanticsNodes().isNotEmpty() }
                 if (!onNodeWithText("1.6 KB on this device").isDisplayed()) onNodeWithText("1.6 KB on this device").performScrollTo()
                 onNodeWithText("1.6 KB on this device").assertIsDisplayed()
-                val list = onNode(hasScrollToIndexAction())
+                val list = onNode(hasScrollToIndexAction() and hasAnyAncestor(isDialog()))
                 val deadline = android.os.SystemClock.elapsedRealtime() + 5_000
                 list.performScrollToNode(hasText("Retained document 1.txt"))
                 onNodeWithText("Retained document 1.txt").assertIsDisplayed()

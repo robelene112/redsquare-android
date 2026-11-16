@@ -101,7 +101,12 @@ class FileshareStorageManagementTest {
                 ui.onNodeWithText("Chat").performClick()
                 ui.waitUntil(15_000) { ui.onNodeWithText(contact.publicKey).isDisplayed() }
                 ui.onNodeWithText(contact.publicKey).performClick()
-                ui.waitUntil(10_000) { ui.onNodeWithText("Local copy removed").isDisplayed() }
+                // Fileshare and encrypted Chat history load independently; all original observations share this ten-second goal.
+                ui.waitUntil(10_000) {
+                    ui.onNodeWithText("Local copy removed").isDisplayed() &&
+                        ui.onAllNodesWithText("Retain this chat history").fetchSemanticsNodes().isNotEmpty() &&
+                        ui.onAllNodesWithText("Keep this local draft").fetchSemanticsNodes().isNotEmpty()
+                }
                 ui.onNodeWithText(name).assertIsDisplayed()
                 ui.onNodeWithText("Retain this chat history").assertExists()
                 ui.onNodeWithText("Keep this local draft").assertExists()
