@@ -50,6 +50,7 @@ class VaultUploadPreviewTest {
             ui.waitUntil(5_000) { ui.onNodeWithText("File access rules").isDisplayed() }
             ui.onNode(hasText("Advanced") and hasClickAction()).performScrollTo().performClick()
             ui.onNodeWithText("Access script").performScrollTo().performTextReplacement("not valid JSON")
+            settleAdvancedConfirmation(scene)
             ui.onNodeWithText("Use these rules").performClick()
             ui.waitUntil(5_000) { ui.onNodeWithText("Enter a valid JSON access script.").isDisplayed() }
             assertTrue(scene.peer.transactions.isEmpty()); assertTrue(scene.peer.vaultUploads.isEmpty())
@@ -89,4 +90,39 @@ class VaultUploadPreviewTest {
             assertTrue(scene.peer.vaultRequests.isEmpty())
             captureNativeScreen(File(scene.evidence, "review-discarded.png"))
         }
+
+    private fun settleAdvancedConfirmation(scene: VaultReadingScene) {
+        val started = android.os.SystemClock.elapsedRealtime()
+        val initialIme = focusedWindowImeBottom()
+        val initialBounds = ui.onNodeWithText("Use these rules").fetchSemanticsNode().boundsInRoot
+        androidx.test.espresso.Espresso.closeSoftKeyboard()
+        var previous: androidx.compose.ui.geometry.Rect? = null
+        var stableSince = android.os.SystemClock.elapsedRealtime()
+        val confirmation = ui.onNode(hasText("Use these rules") and isEnabled())
+        // Settle the real input window before the single native tap. The original
+        // five-second visible-validation assertion below is independent of setup.
+        val remaining = 5_000 - (android.os.SystemClock.elapsedRealtime() - started)
+        check(remaining > 0) { "Native confirmation input setup exceeded five seconds" }
+        ui.waitUntil(remaining) {
+            val bounds = if (confirmation.isDisplayed()) confirmation.fetchSemanticsNode().boundsInRoot else null
+            val now = android.os.SystemClock.elapsedRealtime()
+            if (focusedWindowImeBottom() != 0 || bounds == null || bounds != previous) stableSince = now
+            previous = bounds
+            bounds != null && now - stableSince >= 200
+        }
+        check(android.os.SystemClock.elapsedRealtime() - started <= 5_000)
+        ui.onNodeWithText("Access script").assert(SemanticsMatcher.expectValue(
+            androidx.compose.ui.semantics.SemanticsProperties.EditableText,
+            androidx.compose.ui.text.AnnotatedString("not valid JSON")))
+        confirmation.assertIsDisplayed().assertIsEnabled()
+        File(scene.evidence, "advanced-confirmation-setup.json").writeText(com.google.gson.JsonObject().apply {
+            addProperty("initialImePixels", initialIme)
+            addProperty("initialButtonBounds", initialBounds.toString())
+            addProperty("settledImePixels", focusedWindowImeBottom())
+            addProperty("settledButtonBounds", requireNotNull(previous).toString())
+            addProperty("setupMillis", android.os.SystemClock.elapsedRealtime() - started)
+            addProperty("stableMillis", android.os.SystemClock.elapsedRealtime() - stableSince)
+            addProperty("qualification", "Test input setup only; one original native click and unchanged five-second visible validation follow. Original failure cause remains unproved.")
+        }.toString())
+    }
 }
