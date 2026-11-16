@@ -23,9 +23,49 @@ import org.hamcrest.CoreMatchers.allOf
 import java.io.File
 
 class VideoPreviewTest {
-    @get:Rule val ui = createEmptyComposeRule()
+    private val ui = createEmptyComposeRule()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
+    @get:Rule val rules = org.junit.rules.RuleChain.outerRule(org.junit.rules.TestRule { base, description ->
+        object : org.junit.runners.model.Statement() {
+            override fun evaluate() {
+                check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+                    android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+                val backend = AndroidBackendStore(context)
+                val previousBackend = backend.load()
+                val state = ChatFixtureState(context, listOf("feed.", "conversation."),
+                    AndroidWalletStore(context).loadOrCreate().publicKey)
+                fun readingFiles() = synchronized(nl.davidengelen.redsquare.feed.PublicStringStore.lock) {
+                    context.noBackupFilesDir.listFiles().orEmpty().filter {
+                        it.name.startsWith("feed.") || it.name.startsWith("conversation.")
+                    }.associate { it.name to java.security.MessageDigest.getInstance("SHA-256").digest(it.readBytes())
+                        .joinToString("") { byte -> "%02x".format(byte.toInt() and 255) } }
+                }
+                val original = readingFiles()
+                var primary: Throwable? = null
+                try {
+                    // Each test starts with its own signed peer row, rather than an
+                    // earlier test's cached reading anchor hiding a newly prepended row.
+                    state.prepare()
+                    assertTrue(readingFiles().isEmpty())
+                    base.evaluate()
+                } catch (failure: Throwable) { primary = failure; throw failure }
+                finally {
+                    // The inner Compose rule and every ActivityScenario close first.
+                    cleanupAfterTest(primary, { state.restoreFiles(); assertEquals(original, readingFiles()) },
+                        { state.restorePreferences() }, { backend.save(previousBackend); assertEquals(previousBackend, backend.load()) }, {
+                            val receipt = JsonObject().apply {
+                                addProperty("test", description.methodName)
+                                addProperty("initialReadingFiles", original.size)
+                                addProperty("readingFilesRestoredByteExactly", original == readingFiles())
+                            }
+                            File(context.cacheDir, "video-evidence/${description.methodName}-reading-isolation.json")
+                                .apply { parentFile?.mkdirs(); writeText(receipt.toString()) }
+                        })
+                }
+            }
+        }
+    }).around(ui)
 
     @Before fun prepare() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
