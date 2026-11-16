@@ -1723,6 +1723,14 @@ verify_social_push() {
     fi
     return "$native_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == talk-launch-recovery* ]]; then
+    verify_talk_capture_native TalkLaunchRoutePreviewTest talk-launch-route
+    verify_talk_capture_native TalkInvitationPreviewTest talk-invitation
+    verify_group_chat_native TalkRoutingPreviewTest 180 talk-routing talk-routing-evidence
+    verify_talk_capture_native TalkOwnershipPreviewTest talk-ownership
+    verify_social_push module-push
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == module-push* ]]; then
     verify_social_push
     printf '%s\n' 'Shared-module notification routing only; full application acceptance not run.' > "$evidence/scope.txt"
