@@ -10,7 +10,28 @@ Keep one implementation ticket active at a time; independent code-review agents
 remain permitted. Ordinary native/emulator QA is agent-owned. No production node/
 provider activation or public financial write is authorized.
 
-Current next ticket: #128 (retain editable wallet transfer input).
+Current next ticket: #129 (explain unavailable Chat Add file actions).
+
+#128 is complete: product62f4146cb2eca09d21e566c1f833bd0eb5d10a6a,
+source/debug78bc22eda545039dea5be51db5b0c7aa6b574016, native fixture
+c39a60dafd9ecc8f5082533bc9be8e920819f88f. See
+[the packet](../evidence/ticket128/README.md). Exact recipient/amount/fee/memo and
+active task survive recreation under the original wallet/node; review/candidate/
+authentication remain ephemeral and mismatched scopes cannot inherit the task.
+Whole Android10/17 parents43842990373/43842990410 each pass21 normal completions
+plus one intentional process interruption, preserving the exact original frame,
+distinct-PID recovery and fresh actual system authentication. Both independent
+axes accept1278 indexed copies and eight original receipts (712ZIP/1944TAR).
+The source bridge changes four AndroidTest files, with226417 identical Git entries;
+actual native compilation covers the final fixture. Source43840718101 has224core
+reports/44classes with zero failures/ignored, core/gateway FROM-CACHE and lint0/
+95/3. The initial generic PNG-size observer failed on an originally permitted703-
+byte black system credential screenshot; the narrowly corrected observer requires
+the exact original path/size, qualification note and actual PIN XML. That image
+is not visual proof. Preserve the original observer failure, failed/canceled
+parents, public-store context qualification and physical/live/release limits.
+Public beta remains131. Continue129–130 then final131 without approval.
+Originals: `/mnt/storage/redsquare-android-artifacts/wallet-input128`.
 
 #127 is complete: product/Android17 source319946d69e7c5f68b228fc06490f646a3a4069cb,
 Android10 fixturee2060c0161749244f06c2be73a6070bc43a0ba3d, final diagnostic

@@ -1,0 +1,16 @@
+{
+  "from": "78bc22eda545039dea5be51db5b0c7aa6b574016",
+  "to": "c39a60dafd9ecc8f5082533bc9be8e920819f88f",
+  "onlyDifferingPaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/TransferTestFixtures.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletTransferPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletTransferRecreationTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletTransferStatusTest.kt"
+  ],
+  "identicalGitEntries": 226417,
+  "canonicalIdenticalEntriesSha256": "0ce6d22b41ee92820a160b66328044005fabbe58d984caa980b28e6aa817ebb4",
+  "canonicalIdenticalEntriesSerialization": "UTF-8 LF terminated: lexically sorted path + TAB + git ls-tree left-of-TAB (mode SPACE type SPACE OID), join LF and append final LF",
+  "productCoreResourcesBuildHarnessAndControlledPeerByteIdentical": true,
+  "qualification": "Reviewed actual stopped-Activity recreation while credentials own focus, identical existing helpers, and explicit native close/reopen before prior financial journeys.",
+  "nativeGoalsAndOriginalDeadlinesPreserved": true
+}

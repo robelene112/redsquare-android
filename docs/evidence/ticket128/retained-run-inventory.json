@@ -1,0 +1,102 @@
+[
+  {
+    "receipt": "final-source-43840718101-verification.json",
+    "run": 43840718101,
+    "source": "78bc22eda545039dea5be51db5b0c7aa6b574016",
+    "conclusion": "success",
+    "artifactId": 14212339055,
+    "zipSha256": "d6ac71ab154f6ef96192aa71420c4fe287e3d54bced260343ca1e51f6272481b",
+    "zipEntries": 55,
+    "captureMembers": 0,
+    "allExtractedMembersByteExact": true,
+    "acceptance": true
+  },
+  {
+    "receipt": "final10-43842990373-verification.json",
+    "run": 43842990373,
+    "source": "c39a60dafd9ecc8f5082533bc9be8e920819f88f",
+    "conclusion": "success",
+    "artifactId": 14214881543,
+    "zipSha256": "1f74768ae110c4ed6170037e4b38b9fba619746a7995d3c8490031059beead71",
+    "zipEntries": 112,
+    "captureMembers": 569,
+    "allExtractedMembersByteExact": true,
+    "acceptance": true
+  },
+  {
+    "receipt": "final17-43842990410-verification.json",
+    "run": 43842990410,
+    "source": "c39a60dafd9ecc8f5082533bc9be8e920819f88f",
+    "conclusion": "success",
+    "artifactId": 14215125907,
+    "zipSha256": "b6958094bb37502c3e3827893315f021bde3b835e0c3153d13bf2576731a6774",
+    "zipEntries": 101,
+    "captureMembers": 647,
+    "allExtractedMembersByteExact": true,
+    "acceptance": true
+  },
+  {
+    "receipt": "first-complete10-43840717689-verification.json",
+    "run": 43840717689,
+    "source": "78bc22eda545039dea5be51db5b0c7aa6b574016",
+    "conclusion": "failure",
+    "artifactId": 14213531330,
+    "zipSha256": "316e979d177b9820a85b8de2df6187721ab73e543b67905ca43872724209a68e",
+    "zipEntries": 85,
+    "captureMembers": 20,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false
+  },
+  {
+    "receipt": "first-complete17-43840718070-verification.json",
+    "run": 43840718070,
+    "source": "78bc22eda545039dea5be51db5b0c7aa6b574016",
+    "conclusion": "failure",
+    "artifactId": 14214040996,
+    "zipSha256": "0ac3b5f292517f5552c2b1fad92a87947d6fdd40a772929607ea20db2493764e",
+    "zipEntries": 88,
+    "captureMembers": 572,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false
+  },
+  {
+    "receipt": "first-green10-43839259130-verification.json",
+    "run": 43839259130,
+    "source": "62f4146cb2eca09d21e566c1f833bd0eb5d10a6a",
+    "conclusion": "success",
+    "artifactId": 14211973344,
+    "zipSha256": "3087b14eda45b0df609bc52543f5a7bc38df0b1693dd3efa27c44ede71efca6b",
+    "zipEntries": 80,
+    "captureMembers": 7,
+    "allExtractedMembersByteExact": true,
+    "acceptance": false
+  },
+  {
+    "receipt": "first-red-43838304573-verification.json",
+    "run": 43838304573,
+    "source": "d6fe8a1b085dbd17a94837fbc7eef4d2bba554bd",
+    "conclusion": "failure",
+    "artifactId": 14212157472,
+    "zipSha256": "24c71b7016d6ce381442536f934217f175ea93a8f3833b2166eb37cab1de1aef",
+    "zipEntries": 85,
+    "captureMembers": 8,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false
+  },
+  {
+    "receipt": "superseded-complete10-43841998220-verification.json",
+    "run": 43841998220,
+    "source": "268ae493027b6e7171f3563f242dbdc597a2f072",
+    "conclusion": "cancelled",
+    "artifactId": 14213189500,
+    "zipSha256": "0be2ab55c533691b3543f6fd15abbe973ccb93a82510feea60cd2ee503e02cf1",
+    "zipEntries": 106,
+    "captureMembers": 121,
+    "allExtractedMembersByteExact": true,
+    "unreadableCaptureArchives": [],
+    "acceptance": false
+  }
+]

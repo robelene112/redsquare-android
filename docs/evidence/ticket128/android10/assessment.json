@@ -1,0 +1,159 @@
+{
+  "run": 43842990373,
+  "source": "c39a60dafd9ecc8f5082533bc9be8e920819f88f",
+  "normalMethods": 21,
+  "normalGroups": [
+    {
+      "log": ".scratch/device-evidence/api-29/wallet-input-recreation-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.WalletTransferRecreationTest",
+          "allFourEditableValuesAndTheActiveTaskSurviveRecreationWithoutPreparingATransfer"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferRecreationTest",
+          "cancelledAndRecreatedAuthenticationRequireFreshReviewAndARealNewGrant"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferRecreationTest",
+          "changedWalletOrNodeCannotInheritOrResurrectAnotherEditableTask"
+        ]
+      ],
+      "sha256": "f7ec9f57c1521dd77ee19b9e93e2474f3114b0ecbcd590ba3159da6947f843fa"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/wallet-design-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.WalletDesignPreviewTest",
+          "accountWalletAndSettingsHaveClearTaskHeadersAndReturnToTheSameFeed"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletDesignPreviewTest",
+          "balanceAndPaymentReviewKeepTheirRealValuesAndCancelBackToTheWallet"
+        ]
+      ],
+      "sha256": "0e7b3ee8daf15ce7bede379ba366d7a9ba106fbe384e7dbf20874e957b59f01b"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/account-design-compact-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.AccountDesignViewportTest",
+          "compactAccountJourneys"
+        ]
+      ],
+      "sha256": "47583d1d7be3dd5555151d2c77d1b00a0829552f88dba1d5d728a2796c63e6c6"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/account-design-pixel-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.AccountDesignPixelViewportTest",
+          "pixelAccountJourneys"
+        ]
+      ],
+      "sha256": "69570afb98542282c2e84a5d62628828a08f88ca9d91ae192c18c2247d161816"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/account-design-motion-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.AccountDesignMotionTest",
+          "accountTasksAndCategoriesRemainInterruptibleAndRetainTheActiveIdentity"
+        ]
+      ],
+      "sha256": "776b9a22e91d321d4536ca370865616adfa78612873bce6adde4a40de3711933"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/transfers-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "openingSendUsesOneFocusedTaskWithoutTheWalletDoneAction"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferStatusTest",
+          "exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend"
+        ],
+        [
+          "nl.davidengelen.redsquare.WalletTransferStatusTest",
+          "pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet"
+        ]
+      ],
+      "sha256": "3e1ead7e43c131b5548cf86c7d04605e6b67004ef94e05a8d0273b27b32e79c4"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/wallet-flow-viewport-ui.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.WalletFlowViewportPreviewTest",
+          "walletActionsAndPaymentInputsRemainReachableAcrossThemesAndLargeText"
+        ]
+      ],
+      "sha256": "e42fb4440d0e06d856833638633623ca3dd053ecc101f09b9caa90c00bc75fac"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/transfer-process/recovered.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.TransferProcessRecoveryTest",
+          "coldPendingTransferRequiresFreshAuthenticationBeforeExactRetry"
+        ]
+      ],
+      "sha256": "8fbd0e2ece5fe0eab42438088203efd256d8256516db1aff1cb3b8eb9da8544e"
+    },
+    {
+      "log": ".scratch/device-evidence/api-29/transfer-process/credential-cleanup-verified.txt",
+      "normalMethods": [
+        [
+          "nl.davidengelen.redsquare.TransferProcessRecoveryTest",
+          "screenLockIsClearedAfterProcessRecovery"
+        ]
+      ],
+      "sha256": "f4b891fcd42b9e6da0718df6c6709fc9cf124ac36f4ab49955a7044ce71d850c"
+    }
+  ],
+  "intentionalProcessTermination": {
+    "class": "nl.davidengelen.redsquare.TransferProcessRecoveryTest",
+    "method": "terminateAfterAnAuthenticatedPendingNativeTransfer",
+    "beforePid": 9250,
+    "recoveredPid": 9411,
+    "actualOriginalFramePreserved": true
+  },
+  "allNativeGoalsAndOriginalAssertionsPreserved": true,
+  "protectedCredentialCapture": [],
+  "qualifications": [
+    "Controlled emulator/owned peers only, not physical/OEM/live funding or Play acceptance.",
+    "Context-change test uses actual public wallet/backend stores then Activity reload; existing financial scenarios separately use Settings and the Android wallet import picker.",
+    "Deliberately terminated process method is an interruption with checkpoint/continuity proof, not a normal successful method."
+  ]
+}
