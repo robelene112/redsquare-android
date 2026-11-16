@@ -243,7 +243,13 @@ class MainActivity : ComponentActivity() {
             var retry by remember { mutableIntStateOf(0) }
             var walletOpen by remember { mutableStateOf(false) }
             var walletBalanceOpen by remember { mutableStateOf(false) }
-            var walletTransferOpen by remember { mutableStateOf(false) }
+            var transferDraft by rememberSaveable { mutableStateOf<WalletTransferDraft?>(null) }
+            val walletTransferOpen = transferDraft != null
+            LaunchedEffect(address, backend) {
+                val draft = transferDraft
+                if (draft != null && address != null && backend != null &&
+                    (draft.owner != address || draft.backend != backend)) transferDraft = null
+            }
             var recoveryGuideOpen by remember { mutableStateOf(false) }
             val backupReminders = remember { getSharedPreferences("wallet-backup-reminders", MODE_PRIVATE) }
             var backupReminder by remember { mutableStateOf(false) }
@@ -972,7 +978,9 @@ class MainActivity : ComponentActivity() {
                             walletOpen = false
                             when (destination) {
                                 WalletDestination.RECEIVE -> walletBalanceOpen = true
-                                WalletDestination.SEND -> walletTransferOpen = true
+                                WalletDestination.SEND -> if (address != null && backend != null) {
+                                    transferDraft = WalletTransferDraft(address, backend!!)
+                                }
                                 WalletDestination.RECOVERY -> recoveryGuideOpen = true
                             }
                         })
@@ -980,15 +988,21 @@ class MainActivity : ComponentActivity() {
                         walletBalanceOpen = false
                         walletOpen = true
                     }
-                    if (walletTransferOpen && wallet != null && backend != null) {
+                    val editableTransfer = transferDraft
+                    if (editableTransfer != null && editableTransfer.owner == address &&
+                        editableTransfer.backend == backend && wallet != null && backend != null) {
                         val transfers = remember(wallet, backend) {
                             WalletTransfers(this@MainActivity, wallet!!, backend!!, { wallet }, { backend }, balances,
                                 FeedEndpoints.fromIntent(intent, backend!!))
                         }
-                        WalletTransferDialog(transfers) {
-                            walletTransferOpen = false
+                        WalletTransferDialog(transfers, editableTransfer, onDraftChange = { update ->
+                            transferDraft?.takeIf { it.owner == address && it.backend == backend }?.let {
+                                transferDraft = update(it)
+                            }
+                        }, onClose = {
+                            transferDraft = null
                             walletOpen = true
-                        }
+                        })
                     }
                     if (recoveryGuideOpen) AccountDialog(
                         onDismissRequest = { recoveryGuideOpen = false; walletOpen = true },

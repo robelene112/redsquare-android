@@ -18,10 +18,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
@@ -42,11 +38,8 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.StatusTone
 
 @Composable
-fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
-    var recipient by remember { mutableStateOf("") }
-    var amount by remember { mutableStateOf("") }
-    var fee by remember { mutableStateOf("0") }
-    var memo by remember { mutableStateOf("") }
+internal fun WalletTransferDialog(transfers: WalletTransfers, draft: WalletTransferDraft,
+    onDraftChange: ((WalletTransferDraft) -> WalletTransferDraft) -> Unit, onClose: () -> Unit) {
     LaunchedEffect(transfers) { transfers.load() }
     DisposableEffect(transfers) { onDispose { transfers.cancel() } }
 
@@ -126,10 +119,10 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         ) { Text(stringResource(R.string.transfer_retry)) }
                     }
                     if (canPrepare) {
-                        TransferField(R.string.transfer_recipient, recipient, KeyboardType.Text, ImeAction.Next) { recipient = it }
-                        TransferField(R.string.transfer_amount, amount, KeyboardType.Decimal, ImeAction.Next) { amount = it }
-                        TransferField(R.string.transfer_fee, fee, KeyboardType.Decimal, ImeAction.Next) { fee = it }
-                        TransferField(R.string.transfer_memo, memo, KeyboardType.Text, ImeAction.Done) { memo = it }
+                        TransferField(R.string.transfer_recipient, draft.recipient, KeyboardType.Text, ImeAction.Next) { value -> onDraftChange { it.copy(recipient = value) } }
+                        TransferField(R.string.transfer_amount, draft.amount, KeyboardType.Decimal, ImeAction.Next) { value -> onDraftChange { it.copy(amount = value) } }
+                        TransferField(R.string.transfer_fee, draft.fee, KeyboardType.Decimal, ImeAction.Next) { value -> onDraftChange { it.copy(fee = value) } }
+                        TransferField(R.string.transfer_memo, draft.memo, KeyboardType.Text, ImeAction.Done) { value -> onDraftChange { it.copy(memo = value) } }
                         Text(stringResource(R.string.transfer_public_warning), style = MaterialTheme.typography.bodySmall)
                     }
                 }
@@ -140,7 +133,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                 Text(stringResource(R.string.transfer_auth_send))
             } else if (canPrepare) TextButton(
                 enabled = transferActionsEnabled,
-                onClick = { transfers.prepare(recipient, amount, fee, memo) },
+                onClick = { transfers.prepare(draft.recipient, draft.amount, draft.fee, draft.memo) },
             ) { Text(stringResource(R.string.transfer_review)) }
         },
         dismissButton = {
