@@ -174,6 +174,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     }
     val position = rememberLazyListState()
     var readingEndSpace by rememberSaveable(wallet?.publicKey, backend, followingOwner) { mutableIntStateOf(0) }
+    val baseEndPaddingPx by rememberUpdatedState(with(LocalDensity.current) { 88.dp.roundToPx() })
     LaunchedEffect(position, cache) {
         snapshotFlow { position.layoutInfo }.collect { layout ->
             // Once the end is outside the viewport, removing its spare space cannot
@@ -373,8 +374,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                                                 // A short cache has unused viewport space. Preserve
                                                 // that space in the same measure as prepended posts,
                                                 // so LazyColumn does not clamp the old key downward.
-                                                readingEndSpace += (layout.viewportEndOffset - last.offset -
-                                                    last.size - layout.afterContentPadding).coerceAtLeast(0)
+                                                val required = (layout.viewportEndOffset - last.offset -
+                                                    last.size - baseEndPaddingPx).coerceIn(0, layout.viewportSize.height)
+                                                // Repeated pages may see the same not-yet-measured
+                                                // layout. Set a bounded target instead of adding it.
+                                                readingEndSpace = maxOf(readingEndSpace, required)
+                                                    .coerceAtMost(layout.viewportSize.height)
                                             }
                                         }
                                         posts = merged
