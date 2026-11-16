@@ -32,7 +32,7 @@ class WalletTransferRecreationTest {
             assertEditableValues()
             captureNativeScreen(File(context.cacheDir, "wallet-input-evidence/editable-before.png"))
             activity.recreate()
-            ui.waitUntil(10_000) { ui.onNodeWithContentDescription("Recipient address").isDisplayed() }
+            ui.waitUntil(10_000) { ui.onAllNodes(hasContentDescription("Recipient address") and hasSetTextAction()).fetchSemanticsNodes().size == 1 }
             assertEditableValues()
             ui.onAllNodesWithText("Confirm SAITO transfer").assertCountEquals(0)
             ui.onAllNodesWithText("Authenticate and send").assertCountEquals(0)
